@@ -22,11 +22,7 @@ add explicit style
 
 http://localhost:8080/geoserver/wms?bbox=-20.9826535,-38.4493025,54.8604435,40.959092500000004&styles=africa_style&Format=application/openlayers&request=GetMap&version=1.1.1&layers=topp:Africa%20all%20countries&width=575&height=550&srs=EPSG:4326
 
-http://localhost:8080/geoserver/wms?bbox=-20.9826535,-38.4493025,54.8604435,40.959092500000004&styles=africa_new_style&Format=application/openlayers&request=GetMap&version=1.1.1&layers=topp:Africa%20all%20countries&width=575&height=550&srs=EPSG:4326
-
-
-http://localhost:8080/geoserver/wms?bbox=-20.9826535,-38.4493025,54.8604435,40.959092500000004&styles=africa_new_style&Format=application/openlayers&request=GetMap&version=1.1.1&layers=topp:Africa%20all%20countries&width=575&height=550&srs=EPSG:4326
-
+http://localhost:8080/geoserver/wms?bbox=-20.9826535,-38.4493025,54.8604435,40.959092500000004&styles=africa_new_new_style&Format=application/openlayers&request=GetMap&version=1.1.1&layers=topp:Africa%20all%20countries&width=575&height=550&srs=EPSG:4326
 
 http://localhost:8080/geoserver/wms?bbox=34.9456718,-19.101014749999997,39.338526200000004,-14.80468425&styles=&Format=application/openlayers&request=GetMap&version=1.1.1&layers=topp:moz_za_adminposts&width=800&height=734&srs=EPSG:4326
 
@@ -52,4 +48,9 @@ Creating a new datastore, MRC data uses the SRS 4326 ("normal") - in the URL "sr
 
 C:\Documents and Settings\Thomas DiGennaro\My Documents\mosquito\coverages\bluemarble00\pyramid.prj
 
+
+errors
+http://localhost:8080/geoserver/wms?bbox=-20.9826535,-38.4493025,54.8604435,40.959092500000004&styles=africa_new_style&Format=application/openlayers&request=GetMap&version=1.1.1&layers=topp:Africa%20all%20countries&width=575&height=550&srs=EPSG:4326
+
+http://localhost:8080/geoserver/wms?bbox=-20.9826535,-38.4493025,54.8604435,40.959092500000004&styles=africa_new_style&Format=application/openlayers&request=GetMap&version=1.1.1&layers=topp:Africa%20all%20countries&width=575&height=550&srs=EPSG:4326
 
