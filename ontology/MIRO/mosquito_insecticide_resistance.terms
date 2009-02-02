@@ -1,0 +1,4315 @@
+name: resistance
+name: Rdl A296S
+name: deficiency of midgut receptor
+name: metabolic resistance
+name: target-site resistance
+name: behavioural resistance
+name: reduced penetration
+name: stimulus dependent resistance
+name: Kdr V1016G
+name: Kdr V1016I
+name: Kdr I1011M
+name: Kdr I1011V
+name: carboxysterase resistance
+name: COE quantitative change
+name: Glutathione S-transferase resistance
+name: P450 monoxygenases resistance
+name: COE qualitative change
+name: resistance to single insecticide
+name: stimulus independent resistance
+name: cuticle permeability related resistance
+name: enhanced excretion
+name: COEa structural change of gene product in family
+name: COEb structural change of gene product in family
+name: COEjh structural change of gene product in family
+name: elevated COEa levels
+name: elevated COEb levels
+name: elevated COEjh level
+name: GST quantitative change
+name: GST qualitative change
+name: structural change of product in GSTd gene family
+name: structural change of product in GSTe gene family
+name: structural change of product in GSTo gene family
+name: structural change of product in GSTt gene family
+name: structural change of product in GSTu gene family
+name: structural change of product in GSTz gene family
+name: elevated GSTd level
+name: elevated GSTe level
+name: elevated GSTo level
+name: elevated GSTt level
+name: elevated GSTu level
+name: elevated GSTz level
+name: P450 qualitative change
+name: P450 quantitative change
+name: structural change of product in CYP3 gene family
+name: structural change of product in CYP4 gene family
+name: structural change of product in CYP6 gene family
+name: structural change of product in CYP9 gene family
+name: structural change of product in CYP12 gene family
+name: structural change of product in CYP15 gene family
+name: differential CYP12 level
+name: differential CYP15 level
+name: differential CYP3 level
+name: differential CYP4 level
+name: differential CYP6 level
+name: differential CYP9 level
+name: modified sodium channel
+name: modified AChE
+name: modified GABA receptor
+name: modified midgut receptor
+name: modified nicotinic receptor
+name: modified midgut protease activity
+name: elevated AChE levels
+name: AChE1 G119S
+name: AChE1 F331W
+name: AChE1 F290V
+name: Rdl A296G
+name: modified Cry
+name: Kdr L1014S
+name: Kdr L1014F
+name: AChE mediated resistance
+name: GABA receptor mediated resistance
+name: midgut receptor mediated resistance
+name: nicotinic receptor mediated resistance
+name: sodium channel mediated resistance
+name: acetylcholine esterase inhibitor
+name: chitin biosynthesis inhibitor
+name: carbamate
+name: aldicarb
+name: alanycarb
+name: aminocarb
+name: bendiocarb
+name: benfuracarb
+name: butocarboxim
+name: butoxycarboxim
+name: carbaryl
+name: carbofuran
+name: carbosulfan
+name: ethiofencarb
+name: fenobucarb
+name: formetanate
+name: furathiocarb
+name: isoprocarb
+name: methiocarb
+name: methomyl
+name: metolcarb
+name: oxamyl
+name: pirimicarb
+name: propoxur
+name: thiodicarb
+name: thiofanox
+name: trimethacarb
+name: XMC
+name: xylylcarb
+name: triazamate
+name: growth inhibitor
+name: organophosphate
+name: acephate
+name: azamethiphos
+name: azinphos-ethyl
+name: azinphos-methyl
+name: cadusafos
+name: chlorethoxyfos
+name: chlorfenvinphos
+name: chlormephos
+name: chlorpyrifos
+name: chlorpyrifos-methyl
+name: coumaphos
+name: cyanophos
+name: demeton-S-methyl
+name: diazinon
+name: dichlorvos
+name: dicrotophos
+name: dimethoate
+name: dimethylvinphos
+name: disulfoton
+name: EPN
+name: ethion
+name: ethoprophos
+name: famphur
+name: fenamiphos
+name: fenitrothion
+name: fensulfothion
+name: fenthion
+name: fonofos
+name: fosthiazate
+name: heptenophos
+name: isofenphos
+name: isopropyl O-(methoxyaminothio-phosphoryl)salicylate
+name: isoxathion
+name: malathion
+name: mecarbam
+name: methamidophos
+name: methidathion
+name: mevinphos
+name: monocrotophos
+name: naled
+name: omethoate
+name: oxydemeton-methyl
+name: parathion
+name: parathion-methyl
+name: phenthoate
+name: phorate
+name: phosalone
+name: phosmet
+name: phosphamidon
+name: phoxim
+name: pirimiphos-methyl
+name: profenofos
+name: propaphos
+name: propetamphos
+name: prothiofos
+name: pyraclofos
+name: pyridaphenthion
+name: quinalphos
+name: sulfotep
+name: sulprofos
+name: tebupirimfos
+name: temephos
+name: terbufos
+name: tetrachlorvinphos
+name: thiometon
+name: triazophos
+name: trichlorfon
+name: vamidothion
+name: GABA-gated chloride channel antagonist
+name: moulting disruptor
+name: cyclodiene organochlorine
+name: chlordane
+name: endosulfan
+name: gamma-HCH
+name: heptachlor
+name: lindane
+name: chlorphoxim
+name: fipronil / phenylpyrazole
+name: fipronil
+name: sodium channel modulator
+name: pyrethroid
+name: acrinathrin
+name: allethrin
+name: d-cis-trans allethrin
+name: d-trans allethrin
+name: bifenthrin
+name: bioallethrin
+name: bioallethrin S-cyclopentenyl
+name: bioresmethrin
+name: cycloprothrin
+name: cyfluthrin
+name: beta-cyfluthrin
+name: cyhalothrin
+name: lambda-cyhalothrin
+name: gamma-cyhalothrin
+name: cypermethrin
+name: alpha-cypermethrin
+name: beta-cypermethrin
+name: theta-cypermethrin
+name: zeta-cypermethrin
+name: cyphenothrin [(1R)-trans- isomers]
+name: deltamethrin
+name: empenthrin [(EZ)- (1R)- isomers]
+name: esfenvalerate
+name: etofenprox
+name: fenpropathrin
+name: fenvalerate
+name: flucythrinate
+name: flumethrin
+name: tau-fluvalinate
+name: halfenprox
+name: imiprothrin
+name: permethrin
+name: phenothrin [(1R)-trans- isomer]
+name: prallethrin
+name: resmethrin
+name: rU 15525
+name: silafluofen
+name: tefluthrin
+name: tetramethrin
+name: tetramethrin [(1R)- isomers]
+name: tralomethrin
+name: transfluthrin
+name: ZXI 8901
+name: pyrethrin
+name: DDT
+name: methoxychlor
+name: nicotinic acetylcholine receptor agontist/antagonist
+name: dieldrin
+name: neonicotinoid
+name: acetamiprid
+name: clothianidin
+name: dinotefuran
+name: imidacloprid
+name: nitenpyram
+name: thiacloprid
+name: thiamethoxam
+name: active substance
+name: nicotine
+name: synergist
+name: bensultap
+name: cartap
+name: allosteric agonist of nicotinic acetylcholine receptor
+name: spinosad
+name: chloride channel activator
+name: avermectin and milbemycin
+name: abamectin
+name: emamectin benzoate
+name: milbemectin
+name: juvenile hormone mimic
+name: piperonyl butoxide
+name: juvenile hormone analogue
+name: hydroprene
+name: kinoprene
+name: methoprene
+name: DEF
+name: fenoxycarb
+name: sesamex
+name: pyriproxyfen
+name: fumigant
+name: SV1
+name: methyl bromide
+name: methyl bromide and other alkyl halides
+name: triphenyl phosphate
+name: chloropicrin
+name: piprotal
+name: sulfuryl fluoride
+name: selective feeding blocker
+name: propyl isome
+name: cryolite
+name: sesamolin
+name: pymetrozine
+name: sulfoxide
+name: flonicamid
+name: growth inhibitor sensu acarea
+name: tribufos
+name: clofentezine
+name: malaoxon
+name: hexythiazox
+name: chlorthion
+name: etoxazole
+name: insect midgut membranes disruptor
+name: Bacillus thurigiensis var. israelensis toxin
+name: Bacillus thurigiensis var. sphaericus toxin
+name: Bacillus thurigiensis var. aizawai toxin
+name: Bacillus thurigiensis var. kurstaki toxin
+name: Bacillus thurigiensis var. tenebrionensis toxin
+name: oxidative phosphorylation inhibitor
+name: diafenthiuron
+name: organotin miticide
+name: azocyclotin
+name: cyhexatin
+name: fenbutatin oxide
+name: propargite
+name: tetradifon
+name: chloropropylate
+name: uncoupler of oxidative phosphorylation via disruption of proton gradient
+name: chlorfenapyr
+name: DNOC
+name: insecticidal substance
+name: inhibition of chitin biosynthesis sensu Lepidoptera
+name: benzoylurea
+name: chlorfluazuron
+name: diflubenzuron
+name: fluazuron
+name: flucycloxuron
+name: flufenoxuron
+name: hexaflumuron
+name: lufenuron
+name: novaluron
+name: noviflumuron
+name: teflubenzuron
+name: triflumuron
+name: inhibition of chitin biosynthesis sensu Homoptera
+name: buprofezin
+name: moulting disruptor in Diptera
+name: cyromazine
+name: moulting disruptor via ecdysone agonist
+name: chromafenozide
+name: halofenozide
+name: methoxyfenozide
+name: tebufenozide
+name: azadirachtin
+name: octopaminergic agonist
+name: amitraz
+name: mitochondrial complex III electron transport inhibitor
+name: hydramethylnon
+name: acequinocyl
+name: fluacrypyrim
+name: mitochondrial complex I electron transport inhibitor
+name: fenazaquin
+name: fenpyroximate
+name: pyrimidifen
+name: pyridaben
+name: tebufenpyrad
+name: tolfenpyrad
+name: rotenone
+name: voltage-dependent sodium channel blocker
+name: indoxacarb
+name: lipid synthesis inhibitor
+name: tetronic acid derivative
+name: spirodiclofen
+name: spiromesifen
+name: mitochondrial complex IV electron transport inhibitor
+name: spirotetramat
+name: aluminium phosphide
+name: cyanide
+name: phosphine
+name: neuronal inhibitor
+name: bifenazate
+name: aconitase inhibitor
+name: fluoroacetate
+name: ryanodine receptor modulator
+name: flubendiamide
+name: UN - Synergists
+name: benzoximate
+name: chinomethionat
+name: dicofol
+name: pyridalyl
+name: NS - Miscellaneous non-specific (multi-site) inhibitors
+name: method
+name: resistance identification/monitoring
+name: bottle bioassay DT with synergist
+name: biochemical assay
+name: molecular assay
+name: bottle bioassays DT with PBO
+name: bottle bioassay DR test with synergist
+name: bottle bioassay DR with PBO
+name: CoE dot-blot assay
+name: bottle bioassay DT
+name: AChE activity assay
+name: bottle bioassay DR test
+name: time response test with synergist
+name: time response test
+name: bottle bioassay TR test with synergist
+name: p450 activity assay
+name: bottle bioassay TR test with PBO
+name: cone TR test with synergist
+name: napthyl acetate assay
+name: pNPA assay
+name: CDNB rate reaction assay
+name: DCNB rate reaction assay
+name: heme content measurement
+name: cone TR test with PBO
+name: expression analysis
+name: WHO larvicide TR test with synergist
+name: dot-blot for gene amplification
+name: WHO larvicide TR test with PBO
+name: WHO paper TR test with synergist
+name: WHO paper TR test with PBO
+name: bottle bioassay TR test
+name: cone TR test
+name: WHO larvicide TR test
+name: DDT dehydrochlorination measurement
+name: malathion metabolism assay
+name: RT-PCR assay
+name: WHO paper TR test
+name: a-napthyl acetate assay
+name: b-napthyl acetate assay
+name: cone DT
+name: WHO paper kit DT
+name: penetration/excretion assay
+name: direct bioassay
+name: bioassay with synergist test
+name: diagnostic test with synergist
+name: cone DR test
+name: WHO paper kit DR test
+name: WHO larvicide DT
+name: WHO larvicide DR test
+name: cone DT with synergist
+name: cone DR test with synergist
+name: cone DT with PBO
+name: cone DR with PBO
+name: WHO larvicide DT with synergist
+name: WHO larvicide DR test with synergist
+name: WHO larvicide DR with PBO
+name: bioassay
+name: organic peroxide rate reaction assay
+name: WHO larvicide DT with PBO
+name: WHO paper DT with PBO
+name: WHO paper DT with synergist
+name: WHO paper DR test with synergist
+name: WHO paper DR with PBO
+name: dose response test with synergist
+name: diagnostic test
+name: dose response test
+name: radiolabelled insecticide assay
+name: carboxyesterase activity assay
+name: p450 monooxygenase assay
+name: GST related assay
+name: acetylcholinesterase assay
+name: insensitive AChE diagnostic assay
+name: immunodetection of GST
+name: CoE isoenzyme analysis
+name: immunodetection of carboxyesterases
+name: antibody-based assay
+name: immunodetection of P450 monooxygenases
+name: peroxidase assay
+name: catalase activity assay
+name: superoxidase dismutase assay
+name: Northern analysis
+name: monitoring known mutations
+name: novel mutation identification
+name: PCR amplification of specific alleles
+name: sequence specific oligonucleotide probe
+name: fluorogenic PCR assay
+name: ligation detection reaction
+name: sequencing
+name: manual sequencing
+name: RNA profiling
+name: real time PCR
+name: semi-quantitative PCR
+name: PCR-RFLP
+name: automated sequencing
+name: fluorescent insecticide assay
+name: insecticide immunostaining assay
+name: genome wide microarray analysis
+name: targeted/selective microarray analysis
+name: RNA dot-blot
+name: microarray-based analysis
+name: invasive cleavage invader SISAR
+name: single base extension
+name: ligase chain reaction (LCR)
+name: biological material
+name: larval laboratory population
+name: adult laboratory population
+name: animal biting catch - indoors
+name: species identification method
+name: mosquito population
+name: house resting - daytime catch
+name: indoor light trap catch
+name: outdoor light trap catch
+name: trap catch
+name: animal biting catch
+name: animal baited net trap catch
+name: animal biting catch - outdoors
+name: human baited net trap catch
+name: man biting catch
+name: man biting catch - outdoors
+name: man biting catch - indoors
+name: outlet window trap catch
+name: CO2 baited net trap catch
+name: collection of larvae
+name: pyrethrum spray catch
+name: outdoors shelter catch
+name: outdoors shelter catch - natural
+name: outdoors shelter catch - artificial
+name: animal shed resting catch
+name: F0 larvae
+name: F0 adults emerged from field collected larvae
+name: F1 larvae bred from field collected mosquitoes
+name: F1 adults from field collected mosquitoes
+name: field population
+name: laboratory population
+name: F0 adults
+name: F0 adults collected
+name: cross mating experiment
+name: cytological chromosome examination
+name: isoenzyme electrophoresis
+name: morphological examination
+name: PCR-based species identification
+name: species specific DNA hybridization
+name: salinity tolerance tests
+name: catch by aspiration
+name: field population catch
+name: catch of live specimens
+name: collection of dead specimens
+name: dead on ground catch
+name: aquatic environment catch
+name: collection of eggs
+name: collection of pupae
+name: terrain environment catch
+name: collection of adults
+name: baited light trap catch
+name: indoor baited light trap catch
+name: outdoor baited light trap catch
+name: pheromone baited net trap catch
+name: simple trap catch
+name: baited light trap catch
+name: genus Bironella
+name: Bironella
+name: Bironella gracilis
+name: Bironella simmondsi
+name: Brugella
+name: Bironella hollandi
+name: genus Runchomyia
+name: Ctenogoeldia
+name: Runchomyia walcotti
+name: Runchomyia
+name: Runchomyia cerqueirai
+name: Runchomyia frontosa
+name: Runchomyia humbolti
+name: Runchomyia reversa
+name: Runchomyia theobaldi
+name: genus Anopheles
+name: Anopheles
+name: Anopheles aberrans
+name: Anopheles acaci
+name: Anopheles ahomi
+name: Anopheles aitkenii
+name: Anopheles albotaeniatus
+name: Anopheles algeriensis
+name: Anopheles alongensis
+name: Anopheles anchietai
+name: Anopheles annandalei
+name: Anopheles annulipalpis
+name: Anopheles apicimacula
+name: Anopheles arboricola
+name: Anopheles argyropus
+name: Anopheles asiaticus
+name: Anopheles atratipes
+name: Anopheles atroparvus
+name: Anopheles atropos
+name: Anopheles aztecus
+name: Anopheles baezai
+name: Anopheles baileyi
+name: Anopheles balerensis
+name: Anopheles bancroftii
+name: Anopheles barbiventris var.
+name: Anopheles barberi
+name: Anopheles barbirostris
+name: Anopheles barbumbrosus
+name: Anopheles barianensis
+name: Anopheles beklemishevi
+name: Anopheles bengalensis
+name: Anopheles borneensis
+name: Anopheles bradleyi
+name: Anopheles brevipalpis
+name: Anopheles brevirostris
+name: Anopheles bulkleyi
+name: Anopheles bustamentei
+name: Anopheles calderoni
+name: Anopheles caliginosus
+name: Anopheles campestris
+name: Anopheles changfus
+name: Anopheles chiriquiensis
+name: Anopheles chodukini
+name: Anopheles claviger
+name: Anopheles colledgei
+name: Anopheles collessi
+name: Anopheles concolor
+name: Anopheles corethroides
+name: Anopheles costai
+name: Anopheles coustani
+name: Anopheles crawfordi
+name: Nomina Dubia
+name: Nyssorhynchus
+name: Anopheles albimanus
+name: Anopheles crucians
+name: Anopheles crypticus
+name: Anopheles cucphuongensis
+name: Anopheles culiciformis
+name: Anopheles dazhaius
+name: Anopheles diluvialis
+name: Anopheles donaldi
+name: Anopheles earlei
+name: Anopheles eiseni
+name: Anopheles geometricus
+name: Anopheles ejercitoi
+name: Anopheles engarensis
+name: Anopheles evandroi
+name: Anopheles fausti
+name: Anopheles fluminensis
+name: Anopheles forattinii
+name: Anopheles fragilis
+name: Anopheles franciscanus
+name: Anopheles freeborni
+name: Anopheles freyi
+name: Anopheles fuscicolor
+name: Anopheles gabaldoni
+name: Anopheles georgianus
+name: Anopheles gigas
+name: Anopheles formosus
+name: Anopheles simlensis
+name: Anopheles refutans
+name: Anopheles sumatrana
+name: Anopheles danaubento
+name: Anopheles oedjalikalah
+name: Anopheles pantjarbatu
+name: Anopheles crockeri
+name: Anopheles grabhamii
+name: Anopheles guarao
+name: Anopheles hectoris
+name: Anopheles heiheensis
+name: Anopheles hermsi
+name: Anopheles hunteri
+name: Anopheles hyrcanus
+name: Anopheles implexus
+name: Anopheles insulaeflorum
+name: Anopheles intermedius
+name: Anopheles inundatus
+name: Anopheles judithae
+name: Anopheles junlianensis
+name: Anopheles kiangsuensis
+name: Anopheles kweiyangensis
+name: Anopheles kyondawensis
+name: Anopheles labranchiae
+name: Anopheles lesteri
+name: Anopheles letifer
+name: Anopheles liangshanensis
+name: Anopheles lindesayi
+name: Anopheles pleccau
+name: Anopheles cameronensis
+name: Anopheles japonicus
+name: Anopheles benguetensis
+name: Anopheles maculipennis
+name: Anopheles maculipes
+name: Anopheles malefactor
+name: Anopheles marteri
+name: Anopheles martinius
+name: Anopheles mattogrossensis
+name: Anopheles maverlius
+name: Anopheles mediopunctatus
+name: Anopheles melanoon
+name: Anopheles mengalangensis
+name: Anopheles messeae
+name: Anopheles minor
+name: Anopheles montanus
+name: Anopheles namibiensis
+name: Anopheles neomaculipalpus
+name: Anopheles papuensis
+name: Anopheles paraliae
+name: Anopheles guatemalensis
+name: Anopheles neghmei
+name: Anopheles anomalophyllus
+name: Anopheles antunesi
+name: Anopheles aquasalis
+name: Anopheles albitarsis
+name: Anopheles argyritarsis
+name: Anopheles benarrochi
+name: Anopheles braziliensis
+name: Anopheles darlingi
+name: Anopheles deaneorum
+name: Anopheles dunhami
+name: Anopheles evansae
+name: Anopheles galvaoi
+name: Anopheles ininii
+name: Anopheles lanei
+name: Anopheles lutzii
+name: Anopheles marajoara
+name: Anopheles nigritarsis
+name: Anopheles nuneztovari
+name: Anopheles oswaldoi
+name: Anopheles konderi
+name: Anopheles parvus
+name: Anopheles pictipennis
+name: Anopheles rangeli
+name: Anopheles rondoni
+name: Anopheles sanctielii
+name: Anopheles sawyeri
+name: Anopheles strodei
+name: Anopheles triannulatus
+name: Anopheles trinkae
+name: Stethomyia
+name: Anopheles acanthotorynus
+name: Anopheles canorii
+name: Anopheles kompi
+name: Anopheles nimbus
+name: Anopheles thomasi
+name: Bironella obscura
+name: Bironella travestita
+name: Neobironella
+name: Bironella confusa
+name: BIronella derooki
+name: Bironella papuae
+name: genus Armigeres
+name: Armigeres
+name: Armigeres alkatirii
+name: Armigeres apoensis
+name: Armigeres aureolineatus
+name: Armigeres azurini
+name: Armigeres baisasi
+name: Armigeres bhayungi
+name: Armigeres breinli
+name: Armigeres candelabrifer
+name: Armigeres confusus
+name: Armigeres conjungens
+name: Armigeres denbesteni
+name: Armigeres durhami
+name: Armigeres ejercitoi
+name: Armigeres fimbriatus
+name: Armigeres foliatus
+name: Armigeres giveni
+name: Armigeres hybridus
+name: Armigeres joloensis
+name: Armigeres jugraensis
+name: Armigeres kesseli
+name: Armigeres kinabaluensis
+name: Armigeres kuchingensis
+name: Armigeres lacuum
+name: Armigeres maiae
+name: Armigeres malayi
+name: Armigeres manalangi
+name: Armigeres maximus
+name: Armigeres milnensis
+name: Armigeres moultoni
+name: Armigeres obturbans
+name: Armigeres papuensis
+name: Armigeres setifer
+name: Armigeres sexicoxitus
+name: Armigeres subalbatus
+name: Armigeres chrysocorporis
+name: Armigeres theobaldi
+name: Leicesteria
+name: Armigeres annulipalpis
+name: Armigeres annulitarsis
+name: Armigeres balteatus
+name: Armigeres dentatus
+name: Armigeres digitatus
+name: Armigeres dolichocephalus
+name: Armigeres flavus
+name: Armigeres inchoatus
+name: Armigeres longipalpis
+name: Armigeres magnus
+name: Armigeres omissus
+name: Armigeres pectinatus
+name: Armigeres pendulus
+name: Armigeres traubi
+name: Armigeres vimoli
+name: genus Aedes
+name: Aedes
+name: Aedes cinereus
+name: Aedes dahuricus
+name: Aedes esoensis
+name: Aedes rossicus
+name: Aedes geminus
+name: Aedes mubiensis
+name: Aedes perditus
+name: Aedes sasai
+name: genus Verrallina
+name: Neomacleaya
+name: Verrallina spermathecus
+name: Aedes yamadai
+name: Aedimorphus
+name: Aedes abnormalis
+name: Aedes kabwachensis
+name: Aedes adami
+name: Aedes aerarius
+name: Aedes albocephalus
+name: Aedes albodorsalis
+name: Aedes alboscutellatus
+name: Aedes alboventralis
+name: Aedes apicoannulatus
+name: Aedes argenteopunctatus
+name: Aedes argenteoscutellatus
+name: Aedes bambiotai
+name: Aedes bancoi
+name: Aedes bedfordi
+name: Aedes bevisi
+name: Aedes boneti
+name: Aedes kumbae
+name: Aedes caecus
+name: Aedes caliginosus
+name: Aedes centropunctatus
+name: Aedes chamboni
+name: Aedes culicinus
+name: Aedes cumminsii
+name: Aedes mediopunctata
+name: Aedes dalzieli
+name: Aedes davidi
+name: Aedes dentatus
+name: Aedes dialloi
+name: Aedes domesticus
+name: Aedes durbanensis
+name: Aedes angolae
+name: Aedes ebogoensis
+name: Aedes eritreae
+name: Aedes falabreguesi
+name: Aedes filicis
+name: Aedes fowleri
+name: Aedes gandari
+name: Aedes gibbinsi
+name: Aedes gouldi
+name: Aedes grenieri
+name: Aedes grjebinei
+name: Aedes hirsutus
+name: Aedes adenensis
+name: Aedes holocinctus
+name: Aedes hopkinsi
+name: Aedes insolens
+name: Aedes irritans
+name: Aedes jamesi
+name: Aedes karooensis
+name: Aedes lamborni
+name: Aedes leesoni
+name: Aedes leptolabis
+name: Aedes leucarthrius
+name: Aedes lokojoensis
+name: Aedes longiseta
+name: Aedes lottei
+name: Aedes lowisii
+name: Aedes mansouri
+name: Aedes masoalensis
+name: Aedes mathioti
+name: Aedes mattinglyi
+name: Aedes mediolineatus
+name: Aedes microstictus
+name: Aedes minutus
+name: Aedes mixtus
+name: Aedes mutilus
+name: Aedes natronius
+name: Aedes nigricephalus
+name: Aedes nigrostriatus
+name: Aedes nocturnus
+name: Aedes nyounae
+name: Aedes oakleyi
+name: Aedes ochraceus
+name: Aedes orbitae
+name: Aedes ovazzai
+name: Aedes pachyurus
+name: Aedes pallidostriatus
+name: Aedes pampangensis
+name: Aedes phyllolabis
+name: Aedes pipersalatus
+name: Aedes pseudotarsalis
+name: Aedes pubescens
+name: Aedes punctifemoris
+name: Aedes punctothoracis
+name: Aedes quasiunivittatus
+name: Aedes reali
+name: Aedes rickenbachi
+name: Aedes semlikiensis
+name: Aedes senyavinensis
+name: Aedes seychellensis
+name: Aedes simulans
+name: Aedes smithburni
+name: Aedes stenoetrus
+name: Aedes stenoscutus
+name: Aedes subdentatus
+name: Aedes syntheticus
+name: Aedes taeniorhynchoides
+name: Aedes tarsalis
+name: Aedes tauffliebi
+name: Aedes tricholabis
+name: Aedes bwamba
+name: Aedes trimaculatus
+name: Aedes trukensis
+name: Aedes veeniae
+name: Aedes vexans
+name: Aedes arabiensis
+name: Aedes nipponii
+name: Aedes wendyae
+name: Aedes wigglesworthi
+name: Aedes yangambiensis
+name: Aedes yvonneae
+name: Alanstonea
+name: Aedes brevitibia
+name: Aedes treubi
+name: Albuginosus
+name: Aedes capensis
+name: Aedes gilliesi
+name: Aedes haworthi
+name: Aedes kapretwae
+name: Aedes kennethi
+name: Aedes marshallii
+name: Aedes ngong
+name: Aedes stokesi
+name: Aedes teesdalei
+name: Belkinius
+name: Aedes aurotaeniatus
+name: Bothaella
+name: Aedes eldridgei
+name: Aedes helenae
+name: Aedes kleini
+name: Cancraedes
+name: Aedes cancricomes
+name: Aedes curtipes
+name: Aedes indonesiae
+name: Aedes kohkutensis
+name: Aedes mamoedjoensis
+name: Aedes masculinus
+name: Aedes palawanicus
+name: Aedes penghuensis
+name: Aedes simplex
+name: Aedes thurmanae
+name: Christophersiomyia
+name: Aedes annulirostris
+name: Aedes chionodes
+name: Aedes gombakensis
+name: Aedes ibis
+name: Aedes thomsoni
+name: Diceromyia
+name: Aedes adersi
+name: Aedes agastyai
+name: Aedes bananea
+name: Aedes cordellieri
+name: Aedes coulangesi
+name: Aedes fascipalpis
+name: Aedes flavicollis
+name: Aedes franciscoi
+name: Aedes furcifer
+name: Aedes grassei
+name: Aedes iyengari
+name: Aedes kanarensis
+name: Aedes madagascarensis
+name: Aedes mefouensis
+name: Aedes meronephada
+name: Aedes micropterus
+name: Aedes nummatus
+name: Aedes periskelatus
+name: Aedes pseudonummatus
+name: Aedes punctipes
+name: Aedes ramachandrai
+name: Aedes reginae
+name: Aedes reubenae
+name: Aedes scanloni
+name: Aedes sylvaticus
+name: Aedes tiptoni
+name: Aedes taylori
+name: Aedes whartoni
+name: Aedes zethus
+name: Edwardsaedes
+name: Aedes bekkui
+name: Aedes imprimens
+name: Aedes pingpaensis
+name: Fredwardsius
+name: Aedes vittatus
+name: Huaedes
+name: Aedes medialis
+name: Aedes variepictus
+name: Aedes wauensis
+name: Indusius
+name: Aedes pulverulentus
+name: Isoaedes
+name: Aedes cavaticus
+name: Leptosomatomyia
+name: Aedes aurimargo
+name: Lorrainea
+name: Aedes amesii
+name: Aedes celebicus
+name: Aedes dasyorrhus
+name: Aedes fumidus
+name: Aedes lamelliferus
+name: Neomelaniconion
+name: Aedes albicosta
+name: Aedes albothorax
+name: Aedes aurovenatus
+name: Aedes bequaerti
+name: Aedes bergerardi
+name: Aedes bolensis
+name: Aedes carteri
+name: Aedes circumluteolus
+name: Aedes crassiforceps
+name: Aedes ellinorae
+name: Aedes flavimargo
+name: Aedes fuscinervis
+name: Aedes jamoti
+name: Aedes lineatopennis
+name: Aedes aureus
+name: Aedes luridus
+name: Aedes luteolateralis
+name: Aedes mcintoshi
+name: Aedes monotrichus
+name: Aedes palpalis
+name: Aedes pogonurus
+name: Aedes punctocostalis
+name: Aedes taeniarostris
+name: Aedes unidentatus
+name: Pseudarmigeres
+name: Aedes albomarginatus
+name: Aedes argenteoventralis
+name: Aedes dunni
+name: Aedes kummi
+name: Aedes michaelikati
+name: Aedes gurneri
+name: Aedes natalensis
+name: Scutomyia
+name: Aedes albolineatus
+name: Aedes arboricola
+name: Aedes bambusicola
+name: Aedes boharti
+name: Aedes hoogstraali
+name: Aedes impatibilis
+name: Aedes laffooni
+name: Aedes platylepidus
+name: Aedes pseudalbolineatus
+name: Skusea
+name: Aedes cartroni
+name: Aedes lambrechti
+name: Aedes moucheti
+name: Aedes pembaensis
+name: Stegomyia
+name: Aedes aegypti
+name: Aedes formosus
+name: Aedes africanus
+name: Aedes agrihanensis
+name: Aedes albopictus
+name: Aedes alcasidi
+name: Aedes alorensis
+name: Aedes amaltheus
+name: Aedes andrewsi
+name: Aedes angustus
+name: Aedes annandalei
+name: Aedes quadricinctus
+name: Aedes aobae
+name: Aedes apicoargenteus
+name: Aedes denderensis
+name: Aedes bambusae
+name: Aedes bromeliae
+name: Aedes burnsi
+name: Aedes calceatus
+name: Aedes chaussieri
+name: Aedes chemulpoensis
+name: Aedes contiguus
+name: Aedes cooki
+name: Aedes corneti
+name: Aedes cozi
+name: Aedes craggi
+name: Aedes cretinus
+name: Aedes daitensis
+name: Aedes deboeri
+name: Aedes demeilloni
+name: Aedes dendrophilus
+name: Aedes desmotes
+name: Aedes dybasi
+name: Aedes edwardsi
+name: Aedes flavopictus
+name: Aedes downsi
+name: Aedes miyarai
+name: Aedes fraseri
+name: Aedes blacklocki
+name: Aedes futunae
+name: Aedes galloisi
+name: Aedes galloisiodes
+name: Aedes gardnerii
+name: Aedes imitator
+name: Aedes granti
+name: Aedes guamensis
+name: Aedes gurneyi
+name: Aedes hakanssoni
+name: Aedes hansfordi
+name: Aedes hebrideus
+name: Aedes heischi
+name: Aedes hensilli
+name: Aedes hoguei
+name: Aedes horrescens
+name: Aedes josiahae
+name: Aedes katherinensis
+name: Aedes keniensis
+name: Aedes kenyae
+name: Aedes kesseli
+name: Aedes kivuensis
+name: Aedes krombeini
+name: Aedes langata
+name: Aedes ledgeri
+name: Aedes lilii
+name: Aedes luteocephalus
+name: Aedes maehleri
+name: Aedes malayensis
+name: Aedes malikuli
+name: Aedes marshallensis
+name: Aedes mascarensis
+name: Aedes masseyi
+name: Aedes mattinglyorum
+name: Aedes maxgermaini
+name: Aedes mediopunctatus
+name: Aedes sureilensis
+name: Aedes metallicus
+name: Aedes mickevichae
+name: Aedes muroafcete
+name: Aedes neoafricanus
+name: Aedes neopandani
+name: Aedes njombiensis
+name: Aedes novalbopictus
+name: Aedes opok
+name: Aedes palauensis
+name: Aedes pandani
+name: Aedes patriciae
+name: Aedes paullusi
+name: Aedes pernotatus
+name: Aedes perplexus
+name: Aedes polynesiensis
+name: Aedes poweri
+name: Aedes pseudalbopictus
+name: Aedes pseudoafricanus
+name: Aedes pseudonigeria
+name: Aedes pseudoscutellaris
+name: Aedes quasiscutellaris
+name: Aedes rhungkiangensis
+name: Aedes riversi
+name: Aedes robinsoni
+name: Aedes rotanus
+name: Aedes rotumae
+name: Aedes ruwenzori
+name: Aedes saimedres
+name: Aedes saipanensis
+name: Aedes schwetzi
+name: Aedes scutellaris
+name: Aedes scutoscriptus
+name: Aedes seampi
+name: Aedes seatoi
+name: Aedes segermanae
+name: Aedes sibiricus
+name: Aedes simpsoni
+name: Aedes soleatus
+name: Aedes strelitziae
+name: Aedes subalbopictus
+name: Aedes subargenteus
+name: Aedes tabu
+name: Aedes tongae
+name: Aedes tulagiensis
+name: Aedes unilineatus
+name: Aedes upolensis
+name: Aedes usambara
+name: Aedes varuae
+name: Aedes vinsoni
+name: Aedes wadai
+name: Aedes w-albus
+name: Aedes woodi
+name: Aedes daliensis
+name: Finlaya
+name: Aedes niveus
+name: genus Aedeomyia
+name: Lepiothauma
+name: Aedeomyia africana
+name: Aedeomyia
+name: Aedeomyia catasticta
+name: Aedeomyia pauliani
+name: Aedeomyia squamipennis
+name: Aedeomyia venustipes
+name: Aedeomyia furfurea
+name: genus Ayurakitia
+name: Ayurakitia griffithi
+name: Ayurakitia peytoni
+name: Abraedes
+name: Aedes papago
+name: Aztecaedes
+name: Aedes ramirezi
+name: Chaetocruiomyia
+name: Aedes calabyi
+name: Aedes elchoensis
+name: Aedes humeralis
+name: Aedes macmillani
+name: Aedes moloiensis
+name: Aedes spinosipes
+name: Aedes tulliae
+name: Aedes wattensis
+name: Aedes albilabris
+name: Aedes alboannulatus
+name: Aedes albocinctus
+name: Aedes albolateralis
+name: Aedes alboniveus
+name: Aedes albotaeniatus
+name: Aedes alektorovi
+name: Aedes alius
+name: Aedes alocasicola
+name: Aedes alongi
+name: Aedes alticola
+name: Aedes ananae
+name: Aedes anggiensis
+name: Aedes argenteitarsis
+name: Aedes argyronotum
+name: Aedes assamensis
+name: Aedes aureostriatus
+name: Aedes doonii
+name: Aedes taiwanus
+name: Aedes auronitens
+name: Aedes australiensis
+name: Aedes avistylus
+name: Aedes axitiosus
+name: Aedes banksi
+name: Aedes barnardi
+name: Aedes biocellatus
+name: Aedes bougainvillensis
+name: Aedes britteni
+name: Aedes burnetti
+name: Aedes buxtoni
+name: Aedes cacharanus
+name: Aedes candidoscutellum
+name: Aedes christophersi
+name: Aedes chrysolineatus
+name: Aedes chungi
+name: Aedes clintoni
+name: Aedes cogilli
+name: Aedes croceus
+name: Aedes crossi
+name: Aedes deccanus
+name: Aedes derooki
+name: Aedes dobodurus
+name: Aedes dobrotworskyi
+name: Aedes dorseyi
+name: Aedes eatoni
+name: Aedes echinus
+name: Aedes elsiae
+name: Aedes vicarius
+name: Aedes embuensis
+name: Aedes feegradei
+name: Aedes fengi
+name: Aedes fijiensis
+name: Aedes flavipennis
+name: Aedes formosensis
+name: Aedes franclemonti
+name: Aedes freycinetiae
+name: Aedes fuscipalpis
+name: Aedes fuscitarsis
+name: Aedes gahnicola
+name: Aedes ganapathi
+name: Aedes gani
+name: Aedes geniculatus
+name: Aedes gilcolladoi
+name: Aedes gilli
+name: Aedes gonguoensis
+name: Aedes greenii
+name: Aedes gracilelineatus
+name: Aedes gressitti
+name: Aedes gubernatoris
+name: Aedes kotiensis
+name: Aedes hancocki
+name: Aedes harinasutai
+name: Aedes harperi
+name: Aedes harveyi
+name: Aedes hatorii
+name: Aedes hollandius
+name: Aedes hollingsheadi
+name: Aedes horotoi
+name: Aedes hui
+name: Aedes hurlbuti
+name: Aedes idjenensis
+name: Aedes inermis
+name: Aedes ingrami
+name: Aedes inquinatus
+name: Aedes iwi
+name: Aedes japonicus
+name: Aedes shintienensis
+name: Aedes amamiensis
+name: Aedes yaeyamensis
+name: Aedes josephinae
+name: Aedes jugraensis
+name: Aedes keefei
+name: Aedes khazani
+name: Aedes kiangsiensis
+name: Aedes knighti
+name: Aedes kochi
+name: Aedes koreicoides
+name: Aedes koreicus
+name: Aedes lacteus
+name: Aedes laoagensis
+name: Aedes lauriei
+name: Aedes leonis
+name: Aedes lepchanus
+name: Aedes lewelleni
+name: Aedes litoreus
+name: Aedes loi
+name: Aedes lophoventralis
+name: Aedes luteostriatus
+name: Aedes luteus
+name: Aedes macdougalli
+name: Aedes macfarlanei
+name: Aedes mackerrasi
+name: Aedes maffi
+name: Aedes mallochi
+name: Aedes medleri
+name: Aedes melanopterus
+name: Aedes mikrokopion
+name: Aedes milsoni
+name: Aedes mjoebergi
+name: Aedes mohani
+name: Aedes monocellatus
+name: Aedes neogeorgianus
+name: Aedes nigrorhynchus
+name: Aedes nipponicus
+name: Aedes nippononiveus
+name: Aedes nishikawai
+name: Aedes niveoides
+name: Anopheles gambiae chromosomal form
+name: Aedes notoscriptus
+name: Aedes montanus
+name: Aedes novalbitarsls
+name: Aedes novoniveus
+name: Aedes nyasae
+name: Aedes occidentalis
+name: Aedes oceanicus
+name: Aedes omorii
+name: Aedes oreophilus
+name: Aedes pallirastris
+name: Aedes palmarum
+name: Aedes papuensis
+name: Aedes peipingensis
+name: Aedes pexus
+name: Aedes plagosus
+name: Aedes plumiferus
+name: Aedes poicilius
+name: Aedes prominens
+name: Aedes pseudoniveus
+name: Aedes pseudotaeniatus
+name: Aedes pulchrithorax
+name: Aedes pulchriventer
+name: Aedes quasirubithorax
+name: Aedes quinquelineatus
+name: Aedes reinerti
+name: Aedes rizali
+name: Aedes roai
+name: Aedes rubiginosus
+name: Aedes rubrithorax
+name: Aedes rupestris
+name: Aedes samoanus
+name: genus Tanakaius
+name: Tanakaius savoryi
+name: Aedes saxicola
+name: Aedes schlosseri
+name: Aedes seoulensis
+name: Aedes shehzadae
+name: Aedes sherki
+name: Aedes shortti
+name: Aedes simlensis
+name: Aedes sinensis
+name: Aedes sintoni
+name: Aedes solomonis
+name: Aedes sorsogonensis
+name: Aedes stanleyi
+name: Aedes stevensoni
+name: Aedes stonei
+name: Aedes subalbitarsis
+name: Aedes subauridorsum
+name: Aedes subbasalis
+name: Aedes subniveus
+name: Aedes suffusus
+name: Tanakaius togoi
+name: Aedes tonkinensis
+name: Aedes toxopeusi
+name: Aedes tsiliensis
+name: Aedes tubbutiensis
+name: Aedes tutuilae
+name: Aedes unicinctus
+name: Aedes vanus
+name: Aedes versicolor
+name: Aedes wallacei
+name: Aedes wasselli
+name: Aedes watasei
+name: Aedes watteni
+name: Aedes wellmanii
+name: Aedes yunnanensis
+name: Geoskusea
+name: Aedes baisasi
+name: Aedes becki
+name: Aedes daggyi
+name: Aedes fimbripes
+name: Aedes kabaenensis
+name: Aedes longiforceps
+name: Aedes lunulatus
+name: Aedes perryi
+name: Aedes tonsus
+name: Gymnometopa
+name: Aedes mediovittatus
+name: Halaedes
+name: Aedes ashworthi
+name: Aedes australis
+name: Aedes wardangensis
+name: Howardina
+name: Aedes albonotatus
+name: Aedes allotecnon
+name: Aedes arborealis
+name: Aedes argyrites
+name: Aedes aureolineatus
+name: Aedes aurites
+name: Aedes aurivittatus
+name: Aedes bahamensis
+name: Aedes brevis
+name: Aedes brevivittatus
+name: Aedes busckii
+name: Aedes cozumelensis
+name: Aedes ecuadoriensis
+name: Aedes eleanorae
+name: Aedes fulvithorax
+name: Aedes grabhami
+name: Aedes guatemala
+name: Aedes guerrero
+name: Aedes inaequalis
+name: Aedes ioliota
+name: Aedes leei
+name: Aedes lorraineae
+name: Aedes marinkellei
+name: Aedes martinezi
+name: Aedes osornoi
+name: Aedes pseudodominicii
+name: Aedes quadrivittatus
+name: Aedes septemstriatus
+name: Aedes sexlineatus
+name: Aedes spinosus
+name: Aedes stenei
+name: Aedes vanemdeni
+name: Aedes walkeri
+name: Aedes whitmorei
+name: Kenknightia
+name: Aedes dissimilis
+name: Aedes gaffigani
+name: Aedes harbachi
+name: Aedes karwari
+name: Aedes lerozeboomi
+name: Aedes leucomeres
+name: Aedes litwakae
+name: Aedes luzonensis
+name: Aedes paradissimilis
+name: Aedes pecori
+name: Aedes wilkersoni
+name: Macleaya
+name: Aedes littlechildi
+name: Aedes stoneorum
+name: Aedes tremulus
+name: Molpemyia
+name: Aedes auridorsum
+name: Aedes pecuniosus
+name: Aedes purpureus
+name: Mucidus
+name: Aedes alternans
+name: Aedes aurantius
+name: Aedes chrysogaster
+name: Aedes ferinus
+name: Aedes grahamii
+name: Aedes laniger
+name: Aedes lucianus
+name: Aedes mucidus
+name: Aedes nigerrimus
+name: Aedes painei
+name: Aedes quadripunctis
+name: Aedes quasiferinus
+name: Aedes scatophagoides
+name: Aedes sudanensis
+name: Aedes tonkingi
+name: Nothoskusea
+name: Aedes chathamicus
+name: Ochlerotatus
+name: Aedes aboriginis
+name: Aedes abserratus
+name: Aedes aculeatus
+name: Aedes aenigmaticus
+name: Aedes akkeshiensis
+name: Aedes albescens
+name: Aedes albifasciatus
+name: Aedes albineus
+name: Aedes aloponotum
+name: Aedes ambreensis
+name: Aedes andersoni
+name: Aedes angustivittatus
+name: Aedes annulipes
+name: Aedes antipodeus
+name: Aedes atactavittatus
+name: Aedes atlanticus
+name: Aedes atropalpus
+name: Aedes auratus
+name: Aedes aurifer
+name: Aedes behningi
+name: Aedes bejaranoi
+name: Aedes berlandi
+name: Rusticoidus
+name: Aedes bicristatus
+name: Aedes bimaculatus
+name: Aedes bogotanus
+name: Aedes breedensis
+name: Aedes burjaticus
+name: Aedes burpengaryensis
+name: Aedes caballus
+name: Aedes cacozelus
+name: Aedes calcariae
+name: Aedes calumnior
+name: Aedes campestris
+name: Aedes camptorhynchus
+name: Aedes canadensis
+name: Aedes mathesoni
+name: Aedes cantans
+name: Aedes subvexans
+name: Aedes cantator
+name: Aedes caspius
+name: Aedes dorsalis
+name: Aedes hargreavesi
+name: Aedes cataphylla
+name: Aedes rostochiensis
+name: Aedes chelli
+name: Aedes churchillensis
+name: Aedes clelandi
+name: Aedes clivis
+name: Aedes comitatus
+name: Aedes communis
+name: Aedes condolescens
+name: Aedes continentalis
+name: Aedes crinifer
+name: Aedes cunabulanus
+name: Aedes cyprioides
+name: Aedes cyprius
+name: Aedes decticus
+name: Aedes deficiens
+name: Aedes deserticola
+name: Aedes detritus
+name: Aedes diantaeus
+name: Aedes duplex
+name: Aedes dupreei
+name: Aedes dzeta
+name: Aedes edgari
+name: Aedes eidsvoldensis
+name: Aedes epactius
+name: Aedes eucephalaeus
+name: Aedes euedes
+name: Aedes euiris
+name: Aedes euplocamus
+name: Aedes excrucians
+name: Aedes explorator
+name: Aedes fitchii
+name: Aedes flavescens
+name: Aedes flavifrons
+name: Aedes fluviatilis
+name: Aedes fulvus
+name: Aedes pallens
+name: Aedes grossbecki
+name: Aedes gutzevichi
+name: Aedes hakusanensis
+name: Aedes harrisoni
+name: Aedes hastatus
+name: Aedes hesperonotius
+name: Aedes hexodontus
+name: Aedes hodgkini
+name: Aedes hokkaidensis
+name: Aedes hortator
+name: Aedes hungaricus
+name: Aedes imperfectus
+name: Aedes impiger
+name: Aedes daisetsuzanus
+name: Aedes implicatus
+name: Aedes incomptus
+name: Aedes increpitus
+name: Aedes inexpectatus
+name: Aedes infirmatus
+name: Aedes intermedius
+name: Aedes intrudens
+name: Aedes jacobinae
+name: Aedes juppi
+name: Aedes kasachstanicus
+name: Aedes laguna
+name: Aedes lasaensis
+name: Aedes gyirongensis
+name: Aedes lepidus
+name: Aedes leucomelas
+name: Aedes linesi
+name: Aedes longifilamentus
+name: Aedes luteifemur
+name: Aedes macintoshi
+name: Aedes mariae
+name: Aedes martineti
+name: Aedes mcdonaldi
+name: Aedes melanimon
+name: Aedes meprai
+name: Aedes mercurator
+name: Aedes milleri
+name: Aedes mitchellae
+name: Aedes montchadskyi
+name: Aedes monticola
+name: Aedes muelleri
+name: Aedes nevadensis
+name: Aedes nigrinus
+name: Aedes nigripes
+name: Aedes nigrithorax
+name: Aedes nigrocanus
+name: Aedes nigromaculis
+name: Aedes niphadopsis
+name: Aedes nivalis
+name: Aedes normanensis
+name: Aedes nubilus
+name: Aedes obturbator
+name: Aedes oligopistus
+name: Aedes patersoni
+name: Aedes pectinatus
+name: Aedes pennai
+name: Aedes perkinsi
+name: Aedes pertinax
+name: Aedes perventor
+name: Aedes phaecasiatus
+name: Aedes phaeonotus
+name: Aedes phoeniciae
+name: Aedes pionips
+name: Aedes procax
+name: Aedes provocans
+name: Aedes pseudonormanensis
+name: Aedes pulcritarsis
+name: Aedes asiaticus
+name: Aedes pullatus
+name: Aedes punctodes
+name: Aedes punctor
+name: Aedes purpuraceus
+name: Aedes purpureifemur
+name: Aedes purpuriventris
+name: Aedes ratcliffei
+name: Aedes raymondi
+name: Aedes rempeli
+name: Aedes rhyacophilus
+name: Aedes riparius
+name: Aedes riparioides
+name: Aedes sagax
+name: Aedes sapiens
+name: Aedes scapularis
+name: Aedes schizopinax
+name: Aedes schtakelbergi
+name: Aedes scutellalbum
+name: Aedes sedaensis
+name: Aedes sergievi
+name: Aedes serratus
+name: Aedes shannoni
+name: Aedes sierrensis
+name: Aedes silvestris
+name: Aedes simanini
+name: Aedes sinkiangensis
+name: Aedes sollicitans
+name: Aedes spencerii
+name: Aedes idahoensis
+name: Aedes spilotus
+name: Aedes squamiger
+name: Aedes stampari
+name: Aedes sticticus
+name: Aedes stigmaticus
+name: Aedes stimulans
+name: Aedes stramineus
+name: Aedes stricklandi
+name: Aedes subalbirostris
+name: Aedes surcoufi
+name: Aedes synchytus
+name: Aedes taeniorhynchus
+name: Aedes tahoensis
+name: Aedes thelcter
+name: Aedes theobaldi
+name: Aedes thibaulti
+name: Aedes tormentor
+name: Aedes tortilis
+name: Aedes trivittatus
+name: Aedes turneri
+name: Aedes upatensis
+name: Aedes varipalpus
+name: Aedes ventrovittis
+name: Aedes vigilax
+name: Aedes ludlowae
+name: Aedes vansomerenae
+name: Aedes washinoi
+name: Aedes vittiger
+name: Aedes zammitii
+name: Protomacleaya
+name: Aedes aitkeni
+name: Aedes alboapicus
+name: Aedes amabilis
+name: Aedes argyrothorax
+name: Aedes berlini
+name: Aedes bertrami
+name: Aedes braziliensis
+name: Aedes brelandi
+name: Aedes buenaventura
+name: Aedes burgeri
+name: Aedes campana
+name: Aedes casali
+name: Aedes chionotum
+name: Aedes daryi
+name: Aedes diazi
+name: Aedes gabriel
+name: Aedes galindoi
+name: Aedes hendersoni
+name: Aedes heteropus
+name: Aedes homoeopus
+name: Aedes idanus
+name: Aedes impostor
+name: Aedes insolitus
+name: Aedes knabi
+name: Aedes kompi
+name: Aedes metoecopus
+name: Aedes niveoscutum
+name: Aedes podographicus
+name: Aedes sandrae
+name: Aedes schicki
+name: Aedes schroederi
+name: Aedes sumidero
+name: Aedes tehuantepec
+name: Aedes terrens
+name: Aedes thorntoni
+name: Aedes triseriatus
+name: Aedes vargasi
+name: Aedes zavortinki
+name: Aedes zoosophus
+name: Pseudoskusea
+name: Aedes bancroftianus
+name: Aedes culiciformis
+name: Aedes multiplex
+name: Aedes postspiraculosus
+name: Rhinoskusea
+name: Aedes longirostris
+name: Aedes pillaii
+name: Aedes portonovoensis
+name: Aedes wardi
+name: Aedes krymmontanus
+name: Aedes lepidonotus
+name: Aedes quasirusticus
+name: Aedes refiki
+name: Aedes rusticus
+name: Aedes subtrichurus
+name: Aedes subdiversus
+name: Zavortinkius
+name: Aedes brunhesi
+name: Aedes brygooi
+name: Aedes fulgens
+name: Aedes geoffroyi
+name: Aedes huangae
+name: Aedes interruptus
+name: Aedes longipalpis
+name: Aedes monetus
+name: Aedes mzooi
+name: Aedes phillipi
+name: Aedes pollinctor
+name: genus Johnbelkinia
+name: Johnbelkinia longipes
+name: Johnbelkinia leucopus
+name: Johnbelkinia ulopus
+name: genus Limatus
+name: Limatus andinus
+name: Limatus asulleptus
+name: Limatus durhamii
+name: Limatus flavisetosus
+name: Limatus guayasi
+name: Limatus hoffmani
+name: Limatus martiali
+name: Limatus pseudomethysticus
+name: genus Mansonia
+name: Mansonia
+name: Mansonia amazonensis
+name: Mansonia cerqueirai
+name: Mansonia chagasi
+name: Mansonia dyari
+name: Mansonia flaveola
+name: Mansonia humeralis
+name: Mansonia indubitans
+name: Mansonia leberi
+name: Mansonia pessoai
+name: Mansonia pseudotitillans
+name: Mansonia suarezi
+name: Mansonia titillans
+name: Mansonia wilsoni
+name: Mansonioides
+name: Mansonia africana
+name: Mansonia nigerrima
+name: Mansonia annulata
+name: Mansonia annulifera
+name: Mansonia bonneae
+name: Mansonia dives
+name: Mansonia indiana
+name: Mansonia melanesiensis
+name: Mansonia papuensis
+name: Mansonia septempunctata
+name: Mansonia uniformis
+name: genus Maorigoeldia
+name: Maorigoeldia argyropus
+name: genus Malaya
+name: Malaya farquharsoni
+name: Malaya fraseri
+name: Malaya genurostris
+name: Malaya incomptas
+name: Malaya jacobsoni
+name: Malaya leei
+name: genus Mimomyia
+name: Etorleptiomyia
+name: Mimomyia bougainvillensis
+name: genus Onirion
+name: Onirion aenigma
+name: Onirion brucei
+name: Onirion celatum
+name: Onirion imparis
+name: Onirion personatum
+name: Onirion regale
+name: Onirion sirivanakarni
+name: genus Opifex
+name: Opifex fuscus
+name: genus Orthopodomyia
+name: Orthopodomyia alba
+name: Orthopodomyia albicosta
+name: genus Psorophora
+name: Grabhamia
+name: Psorophora cingulata
+name: Psorophora columbiae
+name: Psorophora confinnis
+name: Psorophora dimidiata
+name: Psorophora discolor
+name: Psorophora infinis
+name: Psorophora insularia
+name: Psorophora jamaicensis
+name: Psorophora leucocnemis
+name: Psorophora paulli
+name: Psorophora pruinosa
+name: Psorophora pygmaea
+name: Psorophora signipennis
+name: Psorophora varinervis
+name: Janthinosoma
+name: Psorophora albigenu
+name: Psorophora albipes
+name: Psorophora amazonica
+name: Psorophora champerico
+name: Psorophora circumflava
+name: Psorophora cyanescens
+name: Psorophora discrucians
+name: Psorophora ferox
+name: Psorophora fiebrigi
+name: Psorophora forceps
+name: Psorophora horrida
+name: Psorophora johnstonii
+name: Psorophora lanei
+name: Psorophora longipalpus
+name: Psorophora lutzii
+name: Psorophora mathesoni
+name: Psorophora melanota
+name: Psorophora mexicana
+name: Psorophora pilosus
+name: Psorophora pseudoalbipes
+name: Psorophora pseudomelanota
+name: Psorophora totonaci
+name: Psorophora varipes
+name: Psorophora
+name: Psorophora ciliata
+name: Psorophora cilipes
+name: Psorophora holmbergii
+name: Psorophora howardii
+name: Psorophora lineata
+name: Psorophora ochripes
+name: Psorophora pallescens
+name: Psorophora pilipes
+name: Psorophora saeva
+name: Psorophora stonei
+name: genus Sabethes
+name: Davismyia
+name: Sabethes petrocchiae
+name: Peytonulus
+name: Sabethes aurescens
+name: Sabethes fabricii
+name: Sabethes gorgasi
+name: Sabethes hadrognathus
+name: Sabethes identicus
+name: Sabethes ignotus
+name: Sabethes soperi
+name: Sabethes undosus
+name: Sabethes whitmani
+name: Sabethes xenismus
+name: Sabethes
+name: Sabethes albiprivus
+name: Sabethes amazonicus
+name: Sabethes batesi
+name: Sabethes belisarioi
+name: Sabethes bipartipes
+name: Sabethes cyaneus
+name: Sabethes forattinii
+name: Sabethes gymnothorax
+name: Sabethes lanei
+name: Sabethes nitidus
+name: Sabethes ortizi
+name: Sabethes paraitepuyensis
+name: Sabethes purpureus
+name: Sabethes quasicyaneus
+name: Sabethes schnusei
+name: Sabethes shannoni
+name: Sabethes spixi
+name: Sabethes tarsopus
+name: Sabethinus
+name: Sabethes idiogenes
+name: Sabethes intermedius
+name: Sabethes melanonymphe
+name: Sabethes xhphydes
+name: Sabethoides
+name: Sabethes chloropterus
+name: Sabethes glaucodaemon
+name: Sabethes tridentatus
+name: genus Shannoniana
+name: Shannoniana fluviatilis
+name: genus Topomyia
+name: Suaymyia
+name: Topomyia apsarsae
+name: Topomyia argenteoventralis
+name: Topomyia auriceps
+name: Topomyia cristata
+name: Topomyia decorabilis
+name: Topomyia houghtoni
+name: Topomyia imitata
+name: Topomyia leucotarsis
+name: Topomyia mengi
+name: Topomyia papuensis
+name: Topomyia pseudoleucotarsis
+name: Topomyia spathulirostris
+name: Topomyia suchariti
+name: Topomyia tumetarsalis
+name: Topomyia yanbarensis
+name: Topomyia
+name: Topomyia angkoris
+name: Topomyia argyropalpis
+name: Topomyia aenea
+name: Topomyia aureoventer
+name: Topomyia barbus
+name: Topomyia baolini
+name: Topomyia cabrerai
+name: Topomyia dananraji
+name: Topomyia dejesusi
+name: Topomyia dubitans
+name: Topomyia gracilis
+name: Topomyia hardini
+name: Topomyia hernandoi
+name: Topomyia hirtusa
+name: Topomyia inclinata
+name: Topomyia lindsayi
+name: Topomyia malaysiensis
+name: Topomyia minor
+name: Topomyia nigra
+name: Topomyia pilosa
+name: Topomyia pseudobarbus
+name: Topomyia rubithoracis
+name: Topomyia sabahensis
+name: Topomyia sylvatica
+name: Topomyia svastii
+name: Topomyia tenuis
+name: Topomyia tipuliformis
+name: Topomyia trifida
+name: Topomyia unispinosa
+name: Topomyia vijayae
+name: Topomyia yongi
+name: Topomyia zhangi
+name: genus Toxothynchites
+name: Afrorhynchus
+name: Toxorhynchites aeneus
+name: Toxorhynchites angolensis
+name: Toxorhynchites erythrurus
+name: Toxorhynchites helenae
+name: Toxorhynchites kaimosi
+name: Toxorhynchites lutescens
+name: Toxorhynchites nairobiensis
+name: Toxorhynchites pauliani
+name: Toxorhynchites ruwenzori
+name: Toxorhynchites viridibasis
+name: Ankylorhynchus
+name: Toxorhynchites catharinensis
+name: Toxorhynchites hexacis
+name: Toxorhynchites purpureus
+name: Toxorhynchites trichopygus
+name: Lynchiella
+name: Toxorhynchites bambusicola
+name: Toxorhynchites cavalierii
+name: Toxorhynchites grandiosus
+name: Toxorhynchites gerbergi
+name: Toxorhynchites guadeloupensis
+name: Toxorhynchites haemorrhoidalis
+name: Toxorhynchites separatus
+name: Toxorhynchites superbus
+name: Toxorhynchites mariae
+name: Toxorhynchites portoricensis
+name: Toxorhynchites pusillus
+name: Toxorhynchites rizzoi
+name: Toxorhynchites rutilus
+name: Toxorhynchites septentrionalis
+name: Toxorhynchites solstitialis
+name: Toxorhynchites theobaldi
+name: Toxorhynchites violaceus
+name: Toxorhynchites
+name: Toxorhynchites acaudatus
+name: Toxorhynchites albipes
+name: Toxorhynchites amboinensis
+name: Toxorhynchites angustiplatus
+name: Toxorhynchites ater
+name: Toxorhynchites auranticauda
+name: Toxorhynchites aurifluus
+name: Toxorhynchites auripes
+name: Toxorhynchites barbipes
+name: Toxorhynchites bengalensis
+name: Toxorhynchites bickleyi
+name: Toxorhynchites brevipalpis
+name: Toxorhynchites conradti
+name: Toxorhynchites abyssinicus
+name: Toxorhynchites camaronis
+name: Toxorhynchites capelai
+name: Toxorhynchites christophi
+name: Toxorhynchites changbaiensis
+name: Toxorhynchites coeruleus
+name: Toxorhynchites dundo
+name: Toxorhynchites edwardsi
+name: Toxorhynchites evansae
+name: Toxorhynchites funestus
+name: Toxorhynchites gigantulus
+name: Toxorhynchites gravelyi
+name: Toxorhynchites indicus
+name: Toxorhynchites inornatus
+name: Toxorhynchites albitarsis
+name: Toxorhynchites kempi
+name: Toxorhynchites klossi
+name: Toxorhynchites leicesteri
+name: Toxorhynchites lewisi
+name: Toxorhynchites macaensis
+name: Toxorhynchites magnificus
+name: Toxorhynchites manicatus
+name: Toxorhynchites yaeyamae
+name: Toxorhynchites yamadai
+name: Toxorhynchites manopi
+name: Toxorhynchites metallicus
+name: Toxorhynchites minimus
+name: Toxorhynchites nepenthicola
+name: Toxorhynchites nepenthis
+name: Toxorhynchites nigripes
+name: Toxorhynchites okinawensis
+name: Toxorhynchites pendleburyi
+name: Toxorhynchites phytophagus
+name: Toxorhynchites quasiferox
+name: Toxorhynchites rajah
+name: Toxorhynchites ramalingami
+name: Toxorhynchites raris
+name: Toxorhynchites richenbachi
+name: Toxorhynchites rodhaini
+name: Toxorhynchites speciosus
+name: Toxorhynchites splendens
+name: Toxorhynchites sumatranus
+name: Toxorhynchites sunthorni
+name: Toxorhynchites towadensis
+name: genus Tripteroides
+name: Polylepidomyia
+name: Tripteroides altivallis
+name: Tripteroides apicotriangulata
+name: Tripteroides argenteiventris
+name: Tripteroides atripes
+name: Tripteroides caledonicus
+name: Tripteroides coheni
+name: Tripteroides collessi
+name: Tripteroides digoelensis
+name: Tripteroides floridensis
+name: Tripteroides folicola
+name: Tripteroides marksae
+name: Tripteroides melanesiensis
+name: Tripteroides microlepis
+name: Tripteroides perplexus
+name: Tripteroides punctolateralis
+name: Tripteroides rotumanus
+name: Tripteroides solomonis
+name: Tripteroides standfasti
+name: Tripteroides tasmaniensis
+name: Rachionotomyia
+name: Tripteroides affinis
+name: Tripteroides aranoides
+name: Tripteroides ceylonensis
+name: Tripteroides coonorensis
+name: Tripteroides dofleini
+name: Tripteroides edwardsi
+name: Tripteroides nepenthis
+name: Tripteroides nepenthisimilis
+name: Tripteroides rozeboomi
+name: Tripteroides serratus
+name: Tripteroides tenax
+name: Rachisoura
+name: Tripteroides adentata
+name: Tripteroides bisquamatus
+name: Tripteroides brevirhynchus
+name: Tripteroides concinnus
+name: Tripteroides confusus
+name: Tripteroides cuttsi
+name: Tripteroides exnebulis
+name: Tripteroides felicitatis
+name: Tripteroides filipes
+name: Tripteroides flabelliger
+name: Tripteroides fuliginosus
+name: Tripteroides fuscipleura
+name: Tripteroides kingi
+name: Tripteroides latisquama
+name: Tripteroides leei
+name: Tripteroides longipalpatus
+name: Tripteroides mathesoni
+name: Tripteroides obscurus
+name: Tripteroides pallidus
+name: Tripteroides pilosus
+name: Tripteroides plumiger
+name: Tripteroides simplex
+name: Tripteroides stonei
+name: Tripteroides subnudipennis
+name: Tripteroides sylvestris
+name: Tripteroides tityae
+name: Tripteroides torokinae
+name: Tripteroides vanleeuweni
+name: Tricholeptomyia
+name: Tripteroides apoensis
+name: Tripteroides barraudi
+name: Tripteroides belkini
+name: Tripteroides christophersi
+name: Tripteroides delpilari
+name: Tripteroides microcala
+name: Tripteroides nepenthicola
+name: Tripteroides roxasi
+name: Tripteroides werneri
+name: Tripteroides
+name: Tripteroides aeneus
+name: Tripteroides alboscutellatus
+name: Tripteroides antennalis
+name: Tripteroides bambusa
+name: Tripteroides yaemamensis
+name: Tripteroides bimaculipes
+name: Tripteroides binotatus
+name: Tripteroides bonneti
+name: Tripteroides brevipalpis
+name: Tripteroides caeruleocephalus
+name: Tripteroides cheni
+name: Tripteroides claggi
+name: Tripteroides denticulatus
+name: Tripteroides distigma
+name: Tripteroides dyari
+name: Tripteroides dyi
+name: Tripteroides elegans
+name: Tripteroides erlindae
+name: Tripteroides hoogstraali
+name: Tripteroides hybridus
+name: Tripteroides indeterminatus
+name: Tripteroides indicus
+name: Tripteroides intermediatus
+name: Tripteroides knighti
+name: Tripteroides latispinus
+name: Tripteroides lipovskyi
+name: Tripteroides littlechildi
+name: Tripteroides lorengaui
+name: Tripteroides mabinii
+name: Tripteroides magnesianus
+name: Tripteroides malayi
+name: Tripteroides malvari
+name: Tripteroides mendacis
+name: Tripteroides monetifer
+name: Tripteroides nissanensis
+name: Tripteroides nitidoventer
+name: Tripteroides novohanoverae
+name: Tripteroides plumosus
+name: Tripteroides powelli
+name: Tripteroides escodae
+name: Tripteroides laffooni
+name: Tripteroides mattinglyi
+name: Tripteroides proximus
+name: Tripteroides purpuratus
+name: Tripteroides quasiornatus
+name: Tripteroides reiseni
+name: Tripteroides riverai
+name: Tripteroides similis
+name: Tripteroides simulatus
+name: Tripteroides splendens
+name: Tripteroides sullivanae
+name: Tripteroides tarsalis
+name: Tripteroides toffaletii
+name: Tripteroides uichancoi
+name: Tripteroides vicinus
+name: Harbachius
+name: Verrallina abdita
+name: Verrallina consonensis
+name: Verrallina fragilis
+name: Verrallina hamistylus
+name: Verrallina indecorabilis
+name: Verrallina nobukonis
+name: Verrallina pahangi
+name: Verrallina ramalingami
+name: Verrallina robertsi
+name: Verrallina srilankensis
+name: Verrallina stunga
+name: Verrallina uniformis
+name: Verrallina yusafi
+name: Neomaclaya
+name: Verrallina adusta
+name: Verrallina agrestis
+name: Verrallina andamanensis
+name: Verrallina atriisimilis
+name: Verrallina atrius
+name: Verrallina campylostylus
+name: Verrallina cauta
+name: Verrallina clavata
+name: Verrallina comata
+name: Verrallina comosa
+name: Verrallina cretata
+name: Verrallina cyrtolabis
+name: Verrallina gibbosa
+name: Verrallina harrisonicus
+name: Verrallina hispida
+name: Verrallina incerta
+name: Verrallina indica
+name: Verrallina johnsoni
+name: Verrallina johorensis
+name: Verrallina komponga
+name: Verrallina lankaensis
+name: Verrallina latipennis
+name: Verrallina leicesteri
+name: Verrallina macrodixoa
+name: Verrallina margarsen
+name: Verrallina neomacrodixoa
+name: Verrallina nigrotarsis
+name: Verrallina notabilis
+name: Verrallina nubicola
+name: Verrallina panayensis
+name: Verrallina petroelephantus
+name: Verrallina philippinensis
+name: Verrallina phnoma
+name: Verrallina prioekanensis
+name: Verrallina protuberans
+name: Verrallina pseudodiurna
+name: Verrallina pseudomediofasciata
+name: Verrallina pseudovarietas
+name: Verrallina rami
+name: Verrallina rara
+name: Verrallina sabahensis
+name: Verrallina seculata
+name: Verrallina singularis
+name: Verrallina sohni
+name: Verrallina torosa
+name: Verrallina unca
+name: Verrallina vallistris
+name: Verrallina varietas
+name: Verrallina virilis
+name: Verrallina yerburyi
+name: Verrallina
+name: Verrallina azureosquamata
+name: Verrallina bifoliata
+name: Verrallina butleri
+name: Verrallina carmenti
+name: Verrallina cunninghami
+name: Verrallina cuccioi
+name: Verrallina dux
+name: Verrallina embiensis
+name: Verrallina foliformis
+name: Verrallina funerea
+name: Verrallina iriomotensis
+name: Verrallina killertonis
+name: Verrallina leilae
+name: Verrallina lineata
+name: Verrallina lugubris
+name: Verrallina mccormicki
+name: Verrallina milnensis
+name: Verrallina multifolium
+name: Verrallina obsoleta
+name: Verrallina parasimilis
+name: Verrallina pipkini
+name: Verrallina quadrifolium
+name: Verrallina quadrispinata
+name: Verrallina reesi
+name: Verrallina sentania
+name: Verrallina similis
+name: Verrallina simplus
+name: Verrallina trispinata
+name: Verrallina vanapa
+name: Verrallina variabilis
+name: genus Wyeomyia
+name: Antunesmyia
+name: Wyeomyia alani
+name: Wyeomyia colombiana
+name: Wyeomyia flavifacies
+name: Caenomyiella
+name: Wyeomyia fernandezyepezi
+name: Cruzmyia
+name: Wyeomyia dyari
+name: Wyeomyia forattinii
+name: Wyeomyia kummi
+name: Wyeomyia mattinglyi
+name: Decamyia
+name: Wyeomyia felicia
+name: Wyeomyia pseudopecten
+name: Wyeomyia ulocoma
+name: Dendromyia
+name: Wyeomyia complosa
+name: Wyeomyia jocosa
+name: Wyeomyia luteoventralis
+name: Wyeomyia testei
+name: Wyeomyia trifurcata
+name: Wyeomyia ypsipola
+name: Dodecamyia
+name: Wyeomyia aphobema
+name: Exallomyia
+name: Wyeomyia arborea
+name: Wyeomyia carrilloi
+name: Wyeomyia tarsata
+name: Hystatamyia
+name: Wyeomyia autocratica
+name: Wyeomyia circumcincta
+name: Wyeomyia coenonus
+name: Wyeomyia intonca
+name: Wyeomyia esmeraldasi
+name: Wyeomyia lamellata
+name: Wyeomyia lopezii
+name: Menolepis
+name: Wyeomyia leucostigma
+name: Nunezia
+name: Wyeomyia bicornis
+name: Wyeomyia lateralis
+name: Phoniomyia
+name: Wyeomyia antunesi
+name: Wyeomyia bonnei
+name: Wyeomyia davisi
+name: Wyeomyia deanei
+name: Wyeomyia diabolica
+name: Wyeomyia edwardsi
+name: Wyeomyia flabellata
+name: Wyeomyia fuscipes
+name: Wyeomyia galvaoi
+name: Wyeomyia incaudata
+name: Wyeomyia lassalli
+name: Wyeomyia longirostris
+name: Wyeomyia lopesi
+name: Wyeomyia muehlensi
+name: Wyeomyia pallidoventer
+name: Wyeomyia palmata
+name: Wyeomyia pilicauda
+name: Wyeomyia quasilongirostris
+name: Wyeomyia splendida
+name: Wyeomyia theobaldi
+name: Wyeomyia trinidadensis
+name: Wyeomyia tripartita
+name: Prosopolepis
+name: Wyeomyia confusa
+name: Wyeomyia
+name: Wyeomyia abebela
+name: Wyeomyia ablechra
+name: Wyeomyia adelpha
+name: Wyeomyia arthrostigma
+name: Wyeomyia atrata
+name: Wyeomyia bahama
+name: Wyeomyia caracula
+name: Wyeomyia celaenocephala
+name: Wyeomyia charmion
+name: Wyeomyia codiocampa
+name: Wyeomyia corona
+name: Wyeomyia downsi
+name: Wyeomyia florestan
+name: Wyeomyia gaudians
+name: Wyeomyia gausapata
+name: Wyeomyia grayii
+name: Wyeomyia guatemala
+name: Wyeomyia haynei
+name: Wyeomyia hemisagnosta
+name: Wyeomyia hirsuta
+name: Wyeomyia hosautos
+name: Wyeomyia leucotarsis
+name: Wyeomyia juxtahirsuta
+name: Wyeomyia labesba
+name: Wyeomyia limai
+name: Wyeomyia luna
+name: Wyeomyia lutzi
+name: Wyeomyia medioalbipes
+name: Wyeomyia melanopus
+name: Wyeomyia mitchellii
+name: Wyeomyia nigritubus
+name: Wyeomyia oblita
+name: Wyeomyia pertinans
+name: Wyeomyia pseudorobusta
+name: Wyeomyia robusta
+name: Wyeomyia sabethea
+name: Wyeomyia scotinomus
+name: Wyeomyia serrata
+name: Wyeomyia simmsi
+name: Wyeomyia smithii
+name: Wyeomyia sororcula
+name: Wyeomyia stellata
+name: Wyeomyia stonei
+name: Wyeomyia trujilloi
+name: Wyeomyia vanduzeei
+name: Zinzala
+name: Wyeomyia fishi
+name: Wyeomyia zinzala
+name: Wyeomyia aequatorianna
+name: Wyeomyia airosai
+name: Wyeomyia albosquamata
+name: Wyeomyia amazonica
+name: Wyeomyia aporonoma
+name: Wyeomyia argenteorostris
+name: Wyeomyia belkini
+name: Wyeomyia bourrouli
+name: Wyeomyia cesari
+name: Wyeomyia chalcocephala
+name: Wyeomyia clasoleuca
+name: Wyeomyia compta
+name: Wyeomyia covagarciai
+name: Wyeomyia flui
+name: Wyeomyia finlayi
+name: Wyeomyia forcipenis
+name: Wyeomyia gutierrezi
+name: Wyeomyia howardi
+name: Wyeomyia ininicola
+name: Wyeomyia knabi
+name: Wyeomyia luderwaldti
+name: Wyeomyia melanocephala
+name: Wyeomyia moerbista
+name: Wyeomyia mystes
+name: Wyeomyia negrensis
+name: Wyeomyia nigricephala
+name: Wyeomyia occulta
+name: Wyeomyia pampithes
+name: Wyeomyia phroso
+name: Wyeomyia rooti
+name: Wyeomyia rorotai
+name: Wyeomyia roucouyana
+name: Wyeomyia serratoria
+name: Wyeomyia shannoni
+name: Wyeomyia surinamensis
+name: Wyeomyia taurepana
+name: Wyeomyia undulata
+name: Wyeomyia subcomplosa
+name: genus Uranotaenia
+name: Pseudoficalbia
+name: Uranotaenia abdita
+name: Uranotaenia abstrusa
+name: Uranotaenia albipes
+name: Uranotaenia andreae
+name: Uranotaenia anhydor
+name: Uranotaenia syntheta
+name: Uranotaenia annulata
+name: Uranotaenia apicotaeniata
+name: Uranotaenia approximata
+name: Uranotaenia ascidiicola
+name: Uranotaenia atra
+name: Uranotaenia belkini
+name: Uranotaenia bicolor
+name: Uranotaenia bimaculata
+name: Uranotaenia bosseri
+name: Uranotaenia browni
+name: Uranotaenia brumpti
+name: Uranotaenia brunhesi
+name: Uranotaenia cachani
+name: Uranotaenia capelai
+name: Uranotaenia cavernicola
+name: Uranotaenia colocasiae
+name: Uranotaenia combesi
+name: Uranotaenia confusa
+name: Uranotaenia damasei
+name: Uranotaenia demeilloni
+name: Uranotaenia devemyi
+name: Uranotaenia diagonalis
+name: Uranotaenia douceti
+name: Uranotaenia enigmatica
+name: Uranotaenia fusca
+name: Uranotaenia garnhami
+name: Uranotaenia gigantea
+name: Uranotaenia gouldi
+name: Uranotaenia grenieri
+name: Uranotaenia harrisoni
+name: Uranotaenia henrardi
+name: Uranotaenia henriquei
+name: Uranotaenia hirsutifemora
+name: Uranotaenia hongayi
+name: Uranotaenia husaini
+name: Uranotaenia jacksoni
+name: Uranotaenia koli
+name: Uranotaenia kraussi
+name: Uranotaenia lavieri
+name: Uranotaenia leiboensis
+name: Uranotaenia lucyae
+name: Uranotaenia lui
+name: Uranotaenia luteola
+name: Uranotaenia lutescens
+name: Uranotaenia maculipleura
+name: Uranotaenia mashonaensis
+name: Uranotaenia mattinglyi
+name: Uranotaenia maxima
+name: Uranotaenia mengi
+name: Uranotaenia micromelas
+name: Uranotaenia modesta
+name: Uranotaenia montana
+name: Uranotaenia moufiedi
+name: Uranotaenia moultoni
+name: Uranotaenia nepenthes
+name: Uranotaenia nigripes
+name: Uranotaenia nigromaculata
+name: Uranotaenia nivipleura
+name: Uranotaenia nivipous
+name: Uranotaenia nocticola
+name: Uranotaenia novobscura
+name: Uranotaenia ryukyuana
+name: Uranotaenia obscura
+name: Uranotaenia ohamai
+name: Uranotaenia ornata
+name: Uranotaenia musarum
+name: Uranotaenia ototoma
+name: Uranotaenia painei
+name: Uranotaenia pandani
+name: Uranotaenia patriciae
+name: Uranotaenia propinqua
+name: Uranotaenia pseudohenrardi
+name: Uranotaenia pseudomaculipleura
+name: Uranotaenia pylei
+name: Uranotaenia quadrimaculata
+name: Uranotaenia quasimodesta
+name: Uranotaenia quinquemaculata
+name: Uranotaenia recondita
+name: Uranotaenia ramosa
+name: Uranotaenia reinerti
+name: Uranotaenia rickenbachi
+name: Uranotaenia rossi
+name: Uranotaenia shillitonis
+name: Uranotaenia signata
+name: Uranotaenia spiculosa
+name: Uranotaenia srilankensis
+name: Uranotaenia stricklandi
+name: Uranotaenia sumethi
+name: Uranotaenia tanzaniae
+name: Uranotaenia tsaratananae
+name: Uranotaenia ugandae
+name: Uranotaenia unguiculata
+name: Uranotaenia pefflyi
+name: Uranotaenia xanthomelaena
+name: Uranotaenia yaeyamana
+name: Uranotaenia yovani
+name: Uranotaenia
+name: Uranotaenia aequatorianna
+name: Uranotaenia alba
+name: Uranotaenia albescens
+name: Uranotaenia alboabdominalis
+name: Uranotaenia alboannulata
+name: Uranotaenia albosternopleura
+name: Uranotaenia amiensis
+name: Uranotaenia andavakae
+name: Uranotaenia angolensis
+name: Uranotaenia annandalei
+name: Uranotaenia anopheloides
+name: Uranotaenia antennalis
+name: Uranotaenia apicalis
+name: Uranotaenia arguellesi
+name: Uranotaenia argyrotarsis
+name: Uranotaenia balfouri
+name: Uranotaenia barnesi
+name: Uranotaenia benoiti
+name: Uranotaenia bertii
+name: Uranotaenia bilineata
+name: Uranotaenia fraseri
+name: Uranotaenia connali
+name: Uranotaenia obsoleta
+name: Uranotaenia bimaculiala
+name: Uranotaenia bricenoi
+name: Uranotaenia briseis
+name: Uranotaenia caeruleocephala
+name: Uranotaenia caliginosa
+name: Uranotaenia calosomata
+name: Uranotaenia campestris
+name: Uranotaenia chorleyi
+name: Uranotaenia christophersi
+name: Uranotaenia civinskii
+name: Uranotaenia clara
+name: Uranotaenia coatzacoalcos
+name: Uranotaenia cooki
+name: Uranotaenia davisi
+name: Uranotaenia diraphati
+name: Uranotaenia ditaenionota
+name: Uranotaenia dumonti
+name: Uranotaenia edwardsi
+name: Uranotaenia falcipes
+name: Uranotaenia fimbriata
+name: Uranotaenia galbaldoni
+name: Uranotaenia geometrica
+name: Uranotaenia gerdae
+name: Uranotaenia hamoni
+name: Uranotaenia hebes
+name: Uranotaenia heiseri
+name: Uranotaenia hopkinsi
+name: Uranotaenia hystera
+name: Uranotaenia incognita
+name: Uranotaenia iriartei
+name: Uranotaenia lanei
+name: Uranotaenia lateralis
+name: Uranotaenia leucoptera
+name: Uranotaenia longirostris
+name: Uranotaenia lowii
+name: Uranotaenia ludlowae
+name: Uranotaenia macfarlanei
+name: Uranotaenia machadoi
+name: Uranotaenia mathesoni
+name: Uranotaenia mayeri
+name: Uranotaenia mayottensis
+name: Uranotaenia mendiolai
+name: Uranotaenia metatarsata
+name: Uranotaenia micans
+name: Uranotaenia moresbyensis
+name: Uranotaenia nataliae
+name: Uranotaenia neireti
+name: Uranotaenia neotibialis
+name: Uranotaenia nivea
+name: Uranotaenia nivipes
+name: Uranotaenia novaguinensis
+name: Uranotaenia alticola
+name: Uranotaenia orientalis
+name: Uranotaenia orthodoxa
+name: Uranotaenia oteizai
+name: Uranotaenia pallidocephala
+name: Uranotaenia pallidoventer
+name: Uranotaenia palmeirimi
+name: Uranotaenia dundo
+name: Uranotaenia paludosa
+name: Uranotaenia paralateralis
+name: Uranotaenia paranovaguinensis
+name: Uranotaenia philonuxia
+name: Uranotaenia pifanoi
+name: Uranotaenia prajimi
+name: Uranotaenia pulcherrima
+name: Uranotaenia elnora
+name: Uranotaenia pygmaea
+name: Uranotaenia rachoui
+name: Uranotaenia rampae
+name: Uranotaenia reyi
+name: Uranotaenia riverai
+name: Uranotaenia rutherfordi
+name: Uranotaenia sapphirina
+name: Uranotaenia setosa
+name: Uranotaenia sexaueri
+name: Uranotaenia socialis
+name: Uranotaenia solomonis
+name: Uranotaenia sombooni
+name: Uranotaenia subnormalis
+name: Uranotaenia subtibioclada
+name: Uranotaenia telmatophila
+name: Uranotaenia testacea
+name: Uranotaenia tibialis
+name: Uranotaenia tibioclada
+name: Uranotaenia trapidoi
+name: Uranotaenia trilineata
+name: Uranotaenia typhlosomata
+name: Uranotaenia unimaculiala
+name: Uranotaenia wysockii
+name: genus Zeugnomyia
+name: Zeugnomyia aguilari
+name: Zeugnomyia fajardoi
+name: Zeugnomyia gracilis
+name: genus Udaya
+name: Udaya argyrurus
+name: Udaya lucaris
+name: Udaya subsimilis
+name: Zeugnomyia lawtoni
+name: Shannoniana moralesi
+name: Shannoniana schedocyclium
+name: genus Trichoprosopon
+name: Trichoprosopon andinum
+name: Trichoprosopon brevipes
+name: Trichoprosopon castroi
+name: Trichoprosopon compressum
+name: Trichoprosopon mogilasium
+name: Trichoprosopon digitatum
+name: genus Eretmapodites
+name: Eretmapodites adami
+name: Eretmapodites angolensis
+name: Eretmapodites argyrurus
+name: Eretmapodites brenguesi
+name: Eretmapodites brottesi
+name: Eretmapodites caillardi
+name: Eretmapodites chrysogaster
+name: Eretmapodites corbeti
+name: Eretmapodites dracaenae
+name: Eretmapodites dundo
+name: Eretmapodites eouzani
+name: Eretmapodites ferrarai
+name: Eretmapodites forcipulatus
+name: Eretmapodites germaini
+name: Eretmapodites gilletti
+name: Eretmapodites grahami
+name: Eretmapodites grenieri
+name: Eretmapodites haddowi
+name: Eretmapodites hamoni
+name: Eretmapodites harperi
+name: Eretmapodites hightoni
+name: Eretmapodites inornatus
+name: Eretmapodites intermedius
+name: Eretmapodites jani
+name: Eretmapodites lacani
+name: Eretmapodites leucopous
+name: Eretmapodites mahaffyi
+name: Eretmapodites marcellei
+name: Eretmapodites mattinglyi
+name: Eretmapodites melanopous
+name: Eretmapodites mortiauxi
+name: Eretmapodites oedipodeios
+name: Eretmapodites parvipluma
+name: Eretmapodites pauliani
+name: Eretmapodites penicillatus
+name: Eretmapodites plioleucus
+name: Eretmapodites brevis
+name: Eretmapodites productus
+name: Eretmapodites quinquevittatus
+name: Eretmapodites ravissei
+name: Eretmapodites rickenbachi
+name: Eretmapodites salauni
+name: Eretmapodites semisimplicipes
+name: Eretmapodites silvestris
+name: Eretmapodites conchobius
+name: Eretmapodites subsimplicipes
+name: Eretmapodites tendeiroi
+name: Eretmapodites tonsus
+name: Eretmapodites vansomereni
+name: Eretmapodites wansoni
+name: Eretmapodites douceti
+name: Cellia
+name: Anopheles aconitus
+name: Anopheles amictus
+name: Anopheles annularis
+name: Anopheles annulatus
+name: Anopheles annulipes
+name: Anopheles apoci
+name: Anopheles arabiensis
+name: Anopheles ardensis
+name: Anopheles argenteolobatus
+name: Anopheles aruni
+name: Anopheles aurirostris
+name: Anopheles austenii
+name: Anopheles azaniae
+name: Anopheles azevedoi
+name: Anopheles baisasi
+name: Anopheles balabacensis
+name: Anopheles barberellus
+name: Anopheles berghei
+name: Anopheles brohieri
+name: Anopheles brucei
+name: Anopheles brumpti
+name: Anopheles brunnipes
+name: Anopheles buxtoni
+name: Anopheles bwambae
+name: Anopheles cameroni
+name: Anopheles carnevalei
+name: Anopheles caroni
+name: Anopheles carteri
+name: Anopheles christyi
+name: Anopheles cinctus
+name: Anopheles cinereus
+name: Anopheles hispaniola
+name: Anopheles clowi
+name: Anopheles comorensis
+name: Anopheles confusus
+name: Anopheles cristatus
+name: Anopheles cristipalpis
+name: Anopheles culicifacies
+name: Anopheles cydippis
+name: Anopheles dancalicus
+name: Anopheles daudi
+name: Anopheles deemingi
+name: genus Chagasia
+name: Chagasia bathana
+name: Anopheles demeilloni
+name: Anopheles dirus
+name: Anopheles dispar
+name: Anopheles distinctus
+name: Anopheles domicola
+name: Chagasia bonneae
+name: Anopheles dravidicus
+name: Anopheles dthali
+name: Anopheles dualaensis
+name: Anopheles dureni
+name: Anopheles elegans
+name: Anopheles erepens
+name: Chagasia fajardi
+name: Anopheles erythraeus
+name: Anopheles ethiopicus
+name: Anopheles faini
+name: Anopheles farauti
+name: Chagasia rozeboomi
+name: Anopheles filipinae
+name: Anopheles flavicosta
+name: Anopheles flavirostris
+name: genus Deinocerites
+name: Deinocerites atlanticus
+name: Deinocerites barretoi
+name: Deinocerites belkini
+name: Deinocerites cancer
+name: Deinocerites colombianus
+name: Deinocerites costaricensis
+name: Deinocerites curiche
+name: Deinocerites dyari
+name: Deinocerites epitedeus
+name: Deinocerites howardi
+name: Deinocerites magnus
+name: Deinocerites mathesoni
+name: Deinocerites mcdonaldi
+name: Deinocerites melanophylum
+name: Deinocerites nicoyae
+name: Deinocerites panamensis
+name: Deinocerites pseudes
+name: Deinocerites spanius
+name: genus Galindomyia
+name: Galindomyia leei
+name: genus Ficalbia
+name: Ficalbia circumtestacea
+name: Ficalbia jacksoni
+name: Ficalbia ludlowae
+name: Ficalbia malfeyti
+name: Ficalbia minima
+name: Ficalbia nigra
+name: Ficalbia uniformis
+name: genus Coquillettidia
+name: Austromansonia
+name: Coquillettidia tenuipalpis
+name: Coquillettidia
+name: Coquillettidia annettii
+name: Coquillettidia aurata
+name: Coquillettidia aurea
+name: Coquillettidia aureosquammata
+name: Coquillettidia aurites
+name: Coquillettidia buxtoni
+name: Coquillettidia chrysosoma
+name: Coquillettidia crassipes
+name: Coquillettidia cristata
+name: Coquillettidia fijiensis
+name: Coquillettidia flavocincta
+name: Coquillettidia fraseri
+name: Coquillettidia fuscopennata
+name: Coquillettidia fuscopteron
+name: Coquillettidia giblini
+name: Coquillettidia grandidieri
+name: Coquillettidia hodgkini
+name: Coquillettidia iracunda
+name: Coquillettidia karandalaensis
+name: Coquillettidia linealis
+name: Coquillettidia lutea
+name: Coquillettidia maculipennis
+name: Coquillettidia memorans
+name: Coquillettidia metallica
+name: Coquillettidia microannulata
+name: Coquillettidia nigritarsis
+name: Coquillettidia nigrithorax
+name: Coquillettidia nigrochracea
+name: Coquillettidia nigrosignata
+name: Coquillettidia novochracea
+name: Coquillettidia ochracea
+name: Coquillettidia perturbans
+name: Coquillettidia pseudoconopas
+name: Coquillettidia richiardii
+name: Coquillettidia rochei
+name: Coquillettidia samoaensis
+name: Coquillettidia schoutedeni
+name: Coquillettidia vanoyei
+name: Coquillettidia variegata
+name: Coquillettidia versicolor
+name: Coquillettidia voltaensis
+name: Coquillettidia wahlbergi
+name: Coquillettidia xanthogaster
+name: Rhynchotaenia
+name: Coquillettidia albicosta
+name: Coquillettidia albifera
+name: Coquillettidia arribalzagae
+name: Coquillettidia chrysonotum
+name: Coquillettidia fasciolata
+name: Coquillettidia hermanoi
+name: Coquillettidia juxtamansonia
+name: Coquillettidia lynchi
+name: Coquillettidia neivai
+name: Coquillettidia nigricans
+name: Coquillettidia nitens
+name: Coquillettidia shannoni
+name: Coquillettidia venezuelensis
+name: genus Culiseta
+name: Allotheobaldia
+name: Culiseta longiareolata
+name: Austrotheobaldia
+name: Culiseta littleri
+name: Climacura
+name: Culiseta antipodea
+name: Culiseta marchettei
+name: Culiseta melanura
+name: Culiseta novaezealandiae
+name: Culiseta tonnoiri
+name: Culicella
+name: Culiseta atra
+name: Culiseta drummondi
+name: Culiseta fumipennis
+name: Culiseta inconspicua
+name: Culiseta litorea
+name: Culiseta minnesotae
+name: Culiseta morsitans
+name: Culiseta nipponica
+name: Culiseta otwayensis
+name: Culiseta silvestris
+name: Culiseta ochroptera
+name: Culiseta amurensis
+name: Culiseta sylvanensis
+name: Culiseta victoriensis
+name: Culiseta weindorferi
+name: Culiseta
+name: Culiseta alaskaensis
+name: Culiseta indica
+name: Culiseta annulata
+name: Culiseta atlantica
+name: Culiseta bergrothi
+name: Culiseta glaphyroptera
+name: Culiseta impatiens
+name: Culiseta incidens
+name: Culiseta inornata
+name: Culiseta megaloba
+name: Culiseta niveitaeniata
+name: Culiseta particeps
+name: Culiseta subochrea
+name: Neotheobaldia
+name: Culiseta frenchii
+name: Culiseta atritarsalis
+name: Culiseta hilli
+name: Theomyia
+name: Culiseta fraseri
+name: Culiseta arenivaga
+name: genus Culex
+name: Acalleomyia
+name: Culex obscurus
+name: Acallyntrum
+name: Culex axillicola
+name: Culex bougainvillensis
+name: Culex belkini
+name: Culex bicki
+name: Culex binigrolineatus
+name: Culex pallidiceps
+name: Culex perkinsi
+name: Aedinus
+name: Culex accelerans
+name: Culex amazonensis
+name: Culex clastrieri
+name: Culex guyanensis
+name: Afroculex
+name: Culex lineata
+name: Allimanta
+name: Culex tramazayguesi
+name: Anoedioporpa
+name: Culex bamborum
+name: Culex belemensis
+name: Culex browni
+name: Culex canaanensis
+name: Culex chaguanco
+name: Culex conservator
+name: Culex corrigani
+name: Culex damascenoi
+name: Culex luteopleurus
+name: Culex menui
+name: Culex originator
+name: Culex paganus
+name: Culex quasioriginator
+name: Barraudius
+name: Culex modestus
+name: Culex inatomii
+name: Culex pusillus
+name: Culex richeti
+name: Belkinomyia
+name: Culex eldridgei
+name: Carrollia
+name: Culex anduzei
+name: Culex antunesi
+name: Culex babahoyensis
+name: Culex bihaicola
+name: Culex bonnei
+name: Culex cerqueirai
+name: Culex guerreroi
+name: Culex infoliatus
+name: Culex iridescens
+name: Culex kompi
+name: Culex metempsytus
+name: Culex rausseoi
+name: Culex secundus
+name: Culex soperi
+name: Culex urichii
+name: Culex wannonii
+name: Culex wilsoni
+name: Culex
+name: Culex abnormalis
+name: Culex acharistus
+name: Phenacomyia
+name: Culex airozai
+name: Culex alani
+name: Culex albinervis
+name: Culex alienus
+name: Culex alis
+name: Culex ameliae
+name: Culex andersoni
+name: Culex bwambanus
+name: Culex abyssinicus
+name: Culex annulioris
+name: Culex consimilis
+name: Culex annulirostris
+name: Culex marianae
+name: Culex annuliventris
+name: Culex annulus
+name: Culex antennatus
+name: Culex apicinus
+name: Culex aquarius
+name: Culex archegus
+name: Culex argenteopunctatus
+name: Culex kingii
+name: Culex articularis
+name: Culex asteliae
+name: Culex astridianus
+name: Culex ataeniatus
+name: Culex atriceps
+name: Culex aurantapex
+name: Culex jinjaensis
+name: Culex ellinorae
+name: Culex australicus
+name: Culex bahamensis
+name: Culex banksensis
+name: Culex barraudi
+name: Culex beta
+name: Culex bickleyi
+name: Culex bidens
+name: Culex bihamatus
+name: Oculeomyia
+name: Culex bitaeniorhynchus
+name: Sirivanakarnius
+name: Culex boninensis
+name: Culex bonneae
+name: Culex brami
+name: Culex brethesi
+name: Culex brevispinosus
+name: Culex brumpti
+name: Culex bukavuensis
+name: Culex calurus
+name: Culex camposi
+name: Culex carcinoxenus
+name: Culex carleti
+name: Culex castelli
+name: Culex castroi
+name: Culex chidesteri
+name: Culex chitae
+name: Culex chorleyi
+name: Culex corniger
+name: Culex cornutus
+name: Culex coronator
+name: Culex covagarciai
+name: Culex crinicauda
+name: Culex cuyanus
+name: Culex decens
+name: Culex declarator
+name: Culex delys
+name: Culex demeilloni
+name: Culex diengensis
+name: Culex diplophyllum
+name: Culex dohenyi
+name: Culex dolosus
+name: Culex duplicator
+name: Culex duttoni
+name: Culex eduardoi
+name: Culex edwardsi
+name: Culex epidesmus
+name: Culex erythrothorax
+name: Culex fasyi
+name: Culex fernandezi
+name: Culex foliaceus
+name: Culex fuscocephala
+name: Culex gameti
+name: Culex gelidus
+name: Culex geminus
+name: Culex giganteus
+name: Culex globocoxitus
+name: Culex grahamii
+name: Culex farakoensis
+name: Culex guayasi
+name: Culex guiarti
+name: Culex sudanicus
+name: Culex guizhouensis
+name: Culex habilitator
+name: Culex hancocki
+name: Culex hepperi
+name: Culex hopkinsi
+name: Culex huangae
+name: Culex hutchinsoni
+name: Culex incognitus
+name: Culex inflictus
+name: Culex infula
+name: Culex ingrami
+name: Culex interfor
+name: Culex interrogator
+name: Culex invidiosus
+name: Culex vexillatus
+name: Culex vicinalis
+name: Culex iyengari
+name: Culex jacksoni
+name: Culex janitor
+name: Culex kesseli
+name: Culex kinabaluensis
+name: Culex lactator
+name: Culex lahillei
+name: Culex laticinctus
+name: Culex laticlasper
+name: Culex levicastilloi
+name: Culex litoralis
+name: Culex litwakae
+name: Culex longicornis
+name: Culex luzonensis
+name: Culex lygrus
+name: Culex maracayensis
+name: Culex marquesensis
+name: Culex mattinglyi
+name: Culex mauesensis
+name: Culex maxi
+name: Culex mimeticus
+name: Culex mimuloides
+name: Culex mimulus
+name: Culex miraculosus
+name: Culex mirificus
+name: Culex mollis
+name: Culex murrelli
+name: Culex musarum
+name: Culex nakuruensis
+name: Culex neavei
+name: Culex nigripalpus
+name: Culex nilgiricus
+name: Culex ninagongoensis
+name: Culex omani
+name: Culex orientalis
+name: Culex ornatothoracis
+name: Culex oswaldoi
+name: Culex ousqua
+name: Culex pacificus
+name: Culex palpalis
+name: Culex paramaxi
+name: Culex perfidiosus
+name: Culex perexiguus
+name: Culex perfuscus
+name: Culex perplexus
+name: Culex pervigilans
+name: Culex philipi
+name: Culex philippinensis
+name: Culex pinarocampa
+name: Culex pipiens
+name: Culex pallens
+name: Culex poicilipes
+name: Culex propinquus
+name: Culex prosecutor
+name: Culex pruina
+name: Culex eschirasi
+name: Culex pseudojanthinosoma
+name: Culex pseudopruina
+name: Culex pseudosinensis
+name: Culex pseudostigmatosoma
+name: Culex pseudovishnui
+name: Culex quasiguiarti
+name: Culex quinquefasciatus
+name: Culex quitensis
+name: Culex renatoi
+name: Culex restuans
+name: Culex riojanus
+name: Culex roseni
+name: Culex rotoruae
+name: Culex salinarius
+name: Culex saltanensis
+name: Culex samoaensis
+name: Culex schwetzi
+name: Culex scimitar
+name: Culex scottii
+name: Culex secutor
+name: Culex selangorensis
+name: Culex seldeslachtsi
+name: Culex shoae
+name: Culex ugandae
+name: Culex simpsoni
+name: Culex sinaiticus
+name: Culex sinensis
+name: Culex sitiens
+name: Culex solitarius
+name: Culex sphinx
+name: Culex spinosus
+name: Culex squamosus
+name: Culex starckeae
+name: Culex stenolepis
+name: Culex stigmatosoma
+name: Culex striatipes
+name: Culex joanae
+name: Culex surinamensis
+name: Culex tamsi
+name: Culex tarsalis
+name: Culex tatoi
+name: Culex telesilla
+name: Culex tenagius
+name: Culex terzii
+name: Culex thalassius
+name: Culex theileri
+name: Culex thriambus
+name: Culex toroensis
+name: Culex macrophyllus
+name: Culex torrentium
+name: Culex trifilatus
+name: Culex aenescens
+name: Culex trifoliatus
+name: Culex tritaeniorhynchus
+name: Culex tsengi
+name: Culex umbripes
+name: Culex univittatus
+name: Culex usquatissimus
+name: Culex usquatus
+name: Culex vagans
+name: Culex vansomereni
+name: Culex draconis
+name: Culex elgonicus
+name: Culex ventrilloni
+name: Culex verutus
+name: Culex vicinus
+name: Culex vishnui
+name: Culex watti
+name: Culex weschei
+name: Culex gediensis
+name: Culex whitei
+name: Culex whitmorei
+name: Culex whittingtoni
+name: Culex yojoae
+name: Culex zombaensis
+name: Culiciomyia
+name: Culex azurini
+name: Culex bahri
+name: Culex bailyi
+name: Culex barrinus
+name: Culex cambournaci
+name: Culex ceramensis
+name: Culex cinerellus
+name: Culex cinereus
+name: Culex delfinadoae
+name: Culex dispectus
+name: Culex eouzani
+name: Culex fragilis
+name: Culex furlongi
+name: Culex fuscicinctus
+name: Culex gilliesi
+name: Culex grenieri
+name: Culex hainanensis
+name: Culex harleyi
+name: Culex harrisoni
+name: Culex javanensis
+name: Culex kyotoensis
+name: Culex lampangensis
+name: Culex liberiensis
+name: Culex macfiei
+name: Culex maplei
+name: Culex milloti
+name: Culex mongiro
+name: Culex muspratti
+name: Culex nailoni
+name: Culex nebulosus
+name: Culex pseudocinereus
+name: Culex nigropunctatus
+name: Culex pallidothorax
+name: Culex pandani
+name: Culex papuensis
+name: Culex pullus
+name: Culex rajah
+name: Culex ramakrishnii
+name: Culex ramalingami
+name: Culex ruthae
+name: Culex ryukyensis
+name: Culex sasai
+name: Culex scanloni
+name: Culex semibrunneus
+name: Culex shebbearei
+name: Culex spathifurca
+name: Culex spiculostylus
+name: Culex spiculothorax
+name: Culex subaequalis
+name: Culex termi
+name: Culex thurmanorum
+name: Culex tricuspis
+name: Culex viridiventer
+name: Culex yaoi
+name: Eumelanomyia
+name: Culex acrostichalis
+name: Culex adami
+name: Culex adersianus
+name: Culex albertianus
+name: Culex albiventris
+name: Culex amaniensis
+name: Culex andreanus
+name: Culex baisasi
+name: Culex bokorensis
+name: Culex brenguesi
+name: Culex brevipalpis
+name: Culex calabarensis
+name: Culex campilunati
+name: Culex castor
+name: Culex castrensis
+name: Culex cataractarum
+name: Culex chauveti
+name: Culex femineus
+name: Culex fimbriforceps
+name: Culex foliatus
+name: Culex germaini
+name: Culex galliardi
+name: Culex garioui
+name: Culex gudouensis
+name: Culex hackeri
+name: Culex hamoni
+name: Culex hayashii
+name: Culex helenae
+name: Culex hinglungensis
+name: Culex horridus
+name: Culex rageaui
+name: Culex inconspicuosus
+name: Culex insignis
+name: Culex iphis
+name: Culex jefferyi
+name: Culex kanyamwerima
+name: Culex khazani
+name: Culex kilara
+name: Culex kingianus
+name: Culex kiriensis
+name: Culex laplantei
+name: Culex latifoliatus
+name: Culex laureli
+name: Culex macrostylus
+name: Culex malayensis
+name: Culex malayi
+name: Culex manusensis
+name: Culex mijanae
+name: Culex mohani
+name: Culex mundulus
+name: Culex nyangae
+name: Culex okinawae
+name: Culex oresbius
+name: Culex orstom
+name: Culex otachati
+name: Culex phangngae
+name: Culex pluvialis
+name: Culex pseudoandreanus
+name: Culex quintetti
+name: Culex richei
+name: Culex richardgarciai
+name: Culex rima
+name: Culex rubinotus
+name: Culex selai
+name: Culex simplicicornis
+name: Culex simpliciforceps
+name: Culex stellatus
+name: Culex subrima
+name: Culex sunyaniensis
+name: Culex tauffliebi
+name: Culex tenuipalpis
+name: Culex uncinatus
+name: Culex vattieri
+name: Culex vinckei
+name: Culex wansoni
+name: Culex wigglesworthi
+name: Culex yeageri
+name: Kitzmilleria
+name: Culex moucheti
+name: Lasiosiphon
+name: Culex adairi
+name: Lophoceraomyia
+name: Culex aculeatus
+name: Culex acutipalus
+name: Culex aestivus
+name: Culex alorensis
+name: Culex alphus
+name: Culex atracus
+name: Culex bandoengensis
+name: Culex becki
+name: Culex bengalensis
+name: Culex bergi
+name: Culex bicornutus
+name: Culex bolii
+name: Culex brevipalpus
+name: Culex buxtoni
+name: Culex carolinensis
+name: Culex castaneus
+name: Culex christiani
+name: Culex cinctellus
+name: Culex coerulescens
+name: Culex collessi
+name: Culex cottlei
+name: Culex crassicomus
+name: Culex crowei
+name: Culex cubiculi
+name: Culex cubitatus
+name: Culex curtipalpis
+name: Culex cylindricus
+name: Culex demissus
+name: Culex digoelensis
+name: Culex durhami
+name: Culex eminentia
+name: Culex eukrines
+name: Culex flavicornis
+name: Culex fraudatrix
+name: Culex fulleri
+name: Culex gagnei
+name: Culex ganapathi
+name: Culex gibbulus
+name: Culex gossi
+name: Culex gracicornis
+name: Culex gressitti
+name: Culex harpagophallus
+name: Culex hewitti
+name: Culex hilli
+name: Culex hirtipalpis
+name: Culex hurlbuti
+name: Culex imposter
+name: Culex incomptus
+name: Culex inculus
+name: Culex infantulus
+name: Culex insequens
+name: Culex insularis
+name: Culex jenseni
+name: Culex josephineae
+name: Culex kaviengensis
+name: Culex kowiroensis
+name: Culex kuhnsi
+name: Culex kusaiensis
+name: Culex laffooni
+name: Culex lairdi
+name: Culex lakei
+name: Culex lasiopalpis
+name: Culex lavatae
+name: Culex leei
+name: Culex lucaris
+name: Culex macdonaldi
+name: Culex mammilifer
+name: Culex marksae
+name: Culex minjensis
+name: Culex minor
+name: Culex minutissimus
+name: Culex muruae
+name: Culex navalis
+name: Culex niger
+name: Culex orbostiensis
+name: Culex oweni
+name: Culex pairoji
+name: Culex paraculeatus
+name: Culex perryi
+name: Culex petersi
+name: Culex peytoni
+name: Culex pholeter
+name: Culex pilifemoralis
+name: Culex pseudornatus
+name: Culex pseudorubithoracis
+name: Culex quadripalpis
+name: Culex raghavanii
+name: Culex rajaneeae
+name: Culex reidi
+name: Culex rubithoracis
+name: Culex sangenluoensis
+name: Culex schilfgaardei
+name: Culex sedlacekae
+name: Culex seniori
+name: Culex shanahani
+name: Culex singuawaensis
+name: Culex solomonis
+name: Culex spiculosus
+name: Culex steffani
+name: Culex submarginalis
+name: Culex sumatranus
+name: Culex szemaoensis
+name: Culex traubi
+name: Culex tuberis
+name: Culex uniformis
+name: Culex variatus
+name: Culex versabilis
+name: Culex walukasi
+name: Culex wamanguae
+name: Culex wardi
+name: Culex whartoni
+name: Culex wilfredi
+name: Culex winkleri
+name: genus Lutzia
+name: Lutzia
+name: Lutzia allostigma
+name: Lutzia bigoti
+name: Metalutzia
+name: Lutzia fuscanus
+name: Lutzia halifaxii
+name: Lutzia vorax
+name: Lutzia tigripes
+name: Maillotia
+name: Culex arbieeni
+name: Culex avianus
+name: Culex deserticola
+name: Culex hortensis
+name: Culex peringueyi
+name: Culex quettensis
+name: Culex salisburiensis
+name: Culex capensis
+name: Culex coursi
+name: Culex seyrigi
+name: Culex subsalisburiensis
+name: Melanoconion
+name: Culex abominator
+name: Culex abonnenci
+name: Culex adamesi
+name: Culex albinensis
+name: Culex alcocki
+name: Culex aliciae
+name: Culex alogistus
+name: Culex amitis
+name: Culex andricus
+name: Culex anips
+name: Culex anoplicitus
+name: Culex arboricola
+name: Culex atratus
+name: Culex aureonotatus
+name: Culex bahiensis
+name: Culex bastagarius
+name: Culex batesi
+name: Culex bejaranoi
+name: Culex bequaerti
+name: Culex bifoliatus
+name: Culex carcinophilus
+name: Culex caribeanus
+name: Culex caudatus
+name: Culex caudelli
+name: Culex cedecei
+name: Culex changuinolae
+name: Culex clarki
+name: Culex comatus
+name: Culex commevynensis
+name: Culex comminutor
+name: Culex confundior
+name: Culex conspirator
+name: Culex contei
+name: Culex coppenamensis
+name: Culex corentynensis
+name: Culex creole
+name: Culex cristovaoi
+name: Culex crybda
+name: Culex delpontei
+name: Culex distinguendus
+name: Culex dolichophyllus
+name: Culex dunni
+name: Culex dureti
+name: Culex dyius
+name: Culex eastor
+name: Culex educator
+name: Culex egcymon
+name: Culex elephas
+name: Culex elevator
+name: Culex ensiformis
+name: Culex epanatasis
+name: Culex equinoxialis
+name: Culex ernanii
+name: Culex ernsti
+name: Culex erraticus
+name: Culex evansae
+name: Culex fairchildi
+name: Culex faurani
+name: Culex ferreri
+name: Culex flabellifer
+name: Culex foliafer
+name: Culex galindoi
+name: Culex galvaoi
+name: Culex garcesi
+name: Culex glyptosalpinx
+name: Culex guedesi
+name: Culex herrerai
+name: Culex idottus
+name: Culex inadmirabilis
+name: Anopheles gambiae molecular form
+name: Culex inhibitator
+name: Culex innovator
+name: Culex intonsus
+name: Culex intrincatus
+name: Culex invocator
+name: Culex iolambdis
+name: Culex isabelae
+name: Culex jocasta
+name: Culex johnnyi
+name: Culex johnsoni
+name: Culex jubifer
+name: Culex keenani
+name: Culex kummi
+name: Culex lacertosus
+name: Culex limacifer
+name: Culex lopesi
+name: Culex lucifugus
+name: Culex madininensis
+name: Culex martinezi
+name: Culex maxinocca
+name: Culex mesodenticulatus
+name: Culex milwardi
+name: Culex misionensis
+name: Culex mistura
+name: Culex mulrennani
+name: Culex mutator
+name: Culex nicaroensis
+name: Culex nicceriensis
+name: Culex ocossa
+name: Culex oedipus
+name: Culex olimpioi
+name: Culex orfilai
+name: Culex palaciosi
+name: Culex panocossa
+name: Culex paracrybda
+name: Culex patientiae
+name: Culex pavlovskyi
+name: Culex peccator
+name: Culex pedroi
+name: Culex penai
+name: Culex pereyrai
+name: Culex phlabistus
+name: Culex phlogistus
+name: Culex pifanoi
+name: Culex pilosus
+name: Culex plectoporpe
+name: Culex portesi
+name: Culex productus
+name: Culex psatharus
+name: Culex putumayensis
+name: Culex quadrifoliatus
+name: Culex quasihibridus
+name: Culex rabanicola
+name: Culex rabelloi
+name: Culex rachoui
+name: Culex ribeirensis
+name: Culex ronderosi
+name: Culex rooti
+name: Culex rorotaensis
+name: Culex saramaccensis
+name: Culex sardinerae
+name: Culex serratimarge
+name: Culex silvai
+name: Culex simulator
+name: Culex spathulatus
+name: Culex spissipes
+name: Culex sursumptor
+name: Culex taeniopus
+name: Culex tecmarsis
+name: Culex terebor
+name: Culex theobaldi
+name: Culex tournieri
+name: Culex trifidus
+name: Culex trigeminatus
+name: Culex trilobulatus
+name: Culex trisetosus
+name: Culex unicornis
+name: Culex vexillifer
+name: Culex vidali
+name: Culex vomerifer
+name: Culex wepsterae
+name: Culex ybarmis
+name: Culex zeteki
+name: Micraedes
+name: Culex antillummagnorum
+name: Culex arawak
+name: Culex bisulcatus
+name: Culex erethyzonfer
+name: Culex jalisco
+name: Culex sandrae
+name: Culex schicki
+name: Microculex
+name: Culex albipes
+name: Culex aphylactus
+name: Culex aureus
+name: Culex azymus
+name: Culex carioca
+name: Culex chryselatus
+name: Culex consolator
+name: Culex daumastocampa
+name: Culex davisi
+name: Culex dubitans
+name: Culex elongatus
+name: Culex gairus
+name: Culex gaudeator
+name: Culex hedys
+name: Culex imitator
+name: Culex retrosus
+name: Culex inimitabilis
+name: Culex fuscatus
+name: Culex intermedius
+name: Culex jenningsi
+name: Culex kukenan
+name: Culex lanei
+name: Culex microphyllus
+name: Culex neglectus
+name: Culex pleuristriatus
+name: Culex pulidoi
+name: Culex reducens
+name: Culex reginae
+name: Culex rejector
+name: Culex restrictor
+name: Culex shopei
+name: Culex siphanulatus
+name: Culex stonei
+name: Culex sutili
+name: Culex worontzowi
+name: Culex xenophobus
+name: Neoculex
+name: Culex apicalis
+name: Culex arizonensis
+name: Culex boharti
+name: Culex chaetoventralis
+name: Culex cheesmanae
+name: Culex crassistylus
+name: Culex derivator
+name: Culex douglasi
+name: Culex dumbletoni
+name: Culex fergusoni
+name: Culex gamma
+name: Culex gaufini
+name: Culex impudicus
+name: Culex judaicus
+name: Culex latus
+name: Culex leonardi
+name: Culex martinii
+name: Culex millironi
+name: Culex pedicellus
+name: Culex postspiraculosus
+name: Culex pseudomelanoconia
+name: Culex reevesi
+name: Culex rubensis
+name: Culex territans
+name: Tinolestes
+name: Culex breviculus
+name: Culex cauchensis
+name: Culex latisquama
+name: Culex cairnsensis
+name: Culex flochi
+name: Culex inornata
+name: Culex nigrimacula
+name: Culex ocellatus
+name: Culex punctiscapularis
+name: Culex romeroi
+name: Anopheles gambiae molecular form M
+name: genus Heamogogus
+name: Conopostegus
+name: Haemagogus clarki
+name: Haemagogus leucocelaenus
+name: Haemagogus leucophoebus
+name: Haemagogus leucotaeniatus
+name: Haemagogus
+name: Haemagogus acutisentis
+name: Haemagogus aeritinctus
+name: Haemagogus albomaculatus
+name: Haemagogus anastasionis
+name: Haemagogus andinus
+name: Haemagogus argyromeris
+name: Haemagogus baresi
+name: Haemagogus boshelli
+name: Haemagogus capricornii
+name: Haemagogus celeste
+name: Haemagogus chalcospilans
+name: Haemagogus chrysochlorus
+name: Haemagogus equinus
+name: Haemagogus iridicolor
+name: Haemagogus janthinomys
+name: Haemagogus lucifer
+name: Haemagogus mesodentatus
+name: Haemagogus nebulosus
+name: Haemagogus panarchys
+name: Haemagogus regalis
+name: Haemagogus soperi
+name: Haemagogus spegazzinii
+name: Haemagogus splendens
+name: Haemagogus tropicalis
+name: genus Hodgesia
+name: Hodgesia bailyi
+name: Hodgesia cairnsensis
+name: Hodgesia cyptopous
+name: Hodgesia lampangensis
+name: Hodgesia malayi
+name: Hodgesia nigeriae
+name: Hodgesia psectropus
+name: Hodgesia quasisanguinae
+name: Hodgesia sanguinae
+name: Hodgesia solomonis
+name: Hodgesia spoliata
+name: genus Heizmannia
+name: Heizmannia
+name: Heizmannia aurea
+name: Heizmannia aureochaeta
+name: Heizmannia chandi
+name: Heizmannia chengi
+name: Heizmannia communis
+name: Heizmannia complex
+name: Heizmannia covelli
+name: Heizmannia demeilloni
+name: Heizmannia funerea
+name: Heizmannia greenii
+name: Heizmannia heterospina
+name: Heizmannia himalayensis
+name: Heizmannia indica
+name: Heizmannia kana
+name: Heizmannia kanhsienensis
+name: Heizmannia lii
+name: Heizmannia macdonaldi
+name: Heizmannia mattinglyi
+name: Heizmannia menglianensis
+name: Heizmannia persimilis
+name: Heizmannia propinqua
+name: Heizmannia proxima
+name: Heizmannia reidi
+name: Heizmannia scanloni
+name: Heizmannia scintillans
+name: Heizmannia taiwanensis
+name: Heizmannia viridis
+name: Mattinglyia
+name: Heizmannia achaetae
+name: Heizmannia catesi
+name: Heizmannia discrepans
+name: Heizmannia occidentayunnana
+name: Heizmannia thelmae
+name: Heizmannia tripunctata
+name: genus Isostomyia
+name: Isostomyia espini
+name: Isostomyia lunata
+name: Isostomyia paranensis
+name: Isostomyia perturbans
+name: Isostomyia shropshirei
+name: Mimomyia elegans
+name: Mimomyia luzonensis
+name: Mimomyia mediolineata
+name: Mimomyia solomonis
+name: Mimomyia xanthozona
+name: Ingramia
+name: Mimomyia aurata
+name: Mimomyia bernardi
+name: Mimomyia beytouti
+name: Mimomyia brygooi
+name: Mimomyia collessi
+name: Mimomyia deguzmanae
+name: Mimomyia fusca
+name: Mimomyia grjebinei
+name: Mimomyia jeansottei
+name: Mimomyia kiriromi
+name: Mimomyia levicastilloi
+name: Mimomyia longicornis
+name: Mimomyia marksae
+name: Mimomyia martinei
+name: Mimomyia mattinglyi
+name: Mimomyia milloti
+name: Mimomyia ramalai
+name: Mimomyia roubaudi
+name: Mimomyia spinosa
+name: Mimomyia stellata
+name: Mimomyia vansomerenae
+name: Mimomyia
+name: Mimomyia aurea
+name: Mimomyia chamberlaini
+name: Mimomyia metallica
+name: Mimomyia clavipalpus
+name: Mimomyia femorata
+name: Mimomyia flavens
+name: Mimomyia flavopicta
+name: Mimomyia gurneyi
+name: Mimomyia hispida
+name: Mimomyia hybrida
+name: Mimomyia intermedia
+name: Mimomyia lacustris
+name: Mimomyia mimomyiaformis
+name: Mimomyia modesta
+name: Mimomyia pallida
+name: Mimomyia parenti
+name: Mimomyia perplexens
+name: Mimomyia plumosa
+name: Mimomyia splendens
+name: Nomen Nudem
+name: Wyeomyia grjebinei
+name: Malaya marceli
+name: Malaya moucheti
+name: Malaya solomonis
+name: Malaya splendens
+name: Malaya taeniarostris
+name: Malaya trichorostris
+name: Anopheles franciscoi
+name: Anopheles hodgkini
+name: Anopheles interruptus
+name: Anopheles koreicus
+name: Anopheles lewisi
+name: Anopheles manalangi
+name: Anopheles nigerrimus
+name: Anopheles nilgiricus
+name: Anopheles nitidus
+name: Anopheles noniae
+name: Anopheles obscurus
+name: Anopheles occidentalis
+name: Anopheles okuensis
+name: Anopheles omorii
+name: Anopheles palmatus
+name: Anopheles paludis
+name: Anopheles parapunctipennis
+name: Anopheles peditaeniatus
+name: Anopheles perplexens
+name: Anopheles peryassui
+name: Anopheles petragnani
+name: Anopheles peytoni
+name: Anopheles pilinotum
+name: Anopheles pinjaurensis
+name: Anopheles plumbeus
+name: Anopheles pollicaris
+name: Anopheles powderi
+name: Anopheles powelli
+name: Anopheles pseudobarbirostris
+name: Anopheles pseudomaculipes
+name: Anopheles pseudopictus
+name: Anopheles pseudopunctipennis
+name: Anopheles levicastilloi
+name: Anopheles rivadeneirai
+name: Anopheles patersoni
+name: Anopheles bifoliata
+name: Anopheles noei
+name: Anopheles pseudosinensis
+name: Anopheles pseudostigmaticus
+name: Anopheles pullus
+name: Anopheles punctimacula
+name: Anopheles punctipennis
+name: Anopheles pursati
+name: Anopheles quadrimaculatus
+name: Anopheles rachoui
+name: Anopheles reidi
+name: Anopheles roperi
+name: Anopheles sacharovi
+name: Anopheles samarensis
+name: Anopheles saperoi
+name: Anopheles ohamai
+name: Anopheles separatus
+name: Anopheles shannoni
+name: Anopheles similissimus
+name: Anopheles sinensis
+name: Anopheles sineroides
+name: Anopheles sintoni
+name: Anopheles sintonoides
+name: Anopheles smaragdinus
+name: Anopheles stigmaticus
+name: Anopheles stricklandi
+name: Anopheles symesi
+name: Anopheles tasmaniensis
+name: Anopheles tenebrosus
+name: Anopheles tibiamaculatus
+name: Anopheles tigertti
+name: Anopheles umbrosus
+name: Anopheles vanus
+name: Anopheles veruslanei
+name: Anopheles vestitipennis
+name: Anopheles vietnamensis
+name: Anopheles walkeri
+name: Anopheles wellingtonianus
+name: Anopheles whartoni
+name: Anopheles xiaokuanus
+name: Anopheles xelajuensis
+name: Anopheles ziemanni
+name: Anopheles fluviatilis
+name: Anopheles fontinalis
+name: Anopheles freetownensis
+name: Anopheles funestus sensu lato
+name: Anopheles fuscivenosus
+name: Anopheles gambiae sensu lato
+name: Anopheles garnhami
+name: Anopheles gibbinsi
+name: Anopheles grassei
+name: Anopheles greeni
+name: Anopheles grenieri
+name: Anopheles griveaudi
+name: Anopheles hackeri
+name: Anopheles hamoni
+name: Anopheles hancocki
+name: Anopheles hargreavesi
+name: Anopheles harperi
+name: Anopheles hervyi
+name: Anopheles hilli
+name: Anopheles hughi
+name: Anopheles incognitus
+name: Anopheles indefinitus
+name: Anopheles introlatus
+name: Anopheles jamesii
+name: Anopheles jebudensis
+name: Anopheles jeyporiensis
+name: Anopheles karwari
+name: Anopheles keniensis
+name: Anopheles kingi
+name: Anopheles kochi
+name: Anopheles kolambuganensis
+name: Anopheles koliensis
+name: Anopheles kosiensis
+name: Anopheles lacani
+name: Anopheles leesoni
+name: Anopheles letabensis
+name: Anopheles leucosphyrus
+name: Anopheles limosus
+name: Anopheles listeri
+name: Anopheles litoralis
+name: Anopheles lloreti
+name: Anopheles longipalpis
+name: Anopheles longirostris
+name: Anopheles lounibosi
+name: Anopheles lovettae
+name: Anopheles ludlowae
+name: Anopheles torakala
+name: Anopheles lungae
+name: Anopheles macarthuri
+name: Anopheles machardyi
+name: Anopheles maculatus
+name: Anopheles maculipalpis
+name: Anopheles majidi
+name: Anopheles maliensis
+name: Anopheles mangyanus
+name: Anopheles marshallii
+name: Anopheles mascarensis
+name: Anopheles melas
+name: Anopheles meraukensis
+name: Anopheles merus
+name: Anopheles millecampsi
+name: Anopheles milloti
+name: Anopheles minimus
+name: Anopheles moghulensis
+name: Anopheles mortiauxi
+name: Anopheles moucheti
+name: Anopheles nigeriensis
+name: Anopheles bervoetsi
+name: Anopheles mousinhoi
+name: Anopheles multicinctus
+name: Anopheles basilewskyi
+name: Anopheles multicolor
+name: Anopheles murphyi
+name: Anopheles natalensis
+name: Anopheles nataliae
+name: Anopheles nemophilous
+name: Anopheles nili
+name: Anopheles nivipes
+name: Anopheles njombiensis
+name: Anopheles notanandai
+name: Anopheles notleyi
+name: Anopheles novaguinensis
+name: Anopheles pallidus
+name: Anopheles paltrinieri
+name: Anopheles pampanai
+name: Anopheles parangensis
+name: Anopheles parensis
+name: Anopheles pattoni
+name: Anopheles pauliani
+name: Anopheles pharoensis
+name: Anopheles philippinensis
+name: Anopheles pretoriensis
+name: Anopheles pseudojamesi
+name: Anopheles pseudowillmori
+name: Anopheles pujutensis
+name: Anopheles pulcherrimus
+name: Anopheles punctulatus
+name: Anopheles quadriannulatus
+name: Anopheles davidsoni
+name: Anopheles radama
+name: Anopheles ranci
+name: Anopheles rageaui
+name: Anopheles rennellensis
+name: Anopheles rhodesiensis
+name: Anopheles rupicola
+name: Anopheles riparis
+name: Anopheles rivulorum
+name: Anopheles rodhaini
+name: Anopheles roubaudi
+name: Anopheles ruarinus
+name: Anopheles rufipes
+name: Anopheles broussesi
+name: Anopheles salbaii
+name: Anopheles saungi
+name: Anopheles sawadwongporni
+name: Anopheles schueffneri
+name: Anopheles schwetzi
+name: Anopheles seretsei
+name: Anopheles sergentii
+name: Anopheles macmahoni
+name: Anopheles seydeli
+name: Anopheles smithii
+name: Anopheles solomonis
+name: Anopheles somalicus
+name: Anopheles splendidus
+name: Anopheles squamosus
+name: Anopheles stephensi
+name: Anopheles stookesi
+name: Anopheles subpictus
+name: Anopheles sulawesi
+name: Anopheles sundaicus
+name: Anopheles superpictus
+name: Anopheles swahilicus
+name: Anopheles takasagoensis
+name: Anopheles tchekedii
+name: Anopheles tessellatus
+name: Anopheles orientalis
+name: Anopheles kalawara
+name: Anopheles theileri
+name: Anopheles theobaldi
+name: Anopheles turkhudi
+name: Anopheles telamali
+name: Anopheles ungujae
+name: Anopheles vagus
+name: Anopheles vaneedeni
+name: Anopheles vanhoofi
+name: Anopheles varuna
+name: Anopheles vernus
+name: Anopheles vinckei
+name: Anopheles walravensi
+name: Anopheles watsonii
+name: Anopheles wellcomei
+name: Anopheles ugandae
+name: Anopheles willmori
+name: Anopheles wilsoni
+name: Kerteszia
+name: Anopheles auyantepuiensis
+name: Anopheles bambusicolus
+name: Anopheles bellator
+name: Anopheles boliviensis
+name: Anopheles cruzii
+name: Anopheles gonzalezrinconesi
+name: Anopheles homunculus
+name: Anopheles laneanus
+name: Anopheles lepidotus
+name: Anopheles neivai
+name: Anopheles pholidotus
+name: Anopheles rollai
+name: Lophopodomyia
+name: Anopheles gilesi
+name: Anopheles gomezdelatorrei
+name: Anopheles oiketorakras
+name: Anopheles pseudotibiamaculatus
+name: Anopheles squamifemur
+name: Anopheles vargasi
+name: Paraedes
+name: Aedes barraudi
+name: Anophelinae
+name: Culicinae
+name: Orthopodomyia albipes
+name: Orthopodomyia andamanensis
+name: Orthopodomyia anopheloides
+name: Orthopodomyia antanosyorum
+name: Orthopodomyia papuensis
+name: Orthopodomyia phyllozoa
+name: Aedeomyiini
+name: Aedini
+name: Orthopodomyia arboricollis
+name: Orthopodomyia aureoantennata
+name: Orthopodomyia comorensis
+name: Orthopodomyia fascipes
+name: Orthopodomyia flavicosta
+name: Orthopodomyia flavithorax
+name: Orthopodomyia geberti
+name: Kompia
+name: Aedes purpureipes
+name: Orthopodomyia joyoni
+name: Orthopodomyia kummi
+name: Orthopodomyia lanyuensis
+name: Orthopodomyia madecassorum
+name: Orthopodomyia madrensis
+name: Orthopodomyia milloti
+name: Orthopodomyia nkolbissonensis
+name: Orthopodomyia pulchripalpis
+name: Orthopodomyia sampaioi
+name: Orthopodomyia siamensis
+name: Orthopodomyia signifera
+name: Orthopodomyia vernoni
+name: Orthopodomyia waverleyi
+name: Orthopodomyia wilsoni
+name: Topomyia irianensis
+name: Topomyia javaensis
+name: Aedes saperoi
+name: Culex miyagii
+name: Culex megaonychus
+name: Culex biscaynensis
+name: Orthopodomyia wanxianensis
+name: Sabethes luxodens
+name: Levua
+name: Aedes fryeri
+name: Armigeres yunnanensis
+name: Culex comorensis
+name: Culex kartalae
+name: Culex curvibrachius
+name: Culex plicatus
+name: Culex megafolius
+name: Heizmannia carteri
+name: Topomyia bifurcata
+name: Anopheles persiensis
+name: Anopheles nimpe
+name: Culex eknomios
+name: Aedes collessi
+name: Aedes menoni
+name: Aedes ostentatio
+name: Aedes pagei
+name: Aedes thailandensis
+name: Runchomyia magna
+name: Aedes ealaensis
+name: Aedes ethiopiensis
+name: Aedes gandaensis
+name: Aedes hogsbackensis
+name: Aedes mpusiensis
+name: Aedes sampi
+name: Culex alinkios
+name: Culex symbletos
+name: Culex maderensis
+name: Insulalutzia
+name: Lutzia shinonagai
+name: Aedes okinawanus
+name: Aedes dufouri
+name: Aedes geoskusea
+name: Trichoprosopon evansae
+name: Trichoprosopon lampropus
+name: Trichoprosopon lanei
+name: Trichoprosopon obscurum
+name: Trichoprosopon pallidiventer
+name: Trichoprosopon simile
+name: Trichoprosopon soaresi
+name: Trichoprosopon vonplesseni
+name: Aedes biskraensis
+name: Aedes coluzzii
+name: Aedes neogalloisi
+name: Anopheles hailarensis
+name: Culex gnomatos
+name: Culex garciai
+name: Topomyia dulongensis
+name: Psorophora santamarinai
+name: Sabethes conditus
+name: Topomyia bannaensis
+name: Topomyia margina
+name: Tripteroides ponmeki
+name: Anopheles hinesorum
+name: Anopheles torresiensis
+name: Aedes dissimilierodes
+name: Anopheles halophylus
+name: Armigeres sembeli
+name: Armigeres menglaensis
+name: Heizmannia tengchongensis
+name: Sabethes paradoxus
+name: Anopheles eouzani
+name: Anopheles irenicus
+name: Armigeres laoensis
+name: Culex cheni
+name: Culex europaeus
+name: Heizmannia menglianeroides
+name: Uranotaenia jinhongensis
+name: Uranotaenia qui
+name: Topomyia miyagii
+name: Aedes timorensis
+name: Anopheles daciae
+name: Anopheles ovengensis
+name: Armigeres pallithorax
+name: Culex scheuberi
+name: Ficalbia ichiromiyagii
+name: Mimomyia mogii
+name: Uranotaenia dibrugarhensis
+name: Uranotaenia yunnanensis
+name: Verrallina assamensis
+name: Wyeomyia chocoensis
+name: Orthopodomyia peytoni
+name: Aedes chrysoscuta
+name: Aedes meirai
+name: Culex machadoi
+name: Culex pajoti
+name: Culex tianpingensis
+name: Culex toviiensis
+name: Culex miaolingensis
+name: Culex diamphidius
+name: Culex johni
+name: Culex sacchettae
+name: Orthopodomyia ambremontis
+name: Orthopodomyia ankaratrensis
+name: Orthopodomyia fontenellei
+name: Orthopodomyia rajaonariveloi
+name: Orthopodomyia ravaonjanaharyi
+name: Orthopodomyia reunionensis
+name: Orthopodomyia rodhaini
+name: Toxorhynchites lemuriae
+name: Toxorhynchites fontenillei
+name: Toxorhynchites grjebinei
+name: Toxorhynchites brunhesi
+name: Toxorhynchites madagascarensis
+name: Wyeomyia staminifera
+name: Uranotaenia lunda
+name: Uranotaenia principensis
+name: Topomyia yanbareroides
+name: Topomyia bambusaihole
+name: Topomyia nemorosa
+name: Heizmannia ruiliensis
+name: Armigeres lepidocoxitus
+name: Aedes jorgi
+name: Aedes brownscutumus
+name: Tripteroides longipalpis
+name: Uranotaenia albimanus
+name: Uranotaenia ambodimanga
+name: Uranotaenia apicosquamata
+name: Uranotaenia bifasciata
+name: Uranotaenia breviseta
+name: Uranotaenia carcinicola
+name: Uranotaenia haddowi
+name: Culicidae
+name: taxon
+name: Culicini
+name: Culisetini
+name: Ficalbiini
+name: Hodgesiini
+name: Mansoniini
+name: Orthopomyiini
+name: Sabethini
+name: Toxorhynchitini
+name: Uranotaeniini
+name: Anopheles gambiae
+name: Anopheles gambiae chromosomal form Bamako
+name: Anopheles gambiae chromosomal form Mopti
+name: Anopheles gambiae chromosomal form Savanna
+name: Anopheles gambiae chromosomal form Forest
+name: Anopheles funestus
+name: Anopheles gambiae chromosomal form Bissau
+name: Anopheles gambiae molecular form S
+name: agent_in
+name: has_part
+name: located_in
+name: made_of
+name: has_agent
+name: has_participant
+name: instance_of
+name: participates_in
+name: overlaps_with
+name: part_of
+name: succeeded_by
+name: target
