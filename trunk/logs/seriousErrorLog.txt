@@ -1,0 +1,12 @@
+2009-02-09 10:08:53  An unhandled runtime error occured.
+java.io.FileNotFoundException: entomology.xml (No such file or directory)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:106)
+	at com.terraframe.mojo.dataaccess.io.ImportManager.getSource(ImportManager.java:353)
+	at com.terraframe.mojo.dataaccess.io.XMLHandler.begin(XMLHandler.java:126)
+	at com.terraframe.mojo.dataaccess.io.dataDefinition.SAXImporter.runImport_aroundBody0(SAXImporter.java:89)
+	at com.terraframe.mojo.dataaccess.io.dataDefinition.SAXImporter.runImport(SAXImporter.java:86)
+	at ImportModel.importModel_aroundBody0(ImportModel.java:23)
+	at ImportModel.importModel_aroundBody1$advice(ImportModel.java:711)
+	at ImportModel.importModel(ImportModel.java:23)
+	at ImportModel.main(ImportModel.java:17)

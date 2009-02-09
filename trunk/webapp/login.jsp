@@ -4,9 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Login to MDSS/trunk</title>
+<title>Login to MDSS</title>
 <body>
-<h3>Log in to MDSS/trunk</h3>
+<h3>Log in to MDSS</h3>
 <mjl:form method="POST" id="mform" name="mform">  
   Username: <mjl:input param="username" type="text" value="SYSTEM" />
   Password: <mjl:input param="password" type="password" value="SYSTEM" />
