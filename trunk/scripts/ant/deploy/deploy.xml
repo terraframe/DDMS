@@ -5,7 +5,7 @@
 	<!-- Set up our properties                                               -->
 	<!-- =================================================================== -->
 
-	<property name="profile.root" value="/home/jsmethie/workspace/MDSS/trunk/profiles" />
+	<property name="profile.root" value="/Users/dt/workspace/MDSS/profiles" />
 	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties"
 		classpath="${profile.root};tfprops.jar" />
 	<tfproperties root="${profile.root}"/>
@@ -133,6 +133,8 @@
 		<java classname="ImportModel" failonerror="true" fork="true">
 			<arg file="${domain.location}"/>
 			<jvmarg value="-Dmojo.keepSource=true"/>
+			<jvmarg value="-Xms1g"/>
+			<jvmarg value="-Xmx1g"/>
 			<classpath>
 				<path refid="framework.classpath"/>
 			</classpath>
@@ -208,6 +210,7 @@
 			<fileset dir="${webapp.root}">
 				<include name="**/*.jsp" />
 				<include name="js/*.js" />
+				<include name="js/yui/**" />
 				<include name="**/*.css" />
 				<include name="imgs/**" />
 			</fileset>
