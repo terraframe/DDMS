@@ -1,5 +1,5 @@
 <TerraFrame
-  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/SandBox2/profiles/datatype.xsd"
+  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/trunk/profiles/datatype.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <create>
     <!-- DUMMY DEFITION FOR GEO ENTITIES -->
@@ -7,6 +7,12 @@
       name="mdss.test.GeoEntity"
       label="Geo Entity">
       <attributes>
+        <char
+          name="geoId"
+          label="Geo Id"
+          required="true"
+          indexType="unique index"
+          size="6" />
         <char
           name="entityName"
           required="true"
@@ -19,6 +25,19 @@
           required="true"
           type="mdss.test.Terrain" />
       </attributes>
+      <mdMethod
+        name="searchByGeoId"
+        label="Search by GeoId"
+        description="Search for a GeoEntity by Geo Id"
+        static="true"
+        returnType="mdss.test.GeoEntity">
+        <mdParameter
+          name="geoId"
+          description="Geo Id of the Geo Entity"
+          label="Geo Id"
+          order="0"
+          type="java.lang.String" />
+      </mdMethod>
     </mdBusiness>
 
     <enumerationMaster
@@ -126,13 +145,6 @@
           type="mdss.test.GeoEntity" />
       </attributes>
       <mdMethod
-        name="getMorphologicalSpecieGroups"
-        label="Get Morphological Speice Groups"
-        description="Returns a list of all morphological specie groups which are contained within this abstract mosquito collection"
-        static="false"
-        returnType="mdss.entomology.MorphologicalSpecieGroup">
-      </mdMethod>
-      <mdMethod
         name="getMosquitos"
         label="Get Mosquitos"
         description="Returns a list of all mosquitos contained within this abstract mosquito collection"
@@ -181,7 +193,8 @@
           name="geoEntity"
           label="Geo Entity"
           type="mdss.test.GeoEntity"
-          order="0" />
+          order="0"
+          description="GeoEntity" />
         <mdParameter
           name="collectionDate"
           label="Colllection Date"
@@ -189,6 +202,20 @@
           order="1" />
       </mdMethod>
     </mdBusiness>
+
+    <mdException
+      name="mdss.entomology.InvalidMosquitoCollectionGeoEntityException"
+      label="Invalid Mosquito Collection"
+      description="Exception thrown when a Mosquito Collection's GeoEntity is not a (non)sentinel site">
+      <attributes>
+        <char
+          name="geoId"
+          label="Geo Id"
+          size="6"
+          required="true"
+          description="Id of the GeoEntity" />
+      </attributes>
+    </mdException>
 
     <mdBusiness
       name="mdss.entomology.MosquitoCollectionPoint"
@@ -205,7 +232,8 @@
           name="geoEntity"
           label="Geo Entity"
           type="mdss.test.GeoEntity"
-          order="0" />
+          order="0"
+          description="GeoEntity" />
         <mdParameter
           name="collectionDate"
           label="Colllection Date"
@@ -232,7 +260,7 @@
         <enumeration
           name="identificationMethod"
           label="Identification Method"
-          type="mdss.entomology.IndentificationMethod" />
+          type="mdss.entomology.IdentificationMethod" />
         <reference
           name="collection"
           label="MosquitoCollection"
@@ -255,8 +283,8 @@
       <child
         cardinality="*"
         name="mdss.entomology.MorphologicalSpecieGroup"
-        method="SpecieRow"
-        label="SpecieRow" />
+        method="MorphologicalSpecieGroup"
+        label="Morphological Specie Group" />
     </mdTree>
 
     <mdBusiness
@@ -281,7 +309,7 @@
         <enumeration
           name="identificationMethod"
           label="Identification Method"
-          type="mdss.entomology.IndentificationMethod"
+          type="mdss.entomology.IdentificationMethod"
           description="Method used to indentify the true specie collection"
           selectMultiple="false" />
         <reference
@@ -524,11 +552,11 @@
     </mdEnumeration>
 
     <enumerationMaster
-      name="mdss.entomology.IndentificationMethodMaster"
+      name="mdss.entomology.IdentificationMethodMaster"
       label="Identification Method Master" />
 
     <object
-      type="mdss.entomology.IndentificationMethodMaster"
+      type="mdss.entomology.IdentificationMethodMaster"
       id="TEST_METHOD">
       <valueAttribute
         name="enumName"
@@ -539,8 +567,8 @@
     </object>
 
     <mdEnumeration
-      name="mdss.entomology.IndentificationMethod"
-      type="mdss.entomology.IndentificationMethodMaster"
+      name="mdss.entomology.IdentificationMethod"
+      type="mdss.entomology.IdentificationMethodMaster"
       label="Indentification Method"
       description="List of all indentification methods">
       <includeAll />
@@ -550,5 +578,28 @@
       End of MIRO definitions
       **************************************************************  -->
   </create>
-
+  <update>
+    <mdController name="mdss.entomology.MosquitoCollectionController">
+      <create>
+        <mdAction
+          name="searchByGeoEntityAndDate"
+          label="Search By Geo Entity And Date"
+          isPost="true"
+          description="Searches for a single mosquito collection with the given GeoEntity and Collection Date">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            order="0"
+            type="mdss.test.GeoEntity"
+            description="GeoEntity to search" />
+          <mdParameter
+            name="collectionDate"
+            label="Collection Date"
+            description="The date the mosquito collection was collected"
+            order="1"
+            type="java.util.Date" />
+        </mdAction>
+      </create>
+    </mdController>
+  </update>
 </TerraFrame>
