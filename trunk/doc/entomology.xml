@@ -1,0 +1,554 @@
+<TerraFrame
+  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/SandBox2/profiles/datatype.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <create>
+    <!-- DUMMY DEFITION FOR GEO ENTITIES -->
+    <mdBusiness
+      name="mdss.test.GeoEntity"
+      label="Geo Entity">
+      <attributes>
+        <char
+          name="entityName"
+          required="true"
+          label="Geo Entity Name"
+          size="255" />
+        <enumeration
+          name="terrain"
+          label="Terrain"
+          selectMultiple="false"
+          required="true"
+          type="mdss.test.Terrain" />
+      </attributes>
+    </mdBusiness>
+
+    <enumerationMaster
+      name="mdss.test.TerrainMaster"
+      label="Terrain Master" />
+
+    <object
+      id="SENTINEL_SITE"
+      type="mdss.test.TerrainMaster">
+      <valueAttribute
+        name="enumName"
+        value="SENTINEL_SITE" />
+      <valueAttribute
+        name="displayLabel"
+        value="Sentinel Site" />
+    </object>
+
+    <object
+      id="NON_SENTINEL_SITE"
+      type="mdss.test.TerrainMaster">
+      <valueAttribute
+        name="enumName"
+        value="NON_SENTINEL_SITE" />
+      <valueAttribute
+        name="displayLabel"
+        value="Non Sentinel Site" />
+    </object>
+
+    <object
+      id="FIXED_TRAP"
+      type="mdss.test.TerrainMaster">
+      <valueAttribute
+        name="enumName"
+        value="FIXED_TRAP" />
+      <valueAttribute
+        name="displayLabel"
+        value="Fixed Trap" />
+    </object>
+
+    <object
+      id="PERMANENT_WATER_BODY"
+      type="mdss.test.TerrainMaster">
+      <valueAttribute
+        name="enumName"
+        value="PERMANENT_WATER_BODY" />
+      <valueAttribute
+        name="displayLabel"
+        value="Permanent Water Body" />
+    </object>
+
+    <mdEnumeration
+      name="mdss.test.Terrain"
+      type="mdss.test.TerrainMaster"
+      label="Terrain">
+      <includeAll />
+    </mdEnumeration>
+
+    <!-- DELETE WHEN REAL DEFINITION IS DONE -->
+
+    <mdController
+      name="com.terraframe.mojo.defaults.LoginController"
+      label="Login Controller"
+      description="Provides functionallity for logging in and logging out">
+      <mdAction
+        name="login"
+        label="login"
+        isPost="true">
+        <mdParameter
+          name="username"
+          label="username"
+          order="0"
+          type="java.lang.String" />
+        <mdParameter
+          name="password"
+          label="password"
+          order="1"
+          type="java.lang.String" />
+      </mdAction>
+      <mdAction
+        name="logout"
+        label="logout"
+        isPost="false">
+      </mdAction>
+    </mdController>
+
+    <mdBusiness
+      removable="true"
+      isAbstract="true"
+      cacheAlgorithm="nothing"
+      extendable="true"
+      label="Abstract Mosquito Collection"
+      description="This is a group of mosquitos of varing species that were collected via a certian techinque at a certian point in space and time"
+      cacheSize="0"
+      name="mdss.entomology.AbstractMosquitoCollection"
+      publish="true">
+      <attributes>
+        <date
+          name="dateCollected"
+          label="Date Collected"
+          required="true" />
+        <reference
+          name="geoEntity"
+          required="true"
+          label="Geo Entity"
+          type="mdss.test.GeoEntity" />
+      </attributes>
+      <mdMethod
+        name="getMorphologicalSpecieGroups"
+        label="Get Morphological Speice Groups"
+        description="Returns a list of all morphological specie groups which are contained within this abstract mosquito collection"
+        static="false"
+        returnType="mdss.entomology.MorphologicalSpecieGroup">
+      </mdMethod>
+      <mdMethod
+        name="getMosquitos"
+        label="Get Mosquitos"
+        description="Returns a list of all mosquitos contained within this abstract mosquito collection"
+        static="false"
+        returnType="mdss.entomology.Mosquito">
+      </mdMethod>
+      <mdMethod
+        name="getUninterestingSpecieGroups"
+        label="Get Uninteresting Specie Groups"
+        description="Returns a list of all uninteresting true specie groups which are contained within this abstract mosquito collection"
+        static="false"
+        returnType="mdss.entomology.UninterestingSpecieGroup">
+      </mdMethod>
+    </mdBusiness>
+
+    <mdIndex
+      type="mdss.entomology.AbstractMosquitoCollection"
+      active="true"
+      label="Abstract Mosquito Collection"
+      unique="true"
+      description="Uniquness constraint between the date and location of an abstract mosquito collection">
+      <attribute name="dateCollected" />
+      <attribute name="geoEntity" />
+    </mdIndex>
+
+    <mdBusiness
+      name="mdss.entomology.MosquitoCollection"
+      description="A mosqitio collection from a sentinal or non sental site, these are usualy collected only once from a given point, this is not for permenant traps"
+      label="Mosquito Collection"
+      extends="mdss.entomology.AbstractMosquitoCollection">
+      <attributes>
+        <enumeration
+          name="collectionMethod"
+          label="Collection Method"
+          selectMultiple="false"
+          type="mdss.entomology.CollectionMethod"
+          required="true" />
+      </attributes>
+      <mdMethod
+        name="searchByGeoEntityAndDate"
+        label="Search By GeoEntity and Date"
+        description="Searches for a Mosquito collection with the given geo entity and date"
+        static="true"
+        returnType="mdss.entomology.MosquitoCollection">
+        <mdParameter
+          name="geoEntity"
+          label="Geo Entity"
+          type="mdss.test.GeoEntity"
+          order="0" />
+        <mdParameter
+          name="collectionDate"
+          label="Colllection Date"
+          type="java.util.Date"
+          order="1" />
+      </mdMethod>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.entomology.MosquitoCollectionPoint"
+      label="Mosquito Collection Point"
+      extends="mdss.entomology.AbstractMosquitoCollection"
+      description="This a collection of mosquitos from a permanant trap or water body, the trap is checked on a routine basis">
+      <mdMethod
+        name="searchByGeoEntityAndDate"
+        label="Search By GeoEntity and Date"
+        description="Searches for a Mosquito collection with the given geo entity and date"
+        static="true"
+        returnType="mdss.entomology.MosquitoCollectionPoint">
+        <mdParameter
+          name="geoEntity"
+          label="Geo Entity"
+          type="mdss.test.GeoEntity"
+          order="0" />
+        <mdParameter
+          name="collectionDate"
+          label="Colllection Date"
+          type="java.util.Date"
+          order="1" />
+      </mdMethod>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.entomology.MorphologicalSpecieGroup"
+      label="Morphological Specie Group"
+      description="This is a row that records the quantity of a species and its identification method.">
+      <attributes>
+        <integer
+          name="quanity"
+          label="Quanity"
+          rejectNegative="true"
+          required="true" />
+        <enumeration
+          name="specie"
+          label="Specie"
+          type="mdss.entomology.Specie"
+          required="false" />
+        <enumeration
+          name="identificationMethod"
+          label="Identification Method"
+          type="mdss.entomology.IndentificationMethod" />
+        <reference
+          name="collection"
+          label="MosquitoCollection"
+          required="true"
+          type="mdss.entomology.AbstractMosquitoCollection"
+          immutable="true" />
+      </attributes>
+    </mdBusiness>
+
+    <mdTree
+      name="mdss.entomology.CollectionSpecie"
+      label="Collection Specie"
+      description="A mapping between a mosquito collection and all the morphological specie groups it is comprised of."
+      publish="false">
+      <parent
+        cardinality="1"
+        name="mdss.entomology.AbstractMosquitoCollection"
+        method="AbstractMosqitoCollection"
+        label="Abstract Mosqito Collection" />
+      <child
+        cardinality="*"
+        name="mdss.entomology.MorphologicalSpecieGroup"
+        method="SpecieRow"
+        label="SpecieRow" />
+    </mdTree>
+
+    <mdBusiness
+      name="mdss.entomology.TrueSpecieEntity"
+      label="True Specie Collection"
+      isAbstract="true"
+      extendable="true">
+      <attributes>
+        <char
+          name="collectionId"
+          label="Collection Id"
+          required="true"
+          size="4"
+          description="The id the entomologist gives to a sample when its true specie is determined." />
+        <enumeration
+          name="specie"
+          label="Specie"
+          type="mdss.entomology.Specie"
+          required="false"
+          description="The true specie of the collection"
+          selectMultiple="false" />
+        <enumeration
+          name="identificationMethod"
+          label="Identification Method"
+          type="mdss.entomology.IndentificationMethod"
+          description="Method used to indentify the true specie collection"
+          selectMultiple="false" />
+        <reference
+          name="collection"
+          label="Mosquito Collection"
+          required="true"
+          type="mdss.entomology.AbstractMosquitoCollection"
+          description="References to the mosquito collection from which the true specie sample came." />
+      </attributes>
+    </mdBusiness>
+
+    <mdIndex
+      type="mdss.entomology.TrueSpecieEntity"
+      active="true"
+      label="True Specie Collection Index"
+      unique="true"
+      description="Uniquness constraint between the mosquito collection and true specie collection id">
+      <attribute name="collection" />
+      <attribute name="collectionId" />
+    </mdIndex>
+
+    <mdTree
+      name="mdss.entomology.CollectionTrueSpecie"
+      label="Collection True Specie"
+      description="A mapping between a mosquito collection and all the true specie entities it is comprised of."
+      publish="false">
+      <parent
+        cardinality="1"
+        name="mdss.entomology.AbstractMosquitoCollection"
+        method="AbstractMosqitoCollection"
+        label="Abstract Mosqito Collection" />
+      <child
+        cardinality="*"
+        name="mdss.entomology.TrueSpecieEntity"
+        method="TrueSpecieCollection"
+        label="True Specie Collection" />
+    </mdTree>
+
+    <mdBusiness
+      name="mdss.entomology.UninterestingSpecieGroup"
+      label="Uninteresting Specie"
+      extends="mdss.entomology.TrueSpecieEntity">
+      <attributes>
+        <integer
+          name="quanity"
+          label="Quanity"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.entomology.Mosquito"
+      label="Mosquito"
+      extends="mdss.entomology.TrueSpecieEntity">
+      <attributes>
+        <date
+          name="testDate"
+          label="Test Date"
+          required="true"
+          description="The date the tests were performed on the misquito" />
+        <boolean
+          name="isofemale"
+          label="Isofemale"
+          required="true"
+          default_value="false"
+          description="Flag denoting if this mosquito is from the iso-female line" />
+        <enumeration
+          name="sex"
+          label="Sex"
+          required="true"
+          description="The sex of the mosquito"
+          selectMultiple="false"
+          type="mdss.general.Sex" />
+        <enumeration
+          name="generation"
+          label="Generation"
+          required="true"
+          description="The generation of the mosquito"
+          selectMultiple="false"
+          type="mdss.entomology.Generation" />
+      </attributes>
+    </mdBusiness>
+
+    <enumerationMaster
+      name="mdss.general.SexMaster"
+      label="Sex Master"
+      description="Master list of all possible mosquito sexes" />
+
+    <object
+      id="MALE"
+      type="mdss.general.SexMaster">
+      <valueAttribute
+        name="enumName"
+        value="MALE" />
+      <valueAttribute
+        name="displayLabel"
+        value="Male" />
+    </object>
+
+    <object
+      id="FEMALE"
+      type="mdss.general.SexMaster">
+      <valueAttribute
+        name="enumName"
+        value="FEMALE" />
+      <valueAttribute
+        name="displayLabel"
+        value="Female" />
+    </object>
+
+    <object
+      id="UNKNOWN"
+      type="mdss.general.SexMaster">
+      <valueAttribute
+        name="enumName"
+        value="UNKNOWN" />
+      <valueAttribute
+        name="displayLabel"
+        value="Unknown" />
+    </object>
+
+    <mdEnumeration
+      name="mdss.general.Sex"
+      type="mdss.general.SexMaster"
+      label="Sex"
+      description="List of all possible mosquito sex options">
+      <includeAll />
+    </mdEnumeration>
+
+    <enumerationMaster
+      name="mdss.entomology.GenerationMaster"
+      label="Generation Master"
+      description="Master list of all possible mosquito generations" />
+
+    <object
+      id="F0"
+      type="mdss.entomology.GenerationMaster">
+      <valueAttribute
+        name="enumName"
+        value="F0" />
+      <valueAttribute
+        name="displayLabel"
+        value="F0" />
+    </object>
+
+    <object
+      id="F1"
+      type="mdss.entomology.GenerationMaster">
+      <valueAttribute
+        name="enumName"
+        value="F1" />
+      <valueAttribute
+        name="displayLabel"
+        value="F1" />
+    </object>
+
+    <object
+      id="F2"
+      type="mdss.entomology.GenerationMaster">
+      <valueAttribute
+        name="enumName"
+        value="F2" />
+      <valueAttribute
+        name="displayLabel"
+        value="F2" />
+    </object>
+
+    <mdEnumeration
+      name="mdss.entomology.Generation"
+      type="mdss.entomology.GenerationMaster"
+      label="Generation"
+      description="List of all possible mosquito generations">
+      <includeAll />
+    </mdEnumeration>
+
+    <!-- ********************************************************
+      Start of MIRO enumerations.  These enumerations will change
+      onces the MIRO ontology has been sorted out.  We have outstanding
+      questions of wether or not we will use the MIRO ontology or
+      just take the terms from the ontology and create our own enumerations
+      ********************************************************  -->
+
+    <enumerationMaster
+      name="mdss.entomology.CollectionMethodMaster"
+      label="Collection Method Master" />
+
+    <object
+      type="mdss.entomology.CollectionMethodMaster"
+      id="NIGHT_BITING">
+      <valueAttribute
+        name="enumName"
+        value="NIGHT_BITING" />
+      <valueAttribute
+        name="displayLabel"
+        value="Night Biting" />
+    </object>
+
+    <object
+      type="mdss.entomology.CollectionMethodMaster"
+      id="WINDOW_TRAP">
+      <valueAttribute
+        name="enumName"
+        value="WINDOW_TRAP" />
+      <valueAttribute
+        name="displayLabel"
+        value="Window Trap" />
+    </object>
+
+    <mdEnumeration
+      name="mdss.entomology.CollectionMethod"
+      type="mdss.entomology.CollectionMethodMaster"
+      label="Collection Method"
+      description="List of all possible collection methods">
+      <includeAll />
+    </mdEnumeration>
+
+    <enumerationMaster
+      name="mdss.entomology.SpecieMaster"
+      label="Specie Master" />
+
+    <object
+      type="mdss.entomology.SpecieMaster"
+      id="TEST_SPECIE">
+      <valueAttribute
+        name="enumName"
+        value="TEST_SPECIE" />
+      <valueAttribute
+        name="displayLabel"
+        value="Test Specie" />
+    </object>
+
+    <mdEnumeration
+      name="mdss.entomology.Specie"
+      type="mdss.entomology.SpecieMaster"
+      label="Specie"
+      description="List of all species">
+      <includeAll />
+    </mdEnumeration>
+
+    <enumerationMaster
+      name="mdss.entomology.IndentificationMethodMaster"
+      label="Identification Method Master" />
+
+    <object
+      type="mdss.entomology.IndentificationMethodMaster"
+      id="TEST_METHOD">
+      <valueAttribute
+        name="enumName"
+        value="TEST_METHOD" />
+      <valueAttribute
+        name="displayLabel"
+        value="Test Method" />
+    </object>
+
+    <mdEnumeration
+      name="mdss.entomology.IndentificationMethod"
+      type="mdss.entomology.IndentificationMethodMaster"
+      label="Indentification Method"
+      description="List of all indentification methods">
+      <includeAll />
+    </mdEnumeration>
+
+    <!-- **************************************************************
+      End of MIRO definitions
+      **************************************************************  -->
+  </create>
+
+</TerraFrame>
