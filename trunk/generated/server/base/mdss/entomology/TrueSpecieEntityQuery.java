@@ -10,7 +10,7 @@ package mdss.entomology;
 public  class TrueSpecieEntityQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1234288141654L;
+private static final long serialVersionUID = 1234294595338L;
 
   public TrueSpecieEntityQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -102,18 +102,18 @@ private static final long serialVersionUID = 1234288141654L;
     return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(mdss.entomology.TrueSpecieEntity.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
 
   }
-  public mdss.entomology.IndentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod()
+  public mdss.entomology.IdentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod()
   {
     return getIdentificationMethod(null);
 
   }
  
-  public mdss.entomology.IndentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod(String alias)
+  public mdss.entomology.IdentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod(String alias)
   {
 
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("identificationMethod");
 
-    return (mdss.entomology.IndentificationMethodMasterQuery.IndentificationMethodQueryIF)this.getComponentQuery().internalAttributeFactory("identificationMethod", mdAttributeIF, this, alias);
+    return (mdss.entomology.IdentificationMethodMasterQuery.IndentificationMethodQueryIF)this.getComponentQuery().internalAttributeFactory("identificationMethod", mdAttributeIF, this, alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getKeyName()
@@ -268,7 +268,7 @@ private static final long serialVersionUID = 1234288141654L;
     
     if (name.equals("identificationMethod")) 
     {
-       return new mdss.entomology.IndentificationMethodMasterQuery.IndentificationMethodQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias);
+       return new mdss.entomology.IdentificationMethodMasterQuery.IndentificationMethodQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else if (name.equals("specie")) 
     {
@@ -382,8 +382,8 @@ private static final long serialVersionUID = 1234288141654L;
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getId();
     public com.terraframe.mojo.query.AttributeCharIF getId(String alias);
-  public mdss.entomology.IndentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod();
-  public mdss.entomology.IndentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod(String alias);
+  public mdss.entomology.IdentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod();
+  public mdss.entomology.IdentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getKeyName();
     public com.terraframe.mojo.query.AttributeCharIF getKeyName(String alias);
     public com.terraframe.mojo.query.AttributeMomentIF getLastUpdateDate();
@@ -429,7 +429,7 @@ private static final long serialVersionUID = 1234288141654L;
  implements TrueSpecieEntityQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1234288141806L;
+private static final long serialVersionUID = 1234294595533L;
 
   public TrueSpecieEntityQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -514,15 +514,15 @@ private static final long serialVersionUID = 1234288141806L;
     return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
 
   }
-  public mdss.entomology.IndentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod()
+  public mdss.entomology.IdentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod()
   {
     return getIdentificationMethod(null);
 
   }
  
-  public mdss.entomology.IndentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod(String alias)
+  public mdss.entomology.IdentificationMethodMasterQuery.IndentificationMethodQueryIF getIdentificationMethod(String alias)
   {
-    return (mdss.entomology.IndentificationMethodMasterQuery.IndentificationMethodQueryIF)this.attributeFactory("identificationMethod", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias);
+    return (mdss.entomology.IdentificationMethodMasterQuery.IndentificationMethodQueryIF)this.attributeFactory("identificationMethod", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getKeyName()
@@ -713,7 +713,7 @@ private static final long serialVersionUID = 1234288141806L;
     
     if (name.equals("identificationMethod")) 
     {
-       return new mdss.entomology.IndentificationMethodMasterQuery.IndentificationMethodQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias);
+       return new mdss.entomology.IdentificationMethodMasterQuery.IndentificationMethodQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else if (name.equals("specie")) 
     {

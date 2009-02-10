@@ -13,7 +13,7 @@ public class MorphologicalSpecieGroupController extends MorphologicalSpecieGroup
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", mdss.entomology.MorphologicalSpecieGroupDTO.get(clientRequest, id));
     if(this.isAsynchronous())
@@ -42,7 +42,7 @@ public class MorphologicalSpecieGroupController extends MorphologicalSpecieGroup
   {
     mdss.entomology.MorphologicalSpecieGroupDTO dto = mdss.entomology.MorphologicalSpecieGroupDTO.lock(super.getClientRequest(), id);
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -91,7 +91,7 @@ public class MorphologicalSpecieGroupController extends MorphologicalSpecieGroup
   public void failCreate(mdss.entomology.MorphologicalSpecieGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -118,7 +118,7 @@ public class MorphologicalSpecieGroupController extends MorphologicalSpecieGroup
   public void failDelete(mdss.entomology.MorphologicalSpecieGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -163,7 +163,7 @@ public class MorphologicalSpecieGroupController extends MorphologicalSpecieGroup
   public void failUpdate(mdss.entomology.MorphologicalSpecieGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -180,7 +180,7 @@ public class MorphologicalSpecieGroupController extends MorphologicalSpecieGroup
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     mdss.entomology.MorphologicalSpecieGroupDTO dto = new mdss.entomology.MorphologicalSpecieGroupDTO(clientRequest);
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_MorphologicalSpecieGroup_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())

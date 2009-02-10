@@ -10,7 +10,7 @@ package mdss.general;
 public abstract class SexMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "mdss.general.SexMaster";
-  private static final long serialVersionUID = 1234288149814L;
+  private static final long serialVersionUID = 1234294597245L;
   
   public SexMasterBase()
   {

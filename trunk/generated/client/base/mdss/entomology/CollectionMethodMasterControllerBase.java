@@ -7,7 +7,7 @@ public class CollectionMethodMasterControllerBase implements com.terraframe.mojo
   protected javax.servlet.http.HttpServletResponse resp;
   protected java.lang.Boolean isAsynchronous;
   
-  private static final long serialVersionUID = 1234288139162L;
+  private static final long serialVersionUID = 1234294593621L;
   
   public CollectionMethodMasterControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -41,46 +41,46 @@ public class CollectionMethodMasterControllerBase implements com.terraframe.mojo
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
+  public void delete(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.edit");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failEdit");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.delete");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
-  public void cancel(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.cancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failDelete");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
-  public void failCancel(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failCancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.create");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
+  public void failCreate(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.viewAll");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failCreate");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
+  public void update(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failViewAll");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.update");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
+  public void failUpdate(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failUpdate");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
@@ -111,34 +111,6 @@ public class CollectionMethodMasterControllerBase implements com.terraframe.mojo
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failView");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
-  public void delete(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.delete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
-  public void failDelete(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failDelete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
-  public void update(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.update");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
-  public void failUpdate(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failUpdate");
-  }
-  
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -154,17 +126,45 @@ public class CollectionMethodMasterControllerBase implements com.terraframe.mojo
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
-  public void create(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.create");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.cancel");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.CollectionMethodMasterDTO:dto", post=true)
-  public void failCreate(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(mdss.entomology.CollectionMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failCreate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failCancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.edit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failEdit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.viewAll");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.CollectionMethodMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.CollectionMethodMasterController.failViewAll");
   }
   
 }

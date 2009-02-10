@@ -7,7 +7,7 @@ public class AbstractMosquitoCollectionControllerBase implements com.terraframe.
   protected javax.servlet.http.HttpServletResponse resp;
   protected java.lang.Boolean isAsynchronous;
   
-  private static final long serialVersionUID = 1234288140089L;
+  private static final long serialVersionUID = 1234294594318L;
   
   public AbstractMosquitoCollectionControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -42,6 +42,20 @@ public class AbstractMosquitoCollectionControllerBase implements com.terraframe.
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.AbstractMosquitoCollectionDTO:dto", post=true)
+  public void cancel(mdss.entomology.AbstractMosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.cancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.AbstractMosquitoCollectionDTO:dto", post=true)
+  public void failCancel(mdss.entomology.AbstractMosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.failCancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.AbstractMosquitoCollectionDTO:dto", post=true)
   public void create(mdss.entomology.AbstractMosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
@@ -53,20 +67,6 @@ public class AbstractMosquitoCollectionControllerBase implements com.terraframe.
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.failCreate");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.viewAll");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.failViewAll");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.AbstractMosquitoCollectionDTO:dto", post=true)
@@ -81,20 +81,6 @@ public class AbstractMosquitoCollectionControllerBase implements com.terraframe.
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.failUpdate");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.view");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.failView");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
@@ -112,17 +98,45 @@ public class AbstractMosquitoCollectionControllerBase implements com.terraframe.
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.AbstractMosquitoCollectionDTO:dto", post=true)
-  public void cancel(mdss.entomology.AbstractMosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(mdss.entomology.AbstractMosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.cancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.delete");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.AbstractMosquitoCollectionDTO:dto", post=true)
-  public void failCancel(mdss.entomology.AbstractMosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(mdss.entomology.AbstractMosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.failCancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.failDelete");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.view");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.failView");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.viewAll");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.failViewAll");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
@@ -137,20 +151,6 @@ public class AbstractMosquitoCollectionControllerBase implements com.terraframe.
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.failViewPage");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.AbstractMosquitoCollectionDTO:dto", post=true)
-  public void delete(mdss.entomology.AbstractMosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.delete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.AbstractMosquitoCollectionDTO:dto", post=true)
-  public void failDelete(mdss.entomology.AbstractMosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.AbstractMosquitoCollectionController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.AbstractMosquitoCollectionController.failDelete");
   }
   
 }

@@ -26,7 +26,7 @@ public abstract class TrueSpecieEntityBase extends com.terraframe.mojo.business.
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1234288141528L;
+  private static final long serialVersionUID = 1234294595256L;
   
   public TrueSpecieEntityBase()
   {
@@ -187,17 +187,17 @@ public abstract class TrueSpecieEntityBase extends com.terraframe.mojo.business.
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<mdss.entomology.IndentificationMethod> getIdentificationMethod()
+  public java.util.List<mdss.entomology.IdentificationMethod> getIdentificationMethod()
   {
-    return (java.util.List<mdss.entomology.IndentificationMethod>) getEnumValues(IDENTIFICATIONMETHOD);
+    return (java.util.List<mdss.entomology.IdentificationMethod>) getEnumValues(IDENTIFICATIONMETHOD);
   }
   
-  public void addIdentificationMethod(mdss.entomology.IndentificationMethod value)
+  public void addIdentificationMethod(mdss.entomology.IdentificationMethod value)
   {
     addEnumItem(IDENTIFICATIONMETHOD, value.getId());
   }
   
-  public void removeIdentificationMethod(mdss.entomology.IndentificationMethod value)
+  public void removeIdentificationMethod(mdss.entomology.IdentificationMethod value)
   {
     removeEnumItem(IDENTIFICATIONMETHOD, value.getId());
   }

@@ -24,7 +24,7 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1234288137985L;
+  private static final long serialVersionUID = 1234294592755L;
   
   public AbstractMosquitoCollectionBase()
   {
@@ -357,49 +357,6 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
     return query;
   }
   
-  public mdss.entomology.CollectionSpecie addSpecieRow(mdss.entomology.MorphologicalSpecieGroup morphologicalSpecieGroup)
-  {
-    return (mdss.entomology.CollectionSpecie) addChild(morphologicalSpecieGroup, mdss.entomology.CollectionSpecie.CLASS);
-  }
-  
-  public void removeSpecieRow(mdss.entomology.MorphologicalSpecieGroup morphologicalSpecieGroup)
-  {
-    removeAllChildren(morphologicalSpecieGroup, mdss.entomology.CollectionSpecie.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends mdss.entomology.MorphologicalSpecieGroup> getAllSpecieRow()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends mdss.entomology.MorphologicalSpecieGroup>) getChildren(mdss.entomology.CollectionSpecie.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends mdss.entomology.CollectionSpecie> getAllSpecieRowRel()
-  {
-    return (com.terraframe.mojo.query.OIterator<? extends mdss.entomology.CollectionSpecie>) getChildRelationships(mdss.entomology.CollectionSpecie.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public mdss.entomology.CollectionSpecie getSpecieRowRel(mdss.entomology.MorphologicalSpecieGroup morphologicalSpecieGroup)
-  {
-    com.terraframe.mojo.query.OIterator<? extends mdss.entomology.CollectionSpecie> iterator = (com.terraframe.mojo.query.OIterator<? extends mdss.entomology.CollectionSpecie>) getRelationshipsWithChild(morphologicalSpecieGroup, mdss.entomology.CollectionSpecie.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
   public mdss.entomology.CollectionTrueSpecie addTrueSpecieCollection(mdss.entomology.TrueSpecieEntity trueSpecieEntity)
   {
     return (mdss.entomology.CollectionTrueSpecie) addChild(trueSpecieEntity, mdss.entomology.CollectionTrueSpecie.CLASS);
@@ -443,6 +400,49 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
     }
   }
   
+  public mdss.entomology.CollectionSpecie addSpecieRow(mdss.entomology.MorphologicalSpecieGroup morphologicalSpecieGroup)
+  {
+    return (mdss.entomology.CollectionSpecie) addChild(morphologicalSpecieGroup, mdss.entomology.CollectionSpecie.CLASS);
+  }
+  
+  public void removeSpecieRow(mdss.entomology.MorphologicalSpecieGroup morphologicalSpecieGroup)
+  {
+    removeAllChildren(morphologicalSpecieGroup, mdss.entomology.CollectionSpecie.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends mdss.entomology.MorphologicalSpecieGroup> getAllSpecieRow()
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends mdss.entomology.MorphologicalSpecieGroup>) getChildren(mdss.entomology.CollectionSpecie.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.terraframe.mojo.query.OIterator<? extends mdss.entomology.CollectionSpecie> getAllSpecieRowRel()
+  {
+    return (com.terraframe.mojo.query.OIterator<? extends mdss.entomology.CollectionSpecie>) getChildRelationships(mdss.entomology.CollectionSpecie.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public mdss.entomology.CollectionSpecie getSpecieRowRel(mdss.entomology.MorphologicalSpecieGroup morphologicalSpecieGroup)
+  {
+    com.terraframe.mojo.query.OIterator<? extends mdss.entomology.CollectionSpecie> iterator = (com.terraframe.mojo.query.OIterator<? extends mdss.entomology.CollectionSpecie>) getRelationshipsWithChild(morphologicalSpecieGroup, mdss.entomology.CollectionSpecie.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
   public static AbstractMosquitoCollection get(String id)
   {
     return (AbstractMosquitoCollection) com.terraframe.mojo.business.Business.get(id);
@@ -459,17 +459,6 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
     return _instance.getUninterestingSpecieGroups();
   }
   
-  public mdss.entomology.Mosquito getMosquitos()
-  {
-    return null;
-  }
-  
-  public static final mdss.entomology.Mosquito getMosquitos(java.lang.String id)
-  {
-    AbstractMosquitoCollection _instance = AbstractMosquitoCollection.get(id);
-    return _instance.getMosquitos();
-  }
-  
   public mdss.entomology.MorphologicalSpecieGroup getMorphologicalSpecieGroups()
   {
     return null;
@@ -479,6 +468,17 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
   {
     AbstractMosquitoCollection _instance = AbstractMosquitoCollection.get(id);
     return _instance.getMorphologicalSpecieGroups();
+  }
+  
+  public mdss.entomology.Mosquito getMosquitos()
+  {
+    return null;
+  }
+  
+  public static final mdss.entomology.Mosquito getMosquitos(java.lang.String id)
+  {
+    AbstractMosquitoCollection _instance = AbstractMosquitoCollection.get(id);
+    return _instance.getMosquitos();
   }
   
   public static AbstractMosquitoCollection lock(java.lang.String id)

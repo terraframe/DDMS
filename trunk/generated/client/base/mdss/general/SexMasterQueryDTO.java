@@ -10,7 +10,7 @@ package mdss.general;
 public class SexMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1234288150224L;
+private static final long serialVersionUID = 1234294597444L;
 
   protected SexMasterQueryDTO(String type)
   {

@@ -3,7 +3,7 @@ package mdss.entomology;
 public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "mdss.entomology.TrueSpecieEntity";
-  private static final long serialVersionUID = 1234288141597L;
+  private static final long serialVersionUID = 1234294595297L;
   
   protected TrueSpecieEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -190,9 +190,9 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<mdss.entomology.IndentificationMethodDTO> getIdentificationMethod()
+  public java.util.List<mdss.entomology.IdentificationMethodDTO> getIdentificationMethod()
   {
-    return (java.util.List<mdss.entomology.IndentificationMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "mdss.entomology.IndentificationMethod", getEnumNames(IDENTIFICATIONMETHOD));
+    return (java.util.List<mdss.entomology.IdentificationMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "mdss.entomology.IndentificationMethod", getEnumNames(IDENTIFICATIONMETHOD));
   }
   
   public java.util.List<String> getIdentificationMethodEnumNames()
@@ -200,12 +200,12 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
     return getEnumNames(IDENTIFICATIONMETHOD);
   }
   
-  public void addIdentificationMethod(mdss.entomology.IndentificationMethodDTO enumDTO)
+  public void addIdentificationMethod(mdss.entomology.IdentificationMethodDTO enumDTO)
   {
     addEnumItem(IDENTIFICATIONMETHOD, enumDTO.toString());
   }
   
-  public void removeIdentificationMethod(mdss.entomology.IndentificationMethodDTO enumDTO)
+  public void removeIdentificationMethod(mdss.entomology.IdentificationMethodDTO enumDTO)
   {
     removeEnumItem(IDENTIFICATIONMETHOD, enumDTO.toString());
   }

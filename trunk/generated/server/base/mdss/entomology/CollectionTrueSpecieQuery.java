@@ -9,7 +9,7 @@ package mdss.entomology;
  */
 public  class CollectionTrueSpecieQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1234288149070L;
+private static final long serialVersionUID = 1234294596384L;
 
   public CollectionTrueSpecieQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

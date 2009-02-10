@@ -7,7 +7,7 @@ public class LoginControllerBase implements com.terraframe.mojo.generation.loade
   protected javax.servlet.http.HttpServletResponse resp;
   protected java.lang.Boolean isAsynchronous;
   
-  private static final long serialVersionUID = 1234288153689L;
+  private static final long serialVersionUID = 1234294599162L;
   
   public LoginControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -41,20 +41,6 @@ public class LoginControllerBase implements com.terraframe.mojo.generation.loade
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:username, java.lang.String:password", post=true)
-  public void login(java.lang.String username, java.lang.String password) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in com.terraframe.mojo.defaults.LoginController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "com.terraframe.mojo.defaults.LoginController.login");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:username, java.lang.String:password", post=true)
-  public void failLogin(java.lang.String username, java.lang.String password) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in com.terraframe.mojo.defaults.LoginController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "com.terraframe.mojo.defaults.LoginController.failLogin");
-  }
-  
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
   public void logout() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -67,6 +53,20 @@ public class LoginControllerBase implements com.terraframe.mojo.generation.loade
   {
     String msg = "This method should never be invoked.  It should be overwritten in com.terraframe.mojo.defaults.LoginController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "com.terraframe.mojo.defaults.LoginController.failLogout");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:username, java.lang.String:password", post=true)
+  public void login(java.lang.String username, java.lang.String password) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in com.terraframe.mojo.defaults.LoginController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "com.terraframe.mojo.defaults.LoginController.login");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:username, java.lang.String:password", post=true)
+  public void failLogin(java.lang.String username, java.lang.String password) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in com.terraframe.mojo.defaults.LoginController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "com.terraframe.mojo.defaults.LoginController.failLogin");
   }
   
 }

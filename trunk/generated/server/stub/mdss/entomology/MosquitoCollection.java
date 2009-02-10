@@ -1,8 +1,12 @@
 package mdss.entomology;
 
+import java.text.DateFormat;
 import java.util.List;
 
 import mdss.test.Terrain;
+
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
 
 public class MosquitoCollection extends MosquitoCollectionBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -11,6 +15,14 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
   public MosquitoCollection()
   {
     super();
+  }
+  
+  @Override
+  protected String buildKey()
+  {
+    //TODO The date format needs to be localizable
+    DateFormat format = DateFormat.getDateInstance();
+    return format.format(this.getDateCollected()) + " - " + this.getGeoEntity().getGeoId();
   }
 
   @Override
@@ -31,4 +43,26 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
       }
     }
   }
+  
+  public static mdss.entomology.MosquitoCollection searchByGeoEntityAndDate(mdss.test.GeoEntity geoEntity, java.util.Date collectionDate)
+  {
+    MosquitoCollection collection = null;
+    
+    QueryFactory factory = new QueryFactory();
+    MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);    
+
+    query.getGeoEntity().getId().EQ(geoEntity.getId());
+    query.getDateCollected().EQ(collectionDate);
+    
+    OIterator<? extends MosquitoCollection> iterator = query.getIterator();
+    
+    if(iterator.hasNext())
+    {
+      collection = iterator.next();
+    }
+    
+    iterator.close();
+    
+    return collection;
+  }  
 }

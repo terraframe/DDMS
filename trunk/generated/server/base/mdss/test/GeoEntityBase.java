@@ -14,6 +14,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
@@ -24,7 +25,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERRAIN = "terrain";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1234288139406L;
+  private static final long serialVersionUID = 1234294593797L;
   
   public GeoEntityBase()
   {
@@ -130,6 +131,34 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     else
     {
       setValue(ENTITYNAME, value);
+    }
+  }
+  
+  public String getGeoId()
+  {
+    return getValue(GEOID);
+  }
+  
+  public void validateGeoId()
+  {
+    this.validateAttribute(GEOID);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGeoIdMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(mdss.test.GeoEntity.CLASS);
+    return mdClassIF.definesAttribute(GEOID);
+  }
+  
+  public void setGeoId(String value)
+  {
+    if(value == null)
+    {
+      setValue(GEOID, "");
+    }
+    else
+    {
+      setValue(GEOID, value);
     }
   }
   
@@ -357,6 +386,11 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static GeoEntity get(String id)
   {
     return (GeoEntity) com.terraframe.mojo.business.Business.get(id);
+  }
+  
+  public static mdss.test.GeoEntity searchByGeoId(java.lang.String geoId)
+  {
+    return null;
   }
   
   public static GeoEntity lock(java.lang.String id)

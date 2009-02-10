@@ -10,7 +10,7 @@ package mdss.test;
 public class TerrainMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1234288149548L;
+private static final long serialVersionUID = 1234294596857L;
 
   protected TerrainMasterQueryDTO(String type)
   {

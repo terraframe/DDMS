@@ -10,7 +10,7 @@ package mdss.test;
 public abstract class TerrainMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "mdss.test.TerrainMaster";
-  private static final long serialVersionUID = 1234288149235L;
+  private static final long serialVersionUID = 1234294596473L;
   
   public TerrainMasterBase()
   {

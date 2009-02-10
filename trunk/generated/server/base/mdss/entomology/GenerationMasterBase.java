@@ -10,7 +10,7 @@ package mdss.entomology;
 public abstract class GenerationMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "mdss.entomology.GenerationMaster";
-  private static final long serialVersionUID = 1234288153729L;
+  private static final long serialVersionUID = 1234294599429L;
   
   public GenerationMasterBase()
   {

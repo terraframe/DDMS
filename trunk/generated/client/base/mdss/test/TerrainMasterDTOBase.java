@@ -3,7 +3,7 @@ package mdss.test;
 public abstract class TerrainMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "mdss.test.TerrainMaster";
-  private static final long serialVersionUID = 1234288149280L;
+  private static final long serialVersionUID = 1234294596517L;
   
   protected TerrainMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

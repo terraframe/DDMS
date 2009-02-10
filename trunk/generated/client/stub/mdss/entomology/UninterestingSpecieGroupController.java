@@ -13,7 +13,7 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
   {
     mdss.entomology.UninterestingSpecieGroupDTO dto = mdss.entomology.UninterestingSpecieGroupDTO.lock(super.getClientRequest(), id);
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -33,7 +33,7 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", mdss.entomology.UninterestingSpecieGroupDTO.get(clientRequest, id));
     if(this.isAsynchronous())
@@ -54,7 +54,7 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     mdss.entomology.UninterestingSpecieGroupDTO dto = new mdss.entomology.UninterestingSpecieGroupDTO(clientRequest);
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -85,7 +85,7 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
   public void failUpdate(mdss.entomology.UninterestingSpecieGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -157,7 +157,7 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
   public void failCreate(mdss.entomology.UninterestingSpecieGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -184,7 +184,7 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
   public void failDelete(mdss.entomology.UninterestingSpecieGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())

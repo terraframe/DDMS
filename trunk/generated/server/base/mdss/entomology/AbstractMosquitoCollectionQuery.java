@@ -10,7 +10,7 @@ package mdss.entomology;
 public  class AbstractMosquitoCollectionQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1234288138205L;
+private static final long serialVersionUID = 1234294593008L;
 
   public AbstractMosquitoCollectionQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -258,64 +258,6 @@ private static final long serialVersionUID = 1234288138205L;
   }
 
 
-  public com.terraframe.mojo.query.Condition specieRow()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
-  {
-    return this.getBusinessQuery().isParentIn(collectionSpecieQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(morphologicalSpecieGroupQuery));
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
-  {
-    collectionSpecieQuery.AND(collectionSpecieQuery.hasChild(morphologicalSpecieGroupQuery));
-    return this.getBusinessQuery().isParentIn(collectionSpecieQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_specieRow()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn(collectionSpecieQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(morphologicalSpecieGroupQuery));
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
-  {
-    collectionSpecieQuery.AND(collectionSpecieQuery.hasChild(morphologicalSpecieGroupQuery));
-    return this.getBusinessQuery().isNotParentIn(collectionSpecieQuery);
-  }
-
-
   public com.terraframe.mojo.query.Condition trueSpecieCollection()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -374,6 +316,64 @@ private static final long serialVersionUID = 1234288138205L;
   }
 
 
+  public com.terraframe.mojo.query.Condition specieRow()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
+  {
+    return this.getBusinessQuery().isParentIn(collectionSpecieQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(morphologicalSpecieGroupQuery));
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
+  {
+    collectionSpecieQuery.AND(collectionSpecieQuery.hasChild(morphologicalSpecieGroupQuery));
+    return this.getBusinessQuery().isParentIn(collectionSpecieQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_specieRow()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn(collectionSpecieQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(morphologicalSpecieGroupQuery));
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
+  {
+    collectionSpecieQuery.AND(collectionSpecieQuery.hasChild(morphologicalSpecieGroupQuery));
+    return this.getBusinessQuery().isNotParentIn(collectionSpecieQuery);
+  }
+
+
 /**
  * Interface that masks all type unsafe query methods and defines all type safe methods.
  * This type is used when a join is performed on this class as a reference.
@@ -415,13 +415,6 @@ private static final long serialVersionUID = 1234288138205L;
     public com.terraframe.mojo.query.BasicCondition NE(mdss.entomology.AbstractMosquitoCollection abstractMosquitoCollection);
 
 
-  public com.terraframe.mojo.query.Condition specieRow();
-
-  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery);
-
-  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery);
-
-
   public com.terraframe.mojo.query.Condition trueSpecieCollection();
 
   public com.terraframe.mojo.query.Condition trueSpecieCollection(mdss.entomology.TrueSpecieEntityQuery trueSpecieEntityQuery);
@@ -429,11 +422,11 @@ private static final long serialVersionUID = 1234288138205L;
   public com.terraframe.mojo.query.Condition trueSpecieCollection(mdss.entomology.TrueSpecieEntityQuery trueSpecieEntityQuery, mdss.entomology.CollectionTrueSpecieQuery collectionTrueSpecieQuery);
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_specieRow();
+  public com.terraframe.mojo.query.Condition specieRow();
 
-  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery);
+  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery);
 
-  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery);
+  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery);
 
 
   public com.terraframe.mojo.query.Condition NOT_IN_trueSpecieCollection();
@@ -441,6 +434,13 @@ private static final long serialVersionUID = 1234288138205L;
   public com.terraframe.mojo.query.Condition NOT_IN_trueSpecieCollection(mdss.entomology.TrueSpecieEntityQuery trueSpecieEntityQuery);
 
   public com.terraframe.mojo.query.Condition NOT_IN_trueSpecieCollection(mdss.entomology.TrueSpecieEntityQuery trueSpecieEntityQuery, mdss.entomology.CollectionTrueSpecieQuery collectionTrueSpecieQuery);
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_specieRow();
+
+  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery);
+
+  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery);
 
   }
 
@@ -452,7 +452,7 @@ private static final long serialVersionUID = 1234288138205L;
  implements AbstractMosquitoCollectionQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1234288138426L;
+private static final long serialVersionUID = 1234294593173L;
 
   public AbstractMosquitoCollectionQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -626,30 +626,6 @@ private static final long serialVersionUID = 1234288138426L;
 
   }
 
-  public com.terraframe.mojo.query.Condition specieRow()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(morphologicalSpecieGroupQuery));
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
-  {
-    collectionSpecieQuery.AND(collectionSpecieQuery.hasChild(morphologicalSpecieGroupQuery));
-    return this.isParentIn(collectionSpecieQuery);
-  }
-
-
   public com.terraframe.mojo.query.Condition trueSpecieCollection()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -674,27 +650,27 @@ private static final long serialVersionUID = 1234288138426L;
   }
 
 
-  public com.terraframe.mojo.query.Condition NOT_IN_specieRow()
+  public com.terraframe.mojo.query.Condition specieRow()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
     com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
 
-    return this.isNotParentIn(relationshipQuery);
+    return this.isParentIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery)
+  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
     com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
     relationshipQuery.AND(relationshipQuery.hasChild(morphologicalSpecieGroupQuery));
 
-    return this.isNotParentIn(relationshipQuery);
+    return this.isParentIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
+  public com.terraframe.mojo.query.Condition specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
   {
     collectionSpecieQuery.AND(collectionSpecieQuery.hasChild(morphologicalSpecieGroupQuery));
-    return this.isNotParentIn(collectionSpecieQuery);
+    return this.isParentIn(collectionSpecieQuery);
   }
 
 
@@ -719,6 +695,30 @@ private static final long serialVersionUID = 1234288138426L;
   {
     collectionTrueSpecieQuery.AND(collectionTrueSpecieQuery.hasChild(trueSpecieEntityQuery));
     return this.isNotParentIn(collectionTrueSpecieQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_specieRow()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(mdss.entomology.CollectionSpecie.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(morphologicalSpecieGroupQuery));
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_specieRow(mdss.entomology.MorphologicalSpecieGroupQuery morphologicalSpecieGroupQuery, mdss.entomology.CollectionSpecieQuery collectionSpecieQuery)
+  {
+    collectionSpecieQuery.AND(collectionSpecieQuery.hasChild(morphologicalSpecieGroupQuery));
+    return this.isNotParentIn(collectionSpecieQuery);
   }
 
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias)

@@ -15,7 +15,7 @@ public class MosquitoController extends MosquitoControllerBase implements com.te
     req.setAttribute("mdss_entomology_Mosquito_generation", mdss.entomology.GenerationDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_Mosquito_sex", mdss.general.SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -46,7 +46,7 @@ public class MosquitoController extends MosquitoControllerBase implements com.te
     req.setAttribute("mdss_entomology_Mosquito_generation", mdss.entomology.GenerationDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_Mosquito_sex", mdss.general.SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", mdss.entomology.MosquitoDTO.get(clientRequest, id));
     if(this.isAsynchronous())
@@ -79,7 +79,7 @@ public class MosquitoController extends MosquitoControllerBase implements com.te
     req.setAttribute("mdss_entomology_Mosquito_generation", mdss.entomology.GenerationDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_Mosquito_sex", mdss.general.SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -108,7 +108,7 @@ public class MosquitoController extends MosquitoControllerBase implements com.te
     req.setAttribute("mdss_entomology_Mosquito_generation", mdss.entomology.GenerationDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_Mosquito_sex", mdss.general.SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -145,7 +145,7 @@ public class MosquitoController extends MosquitoControllerBase implements com.te
     req.setAttribute("mdss_entomology_Mosquito_generation", mdss.entomology.GenerationDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_Mosquito_sex", mdss.general.SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())
@@ -178,7 +178,7 @@ public class MosquitoController extends MosquitoControllerBase implements com.te
     req.setAttribute("mdss_entomology_Mosquito_generation", mdss.entomology.GenerationDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_Mosquito_sex", mdss.general.SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IndentificationMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.entomology.IdentificationMethodDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.entomology.SpecieDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     if(this.isAsynchronous())

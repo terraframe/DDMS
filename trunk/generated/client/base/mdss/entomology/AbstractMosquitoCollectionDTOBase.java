@@ -3,7 +3,7 @@ package mdss.entomology;
 public abstract class AbstractMosquitoCollectionDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "mdss.entomology.AbstractMosquitoCollection";
-  private static final long serialVersionUID = 1234288138119L;
+  private static final long serialVersionUID = 1234294592882L;
   
   protected AbstractMosquitoCollectionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -383,22 +383,6 @@ public abstract class AbstractMosquitoCollectionDTOBase extends com.terraframe.m
     return (mdss.entomology.UninterestingSpecieGroupDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final mdss.entomology.MosquitoDTO getMosquitos()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(mdss.entomology.AbstractMosquitoCollectionDTO.CLASS, "getMosquitos", _declaredTypes);
-    return (mdss.entomology.MosquitoDTO) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final mdss.entomology.MosquitoDTO getMosquitos(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(mdss.entomology.AbstractMosquitoCollectionDTO.CLASS, "getMosquitos", _declaredTypes);
-    return (mdss.entomology.MosquitoDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
   public final mdss.entomology.MorphologicalSpecieGroupDTO getMorphologicalSpecieGroups()
   {
     String[] _declaredTypes = new String[]{};
@@ -413,6 +397,22 @@ public abstract class AbstractMosquitoCollectionDTOBase extends com.terraframe.m
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(mdss.entomology.AbstractMosquitoCollectionDTO.CLASS, "getMorphologicalSpecieGroups", _declaredTypes);
     return (mdss.entomology.MorphologicalSpecieGroupDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final mdss.entomology.MosquitoDTO getMosquitos()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(mdss.entomology.AbstractMosquitoCollectionDTO.CLASS, "getMosquitos", _declaredTypes);
+    return (mdss.entomology.MosquitoDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final mdss.entomology.MosquitoDTO getMosquitos(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(mdss.entomology.AbstractMosquitoCollectionDTO.CLASS, "getMosquitos", _declaredTypes);
+    return (mdss.entomology.MosquitoDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static mdss.entomology.AbstractMosquitoCollectionDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

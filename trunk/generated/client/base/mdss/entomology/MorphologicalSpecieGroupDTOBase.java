@@ -3,7 +3,7 @@ package mdss.entomology;
 public abstract class MorphologicalSpecieGroupDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "mdss.entomology.MorphologicalSpecieGroup";
-  private static final long serialVersionUID = 1234288141011L;
+  private static final long serialVersionUID = 1234294594846L;
   
   protected MorphologicalSpecieGroupDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -153,9 +153,9 @@ public abstract class MorphologicalSpecieGroupDTOBase extends com.terraframe.moj
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<mdss.entomology.IndentificationMethodDTO> getIdentificationMethod()
+  public java.util.List<mdss.entomology.IdentificationMethodDTO> getIdentificationMethod()
   {
-    return (java.util.List<mdss.entomology.IndentificationMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "mdss.entomology.IndentificationMethod", getEnumNames(IDENTIFICATIONMETHOD));
+    return (java.util.List<mdss.entomology.IdentificationMethodDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "mdss.entomology.IndentificationMethod", getEnumNames(IDENTIFICATIONMETHOD));
   }
   
   public java.util.List<String> getIdentificationMethodEnumNames()
@@ -163,12 +163,12 @@ public abstract class MorphologicalSpecieGroupDTOBase extends com.terraframe.moj
     return getEnumNames(IDENTIFICATIONMETHOD);
   }
   
-  public void addIdentificationMethod(mdss.entomology.IndentificationMethodDTO enumDTO)
+  public void addIdentificationMethod(mdss.entomology.IdentificationMethodDTO enumDTO)
   {
     addEnumItem(IDENTIFICATIONMETHOD, enumDTO.toString());
   }
   
-  public void removeIdentificationMethod(mdss.entomology.IndentificationMethodDTO enumDTO)
+  public void removeIdentificationMethod(mdss.entomology.IdentificationMethodDTO enumDTO)
   {
     removeEnumItem(IDENTIFICATIONMETHOD, enumDTO.toString());
   }

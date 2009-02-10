@@ -3,7 +3,7 @@ package mdss.test;
 public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "mdss.test.GeoEntity";
-  private static final long serialVersionUID = 1234288139462L;
+  private static final long serialVersionUID = 1234294593867L;
   
   protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
@@ -30,6 +30,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
@@ -155,6 +156,43 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("entityName").getAttributeMdDTO();
+  }
+  
+  public String getGeoId()
+  {
+    return getValue(GEOID);
+  }
+  
+  public void setGeoId(String value)
+  {
+    if(value == null)
+    {
+      setValue(GEOID, "");
+    }
+    else
+    {
+      setValue(GEOID, value);
+    }
+  }
+  
+  public boolean isGeoIdWritable()
+  {
+    return isWritable(GEOID);
+  }
+  
+  public boolean isGeoIdReadable()
+  {
+    return isReadable(GEOID);
+  }
+  
+  public boolean isGeoIdModified()
+  {
+    return isModified(GEOID);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("geoId").getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -381,6 +419,14 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getTerrainMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("terrain").getAttributeMdDTO();
+  }
+  
+  public static final mdss.test.GeoEntityDTO searchByGeoId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{geoId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(mdss.test.GeoEntityDTO.CLASS, "searchByGeoId", _declaredTypes);
+    return (mdss.test.GeoEntityDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static mdss.test.GeoEntityDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

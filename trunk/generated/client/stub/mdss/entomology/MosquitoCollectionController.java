@@ -1,5 +1,12 @@
 package mdss.entomology;
 
+import java.io.IOException;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+
+import mdss.test.GeoEntityDTO;
+
 public class MosquitoCollectionController extends MosquitoCollectionControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234288138696L;
@@ -189,5 +196,27 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     {
       req.getRequestDispatcher("WEB-INF/mdss/entomology/MosquitoCollection/edit.jsp").forward(req, resp);
     }
+  }
+  
+  @Override
+  public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, Date collectionDate) throws IOException, ServletException
+  {
+    MosquitoCollectionDTO collection = MosquitoCollectionDTO.searchByGeoEntityAndDate(super.getClientRequest(), geoEntity, collectionDate);
+    String jsp = (this.isAsynchronous() ? "editComponent.jsp" : "edit.jsp");
+    
+    if(collection == null)
+    {
+      collection = new MosquitoCollectionDTO(super.getClientRequest());
+      collection.setDateCollected(collectionDate);
+      collection.setGeoEntity(geoEntity);
+
+      jsp = (this.isAsynchronous() ? "createComponent.jsp" : "create.jsp");
+    }
+
+    req.setAttribute("mdss_entomology_MosquitoCollection_collectionMethod", mdss.entomology.CollectionMethodDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_entomology_AbstractMosquitoCollection_geoEntity", mdss.test.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", collection);
+    
+    req.getRequestDispatcher("WEB-INF/mdss/entomology/MosquitoCollection/" + jsp).forward(req, resp);
   }
 }

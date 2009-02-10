@@ -10,7 +10,7 @@ package mdss.test;
 public  class GeoEntityQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1234288139561L;
+private static final long serialVersionUID = 1234294593962L;
 
   public GeoEntityQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -75,6 +75,17 @@ private static final long serialVersionUID = 1234288139561L;
   public com.terraframe.mojo.query.AttributeCharIF getEntityName(String alias)
   {
     return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(mdss.test.GeoEntity.ENTITYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
+
+  }
+  public com.terraframe.mojo.query.AttributeCharIF getGeoId()
+  {
+    return getGeoId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getGeoId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(mdss.test.GeoEntity.GEOID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getId()
@@ -284,6 +295,8 @@ private static final long serialVersionUID = 1234288139561L;
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getEntityName();
     public com.terraframe.mojo.query.AttributeCharIF getEntityName(String alias);
+    public com.terraframe.mojo.query.AttributeCharIF getGeoId();
+    public com.terraframe.mojo.query.AttributeCharIF getGeoId(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getId();
     public com.terraframe.mojo.query.AttributeCharIF getId(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getKeyName();
@@ -319,7 +332,7 @@ private static final long serialVersionUID = 1234288139561L;
  implements GeoEntityQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1234288139744L;
+private static final long serialVersionUID = 1234294594129L;
 
   public GeoEntityQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -380,6 +393,17 @@ private static final long serialVersionUID = 1234288139744L;
   public com.terraframe.mojo.query.AttributeCharIF getEntityName(String alias)
   {
     return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("entityName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
+
+  }
+  public com.terraframe.mojo.query.AttributeCharIF getGeoId()
+  {
+    return getGeoId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getGeoId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("geoId", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getId()

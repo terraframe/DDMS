@@ -3,7 +3,7 @@ package mdss.entomology;
 public abstract class SpecieMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "mdss.entomology.SpecieMaster";
-  private static final long serialVersionUID = 1234288153090L;
+  private static final long serialVersionUID = 1234294598833L;
   
   protected SpecieMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
