@@ -126,10 +126,12 @@
 		</javac>
 	</target>
 	
+	<property name="domain.location" value="${local.root}/doc/DomainModel.xml" />
+	
 	<target name="update_domain_model">
 		<!-- Import the domain model -->
 		<java classname="ImportModel" failonerror="true" fork="true">
-			<arg file="${local.root}/doc/DomainModel.xml"/>
+			<arg file="${domain.location}"/>
 			<jvmarg value="-Dmojo.keepSource=true"/>
 			<classpath>
 				<path refid="framework.classpath"/>
