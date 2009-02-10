@@ -2,7 +2,7 @@ package mdss.entomology;
 
 public class CollectionTrueSpecie extends CollectionTrueSpecieBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1234203356255L;
+  private static final long serialVersionUID = 1234288149069L;
   
   public CollectionTrueSpecie(String parentId, String childId)
   {

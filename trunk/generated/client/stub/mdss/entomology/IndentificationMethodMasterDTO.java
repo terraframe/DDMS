@@ -3,7 +3,7 @@ package mdss.entomology;
 public class IndentificationMethodMasterDTO extends IndentificationMethodMasterDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   public final static String CLASS = "mdss.entomology.IndentificationMethodMaster";
-  private static final long serialVersionUID = 1234203357236L;
+  private static final long serialVersionUID = 1234288150503L;
   
   public IndentificationMethodMasterDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

@@ -3,7 +3,7 @@ package mdss.test;
 public class GeoEntityDTO extends GeoEntityDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   public final static String CLASS = "mdss.test.GeoEntity";
-  private static final long serialVersionUID = 1234203353390L;
+  private static final long serialVersionUID = 1234288139561L;
   
   public GeoEntityDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

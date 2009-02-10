@@ -11,7 +11,7 @@ public abstract class UninterestingSpecieGroupBase extends mdss.entomology.TrueS
 {
   public final static String CLASS = "mdss.entomology.UninterestingSpecieGroup";
   public static java.lang.String QUANITY = "quanity";
-  private static final long serialVersionUID = 1234203357538L;
+  private static final long serialVersionUID = 1234288151010L;
   
   public UninterestingSpecieGroupBase()
   {

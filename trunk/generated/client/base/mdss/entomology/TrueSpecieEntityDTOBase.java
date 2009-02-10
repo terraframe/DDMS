@@ -3,7 +3,7 @@ package mdss.entomology;
 public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "mdss.entomology.TrueSpecieEntity";
-  private static final long serialVersionUID = 1234203354970L;
+  private static final long serialVersionUID = 1234288141597L;
   
   protected TrueSpecieEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

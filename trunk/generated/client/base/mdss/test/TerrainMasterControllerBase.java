@@ -5,13 +5,15 @@ public class TerrainMasterControllerBase implements com.terraframe.mojo.generati
   public static final String CLASS = "mdss.test.TerrainMasterController";
   protected javax.servlet.http.HttpServletRequest req;
   protected javax.servlet.http.HttpServletResponse resp;
+  protected java.lang.Boolean isAsynchronous;
   
-  private static final long serialVersionUID = 1234203356708L;
+  private static final long serialVersionUID = 1234288149662L;
   
-  public TerrainMasterControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp)
+  public TerrainMasterControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this.req = req;
     this.resp = resp;
+    this.isAsynchronous = isAsynchronous;
   }
   
   public javax.servlet.http.HttpServletRequest getRequest()
@@ -24,6 +26,11 @@ public class TerrainMasterControllerBase implements com.terraframe.mojo.generati
     return this.resp;
   }
   
+  public java.lang.Boolean isAsynchronous()
+  {
+    return this.isAsynchronous;
+  }
+  
   public com.terraframe.mojo.constants.ClientRequestIF getClientRequest()
   {
     return (com.terraframe.mojo.constants.ClientRequestIF) req.getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTREQUEST);
@@ -32,6 +39,34 @@ public class TerrainMasterControllerBase implements com.terraframe.mojo.generati
   public com.terraframe.mojo.ClientSession getClientSession()
   {
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.test.TerrainMasterDTO:dto", post=true)
+  public void create(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.create");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.test.TerrainMasterDTO:dto", post=true)
+  public void failCreate(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failCreate");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.newInstance");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failNewInstance");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.test.TerrainMasterDTO:dto", post=true)
@@ -49,31 +84,31 @@ public class TerrainMasterControllerBase implements com.terraframe.mojo.generati
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.test.TerrainMasterDTO:dto", post=true)
-  public void cancel(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.cancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.delete");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.test.TerrainMasterDTO:dto", post=true)
-  public void failCancel(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failCancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failDelete");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.test.TerrainMasterDTO:dto", post=true)
-  public void create(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.create");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.edit");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.test.TerrainMasterDTO:dto", post=true)
-  public void failCreate(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failCreate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failEdit");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
@@ -91,48 +126,6 @@ public class TerrainMasterControllerBase implements com.terraframe.mojo.generati
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.newInstance");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failNewInstance");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.edit");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failEdit");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.viewPage");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failViewPage");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
@@ -147,17 +140,31 @@ public class TerrainMasterControllerBase implements com.terraframe.mojo.generati
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.test.TerrainMasterDTO:dto", post=true)
-  public void delete(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.delete");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.cancel");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.test.TerrainMasterDTO:dto", post=true)
-  public void failDelete(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(mdss.test.TerrainMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failDelete");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failCancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.viewPage");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.test.TerrainMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.test.TerrainMasterController.failViewPage");
   }
   
 }

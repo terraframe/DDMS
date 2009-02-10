@@ -2,13 +2,31 @@ package mdss.test;
 
 public class GeoEntityController extends GeoEntityControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1234203359389L;
+  private static final long serialVersionUID = 1234288153406L;
   
-  public GeoEntityController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp)
+  public GeoEntityController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
-    super(req, resp);
+    super(req, resp, isAsynchronous);
   }
   
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    mdss.test.GeoEntityQueryDTO query = mdss.test.GeoEntityDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    req.setAttribute("query", query);
+    if(this.isAsynchronous())
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/viewAllComponent.jsp").forward(req, resp);
+    }
+    else
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/viewAll.jsp").forward(req, resp);
+    }
+  }
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
+  }
   public void update(mdss.test.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -25,7 +43,14 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
   {
     req.setAttribute("mdss_test_GeoEntity_terrain", mdss.test.TerrainDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/edit.jsp").forward(req, resp);
+    if(this.isAsynchronous())
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/editComponent.jsp").forward(req, resp);
+    }
+    else
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/edit.jsp").forward(req, resp);
+    }
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -33,7 +58,14 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
     mdss.test.GeoEntityDTO dto = new mdss.test.GeoEntityDTO(clientRequest);
     req.setAttribute("mdss_test_GeoEntity_terrain", mdss.test.TerrainDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/create.jsp").forward(req, resp);
+    if(this.isAsynchronous())
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/createComponent.jsp").forward(req, resp);
+    }
+    else
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/create.jsp").forward(req, resp);
+    }
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -44,7 +76,14 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
     mdss.test.GeoEntityDTO dto = mdss.test.GeoEntityDTO.lock(super.getClientRequest(), id);
     req.setAttribute("mdss_test_GeoEntity_terrain", mdss.test.TerrainDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/edit.jsp").forward(req, resp);
+    if(this.isAsynchronous())
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/editComponent.jsp").forward(req, resp);
+    }
+    else
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/edit.jsp").forward(req, resp);
+    }
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -66,14 +105,28 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
   {
     req.setAttribute("mdss_test_GeoEntity_terrain", mdss.test.TerrainDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/edit.jsp").forward(req, resp);
+    if(this.isAsynchronous())
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/editComponent.jsp").forward(req, resp);
+    }
+    else
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/edit.jsp").forward(req, resp);
+    }
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("mdss_test_GeoEntity_terrain", mdss.test.TerrainDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", mdss.test.GeoEntityDTO.get(clientRequest, id));
-    req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/view.jsp").forward(req, resp);
+    if(this.isAsynchronous())
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/viewComponent.jsp").forward(req, resp);
+    }
+    else
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/view.jsp").forward(req, resp);
+    }
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -95,16 +148,30 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
   {
     req.setAttribute("mdss_test_GeoEntity_terrain", mdss.test.TerrainDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/create.jsp").forward(req, resp);
+    if(this.isAsynchronous())
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/createComponent.jsp").forward(req, resp);
+    }
+    else
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/create.jsp").forward(req, resp);
+    }
   }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.test.GeoEntityQueryDTO query = mdss.test.GeoEntityDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    mdss.test.GeoEntityQueryDTO query = mdss.test.GeoEntityDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/viewAll.jsp").forward(req, resp);
+    if(this.isAsynchronous())
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/viewAllComponent.jsp").forward(req, resp);
+    }
+    else
+    {
+      req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/viewAll.jsp").forward(req, resp);
+    }
   }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
@@ -114,17 +181,6 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
     this.view(dto.getId());
   }
   public void failCancel(mdss.test.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.test.GeoEntityQueryDTO query = mdss.test.GeoEntityDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
-    req.getRequestDispatcher("WEB-INF/mdss/test/GeoEntity/viewAll.jsp").forward(req, resp);
-  }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }

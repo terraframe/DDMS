@@ -5,13 +5,15 @@ public class LoginControllerBase implements com.terraframe.mojo.generation.loade
   public static final String CLASS = "com.terraframe.mojo.defaults.LoginController";
   protected javax.servlet.http.HttpServletRequest req;
   protected javax.servlet.http.HttpServletResponse resp;
+  protected java.lang.Boolean isAsynchronous;
   
-  private static final long serialVersionUID = 1234203359578L;
+  private static final long serialVersionUID = 1234288153689L;
   
-  public LoginControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp)
+  public LoginControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this.req = req;
     this.resp = resp;
+    this.isAsynchronous = isAsynchronous;
   }
   
   public javax.servlet.http.HttpServletRequest getRequest()
@@ -24,6 +26,11 @@ public class LoginControllerBase implements com.terraframe.mojo.generation.loade
     return this.resp;
   }
   
+  public java.lang.Boolean isAsynchronous()
+  {
+    return this.isAsynchronous;
+  }
+  
   public com.terraframe.mojo.constants.ClientRequestIF getClientRequest()
   {
     return (com.terraframe.mojo.constants.ClientRequestIF) req.getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTREQUEST);
@@ -32,20 +39,6 @@ public class LoginControllerBase implements com.terraframe.mojo.generation.loade
   public com.terraframe.mojo.ClientSession getClientSession()
   {
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void logout() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in com.terraframe.mojo.defaults.LoginController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "com.terraframe.mojo.defaults.LoginController.logout");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failLogout() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in com.terraframe.mojo.defaults.LoginController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "com.terraframe.mojo.defaults.LoginController.failLogout");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:username, java.lang.String:password", post=true)
@@ -60,6 +53,20 @@ public class LoginControllerBase implements com.terraframe.mojo.generation.loade
   {
     String msg = "This method should never be invoked.  It should be overwritten in com.terraframe.mojo.defaults.LoginController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "com.terraframe.mojo.defaults.LoginController.failLogin");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void logout() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in com.terraframe.mojo.defaults.LoginController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "com.terraframe.mojo.defaults.LoginController.logout");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failLogout() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in com.terraframe.mojo.defaults.LoginController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "com.terraframe.mojo.defaults.LoginController.failLogout");
   }
   
 }

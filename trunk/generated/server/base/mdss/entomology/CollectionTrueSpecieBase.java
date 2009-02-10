@@ -22,7 +22,7 @@ public abstract class CollectionTrueSpecieBase extends com.terraframe.mojo.busin
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1234203356240L;
+  private static final long serialVersionUID = 1234288149056L;
   
   public CollectionTrueSpecieBase(String parentId, String childId)
   {

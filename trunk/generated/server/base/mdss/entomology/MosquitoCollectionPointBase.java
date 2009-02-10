@@ -10,7 +10,7 @@ package mdss.entomology;
 public abstract class MosquitoCollectionPointBase extends mdss.entomology.AbstractMosquitoCollection implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "mdss.entomology.MosquitoCollectionPoint";
-  private static final long serialVersionUID = 1234203360429L;
+  private static final long serialVersionUID = 1234288154477L;
   
   public MosquitoCollectionPointBase()
   {

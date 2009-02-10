@@ -10,7 +10,7 @@ package mdss.entomology;
 public class SpecieMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1234203359330L;
+private static final long serialVersionUID = 1234288153341L;
 
   protected SpecieMasterQueryDTO(String type)
   {

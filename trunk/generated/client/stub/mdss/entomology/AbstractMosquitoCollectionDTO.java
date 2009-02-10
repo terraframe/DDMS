@@ -3,7 +3,7 @@ package mdss.entomology;
 public abstract class AbstractMosquitoCollectionDTO extends AbstractMosquitoCollectionDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   public final static String CLASS = "mdss.entomology.AbstractMosquitoCollection";
-  private static final long serialVersionUID = 1234203352099L;
+  private static final long serialVersionUID = 1234288138203L;
   
   public AbstractMosquitoCollectionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

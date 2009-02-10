@@ -10,7 +10,7 @@ package mdss.entomology;
 public class GenerationMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1234203359960L;
+private static final long serialVersionUID = 1234288154020L;
 
   protected GenerationMasterQueryDTO(String type)
   {

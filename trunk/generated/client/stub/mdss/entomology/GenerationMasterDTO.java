@@ -3,7 +3,7 @@ package mdss.entomology;
 public class GenerationMasterDTO extends GenerationMasterDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   public final static String CLASS = "mdss.entomology.GenerationMaster";
-  private static final long serialVersionUID = 1234203359713L;
+  private static final long serialVersionUID = 1234288153809L;
   
   public GenerationMasterDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

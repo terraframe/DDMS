@@ -3,7 +3,7 @@ package mdss.entomology;
 public class UninterestingSpecieGroupDTO extends UninterestingSpecieGroupDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   public final static String CLASS = "mdss.entomology.UninterestingSpecieGroup";
-  private static final long serialVersionUID = 1234203357628L;
+  private static final long serialVersionUID = 1234288151118L;
   
   public UninterestingSpecieGroupDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

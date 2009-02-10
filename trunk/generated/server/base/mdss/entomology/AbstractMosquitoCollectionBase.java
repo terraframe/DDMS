@@ -24,7 +24,7 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1234203351837L;
+  private static final long serialVersionUID = 1234288137985L;
   
   public AbstractMosquitoCollectionBase()
   {
@@ -448,6 +448,17 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
     return (AbstractMosquitoCollection) com.terraframe.mojo.business.Business.get(id);
   }
   
+  public mdss.entomology.UninterestingSpecieGroup getUninterestingSpecieGroups()
+  {
+    return null;
+  }
+  
+  public static final mdss.entomology.UninterestingSpecieGroup getUninterestingSpecieGroups(java.lang.String id)
+  {
+    AbstractMosquitoCollection _instance = AbstractMosquitoCollection.get(id);
+    return _instance.getUninterestingSpecieGroups();
+  }
+  
   public mdss.entomology.Mosquito getMosquitos()
   {
     return null;
@@ -468,17 +479,6 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
   {
     AbstractMosquitoCollection _instance = AbstractMosquitoCollection.get(id);
     return _instance.getMorphologicalSpecieGroups();
-  }
-  
-  public mdss.entomology.UninterestingSpecieGroup getUninterestingSpecieGroups()
-  {
-    return null;
-  }
-  
-  public static final mdss.entomology.UninterestingSpecieGroup getUninterestingSpecieGroups(java.lang.String id)
-  {
-    AbstractMosquitoCollection _instance = AbstractMosquitoCollection.get(id);
-    return _instance.getUninterestingSpecieGroups();
   }
   
   public static AbstractMosquitoCollection lock(java.lang.String id)

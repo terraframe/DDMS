@@ -10,7 +10,7 @@ package mdss.test;
 public class GeoEntityQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1234203353660L;
+private static final long serialVersionUID = 1234288139857L;
 
   protected GeoEntityQueryDTO(String type)
   {

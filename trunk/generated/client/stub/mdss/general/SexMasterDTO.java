@@ -3,7 +3,7 @@ package mdss.general;
 public class SexMasterDTO extends SexMasterDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   public final static String CLASS = "mdss.general.SexMaster";
-  private static final long serialVersionUID = 1234203356899L;
+  private static final long serialVersionUID = 1234288149922L;
   
   public SexMasterDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

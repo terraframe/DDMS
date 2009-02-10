@@ -11,7 +11,7 @@ public abstract class MosquitoCollectionBase extends mdss.entomology.AbstractMos
 {
   public final static String CLASS = "mdss.entomology.MosquitoCollection";
   public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
-  private static final long serialVersionUID = 1234203351273L;
+  private static final long serialVersionUID = 1234288137345L;
   
   public MosquitoCollectionBase()
   {

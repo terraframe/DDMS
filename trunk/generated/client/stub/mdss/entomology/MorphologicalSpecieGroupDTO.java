@@ -3,7 +3,7 @@ package mdss.entomology;
 public class MorphologicalSpecieGroupDTO extends MorphologicalSpecieGroupDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   public final static String CLASS = "mdss.entomology.MorphologicalSpecieGroup";
-  private static final long serialVersionUID = 1234203354479L;
+  private static final long serialVersionUID = 1234288141068L;
   
   public MorphologicalSpecieGroupDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

@@ -5,13 +5,15 @@ public class IndentificationMethodMasterControllerBase implements com.terraframe
   public static final String CLASS = "mdss.entomology.IndentificationMethodMasterController";
   protected javax.servlet.http.HttpServletRequest req;
   protected javax.servlet.http.HttpServletResponse resp;
+  protected java.lang.Boolean isAsynchronous;
   
-  private static final long serialVersionUID = 1234203358211L;
+  private static final long serialVersionUID = 1234288151714L;
   
-  public IndentificationMethodMasterControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp)
+  public IndentificationMethodMasterControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     this.req = req;
     this.resp = resp;
+    this.isAsynchronous = isAsynchronous;
   }
   
   public javax.servlet.http.HttpServletRequest getRequest()
@@ -24,6 +26,11 @@ public class IndentificationMethodMasterControllerBase implements com.terraframe
     return this.resp;
   }
   
+  public java.lang.Boolean isAsynchronous()
+  {
+    return this.isAsynchronous;
+  }
+  
   public com.terraframe.mojo.constants.ClientRequestIF getClientRequest()
   {
     return (com.terraframe.mojo.constants.ClientRequestIF) req.getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTREQUEST);
@@ -32,20 +39,6 @@ public class IndentificationMethodMasterControllerBase implements com.terraframe
   public com.terraframe.mojo.ClientSession getClientSession()
   {
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.IndentificationMethodMasterDTO:dto", post=true)
-  public void create(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.create");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.IndentificationMethodMasterDTO:dto", post=true)
-  public void failCreate(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failCreate");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.IndentificationMethodMasterDTO:dto", post=true)
@@ -62,6 +55,34 @@ public class IndentificationMethodMasterControllerBase implements com.terraframe
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failUpdate");
   }
   
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.IndentificationMethodMasterDTO:dto", post=true)
+  public void cancel(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.cancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.IndentificationMethodMasterDTO:dto", post=true)
+  public void failCancel(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failCancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.view");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failView");
+  }
+  
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -76,18 +97,18 @@ public class IndentificationMethodMasterControllerBase implements com.terraframe
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failViewPage");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.IndentificationMethodMasterDTO:dto", post=true)
+  public void delete(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.viewAll");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.delete");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.IndentificationMethodMasterDTO:dto", post=true)
+  public void failDelete(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failViewAll");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failDelete");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
@@ -105,45 +126,17 @@ public class IndentificationMethodMasterControllerBase implements com.terraframe
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.IndentificationMethodMasterDTO:dto", post=true)
-  public void cancel(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.cancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.create");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.IndentificationMethodMasterDTO:dto", post=true)
-  public void failCancel(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failCancel");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.IndentificationMethodMasterDTO:dto", post=true)
-  public void delete(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.delete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="mdss.entomology.IndentificationMethodMasterDTO:dto", post=true)
-  public void failDelete(mdss.entomology.IndentificationMethodMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failDelete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.view");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failView");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failCreate");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
@@ -158,6 +151,20 @@ public class IndentificationMethodMasterControllerBase implements com.terraframe
   {
     String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failEdit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.viewAll");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in mdss.entomology.IndentificationMethodMasterController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "mdss.entomology.IndentificationMethodMasterController.failViewAll");
   }
   
 }
