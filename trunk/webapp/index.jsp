@@ -6,22 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>MDSS</title>
+<link rel="icon" type="image/png" href="/MDSS/imgs/favicon.png"/>
 </head>
 <body>
 <h1>Welcome to MDSS</h1>
-<mjl:commandLink action="mdss.test.GeoEntityController.viewAll.mojo"
-	name="geoEntites.link" display="View GeoEntites" />
-<mjl:commandLink
-	action="mdss.entomology.MosquitoCollectionController.viewAll.mojo"
-	name="mosquitoCollection.link" display="View Mosquioto Collections" />
-<mjl:commandLink
-	action="mdss.entomology.MorphologicalSpecieGroupController.viewAll.mojo"
-	name="morphologicalSpecieGroup.link" display="View Morphological Speicie Groups" />
-<mjl:commandLink
-	action="mdss.entomology.MosquitoController.viewAll.mojo"
-	name="mosquito.link" display="View Mosquiotos" />
-<mjl:commandLink name="LoginController.logout"
-	action="com.terraframe.mojo.defaults.LoginController.logout.mojo"
-	display="Logout" />
+<jsp:include page="/WEB-INF/templates/navMenu.jsp" /> 
 </body>
 </html>
