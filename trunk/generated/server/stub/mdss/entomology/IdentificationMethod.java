@@ -10,7 +10,7 @@ public enum IdentificationMethod implements com.terraframe.mojo.business.Busines
 {
   TEST_METHOD();
   
-  public static final java.lang.String CLASS = "mdss.entomology.IndentificationMethod";
+  public static final java.lang.String CLASS = "mdss.entomology.IdentificationMethod";
   private mdss.entomology.IdentificationMethodMaster enumeration;
   
   private synchronized void loadEnumeration()

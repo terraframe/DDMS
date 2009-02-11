@@ -1,5 +1,6 @@
 package mdss.test;
 
+import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -12,7 +13,7 @@ public class GeoEntity extends GeoEntityBase implements com.terraframe.mojo.gene
     super();
   }
   
-  public static GeoEntity searchByGeoId(String geoId)
+  public static mdss.test.GeoEntity searchByGeoId(java.lang.String geoId)
   {
     GeoEntity geoEntity = null;
     QueryFactory factory = new QueryFactory();
@@ -32,7 +33,7 @@ public class GeoEntity extends GeoEntityBase implements com.terraframe.mojo.gene
     if(geoEntity == null)
     {
       String msg = "A GeoEntity with the geoId [" + geoId + "] does not exist";
-      throw new RuntimeException(msg);
+      throw new InvalidIdException(msg, geoId);
     }
     
     return geoEntity;

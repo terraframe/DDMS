@@ -18,6 +18,14 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
   }
   
   @Override
+  public void apply()
+  {
+    validateGeoEntity();
+    
+    super.apply();
+  }
+  
+  @Override
   protected String buildKey()
   {
     //TODO The date format needs to be localizable
@@ -38,8 +46,9 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
       
       if(!(terrain.equals(Terrain.NON_SENTINEL_SITE) || terrain.equals(Terrain.SENTINEL_SITE)))
       {
-        String msg = "The geoEntity of a mosquito collection must be a sentinel or non sentinel site";
-        throw new RuntimeException(msg);
+        //TODO Write the localizable template for this exception
+        String msg = "The geoEntity of a mosquito collection must be a (non)sentinel site";
+        throw new InvalidMosquitoCollectionGeoEntityException(msg);
       }
     }
   }
