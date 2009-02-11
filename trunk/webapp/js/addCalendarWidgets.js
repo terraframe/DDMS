@@ -8,24 +8,28 @@
         cur_field = '';
 
     var init = function() {
-        cal1 = new YAHOO.widget.Calendar("cal1","cal1Container");
-        
-        cal1.cfg.setProperty("DATE_FIELD_DELIMITER", "-");
-        cal1.cfg.setProperty("DATE_RANGE_DELIMITER", "*");
-        cal1.cfg.setProperty("MDY_YEAR_POSITION", 1);
-		cal1.cfg.setProperty("MDY_MONTH_POSITION", 2);
-		cal1.cfg.setProperty("MDY_DAY_POSITION", 3);
-        
-        cal1.selectEvent.subscribe(getDate, cal1, true);
-        cal1.renderEvent.subscribe(setupListeners, cal1, true);
-
-        for each (el in Dom.getElementsByClassName("DatePick"))
+    
+        if(Dom.getElementsByClassName("DatePick").length > 1)
         {
-          Event.addListener([el.id], 'focus', showCal);
-          Event.addListener([el.id], 'blur', hideCal);
+	        cal1 = new YAHOO.widget.Calendar("cal1","cal1Container");
+	        
+	        cal1.cfg.setProperty("DATE_FIELD_DELIMITER", "-");
+	        cal1.cfg.setProperty("DATE_RANGE_DELIMITER", "*");
+	        cal1.cfg.setProperty("MDY_YEAR_POSITION", 1);
+			cal1.cfg.setProperty("MDY_MONTH_POSITION", 2);
+			cal1.cfg.setProperty("MDY_DAY_POSITION", 3);
+	        
+	        cal1.selectEvent.subscribe(getDate, cal1, true);
+	        cal1.renderEvent.subscribe(setupListeners, cal1, true);
+	
+	        for each (el in Dom.getElementsByClassName("DatePick"))
+	        {
+	          Event.addListener([el.id], 'focus', showCal);
+	          Event.addListener([el.id], 'blur', hideCal);
+	        }
+	        
+	        cal1.render();
         }
-        
-        cal1.render();
     }
 
 
