@@ -1,4 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<link rel="icon" type="image/png" href="/MDSS/imgs/favicon.png"/>
+
 <style type="text/css">
 /*margin and padding on body element
   can introduce errors in determining
@@ -13,12 +16,16 @@ body {
 
 
 
+
 <!--CSS source files for the entire YUI Library--> 
 <!--CSS Foundation: (also partially aggegrated in reset-fonts-grids.css; does not include base.css)--> 
-<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/reset/reset-min.css"> 
+
+<!--<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/reset/reset-min.css"> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/base/base-min.css"> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/fonts/fonts-min.css"> 
-<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/grids/grids-min.css"> 
+<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/grids/grids-min.css"> -->
+<link rel="stylesheet" type="text/css" href="/MDSS/yui/build/assets/skins/sam/skin.css">     
+
  
 <!--CSS for Controls:--> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/container/assets/skins/sam/container.css"> 
@@ -28,7 +35,7 @@ body {
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/calendar/assets/skins/sam/calendar.css"> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/carousel/assets/skins/sam/carousel.css"> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/colorpicker/assets/skins/sam/colorpicker.css"> 
-<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/datatable/assets/skins/sam/datatable.css"> 
+ 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/editor/assets/skins/sam/editor.css"> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/imagecropper/assets/skins/sam/imagecropper.css"> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/layout/assets/skins/sam/layout.css"> 
@@ -36,7 +43,7 @@ body {
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/resize/assets/skins/sam/resize.css"> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/tabview/assets/skins/sam/tabview.css"> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/treeview/assets/skins/sam/treeview.css"> 
- 
+<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/datatable/assets/skins/sam/datatable.css">
  
 <!--JavaScript source files for the entire YUI Library:--> 
  
@@ -124,3 +131,23 @@ YAHOO.example.Data = {
 }
 
 </script>
+
+
+<style type="text/css" media="screen">
+    #cal1Container {
+        position: absolute;
+        display: none;
+        background-color:WHITE;
+    }
+     #cal1Container {
+        margin: 1em;
+    }
+    textarea {
+        width: 100%;
+    }
+    #cal1Container {
+        z-index: 500;
+    }
+</style>
+
+<script type="text/javascript" src="/MDSS/js/addCalendarWidgets.js"></script> 
