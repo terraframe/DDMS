@@ -1,5 +1,5 @@
 <TerraFrame
-  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/trunk/profiles/datatype.xsd"
+  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/profiles/datatype.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <create>
     <!-- DUMMY DEFITION FOR GEO ENTITIES -->
@@ -166,8 +166,10 @@
       label="Abstract Mosquito Collection"
       unique="true"
       description="Uniquness constraint between the date and location of an abstract mosquito collection">
-      <attribute name="dateCollected" />
-      <attribute name="geoEntity" />
+      <attribute
+        name="dateCollected" />
+      <attribute
+        name="geoEntity" />
     </mdIndex>
 
     <mdBusiness
@@ -241,6 +243,21 @@
           order="1" />
       </mdMethod>
     </mdBusiness>
+    
+    <mdException
+      name="mdss.entomology.InvalidMosquitoCollectionPointGeoEntityException"
+      label="Invalid Mosquito Collection"
+      description="Exception thrown when a Mosquito Collection's GeoEntity is not a (non)sentinel site">
+      <attributes>
+        <char
+          name="geoId"
+          label="Geo Id"
+          size="6"
+          required="true"
+          description="Id of the GeoEntity" />
+      </attributes>
+    </mdException>
+    
 
     <mdBusiness
       name="mdss.entomology.MorphologicalSpecieGroup"
@@ -260,7 +277,8 @@
         <enumeration
           name="identificationMethod"
           label="Identification Method"
-          type="mdss.entomology.IdentificationMethod" />
+          type="mdss.entomology.IdentificationMethod"
+          required="false" />
         <reference
           name="collection"
           label="MosquitoCollection"
@@ -269,6 +287,40 @@
           immutable="true" />
       </attributes>
     </mdBusiness>
+
+    <mdProblem
+      name="mdss.entomology.InvalidMorphologicalQuantityProblem"
+      label="Invalid Quantity"
+      description="A MorphologicalSpecieGroup has a contextually invalid quantity (Equal to or less than 0)">
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.EmptyValueProblem"
+      label="Empty Value Problem"
+      description="A MorphologicalSpecieGroup is missing contextual required values">
+      <attributes>
+        <char
+          name="attributeLabel"
+          size="255"
+          label="Attribute Label"
+          required="true"
+          description="Label of the attribute" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.InvalidMorphologicalSpecieProblem"
+      label="Invalid Morphological Specie Problem"
+      description="A morphological specie group cannot have an identification method or specie if the quantity is zero">
+      <attributes>
+        <char
+          name="attributeLabel"
+          size="255"
+          label="Attribute Label"
+          required="true"
+          description="Label of the attribute" />
+      </attributes>
+    </mdProblem>
 
     <mdTree
       name="mdss.entomology.CollectionSpecie"
@@ -327,8 +379,10 @@
       label="True Specie Collection Index"
       unique="true"
       description="Uniquness constraint between the mosquito collection and true specie collection id">
-      <attribute name="collection" />
-      <attribute name="collectionId" />
+      <attribute
+        name="collection" />
+      <attribute
+        name="collectionId" />
     </mdIndex>
 
     <mdTree
@@ -487,12 +541,14 @@
       <includeAll />
     </mdEnumeration>
 
-    <!-- ********************************************************
-      Start of MIRO enumerations.  These enumerations will change
-      onces the MIRO ontology has been sorted out.  We have outstanding
-      questions of wether or not we will use the MIRO ontology or
-      just take the terms from the ontology and create our own enumerations
-      ********************************************************  -->
+    <!--
+      ******************************************************** Start of
+      MIRO enumerations. These enumerations will change onces the MIRO
+      ontology has been sorted out. We have outstanding questions of
+      wether or not we will use the MIRO ontology or just take the terms
+      from the ontology and create our own enumerations
+      ********************************************************
+    -->
 
     <enumerationMaster
       name="mdss.entomology.CollectionMethodMaster"
@@ -574,12 +630,15 @@
       <includeAll />
     </mdEnumeration>
 
-    <!-- **************************************************************
-      End of MIRO definitions
-      **************************************************************  -->
+    <!--
+      ************************************************************** End
+      of MIRO definitions
+      **************************************************************
+    -->
   </create>
   <update>
-    <mdController name="mdss.entomology.MosquitoCollectionController">
+    <mdController
+      name="mdss.entomology.MosquitoCollectionController">
       <create>
         <mdAction
           name="searchByGeoEntityAndDate"
