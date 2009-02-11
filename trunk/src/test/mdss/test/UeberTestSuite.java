@@ -1,6 +1,6 @@
  package mdss.test;
 
-import mdss.entomology.EntomologyTestSuite;
+import mdss.entomology.MosquitoCollectionTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -16,7 +16,7 @@ public class UeberTestSuite
   {
     TestSuite suite = new TestSuite();
       
-    suite.addTest(EntomologyTestSuite.suite());
+    suite.addTest(MosquitoCollectionTest.suite());
     
     return suite;
   }

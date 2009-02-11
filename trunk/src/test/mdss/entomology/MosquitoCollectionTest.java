@@ -18,12 +18,12 @@ import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.session.StartSession;
 
-public class EntomologyTestSuite extends TestCase
+public class MosquitoCollectionTest extends TestCase
 {
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
-    suite.addTestSuite(EntomologyTestSuite.class);
+    suite.addTestSuite(MosquitoCollectionTest.class);
 
     TestSetup wrapper = new TestSetup(suite)
     {
