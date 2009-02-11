@@ -10,12 +10,12 @@ public enum IdentificationMethodDTO implements com.terraframe.mojo.business.Enum
 {
   TEST_METHOD();
   
-  public final static String CLASS = "mdss.entomology.IndentificationMethod";
+  public final static String CLASS = "mdss.entomology.IdentificationMethod";
   
   
   public mdss.entomology.IdentificationMethodMasterDTO item(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (mdss.entomology.IdentificationMethodMasterDTO) clientRequest.getEnumeration("mdss.entomology.IndentificationMethod", this.name());
+    return (mdss.entomology.IdentificationMethodMasterDTO) clientRequest.getEnumeration("mdss.entomology.IdentificationMethod", this.name());
   }
   
   @java.lang.SuppressWarnings("unchecked")
@@ -26,13 +26,13 @@ public enum IdentificationMethodDTO implements com.terraframe.mojo.business.Enum
     {
       itemNames[i] = items[i].name();
     }
-    return (java.util.List<mdss.entomology.IdentificationMethodMasterDTO>) clientRequest.getEnumerations("mdss.entomology.IndentificationMethod", itemNames);
+    return (java.util.List<mdss.entomology.IdentificationMethodMasterDTO>) clientRequest.getEnumerations("mdss.entomology.IdentificationMethod", itemNames);
   }
   
   @java.lang.SuppressWarnings("unchecked")
   public static java.util.List<mdss.entomology.IdentificationMethodMasterDTO> allItems(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (java.util.List<mdss.entomology.IdentificationMethodMasterDTO>) clientRequest.getAllEnumerations("mdss.entomology.IndentificationMethod");
+    return (java.util.List<mdss.entomology.IdentificationMethodMasterDTO>) clientRequest.getAllEnumerations("mdss.entomology.IdentificationMethod");
   }
   
   public java.lang.String getName()

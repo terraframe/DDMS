@@ -60,8 +60,8 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     QueryFactory factory = new QueryFactory();
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);    
 
-    query.getGeoEntity().getId().EQ(geoEntity.getId());
-    query.getDateCollected().EQ(collectionDate);
+    query.AND(query.getGeoEntity().getId().EQ(geoEntity.getId()));
+    query.AND(query.getDateCollected().EQ(collectionDate));
     
     OIterator<? extends MosquitoCollection> iterator = query.getIterator();
     
