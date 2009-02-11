@@ -13,7 +13,10 @@ import junit.framework.TestSuite;
 import mdss.test.GeoEntity;
 import mdss.test.Terrain;
 
+import com.terraframe.mojo.ProblemException;
+import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
+import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.session.StartSession;
@@ -200,7 +203,152 @@ public class MosquitoCollectionTest extends TestCase
       group2.delete();
       collection.delete();
     }
+  }
 
+  public void testEmptyMorpohologicalQuantity()
+  {
+    MorphologicalSpecieGroup group = null;
+    MosquitoCollection collection = new MosquitoCollection();
+    collection.setGeoEntity(sentinelSite);
+    collection.setDateCollected(new Date());
+    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.apply();
+
+    try
+    {
+      group = new MorphologicalSpecieGroup();
+      group.setQuanity(0);
+      group.addSpecie(Specie.TEST_SPECIE);
+      group.addIdentificationMethod(IdentificationMethod.TEST_METHOD);
+      group.setCollection(collection);
+      group.apply();
+      
+      fail("Able to create a Morphological Group with an invalid quantity");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected, ensure that an invalid quantity problem was thrown
+      List<ProblemIF> problems = e.getProblems();   
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidMorphologicalQuantityProblem);      
+    }
+    finally
+    {
+      if (group != null && group.isAppliedToDB())
+      {
+        group.delete();
+      }
+
+      collection.delete();
+    }
+  }
+  
+  public void testEmptyMorphologicalQuantity()
+  {
+    MorphologicalSpecieGroup group = null;
+    MosquitoCollection collection = new MosquitoCollection();
+    collection.setGeoEntity(sentinelSite);
+    collection.setDateCollected(new Date());
+    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.apply();
+
+    try
+    {
+      group = new MorphologicalSpecieGroup();
+      group.addSpecie(Specie.TEST_SPECIE);
+      group.addIdentificationMethod(IdentificationMethod.TEST_METHOD);
+      group.setCollection(collection);
+      group.apply();
+      
+      fail("Able to create a Morphological Group with an empty quantity");
+    }
+    catch (AttributeValueException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (group != null && group.isAppliedToDB())
+      {
+        group.delete();
+      }
+
+      collection.delete();
+    }    
+  }
+
+  public void testEmptyMorphologicalSpeicie()
+  {
+    MorphologicalSpecieGroup group = null;
+    MosquitoCollection collection = new MosquitoCollection();
+    collection.setGeoEntity(sentinelSite);
+    collection.setDateCollected(new Date());
+    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.apply();
+
+    try
+    {
+      group = new MorphologicalSpecieGroup();
+      group.setQuanity(10);
+      group.addIdentificationMethod(IdentificationMethod.TEST_METHOD);
+      group.setCollection(collection);
+      group.apply();
+      
+      fail("Able to create a Morphological Group with an invalid specie");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected, ensure that an empty value problem was thrown
+      List<ProblemIF> problems = e.getProblems();   
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof EmptyValueProblem);      
+    }
+    finally
+    {
+      if (group != null && group.isAppliedToDB())
+      {
+        group.delete();
+      }
+
+      collection.delete();
+    }    
+  }
+
+  public void testEmptyMorphologicalIdentificationMethod()
+  {
+    MorphologicalSpecieGroup group = null;
+    MosquitoCollection collection = new MosquitoCollection();
+    collection.setGeoEntity(sentinelSite);
+    collection.setDateCollected(new Date());
+    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.apply();
+
+    try
+    {
+      group = new MorphologicalSpecieGroup();
+      group.setQuanity(20);
+      group.addSpecie(Specie.TEST_SPECIE);
+      group.setCollection(collection);
+      group.apply();
+      
+      fail("Able to create a Morphological Group with an invalid identification method");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected, ensure that an empty value problem was thrown
+      List<ProblemIF> problems = e.getProblems();   
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof EmptyValueProblem);      
+    }
+    finally
+    {
+      if (group != null && group.isAppliedToDB())
+      {
+        group.delete();
+      }
+
+      collection.delete();
+    }    
   }
 
   public void testGeoDateUniquness()
@@ -295,7 +443,8 @@ public class MosquitoCollectionTest extends TestCase
 
     try
     {
-      assertNull(MosquitoCollection.searchByGeoEntityAndDate(nonSentinelSite, dateTime.parse("2009-01-01")));
+      assertNull(MosquitoCollection.searchByGeoEntityAndDate(nonSentinelSite, dateTime
+          .parse("2009-01-01")));
     }
     finally
     {

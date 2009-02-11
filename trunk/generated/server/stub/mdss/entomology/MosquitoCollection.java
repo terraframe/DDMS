@@ -1,6 +1,5 @@
 package mdss.entomology;
 
-import java.text.DateFormat;
 import java.util.List;
 
 import mdss.test.Terrain;
@@ -26,14 +25,6 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
   }
   
   @Override
-  protected String buildKey()
-  {
-    //TODO The date format needs to be localizable
-    DateFormat format = DateFormat.getDateInstance();
-    return format.format(this.getDateCollected()) + " - " + this.getGeoEntity().getGeoId();
-  }
-
-  @Override
   public void validateGeoEntity()
   {
     super.validateGeoEntity();
@@ -46,9 +37,13 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
       
       if(!(terrain.equals(Terrain.NON_SENTINEL_SITE) || terrain.equals(Terrain.SENTINEL_SITE)))
       {
-        //TODO Write the localizable template for this exception
         String msg = "The geoEntity of a mosquito collection must be a (non)sentinel site";
-        throw new InvalidMosquitoCollectionGeoEntityException(msg);
+        
+        InvalidMosquitoCollectionGeoEntityException e = new InvalidMosquitoCollectionGeoEntityException(msg);
+        e.setGeoId(this.getGeoEntity().getGeoId());
+        e.apply();
+        
+        throw e;
       }
     }
   }
