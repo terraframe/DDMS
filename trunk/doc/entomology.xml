@@ -475,7 +475,18 @@
         name="displayLabel"
         value="Female" />
     </object>
-
+    
+    <object
+      id="MIXED"
+      type="mdss.general.SexMaster">
+      <valueAttribute
+        name="enumName"
+        value="MIXED" />
+      <valueAttribute
+        name="displayLabel"
+        value="Mixed" />
+    </object>
+    
     <object
       id="UNKNOWN"
       type="mdss.general.SexMaster">
@@ -491,8 +502,10 @@
       name="mdss.general.Sex"
       type="mdss.general.SexMaster"
       label="Sex"
-      description="List of all possible mosquito sex options">
-      <includeAll />
+      description="List of all possible single mosquito sex options">
+      <addEnumItem id="MALE"/>
+      <addEnumItem id="FEMALE"/>
+      <addEnumItem id="UNKNOWN"/>
     </mdEnumeration>
 
     <enumerationMaster
@@ -598,7 +611,29 @@
         name="displayLabel"
         value="Test Specie" />
     </object>
+    
+    <object
+      type="mdss.entomology.SpecieMaster"
+      id="ANOPHELES">
+      <valueAttribute
+        name="enumName"
+        value="ANOPHELES" />
+      <valueAttribute
+        name="displayLabel"
+        value="Anopheles" />
+    </object>
 
+    <object
+      type="mdss.entomology.SpecieMaster"
+      id="CULICINAE">
+      <valueAttribute
+        name="enumName"
+        value="CULICINAE" />
+      <valueAttribute
+        name="displayLabel"
+        value="Culicinae" />
+    </object>
+    
     <mdEnumeration
       name="mdss.entomology.Specie"
       type="mdss.entomology.SpecieMaster"
@@ -620,6 +655,17 @@
       <valueAttribute
         name="displayLabel"
         value="Test Method" />
+    </object>
+
+    <object
+      type="mdss.entomology.IdentificationMethodMaster"
+      id="MORPHOLOGICAL">
+      <valueAttribute
+        name="enumName"
+        value="MORPHOLOGICAL" />
+      <valueAttribute
+        name="displayLabel"
+        value="Morphological" />
     </object>
 
     <mdEnumeration
