@@ -536,15 +536,101 @@ var Mojo = {
           clientRequest.onFailure(e);
         }
       }  
+    },
+    
+    collectFormValues : function(formId)
+    {
+      
+      var keyValues = {};
+      function collect(elements)
+      {
+        for(var i=0; i<elements.length; i++)
+        {
+          var el = elements[i];
+          if(el.disabled)
+          {
+            continue;
+          }
+          
+          var name = el.name;
+          
+          var nodeName = el.nodeName.toLowerCase();
+          switch(nodeName)
+          {
+            case 'select':
+              var values = [];
+              var options = el.options;
+              for(var j=0; j<options.length; j++)
+              {
+                var option = options[j];
+                if(option.selected)
+                  values.push(option.value);
+              }
+              keyValues[name] = values;
+              break;
+            case 'textarea':
+              keyValues[name] = el.value;
+              break;
+            case 'input':
+              var type = el.type.toLowerCase();
+              switch(type)
+              {
+                case 'radio':
+                  if(el.checked)
+                    keyValues[name] = el.value;
+                  break;
+                case 'checkbox':
+                  if(!keyValues[name])
+                    keyValues[name] = [];
+                
+                  if(el.checked)
+                    keyValues[name].push(el.value);
+                  break;
+                default:
+                  keyValues[name] = el.value;
+              }
+              break;
+          }
+        }
+      }
+      
+      var form = Mojo.util.isString(formId) ? document.getElementById(formId) : formId;
+      collect(form.getElementsByTagName('input'));
+      collect(form.getElementsByTagName('select'));
+      collect(form.getElementsByTagName('textarea'));
+      
+      return keyValues;
+    },
+    
+    convertMapToQueryString : function(map)
+    {
+      var params = [];
+      for(var key in map)
+      {
+        var entry = map[key];
+        if(Mojo.util.isArray(entry))
+        {
+          for(var i=0; i<entry.length; i++)
+          {
+            params.push(key + "[]=" + encodeURIComponent(entry[i]));
+          }
+        }
+        else
+        {
+          params.push(key + "=" + encodeURIComponent(entry));
+        }
+      }
+      
+      var queryString = params.join("&");
+      return queryString;
     }
   },
-
   /**
    * ClientRequest object that is used to perform an individual
    * Ajax call.
    */
   ClientRequest : function(handler){
-  	
+    
     Mojo.util.copy(handler, this);
     
     var _warnings = [];
@@ -615,13 +701,21 @@ var Mojo = {
       this.requestOptions = {};
       Mojo.util.copy(defaultOptions, this.requestOptions);
       
-      // encode the parameters
-      var paramArray = [];
-      for(var i in parameters)
+      // encode the parameters if given a map
+      var paramStr = '';
+      if(Mojo.util.isObject(parameters))
       {
-        paramArray.push(i+'='+encodeURIComponent(parameters[i]));
+        var paramArray = [];
+        for(var i in parameters)
+        {
+          paramArray.push(i+'='+encodeURIComponent(parameters[i]));
+        }
+        paramStr = paramArray.join('&');
       }
-      var paramStr = paramArray.join('&');
+      else
+      {
+        paramStr = parameters.toString();
+      }
         
       this.xmlHttp = null;
       try
@@ -737,13 +831,13 @@ var Mojo = {
     {
       if(Mojo.util.isObject(options))
       {
-      	if(options.autoEval === true)
-      	{
+        if(options.autoEval === true)
+        {
           eval(jsSource);
-      	}
-      	else if('appendTo' in options)
-      	{
-      	  var appendTo = options.appendTo;
+        }
+        else if('appendTo' in options)
+        {
+          var appendTo = options.appendTo;
           var parentEl = (Mojo.util.isString(appendTo)) ? document.getElementById(appendTo) : appendTo;
           
           var script = document.createElement("script");
@@ -776,6 +870,16 @@ var Mojo = {
   _methodWrapper : function(clientRequest, params)
   {
     new Mojo.ClientSession.AjaxCall(Mojo.util.JSON_ENDPOINT, clientRequest, params);  
+  },
+  
+  /**
+   * Wrapper for generated controller methods
+   */
+  _controllerWrapper : function(endpoint, clientRequest, params)
+  {
+    var paramString = Mojo.util.convertMapToQueryString(params);
+    
+    new Mojo.ClientSession.AjaxCall(endpoint, clientRequest, paramString);  
   },
   
   /**
@@ -2475,9 +2579,13 @@ Mojo.dto.EnumerationDTOIF.prototype = {
       this.dto_type = obj.dto_type;
       this.enumType = obj.enumType;
       this._name = obj._name;
+      this.displayLabel = obj.displayLabel;
     }
   },
-  name : function () { return this._name; }
+  
+  name : function () { return this._name; },
+  
+  getDisplayLabel : function() { return this.displayLabel; }
 }
  
 /*
@@ -3111,12 +3219,8 @@ Mojo.dto.AttributeEnumerationMdDTO.prototype = Mojo.Class.extend(Mojo.dto.Attrib
       this._selectMultiple = obj._selectMultiple;
       this.referencedMdEnumeration = obj.referencedMdEnumeration;
       
-      this.enumNames = {};
-      for(var i=0; i<obj.enumNames.length; i++)
-      {
-        var enumName = obj.enumNames[i];
-        this.enumNames[enumName] = enumName;
-      }
+      this.enumNames = {}; // key/value = name/display label
+      Mojo.util.copy(obj.enumNames, this.enumNames);
     }
   },
   
@@ -3127,6 +3231,23 @@ Mojo.dto.AttributeEnumerationMdDTO.prototype = Mojo.Class.extend(Mojo.dto.Attrib
   getEnumNames : function()
   {
     return Mojo.util.getKeys(this.enumNames);
+  },
+  
+  getEnumLabels : function()
+  {
+  	return Mojo.util.getValues(this.enumNames);
+  },
+  
+  getEnumDisplayLabel : function(enumName)
+  {
+  	return this.enumNames[enumName];
+  },
+  
+  getEnumItems : function()
+  {
+  	var copy = {};
+  	Mojo.util.copy(this.enumNames, cop);
+  	return copy;
   }
 });
 
