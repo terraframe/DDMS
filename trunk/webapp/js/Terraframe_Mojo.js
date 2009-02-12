@@ -452,7 +452,7 @@ var Mojo = {
       }
       else if(Mojo.util.isArray(value))
       {
-        for(var i=0; i<value.size(); i++)
+        for(var i=0; i<value.length; i++)
         {
           value[i] = Mojo.util.convertToType(value[i]);
         }
