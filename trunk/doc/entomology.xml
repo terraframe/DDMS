@@ -326,7 +326,7 @@
       name="mdss.entomology.CollectionSpecie"
       label="Collection Specie"
       description="A mapping between a mosquito collection and all the morphological specie groups it is comprised of."
-      publish="false">
+      publish="true">
       <parent
         cardinality="1"
         name="mdss.entomology.AbstractMosquitoCollection"
@@ -510,6 +510,15 @@
       <addEnumItem
         id="UNKNOWN" />
     </mdEnumeration>
+    
+    <mdEnumeration
+      name="mdss.entomology.AssaySex"
+      type="mdss.general.SexMaster"
+      label="Sex"
+      description="List of all possible mosquito assay sex options">
+      <includeAll />
+    </mdEnumeration>
+    
 
     <enumerationMaster
       name="mdss.entomology.GenerationMaster"
