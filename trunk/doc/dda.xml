@@ -1,0 +1,252 @@
+<TerraFrame
+  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/profiles/datatype.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <create>
+    <mdEnumeration
+      name="mdss.entomology.AssaySex"
+      type="mdss.general.SexMaster"
+      label="Sex"
+      description="List of all possible mosquito assay sex options">
+      <includeAll />
+    </mdEnumeration>
+
+    <enumerationMaster
+      name="mdss.entomology.InsecticideMaster"
+      label="Isecticide Master"
+      description="List of all MIRO insecticides" />
+
+    <object
+      type="mdss.entomology.InsecticideMaster"
+      id="TEST_INSECTICIDE">
+      <valueAttribute
+        name="enumName"
+        value="TEST_INSECTICIDE" />
+      <valueAttribute
+        name="displayLabel"
+        value="Test Insecticide" />
+    </object>
+
+    <object
+      type="mdss.entomology.InsecticideMaster"
+      id="OTHER">
+      <valueAttribute
+        name="enumName"
+        value="OTHER" />
+      <valueAttribute
+        name="displayLabel"
+        value="Other" />
+    </object>
+
+    <mdEnumeration
+      name="mdss.entomology.Insecticide"
+      type="mdss.entomology.InsecticideMaster"
+      label="Insecticide"
+      description="List of all miro insecticides">
+      <includeAll />
+    </mdEnumeration>
+
+    <enumerationMaster
+      name="mdss.entomology.AssayMethodMaster"
+      label="Assay Methodology Master" />
+
+    <object
+      type="mdss.entomology.AssayMethodMaster"
+      id="TEST_METHODOLOGY">
+      <valueAttribute
+        name="enumName"
+        value="TEST_METHODOLOGY" />
+      <valueAttribute
+        name="displayLabel"
+        value="Test Methodology" />
+    </object>
+
+    <mdEnumeration
+      name="mdss.entomology.AssayMethod"
+      type="mdss.entomology.AssayMethodMaster"
+      label="Assay Method"
+      description="List of all assay methods">
+      <includeAll />
+    </mdEnumeration>
+
+    <mdStruct
+      name="mdss.entomology.assay.AssayInsecticide"
+      label="Assay Insecticide"
+      description="Insecticide used in an assay">
+      <attributes>
+        <enumeration
+          name="insecticide"
+          label="Insecticide"
+          type="mdss.entomology.Insecticide"
+          selectMultiple="false"
+          required="true" />
+        <integer
+          name="amount"
+          label="Amount"
+          rejectZero="true"
+          rejectNegative="true"
+          required="true" />
+        <char
+          name="units"
+          label="Units"
+          size="255"
+          required="true"
+          default_value="%" />
+        <char
+          name="genericName"
+          label="Generic Name"
+          size="255"
+          description="Generic name of the insecticide.  Only used when an 'Other' insecticide is tested." />
+      </attributes>
+    </mdStruct>
+
+    <mdStruct
+      name="mdss.entomology.assay.AdultAgeRange"
+      label="Age Range"
+      description="Age range of mosquitos in an assay">
+      <attributes>
+        <integer
+          name="startPoint"
+          label="Beginning Age"
+          rejectNegative="true"
+          required="true"
+          description="Starting age of the age range" />
+        <integer
+          name="endPoint"
+          label="Ending Age"
+          rejectNegative="true"
+          required="true"
+          description="Ending age of the age range" />
+      </attributes>
+    </mdStruct>
+
+    <mdBusiness
+      name="mdss.entomology.assay.AbstractAssay"
+      label="Abstract Assay"
+      isAbstract="true"
+      extendable="true"
+      generateController="false"
+      description="Abstract assay which can be performed on a collection of mosquitos">
+      <attributes>
+        <date
+          name="testDate"
+          label="Test Date"
+          description="The date the test was performed" />
+        <enumeration
+          name="testMethod"
+          label="Test Method"
+          selectMultiple="false"
+          type="mdss.entomology.AssayMethod" />
+        <enumeration
+          name="specie"
+          label="Specie"
+          type="mdss.entomology.Specie"
+          required="false" />
+        <enumeration
+          name="identificationMethod"
+          label="Identification Method"
+          type="mdss.entomology.IdentificationMethod"
+          required="false" />
+        <boolean
+          name="isofemale"
+          label="Isofemale"
+          required="true"
+          default_value="false"
+          description="Flag denoting if this mosquito is from the iso-female line" />
+        <enumeration
+          name="sex"
+          label="Sex"
+          required="true"
+          description="The sex of the tested mosquitos"
+          selectMultiple="false"
+          type="mdss.entomology.AssaySex" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.entomology.assay.AdultAssay"
+      label="Adult Assay"
+      isAbstract="true"
+      extendable="true"
+      description="Abstract assay which can be performed on a group of adult mosquitos"
+      generateController="false"
+      extends="mdss.entomology.assay.AbstractAssay">
+      <attributes>
+        <struct
+          name="ageRange"
+          label="Age Range"
+          required="false"
+          description="The age range of the mosquitos tested"
+          type="mdss.entomology.assay.AdultAgeRange" />
+        <struct
+          name="insecticide"
+          label="Insecticide"
+          required="true"
+          description="The insecticide used on the mosquito group"
+          type="mdss.entomology.assay.AssayInsecticide" />
+        <integer
+          name="fed"
+          label="Fed"
+          description="Fed value (Only applicable when females are present)."
+          rejectNegative="true"
+          required="false" />
+        <integer
+          name="gravid"
+          label="Gravid"
+          description="Gravid value (Only applicable when females are present)"
+          rejectNegative="true"
+          required="false" />
+        <integer
+          name="exposureTime"
+          label="Exposure Time"
+          description="The exposure time in minutes"
+          rejectNegative="true"
+          rejectZero="true"
+          default_value="60" />          
+        <integer
+          name="quantityTested"
+          label="Quantity Tested"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true"
+          description="The total number mosquitos tested" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.entomology.assay.AdultDiscriminatingDoseAssay"
+      label="Adult Discriminating Dose Assay"
+      description="Discriminating dose assay which can be performed on a group of adult mosquitos"
+      extends="mdss.entomology.assay.AdultAssay">
+      <attributes>
+        <integer
+          name="holdingTime"
+          label="Holding Time"
+          required="true"
+          rejectNegative="true"
+          description="The amount of time the mosquitos were held after exposure" />
+        <integer
+          name="quantityDead"
+          label="Quantity Dead"
+          rejectNegative="true"
+          required="true"
+          description="The total number of mosquitos which died during the assay" />
+        <float
+          name="controlTestMortality"
+          label="Control Test Mortality Rate"
+          length="3"
+          decimal="2"
+          description="Mortality rate of the control test"
+          required="false" />
+        <integer
+          name="intervalTime"
+          label="Interval Time"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true"
+          description="The interval time in minutes"
+          default_value="10" />
+      </attributes>
+    </mdBusiness>
+
+  </create>
+</TerraFrame>

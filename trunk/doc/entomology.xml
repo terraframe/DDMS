@@ -132,7 +132,7 @@
       description="This is a group of mosquitos of varing species that were collected via a certian techinque at a certian point in space and time"
       cacheSize="0"
       name="mdss.entomology.AbstractMosquitoCollection"
-      publish="true">
+      generateController="false">
       <attributes>
         <date
           name="dateCollected"
@@ -243,7 +243,7 @@
           order="1" />
       </mdMethod>
     </mdBusiness>
-    
+
     <mdException
       name="mdss.entomology.InvalidMosquitoCollectionPointGeoEntityException"
       label="Invalid Mosquito Collection"
@@ -257,7 +257,7 @@
           description="Id of the GeoEntity" />
       </attributes>
     </mdException>
-    
+
 
     <mdBusiness
       name="mdss.entomology.MorphologicalSpecieGroup"
@@ -475,7 +475,7 @@
         name="displayLabel"
         value="Female" />
     </object>
-    
+
     <object
       id="MIXED"
       type="mdss.general.SexMaster">
@@ -486,7 +486,7 @@
         name="displayLabel"
         value="Mixed" />
     </object>
-    
+
     <object
       id="UNKNOWN"
       type="mdss.general.SexMaster">
@@ -503,9 +503,12 @@
       type="mdss.general.SexMaster"
       label="Sex"
       description="List of all possible single mosquito sex options">
-      <addEnumItem id="MALE"/>
-      <addEnumItem id="FEMALE"/>
-      <addEnumItem id="UNKNOWN"/>
+      <addEnumItem
+        id="MALE" />
+      <addEnumItem
+        id="FEMALE" />
+      <addEnumItem
+        id="UNKNOWN" />
     </mdEnumeration>
 
     <enumerationMaster
@@ -555,12 +558,13 @@
     </mdEnumeration>
 
     <!--
-      ******************************************************** Start of
-      MIRO enumerations. These enumerations will change onces the MIRO
-      ontology has been sorted out. We have outstanding questions of
-      wether or not we will use the MIRO ontology or just take the terms
-      from the ontology and create our own enumerations
-      ********************************************************
+      ******************************************************** 
+      Start of MIRO enumerations. These enumerations will change
+      onces the MIRO ontology has been sorted out. We have outstanding
+      questions of wether or not we will use the MIRO ontology
+      or just take the terms from the ontology and create our
+      own enumerations
+      *********************************************************
     -->
 
     <enumerationMaster
@@ -611,7 +615,7 @@
         name="displayLabel"
         value="Test Specie" />
     </object>
-    
+
     <object
       type="mdss.entomology.SpecieMaster"
       id="ANOPHELES">
@@ -633,7 +637,7 @@
         name="displayLabel"
         value="Culicinae" />
     </object>
-    
+
     <mdEnumeration
       name="mdss.entomology.Specie"
       type="mdss.entomology.SpecieMaster"
@@ -677,8 +681,8 @@
     </mdEnumeration>
 
     <!--
-      ************************************************************** End
-      of MIRO definitions
+      **************************************************************
+            End of MIRO definitions
       **************************************************************
     -->
   </create>
