@@ -37,7 +37,7 @@ var Mojo = {
   
   util : {
   
-    JSON_ENDPOINT : "/JSONControllerServlet",
+    JSON_ENDPOINT : "Mojo/JSONControllerServlet",
     MOJO_HARDCODED_PACKAGE : /^Mojo\./,
     MOJO_GENERATED_PACKAGE : /^Mojo\.\$\./,
     IS_OBJECT_TO_STRING : Object.prototype.toString.call({}),
@@ -532,7 +532,7 @@ var Mojo = {
         // use the default handler
         if(Mojo.util.isFunction(clientRequest.onFailure))
         {
-          var e = new Mojo.dto.Exception(responseText.strip());
+          var e = new Mojo.dto.Exception(responseText);
           clientRequest.onFailure(e);
         }
       }  
@@ -604,6 +604,11 @@ var Mojo = {
     
     convertMapToQueryString : function(map)
     {
+      if(map == null)
+      {
+      	return '';
+      }
+    	
       var params = [];
       for(var key in map)
       {
@@ -662,27 +667,35 @@ var Mojo = {
       'successRange':[200,299]
     };
   
-    var AjaxCall = function(endpoint, clientRequest, parameters)
+    var AjaxCall = function(endpoint, clientRequest, parameters, isController)
     {
       // success handler
       var filterSuccess = function(transport)
       {
-        var jsonText = transport.responseText;
-        var json = Mojo.util.getObject(jsonText);
-
-        var obj = Mojo.util.convertToType(json.returnValue);
+        var responseText = transport.responseText;
         
-        // add warnings/information and transport to the ClientRequest
-        clientRequest.transport = transport;
+        var obj = null;
+        if(!isController)
+        {
+          var json = Mojo.util.getObject(responseText);
+          obj = Mojo.util.convertToType(json.returnValue);
+        
+          // add warnings/information and transport to the ClientRequest
+          clientRequest.transport = transport;
   
-        if(Mojo.util.isArray(json.warnings) && json.warnings.length > 0)
-        {
-          clientRequest.setWarnings(Mojo.util.convertToType(json.warnings));
-        }
+          if(Mojo.util.isArray(json.warnings) && json.warnings.length > 0)
+          {
+            clientRequest.setWarnings(Mojo.util.convertToType(json.warnings));
+          }
         
-        if(Mojo.util.isArray(json.information) && json.information.length > 0)
+          if(Mojo.util.isArray(json.information) && json.information.length > 0)
+          {
+            clientRequest.setInformation(Mojo.util.convertToType(json.information));
+          }
+        }
+        else
         {
-          clientRequest.setInformation(Mojo.util.convertToType(json.information));
+          obj = responseText;
         }
   
         // invoke the success handler
@@ -879,7 +892,7 @@ var Mojo = {
   {
     var paramString = Mojo.util.convertMapToQueryString(params);
     
-    new Mojo.ClientSession.AjaxCall(endpoint, clientRequest, paramString);  
+    new Mojo.ClientSession.AjaxCall(endpoint, clientRequest, paramString, true);  
   },
   
   /**
