@@ -49,8 +49,3 @@ Creating a new datastore, MRC data uses the SRS 4326 ("normal") - in the URL "sr
 C:\Documents and Settings\Thomas DiGennaro\My Documents\mosquito\coverages\bluemarble00\pyramid.prj
 
 
-errors
-http://localhost:8080/geoserver/wms?bbox=-20.9826535,-38.4493025,54.8604435,40.959092500000004&styles=africa_new_style&Format=application/openlayers&request=GetMap&version=1.1.1&layers=topp:Africa%20all%20countries&width=575&height=550&srs=EPSG:4326
-
-http://localhost:8080/geoserver/wms?bbox=-20.9826535,-38.4493025,54.8604435,40.959092500000004&styles=africa_new_style&Format=application/openlayers&request=GetMap&version=1.1.1&layers=topp:Africa%20all%20countries&width=575&height=550&srs=EPSG:4326
-
