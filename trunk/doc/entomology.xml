@@ -178,10 +178,9 @@
       label="Mosquito Collection"
       extends="mdss.entomology.AbstractMosquitoCollection">
       <attributes>
-        <enumeration
+        <reference
           name="collectionMethod"
           label="Collection Method"
-          selectMultiple="false"
           type="mdss.entomology.CollectionMethod"
           required="true" />
       </attributes>
@@ -269,12 +268,12 @@
           label="Quanity"
           rejectNegative="true"
           required="true" />
-        <enumeration
+        <reference
           name="specie"
           label="Specie"
           type="mdss.entomology.Specie"
           required="false" />
-        <enumeration
+        <reference
           name="identificationMethod"
           label="Identification Method"
           type="mdss.entomology.IdentificationMethod"
@@ -351,19 +350,17 @@
           required="true"
           size="4"
           description="The id the entomologist gives to a sample when its true specie is determined." />
-        <enumeration
+        <reference
           name="specie"
           label="Specie"
           type="mdss.entomology.Specie"
           required="false"
-          description="The true specie of the collection"
-          selectMultiple="false" />
-        <enumeration
+          description="The true specie of the collection" />
+        <reference
           name="identificationMethod"
           label="Identification Method"
           type="mdss.entomology.IdentificationMethod"
-          description="Method used to indentify the true specie collection"
-          selectMultiple="false" />
+          description="Method used to indentify the true specie collection" />
         <reference
           name="collection"
           label="Mosquito Collection"
@@ -389,7 +386,7 @@
       name="mdss.entomology.CollectionTrueSpecie"
       label="Collection True Specie"
       description="A mapping between a mosquito collection and all the true specie entities it is comprised of."
-      publish="false">
+      publish="true">
       <parent
         cardinality="1"
         name="mdss.entomology.AbstractMosquitoCollection"
@@ -438,25 +435,24 @@
           required="true"
           description="The sex of the mosquito"
           selectMultiple="false"
-          type="mdss.general.Sex" />
-        <enumeration
+          type="mdss.entomology.Sex" />
+        <reference
           name="generation"
           label="Generation"
           required="true"
           description="The generation of the mosquito"
-          selectMultiple="false"
           type="mdss.entomology.Generation" />
       </attributes>
     </mdBusiness>
 
     <enumerationMaster
-      name="mdss.general.SexMaster"
+      name="mdss.entomology.SexMaster"
       label="Sex Master"
       description="Master list of all possible mosquito sexes" />
 
     <object
       id="MALE"
-      type="mdss.general.SexMaster">
+      type="mdss.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="MALE" />
@@ -467,7 +463,7 @@
 
     <object
       id="FEMALE"
-      type="mdss.general.SexMaster">
+      type="mdss.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="FEMALE" />
@@ -478,7 +474,7 @@
 
     <object
       id="MIXED"
-      type="mdss.general.SexMaster">
+      type="mdss.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="MIXED" />
@@ -489,7 +485,7 @@
 
     <object
       id="UNKNOWN"
-      type="mdss.general.SexMaster">
+      type="mdss.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="UNKNOWN" />
@@ -499,8 +495,8 @@
     </object>
 
     <mdEnumeration
-      name="mdss.general.Sex"
-      type="mdss.general.SexMaster"
+      name="mdss.entomology.Sex"
+      type="mdss.entomology.SexMaster"
       label="Sex"
       description="List of all possible single mosquito sex options">
       <addEnumItem
@@ -510,184 +506,156 @@
       <addEnumItem
         id="UNKNOWN" />
     </mdEnumeration>
-    
+
     <mdEnumeration
       name="mdss.entomology.AssaySex"
-      type="mdss.general.SexMaster"
+      type="mdss.entomology.SexMaster"
       label="Sex"
       description="List of all possible mosquito assay sex options">
       <includeAll />
     </mdEnumeration>
-    
 
-    <enumerationMaster
-      name="mdss.entomology.GenerationMaster"
-      label="Generation Master"
-      description="Master list of all possible mosquito generations" />
+    <!--
+      ******************************************************** Start of MIRO enumerations. These enumerations will change onces the MIRO ontology has been sorted out. We have outstanding questions of
+      wether or not we will use the MIRO ontology or just take the terms from the ontology and create our own enumerations *********************************************************
+    -->
+
+    <mdBusiness
+      name="mdss.entomology.CollectionMethod"
+      label="Collection Method"
+      description="List of all possible collection methods">
+      <attributes>
+        <char
+          name="termName"
+          required="true"
+          size="255"
+          label="Term Name"
+          description="The name of the MO Collection Method Term" />
+      </attributes>
+    </mdBusiness>
+
+    <object
+      type="mdss.entomology.CollectionMethod"
+      id="NIGHT_BITING">
+      <valueAttribute
+        name="termName"
+        value="Night Biting" />
+    </object>
+
+    <object
+      type="mdss.entomology.CollectionMethod"
+      id="WINDOW_TRAP">
+      <valueAttribute
+        name="termName"
+        value="Window Trap" />
+    </object>
+
+    <mdBusiness
+      name="mdss.entomology.Generation"
+      label="Generation Method"
+      description="List of all possible MO generation">
+      <attributes>
+        <char
+          name="termName"
+          required="true"
+          size="255"
+          label="Term Name"
+          description="The name of the MO Generation Term" />
+      </attributes>
+    </mdBusiness>
 
     <object
       id="F0"
-      type="mdss.entomology.GenerationMaster">
+      type="mdss.entomology.Generation">
       <valueAttribute
-        name="enumName"
-        value="F0" />
-      <valueAttribute
-        name="displayLabel"
+        name="termName"
         value="F0" />
     </object>
 
     <object
       id="F1"
-      type="mdss.entomology.GenerationMaster">
+      type="mdss.entomology.Generation">
       <valueAttribute
-        name="enumName"
-        value="F1" />
-      <valueAttribute
-        name="displayLabel"
+        name="termName"
         value="F1" />
     </object>
 
     <object
       id="F2"
-      type="mdss.entomology.GenerationMaster">
+      type="mdss.entomology.Generation">
       <valueAttribute
-        name="enumName"
-        value="F2" />
-      <valueAttribute
-        name="displayLabel"
+        name="termName"
         value="F2" />
     </object>
 
-    <mdEnumeration
-      name="mdss.entomology.Generation"
-      type="mdss.entomology.GenerationMaster"
-      label="Generation"
-      description="List of all possible mosquito generations">
-      <includeAll />
-    </mdEnumeration>
-
-    <!--
-      ******************************************************** 
-      Start of MIRO enumerations. These enumerations will change
-      onces the MIRO ontology has been sorted out. We have outstanding
-      questions of wether or not we will use the MIRO ontology
-      or just take the terms from the ontology and create our
-      own enumerations
-      *********************************************************
-    -->
-
-    <enumerationMaster
-      name="mdss.entomology.CollectionMethodMaster"
-      label="Collection Method Master" />
+    <mdBusiness
+      name="mdss.entomology.Specie"
+      label="Specie Method"
+      description="List of all possible MO species">
+      <attributes>
+        <char
+          name="termName"
+          required="true"
+          size="255"
+          label="Term Name"
+          description="The name of the MO Specie Term" />
+      </attributes>
+    </mdBusiness>
 
     <object
-      type="mdss.entomology.CollectionMethodMaster"
-      id="NIGHT_BITING">
-      <valueAttribute
-        name="enumName"
-        value="NIGHT_BITING" />
-      <valueAttribute
-        name="displayLabel"
-        value="Night Biting" />
-    </object>
-
-    <object
-      type="mdss.entomology.CollectionMethodMaster"
-      id="WINDOW_TRAP">
-      <valueAttribute
-        name="enumName"
-        value="WINDOW_TRAP" />
-      <valueAttribute
-        name="displayLabel"
-        value="Window Trap" />
-    </object>
-
-    <mdEnumeration
-      name="mdss.entomology.CollectionMethod"
-      type="mdss.entomology.CollectionMethodMaster"
-      label="Collection Method"
-      description="List of all possible collection methods">
-      <includeAll />
-    </mdEnumeration>
-
-    <enumerationMaster
-      name="mdss.entomology.SpecieMaster"
-      label="Specie Master" />
-
-    <object
-      type="mdss.entomology.SpecieMaster"
+      type="mdss.entomology.Specie"
       id="TEST_SPECIE">
       <valueAttribute
-        name="enumName"
-        value="TEST_SPECIE" />
-      <valueAttribute
-        name="displayLabel"
+        name="termName"
         value="Test Specie" />
     </object>
 
     <object
-      type="mdss.entomology.SpecieMaster"
+      type="mdss.entomology.Specie"
       id="ANOPHELES">
       <valueAttribute
-        name="enumName"
-        value="ANOPHELES" />
-      <valueAttribute
-        name="displayLabel"
+        name="termName"
         value="Anopheles" />
     </object>
 
     <object
-      type="mdss.entomology.SpecieMaster"
+      type="mdss.entomology.Specie"
       id="CULICINAE">
       <valueAttribute
-        name="enumName"
-        value="CULICINAE" />
-      <valueAttribute
-        name="displayLabel"
+        name="termName"
         value="Culicinae" />
     </object>
 
-    <mdEnumeration
-      name="mdss.entomology.Specie"
-      type="mdss.entomology.SpecieMaster"
-      label="Specie"
-      description="List of all species">
-      <includeAll />
-    </mdEnumeration>
 
-    <enumerationMaster
-      name="mdss.entomology.IdentificationMethodMaster"
-      label="Identification Method Master" />
+    <mdBusiness
+      name="mdss.entomology.IdentificationMethod"
+      label="Identification Method"
+      description="List of all possible MO specie identification methods">
+      <attributes>
+        <char
+          name="termName"
+          required="true"
+          size="255"
+          label="Term Name"
+          description="The name of the MO Specie Term" />
+      </attributes>
+    </mdBusiness>
 
     <object
-      type="mdss.entomology.IdentificationMethodMaster"
+      type="mdss.entomology.IdentificationMethod"
       id="TEST_METHOD">
       <valueAttribute
-        name="enumName"
-        value="TEST_METHOD" />
-      <valueAttribute
-        name="displayLabel"
+        name="termName"
         value="Test Method" />
     </object>
 
     <object
-      type="mdss.entomology.IdentificationMethodMaster"
+      type="mdss.entomology.IdentificationMethod"
       id="MORPHOLOGICAL">
       <valueAttribute
-        name="enumName"
-        value="MORPHOLOGICAL" />
-      <valueAttribute
-        name="displayLabel"
+        name="termName"
         value="Morphological" />
     </object>
-
-    <mdEnumeration
-      name="mdss.entomology.IdentificationMethod"
-      type="mdss.entomology.IdentificationMethodMaster"
-      label="Indentification Method"
-      description="List of all indentification methods">
-      <includeAll />
-    </mdEnumeration>
 
     <!--
       **************************************************************
@@ -720,4 +688,324 @@
       </create>
     </mdController>
   </update>
+
+  <create>
+    <mdBusiness
+      name="mdss.entomology.Insecticide"
+      label="Insecticide"
+      description="List of all MO insecticides">
+      <attributes>
+        <char
+          name="termName"
+          required="true"
+          size="255"
+          label="Term Name"
+          description="The name of the MO Specie Term" />
+      </attributes>
+    </mdBusiness>
+
+    <object
+      type="mdss.entomology.Insecticide"
+      id="TEST_INSECTICIDE">
+      <valueAttribute
+        name="termName"
+        value="Test Insecticide" />
+    </object>
+
+    <object
+      type="mdss.entomology.Insecticide"
+      id="OTHER">
+      <valueAttribute
+        name="termName"
+        value="Other" />
+    </object>
+
+    <mdBusiness
+      name="mdss.entomology.AssayMethod"
+      label="Assay Method"
+      description="List of all assay methods">
+      <attributes>
+        <char
+          name="termName"
+          required="true"
+          size="255"
+          label="Term Name"
+          description="The name of the MO Assay Method Term" />
+      </attributes>
+    </mdBusiness>
+
+    <object
+      type="mdss.entomology.AssayMethod"
+      id="TEST_METHODOLOGY">
+      <valueAttribute
+        name="termName"
+        value="Test Methodology" />
+    </object>
+
+    <mdStruct
+      name="mdss.entomology.assay.AssayInsecticide"
+      label="Assay Insecticide"
+      description="Insecticide used in an assay">
+      <attributes>
+        <!--    <reference
+          name="insecticide"
+          label="Insecticide"
+          type="mdss.entomology.Insecticide"
+          required="true" /> -->
+        <integer
+          name="amount"
+          label="Amount"
+          rejectZero="true"
+          rejectNegative="true"
+          required="true" />
+        <char
+          name="units"
+          label="Units"
+          size="255"
+          required="true"
+          default_value="%" />
+        <char
+          name="genericName"
+          label="Generic Name"
+          size="255"
+          description="Generic name of the insecticide.  Only used when an 'Other' insecticide is tested." />
+      </attributes>
+    </mdStruct>
+
+    <mdStruct
+      name="mdss.entomology.assay.AdultAgeRange"
+      label="Age Range"
+      description="Age range of mosquitos in an assay">
+      <attributes>
+        <integer
+          name="startPoint"
+          label="Beginning Age"
+          rejectNegative="true"
+          required="true"
+          description="Starting age of the age range" />
+        <integer
+          name="endPoint"
+          label="Ending Age"
+          rejectNegative="true"
+          required="true"
+          description="Ending age of the age range" />
+      </attributes>
+    </mdStruct>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidAgeProblem"
+      label="Invalid Age Exception"
+      description="A mosquito age must be between 0 and 20 for adult assays">
+      <attributes>
+        <integer
+          name="age"
+          label="Age"
+          required="true" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidAgeRangeProblem"
+      label="Invalid Age Range Exception"
+      description="A valid age range must have a starting point equal to or less than the ending point">
+      <attributes>
+        <integer
+          name="startPoint"
+          label="Start Point"
+          required="true" />
+        <integer
+          name="endPoint"
+          label="End Point"
+          required="true" />
+      </attributes>
+    </mdProblem>
+
+    <mdBusiness
+      name="mdss.entomology.assay.AbstractAssay"
+      label="Abstract Assay"
+      isAbstract="true"
+      extendable="true"
+      generateController="false"
+      description="Abstract assay which can be performed on a collection of mosquitos">
+      <attributes>
+        <date
+          name="testDate"
+          label="Test Date"
+          description="The date the test was performed" />
+        <reference
+          name="testMethod"
+          label="Test Method"
+          type="mdss.entomology.AssayMethod" />
+        <reference
+          name="specie"
+          label="Specie"
+          type="mdss.entomology.Specie"
+          required="false" />
+        <reference
+          name="identificationMethod"
+          label="Identification Method"
+          type="mdss.entomology.IdentificationMethod"
+          required="false" />
+        <boolean
+          name="isofemale"
+          label="Isofemale"
+          required="true"
+          default_value="false"
+          description="Flag denoting if this mosquito is from the iso-female line" />
+        <reference
+          name="collection"
+          label="Mosquito Collection"
+          required="true"
+          type="mdss.entomology.MosquitoCollection"
+          immutable="true" />
+        <enumeration
+          name="sex"
+          label="Sex"
+          required="true"
+          description="The sex of the tested mosquitos"
+          selectMultiple="false"
+          type="mdss.entomology.AssaySex" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.entomology.assay.AdultAssay"
+      label="Adult Assay"
+      isAbstract="true"
+      extendable="true"
+      description="Abstract assay which can be performed on a group of adult mosquitos"
+      generateController="false"
+      extends="mdss.entomology.assay.AbstractAssay">
+      <attributes>
+        <struct
+          name="ageRange"
+          label="Age Range"
+          required="false"
+          description="The age range of the mosquitos tested"
+          type="mdss.entomology.assay.AdultAgeRange" />
+        <struct
+          name="insecticide"
+          label="Insecticide"
+          required="true"
+          description="The insecticide used on the mosquito group"
+          type="mdss.entomology.assay.AssayInsecticide" />
+        <integer
+          name="fed"
+          label="Fed"
+          description="Fed value (Only applicable when females are present)."
+          rejectNegative="true"
+          required="true"
+          default_value="0" />
+        <integer
+          name="gravid"
+          label="Gravid"
+          description="Gravid value (Only applicable when females are present)"
+          rejectNegative="true"
+          required="true"
+          default_value="0" />
+        <integer
+          name="exposureTime"
+          label="Exposure Time"
+          description="The exposure time in minutes"
+          rejectNegative="true"
+          rejectZero="true"
+          default_value="60" />
+        <integer
+          name="quantityTested"
+          label="Quantity Tested"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true"
+          description="The total number mosquitos tested" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.entomology.assay.AdultDiscriminatingDoseAssay"
+      label="Adult Discriminating Dose Assay"
+      description="Discriminating dose assay which can be performed on a group of adult mosquitos"
+      extends="mdss.entomology.assay.AdultAssay">
+      <attributes>
+        <integer
+          name="holdingTime"
+          label="Holding Time"
+          required="true"
+          rejectNegative="true"
+          description="The amount of time the mosquitos were held after exposure" />
+        <integer
+          name="quantityDead"
+          label="Quantity Dead"
+          rejectNegative="true"
+          required="true"
+          description="The total number of mosquitos which died during the assay" />
+        <float
+          name="controlTestMortality"
+          label="Control Test Mortality Rate"
+          length="4"
+          decimal="2"
+          description="Mortality rate of the control test"
+          required="false" />
+        <integer
+          name="intervalTime"
+          label="Interval Time"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true"
+          description="The interval time in minutes"
+          default_value="10" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.entomology.assay.ADDATestInterval"
+      label="Test Interval"
+      description="A single test interval for an individual adult discriminating dose assay">
+      <attributes>
+        <reference
+          name="assay"
+          label="Adult Discriminating Dose Assay"
+          required="true"
+          type="mdss.entomology.assay.AdultDiscriminatingDoseAssay" />
+        <integer
+          name="period"
+          label="Period"
+          rejectNegative="true"
+          required="true" />
+        <integer
+          name="knockedDown"
+          rejectNegative="true"
+          label="Knocked Down"
+          required="true"
+          default_value="0" />
+      </attributes>
+    </mdBusiness>
+
+    <mdIndex
+      type="mdss.entomology.assay.ADDATestInterval"
+      active="true"
+      unique="true"
+      label="ADDA Test Interval Index"
+      description="Uniqueness constraint between an assay and its interval period">
+      <attribute
+        name="assay" />
+      <attribute
+        name="period" />
+    </mdIndex>
+
+    <mdTree
+      name="mdss.entomology.assay.ADDAIntervals"
+      label="Adult Discriminating Dose Assay Test Intervals"
+      publish="false"
+      description="Mapping between an Adult Discriminating Dose Assays and it's Test Intervals">
+      <parent
+        cardinality="1"
+        name="mdss.entomology.assay.AdultDiscriminatingDoseAssay"
+        method="AdultDiscriminatingDoseAssay" />
+      <child
+        cardinality="*"
+        name="mdss.entomology.assay.ADDATestInterval"
+        method="TestIntervals" />
+    </mdTree>
+  </create>
+
 </TerraFrame>
