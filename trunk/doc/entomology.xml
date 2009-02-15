@@ -516,8 +516,13 @@
     </mdEnumeration>
 
     <!--
-      ******************************************************** Start of MIRO enumerations. These enumerations will change onces the MIRO ontology has been sorted out. We have outstanding questions of
-      wether or not we will use the MIRO ontology or just take the terms from the ontology and create our own enumerations *********************************************************
+      *****************************************************
+       Start of MIRO enumerations. These enumerations will
+       change onces the MIRO ontology has been sorted out.
+       We have outstanding questions of wether or not we
+       will use the MIRO ontology or just take the terms
+       from the ontology and create our own enumerations
+      *****************************************************
     -->
 
     <mdBusiness
@@ -688,6 +693,12 @@
       </create>
     </mdController>
   </update>
+
+  <!--
+    **********************************
+      Adult Discriminating Dose Assay
+    **********************************
+   -->
 
   <create>
     <mdBusiness
