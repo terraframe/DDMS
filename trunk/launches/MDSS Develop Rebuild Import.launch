@@ -14,9 +14,9 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.eclipse.ant.internal.ui.antsupport.InternalAntRunner"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="MDSS"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.ant.ui.AntClasspathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024M"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx1024M&#13;&#10;-Dmojo.keepSource=true"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_ANT_TARGETS" value="rebuild_db,update_domain_model,"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:/MDSS/scripts/ant/deploy/deploy.xml}"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="-Dmojo.keepSource=true&#13;&#10;-Droot.user=postgres&#13;&#10;-Droot.pass=postgres&#13;&#10;-Droot.db=template1"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="-Droot.user=postgres&#13;&#10;-Droot.pass=postgres&#13;&#10;-Droot.db=template1"/>
 <stringAttribute key="process_factory_id" value="org.eclipse.ant.ui.remoteAntProcessFactory"/>
 </launchConfiguration>
