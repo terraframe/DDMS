@@ -1,6 +1,12 @@
 package mdss.entomology.assay;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -46,8 +52,37 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     
     validateTestDate();
     validateQuantityDead();
-
+   
     super.apply();
+  }
+  
+  @Override
+  public void delete()
+  {
+    for(ADDATestInterval interval : this.getTestIntervals())
+    {
+      interval.delete();
+    }
+    
+    super.delete();
+  }
+  
+  public ADDATestInterval[] getTestIntervals()
+  { 
+    List<ADDATestInterval> list = new LinkedList<ADDATestInterval>();
+    ADDATestIntervalQuery query = new ADDATestIntervalQuery(new QueryFactory());
+    query.getAssay().getId().EQ(this.getId());
+    query.ORDER_BY(query.getPeriod(), SortOrder.ASC);
+    OIterator<? extends ADDATestInterval> iterator = query.getIterator();
+    
+    while(iterator.hasNext())
+    {
+      list.add(iterator.next());
+    }
+    
+    iterator.close();
+    
+    return list.toArray(new ADDATestInterval[list.size()]);
   }
 
 }
