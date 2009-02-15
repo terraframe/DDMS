@@ -5,7 +5,7 @@
 	<!-- Set up our properties                                               -->
 	<!-- =================================================================== -->
 
-	<property name="profile.root" value="/home/jsmethie/workspace/MDSS/profiles" />
+	<property name="profile.root" value="D:/Apps/eclipse/workspace/MDSS/profiles" />
 	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties"
 		classpath="${profile.root};tfprops.jar" />
 	<tfproperties root="${profile.root}"/>
@@ -61,26 +61,6 @@
 	<!-- =================================================================== -->
 	<!-- Rebuild the environment                                             -->
 	<!-- =================================================================== -->
-
-	<target name="clean_generated" description="Removes all generated classes and directories">
-		<!-- we don't want to fail on error because the dirs may not exist if this is a fresh install -->
-		<delete failonerror="false" includeemptydirs="true">
-			<fileset dir="${client.src}" includes="**/*" />
-		</delete>
-		<echo message="Cleaned generated directory [${client.src}]" />
-		<delete failonerror="false" includeemptydirs="true">
-			<fileset dir="${common.src}">
-				<include name="**/*" />
-				<!-- exclude name="xml/exceptions.xsd"/ -->
-			</fileset>
-		</delete>
-		<echo message="Cleaned generated directory [${common.src}]" />
-		<delete failonerror="false" includeemptydirs="true">
-			<fileset dir="${server.src}" includes="**/*" />
-		</delete>
-		<echo message="Cleaned generated directory [${server.src}]" />
-		<copy file="${profile.root}/exceptions.xsd" tofile="${common.src}/xml/exceptions.xsd"/>
-	</target>
 	
 	<target name="get_root_login" description="Checks for root username and prompts for it if not found." unless="root.user">
 		<input message="Root Username:" addproperty="root.user" />
@@ -126,15 +106,12 @@
 		</javac>
 	</target>
 	
-	<property name="domain.location" value="${local.root}/doc/DomainModel.xml" />
+	<property name="domain.location" value="${local.root}/doc/entomology.xml" />
 	
 	<target name="update_domain_model">
 		<!-- Import the domain model -->
-		<java classname="ImportModel" failonerror="true" fork="true">
+		<java classname="ImportModel" failonerror="true">
 			<arg file="${domain.location}"/>
-			<jvmarg value="-Dmojo.keepSource=true"/>
-			<jvmarg value="-Xms1g"/>
-			<jvmarg value="-Xmx1g"/>
 			<classpath>
 				<path refid="framework.classpath"/>
 			</classpath>
@@ -149,10 +126,21 @@
 			</classpath>
 		</java>
 	</target>
+	
+	<target name="update_deploy_source">
+		<!-- Update the database with the new sources and classes -->
+		<java classname="com.terraframe.mojo.dataaccess.io.dataDefinition.DeployedMetadataUpdater" failonerror="true">
+			<arg value="${export.package}"/>
+			<classpath>
+				<path refid="framework.classpath"/>
+			</classpath>
+		</java>
+	</target>
     
 	<target name="deploy" depends="deploy_presentation_files,deploy_application_files,deploy_web_xml">
 		<!-- Flatten a profile and stick it on tomcat. -->
 		<java classname="com.terraframe.mojo.ant.ProfileFlattener" fork="false" failonerror="true">
+			<arg value="${deploy.profile}"/>
 			<arg value="$$${deploy.appname}_tmp"/>
 			<classpath>
 				<fileset file="${local.lib}/terraframe.jar" />

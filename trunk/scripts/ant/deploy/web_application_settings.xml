@@ -1,3 +1,7 @@
+<listener>
+  <listener-class>com.terraframe.mojo.defaults.RMIContextListener</listener-class>
+</listener>
+
 <error-page>
   <error-code>404</error-code>
   <location>/WEB-INF/404.jsp</location>
