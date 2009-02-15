@@ -1,23 +1,42 @@
 package mdss.entomology;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
+import java.util.LinkedList;
+import java.util.List;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import mdss.entomology.assay.ADDATestInterval;
 import mdss.entomology.assay.AdultAgeRange;
 import mdss.entomology.assay.AdultDiscriminatingDoseAssay;
+import mdss.entomology.assay.InvalidAgeProblem;
+import mdss.entomology.assay.InvalidAgeRangeProblem;
 import mdss.test.GeoEntity;
 import mdss.test.Terrain;
 
+import com.terraframe.mojo.ProblemException;
+import com.terraframe.mojo.ProblemIF;
+import com.terraframe.mojo.constants.DatabaseProperties;
+import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
+import com.terraframe.mojo.query.OIterator;
+
 public class ADDATest extends TestCase
 {
-  private static GeoEntity          geoEntity  = null;
+  private static GeoEntity            geoEntity            = null;
 
-  private static MosquitoCollection collection = null;
+  private static MosquitoCollection   collection           = null;
+
+  private static CollectionMethod     collectionMethod     = null;
+
+  private static Specie               specie               = null;
+
+  private static IdentificationMethod identificationMethod = null;
+
+  private static AssayMethod          assayMethod          = null;
 
   public static Test suite()
   {
@@ -43,17 +62,42 @@ public class ADDATest extends TestCase
 
   protected static void classSetUp()
   {
-    geoEntity = new GeoEntity();
-    geoEntity.setGeoId("0");
-    geoEntity.setEntityName("GeoEntity");
-    geoEntity.addTerrain(Terrain.SENTINEL_SITE);
-    geoEntity.apply();
+    OIterator<? extends CollectionMethod> cIt = CollectionMethod.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends Specie> sIt = Specie.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends AssayMethod> aIt = AssayMethod.getAllInstances(null, false, 0, 0).getIterator();
 
-    collection = new MosquitoCollection();
-    collection.setGeoEntity(geoEntity);
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
-    collection.setDateCollected(new Date());
-    collection.apply();
+    collectionMethod = cIt.next();
+    specie = sIt.next();
+    identificationMethod = iIt.next();
+    assayMethod = aIt.next();
+
+    cIt.close();
+    sIt.close();
+    iIt.close();
+    aIt.close();
+
+    try
+    {
+      SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+      Date date = dateTime.parse("2006-01-01");
+
+      geoEntity = new GeoEntity();
+      geoEntity.setGeoId("0");
+      geoEntity.setEntityName("GeoEntity");
+      geoEntity.addTerrain(Terrain.SENTINEL_SITE);
+      geoEntity.apply();
+
+      collection = new MosquitoCollection();
+      collection.setGeoEntity(geoEntity);
+      collection.setCollectionMethod(collectionMethod);
+      collection.setDateCollected(date);
+      collection.apply();
+    }
+    catch (ParseException e)
+    {
+      throw new RuntimeException(e);
+    }
   }
 
   protected static void classTearDown()
@@ -89,7 +133,6 @@ public class ADDATest extends TestCase
 
     try
     {
-
       assertEquals(new Integer(10), range.getStartPoint());
       assertEquals(new Integer(10), range.getEndPoint());
     }
@@ -111,9 +154,13 @@ public class ADDATest extends TestCase
 
       fail("Able to create an age range where the starting age is after the begining age");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidAgeRangeProblem);
     }
     finally
     {
@@ -164,9 +211,14 @@ public class ADDATest extends TestCase
 
       fail("Able to create an age range where the begining and ending age are greater than the maximum age");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(2, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidAgeProblem);
+      assertTrue(problems.get(1) instanceof InvalidAgeProblem);
     }
     finally
     {
@@ -177,74 +229,825 @@ public class ADDATest extends TestCase
     }
   }
 
-  public void testUnkownAge()
+  public void testADDA() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
     assay.setCollection(collection);
-    assay.setTestDate(new Date());
+    assay.setTestDate(date);
     assay.addSex(AssaySex.FEMALE);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
     assay.setFed(10);
-    assay.setGravid(0);
+    assay.setGravid(10);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(5);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+//    assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+    assay.getInsecticide().setAmount(10);
+    assay.getInsecticide().setUnits("%");
+    assay.apply();
+
+    try
+    {
+
+      AdultDiscriminatingDoseAssay assay2 = AdultDiscriminatingDoseAssay.get(assay.getId());
+
+      assertEquals(collection.getId(), assay2.getCollection().getId());
+      assertEquals(date, assay2.getTestDate());
+      assertEquals(AssaySex.FEMALE, assay2.getSex().get(0));
+      assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
+      assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
+      assertEquals(new Integer(10), assay2.getFed());
+      assertEquals(new Integer(10), assay2.getGravid());
+      assertEquals(new Integer(60), assay2.getExposureTime());
+      assertEquals(new Integer(10), assay2.getIntervalTime());
+      assertEquals(new Integer(24), assay2.getHoldingTime());
+      assertEquals(new Integer(5), assay2.getQuantityDead());
+      assertEquals(new Integer(30), assay2.getQuantityTested());
+      assertEquals(new Float(99.99), assay2.getControlTestMortality());
+      assertEquals(new Boolean(false), assay2.getIsofemale());
+//      assertEquals(Insecticide.TEST_INSECTICIDE, assay2.getInsecticide().getInsecticide().get(0));
+      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
+      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
+      assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
+    }
+    finally
+    {
+      assay.delete();
+    }
   }
 
-  public void testTestDate()
+  public void testUnkownAge() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
 
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(AssaySex.FEMALE);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setFed(10);
+    assay.setGravid(10);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(5);
+    assay.setQuantityTested(30);
+//    assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+    assay.getInsecticide().setAmount(10);
+    assay.getInsecticide().setUnits("%");
+    assay.apply();
+
+    try
+    {
+
+      AdultDiscriminatingDoseAssay assay2 = AdultDiscriminatingDoseAssay.get(assay.getId());
+
+      assertEquals(collection.getId(), assay2.getCollection().getId());
+      assertEquals(date, assay2.getTestDate());
+      assertEquals(AssaySex.FEMALE, assay2.getSex().get(0));
+      assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
+      assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
+      assertEquals(new Integer(10), assay2.getFed());
+      assertEquals(new Integer(10), assay2.getGravid());
+      assertEquals(new Integer(60), assay2.getExposureTime());
+      assertEquals(new Integer(10), assay2.getIntervalTime());
+      assertEquals(new Integer(24), assay2.getHoldingTime());
+      assertEquals(new Integer(5), assay2.getQuantityDead());
+      assertEquals(new Integer(30), assay2.getQuantityTested());
+      assertEquals(new Float(99.99), assay2.getControlTestMortality());
+      assertEquals(new Boolean(false), assay2.getIsofemale());
+//      assertEquals(Insecticide.TEST_INSECTICIDE, assay2.getInsecticide().getInsecticide().get(0));
+      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
+      assertEquals("%", assay2.getInsecticide().getUnits());
+    }
+    finally
+    {
+      assay.delete();
+    }
   }
 
-  public void testInvalidTestDate()
+  public void testInvalidAgeInADDA() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
 
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(AssaySex.FEMALE);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(10);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(5);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(24);
+      assay.getAgeRange().setEndPoint(25);
+//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+      assay.getInsecticide().setAmount(10);
+      assay.getInsecticide().setUnits("%");
+      assay.apply();
+
+      fail("Able to create an adult assay with an invalid age range");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
   }
 
-  public void testFedWithFemales()
+  public void testInvalidTestDate() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2003-01-01");
 
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(AssaySex.FEMALE);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(10);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(5);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(3);
+      assay.getAgeRange().setEndPoint(15);
+//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+      assay.getInsecticide().setAmount(10);
+      assay.getInsecticide().setUnits("%");
+      assay.apply();
+
+      fail("Able to create an adult assay with an test date before the collection date");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
   }
 
-  public void testFedWithoutFemales()
+  public void testGravidAndFedWithMixed() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AssaySex sex = AssaySex.MIXED;
 
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setFed(10);
+    assay.setGravid(10);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(5);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+//    assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+    assay.getInsecticide().setAmount(10);
+    assay.getInsecticide().setUnits("%");
+    assay.apply();
+
+    try
+    {
+
+      AdultDiscriminatingDoseAssay assay2 = AdultDiscriminatingDoseAssay.get(assay.getId());
+
+      assertEquals(collection.getId(), assay2.getCollection().getId());
+      assertEquals(date, assay2.getTestDate());
+      assertEquals(sex, assay2.getSex().get(0));
+      assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
+      assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
+      assertEquals(new Integer(10), assay2.getFed());
+      assertEquals(new Integer(10), assay2.getGravid());
+      assertEquals(new Integer(60), assay2.getExposureTime());
+      assertEquals(new Integer(10), assay2.getIntervalTime());
+      assertEquals(new Integer(24), assay2.getHoldingTime());
+      assertEquals(new Integer(5), assay2.getQuantityDead());
+      assertEquals(new Integer(30), assay2.getQuantityTested());
+      assertEquals(new Float(99.99), assay2.getControlTestMortality());
+      assertEquals(new Boolean(false), assay2.getIsofemale());
+//      assertEquals(Insecticide.TEST_INSECTICIDE, assay2.getInsecticide().getInsecticide().get(0));
+      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
+      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
+      assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
+    }
+    finally
+    {
+      assay.delete();
+    }
   }
 
-  public void testGravidWithFemales()
+  public void testGravidAndFedWithUnknown() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AssaySex sex = AssaySex.UNKNOWN;
 
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(5);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+//    assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+    assay.getInsecticide().setAmount(10);
+    assay.getInsecticide().setUnits("%");
+    assay.apply();
+
+    try
+    {
+
+      AdultDiscriminatingDoseAssay assay2 = AdultDiscriminatingDoseAssay.get(assay.getId());
+
+      assertEquals(collection.getId(), assay2.getCollection().getId());
+      assertEquals(date, assay2.getTestDate());
+      assertEquals(sex, assay2.getSex().get(0));
+      assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
+      assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
+      assertEquals(new Integer(60), assay2.getExposureTime());
+      assertEquals(new Integer(10), assay2.getIntervalTime());
+      assertEquals(new Integer(24), assay2.getHoldingTime());
+      assertEquals(new Integer(5), assay2.getQuantityDead());
+      assertEquals(new Integer(30), assay2.getQuantityTested());
+      assertEquals(new Float(99.99), assay2.getControlTestMortality());
+      assertEquals(new Boolean(false), assay2.getIsofemale());
+//      assertEquals(Insecticide.TEST_INSECTICIDE, assay2.getInsecticide().getInsecticide().get(0));
+      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
+      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
+      assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
+    }
+    finally
+    {
+      assay.delete();
+    }
   }
 
-  public void testGravidWithoutFemales()
+  public void testGravidAndFedWithMale() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AssaySex sex = AssaySex.MALE;
 
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(5);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+//    assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+    assay.getInsecticide().setAmount(10);
+    assay.getInsecticide().setUnits("%");
+    assay.apply();
+
+    try
+    {
+
+      AdultDiscriminatingDoseAssay assay2 = AdultDiscriminatingDoseAssay.get(assay.getId());
+
+      assertEquals(collection.getId(), assay2.getCollection().getId());
+      assertEquals(date, assay2.getTestDate());
+      assertEquals(sex, assay2.getSex().get(0));
+      assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
+      assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
+      assertEquals(new Integer(60), assay2.getExposureTime());
+      assertEquals(new Integer(10), assay2.getIntervalTime());
+      assertEquals(new Integer(24), assay2.getHoldingTime());
+      assertEquals(new Integer(5), assay2.getQuantityDead());
+      assertEquals(new Integer(30), assay2.getQuantityTested());
+      assertEquals(new Float(99.99), assay2.getControlTestMortality());
+      assertEquals(new Boolean(false), assay2.getIsofemale());
+//      assertEquals(Insecticide.TEST_INSECTICIDE, assay2.getInsecticide().getInsecticide().get(0));
+      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
+      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
+      assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
+    }
+    finally
+    {
+      assay.delete();
+    }
   }
 
-  public void testNumberDeadLowerBoundary()
+  public void testInvalidGravidAndFedWithUnknown() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AssaySex sex = AssaySex.UNKNOWN;
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
 
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(sex);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(10);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(5);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(2);
+      assay.getAgeRange().setEndPoint(20);
+//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+      assay.getInsecticide().setAmount(10);
+      assay.getInsecticide().setUnits("%");
+      assay.apply();
+
+      fail("Able to create an assay of unknown sex with invalid gravid and fed values");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
   }
 
-  public void testNumberDeadUpperBoundary()
+  public void testInvalidGravidAndFedWithMale() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AssaySex sex = AssaySex.MALE;
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
 
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(sex);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(10);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(5);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(2);
+      assay.getAgeRange().setEndPoint(20);
+//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+      assay.getInsecticide().setAmount(10);
+      assay.getInsecticide().setUnits("%");
+      assay.apply();
+
+      fail("Able to create an assay of male sex with invalid gravid and fed values");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
   }
 
-  public void testValidNumberDead()
+  public void testInsecticideGenericName() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
 
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(5);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+//    assay.getInsecticide().addInsecticide(Insecticide.OTHER);
+    assay.getInsecticide().setAmount(10);
+    assay.getInsecticide().setUnits("%");
+    assay.getInsecticide().setGenericName(generic);
+    assay.apply();
+
+    try
+    {
+
+      AdultDiscriminatingDoseAssay assay2 = AdultDiscriminatingDoseAssay.get(assay.getId());
+
+      assertEquals(collection.getId(), assay2.getCollection().getId());
+      assertEquals(date, assay2.getTestDate());
+      assertEquals(sex, assay2.getSex().get(0));
+      assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
+      assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
+      assertEquals(new Integer(60), assay2.getExposureTime());
+      assertEquals(new Integer(10), assay2.getIntervalTime());
+      assertEquals(new Integer(24), assay2.getHoldingTime());
+      assertEquals(new Integer(5), assay2.getQuantityDead());
+      assertEquals(new Integer(30), assay2.getQuantityTested());
+      assertEquals(new Float(99.99), assay2.getControlTestMortality());
+      assertEquals(new Boolean(false), assay2.getIsofemale());
+//      assertEquals(Insecticide.OTHER, assay2.getInsecticide().getInsecticide().get(0));
+      assertEquals(generic, assay2.getInsecticide().getGenericName());
+      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
+      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
+      assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
+    }
+    finally
+    {
+      assay.delete();
+    }
   }
 
-  public void testExposureTime()
+  public void testInsecticideGenericNameNotOther() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AssaySex sex = AssaySex.FEMALE;
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
 
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(sex);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(10);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(5);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(2);
+      assay.getAgeRange().setEndPoint(20);
+//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+      assay.getInsecticide().setAmount(10);
+      assay.getInsecticide().setUnits("%");
+      assay.getInsecticide().setGenericName("Sample name");
+      assay.apply();
+
+      fail("Able to set the generic instecide name on non other insecticides");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
   }
 
-  public void testInvalidExposureTime()
+  public void testNumberDeadLowerBoundary() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
 
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(0);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+//    assay.getInsecticide().addInsecticide(Insecticide.OTHER);
+    assay.getInsecticide().setAmount(10);
+    assay.getInsecticide().setUnits("%");
+    assay.getInsecticide().setGenericName(generic);
+    assay.apply();
+
+    try
+    {
+
+      AdultDiscriminatingDoseAssay assay2 = AdultDiscriminatingDoseAssay.get(assay.getId());
+
+      assertEquals(collection.getId(), assay2.getCollection().getId());
+      assertEquals(date, assay2.getTestDate());
+      assertEquals(sex, assay2.getSex().get(0));
+      assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
+      assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
+      assertEquals(new Integer(60), assay2.getExposureTime());
+      assertEquals(new Integer(10), assay2.getIntervalTime());
+      assertEquals(new Integer(24), assay2.getHoldingTime());
+      assertEquals(new Integer(0), assay2.getQuantityDead());
+      assertEquals(new Integer(30), assay2.getQuantityTested());
+      assertEquals(new Float(99.99), assay2.getControlTestMortality());
+      assertEquals(new Boolean(false), assay2.getIsofemale());
+//      assertEquals(Insecticide.OTHER, assay2.getInsecticide().getInsecticide().get(0));
+      assertEquals(generic, assay2.getInsecticide().getGenericName());
+      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
+      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
+      assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
+    }
+    finally
+    {
+      assay.delete();
+    }
   }
 
-  public void testCreateTestIntervals()
+  public void testNumberDeadUpperBoundary() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
 
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(30);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+//    assay.getInsecticide().addInsecticide(Insecticide.OTHER);
+    assay.getInsecticide().setAmount(10);
+    assay.getInsecticide().setUnits("%");
+    assay.getInsecticide().setGenericName(generic);
+    assay.apply();
+
+    try
+    {
+
+      AdultDiscriminatingDoseAssay assay2 = AdultDiscriminatingDoseAssay.get(assay.getId());
+
+      assertEquals(collection.getId(), assay2.getCollection().getId());
+      assertEquals(date, assay2.getTestDate());
+      assertEquals(sex, assay2.getSex().get(0));
+      assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
+      assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
+      assertEquals(new Integer(60), assay2.getExposureTime());
+      assertEquals(new Integer(10), assay2.getIntervalTime());
+      assertEquals(new Integer(24), assay2.getHoldingTime());
+      assertEquals(new Integer(30), assay2.getQuantityDead());
+      assertEquals(new Integer(30), assay2.getQuantityTested());
+      assertEquals(new Float(99.99), assay2.getControlTestMortality());
+      assertEquals(new Boolean(false), assay2.getIsofemale());
+//      assertEquals(Insecticide.OTHER, assay2.getInsecticide().getInsecticide().get(0));
+      assertEquals(generic, assay2.getInsecticide().getGenericName());
+      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
+      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
+      assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
+    }
+    finally
+    {
+      assay.delete();
+    }
+  }
+
+  public void testNumberDeadGreaterThanTotalTested() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AssaySex sex = AssaySex.FEMALE;
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(sex);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(10);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(45);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(2);
+      assay.getAgeRange().setEndPoint(20);
+//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+      assay.getInsecticide().setAmount(10);
+      assay.getInsecticide().setUnits("%");
+      assay.apply();
+
+      fail("Able to set the number dead larger than the total number tested");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
+  }
+
+  public void testInvalidExposureTime() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AssaySex sex = AssaySex.FEMALE;
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(sex);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(10);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(80);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(30);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(2);
+      assay.getAgeRange().setEndPoint(20);
+//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
+      assay.getInsecticide().setAmount(10);
+      assay.getInsecticide().setUnits("%");
+      assay.apply();
+
+      fail("Able to set an interval time larger than the exposure time");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
+  }
+
+  public void testCreateTestIntervals() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    List<ADDATestInterval> list = new LinkedList<ADDATestInterval>();
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
+
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(30);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+//    assay.getInsecticide().addInsecticide(Insecticide.OTHER);
+    assay.getInsecticide().setAmount(10);
+    assay.getInsecticide().setUnits("%");
+    assay.getInsecticide().setGenericName(generic);
+    assay.apply();
+
+    OIterator<? extends ADDATestInterval> iterator = assay.getAllTestIntervals();
+
+    while (iterator.hasNext())
+    {
+      list.add(iterator.next());
+    }
+
+    try
+    {
+      assertEquals(6, list.size());
+
+      for (int i = 0; i < 6; i++)
+      {
+
+      }
+    }
+    finally
+    {
+      assay.delete();
+    }
   }
 
   public void testValidNumberKnockedDown()

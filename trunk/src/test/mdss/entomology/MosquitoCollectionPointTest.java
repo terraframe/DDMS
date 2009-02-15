@@ -27,6 +27,10 @@ public class MosquitoCollectionPointTest extends TestCase
   private static GeoEntity waterBody    = null;
 
   private static GeoEntity fixedTrap    = null;
+  
+  private static Specie               specie               = null;
+
+  private static IdentificationMethod identificationMethod = null;
 
   public static Test suite()
   {
@@ -52,6 +56,15 @@ public class MosquitoCollectionPointTest extends TestCase
 
   protected static void classSetUp()
   {
+    OIterator<? extends Specie> sIt = Specie.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0, 0).getIterator();
+
+    specie = sIt.next();
+    identificationMethod = iIt.next();
+    
+    sIt.close();
+    iIt.close();
+
     sentinelSite = new GeoEntity();
     sentinelSite.setGeoId("0");
     sentinelSite.setEntityName("Sentinel Site");
@@ -158,15 +171,15 @@ public class MosquitoCollectionPointTest extends TestCase
 
     MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
     group.setQuanity(20);
-    group.addSpecie(Specie.TEST_SPECIE);
-    group.addIdentificationMethod(IdentificationMethod.TEST_METHOD);
+    group.setSpecie(specie);
+    group.setIdentificationMethod(identificationMethod);
     group.setCollection(collection);
     group.apply();
 
     MorphologicalSpecieGroup group2 = new MorphologicalSpecieGroup();
     group2.setQuanity(10);
-    group2.addSpecie(Specie.TEST_SPECIE);
-    group2.addIdentificationMethod(IdentificationMethod.TEST_METHOD);
+    group2.setSpecie(specie);
+    group2.setIdentificationMethod(identificationMethod);
     group2.setCollection(collection);
     group2.apply();
 
@@ -184,8 +197,8 @@ public class MosquitoCollectionPointTest extends TestCase
       assertEquals(2, list.size());
       assertEquals(new Integer(20), list.get(0).getQuanity());
       assertEquals(new Integer(10), list.get(1).getQuanity());
-      assertEquals(Specie.TEST_SPECIE, list.get(0).getSpecie().get(0));
-      assertEquals(IdentificationMethod.TEST_METHOD, list.get(0).getIdentificationMethod().get(0));
+      assertEquals(specie.getId(), list.get(0).getSpecie().getId());
+      assertEquals(identificationMethod.getId(), list.get(0).getIdentificationMethod().getId());
     }
     finally
     {
@@ -240,7 +253,7 @@ public class MosquitoCollectionPointTest extends TestCase
     {
       group = new MorphologicalSpecieGroup();
       group.setQuanity(0);
-      group.addSpecie(Specie.TEST_SPECIE);
+      group.setSpecie(specie);
       group.setCollection(collection);
       group.apply();
 
@@ -277,7 +290,7 @@ public class MosquitoCollectionPointTest extends TestCase
     {
       group = new MorphologicalSpecieGroup();
       group.setQuanity(0);
-      group.addIdentificationMethod(IdentificationMethod.TEST_METHOD);
+      group.setIdentificationMethod(identificationMethod);
       group.setCollection(collection);
       group.apply();
 

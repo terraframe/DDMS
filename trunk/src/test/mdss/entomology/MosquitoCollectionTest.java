@@ -23,11 +23,17 @@ import com.terraframe.mojo.session.StartSession;
 
 public class MosquitoCollectionTest extends TestCase
 {
-  private static GeoEntity sentinelSite    = null;
+  private static GeoEntity            sentinelSite         = null;
 
-  private static GeoEntity nonSentinelSite = null;
+  private static GeoEntity            nonSentinelSite      = null;
 
-  private static GeoEntity fixedTrap       = null;
+  private static GeoEntity            fixedTrap            = null;
+
+  private static CollectionMethod     collectionMethod     = null;
+
+  private static Specie               specie               = null;
+
+  private static IdentificationMethod identificationMethod = null;
 
   public static Test suite()
   {
@@ -53,6 +59,18 @@ public class MosquitoCollectionTest extends TestCase
 
   protected static void classSetUp()
   {
+    OIterator<? extends CollectionMethod> cIt = CollectionMethod.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends Specie> sIt = Specie.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0, 0).getIterator();
+
+    collectionMethod = cIt.next();
+    specie = sIt.next();
+    identificationMethod = iIt.next();
+    
+    cIt.close();
+    sIt.close();
+    iIt.close();
+
     sentinelSite = new GeoEntity();
     sentinelSite.setGeoId("0");
     sentinelSite.setEntityName("Sentinel Site");
@@ -84,7 +102,7 @@ public class MosquitoCollectionTest extends TestCase
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(sentinelSite);
     collection.setDateCollected(new Date());
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
     String id = collection.getId();
@@ -95,8 +113,7 @@ public class MosquitoCollectionTest extends TestCase
 
       assertEquals(collection.getGeoEntity().getId(), collection2.getGeoEntity().getId());
       assertEquals(collection.getDateCollected(), collection2.getDateCollected());
-      assertEquals(collection.getCollectionMethod().size(), collection2.getCollectionMethod().size(), 1);
-      assertEquals(collection.getCollectionMethod().get(0), collection2.getCollectionMethod().get(0));
+      assertEquals(collection.getCollectionMethod().getId(), collection2.getCollectionMethod().getId());
     }
     finally
     {
@@ -110,7 +127,7 @@ public class MosquitoCollectionTest extends TestCase
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(nonSentinelSite);
     collection.setDateCollected(new Date());
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
     String id = collection.getId();
@@ -121,8 +138,7 @@ public class MosquitoCollectionTest extends TestCase
 
       assertEquals(collection.getGeoEntity().getId(), collection2.getGeoEntity().getId());
       assertEquals(collection.getDateCollected(), collection2.getDateCollected());
-      assertEquals(collection.getCollectionMethod().size(), collection2.getCollectionMethod().size(), 1);
-      assertEquals(collection.getCollectionMethod().get(0), collection2.getCollectionMethod().get(0));
+      assertEquals(collection.getCollectionMethod().getId(), collection2.getCollectionMethod().getId());
     }
     finally
     {
@@ -139,7 +155,7 @@ public class MosquitoCollectionTest extends TestCase
       collection = new MosquitoCollection();
       collection.setGeoEntity(fixedTrap);
       collection.setDateCollected(new Date());
-      collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+      collection.setCollectionMethod(collectionMethod);
       collection.apply();
 
       fail("Able to create a mosquito collection with a GeoEntity which is not a (non)sentinel site");
@@ -162,20 +178,20 @@ public class MosquitoCollectionTest extends TestCase
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(sentinelSite);
     collection.setDateCollected(new Date());
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
     MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
     group.setQuanity(20);
-    group.addSpecie(Specie.TEST_SPECIE);
-    group.addIdentificationMethod(IdentificationMethod.TEST_METHOD);
+    group.setSpecie(specie);
+    group.setIdentificationMethod(identificationMethod);
     group.setCollection(collection);
     group.apply();
 
     MorphologicalSpecieGroup group2 = new MorphologicalSpecieGroup();
     group2.setQuanity(10);
-    group2.addSpecie(Specie.TEST_SPECIE);
-    group2.addIdentificationMethod(IdentificationMethod.TEST_METHOD);
+    group2.setSpecie(specie);
+    group2.setIdentificationMethod(identificationMethod);
     group2.setCollection(collection);
     group2.apply();
 
@@ -194,8 +210,8 @@ public class MosquitoCollectionTest extends TestCase
       assertEquals(2, list.size());
       assertEquals(new Integer(20), list.get(0).getQuanity());
       assertEquals(new Integer(10), list.get(1).getQuanity());
-      assertEquals(Specie.TEST_SPECIE, list.get(0).getSpecie().get(0));
-      assertEquals(IdentificationMethod.TEST_METHOD, list.get(0).getIdentificationMethod().get(0));
+      assertEquals(specie.getId(), list.get(0).getSpecie().getId());
+      assertEquals(identificationMethod.getId(), list.get(0).getIdentificationMethod().getId());
     }
     finally
     {
@@ -211,26 +227,26 @@ public class MosquitoCollectionTest extends TestCase
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(sentinelSite);
     collection.setDateCollected(new Date());
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
     try
     {
       group = new MorphologicalSpecieGroup();
       group.setQuanity(0);
-      group.addSpecie(Specie.TEST_SPECIE);
-      group.addIdentificationMethod(IdentificationMethod.TEST_METHOD);
+      group.setSpecie(specie);
+      group.setIdentificationMethod(identificationMethod);
       group.setCollection(collection);
       group.apply();
-      
+
       fail("Able to create a Morphological Group with an invalid quantity");
     }
     catch (ProblemException e)
     {
       // This is expected, ensure that an invalid quantity problem was thrown
-      List<ProblemIF> problems = e.getProblems();   
+      List<ProblemIF> problems = e.getProblems();
       assertEquals(1, problems.size());
-      assertTrue(problems.get(0) instanceof InvalidMorphologicalQuantityProblem);      
+      assertTrue(problems.get(0) instanceof InvalidMorphologicalQuantityProblem);
     }
     finally
     {
@@ -242,24 +258,24 @@ public class MosquitoCollectionTest extends TestCase
       collection.delete();
     }
   }
-  
+
   public void testEmptyMorphologicalQuantity()
   {
     MorphologicalSpecieGroup group = null;
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(sentinelSite);
     collection.setDateCollected(new Date());
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
     try
     {
       group = new MorphologicalSpecieGroup();
-      group.addSpecie(Specie.TEST_SPECIE);
-      group.addIdentificationMethod(IdentificationMethod.TEST_METHOD);
+      group.setSpecie(specie);
+      group.setIdentificationMethod(identificationMethod);
       group.setCollection(collection);
       group.apply();
-      
+
       fail("Able to create a Morphological Group with an empty quantity");
     }
     catch (AttributeValueException e)
@@ -274,7 +290,7 @@ public class MosquitoCollectionTest extends TestCase
       }
 
       collection.delete();
-    }    
+    }
   }
 
   public void testEmptyMorphologicalSpeicie()
@@ -283,25 +299,25 @@ public class MosquitoCollectionTest extends TestCase
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(sentinelSite);
     collection.setDateCollected(new Date());
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
     try
     {
       group = new MorphologicalSpecieGroup();
       group.setQuanity(10);
-      group.addIdentificationMethod(IdentificationMethod.TEST_METHOD);
+      group.setIdentificationMethod(identificationMethod);
       group.setCollection(collection);
       group.apply();
-      
+
       fail("Able to create a Morphological Group with an invalid specie");
     }
     catch (ProblemException e)
     {
       // This is expected, ensure that an empty value problem was thrown
-      List<ProblemIF> problems = e.getProblems();   
+      List<ProblemIF> problems = e.getProblems();
       assertEquals(1, problems.size());
-      assertTrue(problems.get(0) instanceof EmptyValueProblem);      
+      assertTrue(problems.get(0) instanceof EmptyValueProblem);
     }
     finally
     {
@@ -311,7 +327,7 @@ public class MosquitoCollectionTest extends TestCase
       }
 
       collection.delete();
-    }    
+    }
   }
 
   public void testEmptyMorphologicalIdentificationMethod()
@@ -320,25 +336,25 @@ public class MosquitoCollectionTest extends TestCase
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(sentinelSite);
     collection.setDateCollected(new Date());
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
     try
     {
       group = new MorphologicalSpecieGroup();
       group.setQuanity(20);
-      group.addSpecie(Specie.TEST_SPECIE);
+      group.setSpecie(specie);
       group.setCollection(collection);
       group.apply();
-      
+
       fail("Able to create a Morphological Group with an invalid identification method");
     }
     catch (ProblemException e)
     {
       // This is expected, ensure that an empty value problem was thrown
-      List<ProblemIF> problems = e.getProblems();   
+      List<ProblemIF> problems = e.getProblems();
       assertEquals(1, problems.size());
-      assertTrue(problems.get(0) instanceof EmptyValueProblem);      
+      assertTrue(problems.get(0) instanceof EmptyValueProblem);
     }
     finally
     {
@@ -348,7 +364,7 @@ public class MosquitoCollectionTest extends TestCase
       }
 
       collection.delete();
-    }    
+    }
   }
 
   public void testGeoDateUniquness()
@@ -356,7 +372,7 @@ public class MosquitoCollectionTest extends TestCase
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(nonSentinelSite);
     collection.setDateCollected(new Date());
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
     MosquitoCollection duplicate = null;
@@ -366,7 +382,7 @@ public class MosquitoCollectionTest extends TestCase
       duplicate = new MosquitoCollection();
       duplicate.setGeoEntity(nonSentinelSite);
       duplicate.setDateCollected(new Date());
-      duplicate.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+      duplicate.setCollectionMethod(collectionMethod);
       duplicate.apply();
 
       fail("Able to create mulutiple MosquitoCollections with the same GeoEntity and Date");
@@ -391,7 +407,7 @@ public class MosquitoCollectionTest extends TestCase
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(sentinelSite);
     collection.setDateCollected(new Date());
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
     try
@@ -417,7 +433,7 @@ public class MosquitoCollectionTest extends TestCase
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(sentinelSite);
     collection.setDateCollected(new Date());
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
     try
@@ -438,7 +454,7 @@ public class MosquitoCollectionTest extends TestCase
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(nonSentinelSite);
     collection.setDateCollected(dateTime.parse("2008-01-01"));
-    collection.addCollectionMethod(CollectionMethod.WINDOW_TRAP);
+    collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
     try
