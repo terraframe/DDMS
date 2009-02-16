@@ -3,7 +3,6 @@ package mdss.entomology;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import junit.extensions.TestSetup;
@@ -182,14 +181,14 @@ public class MosquitoCollectionTest extends TestCase
     collection.apply();
 
     MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
-    group.setQuanity(20);
+    group.setQuantity(20);
     group.setSpecie(specie);
     group.setIdentificationMethod(identificationMethod);
     group.setCollection(collection);
     group.apply();
 
     MorphologicalSpecieGroup group2 = new MorphologicalSpecieGroup();
-    group2.setQuanity(10);
+    group2.setQuantity(10);
     group2.setSpecie(specie);
     group2.setIdentificationMethod(identificationMethod);
     group2.setCollection(collection);
@@ -198,28 +197,98 @@ public class MosquitoCollectionTest extends TestCase
     try
     {
       MosquitoCollection collection2 = MosquitoCollection.get(collection.getId());
-      OIterator<? extends MorphologicalSpecieGroup> iterator = collection2
-          .getAllMorphologicalSpecieGroup();
-      List<MorphologicalSpecieGroup> list = new LinkedList<MorphologicalSpecieGroup>();
+      MorphologicalSpecieGroupView[] list = collection2.getMorphologicalSpecieGroups();
 
-      while (iterator.hasNext())
-      {
-        list.add(iterator.next());
-      }
-
-      assertEquals(2, list.size());
-      assertEquals(new Integer(20), list.get(0).getQuanity());
-      assertEquals(new Integer(10), list.get(1).getQuanity());
-      assertEquals(specie.getId(), list.get(0).getSpecie().getId());
-      assertEquals(identificationMethod.getId(), list.get(0).getIdentificationMethod().getId());
+      assertEquals(2, list.length);
+      assertEquals(new Integer(20), list[0].getQuantity());
+      assertEquals(new Integer(10), list[1].getQuantity());
+      assertEquals(specie.getTermName(), list[0].getSpecie());
+      assertEquals(identificationMethod.getTermName(), list[0].getIdentificationMethod());
     }
     finally
     {
-      group.delete();
-      group2.delete();
       collection.delete();
     }
   }
+  
+  public void testApplyMorphologicalSpecieGroupView()
+  {
+    MosquitoCollection collection = new MosquitoCollection();
+    collection.setGeoEntity(sentinelSite);
+    collection.setDateCollected(new Date());
+    collection.setCollectionMethod(collectionMethod);
+    collection.apply();
+
+    MorphologicalSpecieGroupView group = new MorphologicalSpecieGroupView();
+    group.setQuantity(20);
+    group.setSpecie(specie.getTermName());
+    group.setIdentificationMethod(identificationMethod.getTermName());
+    group.setCollectionId(collection.getId());
+    group.apply();
+
+    MorphologicalSpecieGroupView group2 = new MorphologicalSpecieGroupView();
+    group2.setQuantity(10);
+    group2.setSpecie(specie.getTermName());
+    group2.setIdentificationMethod(identificationMethod.getTermName());
+    group2.setCollectionId(collection.getId());
+    group2.apply();
+
+    try
+    {
+      MosquitoCollection collection2 = MosquitoCollection.get(collection.getId());
+      MorphologicalSpecieGroupView[] list = collection2.getMorphologicalSpecieGroups();
+
+      assertEquals(2, list.length);
+      assertEquals(new Integer(20), list[0].getQuantity());
+      assertEquals(new Integer(10), list[1].getQuantity());
+      assertEquals(specie.getTermName(), list[0].getSpecie());
+      assertEquals(identificationMethod.getTermName(), list[0].getIdentificationMethod());
+    }
+    finally
+    {
+      collection.delete();
+    }    
+  }
+  
+  public void testReapplyMorphologicalSpecieGroupView()
+  {
+    MosquitoCollection collection = new MosquitoCollection();
+    collection.setGeoEntity(sentinelSite);
+    collection.setDateCollected(new Date());
+    collection.setCollectionMethod(collectionMethod);
+    collection.apply();
+
+    MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
+    group.setQuantity(20);
+    group.setSpecie(specie);
+    group.setIdentificationMethod(identificationMethod);
+    group.setCollection(collection);
+    group.apply();
+
+    MorphologicalSpecieGroupView view = new MorphologicalSpecieGroupView();
+    view.setQuantity(10);
+    view.setSpecie(specie.getTermName());
+    view.setIdentificationMethod(identificationMethod.getTermName());
+    view.setCollectionId(collection.getId());
+    view.setGroupId(group.getId());
+    view.apply();
+
+    try
+    {
+      MosquitoCollection collection2 = MosquitoCollection.get(collection.getId());
+      MorphologicalSpecieGroupView[] list = collection2.getMorphologicalSpecieGroups();
+
+      assertEquals(1, list.length);
+      assertEquals(new Integer(10), list[0].getQuantity());
+      assertEquals(specie.getTermName(), list[0].getSpecie());
+      assertEquals(identificationMethod.getTermName(), list[0].getIdentificationMethod());
+    }
+    finally
+    {
+      collection.delete();
+    }
+  }
+
 
   public void testEmptyMorpohologicalQuantity()
   {
@@ -233,7 +302,7 @@ public class MosquitoCollectionTest extends TestCase
     try
     {
       group = new MorphologicalSpecieGroup();
-      group.setQuanity(0);
+      group.setQuantity(0);
       group.setSpecie(specie);
       group.setIdentificationMethod(identificationMethod);
       group.setCollection(collection);
@@ -250,11 +319,6 @@ public class MosquitoCollectionTest extends TestCase
     }
     finally
     {
-      if (group != null && group.isAppliedToDB())
-      {
-        group.delete();
-      }
-
       collection.delete();
     }
   }
@@ -284,11 +348,6 @@ public class MosquitoCollectionTest extends TestCase
     }
     finally
     {
-      if (group != null && group.isAppliedToDB())
-      {
-        group.delete();
-      }
-
       collection.delete();
     }
   }
@@ -305,7 +364,7 @@ public class MosquitoCollectionTest extends TestCase
     try
     {
       group = new MorphologicalSpecieGroup();
-      group.setQuanity(10);
+      group.setQuantity(10);
       group.setIdentificationMethod(identificationMethod);
       group.setCollection(collection);
       group.apply();
@@ -321,11 +380,6 @@ public class MosquitoCollectionTest extends TestCase
     }
     finally
     {
-      if (group != null && group.isAppliedToDB())
-      {
-        group.delete();
-      }
-
       collection.delete();
     }
   }
@@ -342,7 +396,7 @@ public class MosquitoCollectionTest extends TestCase
     try
     {
       group = new MorphologicalSpecieGroup();
-      group.setQuanity(20);
+      group.setQuantity(20);
       group.setSpecie(specie);
       group.setCollection(collection);
       group.apply();
@@ -358,11 +412,6 @@ public class MosquitoCollectionTest extends TestCase
     }
     finally
     {
-      if (group != null && group.isAppliedToDB())
-      {
-        group.delete();
-      }
-
       collection.delete();
     }
   }

@@ -1,5 +1,8 @@
 package mdss.entomology;
 
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
+
 public class Specie extends SpecieBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234725411963L;
@@ -20,4 +23,22 @@ public class Specie extends SpecieBase implements com.terraframe.mojo.generation
   {
     return super.getTermName();
   }  
+  
+  public static Specie getSpecie(String termName)
+  {
+    Specie specie = null;
+    SpecieQuery query = new SpecieQuery(new QueryFactory());
+    query.WHERE(query.getTermName().EQ(termName));
+    
+    OIterator<? extends Specie> iterator = query.getIterator();
+
+    while(iterator.hasNext())
+    {
+      specie = iterator.next();
+    }
+    
+    iterator.close();
+    
+    return specie;
+  }
 }

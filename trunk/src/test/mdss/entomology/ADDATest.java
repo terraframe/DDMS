@@ -3,7 +3,6 @@ package mdss.entomology;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import junit.extensions.TestSetup;
@@ -1002,7 +1001,6 @@ public class ADDATest extends TestCase
   public void testCreateTestIntervals() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
-    List<ADDATestInterval> list = new LinkedList<ADDATestInterval>();
     Date date = dateTime.parse("2008-01-01");
     String generic = "Sample Insecticide";
     AssaySex sex = AssaySex.MALE;
@@ -1027,21 +1025,26 @@ public class ADDATest extends TestCase
     assay.getInsecticide().setUnits("%");
     assay.getInsecticide().setGenericName(generic);
     assay.apply();
-
-    OIterator<? extends ADDATestInterval> iterator = assay.getAllTestIntervals();
-
-    while (iterator.hasNext())
+    
+    for (int i = 0; i < 6; i++)
     {
-      list.add(iterator.next());
+      ADDATestInterval interval = new ADDATestInterval();
+      interval.setAssay(assay);
+      interval.setPeriod(i);
+      interval.setKnockedDown(i);
+      interval.apply();
     }
-
+    
     try
     {
-      assertEquals(6, list.size());
+      ADDATestInterval[] intervals = assay.getTestIntervals();
+
+      assertEquals(6, intervals.length);
 
       for (int i = 0; i < 6; i++)
       {
-
+        assertEquals(new Integer(i), intervals[i].getPeriod());
+        assertEquals(new Integer(i), intervals[i].getKnockedDown());
       }
     }
     finally

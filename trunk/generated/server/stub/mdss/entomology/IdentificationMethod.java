@@ -1,5 +1,8 @@
 package mdss.entomology;
 
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
+
 public class IdentificationMethod extends IdentificationMethodBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234725407730L;
@@ -20,4 +23,22 @@ public class IdentificationMethod extends IdentificationMethodBase implements co
   {
     return this.getTermName();
   }
+  
+  public static IdentificationMethod getIdentificationMethod(String termName)
+  {
+    IdentificationMethod identificationMethod = null;
+    IdentificationMethodQuery query = new IdentificationMethodQuery(new QueryFactory());
+    query.WHERE(query.getTermName().EQ(termName));
+
+    OIterator<? extends IdentificationMethod> iterator = query.getIterator();
+    
+    while(iterator.hasNext())
+    {
+      identificationMethod = iterator.next();
+    }
+    
+    iterator.close();
+    
+    return identificationMethod;    
+  }  
 }

@@ -11,13 +11,13 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   }
 
   @Override
-  public void validateQuanity()
+  public void validateQuantity()
   {
-    super.validateQuanity();
+    super.validateQuantity();
 
     if (this.getCollection() != null && this.getCollection() instanceof MosquitoCollection)
     {
-      if (this.getQuanity() != null && this.getQuanity() == 0)
+      if (this.getQuantity() != null && this.getQuantity() == 0)
       {
         String msg = "Morphological groups of a Mosquito Collection must have a quantity";
         InvalidMorphologicalQuantityProblem p = new InvalidMorphologicalQuantityProblem(msg);
@@ -45,7 +45,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
       }
       else if (this.getCollection() instanceof MosquitoCollectionPoint)
       {
-        if (this.getQuanity() == 0 && this.getIdentificationMethod() != null)
+        if (this.getQuantity() == 0 && this.getIdentificationMethod() != null)
         {
           String msg = "Morphological groups of a MosquitoCollectionPoint cannot have an IdentificationMethod when the quantity is zero";
 
@@ -76,7 +76,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
       }
       else if (this.getCollection() instanceof MosquitoCollectionPoint)
       {
-        if (this.getQuanity() == 0 && this.getSpecie() != null)
+        if (this.getQuantity() == 0 && this.getSpecie() != null)
         {
           String msg = "Morphological groups of a MosquitoCollectionPoint cannot have a Specie when the quantity is zero";
 
@@ -92,19 +92,10 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   @Override
   public void apply()
   {
-    validateQuanity();
+    validateQuantity();
     validateIdentificationMethod();
     validateSpecie();
 
-    boolean firstApply = !this.isAppliedToDB() & this.isNew();
-
     super.apply();
-
-    if (firstApply)
-    {
-      AbstractMosquitoCollection c = this.getCollection();
-      CollectionSpecie collectionSpecie = new CollectionSpecie(c, this);
-      collectionSpecie.apply();
-    }
   }
 }

@@ -3,7 +3,6 @@ package mdss.entomology;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 import junit.extensions.TestSetup;
@@ -170,14 +169,14 @@ public class MosquitoCollectionPointTest extends TestCase
     collection.apply();
 
     MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
-    group.setQuanity(20);
+    group.setQuantity(20);
     group.setSpecie(specie);
     group.setIdentificationMethod(identificationMethod);
     group.setCollection(collection);
     group.apply();
 
     MorphologicalSpecieGroup group2 = new MorphologicalSpecieGroup();
-    group2.setQuanity(10);
+    group2.setQuantity(10);
     group2.setSpecie(specie);
     group2.setIdentificationMethod(identificationMethod);
     group2.setCollection(collection);
@@ -185,25 +184,17 @@ public class MosquitoCollectionPointTest extends TestCase
 
     try
     {
-      MosquitoCollectionPoint c = MosquitoCollectionPoint.get(collection.getId());
-      OIterator<? extends MorphologicalSpecieGroup> iterator = c.getAllMorphologicalSpecieGroup();
-      List<MorphologicalSpecieGroup> list = new LinkedList<MorphologicalSpecieGroup>();
+      MosquitoCollectionPoint collection2 = MosquitoCollectionPoint.get(collection.getId());
+      MorphologicalSpecieGroupView[] list = collection2.getMorphologicalSpecieGroups();
 
-      while (iterator.hasNext())
-      {
-        list.add(iterator.next());
-      }
-
-      assertEquals(2, list.size());
-      assertEquals(new Integer(20), list.get(0).getQuanity());
-      assertEquals(new Integer(10), list.get(1).getQuanity());
-      assertEquals(specie.getId(), list.get(0).getSpecie().getId());
-      assertEquals(identificationMethod.getId(), list.get(0).getIdentificationMethod().getId());
+      assertEquals(2, list.length);
+      assertEquals(new Integer(20), list[0].getQuantity());
+      assertEquals(new Integer(10), list[1].getQuantity());
+      assertEquals(specie.getTermName(), list[0].getSpecie());
+      assertEquals(identificationMethod.getTermName(), list[0].getIdentificationMethod());
     }
     finally
     {
-      group.delete();
-      group2.delete();
       collection.delete();
     }
   }
@@ -216,27 +207,20 @@ public class MosquitoCollectionPointTest extends TestCase
     collection.apply();
 
     MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
-    group.setQuanity(0);
+    group.setQuantity(0);
     group.setCollection(collection);
     group.apply();
 
     try
     {
-      MosquitoCollectionPoint c = MosquitoCollectionPoint.get(collection.getId());
-      OIterator<? extends MorphologicalSpecieGroup> iterator = c.getAllMorphologicalSpecieGroup();
-      List<MorphologicalSpecieGroup> list = new LinkedList<MorphologicalSpecieGroup>();
+      MosquitoCollectionPoint collection2 = MosquitoCollectionPoint.get(collection.getId());
+      MorphologicalSpecieGroupView[] list = collection2.getMorphologicalSpecieGroups();
 
-      while (iterator.hasNext())
-      {
-        list.add(iterator.next());
-      }
-
-      assertEquals(1, list.size());
-      assertEquals(new Integer(0), list.get(0).getQuanity());
+      assertEquals(1, list.length);
+      assertEquals(new Integer(0), list[0].getQuantity());
     }
     finally
     {
-      group.delete();
       collection.delete();
     }
   }
@@ -252,7 +236,7 @@ public class MosquitoCollectionPointTest extends TestCase
     try
     {
       group = new MorphologicalSpecieGroup();
-      group.setQuanity(0);
+      group.setQuantity(0);
       group.setSpecie(specie);
       group.setCollection(collection);
       group.apply();
@@ -269,11 +253,6 @@ public class MosquitoCollectionPointTest extends TestCase
     }
     finally
     {
-      if (group != null && group.isAppliedToDB())
-      {
-        group.delete();
-      }
-
       collection.delete();
     }
   }
@@ -289,7 +268,7 @@ public class MosquitoCollectionPointTest extends TestCase
     try
     {
       group = new MorphologicalSpecieGroup();
-      group.setQuanity(0);
+      group.setQuantity(0);
       group.setIdentificationMethod(identificationMethod);
       group.setCollection(collection);
       group.apply();
@@ -306,11 +285,6 @@ public class MosquitoCollectionPointTest extends TestCase
     }
     finally
     {
-      if (group != null && group.isAppliedToDB())
-      {
-        group.delete();
-      }
-
       collection.delete();
     }
   }
