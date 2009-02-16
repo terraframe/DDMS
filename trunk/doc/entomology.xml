@@ -547,9 +547,10 @@
     -->
 
     <mdBusiness
-      name="mdss.entomology.CollectionMethod"
-      label="Collection Method"
-      description="List of all possible collection methods">
+      name="mdss.mo.AbstractTerm"
+      label="MO Term"
+      isAbstract="true"
+      extendable="true">
       <attributes>
         <char
           name="termName"
@@ -558,7 +559,19 @@
           label="Term Name"
           description="The name of the MO Collection Method Term" />
       </attributes>
+      <mdMethod
+        name="getAllTermNames"
+        returnType="java.lang.String[]"
+        label="Get All Term Names"
+        static="true"
+        description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
+
+    <mdBusiness
+      name="mdss.entomology.CollectionMethod"
+      label="Collection Method"
+      description="List of all possible collection methods"
+      extends="mdss.mo.AbstractTerm" />
 
     <object
       type="mdss.entomology.CollectionMethod"
@@ -579,16 +592,8 @@
     <mdBusiness
       name="mdss.entomology.Generation"
       label="Generation Method"
-      description="List of all possible MO generation">
-      <attributes>
-        <char
-          name="termName"
-          required="true"
-          size="255"
-          label="Term Name"
-          description="The name of the MO Generation Term" />
-      </attributes>
-    </mdBusiness>
+      description="List of all possible MO generation"
+      extends="mdss.mo.AbstractTerm" />
 
     <object
       id="F0"
@@ -617,18 +622,9 @@
     <mdBusiness
       name="mdss.entomology.Specie"
       label="Specie Method"
-      description="List of all possible MO species">
-      <attributes>
-        <char
-          name="termName"
-          required="true"
-          size="255"
-          label="Term Name"
-          description="The name of the MO Specie Term"
-          indexType="unique index" />
-      </attributes>
-    </mdBusiness>
-
+      description="List of all possible MO species"
+      extends="mdss.mo.AbstractTerm" />
+      
     <object
       type="mdss.entomology.Specie"
       id="TEST_SPECIE">
@@ -657,17 +653,8 @@
     <mdBusiness
       name="mdss.entomology.IdentificationMethod"
       label="Identification Method"
-      description="List of all possible MO specie identification methods">
-      <attributes>
-        <char
-          name="termName"
-          required="true"
-          size="255"
-          label="Term Name"
-          description="The name of the MO Specie Term"
-          indexType="unique index" />
-      </attributes>
-    </mdBusiness>
+      description="List of all possible MO specie identification methods"
+      extends="mdss.mo.AbstractTerm" />
 
     <object
       type="mdss.entomology.IdentificationMethod"
@@ -727,15 +714,8 @@
     <mdBusiness
       name="mdss.entomology.Insecticide"
       label="Insecticide"
-      description="List of all MO insecticides">
-      <attributes>
-        <char
-          name="termName"
-          required="true"
-          size="255"
-          label="Term Name"
-          description="The name of the MO Specie Term" />
-      </attributes>
+      description="List of all MO insecticides"
+      extends="mdss.mo.AbstractTerm">
     </mdBusiness>
 
     <object
@@ -757,15 +737,8 @@
     <mdBusiness
       name="mdss.entomology.AssayMethod"
       label="Assay Method"
-      description="List of all assay methods">
-      <attributes>
-        <char
-          name="termName"
-          required="true"
-          size="255"
-          label="Term Name"
-          description="The name of the MO Assay Method Term" />
-      </attributes>
+      description="List of all assay methods"
+      extends="mdss.mo.AbstractTerm">
     </mdBusiness>
 
     <object
@@ -775,36 +748,6 @@
         name="termName"
         value="Test Methodology" />
     </object>
-
-    <mdStruct
-      name="mdss.entomology.assay.AssayInsecticide"
-      label="Assay Insecticide"
-      description="Insecticide used in an assay">
-      <attributes>
-        <!--    <reference
-          name="insecticide"
-          label="Insecticide"
-          type="mdss.entomology.Insecticide"
-          required="true" /> -->
-        <integer
-          name="amount"
-          label="Amount"
-          rejectZero="true"
-          rejectNegative="true"
-          required="true" />
-        <char
-          name="units"
-          label="Units"
-          size="255"
-          required="true"
-          default_value="%" />
-        <char
-          name="genericName"
-          label="Generic Name"
-          size="255"
-          description="Generic name of the insecticide.  Only used when an 'Other' insecticide is tested." />
-      </attributes>
-    </mdStruct>
 
     <mdStruct
       name="mdss.entomology.assay.AdultAgeRange"
@@ -917,12 +860,6 @@
           required="false"
           description="The age range of the mosquitos tested"
           type="mdss.entomology.assay.AdultAgeRange" />
-        <struct
-          name="insecticide"
-          label="Insecticide"
-          required="true"
-          description="The insecticide used on the mosquito group"
-          type="mdss.entomology.assay.AssayInsecticide" />
         <integer
           name="fed"
           label="Fed"
@@ -951,6 +888,28 @@
           rejectZero="true"
           required="true"
           description="The total number mosquitos tested" />
+        <reference
+          name="insecticide"
+          label="Insecticide"
+          type="mdss.entomology.Insecticide"
+          required="true" />
+        <integer
+          name="amount"
+          label="Amount"
+          rejectZero="true"
+          rejectNegative="true"
+          required="true" />
+        <char
+          name="units"
+          label="Units"
+          size="255"
+          required="true"
+          default_value="%" />
+        <char
+          name="genericName"
+          label="Generic Name"
+          size="255"
+          description="Generic name of the insecticide.  Only displayed when an 'Other' insecticide is used." />
       </attributes>
     </mdBusiness>
 
