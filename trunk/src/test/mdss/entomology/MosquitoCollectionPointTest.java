@@ -21,12 +21,12 @@ import com.terraframe.mojo.session.StartSession;
 
 public class MosquitoCollectionPointTest extends TestCase
 {
-  private static GeoEntity sentinelSite = null;
+  private static GeoEntity            sentinelSite         = null;
 
-  private static GeoEntity waterBody    = null;
+  private static GeoEntity            waterBody            = null;
 
-  private static GeoEntity fixedTrap    = null;
-  
+  private static GeoEntity            fixedTrap            = null;
+
   private static Specie               specie               = null;
 
   private static IdentificationMethod identificationMethod = null;
@@ -56,11 +56,12 @@ public class MosquitoCollectionPointTest extends TestCase
   protected static void classSetUp()
   {
     OIterator<? extends Specie> sIt = Specie.getAllInstances(null, false, 0, 0).getIterator();
-    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0,
+        0).getIterator();
 
     specie = sIt.next();
     identificationMethod = iIt.next();
-    
+
     sIt.close();
     iIt.close();
 
@@ -209,6 +210,32 @@ public class MosquitoCollectionPointTest extends TestCase
     MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
     group.setQuantity(0);
     group.setCollection(collection);
+    group.apply();
+
+    try
+    {
+      MosquitoCollectionPoint collection2 = MosquitoCollectionPoint.get(collection.getId());
+      MorphologicalSpecieGroupView[] list = collection2.getMorphologicalSpecieGroups();
+
+      assertEquals(1, list.length);
+      assertEquals(new Integer(0), list[0].getQuantity());
+    }
+    finally
+    {
+      collection.delete();
+    }
+  }
+
+  public void testEmptyMorpohologicalQuantityView()
+  {
+    MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
+    collection.setGeoEntity(fixedTrap);
+    collection.setDateCollected(new Date());
+    collection.apply();
+
+    MorphologicalSpecieGroupView group = new MorphologicalSpecieGroupView();
+    group.setQuantity(0);
+    group.setCollectionId(collection.getId());
     group.apply();
 
     try

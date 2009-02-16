@@ -37,6 +37,8 @@ public class ADDATest extends TestCase
 
   private static AssayMethod          assayMethod          = null;
 
+  private static Insecticide          insecticide          = null;
+
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -61,20 +63,25 @@ public class ADDATest extends TestCase
 
   protected static void classSetUp()
   {
-    OIterator<? extends CollectionMethod> cIt = CollectionMethod.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends CollectionMethod> cIt = CollectionMethod.getAllInstances(null, false, 0, 0)
+        .getIterator();
     OIterator<? extends Specie> sIt = Specie.getAllInstances(null, false, 0, 0).getIterator();
-    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0,
+        0).getIterator();
     OIterator<? extends AssayMethod> aIt = AssayMethod.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends Insecticide> inIt = Insecticide.getAllInstances(null, false, 0, 0).getIterator();
 
     collectionMethod = cIt.next();
     specie = sIt.next();
     identificationMethod = iIt.next();
     assayMethod = aIt.next();
+    insecticide = inIt.next();
 
     cIt.close();
     sIt.close();
     iIt.close();
     aIt.close();
+    inIt.close();
 
     try
     {
@@ -234,6 +241,7 @@ public class ADDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setSpecie(specie);
     assay.setCollection(collection);
     assay.setTestDate(date);
     assay.addSex(AssaySex.FEMALE);
@@ -250,9 +258,9 @@ public class ADDATest extends TestCase
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
-//    assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-    assay.getInsecticide().setAmount(10);
-    assay.getInsecticide().setUnits("%");
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
     assay.apply();
 
     try
@@ -261,6 +269,7 @@ public class ADDATest extends TestCase
       AdultDiscriminatingDoseAssay assay2 = AdultDiscriminatingDoseAssay.get(assay.getId());
 
       assertEquals(collection.getId(), assay2.getCollection().getId());
+      assertEquals(specie.getId(), assay2.getSpecie().getId());
       assertEquals(date, assay2.getTestDate());
       assertEquals(AssaySex.FEMALE, assay2.getSex().get(0));
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
@@ -274,9 +283,9 @@ public class ADDATest extends TestCase
       assertEquals(new Integer(30), assay2.getQuantityTested());
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
-//      assertEquals(Insecticide.TEST_INSECTICIDE, assay2.getInsecticide().getInsecticide().get(0));
-      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
-      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
+      assertEquals(new Integer(10), assay2.getAmount());
+      assertEquals("%", assay2.getUnits());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -306,9 +315,9 @@ public class ADDATest extends TestCase
     assay.setIsofemale(false);
     assay.setQuantityDead(5);
     assay.setQuantityTested(30);
-//    assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-    assay.getInsecticide().setAmount(10);
-    assay.getInsecticide().setUnits("%");
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
     assay.apply();
 
     try
@@ -330,9 +339,9 @@ public class ADDATest extends TestCase
       assertEquals(new Integer(30), assay2.getQuantityTested());
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
-//      assertEquals(Insecticide.TEST_INSECTICIDE, assay2.getInsecticide().getInsecticide().get(0));
-      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
-      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
+      assertEquals(new Integer(10), assay2.getAmount());
+      assertEquals("%", assay2.getUnits());
     }
     finally
     {
@@ -364,9 +373,9 @@ public class ADDATest extends TestCase
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(24);
       assay.getAgeRange().setEndPoint(25);
-//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-      assay.getInsecticide().setAmount(10);
-      assay.getInsecticide().setUnits("%");
+      assay.setInsecticide(insecticide);
+      assay.setAmount(10);
+      assay.setUnits("%");
       assay.apply();
 
       fail("Able to create an adult assay with an invalid age range");
@@ -409,9 +418,9 @@ public class ADDATest extends TestCase
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(3);
       assay.getAgeRange().setEndPoint(15);
-//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-      assay.getInsecticide().setAmount(10);
-      assay.getInsecticide().setUnits("%");
+      assay.setInsecticide(insecticide);
+      assay.setAmount(10);
+      assay.setUnits("%");
       assay.apply();
 
       fail("Able to create an adult assay with an test date before the collection date");
@@ -452,9 +461,9 @@ public class ADDATest extends TestCase
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
-//    assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-    assay.getInsecticide().setAmount(10);
-    assay.getInsecticide().setUnits("%");
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
     assay.apply();
 
     try
@@ -476,9 +485,9 @@ public class ADDATest extends TestCase
       assertEquals(new Integer(30), assay2.getQuantityTested());
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
-//      assertEquals(Insecticide.TEST_INSECTICIDE, assay2.getInsecticide().getInsecticide().get(0));
-      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
-      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
+      assertEquals(new Integer(10), assay2.getAmount());
+      assertEquals("%", assay2.getUnits());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -509,9 +518,9 @@ public class ADDATest extends TestCase
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
-//    assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-    assay.getInsecticide().setAmount(10);
-    assay.getInsecticide().setUnits("%");
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
     assay.apply();
 
     try
@@ -531,9 +540,9 @@ public class ADDATest extends TestCase
       assertEquals(new Integer(30), assay2.getQuantityTested());
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
-//      assertEquals(Insecticide.TEST_INSECTICIDE, assay2.getInsecticide().getInsecticide().get(0));
-      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
-      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
+      assertEquals(new Integer(10), assay2.getAmount());
+      assertEquals("%", assay2.getUnits());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -564,9 +573,9 @@ public class ADDATest extends TestCase
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
-//    assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-    assay.getInsecticide().setAmount(10);
-    assay.getInsecticide().setUnits("%");
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
     assay.apply();
 
     try
@@ -586,9 +595,9 @@ public class ADDATest extends TestCase
       assertEquals(new Integer(30), assay2.getQuantityTested());
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
-//      assertEquals(Insecticide.TEST_INSECTICIDE, assay2.getInsecticide().getInsecticide().get(0));
-      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
-      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
+      assertEquals(new Integer(10), assay2.getAmount());
+      assertEquals("%", assay2.getUnits());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -623,9 +632,9 @@ public class ADDATest extends TestCase
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
-//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-      assay.getInsecticide().setAmount(10);
-      assay.getInsecticide().setUnits("%");
+      assay.setInsecticide(insecticide);
+      assay.setAmount(10);
+      assay.setUnits("%");
       assay.apply();
 
       fail("Able to create an assay of unknown sex with invalid gravid and fed values");
@@ -668,12 +677,102 @@ public class ADDATest extends TestCase
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
-//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-      assay.getInsecticide().setAmount(10);
-      assay.getInsecticide().setUnits("%");
+      assay.setInsecticide(insecticide);
+      assay.setAmount(10);
+      assay.setUnits("%");
       assay.apply();
 
       fail("Able to create an assay of male sex with invalid gravid and fed values");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
+  }
+  
+  public void testFedLargerThanQuantityTested() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AssaySex sex = AssaySex.FEMALE;
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(sex);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(40);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(5);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(2);
+      assay.getAgeRange().setEndPoint(20);
+      assay.setInsecticide(insecticide);
+      assay.setAmount(10);
+      assay.setUnits("%");
+      assay.apply();
+
+      fail("Able to create an assay with a larger Gravid value than quantity tested");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
+  }
+
+  public void testGravidLargerThanQuantityTested() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AssaySex sex = AssaySex.FEMALE;
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(sex);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(40);
+      assay.setGravid(10);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(5);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(2);
+      assay.getAgeRange().setEndPoint(20);
+      assay.setInsecticide(insecticide);
+      assay.setAmount(10);
+      assay.setUnits("%");
+      assay.apply();
+
+      fail("Able to create an assay with a larger Fed value than quantity tested");
     }
     catch (RuntimeException e)
     {
@@ -710,10 +809,10 @@ public class ADDATest extends TestCase
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
-//    assay.getInsecticide().addInsecticide(Insecticide.OTHER);
-    assay.getInsecticide().setAmount(10);
-    assay.getInsecticide().setUnits("%");
-    assay.getInsecticide().setGenericName(generic);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
+    assay.setGenericName(generic);
     assay.apply();
 
     try
@@ -733,62 +832,16 @@ public class ADDATest extends TestCase
       assertEquals(new Integer(30), assay2.getQuantityTested());
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
-//      assertEquals(Insecticide.OTHER, assay2.getInsecticide().getInsecticide().get(0));
-      assertEquals(generic, assay2.getInsecticide().getGenericName());
-      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
-      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
+      assertEquals(generic, assay2.getGenericName());
+      assertEquals(new Integer(10), assay2.getAmount());
+      assertEquals("%", assay2.getUnits());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
     finally
     {
       assay.delete();
-    }
-  }
-
-  public void testInsecticideGenericNameNotOther() throws ParseException
-  {
-    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
-    Date date = dateTime.parse("2008-01-01");
-    AssaySex sex = AssaySex.FEMALE;
-    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
-
-    try
-    {
-      assay.setCollection(collection);
-      assay.setTestDate(date);
-      assay.addSex(sex);
-      assay.setIdentificationMethod(identificationMethod);
-      assay.setTestMethod(assayMethod);
-      assay.setFed(10);
-      assay.setGravid(10);
-      assay.setExposureTime(60);
-      assay.setIntervalTime(10);
-      assay.setHoldingTime(24);
-      assay.setControlTestMortality(new Float(99.99));
-      assay.setIsofemale(false);
-      assay.setQuantityDead(5);
-      assay.setQuantityTested(30);
-      assay.getAgeRange().setStartPoint(2);
-      assay.getAgeRange().setEndPoint(20);
-//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-      assay.getInsecticide().setAmount(10);
-      assay.getInsecticide().setUnits("%");
-      assay.getInsecticide().setGenericName("Sample name");
-      assay.apply();
-
-      fail("Able to set the generic instecide name on non other insecticides");
-    }
-    catch (RuntimeException e)
-    {
-      // This is expected
-    }
-    finally
-    {
-      if (assay != null && assay.isAppliedToDB())
-      {
-        assay.delete();
-      }
     }
   }
 
@@ -814,10 +867,10 @@ public class ADDATest extends TestCase
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
-//    assay.getInsecticide().addInsecticide(Insecticide.OTHER);
-    assay.getInsecticide().setAmount(10);
-    assay.getInsecticide().setUnits("%");
-    assay.getInsecticide().setGenericName(generic);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
+    assay.setGenericName(generic);
     assay.apply();
 
     try
@@ -837,10 +890,10 @@ public class ADDATest extends TestCase
       assertEquals(new Integer(30), assay2.getQuantityTested());
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
-//      assertEquals(Insecticide.OTHER, assay2.getInsecticide().getInsecticide().get(0));
-      assertEquals(generic, assay2.getInsecticide().getGenericName());
-      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
-      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
+      assertEquals(generic, assay2.getGenericName());
+      assertEquals(new Integer(10), assay2.getAmount());
+      assertEquals("%", assay2.getUnits());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -872,10 +925,10 @@ public class ADDATest extends TestCase
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
-//    assay.getInsecticide().addInsecticide(Insecticide.OTHER);
-    assay.getInsecticide().setAmount(10);
-    assay.getInsecticide().setUnits("%");
-    assay.getInsecticide().setGenericName(generic);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
+    assay.setGenericName(generic);
     assay.apply();
 
     try
@@ -895,10 +948,10 @@ public class ADDATest extends TestCase
       assertEquals(new Integer(30), assay2.getQuantityTested());
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
-//      assertEquals(Insecticide.OTHER, assay2.getInsecticide().getInsecticide().get(0));
-      assertEquals(generic, assay2.getInsecticide().getGenericName());
-      assertEquals(new Integer(10), assay2.getInsecticide().getAmount());
-      assertEquals("%", assay2.getInsecticide().getUnits());
+      assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
+      assertEquals(generic, assay2.getGenericName());
+      assertEquals(new Integer(10), assay2.getAmount());
+      assertEquals("%", assay2.getUnits());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -933,9 +986,9 @@ public class ADDATest extends TestCase
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
-//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-      assay.getInsecticide().setAmount(10);
-      assay.getInsecticide().setUnits("%");
+      assay.setInsecticide(insecticide);
+      assay.setAmount(10);
+      assay.setUnits("%");
       assay.apply();
 
       fail("Able to set the number dead larger than the total number tested");
@@ -978,9 +1031,9 @@ public class ADDATest extends TestCase
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
-//      assay.getInsecticide().addInsecticide(Insecticide.TEST_INSECTICIDE);
-      assay.getInsecticide().setAmount(10);
-      assay.getInsecticide().setUnits("%");
+      assay.setInsecticide(insecticide);
+      assay.setAmount(10);
+      assay.setUnits("%");
       assay.apply();
 
       fail("Able to set an interval time larger than the exposure time");
@@ -1020,12 +1073,12 @@ public class ADDATest extends TestCase
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
-//    assay.getInsecticide().addInsecticide(Insecticide.OTHER);
-    assay.getInsecticide().setAmount(10);
-    assay.getInsecticide().setUnits("%");
-    assay.getInsecticide().setGenericName(generic);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
+    assay.setGenericName(generic);
     assay.apply();
-    
+
     for (int i = 0; i < 6; i++)
     {
       ADDATestInterval interval = new ADDATestInterval();
@@ -1034,7 +1087,7 @@ public class ADDATest extends TestCase
       interval.setKnockedDown(i);
       interval.apply();
     }
-    
+
     try
     {
       ADDATestInterval[] intervals = assay.getTestIntervals();
@@ -1043,6 +1096,7 @@ public class ADDATest extends TestCase
 
       for (int i = 0; i < 6; i++)
       {
+        assertEquals(assay.getId(), intervals[i].getAssay().getId());
         assertEquals(new Integer(i), intervals[i].getPeriod());
         assertEquals(new Integer(i), intervals[i].getKnockedDown());
       }
@@ -1053,13 +1107,216 @@ public class ADDATest extends TestCase
     }
   }
 
-  public void testValidNumberKnockedDown()
+  public void testIntervalCeiling() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
 
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(7);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(30);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
+    assay.setGenericName(generic);
+    assay.apply();
+
+    for (int i = 0; i < 9; i++)
+    {
+      ADDATestInterval interval = new ADDATestInterval();
+      interval.setAssay(assay);
+      interval.setPeriod(i);
+      interval.setKnockedDown(i);
+      interval.apply();
+    }
+
+    try
+    {
+      ADDATestInterval[] intervals = assay.getTestIntervals();
+
+      assertEquals(9, intervals.length);
+
+      for (int i = 0; i < 9; i++)
+      {
+        assertEquals(assay.getId(), intervals[i].getAssay().getId());
+        assertEquals(new Integer(i), intervals[i].getPeriod());
+        assertEquals(new Integer(i), intervals[i].getKnockedDown());
+      }
+    }
+    finally
+    {
+      assay.delete();
+    }
   }
 
-  public void testNumberKnockedUpperBoundary()
+  public void testInvalidPeriod() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
 
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(7);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(30);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
+    assay.setGenericName(generic);
+    assay.apply();
+
+    try
+    {
+      ADDATestInterval interval = new ADDATestInterval();
+      interval.setAssay(assay);
+      interval.setPeriod(20);
+      interval.setKnockedDown(2);
+      interval.apply();
+
+      fail("Able to create a test interval with an invalid period");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      assay.delete();
+    }
+  }
+
+  public void testNumberKnockedUpperBoundary() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
+
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(7);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(30);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
+    assay.setGenericName(generic);
+    assay.apply();
+
+    for (int i = 0; i < 9; i++)
+    {
+      ADDATestInterval interval = new ADDATestInterval();
+      interval.setAssay(assay);
+      interval.setPeriod(i);
+      interval.setKnockedDown(30);
+      interval.apply();
+    }
+
+    try
+    {
+      ADDATestInterval[] intervals = assay.getTestIntervals();
+
+      assertEquals(9, intervals.length);
+
+      for (int i = 0; i < 9; i++)
+      {
+        assertEquals(assay.getId(), intervals[i].getAssay().getId());
+        assertEquals(new Integer(i), intervals[i].getPeriod());
+        assertEquals(new Integer(30), intervals[i].getKnockedDown());
+      }
+    }
+    finally
+    {
+      assay.delete();
+    }
+  }
+
+  public void testNumberKnockedDownGreaterThanTotalNumber() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
+
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(7);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(30);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
+    assay.setGenericName(generic);
+    assay.apply();
+
+    try
+    {
+      ADDATestInterval interval = new ADDATestInterval();
+      interval.setAssay(assay);
+      interval.setPeriod(0);
+      interval.setKnockedDown(45);
+      interval.apply();
+
+      fail("Able to create a set the knocked down value greater than the number tested");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      assay.delete();
+    }
+  }
+  
+  public void testGenerationOfIsofemale()
+  {
+    
   }
 }

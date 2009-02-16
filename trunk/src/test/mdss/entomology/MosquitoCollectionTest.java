@@ -58,14 +58,16 @@ public class MosquitoCollectionTest extends TestCase
 
   protected static void classSetUp()
   {
-    OIterator<? extends CollectionMethod> cIt = CollectionMethod.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends CollectionMethod> cIt = CollectionMethod.getAllInstances(null, false, 0, 0)
+        .getIterator();
     OIterator<? extends Specie> sIt = Specie.getAllInstances(null, false, 0, 0).getIterator();
-    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0, 0).getIterator();
+    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0,
+        0).getIterator();
 
     collectionMethod = cIt.next();
     specie = sIt.next();
     identificationMethod = iIt.next();
-    
+
     cIt.close();
     sIt.close();
     iIt.close();
@@ -210,7 +212,7 @@ public class MosquitoCollectionTest extends TestCase
       collection.delete();
     }
   }
-  
+
   public void testApplyMorphologicalSpecieGroupView()
   {
     MosquitoCollection collection = new MosquitoCollection();
@@ -247,9 +249,9 @@ public class MosquitoCollectionTest extends TestCase
     finally
     {
       collection.delete();
-    }    
+    }
   }
-  
+
   public void testReapplyMorphologicalSpecieGroupView()
   {
     MosquitoCollection collection = new MosquitoCollection();
@@ -288,7 +290,6 @@ public class MosquitoCollectionTest extends TestCase
       collection.delete();
     }
   }
-
 
   public void testEmptyMorpohologicalQuantity()
   {

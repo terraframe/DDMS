@@ -43,6 +43,16 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       throw new RuntimeException(msg);
     }
   }
+  
+  @Override
+  public void validateIntervalTime()
+  {
+    if(this.getIntervalTime() > this.getExposureTime())
+    {
+      String msg = "It is impossible to have an interval time larger than the exposure time";
+      throw new RuntimeException(msg);      
+    }
+  }
 
   @Override
   public void apply()
@@ -52,6 +62,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     
     validateTestDate();
     validateQuantityDead();
+    validateIntervalTime();
    
     super.apply();
   }
@@ -71,7 +82,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   { 
     List<ADDATestInterval> list = new LinkedList<ADDATestInterval>();
     ADDATestIntervalQuery query = new ADDATestIntervalQuery(new QueryFactory());
-    query.getAssay().getId().EQ(this.getId());
+    query.WHERE(query.getAssay().getId().EQ(this.getId()));
     query.ORDER_BY(query.getPeriod(), SortOrder.ASC);
     OIterator<? extends ADDATestInterval> iterator = query.getIterator();
     

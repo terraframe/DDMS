@@ -40,6 +40,12 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
       String msg = "It is impossible to have gravid values on male or unknown sex assays";
       throw new RuntimeException(msg);
     }
+    
+    if(this.getGravid() > this.getQuantityTested())
+    {
+      String msg = "It is impossible to have gravid values larger than the quantity of mosquitos tested";
+      throw new RuntimeException(msg);      
+    }
   }
       
   @Override
@@ -54,17 +60,14 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
       String msg = "It is impossible to have fed values on male or unknown sex assays";
       throw new RuntimeException(msg);
     }
-  }
-  
-  @Override
-  public void validateInsecticide()
-  {
-    super.validateInsecticide();
     
-    this.getInsecticide().validate();
+    if(this.getFed() > this.getQuantityTested())
+    {
+      String msg = "It is impossible to have red values larger than the quantity of mosquitos tested";
+      throw new RuntimeException(msg);      
+    }
   }
-
-  
+    
   @Override
   public void apply()
   {
