@@ -5,26 +5,28 @@
 	<!-- Set up our properties                                               -->
 	<!-- =================================================================== -->
 
-	<property name="profile.root" value="D:/Apps/eclipse/workspace/MDSS/profiles" />
-	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties"
-		classpath="${profile.root};tfprops.jar" />
-	<tfproperties root="${profile.root}"/>
-	
+	<property name="profile.root" value="/Users/dt/workspace/MDSS/profiles" />
+
+	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties" classpath="${profile.root};tfprops.jar" />
+	<tfproperties root="${profile.root}" />
+
 	<!-- execution path -->
 	<path id="framework.classpath">
 		<fileset dir="${local.lib}">
 			<include name="**/*.jar" />
 		</fileset>
 		<pathelement location="${profile.root}" />
-		<pathelement path="${java.ext.dirs}/sunjce_provider.jar"/>
+		<pathelement path="${java.ext.dirs}/sunjce_provider.jar" />
 	</path>
 	<path id="genpath">
 		<fileset dir="${local.lib}">
-			<include name="**/*.jar"/>
+			<include name="**/*.jar" />
 		</fileset>
-		<pathelement location="${local.bin}"/>
+		<pathelement location="${local.bin}" />
 	</path>
 	
+	<property name="domain.location" value="${local.root}/doc/entomology.xml" />
+
 	<!-- =================================================================== -->
 	<!-- Define tomcat tasks                                                 -->
 	<!-- =================================================================== -->
@@ -49,34 +51,36 @@
 		<start url="${deploy.manager.url}" username="${deploy.username}" password="${deploy.password}" path="/${deploy.appname}" />
 		<echo message="The Tomcat webapp '${deploy.appname}' has been started." />
 	</target>
-	
+
 
 	<!-- Add in AspectJ task definitions -->
 	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
 		<classpath>
-			<pathelement path="${server.lib}/aspectjtools.jar" />
+			<fileset dir="${local.lib}">
+				<include name="**/*.jar" />
+			</fileset>
 		</classpath>
 	</taskdef>
 
 	<!-- =================================================================== -->
 	<!-- Rebuild the environment                                             -->
 	<!-- =================================================================== -->
-	
+
 	<target name="get_root_login" description="Checks for root username and prompts for it if not found." unless="root.user">
 		<input message="Root Username:" addproperty="root.user" />
 	</target>
-	
+
 	<target name="get_root_password" description="Checks for root password and prompts for it if not found." unless="root.pass">
 		<input message="Root Password:" addproperty="root.pass" />
 	</target>
-	
+
 	<target name="get_root_database" description="Checks for root database and prompts for it if not found." unless="root.db">
 		<input message="Root Database:" addproperty="root.db" />
 	</target>
 
 	<target name="rebuild_db" description="Rebuilds the metadata" depends="get_root_login,get_root_password,get_root_database">
 		<echo message="Setting up users and metadata on database" />
-		<java classname="com.terraframe.mojo.dataaccess.Installer" failonerror="true" >
+		<java classname="com.terraframe.mojo.dataaccess.Installer" failonerror="true">
 			<arg file="${local.root}/scripts/metadata/schema.xsd" />
 			<arg file="${local.root}/scripts/metadata/metadata.xml" />
 			<arg value="${root.user}" />
@@ -87,81 +91,99 @@
 			</classpath>
 		</java>
 	</target>
-	
+
+	<target name="clean_generated" description="Removes all generated classes and directories">
+		<!-- we don't want to fail on error because the dirs may not exist if this is a fresh install -->
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="${client.src}" includes="**/*" />
+		</delete>
+		<echo message="Cleaned generated directory [${client.src}]" />
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="${common.src}">
+				<include name="**/*" />
+				<!-- exclude name="xml/exceptions.xsd"/ -->
+			</fileset>
+		</delete>
+		<echo message="Cleaned generated directory [${common.src}]" />
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="${server.src}" includes="**/*" />
+		</delete>
+		<echo message="Cleaned generated directory [${server.src}]" />
+		<copy file="${profile.root}/exceptions.xsd" tofile="${common.src}/xml/exceptions.xsd" />
+	</target>
+
 	<target name="compile_generated">
 		<javac destdir="${common.bin}" srcdir="${common.src}" debug="true">
 			<classpath refid="genpath" />
 		</javac>
 		<javac destdir="${client.bin}" srcdir="${client.src}" debug="true">
 			<classpath>
-				<path refid="genpath"/>
-				<pathelement location="${common.bin}"/>
+				<path refid="genpath" />
+				<pathelement location="${common.bin}" />
 			</classpath>
 		</javac>
 		<javac destdir="${server.bin}" srcdir="${server.src}" debug="true">
 			<classpath>
-				<path refid="genpath"/>
-				<pathelement location="${common.bin}"/>
+				<path refid="genpath" />
+				<pathelement location="${common.bin}" />
 			</classpath>
 		</javac>
 	</target>
-	
-	<property name="domain.location" value="${local.root}/doc/entomology.xml" />
-	
+
 	<target name="update_domain_model">
 		<!-- Import the domain model -->
 		<java classname="ImportModel" failonerror="true">
-			<arg file="${domain.location}"/>
+			<arg file="${domain.location}" />
 			<classpath>
-				<path refid="framework.classpath"/>
+				<path refid="framework.classpath" />
 			</classpath>
 		</java>
 	</target>
-	
+
 	<target name="update_db_source_and_classes">
 		<!-- Update the database with the new sources and classes -->
 		<java classname="com.terraframe.mojo.util.UpdateDatabaseSourceAndClasses" failonerror="true">
 			<classpath>
-				<path refid="framework.classpath"/>
+				<path refid="framework.classpath" />
 			</classpath>
 		</java>
 	</target>
-	
+
 	<target name="update_deploy_source">
 		<!-- Update the database with the new sources and classes -->
 		<java classname="com.terraframe.mojo.dataaccess.io.dataDefinition.DeployedMetadataUpdater" failonerror="true">
-			<arg value="${export.package}"/>
+			<arg value="${export.package}" />
 			<classpath>
-				<path refid="framework.classpath"/>
+				<path refid="framework.classpath" />
 			</classpath>
 		</java>
 	</target>
-    
+
 	<target name="deploy" depends="deploy_presentation_files,deploy_application_files,deploy_web_xml">
 		<!-- Flatten a profile and stick it on tomcat. -->
 		<java classname="com.terraframe.mojo.ant.ProfileFlattener" fork="false" failonerror="true">
-			<arg value="${deploy.profile}"/>
-			<arg value="$$${deploy.appname}_tmp"/>
+			<arg value="${deploy.profile}" />
+			<arg value="$$${deploy.appname}_tmp" />
 			<classpath>
 				<fileset file="${local.lib}/terraframe.jar" />
 				<pathelement location="${profile.root}" />
 			</classpath>
 		</java>
-		
+
 		<!-- Copy the flattened profile -->
 		<copy todir="${deploy.bin}" overwrite="true">
 			<fileset dir="${profile.root}/$$${deploy.appname}_tmp">
-				<include name="**/*"/>
+				<include name="**/*" />
 			</fileset>
 			<fileset dir="${profile.root}">
-				<exclude name="master.properties"/>
-				<include name="*.*"/>
+				<exclude name="master.properties" />
+				<include name="*.*" />
 			</fileset>
 		</copy>
-		
+
 		<!-- Overwrite local.properties with the JEE defaults -->
 		<copy tofile="${deploy.bin}/local.properties" file="JEElocal.properties" overwrite="true" />
-		
+
 		<!-- Finally, delete the temp directory -->
 		<delete dir="${profile.root}/$$${deploy.appname}_tmp" />
 
@@ -204,7 +226,7 @@
 			</fileset>
 		</copy>
 	</target>
-	
+
 	<!-- deploy application specific files -->
 	<target name="deploy_application_files">
 
@@ -213,11 +235,11 @@
 		<mkdir dir="${deploy.webinf}/tlds" />
 		<mkdir dir="${deploy.bin}" />
 		<mkdir dir="${deploy.lib}" />
-		
+
 		<copy todir="${deploy.webinf}/tlds" overwrite="true" verbose="true">
 			<fileset dir="${webapp.root}/WEB-INF/tlds" />
 		</copy>
-		
+
 		<!-- create the META-INF dir -->
 		<copy toDir="${deploy.path}/META-INF" overwrite="true">
 			<fileset dir="${webapp.root}/META-INF" />
@@ -232,20 +254,21 @@
 			</fileset>
 		</copy>
 
-		<antcall target="compile_generated"></antcall>
+		<antcall target="compile_generated">
+		</antcall>
 		<copy todir="${deploy.bin}">
 			<fileset dir="${server.bin}" includes="**/*.class" />
 			<fileset dir="${common.bin}" includes="**/*.class" />
 			<fileset dir="${client.bin}" includes="**/*.class" />
 		</copy>
-		
+
 		<!-- compile and jar the application library (e.g., servlet filters) -->
 		<javac srcdir="${local.src}" destDir="${deploy.bin}" debug="true" source="1.5" target="1.5">
 			<classpath>
 				<path refid="genpath" />
-				<pathelement location="${client.bin}"/>
-				<pathelement location="${common.bin}"/>
-				<pathelement location="${server.bin}"/>
+				<pathelement location="${client.bin}" />
+				<pathelement location="${common.bin}" />
+				<pathelement location="${server.bin}" />
 			</classpath>
 		</javac>
 
@@ -276,15 +299,15 @@
 		</java>
 	</target>
 
-	
+
 	<!-- =================================================================== -->
 	<!-- Set the schema to the given version number                          -->
-	<!-- =================================================================== -->	
-	
+	<!-- =================================================================== -->
+
 	<target name="get_version_number" description="Checks for root database and prompts for it if not found." unless="version.number">
-		<property name="${version.number}" value="0"/>
+		<property name="${version.number}" value="0" />
 	</target>
-	
+
 	<target name="import_version" description="Reverts the domain model to the given version number" depends="get_version_number">
 		<echo message="Reverts the domain model to the given version number" />
 		<java classname="com.terraframe.mojo.dataaccess.io.Versioning" fork="true" failonerror="true" maxmemory="128m">
