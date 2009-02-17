@@ -403,7 +403,7 @@ var Mojo = {
     convertToType : function(value)
     {
       // void/null returns
-      if(typeof value === 'undefined' || value == null)
+      if(value == null)
       {
         return null;
       }
@@ -648,6 +648,7 @@ var Mojo = {
     this.setInformation = function(information) { _information = information; },
     this.getInformation = function() { return _information; },
     this.getTransport = function() { return _transport; }
+    this.setTransport = function(transport) { _transport = transport; }
   },
 
   /**
@@ -673,6 +674,7 @@ var Mojo = {
       var filterSuccess = function(transport)
       {
         var responseText = transport.responseText;
+        clientRequest.setTransport(transport);
         
         var obj = null;
         if(!isController)
@@ -680,8 +682,7 @@ var Mojo = {
           var json = Mojo.util.getObject(responseText);
           obj = Mojo.util.convertToType(json.returnValue);
         
-          // add warnings/information and transport to the ClientRequest
-          clientRequest.transport = transport;
+          // add warnings/information to the ClientRequest
   
           if(Mojo.util.isArray(json.warnings) && json.warnings.length > 0)
           {
@@ -890,9 +891,10 @@ var Mojo = {
    */
   _controllerWrapper : function(endpoint, clientRequest, params)
   {
-    var paramString = Mojo.util.convertMapToQueryString(params);
-    
-    new Mojo.ClientSession.AjaxCall(endpoint, clientRequest, paramString, true);  
+  	if(Mojo.util.isObject(params))
+      params = {"com.terraframe.mojo.mojaxObject":Mojo.util.getJSON(params)};
+  	
+    new Mojo.ClientSession.AjaxCall(endpoint, clientRequest, params, true);  
   },
   
   /**
