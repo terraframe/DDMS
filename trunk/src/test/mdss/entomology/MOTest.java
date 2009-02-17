@@ -1,17 +1,15 @@
 package mdss.entomology;
 
-import java.util.Arrays;
 import java.util.Locale;
-
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.constants.ClientConstants;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.web.WebClientSession;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import com.terraframe.mojo.ClientSession;
+import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.web.WebClientSession;
 
 public class MOTest extends TestCase
 {
@@ -56,10 +54,35 @@ public class MOTest extends TestCase
   {
     String[] names = Specie.getAllTermNames();
     String[] dto = SpecieDTO.getAllTermNames(clientRequest);
+    int expected = 3;
     
     assertNotNull(names);
     assertNotNull(dto);
-    assertEquals(3, names.length);
-//    assertEquals(3, dto.length);
+    assertEquals(expected, names.length);
+    assertEquals(expected, dto.length);
   }  
+  
+  public void testIdentificationMethodGetAllTermNames()
+  {
+    String[] names = IdentificationMethod.getAllTermNames();
+    String[] dto = IdentificationMethodDTO.getAllTermNames(clientRequest);
+    int expected = 2;
+    
+    assertNotNull(names);
+    assertNotNull(dto);
+    assertEquals(expected, names.length);
+    assertEquals(expected, dto.length);
+  }
+  
+  public void testCollectionMethodGetAllTermNames()
+  {
+    String[] names = CollectionMethod.getAllTermNames();
+    String[] dto = CollectionMethodDTO.getAllTermNames(clientRequest);
+    int expected = 2;
+    
+    assertNotNull(names);
+    assertNotNull(dto);
+    assertEquals(expected, names.length);
+    assertEquals(expected, dto.length);
+  }
 }

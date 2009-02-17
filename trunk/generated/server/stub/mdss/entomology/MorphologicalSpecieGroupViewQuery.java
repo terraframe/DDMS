@@ -21,9 +21,13 @@ private static final long serialVersionUID = 1234793969670L;
 
   class DefaultMorphologicalSpecieGroupViewBuilder extends com.terraframe.mojo.query.ViewQueryBuilder implements com.terraframe.mojo.generation.loader.Reloadable
   {
+    private MorphologicalSpecieGroupQuery groupQuery;
+
     public DefaultMorphologicalSpecieGroupViewBuilder(com.terraframe.mojo.query.QueryFactory queryFactory)
     {
       super(queryFactory);
+      
+      this.groupQuery = new MorphologicalSpecieGroupQuery(queryFactory);
     }
 
     protected MorphologicalSpecieGroupViewQuery getViewQuery()
@@ -37,9 +41,11 @@ private static final long serialVersionUID = 1234793969670L;
     protected void buildSelectClause()
     {
       MorphologicalSpecieGroupViewQuery viewQuery = this.getViewQuery();
-
-      String errMsg = "buildSelectClause() method in class DefaultMorphologicalSpecieGroupViewBuilder needs to be overwritten.";
-      throw new com.terraframe.mojo.query.QueryException(errMsg);
+      
+      viewQuery.map(MorphologicalSpecieGroupView.GROUPID, groupQuery.getId());
+      viewQuery.map(MorphologicalSpecieGroupView.COLLECTIONID, groupQuery.getCollection().getId());
+      viewQuery.map(MorphologicalSpecieGroupView.SPECIE, groupQuery.getSpecie().getTermName());
+      viewQuery.map(MorphologicalSpecieGroupView.IDENTIFICATIONMETHOD, groupQuery.getIdentificationMethod().getTermName());
     }
 
     /**
@@ -47,7 +53,6 @@ private static final long serialVersionUID = 1234793969670L;
      */
     protected void buildWhereClause()
     {
-
     }
 
   }

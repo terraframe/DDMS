@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
 
 public abstract class AbstractTerm extends AbstractTermBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -15,11 +14,9 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
     super();
   }
   
-  public static java.lang.String[] getAllTermNames()
+  public static java.lang.String[] getAllTermNames(AbstractTermQuery query)
   {
-    List<String> list = new LinkedList<String>();
-   
-    AbstractTermQuery query = new AbstractTermQuery(new QueryFactory());
+    List<String> list = new LinkedList<String>();   
     OIterator<? extends AbstractTerm> it = query.getIterator();
     
     while(it.hasNext())

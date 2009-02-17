@@ -19,6 +19,5 @@ public class SpecieDTO extends SpecieDTOBase
   protected SpecieDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
-  }
-  
+  }  
 }

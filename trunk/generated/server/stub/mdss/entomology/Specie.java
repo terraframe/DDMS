@@ -1,7 +1,6 @@
 package mdss.entomology;
 
-import java.util.LinkedList;
-import java.util.List;
+import mdss.mo.AbstractTerm;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -47,17 +46,7 @@ public class Specie extends SpecieBase implements com.terraframe.mojo.generation
   
   public static java.lang.String[] getAllTermNames()
   {
-    List<String> list = new LinkedList<String>();
-
-    SpecieQuery query = new SpecieQuery(new QueryFactory());
-    OIterator<? extends Specie> it = query.getIterator();
-    
-    while(it.hasNext())
-    {
-      list.add(it.next().getTermName());
-    }
-    
-    return list.toArray(new String[list.size()]);
+    return AbstractTerm.getAllTermNames(new SpecieQuery(new QueryFactory()));
   }
 
 }

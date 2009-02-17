@@ -1,5 +1,7 @@
 package mdss.entomology;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
+
 public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234793969635L;
@@ -37,5 +39,13 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
       group.apply();      
     }
   }
-  
+
+  @Transaction
+  public static void saveAll(mdss.entomology.MorphologicalSpecieGroupView[] array)
+  {
+    for(MorphologicalSpecieGroupView view : array)
+    {
+      view.apply();
+    }
+  }  
 }

@@ -22,6 +22,8 @@ import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 public class ADDATest extends TestCase
 {
@@ -38,6 +40,10 @@ public class ADDATest extends TestCase
   private static AssayMethod          assayMethod          = null;
 
   private static Insecticide          insecticide          = null;
+
+  private static Generation           F0                   = null;
+
+  private static Generation           F1                   = null;
 
   public static Test suite()
   {
@@ -63,25 +69,31 @@ public class ADDATest extends TestCase
 
   protected static void classSetUp()
   {
-    OIterator<? extends CollectionMethod> cIt = CollectionMethod.getAllInstances(null, false, 0, 0)
-        .getIterator();
-    OIterator<? extends Specie> sIt = Specie.getAllInstances(null, false, 0, 0).getIterator();
-    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0,
-        0).getIterator();
-    OIterator<? extends AssayMethod> aIt = AssayMethod.getAllInstances(null, false, 0, 0).getIterator();
-    OIterator<? extends Insecticide> inIt = Insecticide.getAllInstances(null, false, 0, 0).getIterator();
+    QueryFactory f = new QueryFactory();
+    GenerationQuery query = new GenerationQuery(f);
+    query.ORDER_BY(query.getTermName(), SortOrder.ASC);
+    
+    OIterator<? extends CollectionMethod> cIt = new CollectionMethodQuery(f).getIterator();
+    OIterator<? extends Specie> sIt = new SpecieQuery(f).getIterator();
+    OIterator<? extends IdentificationMethod> iIt = new IdentificationMethodQuery(f).getIterator();
+    OIterator<? extends AssayMethod> aIt = new AssayMethodQuery(f).getIterator();
+    OIterator<? extends Insecticide> inIt = new InsecticideQuery(f).getIterator();
+    OIterator<? extends Generation> gIt = query.getIterator();
 
     collectionMethod = cIt.next();
     specie = sIt.next();
     identificationMethod = iIt.next();
     assayMethod = aIt.next();
     insecticide = inIt.next();
+    F0 = gIt.next();
+    F1 = gIt.next();
 
     cIt.close();
     sIt.close();
     iIt.close();
     aIt.close();
     inIt.close();
+    gIt.close();
 
     try
     {
@@ -254,6 +266,7 @@ public class ADDATest extends TestCase
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(99.99));
     assay.setIsofemale(false);
+    assay.setGeneration(F0);
     assay.setQuantityDead(5);
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
@@ -306,6 +319,7 @@ public class ADDATest extends TestCase
     assay.addSex(AssaySex.FEMALE);
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
+    assay.setGeneration(F1);
     assay.setFed(10);
     assay.setGravid(10);
     assay.setExposureTime(60);
@@ -464,6 +478,7 @@ public class ADDATest extends TestCase
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
     assay.setUnits("%");
+    assay.setGeneration(F1);
     assay.apply();
 
     try
@@ -521,6 +536,7 @@ public class ADDATest extends TestCase
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
     assay.setUnits("%");
+    assay.setGeneration(F1);
     assay.apply();
 
     try
@@ -576,6 +592,7 @@ public class ADDATest extends TestCase
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
     assay.setUnits("%");
+    assay.setGeneration(F1);
     assay.apply();
 
     try
@@ -696,7 +713,7 @@ public class ADDATest extends TestCase
       }
     }
   }
-  
+
   public void testFedLargerThanQuantityTested() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
@@ -813,6 +830,7 @@ public class ADDATest extends TestCase
     assay.setAmount(10);
     assay.setUnits("%");
     assay.setGenericName(generic);
+    assay.setGeneration(F1);
     assay.apply();
 
     try
@@ -871,6 +889,7 @@ public class ADDATest extends TestCase
     assay.setAmount(10);
     assay.setUnits("%");
     assay.setGenericName(generic);
+    assay.setGeneration(F1);
     assay.apply();
 
     try
@@ -929,6 +948,7 @@ public class ADDATest extends TestCase
     assay.setAmount(10);
     assay.setUnits("%");
     assay.setGenericName(generic);
+    assay.setGeneration(F1);
     assay.apply();
 
     try
@@ -1065,12 +1085,14 @@ public class ADDATest extends TestCase
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
+    assay.setGeneration(F1);
     assay.setIntervalTime(10);
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(99.99));
     assay.setIsofemale(false);
     assay.setQuantityDead(30);
     assay.setQuantityTested(30);
+    assay.setGeneration(F1);
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
@@ -1132,6 +1154,7 @@ public class ADDATest extends TestCase
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
     assay.setUnits("%");
+    assay.setGeneration(F1);
     assay.setGenericName(generic);
     assay.apply();
 
@@ -1181,6 +1204,7 @@ public class ADDATest extends TestCase
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(99.99));
     assay.setIsofemale(false);
+    assay.setGeneration(F1);
     assay.setQuantityDead(30);
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
@@ -1226,6 +1250,7 @@ public class ADDATest extends TestCase
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setIntervalTime(7);
+    assay.setGeneration(F1);
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(99.99));
     assay.setIsofemale(false);
@@ -1282,6 +1307,7 @@ public class ADDATest extends TestCase
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
     assay.setIntervalTime(7);
+    assay.setGeneration(F1);
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(99.99));
     assay.setIsofemale(false);
@@ -1314,9 +1340,50 @@ public class ADDATest extends TestCase
       assay.delete();
     }
   }
-  
-  public void testGenerationOfIsofemale()
+
+  public void testGenerationOfIsofemale() throws ParseException
   {
-    
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    AssaySex sex = AssaySex.FEMALE;
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(sex);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(10);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(true);
+      assay.setQuantityDead(20);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(2);
+      assay.getAgeRange().setEndPoint(20);
+      assay.setInsecticide(insecticide);
+      assay.setGeneration(F0);
+      assay.setAmount(10);
+      assay.setUnits("%");
+      assay.apply();
+
+      fail("Able to set the isofemale line to true on a F0 generation");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
   }
 }
