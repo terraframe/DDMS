@@ -357,6 +357,19 @@
           required="true"
           size="255" />
       </attributes>
+      <mdMethod
+        name="saveAll"
+        label="Save All"
+        returnType="void"
+        static="true"
+        description="Saves an array of MorphologicalSpecieGroupView in a single transaction">
+        <mdParameter
+          name="array"
+          label="Array"
+          description="Array of objects to save"
+          order="0"
+          type="mdss.entomology.MorphologicalSpecieGroupView[]" />
+      </mdMethod>
     </mdView>
 
     <!--
@@ -559,6 +572,13 @@
           label="Term Name"
           description="The name of the MO Collection Method Term" />
       </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.entomology.CollectionMethod"
+      label="Collection Method"
+      description="List of all possible collection methods"
+      extends="mdss.mo.AbstractTerm">
       <mdMethod
         name="getAllTermNames"
         returnType="java.lang.String[]"
@@ -566,12 +586,6 @@
         static="true"
         description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
-
-    <mdBusiness
-      name="mdss.entomology.CollectionMethod"
-      label="Collection Method"
-      description="List of all possible collection methods"
-      extends="mdss.mo.AbstractTerm" />
 
     <object
       type="mdss.entomology.CollectionMethod"
@@ -593,7 +607,14 @@
       name="mdss.entomology.Generation"
       label="Generation Method"
       description="List of all possible MO generation"
-      extends="mdss.mo.AbstractTerm" />
+      extends="mdss.mo.AbstractTerm">
+      <mdMethod
+        name="getAllTermNames"
+        returnType="java.lang.String[]"
+        label="Get All Term Names"
+        static="true"
+        description="Returns all term names of a MO subcatagory" />
+    </mdBusiness>
 
     <object
       id="F0"
@@ -623,8 +644,15 @@
       name="mdss.entomology.Specie"
       label="Specie Method"
       description="List of all possible MO species"
-      extends="mdss.mo.AbstractTerm" />
-      
+      extends="mdss.mo.AbstractTerm">
+      <mdMethod
+        name="getAllTermNames"
+        returnType="java.lang.String[]"
+        label="Get All Term Names"
+        static="true"
+        description="Returns all term names of a MO subcatagory" />
+    </mdBusiness>
+
     <object
       type="mdss.entomology.Specie"
       id="TEST_SPECIE">
@@ -654,7 +682,14 @@
       name="mdss.entomology.IdentificationMethod"
       label="Identification Method"
       description="List of all possible MO specie identification methods"
-      extends="mdss.mo.AbstractTerm" />
+      extends="mdss.mo.AbstractTerm">
+      <mdMethod
+        name="getAllTermNames"
+        returnType="java.lang.String[]"
+        label="Get All Term Names"
+        static="true"
+        description="Returns all term names of a MO subcatagory" />
+    </mdBusiness>
 
     <object
       type="mdss.entomology.IdentificationMethod"
@@ -716,6 +751,13 @@
       label="Insecticide"
       description="List of all MO insecticides"
       extends="mdss.mo.AbstractTerm">
+      <mdMethod
+        name="getAllTermNames"
+        returnType="java.lang.String[]"
+        label="Get All Term Names"
+        static="true"
+        description="Returns all term names of a MO subcatagory" />
+
     </mdBusiness>
 
     <object
@@ -739,6 +781,12 @@
       label="Assay Method"
       description="List of all assay methods"
       extends="mdss.mo.AbstractTerm">
+      <mdMethod
+        name="getAllTermNames"
+        returnType="java.lang.String[]"
+        label="Get All Term Names"
+        static="true"
+        description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
 
     <object
@@ -910,6 +958,12 @@
           label="Generic Name"
           size="255"
           description="Generic name of the insecticide.  Only displayed when an 'Other' insecticide is used." />
+        <reference
+          name="generation"
+          label="Generation"
+          required="true"
+          description="The generation of the mosquito"
+          type="mdss.entomology.Generation" />
       </attributes>
     </mdBusiness>
 
