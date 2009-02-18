@@ -107,7 +107,6 @@ YUI download for details on each of the aggregate files and their contents):-->
 YAHOO.widget.Chart.SWFURL = "/MDSS/js/yui/build/charts/assets/charts.swf"; 
 </script> 
 
-
 <style type="text/css" media="screen">
     #cal1Container {
         position: absolute;
@@ -124,5 +123,5 @@ YAHOO.widget.Chart.SWFURL = "/MDSS/js/yui/build/charts/assets/charts.swf";
         z-index: 500;
     }
 </style>
-
+<script type="text/javascript" src="js/Menu.js"></script>
 <script type="text/javascript" src="/MDSS/js/addCalendarWidgets.js"></script> 
