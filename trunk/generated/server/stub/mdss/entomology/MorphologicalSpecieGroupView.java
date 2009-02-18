@@ -30,7 +30,7 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
     {
       IdentificationMethod method = IdentificationMethod.getIdentificationMethod(this.getIdentificationMethod());
 
-      MorphologicalSpecieGroup group = MorphologicalSpecieGroup.get(this.getGroupId());      
+      MorphologicalSpecieGroup group = MorphologicalSpecieGroup.lock(this.getGroupId());      
       group.setCollection(AbstractMosquitoCollection.get(this.getCollectionId()));
       group.setQuantity(this.getQuantity());
       group.setQuantity(this.getQuantity());
