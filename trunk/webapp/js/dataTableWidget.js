@@ -1,25 +1,47 @@
 //This file contains functions for setting up a data table.  
 
-function createDataTable(table_data) {
+// setting up my own namespace
+var MojoGrid = YAHOO.namespace('MojoGrid');
+
+
+
+
+(function () {
+	// Enclosing everything within this anonymous function
+	// makes everything declared inside invisible outside
+	// so I am free to declare any handy shortcuts
 	
+	
+	// Array Remove - By John Resig (MIT Licensed)
+	Array.remove = function(array, from, to) {
+	  var rest = array.slice((to || from) + 1 || array.length);
+	  array.length = from < 0 ? array.length + from : from;
+	  return array.push.apply(array, rest);
+	};
+
+	MojoGrid.createDataTable = function(table_data) {
+	// locals to be returned
+    var myDataSource, myDataTable;
+
 	// load the data
-	this.myDataSource = new YAHOO.util.DataSource(table_data.rows);
-	this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
-	this.myDataSource.responseSchema = {
+	myDataSource = new YAHOO.util.DataSource(table_data.rows);
+	myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
+	myDataSource.responseSchema = {
 		fields :table_data.fields
 	};
 
-	this.myDataTable = new YAHOO.widget.DataTable(table_data.div_id,
-			table_data.columnDefs, this.myDataSource, {});
+	myDataTable = new YAHOO.widget.DataTable(table_data.div_id,
+			table_data.columnDefs, myDataSource, {});
 
 	var i = (table_data.rows.length + 1);
 	var bReverseSorted = false;
 
-	// Track when Column is reverse-sorted, since new data will come in out of order
+	// Track when Column is reverse-sorted, since new data will come in out of
+	// order
 	var trackReverseSorts = function(oArg) {
 		bReverseSorted = (oArg.dir === YAHOO.widget.DataTable.CLASS_DESC);
 	};
-	this.myDataTable.subscribe("columnSortEvent", trackReverseSorts);
+	myDataTable.subscribe("columnSortEvent", trackReverseSorts);
 
 	// Set up editing flow
 	var highlightEditableCell = function(oArgs) {
@@ -28,33 +50,35 @@ function createDataTable(table_data) {
 			this.highlightCell(elCell);
 		}
 	};
-	this.myDataTable.subscribe("cellMouseoverEvent", highlightEditableCell);
+	myDataTable.subscribe("cellMouseoverEvent", highlightEditableCell);
 	
-	//Save edits back to the original data array
+	// Save edits back to the original data array
 	var saveSomeData = function(oArgs) {
 		  var record = oArgs.editor.getRecord();
 		  var save_now = 'table_data.rows[' + record._nCount + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newData + '"';
-		  //alert(save_now);
+		  // alert(save_now);
 	      eval(save_now);	
 	};
-	this.myDataTable.subscribe("editorSaveEvent", saveSomeData);
+	myDataTable.subscribe("editorSaveEvent", saveSomeData);
 	
-	this.myDataTable.subscribe("cellMouseoutEvent",
-			this.myDataTable.onEventUnhighlightCell);
+	myDataTable.subscribe("cellMouseoutEvent",
+			myDataTable.onEventUnhighlightCell);
 
 	var onCellClick = function(oArgs) {
 		var target = oArgs.target;
-		column = this.getColumn(target), record = this.getRecord(target);
-		row_id = record.getData('id');
+		column = myDataTable.getColumn(target); 
+		record = myDataTable.getRecord(target);
+		row_id = record.getData(table_data.fields[0].key);
 
 		switch (column.action) {
 		case 'delete':
-			if (confirm('Are you sure you want to delete row ' + record
-					.getData('row') + '?')) {
+			if (confirm('Are you sure you want to delete row ' + (record._nCount+1) + '?')) {
 				var request = new Mojo.ClientRequest( {
-					dataTable :this,
+					dataTable :myDataTable,
+					row_index :record._nCount,
 					onSuccess : function(deletedMorphologicalSpecieGroup) {
-					request.dataTable.deleteRow(target);
+					Array.remove(table_data.rows,request.row_index);
+					request.dataTable.deleteRow(target);					
 					alert('row deleted on server');
 
 				},
@@ -71,10 +95,10 @@ function createDataTable(table_data) {
 		}
 	};
 
-	this.myDataTable.subscribe("cellClickEvent", onCellClick);
+	myDataTable.subscribe("cellClickEvent", onCellClick);
     
 	
-	//set up the button that saves the rows to the db
+	// set up the button that saves the rows to the db
 	var btnSaveRows = new YAHOO.widget.Button("saverows"); 
 	btnSaveRows.on("click", function() {
 		var request = new Mojo.ClientRequest( {
@@ -100,6 +124,7 @@ function createDataTable(table_data) {
 	    	for each (attrib in table_data.fields)
 	    	{
 			    str = 'v.set'+attrib.key+'(row.'+attrib.key+')';
+			    // alert(str);
 	    		eval(str);
 	    	}
 			v_arr.push(v);
@@ -110,35 +135,37 @@ function createDataTable(table_data) {
 	});
 	
 	
-//	// Add passed in rows
-//	this.addRow = function(row) {
-//		// Clear sort when necessary
-//		if (bReverseSorted) {
-//			this.myDataTable.set("sortedBy", null);
-//		}
+// // Add passed in rows
+// this.addRow = function(row) {
+// // Clear sort when necessary
+// if (bReverseSorted) {
+// myDataTable.set("sortedBy", null);
+// }
 //
-//		var record = YAHOO.widget.DataTable._cloneObject(table_data.defaults);
-//		//record.row = i++;
-//		record.qty = row.getQuanity();
-//		record.specie_name = row.getSpecie()[0].getDisplayLabel();
-//		record.ident_method = row.getIdentificationMethod()[0]
-//				.getDisplayLabel();
-//		this.myDataTable.addRow(record);
-//	};
+// var record = YAHOO.widget.DataTable._cloneObject(table_data.defaults);
+// //record.row = i++;
+// record.qty = row.getQuanity();
+// record.specie_name = row.getSpecie()[0].getDisplayLabel();
+// record.ident_method = row.getIdentificationMethod()[0]
+// .getDisplayLabel();
+// myDataTable.addRow(record);
+// };
 
 	// Add one row to the bottom
 	var btnAddRow = new YAHOO.widget.Button("addrow");
 	btnAddRow.on("click", function() {
 		// Clear sort when necessary
 			if (bReverseSorted) {
-				this.myDataTable.set("sortedBy", null);
+				myDataTable.set("sortedBy", null);
 			}
-
-			var record = YAHOO.widget.DataTable._cloneObject(table_data.defaults);
-			
-			record.row = i++;
-			table_data.rows.push(table_data.defaults);
-			this.myDataTable.addRow(record);
+            // clone the object
+			// FIREFOX ONLY
+			new_defs = eval(uneval(table_data.defaults));
+			// var record = YAHOO.widget.DataTable._cloneObject(new_defs);
+			// record = new YAHOO.widget.Record(table_data.defaults);
+			// record.row = i++;
+			table_data.rows.push(new_defs);
+			myDataTable.addRow(new_defs);
 		}, this, true);
 
 	// stuff to turn cols on and off
@@ -150,7 +177,7 @@ function createDataTable(table_data) {
 		if (newCols) {
 			// Populate Dialog
 			// Using a template to create elements for the SimpleDialog
-			var allColumns = this.myDataTable.getColumnSet().keys;
+			var allColumns = myDataTable.getColumnSet().keys;
 			var elPicker = YAHOO.util.Dom.get("dt-dlg-picker");
 			var elTemplateCol = document.createElement("div");
 			YAHOO.util.Dom.addClass(elTemplateCol, "dt-dlg-pickercol");
@@ -239,7 +266,11 @@ function createDataTable(table_data) {
 	}, this, true);
 
 	// Hook up the SimpleDialog to the link
-	YAHOO.util.Event.addListener("dt-options-link", "click", showDlg, this,
-			true);
-	return this;
-};
+	YAHOO.util.Event.addListener("dt-options-link", "click", showDlg, this, true);
+	
+	return {
+        oDS: myDataSource,
+        oDT: myDataTable
+    };
+	};
+})();
