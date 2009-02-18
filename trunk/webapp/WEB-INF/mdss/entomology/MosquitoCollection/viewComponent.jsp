@@ -177,9 +177,9 @@ dt {
     	 %>
     	 ,columnDefs:[
     	            {key:"GroupId",label:"ID",hidden:true},
-    	            {key:"Specie",label:"<%=MorphologicalSpecieGroup.getSpecieMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.DropdownCellEditor({dropdownOptions:species})},
+    	            {key:"Specie",label:'<%=MorphologicalSpecieGroup.getSpecieMd().getDisplayLabel()%>',resizeable:true,editor: new YAHOO.widget.DropdownCellEditor({dropdownOptions:species,disableBtns:true})},
     	            {key:"IdentificationMethod",label:"<%=MorphologicalSpecieGroup.getIdentificationMethodMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.RadioCellEditor({radioOptions:ident_methods,disableBtns:true})},
-    	            {key:"Quantity",label:"<%=MorphologicalSpecieGroup.getQuantityMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber})},
+    	            {key:"Quantity",label:"<%=MorphologicalSpecieGroup.getQuantityMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})},
     	            {key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}
     	            
     	        ],
@@ -192,6 +192,7 @@ dt {
     	    };
 
 
-  window.addEventListener('load', createDataTable(table_data) , false);
+    
+  window.addEventListener('load', MojoGrid.createDataTable(table_data) , false);
 
 </script>

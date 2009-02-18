@@ -6,63 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <title>
-      New MosquitoCollection
+        New MosquitoCollection
     </title>
+    <jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />
   </head>
-  <body>
-    <mjl:messages>
-      <mjl:message />
-    </mjl:messages>
-    <mjl:form name="mdss.entomology.MosquitoCollection.form.name" id="mdss.entomology.MosquitoCollection.form.id" method="POST">
-      <mjl:component item="${item}" param="dto">
-        <dl>
-          <dt>
-            <label>
-              ${item.collectionMethodMd.displayLabel}
-            </label>
-          </dt>
-          <dd>
-            <mjl:select var="current" valueAttribute="enumName" items="${mdss_entomology_MosquitoCollection_collectionMethod}" param="collectionMethod">
-              <c:choose>
-                <c:when test="${mjl:contains(item.collectionMethodEnumNames, current.enumName)}">
-                  <mjl:option selected="selected">
-                    ${item.collectionMethodMd.enumItems[current.enumName]}
-                  </mjl:option>
-                </c:when>
-                <c:otherwise>
-                  <mjl:option>
-                    ${item.collectionMethodMd.enumItems[current.enumName]}
-                  </mjl:option>
-                </c:otherwise>
-              </c:choose>
-            </mjl:select>
-          </dd>
-          <dt>
-            <label>
-              ${item.dateCollectedMd.displayLabel}
-            </label>
-          </dt>
-          <dd>
-            <mjl:input type="text" param="dateCollected" />
-            <mjl:messages attribute="dateCollected">
-              <mjl:message />
-            </mjl:messages>
-          </dd>
-          <dt>
-            <label>
-              ${item.geoEntityMd.displayLabel}
-            </label>
-          </dt>
-          <dd>
-            <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_AbstractMosquitoCollection_geoEntity}" param="geoEntity">
-              <mjl:option>
-                ${current.keyName}
-              </mjl:option>
-            </mjl:select>
-          </dd>
-        </dl>
-      </mjl:component>
-      <mjl:command value="Create" action="mdss.entomology.MosquitoCollectionController.create.mojo" name="mdss.entomology.MosquitoCollection.form.create.button" />
-    </mjl:form>
+  <body class="yui-skin-sam">
+    <jsp:include page="/WEB-INF/templates/navMenu.jsp" />
+    <jsp:include page="createComponent.jsp" />
   </body>
+  
 </html>
