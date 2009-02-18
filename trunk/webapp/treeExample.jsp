@@ -17,42 +17,28 @@
   
   
 var tree = new YAHOO.widget.TreeView("treeView",[
-	'Label 0',
-	{type:'Text', label:'text label 1', title:'this is the tooltip for text label 1'},
-	{type:'Text', label:'branch 1', title:'there should be children here', expanded:true, children:[
-		'Label 1-0'
+	{type:'Text', label:'country 1', title:'country 1', expanded:true, children:[
+	  {type:'Text', label:"province 1", title:"province 1"},
+	  {type:'Text', label:"province 2", title:"province 2", expanded:true, children:[
+        {type:'Text', label:"district 1", title:"district 1"},
+        {type:'Text', label:"district 2", title:"district 2", expanded:true, children:[
+          {type:'Text', label:"subdistrict 1", title:"subdistrict 1"}
+        ]},  
+	  ]}
 	]},
-	{type:'Text',label:'YAHOO',title:'this should be an href', href:'http://www.yahoo.com', target:'somewhere new'},
-	{type:'HTML',html:'<a href="developer.yahoo.com/yui">YUI</a>'},
-	{type:'MenuNode',label:'branch 3',title:'this is a menu node', expanded:false, children:[
-		'Label 3-0',
-		'Label 3-1'
+	{type:'Text',label:'country 2',title:'country 2', expanded:true, children:[
+	  {type:'Text', label:"province 3", title:"province 3"},
+	  {type:'Text', label:"province 4", title:"province 4", expanded:true, children:[
+        {type:'Text', label:"district 3", title:"district 3"},
+        {type:'Text', label:"district 4", title:"district 4", expanded:true, children:[
+          {type:'Text', label:"subdistrict 2", title:"subdistrict 2"}
+        ]},  
+      ]}
 	]}
 ]);
 tree.render();
 
-function collect(node, nodes)
-{
-  if(node.hasChildren())
-  {
-    new YAHOO.util.DDTarget(node.getElId());
-  
-    var children = node.children;
-    for(var i=0; i<children.length; i++)
-    {
-      var child = children[i];
-      collect(child, nodes);
-    }
-  }
-  else
-  {
-    new MDSS.TreeViewDD(node.getElId());
-  }
-}
-
-var root = tree.getRoot();
-var containerNodes = [];
-collect(root, containerNodes);
+MDSS.initTreeViewDnD(tree);
 
 }
   window.addEventListener('load', onloadHandler , false);
@@ -61,9 +47,6 @@ collect(root, containerNodes);
 
 </head>
 <body class="yui-skin-sam">
-
-<div id='dragme'>testing</div>
-
   <div id="treeView"></div>
 </body>
 </html>
