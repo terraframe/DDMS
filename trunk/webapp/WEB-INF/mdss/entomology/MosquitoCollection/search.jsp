@@ -8,8 +8,10 @@
     <title>
       Search for a Mosquito Collection
     </title>
+    <jsp:include page="/WEB-INF/templates/yuiIncludes.jsp"/>
   </head>
-  <body>
+  <body class="yui-skin-sam">
     <jsp:include page="searchComponent.jsp" />
+    <jsp:include page="/WEB-INF/templates/navMenu.jsp"/>
   </body>
 </html>
