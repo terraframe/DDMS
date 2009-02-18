@@ -2,10 +2,10 @@ package mdss.entomology;
 
 import java.util.List;
 
+import mdss.test.Terrain;
+
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-
-import mdss.test.Terrain;
 
 public class MosquitoCollectionPoint extends MosquitoCollectionPointBase implements com.terraframe.mojo.generation.loader.Reloadable
 {

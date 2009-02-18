@@ -10,6 +10,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import mdss.entomology.assay.ADDATestInterval;
+import mdss.entomology.assay.ADDATestIntervalView;
 import mdss.entomology.assay.AdultAgeRange;
 import mdss.entomology.assay.AdultDiscriminatingDoseAssay;
 import mdss.entomology.assay.InvalidAgeProblem;
@@ -72,7 +73,7 @@ public class ADDATest extends TestCase
     QueryFactory f = new QueryFactory();
     GenerationQuery query = new GenerationQuery(f);
     query.ORDER_BY(query.getTermName(), SortOrder.ASC);
-    
+
     OIterator<? extends CollectionMethod> cIt = new CollectionMethodQuery(f).getIterator();
     OIterator<? extends Specie> sIt = new SpecieQuery(f).getIterator();
     OIterator<? extends IdentificationMethod> iIt = new IdentificationMethodQuery(f).getIterator();
@@ -1112,13 +1113,13 @@ public class ADDATest extends TestCase
 
     try
     {
-      ADDATestInterval[] intervals = assay.getTestIntervals();
+      ADDATestIntervalView[] intervals = assay.getTestIntervals();
 
       assertEquals(6, intervals.length);
 
       for (int i = 0; i < 6; i++)
       {
-        assertEquals(assay.getId(), intervals[i].getAssay().getId());
+        assertEquals(assay.getId(), intervals[i].getAssayId());
         assertEquals(new Integer(i), intervals[i].getPeriod());
         assertEquals(new Integer(i), intervals[i].getKnockedDown());
       }
@@ -1169,13 +1170,13 @@ public class ADDATest extends TestCase
 
     try
     {
-      ADDATestInterval[] intervals = assay.getTestIntervals();
+      ADDATestIntervalView[] intervals = assay.getTestIntervals();
 
       assertEquals(9, intervals.length);
 
       for (int i = 0; i < 9; i++)
       {
-        assertEquals(assay.getId(), intervals[i].getAssay().getId());
+        assertEquals(assay.getId(), intervals[i].getAssayId());
         assertEquals(new Integer(i), intervals[i].getPeriod());
         assertEquals(new Integer(i), intervals[i].getKnockedDown());
       }
@@ -1275,13 +1276,13 @@ public class ADDATest extends TestCase
 
     try
     {
-      ADDATestInterval[] intervals = assay.getTestIntervals();
+      ADDATestIntervalView[] intervals = assay.getTestIntervals();
 
       assertEquals(9, intervals.length);
 
       for (int i = 0; i < 9; i++)
       {
-        assertEquals(assay.getId(), intervals[i].getAssay().getId());
+        assertEquals(assay.getId(), intervals[i].getAssayId());
         assertEquals(new Integer(i), intervals[i].getPeriod());
         assertEquals(new Integer(30), intervals[i].getKnockedDown());
       }
@@ -1384,6 +1385,102 @@ public class ADDATest extends TestCase
       {
         assay.delete();
       }
+    }
+  }
+
+  public void testGetKD50() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
+
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(7);
+    assay.setGeneration(F1);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(30);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
+    assay.setGenericName(generic);
+    assay.apply();
+
+    for (int i = 0; i < 9; i++)
+    {
+      ADDATestInterval interval = new ADDATestInterval();
+      interval.setAssay(assay);
+      interval.setPeriod(i);
+      interval.setKnockedDown(i * 2);
+      interval.apply();
+    }
+
+    try
+    {
+      assertEquals(new Integer(30), assay.getKD50());
+    }
+    finally
+    {
+      assay.delete();
+    }
+  }
+  
+  public void testGetKD100() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
+
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(7);
+    assay.setGeneration(F1);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(30);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.setUnits("%");
+    assay.setGenericName(generic);
+    assay.apply();
+
+    for (int i = 0; i < 9; i++)
+    {
+      ADDATestInterval interval = new ADDATestInterval();
+      interval.setAssay(assay);
+      interval.setPeriod(i);
+      interval.setKnockedDown(i * 2);
+      interval.apply();
+    }
+
+    try
+    {
+      assertEquals(new Integer(50), assay.getKD95());
+    }
+    finally
+    {
+      assay.delete();
     }
   }
 }

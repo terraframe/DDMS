@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollectionBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -36,7 +37,9 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
     List<MorphologicalSpecieGroupView> list = new LinkedList<MorphologicalSpecieGroupView>();
 
     MorphologicalSpecieGroupQuery query = new MorphologicalSpecieGroupQuery(new QueryFactory());
-    query.getCollection().getId().EQ(this.getId());
+    query.WHERE(query.getCollection().getId().EQ(this.getId()));
+    query.ORDER_BY(query.getCreateDate(), SortOrder.ASC);
+    
     OIterator<? extends MorphologicalSpecieGroup> iterator = query.getIterator();
     
     while(iterator.hasNext())

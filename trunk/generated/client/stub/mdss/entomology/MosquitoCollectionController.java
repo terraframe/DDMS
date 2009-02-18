@@ -202,10 +202,17 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     this.viewAll();
   }
   
+  @Override
+  public void searchByGeoIdAndDate(String geoId, Date collectionDate) throws IOException,
+      ServletException
+  {
+    this.searchByGeoEntityAndDate(GeoEntityDTO.searchByGeoId(super.getClientRequest(), geoId), collectionDate);
+  }
+  
   public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, Date collectionDate) throws IOException, ServletException
   {
     MosquitoCollectionDTO collection = MosquitoCollectionDTO.searchByGeoEntityAndDate(super.getClientRequest(), geoEntity, collectionDate);
-    String jsp = (this.isAsynchronous() ? "editComponent.jsp" : "edit.jsp");
+    String jsp = (this.isAsynchronous() ? "viewComponent.jsp" : "view.jsp");
     
     if(collection == null)
     {

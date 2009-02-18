@@ -1,6 +1,12 @@
 package mdss.entomology.assay;
 
 import mdss.entomology.AssaySex;
+import mdss.entomology.Generation;
+import mdss.entomology.GenerationQuery;
+
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 public abstract class AdultAssay extends AdultAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -67,6 +73,28 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
       throw new RuntimeException(msg);      
     }
   }
+  
+  @Override
+  public void validateIsofemale()
+  {
+    super.validateIsofemale();
+    
+    if(this.getIsofemale())
+    {
+      GenerationQuery query = new GenerationQuery(new QueryFactory());
+      query.ORDER_BY(query.getTermName(), SortOrder.ASC);
+      
+      OIterator<? extends Generation> it = query.getIterator();
+      Generation F0 = it.next();
+      it.close();
+      
+      if(this.getGeneration().getId().equals(F0.getId()))
+      {
+        String msg = "Isofemale line cannot be selected if the generation is F0.";
+        throw new RuntimeException(msg);
+      }
+    }
+  }
     
   @Override
   public void apply()
@@ -75,6 +103,8 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
     validateGravid();
     validateFed();
     validateInsecticide();
+    
+    validateIsofemale();
 
     super.apply();
   }

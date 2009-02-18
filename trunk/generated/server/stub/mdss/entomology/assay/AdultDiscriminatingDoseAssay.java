@@ -30,27 +30,27 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       String msg = "It is impossible to have a test date before the mosquito collection date";
       throw new RuntimeException(msg);
     }
-  }  
-  
+  }
+
   @Override
   public void validateQuantityDead()
   {
     super.validateQuantityDead();
-    
-    if(this.getQuantityDead() > this.getQuantityTested())
+
+    if (this.getQuantityDead() > this.getQuantityTested())
     {
       String msg = "It is impossible to have a dead quantity larger than the total number of mosquitos tested";
       throw new RuntimeException(msg);
     }
   }
-  
+
   @Override
   public void validateIntervalTime()
   {
-    if(this.getIntervalTime() > this.getExposureTime())
+    if (this.getIntervalTime() > this.getExposureTime())
     {
       String msg = "It is impossible to have an interval time larger than the exposure time";
-      throw new RuntimeException(msg);      
+      throw new RuntimeException(msg);
     }
   }
 
@@ -59,41 +59,70 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     validateCollection();
     validateSex();
-    
+
     validateTestDate();
     validateQuantityDead();
     validateIntervalTime();
-   
+
     super.apply();
   }
-  
+
   @Override
   public void delete()
   {
-    for(ADDATestInterval interval : this.getTestIntervals())
-    {
-      interval.delete();
-    }
-    
+    this.deleteIntevals();
+
     super.delete();
   }
-  
-  public ADDATestInterval[] getTestIntervals()
-  { 
-    List<ADDATestInterval> list = new LinkedList<ADDATestInterval>();
+
+  private void deleteIntevals()
+  {
+    for (ADDATestIntervalView view : this.getTestIntervals())
+    {
+      ADDATestInterval.get(view.getIntervalId()).delete();
+    }
+  }
+
+  public ADDATestIntervalView[] getTestIntervals()
+  {
+    List<ADDATestIntervalView> list = new LinkedList<ADDATestIntervalView>();
+
     ADDATestIntervalQuery query = new ADDATestIntervalQuery(new QueryFactory());
     query.WHERE(query.getAssay().getId().EQ(this.getId()));
     query.ORDER_BY(query.getPeriod(), SortOrder.ASC);
+
     OIterator<? extends ADDATestInterval> iterator = query.getIterator();
-    
-    while(iterator.hasNext())
+
+    while (iterator.hasNext())
     {
-      list.add(iterator.next());
+      ADDATestInterval interval = iterator.next();
+
+      ADDATestIntervalView view = new ADDATestIntervalView();
+      view.setIntervalId(interval.getId());
+      view.setAssayId(this.getId());
+      view.setKnockedDown(interval.getKnockedDown());
+      view.setPeriod(interval.getPeriod());
+      view.applyNoPersist();
+
+      list.add(view);
     }
-    
+
     iterator.close();
-    
-    return list.toArray(new ADDATestInterval[list.size()]);
+
+    return list.toArray(new ADDATestIntervalView[list.size()]);
   }
 
+  @Override
+  public Integer getKD50()
+  {
+    // TODO Use R logistical regression to calculate KD50
+    return super.getKD50();
+  }
+
+  @Override
+  public Integer getKD95()
+  {
+    // TODO Use R logistical regression to calculate KD95
+    return super.getKD95();
+  }
 }

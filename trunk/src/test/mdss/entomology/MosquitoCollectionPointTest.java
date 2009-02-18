@@ -17,7 +17,6 @@ import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.session.StartSession;
 
 public class MosquitoCollectionPointTest extends TestCase
 {
@@ -113,7 +112,6 @@ public class MosquitoCollectionPointTest extends TestCase
     }
   }
 
-  @StartSession
   public void testWaterBodyCollection()
   {
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
