@@ -735,6 +735,24 @@
             order="1"
             type="java.util.Date" />
         </mdAction>
+        <mdAction
+          name="searchByGeoIdAndDate"
+          label="Search By Geo Id And Date"
+          isPost="true"
+          description="Searches for a single mosquito collection with the given Geo Id and Collection Date">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String"
+            description="GeoId to search" />
+          <mdParameter
+            name="collectionDate"
+            label="Collection Date"
+            description="The date the mosquito collection was collected"
+            order="1"
+            type="java.util.Date" />
+        </mdAction>        
       </create>
     </mdController>
   </update>
@@ -967,6 +985,48 @@
       </attributes>
     </mdBusiness>
 
+    <mdView
+      name="mdss.entomology.assay.ADDATestIntervalView"
+      label="Test Interval View"
+      description="View for Adult Discriminating Dose Assay test intervals">
+      <attributes>
+        <char
+          name="assayId"
+          label="Adult Discriminating Dose Assay Id"
+          required="true"
+          size="255" />
+        <char
+          name="intervalId"
+          label="Test Interval Id"
+          required="true"
+          size="255" />
+        <integer
+          name="period"
+          label="Period"
+          rejectNegative="true"
+          required="true" />
+        <integer
+          name="knockedDown"
+          rejectNegative="true"
+          label="Knocked Down"
+          required="true"
+          default_value="0" />
+      </attributes>
+      <mdMethod
+        name="saveAll"
+        label="Save All"
+        returnType="void"
+        static="true"
+        description="Saves an array of ADDATestIntervalViews in a single transaction">
+        <mdParameter
+          name="array"
+          label="Array"
+          description="Array of objects to save"
+          order="0"
+          type="mdss.entomology.assay.ADDATestIntervalView[]" />
+      </mdMethod>
+    </mdView>
+
     <mdBusiness
       name="mdss.entomology.assay.AdultDiscriminatingDoseAssay"
       label="Adult Discriminating Dose Assay"
@@ -1004,10 +1064,22 @@
       <mdMethod
         name="getTestIntervals"
         label="Get Test Intervals"
-        returnType="mdss.entomology.assay.ADDATestInterval[]"
+        returnType="mdss.entomology.assay.ADDATestIntervalView[]"
         static="false"
         description="Returns a list of test intervals">
       </mdMethod>
+      <mdMethod
+        name="getKD50"
+        label="Get KD50"
+        returnType="java.lang.Integer"
+        static="false"
+        description="Returns the predicted KD50" />
+      <mdMethod
+        name="getKD95"
+        label="Get KD95"
+        returnType="java.lang.Integer"
+        static="false"
+        description="Returns the predicted KD95" />
     </mdBusiness>
 
     <mdBusiness
@@ -1045,7 +1117,94 @@
       <attribute
         name="period" />
     </mdIndex>
-
   </create>
 
+  <create>
+    <mdBusiness
+      name="mdss.entomology.ResistantCutOff"
+      label="Property"
+      description="A global property of the MDSS system"
+      extendable="false">
+      <attributes>
+        <integer
+          name="aDDAR"
+          label="Adult Diagnostic Dose Assay Resistant Limit"
+          rejectNegative="true"
+          required="true" />
+        <integer
+          name="aDDAS"
+          label="Adult Diagnostic Dose Assay Potentially Resistant Limit"
+          rejectNegative="true"
+          required="true" />
+
+        <integer
+          name="lDDAR"
+          label="Larvae Diagnostic Dose Assay Resistant Limit"
+          rejectNegative="true"
+          required="true" />
+        <integer
+          name="lDDAS"
+          label="Larvae Diagnostic Dose Assay Potentially Resistant Limit"
+          rejectNegative="true"
+          required="true" />
+
+        <integer
+          name="aAKnockDownR"
+          label="Adult Assay Knock Down for Resistant Limit"
+          rejectNegative="true"
+          required="true" />
+        <integer
+          name="aAKnockDownPR"
+          label="Adult Assay Knock Down for Potentially Resistant Limit"
+          rejectNegative="true"
+          required="true" />
+
+        <integer
+          name="lAKnockDownR"
+          label="Larvae Assay Knock Down for Resistant Lower Limit"
+          rejectNegative="true"
+          required="true" />
+        <integer
+          name="lAKnockDownPR"
+          label="Larvae Assay Knock Down for Potentially Resistant Limit"
+          rejectNegative="true"
+          required="true" />
+      </attributes>
+      <mdMethod
+        name="instance"
+        label="Instance"
+        static="true"
+        returnType="mdss.entomology.ResistantCutOff"
+        description="Returns the singleton instance of this class" />
+    </mdBusiness>
+
+    <object
+      type="mdss.entomology.ResistantCutOff"
+      id="RESISTANT_CUT_OFF">
+      <valueAttribute
+        name="aDDAR"
+        value="95" />
+      <valueAttribute
+        name="aDDAS"
+        value="98" />
+      <valueAttribute
+        name="lDDAR"
+        value="95" />
+      <valueAttribute
+        name="lDDAS"
+        value="98" />
+      <valueAttribute
+        name="aAKnockDownR"
+        value="95" />
+      <valueAttribute
+        name="aAKnockDownPR"
+        value="98" />
+      <valueAttribute
+        name="lAKnockDownR"
+        value="95" />
+      <valueAttribute
+        name="lAKnockDownPR"
+        value="98" />
+    </object>
+  </create>
 </TerraFrame>
