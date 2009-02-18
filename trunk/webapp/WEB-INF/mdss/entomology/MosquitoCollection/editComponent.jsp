@@ -26,7 +26,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="dateCollected" />
+        <mjl:input type="text" param="dateCollected" class="DatePick"/>
         <mjl:messages attribute="dateCollected">
           <mjl:message />
         </mjl:messages>
@@ -49,3 +49,5 @@
   <mjl:command value="Delete" action="mdss.entomology.MosquitoCollectionController.delete.mojo" name="mdss.entomology.MosquitoCollection.form.delete.button" />
   <mjl:command value="Cancel" action="mdss.entomology.MosquitoCollectionController.cancel.mojo" name="mdss.entomology.MosquitoCollection.form.cancel.button" />
 </mjl:form>
+
+<div id="cal1Container" class="yui-skin-sam"></div> 
