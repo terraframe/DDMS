@@ -16,22 +16,8 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   
   public MosquitoCollectionController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
-    super(req, resp, isAsynchronous);
+    super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
-  protected void render(String jsp) throws java.io.IOException, javax.servlet.ServletException
-  {
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher(JSP_DIR+jsp).forward(req, resp);
-    }
-    else
-    {
-      req.setAttribute("jsp", jsp);
-      req.getRequestDispatcher(LAYOUT).forward(req, resp);
-    }
-  }
-
   
   public void failSearchByGeoIdAndDate(java.lang.String geoId, java.lang.String collectionDate) throws java.io.IOException, javax.servlet.ServletException
   {

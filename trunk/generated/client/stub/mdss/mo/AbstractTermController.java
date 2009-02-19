@@ -2,36 +2,49 @@ package mdss.mo;
 
 public class AbstractTermController extends AbstractTermControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1234811657073L;
+  public static final String JSP_DIR = "WEB-INF/mdss/mo/AbstractTerm/";
+  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  
+  private static final long serialVersionUID = 1235073586920L;
   
   public AbstractTermController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
-    super(req, resp, isAsynchronous);
+    super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void create(mdss.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failCreate(dto);
-    }
-  }
-  public void failCreate(mdss.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
+    mdss.mo.AbstractTermDTO dto = mdss.mo.AbstractTermDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/createComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/create.jsp").forward(req, resp);
-    }
+    req.setAttribute("page_title", "Edit AbstractTermController");
+    render("editComponent.jsp");
+  }
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.view(id);
+  }
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    mdss.mo.AbstractTermQueryDTO query = mdss.mo.AbstractTermDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    req.setAttribute("query", query);
+    req.setAttribute("page_title", "View All AbstractTermController Objects");
+    render("viewAllComponent.jsp");
+  }
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
+  }
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("item", mdss.mo.AbstractTermDTO.get(clientRequest, id));
+    req.setAttribute("page_title", "View AbstractTermController");
+    render("viewComponent.jsp");
+  }
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
   }
   public void cancel(mdss.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -42,38 +55,33 @@ public class AbstractTermController extends AbstractTermControllerBase implement
   {
     resp.sendError(500);
   }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(mdss.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", mdss.mo.AbstractTermDTO.get(clientRequest, id));
-    if(this.isAsynchronous())
+    try
     {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/viewComponent.jsp").forward(req, resp);
+      dto.delete();
+      this.viewAll();
     }
-    else
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/view.jsp").forward(req, resp);
+      this.failDelete(dto);
     }
   }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(mdss.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.viewAll();
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit AbstractTermController");
+    render("editComponent.jsp");
   }
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.mo.AbstractTermQueryDTO query = mdss.mo.AbstractTermDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    mdss.mo.AbstractTermQueryDTO query = mdss.mo.AbstractTermDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/viewAllComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/viewAll.jsp").forward(req, resp);
-    }
+    req.setAttribute("page_title", "View All AbstractTermController Objects");
+    render("viewAllComponent.jsp");
   }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
@@ -92,72 +100,25 @@ public class AbstractTermController extends AbstractTermControllerBase implement
   public void failUpdate(mdss.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/editComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/edit.jsp").forward(req, resp);
-    }
+    req.setAttribute("page_title", "Update AbstractTermController");
+    render("updateComponent.jsp");
   }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.mo.AbstractTermQueryDTO query = mdss.mo.AbstractTermDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/viewAllComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/viewAll.jsp").forward(req, resp);
-    }
-  }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    mdss.mo.AbstractTermDTO dto = mdss.mo.AbstractTermDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/editComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/edit.jsp").forward(req, resp);
-    }
-  }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.view(id);
-  }
-  public void delete(mdss.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(mdss.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
-      dto.delete();
-      this.viewAll();
+      dto.apply();
+      this.view(dto.getId());
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
-      this.failDelete(dto);
+      this.failCreate(dto);
     }
   }
-  public void failDelete(mdss.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(mdss.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/editComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/mo/AbstractTerm/edit.jsp").forward(req, resp);
-    }
+    req.setAttribute("page_title", "Create AbstractTermController");
+    render("createComponent.jsp");
   }
 }

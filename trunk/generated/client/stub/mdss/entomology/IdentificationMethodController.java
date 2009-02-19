@@ -2,49 +2,40 @@ package mdss.entomology;
 
 public class IdentificationMethodController extends IdentificationMethodControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1234725413597L;
+  public static final String JSP_DIR = "WEB-INF/mdss/entomology/IdentificationMethod/";
+  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  
+  private static final long serialVersionUID = 1235073595329L;
   
   public IdentificationMethodController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
-    super(req, resp, isAsynchronous);
+    super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void delete(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
-      dto.delete();
-      this.viewAll();
+      dto.apply();
+      this.view(dto.getId());
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
-      this.failDelete(dto);
+      this.failCreate(dto);
     }
   }
-  public void failDelete(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/editComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/edit.jsp").forward(req, resp);
-    }
+    req.setAttribute("page_title", "Create IdentificationMethodController");
+    render("createComponent.jsp");
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     mdss.entomology.IdentificationMethodDTO dto = mdss.entomology.IdentificationMethodDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/editComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/edit.jsp").forward(req, resp);
-    }
+    req.setAttribute("page_title", "Edit IdentificationMethodController");
+    render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -55,14 +46,8 @@ public class IdentificationMethodController extends IdentificationMethodControll
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     mdss.entomology.IdentificationMethodDTO dto = new mdss.entomology.IdentificationMethodDTO(clientRequest);
     req.setAttribute("item", dto);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/createComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/create.jsp").forward(req, resp);
-    }
+    req.setAttribute("page_title", "Create IdentificationMethodController");
+    render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -83,78 +68,16 @@ public class IdentificationMethodController extends IdentificationMethodControll
   public void failUpdate(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/editComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/edit.jsp").forward(req, resp);
-    }
-  }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", mdss.entomology.IdentificationMethodDTO.get(clientRequest, id));
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/viewComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/view.jsp").forward(req, resp);
-    }
-  }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void cancel(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dto.unlock();
-    this.view(dto.getId());
-  }
-  public void failCancel(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-  public void create(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failCreate(dto);
-    }
-  }
-  public void failCreate(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("item", dto);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/createComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/create.jsp").forward(req, resp);
-    }
+    req.setAttribute("page_title", "Update IdentificationMethodController");
+    render("updateComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     mdss.entomology.IdentificationMethodQueryDTO query = mdss.entomology.IdentificationMethodDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/viewAllComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/viewAll.jsp").forward(req, resp);
-    }
+    req.setAttribute("page_title", "View All IdentificationMethodController Objects");
+    render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -165,17 +88,49 @@ public class IdentificationMethodController extends IdentificationMethodControll
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     mdss.entomology.IdentificationMethodQueryDTO query = mdss.entomology.IdentificationMethodDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    if(this.isAsynchronous())
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/viewAllComponent.jsp").forward(req, resp);
-    }
-    else
-    {
-      req.getRequestDispatcher("WEB-INF/mdss/entomology/IdentificationMethod/viewAll.jsp").forward(req, resp);
-    }
+    req.setAttribute("page_title", "View All IdentificationMethodController Objects");
+    render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
+  }
+  public void cancel(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    dto.unlock();
+    this.view(dto.getId());
+  }
+  public void failCancel(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
+  }
+  public void delete(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.delete();
+      this.viewAll();
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failDelete(dto);
+    }
+  }
+  public void failDelete(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit IdentificationMethodController");
+    render("editComponent.jsp");
+  }
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("item", mdss.entomology.IdentificationMethodDTO.get(clientRequest, id));
+    req.setAttribute("page_title", "View IdentificationMethodController");
+    render("viewComponent.jsp");
+  }
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
   }
 }
