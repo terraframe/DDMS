@@ -70,7 +70,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("mdss_entomology_AbstractMosquitoCollection_geoEntity", mdss.test.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create");
-    render();
+    render("createComponent.jsp");
    
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
