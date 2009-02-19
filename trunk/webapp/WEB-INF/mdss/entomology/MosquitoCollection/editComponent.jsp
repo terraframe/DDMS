@@ -26,7 +26,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="dateCollected" class="DatePick"/>
+        <mjl:input type="text" param="dateCollected" classes="DatePick" id="dto.dateCollected.id"/>
         <mjl:messages attribute="dateCollected">
           <mjl:message />
         </mjl:messages>
