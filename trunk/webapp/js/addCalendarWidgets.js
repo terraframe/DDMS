@@ -1,6 +1,9 @@
 // If you include this file it will add calandar popups to all elements with the class "DatePick"
-// You must also put a div on the page like this <div id="cal1Container" class="yui-skin-sam"></div> 
-(function() {
+// HOW TO USE
+// 1. Put this at the bottom of the page <div id="cal1Container" class="yui-skin-sam"></div> 
+// 2. Set the class of the input to "DATE PICK"
+// 3. MAKE SURE THE ELEMENT HAS A DOM ID !!!!!!!
+//(function() {
     var Dom = YAHOO.util.Dom,
         Event = YAHOO.util.Event,
         cal1,
@@ -9,10 +12,9 @@
 
     var init = function() {
     
-        if(Dom.getElementsByClassName("DatePick").length > 1)
+        if(Dom.getElementsByClassName("DatePick").length > 0)
         {
 	        cal1 = new YAHOO.widget.Calendar("cal1","cal1Container");
-	        
 	        cal1.cfg.setProperty("DATE_FIELD_DELIMITER", "-");
 	        cal1.cfg.setProperty("DATE_RANGE_DELIMITER", "*");
 	        cal1.cfg.setProperty("MDY_YEAR_POSITION", 1);
@@ -23,9 +25,9 @@
 	        cal1.renderEvent.subscribe(setupListeners, cal1, true);
 	
 	        for each (el in Dom.getElementsByClassName("DatePick"))
-	        {
-	          Event.addListener([el.id], 'focus', showCal);
-	          Event.addListener([el.id], 'blur', hideCal);
+	        {	        	
+	          Event.addListener(el.id, 'focus', showCal);
+	          Event.addListener(el.id, 'blur', hideCal);
 	        }
 	        
 	        cal1.render();
@@ -54,10 +56,9 @@
     var showCal = function(ev) {
         var tar = Event.getTarget(ev);
         cur_field = tar;
-    
-        var xy = Dom.getXY(tar),
+        var xy = Dom.getXY(tar);
         	//switch the dashes to slashes to make date format compatable with js
-            date = Dom.get(tar).value.replace(/-/g,"/")
+        var date = Dom.get(tar).value.replace(/-/g,"/");
         if (date) {
             cal1.cfg.setProperty('selected', date);
             cal1.cfg.setProperty('pagedate', new Date(date), true);
@@ -78,5 +79,6 @@
     }
 
     Event.addListener(window, 'load', init);
+    //YAHOO.util.Event.onContentReady("cal1Container", init);
 
-})();
+//})();

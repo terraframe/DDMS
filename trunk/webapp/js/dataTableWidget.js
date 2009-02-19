@@ -1,10 +1,7 @@
 //This file contains functions for setting up a data table.  
 
-// setting up my own namespace
+// setting up mojo  namespace
 var MojoGrid = YAHOO.namespace('MojoGrid');
-
-
-
 
 (function () {
 	// Enclosing everything within this anonymous function
