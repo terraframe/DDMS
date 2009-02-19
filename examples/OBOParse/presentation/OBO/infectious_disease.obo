@@ -1,0 +1,844 @@
+format-version: 1.0
+date: 08:10:2007 20:55
+saved-by: Administrator
+auto-generated-by: OBO-Edit 1.101
+default-namespace: default_namespace
+
+[Term]
+id: GO:0000000
+name: mode of transmission
+is_a: ID:0000001 ! role
+
+[Term]
+id: GO:0000001
+name: end reservoir
+is_a: ID:0000059 ! reservoir
+
+[Term]
+id: GO:0000004
+name: factor
+comment: Role played by portion of physical substance in a biological process
+is_a: ID:0000001 ! role
+
+[Term]
+id: GO:0000005
+name: colonization
+comment: the process by which a biotic entity establishes multiple copies of itself in a new environment (including an organismal environment).\n\nfix id\n"native" environment term
+is_a: ID:0000000 ! process
+relationship: part_of GO:0000021 ! infectious disease progression
+
+[Term]
+id: GO:0000006
+name: biotic
+is_a: ID:0000003 ! object
+
+[Term]
+id: GO:0000007
+name: adhesin
+is_obsolete: true
+
+[Term]
+id: GO:0000008
+name: seroprevalence
+comment: prevalence as measured by antibody
+is_a: ID:0000019 ! prevalence
+
+[Term]
+id: GO:0000009
+name: dormancy
+comment: quality [state] of an organism that during its life cycle in which its growth. development, metabolism, etc is temporarily suspended \n\n\nsuspended state, non-replicative state, resting state
+is_a: GO:0000011 ! quality of pathogen
+
+[Term]
+id: GO:0000010
+name: quality of host
+is_a: ID:0000002 ! quality
+
+[Term]
+id: GO:0000011
+name: quality of pathogen
+is_a: ID:0000002 ! quality
+
+[Term]
+id: GO:0000012
+name: susceptibility
+comment: can change depending on environment\n\nwhere should susceptibility factors go?
+is_a: GO:0000010 ! quality of host
+
+[Term]
+id: GO:0000013
+name: resistance
+is_a: GO:0000010 ! quality of host
+
+[Term]
+id: GO:0000014
+name: refractoriness
+is_a: GO:0000010 ! quality of host
+
+[Term]
+id: GO:0000015
+name: quality of host population
+is_a: ID:0000002 ! quality
+
+[Term]
+id: GO:0000016
+name: herd immunity
+is_a: GO:0000015 ! quality of host population
+
+[Term]
+id: GO:0000017
+name: quality of infectious disease
+is_a: ID:0000002 ! quality
+
+[Term]
+id: GO:0000018
+name: case of infectious disease
+is_a: GO:0000010 ! quality of host
+
+[Term]
+id: GO:0000019
+name: incubation period
+comment: agent is incubated?\ndisease is incubated?
+relationship: part_of GO:0000021 ! infectious disease progression
+
+[Term]
+id: GO:0000020
+name: infectivity period
+relationship: part_of GO:0000021 ! infectious disease progression
+
+[Term]
+id: GO:0000021
+name: infectious disease progression
+comment: the unfolding or course of infectious disease\n\nwhat do we say about infectious disease that always remain latent \nwhat about when a pathogen continues its progression \n\nwe need to think about whether we need a term called stage\nlife cycle?\nprogression?\ndevelopment?
+is_a: ID:0000000 ! process
+
+[Term]
+id: GO:0000022
+name: infectious disease course
+is_a: ID:0000000 ! process
+
+[Term]
+id: GO:0000023
+name: host recovery period
+is_a: ID:0000000 ! process
+
+[Term]
+id: GO:0000024
+name: intrinsic incubation period
+is_a: GO:0000019 ! incubation period
+is_a: ID:0000000 ! process
+
+[Term]
+id: GO:0000025
+name: extrinsic incubation period
+relationship: part_of GO:0000026 ! pathogen life cycle
+
+[Term]
+id: GO:0000026
+name: pathogen life cycle
+comment: is this just the part of the life cycle of the biotic entity that has role pathogen for the period of time while it has role pathogen?\n\ncan include phases in the existence of the entity before it becomes a pathogen
+is_a: ID:0000000 ! process
+
+[Term]
+id: GO:0000027
+name: dormancy period
+comment: is a period a process?
+is_a: ID:0000000 ! process
+
+[Term]
+id: GO:0000028
+name: pathogen outbreak
+is_a: ID:0000000 ! process
+
+[Term]
+id: GO:0000029
+name: oral-fecal transmission
+is_a: ID:0000083 ! transmission
+
+[Term]
+id: GO:0000030
+name: vertical transmission
+is_a: ID:0000083 ! transmission
+
+[Term]
+id: GO:0000031
+name: horizontal transmission
+is_a: ID:0000083 ! transmission
+
+[Term]
+id: GO:0000032
+name: pathogen life cycle stage
+is_obsolete: true
+
+[Term]
+id: GO:0000033
+name: infectious disease progression stage
+is_obsolete: true
+
+[Term]
+id: ID:0000000
+name: process
+
+[Term]
+id: ID:0000001
+name: role
+
+[Term]
+id: ID:0000002
+name: quality
+
+[Term]
+id: ID:0000003
+name: object
+
+[Term]
+id: ID:0000004
+name: virulence
+comment: the degree of pathogenicity\n\npathogenicity and virulence are used in some communities as synonyms.
+is_a: GO:0000011 ! quality of pathogen
+
+[Term]
+id: ID:0000005
+name: swollen
+is_a: GO:0000010 ! quality of host
+
+[Term]
+id: ID:0000006
+name: toxicity
+is_a: ID:0000002 ! quality
+
+[Term]
+id: ID:0000007
+name: active
+is_a: ID:0000002 ! quality
+
+[Term]
+id: ID:0000008
+name: contagious
+is_a: GO:0000011 ! quality of pathogen
+
+[Term]
+id: ID:0000009
+name: latency
+comment: infection has occurred, but it might not have manifested itself\nquality of being in a non replicative state\ntime to manifest itself \na pathogen when it is in a non replicative state
+is_a: GO:0000011 ! quality of pathogen
+
+[Term]
+id: ID:0000010
+name: immunosuppressed
+is_a: GO:0000010 ! quality of host
+
+[Term]
+id: ID:0000011
+name: exogenous
+is_a: GO:0000011 ! quality of pathogen
+
+[Term]
+id: ID:0000012
+name: immunity
+is_a: GO:0000010 ! quality of host
+
+[Term]
+id: ID:0000013
+name: protective
+is_a: ID:0000002 ! quality
+
+[Term]
+id: ID:0000015
+name: temperature
+is_a: GO:0000010 ! quality of host
+
+[Term]
+id: ID:0000016
+name: inactivated
+is_a: ID:0000002 ! quality
+
+[Term]
+id: ID:0000017
+name: mortality
+is_a: ID:0000002 ! quality
+
+[Term]
+id: ID:0000018
+name: pandemic
+is_a: ID:0000029 ! incidence
+
+[Term]
+id: ID:0000019
+name: prevalence
+comment: total number of cases of a particular disease at a given time in a particular population divided by the number of individuals in that particular population\n\nthe burden of a disease in a population
+is_a: GO:0000015 ! quality of host population
+
+[Term]
+id: ID:0000020
+name: epidemic
+is_a: ID:0000029 ! incidence
+
+[Term]
+id: ID:0000021
+name: infected
+is_a: GO:0000010 ! quality of host
+
+[Term]
+id: ID:0000022
+name: live
+is_a: ID:0000002 ! quality
+
+[Term]
+id: ID:0000023
+name: zoonotic
+is_a: GO:0000011 ! quality of pathogen
+
+[Term]
+id: ID:0000024
+name: immunocompromised
+is_a: GO:0000010 ! quality of host
+
+[Term]
+id: ID:0000025
+name: pathogenicity
+comment: the ability of the biotic entity to cause disease in a host of a given type\n\ndo we need to say damage instead of disease?\n\npathogenicity and virulence are used as synonyms in some communities
+is_a: GO:0000011 ! quality of pathogen
+
+[Term]
+id: ID:0000026
+name: tropism
+is_a: ID:0000002 ! quality
+
+[Term]
+id: ID:0000027
+name: drug resistance
+is_a: GO:0000011 ! quality of pathogen
+
+[Term]
+id: ID:0000028
+name: antibiotic resistance
+is_a: ID:0000027 ! drug resistance
+
+[Term]
+id: ID:0000029
+name: incidence
+comment: number of new cases in a given period of time
+is_a: GO:0000017 ! quality of infectious disease
+
+[Term]
+id: ID:0000030
+name: invasive
+is_a: GO:0000011 ! quality of pathogen
+
+[Term]
+id: ID:0000031
+name: endogenous
+is_a: GO:0000011 ! quality of pathogen
+
+[Term]
+id: ID:0000032
+name: attenuated
+is_a: ID:0000002 ! quality
+
+[Term]
+id: ID:0000033
+name: morbidity
+is_a: ID:0000002 ! quality
+
+[Term]
+id: ID:0000034
+name: endemic
+is_a: GO:0000017 ! quality of infectious disease
+
+[Term]
+id: ID:0000035
+name: fusion protein
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000036
+name: colonizer
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000037
+name: commensal
+is_a: ID:0000036 ! colonizer
+
+[Term]
+id: ID:0000038
+name: parasite
+is_a: ID:0000036 ! colonizer
+
+[Term]
+id: ID:0000039
+name: symbiant
+is_a: ID:0000036 ! colonizer
+
+[Term]
+id: ID:0000040
+name: virulence factor
+comment: role played by a portion of substance to promote virulence\n\nmagnitude\ndegree of pathogenesis
+is_a: GO:0000004 ! factor
+
+[Term]
+id: ID:0000041
+name: route of entry
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000042
+name: invasin
+is_a: ID:0000040 ! virulence factor
+
+[Term]
+id: ID:0000043
+name: toxin
+is_a: ID:0000040 ! virulence factor
+
+[Term]
+id: ID:0000044
+name: endotoxin
+is_a: ID:0000043 ! toxin
+
+[Term]
+id: ID:0000045
+name: exotoxin
+is_a: ID:0000043 ! toxin
+
+[Term]
+id: ID:0000046
+name: sign
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000047
+name: treatment
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000048
+name: symptom
+comment: look at mathias's ontology of cancer to get all the subterms...its under quality there
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000049
+name: antimicrobial
+is_a: ID:0000047 ! treatment
+
+[Term]
+id: ID:0000050
+name: medicine
+is_a: ID:0000047 ! treatment
+
+[Term]
+id: ID:0000051
+name: therapeutic
+is_a: ID:0000047 ! treatment
+
+[Term]
+id: ID:0000052
+name: vaccine
+is_a: ID:0000047 ! treatment
+
+[Term]
+id: ID:0000053
+name: antibiotic
+is_a: ID:0000049 ! antimicrobial
+
+[Term]
+id: ID:0000054
+name: colonization factor
+comment: role played by portion of physical substance which promotes colonization
+related_synonym: "<new synonym>" []
+is_a: GO:0000004 ! factor
+
+[Term]
+id: ID:0000055
+name: adhesion factor
+comment: role played by portion of physical substance utilized by an organism in order to establish adherence to a surface in a host
+related_synonym: "adhesin" []
+related_synonym: "adhesin factor" []
+is_a: GO:0000004 ! factor
+
+[Term]
+id: ID:0000056
+name: host
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000057
+name: carrier
+is_a: ID:0000056 ! host
+
+[Term]
+id: ID:0000058
+name: chronic carrier
+is_a: ID:0000057 ! carrier
+
+[Term]
+id: ID:0000059
+name: reservoir
+comment: holding place for a potential pathogen...animate or inanimate
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000060
+name: fomite
+comment: inanimate holder, is water a fomite or only a reservoir?
+is_a: ID:0000059 ! reservoir
+
+[Term]
+id: ID:0000061
+name: mobile genetic element
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000062
+name: pathogenicity island
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000063
+name: vector
+comment: holder and a carrier (actively transmits) and living: potentially make a cross product.  every vector comes into contact with the target. (from one host to another?)
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000064
+name: pathogen
+is_a: ID:0000001 ! role
+
+[Term]
+id: ID:0000065
+name: dependovirus
+is_a: ID:0000064 ! pathogen
+
+[Term]
+id: ID:0000066
+name: infectious agent
+is_a: ID:0000064 ! pathogen
+
+[Term]
+id: ID:0000067
+name: opportunistic pathogen
+is_a: ID:0000064 ! pathogen
+
+[Term]
+id: ID:0000068
+name: emerging pathogen
+is_a: ID:0000066 ! infectious agent
+
+[Term]
+id: ID:0000069
+name: primary pathogen
+is_a: ID:0000066 ! infectious agent
+
+[Term]
+id: ID:0000070
+name: prion
+is_a: ID:0000066 ! infectious agent
+
+[Term]
+id: ID:0000071
+name: initiation of infection
+is_a: ID:0000000 ! process
+
+[Term]
+id: ID:0000072
+name: disruption of body surface
+is_a: ID:0000071 ! initiation of infection
+
+[Term]
+id: ID:0000073
+name: disruption of normal microbioflora
+is_a: ID:0000071 ! initiation of infection
+
+[Term]
+id: ID:0000074
+name: pathogen adherence to host cell
+comment: create cross products for "host" and "pathogen" that will be part of this process.
+is_a: ID:0000000 ! process
+relationship: part_of GO:0000021 ! infectious disease progression
+
+[Term]
+id: ID:0000075
+name: nonspecific adherence
+is_a: ID:0000074 ! pathogen adherence to host cell
+
+[Term]
+id: ID:0000076
+name: specific adherence
+is_a: ID:0000074 ! pathogen adherence to host cell
+
+[Term]
+id: ID:0000077
+name: afimbrial specific adherence
+is_a: ID:0000076 ! specific adherence
+
+[Term]
+id: ID:0000078
+name: fimbrial specific adherence
+is_a: ID:0000076 ! specific adherence
+
+[Term]
+id: ID:0000079
+name: penetration of epithelial barrier
+is_a: ID:0000000 ! process
+
+[Term]
+id: ID:0000080
+name: penetration via injury of epithelial barrier
+is_a: ID:0000079 ! penetration of epithelial barrier
+
+[Term]
+id: ID:0000081
+name: transcytosis
+is_a: ID:0000079 ! penetration of epithelial barrier
+
+[Term]
+id: ID:0000082
+name: utilization of membranous cell gateway
+is_a: ID:0000079 ! penetration of epithelial barrier
+
+[Term]
+id: ID:0000083
+name: transmission
+comment: the process by which an infectious agent passes from one organism to another organism
+is_a: ID:0000000 ! process
+relationship: part_of GO:0000021 ! infectious disease progression
+
+[Term]
+id: ID:0000084
+name: pathogenesis
+comment: GO:\nthe specific processes that generate the ability of an organism to cause disease in another\n\n\nThis is defined in GO so import.
+is_a: ID:0000000 ! process
+
+[Term]
+id: ID:0000085
+name: penetration of host cell
+is_a: ID:0000000 ! process
+
+[Term]
+id: ID:0000086
+name: engulfment
+is_a: ID:0000085 ! penetration of host cell
+
+[Term]
+id: ID:0000087
+name: fusion with host cell membrane
+is_a: ID:0000085 ! penetration of host cell
+
+[Term]
+id: ID:0000088
+name: membrane invagination
+is_a: ID:0000085 ! penetration of host cell
+
+[Term]
+id: ID:0000089
+name: passage through cell membrane
+is_a: ID:0000085 ! penetration of host cell
+
+[Term]
+id: ID:0000090
+name: engulfment by nonphagocyte
+is_a: ID:0000086 ! engulfment
+
+[Term]
+id: ID:0000091
+name: engulfment by phagocyte
+is_a: ID:0000086 ! engulfment
+
+[Term]
+id: ID:0000092
+name: damaging host cells and tissues in subepithelial space
+is_a: ID:0000000 ! process
+relationship: part_of GO:0000021 ! infectious disease progression
+
+[Term]
+id: ID:0000093
+name: induction of damaging host immune response
+is_a: ID:0000092 ! damaging host cells and tissues in subepithelial space
+
+[Term]
+id: ID:0000094
+name: pathogen-induced apoptosis
+is_a: ID:0000092 ! damaging host cells and tissues in subepithelial space
+
+[Term]
+id: ID:0000095
+name: pathogen-induced necrosis
+is_a: ID:0000092 ! damaging host cells and tissues in subepithelial space
+
+[Term]
+id: ID:0000096
+name: virus-induced cytopathogenesis
+is_a: ID:0000092 ! damaging host cells and tissues in subepithelial space
+
+[Term]
+id: ID:0000097
+name: pathogen spread through host
+is_a: ID:0000000 ! process
+relationship: part_of GO:0000021 ! infectious disease progression
+
+[Term]
+id: ID:0000098
+name: infectious disease
+comment: comment about the instances:\n\ncollections of etiologically connected cases of infectious disease in a given population
+is_a: GO:0000015 ! quality of host population
+
+[Term]
+id: ID:0000100
+name: pathogen evasion of host immune response
+is_a: ID:0000000 ! process
+relationship: part_of GO:0000021 ! infectious disease progression
+
+[Term]
+id: ID:0000101
+name: emergence
+comment: the process by which an infectious disease establishes itself in a new population (or at a sufficiently higher rate? higher prevalence and/or higher incidence)
+is_a: ID:0000000 ! process
+
+[Term]
+id: ID:0000102
+name: epidemiological spread of disease
+is_a: ID:0000000 ! process
+
+[Term]
+id: ID:0000103
+name: outbreak
+is_a: ID:0000000 ! process
+
+[Term]
+id: ID:0000104
+name: infection
+is_a: ID:0000000 ! process
+
+[Term]
+id: ID:0000105
+name: infection treatment process
+is_a: ID:0000000 ! process
+
+[Term]
+id: ID:0000106
+name: immunization
+is_a: ID:0000000 ! process
+
+[Term]
+id: ID:0000107
+name: prevention of infection
+is_a: ID:0000000 ! process
+
+[Term]
+id: ID:0000108
+name: transport by blood
+is_a: ID:0000097 ! pathogen spread through host
+
+[Term]
+id: ID:0000109
+name: transport by lymph
+is_a: ID:0000097 ! pathogen spread through host
+
+[Term]
+id: ID:0000110
+name: modulation of inflammatory response
+is_obsolete: true
+
+[Term]
+id: ID:0000111
+name: antigenic variation
+is_a: ID:0000100 ! pathogen evasion of host immune response
+
+[Term]
+id: ID:0000112
+name: resist phagocytosis in subepithelial space
+is_a: ID:0000100 ! pathogen evasion of host immune response
+
+[Term]
+id: ID:0000113
+name: serum resistance
+is_a: ID:0000100 ! pathogen evasion of host immune response
+
+[Term]
+id: ID:0000114
+name: phase variation
+is_a: ID:0000111 ! antigenic variation
+
+[Term]
+id: ID:0000115
+name: genetic diversification
+is_a: ID:0000111 ! antigenic variation
+
+[Term]
+id: ID:0000116
+name: complement resistance
+is_a: ID:0000113 ! serum resistance
+
+[Term]
+id: ID:0000117
+name: epidemic spread of disease
+is_a: ID:0000102 ! epidemiological spread of disease
+
+[Term]
+id: ID:0000118
+name: pandemic spread of disease
+is_a: ID:0000102 ! epidemiological spread of disease
+
+[Term]
+id: ID:0000119
+name: vaccination
+is_a: ID:0000106 ! immunization
+
+[Term]
+id: TB:0000000
+name: progression rate
+is_a: ID:0000002 ! quality
+
+[Term]
+id: TB:0000001
+name: rapid progression
+is_a: TB:0000000 ! progression rate
+
+[Term]
+id: TB:0000002
+name: long-term non-progression
+is_a: TB:0000000 ! progression rate
+
+[Term]
+id: TB:0000003
+name: highly exposed persistently seronegative
+is_a: TB:0000000 ! progression rate
+
+[Term]
+id: TB:0000004
+name: <new term>
+is_obsolete: true
+
+[Term]
+id: TB:0000005
+name: co-infected
+is_a: GO:0000010 ! quality of host
+
+[Term]
+id: TB:0000006
+name: fitness
+comment: is a quality relating to both bacteria and host
+is_a: ID:0000002 ! quality
+
+[Typedef]
+id: has_participant
+name: has_participant
+
+[Typedef]
+id: has_quality
+name: has_quality
+
+[Typedef]
+id: has_role
+name: has_role
+
+[Typedef]
+id: part_of
+name: part_of
+
+[Typedef]
+id: preceded_by
+name: preceded_by
+
