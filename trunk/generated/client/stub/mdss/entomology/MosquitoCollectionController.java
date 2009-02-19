@@ -106,13 +106,13 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     mdss.entomology.MosquitoCollectionQueryDTO query = mdss.entomology.MosquitoCollectionDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All ");
-    render("viewAll.jsp");
+    render("viewAllComponent.jsp");
   }
-  
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
+  
   public void create(mdss.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -125,6 +125,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       this.failCreate(dto);
     }
   }
+  
   public void failCreate(mdss.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("mdss_entomology_MosquitoCollection_collectionMethod", mdss.entomology.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -133,6 +134,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("page_title", "Create Failed");
     render("createComponent.jsp");
   }
+  
   public void failSearchByGeoEntityAndDate(mdss.test.GeoEntityDTO geoEntity, java.lang.String collectionDate) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
@@ -149,13 +151,14 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       this.failDelete(dto);
     }
   }
+  
   public void failDelete(mdss.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("mdss_entomology_MosquitoCollection_collectionMethod", mdss.entomology.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_entomology_AbstractMosquitoCollection_geoEntity", mdss.test.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Delete Failed");
-    render("edit.jsp");
+    render("editComponent.jsp");
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -166,6 +169,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("page_title", "Edit");
     render();
   }
+  
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.view(id);
@@ -179,6 +183,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("page_title", "View");
     render();
   }
+  
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
