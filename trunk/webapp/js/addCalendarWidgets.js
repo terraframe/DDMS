@@ -3,7 +3,7 @@
 // 1. Put this at the bottom of the page <div id="cal1Container" class="yui-skin-sam"></div> 
 // 2. Set the class of the input to "DATE PICK"
 // 3. MAKE SURE THE ELEMENT HAS A DOM ID !!!!!!!
-//(function() {
+(function() {
     var Dom = YAHOO.util.Dom,
         Event = YAHOO.util.Event,
         cal1,
@@ -81,4 +81,4 @@
     Event.addListener(window, 'load', init);
     //YAHOO.util.Event.onContentReady("cal1Container", init);
 
-//})();
+})();
