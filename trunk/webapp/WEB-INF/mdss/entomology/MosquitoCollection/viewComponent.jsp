@@ -77,6 +77,13 @@
 <button type="button">Save Rows To DB</button>
 </span> </span></div>
 <script type="text/javascript" src="js/dataTableWidget.js"></script>
+    <%
+	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+    
+    //JSONArray species = new JSONArray(Arrays.asList(SpecieDTO.getAllTermNames(clientRequest)));
+    //out.println("var species = "+species.toString() + " ;");
+    %>
+
 <script type="text/javascript">      
     <%
     String[] types_to_load =
@@ -85,7 +92,7 @@
 	   "mdss.test.GeoEntity", "mdss.test.Terrain"
 	};
     
-	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+	//ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 	out.println("client_request ='" + clientRequest.getSessionId() + "' ;");
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
 
@@ -129,7 +136,7 @@
     	        copy_from_above: ["IdentificationMethod"],
     	        defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
     	        div_id: "basic",
-    	        collection_id: '<%= request.getParameter(mdss.entomology.MosquitoCollectionDTO.ID) %>',
+    	        collection_id: '${item.id}',
         	    data_type: "Mojo.$.mdss.entomology.MorphologicalSpecieGroupView"
     	        
     	    };   
