@@ -9,6 +9,9 @@ import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import mdss.mo.CollectionMethod;
+import mdss.mo.IdentificationMethod;
+import mdss.mo.Specie;
 import mdss.test.GeoEntity;
 import mdss.test.Terrain;
 

@@ -1,5 +1,8 @@
 package mdss.entomology;
 
+import mdss.mo.IdentificationMethod;
+import mdss.mo.Specie;
+
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBase implements com.terraframe.mojo.generation.loader.Reloadable

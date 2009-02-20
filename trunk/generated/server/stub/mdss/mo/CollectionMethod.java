@@ -1,6 +1,7 @@
-package mdss.entomology;
+package mdss.mo;
 
-import mdss.mo.AbstractTerm;
+import mdss.entomology.CollectionMethodBase;
+import mdss.entomology.CollectionMethodQuery;
 
 import com.terraframe.mojo.query.QueryFactory;
 

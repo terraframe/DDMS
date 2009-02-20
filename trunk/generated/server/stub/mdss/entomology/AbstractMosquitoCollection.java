@@ -4,6 +4,9 @@ import java.text.DateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
+import mdss.mo.IdentificationMethod;
+import mdss.mo.Specie;
+
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;

@@ -1,8 +1,8 @@
 package mdss.entomology.assay;
 
 import mdss.entomology.AssaySex;
-import mdss.entomology.Generation;
 import mdss.entomology.GenerationQuery;
+import mdss.mo.Generation;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;

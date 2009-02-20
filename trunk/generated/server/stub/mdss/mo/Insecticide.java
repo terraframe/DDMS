@@ -1,6 +1,7 @@
-package mdss.entomology;
+package mdss.mo;
 
-import mdss.mo.AbstractTerm;
+import mdss.entomology.IdentificationMethodQuery;
+import mdss.entomology.InsecticideBase;
 
 import com.terraframe.mojo.query.QueryFactory;
 
