@@ -28,7 +28,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	};
 
 	myDataTable = new YAHOO.widget.DataTable(table_data.div_id,
-			table_data.columnDefs, myDataSource, {});
+			table_data.columnDefs, myDataSource, {width:"30em", height:"10em"});
 
 	var i = (table_data.rows.length + 1);
 	var bReverseSorted = false;
@@ -70,10 +70,11 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		switch (column.action) {
 		case 'delete':
 			if (confirm('Are you sure you want to delete row ' + (record._nCount+1) + '?')) {
+				if(row_id.length > 1){
 				var request = new Mojo.ClientRequest( {
 					dataTable :myDataTable,
 					row_index :record._nCount,
-					onSuccess : function(deletedMorphologicalSpecieGroup) {
+					onSuccess : function(deletedRow) {
 					Array.remove(table_data.rows,request.row_index);
 					request.dataTable.deleteRow(target);					
 					alert('row deleted on server');
@@ -85,6 +86,12 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 				});
 				Mojo.deleteEntity(request, row_id);
 			}
+			else
+			{
+				myDataTable.deleteRow(target);
+			}
+				
+				}
 			break;
 		default:
 			this.onEventShowCellEditor(oArgs);
@@ -106,7 +113,16 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 			// alert the exception message
 			onFailure : function(e) {
-				alert(e.getLocalizedMessage());
+				if(e instanceof Mojo.dto.ProblemExceptionDTO )
+				{
+					 for each (problem in e.getProblems())
+					{
+					   alert(problem.getLocalizedMessage());
+					}
+				}
+				else{
+					alert(e.getLocalizedMessage());
+				}
 			}
 		});
 	
