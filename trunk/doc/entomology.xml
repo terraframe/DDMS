@@ -726,7 +726,6 @@
         label="Get All Term Names"
         static="true"
         description="Returns all term names of a MO subcatagory" />
-
     </mdBusiness>
 
     <mdBusiness
@@ -1044,6 +1043,191 @@
       <attribute
         name="period" />
     </mdIndex>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidFedQuantityProblem"
+      label="Invalid Fed Value">
+      <attributes>
+        <integer
+          name="fed"
+          label="Fed"
+          description="The Fed value"
+          required="true" />
+        <char
+          name="assayId"
+          label="Assay Id"
+          description="The id of the assay"
+          required="true"
+          size="255" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidGravidQuantityProblem"
+      label="Invalid Gravid Value">
+      <attributes>
+        <integer
+          name="gravid"
+          label="Gravid"
+          description="The Gravid value"
+          required="true" />
+        <char
+          name="assayId"
+          label="Assay Id"
+          description="The id of the assay"
+          required="true"
+          size="255" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidFedSexProblem"
+      label="Invalid Fed Sex">
+      <attributes>
+        <char
+          name="assayId"
+          label="Assay Id"
+          description="The id of the assay"
+          required="true"
+          size="255" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidGravidSexProblem"
+      label="Invalid Gravid Sex">
+      <attributes>
+        <char
+          name="assayId"
+          label="Assay Id"
+          description="The id of the assay"
+          required="true"
+          size="255" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidGenerationProblem"
+      label="Invalid Generation Value">
+      <attributes>
+        <char
+          name="assayId"
+          label="Assay Id"
+          description="The id of the assay"
+          required="true"
+          size="255" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidIntervalTimeProblem"
+      label="Invalid Interval Time">
+      <attributes>
+        <integer
+          name="exposureTime"
+          label="Exposure Time"
+          description="Exposure Time"
+          required="true" />
+        <integer
+          name="intervalTime"
+          label="Interval Time"
+          description="Interval Time"
+          required="true" />
+        <char
+          name="assayId"
+          label="Assay Id"
+          description="The id of the assay"
+          required="true"
+          size="255" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidDeadQuantityProblem"
+      label="Invalid Dead Quantity">
+      <attributes>
+        <integer
+          name="quantityDead"
+          label="Quantity Dead"
+          description="Quantity Dead"
+          required="true" />
+        <integer
+          name="quantityTested"
+          label="Quantity Tested"
+          description="Quantity Tested"
+          required="true" />
+        <char
+          name="assayId"
+          label="Assay Id"
+          description="The id of the assay"
+          required="true" 
+          size="255"/>
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidKnockDownQuantityProblem"
+      label="Invalid Knock Down Quantity">
+      <attributes>
+        <integer
+          name="quantityKnockDown"
+          label="Quantity Knock Down"
+          description="Quantity Knock Down"
+          required="true" />
+        <integer
+          name="quantityTested"
+          label="Quantity Tested"
+          description="Quantity Tested"
+          required="true" />
+        <char
+          name="intervalId"
+          label="Interval Id"
+          description="The id of the interval"
+          required="true"
+          size="255" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidPeriodProblem"
+      label="Invalid Period Value">
+      <attributes>
+        <integer
+          name="period"
+          label="Period"
+          description="period"
+          required="true" />
+        <char
+          name="intervalId"
+          label="Interval Id"
+          description="The id of the interval"
+          required="true"
+          size="255" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="mdss.entomology.assay.InvalidTestDateProblem"
+      label="Invalid Test Date">
+      <attributes>
+        <date
+          name="testDate"
+          label="Period"
+          description="period"
+          required="true" />
+        <date
+          name="collectionDate"
+          label="Period"
+          description="period"
+          required="true" />
+        <char
+          name="assayId"
+          label="Assay Id"
+          description="The id of the assay"
+          required="true"
+          size="255" />
+      </attributes>
+    </mdProblem>
   </create>
 
   <create>
