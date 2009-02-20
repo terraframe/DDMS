@@ -360,7 +360,7 @@
       <mdMethod
         name="saveAll"
         label="Save All"
-        returnType="void"
+        returnType="mdss.entomology.MorphologicalSpecieGroupView[]"
         static="true"
         description="Saves an array of MorphologicalSpecieGroupView in a single transaction">
         <mdParameter
@@ -372,11 +372,6 @@
       </mdMethod>
     </mdView>
 
-    <!--
-      <mdTree name="mdss.entomology.CollectionSpecie" label="Collection Specie" description="A mapping between a mosquito collection and all the morphological specie groups it is comprised of."
-      publish="true"> <parent cardinality="1" name="mdss.entomology.AbstractMosquitoCollection" method="AbstractMosqitoCollection" label="Abstract Mosqito Collection" /> <child cardinality="*"
-      name="mdss.entomology.MorphologicalSpecieGroup" method="MorphologicalSpecieGroup" label="Morphological Specie Group" /> </mdTree>
-    -->
     <mdBusiness
       name="mdss.entomology.TrueSpecieEntity"
       label="True Specie Collection"
@@ -941,7 +936,7 @@
       <mdMethod
         name="saveAll"
         label="Save All"
-        returnType="void"
+        returnType="mdss.entomology.assay.ADDATestIntervalView[]"
         static="true"
         description="Saves an array of ADDATestIntervalViews in a single transaction">
         <mdParameter
@@ -1132,5 +1127,874 @@
         name="lAKnockDownPR"
         value="98" />
     </object>
+
+  </create>
+
+  <create>
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000044">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000044" />
+      <valueAttribute
+        name="termName"
+        value="field population catch" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="field population catch" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="method" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_20000000" />
+    </object>
+
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000045">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000045" />
+      <valueAttribute
+        name="termName"
+        value="catch of live specimens" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="catch of live specimens" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="field population catch" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000044" />
+    </object>
+
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000048">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000048" />
+      <valueAttribute
+        name="termName"
+        value="aquatic environment catch" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="aquatic environment catch" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="catch of live specimens" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000045" />
+    </object>
+
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000022">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000022" />
+      <valueAttribute
+        name="termName"
+        value="collection of larvae" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="collection of larvae" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="aquatic environment catch" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000048" />
+    </object>
+
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000049">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000049" />
+      <valueAttribute
+        name="termName"
+        value="collection of eggs" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="collection of eggs" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="aquatic environment catch" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000048" />
+    </object>
+
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000053">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000053" />
+      <valueAttribute
+        name="termName"
+        value="collection of naturally deposited eggs" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="collection of naturally deposited eggs" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="collection of eggs" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000049" />
+    </object>
+
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000060">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000060" />
+      <valueAttribute
+        name="termName"
+        value="collection of eggs via scraping" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="collection of eggs via scraping" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="collection of eggs" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000049" />
+    </object>
+
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000050">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000050" />
+      <valueAttribute
+        name="termName"
+        value="collection of pupae" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="collection of pupae" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="aquatic environment catch" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000048" />
+    </object>
+
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000051">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000051" />
+      <valueAttribute
+        name="termName"
+        value="terrain environment catch" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="terrain environment catch" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="catch of live specimens" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000045" />
+    </object>
+
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000052">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000052" />
+      <valueAttribute
+        name="termName"
+        value="collection of adults" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="collection of adults" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="terrain environment catch" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000051" />
+    </object>
+
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000046">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000046" />
+      <valueAttribute
+        name="termName"
+        value="collection of dead specimens" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="collection of dead specimens" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="field population catch" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000044" />
+    </object>
+
+    <object
+      type="mdss.mo.CollectionMethod"
+      id="MIRO_30000047">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000047" />
+      <valueAttribute
+        name="termName"
+        value="dead on ground catch" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="dead on ground catch" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="collection of dead specimens" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000046" />
+    </object>
+
+
+    <object
+      type="mdss.mo.IdentificationMethod"
+      id="IRO_30000005">
+      <valueAttribute
+        name="termId"
+        value="IRO_30000005" />
+      <valueAttribute
+        name="termName"
+        value="species identification method" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="species identification method" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="method" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_20000000" />
+    </object>
+
+    <object
+      type="mdss.mo.IdentificationMethod"
+      id="MIRO_30000036">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000036" />
+      <valueAttribute
+        name="termName"
+        value="cross mating experiment" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="cross mating experiment" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="species identification method" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000005" />
+    </object>
+
+    <object
+      type="mdss.mo.IdentificationMethod"
+      id="MIRO_30000037">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000037" />
+      <valueAttribute
+        name="termName"
+        value="cytological chromosome examination" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="cytological chromosome examination" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="species identification method" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000005" />
+    </object>
+
+    <object
+      type="mdss.mo.IdentificationMethod"
+      id="MIRO_30000038">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000038" />
+      <valueAttribute
+        name="termName"
+        value="isoenzyme electrophoresis" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="isoenzyme electrophoresis" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="species identification method" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000005" />
+    </object>
+
+    <object
+      type="mdss.mo.IdentificationMethod"
+      id="MIRO_30000039">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000039" />
+      <valueAttribute
+        name="termName"
+        value="morphological examination" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="morphological examination" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="species identification method" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000005" />
+    </object>
+
+    <object
+      type="mdss.mo.IdentificationMethod"
+      id="MIRO_30000040">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000040" />
+      <valueAttribute
+        name="termName"
+        value="PCR-based species identification" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="PCR-based species identification" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="species identification method" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000005" />
+    </object>
+
+    <object
+      type="mdss.mo.IdentificationMethod"
+      id="MIRO_30000041">
+      <valueAttribute
+        name="termId"
+        value="MIRO_30000041" />
+      <valueAttribute
+        name="termName"
+        value="species specific DNA hybridization" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="species specific DNA hybridization" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="species identification method" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_30000005" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40003818">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40003818" />
+      <valueAttribute
+        name="termName"
+        value="Culicidae" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Culicidae" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="taxon" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003819" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40003652">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40003652" />
+      <valueAttribute
+        name="termName"
+        value="Anophelinae" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anophelinae" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Culicidae" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003818" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40003653">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40003653" />
+      <valueAttribute
+        name="termName"
+        value="Culicinae" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Culicinae" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Culicidae" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003818" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40003478">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40003478" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles funestus sensu lato" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles funestus sensu lato" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Cellia" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40002217" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40002227">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40002227" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles aruni" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles aruni" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Anopheles funestus sensu lato" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003478" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40002237">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40002237" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles brucei" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles brucei" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Anopheles funestus sensu lato" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003478" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40002252">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40002252" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles confusus" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles confusus" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Anopheles funestus sensu lato" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003478" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40003479">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40003479" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles fuscivenosus" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles fuscivenosus" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Anopheles funestus sensu lato" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003478" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40003509">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40003509" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles leesoni" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles leesoni" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Anopheles funestus sensu lato" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003478" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40003561">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40003561" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles parensis" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles parensis" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Anopheles funestus sensu lato" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003478" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40002423">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40002423" />
+      <valueAttribute
+        name="termName"
+        value="genus Culex" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="genus Culex" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Culicini" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003820" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40003480">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40003480" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles gambiae sensu lato" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles gambiae sensu lato" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Cellia" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40002217" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40002224">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40002224" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles arabiensis" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles arabiensis" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Anopheles gambiae sensu lato" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003480" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40002241">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40002241" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles bwambae" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles bwambae" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Anopheles gambiae sensu lato" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003480" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40003532">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40003532" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles melas" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles melas" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Anopheles gambiae sensu lato" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003480" />
+    </object>
+
+    <object
+      type="mdss.mo.Specie"
+      id="MIRO_40003572">
+      <valueAttribute
+        name="termId"
+        value="MIRO_40003572" />
+      <valueAttribute
+        name="termName"
+        value="Anopheles quadriannulatus" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Anopheles quadriannulatus" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="Anopheles gambiae sensu lato" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_40003480" />
+    </object>
+    
+    <object type="mdss.mo.AssayMethod" id="TEST_ASSAY_METHOD">
+      <valueAttribute
+        name="termId"
+        value="MIRO_809809" />
+      <valueAttribute
+        name="termName"
+        value="TEST_ASSAY_METHOD" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Test Assay Method" />
+    </object>
+    
+    <object type="mdss.mo.Generation" id="F0">
+      <valueAttribute
+        name="termId"
+        value="MIRO_343458349" />
+      <valueAttribute
+        name="termName"
+        value="F0" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="F0" />
+    </object>
+    
+    <object type="mdss.mo.Generation" id="F2">
+      <valueAttribute
+        name="termId"
+        value="MIRO_3535332" />
+      <valueAttribute
+        name="termName"
+        value="F1" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="F1" />
+    </object>
+
+    <object type="mdss.mo.Insecticide" id="TEST_INSECTICIDE">
+      <valueAttribute
+        name="termId"
+        value="MIRO_45454" />
+      <valueAttribute
+        name="termName"
+        value="Test Insecticide" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Test Insecticide" />
+    </object>    
   </create>
 </TerraFrame>
