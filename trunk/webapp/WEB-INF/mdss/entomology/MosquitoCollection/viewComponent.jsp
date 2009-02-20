@@ -53,64 +53,6 @@
 		name="mdss.entomology.MosquitoCollection.form.edit.button" />
 	<br />
 </mjl:form>
-<dl>
-	<dt><label> Parent Relationships </label></dt>
-	<dd>
-	<ul>
-		<li><mjl:commandLink display="True Specie Collection"
-			action="mdss.entomology.CollectionTrueSpecieController.parentQuery.mojo"
-			name="mdss.entomology.CollectionTrueSpecie.parentQuery.link">
-			<mjl:property value="${item.id}" name="parentId" />
-		</mjl:commandLink></li>
-	</ul>
-	</dd>
-</dl>
-<mjl:commandLink display="View All"
-	action="mdss.entomology.MosquitoCollectionController.viewAll.mojo"
-	name="mdss.entomology.MosquitoCollection.viewAll.link" />
-
-
-
-<br>
-
-
-<style type="text/css">
-.hide {
-	display: none;
-}
-
-.my-highlight-row {
-	font-weight: bold;
-}
-
-.delete-button {
-	cursor: pointer;
-	background: transparent url(/MDSS/imgs/delete.png) no-repeat center
-		center;
-	width: 16px;
-	height: 16px;
-}
-
-.insert-button {
-	cursor: pointer;
-	background: transparent url(/MDSS/imgs/add.png) no-repeat center center;
-	width: 16px;
-	height: 16px;
-}
-
-.yui-skin-sam .yui-dt td.align-right {
-	text-align: right;
-}
-
-#ft {
-	margin-top: 2em;
-}
-
-dt {
-	font-weight: bold;
-	margin-top: 5px;
-}
-</style>
 
 <div id="basic"></div>
 <div id="dt-options"><a id="dt-options-link"
@@ -189,10 +131,6 @@ dt {
     	        collection_id: '<%= request.getParameter(mdss.entomology.MosquitoCollectionDTO.ID) %>',
         	    data_type: "Mojo.$.mdss.entomology.MorphologicalSpecieGroupView"
     	        
-    	    };
-
-
-    
+    	    };   
   window.addEventListener('load', MojoGrid.createDataTable(table_data) , false);
-
 </script>
