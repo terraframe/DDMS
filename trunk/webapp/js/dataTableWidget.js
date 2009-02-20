@@ -131,7 +131,6 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 	});
 	
-	
 // // Add passed in rows
 // this.addRow = function(row) {
 // // Clear sort when necessary
@@ -153,7 +152,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	btnAddRow.on("click", function() {
 		// Clear sort when necessary
 			if (bReverseSorted) {
-				myDataTable.set("sortedBy", null);
+				 myDataTable.set("sortedBy", null);
 			}
             // clone the object
 			// FIREFOX ONLY
@@ -161,6 +160,15 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			// var record = YAHOO.widget.DataTable._cloneObject(new_defs);
 			// record = new YAHOO.widget.Record(table_data.defaults);
 			// record.row = i++;
+			if (table_data.rows.length > 0)
+			{
+				last_row_index = table_data.rows.length - 1
+				for each (feild in table_data.copy_from_above)
+		        {	    	
+			    	str = 'new_defs.' + feild + ' = table_data.rows[last_row_index].' + feild ;
+			    	eval(str);
+			    }	    
+	        }		
 			table_data.rows.push(new_defs);
 			myDataTable.addRow(new_defs);
 		}, this, true);
