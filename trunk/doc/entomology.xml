@@ -188,7 +188,7 @@
         <reference
           name="collectionMethod"
           label="Collection Method"
-          type="mdss.entomology.CollectionMethod"
+          type="mdss.mo.CollectionMethod"
           required="true" />
       </attributes>
       <mdMethod
@@ -278,12 +278,12 @@
         <reference
           name="specie"
           label="Specie"
-          type="mdss.entomology.Specie"
+          type="mdss.mo.Specie"
           required="false" />
         <reference
           name="identificationMethod"
           label="Identification Method"
-          type="mdss.entomology.IdentificationMethod"
+          type="mdss.mo.IdentificationMethod"
           required="false" />
         <reference
           name="collection"
@@ -392,13 +392,13 @@
         <reference
           name="specie"
           label="Specie"
-          type="mdss.entomology.Specie"
+          type="mdss.mo.Specie"
           required="false"
           description="The true specie of the collection" />
         <reference
           name="identificationMethod"
           label="Identification Method"
-          type="mdss.entomology.IdentificationMethod"
+          type="mdss.mo.IdentificationMethod"
           description="Method used to indentify the true specie collection" />
         <reference
           name="collection"
@@ -480,7 +480,7 @@
           label="Generation"
           required="true"
           description="The generation of the mosquito"
-          type="mdss.entomology.Generation" />
+          type="mdss.mo.Generation" />
       </attributes>
     </mdBusiness>
 
@@ -571,11 +571,42 @@
           size="255"
           label="Term Name"
           description="The name of the MO Collection Method Term" />
+        <char
+          name="termId"
+          required="true"
+          size="50"
+          label="Term Id"
+          description="The MO or MIRO id"
+          indexType="unique index" />
+        <char
+          name="definition"
+          label="Definition"
+          size="255"
+          required="true"
+          description="Description of the MO term" />
+        <char
+          name="oboNamespace"
+          label="Namespace"
+          required="false"
+          description="OBO namespace"
+          size="255" />
+        <char
+          name="inheritsTerm"
+          label="Inherits Term"
+          required="false"
+          description="Id of the MO term this term inherits"
+          size="50" />
+        <char
+          name="inheritsTermName"
+          label="Inherits Term Name"
+          required="false"
+          description="Name of the MO term this term inherits"
+          size="25" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="mdss.entomology.CollectionMethod"
+      name="mdss.mo.CollectionMethod"
       label="Collection Method"
       description="List of all possible collection methods"
       extends="mdss.mo.AbstractTerm">
@@ -587,24 +618,8 @@
         description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
 
-    <object
-      type="mdss.entomology.CollectionMethod"
-      id="NIGHT_BITING">
-      <valueAttribute
-        name="termName"
-        value="Night Biting" />
-    </object>
-
-    <object
-      type="mdss.entomology.CollectionMethod"
-      id="WINDOW_TRAP">
-      <valueAttribute
-        name="termName"
-        value="Window Trap" />
-    </object>
-
     <mdBusiness
-      name="mdss.entomology.Generation"
+      name="mdss.mo.Generation"
       label="Generation Method"
       description="List of all possible MO generation"
       extends="mdss.mo.AbstractTerm">
@@ -616,32 +631,8 @@
         description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
 
-    <object
-      id="F0"
-      type="mdss.entomology.Generation">
-      <valueAttribute
-        name="termName"
-        value="F0" />
-    </object>
-
-    <object
-      id="F1"
-      type="mdss.entomology.Generation">
-      <valueAttribute
-        name="termName"
-        value="F1" />
-    </object>
-
-    <object
-      id="F2"
-      type="mdss.entomology.Generation">
-      <valueAttribute
-        name="termName"
-        value="F2" />
-    </object>
-
     <mdBusiness
-      name="mdss.entomology.Specie"
+      name="mdss.mo.Specie"
       label="Specie Method"
       description="List of all possible MO species"
       extends="mdss.mo.AbstractTerm">
@@ -653,33 +644,8 @@
         description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
 
-    <object
-      type="mdss.entomology.Specie"
-      id="TEST_SPECIE">
-      <valueAttribute
-        name="termName"
-        value="Test Specie" />
-    </object>
-
-    <object
-      type="mdss.entomology.Specie"
-      id="ANOPHELES">
-      <valueAttribute
-        name="termName"
-        value="Anopheles" />
-    </object>
-
-    <object
-      type="mdss.entomology.Specie"
-      id="CULICINAE">
-      <valueAttribute
-        name="termName"
-        value="Culicinae" />
-    </object>
-
-
     <mdBusiness
-      name="mdss.entomology.IdentificationMethod"
+      name="mdss.mo.IdentificationMethod"
       label="Identification Method"
       description="List of all possible MO specie identification methods"
       extends="mdss.mo.AbstractTerm">
@@ -690,22 +656,6 @@
         static="true"
         description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
-
-    <object
-      type="mdss.entomology.IdentificationMethod"
-      id="TEST_METHOD">
-      <valueAttribute
-        name="termName"
-        value="Test Method" />
-    </object>
-
-    <object
-      type="mdss.entomology.IdentificationMethod"
-      id="MORPHOLOGICAL">
-      <valueAttribute
-        name="termName"
-        value="Morphological" />
-    </object>
 
     <!--
       **************************************************************
@@ -752,7 +702,7 @@
             description="The date the mosquito collection was collected"
             order="1"
             type="java.util.Date" />
-        </mdAction>        
+        </mdAction>
       </create>
     </mdController>
   </update>
@@ -765,7 +715,7 @@
 
   <create>
     <mdBusiness
-      name="mdss.entomology.Insecticide"
+      name="mdss.mo.Insecticide"
       label="Insecticide"
       description="List of all MO insecticides"
       extends="mdss.mo.AbstractTerm">
@@ -778,24 +728,8 @@
 
     </mdBusiness>
 
-    <object
-      type="mdss.entomology.Insecticide"
-      id="TEST_INSECTICIDE">
-      <valueAttribute
-        name="termName"
-        value="Test Insecticide" />
-    </object>
-
-    <object
-      type="mdss.entomology.Insecticide"
-      id="OTHER">
-      <valueAttribute
-        name="termName"
-        value="Other" />
-    </object>
-
     <mdBusiness
-      name="mdss.entomology.AssayMethod"
+      name="mdss.mo.AssayMethod"
       label="Assay Method"
       description="List of all assay methods"
       extends="mdss.mo.AbstractTerm">
@@ -806,14 +740,6 @@
         static="true"
         description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
-
-    <object
-      type="mdss.entomology.AssayMethod"
-      id="TEST_METHODOLOGY">
-      <valueAttribute
-        name="termName"
-        value="Test Methodology" />
-    </object>
 
     <mdStruct
       name="mdss.entomology.assay.AdultAgeRange"
@@ -878,16 +804,16 @@
         <reference
           name="testMethod"
           label="Test Method"
-          type="mdss.entomology.AssayMethod" />
+          type="mdss.mo.AssayMethod" />
         <reference
           name="specie"
           label="Specie"
-          type="mdss.entomology.Specie"
+          type="mdss.mo.Specie"
           required="false" />
         <reference
           name="identificationMethod"
           label="Identification Method"
-          type="mdss.entomology.IdentificationMethod"
+          type="mdss.mo.IdentificationMethod"
           required="false" />
         <boolean
           name="isofemale"
@@ -957,7 +883,7 @@
         <reference
           name="insecticide"
           label="Insecticide"
-          type="mdss.entomology.Insecticide"
+          type="mdss.mo.Insecticide"
           required="true" />
         <integer
           name="amount"
@@ -981,7 +907,7 @@
           label="Generation"
           required="true"
           description="The generation of the mosquito"
-          type="mdss.entomology.Generation" />
+          type="mdss.mo.Generation" />
       </attributes>
     </mdBusiness>
 
