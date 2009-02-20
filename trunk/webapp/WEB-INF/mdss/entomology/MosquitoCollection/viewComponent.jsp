@@ -126,6 +126,7 @@
     	            
     	        ],
     	        fields: ["GroupId","Specie","IdentificationMethod","Quantity"],
+    	        copy_from_above: ["IdentificationMethod"],
     	        defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
     	        div_id: "basic",
     	        collection_id: '<%= request.getParameter(mdss.entomology.MosquitoCollectionDTO.ID) %>',
