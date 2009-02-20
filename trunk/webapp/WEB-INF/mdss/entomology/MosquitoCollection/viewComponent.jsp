@@ -34,7 +34,7 @@
 	<mjl:input value="${item.id}" type="hidden" param="id" />
 	<dl>
 		<dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
-		<dd><mjl:commandLink display="${item.collectionMethod.keyName}"
+		<dd><mjl:commandLink display="${item.collectionMethod.termName}"
 			action="mdss.entomology.CollectionMethodController.view.mojo"
 			name="mdss.entomology.CollectionMethod.form.view.link">
 			<mjl:property value="${item.collectionMethod.id}" name="id" />
@@ -42,7 +42,7 @@
 		<dt><label> ${item.dateCollectedMd.displayLabel} </label></dt>
 		<dd>${item.dateCollected}</dd>
 		<dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
-		<dd><mjl:commandLink display="${item.geoEntity.keyName}"
+		<dd><mjl:commandLink display="${item.geoEntity.geoId}"
 			action="mdss.test.GeoEntityController.view.mojo"
 			name="mdss.test.GeoEntity.form.view.link">
 			<mjl:property value="${item.geoEntity.id}" name="id" />
