@@ -10,39 +10,39 @@
 <jsp:include page="WEB-INF/templates/yuiIncludes.jsp" />
 
 <script type="text/javascript" src="js/Terraframe_Mojo.js"></script>
-<script type="text/javascript" src="js/TreeViewDnD.js"></script>
+<script type="text/javascript" src="js/GeoEntityTree.js"></script>
 <script type="text/javascript">
 
-  function onloadHandler(){
-  
-  
-var tree = new YAHOO.widget.TreeView("treeView",[
-	{type:'Text', label:'country 1', title:'country 1', expanded:true, children:[
-	  {type:'Text', label:"province 1", title:"province 1"},
-	  {type:'Text', label:"province 2", title:"province 2", expanded:true, children:[
-        {type:'Text', label:"district 1", title:"district 1"},
-        {type:'Text', label:"district 2", title:"district 2", expanded:true, children:[
-          {type:'Text', label:"subdistrict 1", title:"subdistrict 1"}
-        ]},  
-	  ]}
-	]},
-	{type:'Text',label:'country 2',title:'country 2', expanded:true, children:[
-	  {type:'Text', label:"province 3", title:"province 3"},
-	  {type:'Text', label:"province 4", title:"province 4", expanded:true, children:[
-        {type:'Text', label:"district 3", title:"district 3"},
-        {type:'Text', label:"district 4", title:"district 4", expanded:true, children:[
-          {type:'Text', label:"subdistrict 2", title:"subdistrict 2"}
-        ]},  
+  var data = [
+    {type:'HTML',html:'Country 1', expanded:false, children:[
+      {type:'HTML', html:'Province 1', expanded:false, children:[
+        {type:'HTML', html:'District 1', expanded:false, children:[
+          {type:'HTML', html:'Sub District 1'},
+          {type:'HTML', html:'Sub District 2'}
+        ]},
+        {type:'HTML', html:'District 2', expanded:false, children:[
+          {type:'HTML', html:'Sub District 3'},
+          {type:'HTML', html:'Sub District 4'}
+        ]}
+      ]},
+      {type:'HTML', html:'Province 2', expanded:false, children:[
+        {type:'HTML', html:'District 3', expanded:false, children:[
+          {type:'HTML', html:'Sub District 5'},
+          {type:'HTML', html:'Sub District 6'}
+        ]},
+        {type:'HTML', html:'District 4', expanded:false, children:[
+          {type:'HTML', html:'Sub District 7'},
+          {type:'HTML', html:'Sub District 8'}
+        ]}
       ]}
-	]}
-]);
-tree.render();
+    ]},
+    {type:'HTML',html:'Country 2'}
+  ];
+  
 
-MDSS.initTreeViewDnD(tree);
-
-}
-  window.addEventListener('load', onloadHandler , false);
-
+  YAHOO.util.Event.onDOMReady(function(){
+    YAHOO.GeoEntityTree.initializeTree(data)},
+  null, true);
 </script>
 
 </head>
