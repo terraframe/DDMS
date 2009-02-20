@@ -15,6 +15,16 @@ import mdss.entomology.assay.AdultAgeRange;
 import mdss.entomology.assay.AdultDiscriminatingDoseAssay;
 import mdss.entomology.assay.InvalidAgeProblem;
 import mdss.entomology.assay.InvalidAgeRangeProblem;
+import mdss.entomology.assay.InvalidDeadQuantityProblem;
+import mdss.entomology.assay.InvalidFedQuantityProblem;
+import mdss.entomology.assay.InvalidFedSexProblem;
+import mdss.entomology.assay.InvalidGenerationProblem;
+import mdss.entomology.assay.InvalidGravidQuantityProblem;
+import mdss.entomology.assay.InvalidGravidSexProblem;
+import mdss.entomology.assay.InvalidIntervalTimeProblem;
+import mdss.entomology.assay.InvalidKnockDownQuantityProblem;
+import mdss.entomology.assay.InvalidPeriodProblem;
+import mdss.entomology.assay.InvalidTestDateProblem;
 import mdss.mo.AssayMethod;
 import mdss.mo.AssayMethodQuery;
 import mdss.mo.CollectionMethod;
@@ -438,6 +448,7 @@ public class ADDATest extends TestCase
       assay.setGravid(10);
       assay.setExposureTime(60);
       assay.setIntervalTime(10);
+      assay.setGeneration(F1);
       assay.setHoldingTime(24);
       assay.setControlTestMortality(new Float(99.99));
       assay.setIsofemale(false);
@@ -452,9 +463,19 @@ public class ADDATest extends TestCase
 
       fail("Able to create an adult assay with an test date before the collection date");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidTestDateProblem);
+      
+      InvalidTestDateProblem problem = (InvalidTestDateProblem) problems.get(0);
+      
+      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(date, problem.getTestDate());      
+      assertEquals(assay.getCollection().getDateCollected(), problem.getCollectionDate());      
     }
     finally
     {
@@ -653,6 +674,7 @@ public class ADDATest extends TestCase
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
       assay.setGravid(10);
+      assay.setGeneration(F1);
       assay.setExposureTime(60);
       assay.setIntervalTime(10);
       assay.setHoldingTime(24);
@@ -669,9 +691,14 @@ public class ADDATest extends TestCase
 
       fail("Able to create an assay of unknown sex with invalid gravid and fed values");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(2, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidGravidSexProblem || problems.get(1) instanceof InvalidGravidSexProblem);
+      assertTrue(problems.get(0) instanceof InvalidFedSexProblem || problems.get(1) instanceof InvalidFedSexProblem);      
     }
     finally
     {
@@ -699,6 +726,7 @@ public class ADDATest extends TestCase
       assay.setFed(10);
       assay.setGravid(10);
       assay.setExposureTime(60);
+      assay.setGeneration(F1);
       assay.setIntervalTime(10);
       assay.setHoldingTime(24);
       assay.setControlTestMortality(new Float(99.99));
@@ -714,9 +742,14 @@ public class ADDATest extends TestCase
 
       fail("Able to create an assay of male sex with invalid gravid and fed values");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(2, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidGravidSexProblem || problems.get(1) instanceof InvalidGravidSexProblem);
+      assertTrue(problems.get(0) instanceof InvalidFedSexProblem || problems.get(1) instanceof InvalidFedSexProblem);      
     }
     finally
     {
@@ -733,6 +766,7 @@ public class ADDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     AssaySex sex = AssaySex.FEMALE;
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    int fed = 40;
 
     try
     {
@@ -741,9 +775,10 @@ public class ADDATest extends TestCase
       assay.addSex(sex);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
-      assay.setFed(10);
-      assay.setGravid(40);
+      assay.setFed(fed);
+      assay.setGravid(10);
       assay.setExposureTime(60);
+      assay.setGeneration(F1);
       assay.setIntervalTime(10);
       assay.setHoldingTime(24);
       assay.setControlTestMortality(new Float(99.99));
@@ -759,9 +794,18 @@ public class ADDATest extends TestCase
 
       fail("Able to create an assay with a larger Gravid value than quantity tested");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidFedQuantityProblem);
+      
+      InvalidFedQuantityProblem problem = (InvalidFedQuantityProblem) problems.get(0);
+      
+      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(new Integer(fed), problem.getFed());      
     }
     finally
     {
@@ -778,6 +822,7 @@ public class ADDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     AssaySex sex = AssaySex.FEMALE;
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    int gravid = 40;
 
     try
     {
@@ -786,8 +831,9 @@ public class ADDATest extends TestCase
       assay.addSex(sex);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
-      assay.setFed(40);
-      assay.setGravid(10);
+      assay.setFed(10);
+      assay.setGravid(gravid);
+      assay.setGeneration(F1);
       assay.setExposureTime(60);
       assay.setIntervalTime(10);
       assay.setHoldingTime(24);
@@ -804,9 +850,18 @@ public class ADDATest extends TestCase
 
       fail("Able to create an assay with a larger Fed value than quantity tested");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidGravidQuantityProblem);
+      
+      InvalidGravidQuantityProblem problem = (InvalidGravidQuantityProblem) problems.get(0);
+      
+      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(new Integer(gravid), problem.getGravid());      
     }
     finally
     {
@@ -1000,6 +1055,8 @@ public class ADDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     AssaySex sex = AssaySex.FEMALE;
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    int quantityDead = 45;
+    int quantityTested = 30;
 
     try
     {
@@ -1009,14 +1066,15 @@ public class ADDATest extends TestCase
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
+      assay.setGeneration(F1);
       assay.setGravid(10);
       assay.setExposureTime(60);
       assay.setIntervalTime(10);
       assay.setHoldingTime(24);
       assay.setControlTestMortality(new Float(99.99));
       assay.setIsofemale(false);
-      assay.setQuantityDead(45);
-      assay.setQuantityTested(30);
+      assay.setQuantityDead(quantityDead);
+      assay.setQuantityTested(quantityTested);
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
@@ -1026,9 +1084,19 @@ public class ADDATest extends TestCase
 
       fail("Able to set the number dead larger than the total number tested");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidDeadQuantityProblem);
+      
+      InvalidDeadQuantityProblem problem = (InvalidDeadQuantityProblem) problems.get(0);
+      
+      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(new Integer(quantityDead), problem.getQuantityDead());      
+      assertEquals(new Integer(quantityTested), problem.getQuantityTested());      
     }
     finally
     {
@@ -1045,18 +1113,21 @@ public class ADDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     AssaySex sex = AssaySex.FEMALE;
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    int exposureTime = 60;
+    int intervalTime = 80;
 
     try
     {
       assay.setCollection(collection);
       assay.setTestDate(date);
       assay.addSex(sex);
+      assay.setGeneration(F1);
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
       assay.setGravid(10);
-      assay.setExposureTime(60);
-      assay.setIntervalTime(80);
+      assay.setExposureTime(exposureTime);
+      assay.setIntervalTime(intervalTime);
       assay.setHoldingTime(24);
       assay.setControlTestMortality(new Float(99.99));
       assay.setIsofemale(false);
@@ -1071,9 +1142,19 @@ public class ADDATest extends TestCase
 
       fail("Able to set an interval time larger than the exposure time");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidIntervalTimeProblem);
+      
+      InvalidIntervalTimeProblem problem = (InvalidIntervalTimeProblem) problems.get(0);
+      
+      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(new Integer(exposureTime), problem.getExposureTime());      
+      assertEquals(new Integer(intervalTime), problem.getIntervalTime());      
     }
     finally
     {
@@ -1205,6 +1286,8 @@ public class ADDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     String generic = "Sample Insecticide";
     AssaySex sex = AssaySex.MALE;
+    ADDATestInterval interval = new ADDATestInterval();
+    int period = 20;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
     assay.setCollection(collection);
@@ -1213,7 +1296,8 @@ public class ADDATest extends TestCase
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
-    assay.setIntervalTime(7);
+    assay.setIntervalTime(30);
+    assay.setGeneration(F1);
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(99.99));
     assay.setIsofemale(false);
@@ -1221,7 +1305,7 @@ public class ADDATest extends TestCase
     assay.setQuantityDead(30);
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
-    assay.getAgeRange().setEndPoint(20);
+    assay.getAgeRange().setEndPoint(period);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
     assay.setUnits("%");
@@ -1230,17 +1314,25 @@ public class ADDATest extends TestCase
 
     try
     {
-      ADDATestInterval interval = new ADDATestInterval();
       interval.setAssay(assay);
-      interval.setPeriod(20);
+      interval.setPeriod(period);
       interval.setKnockedDown(2);
       interval.apply();
 
       fail("Able to create a test interval with an invalid period");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidPeriodProblem);
+      
+      InvalidPeriodProblem problem = (InvalidPeriodProblem) problems.get(0);
+      
+      assertEquals(interval.getId(), problem.getIntervalId());
+      assertEquals(new Integer(period), problem.getPeriod());      
     }
     finally
     {
@@ -1311,6 +1403,9 @@ public class ADDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     String generic = "Sample Insecticide";
     AssaySex sex = AssaySex.MALE;
+    ADDATestInterval interval = new ADDATestInterval();
+    int quantityTested = 30;
+    int quantityKnockedDown = 45;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
     assay.setCollection(collection);
@@ -1324,6 +1419,7 @@ public class ADDATest extends TestCase
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(99.99));
     assay.setIsofemale(false);
+    assay.setGeneration(F1);
     assay.setQuantityDead(30);
     assay.setQuantityTested(30);
     assay.getAgeRange().setStartPoint(2);
@@ -1336,17 +1432,26 @@ public class ADDATest extends TestCase
 
     try
     {
-      ADDATestInterval interval = new ADDATestInterval();
       interval.setAssay(assay);
       interval.setPeriod(0);
-      interval.setKnockedDown(45);
+      interval.setKnockedDown(quantityKnockedDown);
       interval.apply();
 
       fail("Able to create a set the knocked down value greater than the number tested");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidKnockDownQuantityProblem);
+      
+      InvalidKnockDownQuantityProblem problem = (InvalidKnockDownQuantityProblem) problems.get(0);
+      
+      assertEquals(interval.getId(), problem.getIntervalId());
+      assertEquals(new Integer(quantityKnockedDown), problem.getQuantityKnockDown());      
+      assertEquals(new Integer(quantityTested), problem.getQuantityTested());      
     }
     finally
     {
@@ -1387,9 +1492,17 @@ public class ADDATest extends TestCase
 
       fail("Able to set the isofemale line to true on a F0 generation");
     }
-    catch (RuntimeException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidGenerationProblem);
+      
+      InvalidGenerationProblem problem = (InvalidGenerationProblem) problems.get(0);
+      
+      assertEquals(assay.getId(), problem.getAssayId());
     }
     finally
     {

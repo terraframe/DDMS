@@ -23,7 +23,10 @@ public class ADDATestInterval extends ADDATestIntervalBase implements
       if (this.getPeriod() > (int) Math.ceil(exposureTime / intervalTime))
       {
         String msg = "Interval time * period is larger than exposure time";
-        throw new RuntimeException(msg);
+        InvalidPeriodProblem p = new InvalidPeriodProblem(msg);
+        p.setPeriod(this.getPeriod());
+        p.setIntervalId(this.getId());
+        p.throwIt();
       }
     }
   }
@@ -33,10 +36,20 @@ public class ADDATestInterval extends ADDATestIntervalBase implements
   {
     super.validateKnockedDown();
 
-    if (this.getAssay() != null && this.getKnockedDown() > this.getAssay().getQuantityTested())
+    if (this.getAssay() != null)
     {
-      String msg = "It is impossible to have more mosquitos knocked down then mosquitos tested";
-      throw new RuntimeException(msg);
+      Integer quantityTested = this.getAssay().getQuantityTested();
+
+      if (this.getKnockedDown() > quantityTested)
+      {
+        String msg = "It is impossible to have more mosquitos knocked down then mosquitos tested";
+
+        InvalidKnockDownQuantityProblem p = new InvalidKnockDownQuantityProblem(msg);
+        p.setQuantityKnockDown(this.getKnockedDown());
+        p.setQuantityTested(quantityTested);
+        p.setIntervalId(this.getId());
+        p.throwIt();
+      }
     }
   }
 

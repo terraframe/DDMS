@@ -1,8 +1,8 @@
 package mdss.entomology.assay;
 
 import mdss.entomology.AssaySex;
-import mdss.mo.GenerationQuery;
 import mdss.mo.Generation;
+import mdss.mo.GenerationQuery;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -44,13 +44,20 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
     if(this.getGravid() != 0 && (sex.equals(AssaySex.MALE) || sex.equals(AssaySex.UNKNOWN)))
     {
       String msg = "It is impossible to have gravid values on male or unknown sex assays";
-      throw new RuntimeException(msg);
+
+      InvalidGravidSexProblem p = new InvalidGravidSexProblem(msg);
+      p.setAssayId(this.getId());
+      p.throwIt();
     }
     
     if(this.getGravid() > this.getQuantityTested())
     {
       String msg = "It is impossible to have gravid values larger than the quantity of mosquitos tested";
-      throw new RuntimeException(msg);      
+
+      InvalidGravidQuantityProblem p = new InvalidGravidQuantityProblem(msg);
+      p.setAssayId(this.getId());
+      p.setGravid(this.getGravid());
+      p.throwIt();
     }
   }
       
@@ -64,13 +71,20 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
     if(this.getFed() != 0 && (sex.equals(AssaySex.MALE) || sex.equals(AssaySex.UNKNOWN)))
     {
       String msg = "It is impossible to have fed values on male or unknown sex assays";
-      throw new RuntimeException(msg);
+      
+      InvalidFedSexProblem p = new InvalidFedSexProblem(msg);
+      p.setAssayId(this.getId());
+      p.throwIt();
     }
     
     if(this.getFed() > this.getQuantityTested())
     {
       String msg = "It is impossible to have red values larger than the quantity of mosquitos tested";
-      throw new RuntimeException(msg);      
+      
+      InvalidFedQuantityProblem p = new InvalidFedQuantityProblem(msg);
+      p.setAssayId(this.getId());
+      p.setFed(this.getFed());
+      p.throwIt();
     }
   }
   
@@ -91,7 +105,10 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
       if(this.getGeneration().getId().equals(F0.getId()))
       {
         String msg = "Isofemale line cannot be selected if the generation is F0.";
-        throw new RuntimeException(msg);
+        
+        InvalidGenerationProblem p = new InvalidGenerationProblem(msg);
+        p.setAssayId(this.getId());
+        p.throwIt();        
       }
     }
   }

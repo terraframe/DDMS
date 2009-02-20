@@ -28,7 +28,12 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     if (this.getTestDate().before(collectionDate))
     {
       String msg = "It is impossible to have a test date before the mosquito collection date";
-      throw new RuntimeException(msg);
+      
+      InvalidTestDateProblem p = new InvalidTestDateProblem(msg);
+      p.setTestDate(this.getTestDate());
+      p.setCollectionDate(collectionDate);
+      p.setAssayId(this.getId());
+      p.throwIt();
     }
   }
 
@@ -40,7 +45,12 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     if (this.getQuantityDead() > this.getQuantityTested())
     {
       String msg = "It is impossible to have a dead quantity larger than the total number of mosquitos tested";
-      throw new RuntimeException(msg);
+      
+      InvalidDeadQuantityProblem p = new InvalidDeadQuantityProblem(msg);
+      p.setAssayId(this.getId());
+      p.setQuantityDead(this.getQuantityDead());
+      p.setQuantityTested(this.getQuantityTested());
+      p.throwIt();      
     }
   }
 
@@ -50,7 +60,12 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     if (this.getIntervalTime() > this.getExposureTime())
     {
       String msg = "It is impossible to have an interval time larger than the exposure time";
-      throw new RuntimeException(msg);
+      
+      InvalidIntervalTimeProblem p = new InvalidIntervalTimeProblem(msg);
+      p.setIntervalTime(this.getIntervalTime());
+      p.setExposureTime(this.getExposureTime());
+      p.setAssayId(this.getId());
+      p.throwIt();
     }
   }
 
