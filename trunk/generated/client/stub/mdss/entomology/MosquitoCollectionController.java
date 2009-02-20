@@ -167,6 +167,12 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     this.searchByGeoEntityAndDate(GeoEntityDTO.searchByGeoId(super.getClientRequest(), geoId), collectionDate);
   }
   
+  public void search() throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("page_title", "Search For Mosquito Collections");
+    render("searchComponent.jsp");
+  }
+  
   public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, Date collectionDate) throws IOException, ServletException
   {
     MosquitoCollectionDTO collection = MosquitoCollectionDTO.searchByGeoEntityAndDate(super.getClientRequest(), geoEntity, collectionDate);
