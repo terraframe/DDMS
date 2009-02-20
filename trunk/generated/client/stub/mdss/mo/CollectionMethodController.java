@@ -1,7 +1,5 @@
 package mdss.mo;
 
-import mdss.mo.CollectionMethodControllerBase;
-import mdss.mo.CollectionMethodQueryDTO;
 
 public class CollectionMethodController extends CollectionMethodControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {

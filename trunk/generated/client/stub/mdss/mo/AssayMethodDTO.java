@@ -4,7 +4,7 @@ import mdss.mo.AssayMethodDTOBase;
 
 public class AssayMethodDTO extends AssayMethodDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  public final static String CLASS = "mdss.entomology.AssayMethod";
+  public final static String CLASS = "mdss.mo.AssayMethod";
   private static final long serialVersionUID = 1234731975948L;
   
   public AssayMethodDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

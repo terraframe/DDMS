@@ -1,7 +1,5 @@
 package mdss.mo;
 
-import mdss.mo.AssayMethodControllerBase;
-import mdss.mo.AssayMethodQueryDTO;
 
 public class AssayMethodController extends AssayMethodControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {

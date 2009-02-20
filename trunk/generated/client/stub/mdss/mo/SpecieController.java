@@ -1,7 +1,5 @@
 package mdss.mo;
 
-import mdss.mo.SpecieControllerBase;
-import mdss.mo.SpecieQueryDTO;
 
 public class SpecieController extends SpecieControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {

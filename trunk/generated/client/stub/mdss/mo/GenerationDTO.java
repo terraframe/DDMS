@@ -4,7 +4,7 @@ import mdss.mo.GenerationDTOBase;
 
 public class GenerationDTO extends GenerationDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  public final static String CLASS = "mdss.entomology.Generation";
+  public final static String CLASS = "mdss.mo.Generation";
   private static final long serialVersionUID = 1234741250269L;
   
   public GenerationDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

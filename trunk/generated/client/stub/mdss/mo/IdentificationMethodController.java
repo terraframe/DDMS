@@ -1,7 +1,5 @@
 package mdss.mo;
 
-import mdss.mo.IdentificationMethodControllerBase;
-import mdss.mo.IdentificationMethodQueryDTO;
 
 public class IdentificationMethodController extends IdentificationMethodControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {

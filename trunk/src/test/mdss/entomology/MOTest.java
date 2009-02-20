@@ -61,7 +61,7 @@ public class MOTest extends TestCase
   {
     String[] names = Specie.getAllTermNames();
     String[] dto = SpecieDTO.getAllTermNames(clientRequest);
-    int expected = 3;
+    int expected = 16;
     
     assertNotNull(names);
     assertNotNull(dto);
@@ -73,7 +73,7 @@ public class MOTest extends TestCase
   {
     String[] names = IdentificationMethod.getAllTermNames();
     String[] dto = IdentificationMethodDTO.getAllTermNames(clientRequest);
-    int expected = 2;
+    int expected = 7;
     
     assertNotNull(names);
     assertNotNull(dto);
@@ -85,7 +85,7 @@ public class MOTest extends TestCase
   {
     String[] names = CollectionMethod.getAllTermNames();
     String[] dto = CollectionMethodDTO.getAllTermNames(clientRequest);
-    int expected = 2;
+    int expected = 12;
     
     assertNotNull(names);
     assertNotNull(dto);

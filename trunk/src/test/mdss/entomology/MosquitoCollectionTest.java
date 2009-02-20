@@ -334,7 +334,7 @@ public class MosquitoCollectionTest extends TestCase
     }
   }
 
-  public void testEmptyMorpohologicalQuantity()
+  public void testZeroMorphologicalQuantity()
   {
     MorphologicalSpecieGroup group = null;
     MosquitoCollection collection = new MosquitoCollection();

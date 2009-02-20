@@ -4,7 +4,7 @@ import mdss.mo.InsecticideDTOBase;
 
 public class InsecticideDTO extends InsecticideDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  public final static String CLASS = "mdss.entomology.Insecticide";
+  public final static String CLASS = "mdss.mo.Insecticide";
   private static final long serialVersionUID = 1234731977030L;
   
   public InsecticideDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

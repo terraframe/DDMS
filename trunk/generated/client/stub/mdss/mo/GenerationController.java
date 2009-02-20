@@ -1,7 +1,5 @@
 package mdss.mo;
 
-import mdss.mo.GenerationControllerBase;
-import mdss.mo.GenerationQueryDTO;
 
 public class GenerationController extends GenerationControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {

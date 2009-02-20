@@ -28,6 +28,8 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
       group.setIdentificationMethod(method);
       group.setSpecie(Specie.getSpecie(this.getSpecie()));
       group.apply();
+      
+      this.setGroupId(group.getId());
     }
     else
     {
@@ -44,11 +46,13 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
   }
 
   @Transaction
-  public static void saveAll(mdss.entomology.MorphologicalSpecieGroupView[] array)
+  public static mdss.entomology.MorphologicalSpecieGroupView[] saveAll(mdss.entomology.MorphologicalSpecieGroupView[] array)
   {
     for(MorphologicalSpecieGroupView view : array)
     {
       view.apply();
     }
+    
+    return array;
   }  
 }

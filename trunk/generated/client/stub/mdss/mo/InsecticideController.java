@@ -1,7 +1,5 @@
 package mdss.mo;
 
-import mdss.mo.InsecticideControllerBase;
-import mdss.mo.InsecticideQueryDTO;
 
 public class InsecticideController extends InsecticideControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {

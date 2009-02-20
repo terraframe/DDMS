@@ -4,7 +4,7 @@ import mdss.mo.CollectionMethodDTOBase;
 
 public class CollectionMethodDTO extends CollectionMethodDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  public final static String CLASS = "mdss.entomology.CollectionMethod";
+  public final static String CLASS = "mdss.mo.CollectionMethod";
   private static final long serialVersionUID = 1234741255980L;
   
   public CollectionMethodDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

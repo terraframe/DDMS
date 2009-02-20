@@ -4,7 +4,7 @@ import mdss.mo.SpecieDTOBase;
 
 public class SpecieDTO extends SpecieDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  public final static String CLASS = "mdss.entomology.Specie";
+  public final static String CLASS = "mdss.mo.Specie";
   private static final long serialVersionUID = 1234741254695L;
   
   public SpecieDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
