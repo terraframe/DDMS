@@ -47,9 +47,8 @@
                  <div id="entomology" class="yuimenu">
                      <div class="bd">                    
                          <ul>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.MosquitoCollectionController.viewAll.mojo">View Mosquioto Collections (MDSS024)</a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.MosquitoCollectionController.viewAll.mojo">View Mosquioto Collections (MDSS024)</a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.MosquitoCollectionController.viewAll.mojo">View Mosquioto Collections (MDSS024)</a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.MosquitoCollectionController.viewAll.mojo">Search Mosquito Collections (MDSS024)</a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.MosquitoCollectionController.viewAll.mojo">View All Mosquito Collections</a></li>                          
                          </ul>                    
                      </div>
                  </div>                                        
