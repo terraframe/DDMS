@@ -1,0 +1,73 @@
+id: MIRO:30000044
+name: field population catch
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any population catch method using either aspiration or traps." [KL:KL]
+is_a: MIRO:20000000 ! method
+
+id: MIRO:30000045
+name: catch of live specimens
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any population catch method meant to collect live specimens." [KL:KL]
+is_a: MIRO:30000044 ! field population catch
+
+id: MIRO:30000048
+name: aquatic environment catch
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any catch of live specimens method meant to collect mosquitoes from aquatic environment." [PT:PT]
+is_a: MIRO:30000045 ! catch of live specimens
+
+id: MIRO:30000022
+name: collection of larvae
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any method designed to collect (and later examine) live larvae from a field population." [KL:KL]
+is_a: MIRO:30000048 ! aquatic environment catch
+
+id: MIRO:30000049
+name: collection of eggs
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any method designed to collect (and later examine) eggs from a field population." [PT:PT]
+is_a: MIRO:30000048 ! aquatic environment catch
+
+id: MIRO:30000053
+name: collection of naturally deposited eggs
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any eggs collection method which targets naturally deposited eggs." [PT:PT]
+is_a: MIRO:30000049 ! collection of eggs
+
+id: MIRO:30000060
+name: collection of eggs via scraping
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any eggs collection method that uses scraping." [PT:PT]
+is_a: MIRO:30000049 ! collection of eggs
+
+id: MIRO:30000050
+name: collection of pupae
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any method designed to collect (and later examine) live pupae from a field population." [PT:PT]
+is_a: MIRO:30000048 ! aquatic environment catch
+
+id: MIRO:30000051
+name: terrain environment catch
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any catch of live specimens method meant to collect mosquitoes from aquatic environment." [PT:PT]
+is_a: MIRO:30000045 ! catch of live specimens
+
+id: MIRO:30000052
+name: collection of adults
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any method designed to collect (and later examine) live adults from a field population." [PT:PT]
+is_a: MIRO:30000051 ! terrain environment catch
+
+
+id: MIRO:30000046
+name: collection of dead specimens
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any population catch method meant to collect dead specimens." [KL:KL]
+is_a: MIRO:30000044 ! field population catch
+
+id: MIRO:30000047
+name: dead on ground catch
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any method designed to collect (and later examine) dead mosquitoes from ground." [PT:PT]
+is_a: MIRO:30000046 ! collection of dead specimens
+

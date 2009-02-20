@@ -1,0 +1,48 @@
+IRO:30000005
+name: species identification method
+namespace: mosquito_insecticide_resistance_ontology
+def: "Any method designed to identify the species of the insect specimen under study, usually caught /isolated from a field population." [KL:KL]
+is_a: MIRO:20000000 ! method
+
+id: MIRO:30000036
+name: cross mating experiment
+namespace: mosquito_insecticide_resistance_ontology
+def: "Genetic crossings between specimens collected in the field to determine whether fertile progeny is produced." [KL:KL]
+is_a: MIRO:30000005 ! species identification method
+
+id: MIRO:30000037
+name: cytological chromosome examination
+namespace: mosquito_insecticide_resistance_ontology
+def: "Analysis of polytene chromosomes to determine, through cytological examination of the banding pattern, the species that they belong to." [KL:KL]
+synonym: "chromosomal banding sequences" EXACT []
+is_a: MIRO:30000005 ! species identification method
+
+id: MIRO:30000038
+name: isoenzyme electrophoresis
+namespace: mosquito_insecticide_resistance_ontology
+def: "Electrophoresis to determine the isozymes that are present in a given mosquito/population, from which in some cases the species can be determined." [KL:KL]
+is_a: MIRO:30000005 ! species identification method
+
+id: MIRO:30000039
+name: morphological examination
+namespace: mosquito_insecticide_resistance_ontology
+def: "Examination of the morphology to determine, through the use of specific \"taxonomical keys\" the species a specimen belongs to." [KL:KL]
+is_a: MIRO:30000005 ! species identification method
+
+id: MIRO:30000040
+name: PCR-based species identification
+namespace: mosquito_insecticide_resistance_ontology
+def: "Use of a variety of PCR-based procedures to determine the species that a specimen belongs to." [KL:KL]
+is_a: MIRO:30000005 ! species identification method
+
+id: MIRO:30000041
+name: species specific DNA hybridization
+namespace: mosquito_insecticide_resistance_ontology
+def: "Usage of labeled DNA fragments of variable length (usually 100-1000 bases long), to detect in DNA or RNA samples the presence of nucleotide sequences that are complementary to the sequence in the probe through hybridization." [KL:KL]
+is_a: MIRO:30000005 ! species identification method
+
+id: MIRO:30000042
+name: salinity tolerance tests
+namespace: mosquito_insecticide_resistance_ontology
+def: "A method designed to differentiate between morphologically very similar species that can be differentiated on the basis of survival depending on the salt concentration in the water used to lay their eggs." [KL:KL]
+is_a: MIRO:30000005 ! species identification method

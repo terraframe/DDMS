@@ -1,0 +1,122 @@
+id: MIRO:40003818
+name: Culicidae
+namespace: mosquito_insecticide_resistance_ontology
+def: "A family of superfamily Culicoidea." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "mosquito" EXACT []
+is_a: MIRO:40003819 ! taxon
+
+id: MIRO:40003652
+name: Anophelinae
+namespace: mosquito_insecticide_resistance_ontology
+def: "A subfamily of Culicidae." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003818 ! Culicidae
+
+id: MIRO:40003653
+name: Culicinae
+namespace: mosquito_insecticide_resistance_ontology
+def: "A subfamily of Culicidae." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003818 ! Culicidae
+
+id: MIRO:40003478
+name: Anopheles funestus sensu lato
+namespace: mosquito_insecticide_resistance_ontology
+def: "A species complex of subgenus Cellia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles anisochloros" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles bisignata" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles funestus s.l." EXACT []
+synonym: "Anopheles funestus sl" EXACT []
+synonym: "Anopheles hebes" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles imerinensis" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles kumasii" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles subumbrosa" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles umbrosa" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40002217 ! Cellia
+
+id: MIRO:40002227
+name: Anopheles aruni
+namespace: mosquito_insecticide_resistance_ontology
+def: "A member species of the species complex Anopheles funestus sensu lato." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003478 ! Anopheles funestus sensu lato
+
+id: MIRO:40002237
+name: Anopheles brucei
+namespace: mosquito_insecticide_resistance_ontology
+def: "A member species of the species complex Anopheles funestus sensu lato." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003478 ! Anopheles funestus sensu lato
+
+id: MIRO:40002252
+name: Anopheles confusus
+namespace: mosquito_insecticide_resistance_ontology
+def: "A member species of the species complex Anopheles funestus sensu lato." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003478 ! Anopheles funestus sensu lato
+
+id: MIRO:40003479
+name: Anopheles fuscivenosus
+namespace: mosquito_insecticide_resistance_ontology
+def: "A member species of the species complex Anopheles funestus sensu lato." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003478 ! Anopheles funestus sensu lato
+
+id: MIRO:40003509
+name: Anopheles leesoni
+namespace: mosquito_insecticide_resistance_ontology
+def: "A member species of the species complex Anopheles funestus sensu lato." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003478 ! Anopheles funestus sensu lato
+
+id: MIRO:40003561
+name: Anopheles parensis
+namespace: mosquito_insecticide_resistance_ontology
+def: "A member species of the species complex Anopheles funestus sensu lato." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003478 ! Anopheles funestus sensu lato
+
+
+id: MIRO:40002423
+name: genus Culex
+namespace: mosquito_insecticide_resistance_ontology
+def: "A genus of Culicini." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003820 ! Culicini
+
+id: MIRO:40003480
+name: Anopheles gambiae sensu lato
+namespace: mosquito_insecticide_resistance_ontology
+def: "A species complex of subgenus Cellia." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles costalis" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles gambiae s.l." EXACT [KL:KL]
+synonym: "Anopheles gambiae sl" EXACT [KL:KL]
+synonym: "Anopheles gracilis" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles minor" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles typicus" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40002217 ! Cellia
+
+id: MIRO:40002224
+name: Anopheles arabiensis
+namespace: mosquito_insecticide_resistance_ontology
+def: "A member species of the species complex Anopheles gambiae sensu lato." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles davidsoni" RELATED [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003480 ! Anopheles gambiae sensu lato
+
+id: MIRO:40002241
+name: Anopheles bwambae
+namespace: mosquito_insecticide_resistance_ontology
+def: "A member species of the species complex Anopheles gambiae sensu lato." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003480 ! Anopheles gambiae sensu lato
+
+id: MIRO:40003532
+name: Anopheles melas
+namespace: mosquito_insecticide_resistance_ontology
+def: "A member species of the species complex Anopheles gambiae sensu lato." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003480 ! Anopheles gambiae sensu lato
+
+id: MIRO:40003572
+name: Anopheles quadriannulatus
+namespace: mosquito_insecticide_resistance_ontology
+def: "A member species of the species complex Anopheles gambiae sensu lato." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+is_a: MIRO:40003480 ! Anopheles gambiae sensu lato
+
+id: MIRO:40003829
+name: Anopheles gambiae
+namespace: mosquito_insecticide_resistance_ontology
+def: "A member species of the species complex Anopheles gambiae sensu lato." [Walter_Reed:taxonomy "http://www.mosquitocatalog.org/"]
+synonym: "Anopheles gambiae s.s." EXACT []
+synonym: "Anopheles gambiae sensu stricto" EXACT []
+synonym: "Anopheles gambiae ss" EXACT []
+is_a: MIRO:40003480 ! Anopheles gambiae sensu lato
