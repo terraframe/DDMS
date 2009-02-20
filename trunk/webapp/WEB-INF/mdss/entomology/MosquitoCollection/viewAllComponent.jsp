@@ -12,6 +12,9 @@
       <mjl:header>
         Collection Method
       </mjl:header>
+      <mjl:row>
+        ${item.collectionMethod.termName}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="dateCollected">
       <mjl:header>
@@ -22,6 +25,9 @@
       <mjl:header>
         Geo Entity
       </mjl:header>
+      <mjl:row>
+        ${item.geoEntity.entityName}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
