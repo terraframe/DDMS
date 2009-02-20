@@ -698,6 +698,12 @@
             order="1"
             type="java.util.Date" />
         </mdAction>
+        <mdAction
+          name="search"
+          description="Forwards the user to the search page"
+          isPost="false"
+          label="Search"
+          isQuery="false" />
       </create>
     </mdController>
   </update>
@@ -1936,8 +1942,10 @@
         name="inheritsTermName"
         value="MIRO_40003480" />
     </object>
-    
-    <object type="mdss.mo.AssayMethod" id="TEST_ASSAY_METHOD">
+
+    <object
+      type="mdss.mo.AssayMethod"
+      id="TEST_ASSAY_METHOD">
       <valueAttribute
         name="termId"
         value="MIRO_809809" />
@@ -1951,8 +1959,10 @@
         name="definition"
         value="Test Assay Method" />
     </object>
-    
-    <object type="mdss.mo.Generation" id="F0">
+
+    <object
+      type="mdss.mo.Generation"
+      id="F0">
       <valueAttribute
         name="termId"
         value="MIRO_343458349" />
@@ -1966,8 +1976,10 @@
         name="definition"
         value="F0" />
     </object>
-    
-    <object type="mdss.mo.Generation" id="F2">
+
+    <object
+      type="mdss.mo.Generation"
+      id="F2">
       <valueAttribute
         name="termId"
         value="MIRO_3535332" />
@@ -1982,7 +1994,9 @@
         value="F1" />
     </object>
 
-    <object type="mdss.mo.Insecticide" id="TEST_INSECTICIDE">
+    <object
+      type="mdss.mo.Insecticide"
+      id="TEST_INSECTICIDE">
       <valueAttribute
         name="termId"
         value="MIRO_45454" />
@@ -1995,6 +2009,6 @@
       <valueAttribute
         name="definition"
         value="Test Insecticide" />
-    </object>    
+    </object>
   </create>
 </TerraFrame>
