@@ -25,8 +25,8 @@
 %>
 
 <%@page import="mdss.entomology.MorphologicalSpecieGroup"%>
-<%@page import="mdss.entomology.SpecieDTO"%>
-<%@page import="mdss.entomology.IdentificationMethodDTO"%><mjl:messages>
+<%@page import="mdss.mo.SpecieDTO"%>
+<%@page import="mdss.mo.IdentificationMethodDTO"%><mjl:messages>
 	<mjl:message />
 </mjl:messages>
 <mjl:form name="mdss.entomology.MosquitoCollection.form.name"
