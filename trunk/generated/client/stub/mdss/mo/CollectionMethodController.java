@@ -1,4 +1,7 @@
-package mdss.entomology;
+package mdss.mo;
+
+import mdss.entomology.CollectionMethodControllerBase;
+import mdss.entomology.CollectionMethodQueryDTO;
 
 public class CollectionMethodController extends CollectionMethodControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -15,7 +18,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", mdss.entomology.CollectionMethodDTO.get(clientRequest, id));
+    req.setAttribute("item", mdss.mo.CollectionMethodDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View CollectionMethodController");
     render("viewComponent.jsp");
   }
@@ -26,7 +29,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.CollectionMethodQueryDTO query = mdss.entomology.CollectionMethodDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    mdss.entomology.CollectionMethodQueryDTO query = mdss.mo.CollectionMethodDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All CollectionMethodController Objects");
     render("viewAllComponent.jsp");
@@ -38,7 +41,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.CollectionMethodQueryDTO query = mdss.entomology.CollectionMethodDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    mdss.entomology.CollectionMethodQueryDTO query = mdss.mo.CollectionMethodDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All CollectionMethodController Objects");
     render("viewAllComponent.jsp");
@@ -47,16 +50,16 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
   {
     resp.sendError(500);
   }
-  public void cancel(mdss.entomology.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(mdss.mo.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
-  public void failCancel(mdss.entomology.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(mdss.mo.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
-  public void delete(mdss.entomology.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(mdss.mo.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -68,13 +71,13 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
       this.failDelete(dto);
     }
   }
-  public void failDelete(mdss.entomology.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(mdss.mo.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit CollectionMethodController");
     render("editComponent.jsp");
   }
-  public void create(mdss.entomology.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(mdss.mo.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -86,7 +89,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
       this.failCreate(dto);
     }
   }
-  public void failCreate(mdss.entomology.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(mdss.mo.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create CollectionMethodController");
@@ -94,7 +97,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    mdss.entomology.CollectionMethodDTO dto = mdss.entomology.CollectionMethodDTO.lock(super.getClientRequest(), id);
+    mdss.mo.CollectionMethodDTO dto = mdss.mo.CollectionMethodDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit CollectionMethodController");
     render("editComponent.jsp");
@@ -103,7 +106,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
   {
     this.view(id);
   }
-  public void update(mdss.entomology.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(mdss.mo.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -115,7 +118,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(mdss.entomology.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(mdss.mo.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update CollectionMethodController");
@@ -124,7 +127,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.CollectionMethodDTO dto = new mdss.entomology.CollectionMethodDTO(clientRequest);
+    mdss.mo.CollectionMethodDTO dto = new mdss.mo.CollectionMethodDTO(clientRequest);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create CollectionMethodController");
     render("createComponent.jsp");

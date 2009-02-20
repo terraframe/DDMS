@@ -1,4 +1,7 @@
-package mdss.entomology;
+package mdss.mo;
+
+import mdss.entomology.InsecticideControllerBase;
+import mdss.entomology.InsecticideQueryDTO;
 
 public class InsecticideController extends InsecticideControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -15,7 +18,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.InsecticideDTO dto = new mdss.entomology.InsecticideDTO(clientRequest);
+    mdss.mo.InsecticideDTO dto = new mdss.mo.InsecticideDTO(clientRequest);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create InsecticideController");
     render("createComponent.jsp");
@@ -27,7 +30,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", mdss.entomology.InsecticideDTO.get(clientRequest, id));
+    req.setAttribute("item", mdss.mo.InsecticideDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View InsecticideController");
     render("viewComponent.jsp");
   }
@@ -35,7 +38,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
   {
     this.viewAll();
   }
-  public void create(mdss.entomology.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(mdss.mo.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -47,13 +50,13 @@ public class InsecticideController extends InsecticideControllerBase implements 
       this.failCreate(dto);
     }
   }
-  public void failCreate(mdss.entomology.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(mdss.mo.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create InsecticideController");
     render("createComponent.jsp");
   }
-  public void update(mdss.entomology.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(mdss.mo.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -65,7 +68,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(mdss.entomology.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(mdss.mo.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update InsecticideController");
@@ -74,7 +77,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.InsecticideQueryDTO query = mdss.entomology.InsecticideDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    mdss.entomology.InsecticideQueryDTO query = mdss.mo.InsecticideDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All InsecticideController Objects");
     render("viewAllComponent.jsp");
@@ -83,7 +86,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
   {
     resp.sendError(500);
   }
-  public void delete(mdss.entomology.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(mdss.mo.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -95,7 +98,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
       this.failDelete(dto);
     }
   }
-  public void failDelete(mdss.entomology.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(mdss.mo.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit InsecticideController");
@@ -103,7 +106,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    mdss.entomology.InsecticideDTO dto = mdss.entomology.InsecticideDTO.lock(super.getClientRequest(), id);
+    mdss.mo.InsecticideDTO dto = mdss.mo.InsecticideDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit InsecticideController");
     render("editComponent.jsp");
@@ -115,7 +118,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.InsecticideQueryDTO query = mdss.entomology.InsecticideDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    mdss.entomology.InsecticideQueryDTO query = mdss.mo.InsecticideDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All InsecticideController Objects");
     render("viewAllComponent.jsp");
@@ -124,12 +127,12 @@ public class InsecticideController extends InsecticideControllerBase implements 
   {
     resp.sendError(500);
   }
-  public void cancel(mdss.entomology.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(mdss.mo.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
-  public void failCancel(mdss.entomology.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(mdss.mo.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }

@@ -1,4 +1,7 @@
-package mdss.entomology;
+package mdss.mo;
+
+import mdss.entomology.SpecieControllerBase;
+import mdss.entomology.SpecieQueryDTO;
 
 public class SpecieController extends SpecieControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -15,7 +18,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.SpecieDTO dto = new mdss.entomology.SpecieDTO(clientRequest);
+    mdss.mo.SpecieDTO dto = new mdss.mo.SpecieDTO(clientRequest);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create SpecieController");
     render("createComponent.jsp");
@@ -24,7 +27,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   {
     this.viewAll();
   }
-  public void delete(mdss.entomology.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(mdss.mo.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -36,7 +39,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
       this.failDelete(dto);
     }
   }
-  public void failDelete(mdss.entomology.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(mdss.mo.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit SpecieController");
@@ -44,7 +47,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    mdss.entomology.SpecieDTO dto = mdss.entomology.SpecieDTO.lock(super.getClientRequest(), id);
+    mdss.mo.SpecieDTO dto = mdss.mo.SpecieDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit SpecieController");
     render("editComponent.jsp");
@@ -56,7 +59,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.SpecieQueryDTO query = mdss.entomology.SpecieDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    mdss.entomology.SpecieQueryDTO query = mdss.mo.SpecieDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All SpecieController Objects");
     render("viewAllComponent.jsp");
@@ -65,7 +68,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   {
     resp.sendError(500);
   }
-  public void update(mdss.entomology.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(mdss.mo.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -77,7 +80,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(mdss.entomology.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(mdss.mo.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update SpecieController");
@@ -86,7 +89,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.SpecieQueryDTO query = mdss.entomology.SpecieDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    mdss.entomology.SpecieQueryDTO query = mdss.mo.SpecieDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All SpecieController Objects");
     render("viewAllComponent.jsp");
@@ -98,7 +101,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", mdss.entomology.SpecieDTO.get(clientRequest, id));
+    req.setAttribute("item", mdss.mo.SpecieDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View SpecieController");
     render("viewComponent.jsp");
   }
@@ -106,16 +109,16 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   {
     this.viewAll();
   }
-  public void cancel(mdss.entomology.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(mdss.mo.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
-  public void failCancel(mdss.entomology.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(mdss.mo.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
-  public void create(mdss.entomology.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(mdss.mo.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -127,7 +130,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
       this.failCreate(dto);
     }
   }
-  public void failCreate(mdss.entomology.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(mdss.mo.SpecieDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create SpecieController");

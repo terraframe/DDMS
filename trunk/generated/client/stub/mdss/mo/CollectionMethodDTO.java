@@ -1,4 +1,6 @@
-package mdss.entomology;
+package mdss.mo;
+
+import mdss.entomology.CollectionMethodDTOBase;
 
 public class CollectionMethodDTO extends CollectionMethodDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{

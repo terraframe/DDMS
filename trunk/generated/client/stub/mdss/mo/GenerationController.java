@@ -1,4 +1,7 @@
-package mdss.entomology;
+package mdss.mo;
+
+import mdss.entomology.GenerationControllerBase;
+import mdss.entomology.GenerationQueryDTO;
 
 public class GenerationController extends GenerationControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -12,19 +15,19 @@ public class GenerationController extends GenerationControllerBase implements co
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void cancel(mdss.entomology.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(mdss.mo.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
-  public void failCancel(mdss.entomology.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(mdss.mo.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.GenerationQueryDTO query = mdss.entomology.GenerationDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    mdss.entomology.GenerationQueryDTO query = mdss.mo.GenerationDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All GenerationController Objects");
     render("viewAllComponent.jsp");
@@ -33,7 +36,7 @@ public class GenerationController extends GenerationControllerBase implements co
   {
     resp.sendError(500);
   }
-  public void create(mdss.entomology.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(mdss.mo.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -45,13 +48,13 @@ public class GenerationController extends GenerationControllerBase implements co
       this.failCreate(dto);
     }
   }
-  public void failCreate(mdss.entomology.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(mdss.mo.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create GenerationController");
     render("createComponent.jsp");
   }
-  public void delete(mdss.entomology.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(mdss.mo.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -63,7 +66,7 @@ public class GenerationController extends GenerationControllerBase implements co
       this.failDelete(dto);
     }
   }
-  public void failDelete(mdss.entomology.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(mdss.mo.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit GenerationController");
@@ -72,7 +75,7 @@ public class GenerationController extends GenerationControllerBase implements co
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", mdss.entomology.GenerationDTO.get(clientRequest, id));
+    req.setAttribute("item", mdss.mo.GenerationDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View GenerationController");
     render("viewComponent.jsp");
   }
@@ -83,7 +86,7 @@ public class GenerationController extends GenerationControllerBase implements co
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.GenerationDTO dto = new mdss.entomology.GenerationDTO(clientRequest);
+    mdss.mo.GenerationDTO dto = new mdss.mo.GenerationDTO(clientRequest);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create GenerationController");
     render("createComponent.jsp");
@@ -92,7 +95,7 @@ public class GenerationController extends GenerationControllerBase implements co
   {
     this.viewAll();
   }
-  public void update(mdss.entomology.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(mdss.mo.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -104,7 +107,7 @@ public class GenerationController extends GenerationControllerBase implements co
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(mdss.entomology.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(mdss.mo.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update GenerationController");
@@ -112,7 +115,7 @@ public class GenerationController extends GenerationControllerBase implements co
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    mdss.entomology.GenerationDTO dto = mdss.entomology.GenerationDTO.lock(super.getClientRequest(), id);
+    mdss.mo.GenerationDTO dto = mdss.mo.GenerationDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit GenerationController");
     render("editComponent.jsp");
@@ -124,7 +127,7 @@ public class GenerationController extends GenerationControllerBase implements co
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.GenerationQueryDTO query = mdss.entomology.GenerationDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    mdss.entomology.GenerationQueryDTO query = mdss.mo.GenerationDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All GenerationController Objects");
     render("viewAllComponent.jsp");

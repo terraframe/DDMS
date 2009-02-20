@@ -1,4 +1,6 @@
-package mdss.entomology;
+package mdss.mo;
+
+import mdss.entomology.IdentificationMethodDTOBase;
 
 public class IdentificationMethodDTO extends IdentificationMethodDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{

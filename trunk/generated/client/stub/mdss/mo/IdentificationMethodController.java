@@ -1,4 +1,7 @@
-package mdss.entomology;
+package mdss.mo;
+
+import mdss.entomology.IdentificationMethodControllerBase;
+import mdss.entomology.IdentificationMethodQueryDTO;
 
 public class IdentificationMethodController extends IdentificationMethodControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -12,7 +15,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void create(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(mdss.mo.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -24,7 +27,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
       this.failCreate(dto);
     }
   }
-  public void failCreate(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(mdss.mo.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create IdentificationMethodController");
@@ -32,7 +35,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    mdss.entomology.IdentificationMethodDTO dto = mdss.entomology.IdentificationMethodDTO.lock(super.getClientRequest(), id);
+    mdss.mo.IdentificationMethodDTO dto = mdss.mo.IdentificationMethodDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit IdentificationMethodController");
     render("editComponent.jsp");
@@ -44,7 +47,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.IdentificationMethodDTO dto = new mdss.entomology.IdentificationMethodDTO(clientRequest);
+    mdss.mo.IdentificationMethodDTO dto = new mdss.mo.IdentificationMethodDTO(clientRequest);
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create IdentificationMethodController");
     render("createComponent.jsp");
@@ -53,7 +56,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
   {
     this.viewAll();
   }
-  public void update(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(mdss.mo.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -65,7 +68,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(mdss.mo.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update IdentificationMethodController");
@@ -74,7 +77,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.IdentificationMethodQueryDTO query = mdss.entomology.IdentificationMethodDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    mdss.entomology.IdentificationMethodQueryDTO query = mdss.mo.IdentificationMethodDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All IdentificationMethodController Objects");
     render("viewAllComponent.jsp");
@@ -86,7 +89,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.IdentificationMethodQueryDTO query = mdss.entomology.IdentificationMethodDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    mdss.entomology.IdentificationMethodQueryDTO query = mdss.mo.IdentificationMethodDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All IdentificationMethodController Objects");
     render("viewAllComponent.jsp");
@@ -95,16 +98,16 @@ public class IdentificationMethodController extends IdentificationMethodControll
   {
     resp.sendError(500);
   }
-  public void cancel(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(mdss.mo.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
-  public void failCancel(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(mdss.mo.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
-  public void delete(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(mdss.mo.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -116,7 +119,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
       this.failDelete(dto);
     }
   }
-  public void failDelete(mdss.entomology.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(mdss.mo.IdentificationMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit IdentificationMethodController");
@@ -125,7 +128,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", mdss.entomology.IdentificationMethodDTO.get(clientRequest, id));
+    req.setAttribute("item", mdss.mo.IdentificationMethodDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View IdentificationMethodController");
     render("viewComponent.jsp");
   }

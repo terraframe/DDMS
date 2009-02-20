@@ -1,4 +1,6 @@
-package mdss.entomology;
+package mdss.mo;
+
+import mdss.entomology.SpecieDTOBase;
 
 public class SpecieDTO extends SpecieDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{

@@ -3,8 +3,11 @@ package mdss.entomology;
 import java.util.Locale;
 
 import mdss.mo.CollectionMethod;
+import mdss.mo.CollectionMethodDTO;
 import mdss.mo.IdentificationMethod;
+import mdss.mo.IdentificationMethodDTO;
 import mdss.mo.Specie;
+import mdss.mo.SpecieDTO;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
