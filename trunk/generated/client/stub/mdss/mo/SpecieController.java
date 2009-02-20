@@ -1,7 +1,7 @@
 package mdss.mo;
 
-import mdss.entomology.SpecieControllerBase;
-import mdss.entomology.SpecieQueryDTO;
+import mdss.mo.SpecieControllerBase;
+import mdss.mo.SpecieQueryDTO;
 
 public class SpecieController extends SpecieControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -59,7 +59,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.SpecieQueryDTO query = mdss.mo.SpecieDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    mdss.mo.SpecieQueryDTO query = mdss.mo.SpecieDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All SpecieController Objects");
     render("viewAllComponent.jsp");
@@ -89,7 +89,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.SpecieQueryDTO query = mdss.mo.SpecieDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    mdss.mo.SpecieQueryDTO query = mdss.mo.SpecieDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All SpecieController Objects");
     render("viewAllComponent.jsp");

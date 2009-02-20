@@ -1,7 +1,7 @@
 package mdss.mo;
 
-import mdss.entomology.AssayMethodBase;
-import mdss.entomology.AssayMethodQuery;
+import mdss.mo.AssayMethodBase;
+import mdss.mo.AssayMethodQuery;
 
 import com.terraframe.mojo.query.QueryFactory;
 

@@ -1,6 +1,6 @@
 package mdss.mo;
 
-import mdss.entomology.InsecticideDTOBase;
+import mdss.mo.InsecticideDTOBase;
 
 public class InsecticideDTO extends InsecticideDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{

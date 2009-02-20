@@ -1,7 +1,7 @@
 package mdss.mo;
 
-import mdss.entomology.IdentificationMethodControllerBase;
-import mdss.entomology.IdentificationMethodQueryDTO;
+import mdss.mo.IdentificationMethodControllerBase;
+import mdss.mo.IdentificationMethodQueryDTO;
 
 public class IdentificationMethodController extends IdentificationMethodControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -77,7 +77,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.IdentificationMethodQueryDTO query = mdss.mo.IdentificationMethodDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    mdss.mo.IdentificationMethodQueryDTO query = mdss.mo.IdentificationMethodDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All IdentificationMethodController Objects");
     render("viewAllComponent.jsp");
@@ -89,7 +89,7 @@ public class IdentificationMethodController extends IdentificationMethodControll
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.IdentificationMethodQueryDTO query = mdss.mo.IdentificationMethodDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    mdss.mo.IdentificationMethodQueryDTO query = mdss.mo.IdentificationMethodDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All IdentificationMethodController Objects");
     render("viewAllComponent.jsp");

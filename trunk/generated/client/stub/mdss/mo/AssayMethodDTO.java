@@ -1,6 +1,6 @@
 package mdss.mo;
 
-import mdss.entomology.AssayMethodDTOBase;
+import mdss.mo.AssayMethodDTOBase;
 
 public class AssayMethodDTO extends AssayMethodDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{

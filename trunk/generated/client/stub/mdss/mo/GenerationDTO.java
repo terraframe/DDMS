@@ -1,6 +1,6 @@
 package mdss.mo;
 
-import mdss.entomology.GenerationDTOBase;
+import mdss.mo.GenerationDTOBase;
 
 public class GenerationDTO extends GenerationDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{

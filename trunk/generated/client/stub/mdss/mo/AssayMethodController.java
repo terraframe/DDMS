@@ -1,7 +1,7 @@
 package mdss.mo;
 
-import mdss.entomology.AssayMethodControllerBase;
-import mdss.entomology.AssayMethodQueryDTO;
+import mdss.mo.AssayMethodControllerBase;
+import mdss.mo.AssayMethodQueryDTO;
 
 public class AssayMethodController extends AssayMethodControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -93,7 +93,7 @@ public class AssayMethodController extends AssayMethodControllerBase implements 
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.AssayMethodQueryDTO query = mdss.mo.AssayMethodDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    mdss.mo.AssayMethodQueryDTO query = mdss.mo.AssayMethodDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All AssayMethodController Objects");
     render("viewAllComponent.jsp");
@@ -127,7 +127,7 @@ public class AssayMethodController extends AssayMethodControllerBase implements 
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.AssayMethodQueryDTO query = mdss.mo.AssayMethodDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    mdss.mo.AssayMethodQueryDTO query = mdss.mo.AssayMethodDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All AssayMethodController Objects");
     render("viewAllComponent.jsp");

@@ -1,7 +1,7 @@
 package mdss.mo;
 
-import mdss.entomology.SpecieBase;
-import mdss.entomology.SpecieQuery;
+import mdss.mo.SpecieBase;
+import mdss.mo.SpecieQuery;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;

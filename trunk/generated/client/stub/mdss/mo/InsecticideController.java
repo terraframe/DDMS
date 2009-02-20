@@ -1,7 +1,7 @@
 package mdss.mo;
 
-import mdss.entomology.InsecticideControllerBase;
-import mdss.entomology.InsecticideQueryDTO;
+import mdss.mo.InsecticideControllerBase;
+import mdss.mo.InsecticideQueryDTO;
 
 public class InsecticideController extends InsecticideControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -77,7 +77,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.InsecticideQueryDTO query = mdss.mo.InsecticideDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    mdss.mo.InsecticideQueryDTO query = mdss.mo.InsecticideDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All InsecticideController Objects");
     render("viewAllComponent.jsp");
@@ -118,7 +118,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.InsecticideQueryDTO query = mdss.mo.InsecticideDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    mdss.mo.InsecticideQueryDTO query = mdss.mo.InsecticideDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All InsecticideController Objects");
     render("viewAllComponent.jsp");

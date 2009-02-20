@@ -1,7 +1,7 @@
 package mdss.mo;
 
-import mdss.entomology.CollectionMethodControllerBase;
-import mdss.entomology.CollectionMethodQueryDTO;
+import mdss.mo.CollectionMethodControllerBase;
+import mdss.mo.CollectionMethodQueryDTO;
 
 public class CollectionMethodController extends CollectionMethodControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -29,7 +29,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.CollectionMethodQueryDTO query = mdss.mo.CollectionMethodDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    mdss.mo.CollectionMethodQueryDTO query = mdss.mo.CollectionMethodDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All CollectionMethodController Objects");
     render("viewAllComponent.jsp");
@@ -41,7 +41,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.entomology.CollectionMethodQueryDTO query = mdss.mo.CollectionMethodDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    mdss.mo.CollectionMethodQueryDTO query = mdss.mo.CollectionMethodDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All CollectionMethodController Objects");
     render("viewAllComponent.jsp");

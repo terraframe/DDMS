@@ -16,11 +16,17 @@ import mdss.entomology.assay.AdultDiscriminatingDoseAssay;
 import mdss.entomology.assay.InvalidAgeProblem;
 import mdss.entomology.assay.InvalidAgeRangeProblem;
 import mdss.mo.AssayMethod;
+import mdss.mo.AssayMethodQuery;
 import mdss.mo.CollectionMethod;
+import mdss.mo.CollectionMethodQuery;
 import mdss.mo.Generation;
+import mdss.mo.GenerationQuery;
 import mdss.mo.IdentificationMethod;
+import mdss.mo.IdentificationMethodQuery;
 import mdss.mo.Insecticide;
+import mdss.mo.InsecticideQuery;
 import mdss.mo.Specie;
+import mdss.mo.SpecieQuery;
 import mdss.test.GeoEntity;
 import mdss.test.Terrain;
 

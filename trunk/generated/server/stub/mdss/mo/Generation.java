@@ -1,6 +1,6 @@
 package mdss.mo;
 
-import mdss.entomology.GenerationBase;
+import mdss.mo.GenerationBase;
 
 public class Generation extends GenerationBase implements com.terraframe.mojo.generation.loader.Reloadable
 {

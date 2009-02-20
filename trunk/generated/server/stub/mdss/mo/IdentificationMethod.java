@@ -1,7 +1,7 @@
 package mdss.mo;
 
-import mdss.entomology.IdentificationMethodBase;
-import mdss.entomology.IdentificationMethodQuery;
+import mdss.mo.IdentificationMethodBase;
+import mdss.mo.IdentificationMethodQuery;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
