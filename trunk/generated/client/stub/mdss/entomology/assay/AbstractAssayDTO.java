@@ -1,5 +1,9 @@
 package mdss.entomology.assay;
 
+import mdss.util.DateConverter;
+
+import com.terraframe.mojo.util.Converter;
+
 public abstract class AbstractAssayDTO extends AbstractAssayDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   public final static String CLASS = "mdss.entomology.assay.AbstractAssay";
@@ -21,4 +25,10 @@ public abstract class AbstractAssayDTO extends AbstractAssayDTOBase
     super(businessDTO, clientRequest);
   }
   
+  public Converter getTestDateConverter()
+  {
+    String label = getTestDateMd().getDisplayLabel();
+    
+    return new DateConverter(label);
+  }
 }
