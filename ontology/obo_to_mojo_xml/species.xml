@@ -1,0 +1,416 @@
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40003818">
+<valueAttribute
+      name="termId"
+      value="MIRO_40003818" />
+<valueAttribute
+      name="termName"
+      value="Culicidae" />
+<valueAttribute
+      name="displayLabel"
+      value="Culicidae" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A family of superfamily Culicoidea. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="taxon" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003819" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40003652">
+<valueAttribute
+      name="termId"
+      value="MIRO_40003652" />
+<valueAttribute
+      name="termName"
+      value="Anophelinae" />
+<valueAttribute
+      name="displayLabel"
+      value="Anophelinae" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A subfamily of Culicidae. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Culicidae" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003818" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40003653">
+<valueAttribute
+      name="termId"
+      value="MIRO_40003653" />
+<valueAttribute
+      name="termName"
+      value="Culicinae" />
+<valueAttribute
+      name="displayLabel"
+      value="Culicinae" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A subfamily of Culicidae. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Culicidae" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003818" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40003478">
+<valueAttribute
+      name="termId"
+      value="MIRO_40003478" />
+<valueAttribute
+      name="termName"
+      value="Anopheles funestus sensu lato" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles funestus sensu lato" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A species complex of subgenus Cellia. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Cellia" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40002217" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40002227">
+<valueAttribute
+      name="termId"
+      value="MIRO_40002227" />
+<valueAttribute
+      name="termName"
+      value="Anopheles aruni" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles aruni" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Anopheles funestus sensu lato" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003478" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40002237">
+<valueAttribute
+      name="termId"
+      value="MIRO_40002237" />
+<valueAttribute
+      name="termName"
+      value="Anopheles brucei" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles brucei" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Anopheles funestus sensu lato" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003478" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40002252">
+<valueAttribute
+      name="termId"
+      value="MIRO_40002252" />
+<valueAttribute
+      name="termName"
+      value="Anopheles confusus" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles confusus" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Anopheles funestus sensu lato" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003478" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40003479">
+<valueAttribute
+      name="termId"
+      value="MIRO_40003479" />
+<valueAttribute
+      name="termName"
+      value="Anopheles fuscivenosus" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles fuscivenosus" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Anopheles funestus sensu lato" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003478" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40003509">
+<valueAttribute
+      name="termId"
+      value="MIRO_40003509" />
+<valueAttribute
+      name="termName"
+      value="Anopheles leesoni" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles leesoni" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Anopheles funestus sensu lato" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003478" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40003561">
+<valueAttribute
+      name="termId"
+      value="MIRO_40003561" />
+<valueAttribute
+      name="termName"
+      value="Anopheles parensis" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles parensis" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A member species of the species complex Anopheles funestus sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Anopheles funestus sensu lato" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003478" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40002423">
+<valueAttribute
+      name="termId"
+      value="MIRO_40002423" />
+<valueAttribute
+      name="termName"
+      value="genus Culex" />
+<valueAttribute
+      name="displayLabel"
+      value="genus Culex" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A genus of Culicini. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Culicini" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003820" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40003480">
+<valueAttribute
+      name="termId"
+      value="MIRO_40003480" />
+<valueAttribute
+      name="termName"
+      value="Anopheles gambiae sensu lato" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles gambiae sensu lato" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A species complex of subgenus Cellia. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Cellia" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40002217" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40002224">
+<valueAttribute
+      name="termId"
+      value="MIRO_40002224" />
+<valueAttribute
+      name="termName"
+      value="Anopheles arabiensis" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles arabiensis" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Anopheles gambiae sensu lato" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003480" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40002241">
+<valueAttribute
+      name="termId"
+      value="MIRO_40002241" />
+<valueAttribute
+      name="termName"
+      value="Anopheles bwambae" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles bwambae" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Anopheles gambiae sensu lato" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003480" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40003532">
+<valueAttribute
+      name="termId"
+      value="MIRO_40003532" />
+<valueAttribute
+      name="termName"
+      value="Anopheles melas" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles melas" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Anopheles gambiae sensu lato" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003480" />
+  </object> 
+
+  <object
+    type="mdss.mo.Specie"
+    id="MIRO_40003572">
+<valueAttribute
+      name="termId"
+      value="MIRO_40003572" />
+<valueAttribute
+      name="termName"
+      value="Anopheles quadriannulatus" />
+<valueAttribute
+      name="displayLabel"
+      value="Anopheles quadriannulatus" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="Anopheles gambiae sensu lato" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_40003480" />
+  </object> 

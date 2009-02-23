@@ -1,0 +1,286 @@
+
+  <object
+    type="mdss.mo.CollectionMethod"
+    id="MIRO_30000044">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000044" />
+<valueAttribute
+      name="termName"
+      value="field population catch" />
+<valueAttribute
+      name="displayLabel"
+      value="field population catch" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any population catch method using either aspiration or traps. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="method" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000000" />
+  </object> 
+
+  <object
+    type="mdss.mo.CollectionMethod"
+    id="MIRO_30000045">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000045" />
+<valueAttribute
+      name="termName"
+      value="catch of live specimens" />
+<valueAttribute
+      name="displayLabel"
+      value="catch of live specimens" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any population catch method meant to collect live specimens. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="field population catch" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000044" />
+  </object> 
+
+  <object
+    type="mdss.mo.CollectionMethod"
+    id="MIRO_30000048">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000048" />
+<valueAttribute
+      name="termName"
+      value="aquatic environment catch" />
+<valueAttribute
+      name="displayLabel"
+      value="aquatic environment catch" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any catch of live specimens method meant to collect mosquitoes from aquatic environment. [PT:PT]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="catch of live specimens" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000045" />
+  </object> 
+
+  <object
+    type="mdss.mo.CollectionMethod"
+    id="MIRO_30000022">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000022" />
+<valueAttribute
+      name="termName"
+      value="collection of larvae" />
+<valueAttribute
+      name="displayLabel"
+      value="collection of larvae" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any method designed to collect (and later examine) live larvae from a field population. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="aquatic environment catch" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000048" />
+  </object> 
+
+  <object
+    type="mdss.mo.CollectionMethod"
+    id="MIRO_30000049">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000049" />
+<valueAttribute
+      name="termName"
+      value="collection of eggs" />
+<valueAttribute
+      name="displayLabel"
+      value="collection of eggs" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any method designed to collect (and later examine) eggs from a field population. [PT:PT]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="aquatic environment catch" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000048" />
+  </object> 
+
+  <object
+    type="mdss.mo.CollectionMethod"
+    id="MIRO_30000053">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000053" />
+<valueAttribute
+      name="termName"
+      value="collection of naturally deposited eggs" />
+<valueAttribute
+      name="displayLabel"
+      value="collection of naturally deposited eggs" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any eggs collection method which targets naturally deposited eggs. [PT:PT]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="collection of eggs" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000049" />
+  </object> 
+
+  <object
+    type="mdss.mo.CollectionMethod"
+    id="MIRO_30000060">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000060" />
+<valueAttribute
+      name="termName"
+      value="collection of eggs via scraping" />
+<valueAttribute
+      name="displayLabel"
+      value="collection of eggs via scraping" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any eggs collection method that uses scraping. [PT:PT]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="collection of eggs" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000049" />
+  </object> 
+
+  <object
+    type="mdss.mo.CollectionMethod"
+    id="MIRO_30000050">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000050" />
+<valueAttribute
+      name="termName"
+      value="collection of pupae" />
+<valueAttribute
+      name="displayLabel"
+      value="collection of pupae" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any method designed to collect (and later examine) live pupae from a field population. [PT:PT]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="aquatic environment catch" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000048" />
+  </object> 
+
+  <object
+    type="mdss.mo.CollectionMethod"
+    id="MIRO_30000051">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000051" />
+<valueAttribute
+      name="termName"
+      value="terrain environment catch" />
+<valueAttribute
+      name="displayLabel"
+      value="terrain environment catch" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any catch of live specimens method meant to collect mosquitoes from aquatic environment. [PT:PT]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="catch of live specimens" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000045" />
+  </object> 
+
+  <object
+    type="mdss.mo.CollectionMethod"
+    id="MIRO_30000052">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000052" />
+<valueAttribute
+      name="termName"
+      value="collection of adults" />
+<valueAttribute
+      name="displayLabel"
+      value="collection of adults" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any method designed to collect (and later examine) live adults from a field population. [PT:PT]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="terrain environment catch" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000051" />
+  </object> 
+
+  <object
+    type="mdss.mo.CollectionMethod"
+    id="MIRO_30000046">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000046" />
+<valueAttribute
+      name="termName"
+      value="collection of dead specimens" />
+<valueAttribute
+      name="displayLabel"
+      value="collection of dead specimens" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any population catch method meant to collect dead specimens. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="field population catch" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000044" />
+  </object> 

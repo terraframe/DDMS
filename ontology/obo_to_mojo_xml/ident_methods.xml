@@ -1,0 +1,182 @@
+
+  <object
+    type="mdss.mo.IdentificationMethod"
+    id="IRO_30000005">
+<valueAttribute
+      name="termId"
+      value="IRO_30000005" />
+<valueAttribute
+      name="termName"
+      value="species identification method" />
+<valueAttribute
+      name="displayLabel"
+      value="species identification method" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Any method designed to identify the species of the insect specimen under study, usually caught /isolated from a field population. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="method" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000000" />
+  </object> 
+
+  <object
+    type="mdss.mo.IdentificationMethod"
+    id="MIRO_30000036">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000036" />
+<valueAttribute
+      name="termName"
+      value="cross mating experiment" />
+<valueAttribute
+      name="displayLabel"
+      value="cross mating experiment" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Genetic crossings between specimens collected in the field to determine whether fertile progeny is produced. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="species identification method" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000005" />
+  </object> 
+
+  <object
+    type="mdss.mo.IdentificationMethod"
+    id="MIRO_30000037">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000037" />
+<valueAttribute
+      name="termName"
+      value="cytological chromosome examination" />
+<valueAttribute
+      name="displayLabel"
+      value="cytological chromosome examination" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Analysis of polytene chromosomes to determine, through cytological examination of the banding pattern, the species that they belong to. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="species identification method" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000005" />
+  </object> 
+
+  <object
+    type="mdss.mo.IdentificationMethod"
+    id="MIRO_30000038">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000038" />
+<valueAttribute
+      name="termName"
+      value="isoenzyme electrophoresis" />
+<valueAttribute
+      name="displayLabel"
+      value="isoenzyme electrophoresis" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Electrophoresis to determine the isozymes that are present in a given mosquito/population, from which in some cases the species can be determined. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="species identification method" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000005" />
+  </object> 
+
+  <object
+    type="mdss.mo.IdentificationMethod"
+    id="MIRO_30000039">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000039" />
+<valueAttribute
+      name="termName"
+      value="morphological examination" />
+<valueAttribute
+      name="displayLabel"
+      value="morphological examination" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Examination of the morphology to determine, through the use of specific \taxonomical keys\ the species a specimen belongs to. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="species identification method" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000005" />
+  </object> 
+
+  <object
+    type="mdss.mo.IdentificationMethod"
+    id="MIRO_30000040">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000040" />
+<valueAttribute
+      name="termName"
+      value="PCR-based species identification" />
+<valueAttribute
+      name="displayLabel"
+      value="PCR-based species identification" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Use of a variety of PCR-based procedures to determine the species that a specimen belongs to. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="species identification method" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000005" />
+  </object> 
+
+  <object
+    type="mdss.mo.IdentificationMethod"
+    id="MIRO_30000041">
+<valueAttribute
+      name="termId"
+      value="MIRO_30000041" />
+<valueAttribute
+      name="termName"
+      value="species specific DNA hybridization" />
+<valueAttribute
+      name="displayLabel"
+      value="species specific DNA hybridization" />
+ <valueAttribute
+      name="oboNamespace"
+      value="mosquito_insecticide_resistance_ontology" />
+ <valueAttribute
+      name="definition"
+      value="Usage of labeled DNA fragments of variable length (usually 100-1000 bases long), to detect in DNA or RNA samples the presence of nucleotide sequences that are complementary to the sequence in the probe through hybridization. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="species identification method" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_30000005" />
+  </object> 

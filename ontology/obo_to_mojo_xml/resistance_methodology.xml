@@ -1,0 +1,286 @@
+
+  <object
+    type="mdss.mo.ResistanceMethodology"
+    id="MIRO_20000001">
+<valueAttribute
+      name="termId"
+      value="MIRO_20000001" />
+<valueAttribute
+      name="termName"
+      value="resistance identification/monitoring" />
+<valueAttribute
+      name="displayLabel"
+      value="resistance identification/monitoring" />
+ <valueAttribute
+      name="oboNamespace"
+      value="" />
+ <valueAttribute
+      name="definition"
+      value="A series of analytical procedures to detect the presence, and estimate the frequency of resistance phenotypes, or resistance-associated markers in wild populations at a given time or over a defined time period. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="method" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000000" />
+  </object> 
+
+  <object
+    type="mdss.mo.ResistanceMethodology"
+    id="MIRO_20000003">
+<valueAttribute
+      name="termId"
+      value="MIRO_20000003" />
+<valueAttribute
+      name="termName"
+      value="biochemical assay" />
+<valueAttribute
+      name="displayLabel"
+      value="biochemical assay" />
+ <valueAttribute
+      name="oboNamespace"
+      value="" />
+ <valueAttribute
+      name="definition"
+      value="An assay used to determine enzyme activity associated with insecticide resistance phenotypes. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="resistance identification/monitoring" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000001" />
+  </object> 
+
+  <object
+    type="mdss.mo.ResistanceMethodology"
+    id="MIRO_20000004">
+<valueAttribute
+      name="termId"
+      value="MIRO_20000004" />
+<valueAttribute
+      name="termName"
+      value="molecular assay" />
+<valueAttribute
+      name="displayLabel"
+      value="molecular assay" />
+ <valueAttribute
+      name="oboNamespace"
+      value="" />
+ <valueAttribute
+      name="definition"
+      value="An assay used to determine changes at genomic DNA or mRNA levels associated with insecticide resistance phenotypes. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="resistance identification/monitoring" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000001" />
+  </object> 
+
+  <object
+    type="mdss.mo.ResistanceMethodology"
+    id="MIRO_20000043">
+<valueAttribute
+      name="termId"
+      value="MIRO_20000043" />
+<valueAttribute
+      name="termName"
+      value="penetration/excretion assay" />
+<valueAttribute
+      name="displayLabel"
+      value="penetration/excretion assay" />
+ <valueAttribute
+      name="oboNamespace"
+      value="" />
+ <valueAttribute
+      name="definition"
+      value="In vivo assays to measure the rate of insecticide uptake, translocation or excretion by a living organism. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="resistance identification/monitoring" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000001" />
+  </object> 
+
+  <object
+    type="mdss.mo.ResistanceMethodology"
+    id="MIRO_20000058">
+<valueAttribute
+      name="termId"
+      value="MIRO_20000058" />
+<valueAttribute
+      name="termName"
+      value="bioassay" />
+<valueAttribute
+      name="displayLabel"
+      value="bioassay" />
+ <valueAttribute
+      name="oboNamespace"
+      value="" />
+ <valueAttribute
+      name="definition"
+      value="Bioassay is a shorthand commonly used term for biological assay and is a type of scientific experiment. Bioassays are typically conducted to measure the effects of a substance on a living organism. [Wikipedia:bioassay]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="resistance identification/monitoring" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000001" />
+  </object> 
+
+  <object
+    type="mdss.mo.ResistanceMethodology"
+    id="MIRO_20000090">
+<valueAttribute
+      name="termId"
+      value="MIRO_20000090" />
+<valueAttribute
+      name="termName"
+      value="antibody-based assay" />
+<valueAttribute
+      name="displayLabel"
+      value="antibody-based assay" />
+ <valueAttribute
+      name="oboNamespace"
+      value="" />
+ <valueAttribute
+      name="definition"
+      value="Antibody-based assays to measure, in a biological sample, levels of antigens. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="resistance identification/monitoring" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000001" />
+  </object> 
+
+  <object
+    type="mdss.mo.ResistanceMethodology"
+    id="MIRO_20000075">
+<valueAttribute
+      name="termId"
+      value="MIRO_20000075" />
+<valueAttribute
+      name="termName"
+      value="diagnostic test" />
+<valueAttribute
+      name="displayLabel"
+      value="diagnostic test" />
+ <valueAttribute
+      name="oboNamespace"
+      value="" />
+ <valueAttribute
+      name="definition"
+      value="Bioassay at preset insecticide dosage scoring mortality to determine resistance of a population. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="direct bioassay" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000044" />
+  </object> 
+
+  <object
+    type="mdss.mo.ResistanceMethodology"
+    id="MIRO_20000009">
+<valueAttribute
+      name="termId"
+      value="MIRO_20000009" />
+<valueAttribute
+      name="termName"
+      value="bottle bioassay DT" />
+<valueAttribute
+      name="displayLabel"
+      value="bottle bioassay DT" />
+ <valueAttribute
+      name="oboNamespace"
+      value="" />
+ <valueAttribute
+      name="definition"
+      value="Diagnostic assay, performed in a glass bottle coated with insecticides. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="diagnostic test" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000075" />
+  </object> 
+
+  <object
+    type="mdss.mo.ResistanceMethodology"
+    id="MIRO_20000039">
+<valueAttribute
+      name="termId"
+      value="MIRO_20000039" />
+<valueAttribute
+      name="termName"
+      value="cone DT" />
+<valueAttribute
+      name="displayLabel"
+      value="cone DT" />
+ <valueAttribute
+      name="oboNamespace"
+      value="" />
+ <valueAttribute
+      name="definition"
+      value="Diagnostic assay, using WHO cone kit. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="diagnostic test" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000075" />
+  </object> 
+
+  <object
+    type="mdss.mo.ResistanceMethodology"
+    id="MIRO_20000041">
+<valueAttribute
+      name="termId"
+      value="MIRO_20000041" />
+<valueAttribute
+      name="termName"
+      value="WHO paper kit DT" />
+<valueAttribute
+      name="displayLabel"
+      value="WHO paper kit DT" />
+ <valueAttribute
+      name="oboNamespace"
+      value="" />
+ <valueAttribute
+      name="definition"
+      value="Diagnostic assay, using WHO paper kit. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="diagnostic test" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000075" />
+  </object> 
+
+  <object
+    type="mdss.mo.ResistanceMethodology"
+    id="MIRO_20000049">
+<valueAttribute
+      name="termId"
+      value="MIRO_20000049" />
+<valueAttribute
+      name="termName"
+      value="WHO larvicide DT" />
+<valueAttribute
+      name="displayLabel"
+      value="WHO larvicide DT" />
+ <valueAttribute
+      name="oboNamespace"
+      value="" />
+ <valueAttribute
+      name="definition"
+      value="Diagnostic assay, testing survival of larvae in a medium supplemented with insecticide. [KL:KL]" />
+<valueAttribute
+      name="inheritsTerm"
+      value="diagnostic test" />
+<valueAttribute
+      name="inheritsTermName"
+      value="MIRO_20000075" />
+  </object> 
