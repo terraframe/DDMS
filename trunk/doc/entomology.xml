@@ -741,6 +741,96 @@
         description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
 
+    <enumerationMaster
+      name="mdss.entomology.assay.UnitMaster"
+      label="Unit Master"
+      description="Master list of all concentration units"
+      generateController="false" />
+
+    <object
+      type="mdss.entomology.assay.UnitMaster"
+      id="MICROGRAM_PER_MILLILITER">
+      <valueAttribute
+        name="enumName"
+        value="MICROGRAM_PER_MILLILITER" />
+      <valueAttribute
+        name="displayLabel"
+        value="µg/ml" />
+    </object>
+
+    <object
+      type="mdss.entomology.assay.UnitMaster"
+      id="PERCENT">
+      <valueAttribute
+        name="enumName"
+        value="PERCENT" />
+      <valueAttribute
+        name="displayLabel"
+        value="%" />
+    </object>
+
+    <object
+      type="mdss.entomology.assay.UnitMaster"
+      id="PICOGRAM_PER_MILLILITER">
+      <valueAttribute
+        name="enumName"
+        value="PICOGRAM_PER_MILLILITER" />
+      <valueAttribute
+        name="displayLabel"
+        value="pg/ml" />
+    </object>
+
+    <object
+      type="mdss.entomology.assay.UnitMaster"
+      id="MILLIGRAM_PER_MILLILITER">
+      <valueAttribute
+        name="enumName"
+        value="MILLIGRAM_PER_MILLILITER" />
+      <valueAttribute
+        name="displayLabel"
+        value="mg/ml" />
+    </object>
+
+    <object
+      type="mdss.entomology.assay.UnitMaster"
+      id="PICOGRAM_PER_LITER">
+      <valueAttribute
+        name="enumName"
+        value="PICOGRAM_PER_LITER" />
+      <valueAttribute
+        name="displayLabel"
+        value="pg/l" />
+    </object>
+
+    <object
+      type="mdss.entomology.assay.UnitMaster"
+      id="MILLIGRAM_PER_LITER">
+      <valueAttribute
+        name="enumName"
+        value="MILLIGRAM_PER_LITER" />
+      <valueAttribute
+        name="displayLabel"
+        value="mg/l" />
+    </object>
+
+    <object
+      type="mdss.entomology.assay.UnitMaster"
+      id="MICROGRAM_PER_LITER">
+      <valueAttribute
+        name="enumName"
+        value="MICROGRAM_PER_LITER" />
+      <valueAttribute
+        name="displayLabel"
+        value="µg/l" />
+    </object>
+
+    <mdEnumeration
+      name="mdss.entomology.assay.Unit"
+      type="mdss.entomology.assay.UnitMaster"
+      label="Unit">
+      <includeAll/>
+    </mdEnumeration>
+
     <mdStruct
       name="mdss.entomology.assay.AdultAgeRange"
       label="Age Range"
@@ -892,12 +982,12 @@
           rejectZero="true"
           rejectNegative="true"
           required="true" />
-        <char
+        <enumeration
           name="units"
           label="Units"
-          size="255"
           required="true"
-          default_value="%" />
+          type="mdss.entomology.assay.Unit"
+          selectMultiple="false" />
         <char
           name="genericName"
           label="Generic Name"
@@ -1290,6 +1380,59 @@
         returnType="mdss.entomology.ResistantCutOff"
         description="Returns the singleton instance of this class" />
     </mdBusiness>
+    
+    <object
+      type="mdss.mo.AssayMethod"
+      id="TEST_ASSAY_METHOD">
+      <valueAttribute
+        name="termId"
+        value="MIRO_809809" />
+      <valueAttribute
+        name="termName"
+        value="TEST_ASSAY_METHOD" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Test Assay Method" />
+    </object>
+
+    <object
+      type="mdss.mo.Generation"
+      id="F0">
+      <valueAttribute
+        name="termId"
+        value="MIRO_343458349" />
+      <valueAttribute
+        name="termName"
+        value="F0" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="F0" />
+    </object>
+
+    <object
+      type="mdss.mo.Generation"
+      id="F2">
+      <valueAttribute
+        name="termId"
+        value="MIRO_3535332" />
+      <valueAttribute
+        name="termName"
+        value="F1" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="F1" />
+    </object>
+    
+    
 
     <object
       type="mdss.entomology.ResistantCutOff"
@@ -2127,81 +2270,6 @@
       <valueAttribute
         name="inheritsTermName"
         value="MIRO_40003480" />
-    </object>
-
-    <object
-      type="mdss.mo.AssayMethod"
-      id="TEST_ASSAY_METHOD">
-      <valueAttribute
-        name="termId"
-        value="MIRO_809809" />
-      <valueAttribute
-        name="termName"
-        value="TEST_ASSAY_METHOD" />
-      <valueAttribute
-        name="oboNamespace"
-        value="mosquito_insecticide_resistance_ontology" />
-      <valueAttribute
-        name="definition"
-        value="Test Assay Method" />
-    </object>
-
-    <object
-      type="mdss.mo.Generation"
-      id="F0">
-      <valueAttribute
-        name="termId"
-        value="MIRO_343458349" />
-      <valueAttribute
-        name="termName"
-        value="F0" />
-      <valueAttribute
-        name="oboNamespace"
-        value="mosquito_insecticide_resistance_ontology" />
-      <valueAttribute
-        name="definition"
-        value="F0" />
-    </object>
-
-    <object
-      type="mdss.mo.Generation"
-      id="F2">
-      <valueAttribute
-        name="termId"
-        value="MIRO_3535332" />
-      <valueAttribute
-        name="termName"
-        value="F1" />
-      <valueAttribute
-        name="oboNamespace"
-        value="mosquito_insecticide_resistance_ontology" />
-      <valueAttribute
-        name="definition"
-        value="F1" />
-    </object>
-
-
-    <object
-      type="mdss.mo.Insecticide"
-      id="">
-      <valueAttribute
-        name="termId"
-        value="" />
-      <valueAttribute
-        name="termName"
-        value="" />
-      <valueAttribute
-        name="oboNamespace"
-        value="" />
-      <valueAttribute
-        name="definition"
-        value="" />
-      <valueAttribute
-        name="inheritsTerm"
-        value="" />
-      <valueAttribute
-        name="inheritsTermName"
-        value="" />
     </object>
 
     <object
