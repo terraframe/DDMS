@@ -85,7 +85,7 @@ public class MOTest extends TestCase
   {
     String[] names = CollectionMethod.getAllTermNames();
     String[] dto = CollectionMethodDTO.getAllTermNames(clientRequest);
-    int expected = 12;
+    int expected = 11;
     
     assertNotNull(names);
     assertNotNull(dto);

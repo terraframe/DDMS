@@ -1,15 +1,15 @@
 package mdss.mo;
 
-import mdss.mo.AssayMethodBase;
-import mdss.mo.AssayMethodQuery;
+import mdss.mo.ResistanceMethodologyBase;
+import mdss.mo.ResistanceMethodologyQuery;
 
 import com.terraframe.mojo.query.QueryFactory;
 
-public class AssayMethod extends AssayMethodBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ResistanceMethodology extends ResistanceMethodologyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234731975869L;
   
-  public AssayMethod()
+  public ResistanceMethodology()
   {
     super();
   }
@@ -28,7 +28,7 @@ public class AssayMethod extends AssayMethodBase implements com.terraframe.mojo.
   
   public static java.lang.String[] getAllTermNames()
   {
-    return AbstractTerm.getAllTermNames(new AssayMethodQuery(new QueryFactory()));
+    return AbstractTerm.getAllTermNames(new ResistanceMethodologyQuery(new QueryFactory()));
   }
 
 }

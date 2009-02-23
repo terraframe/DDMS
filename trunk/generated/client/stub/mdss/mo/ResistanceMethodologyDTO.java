@@ -1,13 +1,13 @@
 package mdss.mo;
 
-import mdss.mo.AssayMethodDTOBase;
+import mdss.mo.ResistanceMethodologyDTOBase;
 
-public class AssayMethodDTO extends AssayMethodDTOBase
+public class ResistanceMethodologyDTO extends ResistanceMethodologyDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   public final static String CLASS = "mdss.mo.AssayMethod";
   private static final long serialVersionUID = 1234731975948L;
   
-  public AssayMethodDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public ResistanceMethodologyDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -18,7 +18,7 @@ public class AssayMethodDTO extends AssayMethodDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected AssayMethodDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected ResistanceMethodologyDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

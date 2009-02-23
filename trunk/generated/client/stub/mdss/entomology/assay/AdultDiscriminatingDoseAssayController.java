@@ -21,7 +21,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.AssayMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View AdultDiscriminatingDoseAssayController");
     render("viewComponent.jsp");
@@ -72,7 +72,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.AssayMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit AdultDiscriminatingDoseAssayController");
     render("editComponent.jsp");
@@ -101,7 +101,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.AssayMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit AdultDiscriminatingDoseAssayController");
     render("editComponent.jsp");
@@ -126,7 +126,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.AssayMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create AdultDiscriminatingDoseAssayController");
     render("createComponent.jsp");
@@ -141,7 +141,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.AssayMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create AdultDiscriminatingDoseAssayController");
     render("createComponent.jsp");
@@ -170,7 +170,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.AssayMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update AdultDiscriminatingDoseAssayController");
     render("updateComponent.jsp");

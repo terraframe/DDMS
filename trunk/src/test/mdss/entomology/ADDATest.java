@@ -25,8 +25,9 @@ import mdss.entomology.assay.InvalidIntervalTimeProblem;
 import mdss.entomology.assay.InvalidKnockDownQuantityProblem;
 import mdss.entomology.assay.InvalidPeriodProblem;
 import mdss.entomology.assay.InvalidTestDateProblem;
-import mdss.mo.AssayMethod;
-import mdss.mo.AssayMethodQuery;
+import mdss.entomology.assay.Unit;
+import mdss.mo.ResistanceMethodology;
+import mdss.mo.ResistanceMethodologyQuery;
 import mdss.mo.CollectionMethod;
 import mdss.mo.CollectionMethodQuery;
 import mdss.mo.Generation;
@@ -60,7 +61,7 @@ public class ADDATest extends TestCase
 
   private static IdentificationMethod identificationMethod = null;
 
-  private static AssayMethod          assayMethod          = null;
+  private static ResistanceMethodology          assayMethod          = null;
 
   private static Insecticide          insecticide          = null;
 
@@ -99,7 +100,7 @@ public class ADDATest extends TestCase
     OIterator<? extends CollectionMethod> cIt = new CollectionMethodQuery(f).getIterator();
     OIterator<? extends Specie> sIt = new SpecieQuery(f).getIterator();
     OIterator<? extends IdentificationMethod> iIt = new IdentificationMethodQuery(f).getIterator();
-    OIterator<? extends AssayMethod> aIt = new AssayMethodQuery(f).getIterator();
+    OIterator<? extends ResistanceMethodology> aIt = new ResistanceMethodologyQuery(f).getIterator();
     OIterator<? extends Insecticide> inIt = new InsecticideQuery(f).getIterator();
     OIterator<? extends Generation> gIt = query.getIterator();
 
@@ -296,7 +297,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.apply();
 
     try
@@ -321,7 +322,7 @@ public class ADDATest extends TestCase
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals("%", assay2.getUnits());
+      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -354,7 +355,7 @@ public class ADDATest extends TestCase
     assay.setQuantityTested(30);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.apply();
 
     try
@@ -378,7 +379,7 @@ public class ADDATest extends TestCase
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals("%", assay2.getUnits());
+      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
     }
     finally
     {
@@ -412,7 +413,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setEndPoint(25);
       assay.setInsecticide(insecticide);
       assay.setAmount(10);
-      assay.setUnits("%");
+      assay.addUnits(Unit.PERCENT);
       assay.apply();
 
       fail("Able to create an adult assay with an invalid age range");
@@ -458,7 +459,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setEndPoint(15);
       assay.setInsecticide(insecticide);
       assay.setAmount(10);
-      assay.setUnits("%");
+      assay.addUnits(Unit.PERCENT);
       assay.apply();
 
       fail("Able to create an adult assay with an test date before the collection date");
@@ -511,7 +512,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGeneration(F1);
     assay.apply();
 
@@ -536,7 +537,7 @@ public class ADDATest extends TestCase
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals("%", assay2.getUnits());
+      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -569,7 +570,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGeneration(F1);
     assay.apply();
 
@@ -592,7 +593,7 @@ public class ADDATest extends TestCase
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals("%", assay2.getUnits());
+      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -625,7 +626,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGeneration(F1);
     assay.apply();
 
@@ -648,7 +649,7 @@ public class ADDATest extends TestCase
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals("%", assay2.getUnits());
+      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -686,7 +687,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
       assay.setAmount(10);
-      assay.setUnits("%");
+      assay.addUnits(Unit.PERCENT);
       assay.apply();
 
       fail("Able to create an assay of unknown sex with invalid gravid and fed values");
@@ -737,7 +738,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
       assay.setAmount(10);
-      assay.setUnits("%");
+      assay.addUnits(Unit.PERCENT);
       assay.apply();
 
       fail("Able to create an assay of male sex with invalid gravid and fed values");
@@ -789,7 +790,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
       assay.setAmount(10);
-      assay.setUnits("%");
+      assay.addUnits(Unit.PERCENT);
       assay.apply();
 
       fail("Able to create an assay with a larger Gravid value than quantity tested");
@@ -845,7 +846,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
       assay.setAmount(10);
-      assay.setUnits("%");
+      assay.addUnits(Unit.PERCENT);
       assay.apply();
 
       fail("Able to create an assay with a larger Fed value than quantity tested");
@@ -896,7 +897,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGenericName(generic);
     assay.setGeneration(F1);
     assay.apply();
@@ -921,7 +922,7 @@ public class ADDATest extends TestCase
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(generic, assay2.getGenericName());
       assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals("%", assay2.getUnits());
+      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -955,7 +956,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGenericName(generic);
     assay.setGeneration(F1);
     assay.apply();
@@ -980,7 +981,7 @@ public class ADDATest extends TestCase
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(generic, assay2.getGenericName());
       assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals("%", assay2.getUnits());
+      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -1014,7 +1015,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGenericName(generic);
     assay.setGeneration(F1);
     assay.apply();
@@ -1039,7 +1040,7 @@ public class ADDATest extends TestCase
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(generic, assay2.getGenericName());
       assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals("%", assay2.getUnits());
+      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -1079,7 +1080,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
       assay.setAmount(10);
-      assay.setUnits("%");
+      assay.addUnits(Unit.PERCENT);
       assay.apply();
 
       fail("Able to set the number dead larger than the total number tested");
@@ -1137,7 +1138,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
       assay.setAmount(10);
-      assay.setUnits("%");
+      assay.addUnits(Unit.PERCENT);
       assay.apply();
 
       fail("Able to set an interval time larger than the exposure time");
@@ -1191,7 +1192,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGenericName(generic);
     assay.apply();
 
@@ -1247,7 +1248,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGeneration(F1);
     assay.setGenericName(generic);
     assay.apply();
@@ -1308,7 +1309,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(period);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGenericName(generic);
     assay.apply();
 
@@ -1365,7 +1366,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGenericName(generic);
     assay.apply();
 
@@ -1426,7 +1427,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGenericName(generic);
     assay.apply();
 
@@ -1487,7 +1488,7 @@ public class ADDATest extends TestCase
       assay.setInsecticide(insecticide);
       assay.setGeneration(F0);
       assay.setAmount(10);
-      assay.setUnits("%");
+      assay.addUnits(Unit.PERCENT);
       assay.apply();
 
       fail("Able to set the isofemale line to true on a F0 generation");
@@ -1538,7 +1539,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGenericName(generic);
     assay.apply();
 
@@ -1586,7 +1587,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
     assay.setAmount(10);
-    assay.setUnits("%");
+    assay.addUnits(Unit.PERCENT);
     assay.setGenericName(generic);
     assay.apply();
 
