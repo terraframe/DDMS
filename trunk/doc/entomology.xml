@@ -872,7 +872,8 @@
           description="The exposure time in minutes"
           rejectNegative="true"
           rejectZero="true"
-          default_value="60" />
+          default_value="60"
+          immutable="true" />
         <integer
           name="quantityTested"
           label="Quantity Tested"
@@ -982,6 +983,7 @@
           name="intervalTime"
           label="Interval Time"
           rejectNegative="true"
+          immutable="true"
           rejectZero="true"
           required="true"
           description="The interval time in minutes"
@@ -1160,8 +1162,8 @@
           name="assayId"
           label="Assay Id"
           description="The id of the assay"
-          required="true" 
-          size="255"/>
+          required="true"
+          size="255" />
       </attributes>
     </mdProblem>
 
@@ -2178,21 +2180,3317 @@
         value="F1" />
     </object>
 
+
     <object
       type="mdss.mo.Insecticide"
-      id="TEST_INSECTICIDE">
+      id="">
       <valueAttribute
         name="termId"
-        value="MIRO_45454" />
+        value="" />
       <valueAttribute
         name="termName"
-        value="Test Insecticide" />
+        value="" />
       <valueAttribute
         name="oboNamespace"
-        value="mosquito_insecticide_resistance_ontology" />
+        value="" />
       <valueAttribute
         name="definition"
-        value="Test Insecticide" />
+        value="" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000169">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000169" />
+      <valueAttribute
+        name="termName"
+        value="active substance" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="active substance" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="insecticidal substance" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000239" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000002">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000002" />
+      <valueAttribute
+        name="termName"
+        value="carbamate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="acetylcholine esterase inhibitor" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000000" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000003">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000003" />
+      <valueAttribute
+        name="termName"
+        value="aldicarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="aldicarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000004">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000004" />
+      <valueAttribute
+        name="termName"
+        value="alanycarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="alanycarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000005">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000005" />
+      <valueAttribute
+        name="termName"
+        value="aminocarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="aminocarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000006">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000006" />
+      <valueAttribute
+        name="termName"
+        value="bendiocarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="bendiocarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000007">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000007" />
+      <valueAttribute
+        name="termName"
+        value="benfuracarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="benfuracarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000008">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000008" />
+      <valueAttribute
+        name="termName"
+        value="butocarboxim" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="butocarboxim" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000009">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000009" />
+      <valueAttribute
+        name="termName"
+        value="butoxycarboxim" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="butoxycarboxim" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000010">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000010" />
+      <valueAttribute
+        name="termName"
+        value="carbaryl" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="carbaryl" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000011">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000011" />
+      <valueAttribute
+        name="termName"
+        value="carbofuran" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="carbofuran" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000012">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000012" />
+      <valueAttribute
+        name="termName"
+        value="carbosulfan" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="carbosulfan" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000013">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000013" />
+      <valueAttribute
+        name="termName"
+        value="ethiofencarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="ethiofencarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000014">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000014" />
+      <valueAttribute
+        name="termName"
+        value="fenobucarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="fenobucarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000015">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000015" />
+      <valueAttribute
+        name="termName"
+        value="formetanate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="formetanate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000016">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000016" />
+      <valueAttribute
+        name="termName"
+        value="furathiocarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="furathiocarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000017">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000017" />
+      <valueAttribute
+        name="termName"
+        value="isoprocarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="isoprocarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000018">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000018" />
+      <valueAttribute
+        name="termName"
+        value="methiocarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="methiocarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000019">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000019" />
+      <valueAttribute
+        name="termName"
+        value="methomyl" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="methomyl" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000020">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000020" />
+      <valueAttribute
+        name="termName"
+        value="metolcarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="metolcarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000021">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000021" />
+      <valueAttribute
+        name="termName"
+        value="oxamyl" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="oxamyl" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000022">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000022" />
+      <valueAttribute
+        name="termName"
+        value="pirimicarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="pirimicarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000023">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000023" />
+      <valueAttribute
+        name="termName"
+        value="propoxur" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="propoxur" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000024">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000024" />
+      <valueAttribute
+        name="termName"
+        value="thiodicarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="thiodicarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000025">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000025" />
+      <valueAttribute
+        name="termName"
+        value="thiofanox" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="thiofanox" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000026">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000026" />
+      <valueAttribute
+        name="termName"
+        value="trimethacarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="trimethacarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000027">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000027" />
+      <valueAttribute
+        name="termName"
+        value="XMC" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="XMC" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000028">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000028" />
+      <valueAttribute
+        name="termName"
+        value="xylylcarb" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="xylylcarb" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="carbamate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000002" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000031">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000031" />
+      <valueAttribute
+        name="termName"
+        value="organophosphate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="acetylcholine esterase inhibitor" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000000" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000032">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000032" />
+      <valueAttribute
+        name="termName"
+        value="acephate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="acephate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000033">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000033" />
+      <valueAttribute
+        name="termName"
+        value="azamethiphos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="azamethiphos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000034">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000034" />
+      <valueAttribute
+        name="termName"
+        value="azinphos-ethyl" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="azinphos-ethyl" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000035">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000035" />
+      <valueAttribute
+        name="termName"
+        value="azinphos-methyl" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="azinphos-methyl" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000036">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000036" />
+      <valueAttribute
+        name="termName"
+        value="cadusafos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="cadusafos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000037">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000037" />
+      <valueAttribute
+        name="termName"
+        value="chlorethoxyfos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="chlorethoxyfos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000038">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000038" />
+      <valueAttribute
+        name="termName"
+        value="chlorfenvinphos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="chlorfenvinphos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000039">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000039" />
+      <valueAttribute
+        name="termName"
+        value="chlormephos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="chlormephos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000040">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000040" />
+      <valueAttribute
+        name="termName"
+        value="chlorpyrifos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="chlorpyrifos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000041">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000041" />
+      <valueAttribute
+        name="termName"
+        value="chlorpyrifos-methyl" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="chlorpyrifos-methyl" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000042">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000042" />
+      <valueAttribute
+        name="termName"
+        value="coumaphos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="coumaphos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000043">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000043" />
+      <valueAttribute
+        name="termName"
+        value="cyanophos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="cyanophos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000044">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000044" />
+      <valueAttribute
+        name="termName"
+        value="demeton-S-methyl" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="demeton-S-methyl" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000045">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000045" />
+      <valueAttribute
+        name="termName"
+        value="diazinon" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="diazinon" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000046">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000046" />
+      <valueAttribute
+        name="termName"
+        value="dichlorvos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="dichlorvos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000047">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000047" />
+      <valueAttribute
+        name="termName"
+        value="dicrotophos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="dicrotophos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000048">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000048" />
+      <valueAttribute
+        name="termName"
+        value="dimethoate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="dimethoate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000049">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000049" />
+      <valueAttribute
+        name="termName"
+        value="dimethylvinphos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="dimethylvinphos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000050">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000050" />
+      <valueAttribute
+        name="termName"
+        value="disulfoton" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="disulfoton" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000051">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000051" />
+      <valueAttribute
+        name="termName"
+        value="EPN" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="EPN" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000052">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000052" />
+      <valueAttribute
+        name="termName"
+        value="ethion" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="ethion" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000053">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000053" />
+      <valueAttribute
+        name="termName"
+        value="ethoprophos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="ethoprophos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000054">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000054" />
+      <valueAttribute
+        name="termName"
+        value="famphur" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="famphur" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000055">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000055" />
+      <valueAttribute
+        name="termName"
+        value="fenamiphos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="fenamiphos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000056">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000056" />
+      <valueAttribute
+        name="termName"
+        value="fenitrothion" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="fenitrothion" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000057">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000057" />
+      <valueAttribute
+        name="termName"
+        value="fensulfothion" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="fensulfothion" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000058">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000058" />
+      <valueAttribute
+        name="termName"
+        value="fenthion" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="fenthion" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000059">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000059" />
+      <valueAttribute
+        name="termName"
+        value="fonofos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="fonofos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000060">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000060" />
+      <valueAttribute
+        name="termName"
+        value="fosthiazate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="fosthiazate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000061">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000061" />
+      <valueAttribute
+        name="termName"
+        value="heptenophos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="heptenophos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000062">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000062" />
+      <valueAttribute
+        name="termName"
+        value="isofenphos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="isofenphos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000063">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000063" />
+      <valueAttribute
+        name="termName"
+        value="isopropyl O-(methoxyaminothio-phosphoryl)salicylate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="isopropyl O-(methoxyaminothio-phosphoryl)salicylate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000064">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000064" />
+      <valueAttribute
+        name="termName"
+        value="isoxathion" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="isoxathion" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000065">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000065" />
+      <valueAttribute
+        name="termName"
+        value="malathion" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="malathion" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000066">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000066" />
+      <valueAttribute
+        name="termName"
+        value="mecarbam" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="mecarbam" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000067">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000067" />
+      <valueAttribute
+        name="termName"
+        value="methamidophos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="methamidophos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000068">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000068" />
+      <valueAttribute
+        name="termName"
+        value="methidathion" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="methidathion" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000069">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000069" />
+      <valueAttribute
+        name="termName"
+        value="mevinphos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="mevinphos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000070">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000070" />
+      <valueAttribute
+        name="termName"
+        value="monocrotophos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="monocrotophos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000071">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000071" />
+      <valueAttribute
+        name="termName"
+        value="naled" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="naled" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000072">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000072" />
+      <valueAttribute
+        name="termName"
+        value="omethoate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="omethoate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000073">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000073" />
+      <valueAttribute
+        name="termName"
+        value="oxydemeton-methyl" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="oxydemeton-methyl" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000074">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000074" />
+      <valueAttribute
+        name="termName"
+        value="parathion" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="parathion" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000075">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000075" />
+      <valueAttribute
+        name="termName"
+        value="parathion-methyl" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="parathion-methyl" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000076">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000076" />
+      <valueAttribute
+        name="termName"
+        value="phenthoate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="phenthoate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000077">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000077" />
+      <valueAttribute
+        name="termName"
+        value="phorate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="phorate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000078">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000078" />
+      <valueAttribute
+        name="termName"
+        value="phosalone" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="phosalone" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000079">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000079" />
+      <valueAttribute
+        name="termName"
+        value="phosmet" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="phosmet" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000080">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000080" />
+      <valueAttribute
+        name="termName"
+        value="phosphamidon" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="phosphamidon" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000081">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000081" />
+      <valueAttribute
+        name="termName"
+        value="phoxim" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="phoxim" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000082">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000082" />
+      <valueAttribute
+        name="termName"
+        value="pirimiphos-methyl" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="pirimiphos-methyl" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000083">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000083" />
+      <valueAttribute
+        name="termName"
+        value="profenofos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="profenofos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000084">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000084" />
+      <valueAttribute
+        name="termName"
+        value="propaphos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="propaphos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000085">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000085" />
+      <valueAttribute
+        name="termName"
+        value="propetamphos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="propetamphos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000086">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000086" />
+      <valueAttribute
+        name="termName"
+        value="prothiofos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="prothiofos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000087">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000087" />
+      <valueAttribute
+        name="termName"
+        value="pyraclofos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="pyraclofos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000088">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000088" />
+      <valueAttribute
+        name="termName"
+        value="pyridaphenthion" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="pyridaphenthion" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000089">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000089" />
+      <valueAttribute
+        name="termName"
+        value="quinalphos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="quinalphos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000090">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000090" />
+      <valueAttribute
+        name="termName"
+        value="sulfotep" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="sulfotep" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000091">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000091" />
+      <valueAttribute
+        name="termName"
+        value="sulprofos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="sulprofos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000092">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000092" />
+      <valueAttribute
+        name="termName"
+        value="tebupirimfos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="tebupirimfos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000093">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000093" />
+      <valueAttribute
+        name="termName"
+        value="temephos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="temephos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000094">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000094" />
+      <valueAttribute
+        name="termName"
+        value="terbufos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="terbufos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000095">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000095" />
+      <valueAttribute
+        name="termName"
+        value="tetrachlorvinphos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="tetrachlorvinphos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000096">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000096" />
+      <valueAttribute
+        name="termName"
+        value="thiometon" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="thiometon" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000097">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000097" />
+      <valueAttribute
+        name="termName"
+        value="triazophos" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="triazophos" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000098">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000098" />
+      <valueAttribute
+        name="termName"
+        value="trichlorfon" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="trichlorfon" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000099">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000099" />
+      <valueAttribute
+        name="termName"
+        value="vamidothion" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="vamidothion" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="organophosphate" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000031" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000112">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000112" />
+      <valueAttribute
+        name="termName"
+        value="pyrethroid" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="sodium channel modulator" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000111" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000113">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000113" />
+      <valueAttribute
+        name="termName"
+        value="acrinathrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="acrinathrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000114">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000114" />
+      <valueAttribute
+        name="termName"
+        value="allethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="allethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000115">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000115" />
+      <valueAttribute
+        name="termName"
+        value="d-cis-trans allethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="d-cis-trans allethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000116">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000116" />
+      <valueAttribute
+        name="termName"
+        value="d-trans allethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="d-trans allethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000117">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000117" />
+      <valueAttribute
+        name="termName"
+        value="bifenthrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="bifenthrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000118">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000118" />
+      <valueAttribute
+        name="termName"
+        value="bioallethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="bioallethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000119">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000119" />
+      <valueAttribute
+        name="termName"
+        value="bioallethrin S-cyclopentenyl" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="bioallethrin S-cyclopentenyl" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000120">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000120" />
+      <valueAttribute
+        name="termName"
+        value="bioresmethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="bioresmethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000121">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000121" />
+      <valueAttribute
+        name="termName"
+        value="cycloprothrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="cycloprothrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000122">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000122" />
+      <valueAttribute
+        name="termName"
+        value="cyfluthrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="cyfluthrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000123">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000123" />
+      <valueAttribute
+        name="termName"
+        value="beta-cyfluthrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="beta-cyfluthrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000124">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000124" />
+      <valueAttribute
+        name="termName"
+        value="cyhalothrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="cyhalothrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000125">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000125" />
+      <valueAttribute
+        name="termName"
+        value="lambda-cyhalothrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="lambda-cyhalothrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000126">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000126" />
+      <valueAttribute
+        name="termName"
+        value="gamma-cyhalothrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="gamma-cyhalothrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000127">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000127" />
+      <valueAttribute
+        name="termName"
+        value="cypermethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="cypermethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000128">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000128" />
+      <valueAttribute
+        name="termName"
+        value="alpha-cypermethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="alpha-cypermethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000129">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000129" />
+      <valueAttribute
+        name="termName"
+        value="beta-cypermethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="beta-cypermethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000130">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000130" />
+      <valueAttribute
+        name="termName"
+        value="theta-cypermethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="theta-cypermethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000131">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000131" />
+      <valueAttribute
+        name="termName"
+        value="zeta-cypermethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="zeta-cypermethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000132">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000132" />
+      <valueAttribute
+        name="termName"
+        value="cyphenothrin [(1R)-trans- isomers]" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="cyphenothrin [(1R)-trans- isomers]" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000133">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000133" />
+      <valueAttribute
+        name="termName"
+        value="deltamethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="deltamethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000134">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000134" />
+      <valueAttribute
+        name="termName"
+        value="empenthrin [(EZ)- (1R)- isomers]" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="empenthrin [(EZ)- (1R)- isomers]" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000135">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000135" />
+      <valueAttribute
+        name="termName"
+        value="esfenvalerate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="esfenvalerate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000136">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000136" />
+      <valueAttribute
+        name="termName"
+        value="etofenprox" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="etofenprox" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000137">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000137" />
+      <valueAttribute
+        name="termName"
+        value="fenpropathrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="fenpropathrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000138">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000138" />
+      <valueAttribute
+        name="termName"
+        value="fenvalerate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="fenvalerate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000139">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000139" />
+      <valueAttribute
+        name="termName"
+        value="flucythrinate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="flucythrinate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000140">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000140" />
+      <valueAttribute
+        name="termName"
+        value="flumethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="flumethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000141">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000141" />
+      <valueAttribute
+        name="termName"
+        value="tau-fluvalinate" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="tau-fluvalinate" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000142">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000142" />
+      <valueAttribute
+        name="termName"
+        value="halfenprox" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="halfenprox" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000143">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000143" />
+      <valueAttribute
+        name="termName"
+        value="imiprothrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="imiprothrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000144">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000144" />
+      <valueAttribute
+        name="termName"
+        value="permethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="permethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000145">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000145" />
+      <valueAttribute
+        name="termName"
+        value="phenothrin [(1R)-trans- isomer]" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="phenothrin [(1R)-trans- isomer]" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000146">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000146" />
+      <valueAttribute
+        name="termName"
+        value="prallethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="prallethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000147">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000147" />
+      <valueAttribute
+        name="termName"
+        value="resmethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="resmethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000148">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000148" />
+      <valueAttribute
+        name="termName"
+        value="rU 15525" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="rU 15525" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000149">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000149" />
+      <valueAttribute
+        name="termName"
+        value="silafluofen" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="silafluofen" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000150">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000150" />
+      <valueAttribute
+        name="termName"
+        value="tefluthrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="tefluthrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000151">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000151" />
+      <valueAttribute
+        name="termName"
+        value="tetramethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="tetramethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000152">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000152" />
+      <valueAttribute
+        name="termName"
+        value="tetramethrin [(1R)- isomers]" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="tetramethrin [(1R)- isomers]" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000153">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000153" />
+      <valueAttribute
+        name="termName"
+        value="tralomethrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="tralomethrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000154">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000154" />
+      <valueAttribute
+        name="termName"
+        value="transfluthrin" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="transfluthrin" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000155">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000155" />
+      <valueAttribute
+        name="termName"
+        value="ZXI 8901" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="ZXI 8901" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="pyrethroid" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000112" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000158">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000158" />
+      <valueAttribute
+        name="termName"
+        value="methoxychlor" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="methoxychlor" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="sodium channel modulator" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000111" />
+    </object>
+
+    <object
+      type="mdss.mo.Insecticide"
+      id="MIRO_10000157">
+      <valueAttribute
+        name="termId"
+        value="MIRO_10000157" />
+      <valueAttribute
+        name="termName"
+        value="DDT" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="DDT" />
+      <valueAttribute
+        name="inheritsTerm"
+        value="sodium channel modulator" />
+      <valueAttribute
+        name="inheritsTermName"
+        value="MIRO_10000111" />
     </object>
   </create>
 </TerraFrame>
