@@ -20,6 +20,8 @@ public class ADDATestIntervalView extends ADDATestIntervalViewBase implements co
       interval.setPeriod(this.getPeriod());
       interval.setKnockedDown(this.getKnockedDown());
       interval.apply();
+      
+      this.setIntervalId(interval.getId());
     }
     else
     {

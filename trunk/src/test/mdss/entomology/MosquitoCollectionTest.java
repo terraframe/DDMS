@@ -254,7 +254,7 @@ public class MosquitoCollectionTest extends TestCase
       collection.delete();
     }
   }
-  
+
   public void testSaveAllMorphologicalSpecieGroupView()
   {
     MosquitoCollection collection = new MosquitoCollection();
@@ -263,7 +263,7 @@ public class MosquitoCollectionTest extends TestCase
     collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
-    MorphologicalSpecieGroupView[] array = new MorphologicalSpecieGroupView[2];    
+    MorphologicalSpecieGroupView[] array = new MorphologicalSpecieGroupView[2];
 
     array[0] = new MorphologicalSpecieGroupView();
     array[0].setQuantity(20);
@@ -275,7 +275,7 @@ public class MosquitoCollectionTest extends TestCase
     array[1].setSpecie(specie.getTermName());
     array[1].setIdentificationMethod(identificationMethod.getTermName());
     array[1].setCollectionId(collection.getId());
-    
+
     MorphologicalSpecieGroupView.saveAll(array);
 
     try
@@ -292,7 +292,7 @@ public class MosquitoCollectionTest extends TestCase
     finally
     {
       collection.delete();
-    }    
+    }
   }
 
   public void testReapplyMorphologicalSpecieGroupView()

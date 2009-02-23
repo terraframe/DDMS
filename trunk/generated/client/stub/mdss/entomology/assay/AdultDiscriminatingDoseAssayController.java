@@ -15,7 +15,8 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   public void cancel(mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
-    this.view(dto.getId());
+    
+    this.view(dto);
   }
   public void failCancel(mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -26,16 +27,23 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     mdss.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO query = mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All AdultDiscriminatingDoseAssayController Objects");
+    req.setAttribute("page_title", "View All Adult Discriminating Dose Assays");
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
+  
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    
+    this.view(AdultDiscriminatingDoseAssayDTO.get(clientRequest, id));
+  }
+  
+  public void view(AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
     req.setAttribute("mdss_entomology_assay_AdultAssay_generation", mdss.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_entomology_assay_AdultAssay_insecticide", mdss.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_entomology_assay_AdultAssay_units", mdss.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
@@ -44,10 +52,12 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.get(clientRequest, id));
+
+    req.setAttribute("item", dto);
     req.setAttribute("page_title", "View AdultDiscriminatingDoseAssayController");
     render("viewComponent.jsp");
   }
+  
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
@@ -83,7 +93,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
@@ -141,7 +151,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {

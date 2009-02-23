@@ -24,7 +24,7 @@ public class MosquitoCollectionDTO extends MosquitoCollectionDTOBase
   {
     super(businessDTO, clientRequest);
   }
-   
+     
   public Converter getDateCollectedConverter()
   {
     String label = getDateCollectedMd().getDisplayLabel();

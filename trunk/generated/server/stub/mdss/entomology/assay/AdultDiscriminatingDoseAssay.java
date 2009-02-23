@@ -80,6 +80,26 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     validateIntervalTime();
 
     super.apply();
+    
+    //CREATE Test Intervals
+    int periods = this.calculatePeriod();
+    
+    for(int i = 0; i < periods; i++)
+    {
+      ADDATestInterval interval = new ADDATestInterval();
+      interval.setAssay(this);
+      interval.setPeriod(i);
+      interval.setKnockedDown(0);
+      interval.apply();
+    }
+  }
+  
+  public Integer calculatePeriod()
+  {
+    double exposureTime = (double) this.getExposureTime();
+    Integer intervalTime = this.getIntervalTime();
+
+    return (int) Math.ceil(exposureTime / intervalTime) + 1;
   }
 
   @Override

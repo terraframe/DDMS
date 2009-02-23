@@ -51,23 +51,23 @@ import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 public class ADDATest extends TestCase
 {
-  private static GeoEntity            geoEntity            = null;
+  private static GeoEntity             geoEntity            = null;
 
-  private static MosquitoCollection   collection           = null;
+  private static MosquitoCollection    collection           = null;
 
-  private static CollectionMethod     collectionMethod     = null;
+  private static CollectionMethod      collectionMethod     = null;
 
-  private static Specie               specie               = null;
+  private static Specie                specie               = null;
 
-  private static IdentificationMethod identificationMethod = null;
+  private static IdentificationMethod  identificationMethod = null;
 
-  private static ResistanceMethodology          assayMethod          = null;
+  private static ResistanceMethodology assayMethod          = null;
 
-  private static Insecticide          insecticide          = null;
+  private static Insecticide           insecticide          = null;
 
-  private static Generation           F0                   = null;
+  private static Generation            F0                   = null;
 
-  private static Generation           F1                   = null;
+  private static Generation            F1                   = null;
 
   public static Test suite()
   {
@@ -471,12 +471,12 @@ public class ADDATest extends TestCase
 
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidTestDateProblem);
-      
+
       InvalidTestDateProblem problem = (InvalidTestDateProblem) problems.get(0);
-      
+
       assertEquals(assay.getId(), problem.getAssayId());
-      assertEquals(date, problem.getTestDate());      
-      assertEquals(assay.getCollection().getDateCollected(), problem.getCollectionDate());      
+      assertEquals(date, problem.getTestDate());
+      assertEquals(assay.getCollection().getDateCollected(), problem.getCollectionDate());
     }
     finally
     {
@@ -698,8 +698,10 @@ public class ADDATest extends TestCase
       List<ProblemIF> problems = e.getProblems();
 
       assertEquals(2, problems.size());
-      assertTrue(problems.get(0) instanceof InvalidGravidSexProblem || problems.get(1) instanceof InvalidGravidSexProblem);
-      assertTrue(problems.get(0) instanceof InvalidFedSexProblem || problems.get(1) instanceof InvalidFedSexProblem);      
+      assertTrue(problems.get(0) instanceof InvalidGravidSexProblem
+          || problems.get(1) instanceof InvalidGravidSexProblem);
+      assertTrue(problems.get(0) instanceof InvalidFedSexProblem
+          || problems.get(1) instanceof InvalidFedSexProblem);
     }
     finally
     {
@@ -749,8 +751,10 @@ public class ADDATest extends TestCase
       List<ProblemIF> problems = e.getProblems();
 
       assertEquals(2, problems.size());
-      assertTrue(problems.get(0) instanceof InvalidGravidSexProblem || problems.get(1) instanceof InvalidGravidSexProblem);
-      assertTrue(problems.get(0) instanceof InvalidFedSexProblem || problems.get(1) instanceof InvalidFedSexProblem);      
+      assertTrue(problems.get(0) instanceof InvalidGravidSexProblem
+          || problems.get(1) instanceof InvalidGravidSexProblem);
+      assertTrue(problems.get(0) instanceof InvalidFedSexProblem
+          || problems.get(1) instanceof InvalidFedSexProblem);
     }
     finally
     {
@@ -802,11 +806,11 @@ public class ADDATest extends TestCase
 
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidFedQuantityProblem);
-      
+
       InvalidFedQuantityProblem problem = (InvalidFedQuantityProblem) problems.get(0);
-      
+
       assertEquals(assay.getId(), problem.getAssayId());
-      assertEquals(new Integer(fed), problem.getFed());      
+      assertEquals(new Integer(fed), problem.getFed());
     }
     finally
     {
@@ -858,11 +862,11 @@ public class ADDATest extends TestCase
 
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidGravidQuantityProblem);
-      
+
       InvalidGravidQuantityProblem problem = (InvalidGravidQuantityProblem) problems.get(0);
-      
+
       assertEquals(assay.getId(), problem.getAssayId());
-      assertEquals(new Integer(gravid), problem.getGravid());      
+      assertEquals(new Integer(gravid), problem.getGravid());
     }
     finally
     {
@@ -1092,12 +1096,12 @@ public class ADDATest extends TestCase
 
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidDeadQuantityProblem);
-      
+
       InvalidDeadQuantityProblem problem = (InvalidDeadQuantityProblem) problems.get(0);
-      
+
       assertEquals(assay.getId(), problem.getAssayId());
-      assertEquals(new Integer(quantityDead), problem.getQuantityDead());      
-      assertEquals(new Integer(quantityTested), problem.getQuantityTested());      
+      assertEquals(new Integer(quantityDead), problem.getQuantityDead());
+      assertEquals(new Integer(quantityTested), problem.getQuantityTested());
     }
     finally
     {
@@ -1150,12 +1154,12 @@ public class ADDATest extends TestCase
 
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidIntervalTimeProblem);
-      
+
       InvalidIntervalTimeProblem problem = (InvalidIntervalTimeProblem) problems.get(0);
-      
+
       assertEquals(assay.getId(), problem.getAssayId());
-      assertEquals(new Integer(exposureTime), problem.getExposureTime());      
-      assertEquals(new Integer(intervalTime), problem.getIntervalTime());      
+      assertEquals(new Integer(exposureTime), problem.getExposureTime());
+      assertEquals(new Integer(intervalTime), problem.getIntervalTime());
     }
     finally
     {
@@ -1196,26 +1200,18 @@ public class ADDATest extends TestCase
     assay.setGenericName(generic);
     assay.apply();
 
-    for (int i = 0; i < 6; i++)
-    {
-      ADDATestInterval interval = new ADDATestInterval();
-      interval.setAssay(assay);
-      interval.setPeriod(i);
-      interval.setKnockedDown(i);
-      interval.apply();
-    }
-
     try
     {
+      int max = assay.calculatePeriod();
       ADDATestIntervalView[] intervals = assay.getTestIntervals();
 
-      assertEquals(6, intervals.length);
+      assertEquals(max, intervals.length);
 
-      for (int i = 0; i < 6; i++)
+      for (int i = 0; i < max; i++)
       {
         assertEquals(assay.getId(), intervals[i].getAssayId());
         assertEquals(new Integer(i), intervals[i].getPeriod());
-        assertEquals(new Integer(i), intervals[i].getKnockedDown());
+        assertEquals(new Integer(0), intervals[i].getKnockedDown());
       }
     }
     finally
@@ -1223,8 +1219,8 @@ public class ADDATest extends TestCase
       assay.delete();
     }
   }
-
-  public void testIntervalCeiling() throws ParseException
+  
+  public void testIntervalUpdate() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
@@ -1252,21 +1248,20 @@ public class ADDATest extends TestCase
     assay.setGeneration(F1);
     assay.setGenericName(generic);
     assay.apply();
+    
+    ADDATestIntervalView[] intervals = assay.getTestIntervals();
 
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < intervals.length; i++)
     {
-      ADDATestInterval interval = new ADDATestInterval();
-      interval.setAssay(assay);
-      interval.setPeriod(i);
-      interval.setKnockedDown(i);
-      interval.apply();
+      intervals[i].setKnockedDown(i);
+      intervals[i].apply();
     }
 
     try
     {
-      ADDATestIntervalView[] intervals = assay.getTestIntervals();
+      intervals = assay.getTestIntervals();
 
-      assertEquals(9, intervals.length);
+      assertEquals(assay.calculatePeriod(), new Integer(intervals.length));
 
       for (int i = 0; i < 9; i++)
       {
@@ -1329,11 +1324,58 @@ public class ADDATest extends TestCase
 
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidPeriodProblem);
-      
+
       InvalidPeriodProblem problem = (InvalidPeriodProblem) problems.get(0);
-      
+
       assertEquals(interval.getId(), problem.getIntervalId());
-      assertEquals(new Integer(period), problem.getPeriod());      
+      assertEquals(new Integer(period), problem.getPeriod());
+    }
+    finally
+    {
+      assay.delete();
+    }
+  }
+  
+  public void testDuplicatePeriod() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
+    int period = 20;
+
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(30);
+    assay.setGeneration(F1);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setGeneration(F1);
+    assay.setQuantityDead(30);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(period);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.addUnits(Unit.PERCENT);
+    assay.setGenericName(generic);
+    assay.apply();
+
+    try
+    {
+      ADDATestInterval interval = new ADDATestInterval();
+      interval.setAssay(assay);
+      interval.setPeriod(0);
+      interval.setKnockedDown(2);
+      interval.apply();
+
+      fail("Able to create a test interval with an duplicate period");
     }
     finally
     {
@@ -1370,20 +1412,19 @@ public class ADDATest extends TestCase
     assay.setGenericName(generic);
     assay.apply();
 
-    for (int i = 0; i < 9; i++)
+    ADDATestIntervalView[] intervals = assay.getTestIntervals();
+
+    for (int i = 0; i < intervals.length; i++)
     {
-      ADDATestInterval interval = new ADDATestInterval();
-      interval.setAssay(assay);
-      interval.setPeriod(i);
-      interval.setKnockedDown(30);
-      interval.apply();
+      intervals[i].setKnockedDown(30);
+      intervals[i].apply();
     }
 
     try
     {
-      ADDATestIntervalView[] intervals = assay.getTestIntervals();
+      intervals = assay.getTestIntervals();
 
-      assertEquals(9, intervals.length);
+      assertEquals(assay.calculatePeriod(), new Integer(intervals.length));
 
       for (int i = 0; i < 9; i++)
       {
@@ -1447,12 +1488,12 @@ public class ADDATest extends TestCase
 
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidKnockDownQuantityProblem);
-      
+
       InvalidKnockDownQuantityProblem problem = (InvalidKnockDownQuantityProblem) problems.get(0);
-      
+
       assertEquals(interval.getId(), problem.getIntervalId());
-      assertEquals(new Integer(quantityKnockedDown), problem.getQuantityKnockDown());      
-      assertEquals(new Integer(quantityTested), problem.getQuantityTested());      
+      assertEquals(new Integer(quantityKnockedDown), problem.getQuantityKnockDown());
+      assertEquals(new Integer(quantityTested), problem.getQuantityTested());
     }
     finally
     {
@@ -1500,9 +1541,9 @@ public class ADDATest extends TestCase
 
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof InvalidGenerationProblem);
-      
+
       InvalidGenerationProblem problem = (InvalidGenerationProblem) problems.get(0);
-      
+
       assertEquals(assay.getId(), problem.getAssayId());
     }
     finally
@@ -1561,7 +1602,7 @@ public class ADDATest extends TestCase
       assay.delete();
     }
   }
-  
+
   public void testGetKD100() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());

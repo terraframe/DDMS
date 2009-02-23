@@ -17,10 +17,9 @@ public class ADDATestInterval extends ADDATestIntervalBase implements
 
     if (this.getAssay() != null)
     {
-      double exposureTime = (double) this.getAssay().getExposureTime();
-      Integer intervalTime = this.getAssay().getIntervalTime();
+      int maxPeriod = this.getAssay().calculatePeriod();
 
-      if (this.getPeriod() > (int) Math.ceil(exposureTime / intervalTime))
+      if (!(this.getPeriod() < maxPeriod))
       {
         String msg = "Interval time * period is larger than exposure time";
         InvalidPeriodProblem p = new InvalidPeriodProblem(msg);
