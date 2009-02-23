@@ -1,4 +1,4 @@
-IRO:30000005
+id: IRO:30000005
 name: species identification method
 namespace: mosquito_insecticide_resistance_ontology
 def: "Any method designed to identify the species of the insect specimen under study, usually caught /isolated from a field population." [KL:KL]

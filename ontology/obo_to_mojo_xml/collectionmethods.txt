@@ -70,4 +70,3 @@ name: dead on ground catch
 namespace: mosquito_insecticide_resistance_ontology
 def: "Any method designed to collect (and later examine) dead mosquitoes from ground." [PT:PT]
 is_a: MIRO:30000046 ! collection of dead specimens
-

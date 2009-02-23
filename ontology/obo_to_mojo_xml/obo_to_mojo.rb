@@ -29,7 +29,11 @@ is_a_id = ''
 namespace = ''
 miro_def = ''
 
+out_buff = ''
+
 used_ids = []
+
+out_file = $*[0].gsub(/txt|obo/,'xml')
 
 File.open($*[0] , "r").each_line do |line|
   array = line.strip.split(': ')
@@ -42,7 +46,7 @@ File.open($*[0] , "r").each_line do |line|
     when 'namespace'
       namespace = array[1].strip
     when 'def'
-      miro_def = array[1].strip
+      miro_def = array[1].strip.gsub('"','')
     when 'is_a'
       arr = array[1].split('!')
       is_a_id = arr[0].strip.upcase.gsub(/[^A-Z0-9]/,'_')
@@ -50,30 +54,39 @@ File.open($*[0] , "r").each_line do |line|
     else
       if line.strip.empty? and ! used_ids.include?(java_id)
         
-        puts "
+        out_buff << "
   <object
     type=\"#{type}\"
     id=\"#{java_id}\">
-    <valueAttribute
+<valueAttribute
+      name=\"termId\"
+      value=\"#{java_id}\" />
+<valueAttribute
       name=\"termName\"
+      value=\"#{miro_name}\" />
+<valueAttribute
+      name=\"displayLabel\"
       value=\"#{miro_name}\" />
  <valueAttribute
       name=\"oboNamespace\"
       value=\"#{namespace}\" />
  <valueAttribute
       name=\"definition\"
-      value=\"#{miro_name}\" />
+      value=\"#{miro_def}\" />
 <valueAttribute
-      name=\"is_a_string\"
+      name=\"inheritsTerm\"
       value=\"#{is_a_string}\" />
 <valueAttribute
-      name=\"is_a_id\"
+      name=\"inheritsTermName\"
       value=\"#{is_a_id}\" />
   </object> \n"
       used_ids << java_id
       end
   end
 end
+
+
+File.open(out_file,'w').write(out_buff)
 
 
 
