@@ -5,7 +5,7 @@ import mdss.ivcc.mrc.csu.mo.ResistanceMethodologyControllerBase;
 
 public class ResistanceMethodologyController extends ResistanceMethodologyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/AssayMethod/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/AssayMethod/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073590645L;

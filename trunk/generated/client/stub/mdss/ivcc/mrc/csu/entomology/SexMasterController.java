@@ -4,7 +4,7 @@ import mdss.ivcc.mrc.csu.entomology.SexMasterControllerBase;
 
 public class SexMasterController extends SexMasterControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/SexMaster/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/SexMaster/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073591321L;

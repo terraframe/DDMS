@@ -5,7 +5,7 @@ import mdss.ivcc.mrc.csu.mo.SpecieControllerBase;
 
 public class SpecieController extends SpecieControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/Specie/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/Specie/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073585551L;

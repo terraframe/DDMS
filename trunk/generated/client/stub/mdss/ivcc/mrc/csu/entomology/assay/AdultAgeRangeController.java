@@ -4,7 +4,7 @@ import mdss.ivcc.mrc.csu.entomology.assay.AdultAgeRangeControllerBase;
 
 public class AdultAgeRangeController extends AdultAgeRangeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/assay/AdultAgeRange/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/assay/AdultAgeRange/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073590825L;

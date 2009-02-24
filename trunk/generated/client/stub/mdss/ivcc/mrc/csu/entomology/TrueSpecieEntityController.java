@@ -4,7 +4,7 @@ import mdss.ivcc.mrc.csu.entomology.TrueSpecieEntityControllerBase;
 
 public class TrueSpecieEntityController extends TrueSpecieEntityControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/TrueSpecieEntity/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/TrueSpecieEntity/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073592482L;

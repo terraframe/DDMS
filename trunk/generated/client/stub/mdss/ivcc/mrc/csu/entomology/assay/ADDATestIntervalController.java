@@ -4,7 +4,7 @@ import mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalControllerBase;
 
 public class ADDATestIntervalController extends ADDATestIntervalControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/assay/ADDATestInterval/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/assay/ADDATestInterval/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073594740L;

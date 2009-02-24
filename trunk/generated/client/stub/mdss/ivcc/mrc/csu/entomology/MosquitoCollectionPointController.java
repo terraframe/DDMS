@@ -4,7 +4,7 @@ import mdss.ivcc.mrc.csu.entomology.MosquitoCollectionPointControllerBase;
 
 public class MosquitoCollectionPointController extends MosquitoCollectionPointControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/MosquitoCollectionPoint/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/MosquitoCollectionPoint/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073586764L;

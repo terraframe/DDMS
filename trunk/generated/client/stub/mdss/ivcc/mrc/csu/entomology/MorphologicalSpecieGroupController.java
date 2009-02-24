@@ -4,7 +4,7 @@ import mdss.ivcc.mrc.csu.entomology.MorphologicalSpecieGroupControllerBase;
 
 public class MorphologicalSpecieGroupController extends MorphologicalSpecieGroupControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/MorphologicalSpecieGroup/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/MorphologicalSpecieGroup/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073592699L;

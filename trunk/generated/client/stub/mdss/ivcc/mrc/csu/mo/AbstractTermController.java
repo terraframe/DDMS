@@ -4,7 +4,7 @@ import mdss.ivcc.mrc.csu.mo.AbstractTermControllerBase;
 
 public class AbstractTermController extends AbstractTermControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/mo/AbstractTerm/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/mo/AbstractTerm/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073586920L;

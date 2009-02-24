@@ -5,7 +5,7 @@ import mdss.ivcc.mrc.csu.mo.CollectionMethodControllerBase;
 
 public class CollectionMethodController extends CollectionMethodControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/CollectionMethod/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/CollectionMethod/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073583316L;

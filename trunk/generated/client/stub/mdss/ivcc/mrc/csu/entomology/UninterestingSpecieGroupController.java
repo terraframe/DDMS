@@ -4,7 +4,7 @@ import mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupControllerBase;
 
 public class UninterestingSpecieGroupController extends UninterestingSpecieGroupControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/UninterestingSpecieGroup/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/UninterestingSpecieGroup/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073583096L;

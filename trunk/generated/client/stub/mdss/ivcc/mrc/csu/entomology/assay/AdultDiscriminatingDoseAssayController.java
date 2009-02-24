@@ -4,7 +4,7 @@ import mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayController
 
 public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingDoseAssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/assay/AdultDiscriminatingDoseAssay/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/assay/AdultDiscriminatingDoseAssay/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235419628808L;

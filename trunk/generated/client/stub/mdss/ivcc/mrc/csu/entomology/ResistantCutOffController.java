@@ -4,7 +4,7 @@ import mdss.ivcc.mrc.csu.entomology.ResistantCutOffControllerBase;
 
 public class ResistantCutOffController extends ResistantCutOffControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/mdss/entomology/ResistantCutOff/";
+  public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/ResistantCutOff/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
   private static final long serialVersionUID = 1235073586023L;
