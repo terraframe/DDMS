@@ -48,9 +48,9 @@
                  <div id="entomology" class="yuimenu">
                      <div class="bd">                    
                          <ul>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.MosquitoCollectionController.search.mojo"><f:message key="Search_Mosquito_Collections"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>                               
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="View_All_ADDA"/></a></li>                          
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.ivcc.mrc.csu.entomology.MosquitoCollectionController.search.mojo"><f:message key="Search_Mosquito_Collections"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.ivcc.mrc.csu.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>                               
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="View_All_ADDA"/></a></li>                          
                          </ul>                    
                      </div>
                  </div>                                        
@@ -97,7 +97,7 @@
                  <div id="gis" class="yuimenu">
                      <div class="bd">                                        
                          <ul>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.test.GeoEntityController.viewAll.mojo"><f:message key="View_GeoEntites"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.ivcc.mrc.csu.geo.GeoEntityController.viewAll.mojo"><f:message key="View_GeoEntites"/></a></li>
                          </ul>                    
                      </div>
 
