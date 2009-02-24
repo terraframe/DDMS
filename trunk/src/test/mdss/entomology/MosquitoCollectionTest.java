@@ -20,7 +20,6 @@ import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
-import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.session.StartSession;
 
 public class MosquitoCollectionTest extends TestCase
@@ -61,19 +60,9 @@ public class MosquitoCollectionTest extends TestCase
 
   protected static void classSetUp()
   {
-    OIterator<? extends CollectionMethod> cIt = CollectionMethod.getAllInstances(null, false, 0, 0)
-        .getIterator();
-    OIterator<? extends Specie> sIt = Specie.getAllInstances(null, false, 0, 0).getIterator();
-    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0,
-        0).getIterator();
-
-    collectionMethod = cIt.next();
-    specie = sIt.next();
-    identificationMethod = iIt.next();
-
-    cIt.close();
-    sIt.close();
-    iIt.close();
+    collectionMethod = CollectionMethod.getAll()[0];
+    specie = Specie.getAll()[0];
+    identificationMethod = IdentificationMethod.getAll()[0];
 
     sentinelSite = new GeoEntity();
     sentinelSite.setGeoId("0");
@@ -207,8 +196,8 @@ public class MosquitoCollectionTest extends TestCase
       assertEquals(2, list.length);
       assertEquals(new Integer(20), list[0].getQuantity());
       assertEquals(new Integer(10), list[1].getQuantity());
-      assertEquals(specie.getTermName(), list[0].getSpecie());
-      assertEquals(identificationMethod.getTermName(), list[0].getIdentificationMethod());
+      assertEquals(specie.getId(), list[0].getSpecie());
+      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod());
     }
     finally
     {
@@ -226,15 +215,15 @@ public class MosquitoCollectionTest extends TestCase
 
     MorphologicalSpecieGroupView group = new MorphologicalSpecieGroupView();
     group.setQuantity(20);
-    group.setSpecie(specie.getTermName());
-    group.setIdentificationMethod(identificationMethod.getTermName());
+    group.setSpecie(specie.getId());
+    group.setIdentificationMethod(identificationMethod.getId());
     group.setCollectionId(collection.getId());
     group.apply();
 
     MorphologicalSpecieGroupView group2 = new MorphologicalSpecieGroupView();
     group2.setQuantity(10);
-    group2.setSpecie(specie.getTermName());
-    group2.setIdentificationMethod(identificationMethod.getTermName());
+    group2.setSpecie(specie.getId());
+    group2.setIdentificationMethod(identificationMethod.getId());
     group2.setCollectionId(collection.getId());
     group2.apply();
 
@@ -246,8 +235,8 @@ public class MosquitoCollectionTest extends TestCase
       assertEquals(2, list.length);
       assertEquals(new Integer(20), list[0].getQuantity());
       assertEquals(new Integer(10), list[1].getQuantity());
-      assertEquals(specie.getTermName(), list[0].getSpecie());
-      assertEquals(identificationMethod.getTermName(), list[0].getIdentificationMethod());
+      assertEquals(specie.getId(), list[0].getSpecie());
+      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod());
     }
     finally
     {
@@ -267,13 +256,13 @@ public class MosquitoCollectionTest extends TestCase
 
     array[0] = new MorphologicalSpecieGroupView();
     array[0].setQuantity(20);
-    array[0].setSpecie(specie.getTermName());
-    array[0].setIdentificationMethod(identificationMethod.getTermName());
+    array[0].setSpecie(specie.getId());
+    array[0].setIdentificationMethod(identificationMethod.getId());
     array[0].setCollectionId(collection.getId());
     array[1] = new MorphologicalSpecieGroupView();
     array[1].setQuantity(10);
-    array[1].setSpecie(specie.getTermName());
-    array[1].setIdentificationMethod(identificationMethod.getTermName());
+    array[1].setSpecie(specie.getId());
+    array[1].setIdentificationMethod(identificationMethod.getId());
     array[1].setCollectionId(collection.getId());
 
     MorphologicalSpecieGroupView.saveAll(array);
@@ -286,8 +275,8 @@ public class MosquitoCollectionTest extends TestCase
       assertEquals(2, list.length);
       assertEquals(new Integer(20), list[0].getQuantity());
       assertEquals(new Integer(10), list[1].getQuantity());
-      assertEquals(specie.getTermName(), list[0].getSpecie());
-      assertEquals(identificationMethod.getTermName(), list[0].getIdentificationMethod());
+      assertEquals(specie.getId(), list[0].getSpecie());
+      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod());
     }
     finally
     {
@@ -312,8 +301,8 @@ public class MosquitoCollectionTest extends TestCase
 
     MorphologicalSpecieGroupView view = new MorphologicalSpecieGroupView();
     view.setQuantity(10);
-    view.setSpecie(specie.getTermName());
-    view.setIdentificationMethod(identificationMethod.getTermName());
+    view.setSpecie(specie.getId());
+    view.setIdentificationMethod(identificationMethod.getId());
     view.setCollectionId(collection.getId());
     view.setGroupId(group.getId());
     view.apply();
@@ -325,8 +314,8 @@ public class MosquitoCollectionTest extends TestCase
 
       assertEquals(1, list.length);
       assertEquals(new Integer(10), list[0].getQuantity());
-      assertEquals(specie.getTermName(), list[0].getSpecie());
-      assertEquals(identificationMethod.getTermName(), list[0].getIdentificationMethod());
+      assertEquals(specie.getId(), list[0].getSpecie());
+      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod());
     }
     finally
     {

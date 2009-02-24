@@ -20,27 +20,29 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
 
     if(this.getGroupId() == null || this.getGroupId().equals(""))
     {
-      IdentificationMethod method = IdentificationMethod.getIdentificationMethod(this.getIdentificationMethod());
+      IdentificationMethod method = IdentificationMethod.get(this.getIdentificationMethod());
+      Specie specie = Specie.get(this.getSpecie());
       
       MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();      
       group.setCollection(AbstractMosquitoCollection.get(this.getCollectionId()));
       group.setQuantity(this.getQuantity());
       group.setIdentificationMethod(method);
-      group.setSpecie(Specie.getSpecie(this.getSpecie()));
+      group.setSpecie(specie);
       group.apply();
       
       this.setGroupId(group.getId());
     }
     else
     {
-      IdentificationMethod method = IdentificationMethod.getIdentificationMethod(this.getIdentificationMethod());
+      IdentificationMethod method = IdentificationMethod.get(this.getIdentificationMethod());
+      Specie specie = Specie.get(this.getSpecie());
 
       MorphologicalSpecieGroup group = MorphologicalSpecieGroup.lock(this.getGroupId());      
       group.setCollection(AbstractMosquitoCollection.get(this.getCollectionId()));
       group.setQuantity(this.getQuantity());
       group.setQuantity(this.getQuantity());
       group.setIdentificationMethod(method);
-      group.setSpecie(Specie.getSpecie(this.getSpecie()));
+      group.setSpecie(specie);
       group.apply();      
     }
   }

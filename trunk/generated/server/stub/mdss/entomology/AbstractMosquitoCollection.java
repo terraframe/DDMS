@@ -58,12 +58,12 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
 
       if(specie != null)
       {
-        view.setSpecie(specie.getTermName());
+        view.setSpecie(specie.getId());
       }
       
       if(identificationMethod != null)
       {
-        view.setIdentificationMethod(identificationMethod.getTermName());
+        view.setIdentificationMethod(identificationMethod.getId());
       }
       
       view.applyNoPersist();

@@ -1,8 +1,9 @@
 package mdss.mo;
 
-import mdss.mo.IdentificationMethodQuery;
-import mdss.mo.InsecticideBase;
+import java.util.LinkedList;
+import java.util.List;
 
+import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
 public class Insecticide extends InsecticideBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -14,8 +15,19 @@ public class Insecticide extends InsecticideBase implements com.terraframe.mojo.
     super();
   }
   
-  public static java.lang.String[] getAllDisplayLabels()
+  public static Insecticide[] getAll()
   {
-    return AbstractTerm.getAllDisplayLabels(new IdentificationMethodQuery(new QueryFactory()));
+    List<Insecticide> list = new LinkedList<Insecticide>();   
+    InsecticideQuery query = new InsecticideQuery(new QueryFactory());
+    OIterator<? extends Insecticide> it = query.getIterator();
+    
+    while(it.hasNext())
+    {
+      list.add(it.next());
+    }
+    
+    it.close();
+    
+    return list.toArray(new Insecticide[list.size()]);
   }  
 }

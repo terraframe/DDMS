@@ -2,17 +2,16 @@ package mdss.entomology;
 
 import java.util.Locale;
 
+import junit.extensions.TestSetup;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 import mdss.mo.CollectionMethod;
 import mdss.mo.CollectionMethodDTO;
 import mdss.mo.IdentificationMethod;
 import mdss.mo.IdentificationMethodDTO;
 import mdss.mo.Specie;
 import mdss.mo.SpecieDTO;
-
-import junit.extensions.TestSetup;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientRequestIF;
@@ -59,8 +58,8 @@ public class MOTest extends TestCase
   
   public void testSpecieGetAllTermNames()
   {
-    String[] names = Specie.getAllDisplayLabels();
-    String[] dto = SpecieDTO.getAllDisplayLabels(clientRequest);
+    Specie[] names = Specie.getAll();
+    SpecieDTO[] dto = SpecieDTO.getAll(clientRequest);
     int expected = 16;
     
     assertNotNull(names);
@@ -71,8 +70,8 @@ public class MOTest extends TestCase
   
   public void testIdentificationMethodGetAllTermNames()
   {
-    String[] names = IdentificationMethod.getAllDisplayLabels();
-    String[] dto = IdentificationMethodDTO.getAllDisplayLabels(clientRequest);
+    IdentificationMethod[] names = IdentificationMethod.getAll();
+    IdentificationMethodDTO[] dto = IdentificationMethodDTO.getAll(clientRequest);
     int expected = 7;
     
     assertNotNull(names);
@@ -83,8 +82,8 @@ public class MOTest extends TestCase
   
   public void testCollectionMethodGetAllTermNames()
   {
-    String[] names = CollectionMethod.getAllDisplayLabels();
-    String[] dto = CollectionMethodDTO.getAllDisplayLabels(clientRequest);
+    CollectionMethod[] names = CollectionMethod.getAll();
+    CollectionMethodDTO[] dto = CollectionMethodDTO.getAll(clientRequest);
     int expected = 11;
     
     assertNotNull(names);

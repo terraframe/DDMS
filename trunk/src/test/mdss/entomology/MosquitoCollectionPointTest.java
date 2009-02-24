@@ -18,7 +18,6 @@ import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
-import com.terraframe.mojo.query.OIterator;
 
 public class MosquitoCollectionPointTest extends TestCase
 {
@@ -56,15 +55,8 @@ public class MosquitoCollectionPointTest extends TestCase
 
   protected static void classSetUp()
   {
-    OIterator<? extends Specie> sIt = Specie.getAllInstances(null, false, 0, 0).getIterator();
-    OIterator<? extends IdentificationMethod> iIt = IdentificationMethod.getAllInstances(null, false, 0,
-        0).getIterator();
-
-    specie = sIt.next();
-    identificationMethod = iIt.next();
-
-    sIt.close();
-    iIt.close();
+    specie = Specie.getAll()[0];
+    identificationMethod = IdentificationMethod.getAll()[0];
 
     sentinelSite = new GeoEntity();
     sentinelSite.setGeoId("0");
@@ -191,8 +183,8 @@ public class MosquitoCollectionPointTest extends TestCase
       assertEquals(2, list.length);
       assertEquals(new Integer(20), list[0].getQuantity());
       assertEquals(new Integer(10), list[1].getQuantity());
-      assertEquals(specie.getTermName(), list[0].getSpecie());
-      assertEquals(identificationMethod.getTermName(), list[0].getIdentificationMethod());
+      assertEquals(specie.getId(), list[0].getSpecie());
+      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod());
     }
     finally
     {

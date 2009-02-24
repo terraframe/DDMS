@@ -1,7 +1,7 @@
 package mdss.mo;
 
-import mdss.mo.IdentificationMethodBase;
-import mdss.mo.IdentificationMethodQuery;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -27,27 +27,20 @@ public class IdentificationMethod extends IdentificationMethodBase implements co
     return this.getTermName();
   }
   
-  public static IdentificationMethod getIdentificationMethod(String termName)
+  public static IdentificationMethod[] getAll()
   {
-    IdentificationMethod identificationMethod = null;
+    List<IdentificationMethod> list = new LinkedList<IdentificationMethod>();   
     IdentificationMethodQuery query = new IdentificationMethodQuery(new QueryFactory());
-    query.WHERE(query.getTermName().EQ(termName));
-
-    OIterator<? extends IdentificationMethod> iterator = query.getIterator();
+    OIterator<? extends IdentificationMethod> it = query.getIterator();
     
-    while(iterator.hasNext())
+    while(it.hasNext())
     {
-      identificationMethod = iterator.next();
+      list.add(it.next());
     }
     
-    iterator.close();
+    it.close();
     
-    return identificationMethod;    
-  }  
-  
-  public static java.lang.String[] getAllDisplayLabels()
-  {
-    return AbstractTerm.getAllDisplayLabels(new IdentificationMethodQuery(new QueryFactory()));
+    return list.toArray(new IdentificationMethod[list.size()]);
   }
 
 }

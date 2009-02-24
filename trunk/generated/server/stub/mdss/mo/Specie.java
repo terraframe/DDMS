@@ -1,7 +1,7 @@
 package mdss.mo;
 
-import mdss.mo.SpecieBase;
-import mdss.mo.SpecieQuery;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -27,27 +27,20 @@ public class Specie extends SpecieBase implements com.terraframe.mojo.generation
     return super.getTermName();
   }  
   
-  public static Specie getSpecie(String termName)
+  public static Specie[] getAll()
   {
-    Specie specie = null;
+    List<Specie> list = new LinkedList<Specie>();   
     SpecieQuery query = new SpecieQuery(new QueryFactory());
-    query.WHERE(query.getTermName().EQ(termName));
+    OIterator<? extends Specie> it = query.getIterator();
     
-    OIterator<? extends Specie> iterator = query.getIterator();
-
-    while(iterator.hasNext())
+    while(it.hasNext())
     {
-      specie = iterator.next();
+      list.add(it.next());
     }
     
-    iterator.close();
+    it.close();
     
-    return specie;
-  }
-  
-  public static java.lang.String[] getAllDisplayLabels()
-  {
-    return AbstractTerm.getAllDisplayLabels(new SpecieQuery(new QueryFactory()));
+    return list.toArray(new Specie[list.size()]);
   }
 
 }
