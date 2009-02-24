@@ -93,7 +93,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.generation.keyName}" action="mdss.entomology.GenerationController.view.mojo" name="mdss.entomology.Generation.form.view.link">
+      <mjl:commandLink display="${item.generation.keyName}" action="mdss.mo.GenerationController.view.mojo" name="mdss.mo.Generation.form.view.link">
         <mjl:property value="${item.generation.id}" name="id" />
       </mjl:commandLink>
     </dd>
@@ -119,7 +119,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.insecticide.keyName}" action="mdss.entomology.InsecticideController.view.mojo" name="mdss.entomology.Insecticide.form.view.link">
+      <mjl:commandLink display="${item.insecticide.keyName}" action="mdss.mo.InsecticideController.view.mojo" name="mdss.mo.Insecticide.form.view.link">
         <mjl:property value="${item.insecticide.id}" name="id" />
       </mjl:commandLink>
     </dd>
@@ -137,7 +137,13 @@
       </label>
     </dt>
     <dd>
-      ${item.units}
+      <ul>
+        <c:forEach var="enumName" items="${item.unitsEnumNames}">
+          <li>
+            ${item.unitsMd.enumItems[enumName]}
+          </li>
+        </c:forEach>
+      </ul>
     </dd>
     <dt>
       <label>
@@ -155,7 +161,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.identificationMethod.keyName}" action="mdss.entomology.IdentificationMethodController.view.mojo" name="mdss.entomology.IdentificationMethod.form.view.link">
+      <mjl:commandLink display="${item.identificationMethod.keyName}" action="mdss.mo.IdentificationMethodController.view.mojo" name="mdss.mo.IdentificationMethod.form.view.link">
         <mjl:property value="${item.identificationMethod.id}" name="id" />
       </mjl:commandLink>
     </dd>
@@ -187,7 +193,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.specie.keyName}" action="mdss.entomology.SpecieController.view.mojo" name="mdss.entomology.Specie.form.view.link">
+      <mjl:commandLink display="${item.specie.keyName}" action="mdss.mo.SpecieController.view.mojo" name="mdss.mo.Specie.form.view.link">
         <mjl:property value="${item.specie.id}" name="id" />
       </mjl:commandLink>
     </dd>
@@ -205,7 +211,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.testMethod.keyName}" action="mdss.entomology.AssayMethodController.view.mojo" name="mdss.entomology.AssayMethod.form.view.link">
+      <mjl:commandLink display="${item.testMethod.keyName}" action="mdss.mo.ResistanceMethodologyController.view.mojo" name="mdss.mo.ResistanceMethodology.form.view.link">
         <mjl:property value="${item.testMethod.id}" name="id" />
       </mjl:commandLink>
     </dd>
