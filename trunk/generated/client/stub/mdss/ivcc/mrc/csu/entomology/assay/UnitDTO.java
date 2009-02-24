@@ -22,7 +22,7 @@ public enum UnitDTO implements com.terraframe.mojo.business.EnumerationDTOIF, co
   
   PICOGRAM_PER_MILLILITER();
   
-  public final static String CLASS = "mdss.ivcc.mrc.csuivcc.mrc.csu.entomology.assay.Unit";
+  public final static String CLASS = "mdss.ivcc.mrc.csu.entomology.assay.Unit";
   
   
   public mdss.ivcc.mrc.csu.entomology.assay.UnitMasterDTO item(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

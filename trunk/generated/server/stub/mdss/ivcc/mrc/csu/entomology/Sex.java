@@ -14,7 +14,7 @@ public enum Sex implements com.terraframe.mojo.business.BusinessEnumeration, com
   
   UNKNOWN();
   
-  public static final java.lang.String CLASS = "mdss.ivcc.mrc.csuivcc.mrc.csu.entomology.Sex";
+  public static final java.lang.String CLASS = "mdss.ivcc.mrc.csu.entomology.Sex";
   private mdss.ivcc.mrc.csu.entomology.SexMaster enumeration;
   
   private synchronized void loadEnumeration()

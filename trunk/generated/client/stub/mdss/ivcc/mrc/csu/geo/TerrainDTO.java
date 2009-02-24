@@ -16,7 +16,7 @@ public enum TerrainDTO implements com.terraframe.mojo.business.EnumerationDTOIF,
   
   SENTINEL_SITE();
   
-  public final static String CLASS = "mdss.ivcc.mrc.csuivcc.mrc.csu.geo.Terrain";
+  public final static String CLASS = "mdss.ivcc.mrc.csu.geo.Terrain";
   
   
   public mdss.ivcc.mrc.csu.geo.TerrainMasterDTO item(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

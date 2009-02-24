@@ -40,9 +40,9 @@ public class TrueSpecieEntityController extends TrueSpecieEntityControllerBase i
   }
   public void failCreate(mdss.ivcc.mrc.csu.entomology.TrueSpecieEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create TrueSpecieEntityController");
     render("createComponent.jsp");
@@ -50,9 +50,9 @@ public class TrueSpecieEntityController extends TrueSpecieEntityControllerBase i
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     mdss.ivcc.mrc.csu.entomology.TrueSpecieEntityDTO dto = mdss.ivcc.mrc.csu.entomology.TrueSpecieEntityDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit TrueSpecieEntityController");
     render("editComponent.jsp");
@@ -75,9 +75,9 @@ public class TrueSpecieEntityController extends TrueSpecieEntityControllerBase i
   }
   public void failDelete(mdss.ivcc.mrc.csu.entomology.TrueSpecieEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit TrueSpecieEntityController");
     render("editComponent.jsp");
@@ -97,9 +97,9 @@ public class TrueSpecieEntityController extends TrueSpecieEntityControllerBase i
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.TrueSpecieEntityDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View TrueSpecieEntityController");
     render("viewComponent.jsp");
@@ -131,9 +131,9 @@ public class TrueSpecieEntityController extends TrueSpecieEntityControllerBase i
   }
   public void failUpdate(mdss.ivcc.mrc.csu.entomology.TrueSpecieEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update TrueSpecieEntityController");
     render("updateComponent.jsp");

@@ -46,14 +46,14 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   
   public void view(AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
 
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "View AdultDiscriminatingDoseAssayController");
@@ -78,14 +78,14 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   }
   public void failDelete(mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit AdultDiscriminatingDoseAssayController");
     render("editComponent.jsp");
@@ -104,14 +104,14 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   }
   public void failCreate(mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create AdultDiscriminatingDoseAssayController");
     render("createComponent.jsp");
@@ -132,14 +132,14 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO dto = new mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO(clientRequest);
-    req.setAttribute("mdss_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create AdultDiscriminatingDoseAssayController");
     render("createComponent.jsp");
@@ -162,14 +162,14 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   }
   public void failUpdate(mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update AdultDiscriminatingDoseAssayController");
     render("updateComponent.jsp");
@@ -177,14 +177,14 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO dto = mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("mdss_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_generation", mdss.ivcc.mrc.csu.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_insecticide", mdss.ivcc.mrc.csu.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_units", mdss.ivcc.mrc.csu.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_collection", mdss.ivcc.mrc.csu.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_sex", mdss.ivcc.mrc.csu.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit AdultDiscriminatingDoseAssayController");
     render("editComponent.jsp");

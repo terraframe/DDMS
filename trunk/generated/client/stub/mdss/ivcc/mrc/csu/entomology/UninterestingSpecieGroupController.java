@@ -18,9 +18,9 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupDTO dto = new mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupDTO(clientRequest);
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create UninterestingSpecieGroupController");
     render("createComponent.jsp");
@@ -43,9 +43,9 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
   }
   public void failUpdate(mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update UninterestingSpecieGroupController");
     render("updateComponent.jsp");
@@ -65,9 +65,9 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupDTO dto = mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit UninterestingSpecieGroupController");
     render("editComponent.jsp");
@@ -90,9 +90,9 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
   }
   public void failCreate(mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create UninterestingSpecieGroupController");
     render("createComponent.jsp");
@@ -111,9 +111,9 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
   }
   public void failDelete(mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit UninterestingSpecieGroupController");
     render("editComponent.jsp");
@@ -130,9 +130,9 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection", mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod", mdss.ivcc.mrc.csu.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View UninterestingSpecieGroupController");
     render("viewComponent.jsp");

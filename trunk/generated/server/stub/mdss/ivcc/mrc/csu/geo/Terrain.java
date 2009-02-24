@@ -16,7 +16,7 @@ public enum Terrain implements com.terraframe.mojo.business.BusinessEnumeration,
   
   SENTINEL_SITE();
   
-  public static final java.lang.String CLASS = "mdss.ivcc.mrc.csuivcc.mrc.csu.geo.Terrain";
+  public static final java.lang.String CLASS = "mdss.ivcc.mrc.csu.geo.Terrain";
   private mdss.ivcc.mrc.csu.geo.TerrainMaster enumeration;
   
   private synchronized void loadEnumeration()

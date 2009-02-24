@@ -16,7 +16,7 @@ public enum AssaySexDTO implements com.terraframe.mojo.business.EnumerationDTOIF
   
   UNKNOWN();
   
-  public final static String CLASS = "mdss.ivcc.mrc.csuivcc.mrc.csu.entomology.AssaySex";
+  public final static String CLASS = "mdss.ivcc.mrc.csu.entomology.AssaySex";
   
   
   public mdss.ivcc.mrc.csu.entomology.SexMasterDTO item(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

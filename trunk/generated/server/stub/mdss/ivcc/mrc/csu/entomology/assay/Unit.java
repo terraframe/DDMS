@@ -22,7 +22,7 @@ public enum Unit implements com.terraframe.mojo.business.BusinessEnumeration, co
   
   PICOGRAM_PER_MILLILITER();
   
-  public static final java.lang.String CLASS = "mdss.ivcc.mrc.csuivcc.mrc.csu.entomology.assay.Unit";
+  public static final java.lang.String CLASS = "mdss.ivcc.mrc.csu.entomology.assay.Unit";
   private mdss.ivcc.mrc.csu.entomology.assay.UnitMaster enumeration;
   
   private synchronized void loadEnumeration()

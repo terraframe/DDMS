@@ -30,7 +30,7 @@ public class ADDATestIntervalController extends ADDATestIntervalControllerBase i
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalDTO dto = new mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalDTO(clientRequest);
-    req.setAttribute("mdss_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create ADDATestIntervalController");
     render("createComponent.jsp");
@@ -53,7 +53,7 @@ public class ADDATestIntervalController extends ADDATestIntervalControllerBase i
   }
   public void failDelete(mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit ADDATestIntervalController");
     render("editComponent.jsp");
@@ -81,7 +81,7 @@ public class ADDATestIntervalController extends ADDATestIntervalControllerBase i
   }
   public void failCreate(mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create ADDATestIntervalController");
     render("createComponent.jsp");
@@ -101,7 +101,7 @@ public class ADDATestIntervalController extends ADDATestIntervalControllerBase i
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("mdss_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View ADDATestIntervalController");
     render("viewComponent.jsp");
@@ -113,7 +113,7 @@ public class ADDATestIntervalController extends ADDATestIntervalControllerBase i
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalDTO dto = mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("mdss_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit ADDATestIntervalController");
     render("editComponent.jsp");
@@ -136,7 +136,7 @@ public class ADDATestIntervalController extends ADDATestIntervalControllerBase i
   }
   public void failUpdate(mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_ADDATestInterval_assay", mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update ADDATestIntervalController");
     render("updateComponent.jsp");
