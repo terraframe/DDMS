@@ -1,22 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="java.util.*"%>
 <%--TO USE ME: <jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />--%>
-
-<link rel="icon" type="image/png" href="/MDSS/imgs/favicon.png" />
-
-<style type="text/css">
-/*margin and padding on body element
-  can introduce errors in determining
-  element position and are not recommended;
-  we turn them off as a foundation for YUI
-  CSS treatments. */
-body {
-	margin: 0;
-	padding: 0;
-}
-</style>
-
-<script type="text/javascript" src="js/Terraframe_Mojo.js"></script>
-
+<link rel="icon" type="image/png" href="/favicon.png" >
 
 <!--CSS source files for the entire YUI Library-->
 <!--CSS Foundation: (also partially aggegrated in reset-fonts-grids.css; does not include base.css)-->
@@ -44,7 +29,6 @@ body {
 	href="/MDSS/js/yui/build/carousel/assets/skins/sam/carousel.css">
 <link rel="stylesheet" type="text/css"
 	href="/MDSS/js/yui/build/colorpicker/assets/skins/sam/colorpicker.css">
-
 <link rel="stylesheet" type="text/css"
 	href="/MDSS/js/yui/build/editor/assets/skins/sam/editor.css">
 <link rel="stylesheet" type="text/css"
@@ -186,7 +170,7 @@ textarea {
 
 .delete-button {
 	cursor: pointer;
-	background: transparent url(/MDSS/imgs/delete.png) no-repeat center
+	background: transparent url(/MDSS/imgs/icons/delete.png) no-repeat center
 		center;
 	width: 16px;
 	height: 16px;
@@ -194,7 +178,7 @@ textarea {
 
 .insert-button {
 	cursor: pointer;
-	background: transparent url(/MDSS/imgs/add.png) no-repeat center center;
+	background: transparent url(/MDSS/imgs/icons/add.png) no-repeat center center;
 	width: 16px;
 	height: 16px;
 }
@@ -211,7 +195,18 @@ dt {
 	font-weight: bold;
 	margin-top: 5px;
 }
-</style>
 
+/*margin and padding on body element
+  can introduce errors in determining
+  element position and are not recommended;
+  we turn them off as a foundation for YUIß
+  CSS treatments. */
+body {
+	margin: 0;
+	padding: 0;
+}
+</style>
+<script type="text/javascript" src="js/Terraframe_Mojo.js"></script>
+<script type="text/javascript">var locale = "<%=request.getLocale().toString()%>";</script>
 <script type="text/javascript" src="js/Menu.js"></script>
 <script type="text/javascript" src="/MDSS/js/addCalendarWidgets.js"></script>

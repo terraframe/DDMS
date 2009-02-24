@@ -34,7 +34,7 @@
 
              <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="#"><f:message key="Intervention_Planning"/></a>
 
-                 <div id="intervention" class="yuimenu">
+                 <div id="intervention_planning" class="yuimenu">
                      <div class="bd">                    
                          <ul>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#">Test</a></li>
@@ -49,7 +49,8 @@
                      <div class="bd">                    
                          <ul>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.MosquitoCollectionController.search.mojo"><f:message key="Search_Mosquito_Collections"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>                          
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>                               
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="mdss.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="View_All_ADDA"/></a></li>                          
                          </ul>                    
                      </div>
                  </div>                                        
@@ -69,7 +70,7 @@
              </li>
              <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="#"><f:message key="Intervention_Monitoring"/></a>
 
-                 <div id="intervention" class="yuimenu">
+                 <div id="Intervention_Monitoring" class="yuimenu">
                      <div class="bd">                                        
                          <ul>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#">Test</a></li>

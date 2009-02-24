@@ -7,10 +7,9 @@
 <%@page import="java.util.*"%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" >
  <jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />
 <title>MDSS</title>
-<link rel="icon" type="image/png" href="/MDSS/imgs/favicon.png"/>
 </head>
 <body class="yui-skin-sam">
 <h1><f:message key="welcome"/></h1>
