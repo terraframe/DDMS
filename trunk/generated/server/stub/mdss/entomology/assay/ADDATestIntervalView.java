@@ -32,4 +32,15 @@ public class ADDATestIntervalView extends ADDATestIntervalViewBase implements co
       interval.apply();
     }
   }
+  
+  public static mdss.entomology.assay.ADDATestIntervalView[] saveAll(mdss.entomology.assay.ADDATestIntervalView[] array)
+  {
+    for(ADDATestIntervalView view : array)
+    {
+      view.apply();
+    }
+    
+    return array;
+  }
+
 }

@@ -28,7 +28,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     if (this.getTestDate().before(collectionDate))
     {
       String msg = "It is impossible to have a test date before the mosquito collection date";
-      
+
       InvalidTestDateProblem p = new InvalidTestDateProblem(msg);
       p.setTestDate(this.getTestDate());
       p.setCollectionDate(collectionDate);
@@ -45,12 +45,12 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     if (this.getQuantityDead() > this.getQuantityTested())
     {
       String msg = "It is impossible to have a dead quantity larger than the total number of mosquitos tested";
-      
+
       InvalidDeadQuantityProblem p = new InvalidDeadQuantityProblem(msg);
       p.setAssayId(this.getId());
       p.setQuantityDead(this.getQuantityDead());
       p.setQuantityTested(this.getQuantityTested());
-      p.throwIt();      
+      p.throwIt();
     }
   }
 
@@ -60,7 +60,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     if (this.getIntervalTime() > this.getExposureTime())
     {
       String msg = "It is impossible to have an interval time larger than the exposure time";
-      
+
       InvalidIntervalTimeProblem p = new InvalidIntervalTimeProblem(msg);
       p.setIntervalTime(this.getIntervalTime());
       p.setExposureTime(this.getExposureTime());
@@ -76,15 +76,26 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     validateSex();
 
     validateTestDate();
-    validateQuantityDead();
     validateIntervalTime();
+    validateQuantityDead();
 
+    if (this.getQuantityDead() <= this.getQuantityTested())
+    {
+      this.setQuantityLive(this.getQuantityTested() - this.getQuantityDead());
+      this.setMortality(this.getQuantityDead() / ( (float) this.getQuantityTested() ));
+    }
+    else
+    {
+      this.setQuantityLive(0);
+      this.setMortality(new Float(0));
+    }
+    
     super.apply();
-    
-    //CREATE Test Intervals
+
+    // CREATE Test Intervals
     int periods = this.calculatePeriod();
-    
-    for(int i = 0; i < periods; i++)
+
+    for (int i = 0; i < periods; i++)
     {
       ADDATestInterval interval = new ADDATestInterval();
       interval.setAssay(this);
@@ -93,7 +104,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       interval.apply();
     }
   }
-  
+
   public Integer calculatePeriod()
   {
     double exposureTime = (double) this.getExposureTime();

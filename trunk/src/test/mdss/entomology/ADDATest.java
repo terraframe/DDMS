@@ -1220,6 +1220,8 @@ public class ADDATest extends TestCase
     }
   }
   
+  
+  
   public void testIntervalUpdate() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
@@ -1275,6 +1277,65 @@ public class ADDATest extends TestCase
       assay.delete();
     }
   }
+  
+  public void testIntervalSaveAll() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySex sex = AssaySex.MALE;
+
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(7);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(30);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+    assay.setInsecticide(insecticide);
+    assay.setAmount(10);
+    assay.addUnits(Unit.PERCENT);
+    assay.setGeneration(F1);
+    assay.setGenericName(generic);
+    assay.apply();
+    
+    ADDATestIntervalView[] intervals = assay.getTestIntervals();
+
+    for (int i = 0; i < intervals.length; i++)
+    {
+      intervals[i].setKnockedDown(i);
+    }
+    
+    ADDATestIntervalView.saveAll(intervals);
+
+    try
+    {
+      intervals = assay.getTestIntervals();
+
+      assertEquals(assay.calculatePeriod(), new Integer(intervals.length));
+
+      for (int i = 0; i < 9; i++)
+      {
+        assertEquals(assay.getId(), intervals[i].getAssayId());
+        assertEquals(new Integer(i), intervals[i].getPeriod());
+        assertEquals(new Integer(i), intervals[i].getKnockedDown());
+      }
+    }
+    finally
+    {
+      assay.delete();
+    }
+  }
+  
+
 
   public void testInvalidPeriod() throws ParseException
   {
