@@ -23,7 +23,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_AbstractMosquitoCollection_geoEntity}" param="geoEntity">
+        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity}" param="geoEntity">
           <mjl:option>
             ${current.keyName}
           </mjl:option>

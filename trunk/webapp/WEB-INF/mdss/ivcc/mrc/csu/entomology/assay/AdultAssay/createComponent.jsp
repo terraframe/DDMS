@@ -78,7 +78,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_assay_AdultAssay_generation}" param="generation">
+        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_generation}" param="generation">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
@@ -112,7 +112,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_assay_AdultAssay_insecticide}" param="insecticide">
+        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_insecticide}" param="insecticide">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
@@ -146,7 +146,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_assay_AbstractAssay_collection}" param="collection">
+        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_collection}" param="collection">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
@@ -158,7 +158,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_assay_AbstractAssay_identificationMethod}" param="identificationMethod">
+        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_identificationMethod}" param="identificationMethod">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
@@ -178,7 +178,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="enumName" items="${mdss_entomology_assay_AbstractAssay_sex}" param="sex">
+        <mjl:select var="current" valueAttribute="enumName" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_sex}" param="sex">
           <c:choose>
             <c:when test="${mjl:contains(item.sexEnumNames, current.enumName)}">
               <mjl:option selected="selected">
@@ -199,7 +199,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_assay_AbstractAssay_specie}" param="specie">
+        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_specie}" param="specie">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
@@ -222,7 +222,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_assay_AbstractAssay_testMethod}" param="testMethod">
+        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod}" param="testMethod">
           <mjl:option>
             ${current.keyName}
           </mjl:option>

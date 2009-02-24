@@ -34,7 +34,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="enumName" items="${mdss_test_GeoEntity_terrain}" param="terrain">
+        <mjl:select var="current" valueAttribute="enumName" items="${mdss_ivcc_mrc_csu_geo_GeoEntity_terrain}" param="terrain">
           <c:choose>
             <c:when test="${mjl:contains(item.terrainEnumNames, current.enumName)}">
               <mjl:option selected="selected">

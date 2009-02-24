@@ -12,7 +12,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_assay_ADDATestInterval_assay}" param="assay">
+        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_ADDATestInterval_assay}" param="assay">
           <mjl:option>
             ${current.keyName}
           </mjl:option>

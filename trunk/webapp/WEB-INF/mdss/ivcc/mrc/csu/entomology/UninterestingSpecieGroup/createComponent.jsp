@@ -23,7 +23,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_TrueSpecieEntity_collection}" param="collection">
+        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection}" param="collection">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
@@ -46,7 +46,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_TrueSpecieEntity_identificationMethod}" param="identificationMethod">
+        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod}" param="identificationMethod">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
@@ -58,7 +58,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_entomology_TrueSpecieEntity_specie}" param="specie">
+        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie}" param="specie">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
