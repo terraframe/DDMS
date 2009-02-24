@@ -1088,6 +1088,19 @@
           rejectNegative="true"
           required="true"
           description="The total number of mosquitos which died during the assay" />
+        <integer
+          name="quantityLive"
+          label="Quantity Live"
+          rejectNegative="true"
+          required="true"
+          description="The total number of mosquitos which lived during the assay" />
+        <float
+          name="mortality"
+          label="Mortality Rate"
+          length="4"
+          decimal="2"
+          required="true"
+          description="The mortality rate of mosquitos" />
         <float
           name="controlTestMortality"
           label="Control Test Mortality Rate"
