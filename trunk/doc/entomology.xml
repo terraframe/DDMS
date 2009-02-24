@@ -631,7 +631,7 @@
       description="List of all possible collection methods"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllTermNames"
+        name="getAllDisplayLabels"
         returnType="java.lang.String[]"
         label="Get All Term Names"
         static="true"
@@ -644,7 +644,7 @@
       description="List of all possible MO generation"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllTermNames"
+        name="getAllDisplayLabels"
         returnType="java.lang.String[]"
         label="Get All Term Names"
         static="true"
@@ -657,7 +657,7 @@
       description="List of all possible MO species"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllTermNames"
+        name="getAllDisplayLabels"
         returnType="java.lang.String[]"
         label="Get All Term Names"
         static="true"
@@ -670,7 +670,7 @@
       description="List of all possible MO specie identification methods"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllTermNames"
+        name="getAllDisplayLabels"
         returnType="java.lang.String[]"
         label="Get All Term Names"
         static="true"
@@ -746,7 +746,7 @@
       description="List of all MO insecticides"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllTermNames"
+        name="getAllDisplayLabels"
         returnType="java.lang.String[]"
         label="Get All Term Names"
         static="true"
@@ -759,7 +759,7 @@
       description="List of all assay methods"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllTermNames"
+        name="getAllDisplayLabels"
         returnType="java.lang.String[]"
         label="Get All Term Names"
         static="true"
