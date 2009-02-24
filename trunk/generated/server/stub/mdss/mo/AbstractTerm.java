@@ -14,14 +14,14 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
     super();
   }
   
-  public static java.lang.String[] getAllTermNames(AbstractTermQuery query)
+  public static java.lang.String[] getAllDisplayLabels(AbstractTermQuery query)
   {
     List<String> list = new LinkedList<String>();   
     OIterator<? extends AbstractTerm> it = query.getIterator();
     
     while(it.hasNext())
     {
-      list.add(it.next().getTermName());
+      list.add(it.next().getDisplayLabel());
     }
     
     return list.toArray(new String[list.size()]);

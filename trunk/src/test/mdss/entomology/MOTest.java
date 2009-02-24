@@ -59,8 +59,8 @@ public class MOTest extends TestCase
   
   public void testSpecieGetAllTermNames()
   {
-    String[] names = Specie.getAllTermNames();
-    String[] dto = SpecieDTO.getAllTermNames(clientRequest);
+    String[] names = Specie.getAllDisplayLabels();
+    String[] dto = SpecieDTO.getAllDisplayLabels(clientRequest);
     int expected = 16;
     
     assertNotNull(names);
@@ -71,8 +71,8 @@ public class MOTest extends TestCase
   
   public void testIdentificationMethodGetAllTermNames()
   {
-    String[] names = IdentificationMethod.getAllTermNames();
-    String[] dto = IdentificationMethodDTO.getAllTermNames(clientRequest);
+    String[] names = IdentificationMethod.getAllDisplayLabels();
+    String[] dto = IdentificationMethodDTO.getAllDisplayLabels(clientRequest);
     int expected = 7;
     
     assertNotNull(names);
@@ -83,8 +83,8 @@ public class MOTest extends TestCase
   
   public void testCollectionMethodGetAllTermNames()
   {
-    String[] names = CollectionMethod.getAllTermNames();
-    String[] dto = CollectionMethodDTO.getAllTermNames(clientRequest);
+    String[] names = CollectionMethod.getAllDisplayLabels();
+    String[] dto = CollectionMethodDTO.getAllDisplayLabels(clientRequest);
     int expected = 11;
     
     assertNotNull(names);

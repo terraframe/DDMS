@@ -45,9 +45,9 @@ public class IdentificationMethod extends IdentificationMethodBase implements co
     return identificationMethod;    
   }  
   
-  public static java.lang.String[] getAllTermNames()
+  public static java.lang.String[] getAllDisplayLabels()
   {
-    return AbstractTerm.getAllTermNames(new IdentificationMethodQuery(new QueryFactory()));
+    return AbstractTerm.getAllDisplayLabels(new IdentificationMethodQuery(new QueryFactory()));
   }
 
 }

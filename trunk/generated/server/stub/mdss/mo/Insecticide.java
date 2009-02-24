@@ -14,8 +14,8 @@ public class Insecticide extends InsecticideBase implements com.terraframe.mojo.
     super();
   }
   
-  public static java.lang.String[] getAllTermNames()
+  public static java.lang.String[] getAllDisplayLabels()
   {
-    return AbstractTerm.getAllTermNames(new IdentificationMethodQuery(new QueryFactory()));
+    return AbstractTerm.getAllDisplayLabels(new IdentificationMethodQuery(new QueryFactory()));
   }  
 }

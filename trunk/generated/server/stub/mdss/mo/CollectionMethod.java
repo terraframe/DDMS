@@ -14,9 +14,9 @@ public class CollectionMethod extends CollectionMethodBase implements com.terraf
     super();
   }
  
-  public static java.lang.String[] getAllTermNames()
+  public static java.lang.String[] getAllDisplayLabels()
   {
-    return AbstractTerm.getAllTermNames(new CollectionMethodQuery(new QueryFactory()));
+    return AbstractTerm.getAllDisplayLabels(new CollectionMethodQuery(new QueryFactory()));
   }
 
 }

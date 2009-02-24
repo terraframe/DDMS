@@ -45,9 +45,9 @@ public class Specie extends SpecieBase implements com.terraframe.mojo.generation
     return specie;
   }
   
-  public static java.lang.String[] getAllTermNames()
+  public static java.lang.String[] getAllDisplayLabels()
   {
-    return AbstractTerm.getAllTermNames(new SpecieQuery(new QueryFactory()));
+    return AbstractTerm.getAllDisplayLabels(new SpecieQuery(new QueryFactory()));
   }
 
 }

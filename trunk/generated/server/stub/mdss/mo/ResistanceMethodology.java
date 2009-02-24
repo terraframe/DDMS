@@ -26,9 +26,9 @@ public class ResistanceMethodology extends ResistanceMethodologyBase implements 
     return this.getTermName();
   }
   
-  public static java.lang.String[] getAllTermNames()
+  public static java.lang.String[] getAllDisplayLabels()
   {
-    return AbstractTerm.getAllTermNames(new ResistanceMethodologyQuery(new QueryFactory()));
+    return AbstractTerm.getAllDisplayLabels(new ResistanceMethodologyQuery(new QueryFactory()));
   }
 
 }
