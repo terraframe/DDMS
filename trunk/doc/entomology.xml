@@ -40,6 +40,38 @@
       </mdMethod>
     </mdBusiness>
 
+    <object
+      id="12312312410290873104353"
+      type="mdss.ivcc.mrc.csu.geo.GeoEntity">
+      <valueAttribute
+        name="geoId"
+        value="MOON" />
+      <valueAttribute
+        name="entityName"
+        value="The Moon!" />
+      <selectionAttribute
+        name="terrain">
+        <enumeratedItem
+          id="SENTINEL_SITE" />
+      </selectionAttribute>
+    </object>
+
+    <object
+      id="1231231241123029873104353"
+      type="mdss.ivcc.mrc.csu.geo.GeoEntity">
+      <valueAttribute
+        name="geoId"
+        value="EARTH" />
+      <valueAttribute
+        name="entityName"
+        value="Gia, Terra Firma, Home of Humans" />
+      <selectionAttribute
+        name="terrain">
+        <enumeratedItem
+          id="SENTINEL_SITE" />
+      </selectionAttribute>
+    </object>
+
     <enumerationMaster
       name="mdss.ivcc.mrc.csu.geo.TerrainMaster"
       label="Terrain Master" />
@@ -550,8 +582,12 @@
     </mdEnumeration>
 
     <!--
-      ***************************************************** Start of MIRO enumerations. These enumerations will change onces the MIRO ontology has been sorted out. We have outstanding questions of
-      wether or not we will use the MIRO ontology or just take the terms from the ontology and create our own enumerations *****************************************************
+      ***************************************************** Start of
+      MIRO enumerations. These enumerations will change onces the MIRO
+      ontology has been sorted out. We have outstanding questions of
+      wether or not we will use the MIRO ontology or just take the terms
+      from the ontology and create our own enumerations
+      *****************************************************
     -->
 
     <mdBusiness
@@ -678,8 +714,8 @@
     </mdBusiness>
 
     <!--
-      **************************************************************
-            End of MIRO definitions
+      ************************************************************** End
+      of MIRO definitions
       **************************************************************
     -->
   </create>
@@ -734,10 +770,9 @@
   </update>
 
   <!--
+    ********************************** Adult Discriminating Dose Assay
     **********************************
-      Adult Discriminating Dose Assay
-    **********************************
-   -->
+  -->
 
   <create>
     <mdBusiness
