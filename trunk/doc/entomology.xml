@@ -631,11 +631,11 @@
       description="List of all possible collection methods"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllDisplayLabels"
-        returnType="java.lang.String[]"
-        label="Get All Term Names"
+        name="getAll"
+        returnType="mdss.mo.CollectionMethod[]"
+        label="Get All Terms"
         static="true"
-        description="Returns all term names of a MO subcatagory" />
+        description="Returns all term of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
@@ -644,11 +644,11 @@
       description="List of all possible MO generation"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllDisplayLabels"
-        returnType="java.lang.String[]"
-        label="Get All Term Names"
+        name="getAll"
+        returnType="mdss.mo.Generation[]"
+        label="Get All Terms"
         static="true"
-        description="Returns all term names of a MO subcatagory" />
+        description="Returns all terms of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
@@ -657,11 +657,11 @@
       description="List of all possible MO species"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllDisplayLabels"
-        returnType="java.lang.String[]"
-        label="Get All Term Names"
+        name="getAll"
+        returnType="mdss.mo.Specie[]"
+        label="Get All Terms"
         static="true"
-        description="Returns all term names of a MO subcatagory" />
+        description="Returns all terms of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
@@ -670,11 +670,11 @@
       description="List of all possible MO specie identification methods"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllDisplayLabels"
-        returnType="java.lang.String[]"
-        label="Get All Term Names"
+        name="getAll"
+        returnType="mdss.mo.IdentificationMethod[]"
+        label="Get All Terms"
         static="true"
-        description="Returns all term names of a MO subcatagory" />
+        description="Returns all terms of a MO subcatagory" />
     </mdBusiness>
 
     <!--
@@ -746,11 +746,11 @@
       description="List of all MO insecticides"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllDisplayLabels"
-        returnType="java.lang.String[]"
-        label="Get All Term Names"
+        name="getAll"
+        returnType="mdss.mo.Insecticide[]"
+        label="Get All Terms"
         static="true"
-        description="Returns all term names of a MO subcatagory" />
+        description="Returns all terms of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
@@ -759,9 +759,9 @@
       description="List of all assay methods"
       extends="mdss.mo.AbstractTerm">
       <mdMethod
-        name="getAllDisplayLabels"
-        returnType="java.lang.String[]"
-        label="Get All Term Names"
+        name="getAll"
+        returnType="mdss.mo.ResistanceMethodology[]"
+        label="Get All Terms"
         static="true"
         description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
