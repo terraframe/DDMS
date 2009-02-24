@@ -77,7 +77,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 					onSuccess : function(deletedRow) {
 					Array.remove(table_data.rows,request.row_index);
 					request.dataTable.deleteRow(target);					
-					alert('row deleted on server');
+					//alert('row deleted on server');
 
 				},
 				onFailure : function(e) {
@@ -89,6 +89,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			else
 			{
 				myDataTable.deleteRow(target);
+				Array.remove(table_data.rows,request.row_index);
 			}
 				
 				}
@@ -107,8 +108,22 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	btnSaveRows.on("click", function() {
 		var request = new Mojo.ClientRequest( {
 			// success handler for saved rows
-			onSuccess : function(newMorphologicalSpecieGroup) {
-				alert("Saved The Rows!");
+			dataTable : myDataTable,
+			table_data : this.table_data,
+			onSuccess : function(savedRows) {
+				alert("Saved " + savedRows.length + " Rows!");
+				var i = 0;
+				id_key = table_data.fields[0].key
+				for each(row in savedRows)
+				{
+					record = this.dataTable.getRecord(i);
+					id = savedRows[i].getGroupId();
+					str = "record.setData('" + id_key + "','" + id + "')";
+					eval(str);
+			        //table_data[i].GroupId = id;				
+					i = i + 1;
+				}
+				this.dataTable.render();
 			},
 
 			// alert the exception message
@@ -137,7 +152,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    	for each (attrib in table_data.fields)
 	    	{
 			    str = 'v.set'+attrib.key+'(row.'+attrib.key+')';
-			    // alert(str);
+			    // alert(str);  
 	    		eval(str);
 	    	}
 			v_arr.push(v);

@@ -15,11 +15,24 @@
         if(Dom.getElementsByClassName("DatePick").length > 0)
         {
 	        cal1 = new YAHOO.widget.Calendar("cal1","cal1Container");
-	        cal1.cfg.setProperty("DATE_FIELD_DELIMITER", "-");
-	        cal1.cfg.setProperty("DATE_RANGE_DELIMITER", "*");
-	        cal1.cfg.setProperty("MDY_YEAR_POSITION", 1);
-			cal1.cfg.setProperty("MDY_MONTH_POSITION", 2);
-			cal1.cfg.setProperty("MDY_DAY_POSITION", 3);
+	        
+	      
+		       /* cal1.cfg.setProperty("DATE_FIELD_DELIMITER", "-");
+		        cal1.cfg.setProperty("DATE_RANGE_DELIMITER", "*");
+		        cal1.cfg.setProperty("MDY_YEAR_POSITION", 1);
+				cal1.cfg.setProperty("MDY_MONTH_POSITION", 2);
+				cal1.cfg.setProperty("MDY_DAY_POSITION", 3);*/
+	        
+	        if(locale = "en_US")
+	        {
+	        	cal1.cfg.setProperty("DATE_FIELD_DELIMITER", "/");
+	     	    cal1.cfg.setProperty("DATE_RANGE_DELIMITER", "-");
+	     	    cal1.cfg.setProperty("MDY_YEAR_POSITION", 3);
+	     	    cal1.cfg.setProperty("MDY_MONTH_POSITION", 1);
+	     	    cal1.cfg.setProperty("MDY_DAY_POSITION", 2);
+	        }
+	        
+	        
 	        
 	        cal1.selectEvent.subscribe(getDate, cal1, true);
 	        cal1.renderEvent.subscribe(setupListeners, cal1, true);
@@ -46,8 +59,11 @@
 
     var getDate = function() {
             var calDate = this.getSelectedDates()[0];
-            //calDate = (calDate.getMonth() + 1) + '/' + calDate.getDate() + '/' + calDate.getFullYear();
-            calDate = calDate.getFullYear() + '-' + calDate.getMonth() + '-' + calDate.getDate();
+            if(locale = "en_US")
+            {
+            calDate = (calDate.getMonth() + 1) + '/' + calDate.getDate() + '/' + calDate.getFullYear();
+            //calDate = calDate.getFullYear() + '-' + calDate.getMonth() + '-' + calDate.getDate();
+            }
             cur_field.value = calDate;            
             over_cal = false;
             hideCal();
@@ -57,8 +73,14 @@
         var tar = Event.getTarget(ev);
         cur_field = tar;
         var xy = Dom.getXY(tar);
+        	
+        if(locale = "en_US")
+        {
+        	var date = Dom.get(tar).value;
         	//switch the dashes to slashes to make date format compatable with js
-        var date = Dom.get(tar).value.replace(/-/g,"/");
+        	//var date = Dom.get(tar).value.replace(/-/g,"/");
+        }
+        
         if (date) {
             cal1.cfg.setProperty('selected', date);
             cal1.cfg.setProperty('pagedate', new Date(date), true);
