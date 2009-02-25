@@ -11,16 +11,15 @@
 <%@page import="mdss.ivcc.mrc.csu.entomology.MorphologicalSpecieGroup"%>
 <%@page import="mdss.ivcc.mrc.csu.mo.*"%>
 <%@page import="mdss.ivcc.mrc.csu.util.Halp" %>
-<%@page import="org.json.JSONException"%>
-<%@page import="org.json.JSONObject"%>
+<%@page import="org.json.*"%>
 <%!
  static String getDropDownMap(AbstractTermDTO[] terms) throws JSONException {
-	 JSONObject map = new JSONObject();
-	 for(AbstractTermDTO term : terms)
+	JSONObject map = new JSONObject();
+	for(AbstractTermDTO term : terms)
 	 {
 	    map.put(term.getDisplayLabel(),term.getId());
-	 } 
-	 return map.toString();
+	} 
+	return map.toString();
 }
 %>
 
@@ -74,20 +73,7 @@
 	class="first-child">
 <button type="button">Save Rows To DB</button>
 </span> </span></div>
-<%
 
-
-	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-
-//JSONArray species = new JSONArray(Arrays.asList));
-
-out.println(getDropDownMap(SpecieDTO.getAll(clientRequest)));
-
-
-// THIS LINE CRASHES TOMCAT WITH Invalid memory access of location 00000000 eip=00000000
-//out.println(Halp.getDropDownMap(SpecieDTO.getAll(clientRequest)));
-%>
 
 <script type="text/javascript">      
     <%String[] types_to_load =
@@ -95,15 +81,18 @@ out.println(getDropDownMap(SpecieDTO.getAll(clientRequest)));
 	   "mdss.ivcc.mrc.csu.entomology.MorphologicalSpecieGroupView"
 	};
     
-	//ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-	out.println("client_request ='" + clientRequest.getSessionId() + "' ;");
+	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+	//out.println("client_request ='" + clientRequest.getSessionId() + "' ;");
+	// THIS LINE CRASHES TOMCAT WITH Invalid memory access of location 00000000 eip=00000000
+	//out.println(Halp.getDropDownMap(SpecieDTO.getAll(clientRequest)));
+	
+
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
 
-    //JSONArray species = new JSONArray(Arrays.asList(SpecieDTO.getAll(clientRequest)));
-    //out.println("var species = "+species.toString() + " ;");
+    out.println("var species = " + getDropDownMap(SpecieDTO.getAll(clientRequest)) + " ;");
+    out.println("var ident_methods = " + getDropDownMap(SpecieDTO.getAll(clientRequest)) + " ;");%>
+
     
-    //JSONArray ident_methods = new JSONArray(Arrays.asList(IdentificationMethodDTO.getAllTermNames(clientRequest)));
-    //out.println("var ident_methods = "+ident_methods.toString() + " ;");%>
     table_data = { rows:
     	<%MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) request.getAttribute("item");
     	        MorphologicalSpecieGroupViewDTO[] rows = mosquito_collection.getMorphologicalSpecieGroups();
