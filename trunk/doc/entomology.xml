@@ -411,8 +411,8 @@
       extendable="true">
       <attributes>
         <char
-          name="collectionId"
-          label="Collection Id"
+          name="sampleId"
+          label="Sample Id"
           required="true"
           size="4"
           description="The id the entomologist gives to a sample when its true specie is determined." />
@@ -582,12 +582,8 @@
     </mdEnumeration>
 
     <!--
-      ***************************************************** Start of
-      MIRO enumerations. These enumerations will change onces the MIRO
-      ontology has been sorted out. We have outstanding questions of
-      wether or not we will use the MIRO ontology or just take the terms
-      from the ontology and create our own enumerations
-      *****************************************************
+      ***************************************************** Start of MIRO enumerations. These enumerations will change onces the MIRO ontology has been sorted out. We have outstanding questions of
+      wether or not we will use the MIRO ontology or just take the terms from the ontology and create our own enumerations *****************************************************
     -->
 
     <mdBusiness
@@ -1083,6 +1079,11 @@
           rejectNegative="true"
           required="true" />
         <integer
+          name="intervalTime"
+          label="Interval Time"
+          rejectNegative="true"
+          required="true" />
+        <integer
           name="knockedDown"
           rejectNegative="true"
           label="Knocked Down"
@@ -1163,13 +1164,13 @@
       <mdMethod
         name="getKD50"
         label="Get KD50"
-        returnType="java.lang.Integer"
+        returnType="java.lang.Double"
         static="false"
         description="Returns the predicted KD50" />
       <mdMethod
         name="getKD95"
         label="Get KD95"
-        returnType="java.lang.Integer"
+        returnType="java.lang.Double"
         static="false"
         description="Returns the predicted KD95" />
     </mdBusiness>
@@ -1485,6 +1486,530 @@
     </object>
 
   </create>
+
+  <create>
+
+    <object
+      type="mdss.ivcc.mrc.csu.mo.MolecularAssayResult"
+      id="RR">
+      <valueAttribute
+        name="termName"
+        value="RR" />
+      <valueAttribute
+        name="displayLabel"
+        value="RR" />
+      <valueAttribute
+        name="termId"
+        value="MIRO_88000039" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Molecular assay reult" />
+    </object>
+
+    <object
+      type="mdss.ivcc.mrc.csu.mo.MolecularAssayResult"
+      id="RS">
+      <valueAttribute
+        name="termName"
+        value="RS" />
+      <valueAttribute
+        name="displayLabel"
+        value="RS" />
+      <valueAttribute
+        name="termId"
+        value="MIRO_89000039" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Molecular assay reult" />
+    </object>
+
+    <object
+      type="mdss.ivcc.mrc.csu.mo.MolecularAssayResult"
+      id="SS">
+      <valueAttribute
+        name="termName"
+        value="SS" />
+      <valueAttribute
+        name="displayLabel"
+        value="SS" />
+      <valueAttribute
+        name="termId"
+        value="MIRO_90000039" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="Molecular assay reult" />
+    </object>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.mo.MolecularAssayResult"
+      label="Molecular Assay Result"
+      description="List of molecular array results"
+      extends="mdss.ivcc.mrc.csu.mo.AbstractTerm">
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
+      label="Molecular Assay Test Result"
+      isAbstract="true"
+      extendable="true">
+      <mdMethod
+        name="getMolecularAssays"
+        label="Get Molecular Assays"
+        returnType="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
+        static="true">
+      </mdMethod>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResult"
+      label="W-KDR Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
+      description="W-KDR test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the W-KDR test was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <reference
+          name="testResult"
+          label="W-KDR Test Result"
+          required="true"
+          description="Molecular assay result"
+          type="mdss.ivcc.mrc.csu.mo.MolecularAssayResult" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.molecular.EKDRTestResult"
+      label="E-KDR Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
+      description="E-KDR test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the E-KDR test was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <reference
+          name="testResult"
+          label="E-KDR Test Result"
+          required="true"
+          description="Molecular assay result"
+          type="mdss.ivcc.mrc.csu.mo.MolecularAssayResult" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.molecular.AcHETestResult"
+      label="AcHE Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
+      description="AcHE test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the AcHE test was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <reference
+          name="testResult"
+          label="AcHE Test Result"
+          required="true"
+          description="Molecular assay result"
+          type="mdss.ivcc.mrc.csu.mo.MolecularAssayResult" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.molecular.GABATestResult"
+      label="GABA Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
+      description="GABA test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the assay was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <reference
+          name="testResult"
+          label="GABA Test Result"
+          required="true"
+          description="Molecular assay result"
+          type="mdss.ivcc.mrc.csu.mo.MolecularAssayResult" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      label="Bio-Chemical Assay Test Result"
+      isAbstract="true"
+      extendable="true">
+      <mdMethod
+        name="getBiochemicalAssays"
+        label="Get Biochemical Assays"
+        returnType="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+        static="true">
+      </mdMethod>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.biochemical.AEsteraseTestResult"
+      label="α-Esterase Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      description="α-Esterase test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the assay was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <integer
+          name="testResult"
+          label="α-Esterase Test Result"
+          required="true"
+          description="assay result" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResult"
+      label="β-Esterase Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      description="β-Esterase test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the assay was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <integer
+          name="testResult"
+          label="β-Esterase Test Result"
+          required="true"
+          description="assay result" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResult"
+      label="PNPA Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      description="PNPA test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the assay was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <integer
+          name="testResult"
+          label="PNPA Test Result"
+          required="true"
+          description="assay result" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.biochemical.GSTTestResult"
+      label="GST Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      description="GST test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the assay was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <integer
+          name="testResult"
+          label="GST Test Result"
+          required="true"
+          description="assay result" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.biochemical.MonooxygenaseTestResult"
+      label="Monooxygenase Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      description="Monooxygenase test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the assay was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <integer
+          name="testResult"
+          label="Monooxygenase Test Result"
+          required="true"
+          description="assay result" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.biochemical.AcHETestResult"
+      label="AcHE Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      description="AcHE test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the assay was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <reference
+          name="testResult"
+          label="AcHE Test Result"
+          required="true"
+          description="Molecular assay result"
+          type="mdss.ivcc.mrc.csu.mo.MolecularAssayResult" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
+      label="Infectivity Assay Test Result"
+      isAbstract="true"
+      extendable="true">
+      <mdMethod
+        name="getInfectivityAssays"
+        label="Get Infectivity Assays"
+        returnType="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
+        static="true">
+      </mdMethod>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResult"
+      label="P. Falciparum Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
+      description="P. Falciparum test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the assay was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <boolean
+          name="testResult"
+          label="P. Falciparum Test Result"
+          required="true"
+          description="assay result" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.infectivity.POvaleTestResult"
+      label="P. Ovale Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
+      description="P. Ovale test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the assay was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <boolean
+          name="testResult"
+          label="P. Ovale Test Result"
+          required="true"
+          description="assay result" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.infectivity.PMalariaeTestResult"
+      label="P. Malariae Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
+      description="P. Malariae test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the assay was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <boolean
+          name="testResult"
+          label="P. Malariae Test Result"
+          required="true"
+          description="assay result" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.infectivity.PVivaxTestResult"
+      label="P. Vivax Test Result"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
+      description="P. Vivax test result.">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="unique index"
+          immutable="true"
+          description="The mosquito on which the assay was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+        <boolean
+          name="testResult"
+          label="P. Vivax Test Result"
+          required="true"
+          description="assay result" />
+      </attributes>
+    </mdBusiness>
+
+    <mdView
+      name="mdss.ivcc.mrc.csu.entomology.MosquitoView"
+      label="Mosquito
+      Assay View"
+      description="A view of a mosquito reference and all of
+      its assays">
+      <attributes>
+        <char
+          name="mosquitoId"
+          size="255"
+          label="Mosquito Id"
+          description="The id of the mosquito, if the Id is blank then it is assumed the mosquito is new" />
+        <virtual
+          name="sampleId"
+          type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
+          concrete="sampleId"
+          required="true" />
+        <virtual
+          name="identificationMethod"
+          type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
+          concrete="identificationMethod"
+          required="true" />
+        <virtual
+          name="testDate"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito"
+          concrete="testDate"
+          required="true" />
+        <virtual
+          name="isofemale"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito"
+          concrete="isofemale"
+          required="true" />
+        <virtual
+          name="sex"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito"
+          concrete="sex"
+          required="true" />
+        <virtual
+          name="generation"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito"
+          concrete="generation"
+          required="true" />
+        <virtual
+          name="wKDR"
+          type="mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResult"
+          concrete="testResult" />
+        <virtual
+          name="eKDR"
+          type="mdss.ivcc.mrc.csu.entomology.assay.molecular.EKDRTestResult"
+          concrete="testResult" />
+        <virtual
+          name="acHEMolecular"
+          type="mdss.ivcc.mrc.csu.entomology.assay.molecular.AcHETestResult"
+          concrete="testResult" />
+        <virtual
+          name="gABA"
+          type="mdss.ivcc.mrc.csu.entomology.assay.molecular.GABATestResult"
+          concrete="testResult" />
+        <virtual
+          name="aEsterase"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.AEsteraseTestResult"
+          concrete="testResult" />
+        <virtual
+          name="bEsterase"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResult"
+          concrete="testResult" />
+        <virtual
+          name="pNPA"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResult"
+          concrete="testResult" />
+        <virtual
+          name="gST"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.GSTTestResult"
+          concrete="testResult" />
+        <virtual
+          name="monooxygenase"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.MonooxygenaseTestResult"
+          concrete="testResult" />
+        <virtual
+          name="acHEBiochemical"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.AcHETestResult"
+          concrete="testResult" />
+        <virtual
+          name="pFalciparum"
+          type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResult"
+          concrete="testResult" />
+        <virtual
+          name="pOvale"
+          type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.POvaleTestResult"
+          concrete="testResult" />
+        <virtual
+          name="pMalariae"
+          type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.PMalariaeTestResult"
+          concrete="testResult" />
+        <virtual
+          name="pVivax"
+          type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.PVivaxTestResult"
+          concrete="testResult" />
+      </attributes>
+    </mdView>
+  </create>
+
 
   <!-- Test TERMS -->
   <create>
