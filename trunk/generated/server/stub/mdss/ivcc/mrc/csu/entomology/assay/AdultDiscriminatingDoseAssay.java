@@ -4,9 +4,12 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalQuery;
-import mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayBase;
+import javax.vecmath.GMatrix;
+import javax.vecmath.GVector;
 
+import com.gregdennis.drej.PolynomialKernel;
+import com.gregdennis.drej.Regression;
+import com.gregdennis.drej.Representer;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
@@ -92,7 +95,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       this.setQuantityLive(0);
       this.setMortality(new Float(0));
     }
-    
+
     super.apply();
 
     // CREATE Test Intervals
@@ -151,6 +154,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       view.setAssayId(this.getId());
       view.setKnockedDown(interval.getKnockedDown());
       view.setPeriod(interval.getPeriod());
+      view.setIntervalTime(interval.getIntervalTime());
       view.applyNoPersist();
 
       list.add(view);
@@ -160,18 +164,80 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     return list.toArray(new ADDATestIntervalView[list.size()]);
   }
-
+  
   @Override
-  public Integer getKD50()
+  public Double getKD50()
   {
-    // TODO Use R logistical regression to calculate KD50
-    return super.getKD50();
+    return this.getKD(50);
+  }
+  
+  @Override
+  public Double getKD95()
+  {
+    return this.getKD(95);
+  }
+  
+  private Double getKD(int value)
+  {
+    // Use regression of the form log(y) = (a1 * x) + a0 where a0 = 0 
+
+    // x data array
+    double[] x = this.getTimeIntervals();
+    // Log of the observed y data array
+    double[] y = this.getLogKnockDownPercent();
+    
+    GMatrix data = new GMatrix(1, x.length);
+    GVector values = new GVector(y);
+    
+    for(int i = 0; i < x.length; i++)
+    {
+      data.setColumn(i, new double[]{x[i]});
+    }
+
+    double lambda = 0.5;
+
+    // do the regression, which returns a function fit to the data
+    Representer representer = Regression.solve(data, values, PolynomialKernel.QUADRATIC_KERNEL, lambda);
+    
+//    return representer.eval(new GVector(new double[]{Math.log(value)}));
+    return representer.eval(new GVector(new double[]{value}));
+  }
+  
+  private double[] getTimeIntervals()
+  {
+    ADDATestIntervalView[] array = this.getTestIntervals();    
+    double[] d = new double[array.length];
+    
+    for(int i = 0; i < array.length; i++)
+    {
+      d[i] = array[i].getIntervalTime();
+    }
+    
+    return d;
   }
 
-  @Override
-  public Integer getKD95()
+  private double[] getLogKnockDownPercent()
   {
-    // TODO Use R logistical regression to calculate KD95
-    return super.getKD95();
+    ADDATestIntervalView[] array = this.getTestIntervals();
+    
+    double[] d = new double[array.length];
+    
+    for(int i = 0; i < array.length; i++)
+    {
+      double percent = array[i].getKnockedDown() / (double) this.getQuantityTested() * 100;
+
+      if(percent > 0)
+      {
+//        d[i] = Math.log(percent);
+        d[i] = percent;
+      }
+      else
+      {
+        d[i] = 0;
+      }
+    }
+    
+    return d;
   }
+
 }

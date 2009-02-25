@@ -1632,7 +1632,7 @@ public class ADDATest extends TestCase
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
-    assay.setIntervalTime(7);
+    assay.setIntervalTime(10);
     assay.setGeneration(F1);
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(99.99));
@@ -1647,18 +1647,19 @@ public class ADDATest extends TestCase
     assay.setGenericName(generic);
     assay.apply();
 
-    for (int i = 0; i < 9; i++)
-    {
-      ADDATestInterval interval = new ADDATestInterval();
-      interval.setAssay(assay);
-      interval.setPeriod(i);
-      interval.setKnockedDown(i * 2);
-      interval.apply();
-    }
 
+    ADDATestIntervalView[] intervals = assay.getTestIntervals();
+
+    for (int i = 0; i < intervals.length; i++)
+    {
+      intervals[i].setKnockedDown(i * 3);
+    }
+    
+    ADDATestIntervalView.saveAll(intervals);
+    
     try
     {
-      assertEquals(new Integer(30), assay.getKD50());
+      assertEquals(50, (int) Math.round(assay.getKD50()));
     }
     finally
     {
@@ -1666,7 +1667,7 @@ public class ADDATest extends TestCase
     }
   }
 
-  public void testGetKD100() throws ParseException
+  public void testGetKD95() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
@@ -1680,7 +1681,7 @@ public class ADDATest extends TestCase
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
-    assay.setIntervalTime(7);
+    assay.setIntervalTime(10);
     assay.setGeneration(F1);
     assay.setHoldingTime(24);
     assay.setControlTestMortality(new Float(99.99));
@@ -1695,18 +1696,18 @@ public class ADDATest extends TestCase
     assay.setGenericName(generic);
     assay.apply();
 
-    for (int i = 0; i < 9; i++)
+    ADDATestIntervalView[] intervals = assay.getTestIntervals();
+
+    for (int i = 0; i < intervals.length; i++)
     {
-      ADDATestInterval interval = new ADDATestInterval();
-      interval.setAssay(assay);
-      interval.setPeriod(i);
-      interval.setKnockedDown(i * 2);
-      interval.apply();
+      intervals[i].setKnockedDown(i * 3);
     }
+    
+    ADDATestIntervalView.saveAll(intervals);
 
     try
     {
-      assertEquals(new Integer(50), assay.getKD95());
+      assertEquals(95, (int) Math.round(assay.getKD95()));
     }
     finally
     {

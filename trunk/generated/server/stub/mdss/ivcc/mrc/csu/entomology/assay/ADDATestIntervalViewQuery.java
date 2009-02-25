@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1234906559595L;
      */
     protected void buildSelectClause()
     {
-      ADDATestIntervalViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultADDATestIntervalViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

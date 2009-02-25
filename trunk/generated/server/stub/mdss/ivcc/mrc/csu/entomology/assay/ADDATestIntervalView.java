@@ -1,6 +1,6 @@
 package mdss.ivcc.mrc.csu.entomology.assay;
 
-import mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalViewBase;
+
 
 
 public class ADDATestIntervalView extends ADDATestIntervalViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -15,9 +15,11 @@ public class ADDATestIntervalView extends ADDATestIntervalViewBase implements co
   @Override
   public void apply()
   {
+    ADDATestInterval interval = null;
+    
     if(this.getIntervalId() == null || this.getIntervalId().equals(""))
     {
-      ADDATestInterval interval = new ADDATestInterval();
+      interval = new ADDATestInterval();
       interval.setAssay(AdultDiscriminatingDoseAssay.get(this.getAssayId()));
       interval.setPeriod(this.getPeriod());
       interval.setKnockedDown(this.getKnockedDown());
@@ -27,12 +29,14 @@ public class ADDATestIntervalView extends ADDATestIntervalViewBase implements co
     }
     else
     {
-      ADDATestInterval interval = ADDATestInterval.get(this.getIntervalId());
+      interval = ADDATestInterval.get(this.getIntervalId());
       interval.setAssay(AdultDiscriminatingDoseAssay.get(this.getAssayId()));
       interval.setPeriod(this.getPeriod());
       interval.setKnockedDown(this.getKnockedDown());
-      interval.apply();
+      interval.apply();      
     }
+    
+    this.setIntervalTime(interval.getIntervalTime());
   }
   
   public static mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalView[] saveAll(mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalView[] array)
@@ -43,6 +47,5 @@ public class ADDATestIntervalView extends ADDATestIntervalViewBase implements co
     }
     
     return array;
-  }
-
+  }  
 }

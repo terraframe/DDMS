@@ -64,4 +64,12 @@ public class ADDATestInterval extends ADDATestIntervalBase implements
     super.apply();
   }
 
+  
+  public Integer getIntervalTime()
+  {
+    AdultDiscriminatingDoseAssay assay = this.getAssay();
+    
+    return (Integer) Math.min(this.getPeriod() * assay.getIntervalTime(), assay.getExposureTime());
+  }
+
 }
