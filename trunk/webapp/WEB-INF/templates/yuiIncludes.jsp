@@ -210,3 +210,4 @@ body {
 <script type="text/javascript">var locale = "<%=request.getLocale().toString()%>";</script>
 <script type="text/javascript" src="js/Menu.js"></script>
 <script type="text/javascript" src="/MDSS/js/addCalendarWidgets.js"></script>
+<script type="text/javascript" src="js/dataTableWidget.js"></script>
