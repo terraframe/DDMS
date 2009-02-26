@@ -31,5 +31,5 @@ public abstract class AbstractAssayDTO extends AbstractAssayDTOBase
     String label = getTestDateMd().getDisplayLabel();
     
     return new DateConverter(label);
-  }
+  }  
 }

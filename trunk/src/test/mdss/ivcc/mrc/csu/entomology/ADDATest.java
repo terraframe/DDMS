@@ -9,8 +9,6 @@ import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import mdss.ivcc.mrc.csu.entomology.AssaySex;
-import mdss.ivcc.mrc.csu.entomology.MosquitoCollection;
 import mdss.ivcc.mrc.csu.entomology.assay.ADDATestInterval;
 import mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalView;
 import mdss.ivcc.mrc.csu.entomology.assay.AdultAgeRange;
@@ -31,25 +29,16 @@ import mdss.ivcc.mrc.csu.entomology.assay.Unit;
 import mdss.ivcc.mrc.csu.geo.GeoEntity;
 import mdss.ivcc.mrc.csu.geo.Terrain;
 import mdss.ivcc.mrc.csu.mo.CollectionMethod;
-import mdss.ivcc.mrc.csu.mo.CollectionMethodQuery;
 import mdss.ivcc.mrc.csu.mo.Generation;
-import mdss.ivcc.mrc.csu.mo.GenerationQuery;
 import mdss.ivcc.mrc.csu.mo.IdentificationMethod;
-import mdss.ivcc.mrc.csu.mo.IdentificationMethodQuery;
 import mdss.ivcc.mrc.csu.mo.Insecticide;
-import mdss.ivcc.mrc.csu.mo.InsecticideQuery;
 import mdss.ivcc.mrc.csu.mo.ResistanceMethodology;
-import mdss.ivcc.mrc.csu.mo.ResistanceMethodologyQuery;
 import mdss.ivcc.mrc.csu.mo.Specie;
-import mdss.ivcc.mrc.csu.mo.SpecieQuery;
 
 import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 public class ADDATest extends TestCase
 {
@@ -95,31 +84,14 @@ public class ADDATest extends TestCase
 
   protected static void classSetUp()
   {
-    QueryFactory f = new QueryFactory();
-    GenerationQuery query = new GenerationQuery(f);
-    query.ORDER_BY(query.getTermName(), SortOrder.ASC);
+    collectionMethod = CollectionMethod.getAll()[0];
+    specie = Specie.getAll()[0];
+    identificationMethod = IdentificationMethod.getAll()[0];
+    assayMethod = ResistanceMethodology.getAll()[0];
+    insecticide = Insecticide.getAll()[0];
+    F0 = Generation.getAll()[0];
+    F1 = Generation.getAll()[1];
 
-    OIterator<? extends CollectionMethod> cIt = new CollectionMethodQuery(f).getIterator();
-    OIterator<? extends Specie> sIt = new SpecieQuery(f).getIterator();
-    OIterator<? extends IdentificationMethod> iIt = new IdentificationMethodQuery(f).getIterator();
-    OIterator<? extends ResistanceMethodology> aIt = new ResistanceMethodologyQuery(f).getIterator();
-    OIterator<? extends Insecticide> inIt = new InsecticideQuery(f).getIterator();
-    OIterator<? extends Generation> gIt = query.getIterator();
-
-    collectionMethod = cIt.next();
-    specie = sIt.next();
-    identificationMethod = iIt.next();
-    assayMethod = aIt.next();
-    insecticide = inIt.next();
-    F0 = gIt.next();
-    F1 = gIt.next();
-
-    cIt.close();
-    sIt.close();
-    iIt.close();
-    aIt.close();
-    inIt.close();
-    gIt.close();
 
     try
     {

@@ -1,6 +1,10 @@
 package mdss.ivcc.mrc.csu.mo;
 
-import mdss.ivcc.mrc.csu.mo.GenerationBase;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
 
 public class Generation extends GenerationBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -10,5 +14,22 @@ public class Generation extends GenerationBase implements com.terraframe.mojo.ge
   {
     super();
   }
+  
+  
+  public static Generation[] getAll()
+  {
+    List<Generation> list = new LinkedList<Generation>();   
+    GenerationQuery query = new GenerationQuery(new QueryFactory());
+    OIterator<? extends Generation> it = query.getIterator();
+    
+    while(it.hasNext())
+    {
+      list.add(it.next());
+    }
+    
+    it.close();
+    
+    return list.toArray(new Generation[list.size()]);
+  }  
   
 }
