@@ -1920,11 +1920,20 @@
           size="255"
           label="Mosquito Id"
           description="The id of the mosquito, if the Id is blank then it is assumed the mosquito is new" />
+        <virtual name="collection"
+          type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
+          concrete="collection"
+          required="true"/>
         <virtual
           name="sampleId"
           type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
           concrete="sampleId"
           required="true" />
+        <virtual
+          name="specie"
+          type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
+          required="true"
+          concrete="specie" />
         <virtual
           name="identificationMethod"
           type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
@@ -1953,59 +1962,73 @@
         <virtual
           name="wKDR"
           type="mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="eKDR"
           type="mdss.ivcc.mrc.csu.entomology.assay.molecular.EKDRTestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="acHEMolecular"
           type="mdss.ivcc.mrc.csu.entomology.assay.molecular.AcHETestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="gABA"
           type="mdss.ivcc.mrc.csu.entomology.assay.molecular.GABATestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="aEsterase"
           type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.AEsteraseTestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="bEsterase"
           type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="pNPA"
           type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="gST"
           type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.GSTTestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="monooxygenase"
           type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.MonooxygenaseTestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="acHEBiochemical"
           type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.AcHETestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="pFalciparum"
           type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="pOvale"
           type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.POvaleTestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="pMalariae"
           type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.PMalariaeTestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
         <virtual
           name="pVivax"
           type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.PVivaxTestResult"
-          concrete="testResult" />
+          concrete="testResult"
+          required="false" />
       </attributes>
     </mdView>
   </create>
