@@ -1,3 +1,5 @@
+var MDSS = MDSS || {}; // TODO push namespace into common js file
+
 /*
 This code is written by Andrew Roth (andrewroth.ca) and is intended for
 use with the YUI or to be taken in any part or form and put directly into
@@ -98,7 +100,7 @@ YAHOO.lang.extend(YAHOO.widget.TreeViewDD, YAHOO.widget.TreeView, {
  * @class DDNode
  * @constructor
  */
-YAHOO.widget.DDNode = function() { }
+YAHOO.widget.DDNode = function() {}
 
 YAHOO.widget.DDNode.prototype = {
   applyParentBeforeDD: YAHOO.widget.Node.prototype.applyParent,
@@ -116,7 +118,7 @@ YAHOO.widget.DDNode.prototype = {
     this.refreshBeforeDD.call(this);
     this.initDD();
   },
-
+  
  /**
   * Returns true if the Node is a descendent of supplied Node
   *
@@ -156,7 +158,8 @@ YAHOO.widget.DDNode.prototype = {
    * @method initDD
    */
    initDD: function() {
-    if (!this.isRoot()) {     
+    if (!this.isRoot()
+      && this instanceof YAHOO.widget.HTMLNode /* JN change: only HTMLNodes can be draggable */) {     
       if (this.dd == null || this.dd == undefined) {
         this.dd = new YAHOO.util.DDNodeProxy(this, this.getDdId());
       } else {
@@ -288,31 +291,52 @@ YAHOO.extend(YAHOO.util.DDNodeProxy, YAHOO.util.DDProxy, {
     */
   onDragDrop: function(e, id) {
     if (this.validDest(id)) {
-      // remove drag-hint class
-      this.getElDom(id).className = this.getElDom(id).classNameBeforeDrag;
+
+      /* JN change: create new relationship between parent and child */
+      var ddThis = this;
+      var request = new Mojo.ClientRequest({
+      	ddThis : ddThis,
+      	onSuccess : function(){
+      	  
+          // remove drag-hint class
+          this.ddThis.getElDom(id).className = this.ddThis.getElDom(id).classNameBeforeDrag;
       
-      destNode = YAHOO.util.DDM.getDDById(id).node;
+          var destNode = YAHOO.util.DDM.getDDById(id).node;
+          
+          // remove
+          thisParent = this.ddThis.node.parent;
+          this.ddThis.node.tree.popNode(this.ddThis.node);
       
-      // remove
-      thisParent = this.node.parent;
-      this.node.tree.popNode(this.node);
+          // fixes bug where a parent with 1 item is still marked
+          // expanded, so when a new node is dragged to it, it doesn't
+          // draw the new node (thinks it's already expanded)
+          if (thisParent.children.length == 0) {
+            thisParent.expanded = false;
+          }
       
-      // fixes bug where a parent with 1 item is still marked
-      // expanded, so when a new node is dragged to it, it doesn't
-      // draw the new node (thinks it's already expanded)
-      if (thisParent.children.length == 0) {
-        thisParent.expanded = false;
-      }
+          // make removal changes visible
+          thisParent.refresh();
+          
+          // Only add the node if the children have loaded via Ajax.
+          // Otherwise, the node will appear twice (i.e., once from
+          // the drag and drop and once from the Ajax load).
+          if(destNode.dynamicLoadComplete)
+          {
+            this.ddThis.node.appendTo(destNode);
+            destNode.expanded = false; // force re-expansion
+          }
+
+          destNode.refresh();  
+          destNode.expand();
+      	},
+      	onFailure : function(e){
+      	  alert(e.getLocalizedMessage());
+      	}
+      });
       
-      // make removal changes visible
-      thisParent.refresh();
-      
-      // add
-      this.node.appendTo(destNode);
-      
-      //this.node.tree.draw();
-      destNode.expand();
-      destNode.refresh();
+      var childGeoEntity = MDSS.GeoEntityTree.getGeoEntity(this.id);
+      var parentGeoEntity = MDSS.GeoEntityTree.getGeoEntity(id);
+      childGeoEntity.applyWithParentGeoEntity(request, parentGeoEntity.getId());
     }
   },
   
@@ -341,24 +365,224 @@ YAHOO.extend(YAHOO.util.DDNodeProxy, YAHOO.util.DDProxy, {
   }
 
 });
+// END Andrew Roth's code
 
-YAHOO.namespace("GeoEntityTree");
-YAHOO.GeoEntityTree = (function(){
+/**
+ * Extracts all script tag contents and returns
+ * a string of executable code that can be evaluated.
+ */
+MDSS.extractScripts = function(html)
+{
+  var scripts = html.match(/<script\b[^>]*>[\s\S]*?<\/script>/img);
+  var executables = [];
+  for(var i=0; i<scripts.length; i++)
+  {
+    var scriptM = scripts[i].match(/<script\b[^>]*>([\s\S]*?)<\/script>/im);
+  	executables.push(scriptM[1]);
+  }
+  
+  return executables.join('');
+}
+
+/**
+ * Removes all scripts from the HTML and returns
+ * a string of the cleansed HTML.
+ */
+MDSS.removeScripts = function(html)
+{
+  return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/img, '');
+}
+
+/**
+ * GeoEntityTree object manages the GeoEntity tree
+ * operations (e.g., drag and drop, create node, delete node).
+ */
+MDSS.GeoEntityTree = (function(){
+
+  // key/value is node id/GeoEntity id
+  var _nodeToGeoEntityMap = {};
+
+  // key/value is GeoEntity id/GeoEntity
+  var _geoEntityCache = {};
 
   // The selected node in tree
-  var selectedNode = null;
+  var _selectedNode = null;
   
   // The tree for GeoEntities
-  var geoTree = null;
+  var _geoTree = null;
   
   /**
-   * Adds a new node to the selected node (a refresh and expand is performed).
+   * Sets the mapping between a node and GeoEntity.
+   * More than one node may point to a GeoEntity.
+   */
+  function _setMapping(node, geoEntity)
+  {
+  	var nodeId = node.contentElId;
+  	var geId = geoEntity.getId();
+  	
+  	// overwrite any existing entries
+  	_nodeToGeoEntityMap[nodeId] = geId;
+  	_geoEntityCache[geId] = geoEntity;
+  }
+  
+  /**
+   * Gets the GeoEntity that maps to the given
+   * node.
+   */
+  function _getGeoEntity(node)
+  {
+  	var nodeId = node instanceof YAHOO.widget.HTMLNode ? node.contentElId : node;
+  	var geId = _nodeToGeoEntityMap[nodeId];
+  	return _geoEntityCache[geId];
+  }
+  
+  /**
+   * Removes the node to GeoEntity mapping.
+   */
+  function _removeMapping(node)
+  {
+    var nodeId = node instanceof YAHOO.widget.HTMLNode ? node.contentElId : node;
+    delete _nodeToGeoEntityMap[nodeId];
+  }
+  
+  /**
+   * Creates a new node.
+   */
+  function _createNode(type, params, action)
+  {
+    var geConstructor = Mojo.util.getType(type);
+    var geoEntity = new geConstructor();
+
+  	var entityName = params['dto.entityName'];
+  	var geoId = params['dto.geoId'];
+  	var terrain = Mojo.$.mdss.ivcc.mrc.csu.geo.Terrain[params['dto.terrain']];
+    
+    geoEntity.setEntityName(entityName);
+    geoEntity.setGeoId(geoId);
+    geoEntity.addTerrain(terrain);
+
+  	var request = new Mojo.ClientRequest({
+  	  onSuccess : function(retVal, geoEntity){
+  	  	
+  	  	// add the node directly if the children have already been dynamically loaded
+  	    if(_selectedNode.dynamicLoadComplete)
+  	    {
+          var node = new YAHOO.widget.HTMLNode(geoEntity.getEntityName(), _selectedNode);
+          
+          _selectedNode.expanded=false // force a re-expansions
+          _selectedNode.refresh();
+          _setMapping(node, geoEntity);
+  	    }
+
+        _selectedNode.expand();
+        
+        document.getElementById('nodeEdit').innerHTML = '';
+  	  },
+  	  onFailure : function(e){
+  	    alert(e.getLocalizedMessage());
+  	  }
+  	});
+    
+    var parentGeoEntity = _getGeoEntity(_selectedNode);
+    geoEntity.applyWithParentGeoEntity(request, parentGeoEntity.getId());
+  }
+  
+  /**
+   * Updates a node.
+   */
+  function _updateNode(params, actions)
+  {
+    var entityName = params['dto.entityName'];
+  	var geoId = params['dto.geoId'];
+  	var terrain = Mojo.$.mdss.ivcc.mrc.csu.geoTerrain[params['dto.terrain']];
+    
+    var geoEntity = _getGeoEntity(_selectedNode);
+    geoEntity.setEntityName(entityName);
+    geoEntity.setGeoId(geoId);
+    geoEntity.addTerrain(terrain);
+    
+    var request = new Mojo.ClientRequest({
+      onSuccess: function(geoEntity){
+      	_selectedNode.setHtml(geoEntity.getEntityName());
+        _setMapping(_selectedNode, geoEntity);
+        document.getElementById('nodeEdit').innerHTML = '';
+      },
+      onFailure: function(e){
+  	    alert(e.getLocalizedMessage());
+      }
+    });
+    
+    geoEntity.apply(request);
+  }
+  
+  /**
+   * Handler for new node request.
    */
   function _addNodeHandler()
   {
-    new YAHOO.widget.HTMLNode('new node', selectedNode);
-    selectedNode.refresh();
-    selectedNode.expand();
+  	var request = new Mojo.ClientRequest({
+  	  onSuccess : function(html){
+  	  	var executable = MDSS.extractScripts(html);
+  	  	var html = MDSS.removeScripts(html);
+  	  	document.getElementById('nodeEdit').innerHTML = html;
+  	  	eval(executable);
+  	  },
+  	  onFailure : function(e){
+  	    alert(e.getLocalizedMessage());
+  	  }
+  	});
+
+    var type = this.id;
+  	var controller = Mojo.util.getType(type+"Controller");
+  	controller.setCreateListener((function(type){
+  	  return function(params, action){
+  	    _createNode(type, params, action);
+  	  };
+  	})(type));
+  	controller.newInstance(request);
+  }
+  
+  /**
+   * Cancels an action to update a node.
+   */
+  function _cancelNode()
+  {
+    var request = new Mojo.ClientRequest({
+      onSuccess: function(){
+        document.getElementById('nodeEdit').innerHTML = '';
+      },
+      onFailure: function(e){
+        alert(e.getLocalizedMessage());
+      }
+    });
+
+    var geoEntity = _getGeoEntity(_selectedNode);
+    geoEntity.unlock(request);
+  }
+  
+  /**
+   * Handler for edit node request.
+   */
+  function _editNodeHandler()
+  {
+    var request = new Mojo.ClientRequest({
+      onSuccess: function(html){
+   	  	var executable = MDSS.extractScripts(html);
+  	  	var html = MDSS.removeScripts(html);
+  	  	document.getElementById('nodeEdit').innerHTML = html;
+  	  	eval(executable);
+      },
+      onFailure: function(e){
+        alert(e.getLocalizedMessage());
+      }
+    });
+    
+    var geoEntity = _getGeoEntity(_selectedNode);
+
+    var controller = Mojo.util.getType(geoEntity.getType()+"Controller");
+    controller.setUpdateListener(_updateNode);
+    controller.setCancelListener(_cancelNode);
+    controller.edit(request, geoEntity.getId());
   }
   
   /**
@@ -366,9 +590,22 @@ YAHOO.GeoEntityTree = (function(){
    */
   function _deleteNodeHandler()
   {
-    var parent = selectedNode.parent;
-    geoTree.removeNode(selectedNode);
-    parent.refresh();
+  	var request = new Mojo.ClientRequest({
+  	  onSuccess : function(){
+  	  	
+        _removeMapping(_selectedNode);
+
+  	    var parent = _selectedNode.parent;
+        _geoTree.removeNode(_selectedNode);
+        parent.refresh();
+  	  },
+  	  onFailure : function(e){
+  	    alert(e.getLocalizedMessage());
+  	  }
+  	});
+  	
+    var geoEntity = _getGeoEntity(_selectedNode);
+    geoEntity.remove(request);
   }
   
   /**
@@ -379,9 +616,9 @@ YAHOO.GeoEntityTree = (function(){
   {
     var oTarget = this.contextEventTarget;
 
-    var oTextNode = YAHOO.util.Dom.hasClass(oTarget, "ygtvhtml") ? oTarget : YAHOO.util.Dom.getAncestorByClassName(oTarget, "ygtvhtml");
-    if (oTextNode) {
-      selectedNode = geoTree.getNodeByElement(oTextNode);
+    var htmlNode = YAHOO.util.Dom.hasClass(oTarget, "ygtvhtml") ? oTarget : YAHOO.util.Dom.getAncestorByClassName(oTarget, "ygtvhtml");
+    if (htmlNode) {
+      _selectedNode = _geoTree.getNodeByElement(htmlNode);
     }
     else {
       this.cancel();
@@ -389,23 +626,74 @@ YAHOO.GeoEntityTree = (function(){
   }
   
   /**
-   * Initializes the tree with the given data.
+   * Loads child nodes dynamically
    */
-  function _initializeTree(data) {
-    geoTree = new YAHOO.widget.TreeViewDD('treeView', data);
-    geoTree.draw();
+  function _dynamicLoad(parentNode, fnLoadComplete)
+  {
+  	// request to fetch children
+    var request = new Mojo.ClientRequest({
+      onSuccess : function(childNodes){
+        
+        for(var i=0; i<childNodes.length; i++)
+        {
+          var child = childNodes[i];
+          var node = new YAHOO.widget.HTMLNode(child.getEntityName());
+          parentNode.appendChild(node);
+          
+          _setMapping(node, child);
+        }
+        
+        parentNode.refresh();
+        fnLoadComplete();
+      },
+      onFailure : function(e){
+      	alert(e.getLocalizedMessage());
+      }
+    });
+
+    var geoEntity = _getGeoEntity(parentNode);
+    geoEntity.getAllContainsGeoEntity(request);
+  }
+  
+  /**
+   * Initializes the tree by setting the GeoEntity with the
+   * given id as first node under the root.
+   */
+  function _initializeTree(treeId, geoEntity) {
+
+    var node = {type:"HTML", html:geoEntity.getEntityName()};
+
+    _geoTree = new YAHOO.widget.TreeViewDD(treeId, [node]);
+    _geoTree.setDynamicLoad(_dynamicLoad);
+    _geoTree.draw();
 
     var menu = new YAHOO.widget.ContextMenu("treeMenu", {
-      trigger:'treeView',
+      trigger:treeId,
       lazyload:true,
-      itemdata:[{text:"Create Node", onclick: {fn:_addNodeHandler}}, {text:"Delete Node", onclick: {fn:_deleteNodeHandler}}]
+      itemdata:[
+        {text:"Create", submenu: {
+          id:"createMenu",
+          itemdata : [
+            {text:"Country", id:"mdss.test.Country", onclick: {fn:_addNodeHandler}},
+            {text:"Province", id:"mdss.test.Province", onclick: {fn:_addNodeHandler}},
+            {text:"District", id:"mdss.test.District", onclick: {fn:_addNodeHandler}},
+            {text:"Sub District", id:"mdss.test.SubDistrict", onclick: {fn:_addNodeHandler}}
+          ]
+        }},
+        {text:"Edit", onclick: {fn:_editNodeHandler}},
+        {text:"Delete", onclick: {fn:_deleteNodeHandler}}
+      ]
     });
       
     menu.subscribe("triggerContextMenu", _nodeMenuSelect);
+    
+    // map node to GeoEntity
+    _setMapping(_geoTree.getRoot().children[0], geoEntity);
   }
   
   // return all public methods/properties
   return {
-    initializeTree : _initializeTree
+    initializeTree : _initializeTree,
+    getGeoEntity : _getGeoEntity
   };
 })();
