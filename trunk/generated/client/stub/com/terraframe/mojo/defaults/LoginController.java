@@ -1,5 +1,7 @@
 package com.terraframe.mojo.defaults;
 
+import mdss.ivcc.mrc.csu.util.GlobalSessionListener;
+
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientConstants;
 import com.terraframe.mojo.constants.ClientRequestIF;
@@ -25,6 +27,11 @@ public class LoginController extends LoginControllerBase implements com.terrafra
     req.getSession().setAttribute(ClientConstants.CLIENTSESSION, clientSession);
     req.setAttribute(ClientConstants.CLIENTREQUEST, clientRequest);
 
+    // create a global cookie for geoserver to read
+    GlobalSessionListener globalSessionListener = new GlobalSessionListener(clientSession.getSessionId());
+    globalSessionListener.setCookie(this.getResponse());
+    req.getSession().setAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER, globalSessionListener);
+
     req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
 
@@ -33,12 +40,13 @@ public class LoginController extends LoginControllerBase implements com.terrafra
   {
     // process which logs the user out.
     ClientSession clientSession = super.getClientSession();
-
     if (clientSession != null)
     {
       clientSession.logout();
     }
-
+    
+    req.getSession().removeAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER);
+    
     req.getRequestDispatcher("login.jsp").forward(req, resp);
   }
 }

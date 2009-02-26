@@ -39,7 +39,13 @@ public class LoginFilter implements Filter, Reloadable
 
     WebClientSession clientSession = (WebClientSession)session.getAttribute(ClientConstants.CLIENTSESSION);
     
-    if(clientSession != null)
+    // let all map style requests through
+    if(httpReq.getRequestURI().endsWith(".sld"))
+    {
+      chain.doFilter(req, res);
+      return;
+    }
+    else if(clientSession != null)
     {
       // Create a request object for this request
       ClientRequestIF clientRequest = clientSession.getRequest();

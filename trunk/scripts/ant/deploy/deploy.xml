@@ -5,7 +5,7 @@
 	<!-- Set up our properties                                               -->
 	<!-- =================================================================== -->
 
-	<property name="profile.root" value="/Users/dt/workspace/MDSS/profiles" />
+	<property name="profile.root" value="/Users/justin/workspace/MDSS2/profiles" />
 
 	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties" classpath="${profile.root};tfprops.jar" />
 	<tfproperties root="${profile.root}" />
@@ -272,8 +272,20 @@
 			</classpath>
 		</javac>
 
+		<!-- These files are needed for compilation, but should not exist in the deploy -->
+		<delete file="${deploy.bin}/mdss/ivcc/mrc/csu/global/CredentialsSingleton.class" />
+		<delete file="${deploy.bin}/mdss/ivcc/mrc/csu/global/CredentialsSingleton$Singleton.class" />
+		<delete file="${deploy.bin}/mdss/ivcc/mrc/csu/geoserver/GeoServerRequestFilter.class" />
+		
 	</target>
 
+	<target name="export_credentials_singleton">
+		<jar destfile="${deploy.root}/lib/credentialsSingleton.jar" basedir="${local.bin}" compress="true">
+	      <include name="mdss/ivcc/mrc/csu/global/CredentialsSingleton.class"/>
+	      <include name="mdss/ivcc/mrc/csu/global/CredentialsSingleton$Singleton.class"/>
+		</jar>
+	</target>
+	
 	<target name="export_tomcat_classloader" description="Exports the Tomcat webapp classloader">
 		<copy file="terraframeTomcatLoader.jar" tofile="${deploy.classloader.jar}" />
 	</target>
