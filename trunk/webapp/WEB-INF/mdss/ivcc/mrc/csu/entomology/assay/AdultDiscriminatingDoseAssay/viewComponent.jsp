@@ -1,6 +1,15 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<mjl:messages>
+<%@page import="java.util.*"%>
+<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
+<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<%@page import="org.json.JSONArray"%>
+<%@page import="mdss.ivcc.mrc.csu.entomology.assay.ADDATestInterval"%>
+<%@page import="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
+<%@page import="mdss.ivcc.mrc.csu.util.Halp" %>
+
+
+<%@page import="mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalViewDTO"%><mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
@@ -210,3 +219,61 @@
 <dl>
 </dl>
 <mjl:commandLink display="View All" action="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo" name="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay.viewAll.link" />
+
+
+<div id="intervals"></div>
+
+<div id="buttons">
+ <span id="saverows" class="yui-button yui-push-button"> 
+ <span class="first-child">
+<button type="button">Save Rows To DB</button>
+</span> 
+</span>
+</div>
+<script type="text/javascript">      
+    <%
+    String[] types_to_load =
+	{
+	   "mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay",
+	   "mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalView"
+	};
+    
+	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+    out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
+    
+    
+    %>
+    table_data = { 
+    		rows:
+    	    	<%AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request.getAttribute("item");
+                       ADDATestIntervalViewDTO[] rows = adda.getTestIntervals();
+    	    		    int i = 1;
+    	    		    ArrayList<String> arr = new ArrayList<String>();
+    	    		     for (ADDATestIntervalViewDTO row : rows)  {
+    	    		       ArrayList<String> buff = new ArrayList<String>();
+    	    		       buff.add("AssayId:'" + row.getAssayId() + "'");
+    	    		       buff.add("IntervalTime:'" + row.getIntervalTime() + "'");
+    	    		       buff.add("KnockedDown:'" + row.getKnockedDown() + "'");
+    	    		       buff.add("Percent:''");
+    	    		       arr.add("{" +Halp.join(buff,",")+ "}");
+    	    		       i++;	       
+    	    		     }
+    	    		     out.println("[" +Halp.join(arr,",\n")+ "]");%>
+    	    		   
+    	    	 ,columnDefs:[
+    	            {key:"AssayId",label:"ID",hidden:true},
+    	            {key:"IntervalTime",label:'<%=rows[0].getIntervalTimeMd().getDisplayLabel()%>',resizeable:true},
+    	            {key:"KnockedDown",label:"<%=rows[0].getKnockedDownMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})},
+    	            {key:"Percent",label:"%",resizeable:true},
+    	            {key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}
+    	            
+    	        ],
+    	        defaults: {GroupId:"",Peroid:"",KnockedDown:"",Percent:""},
+    	        div_id: "intervals",
+    	        collection_id: '${item.id}',
+        	    data_type: "Mojo.$.mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalView"
+    	        
+    	    };   
+    YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
+//  window.addEventListener('load',  , false);
+</script>

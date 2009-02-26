@@ -21,6 +21,35 @@
 	} 
 	return map.toString();
 }
+
+
+static String getDropDownMap2(AbstractTermDTO[] terms) throws JSONException {
+	JSONArray map = new JSONArray();
+	for(AbstractTermDTO term : terms)
+	 {
+		JSONObject element = new JSONObject();
+		element.put("value",term.getId());
+		element.put("label",term.getDisplayLabel());
+		
+		map.put(element);
+	} 
+	return map.toString();
+}
+
+
+static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSONException {
+	JSONArray ids = new JSONArray();
+	JSONArray labels = new JSONArray();
+	for(AbstractTermDTO term : terms)
+	 {
+	    ids.put(term.getId());
+	    labels.put(term.getDisplayLabel());
+	} 
+	return name +"Ids = " + ids.toString()+"; \n "+ name + "Labels = "+ labels.toString() +";";
+}
+
+
+
 %>
 
 <mjl:messages>
@@ -74,7 +103,6 @@
 <button type="button">Save Rows To DB</button>
 </span> </span></div>
 
-
 <script type="text/javascript">      
     <%String[] types_to_load =
 	{
@@ -82,15 +110,19 @@
 	};
     
 	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-	//out.println("client_request ='" + clientRequest.getSessionId() + "' ;");
+
 	// THIS LINE CRASHES TOMCAT WITH Invalid memory access of location 00000000 eip=00000000
 	//out.println(Halp.getDropDownMap(SpecieDTO.getAll(clientRequest)));
-	
-
+	//out.println(Halp.getDropDownMap2(Arrays.asList(SpecieDTO.getAll(clientRequest))));
+   // SpecieDTO[] arrggg = SpecieDTO.getAll(clientRequest);
+		
+		
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
 
-    out.println("var species = " + getDropDownMap(SpecieDTO.getAll(clientRequest)) + " ;");
-    out.println("var ident_methods = " + getDropDownMap(SpecieDTO.getAll(clientRequest)) + " ;");%>
+    out.println( getDisplayLabels(SpecieDTO.getAll(clientRequest),"Specie"));
+    out.println(getDisplayLabels(IdentificationMethodDTO.getAll(clientRequest),"IdentificationMethod"));
+    MorphologicalSpecieGroupViewDTO msgView = new MorphologicalSpecieGroupViewDTO(clientRequest);
+    %>
 
     
     table_data = { rows:
@@ -110,21 +142,21 @@
     		       i++;	       
     		     }
     		     out.println("[" +Halp.join(arr,",\n")+ "]");%>
+    		   
     	 ,columnDefs:[
     	            {key:"GroupId",label:"ID",hidden:true},
-    	            {key:"Specie",label:'<%=MorphologicalSpecieGroup.getSpecieMd().getDisplayLabel()%>',resizeable:true,editor: new YAHOO.widget.DropdownCellEditor({dropdownOptions:species,disableBtns:true})},
-    	            {key:"IdentificationMethod",label:"<%=MorphologicalSpecieGroup.getIdentificationMethodMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.RadioCellEditor({radioOptions:ident_methods,disableBtns:true})},
-    	            {key:"Quantity",label:"<%=MorphologicalSpecieGroup.getQuantityMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})},
+    	            {key:"Specie",label:'<%=msgView.getSpecieMd().getDisplayLabel()%>',resizeable:true,editor: new YAHOO.widget.DropdownCellEditor({dropdownOptions:SpecieLabels,disableBtns:true}),save_as_id:true},
+    	            {key:"IdentificationMethod",label:"<%=msgView.getIdentificationMethodMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.DropdownCellEditor({dropdownOptions:IdentificationMethodLabels,disableBtns:true}),save_as_id:true,copy_from_above:true},
+    	            {key:"Quantity",label:"<%=msgView.getQuantityMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})},
     	            {key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}
     	            
     	        ],
-    	        fields: ["GroupId","Specie","IdentificationMethod","Quantity"],
-    	        copy_from_above: ["IdentificationMethod"],
     	        defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
     	        div_id: "MorphologicalSpecieGroups",
     	        collection_id: '${item.id}',
         	    data_type: "Mojo.$.mdss.ivcc.mrc.csu.entomology.MorphologicalSpecieGroupView"
     	        
     	    };   
-  window.addEventListener('load', MojoGrid.createDataTable(table_data) , false);
+    YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
+ // window.addEventListener('load', MojoGrid.createDataTable(table_data) , false);
 </script>

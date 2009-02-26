@@ -8,7 +8,6 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	// makes everything declared inside invisible outside
 	// so I am free to declare any handy shortcuts
 	
-	
 	// Array Remove - By John Resig (MIT Licensed)
 	Array.remove = function(array, from, to) {
 	  var rest = array.slice((to || from) + 1 || array.length);
@@ -19,16 +18,47 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	MojoGrid.createDataTable = function(table_data) {
 	// locals to be returned
     var myDataSource, myDataTable;
-
+    
+    // set the fields
+    if(table_data.fields == null)
+    {
+    	table_data.fields = table_data.columnDefs.map(function(c){return c.key}).slice(0,table_data.columnDefs.length - 1);
+    }
+    
+    
 	// load the data
 	myDataSource = new YAHOO.util.DataSource(table_data.rows);
 	myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
 	myDataSource.responseSchema = {
-		fields :table_data.fields
+			fields :  table_data.fields
 	};
-
+    
 	myDataTable = new YAHOO.widget.DataTable(table_data.div_id,
 			table_data.columnDefs, myDataSource, {width:"30em", height:"10em"});
+	
+
+	function getLabelFromId(feild,id)
+	{
+		  str = feild+"Ids.indexOf(id)";
+		  i = eval(str);
+		  str = feild+"Labels["+i+"]" ;
+		  return(eval(str));
+	}
+	
+	// the data comes from the server as ids, we need to set the labels
+	for each(record in myDataTable.getRecordSet().getRecords())
+	{
+		for each(feild in table_data.columnDefs)
+		{
+			if (feild.save_as_id)
+			{
+			  label = getLabelFromId(feild.key,record.getData(feild.key));
+			  // alert(label);
+			  record.setData(feild.key, label);
+			}
+		}
+	}
+	myDataTable.render();
 
 	var i = (table_data.rows.length + 1);
 	var bReverseSorted = false;
@@ -52,8 +82,20 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	// Save edits back to the original data array
 	var saveSomeData = function(oArgs) {
 		  var record = oArgs.editor.getRecord();
-		  var save_now = 'table_data.rows[' + record._nCount + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newData + '"';
-		  // alert(save_now);
+		  var editor = oArgs.editor;
+		  myDataTable.getRecordIndex(record);
+		  if(editor instanceof YAHOO.widget.DropdownCellEditor )
+		  {
+			  str = oArgs.editor.getColumn().key+"Labels.indexOf(oArgs.newData)";
+			  i = eval(str);
+			  str = oArgs.editor.getColumn().key+"Ids["+i+"]" ;
+			  id = eval(str);
+			  var save_now = 'table_data.rows[' + record._nCount + '].' + oArgs.editor.getColumn().key + ' = "' + id + '"';
+		  }
+		  else
+		  {
+			  var save_now = 'table_data.rows[' + record._nCount + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newData + '"';
+		  }
 	      eval(save_now);	
 	};
 	myDataTable.subscribe("editorSaveEvent", saveSomeData);
@@ -77,8 +119,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 					onSuccess : function(deletedRow) {
 					Array.remove(table_data.rows,request.row_index);
 					request.dataTable.deleteRow(target);					
-					//alert('row deleted on server');
-
+					// alert('row deleted on server');
 				},
 				onFailure : function(e) {
 					alert(e.getLocalizedMessage());
@@ -102,14 +143,15 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 	myDataTable.subscribe("cellClickEvent", onCellClick);
     
-	
+	if(YAHOO.util.Dom.get('saverows'))
+	{
 	// set up the button that saves the rows to the db
 	var btnSaveRows = new YAHOO.widget.Button("saverows"); 
 	btnSaveRows.on("click", function() {
 		var request = new Mojo.ClientRequest( {
 			// success handler for saved rows
 			dataTable : myDataTable,
-			table_data : this.table_data,
+			table_data : table_data,
 			onSuccess : function(savedRows) {
 				alert("Saved " + savedRows.length + " Rows!");
 				var i = 0;
@@ -117,10 +159,10 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 				for each(row in savedRows)
 				{
 					record = this.dataTable.getRecord(i);
-					id = savedRows[i].getGroupId();
+					id = eval("savedRows[i].get" + id_key +"()");
 					str = "record.setData('" + id_key + "','" + id + "')";
 					eval(str);
-			        //table_data[i].GroupId = id;				
+			        eval("this.table_data.rows[i]."+id_key+"= id");				
 					i = i + 1;
 				}
 				this.dataTable.render();
@@ -152,7 +194,6 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    	for each (attrib in table_data.fields)
 	    	{
 			    str = 'v.set'+attrib.key+'(row.'+attrib.key+')';
-			    // alert(str);  
 	    		eval(str);
 	    	}
 			v_arr.push(v);
@@ -161,49 +202,42 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
     	eval(str);
 
 	});
+	}
+	// function Add one row to the bottom
 	
-// // Add passed in rows
-// this.addRow = function(row) {
-// // Clear sort when necessary
-// if (bReverseSorted) {
-// myDataTable.set("sortedBy", null);
-// }
-//
-// var record = YAHOO.widget.DataTable._cloneObject(table_data.defaults);
-// //record.row = i++;
-// record.qty = row.getQuanity();
-// record.specie_name = row.getSpecie()[0].getDisplayLabel();
-// record.ident_method = row.getIdentificationMethod()[0]
-// .getDisplayLabel();
-// myDataTable.addRow(record);
-// };
-
-	// Add one row to the bottom
-	var btnAddRow = new YAHOO.widget.Button("addrow");
-	btnAddRow.on("click", function() {
+	if(YAHOO.util.Dom.get('addrow')){
+		var btnAddRow = new YAHOO.widget.Button("addrow");
+		btnAddRow.on("click", function() {
 		// Clear sort when necessary
 			if (bReverseSorted) {
 				 myDataTable.set("sortedBy", null);
 			}
             // clone the object
 			// FIREFOX ONLY
-			new_defs = eval(uneval(table_data.defaults));
+			new_data_row = eval(uneval(table_data.defaults));
+			new_label_row = eval(uneval(table_data.defaults));
 			// var record = YAHOO.widget.DataTable._cloneObject(new_defs);
 			// record = new YAHOO.widget.Record(table_data.defaults);
 			// record.row = i++;
 			if (table_data.rows.length > 0)
 			{
-				last_row_index = table_data.rows.length - 1
-				for each (feild in table_data.copy_from_above)
-		        {	    	
-			    	str = 'new_defs.' + feild + ' = table_data.rows[last_row_index].' + feild ;
-			    	eval(str);
-			    }	    
+				last_row_index = table_data.rows.length - 1;
+				for each(feild in table_data.columnDefs)
+				{
+					if (feild.copy_from_above)
+					{	    	
+				    	str = 'new_data_row.' + feild.key + ' = table_data.rows[last_row_index].' + feild.key ;
+				    	eval(str);
+				    	label = myDataTable.getRecord(last_row_index).getData(feild.key);
+				    	str = 'new_label_row.' + feild.key + " = '"+ label + "'";
+				    	eval(str);
+					}	 
+				}
 	        }		
-			table_data.rows.push(new_defs);
-			myDataTable.addRow(new_defs);
-		}, this, true);
-
+			table_data.rows.push(new_data_row);
+			myDataTable.addRow(new_label_row);
+		});
+	}
 	// stuff to turn cols on and off
 	// Shows dialog, creating one when necessary
 	var newCols = true;
