@@ -4,17 +4,6 @@
 var MojoGrid = YAHOO.namespace('MojoGrid');
 
 (function () {
-	// Enclosing everything within this anonymous function
-	// makes everything declared inside invisible outside
-	// so I am free to declare any handy shortcuts
-	
-	// Array Remove - By John Resig (MIT Licensed)
-	Array.remove = function(array, from, to) {
-	  var rest = array.slice((to || from) + 1 || array.length);
-	  array.length = from < 0 ? array.length + from : from;
-	  return array.push.apply(array, rest);
-	};
-
 	MojoGrid.createDataTable = function(table_data) {
 	// locals to be returned
     var myDataSource, myDataTable;
@@ -22,9 +11,10 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
     // set the fields
     if(table_data.fields == null)
     {
-    	table_data.fields = table_data.columnDefs.map(function(c){return c.key}).slice(0,table_data.columnDefs.length - 1);
+    	table_data.fields = table_data.columnDefs.map(function(c){return c.key}).filter(function(c){return c != 'delete'});
     }
     
+    table_data.dirty = false;
     
 	// load the data
 	myDataSource = new YAHOO.util.DataSource(table_data.rows);
@@ -83,20 +73,22 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	var saveSomeData = function(oArgs) {
 		  var record = oArgs.editor.getRecord();
 		  var editor = oArgs.editor;
-		  myDataTable.getRecordIndex(record);
+		  index = myDataTable.getRecordIndex(record);
 		  if(editor instanceof YAHOO.widget.DropdownCellEditor )
 		  {
 			  str = oArgs.editor.getColumn().key+"Labels.indexOf(oArgs.newData)";
 			  i = eval(str);
 			  str = oArgs.editor.getColumn().key+"Ids["+i+"]" ;
 			  id = eval(str);
-			  var save_now = 'table_data.rows[' + record._nCount + '].' + oArgs.editor.getColumn().key + ' = "' + id + '"';
+			  var save_now = 'table_data.rows[' + index + '].' + oArgs.editor.getColumn().key + ' = "' + id + '"';
 		  }
 		  else
 		  {
-			  var save_now = 'table_data.rows[' + record._nCount + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newData + '"';
+			  var save_now = 'table_data.rows[' + index + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newData + '"';
 		  }
 	      eval(save_now);	
+	      table_data.dirty = true;
+	      btnSaveRows.set("disabled", false);
 	};
 	myDataTable.subscribe("editorSaveEvent", saveSomeData);
 	
@@ -108,16 +100,16 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		column = myDataTable.getColumn(target); 
 		record = myDataTable.getRecord(target);
 		row_id = record.getData(table_data.fields[0].key);
-
+        row_index = record._nCount;
 		switch (column.action) {
 		case 'delete':
 			if (confirm('Are you sure you want to delete row ' + (record._nCount+1) + '?')) {
 				if(row_id.length > 1){
 				var request = new Mojo.ClientRequest( {
 					dataTable :myDataTable,
-					row_index :record._nCount,
+					row_index :row_index,
 					onSuccess : function(deletedRow) {
-					Array.remove(table_data.rows,request.row_index);
+					table_data.rows.splice(request.row_index,1);
 					request.dataTable.deleteRow(target);					
 					// alert('row deleted on server');
 				},
@@ -130,7 +122,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			else
 			{
 				myDataTable.deleteRow(target);
-				Array.remove(table_data.rows,request.row_index);
+				table_data.rows.splice(row_index,1);
 			}
 				
 				}
@@ -152,6 +144,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			// success handler for saved rows
 			dataTable : myDataTable,
 			table_data : table_data,
+			btnSaveRows :btnSaveRows,
 			onSuccess : function(savedRows) {
 				alert("Saved " + savedRows.length + " Rows!");
 				var i = 0;
@@ -165,6 +158,8 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			        eval("this.table_data.rows[i]."+id_key+"= id");				
 					i = i + 1;
 				}
+				table_data.dirty = false;
+				btnSaveRows.set("disabled", true);
 				this.dataTable.render();
 			},
 
@@ -202,6 +197,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
     	eval(str);
 
 	});
+	btnSaveRows.set("disabled", true);
 	}
 	// function Add one row to the bottom
 	
@@ -236,7 +232,10 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	        }		
 			table_data.rows.push(new_data_row);
 			myDataTable.addRow(new_label_row);
+			table_data.dirty = true;
+			btnSaveRows.set("disabled", false);
 		});
+		
 	}
 	// stuff to turn cols on and off
 	// Shows dialog, creating one when necessary
