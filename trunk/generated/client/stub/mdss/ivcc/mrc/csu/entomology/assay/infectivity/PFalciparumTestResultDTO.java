@@ -2,8 +2,7 @@ package mdss.ivcc.mrc.csu.entomology.assay.infectivity;
 
 public class PFalciparumTestResultDTO extends PFalciparumTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  public final static String CLASS = "mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResult";
-  private static final long serialVersionUID = 1235599942895L;
+  private static final long serialVersionUID = 1235751254489L;
   
   public PFalciparumTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

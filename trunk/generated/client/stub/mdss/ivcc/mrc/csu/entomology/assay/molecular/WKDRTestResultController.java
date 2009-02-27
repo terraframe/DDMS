@@ -5,13 +5,58 @@ public class WKDRTestResultController extends WKDRTestResultControllerBase imple
   public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/assay/molecular/WKDRTestResult/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1235599928046L;
+  private static final long serialVersionUID = 1235751242003L;
   
   public WKDRTestResultController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultQueryDTO query = mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    req.setAttribute("query", query);
+    req.setAttribute("page_title", "View All WKDRTestResultController Objects");
+    render("viewAllComponent.jsp");
+  }
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
+  }
+  public void delete(mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.delete();
+      this.viewAll();
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failDelete(dto);
+    }
+  }
+  public void failDelete(mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_testResult", mdss.ivcc.mrc.csu.mo.MolecularAssayResultDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit WKDRTestResultController");
+    render("editComponent.jsp");
+  }
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO dto = mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_testResult", mdss.ivcc.mrc.csu.mo.MolecularAssayResultDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit WKDRTestResultController");
+    render("editComponent.jsp");
+  }
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.view(id);
+  }
   public void cancel(mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
@@ -33,36 +78,17 @@ public class WKDRTestResultController extends WKDRTestResultControllerBase imple
   {
     resp.sendError(500);
   }
-  public void delete(mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.delete();
-      this.viewAll();
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failDelete(dto);
-    }
-  }
-  public void failDelete(mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_testResult", mdss.ivcc.mrc.csu.mo.MolecularAssayResultDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit WKDRTestResultController");
-    render("editComponent.jsp");
-  }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO dto = new mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO(clientRequest);
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_testResult", mdss.ivcc.mrc.csu.mo.MolecularAssayResultDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View WKDRTestResultController");
-    render("viewComponent.jsp");
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create WKDRTestResultController");
+    render("createComponent.jsp");
   }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
   }
@@ -80,23 +106,22 @@ public class WKDRTestResultController extends WKDRTestResultControllerBase imple
   }
   public void failCreate(mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_testResult", mdss.ivcc.mrc.csu.mo.MolecularAssayResultDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create WKDRTestResultController");
     render("createComponent.jsp");
   }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO dto = new mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO(clientRequest);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_testResult", mdss.ivcc.mrc.csu.mo.MolecularAssayResultDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create WKDRTestResultController");
-    render("createComponent.jsp");
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO.get(clientRequest, id));
+    req.setAttribute("page_title", "View WKDRTestResultController");
+    render("viewComponent.jsp");
   }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
   }
@@ -114,35 +139,10 @@ public class WKDRTestResultController extends WKDRTestResultControllerBase imple
   }
   public void failUpdate(mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_testResult", mdss.ivcc.mrc.csu.mo.MolecularAssayResultDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update WKDRTestResultController");
     render("updateComponent.jsp");
-  }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO dto = mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_molecular_WKDRTestResult_testResult", mdss.ivcc.mrc.csu.mo.MolecularAssayResultDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit WKDRTestResultController");
-    render("editComponent.jsp");
-  }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.view(id);
-  }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultQueryDTO query = mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResultDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All WKDRTestResultController Objects");
-    render("viewAllComponent.jsp");
-  }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
   }
 }

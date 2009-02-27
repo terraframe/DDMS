@@ -1,10 +1,8 @@
 package mdss.ivcc.mrc.csu.entomology.assay.infectivity;
 
-import mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult;
-
-public abstract class InfectivityAssayTestResult extends InfectivityAssayTestResultBase implements AssayTestResult, com.terraframe.mojo.generation.loader.Reloadable
+public abstract class InfectivityAssayTestResult extends InfectivityAssayTestResultBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1235599928294L;
+  private static final long serialVersionUID = 1235751242226L;
   
   public InfectivityAssayTestResult()
   {

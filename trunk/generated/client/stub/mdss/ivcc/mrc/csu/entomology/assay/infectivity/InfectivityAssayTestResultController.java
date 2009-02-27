@@ -5,57 +5,17 @@ public class InfectivityAssayTestResultController extends InfectivityAssayTestRe
   public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/assay/infectivity/InfectivityAssayTestResult/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1235599930370L;
+  private static final long serialVersionUID = 1235751244356L;
   
   public InfectivityAssayTestResultController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void delete(mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.delete();
-      this.viewAll();
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failDelete(dto);
-    }
-  }
-  public void failDelete(mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit InfectivityAssayTestResultController");
-    render("editComponent.jsp");
-  }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto = mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit InfectivityAssayTestResultController");
-    render("editComponent.jsp");
-  }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.view(id);
-  }
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultQueryDTO query = mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All InfectivityAssayTestResultController Objects");
-    render("viewAllComponent.jsp");
-  }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View InfectivityAssayTestResultController");
     render("viewComponent.jsp");
@@ -78,16 +38,20 @@ public class InfectivityAssayTestResultController extends InfectivityAssayTestRe
   }
   public void failCreate(mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create InfectivityAssayTestResultController");
     render("createComponent.jsp");
   }
-  public void cancel(mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultQueryDTO query = mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    req.setAttribute("query", query);
+    req.setAttribute("page_title", "View All InfectivityAssayTestResultController Objects");
+    render("viewAllComponent.jsp");
   }
-  public void failCancel(mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
@@ -105,9 +69,50 @@ public class InfectivityAssayTestResultController extends InfectivityAssayTestRe
   }
   public void failUpdate(mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update InfectivityAssayTestResultController");
     render("updateComponent.jsp");
+  }
+  public void delete(mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.delete();
+      this.viewAll();
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failDelete(dto);
+    }
+  }
+  public void failDelete(mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit InfectivityAssayTestResultController");
+    render("editComponent.jsp");
+  }
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto = mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit InfectivityAssayTestResultController");
+    render("editComponent.jsp");
+  }
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.view(id);
+  }
+  public void cancel(mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    dto.unlock();
+    this.view(dto.getId());
+  }
+  public void failCancel(mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {

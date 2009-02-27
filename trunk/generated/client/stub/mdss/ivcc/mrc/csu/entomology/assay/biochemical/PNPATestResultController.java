@@ -5,82 +5,24 @@ public class PNPATestResultController extends PNPATestResultControllerBase imple
   public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/assay/biochemical/PNPATestResult/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1235599926131L;
+  private static final long serialVersionUID = 1235751240371L;
   
   public PNPATestResultController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto = new mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO(clientRequest);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_PNPATestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create PNPATestResultController");
-    render("createComponent.jsp");
-  }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void delete(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.delete();
-      this.viewAll();
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failDelete(dto);
-    }
-  }
-  public void failDelete(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_PNPATestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto = mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit PNPATestResultController");
     render("editComponent.jsp");
   }
-  public void create(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failCreate(dto);
-    }
-  }
-  public void failCreate(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_PNPATestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create PNPATestResultController");
-    render("createComponent.jsp");
-  }
-  public void update(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failUpdate(dto);
-    }
-  }
-  public void failUpdate(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_PNPATestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update PNPATestResultController");
-    render("updateComponent.jsp");
+    this.view(id);
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -94,27 +36,16 @@ public class PNPATestResultController extends PNPATestResultControllerBase imple
   {
     resp.sendError(500);
   }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto = mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_PNPATestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit PNPATestResultController");
-    render("editComponent.jsp");
-  }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.view(id);
-  }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_PNPATestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View PNPATestResultController");
-    render("viewComponent.jsp");
+    mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto = new mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO(clientRequest);
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create PNPATestResultController");
+    render("createComponent.jsp");
   }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
   }
@@ -138,5 +69,74 @@ public class PNPATestResultController extends PNPATestResultControllerBase imple
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
+  }
+  public void update(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failUpdate(dto);
+    }
+  }
+  public void failUpdate(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Update PNPATestResultController");
+    render("updateComponent.jsp");
+  }
+  public void create(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failCreate(dto);
+    }
+  }
+  public void failCreate(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create PNPATestResultController");
+    render("createComponent.jsp");
+  }
+  public void delete(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.delete();
+      this.viewAll();
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failDelete(dto);
+    }
+  }
+  public void failDelete(mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit PNPATestResultController");
+    render("editComponent.jsp");
+  }
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.assay.biochemical.PNPATestResultDTO.get(clientRequest, id));
+    req.setAttribute("page_title", "View PNPATestResultController");
+    render("viewComponent.jsp");
+  }
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
   }
 }

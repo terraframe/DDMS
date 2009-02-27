@@ -2,8 +2,7 @@ package mdss.ivcc.mrc.csu.entomology.assay.molecular;
 
 public class WKDRTestResultDTO extends WKDRTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  public final static String CLASS = "mdss.ivcc.mrc.csu.entomology.assay.molecular.WKDRTestResult";
-  private static final long serialVersionUID = 1235599926865L;
+  private static final long serialVersionUID = 1235751241106L;
   
   public WKDRTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

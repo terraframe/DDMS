@@ -110,5 +110,14 @@ public class MosquitoTest extends TestCase
 //    view.setAEsterase(new Integer(4));
     view.setPMalariae(true);
     view.apply();    
+    
+    try
+    {
+      
+    }
+    finally
+    {
+      view.delete();
+    }
   }
 }

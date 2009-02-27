@@ -2,8 +2,7 @@ package mdss.ivcc.mrc.csu.entomology.assay.biochemical;
 
 public class MonooxygenaseTestResultDTO extends MonooxygenaseTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  public final static String CLASS = "mdss.ivcc.mrc.csu.entomology.assay.biochemical.MonooxygenaseTestResult";
-  private static final long serialVersionUID = 1235599924028L;
+  private static final long serialVersionUID = 1235751238754L;
   
   public MonooxygenaseTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

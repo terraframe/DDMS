@@ -5,24 +5,84 @@ public class BEsteraseTestResultController extends BEsteraseTestResultController
   public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/assay/biochemical/BEsteraseTestResult/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1235599932025L;
+  private static final long serialVersionUID = 1235751245756L;
   
   public BEsteraseTestResultController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void create(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto = mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_BEsteraseTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit BEsteraseTestResultController");
-    render("editComponent.jsp");
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failCreate(dto);
+    }
   }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.view(id);
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create BEsteraseTestResultController");
+    render("createComponent.jsp");
+  }
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO.get(clientRequest, id));
+    req.setAttribute("page_title", "View BEsteraseTestResultController");
+    render("viewComponent.jsp");
+  }
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto = new mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO(clientRequest);
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create BEsteraseTestResultController");
+    render("createComponent.jsp");
+  }
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
+  public void cancel(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    dto.unlock();
+    this.view(dto.getId());
+  }
+  public void failCancel(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
+  }
+  public void update(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failUpdate(dto);
+    }
+  }
+  public void failUpdate(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Update BEsteraseTestResultController");
+    render("updateComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -50,38 +110,10 @@ public class BEsteraseTestResultController extends BEsteraseTestResultController
   }
   public void failDelete(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_BEsteraseTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit BEsteraseTestResultController");
     render("editComponent.jsp");
-  }
-  public void create(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failCreate(dto);
-    }
-  }
-  public void failCreate(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_BEsteraseTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create BEsteraseTestResultController");
-    render("createComponent.jsp");
-  }
-  public void cancel(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dto.unlock();
-    this.view(dto.getId());
-  }
-  public void failCancel(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -95,48 +127,16 @@ public class BEsteraseTestResultController extends BEsteraseTestResultController
   {
     resp.sendError(500);
   }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto = new mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO(clientRequest);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_BEsteraseTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto = mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create BEsteraseTestResultController");
-    render("createComponent.jsp");
+    req.setAttribute("page_title", "Edit BEsteraseTestResultController");
+    render("editComponent.jsp");
   }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.viewAll();
-  }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_BEsteraseTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View BEsteraseTestResultController");
-    render("viewComponent.jsp");
-  }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void update(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failUpdate(dto);
-    }
-  }
-  public void failUpdate(mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_biochemical_BEsteraseTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update BEsteraseTestResultController");
-    render("updateComponent.jsp");
+    this.view(id);
   }
 }

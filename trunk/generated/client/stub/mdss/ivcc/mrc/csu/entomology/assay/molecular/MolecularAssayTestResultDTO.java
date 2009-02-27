@@ -2,8 +2,7 @@ package mdss.ivcc.mrc.csu.entomology.assay.molecular;
 
 public abstract class MolecularAssayTestResultDTO extends MolecularAssayTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  public final static String CLASS = "mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult";
-  private static final long serialVersionUID = 1235599932838L;
+  private static final long serialVersionUID = 1235751246394L;
   
   public MolecularAssayTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

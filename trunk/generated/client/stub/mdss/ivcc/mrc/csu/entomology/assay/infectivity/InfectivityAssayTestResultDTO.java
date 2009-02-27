@@ -2,8 +2,7 @@ package mdss.ivcc.mrc.csu.entomology.assay.infectivity;
 
 public abstract class InfectivityAssayTestResultDTO extends InfectivityAssayTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  public final static String CLASS = "mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult";
-  private static final long serialVersionUID = 1235599928346L;
+  private static final long serialVersionUID = 1235751242268L;
   
   public InfectivityAssayTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

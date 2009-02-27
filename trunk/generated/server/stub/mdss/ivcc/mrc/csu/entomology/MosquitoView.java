@@ -1,7 +1,9 @@
 package mdss.ivcc.mrc.csu.entomology;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult;
 
@@ -43,12 +45,12 @@ public class MosquitoView extends MosquitoViewBase implements
       mosquito.setSpecie(this.getSpecie());
       mosquito.setTestDate(this.getTestDate());
       mosquito.setCollection(this.getCollection());
-      
-      if(list.size() > 0)
+
+      if (list.size() > 0)
       {
         mosquito.addSex(list.get(0));
       }
-      
+
       mosquito.apply();
 
       try
@@ -70,10 +72,25 @@ public class MosquitoView extends MosquitoViewBase implements
     super.apply();
   }
 
-  @SuppressWarnings("unchecked")
-  private void applyAssays(Mosquito mosquito) throws InstantiationException, IllegalAccessException,
-      IllegalArgumentException, SecurityException, InvocationTargetException, NoSuchMethodException
+  @Override
+  public void delete()
   {
+    String id = this.getMosquitoId();
+
+    if (id != null && !id.equals(""))
+    {
+      Mosquito.get(id).delete();
+    }
+  }
+
+  /**
+   * @return A mapping between a virtual attribute and the class of its concrete
+   *         attribute. The class must extend from AssayTestResult.
+   */
+  @SuppressWarnings("unchecked")
+  private Map<MdAttributeVirtualDAOIF, Class<?>> getAssayMap()
+  {
+    Map<MdAttributeVirtualDAOIF, Class<?>> map = new HashMap<MdAttributeVirtualDAOIF, Class<?>>();
     List<MdAttributeDAOIF> mdAttributeDAOs = (List<MdAttributeDAOIF>) this.getMdAttributeDAOs();
 
     for (MdAttributeDAOIF mdAttribute : mdAttributeDAOs)
@@ -91,18 +108,32 @@ public class MosquitoView extends MosquitoViewBase implements
 
         if (AssayTestResult.class.isAssignableFrom(c))
         {
-          // Get the result
-          String methodName = "get" + GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
-          Object testResult = MosquitoView.class.getMethod(methodName).invoke(this);
-
-          if (testResult != null)
-          {
-            Object newInstance = c.newInstance();
-            c.getMethod("setMosquito", Mosquito.class).invoke(newInstance, mosquito);
-            c.getMethod("setTestResult", testResult.getClass()).invoke(newInstance, testResult);
-            c.getMethod("apply").invoke(newInstance);
-          }
+          map.put(virtual, c);
         }
+      }
+    }
+
+    return map;
+  }
+
+  private void applyAssays(Mosquito mosquito) throws InstantiationException, IllegalAccessException,
+      IllegalArgumentException, SecurityException, InvocationTargetException, NoSuchMethodException
+  {
+    Map<MdAttributeVirtualDAOIF, Class<?>> assayMap = this.getAssayMap();
+
+    for (MdAttributeVirtualDAOIF mdAttribute : assayMap.keySet())
+    {
+      // Get the result
+      Class<?> c = assayMap.get(mdAttribute);
+      String methodName = "get" + GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
+      Object testResult = MosquitoView.class.getMethod(methodName).invoke(this);
+
+      if (testResult != null)
+      {
+        Object newInstance = c.newInstance();
+        c.getMethod("setMosquito", Mosquito.class).invoke(newInstance, mosquito);
+        c.getMethod("setTestResult", testResult.getClass()).invoke(newInstance, testResult);
+        c.getMethod("apply").invoke(newInstance);
       }
     }
   }

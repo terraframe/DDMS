@@ -2,8 +2,7 @@ package mdss.ivcc.mrc.csu.entomology.assay.molecular;
 
 public class EKDRTestResultDTO extends EKDRTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  public final static String CLASS = "mdss.ivcc.mrc.csu.entomology.assay.molecular.EKDRTestResult";
-  private static final long serialVersionUID = 1235599925004L;
+  private static final long serialVersionUID = 1235751239663L;
   
   public EKDRTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

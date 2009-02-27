@@ -5,7 +5,7 @@ public class PFalciparumTestResultController extends PFalciparumTestResultContro
   public static final String JSP_DIR = "WEB-INF/mdss/ivcc/mrc/csu/entomology/assay/infectivity/PFalciparumTestResult/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1235599939137L;
+  private static final long serialVersionUID = 1235751250942L;
   
   public PFalciparumTestResultController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -24,30 +24,24 @@ public class PFalciparumTestResultController extends PFalciparumTestResultContro
   {
     resp.sendError(500);
   }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_infectivity_PFalciparumTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View PFalciparumTestResultController");
-    render("viewComponent.jsp");
+    try
+    {
+      dto.delete();
+      this.viewAll();
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failDelete(dto);
+    }
   }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.viewAll();
-  }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto = new mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO(clientRequest);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_infectivity_PFalciparumTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create PFalciparumTestResultController");
-    render("createComponent.jsp");
-  }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
+    req.setAttribute("page_title", "Edit PFalciparumTestResultController");
+    render("editComponent.jsp");
   }
   public void create(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -63,34 +57,15 @@ public class PFalciparumTestResultController extends PFalciparumTestResultContro
   }
   public void failCreate(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_infectivity_PFalciparumTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create PFalciparumTestResultController");
     render("createComponent.jsp");
   }
-  public void update(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failUpdate(dto);
-    }
-  }
-  public void failUpdate(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_infectivity_PFalciparumTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update PFalciparumTestResultController");
-    render("updateComponent.jsp");
-  }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto = mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_infectivity_PFalciparumTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit PFalciparumTestResultController");
     render("editComponent.jsp");
@@ -111,6 +86,50 @@ public class PFalciparumTestResultController extends PFalciparumTestResultContro
   {
     resp.sendError(500);
   }
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO.get(clientRequest, id));
+    req.setAttribute("page_title", "View PFalciparumTestResultController");
+    render("viewComponent.jsp");
+  }
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
+  public void update(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failUpdate(dto);
+    }
+  }
+  public void failUpdate(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Update PFalciparumTestResultController");
+    render("updateComponent.jsp");
+  }
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto = new mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO(clientRequest);
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create PFalciparumTestResultController");
+    render("createComponent.jsp");
+  }
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
   public void cancel(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
@@ -119,24 +138,5 @@ public class PFalciparumTestResultController extends PFalciparumTestResultContro
   public void failCancel(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
-  }
-  public void delete(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.delete();
-      this.viewAll();
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failDelete(dto);
-    }
-  }
-  public void failDelete(mdss.ivcc.mrc.csu.entomology.assay.infectivity.PFalciparumTestResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_infectivity_PFalciparumTestResult_mosquito", mdss.ivcc.mrc.csu.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit PFalciparumTestResultController");
-    render("editComponent.jsp");
   }
 }

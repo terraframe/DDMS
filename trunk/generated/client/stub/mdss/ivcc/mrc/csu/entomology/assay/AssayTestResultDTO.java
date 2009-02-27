@@ -1,10 +1,10 @@
-package mdss.ivcc.mrc.csu.entomology.assay.biochemical;
+package mdss.ivcc.mrc.csu.entomology.assay;
 
-public class GSTTestResultDTO extends GSTTestResultDTOBase
+public abstract class AssayTestResultDTO extends AssayTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1235751251946L;
+  private static final long serialVersionUID = 1235750542264L;
   
-  public GSTTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public AssayTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public class GSTTestResultDTO extends GSTTestResultDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected GSTTestResultDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AssayTestResultDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
