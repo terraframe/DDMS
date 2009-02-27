@@ -7,6 +7,10 @@ public abstract class AssayTestResult extends AssayTestResultBase implements com
   public AssayTestResult()
   {
     super();
-  }
+  }  
   
+  /**
+   * @return The test result of the AssayTestResult
+   */
+  public abstract Object getTestResult();
 }

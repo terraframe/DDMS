@@ -79,14 +79,45 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
   }
   
   @Override
+  public MosquitoView[] getMosquitos()
+  {
+    List<MosquitoView> list = new LinkedList<MosquitoView>();
+
+    MosquitoQuery query = new MosquitoQuery(new QueryFactory());
+    query.WHERE(query.getCollection().getId().EQ(this.getId()));
+    query.ORDER_BY(query.getCreateDate(), SortOrder.ASC);
+    
+    OIterator<? extends Mosquito> iterator = query.getIterator();
+    
+    while(iterator.hasNext())
+    {
+      Mosquito mosquito = iterator.next();
+      MosquitoView view = mosquito.getView();
+            
+      list.add(view);
+    }
+    
+    iterator.close();
+    
+    return list.toArray(new MosquitoView[list.size()]);
+  }
+  
+  @Override
   public void delete()
   {
+    //Delete all Morphological Specie Groups
     for(MorphologicalSpecieGroupView view : this.getMorphologicalSpecieGroups())
     {
       MorphologicalSpecieGroup group = MorphologicalSpecieGroup.get(view.getGroupId());
       group.delete();
     }
     
+    //Delete all Mosquitos
+    for(MosquitoView view : this.getMosquitos())
+    {
+      view.delete();
+    }
+        
     super.delete();
   }
 }
