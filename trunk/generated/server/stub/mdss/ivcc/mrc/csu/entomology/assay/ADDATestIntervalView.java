@@ -29,7 +29,7 @@ public class ADDATestIntervalView extends ADDATestIntervalViewBase implements co
     }
     else
     {
-      interval = ADDATestInterval.get(this.getIntervalId());
+      interval = ADDATestInterval.lock(this.getIntervalId());
       interval.setAssay(AdultDiscriminatingDoseAssay.get(this.getAssayId()));
       interval.setPeriod(this.getPeriod());
       interval.setKnockedDown(this.getKnockedDown());
