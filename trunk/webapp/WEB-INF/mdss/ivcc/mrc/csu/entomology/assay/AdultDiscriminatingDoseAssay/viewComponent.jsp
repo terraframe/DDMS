@@ -1,5 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
 <%@page import="java.util.*"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
@@ -8,8 +9,13 @@
 <%@page import="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
 <%@page import="mdss.ivcc.mrc.csu.util.Halp" %>
 
+<%@page import="mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalViewDTO"%>
+<%
+AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request.getAttribute("item");
+%>
 
-<%@page import="mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalViewDTO"%><mjl:messages>
+
+<%@page import="java.text.DecimalFormat"%><mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
@@ -186,7 +192,6 @@
             ${item.unitsMd.enumItems[enumName]}
         </c:forEach>
     </dd>
-    
     <dt>
       <label>
         ${item.quantityTestedMd.displayLabel}
@@ -203,8 +208,39 @@
     <dd>
       ${item.quantityDead}
     </dd>
-    
-      <dt>
+     <dt>
+      <label>
+        ${item.quantityDeadMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.quantityDead}
+    </dd>
+     <dt>  
+      <label>
+        ${item.mortalityMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+        ${item.mortality}
+    </dd>
+     <dt>
+      <label>
+        KD50
+      </label>
+    </dt>
+    <dd>
+        <f:formatNumber pattern="##.##">${item.KD50}</f:formatNumber>
+    </dd>
+         <dt>
+      <label>
+        KD95
+      </label>
+    </dt>
+    <dd>
+        <f:formatNumber pattern="##.##">${item.KD95}</f:formatNumber>
+    </dd>
+    <dt>
       <label>
         ${item.intervalTimeMd.displayLabel}
       </label>
@@ -212,6 +248,8 @@
     <dd>
       ${item.intervalTime}
     </dd>
+     
+
   </dl>
   <mjl:command value="Edit" action="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayController.edit.mojo" name="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay.form.edit.button" />
   <br />
@@ -236,44 +274,38 @@
 	{
 	   "mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay",
 	   "mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalView"
-	};
-    
+	}; 
 	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
-    
-    
+    DecimalFormat percent = new DecimalFormat("0.0");
+
     %>
     table_data = { 
-    		rows:
-    	    	<%AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request.getAttribute("item");
-                       ADDATestIntervalViewDTO[] rows = adda.getTestIntervals();
-    	    		    int i = 1;
-    	    		    ArrayList<String> arr = new ArrayList<String>();
-    	    		     for (ADDATestIntervalViewDTO row : rows)  {
-    	    		       ArrayList<String> buff = new ArrayList<String>();
-    	    		       buff.add("AssayId:'" + row.getAssayId() + "'");
-    	    		       buff.add("IntervalTime:'" + row.getIntervalTime() + "'");
-    	    		       buff.add("KnockedDown:'" + row.getKnockedDown() + "'");
-    	    		       buff.add("Percent:''");
-    	    		       arr.add("{" +Halp.join(buff,",")+ "}");
-    	    		       i++;	       
-    	    		     }
-    	    		     out.println("[" +Halp.join(arr,",\n")+ "]");%>
-    	    		   
+    		rows:<%
+    		     // AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request.getAttribute("item");
+                  ADDATestIntervalViewDTO[] rows = adda.getTestIntervals();
+    	          ArrayList<String> arr = new ArrayList<String>();
+   	    		     for (ADDATestIntervalViewDTO row : rows)  {
+   	    		       ArrayList<String> buff = new ArrayList<String>();
+   	    		       buff.add("IntervalId:'" + row.getIntervalId() + "'");
+   	    		       buff.add("Period:'" + row.getPeriod() + "'");
+   	    		       buff.add("IntervalTime:'" + row.getIntervalTime() + "'");
+   	    		       buff.add("KnockedDown:'" + row.getKnockedDown() + "'");
+   	    		       buff.add("Percent:'" + percent.format((row.getKnockedDown()*100.0)/adda.getQuantityTested())+"%'");
+   	    		       arr.add("{" +Halp.join(buff,",")+ "}");    
+   	    		     }
+   	    		     out.println("[" +Halp.join(arr,",\n")+ "]");%>  		   
     	    	 ,columnDefs:[
-    	            {key:"AssayId",label:"ID",hidden:true},
+    	            {key:"IntervalId",label:"ID",hidden:true},
+    	            {key:"Period",label:'<%=rows[0].getPeriodMd().getDisplayLabel()%>'},
     	            {key:"IntervalTime",label:'<%=rows[0].getIntervalTimeMd().getDisplayLabel()%>',resizeable:true},
     	            {key:"KnockedDown",label:"<%=rows[0].getKnockedDownMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})},
-    	            {key:"Percent",label:"%",resizeable:true},
-    	            {key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}
-    	            
-    	        ],
-    	        defaults: {GroupId:"",Peroid:"",KnockedDown:"",Percent:""},
+    	            {key:"Percent",label:"%",resizeable:true} ],
+    	        defaults: {IntervalId:"",Period:"",IntervalTime:"",KnockedDown:"",Percent:""},
     	        div_id: "intervals",
-    	        collection_id: '${item.id}',
-        	    data_type: "Mojo.$.mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalView"
-    	        
+    	        collection_setter: "setAssayId('${item.id}')",
+        	    data_type: "Mojo.$.mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalView",
+        	    after_row_edit:function(record){record.setData('Percent',((parseInt(record.getData('KnockedDown'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%");}
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
-//  window.addEventListener('load',  , false);
 </script>

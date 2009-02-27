@@ -296,6 +296,8 @@
       
     </dl>
   </mjl:component>
-  <mjl:command value="Create" action="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayController.create.mojo" name="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay.form.create.button" />
+   <mjl:command value="Update" action="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayController.update.mojo" name="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay.form.update.button" />
+  <mjl:command value="Delete" action="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayController.delete.mojo" name="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay.form.delete.button" />
+  <mjl:command value="Cancel" action="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayController.cancel.mojo" name="mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssay.form.cancel.button" />
 </mjl:form>
 <div id="cal1Container" class="yui-skin-sam"></div> 

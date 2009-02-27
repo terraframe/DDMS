@@ -60,6 +60,9 @@
       <mjl:header>
         Generation
       </mjl:header>
+      <mjl:row>
+        ${item.generation.termName}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="genericName">
       <mjl:header>
@@ -75,6 +78,9 @@
       <mjl:header>
         Insecticide
       </mjl:header>
+       <mjl:row>
+        ${item.insecticide.termName}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="quantityTested">
       <mjl:header>

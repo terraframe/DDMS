@@ -116,30 +116,23 @@ static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSON
 	//out.println(Halp.getDropDownMap2(Arrays.asList(SpecieDTO.getAll(clientRequest))));
    // SpecieDTO[] arrggg = SpecieDTO.getAll(clientRequest);
 		
-		
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
 
     out.println( getDisplayLabels(SpecieDTO.getAll(clientRequest),"Specie"));
     out.println(getDisplayLabels(IdentificationMethodDTO.getAll(clientRequest),"IdentificationMethod"));
     MorphologicalSpecieGroupViewDTO msgView = new MorphologicalSpecieGroupViewDTO(clientRequest);
     %>
-
-    
     table_data = { rows:
     	<%MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) request.getAttribute("item");
     	        MorphologicalSpecieGroupViewDTO[] rows = mosquito_collection.getMorphologicalSpecieGroups();
-    		    int i = 1;
     		    ArrayList<String> arr = new ArrayList<String>();
     		     for (MorphologicalSpecieGroupViewDTO row : rows)  {
-    		       //row.lock(); 
     		       ArrayList<String> buff = new ArrayList<String>();
     		       buff.add("GroupId:'" + row.getGroupId() + "'");
-    		       //buff.add("row:'" + i + "'");
     		       buff.add("Specie:'" + row.getSpecie() + "'");
     		       buff.add("IdentificationMethod:'" + row.getIdentificationMethod() + "'");
     		       buff.add("Quantity:'" + row.getQuantity() + "'");
-    		       arr.add("{" +Halp.join(buff,",")+ "}");
-    		       i++;	       
+    		       arr.add("{" +Halp.join(buff,",")+ "}"); 
     		     }
     		     out.println("[" +Halp.join(arr,",\n")+ "]");%>
     		   
@@ -153,10 +146,9 @@ static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSON
     	        ],
     	        defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
     	        div_id: "MorphologicalSpecieGroups",
-    	        collection_id: '${item.id}',
+    	        collection_setter: "setCollectionId('${item.id}')",
         	    data_type: "Mojo.$.mdss.ivcc.mrc.csu.entomology.MorphologicalSpecieGroupView"
     	        
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
- // window.addEventListener('load', MojoGrid.createDataTable(table_data) , false);
 </script>
