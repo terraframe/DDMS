@@ -1557,10 +1557,30 @@
     </mdBusiness>
 
     <mdBusiness
+      name="mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult"
+      label="Assay Test Result"
+      extendable="true"
+      isAbstract="true"
+      generateController="false">
+      <attributes>
+        <reference
+          name="mosquito"
+          label="Mosquito"
+          required="true"
+          indexType="non-unique index"
+          immutable="true"
+          description="The mosquito on which the W-KDR test was performed"
+          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
+      </attributes>
+    </mdBusiness>
+    
+    <mdBusiness
       name="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
       label="Molecular Assay Test Result"
       isAbstract="true"
-      extendable="true">
+      extendable="true"
+      generateController="false"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult">
       <mdMethod
         name="getMolecularAssays"
         label="Get Molecular Assays"
@@ -1575,14 +1595,6 @@
       extends="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
       description="W-KDR test result.">
       <attributes>
-        <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the W-KDR test was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
         <reference
           name="testResult"
           label="W-KDR Test Result"
@@ -1599,14 +1611,6 @@
       description="E-KDR test result.">
       <attributes>
         <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the E-KDR test was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
-        <reference
           name="testResult"
           label="E-KDR Test Result"
           required="true"
@@ -1621,14 +1625,6 @@
       extends="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
       description="AcHE test result.">
       <attributes>
-        <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the AcHE test was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
         <reference
           name="testResult"
           label="AcHE Test Result"
@@ -1645,14 +1641,6 @@
       description="GABA test result.">
       <attributes>
         <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the assay was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
-        <reference
           name="testResult"
           label="GABA Test Result"
           required="true"
@@ -1665,7 +1653,8 @@
       name="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
       label="Bio-Chemical Assay Test Result"
       isAbstract="true"
-      extendable="true">
+      extendable="true"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult">
       <mdMethod
         name="getBiochemicalAssays"
         label="Get Biochemical Assays"
@@ -1680,14 +1669,6 @@
       extends="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="α-Esterase test result.">
       <attributes>
-        <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the assay was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
         <integer
           name="testResult"
           label="α-Esterase Test Result"
@@ -1702,14 +1683,6 @@
       extends="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="β-Esterase test result.">
       <attributes>
-        <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the assay was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
         <integer
           name="testResult"
           label="β-Esterase Test Result"
@@ -1724,14 +1697,6 @@
       extends="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="PNPA test result.">
       <attributes>
-        <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the assay was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
         <integer
           name="testResult"
           label="PNPA Test Result"
@@ -1746,14 +1711,6 @@
       extends="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="GST test result.">
       <attributes>
-        <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the assay was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
         <integer
           name="testResult"
           label="GST Test Result"
@@ -1768,14 +1725,6 @@
       extends="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="Monooxygenase test result.">
       <attributes>
-        <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the assay was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
         <integer
           name="testResult"
           label="Monooxygenase Test Result"
@@ -1791,14 +1740,6 @@
       description="AcHE test result.">
       <attributes>
         <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the assay was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
-        <reference
           name="testResult"
           label="AcHE Test Result"
           required="true"
@@ -1811,7 +1752,8 @@
       name="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
       label="Infectivity Assay Test Result"
       isAbstract="true"
-      extendable="true">
+      extendable="true"
+      extends="mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult">
       <mdMethod
         name="getInfectivityAssays"
         label="Get Infectivity Assays"
@@ -1826,14 +1768,6 @@
       extends="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Falciparum test result.">
       <attributes>
-        <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the assay was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
         <boolean
           name="testResult"
           label="P. Falciparum Test Result"
@@ -1848,14 +1782,6 @@
       extends="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Ovale test result.">
       <attributes>
-        <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the assay was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
         <boolean
           name="testResult"
           label="P. Ovale Test Result"
@@ -1870,14 +1796,6 @@
       extends="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Malariae test result.">
       <attributes>
-        <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the assay was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
         <boolean
           name="testResult"
           label="P. Malariae Test Result"
@@ -1892,14 +1810,6 @@
       extends="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Vivax test result.">
       <attributes>
-        <reference
-          name="mosquito"
-          label="Mosquito"
-          required="true"
-          indexType="unique index"
-          immutable="true"
-          description="The mosquito on which the assay was performed"
-          type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
         <boolean
           name="testResult"
           label="P. Vivax Test Result"
@@ -1920,10 +1830,11 @@
           size="255"
           label="Mosquito Id"
           description="The id of the mosquito, if the Id is blank then it is assumed the mosquito is new" />
-        <virtual name="collection"
+        <virtual
+          name="collection"
           type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
           concrete="collection"
-          required="true"/>
+          required="true" />
         <virtual
           name="sampleId"
           type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
