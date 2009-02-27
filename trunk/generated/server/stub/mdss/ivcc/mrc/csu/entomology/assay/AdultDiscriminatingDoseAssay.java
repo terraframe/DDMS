@@ -78,6 +78,8 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   @Override
   public void apply()
   {
+    boolean firstApply = this.isNew() && !this.isAppliedToDB();
+
     validateCollection();
     validateSex();
 
@@ -99,15 +101,18 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     super.apply();
 
     // CREATE Test Intervals
-    int periods = this.calculatePeriod();
-
-    for (int i = 0; i < periods; i++)
+    if (firstApply)
     {
-      ADDATestInterval interval = new ADDATestInterval();
-      interval.setAssay(this);
-      interval.setPeriod(i);
-      interval.setKnockedDown(0);
-      interval.apply();
+      int periods = this.calculatePeriod();
+
+      for (int i = 0; i < periods; i++)
+      {
+        ADDATestInterval interval = new ADDATestInterval();
+        interval.setAssay(this);
+        interval.setPeriod(i);
+        interval.setKnockedDown(0);
+        interval.apply();
+      }
     }
   }
 
@@ -164,71 +169,71 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     return list.toArray(new ADDATestIntervalView[list.size()]);
   }
-  
+
   @Override
   public Double getKD50()
   {
     return this.getKD(50);
   }
-  
+
   @Override
   public Double getKD95()
   {
     return this.getKD(95);
   }
-  
+
   private Double getKD(int value)
   {
-    // Use regression of the form log(y) = (a1 * x) + a0 where a0 = 0 
+    // Use regression of the form log(y) = (a1 * x) + a0 where a0 = 0
 
     // x data array
     double[] x = this.getTimeIntervals();
     // Log of the observed y data array
     double[] y = this.getLogKnockDownPercent();
-    
+
     GMatrix data = new GMatrix(1, x.length);
     GVector values = new GVector(y);
-    
-    for(int i = 0; i < x.length; i++)
+
+    for (int i = 0; i < x.length; i++)
     {
-      data.setColumn(i, new double[]{x[i]});
+      data.setColumn(i, new double[] { x[i] });
     }
 
     double lambda = 0.5;
 
     // do the regression, which returns a function fit to the data
     Representer representer = Regression.solve(data, values, PolynomialKernel.QUADRATIC_KERNEL, lambda);
-    
-//    return representer.eval(new GVector(new double[]{Math.log(value)}));
-    return representer.eval(new GVector(new double[]{value}));
+
+    // return representer.eval(new GVector(new double[]{Math.log(value)}));
+    return representer.eval(new GVector(new double[] { value }));
   }
-  
+
   private double[] getTimeIntervals()
   {
-    ADDATestIntervalView[] array = this.getTestIntervals();    
+    ADDATestIntervalView[] array = this.getTestIntervals();
     double[] d = new double[array.length];
-    
-    for(int i = 0; i < array.length; i++)
+
+    for (int i = 0; i < array.length; i++)
     {
       d[i] = array[i].getIntervalTime();
     }
-    
+
     return d;
   }
 
   private double[] getLogKnockDownPercent()
   {
     ADDATestIntervalView[] array = this.getTestIntervals();
-    
+
     double[] d = new double[array.length];
-    
-    for(int i = 0; i < array.length; i++)
+
+    for (int i = 0; i < array.length; i++)
     {
       double percent = array[i].getKnockedDown() / (double) this.getQuantityTested() * 100;
 
-      if(percent > 0)
+      if (percent > 0)
       {
-//        d[i] = Math.log(percent);
+        // d[i] = Math.log(percent);
         d[i] = percent;
       }
       else
@@ -236,7 +241,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
         d[i] = 0;
       }
     }
-    
+
     return d;
   }
 
