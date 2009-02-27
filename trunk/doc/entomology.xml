@@ -181,7 +181,7 @@
         label="Get Mosquitos"
         description="Returns a list of all mosquitos contained within this abstract mosquito collection"
         static="false"
-        returnType="mdss.ivcc.mrc.csu.entomology.Mosquito">
+        returnType="mdss.ivcc.mrc.csu.entomology.MosquitoView[]">
       </mdMethod>
       <mdMethod
         name="getUninterestingSpecieGroups"
@@ -971,8 +971,7 @@
           name="collection"
           label="Mosquito Collection"
           required="true"
-          type="mdss.ivcc.mrc.csu.entomology.MosquitoCollection"
-          immutable="true" />
+          type="mdss.ivcc.mrc.csu.entomology.MosquitoCollection" />
         <enumeration
           name="sex"
           label="Sex"
