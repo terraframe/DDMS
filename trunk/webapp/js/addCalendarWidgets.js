@@ -16,14 +16,13 @@
         {
 	        cal1 = new YAHOO.widget.Calendar("cal1","cal1Container");
 	        
-	      
 		       /* cal1.cfg.setProperty("DATE_FIELD_DELIMITER", "-");
 		        cal1.cfg.setProperty("DATE_RANGE_DELIMITER", "*");
 		        cal1.cfg.setProperty("MDY_YEAR_POSITION", 1);
 				cal1.cfg.setProperty("MDY_MONTH_POSITION", 2);
 				cal1.cfg.setProperty("MDY_DAY_POSITION", 3);*/
 	        
-	        if(locale = "en_US")
+	        if(locale == "en_US")
 	        {
 	        	cal1.cfg.setProperty("DATE_FIELD_DELIMITER", "/");
 	     	    cal1.cfg.setProperty("DATE_RANGE_DELIMITER", "-");
@@ -31,9 +30,7 @@
 	     	    cal1.cfg.setProperty("MDY_MONTH_POSITION", 1);
 	     	    cal1.cfg.setProperty("MDY_DAY_POSITION", 2);
 	        }
-	        
-	        
-	        
+	               
 	        cal1.selectEvent.subscribe(getDate, cal1, true);
 	        cal1.renderEvent.subscribe(setupListeners, cal1, true);
 	
@@ -41,6 +38,14 @@
 	        {	        	
 	          Event.addListener(el.id, 'focus', showCal);
 	          Event.addListener(el.id, 'blur', hideCal);
+	          if(/[1-2]\d\d\d-[0-1][0-2]-[0-3]\d/.test(el.value))
+	          {
+	        	 d = new Date(el.value.replace(/-/g,"/"));
+	        	 if(locale == "en_US")
+	  	         {        		  
+	        		 el.value = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+	            }
+	          }
 	        }
 	        
 	        cal1.render();
@@ -59,7 +64,7 @@
 
     var getDate = function() {
             var calDate = this.getSelectedDates()[0];
-            if(locale = "en_US")
+            if(locale == "en_US")
             {
             calDate = (calDate.getMonth() + 1) + '/' + calDate.getDate() + '/' + calDate.getFullYear();
             //calDate = calDate.getFullYear() + '-' + calDate.getMonth() + '-' + calDate.getDate();
@@ -74,7 +79,7 @@
         cur_field = tar;
         var xy = Dom.getXY(tar);
         	
-        if(locale = "en_US")
+        if(locale == "en_US")
         {
         	var date = Dom.get(tar).value;
         	//switch the dashes to slashes to make date format compatable with js
