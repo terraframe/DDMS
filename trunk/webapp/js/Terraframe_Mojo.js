@@ -392,8 +392,7 @@ var Mojo = {
         }
         else
         {
-          var error = 'The type ['+type+'] is not defined.';
-          throw new Mojo.dto.Exception(error);
+          return null;
         }
       }
       

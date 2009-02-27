@@ -1,5 +1,3 @@
-var MDSS = MDSS || {}; // TODO push namespace into common js file
-
 /*
 This code is written by Andrew Roth (andrewroth.ca) and is intended for
 use with the YUI or to be taken in any part or form and put directly into
@@ -368,32 +366,6 @@ YAHOO.extend(YAHOO.util.DDNodeProxy, YAHOO.util.DDProxy, {
 // END Andrew Roth's code
 
 /**
- * Extracts all script tag contents and returns
- * a string of executable code that can be evaluated.
- */
-MDSS.extractScripts = function(html)
-{
-  var scripts = html.match(/<script\b[^>]*>[\s\S]*?<\/script>/img);
-  var executables = [];
-  for(var i=0; i<scripts.length; i++)
-  {
-    var scriptM = scripts[i].match(/<script\b[^>]*>([\s\S]*?)<\/script>/im);
-  	executables.push(scriptM[1]);
-  }
-  
-  return executables.join('');
-}
-
-/**
- * Removes all scripts from the HTML and returns
- * a string of the cleansed HTML.
- */
-MDSS.removeScripts = function(html)
-{
-  return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/img, '');
-}
-
-/**
  * GeoEntityTree object manages the GeoEntity tree
  * operations (e.g., drag and drop, create node, delete node).
  */
@@ -522,8 +494,8 @@ MDSS.GeoEntityTree = (function(){
   {
   	var request = new Mojo.ClientRequest({
   	  onSuccess : function(html){
-  	  	var executable = MDSS.extractScripts(html);
-  	  	var html = MDSS.removeScripts(html);
+  	  	var executable = MDSS.util.extractScripts(html);
+  	  	var html = MDSS.util.removeScripts(html);
   	  	document.getElementById('nodeEdit').innerHTML = html;
   	  	eval(executable);
   	  },
@@ -534,11 +506,7 @@ MDSS.GeoEntityTree = (function(){
 
     var type = this.id;
   	var controller = Mojo.util.getType(type+"Controller");
-  	controller.setCreateListener((function(type){
-  	  return function(params, action){
-  	    _createNode(type, params, action);
-  	  };
-  	})(type));
+  	controller.setCreateListener(MDSS.util.curry(_createNode, type));
   	controller.newInstance(request);
   }
   
@@ -561,14 +529,38 @@ MDSS.GeoEntityTree = (function(){
   }
   
   /**
+   * Deletes the current node from the tree.
+   */
+  function _deleteNode()
+  {
+    var request = new Mojo.ClientRequest({
+      onSuccess: function(){
+        document.getElementById('nodeEdit').innerHTML = '';
+        
+        _removeMapping(_selectedNode);
+
+  	    var parent = _selectedNode.parent;
+        _geoTree.removeNode(_selectedNode);
+        parent.refresh();
+      },
+      onFailure: function(e){
+        alert(e.getLocalizedMessage());
+      }
+    });
+
+    var geoEntity = _getGeoEntity(_selectedNode);
+    geoEntity.remove(request);
+  }
+  
+  /**
    * Handler for edit node request.
    */
   function _editNodeHandler()
   {
     var request = new Mojo.ClientRequest({
       onSuccess: function(html){
-   	  	var executable = MDSS.extractScripts(html);
-  	  	var html = MDSS.removeScripts(html);
+   	  	var executable = MDSS.util.extractScripts(html);
+  	  	var html = MDSS.util.removeScripts(html);
   	  	document.getElementById('nodeEdit').innerHTML = html;
   	  	eval(executable);
       },
@@ -580,6 +572,7 @@ MDSS.GeoEntityTree = (function(){
     var geoEntity = _getGeoEntity(_selectedNode);
 
     var controller = Mojo.util.getType(geoEntity.getType()+"Controller");
+    controller.setDeleteListener(_deleteNode);
     controller.setUpdateListener(_updateNode);
     controller.setCancelListener(_cancelNode);
     controller.edit(request, geoEntity.getId());
@@ -674,10 +667,10 @@ MDSS.GeoEntityTree = (function(){
         {text:"Create", submenu: {
           id:"createMenu",
           itemdata : [
-            {text:"Country", id:"mdss.test.Country", onclick: {fn:_addNodeHandler}},
-            {text:"Province", id:"mdss.test.Province", onclick: {fn:_addNodeHandler}},
-            {text:"District", id:"mdss.test.District", onclick: {fn:_addNodeHandler}},
-            {text:"Sub District", id:"mdss.test.SubDistrict", onclick: {fn:_addNodeHandler}}
+            {text:"Country", id:"mdss.ivcc.mrc.csu.geo.Country", onclick: {fn:_addNodeHandler}},
+            {text:"Province", id:"mdss.ivcc.mrc.csu.geo.Province", onclick: {fn:_addNodeHandler}},
+            {text:"District", id:"mdss.ivcc.mrc.csu.geo.District", onclick: {fn:_addNodeHandler}},
+            {text:"Sub District", id:"mdss.ivcc.mrc.csu.geo.SubDistrict", onclick: {fn:_addNodeHandler}}
           ]
         }},
         {text:"Edit", onclick: {fn:_editNodeHandler}},

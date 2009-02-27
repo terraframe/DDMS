@@ -32,7 +32,6 @@
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/tabview/assets/skins/sam/tabview.css"> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/treeview/assets/skins/sam/treeview.css"> 
  
- 
 <!--JavaScript source files for the entire YUI Library:--> 
  
 <!--YUI Core (also aggregated in yahoo-dom-event.js; see readmes in the 
@@ -142,6 +141,7 @@ body {
 }
 </style>
 <script type="text/javascript" src="js/Terraframe_Mojo.js"></script>
+<script type="text/javascript" src="js/MDSS.js"></script>
 <script type="text/javascript">var locale = "<%=request.getLocale().toString()%>";</script>
 <script type="text/javascript" src="js/Menu.js"></script>
 <script type="text/javascript" src="/MDSS/js/addCalendarWidgets.js"></script>
