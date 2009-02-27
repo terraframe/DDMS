@@ -1,5 +1,7 @@
 package mdss.ivcc.mrc.csu.entomology.assay;
 
+import com.terraframe.mojo.business.ProblemDTOIF;
+
 import mdss.ivcc.mrc.csu.entomology.assay.AdultDiscriminatingDoseAssayControllerBase;
 
 public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingDoseAssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -142,7 +144,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create AdultDiscriminatingDoseAssayController");
-    render("viewComponent.jsp");
+    render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -157,6 +159,10 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
+     // for(ProblemDTOIF p : e.getProblems())
+      //{
+    //	  System.out.println(p.localMessage());
+      //}
       this.failUpdate(dto);
     }
   }
@@ -171,7 +177,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_specie", mdss.ivcc.mrc.csu.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update AdultDiscriminatingDoseAssay");
+    req.setAttribute("page_title", "Could Not Update Adult Discriminating Dose Assay");
     render("editComponent.jsp");
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -187,7 +193,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod", mdss.ivcc.mrc.csu.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit AdultDiscriminatingDoseAssay");
-    render("viewComponent.jsp");
+    render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
