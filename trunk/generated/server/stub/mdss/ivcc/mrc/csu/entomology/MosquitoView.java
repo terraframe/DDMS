@@ -60,7 +60,6 @@ public class MosquitoView extends MosquitoViewBase implements
   private void applyMosquito(Mosquito mosquito)
   {
     List<Sex> list = this.getSex();
-    mosquito.setSampleId(this.getSampleId());
     mosquito.setIdentificationMethod(this.getIdentificationMethod());
     mosquito.setIsofemale(this.getIsofemale());
     mosquito.setGeneration(this.getGeneration());

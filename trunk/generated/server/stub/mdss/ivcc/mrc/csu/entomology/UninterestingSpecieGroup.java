@@ -12,6 +12,12 @@ public class UninterestingSpecieGroup extends UninterestingSpecieGroupBase imple
     super();
   }
   
+  @Override
+  protected String buildKey()
+  {
+    return this.getCollection().getKey() + "-" + this.getSampleId();
+  }
+  
   public UninterestingSpecieGroupView getView()
   {
     UninterestingSpecieGroupView view = new UninterestingSpecieGroupView();

@@ -115,7 +115,7 @@ public class MosquitoTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2007-01-01");
-
+  
     MosquitoView view = new MosquitoView();
     view.setSpecie(specie);
     view.setCollection(collection);
@@ -123,7 +123,6 @@ public class MosquitoTest extends TestCase
     view.setIsofemale(false);
     view.setIdentificationMethod(identificationMethod);
     view.addSex(Sex.FEMALE);
-    view.setSampleId("0");
     view.setTestDate(date);
     view.setAcHEBiochemical(result);
     view.setAcHEBiochemicalMethod(biochemicalMethodology);
@@ -134,24 +133,23 @@ public class MosquitoTest extends TestCase
     view.setPMalariae(true);
     view.setPMalariaeMethod(infectivityMethodology);
     view.apply();
-
+  
     try
     {
       Mosquito mosquito = Mosquito.get(view.getMosquitoId());
-
+  
       assertEquals(specie.getId(), mosquito.getSpecie().getId());
       assertEquals(F0.getId(), mosquito.getGeneration().getId());
       assertEquals(view.getMosquitoId(), mosquito.getId());
       assertEquals(identificationMethod.getId(), mosquito.getIdentificationMethod().getId());
       assertEquals(Sex.FEMALE, mosquito.getSex().get(0));
-      assertEquals("0", mosquito.getSampleId());
       assertEquals(date, mosquito.getTestDate());
       assertEquals(new Boolean(false), mosquito.getIsofemale());
-
+  
       List<AssayTestResult> testResults = mosquito.getTestResults();
-
+  
       assertEquals(4, testResults.size());
-
+  
       for (AssayTestResult r : testResults)
       {
         if (r instanceof AcHETestResult)
@@ -186,7 +184,7 @@ public class MosquitoTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2007-01-01");
-
+  
     MosquitoView view = new MosquitoView();
     view.setSpecie(specie);
     view.setCollection(collection);
@@ -194,7 +192,6 @@ public class MosquitoTest extends TestCase
     view.setIsofemale(false);
     view.setIdentificationMethod(identificationMethod);
     view.addSex(Sex.FEMALE);
-    view.setSampleId("0");
     view.setTestDate(date);
     view.setAcHEBiochemical(result);
     view.setAcHEBiochemicalMethod(biochemicalMethodology);
@@ -204,27 +201,26 @@ public class MosquitoTest extends TestCase
     view.setAEsteraseMethod(biochemicalMethodology);
     view.setPMalariae(true);
     view.setPMalariaeMethod(infectivityMethodology);
-
+  
     view.setAEsterase(new Integer(5));
     view.apply();
-
+  
     try
     {
       Mosquito mosquito = Mosquito.get(view.getMosquitoId());
-
+  
       assertEquals(specie.getId(), mosquito.getSpecie().getId());
       assertEquals(F0.getId(), mosquito.getGeneration().getId());
       assertEquals(view.getMosquitoId(), mosquito.getId());
       assertEquals(identificationMethod.getId(), mosquito.getIdentificationMethod().getId());
       assertEquals(Sex.FEMALE, mosquito.getSex().get(0));
-      assertEquals("0", mosquito.getSampleId());
       assertEquals(date, mosquito.getTestDate());
       assertEquals(new Boolean(false), mosquito.getIsofemale());
-
+  
       List<AssayTestResult> testResults = mosquito.getTestResults();
-
+  
       assertEquals(4, testResults.size());
-
+  
       for (AssayTestResult r : testResults)
       {
         if (r instanceof AcHETestResult)
@@ -267,7 +263,6 @@ public class MosquitoTest extends TestCase
     view.setIsofemale(false);
     view.setIdentificationMethod(identificationMethod);
     view.addSex(Sex.FEMALE);
-    view.setSampleId("0");
     view.setTestDate(date);
     view.setAcHEBiochemical(result);
     view.setAcHEBiochemicalMethod(biochemicalMethodology);
@@ -289,7 +284,6 @@ public class MosquitoTest extends TestCase
       assertEquals(view.getMosquitoId(), mosquitos[0].getMosquitoId());
       assertEquals(identificationMethod.getId(), mosquitos[0].getIdentificationMethod().getId());
       assertEquals(Sex.FEMALE, mosquitos[0].getSex().get(0));
-      assertEquals("0", mosquitos[0].getSampleId());
       assertEquals(date, mosquitos[0].getTestDate());
       assertEquals(new Boolean(false), mosquitos[0].getIsofemale());
       assertEquals(result.getId(), mosquitos[0].getAcHEBiochemical().getId());
@@ -320,7 +314,6 @@ public class MosquitoTest extends TestCase
     view.setIsofemale(false);
     view.setIdentificationMethod(identificationMethod);
     view.addSex(Sex.FEMALE);
-    view.setSampleId("0");
     view.setTestDate(date);
     view.setAcHEBiochemical(result);
     view.setAcHEBiochemicalMethod(biochemicalMethodology);
@@ -339,7 +332,6 @@ public class MosquitoTest extends TestCase
     view2.setIsofemale(false);
     view2.setIdentificationMethod(identificationMethod);
     view2.addSex(Sex.FEMALE);
-    view2.setSampleId("1");
     view2.setTestDate(date);
     view2.setAcHEBiochemical(result);
     view2.setAcHEBiochemicalMethod(biochemicalMethodology);
@@ -361,7 +353,6 @@ public class MosquitoTest extends TestCase
       assertEquals(view.getMosquitoId(), mosquitos[0].getMosquitoId());
       assertEquals(identificationMethod.getId(), mosquitos[0].getIdentificationMethod().getId());
       assertEquals(Sex.FEMALE, mosquitos[0].getSex().get(0));
-      assertEquals("0", mosquitos[0].getSampleId());
       assertEquals(date, mosquitos[0].getTestDate());
       assertEquals(new Boolean(false), mosquitos[0].getIsofemale());
       assertEquals(result.getId(), mosquitos[0].getAcHEBiochemical().getId());
@@ -379,7 +370,6 @@ public class MosquitoTest extends TestCase
       assertEquals(view2.getMosquitoId(), mosquitos[1].getMosquitoId());
       assertEquals(identificationMethod.getId(), mosquitos[1].getIdentificationMethod().getId());
       assertEquals(Sex.FEMALE, mosquitos[1].getSex().get(0));
-      assertEquals("1", mosquitos[1].getSampleId());
       assertEquals(date, mosquitos[1].getTestDate());
       assertEquals(new Boolean(false), mosquitos[1].getIsofemale());
       assertEquals(result.getId(), mosquitos[1].getAcHEBiochemical().getId());
