@@ -188,7 +188,7 @@
         label="Get Uninteresting Specie Groups"
         description="Returns a list of all uninteresting true specie groups which are contained within this abstract mosquito collection"
         static="false"
-        returnType="mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroup">
+        returnType="mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupView[]">
       </mdMethod>
       <mdMethod
         name="getMorphologicalSpecieGroups"
@@ -448,23 +448,6 @@
         name="collectionId" />
     </mdIndex>
 
-    <mdTree
-      name="mdss.ivcc.mrc.csu.entomology.CollectionTrueSpecie"
-      label="Collection True Specie"
-      description="A mapping between a mosquito collection and all the true specie entities it is comprised of."
-      publish="true">
-      <parent
-        cardinality="1"
-        name="mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollection"
-        method="AbstractMosqitoCollection"
-        label="Abstract Mosqito Collection" />
-      <child
-        cardinality="*"
-        name="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
-        method="TrueSpecieCollection"
-        label="True Specie Collection" />
-    </mdTree>
-
     <mdBusiness
       name="mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroup"
       label="Uninteresting Specie"
@@ -478,6 +461,44 @@
           required="true" />
       </attributes>
     </mdBusiness>
+
+    <mdView
+      name="mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupView"
+      label="Uninteresting Specie Group View"
+      description="View for Uninteresting Speice groups">
+      <attributes>
+        <char
+          name="groupId"
+          label="Group Id"
+          size="255"
+          description="The id of the Uninteresting Specie Group, if this is left blank then the View represents a new UninterestingSpecieGroup" />
+        <virtual
+          name="collection"
+          type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
+          concrete="collection"
+          required="true" />
+        <virtual
+          name="sampleId"
+          type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
+          concrete="sampleId"
+          required="true" />
+        <virtual
+          name="specie"
+          type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
+          required="true"
+          concrete="specie" />
+        <virtual
+          name="identificationMethod"
+          type="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity"
+          concrete="identificationMethod"
+          required="true" />
+        <virtual
+          name="quanity"
+          type="mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroup"
+          concrete="quanity"
+          required="true" />
+      </attributes>
+    </mdView>
 
     <mdBusiness
       name="mdss.ivcc.mrc.csu.entomology.Mosquito"
@@ -1556,6 +1577,27 @@
     </mdBusiness>
 
     <mdBusiness
+      name="mdss.ivcc.mrc.csu.mo.InfectivityMethodology"
+      label="Infectivity Methodology"
+      description="List of molecular array results"
+      extends="mdss.ivcc.mrc.csu.mo.AbstractTerm">
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.mo.BiochemicalMethodology"
+      label="Biochemical Methodology"
+      description="List of molecular array results"
+      extends="mdss.ivcc.mrc.csu.mo.AbstractTerm">
+    </mdBusiness>
+
+    <mdBusiness
+      name="mdss.ivcc.mrc.csu.mo.InsecticideMethodology"
+      label="Molecular Assay Result"
+      description="List of molecular array results"
+      extends="mdss.ivcc.mrc.csu.mo.AbstractTerm">
+    </mdBusiness>
+
+    <mdBusiness
       name="mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult"
       label="Assay Test Result"
       extendable="true"
@@ -1572,7 +1614,7 @@
           type="mdss.ivcc.mrc.csu.entomology.Mosquito" />
       </attributes>
     </mdBusiness>
-    
+
     <mdBusiness
       name="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
       label="Molecular Assay Test Result"
@@ -1580,6 +1622,14 @@
       extendable="true"
       generateController="false"
       extends="mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult">
+      <attributes>
+        <reference
+          type="mdss.ivcc.mrc.csu.mo.InsecticideMethodology"
+          name="testMethod"
+          label="Test Methodology"
+          required="true"
+          description="The test methodology use for the gene mutation assay" />
+      </attributes>
       <mdMethod
         name="getMolecularAssays"
         label="Get Molecular Assays"
@@ -1653,7 +1703,16 @@
       label="Bio-Chemical Assay Test Result"
       isAbstract="true"
       extendable="true"
-      extends="mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult">
+      extends="mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult"
+      generateController="false">
+      <attributes>
+        <reference
+          type="mdss.ivcc.mrc.csu.mo.BiochemicalMethodology"
+          name="testMethod"
+          label="Test Methodology"
+          required="true"
+          description="The test methodology used for the biochemical assay" />
+      </attributes>
       <mdMethod
         name="getBiochemicalAssays"
         label="Get Biochemical Assays"
@@ -1752,7 +1811,16 @@
       label="Infectivity Assay Test Result"
       isAbstract="true"
       extendable="true"
-      extends="mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult">
+      extends="mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult"
+      generateController="false">
+      <attributes>
+        <reference
+          type="mdss.ivcc.mrc.csu.mo.InfectivityMethodology"
+          name="testMethod"
+          label="Test Methodology"
+          required="true"
+          description="The test methodologyd use for the infectivity assay" />
+      </attributes>
       <mdMethod
         name="getInfectivityAssays"
         label="Get Infectivity Assays"
@@ -1875,9 +1943,19 @@
           concrete="testResult"
           required="false" />
         <virtual
+          name="wKDRMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
+          concrete="testMethod"
+          required="false" />        
+        <virtual
           name="eKDR"
           type="mdss.ivcc.mrc.csu.entomology.assay.molecular.EKDRTestResult"
           concrete="testResult"
+          required="false" />
+        <virtual
+          name="eKDRMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
+          concrete="testMethod"
           required="false" />
         <virtual
           name="acHEMolecular"
@@ -1885,9 +1963,19 @@
           concrete="testResult"
           required="false" />
         <virtual
+          name="acHEMolecularMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
+          concrete="testMethod"
+          required="false" />
+        <virtual
           name="gABA"
           type="mdss.ivcc.mrc.csu.entomology.assay.molecular.GABATestResult"
           concrete="testResult"
+          required="false" />
+        <virtual
+          name="gABAMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.molecular.MolecularAssayTestResult"
+          concrete="testMethod"
           required="false" />
         <virtual
           name="aEsterase"
@@ -1895,9 +1983,19 @@
           concrete="testResult"
           required="false" />
         <virtual
+          name="aEsteraseMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          concrete="testMethod"
+          required="false" />
+        <virtual
           name="bEsterase"
           type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BEsteraseTestResult"
           concrete="testResult"
+          required="false" />
+        <virtual
+          name="bEsteraseMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          concrete="testMethod"
           required="false" />
         <virtual
           name="pNPA"
@@ -1905,9 +2003,19 @@
           concrete="testResult"
           required="false" />
         <virtual
+          name="pNPAMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          concrete="testMethod"
+          required="false" />
+        <virtual
           name="gST"
           type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.GSTTestResult"
           concrete="testResult"
+          required="false" />
+        <virtual
+          name="gSTMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          concrete="testMethod"
           required="false" />
         <virtual
           name="monooxygenase"
@@ -1915,9 +2023,19 @@
           concrete="testResult"
           required="false" />
         <virtual
+          name="monooxygenaseMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          concrete="testMethod"
+          required="false" />
+        <virtual
           name="acHEBiochemical"
           type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.AcHETestResult"
           concrete="testResult"
+          required="false" />
+        <virtual
+          name="acHEBiochemicalMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          concrete="testMethod"
           required="false" />
         <virtual
           name="pFalciparum"
@@ -1925,9 +2043,19 @@
           concrete="testResult"
           required="false" />
         <virtual
+          name="pFalciparumMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
+          concrete="testMethod"
+          required="false" />
+        <virtual
           name="pOvale"
           type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.POvaleTestResult"
           concrete="testResult"
+          required="false" />
+        <virtual
+          name="pOvaleMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
+          concrete="testMethod"
           required="false" />
         <virtual
           name="pMalariae"
@@ -1935,9 +2063,19 @@
           concrete="testResult"
           required="false" />
         <virtual
+          name="pMalariaeMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
+          concrete="testMethod"
+          required="false" />
+        <virtual
           name="pVivax"
           type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.PVivaxTestResult"
           concrete="testResult"
+          required="false" />
+        <virtual
+          name="pVivaxMethod"
+          type="mdss.ivcc.mrc.csu.entomology.assay.infectivity.InfectivityAssayTestResult"
+          concrete="testMethod"
           required="false" />
       </attributes>
     </mdView>
@@ -4709,9 +4847,6 @@
         name="displayLabel"
         value="quinalphos" />
       <valueAttribute
-        name="oboNamespace"
-        value="" />
-      <valueAttribute
         name="definition"
         value="A chemical substance which is being used as insecticide. [PT:PT]" />
       <valueAttribute
@@ -6881,6 +7016,66 @@
         name="inheritsTermName"
         value="MIRO_40003480" />
     </object>
+
+    <object
+      type="mdss.ivcc.mrc.csu.mo.InsecticideMethodology"
+      id="MIRO_99903572">
+      <valueAttribute
+        name="termId"
+        value="MIRO_99903572" />
+      <valueAttribute
+        name="termName"
+        value="Test Insecticide Method" />
+      <valueAttribute
+        name="displayLabel"
+        value="Test Insecticide Method" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+    </object>    
+
+    <object
+      type="mdss.ivcc.mrc.csu.mo.InfectivityMethodology"
+      id="MIRO_99803572">
+      <valueAttribute
+        name="termId"
+        value="MIRO_99803572" />
+      <valueAttribute
+        name="termName"
+        value="Test Infectivity Method" />
+      <valueAttribute
+        name="displayLabel"
+        value="Test Infectivity Method" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+    </object>    
+
+    <object
+      type="mdss.ivcc.mrc.csu.mo.BiochemicalMethodology"
+      id="MIRO_99703572">
+      <valueAttribute
+        name="termId"
+        value="MIRO_99703572" />
+      <valueAttribute
+        name="termName"
+        value="Test Biochemical Method" />
+      <valueAttribute
+        name="displayLabel"
+        value="Test Biochemical Method" />
+      <valueAttribute
+        name="oboNamespace"
+        value="mosquito_insecticide_resistance_ontology" />
+      <valueAttribute
+        name="definition"
+        value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
+    </object>    
   </create>
 
 </TerraFrame>
