@@ -1,255 +1,238 @@
 package mdss.ivcc.mrc.csu.entomology;
 
-import mdss.ivcc.mrc.csu.entomology.ResistantCutOff;
 import junit.framework.TestCase;
+import mdss.ivcc.mrc.csu.Property;
 
 public class ResistantCutOffTest extends TestCase
 {
-//  public void testGetDefault()
-//  {
-//    ResistantCutOff instance = ResistantCutOff.instance();
-//
-//    assertEquals(new Integer(95), instance.getADDAR());
-//    assertEquals(new Integer(98), instance.getADDAS());
-//
-//    assertEquals(new Integer(95), instance.getLDDAR());
-//    assertEquals(new Integer(98), instance.getLDDAS());
-//
-//    assertEquals(new Integer(95), instance.getAAKnockDownR());
-//    assertEquals(new Integer(98), instance.getAAKnockDownPR());
-//
-//    assertEquals(new Integer(95), instance.getLAKnockDownR());
-//    assertEquals(new Integer(98), instance.getLAKnockDownPR());
-//  }
-//
-//  public void testSetValues()
-//  {
-//    ResistantCutOff instance = ResistantCutOff.instance();
-//
-//    int defaultLow = 95;
-//    int defaultHigh = 98;
-//    int testLow = 20;
-//    int testHigh = 80;
-//    
-//    instance.setADDAR(testLow);
-//    instance.setADDAS(testHigh);
-//    instance.setLDDAR(testLow);
-//    instance.setLDDAS(testHigh);
-//    instance.setAAKnockDownR(testLow);
-//    instance.setAAKnockDownPR(testHigh);
-//    instance.setLAKnockDownR(testLow);
-//    instance.setLAKnockDownPR(testHigh);
-//    instance.apply();
-//    
-//    try
-//    {
-//      assertEquals(new Integer(testLow), instance.getADDAR());
-//      assertEquals(new Integer(testHigh), instance.getADDAS());
-//
-//      assertEquals(new Integer(testLow), instance.getLDDAR());
-//      assertEquals(new Integer(testHigh), instance.getLDDAS());
-//
-//      assertEquals(new Integer(testLow), instance.getAAKnockDownR());
-//      assertEquals(new Integer(testHigh), instance.getAAKnockDownPR());
-//
-//      assertEquals(new Integer(testLow), instance.getLAKnockDownR());
-//      assertEquals(new Integer(testHigh), instance.getLAKnockDownPR());
-//    }
-//    finally
-//    {
-//      instance.setADDAR(defaultLow);
-//      instance.setADDAS(defaultHigh);
-//      instance.setLDDAR(defaultLow);
-//      instance.setLDDAS(defaultHigh);
-//      instance.setAAKnockDownR(defaultLow);
-//      instance.setAAKnockDownPR(defaultHigh);
-//      instance.setLAKnockDownR(defaultLow);
-//      instance.setLAKnockDownPR(defaultHigh);
-//      instance.apply();
-//    }
-//  }
-//  
-//  public void testInvalidADDAR()
-//  {
-//    ResistantCutOff instance = ResistantCutOff.instance();
-//    int v = instance.getADDAR();
-//    
-//    try
-//    {
-//      instance.setADDAR(100);
-//      instance.apply();
-//      
-//      fail("Able to set an adult discriminating dose assay % mortality with the resistance value larger than the susceptible value");
-//    }
-//    catch(RuntimeException e)
-//    {
-//     //This is expected 
-//    }
-//    finally
-//    {
-//      instance.setADDAR(v);
-//      instance.apply();
-//    }    
-//  }
-//  
-//  public void testInvalidADDAS()
-//  {
-//    ResistantCutOff instance = ResistantCutOff.instance();
-//    int v = instance.getADDAS();
-//    
-//    try
-//    {
-//      instance.setADDAS(30);
-//      instance.apply();
-//      
-//      fail("Able to set an adult discriminating dose assay % mortality with the resistance value larger than the susceptible value");
-//    }
-//    catch(RuntimeException e)
-//    {
-//     //This is expected 
-//    }
-//    finally
-//    {
-//      instance.setADDAS(v);
-//      instance.apply();
-//    }    
-//  }
-//
-//  public void testInvalidLDDAR()
-//  {
-//    ResistantCutOff instance = ResistantCutOff.instance();
-//    int v = instance.getLDDAR();
-//    
-//    try
-//    {
-//      instance.setLDDAR(100);
-//      instance.apply();
-//      
-//      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
-//    }
-//    catch(RuntimeException e)
-//    {
-//     //This is expected 
-//    }
-//    finally
-//    {
-//      instance.setLDDAR(v);
-//      instance.apply();
-//    }    
-//  }
-//  
-//  public void testInvalidLDDAS()
-//  {
-//    ResistantCutOff instance = ResistantCutOff.instance();
-//    int v = instance.getLDDAS();
-//    
-//    try
-//    {
-//      instance.setLDDAS(30);
-//      instance.apply();
-//      
-//      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
-//    }
-//    catch(RuntimeException e)
-//    {
-//     //This is expected 
-//    }
-//    finally
-//    {
-//      instance.setLDDAS(v);
-//      instance.apply();
-//    }    
-//  }
-//
-//  public void testInvalidAAKnockDownR()
-//  {
-//    ResistantCutOff instance = ResistantCutOff.instance();
-//    int v = instance.getAAKnockDownR();
-//    
-//    try
-//    {
-//      instance.setAAKnockDownR(100);
-//      instance.apply();
-//      
-//      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
-//    }
-//    catch(RuntimeException e)
-//    {
-//     //This is expected 
-//    }
-//    finally
-//    {
-//      instance.setAAKnockDownR(v);
-//      instance.apply();
-//    }    
-//  }
-//  
-//  public void testInvalidAAKnockDownPR()
-//  {
-//    ResistantCutOff instance = ResistantCutOff.instance();
-//    int v = instance.getAAKnockDownPR();
-//    
-//    try
-//    {
-//      instance.setAAKnockDownPR(30);
-//      instance.apply();
-//      
-//      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
-//    }
-//    catch(RuntimeException e)
-//    {
-//     //This is expected 
-//    }
-//    finally
-//    {
-//      instance.setAAKnockDownPR(v);
-//      instance.apply();
-//    }    
-//  }
-//  
-//  public void testInvalidLAKnockDownR()
-//  {
-//    ResistantCutOff instance = ResistantCutOff.instance();
-//    int v = instance.getLAKnockDownR();
-//    
-//    try
-//    {
-//      instance.setLAKnockDownR(100);
-//      instance.apply();
-//      
-//      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
-//    }
-//    catch(RuntimeException e)
-//    {
-//     //This is expected 
-//    }
-//    finally
-//    {
-//      instance.setLAKnockDownR(v);
-//      instance.apply();
-//    }    
-//  }
-//
-//  public void testInvalidLAKnockDownPR()
-//  {
-//    ResistantCutOff instance = ResistantCutOff.instance();
-//    int v = instance.getLAKnockDownPR();
-//    
-//    try
-//    {
-//      instance.setLAKnockDownPR(30);
-//      instance.apply();
-//      
-//      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
-//    }
-//    catch(RuntimeException e)
-//    {
-//     //This is expected 
-//    }
-//    finally
-//    {
-//      instance.setLAKnockDownPR(v);
-//      instance.apply();
-//    }    
-//  }
+  public void testGetDefault()
+  {
+    assertEquals(new Integer(95), getProperty(Property.ADULT_DDA_RESISTANCE));
+    assertEquals(new Integer(98), getProperty(Property.ADULT_DDA_SUSCEPTIBILE));
+
+    assertEquals(new Integer(95), getProperty(Property.LARVAE_DDA_RESISTANCE));
+    assertEquals(new Integer(98), getProperty(Property.LARVAE_DDA_SUSCEPTIBILE));
+
+    assertEquals(new Integer(95), getProperty(Property.ADULT_KNOCK_DOWN_RESISTANCE));
+    assertEquals(new Integer(98), getProperty(Property.ADULT_KNOCK_DOWN_POTENTIAL_RESISTANCE));
+
+    assertEquals(new Integer(95), getProperty(Property.LARVAE_KNOCK_DOWN_RESISTANCE));
+    assertEquals(new Integer(98), getProperty(Property.LARVAE_KNOCK_DOWN_POTENTIAL_RESISTANCE));
+  }
+
+  public Integer getProperty(String name)
+  {
+    return Property.getInt(Property.RESISTANCE_PACKAGE, name);
+  }
+
+  public void setPropertyValue(String name, Integer value)
+  {
+    Property p = Property.getByPackageAndName(Property.RESISTANCE_PACKAGE, name);
+    p.setPropertyValue(value.toString());
+    p.apply();
+  }
+
+  public void testSetValues()
+  {
+    int defaultLow = 95;
+    int defaultHigh = 98;
+    Integer testLow = 20;
+    Integer testHigh = 80;
+
+    setPropertyValue(Property.ADULT_DDA_RESISTANCE, testLow);
+    setPropertyValue(Property.ADULT_DDA_SUSCEPTIBILE, testHigh);
+    setPropertyValue(Property.LARVAE_DDA_RESISTANCE, testLow);
+    setPropertyValue(Property.LARVAE_DDA_SUSCEPTIBILE, testHigh);
+    setPropertyValue(Property.ADULT_KNOCK_DOWN_RESISTANCE, testLow);
+    setPropertyValue(Property.ADULT_KNOCK_DOWN_POTENTIAL_RESISTANCE, testHigh);
+    setPropertyValue(Property.LARVAE_KNOCK_DOWN_RESISTANCE, testLow);
+    setPropertyValue(Property.LARVAE_KNOCK_DOWN_POTENTIAL_RESISTANCE, testHigh);
+
+    try
+    {
+      assertEquals(testLow, getProperty(Property.ADULT_DDA_RESISTANCE));
+      assertEquals(testHigh, getProperty(Property.ADULT_DDA_SUSCEPTIBILE));
+
+      assertEquals(testLow, getProperty(Property.LARVAE_DDA_RESISTANCE));
+      assertEquals(testHigh, getProperty(Property.LARVAE_DDA_SUSCEPTIBILE));
+
+      assertEquals(testLow, getProperty(Property.ADULT_KNOCK_DOWN_RESISTANCE));
+      assertEquals(testHigh, getProperty(Property.ADULT_KNOCK_DOWN_POTENTIAL_RESISTANCE));
+
+      assertEquals(testLow, getProperty(Property.LARVAE_KNOCK_DOWN_RESISTANCE));
+      assertEquals(testHigh, getProperty(Property.LARVAE_KNOCK_DOWN_POTENTIAL_RESISTANCE));
+
+    }
+    finally
+    {
+      setPropertyValue(Property.ADULT_DDA_RESISTANCE, defaultLow);
+      setPropertyValue(Property.ADULT_DDA_SUSCEPTIBILE, defaultHigh);
+      setPropertyValue(Property.LARVAE_DDA_RESISTANCE, defaultLow);
+      setPropertyValue(Property.LARVAE_DDA_SUSCEPTIBILE, defaultHigh);
+      setPropertyValue(Property.ADULT_KNOCK_DOWN_RESISTANCE, defaultLow);
+      setPropertyValue(Property.ADULT_KNOCK_DOWN_POTENTIAL_RESISTANCE, defaultHigh);
+      setPropertyValue(Property.LARVAE_KNOCK_DOWN_RESISTANCE, defaultLow);
+      setPropertyValue(Property.LARVAE_KNOCK_DOWN_POTENTIAL_RESISTANCE, defaultHigh);
+    }
+  }
+
+  public void testInvalidADDAR()
+  {
+    int v = getProperty(Property.ADULT_DDA_RESISTANCE);
+
+    try
+    {
+      setPropertyValue(Property.ADULT_DDA_RESISTANCE, 100);
+
+      fail("Able to set an adult discriminating dose assay % mortality with the resistance value larger than the susceptible value");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      setPropertyValue(Property.ADULT_DDA_RESISTANCE, v);
+    }
+  }
+
+  public void testInvalidADDAS()
+  {
+    int v = getProperty(Property.ADULT_DDA_SUSCEPTIBILE);
+
+    try
+    {
+      setPropertyValue(Property.ADULT_DDA_SUSCEPTIBILE, 30);
+
+      fail("Able to set an adult discriminating dose assay % mortality with the resistance value larger than the susceptible value");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      setPropertyValue(Property.ADULT_DDA_SUSCEPTIBILE, v);
+    }
+  }
+
+  public void testInvalidLDDAR()
+  {
+    int v = getProperty(Property.LARVAE_DDA_RESISTANCE);
+
+    try
+    {
+      setPropertyValue(Property.LARVAE_DDA_RESISTANCE, 100);
+
+      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      setPropertyValue(Property.LARVAE_DDA_RESISTANCE, v);
+    }
+  }
+
+  public void testInvalidLDDAS()
+  {
+    int v = getProperty(Property.LARVAE_DDA_SUSCEPTIBILE);
+
+    try
+    {
+      setPropertyValue(Property.LARVAE_DDA_SUSCEPTIBILE, 30);
+
+      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      setPropertyValue(Property.LARVAE_DDA_RESISTANCE, v);
+    }
+  }
+
+  public void testInvalidAAKnockDownR()
+  {
+    int v = getProperty(Property.ADULT_KNOCK_DOWN_RESISTANCE);
+
+    try
+    {
+      setPropertyValue(Property.ADULT_KNOCK_DOWN_RESISTANCE, 100);
+
+      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      setPropertyValue(Property.ADULT_KNOCK_DOWN_RESISTANCE, v);
+    }
+  }
+
+  public void testInvalidAAKnockDownPR()
+  {
+    int v = getProperty(Property.ADULT_KNOCK_DOWN_POTENTIAL_RESISTANCE);
+
+    try
+    {
+      setPropertyValue(Property.ADULT_KNOCK_DOWN_POTENTIAL_RESISTANCE, 30);
+
+      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      setPropertyValue(Property.ADULT_KNOCK_DOWN_POTENTIAL_RESISTANCE, v);
+    }
+  }
+
+  public void testInvalidLAKnockDownR()
+  {
+    int v = getProperty(Property.LARVAE_KNOCK_DOWN_RESISTANCE);
+
+    try
+    {
+      setPropertyValue(Property.LARVAE_KNOCK_DOWN_RESISTANCE, 100);
+
+      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      setPropertyValue(Property.LARVAE_KNOCK_DOWN_RESISTANCE, v);
+    }
+  }
+
+  public void testInvalidLAKnockDownPR()
+  {
+    int v = getProperty(Property.LARVAE_KNOCK_DOWN_POTENTIAL_RESISTANCE);
+
+    try
+    {
+      setPropertyValue(Property.LARVAE_KNOCK_DOWN_POTENTIAL_RESISTANCE, 30);
+
+      fail("Able to set an larvae discriminating dose assay % mortality with the resistance value larger than the susceptible value");
+    }
+    catch (RuntimeException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      setPropertyValue(Property.LARVAE_KNOCK_DOWN_POTENTIAL_RESISTANCE, v);
+    }
+  }
 }
