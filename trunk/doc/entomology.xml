@@ -1406,91 +1406,329 @@
   </create>
 
   <create>
-    <mdBusiness
-      name="mdss.ivcc.mrc.csu.entomology.ResistantCutOff"
-      label="Property"
-      description="A global property of the MDSS system"
-      extendable="false">
+  <mdBusiness
+      name="mdss.ivcc.mrc.csu.Property"
+      label="Property">
       <attributes>
-        <integer
-          name="aDDAR"
-          label="Adult Diagnostic Dose Assay Resistant Limit"
-          rejectNegative="true"
-          required="true" />
-        <integer
-          name="aDDAS"
-          label="Adult Diagnostic Dose Assay Potentially Resistant Limit"
-          rejectNegative="true"
-          required="true" />
-
-        <integer
-          name="lDDAR"
-          label="Larvae Diagnostic Dose Assay Resistant Limit"
-          rejectNegative="true"
-          required="true" />
-        <integer
-          name="lDDAS"
-          label="Larvae Diagnostic Dose Assay Potentially Resistant Limit"
-          rejectNegative="true"
-          required="true" />
-
-        <integer
-          name="aAKnockDownR"
-          label="Adult Assay Knock Down for Resistant Limit"
-          rejectNegative="true"
-          required="true" />
-        <integer
-          name="aAKnockDownPR"
-          label="Adult Assay Knock Down for Potentially Resistant Limit"
-          rejectNegative="true"
-          required="true" />
-
-        <integer
-          name="lAKnockDownR"
-          label="Larvae Assay Knock Down for Resistant Lower Limit"
-          rejectNegative="true"
-          required="true" />
-        <integer
-          name="lAKnockDownPR"
-          label="Larvae Assay Knock Down for Potentially Resistant Limit"
-          rejectNegative="true"
-          required="true" />
+        <char
+          name="propertyName"
+          label="Name"
+          required="true"
+          size="255" />
+        <char
+          name="propertyPackage"
+          required="true"
+          label="Package"
+          size="255" />
+         <char
+          name="propertyValue"
+          required="true"
+          label="Value"
+          size="255" />
+         <char
+          name="propertyType"
+          required="true"
+          label="Type"
+          size="255" />
+         <char
+          name="propertyValidator"
+          required="true"
+          label="Validator Regexp"
+          size="255" />
+         <char
+          name="description"
+          required="false"
+          label="Description"
+          size="255" />
       </attributes>
       <mdMethod
-        name="instance"
-        label="Instance"
+        name="getStr"
+        label="Get Property As String"
+        description="Returns a global Property"
         static="true"
-        returnType="mdss.ivcc.mrc.csu.entomology.ResistantCutOff"
-        description="Returns the singleton instance of this class" />
+        returnType="java.lang.String">
+         <mdParameter
+          name="pkg"
+          description="Package to search for"
+          label="key"
+          order="0"
+          type="java.lang.String" />
+        <mdParameter
+          name="name"
+          description="Name to search for"
+          label="key"
+          order="1"
+          type="java.lang.String" />
+      </mdMethod>
+      <mdMethod
+        name="getByPackageAndName"
+        label="Get Property As String"
+        description="Returns a global Property"
+        static="true"
+        returnType="mdss.ivcc.mrc.csu.Property">
+         <mdParameter
+          name="pkg"
+          description="Package to search for"
+          label="key"
+          order="0"
+          type="java.lang.String" />
+        <mdParameter
+          name="name"
+          description="Name to search for"
+          label="key"
+          order="1"
+          type="java.lang.String" />
+      </mdMethod>
+      <mdMethod
+        name="getAllByPackage"
+        label="Get Property As String"
+        description="Returns a global Property"
+        static="true"
+        returnType="mdss.ivcc.mrc.csu.Property">
+         <mdParameter
+          name="pkg"
+          description="Package to search for"
+          label="key"
+          order="0"
+          type="java.lang.String" />
+      </mdMethod>
+      <mdMethod
+        name="getInt"
+        label="Get Property As Integer"
+        description="Returns a global Property"
+        static="true"
+        returnType="java.lang.Integer">
+         <mdParameter
+          name="pkg"
+          description="Package to search for"
+          label="key"
+          order="0"
+          type="java.lang.String" />
+        <mdParameter
+          name="name"
+          description="Name to search for"
+          label="key"
+          order="1"
+          type="java.lang.String" />
+      </mdMethod>
     </mdBusiness>
+    
+    <mdIndex
+      type="mdss.ivcc.mrc.csu.Property"
+      active="true"
+      label="Property Index"
+      unique="true"
+      description="Uniquness constraint between the Package And Key for this Property">
+      <attribute
+        name="propertyPackage" />
+      <attribute
+        name="propertyKey" />
+    </mdIndex>
+    
+    <mdException
+      name="mdss.ivcc.mrc.csu.PropertyAllreadyExistsException"
+      label="Property Allready Exists"
+      description="Exception thrown when createing a property with a package and key that allready exists.">
+      <attributes>
+      </attributes>
+    </mdException>
+    
+    <mdException
+      name="mdss.ivcc.mrc.csu.PropertyValidationFailedException"
+      label="Property Validation Failed"
+      description="Exception thrown when setting a property to an invalid value.">
+      <attributes>
+        <char
+          name="validValues"
+          label="validValues"
+          size="6"
+          required="true"
+          description="List of valid Values to display in error message." />
+      </attributes>
+    </mdException>
+    
+    <object
+      type="mdss.ivcc.mrc.csu.Property"
+      id="aDDAR">
+      <valueAttribute
+        name="propertyName"
+        value="aDDAR" />
+      <valueAttribute
+        name="propertyPackage"
+        value="mdss.ivcc.mrc.csu.entomology.ResistantanceCutOff" />
+      <valueAttribute
+        name="propertyValue"
+        value="95" />
+      <valueAttribute
+        name="propertyType"
+        value="Integer" />
+      <valueAttribute
+        name="propertyValidator"
+        value="^[0-9]+$" />
+      <valueAttribute
+        name="description"
+        value="Adult Diagnostic Dose Assay Resistant Limit" />
+    </object>
+  
+    <object
+      type="mdss.ivcc.mrc.csu.Property"
+      id="aDDAS">
+      <valueAttribute
+        name="propertyName"
+        value="aDDAS" />
+      <valueAttribute
+        name="propertyPackage"
+        value="mdss.ivcc.mrc.csu.entomology.ResistantanceCutOff" />
+      <valueAttribute
+        name="propertyValue"
+        value="98" />
+      <valueAttribute
+        name="propertyType"
+        value="Integer" />
+      <valueAttribute
+        name="propertyValidator"
+        value="^[0-9]+$" />
+      <valueAttribute
+        name="description"
+        value="Adult Diagnostic Dose Assay Potentially Resistant Limit" />
+    </object>
+  
+    <object
+      type="mdss.ivcc.mrc.csu.Property"
+      id="lDDAR">
+      <valueAttribute
+        name="propertyName"
+        value="lDDAR" />
+      <valueAttribute
+        name="propertyPackage"
+        value="mdss.ivcc.mrc.csu.entomology.ResistantanceCutOff" />
+      <valueAttribute
+        name="propertyValue"
+        value="95" />
+      <valueAttribute
+        name="propertyType"
+        value="Integer" />
+      <valueAttribute
+        name="propertyValidator"
+        value="^[0-9]+$" />
+      <valueAttribute
+        name="description"
+        value="Larvae Diagnostic Dose Assay Resistant Limit" />
+    </object>
+  
+    <object
+      type="mdss.ivcc.mrc.csu.Property"
+      id="lDDAS">
+      <valueAttribute
+        name="propertyName"
+        value="lDDAS" />
+      <valueAttribute
+        name="propertyPackage"
+        value="mdss.ivcc.mrc.csu.entomology.ResistantanceCutOff" />
+      <valueAttribute
+        name="propertyValue"
+        value="98" />
+      <valueAttribute
+        name="propertyType"
+        value="Integer" />
+      <valueAttribute
+        name="propertyValidator"
+        value="^[0-9]+$" />
+      <valueAttribute
+        name="description"
+        value="Larvae Diagnostic Dose Assay Potentially Resistant Limit" />
+    </object>
 
     <object
-      type="mdss.ivcc.mrc.csu.entomology.ResistantCutOff"
-      id="RESISTANT_CUT_OFF">
+      type="mdss.ivcc.mrc.csu.Property"
+      id="aAKnockDownR">
       <valueAttribute
-        name="aDDAR"
+        name="propertyName"
+        value="aAKnockDownR" />
+      <valueAttribute
+        name="propertyPackage"
+        value="mdss.ivcc.mrc.csu.entomology.ResistantanceCutOff" />
+      <valueAttribute
+        name="propertyValue"
         value="95" />
       <valueAttribute
-        name="aDDAS"
+        name="propertyType"
+        value="Integer" />
+      <valueAttribute
+        name="propertyValidator"
+        value="^[0-9]+$" />
+      <valueAttribute
+        name="description"
+        value="Adult Assay Knock Down Resistant Limit" />
+    </object>
+    
+   <object
+      type="mdss.ivcc.mrc.csu.Property"
+      id="aAKnockDownPR">
+      <valueAttribute
+        name="propertyName"
+        value="aAKnockDownPR" />
+      <valueAttribute
+        name="propertyPackage"
+        value="mdss.ivcc.mrc.csu.entomology.ResistantanceCutOff" />
+      <valueAttribute
+        name="propertyValue"
         value="98" />
       <valueAttribute
-        name="lDDAR"
+        name="propertyType"
+        value="Integer" />
+      <valueAttribute
+        name="propertyValidator"
+        value="^[0-9]+$" />
+      <valueAttribute
+        name="description"
+        value="Adult Assay Knock Down Potentially Resistant Limit" />
+    </object>
+    
+    <object
+      type="mdss.ivcc.mrc.csu.Property"
+      id="lAKnockDownR">
+      <valueAttribute
+        name="propertyName"
+        value="lAKnockDownR" />
+      <valueAttribute
+        name="propertyPackage"
+        value="mdss.ivcc.mrc.csu.entomology.ResistantanceCutOff" />
+      <valueAttribute
+        name="propertyValue"
         value="95" />
       <valueAttribute
-        name="lDDAS"
-        value="98" />
+        name="propertyType"
+        value="Integer" />
       <valueAttribute
-        name="aAKnockDownR"
+        name="propertyValidator"
+        value="^[0-9]+$" />
+      <valueAttribute
+        name="description"
+        value="Larvae Assay Knock Down Resistance Limit" />
+    </object>
+    
+    <object
+      type="mdss.ivcc.mrc.csu.Property"
+      id="lAKnockDownPR">
+      <valueAttribute
+        name="propertyName"
+        value="lAKnockDownPR" />
+      <valueAttribute
+        name="propertyPackage"
+        value="mdss.ivcc.mrc.csu.entomology.ResistantanceCutOff" />
+      <valueAttribute
+        name="propertyValue"
         value="95" />
       <valueAttribute
-        name="aAKnockDownPR"
-        value="98" />
+        name="propertyType"
+        value="Integer" />
       <valueAttribute
-        name="lAKnockDownR"
-        value="95" />
+        name="propertyValidator"
+        value="^[0-9]+$" />
       <valueAttribute
-        name="lAKnockDownPR"
-        value="98" />
+        name="description"
+        value="Larvae Assay Knock Down Potentially Resistant Limit" />
     </object>
 
   </create>
@@ -7059,6 +7297,8 @@
           value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
       </object>
     </create>
+
+
 
 
 </TerraFrame>
