@@ -454,7 +454,7 @@
       extends="mdss.ivcc.mrc.csu.entomology.TrueSpecieEntity">
       <attributes>
         <integer
-          name="quanity"
+          name="quantity"
           label="Quanity"
           rejectNegative="true"
           rejectZero="true"
@@ -493,9 +493,9 @@
           concrete="identificationMethod"
           required="true" />
         <virtual
-          name="quanity"
+          name="quantity"
           type="mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroup"
-          concrete="quanity"
+          concrete="quantity"
           required="true" />
       </attributes>
     </mdView>
