@@ -1,5 +1,7 @@
 package mdss.ivcc.mrc.csu.entomology.assay;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
+
 
 
 
@@ -39,6 +41,7 @@ public class ADDATestIntervalView extends ADDATestIntervalViewBase implements co
     this.setIntervalTime(interval.getIntervalTime());
   }
   
+  @Transaction
   public static mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalView[] saveAll(mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalView[] array)
   {
     for(ADDATestIntervalView view : array)

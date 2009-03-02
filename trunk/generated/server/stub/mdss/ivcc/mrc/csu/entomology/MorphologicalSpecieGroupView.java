@@ -1,6 +1,5 @@
 package mdss.ivcc.mrc.csu.entomology;
 
-import mdss.ivcc.mrc.csu.entomology.MorphologicalSpecieGroupViewBase;
 import mdss.ivcc.mrc.csu.mo.IdentificationMethod;
 import mdss.ivcc.mrc.csu.mo.Specie;
 
@@ -46,6 +45,12 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
       group.setSpecie(specie);
       group.apply();      
     }
+  }
+  
+  @Override
+  public void delete()
+  {
+    MorphologicalSpecieGroup.get(this.getGroupId()).delete();
   }
 
   @Transaction

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import mdss.ivcc.mrc.csu.entomology.assay.AssayTestResult;
+import mdss.ivcc.mrc.csu.mo.AbstractTerm;
 
 import com.terraframe.mojo.business.generation.GenerationUtil;
 import com.terraframe.mojo.constants.MdAttributeConcreteInfo;
@@ -31,45 +32,48 @@ public class MosquitoView extends MosquitoViewBase implements
   @Override
   public void apply()
   {
+    Mosquito mosquito = null;
     String id = this.getMosquitoId();
 
     if (id == null || id.equals(""))
     {
-      List<Sex> list = this.getSex();
-      Mosquito mosquito = new Mosquito();
-
-      mosquito.setSampleId(this.getSampleId());
-      mosquito.setIdentificationMethod(this.getIdentificationMethod());
-      mosquito.setIsofemale(this.getIsofemale());
-      mosquito.setGeneration(this.getGeneration());
-      mosquito.setSpecie(this.getSpecie());
-      mosquito.setTestDate(this.getTestDate());
-      mosquito.setCollection(this.getCollection());
-
-      if (list.size() > 0)
-      {
-        mosquito.addSex(list.get(0));
-      }
-
-      mosquito.apply();
-
-      try
-      {
-        applyAssays(mosquito);
-      }
-      catch (Exception e)
-      {
-        throw new RuntimeException(e);
-      }
-
-      this.setMosquitoId(mosquito.getId());
+      mosquito = new Mosquito();
     }
     else
     {
-
+      mosquito = Mosquito.lock(id);
     }
 
-    super.apply();
+    try
+    {
+      applyMosquito(mosquito);
+      applyAssays(mosquito);
+    }
+    catch (Exception e)
+    {
+      throw new RuntimeException(e);
+    }
+
+    this.setMosquitoId(mosquito.getId());
+  }
+
+  private void applyMosquito(Mosquito mosquito)
+  {
+    List<Sex> list = this.getSex();
+    mosquito.setSampleId(this.getSampleId());
+    mosquito.setIdentificationMethod(this.getIdentificationMethod());
+    mosquito.setIsofemale(this.getIsofemale());
+    mosquito.setGeneration(this.getGeneration());
+    mosquito.setSpecie(this.getSpecie());
+    mosquito.setTestDate(this.getTestDate());
+    mosquito.setCollection(this.getCollection());
+
+    if (list.size() > 0)
+    {
+      mosquito.addSex(list.get(0));
+    }
+
+    mosquito.apply();
   }
 
   @Override
@@ -88,9 +92,9 @@ public class MosquitoView extends MosquitoViewBase implements
    *         attribute. The class must extend from AssayTestResult.
    */
   @SuppressWarnings("unchecked")
-  private Map<Class<?>, MdAttributeVirtualDAOIF> getAssayMap()
+  private Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> getAssayMap()
   {
-    Map<Class<?>, MdAttributeVirtualDAOIF> map = new HashMap<Class<?>, MdAttributeVirtualDAOIF>();
+    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> map = new HashMap<Class<AssayTestResult>, MdAttributeVirtualDAOIF>();
     List<MdAttributeDAOIF> mdAttributeDAOs = (List<MdAttributeDAOIF>) this.getMdAttributeDAOs();
 
     for (MdAttributeDAOIF mdAttribute : mdAttributeDAOs)
@@ -106,9 +110,9 @@ public class MosquitoView extends MosquitoViewBase implements
 
         Class<?> c = LoaderDecorator.load(mdClass.definesType());
 
-        if (AssayTestResult.class.isAssignableFrom(c))
+        if (AssayTestResult.class.isAssignableFrom(c) && !virtual.definesAttribute().contains("Method"))
         {
-          map.put(c, virtual);
+          map.put((Class<AssayTestResult>) c, virtual);
         }
       }
     }
@@ -119,40 +123,59 @@ public class MosquitoView extends MosquitoViewBase implements
   private void applyAssays(Mosquito mosquito) throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, SecurityException, InvocationTargetException, NoSuchMethodException
   {
-    Map<Class<?>, MdAttributeVirtualDAOIF> assayMap = this.getAssayMap();
+    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = this.getAssayMap();
 
-    for (Class<?> c : assayMap.keySet())
+    for (Class<AssayTestResult> c : assayMap.keySet())
     {
       // Get the result
       MdAttributeVirtualDAOIF mdAttribute = assayMap.get(c);
-      String methodName = "get" + GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
-      Object testResult = MosquitoView.class.getMethod(methodName).invoke(this);
+      String attributeName = GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
 
-      if (testResult != null)
+      String resultName = "get" + attributeName;
+      String methodName = "get" + attributeName + "Method";
+
+      Object testResult = MosquitoView.class.getMethod(resultName).invoke(this);
+      Object testMethod = MosquitoView.class.getMethod(methodName).invoke(this);
+
+      if (testResult != null && testMethod != null)
       {
-        Object newInstance = c.newInstance();
-        c.getMethod("setMosquito", Mosquito.class).invoke(newInstance, mosquito);
-        c.getMethod("setTestResult", testResult.getClass()).invoke(newInstance, testResult);
-        c.getMethod("apply").invoke(newInstance);
+        Object result = mosquito.getTestResult(c);
+
+        if (result == null)
+        {
+          result = c.newInstance();
+        }
+
+        c.getMethod("setMosquito", Mosquito.class).invoke(result, mosquito);
+        c.getMethod("setTestResult", testResult.getClass()).invoke(result, testResult);
+        c.getMethod("setTestMethod", testMethod.getClass()).invoke(result, testMethod);
+        c.getMethod("apply").invoke(result);
       }
     }
   }
-  
-  public void setAssays(List<AssayTestResult> list) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, NoSuchMethodException
+
+  public void setAssays(List<AssayTestResult> list) throws IllegalArgumentException, SecurityException,
+      IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {
-    Map<Class<?>, MdAttributeVirtualDAOIF> assayMap = this.getAssayMap();
-    
-    for(AssayTestResult result : list)
+    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = this.getAssayMap();
+
+    for (AssayTestResult result : list)
     {
       Class<? extends AssayTestResult> c = result.getClass();
       MdAttributeVirtualDAOIF mdAttribute = assayMap.get(c);
-      
-      if(mdAttribute != null)
+
+      if (mdAttribute != null)
       {
+        String attributeName = GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
+
         Object testResult = result.getTestResult();
-        
-        String methodName = "set" + GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
-        MosquitoView.class.getMethod(methodName, testResult.getClass()).invoke(this, testResult);
+        AbstractTerm testMethod = result.getTestMethod();
+
+        String resultName = "set" + attributeName;
+        String methodName = "set" + attributeName + "Method";
+
+        MosquitoView.class.getMethod(resultName, testResult.getClass()).invoke(this, testResult);
+        MosquitoView.class.getMethod(methodName, testMethod.getClass()).invoke(this, testMethod);
       }
     }
   }

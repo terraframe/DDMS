@@ -102,18 +102,30 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
     return list.toArray(new MosquitoView[list.size()]);
   }
   
+  public mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupView[] getUninterestingSpecieGroups()
+  {
+    return new UninterestingSpecieGroupView[0];
+  }
+  
   @Override
   public void delete()
   {
-    //Delete all Morphological Specie Groups
+    //An abstract collection has aggregation with
+    //MorphologicalSpeiceGroups, UninterestingSpecieGroup, and Mosquitos thus
+    //they also need to be deleted when deleting a collection
+    
     for(MorphologicalSpecieGroupView view : this.getMorphologicalSpecieGroups())
     {
-      MorphologicalSpecieGroup group = MorphologicalSpecieGroup.get(view.getGroupId());
-      group.delete();
+      view.delete();
     }
     
     //Delete all Mosquitos
     for(MosquitoView view : this.getMosquitos())
+    {
+      view.delete();
+    }
+    
+    for(UninterestingSpecieGroupView view : this.getUninterestingSpecieGroups())
     {
       view.delete();
     }

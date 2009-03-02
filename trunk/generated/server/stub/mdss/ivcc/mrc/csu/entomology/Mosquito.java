@@ -80,4 +80,17 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     
     return view;
   }
+  
+  public AssayTestResult getTestResult(Class<AssayTestResult> c)
+  {
+    for(AssayTestResult result : this.getTestResults())
+    {
+      if(c.isInstance(result))
+      {
+        return result;
+      }
+    }
+    
+    return null;
+  }
 }
