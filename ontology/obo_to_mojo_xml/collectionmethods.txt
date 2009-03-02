@@ -58,7 +58,6 @@ namespace: mosquito_insecticide_resistance_ontology
 def: "Any method designed to collect (and later examine) live adults from a field population." [PT:PT]
 is_a: MIRO:30000051 ! terrain environment catch
 
-
 id: MIRO:30000046
 name: collection of dead specimens
 namespace: mosquito_insecticide_resistance_ontology
