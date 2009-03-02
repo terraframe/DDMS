@@ -307,6 +307,97 @@ public class MosquitoTest extends TestCase
       view.delete();
     }
   }
+  
+  public void testGetMultipleMosquitos() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2007-01-01");
+
+    MosquitoView view = new MosquitoView();
+    view.setSpecie(specie);
+    view.setCollection(collection);
+    view.setGeneration(F0);
+    view.setIsofemale(false);
+    view.setIdentificationMethod(identificationMethod);
+    view.addSex(Sex.FEMALE);
+    view.setSampleId("0");
+    view.setTestDate(date);
+    view.setAcHEBiochemical(result);
+    view.setAcHEBiochemicalMethod(biochemicalMethodology);
+    view.setAcHEMolecular(result);
+    view.setAcHEMolecularMethod(insecticideMethodology);
+    view.setAEsterase(new Integer(4));
+    view.setAEsteraseMethod(biochemicalMethodology);
+    view.setPMalariae(true);
+    view.setPMalariaeMethod(infectivityMethodology);
+    view.apply();
+    
+    MosquitoView view2 = new MosquitoView();
+    view2.setSpecie(specie);
+    view2.setCollection(collection);
+    view2.setGeneration(F0);
+    view2.setIsofemale(false);
+    view2.setIdentificationMethod(identificationMethod);
+    view2.addSex(Sex.FEMALE);
+    view2.setSampleId("1");
+    view2.setTestDate(date);
+    view2.setAcHEBiochemical(result);
+    view2.setAcHEBiochemicalMethod(biochemicalMethodology);
+    view2.setAcHEMolecular(result);
+    view2.setAcHEMolecularMethod(insecticideMethodology);
+    view2.setAEsterase(new Integer(5));
+    view2.setAEsteraseMethod(biochemicalMethodology);
+    view2.setPMalariae(true);
+    view2.setPMalariaeMethod(infectivityMethodology);
+    view2.apply();
+
+    try
+    {
+      MosquitoView[] mosquitos = collection.getMosquitos();
+
+      assertEquals(2, mosquitos.length);
+      assertEquals(specie.getId(), mosquitos[0].getSpecie().getId());
+      assertEquals(F0.getId(), mosquitos[0].getGeneration().getId());
+      assertEquals(view.getMosquitoId(), mosquitos[0].getMosquitoId());
+      assertEquals(identificationMethod.getId(), mosquitos[0].getIdentificationMethod().getId());
+      assertEquals(Sex.FEMALE, mosquitos[0].getSex().get(0));
+      assertEquals("0", mosquitos[0].getSampleId());
+      assertEquals(date, mosquitos[0].getTestDate());
+      assertEquals(new Boolean(false), mosquitos[0].getIsofemale());
+      assertEquals(result.getId(), mosquitos[0].getAcHEBiochemical().getId());
+      assertEquals(biochemicalMethodology.getId(), mosquitos[0].getAcHEBiochemicalMethod().getId());
+      assertEquals(result.getId(), mosquitos[0].getAcHEMolecular().getId());
+      assertEquals(insecticideMethodology.getId(), mosquitos[0].getAcHEMolecularMethod().getId());
+      assertEquals(null, mosquitos[0].getGABA());
+      assertEquals(new Integer(4), mosquitos[0].getAEsterase());
+      assertEquals(biochemicalMethodology.getId(), mosquitos[0].getAEsteraseMethod().getId());
+      assertEquals(new Boolean(true), mosquitos[0].getPMalariae());
+      assertEquals(infectivityMethodology.getId(), mosquitos[0].getPMalariaeMethod().getId());
+      
+      assertEquals(specie.getId(), mosquitos[1].getSpecie().getId());
+      assertEquals(F0.getId(), mosquitos[1].getGeneration().getId());
+      assertEquals(view2.getMosquitoId(), mosquitos[1].getMosquitoId());
+      assertEquals(identificationMethod.getId(), mosquitos[1].getIdentificationMethod().getId());
+      assertEquals(Sex.FEMALE, mosquitos[1].getSex().get(0));
+      assertEquals("1", mosquitos[1].getSampleId());
+      assertEquals(date, mosquitos[1].getTestDate());
+      assertEquals(new Boolean(false), mosquitos[1].getIsofemale());
+      assertEquals(result.getId(), mosquitos[1].getAcHEBiochemical().getId());
+      assertEquals(biochemicalMethodology.getId(), mosquitos[1].getAcHEBiochemicalMethod().getId());
+      assertEquals(result.getId(), mosquitos[1].getAcHEMolecular().getId());
+      assertEquals(insecticideMethodology.getId(), mosquitos[1].getAcHEMolecularMethod().getId());
+      assertEquals(null, mosquitos[1].getGABA());
+      assertEquals(new Integer(5), mosquitos[1].getAEsterase());
+      assertEquals(biochemicalMethodology.getId(), mosquitos[1].getAEsteraseMethod().getId());
+      assertEquals(new Boolean(true), mosquitos[1].getPMalariae());
+      assertEquals(infectivityMethodology.getId(), mosquitos[1].getPMalariaeMethod().getId());
+    }
+    finally
+    {
+      view.delete();
+      view2.delete();
+    }
+  }
 
   public void testUninterestingSpecieGroup()
   {
@@ -315,7 +406,7 @@ public class MosquitoTest extends TestCase
     view.setCollection(collection);
     view.setIdentificationMethod(identificationMethod);
     view.setSampleId("0");
-    view.setQuanity(200);
+    view.setQuantity(200);
     view.apply();
 
     try
@@ -326,7 +417,7 @@ public class MosquitoTest extends TestCase
       assertEquals(view.getGroupId(), group.getId());
       assertEquals(identificationMethod.getId(), group.getIdentificationMethod().getId());
       assertEquals("0", group.getSampleId());
-      assertEquals(new Integer(200), group.getQuanity());
+      assertEquals(new Integer(200), group.getQuantity());
     }
     finally
     {
@@ -341,10 +432,10 @@ public class MosquitoTest extends TestCase
     view.setCollection(collection);
     view.setIdentificationMethod(identificationMethod);
     view.setSampleId("0");
-    view.setQuanity(200);
+    view.setQuantity(200);
     view.apply();
 
-    view.setQuanity(400);
+    view.setQuantity(400);
     view.apply();
 
     try
@@ -355,12 +446,80 @@ public class MosquitoTest extends TestCase
       assertEquals(view.getGroupId(), group.getId());
       assertEquals(identificationMethod.getId(), group.getIdentificationMethod().getId());
       assertEquals("0", group.getSampleId());
-      assertEquals(new Integer(400), group.getQuanity());
+      assertEquals(new Integer(400), group.getQuantity());
     }
     finally
     {
       view.delete();
     }
+  }
+  
+  public void testGetUninterestingSpecieGroup()
+  {
+    UninterestingSpecieGroupView view = new UninterestingSpecieGroupView();
+    view.setSpecie(specie);
+    view.setCollection(collection);
+    view.setIdentificationMethod(identificationMethod);
+    view.setSampleId("0");
+    view.setQuantity(200);
+    view.apply();
 
+    try
+    {
+      UninterestingSpecieGroupView[] groups = collection.getUninterestingSpecieGroups();
+
+      assertEquals(1, groups.length);
+      assertEquals(specie.getId(), groups[0].getSpecie().getId());
+      assertEquals(view.getGroupId(), groups[0].getGroupId());
+      assertEquals(identificationMethod.getId(), groups[0].getIdentificationMethod().getId());
+      assertEquals("0", groups[0].getSampleId());
+      assertEquals(new Integer(200), groups[0].getQuantity());
+    }
+    finally
+    {
+      view.delete();
+    }
+  }
+
+  public void testGetMultipleUninterestingSpecieGroup()
+  {
+    UninterestingSpecieGroupView view = new UninterestingSpecieGroupView();
+    view.setSpecie(specie);
+    view.setCollection(collection);
+    view.setIdentificationMethod(identificationMethod);
+    view.setSampleId("0");
+    view.setQuantity(200);
+    view.apply();
+
+    UninterestingSpecieGroupView view2 = new UninterestingSpecieGroupView();
+    view2.setSpecie(specie);
+    view2.setCollection(collection);
+    view2.setIdentificationMethod(identificationMethod);
+    view2.setSampleId("1");
+    view2.setQuantity(300);
+    view2.apply();
+
+    
+    try
+    {
+      UninterestingSpecieGroupView[] groups = collection.getUninterestingSpecieGroups();
+
+      assertEquals(2, groups.length);
+      assertEquals(specie.getId(), groups[0].getSpecie().getId());
+      assertEquals(view.getGroupId(), groups[0].getGroupId());
+      assertEquals(identificationMethod.getId(), groups[0].getIdentificationMethod().getId());
+      assertEquals("0", groups[0].getSampleId());
+      assertEquals(new Integer(200), groups[0].getQuantity());
+      assertEquals(specie.getId(), groups[1].getSpecie().getId());
+      assertEquals(view2.getGroupId(), groups[1].getGroupId());
+      assertEquals(identificationMethod.getId(), groups[1].getIdentificationMethod().getId());
+      assertEquals("1", groups[1].getSampleId());
+      assertEquals(new Integer(300), groups[1].getQuantity());
+    }
+    finally
+    {
+      view.delete();
+      view2.delete();
+    }
   }
 }

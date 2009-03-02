@@ -4,11 +4,6 @@ import java.text.DateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
-import mdss.ivcc.mrc.csu.entomology.AbstractMosquitoCollectionBase;
-import mdss.ivcc.mrc.csu.entomology.MorphologicalSpecieGroupQuery;
-import mdss.ivcc.mrc.csu.mo.IdentificationMethod;
-import mdss.ivcc.mrc.csu.mo.Specie;
-
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
@@ -49,28 +44,7 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
     
     while(iterator.hasNext())
     {
-      MorphologicalSpecieGroup group = iterator.next();
-      MorphologicalSpecieGroupView view = new MorphologicalSpecieGroupView();
-      Specie specie = group.getSpecie();
-      IdentificationMethod identificationMethod = group.getIdentificationMethod();
-      
-      view.setCollectionId(this.getId());
-      view.setGroupId(group.getId());
-      view.setQuantity(group.getQuantity());
-
-      if(specie != null)
-      {
-        view.setSpecie(specie.getId());
-      }
-      
-      if(identificationMethod != null)
-      {
-        view.setIdentificationMethod(identificationMethod.getId());
-      }
-      
-      view.applyNoPersist();
-      
-      list.add(view);
+      list.add(iterator.next().getView());
     }
     
     iterator.close();
@@ -91,10 +65,7 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
     
     while(iterator.hasNext())
     {
-      Mosquito mosquito = iterator.next();
-      MosquitoView view = mosquito.getView();
-            
-      list.add(view);
+      list.add(iterator.next().getView());
     }
     
     iterator.close();
@@ -104,7 +75,22 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
   
   public mdss.ivcc.mrc.csu.entomology.UninterestingSpecieGroupView[] getUninterestingSpecieGroups()
   {
-    return new UninterestingSpecieGroupView[0];
+    List<UninterestingSpecieGroupView> list = new LinkedList<UninterestingSpecieGroupView>();
+
+    UninterestingSpecieGroupQuery query = new UninterestingSpecieGroupQuery(new QueryFactory());
+    query.WHERE(query.getCollection().getId().EQ(this.getId()));
+    query.ORDER_BY(query.getCreateDate(), SortOrder.ASC);
+    
+    OIterator<? extends UninterestingSpecieGroup> iterator = query.getIterator();
+    
+    while(iterator.hasNext())
+    {
+      list.add(iterator.next().getView());
+    }
+    
+    iterator.close();
+    
+    return list.toArray(new UninterestingSpecieGroupView[list.size()]);
   }
   
   @Override

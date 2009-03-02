@@ -28,7 +28,7 @@ public class UninterestingSpecieGroupView extends UninterestingSpecieGroupViewBa
     group.setCollection(this.getCollection());
     group.setIdentificationMethod(this.getIdentificationMethod());
     group.setSampleId(this.getSampleId());
-    group.setQuanity(this.getQuanity());    
+    group.setQuantity(this.getQuantity());    
     group.apply();
 
     this.setGroupId(group.getId());
