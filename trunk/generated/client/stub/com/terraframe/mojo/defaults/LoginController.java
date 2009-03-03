@@ -1,6 +1,6 @@
 package com.terraframe.mojo.defaults;
 
-import mdss.ivcc.mrc.csu.util.GlobalSessionListener;
+import ivcc.mrc.csu.mdss.util.GlobalSessionListener;
 
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientConstants;
