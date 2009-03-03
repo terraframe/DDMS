@@ -211,7 +211,15 @@
     <mdBusiness
       name="ivcc.mrc.csu.mdss.entomology.CompositeMosquitoCollection"
       label="Concrete Mosquito Collection"
-      extends="ivcc.mrc.csu.mdss.entomology.AbstractMosquitoCollection" />
+      extends="ivcc.mrc.csu.mdss.entomology.AbstractMosquitoCollection">
+      <mdMethod
+        name="getCollections"
+        label="Get Collections"
+        returnType="ivcc.mrc.csu.mdss.entomology.MosquitoCollectionPointView[]"
+        static="false"
+        description="Returns an array of all the Mosquito Collections which compose this collection">
+      </mdMethod>
+    </mdBusiness>
 
     <mdIndex
       type="ivcc.mrc.csu.mdss.entomology.ConcreteMosquitoCollection"
@@ -303,6 +311,33 @@
           order="1" />
       </mdMethod>
     </mdBusiness>
+
+    <mdView
+      name="ivcc.mrc.csu.mdss.entomology.MosquitoCollectionPointView"
+      label="Mosquito Collection Point View"
+      description="This a view for collection of mosquitos from a permanant trap or water body, the trap is checked on a routine basis">
+      <attributes>
+        <char
+          name="collectionId"
+          size="255"
+          label="Collection Id" />
+        <virtual
+          name="compositeCollection"
+          type="ivcc.mrc.csu.mdss.entomology.MosquitoCollectionPoint"
+          concrete="compositeCollection"
+          required="true" />
+        <virtual
+          name="dateCollected"
+          type="ivcc.mrc.csu.mdss.entomology.ConcreteMosquitoCollection"
+          concrete="dateCollected"
+          required="true" />
+        <virtual
+          name="geoEntity"
+          required="true"
+          type="ivcc.mrc.csu.mdss.entomology.ConcreteMosquitoCollection"
+          concrete="geoEntity"/>
+      </attributes>
+    </mdView>
 
     <mdException
       name="ivcc.mrc.csu.mdss.entomology.InvalidMosquitoCollectionPointGeoEntityException"
@@ -1741,7 +1776,7 @@
         value="ivcc.mrc.csu.mdss.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
-        value="95" />
+        value="98" />
       <valueAttribute
         name="propertyType"
         value="Integer" />
