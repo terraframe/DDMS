@@ -429,4 +429,29 @@ public class MosquitoCollectionPointTest extends TestCase
       collection.delete();
     }
   }
+  
+  public void testGetCollectionPoints()
+  {
+    MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
+    collection.setGeoEntity(waterBody);
+    collection.setDateCollected(new Date());
+    collection.setCompositeCollection(composite);
+    collection.apply();
+    
+    try
+    {
+      
+     MosquitoCollectionPointView[] collections = composite.getCollections();     
+
+     assertEquals(1, collections.length);
+
+     assertEquals(collection.getGeoEntity().getId(), collections[0].getGeoEntity().getId());
+     assertEquals(collection.getDateCollected(), collections[0].getDateCollected());
+    }
+    finally
+    {
+      collection.delete();
+    }
+
+  }
 }

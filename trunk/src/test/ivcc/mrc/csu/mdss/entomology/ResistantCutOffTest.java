@@ -5,6 +5,18 @@ import junit.framework.TestCase;
 
 public class ResistantCutOffTest extends TestCase
 {
+  public Integer getProperty(String name)
+  {
+    return Property.getInt(Property.RESISTANCE_PACKAGE, name);
+  }
+  
+  public void setPropertyValue(String name, Integer value)
+  {
+    Property p = Property.getByPackageAndName(Property.RESISTANCE_PACKAGE, name);
+    p.setPropertyValue(value.toString());
+    p.apply();
+  }
+
   public void testGetDefault()
   {
     assertEquals(new Integer(95), getProperty(Property.ADULT_DDA_RESISTANCE));
@@ -18,18 +30,6 @@ public class ResistantCutOffTest extends TestCase
 
     assertEquals(new Integer(95), getProperty(Property.LARVAE_KNOCK_DOWN_RESISTANCE));
     assertEquals(new Integer(98), getProperty(Property.LARVAE_KNOCK_DOWN_POTENTIAL_RESISTANCE));
-  }
-
-  public Integer getProperty(String name)
-  {
-    return Property.getInt(Property.RESISTANCE_PACKAGE, name);
-  }
-
-  public void setPropertyValue(String name, Integer value)
-  {
-    Property p = Property.getByPackageAndName(Property.RESISTANCE_PACKAGE, name);
-    p.setPropertyValue(value.toString());
-    p.apply();
   }
 
   public void testSetValues()
@@ -76,7 +76,7 @@ public class ResistantCutOffTest extends TestCase
     }
   }
 
-  public void testInvalidADDAR()
+  public void ignoreInvalidADDAR()
   {
     int v = getProperty(Property.ADULT_DDA_RESISTANCE);
 
@@ -96,7 +96,7 @@ public class ResistantCutOffTest extends TestCase
     }
   }
 
-  public void testInvalidADDAS()
+  public void ignoreInvalidADDAS()
   {
     int v = getProperty(Property.ADULT_DDA_SUSCEPTIBILE);
 
@@ -116,7 +116,7 @@ public class ResistantCutOffTest extends TestCase
     }
   }
 
-  public void testInvalidLDDAR()
+  public void ignoreInvalidLDDAR()
   {
     int v = getProperty(Property.LARVAE_DDA_RESISTANCE);
 
@@ -136,7 +136,7 @@ public class ResistantCutOffTest extends TestCase
     }
   }
 
-  public void testInvalidLDDAS()
+  public void ignoreInvalidLDDAS()
   {
     int v = getProperty(Property.LARVAE_DDA_SUSCEPTIBILE);
 
@@ -152,11 +152,11 @@ public class ResistantCutOffTest extends TestCase
     }
     finally
     {
-      setPropertyValue(Property.LARVAE_DDA_RESISTANCE, v);
+      setPropertyValue(Property.LARVAE_DDA_SUSCEPTIBILE, v);
     }
   }
 
-  public void testInvalidAAKnockDownR()
+  public void ignoreInvalidAAKnockDownR()
   {
     int v = getProperty(Property.ADULT_KNOCK_DOWN_RESISTANCE);
 
@@ -176,7 +176,7 @@ public class ResistantCutOffTest extends TestCase
     }
   }
 
-  public void testInvalidAAKnockDownPR()
+  public void ignoreInvalidAAKnockDownPR()
   {
     int v = getProperty(Property.ADULT_KNOCK_DOWN_POTENTIAL_RESISTANCE);
 
@@ -196,7 +196,7 @@ public class ResistantCutOffTest extends TestCase
     }
   }
 
-  public void testInvalidLAKnockDownR()
+  public void ignoreInvalidLAKnockDownR()
   {
     int v = getProperty(Property.LARVAE_KNOCK_DOWN_RESISTANCE);
 
@@ -216,7 +216,7 @@ public class ResistantCutOffTest extends TestCase
     }
   }
 
-  public void testInvalidLAKnockDownPR()
+  public void ignoreInvalidLAKnockDownPR()
   {
     int v = getProperty(Property.LARVAE_KNOCK_DOWN_POTENTIAL_RESISTANCE);
 

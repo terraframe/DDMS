@@ -72,5 +72,19 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
     
     return collection;
   }  
+  
+  public MosquitoCollectionPointView getView()
+  {
+    MosquitoCollectionPointView view = new MosquitoCollectionPointView();
+    
+    view.setCompositeCollection(this.getCompositeCollection());
+    view.setCollectionId(this.getId());
+    view.setDateCollected(this.getDateCollected());
+    view.setGeoEntity(this.getGeoEntity());
+    
+    view.applyNoPersist();
+    
+    return view;
+  }
 
 }
