@@ -4,7 +4,7 @@
   <create>
     <!-- DUMMY DEFITION FOR GEO ENTITIES -->
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.geo.GeoEntity"
+      name="csu.mrc.ivcc.mdss.geo.GeoEntity"
       label="Geo Entity">
       <attributes>
         <char
@@ -23,14 +23,14 @@
           label="Terrain"
           selectMultiple="false"
           required="true"
-          type="ivcc.mrc.csu.mdss.geo.Terrain" />
+          type="csu.mrc.ivcc.mdss.geo.Terrain" />
       </attributes>
       <mdMethod
         name="searchByGeoId"
         label="Search by GeoId"
         description="Search for a GeoEntity by Geo Id"
         static="true"
-        returnType="ivcc.mrc.csu.mdss.geo.GeoEntity">
+        returnType="csu.mrc.ivcc.mdss.geo.GeoEntity">
         <mdParameter
           name="geoId"
           description="Geo Id of the Geo Entity"
@@ -42,7 +42,7 @@
 
     <object
       id="12312312410290873104353"
-      type="ivcc.mrc.csu.mdss.geo.GeoEntity">
+      type="csu.mrc.ivcc.mdss.geo.GeoEntity">
       <valueAttribute
         name="geoId"
         value="MOON" />
@@ -58,7 +58,7 @@
 
     <object
       id="1231231241123029873104353"
-      type="ivcc.mrc.csu.mdss.geo.GeoEntity">
+      type="csu.mrc.ivcc.mdss.geo.GeoEntity">
       <valueAttribute
         name="geoId"
         value="EARTH" />
@@ -73,12 +73,12 @@
     </object>
 
     <enumerationMaster
-      name="ivcc.mrc.csu.mdss.geo.TerrainMaster"
+      name="csu.mrc.ivcc.mdss.geo.TerrainMaster"
       label="Terrain Master" />
 
     <object
       id="SENTINEL_SITE"
-      type="ivcc.mrc.csu.mdss.geo.TerrainMaster">
+      type="csu.mrc.ivcc.mdss.geo.TerrainMaster">
       <valueAttribute
         name="enumName"
         value="SENTINEL_SITE" />
@@ -89,7 +89,7 @@
 
     <object
       id="NON_SENTINEL_SITE"
-      type="ivcc.mrc.csu.mdss.geo.TerrainMaster">
+      type="csu.mrc.ivcc.mdss.geo.TerrainMaster">
       <valueAttribute
         name="enumName"
         value="NON_SENTINEL_SITE" />
@@ -100,7 +100,7 @@
 
     <object
       id="FIXED_TRAP"
-      type="ivcc.mrc.csu.mdss.geo.TerrainMaster">
+      type="csu.mrc.ivcc.mdss.geo.TerrainMaster">
       <valueAttribute
         name="enumName"
         value="FIXED_TRAP" />
@@ -111,7 +111,7 @@
 
     <object
       id="PERMANENT_WATER_BODY"
-      type="ivcc.mrc.csu.mdss.geo.TerrainMaster">
+      type="csu.mrc.ivcc.mdss.geo.TerrainMaster">
       <valueAttribute
         name="enumName"
         value="PERMANENT_WATER_BODY" />
@@ -121,8 +121,8 @@
     </object>
 
     <mdEnumeration
-      name="ivcc.mrc.csu.mdss.geo.Terrain"
-      type="ivcc.mrc.csu.mdss.geo.TerrainMaster"
+      name="csu.mrc.ivcc.mdss.geo.Terrain"
+      type="csu.mrc.ivcc.mdss.geo.TerrainMaster"
       label="Terrain">
       <includeAll />
     </mdEnumeration>
@@ -163,31 +163,31 @@
       label="Abstract Mosquito Collection"
       description="This is a group of mosquitos of varing species that were collected via a certian techinque at a certian point in space and time"
       cacheSize="0"
-      name="ivcc.mrc.csu.mdss.entomology.AbstractMosquitoCollection"
+      name="csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollection"
       generateController="false">
       <mdMethod
         name="getMosquitos"
         label="Get Mosquitos"
         description="Returns a list of all mosquitos contained within this abstract mosquito collection"
         static="false"
-        returnType="ivcc.mrc.csu.mdss.entomology.MosquitoView[]">
+        returnType="csu.mrc.ivcc.mdss.entomology.MosquitoView[]">
       </mdMethod>
       <mdMethod
         name="getUninterestingSpecieGroups"
         label="Get Uninteresting Specie Groups"
         description="Returns a list of all uninteresting true specie groups which are contained within this abstract mosquito collection"
         static="false"
-        returnType="ivcc.mrc.csu.mdss.entomology.UninterestingSpecieGroupView[]">
+        returnType="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView[]">
       </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.ConcreteMosquitoCollection"
+      name="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
       isAbstract="true"
       label="Concrete Mosquito Collection"
       generateController="false"
       extendable="true"
-      extends="ivcc.mrc.csu.mdss.entomology.AbstractMosquitoCollection">
+      extends="csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollection">
       <attributes>
         <date
           name="dateCollected"
@@ -197,32 +197,32 @@
           name="geoEntity"
           required="true"
           label="Geo Entity"
-          type="ivcc.mrc.csu.mdss.geo.GeoEntity" />
+          type="csu.mrc.ivcc.mdss.geo.GeoEntity" />
       </attributes>
       <mdMethod
         name="getMorphologicalSpecieGroups"
         label="Get Morphological Specie Groups"
         description="Returns all morphological specie groups of this collection"
-        returnType="ivcc.mrc.csu.mdss.entomology.MorphologicalSpecieGroupView[]"
+        returnType="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView[]"
         static="false">
       </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.CompositeMosquitoCollection"
+      name="csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollection"
       label="Concrete Mosquito Collection"
-      extends="ivcc.mrc.csu.mdss.entomology.AbstractMosquitoCollection">
+      extends="csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollection">
       <mdMethod
         name="getCollections"
         label="Get Collections"
-        returnType="ivcc.mrc.csu.mdss.entomology.MosquitoCollectionPointView[]"
+        returnType="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointView[]"
         static="false"
         description="Returns an array of all the Mosquito Collections which compose this collection">
       </mdMethod>
     </mdBusiness>
 
     <mdIndex
-      type="ivcc.mrc.csu.mdss.entomology.ConcreteMosquitoCollection"
+      type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
       active="true"
       label="Concrete Mosquito Collection"
       unique="true"
@@ -234,15 +234,15 @@
     </mdIndex>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.MosquitoCollection"
+      name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection"
       description="A mosqitio collection from a sentinal or non sental site, these are usualy collected only once from a given point, this is not for permenant traps"
       label="Mosquito Collection"
-      extends="ivcc.mrc.csu.mdss.entomology.ConcreteMosquitoCollection">
+      extends="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection">
       <attributes>
         <reference
           name="collectionMethod"
           label="Collection Method"
-          type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+          type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
           required="true" />
       </attributes>
       <mdMethod
@@ -250,11 +250,11 @@
         label="Search By GeoEntity and Date"
         description="Searches for a Mosquito collection with the given geo entity and date"
         static="true"
-        returnType="ivcc.mrc.csu.mdss.entomology.MosquitoCollection">
+        returnType="csu.mrc.ivcc.mdss.entomology.MosquitoCollection">
         <mdParameter
           name="geoEntity"
           label="Geo Entity"
-          type="ivcc.mrc.csu.mdss.geo.GeoEntity"
+          type="csu.mrc.ivcc.mdss.geo.GeoEntity"
           order="0"
           description="GeoEntity" />
         <mdParameter
@@ -266,7 +266,7 @@
     </mdBusiness>
 
     <mdException
-      name="ivcc.mrc.csu.mdss.entomology.InvalidMosquitoCollectionGeoEntityException"
+      name="csu.mrc.ivcc.mdss.entomology.InvalidMosquitoCollectionGeoEntityException"
       label="Invalid Mosquito Collection"
       description="Exception thrown when a Mosquito Collection's GeoEntity is not a (non)sentinel site">
       <attributes>
@@ -280,9 +280,9 @@
     </mdException>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.MosquitoCollectionPoint"
+      name="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint"
       label="Mosquito Collection Point"
-      extends="ivcc.mrc.csu.mdss.entomology.ConcreteMosquitoCollection"
+      extends="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
       description="This a collection of mosquitos from a permanant trap or water body, the trap is checked on a routine basis">
       <attributes>
         <reference
@@ -290,18 +290,18 @@
           label="Composite Collection"
           indexType="non-unique index"
           required="true"
-          type="ivcc.mrc.csu.mdss.entomology.CompositeMosquitoCollection" />
+          type="csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollection" />
       </attributes>
       <mdMethod
         name="searchByGeoEntityAndDate"
         label="Search By GeoEntity and Date"
         description="Searches for a Mosquito collection with the given geo entity and date"
         static="true"
-        returnType="ivcc.mrc.csu.mdss.entomology.MosquitoCollectionPoint">
+        returnType="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint">
         <mdParameter
           name="geoEntity"
           label="Geo Entity"
-          type="ivcc.mrc.csu.mdss.geo.GeoEntity"
+          type="csu.mrc.ivcc.mdss.geo.GeoEntity"
           order="0"
           description="GeoEntity" />
         <mdParameter
@@ -313,7 +313,7 @@
     </mdBusiness>
 
     <mdView
-      name="ivcc.mrc.csu.mdss.entomology.MosquitoCollectionPointView"
+      name="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointView"
       label="Mosquito Collection Point View"
       description="This a view for collection of mosquitos from a permanant trap or water body, the trap is checked on a routine basis">
       <attributes>
@@ -323,24 +323,24 @@
           label="Collection Id" />
         <virtual
           name="compositeCollection"
-          type="ivcc.mrc.csu.mdss.entomology.MosquitoCollectionPoint"
+          type="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint"
           concrete="compositeCollection"
           required="true" />
         <virtual
           name="dateCollected"
-          type="ivcc.mrc.csu.mdss.entomology.ConcreteMosquitoCollection"
+          type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
           concrete="dateCollected"
           required="true" />
         <virtual
           name="geoEntity"
           required="true"
-          type="ivcc.mrc.csu.mdss.entomology.ConcreteMosquitoCollection"
+          type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
           concrete="geoEntity"/>
       </attributes>
     </mdView>
 
     <mdException
-      name="ivcc.mrc.csu.mdss.entomology.InvalidMosquitoCollectionPointGeoEntityException"
+      name="csu.mrc.ivcc.mdss.entomology.InvalidMosquitoCollectionPointGeoEntityException"
       label="Invalid Mosquito Collection"
       description="Exception thrown when a Mosquito Collection's GeoEntity is not a (non)sentinel site">
       <attributes>
@@ -355,7 +355,7 @@
 
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.MorphologicalSpecieGroup"
+      name="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"
       label="Morphological Specie Group"
       description="This is a row that records the quantity of a species and its identification method.">
       <attributes>
@@ -367,30 +367,30 @@
         <reference
           name="specie"
           label="Specie"
-          type="ivcc.mrc.csu.mdss.mo.Specie"
+          type="csu.mrc.ivcc.mdss.mo.Specie"
           required="false" />
         <reference
           name="identificationMethod"
           label="Identification Method"
-          type="ivcc.mrc.csu.mdss.mo.IdentificationMethod"
+          type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
           required="false" />
         <reference
           name="collection"
           label="MosquitoCollection"
           required="true"
-          type="ivcc.mrc.csu.mdss.entomology.ConcreteMosquitoCollection"
+          type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
           immutable="true" />
       </attributes>
     </mdBusiness>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.InvalidMorphologicalQuantityProblem"
+      name="csu.mrc.ivcc.mdss.entomology.InvalidMorphologicalQuantityProblem"
       label="Invalid Quantity"
       description="A MorphologicalSpecieGroup has a contextually invalid quantity (Equal to or less than 0)">
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.EmptyValueProblem"
+      name="csu.mrc.ivcc.mdss.entomology.EmptyValueProblem"
       label="Empty Value Problem"
       description="A MorphologicalSpecieGroup is missing contextual required values">
       <attributes>
@@ -404,7 +404,7 @@
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.InvalidMorphologicalSpecieProblem"
+      name="csu.mrc.ivcc.mdss.entomology.InvalidMorphologicalSpecieProblem"
       label="Invalid Morphological Specie Problem"
       description="A morphological specie group cannot have an identification method or specie if the quantity is zero">
       <attributes>
@@ -418,7 +418,7 @@
     </mdProblem>
 
     <mdView
-      name="ivcc.mrc.csu.mdss.entomology.MorphologicalSpecieGroupView"
+      name="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView"
       label="Morphological Specie Group View"
       description="View for morphological specie groups">
       <attributes>
@@ -449,7 +449,7 @@
       <mdMethod
         name="saveAll"
         label="Save All"
-        returnType="ivcc.mrc.csu.mdss.entomology.MorphologicalSpecieGroupView[]"
+        returnType="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView[]"
         static="true"
         description="Saves an array of MorphologicalSpecieGroupView in a single transaction">
         <mdParameter
@@ -457,12 +457,12 @@
           label="Array"
           description="Array of objects to save"
           order="0"
-          type="ivcc.mrc.csu.mdss.entomology.MorphologicalSpecieGroupView[]" />
+          type="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView[]" />
       </mdMethod>
     </mdView>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.TrueSpecieEntity"
+      name="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
       label="True Specie Collection"
       isAbstract="true"
       extendable="true">
@@ -470,27 +470,27 @@
         <reference
           name="specie"
           label="Specie"
-          type="ivcc.mrc.csu.mdss.mo.Specie"
+          type="csu.mrc.ivcc.mdss.mo.Specie"
           required="false"
           description="The true specie of the collection" />
         <reference
           name="identificationMethod"
           label="Identification Method"
-          type="ivcc.mrc.csu.mdss.mo.IdentificationMethod"
+          type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
           description="Method used to indentify the true specie collection" />
         <reference
           name="collection"
           label="Mosquito Collection"
           required="true"
-          type="ivcc.mrc.csu.mdss.entomology.AbstractMosquitoCollection"
+          type="csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollection"
           description="References to the mosquito collection from which the true specie sample came." />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.UninterestingSpecieGroup"
+      name="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroup"
       label="Uninteresting Specie"
-      extends="ivcc.mrc.csu.mdss.entomology.TrueSpecieEntity">
+      extends="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity">
       <attributes>
         <integer
           name="quantity"
@@ -508,7 +508,7 @@
     </mdBusiness>
 
     <mdView
-      name="ivcc.mrc.csu.mdss.entomology.UninterestingSpecieGroupView"
+      name="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView"
       label="Uninteresting Specie Group View"
       description="View for Uninteresting Speice groups">
       <attributes>
@@ -519,36 +519,36 @@
           description="The id of the Uninteresting Specie Group, if this is left blank then the View represents a new UninterestingSpecieGroup" />
         <virtual
           name="collection"
-          type="ivcc.mrc.csu.mdss.entomology.TrueSpecieEntity"
+          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
           concrete="collection"
           required="true" />
         <virtual
           name="specie"
-          type="ivcc.mrc.csu.mdss.entomology.TrueSpecieEntity"
+          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
           required="true"
           concrete="specie" />
         <virtual
           name="identificationMethod"
-          type="ivcc.mrc.csu.mdss.entomology.TrueSpecieEntity"
+          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
           concrete="identificationMethod"
           required="true" />
         <virtual
           name="quantity"
-          type="ivcc.mrc.csu.mdss.entomology.UninterestingSpecieGroup"
+          type="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroup"
           concrete="quantity"
           required="true" />
         <virtual
           name="sampleId"
-          type="ivcc.mrc.csu.mdss.entomology.UninterestingSpecieGroup"
+          type="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroup"
           concrete="sampleId"
           required="true" />
       </attributes>
     </mdView>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.Mosquito"
+      name="csu.mrc.ivcc.mdss.entomology.Mosquito"
       label="Mosquito"
-      extends="ivcc.mrc.csu.mdss.entomology.TrueSpecieEntity">
+      extends="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity">
       <attributes>
         <date
           name="testDate"
@@ -567,24 +567,24 @@
           required="true"
           description="The sex of the mosquito"
           selectMultiple="false"
-          type="ivcc.mrc.csu.mdss.entomology.Sex" />
+          type="csu.mrc.ivcc.mdss.entomology.Sex" />
         <reference
           name="generation"
           label="Generation"
           required="true"
           description="The generation of the mosquito"
-          type="ivcc.mrc.csu.mdss.mo.Generation" />
+          type="csu.mrc.ivcc.mdss.mo.Generation" />
       </attributes>
     </mdBusiness>
 
     <enumerationMaster
-      name="ivcc.mrc.csu.mdss.entomology.SexMaster"
+      name="csu.mrc.ivcc.mdss.entomology.SexMaster"
       label="Sex Master"
       description="Master list of all possible mosquito sexes" />
 
     <object
       id="MALE"
-      type="ivcc.mrc.csu.mdss.entomology.SexMaster">
+      type="csu.mrc.ivcc.mdss.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="MALE" />
@@ -595,7 +595,7 @@
 
     <object
       id="FEMALE"
-      type="ivcc.mrc.csu.mdss.entomology.SexMaster">
+      type="csu.mrc.ivcc.mdss.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="FEMALE" />
@@ -606,7 +606,7 @@
 
     <object
       id="MIXED"
-      type="ivcc.mrc.csu.mdss.entomology.SexMaster">
+      type="csu.mrc.ivcc.mdss.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="MIXED" />
@@ -617,7 +617,7 @@
 
     <object
       id="UNKNOWN"
-      type="ivcc.mrc.csu.mdss.entomology.SexMaster">
+      type="csu.mrc.ivcc.mdss.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="UNKNOWN" />
@@ -627,8 +627,8 @@
     </object>
 
     <mdEnumeration
-      name="ivcc.mrc.csu.mdss.entomology.Sex"
-      type="ivcc.mrc.csu.mdss.entomology.SexMaster"
+      name="csu.mrc.ivcc.mdss.entomology.Sex"
+      type="csu.mrc.ivcc.mdss.entomology.SexMaster"
       label="Sex"
       description="List of all possible single mosquito sex options">
       <addEnumItem
@@ -640,8 +640,8 @@
     </mdEnumeration>
 
     <mdEnumeration
-      name="ivcc.mrc.csu.mdss.entomology.AssaySex"
-      type="ivcc.mrc.csu.mdss.entomology.SexMaster"
+      name="csu.mrc.ivcc.mdss.entomology.AssaySex"
+      type="csu.mrc.ivcc.mdss.entomology.SexMaster"
       label="Sex"
       description="List of all possible mosquito assay sex options">
       <includeAll />
@@ -653,7 +653,7 @@
     -->
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.mo.AbstractTerm"
+      name="csu.mrc.ivcc.mdss.mo.AbstractTerm"
       label="MO Term"
       isAbstract="true"
       extendable="true">
@@ -711,7 +711,7 @@
       <mdMethod
         name="find"
         label="Find"
-        returnType="ivcc.mrc.csu.mdss.mo.AbstractTerm"
+        returnType="csu.mrc.ivcc.mdss.mo.AbstractTerm"
         description="Returns the MO term with the corresponding MO id"
         static="true">
         <mdParameter
@@ -724,52 +724,52 @@
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      name="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       label="Collection Method"
       description="List of all possible collection methods"
-      extends="ivcc.mrc.csu.mdss.mo.AbstractTerm">
+      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="ivcc.mrc.csu.mdss.mo.CollectionMethod[]"
+        returnType="csu.mrc.ivcc.mdss.mo.CollectionMethod[]"
         label="Get All Terms"
         static="true"
         description="Returns all term of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.mo.Generation"
+      name="csu.mrc.ivcc.mdss.mo.Generation"
       label="Generation Method"
       description="List of all possible MO generation"
-      extends="ivcc.mrc.csu.mdss.mo.AbstractTerm">
+      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="ivcc.mrc.csu.mdss.mo.Generation[]"
+        returnType="csu.mrc.ivcc.mdss.mo.Generation[]"
         label="Get All Terms"
         static="true"
         description="Returns all terms of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.mo.Specie"
+      name="csu.mrc.ivcc.mdss.mo.Specie"
       label="Specie Method"
       description="List of all possible MO species"
-      extends="ivcc.mrc.csu.mdss.mo.AbstractTerm">
+      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="ivcc.mrc.csu.mdss.mo.Specie[]"
+        returnType="csu.mrc.ivcc.mdss.mo.Specie[]"
         label="Get All Terms"
         static="true"
         description="Returns all terms of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.mo.IdentificationMethod"
+      name="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
       label="Identification Method"
       description="List of all possible MO specie identification methods"
-      extends="ivcc.mrc.csu.mdss.mo.AbstractTerm">
+      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="ivcc.mrc.csu.mdss.mo.IdentificationMethod[]"
+        returnType="csu.mrc.ivcc.mdss.mo.IdentificationMethod[]"
         label="Get All Terms"
         static="true"
         description="Returns all terms of a MO subcatagory" />
@@ -783,7 +783,7 @@
   </create>
   <update>
     <mdController
-      name="ivcc.mrc.csu.mdss.entomology.MosquitoCollectionController">
+      name="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController">
       <create>
         <mdAction
           name="searchByGeoEntityAndDate"
@@ -794,7 +794,7 @@
             name="geoEntity"
             label="Geo Entity"
             order="0"
-            type="ivcc.mrc.csu.mdss.geo.GeoEntity"
+            type="csu.mrc.ivcc.mdss.geo.GeoEntity"
             description="GeoEntity to search" />
           <mdParameter
             name="collectionDate"
@@ -839,7 +839,7 @@
             order="0"
             type="java.lang.String"
             description="Id of Mosquito collection" />
-            </mdAction>
+        </mdAction>
       </create>
     </mdController>
   </update>
@@ -851,39 +851,39 @@
 
   <create>
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.mo.Insecticide"
+      name="csu.mrc.ivcc.mdss.mo.Insecticide"
       label="Insecticide"
       description="List of all MO insecticides"
-      extends="ivcc.mrc.csu.mdss.mo.AbstractTerm">
+      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="ivcc.mrc.csu.mdss.mo.Insecticide[]"
+        returnType="csu.mrc.ivcc.mdss.mo.Insecticide[]"
         label="Get All Terms"
         static="true"
         description="Returns all terms of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      name="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       label="Assay Method"
       description="List of all assay methods"
-      extends="ivcc.mrc.csu.mdss.mo.AbstractTerm">
+      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="ivcc.mrc.csu.mdss.mo.ResistanceMethodology[]"
+        returnType="csu.mrc.ivcc.mdss.mo.ResistanceMethodology[]"
         label="Get All Terms"
         static="true"
         description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
 
     <enumerationMaster
-      name="ivcc.mrc.csu.mdss.entomology.assay.UnitMaster"
+      name="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
       label="Unit Master"
       description="Master list of all concentration units"
       generateController="false" />
 
     <object
-      type="ivcc.mrc.csu.mdss.entomology.assay.UnitMaster"
+      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
       id="MICROGRAM_PER_MILLILITER">
       <valueAttribute
         name="enumName"
@@ -894,7 +894,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.entomology.assay.UnitMaster"
+      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
       id="PERCENT">
       <valueAttribute
         name="enumName"
@@ -905,7 +905,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.entomology.assay.UnitMaster"
+      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
       id="PICOGRAM_PER_MILLILITER">
       <valueAttribute
         name="enumName"
@@ -916,7 +916,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.entomology.assay.UnitMaster"
+      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
       id="MILLIGRAM_PER_MILLILITER">
       <valueAttribute
         name="enumName"
@@ -927,7 +927,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.entomology.assay.UnitMaster"
+      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
       id="PICOGRAM_PER_LITER">
       <valueAttribute
         name="enumName"
@@ -938,7 +938,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.entomology.assay.UnitMaster"
+      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
       id="MILLIGRAM_PER_LITER">
       <valueAttribute
         name="enumName"
@@ -949,7 +949,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.entomology.assay.UnitMaster"
+      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
       id="MICROGRAM_PER_LITER">
       <valueAttribute
         name="enumName"
@@ -960,14 +960,14 @@
     </object>
 
     <mdEnumeration
-      name="ivcc.mrc.csu.mdss.entomology.assay.Unit"
-      type="ivcc.mrc.csu.mdss.entomology.assay.UnitMaster"
+      name="csu.mrc.ivcc.mdss.entomology.assay.Unit"
+      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
       label="Unit">
       <includeAll />
     </mdEnumeration>
 
     <mdStruct
-      name="ivcc.mrc.csu.mdss.entomology.assay.AdultAgeRange"
+      name="csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRange"
       label="Age Range"
       description="Age range of mosquitos in an assay">
       <attributes>
@@ -987,7 +987,7 @@
     </mdStruct>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidAgeProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidAgeProblem"
       label="Invalid Age Exception"
       description="A mosquito age must be between 0 and 20 for adult assays">
       <attributes>
@@ -999,7 +999,7 @@
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidAgeRangeProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidAgeRangeProblem"
       label="Invalid Age Range Exception"
       description="A valid age range must have a starting point equal to or less than the ending point">
       <attributes>
@@ -1015,7 +1015,7 @@
     </mdProblem>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.AbstractAssay"
+      name="csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay"
       label="Abstract Assay"
       isAbstract="true"
       extendable="true"
@@ -1029,16 +1029,16 @@
         <reference
           name="testMethod"
           label="Test Method"
-          type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology" />
+          type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology" />
         <reference
           name="specie"
           label="Specie"
-          type="ivcc.mrc.csu.mdss.mo.Specie"
+          type="csu.mrc.ivcc.mdss.mo.Specie"
           required="false" />
         <reference
           name="identificationMethod"
           label="Identification Method"
-          type="ivcc.mrc.csu.mdss.mo.IdentificationMethod"
+          type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
           required="false" />
         <boolean
           name="isofemale"
@@ -1050,32 +1050,32 @@
           name="collection"
           label="Mosquito Collection"
           required="true"
-          type="ivcc.mrc.csu.mdss.entomology.MosquitoCollection" />
+          type="csu.mrc.ivcc.mdss.entomology.MosquitoCollection" />
         <enumeration
           name="sex"
           label="Sex"
           required="true"
           description="The sex of the tested mosquitos"
           selectMultiple="false"
-          type="ivcc.mrc.csu.mdss.entomology.AssaySex" />
+          type="csu.mrc.ivcc.mdss.entomology.AssaySex" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.AdultAssay"
+      name="csu.mrc.ivcc.mdss.entomology.assay.AdultAssay"
       label="Adult Assay"
       isAbstract="true"
       extendable="true"
       description="Abstract assay which can be performed on a group of adult mosquitos"
       generateController="false"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.AbstractAssay">
+      extends="csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay">
       <attributes>
         <struct
           name="ageRange"
           label="Age Range"
           required="false"
           description="The age range of the mosquitos tested"
-          type="ivcc.mrc.csu.mdss.entomology.assay.AdultAgeRange" />
+          type="csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRange" />
         <integer
           name="fed"
           label="Fed"
@@ -1108,7 +1108,7 @@
         <reference
           name="insecticide"
           label="Insecticide"
-          type="ivcc.mrc.csu.mdss.mo.Insecticide"
+          type="csu.mrc.ivcc.mdss.mo.Insecticide"
           required="true" />
         <integer
           name="amount"
@@ -1120,7 +1120,7 @@
           name="units"
           label="Units"
           required="true"
-          type="ivcc.mrc.csu.mdss.entomology.assay.Unit"
+          type="csu.mrc.ivcc.mdss.entomology.assay.Unit"
           selectMultiple="false" />
         <char
           name="genericName"
@@ -1132,12 +1132,12 @@
           label="Generation"
           required="true"
           description="The generation of the mosquito"
-          type="ivcc.mrc.csu.mdss.mo.Generation" />
+          type="csu.mrc.ivcc.mdss.mo.Generation" />
       </attributes>
     </mdBusiness>
 
     <mdView
-      name="ivcc.mrc.csu.mdss.entomology.assay.ADDATestIntervalView"
+      name="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView"
       label="Test Interval View"
       description="View for Adult Discriminating Dose Assay test intervals">
       <attributes>
@@ -1171,7 +1171,7 @@
       <mdMethod
         name="saveAll"
         label="Save All"
-        returnType="ivcc.mrc.csu.mdss.entomology.assay.ADDATestIntervalView[]"
+        returnType="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView[]"
         static="true"
         description="Saves an array of ADDATestIntervalViews in a single transaction">
         <mdParameter
@@ -1179,15 +1179,15 @@
           label="Array"
           description="Array of objects to save"
           order="0"
-          type="ivcc.mrc.csu.mdss.entomology.assay.ADDATestIntervalView[]" />
+          type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView[]" />
       </mdMethod>
     </mdView>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.AdultDiscriminatingDoseAssay"
+      name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay"
       label="Adult Discriminating Dose Assay"
       description="Discriminating dose assay which can be performed on a group of adult mosquitos"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.AdultAssay">
+      extends="csu.mrc.ivcc.mdss.entomology.assay.AdultAssay">
       <attributes>
         <integer
           name="holdingTime"
@@ -1235,7 +1235,7 @@
       <mdMethod
         name="getTestIntervals"
         label="Get Test Intervals"
-        returnType="ivcc.mrc.csu.mdss.entomology.assay.ADDATestIntervalView[]"
+        returnType="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView[]"
         static="false"
         description="Returns a list of test intervals">
       </mdMethod>
@@ -1254,7 +1254,7 @@
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.ADDATestInterval"
+      name="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
       label="Test Interval"
       description="A single test interval for an individual adult discriminating dose assay">
       <attributes>
@@ -1262,7 +1262,7 @@
           name="assay"
           label="Adult Discriminating Dose Assay"
           required="true"
-          type="ivcc.mrc.csu.mdss.entomology.assay.AdultDiscriminatingDoseAssay" />
+          type="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay" />
         <integer
           name="period"
           label="Period"
@@ -1278,7 +1278,7 @@
     </mdBusiness>
 
     <mdIndex
-      type="ivcc.mrc.csu.mdss.entomology.assay.ADDATestInterval"
+      type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
       active="true"
       label="ADDA Test Interval Index"
       unique="true"
@@ -1290,7 +1290,7 @@
     </mdIndex>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidFedQuantityProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidFedQuantityProblem"
       label="Invalid Fed Value">
       <attributes>
         <integer
@@ -1308,7 +1308,7 @@
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidGravidQuantityProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidGravidQuantityProblem"
       label="Invalid Gravid Value">
       <attributes>
         <integer
@@ -1326,7 +1326,7 @@
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidFedSexProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidFedSexProblem"
       label="Invalid Fed Sex">
       <attributes>
         <char
@@ -1339,7 +1339,7 @@
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidGravidSexProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidGravidSexProblem"
       label="Invalid Gravid Sex">
       <attributes>
         <char
@@ -1352,7 +1352,7 @@
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidGenerationProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidGenerationProblem"
       label="Invalid Generation Value">
       <attributes>
         <char
@@ -1365,7 +1365,7 @@
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidIntervalTimeProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidIntervalTimeProblem"
       label="Invalid Interval Time">
       <attributes>
         <integer
@@ -1388,7 +1388,7 @@
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidDeadQuantityProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidDeadQuantityProblem"
       label="Invalid Dead Quantity">
       <attributes>
         <integer
@@ -1411,7 +1411,7 @@
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidKnockDownQuantityProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidKnockDownQuantityProblem"
       label="Invalid Knock Down Quantity">
       <attributes>
         <integer
@@ -1434,7 +1434,7 @@
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidPeriodProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidPeriodProblem"
       label="Invalid Period Value">
       <attributes>
         <integer
@@ -1452,7 +1452,7 @@
     </mdProblem>
 
     <mdProblem
-      name="ivcc.mrc.csu.mdss.entomology.assay.InvalidTestDateProblem"
+      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidTestDateProblem"
       label="Invalid Test Date">
       <attributes>
         <date
@@ -1477,7 +1477,7 @@
 
   <create>
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.Property"
+      name="csu.mrc.ivcc.mdss.Property"
       label="Property">
       <attributes>
         <char
@@ -1535,7 +1535,7 @@
         label="Get Property As String"
         description="Returns a global Property"
         static="true"
-        returnType="ivcc.mrc.csu.mdss.Property">
+        returnType="csu.mrc.ivcc.mdss.Property">
         <mdParameter
           name="pkg"
           description="Package to search for"
@@ -1554,7 +1554,7 @@
         label="Get Property As String"
         description="Returns a global Property"
         static="true"
-        returnType="ivcc.mrc.csu.mdss.Property">
+        returnType="csu.mrc.ivcc.mdss.Property">
         <mdParameter
           name="pkg"
           description="Package to search for"
@@ -1584,7 +1584,7 @@
     </mdBusiness>
 
     <mdIndex
-      type="ivcc.mrc.csu.mdss.Property"
+      type="csu.mrc.ivcc.mdss.Property"
       active="true"
       label="Property Index"
       unique="true"
@@ -1596,7 +1596,7 @@
     </mdIndex>
 
     <mdException
-      name="ivcc.mrc.csu.mdss.PropertyAllreadyExistsException"
+      name="csu.mrc.ivcc.mdss.PropertyAllreadyExistsException"
       label="Property Allready Exists"
       description="Exception thrown when createing a property with a package and key that allready exists.">
       <attributes>
@@ -1604,7 +1604,7 @@
     </mdException>
 
     <mdException
-      name="ivcc.mrc.csu.mdss.PropertyValidationFailedException"
+      name="csu.mrc.ivcc.mdss.PropertyValidationFailedException"
       label="Property Validation Failed"
       description="Exception thrown when setting a property to an invalid value.">
       <attributes>
@@ -1618,14 +1618,14 @@
     </mdException>
 
     <object
-      type="ivcc.mrc.csu.mdss.Property"
+      type="csu.mrc.ivcc.mdss.Property"
       id="aDDAR">
       <valueAttribute
         name="propertyName"
         value="aDDAR" />
       <valueAttribute
         name="propertyPackage"
-        value="ivcc.mrc.csu.mdss.entomology.ResistantanceCutOff" />
+        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="95" />
@@ -1641,14 +1641,14 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.Property"
+      type="csu.mrc.ivcc.mdss.Property"
       id="aDDAS">
       <valueAttribute
         name="propertyName"
         value="aDDAS" />
       <valueAttribute
         name="propertyPackage"
-        value="ivcc.mrc.csu.mdss.entomology.ResistantanceCutOff" />
+        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="98" />
@@ -1664,14 +1664,14 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.Property"
+      type="csu.mrc.ivcc.mdss.Property"
       id="lDDAR">
       <valueAttribute
         name="propertyName"
         value="lDDAR" />
       <valueAttribute
         name="propertyPackage"
-        value="ivcc.mrc.csu.mdss.entomology.ResistantanceCutOff" />
+        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="95" />
@@ -1687,14 +1687,14 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.Property"
+      type="csu.mrc.ivcc.mdss.Property"
       id="lDDAS">
       <valueAttribute
         name="propertyName"
         value="lDDAS" />
       <valueAttribute
         name="propertyPackage"
-        value="ivcc.mrc.csu.mdss.entomology.ResistantanceCutOff" />
+        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="98" />
@@ -1710,14 +1710,14 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.Property"
+      type="csu.mrc.ivcc.mdss.Property"
       id="aAKnockDownR">
       <valueAttribute
         name="propertyName"
         value="aAKnockDownR" />
       <valueAttribute
         name="propertyPackage"
-        value="ivcc.mrc.csu.mdss.entomology.ResistantanceCutOff" />
+        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="95" />
@@ -1733,14 +1733,14 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.Property"
+      type="csu.mrc.ivcc.mdss.Property"
       id="aAKnockDownPR">
       <valueAttribute
         name="propertyName"
         value="aAKnockDownPR" />
       <valueAttribute
         name="propertyPackage"
-        value="ivcc.mrc.csu.mdss.entomology.ResistantanceCutOff" />
+        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="98" />
@@ -1756,14 +1756,14 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.Property"
+      type="csu.mrc.ivcc.mdss.Property"
       id="lAKnockDownR">
       <valueAttribute
         name="propertyName"
         value="lAKnockDownR" />
       <valueAttribute
         name="propertyPackage"
-        value="ivcc.mrc.csu.mdss.entomology.ResistantanceCutOff" />
+        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="95" />
@@ -1779,14 +1779,14 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.Property"
+      type="csu.mrc.ivcc.mdss.Property"
       id="lAKnockDownPR">
       <valueAttribute
         name="propertyName"
         value="lAKnockDownPR" />
       <valueAttribute
         name="propertyPackage"
-        value="ivcc.mrc.csu.mdss.entomology.ResistantanceCutOff" />
+        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="98" />
@@ -1806,7 +1806,7 @@
   <create>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.MolecularAssayResult"
+      type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult"
       id="RR">
       <valueAttribute
         name="termName"
@@ -1826,7 +1826,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.MolecularAssayResult"
+      type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult"
       id="RS">
       <valueAttribute
         name="termName"
@@ -1846,7 +1846,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.MolecularAssayResult"
+      type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult"
       id="SS">
       <valueAttribute
         name="termName"
@@ -1866,35 +1866,35 @@
     </object>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.mo.MolecularAssayResult"
+      name="csu.mrc.ivcc.mdss.mo.MolecularAssayResult"
       label="Molecular Assay Result"
       description="List of molecular array results"
-      extends="ivcc.mrc.csu.mdss.mo.AbstractTerm">
+      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.mo.InfectivityMethodology"
+      name="csu.mrc.ivcc.mdss.mo.InfectivityMethodology"
       label="Infectivity Methodology"
       description="List of molecular array results"
-      extends="ivcc.mrc.csu.mdss.mo.AbstractTerm">
+      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.mo.BiochemicalMethodology"
+      name="csu.mrc.ivcc.mdss.mo.BiochemicalMethodology"
       label="Biochemical Methodology"
       description="List of molecular array results"
-      extends="ivcc.mrc.csu.mdss.mo.AbstractTerm">
+      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.mo.InsecticideMethodology"
+      name="csu.mrc.ivcc.mdss.mo.InsecticideMethodology"
       label="Molecular Assay Result"
       description="List of molecular array results"
-      extends="ivcc.mrc.csu.mdss.mo.AbstractTerm">
+      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.AssayTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult"
       label="Assay Test Result"
       extendable="true"
       isAbstract="true"
@@ -1907,20 +1907,20 @@
           indexType="non-unique index"
           immutable="true"
           description="The mosquito on which the W-KDR test was performed"
-          type="ivcc.mrc.csu.mdss.entomology.Mosquito" />
+          type="csu.mrc.ivcc.mdss.entomology.Mosquito" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
       label="Molecular Assay Test Result"
       isAbstract="true"
       extendable="true"
       generateController="false"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.AssayTestResult">
+      extends="csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult">
       <attributes>
         <reference
-          type="ivcc.mrc.csu.mdss.mo.InsecticideMethodology"
+          type="csu.mrc.ivcc.mdss.mo.InsecticideMethodology"
           name="testMethod"
           label="Test Methodology"
           required="true"
@@ -1929,15 +1929,15 @@
       <mdMethod
         name="getMolecularAssays"
         label="Get Molecular Assays"
-        returnType="ivcc.mrc.csu.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+        returnType="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
         static="true">
       </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.molecular.WKDRTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.molecular.WKDRTestResult"
       label="W-KDR Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
       description="W-KDR test result.">
       <attributes>
         <reference
@@ -1945,14 +1945,14 @@
           label="W-KDR Test Result"
           required="true"
           description="Molecular assay result"
-          type="ivcc.mrc.csu.mdss.mo.MolecularAssayResult" />
+          type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.molecular.EKDRTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.molecular.EKDRTestResult"
       label="E-KDR Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
       description="E-KDR test result.">
       <attributes>
         <reference
@@ -1960,14 +1960,14 @@
           label="E-KDR Test Result"
           required="true"
           description="Molecular assay result"
-          type="ivcc.mrc.csu.mdss.mo.MolecularAssayResult" />
+          type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.molecular.AcHETestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.molecular.AcHETestResult"
       label="AcHE Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
       description="AcHE test result.">
       <attributes>
         <reference
@@ -1975,14 +1975,14 @@
           label="AcHE Test Result"
           required="true"
           description="Molecular assay result"
-          type="ivcc.mrc.csu.mdss.mo.MolecularAssayResult" />
+          type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.molecular.GABATestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.molecular.GABATestResult"
       label="GABA Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
       description="GABA test result.">
       <attributes>
         <reference
@@ -1990,20 +1990,20 @@
           label="GABA Test Result"
           required="true"
           description="Molecular assay result"
-          type="ivcc.mrc.csu.mdss.mo.MolecularAssayResult" />
+          type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
       label="Bio-Chemical Assay Test Result"
       isAbstract="true"
       extendable="true"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.AssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult"
       generateController="false">
       <attributes>
         <reference
-          type="ivcc.mrc.csu.mdss.mo.BiochemicalMethodology"
+          type="csu.mrc.ivcc.mdss.mo.BiochemicalMethodology"
           name="testMethod"
           label="Test Methodology"
           required="true"
@@ -2012,15 +2012,15 @@
       <mdMethod
         name="getBiochemicalAssays"
         label="Get Biochemical Assays"
-        returnType="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+        returnType="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
         static="true">
       </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.biochemical.AEsteraseTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.AEsteraseTestResult"
       label="α-Esterase Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="α-Esterase test result.">
       <attributes>
         <integer
@@ -2032,9 +2032,9 @@
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BEsteraseTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BEsteraseTestResult"
       label="β-Esterase Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="β-Esterase test result.">
       <attributes>
         <integer
@@ -2046,9 +2046,9 @@
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.biochemical.PNPATestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.PNPATestResult"
       label="PNPA Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="PNPA test result.">
       <attributes>
         <integer
@@ -2060,9 +2060,9 @@
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.biochemical.GSTTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.GSTTestResult"
       label="GST Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="GST test result.">
       <attributes>
         <integer
@@ -2074,9 +2074,9 @@
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.biochemical.MonooxygenaseTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.MonooxygenaseTestResult"
       label="Monooxygenase Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="Monooxygenase test result.">
       <attributes>
         <integer
@@ -2088,9 +2088,9 @@
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.biochemical.AcHETestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.AcHETestResult"
       label="AcHE Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="AcHE test result.">
       <attributes>
         <reference
@@ -2098,20 +2098,20 @@
           label="AcHE Test Result"
           required="true"
           description="Molecular assay result"
-          type="ivcc.mrc.csu.mdss.mo.MolecularAssayResult" />
+          type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
       label="Infectivity Assay Test Result"
       isAbstract="true"
       extendable="true"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.AssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult"
       generateController="false">
       <attributes>
         <reference
-          type="ivcc.mrc.csu.mdss.mo.InfectivityMethodology"
+          type="csu.mrc.ivcc.mdss.mo.InfectivityMethodology"
           name="testMethod"
           label="Test Methodology"
           required="true"
@@ -2120,15 +2120,15 @@
       <mdMethod
         name="getInfectivityAssays"
         label="Get Infectivity Assays"
-        returnType="ivcc.mrc.csu.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+        returnType="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
         static="true">
       </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.infectivity.PFalciparumTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PFalciparumTestResult"
       label="P. Falciparum Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Falciparum test result.">
       <attributes>
         <boolean
@@ -2140,9 +2140,9 @@
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.infectivity.POvaleTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.infectivity.POvaleTestResult"
       label="P. Ovale Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Ovale test result.">
       <attributes>
         <boolean
@@ -2154,9 +2154,9 @@
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.infectivity.PMalariaeTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PMalariaeTestResult"
       label="P. Malariae Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Malariae test result.">
       <attributes>
         <boolean
@@ -2168,9 +2168,9 @@
     </mdBusiness>
 
     <mdBusiness
-      name="ivcc.mrc.csu.mdss.entomology.assay.infectivity.PVivaxTestResult"
+      name="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PVivaxTestResult"
       label="P. Vivax Test Result"
-      extends="ivcc.mrc.csu.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Vivax test result.">
       <attributes>
         <boolean
@@ -2182,7 +2182,7 @@
     </mdBusiness>
 
     <mdView
-      name="ivcc.mrc.csu.mdss.entomology.MosquitoView"
+      name="csu.mrc.ivcc.mdss.entomology.MosquitoView"
       label="Mosquito
       Assay View"
       description="A view of a mosquito reference and all of
@@ -2195,177 +2195,177 @@
           description="The id of the mosquito, if the Id is blank then it is assumed the mosquito is new" />
         <virtual
           name="collection"
-          type="ivcc.mrc.csu.mdss.entomology.TrueSpecieEntity"
+          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
           concrete="collection"
           required="true" />
         <virtual
           name="specie"
-          type="ivcc.mrc.csu.mdss.entomology.TrueSpecieEntity"
+          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
           required="true"
           concrete="specie" />
         <virtual
           name="identificationMethod"
-          type="ivcc.mrc.csu.mdss.entomology.TrueSpecieEntity"
+          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
           concrete="identificationMethod"
           required="true" />
         <virtual
           name="testDate"
-          type="ivcc.mrc.csu.mdss.entomology.Mosquito"
+          type="csu.mrc.ivcc.mdss.entomology.Mosquito"
           concrete="testDate"
           required="true" />
         <virtual
           name="isofemale"
-          type="ivcc.mrc.csu.mdss.entomology.Mosquito"
+          type="csu.mrc.ivcc.mdss.entomology.Mosquito"
           concrete="isofemale"
           required="true" />
         <virtual
           name="sex"
-          type="ivcc.mrc.csu.mdss.entomology.Mosquito"
+          type="csu.mrc.ivcc.mdss.entomology.Mosquito"
           concrete="sex"
           required="true" />
         <virtual
           name="generation"
-          type="ivcc.mrc.csu.mdss.entomology.Mosquito"
+          type="csu.mrc.ivcc.mdss.entomology.Mosquito"
           concrete="generation"
           required="true" />
         <virtual
           name="wKDR"
-          type="ivcc.mrc.csu.mdss.entomology.assay.molecular.WKDRTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.WKDRTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="wKDRMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="eKDR"
-          type="ivcc.mrc.csu.mdss.entomology.assay.molecular.EKDRTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.EKDRTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="eKDRMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="acHEMolecular"
-          type="ivcc.mrc.csu.mdss.entomology.assay.molecular.AcHETestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.AcHETestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="acHEMolecularMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="gABA"
-          type="ivcc.mrc.csu.mdss.entomology.assay.molecular.GABATestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.GABATestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="gABAMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="aEsterase"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.AEsteraseTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.AEsteraseTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="aEsteraseMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="bEsterase"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BEsteraseTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BEsteraseTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="bEsteraseMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="pNPA"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.PNPATestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.PNPATestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="pNPAMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="gST"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.GSTTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.GSTTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="gSTMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="monooxygenase"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.MonooxygenaseTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.MonooxygenaseTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="monooxygenaseMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="acHEBiochemical"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.AcHETestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.AcHETestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="acHEBiochemicalMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="pFalciparum"
-          type="ivcc.mrc.csu.mdss.entomology.assay.infectivity.PFalciparumTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PFalciparumTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="pFalciparumMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="pOvale"
-          type="ivcc.mrc.csu.mdss.entomology.assay.infectivity.POvaleTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.POvaleTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="pOvaleMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="pMalariae"
-          type="ivcc.mrc.csu.mdss.entomology.assay.infectivity.PMalariaeTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PMalariaeTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="pMalariaeMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="pVivax"
-          type="ivcc.mrc.csu.mdss.entomology.assay.infectivity.PVivaxTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PVivaxTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="pVivaxMethod"
-          type="ivcc.mrc.csu.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
           concrete="testMethod"
           required="false" />
       </attributes>
@@ -2376,7 +2376,7 @@
   <!-- Test TERMS -->
   <create>
     <object
-      type="ivcc.mrc.csu.mdss.mo.Generation"
+      type="csu.mrc.ivcc.mdss.mo.Generation"
       id="F0">
       <valueAttribute
         name="termId"
@@ -2396,7 +2396,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Generation"
+      type="csu.mrc.ivcc.mdss.mo.Generation"
       id="F2">
       <valueAttribute
         name="termId"
@@ -2420,7 +2420,7 @@
   <!-- MO TERMS -->
   <create>
     <object
-      type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       id="MIRO_30000044">
       <valueAttribute
         name="termId"
@@ -2446,7 +2446,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       id="MIRO_30000045">
       <valueAttribute
         name="termId"
@@ -2472,7 +2472,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       id="MIRO_30000048">
       <valueAttribute
         name="termId"
@@ -2498,7 +2498,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       id="MIRO_30000022">
       <valueAttribute
         name="termId"
@@ -2524,7 +2524,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       id="MIRO_30000049">
       <valueAttribute
         name="termId"
@@ -2550,7 +2550,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       id="MIRO_30000053">
       <valueAttribute
         name="termId"
@@ -2576,7 +2576,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       id="MIRO_30000060">
       <valueAttribute
         name="termId"
@@ -2602,7 +2602,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       id="MIRO_30000050">
       <valueAttribute
         name="termId"
@@ -2628,7 +2628,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       id="MIRO_30000051">
       <valueAttribute
         name="termId"
@@ -2654,7 +2654,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       id="MIRO_30000052">
       <valueAttribute
         name="termId"
@@ -2680,7 +2680,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.CollectionMethod"
+      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
       id="MIRO_30000046">
       <valueAttribute
         name="termId"
@@ -2707,7 +2707,7 @@
 
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.IdentificationMethod"
+      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
       id="IRO_30000005">
       <valueAttribute
         name="termId"
@@ -2733,7 +2733,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.IdentificationMethod"
+      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
       id="MIRO_30000036">
       <valueAttribute
         name="termId"
@@ -2759,7 +2759,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.IdentificationMethod"
+      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
       id="MIRO_30000037">
       <valueAttribute
         name="termId"
@@ -2785,7 +2785,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.IdentificationMethod"
+      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
       id="MIRO_30000038">
       <valueAttribute
         name="termId"
@@ -2811,7 +2811,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.IdentificationMethod"
+      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
       id="MIRO_30000039">
       <valueAttribute
         name="termId"
@@ -2837,7 +2837,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.IdentificationMethod"
+      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
       id="MIRO_30000040">
       <valueAttribute
         name="termId"
@@ -2863,7 +2863,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.IdentificationMethod"
+      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
       id="MIRO_30000041">
       <valueAttribute
         name="termId"
@@ -2889,7 +2889,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000169">
       <valueAttribute
         name="termId"
@@ -2915,7 +2915,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000002">
       <valueAttribute
         name="termId"
@@ -2941,7 +2941,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000003">
       <valueAttribute
         name="termId"
@@ -2967,7 +2967,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000004">
       <valueAttribute
         name="termId"
@@ -2993,7 +2993,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000005">
       <valueAttribute
         name="termId"
@@ -3019,7 +3019,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000006">
       <valueAttribute
         name="termId"
@@ -3045,7 +3045,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000007">
       <valueAttribute
         name="termId"
@@ -3071,7 +3071,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000008">
       <valueAttribute
         name="termId"
@@ -3097,7 +3097,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000009">
       <valueAttribute
         name="termId"
@@ -3123,7 +3123,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000010">
       <valueAttribute
         name="termId"
@@ -3149,7 +3149,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000011">
       <valueAttribute
         name="termId"
@@ -3175,7 +3175,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000012">
       <valueAttribute
         name="termId"
@@ -3201,7 +3201,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000013">
       <valueAttribute
         name="termId"
@@ -3227,7 +3227,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000014">
       <valueAttribute
         name="termId"
@@ -3253,7 +3253,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000015">
       <valueAttribute
         name="termId"
@@ -3279,7 +3279,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000016">
       <valueAttribute
         name="termId"
@@ -3305,7 +3305,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000017">
       <valueAttribute
         name="termId"
@@ -3331,7 +3331,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000018">
       <valueAttribute
         name="termId"
@@ -3357,7 +3357,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000019">
       <valueAttribute
         name="termId"
@@ -3383,7 +3383,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000020">
       <valueAttribute
         name="termId"
@@ -3409,7 +3409,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000021">
       <valueAttribute
         name="termId"
@@ -3435,7 +3435,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000022">
       <valueAttribute
         name="termId"
@@ -3461,7 +3461,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000023">
       <valueAttribute
         name="termId"
@@ -3487,7 +3487,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000024">
       <valueAttribute
         name="termId"
@@ -3513,7 +3513,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000025">
       <valueAttribute
         name="termId"
@@ -3539,7 +3539,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000026">
       <valueAttribute
         name="termId"
@@ -3565,7 +3565,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000027">
       <valueAttribute
         name="termId"
@@ -3591,7 +3591,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000028">
       <valueAttribute
         name="termId"
@@ -3617,7 +3617,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000031">
       <valueAttribute
         name="termId"
@@ -3643,7 +3643,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000032">
       <valueAttribute
         name="termId"
@@ -3669,7 +3669,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000033">
       <valueAttribute
         name="termId"
@@ -3695,7 +3695,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000034">
       <valueAttribute
         name="termId"
@@ -3721,7 +3721,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000035">
       <valueAttribute
         name="termId"
@@ -3747,7 +3747,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000036">
       <valueAttribute
         name="termId"
@@ -3773,7 +3773,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000037">
       <valueAttribute
         name="termId"
@@ -3799,7 +3799,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000038">
       <valueAttribute
         name="termId"
@@ -3825,7 +3825,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000039">
       <valueAttribute
         name="termId"
@@ -3851,7 +3851,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000040">
       <valueAttribute
         name="termId"
@@ -3877,7 +3877,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000041">
       <valueAttribute
         name="termId"
@@ -3903,7 +3903,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000042">
       <valueAttribute
         name="termId"
@@ -3929,7 +3929,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000043">
       <valueAttribute
         name="termId"
@@ -3955,7 +3955,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000044">
       <valueAttribute
         name="termId"
@@ -3981,7 +3981,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000045">
       <valueAttribute
         name="termId"
@@ -4007,7 +4007,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000046">
       <valueAttribute
         name="termId"
@@ -4033,7 +4033,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000047">
       <valueAttribute
         name="termId"
@@ -4059,7 +4059,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000048">
       <valueAttribute
         name="termId"
@@ -4085,7 +4085,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000049">
       <valueAttribute
         name="termId"
@@ -4111,7 +4111,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000050">
       <valueAttribute
         name="termId"
@@ -4137,7 +4137,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000051">
       <valueAttribute
         name="termId"
@@ -4163,7 +4163,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000052">
       <valueAttribute
         name="termId"
@@ -4189,7 +4189,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000053">
       <valueAttribute
         name="termId"
@@ -4215,7 +4215,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000054">
       <valueAttribute
         name="termId"
@@ -4241,7 +4241,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000055">
       <valueAttribute
         name="termId"
@@ -4267,7 +4267,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000056">
       <valueAttribute
         name="termId"
@@ -4293,7 +4293,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000057">
       <valueAttribute
         name="termId"
@@ -4319,7 +4319,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000058">
       <valueAttribute
         name="termId"
@@ -4345,7 +4345,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000059">
       <valueAttribute
         name="termId"
@@ -4371,7 +4371,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000060">
       <valueAttribute
         name="termId"
@@ -4397,7 +4397,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000061">
       <valueAttribute
         name="termId"
@@ -4423,7 +4423,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000062">
       <valueAttribute
         name="termId"
@@ -4449,7 +4449,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000063">
       <valueAttribute
         name="termId"
@@ -4475,7 +4475,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000064">
       <valueAttribute
         name="termId"
@@ -4501,7 +4501,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000065">
       <valueAttribute
         name="termId"
@@ -4527,7 +4527,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000066">
       <valueAttribute
         name="termId"
@@ -4553,7 +4553,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000067">
       <valueAttribute
         name="termId"
@@ -4579,7 +4579,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000068">
       <valueAttribute
         name="termId"
@@ -4605,7 +4605,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000069">
       <valueAttribute
         name="termId"
@@ -4631,7 +4631,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000070">
       <valueAttribute
         name="termId"
@@ -4657,7 +4657,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000071">
       <valueAttribute
         name="termId"
@@ -4683,7 +4683,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000072">
       <valueAttribute
         name="termId"
@@ -4709,7 +4709,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000073">
       <valueAttribute
         name="termId"
@@ -4735,7 +4735,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000074">
       <valueAttribute
         name="termId"
@@ -4761,7 +4761,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000075">
       <valueAttribute
         name="termId"
@@ -4787,7 +4787,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000076">
       <valueAttribute
         name="termId"
@@ -4813,7 +4813,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000077">
       <valueAttribute
         name="termId"
@@ -4839,7 +4839,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000078">
       <valueAttribute
         name="termId"
@@ -4865,7 +4865,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000079">
       <valueAttribute
         name="termId"
@@ -4891,7 +4891,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000080">
       <valueAttribute
         name="termId"
@@ -4917,7 +4917,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000081">
       <valueAttribute
         name="termId"
@@ -4943,7 +4943,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000082">
       <valueAttribute
         name="termId"
@@ -4969,7 +4969,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000083">
       <valueAttribute
         name="termId"
@@ -4995,7 +4995,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000084">
       <valueAttribute
         name="termId"
@@ -5021,7 +5021,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000085">
       <valueAttribute
         name="termId"
@@ -5047,7 +5047,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000086">
       <valueAttribute
         name="termId"
@@ -5073,7 +5073,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000087">
       <valueAttribute
         name="termId"
@@ -5099,7 +5099,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000088">
       <valueAttribute
         name="termId"
@@ -5125,7 +5125,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000089">
       <valueAttribute
         name="termId"
@@ -5148,7 +5148,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000090">
       <valueAttribute
         name="termId"
@@ -5174,7 +5174,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000091">
       <valueAttribute
         name="termId"
@@ -5200,7 +5200,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000092">
       <valueAttribute
         name="termId"
@@ -5226,7 +5226,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000093">
       <valueAttribute
         name="termId"
@@ -5252,7 +5252,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000094">
       <valueAttribute
         name="termId"
@@ -5278,7 +5278,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000095">
       <valueAttribute
         name="termId"
@@ -5304,7 +5304,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000096">
       <valueAttribute
         name="termId"
@@ -5330,7 +5330,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000097">
       <valueAttribute
         name="termId"
@@ -5356,7 +5356,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000098">
       <valueAttribute
         name="termId"
@@ -5382,7 +5382,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000099">
       <valueAttribute
         name="termId"
@@ -5408,7 +5408,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000112">
       <valueAttribute
         name="termId"
@@ -5434,7 +5434,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000113">
       <valueAttribute
         name="termId"
@@ -5460,7 +5460,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000114">
       <valueAttribute
         name="termId"
@@ -5486,7 +5486,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000115">
       <valueAttribute
         name="termId"
@@ -5512,7 +5512,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000116">
       <valueAttribute
         name="termId"
@@ -5538,7 +5538,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000117">
       <valueAttribute
         name="termId"
@@ -5564,7 +5564,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000118">
       <valueAttribute
         name="termId"
@@ -5590,7 +5590,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000119">
       <valueAttribute
         name="termId"
@@ -5616,7 +5616,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000120">
       <valueAttribute
         name="termId"
@@ -5642,7 +5642,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000121">
       <valueAttribute
         name="termId"
@@ -5668,7 +5668,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000122">
       <valueAttribute
         name="termId"
@@ -5694,7 +5694,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000123">
       <valueAttribute
         name="termId"
@@ -5720,7 +5720,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000124">
       <valueAttribute
         name="termId"
@@ -5746,7 +5746,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000125">
       <valueAttribute
         name="termId"
@@ -5772,7 +5772,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000126">
       <valueAttribute
         name="termId"
@@ -5798,7 +5798,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000127">
       <valueAttribute
         name="termId"
@@ -5824,7 +5824,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000128">
       <valueAttribute
         name="termId"
@@ -5850,7 +5850,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000129">
       <valueAttribute
         name="termId"
@@ -5876,7 +5876,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000130">
       <valueAttribute
         name="termId"
@@ -5902,7 +5902,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000131">
       <valueAttribute
         name="termId"
@@ -5928,7 +5928,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000132">
       <valueAttribute
         name="termId"
@@ -5954,7 +5954,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000133">
       <valueAttribute
         name="termId"
@@ -5980,7 +5980,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000134">
       <valueAttribute
         name="termId"
@@ -6006,7 +6006,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000135">
       <valueAttribute
         name="termId"
@@ -6032,7 +6032,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000136">
       <valueAttribute
         name="termId"
@@ -6058,7 +6058,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000137">
       <valueAttribute
         name="termId"
@@ -6084,7 +6084,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000138">
       <valueAttribute
         name="termId"
@@ -6110,7 +6110,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000139">
       <valueAttribute
         name="termId"
@@ -6136,7 +6136,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000140">
       <valueAttribute
         name="termId"
@@ -6162,7 +6162,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000141">
       <valueAttribute
         name="termId"
@@ -6188,7 +6188,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000142">
       <valueAttribute
         name="termId"
@@ -6214,7 +6214,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000143">
       <valueAttribute
         name="termId"
@@ -6240,7 +6240,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000144">
       <valueAttribute
         name="termId"
@@ -6266,7 +6266,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000145">
       <valueAttribute
         name="termId"
@@ -6292,7 +6292,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000146">
       <valueAttribute
         name="termId"
@@ -6318,7 +6318,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000147">
       <valueAttribute
         name="termId"
@@ -6344,7 +6344,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000148">
       <valueAttribute
         name="termId"
@@ -6370,7 +6370,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000149">
       <valueAttribute
         name="termId"
@@ -6396,7 +6396,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000150">
       <valueAttribute
         name="termId"
@@ -6422,7 +6422,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000151">
       <valueAttribute
         name="termId"
@@ -6448,7 +6448,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000152">
       <valueAttribute
         name="termId"
@@ -6474,7 +6474,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000153">
       <valueAttribute
         name="termId"
@@ -6500,7 +6500,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000154">
       <valueAttribute
         name="termId"
@@ -6526,7 +6526,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000155">
       <valueAttribute
         name="termId"
@@ -6552,7 +6552,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000158">
       <valueAttribute
         name="termId"
@@ -6578,7 +6578,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Insecticide"
+      type="csu.mrc.ivcc.mdss.mo.Insecticide"
       id="MIRO_10000157">
       <valueAttribute
         name="termId"
@@ -6605,7 +6605,7 @@
 
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       id="MIRO_20000001">
       <valueAttribute
         name="termId"
@@ -6631,7 +6631,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       id="MIRO_20000003">
       <valueAttribute
         name="termId"
@@ -6657,7 +6657,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       id="MIRO_20000004">
       <valueAttribute
         name="termId"
@@ -6683,7 +6683,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       id="MIRO_20000043">
       <valueAttribute
         name="termId"
@@ -6709,7 +6709,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       id="MIRO_20000058">
       <valueAttribute
         name="termId"
@@ -6735,7 +6735,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       id="MIRO_20000090">
       <valueAttribute
         name="termId"
@@ -6761,7 +6761,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       id="MIRO_20000075">
       <valueAttribute
         name="termId"
@@ -6787,7 +6787,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       id="MIRO_20000009">
       <valueAttribute
         name="termId"
@@ -6813,7 +6813,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       id="MIRO_20000039">
       <valueAttribute
         name="termId"
@@ -6839,7 +6839,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       id="MIRO_20000041">
       <valueAttribute
         name="termId"
@@ -6865,7 +6865,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.ResistanceMethodology"
+      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
       id="MIRO_20000049">
       <valueAttribute
         name="termId"
@@ -6892,7 +6892,7 @@
 
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40003818">
       <valueAttribute
         name="termId"
@@ -6918,7 +6918,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40003652">
       <valueAttribute
         name="termId"
@@ -6944,7 +6944,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40003653">
       <valueAttribute
         name="termId"
@@ -6970,7 +6970,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40003478">
       <valueAttribute
         name="termId"
@@ -6996,7 +6996,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40002227">
       <valueAttribute
         name="termId"
@@ -7022,7 +7022,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40002237">
       <valueAttribute
         name="termId"
@@ -7048,7 +7048,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40002252">
       <valueAttribute
         name="termId"
@@ -7074,7 +7074,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40003479">
       <valueAttribute
         name="termId"
@@ -7100,7 +7100,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40003509">
       <valueAttribute
         name="termId"
@@ -7126,7 +7126,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40003561">
       <valueAttribute
         name="termId"
@@ -7152,7 +7152,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40002423">
       <valueAttribute
         name="termId"
@@ -7178,7 +7178,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40003480">
       <valueAttribute
         name="termId"
@@ -7204,7 +7204,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40002224">
       <valueAttribute
         name="termId"
@@ -7230,7 +7230,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40002241">
       <valueAttribute
         name="termId"
@@ -7256,7 +7256,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40003532">
       <valueAttribute
         name="termId"
@@ -7282,7 +7282,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.Specie"
+      type="csu.mrc.ivcc.mdss.mo.Specie"
       id="MIRO_40003572">
       <valueAttribute
         name="termId"
@@ -7308,7 +7308,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.InsecticideMethodology"
+      type="csu.mrc.ivcc.mdss.mo.InsecticideMethodology"
       id="MIRO_99903572">
       <valueAttribute
         name="termId"
@@ -7328,7 +7328,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.InfectivityMethodology"
+      type="csu.mrc.ivcc.mdss.mo.InfectivityMethodology"
       id="MIRO_99803572">
       <valueAttribute
         name="termId"
@@ -7348,7 +7348,7 @@
     </object>
 
     <object
-      type="ivcc.mrc.csu.mdss.mo.BiochemicalMethodology"
+      type="csu.mrc.ivcc.mdss.mo.BiochemicalMethodology"
       id="MIRO_99703572">
       <valueAttribute
         name="termId"
