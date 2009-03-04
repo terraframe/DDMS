@@ -45,6 +45,7 @@
           <xs:element name="mdFacade" type="mdFacade" />
           <xs:element name="mdException" type="mdException" />
           <xs:element name="mdProblem" type="mdException" />
+          <xs:element name="mdInformation" type="mdException" />          
           <xs:element name="mdView" type="mdView" />
           <xs:element name="mdUtil" type="mdSession" />
           <xs:element name="mdController" type="mdController" />
@@ -71,6 +72,7 @@
         <xs:element name="mdFacade" type="mdFacade" />
         <xs:element name="mdException" type="mdException" />
         <xs:element name="mdProblem" type="mdException" />
+        <xs:element name="mdInformation" type="mdException" />                  
         <xs:element name="mdView" type="mdView" />
         <xs:element name="mdUtil" type="mdSession" />
         <xs:element name="mdController" type="mdController" />
