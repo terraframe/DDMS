@@ -25,7 +25,8 @@
                              
                              </li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><f:message key="Backup_Data"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><f:message key="Change_Settings"/></a></li>                             
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><f:message key="Change_Settings"/></a></li> 
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="ivcc.mrc.csu.mdss.PropertyController.viewAll.mojo"><f:message key="Change_Settings"/></a></li>                                  
                          </ul>
                      </div>
                  </div>      
