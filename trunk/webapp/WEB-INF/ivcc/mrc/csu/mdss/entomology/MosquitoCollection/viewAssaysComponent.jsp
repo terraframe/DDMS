@@ -13,31 +13,6 @@
 <%@page import="ivcc.mrc.csu.mdss.util.Halp" %>
 <%@page import="org.json.*"%>
 <%!
- static String getDropDownMap(AbstractTermDTO[] terms) throws JSONException {
-	JSONObject map = new JSONObject();
-	for(AbstractTermDTO term : terms)
-	 {
-	    map.put(term.getDisplayLabel(),term.getId());
-	} 
-	return map.toString();
-}
-
-
-static String getDropDownMap2(AbstractTermDTO[] terms) throws JSONException {
-	JSONArray map = new JSONArray();
-	for(AbstractTermDTO term : terms)
-	 {
-		JSONObject element = new JSONObject();
-		element.put("value",term.getId());
-		element.put("label",term.getDisplayLabel());
-		
-		map.put(element);
-	} 
-	return map.toString();
-}
-
-
-
 static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSONException {
 	JSONArray ids = new JSONArray();
 	JSONArray labels = new JSONArray();
@@ -48,91 +23,13 @@ static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSON
 	} 
 	return name +"Ids = " + ids.toString()+"; \n "+ name + "Labels = "+ labels.toString() +";";
 }
-
-
-
-static String getDataMap(MorphologicalSpecieGroupViewDTO[] rows, String[] attribs) throws JSONException{
-	JSONArray map = new JSONArray();
-	for(MorphologicalSpecieGroupViewDTO row : rows)
-	 {
-		JSONObject element = new JSONObject();		
-		Class c = row.getClass();	
-		for(String attrib : attribs)
-		{		
-			try
-			{
-				String value = (String) c.getMethod("get"+attrib).invoke(row).toString();	
-				element.put(attrib,value);
-			}
-			catch (IllegalAccessException x) {
-			}
-			catch (IllegalArgumentException  x) {
-			}
-			catch (InvocationTargetException x) {
-			}
-			catch (NoSuchMethodException x) {
-				System.out.println("No such method get"+attrib);
-			}
-
-		}	
-		map.put(element);
-	} 
-	return map.toString();
-}
-
-static String getColumnSetup(MorphologicalSpecieGroupViewDTO[] rows, String[] attribs) throws JSONException{
-	JSONArray map = new JSONArray();
-	for(MorphologicalSpecieGroupViewDTO row : rows)
-	 {
-		JSONObject element = new JSONObject();		
-		Class c = row.getClass();
-		int colnum = 0;
-		for(String attrib : attribs)
-		{		
-			try
-			{
-				element.put("key",attrib);
-				AttributeCharacterMdDTO md = (AttributeCharacterMdDTO) c.getMethod("get"+attrib+"Md").invoke(row);
-			    
-				Class mdClass = md.getClass();
-				String label = (String) c.getMethod("getDisplayLabel").invoke(row);	
-				
-				element.put("label",label);
-				if(colnum == 0)
-				{
-					
-					
-				//	{key:"GroupId",label:"ID",hidden:true},
-				}
-				
-				String value = (String) c.getMethod("get"+attrib).invoke(row).toString();	
-				element.put(attrib,value);
-			}
-			catch (IllegalAccessException x) {
-			}
-			catch (IllegalArgumentException  x) {
-			}
-			catch (InvocationTargetException x) {
-			}
-			catch (NoSuchMethodException x) {
-				System.out.println("No such method get"+attrib);
-			}
-
-		}	
-		map.put(element);
-	} 
-	return map.toString();
-}
-
-
-
+ 
 
 %>
 
 
-<%@page import="java.lang.reflect.InvocationTargetException"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdClassDAOIF"%>
-<%@page import="com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO"%><mjl:messages>
+<%@page import="ivcc.mrc.csu.mdss.entomology.MosquitoViewDTO"%>
+<mjl:messages>
 	<mjl:message />
 </mjl:messages>
 <mjl:form name="mdss.entomology.MosquitoCollection.form.name"
@@ -183,53 +80,50 @@ static String getColumnSetup(MorphologicalSpecieGroupViewDTO[] rows, String[] at
 <button type="button">Save Rows To DB</button>
 </span> </span></div>
 
-
-<%
-ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) request.getAttribute("item");
-MorphologicalSpecieGroupViewDTO[] rows = mosquito_collection.getMorphologicalSpecieGroups();
-String[] attribs = { "GroupId","Specie","IdentificationMethod","Quantity"};
-
-out.println(getColumnSetup(rows,attribs));
-%>
-
-
 <script type="text/javascript">      
     <%String[] types_to_load =
 	{
-	   "ivcc.mrc.csu.mdss.entomology.MorphologicalSpecieGroupView"
+	   "ivcc.mrc.csu.mdss.entomology.MosquitoView"
 	};
     
-	
-
-	// THIS LINE CRASHES TOMCAT WITH Invalid memory access of location 00000000 eip=00000000
-	//out.println(Halp.getDropDownMap(SpecieDTO.getAll(clientRequest)));
-	//out.println(Halp.getDropDownMap2(Arrays.asList(SpecieDTO.getAll(clientRequest))));
-   // SpecieDTO[] arrggg = SpecieDTO.getAll(clientRequest);
+	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 		
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
 
     out.println( getDisplayLabels(SpecieDTO.getAll(clientRequest),"Specie"));
     out.println(getDisplayLabels(IdentificationMethodDTO.getAll(clientRequest),"IdentificationMethod"));
-    MorphologicalSpecieGroupViewDTO msgView = new MorphologicalSpecieGroupViewDTO(clientRequest);
-    
-    
+    out.println(getDisplayLabels(GenerationDTO.getAll(clientRequest),"Generation"));
+    MosquitoViewDTO msgView = new MosquitoViewDTO(clientRequest);
     
     %>
     table_data = { rows:
-    	  <%=getDataMap(rows,attribs)%>		   
+    	<%MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) request.getAttribute("item");
+                MosquitoViewDTO[] rows = mosquito_collection.getMosquitos();
+    		    ArrayList<String> arr = new ArrayList<String>();
+    		     for (MosquitoViewDTO row : rows)  {
+    		       ArrayList<String> buff = new ArrayList<String>();
+    		       buff.add("MosquitoId:'" + row.getMosquitoId() + "'");
+    		       buff.add("Specie:'" + row.getSpecie() + "'");
+    		       buff.add("IdentificationMethod:'" + row.getIdentificationMethod() + "'");
+    		       buff.add("Generation:'" + row.getGeneration() + "'");
+    		       buff.add("Isofemale:'" + row.getIsofemale() + "'");
+    		       arr.add("{" +Halp.join(buff,",")+ "}"); 
+    		     }
+    		     out.println("[" +Halp.join(arr,",\n")+ "]");%>
+    		   
     	 ,columnDefs:[
-    	            {key:"GroupId",label:"ID",hidden:true},
+    	            {key:"MosquitoId",label:"ID",hidden:true},
     	            {key:"Specie",label:'<%=msgView.getSpecieMd().getDisplayLabel()%>',resizeable:true,editor: new YAHOO.widget.DropdownCellEditor({dropdownOptions:SpecieLabels,disableBtns:true}),save_as_id:true},
     	            {key:"IdentificationMethod",label:"<%=msgView.getIdentificationMethodMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.DropdownCellEditor({dropdownOptions:IdentificationMethodLabels,disableBtns:true}),save_as_id:true,copy_from_above:true},
-    	            {key:"Quantity",label:"<%=msgView.getQuantityMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})},
+    	            {key:"Generation",label:'<%=msgView.getGenerationMd().getDisplayLabel()%>',resizeable:true,editor: new YAHOO.widget.DropdownCellEditor({dropdownOptions:GenerationLabels,disableBtns:true}),save_as_id:true},
+    	            {key:"Isofemale",label:'<%=msgView.getIsofemaleMd().getDisplayLabel()%>',resizeable:true,editor: new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})},
     	            {key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}
     	            
     	        ],
     	        defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
     	        div_id: "MorphologicalSpecieGroups",
     	        collection_setter: "setCollectionId('${item.id}')",
-        	    data_type: "Mojo.$.ivcc.mrc.csu.mdss.entomology.MorphologicalSpecieGroupView"
+        	    data_type: "Mojo.$.ivcc.mrc.csu.mdss.entomology.MosquitoView"
     	        
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));

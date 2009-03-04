@@ -13,7 +13,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_MosquitoCollection_collectionMethod}" param="collectionMethod">
+        <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod">
           <mjl:option>
             ${current.termName}
           </mjl:option>
@@ -36,7 +36,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity}" param="geoEntity">
+        <mjl:select var="current" valueAttribute="id" items="${AbstractMosquitoCollection_geoEntity}" param="geoEntity">
           <mjl:option>
             ${current.geoId}
           </mjl:option>

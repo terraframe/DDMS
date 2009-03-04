@@ -36,6 +36,9 @@
         <mjl:commandLink display="View" action="ivcc.mrc.csu.mdss.entomology.MosquitoCollectionController.view.mojo" name="view.link">
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
+        <mjl:commandLink display="ViewAssays" action="ivcc.mrc.csu.mdss.entomology.MosquitoCollectionController.viewAssays.mojo" name="viewAssays.link">
+          <mjl:property value="${item.id}" name="id" />
+        </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
         
