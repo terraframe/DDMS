@@ -1,3 +1,21 @@
 
+  <filter>
+    <filter-name>
+      MojoFilter
+    </filter-name>
+    <filter-class>
+      com.terraframe.mojo.web.MojoFilter
+    </filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>
+      MojoFilter
+    </filter-name>
+    <url-pattern>
+      *.mojo
+    </url-pattern>
+  </filter-mapping>
+
 
 </web-app>
