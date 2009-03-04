@@ -827,6 +827,19 @@
           isPost="false"
           label="Search"
           isQuery="false" />
+        <mdAction
+          name="viewAssays"
+          description="Shows all the assays for this Mosquito collection"
+          isPost="false"
+          label="View Assays"
+          isQuery="false" >
+          <mdParameter
+            name="id"
+            label="Collection Id"
+            order="0"
+            type="java.lang.String"
+            description="Id of Mosquito collection" />
+            </mdAction>
       </create>
     </mdController>
   </update>
