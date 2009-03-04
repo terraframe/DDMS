@@ -5,10 +5,10 @@
 	<!-- Set up our properties                                               -->
 	<!-- =================================================================== -->
 
-	<property name="profile.root" value="/Users/justin/workspace/MDSS2/profiles" />
-
-	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties" classpath="${profile.root};tfprops.jar" />
-	<tfproperties root="${profile.root}" />
+	<property name="profile.root" value="/home/jsmethie/workspace/MDSS/profiles" />
+	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties"
+		classpath="${profile.root};tfprops.jar" />
+	<tfproperties root="${profile.root}"/>
 
 	<!-- execution path -->
 	<path id="framework.classpath">
@@ -81,11 +81,11 @@
 	<target name="rebuild_db" description="Rebuilds the metadata" depends="get_root_login,get_root_password,get_root_database">
 		<echo message="Setting up users and metadata on database" />
 		<java classname="com.terraframe.mojo.dataaccess.Installer" failonerror="true">
-			<arg file="${local.root}/scripts/metadata/schema.xsd" />
-			<arg file="${local.root}/scripts/metadata/metadata.xml" />
 			<arg value="${root.user}" />
 			<arg value="${root.pass}" />
 			<arg value="${root.db}" />
+			<arg file="${local.root}/scripts/metadata/schema.xsd" />
+			<arg file="${local.root}/scripts/metadata/metadata.xml" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -322,8 +322,8 @@
 
 	<target name="import_version" description="Reverts the domain model to the given version number" depends="get_version_number">
 		<echo message="Reverts the domain model to the given version number" />
-		<java classname="com.terraframe.mojo.dataaccess.io.Versioning" fork="true" failonerror="true" maxmemory="128m">
-			<arg value="${versionDirectory}" />
+		<java classname="com.terraframe.mojo.dataaccess.io.Versioning" failonerror="true">
+			<arg value="${version.dir}/" />
 			<arg value="${version.number}" />
 			<classpath>
 				<path refid="framework.classpath" />
