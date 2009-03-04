@@ -335,7 +335,7 @@
           name="geoEntity"
           required="true"
           type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
-          concrete="geoEntity"/>
+          concrete="geoEntity" />
       </attributes>
     </mdView>
 
@@ -832,7 +832,7 @@
           description="Shows all the assays for this Mosquito collection"
           isPost="false"
           label="View Assays"
-          isQuery="false" >
+          isQuery="false">
           <mdParameter
             name="id"
             label="Collection Id"
@@ -1870,6 +1870,12 @@
       label="Molecular Assay Result"
       description="List of molecular array results"
       extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      <mdMethod
+        name="getAll"
+        returnType="csu.mrc.ivcc.mdss.mo.MolecularAssayResult[]"
+        label="Get All Terms"
+        static="true"
+        description="Returns all term of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
@@ -1877,6 +1883,12 @@
       label="Infectivity Methodology"
       description="List of molecular array results"
       extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      <mdMethod
+        name="getAll"
+        returnType="csu.mrc.ivcc.mdss.mo.InfectivityMethodology[]"
+        label="Get All Terms"
+        static="true"
+        description="Returns all term of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
@@ -1884,6 +1896,12 @@
       label="Biochemical Methodology"
       description="List of molecular array results"
       extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      <mdMethod
+        name="getAll"
+        returnType="csu.mrc.ivcc.mdss.mo.BiochemicalMethodology[]"
+        label="Get All Terms"
+        static="true"
+        description="Returns all term of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
@@ -1891,6 +1909,12 @@
       label="Molecular Assay Result"
       description="List of molecular array results"
       extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      <mdMethod
+        name="getAll"
+        returnType="csu.mrc.ivcc.mdss.mo.InsecticideMethodology[]"
+        label="Get All Terms"
+        static="true"
+        description="Returns all term of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
