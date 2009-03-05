@@ -38,9 +38,11 @@ public class LoginFilter implements Filter, Reloadable
     HttpSession session = httpReq.getSession();
 
     WebClientSession clientSession = (WebClientSession)session.getAttribute(ClientConstants.CLIENTSESSION);
+ 
+    String uri = httpReq.getRequestURI();
     
-    // let all map style requests through
-    if(httpReq.getRequestURI().endsWith(".sld"))
+    // let some requests pass through
+    if(pathAllowed(uri))
     {
       chain.doFilter(req, res);
       return;
@@ -60,5 +62,22 @@ public class LoginFilter implements Filter, Reloadable
     
     // redirect to the login page because the user is not logged in
     filterConfig.getServletContext().getRequestDispatcher("/login.jsp").forward(httpReq, httpRes);
+  }
+  
+  private boolean pathAllowed(String uri)
+  {
+    // Allow style files for GIS maps
+    if(uri.endsWith(".sld"))
+    {
+      return true;
+    }
+    
+    // Login/Logout requests
+    if(uri.endsWith(LoginController.LOGIN_ACTION) || uri.endsWith(LoginController.LOGOUT_ACTION))
+    {
+      return true;
+    }
+    
+    return false;
   }
 }
