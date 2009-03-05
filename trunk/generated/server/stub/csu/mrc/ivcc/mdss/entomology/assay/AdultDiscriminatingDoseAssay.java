@@ -96,7 +96,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     if (this.getQuantityDead() <= this.getQuantityTested())
     {
       this.setQuantityLive(this.getQuantityTested() - this.getQuantityDead());
-      this.setMortality(this.getQuantityDead() / ( (float) this.getQuantityTested() ));
+      this.setMortality(this.getQuantityDead() / ( (float) this.getQuantityTested()) * 100);
     }
     else
     {
@@ -123,15 +123,18 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     
     if(this.isSusceptible())
     {
-      
+//      SusceptibleCollection info = new SusceptibleCollection();
+//      info.throwIt();      
     }
     else if (this.isPotentiallyResistant())
     {
-      
+//      PotentiallyResistantCollection info = new PotentiallyResistantCollection();
+//      info.throwIt();
     }
     else if (this.isResistant())
     {
-      
+//      ResistantCollection info = new ResistantCollection();
+//      info.throwIt();
     }
   }
 
