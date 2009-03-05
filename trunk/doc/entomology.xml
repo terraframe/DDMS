@@ -1592,7 +1592,7 @@
       <attribute
         name="propertyPackage" />
       <attribute
-        name="propertyKey" />
+        name="propertyName" />
     </mdIndex>
 
     <mdException
