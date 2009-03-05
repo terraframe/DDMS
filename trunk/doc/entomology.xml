@@ -1253,6 +1253,22 @@
         description="Returns the predicted KD95" />
     </mdBusiness>
 
+    <mdInformation
+      name="csu.mrc.ivcc.mdss.entomology.assay.ResistantCollection"
+      label="Collection Resistant Information"
+      description="A collection is resistant to the test assay" />
+
+    <mdInformation
+      name="csu.mrc.ivcc.mdss.entomology.assay.PotentiallyResistantCollection"
+      label="Collection Resistant Information"
+      description="A collection is potentially to the test assay" />
+
+    <mdInformation
+      name="csu.mrc.ivcc.mdss.entomology.assay.SusceptibleCollection"
+      label="Susceptible Collection"
+      description="A collection is susceptible to the test assay" />
+
+
     <mdBusiness
       name="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
       label="Test Interval"
