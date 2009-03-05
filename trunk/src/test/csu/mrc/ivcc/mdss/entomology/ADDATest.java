@@ -15,9 +15,8 @@ import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
+import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 
-import csu.mrc.ivcc.mdss.entomology.AssaySex;
-import csu.mrc.ivcc.mdss.entomology.MosquitoCollection;
 import csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval;
 import csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView;
 import csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRange;
@@ -1416,6 +1415,10 @@ public class ADDATest extends TestCase
 
       fail("Able to create a test interval with an duplicate period");
     }
+    catch(DuplicateDataDatabaseException e)
+    {
+      //This is expected
+    }
     finally
     {
       assay.delete();
@@ -1484,7 +1487,7 @@ public class ADDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     String generic = "Sample Insecticide";
     AssaySex sex = AssaySex.MALE;
-    ADDATestInterval interval = new ADDATestInterval();
+    ADDATestInterval interval = null;
     int quantityTested = 30;
     int quantityKnockedDown = 45;
 
@@ -1513,6 +1516,9 @@ public class ADDATest extends TestCase
 
     try
     {
+      ADDATestIntervalView[] intervals = assay.getTestIntervals();
+      interval = ADDATestInterval.get(intervals[0].getIntervalId());
+      
       interval.setAssay(assay);
       interval.setPeriod(0);
       interval.setKnockedDown(quantityKnockedDown);

@@ -16,6 +16,7 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
 
+import csu.mrc.ivcc.mdss.Property;
 import csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalQuery;
 import csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayBase;
 
@@ -119,6 +120,41 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
         interval.apply();
       }
     }
+    
+    if(this.isSusceptible())
+    {
+      
+    }
+    else if (this.isPotentiallyResistant())
+    {
+      
+    }
+    else if (this.isResistant())
+    {
+      
+    }
+  }
+
+  private boolean isResistant()
+  {
+    Integer resistant = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_RESISTANCE);
+    
+    return (this.getMortality() < resistant);
+  }
+
+  private boolean isPotentiallyResistant()
+  {
+    Integer susceptible = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_SUSCEPTIBILE);
+    Integer resistant = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_RESISTANCE);
+    
+    return (resistant < this.getMortality() && this.getMortality() <= susceptible);
+  }
+
+  private boolean isSusceptible()
+  {
+    Integer susceptible = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_SUSCEPTIBILE);
+    
+    return (this.getMortality() > susceptible);
   }
 
   public Integer calculatePeriod()
