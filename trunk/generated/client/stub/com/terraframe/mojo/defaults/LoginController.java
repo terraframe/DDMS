@@ -4,6 +4,7 @@ package com.terraframe.mojo.defaults;
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientConstants;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.constants.MdActionInfo;
 import com.terraframe.mojo.web.WebClientSession;
 
 import csu.mrc.ivcc.mdss.util.GlobalSessionListener;
@@ -12,6 +13,10 @@ public class LoginController extends LoginControllerBase implements com.terrafra
 {
   private static final long serialVersionUID = 1234283350799L;
 
+  public static final String LOGIN_ACTION = LoginController.class.getName()+ ".login" + MdActionInfo.ACTION_SUFFIX;
+  
+  public static final String LOGOUT_ACTION = LoginController.class.getName()+ ".logout" + MdActionInfo.ACTION_SUFFIX;
+  
   public LoginController(javax.servlet.http.HttpServletRequest req,
       javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
