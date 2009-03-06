@@ -36,6 +36,8 @@ public class TypesInitializer
     ClientRequestIF request = session.getRequest();
     
     createGeoEntityTypes(request.getSessionId());
+    
+    session.logout();
   }
   
   @StartSession
