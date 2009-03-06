@@ -16,7 +16,7 @@ public abstract class AdultDiscriminatingDoseAssayBase extends csu.mrc.ivcc.mdss
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
-  private static final long serialVersionUID = 1236360388673L;
+  private static final long serialVersionUID = 1236382972509L;
   
   public AdultDiscriminatingDoseAssayBase()
   {

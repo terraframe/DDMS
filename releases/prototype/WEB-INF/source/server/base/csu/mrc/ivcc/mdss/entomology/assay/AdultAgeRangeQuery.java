@@ -9,7 +9,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
  */
 public  class AdultAgeRangeQuery extends com.terraframe.mojo.query.GeneratedStructQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360390803L;
+private static final long serialVersionUID = 1236382974526L;
 
   public AdultAgeRangeQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -131,7 +131,7 @@ private static final long serialVersionUID = 1236360390803L;
  **/
   public static class AdultAgeRangeQueryStruct extends com.terraframe.mojo.query.AttributeStruct implements AdultAgeRangeQueryStructIF, com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236360390805L;
+private static final long serialVersionUID = 1236382974528L;
 
   public AdultAgeRangeQueryStruct(com.terraframe.mojo.dataaccess.MdAttributeStructDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdStructDAOIF mdStructIF, String structTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

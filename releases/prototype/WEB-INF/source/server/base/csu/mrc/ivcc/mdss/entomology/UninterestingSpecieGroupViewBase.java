@@ -17,7 +17,7 @@ public abstract class UninterestingSpecieGroupViewBase extends com.terraframe.mo
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String SAMPLEID = "sampleId";
   public static java.lang.String SPECIE = "specie";
-  private static final long serialVersionUID = 1236360379586L;
+  private static final long serialVersionUID = 1236382964035L;
   
   public UninterestingSpecieGroupViewBase()
   {

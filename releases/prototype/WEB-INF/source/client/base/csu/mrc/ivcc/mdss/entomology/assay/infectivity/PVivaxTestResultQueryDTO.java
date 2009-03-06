@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.infectivity;
 public class PVivaxTestResultQueryDTO extends csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360389282L;
+private static final long serialVersionUID = 1236382973092L;
 
   protected PVivaxTestResultQueryDTO(String type)
   {

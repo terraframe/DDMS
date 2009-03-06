@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.biochemical;
 public  class BiochemicalAssayTestResultQuery extends csu.mrc.ivcc.mdss.entomology.assay.AssayTestResultQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360380627L;
+private static final long serialVersionUID = 1236382964688L;
 
   public BiochemicalAssayTestResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -103,7 +103,7 @@ private static final long serialVersionUID = 1236360380627L;
  implements BiochemicalAssayTestResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236360380728L;
+private static final long serialVersionUID = 1236382964784L;
 
   public BiochemicalAssayTestResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

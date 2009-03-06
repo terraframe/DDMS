@@ -9,7 +9,7 @@ public class SexMasterControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236360382316L;
+  private static final long serialVersionUID = 1236382966300L;
   
   public SexMasterControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

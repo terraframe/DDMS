@@ -22,7 +22,7 @@ public abstract class AdultAssayBase extends csu.mrc.ivcc.mdss.entomology.assay.
   public static java.lang.String INSECTICIDE = "insecticide";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String UNITS = "units";
-  private static final long serialVersionUID = 1236360376286L;
+  private static final long serialVersionUID = 1236382960760L;
   
   public AdultAssayBase()
   {

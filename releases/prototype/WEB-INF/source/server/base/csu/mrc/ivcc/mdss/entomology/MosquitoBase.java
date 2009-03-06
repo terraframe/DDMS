@@ -14,7 +14,7 @@ public abstract class MosquitoBase extends csu.mrc.ivcc.mdss.entomology.TrueSpec
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String SEX = "sex";
   public static java.lang.String TESTDATE = "testDate";
-  private static final long serialVersionUID = 1236360381988L;
+  private static final long serialVersionUID = 1236382966063L;
   
   public MosquitoBase()
   {

@@ -11,7 +11,7 @@ public abstract class POvaleTestResultBase extends csu.mrc.ivcc.mdss.entomology.
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.infectivity.POvaleTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1236360380830L;
+  private static final long serialVersionUID = 1236382965115L;
   
   public POvaleTestResultBase()
   {

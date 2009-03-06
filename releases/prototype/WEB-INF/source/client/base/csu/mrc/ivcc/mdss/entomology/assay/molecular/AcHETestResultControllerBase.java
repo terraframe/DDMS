@@ -9,7 +9,7 @@ public class AcHETestResultControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236360390506L;
+  private static final long serialVersionUID = 1236382974342L;
   
   public AcHETestResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

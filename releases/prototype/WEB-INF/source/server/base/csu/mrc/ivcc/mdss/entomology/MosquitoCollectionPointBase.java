@@ -11,7 +11,7 @@ public abstract class MosquitoCollectionPointBase extends csu.mrc.ivcc.mdss.ento
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint";
   public static java.lang.String COMPOSITECOLLECTION = "compositeCollection";
-  private static final long serialVersionUID = 1236360385733L;
+  private static final long serialVersionUID = 1236382969611L;
   
   public MosquitoCollectionPointBase()
   {

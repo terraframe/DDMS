@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public  class AbstractTermQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360372578L;
+private static final long serialVersionUID = 1236382957240L;
 
   public AbstractTermQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -379,7 +379,7 @@ private static final long serialVersionUID = 1236360372578L;
  implements AbstractTermQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236360372718L;
+private static final long serialVersionUID = 1236382957370L;
 
   public AbstractTermQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

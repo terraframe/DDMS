@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo;
 public  class TerrainMasterQuery extends com.terraframe.mojo.system.EnumerationMasterQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360373747L;
+private static final long serialVersionUID = 1236382958347L;
 
   public TerrainMasterQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -111,7 +111,7 @@ private static final long serialVersionUID = 1236360373747L;
  implements TerrainMasterQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236360373851L;
+private static final long serialVersionUID = 1236382958451L;
 
   public TerrainMasterQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -149,7 +149,7 @@ private static final long serialVersionUID = 1236360373851L;
   public static class TerrainMasterQueryEnumeration extends com.terraframe.mojo.system.EnumerationMasterQuery.EnumerationMasterQueryEnumeration
  implements TerrainMasterQueryEnumerationIF, com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236360373924L;
+private static final long serialVersionUID = 1236382958517L;
 
   public TerrainMasterQueryEnumeration(com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

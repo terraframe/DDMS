@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public  class ResistanceMethodologyQuery extends csu.mrc.ivcc.mdss.mo.AbstractTermQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360387225L;
+private static final long serialVersionUID = 1236382971135L;
 
   public ResistanceMethodologyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1236360387225L;
  implements ResistanceMethodologyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236360387346L;
+private static final long serialVersionUID = 1236382971247L;
 
   public ResistanceMethodologyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

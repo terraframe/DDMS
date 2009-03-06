@@ -29,34 +29,6 @@
 
 
 
-static String buildChekboxTable(ViewDTO[] rows, String[] attribs) throws JSONException{
-	JSONArray map = new JSONArray();
-	for(ViewDTO row : rows)
-	 {
-		JSONObject element = new JSONObject();		
-		Class c = row.getClass();	
-		for(String attrib : attribs)
-		{		
-			try
-			{
-				String value = (String) c.getMethod("get"+attrib).invoke(row).toString();	
-				element.put(attrib,value);
-			}
-			catch (IllegalAccessException x) {
-			}
-			catch (IllegalArgumentException  x) {
-			}
-			catch (InvocationTargetException x) {
-			}
-			catch (NoSuchMethodException x) {
-				System.out.println("No such method get"+attrib);
-			}
-
-		}	
-		map.put(element);
-	} 
-	return map.toString();
-}
 
 static String getDataMap(ViewDTO[] rows, String[] attribs) throws JSONException{
 	JSONArray map = new JSONArray();
@@ -235,7 +207,17 @@ if(extra_rows.length() > 0)
 }
 return ("[" +Halp.join(arr,",\n")+ "]");
 //return (Halp.join(dropdownbuff,",\n")+ ",columnDefs:[" +Halp.join(arr,",\n")+ "]");
-}%>
+}
+
+
+static String buildChekboxTable(ViewDTO view, AbstractAssayDTO assay) throws JSONException{
+				
+		Class c = assay.getClass();	
+		
+	return c.getSimpleName();
+}
+
+%>
 
 
 
@@ -275,7 +257,7 @@ return ("[" +Halp.join(arr,",\n")+ "]");
 
 <h2>Mosquitos</h2>
 <table>
-<tr><th colspan="2">Assay</th></tr>
+<tr><th colspan="2"><%=buildChekboxTable("") %></th></tr>
 <tr><td><input type="checkbox" name="maillist" id ="assayid"></td><td>Assay 1</td></tr>
 <tr><td><input type="checkbox" name="maillist" id ="assayid"></td><td>Assay 2</td></tr>
 </table>

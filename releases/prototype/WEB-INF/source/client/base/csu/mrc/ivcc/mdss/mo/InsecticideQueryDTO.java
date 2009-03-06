@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public class InsecticideQueryDTO extends csu.mrc.ivcc.mdss.mo.AbstractTermQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360391109L;
+private static final long serialVersionUID = 1236382974809L;
 
   protected InsecticideQueryDTO(String type)
   {

@@ -12,7 +12,7 @@ public abstract class ConcreteMosquitoCollectionBase extends csu.mrc.ivcc.mdss.e
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection";
   public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String GEOENTITY = "geoEntity";
-  private static final long serialVersionUID = 1236360386168L;
+  private static final long serialVersionUID = 1236382970028L;
   
   public ConcreteMosquitoCollectionBase()
   {

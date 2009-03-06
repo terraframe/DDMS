@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public class AbstractTermQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360372795L;
+private static final long serialVersionUID = 1236382957442L;
 
   protected AbstractTermQueryDTO(String type)
   {

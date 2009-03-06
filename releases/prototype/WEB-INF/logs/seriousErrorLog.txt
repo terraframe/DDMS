@@ -111,3 +111,5 @@ org.postgresql.util.PSQLException: ERROR: database "mdssdeploy" is being accesse
 2009-03-05 16:30:11  Error creating the directory for storing serialized sessions
 2009-03-06 10:25:58  Error creating the directory for storing serialized sessions
 2009-03-06 10:57:22  Error creating the directory for storing serialized sessions
+2009-03-06 16:42:24  Error creating the directory for storing serialized sessions
+2009-03-06 16:45:21  Error creating the directory for storing serialized sessions

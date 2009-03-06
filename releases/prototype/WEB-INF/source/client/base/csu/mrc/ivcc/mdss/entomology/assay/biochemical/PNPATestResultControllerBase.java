@@ -9,7 +9,7 @@ public class PNPATestResultControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236360388580L;
+  private static final long serialVersionUID = 1236382972409L;
   
   public PNPATestResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

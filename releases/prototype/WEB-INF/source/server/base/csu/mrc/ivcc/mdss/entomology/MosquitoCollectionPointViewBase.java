@@ -15,7 +15,7 @@ public abstract class MosquitoCollectionPointViewBase extends com.terraframe.moj
   public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1236360379048L;
+  private static final long serialVersionUID = 1236382963203L;
   
   public MosquitoCollectionPointViewBase()
   {

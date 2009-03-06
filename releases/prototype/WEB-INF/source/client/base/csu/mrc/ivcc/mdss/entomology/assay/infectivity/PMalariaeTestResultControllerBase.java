@@ -9,7 +9,7 @@ public class PMalariaeTestResultControllerBase implements com.terraframe.mojo.ge
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236360381123L;
+  private static final long serialVersionUID = 1236382964878L;
   
   public PMalariaeTestResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

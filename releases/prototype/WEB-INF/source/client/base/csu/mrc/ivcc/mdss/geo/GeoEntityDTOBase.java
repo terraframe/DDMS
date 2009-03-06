@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo;
 
 public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236360387603L;
+  private static final long serialVersionUID = 1236382971479L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.GeoEntity";
   protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

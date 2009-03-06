@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology;
 public  abstract  class UninterestingSpecieGroupViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360379596L;
+private static final long serialVersionUID = 1236382964041L;
 
   public UninterestingSpecieGroupViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

@@ -14,7 +14,7 @@ public abstract class InvalidIntervalTimeProblemBase extends com.terraframe.mojo
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String ID = "id";
   public static java.lang.String INTERVALTIME = "intervalTime";
-  private static final long serialVersionUID = 1236360391134L;
+  private static final long serialVersionUID = 1236382974924L;
   
   public InvalidIntervalTimeProblemBase()
   {

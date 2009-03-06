@@ -12,7 +12,7 @@ public abstract class InvalidFedSexProblemBase extends com.terraframe.mojo.busin
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.InvalidFedSexProblem";
   public static java.lang.String ASSAYID = "assayId";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1236360385469L;
+  private static final long serialVersionUID = 1236382968874L;
   
   public InvalidFedSexProblemBase()
   {

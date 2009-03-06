@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.mo;
 
 public abstract class InsecticideMethodologyDTOBase extends csu.mrc.ivcc.mdss.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236360386821L;
+  private static final long serialVersionUID = 1236382970743L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.InsecticideMethodology";
   protected InsecticideMethodologyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

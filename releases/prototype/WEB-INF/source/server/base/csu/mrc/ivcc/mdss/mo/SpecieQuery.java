@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public  class SpecieQuery extends csu.mrc.ivcc.mdss.mo.AbstractTermQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360375983L;
+private static final long serialVersionUID = 1236382960439L;
 
   public SpecieQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1236360375983L;
  implements SpecieQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236360376087L;
+private static final long serialVersionUID = 1236382960534L;
 
   public SpecieQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

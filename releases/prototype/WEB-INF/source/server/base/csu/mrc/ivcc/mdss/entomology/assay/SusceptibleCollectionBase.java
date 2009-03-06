@@ -11,7 +11,7 @@ public abstract class SusceptibleCollectionBase extends com.terraframe.mojo.busi
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.SusceptibleCollection";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1236360386155L;
+  private static final long serialVersionUID = 1236382970016L;
   
   public SusceptibleCollectionBase()
   {

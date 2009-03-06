@@ -11,7 +11,7 @@ public abstract class InfectivityAssayTestResultBase extends csu.mrc.ivcc.mdss.e
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1236360383660L;
+  private static final long serialVersionUID = 1236382967637L;
   
   public InfectivityAssayTestResultBase()
   {

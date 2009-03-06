@@ -9,7 +9,7 @@ public class SpecieControllerBase implements com.terraframe.mojo.generation.load
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236360378473L;
+  private static final long serialVersionUID = 1236382962732L;
   
   public SpecieControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -13,7 +13,7 @@ public abstract class InvalidFedQuantityProblemBase extends com.terraframe.mojo.
   public static java.lang.String ASSAYID = "assayId";
   public static java.lang.String FED = "fed";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1236360384976L;
+  private static final long serialVersionUID = 1236382968862L;
   
   public InvalidFedQuantityProblemBase()
   {

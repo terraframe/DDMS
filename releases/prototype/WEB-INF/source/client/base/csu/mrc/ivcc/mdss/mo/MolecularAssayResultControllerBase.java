@@ -9,7 +9,7 @@ public class MolecularAssayResultControllerBase implements com.terraframe.mojo.g
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236360379163L;
+  private static final long serialVersionUID = 1236382963602L;
   
   public MolecularAssayResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

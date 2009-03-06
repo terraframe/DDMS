@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.mo;
 
 public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236360372494L;
+  private static final long serialVersionUID = 1236382957145L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.AbstractTerm";
   protected AbstractTermDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

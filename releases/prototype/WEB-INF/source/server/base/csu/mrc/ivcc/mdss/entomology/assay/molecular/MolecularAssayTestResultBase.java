@@ -11,7 +11,7 @@ public abstract class MolecularAssayTestResultBase extends csu.mrc.ivcc.mdss.ent
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1236360374439L;
+  private static final long serialVersionUID = 1236382959011L;
   
   public MolecularAssayTestResultBase()
   {

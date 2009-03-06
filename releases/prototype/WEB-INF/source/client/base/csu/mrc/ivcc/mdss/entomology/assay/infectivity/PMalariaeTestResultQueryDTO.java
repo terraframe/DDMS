@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.infectivity;
 public class PMalariaeTestResultQueryDTO extends csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360388578L;
+private static final long serialVersionUID = 1236382972408L;
 
   protected PMalariaeTestResultQueryDTO(String type)
   {

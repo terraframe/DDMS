@@ -12,7 +12,7 @@ public abstract class PropertyValidationFailedExceptionBase extends com.terrafra
   public final static String CLASS = "csu.mrc.ivcc.mdss.PropertyValidationFailedException";
   public static java.lang.String ID = "id";
   public static java.lang.String VALIDVALUES = "validValues";
-  private static final long serialVersionUID = 1236360377751L;
+  private static final long serialVersionUID = 1236382962204L;
   
   public PropertyValidationFailedExceptionBase()
   {

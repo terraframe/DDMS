@@ -16,7 +16,7 @@ public abstract class ADDATestIntervalViewBase extends com.terraframe.mojo.busin
   public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String KNOCKEDDOWN = "knockedDown";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = 1236360391113L;
+  private static final long serialVersionUID = 1236382974903L;
   
   public ADDATestIntervalViewBase()
   {

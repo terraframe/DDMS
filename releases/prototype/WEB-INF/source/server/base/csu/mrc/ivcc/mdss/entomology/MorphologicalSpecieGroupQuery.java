@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology;
 public  class MorphologicalSpecieGroupQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360380380L;
+private static final long serialVersionUID = 1236382964456L;
 
   public MorphologicalSpecieGroupQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -348,7 +348,7 @@ private static final long serialVersionUID = 1236360380380L;
  implements MorphologicalSpecieGroupQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236360380483L;
+private static final long serialVersionUID = 1236382964549L;
 
   public MorphologicalSpecieGroupQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

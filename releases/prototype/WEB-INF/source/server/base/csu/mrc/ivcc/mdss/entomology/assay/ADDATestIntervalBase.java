@@ -25,7 +25,7 @@ public abstract class ADDATestIntervalBase extends com.terraframe.mojo.business.
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236360382509L;
+  private static final long serialVersionUID = 1236382966539L;
   
   public ADDATestIntervalBase()
   {

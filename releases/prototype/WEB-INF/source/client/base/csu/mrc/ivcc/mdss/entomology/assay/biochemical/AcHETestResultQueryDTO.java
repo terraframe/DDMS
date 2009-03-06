@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.biochemical;
 public class AcHETestResultQueryDTO extends csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360380107L;
+private static final long serialVersionUID = 1236382964282L;
 
   protected AcHETestResultQueryDTO(String type)
   {

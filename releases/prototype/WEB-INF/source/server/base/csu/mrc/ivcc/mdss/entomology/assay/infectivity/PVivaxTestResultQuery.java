@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.infectivity;
 public  class PVivaxTestResultQuery extends csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResultQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236360389097L;
+private static final long serialVersionUID = 1236382972913L;
 
   public PVivaxTestResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -86,7 +86,7 @@ private static final long serialVersionUID = 1236360389097L;
  implements PVivaxTestResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236360389205L;
+private static final long serialVersionUID = 1236382973013L;
 
   public PVivaxTestResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

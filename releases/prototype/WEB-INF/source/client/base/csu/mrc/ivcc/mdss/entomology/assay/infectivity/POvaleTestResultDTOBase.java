@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.infectivity;
 
 public abstract class POvaleTestResultDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236360380884L;
+  private static final long serialVersionUID = 1236382965159L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.infectivity.POvaleTestResult";
   protected POvaleTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

@@ -22,7 +22,7 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236360383912L;
+  private static final long serialVersionUID = 1236382967935L;
   
   public AbstractMosquitoCollectionBase()
   {
