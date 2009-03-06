@@ -1,6 +1,24 @@
 
   <filter>
     <filter-name>
+      MojaxFilter
+    </filter-name>
+    <filter-class>
+      com.terraframe.mojo.web.MojaxFilter
+    </filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>
+      MojaxFilter
+    </filter-name>
+    <url-pattern>
+      *.mojax
+    </url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>
       MojoFilter
     </filter-name>
     <filter-class>
@@ -16,6 +34,5 @@
       *.mojo
     </url-pattern>
   </filter-mapping>
-
 
 </web-app>
