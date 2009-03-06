@@ -11,6 +11,7 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 import csu.mrc.ivcc.mdss.geo.GeoHierarchy;
 import csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery;
 import csu.mrc.ivcc.mdss.geo.generated.Country;
+import csu.mrc.ivcc.mdss.geo.generated.CountryIF;
 import csu.mrc.ivcc.mdss.geo.generated.District;
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
 import csu.mrc.ivcc.mdss.geo.generated.Province;
@@ -69,7 +70,7 @@ public class Sandbox
   @StartSession
   private static void testDefineAllowedTree(String sessionId)
   {
-    MdBusiness mdGeoEntity = MdBusiness.getMdBusiness(Country.CLASS);
+    MdBusiness mdGeoEntity = MdBusiness.getMdBusiness(CountryIF.CLASS);
     
     QueryFactory f = new QueryFactory();
     GeoHierarchyQuery q = new GeoHierarchyQuery(f);
