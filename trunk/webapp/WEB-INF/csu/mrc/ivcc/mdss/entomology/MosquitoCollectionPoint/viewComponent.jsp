@@ -20,7 +20,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.geoEntity.keyName}" action="csu.mrc.ivcc.mdss.geo.GeoEntityController.view.mojo" name="csu.mrc.ivcc.mdss.geo.GeoEntity.form.view.link">
+      <mjl:commandLink display="${item.geoEntity.keyName}" action="csu.mrc.ivcc.mdss.geo.GeoEntityController.view.mojo" name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity.form.view.link">
         <mjl:property value="${item.geoEntity.id}" name="id" />
       </mjl:commandLink>
     </dd>

@@ -16,15 +16,10 @@ import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 
-import csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollection;
-import csu.mrc.ivcc.mdss.entomology.InvalidMorphologicalSpecieProblem;
-import csu.mrc.ivcc.mdss.entomology.InvalidMosquitoCollectionPointGeoEntityException;
-import csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup;
-import csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView;
-import csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint;
-import csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointView;
-import csu.mrc.ivcc.mdss.geo.GeoEntity;
-import csu.mrc.ivcc.mdss.geo.Terrain;
+import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
+import csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBody;
+import csu.mrc.ivcc.mdss.geo.generated.SentinalSite;
+import csu.mrc.ivcc.mdss.geo.generated.Trap;
 import csu.mrc.ivcc.mdss.mo.IdentificationMethod;
 import csu.mrc.ivcc.mdss.mo.Specie;
 
@@ -69,22 +64,19 @@ public class MosquitoCollectionPointTest extends TestCase
     specie = Specie.getAll()[0];
     identificationMethod = IdentificationMethod.getAll()[0];
 
-    sentinelSite = new GeoEntity();
+    sentinelSite = new SentinalSite();
     sentinelSite.setGeoId("0");
     sentinelSite.setEntityName("Sentinel Site");
-    sentinelSite.addTerrain(Terrain.SENTINEL_SITE);
     sentinelSite.apply();
 
-    waterBody = new GeoEntity();
+    waterBody = new PermanentWaterBody();
     waterBody.setGeoId("1");
     waterBody.setEntityName("Water Body");
-    waterBody.addTerrain(Terrain.PERMANENT_WATER_BODY);
     waterBody.apply();
 
-    fixedTrap = new GeoEntity();
+    fixedTrap = new Trap();
     fixedTrap.setGeoId("2");
     fixedTrap.setEntityName("Fixed Trap");
-    fixedTrap.addTerrain(Terrain.FIXED_TRAP);
     fixedTrap.apply();
     
     composite = new CompositeMosquitoCollection();

@@ -58,8 +58,8 @@
       }
     });
     
-    var types = ['mdss.test.GeoEntity', 'mdss.test.Terrain'];
     var options = {appendTo : document.getElementsByTagName('head')[0]};
+    var types = ['mdss.test.GeoEntity', 'mdss.test.Terrain'];
     Mojo.importTypes(request, types, options);
   }
 

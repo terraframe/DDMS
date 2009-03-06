@@ -1,10 +1,11 @@
 <TerraFrame
-  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/profiles/datatype.xsd"
+  xsi:noNamespaceSchemaLocation="file:/Users/justin/workspace/MDSS2/profiles/datatype.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <create>
     <!-- DUMMY DEFITION FOR GEO ENTITIES -->
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.GeoEntity"
+      name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
+      isAbstract="true"
       label="Geo Entity">
       <attributes>
         <char
@@ -18,19 +19,19 @@
           required="true"
           label="Geo Entity Name"
           size="255" />
-        <enumeration
-          name="terrain"
-          label="Terrain"
-          selectMultiple="false"
+        <boolean
+          name="activated"
           required="true"
-          type="csu.mrc.ivcc.mdss.geo.Terrain" />
+          default_value="true"
+          label="Activated"
+          description="Determines if this entity is active or not." />
       </attributes>
       <mdMethod
         name="searchByGeoId"
         label="Search by GeoId"
         description="Search for a GeoEntity by Geo Id"
         static="true"
-        returnType="csu.mrc.ivcc.mdss.geo.GeoEntity">
+        returnType="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
         <mdParameter
           name="geoId"
           description="Geo Id of the Geo Entity"
@@ -38,96 +39,259 @@
           order="0"
           type="java.lang.String" />
       </mdMethod>
+      <mdMethod
+        name="getOrderedChildEntities"
+        label="Get Ordered Child Entities"
+        description="Gets LocatedIn children ordered by label."
+        static="false"
+        returnType="csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery">
+      </mdMethod>
+       <mdMethod
+          name="applyWithParentGeoEntity"
+          label="Apply Within GeoEntity"
+          description="Applies GeoEntity as being located within another GeoEntity."
+          returnType="void"
+          static="false">
+          <mdParameter
+            name="parentGeoEntityId"
+            label="Parent GeoEntity Id"
+            description="The id of the GeoEntity that will be the parent of this GeoEntity"
+            type="java.lang.String"
+            order="0"/>
+        </mdMethod>
     </mdBusiness>
+    
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.GeoHierarchy"
+      generateController="false"
+      label="Geo Hierarchy"
+      description="Manages which GeoEntity types are allowed to be located in one another">
+      <attributes>
+        <boolean
+          name="political"
+          label="political"
+          description="Denotes if this object is political (e.g., a Country)"
+          required="true" />
+        <reference
+          name="geoEntityClass"
+          label="Geo Entity Class"
+          description="A reference to the GeoEntity MdClass"
+          required="true"
+          type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      </attributes>
+      <mdMethod
+        name="defineAllowedTree"
+        label="Define Allowed Tree"
+        description="Defines a tree (in JSON) to represent allowed GeoEntity types."
+        returnType="java.lang.String"
+        static="true">
+        <mdParameter
+          name="geoEntityId"
+          label="GeoEntity Id"
+          description="GeoEntity Id"
+          order="0"
+          type="java.lang.String" />
+      </mdMethod>
+      <mdMethod 
+        name="defineGeoEntity"
+        label="Define GeoEntity"
+        description="Defines a new GeoEntity class"
+        returnType="csu.mrc.ivcc.mdss.geo.GeoHierarchyView"
+        static="true">
+        <mdParameter
+          name="definition"
+          label="GeoEntity Definition"
+          description="The view used to define a new GeoEntity"
+          order="0"
+          type="csu.mrc.ivcc.mdss.geo.GeoEntityDefinition" />
+        <mdParameter
+          name="allowedIn"
+          label="Allowed In GeoEntities"
+          description="Ids of the GeoEntities in which the new Geo is allowed to be located."
+          order="1"
+          type="java.lang.String[]" />
+      </mdMethod>
+      <mdMethod
+        name="getGeoEntityHierarchyViews"
+        label="Get GeoEntity Hierarchy Views"
+        description="Gets views to represent GeoEntity Hierarchies"
+        returnType="csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQuery"
+        static="true">
+      </mdMethod>
+    </mdBusiness>
+    
+    <mdView
+      name="csu.mrc.ivcc.mdss.geo.GeoHierarchyView"
+      label="Geo Hierarchy View"
+      description="Geo Hierarchy View">
+      <attributes>
+        <char
+          name="referenceId"
+          size="64"
+          label="Reference Id"
+          description="The Id of the GeoEntity MdBusiness"
+          required="true" />
+        <char
+          name="geoHierarchyId"
+          size="64"
+          label="GeoHierarchy Id"
+          description="GeoHierarchy Id"
+          required="true" />
+        <virtual
+          name="typeName"
+          required="true"
+          concrete="typeName"
+          type="com.terraframe.mojo.system.metadata.MdType" />
+        <virtual
+          name="displayLabel"
+          required="true"
+          concrete="displayLabel"
+          type="com.terraframe.mojo.system.metadata.MdType" />
+      </attributes>
+    </mdView>
+    
+    <mdRelationship
+      name="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      label="Allowed In"
+      description="Relates which GeoEntity classes are allowed within one another.">
+      <parent cardinality="*" name="csu.mrc.ivcc.mdss.geo.GeoHierarchy" method="AcceptsGeoEntity" />
+      <child cardinality="*" name="csu.mrc.ivcc.mdss.geo.GeoHierarchy" method="AllowedInGeoEntity" />
+    </mdRelationship>
 
-    <object
-      id="12312312410290873104353"
-      type="csu.mrc.ivcc.mdss.geo.GeoEntity">
-      <valueAttribute
-        name="geoId"
-        value="MOON" />
-      <valueAttribute
-        name="entityName"
-        value="The Moon!" />
-      <selectionAttribute
-        name="terrain">
-        <enumeratedItem
-          id="SENTINEL_SITE" />
-      </selectionAttribute>
-    </object>
-
-    <object
-      id="1231231241123029873104353"
-      type="csu.mrc.ivcc.mdss.geo.GeoEntity">
-      <valueAttribute
-        name="geoId"
-        value="EARTH" />
-      <valueAttribute
-        name="entityName"
-        value="Gia, Terra Firma, Home of Humans" />
-      <selectionAttribute
-        name="terrain">
-        <enumeratedItem
-          id="SENTINEL_SITE" />
-      </selectionAttribute>
-    </object>
+    <mdRelationship
+      name="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      label="Located In"
+      description="Relates how GeoEntities are located within one another.">
+      <parent cardinality="*" name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity" method="ContainsGeoEntity" />
+      <child cardinality="*" name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity" method="LocatedInGeoEntity" />
+    </mdRelationship>
+    
+    <mdView
+      name="csu.mrc.ivcc.mdss.geo.GeoEntityDefinition"
+      label="GeoEntityDefinition"
+      description="View to define a new GeoEntity">
+      <attributes>
+        <boolean
+          name="political"
+          label="political"
+          description="Denotes if this object is political (e.g., a Country)"
+          required="true" />
+        <enumeration
+          name="spatialType"
+          label="Spatial Type"
+          description="Spatial Type of GeoEntity attribute."
+          required="true"
+          selectMultiple="false"
+          type="csu.mrc.ivcc.mdss.geo.SpatialTypes" />
+        <char
+          name="parentTypeId"
+          required="false"
+          label="Parent Type Id"
+          size="64"
+          description="The id GeoEntity type that is a parent of the GeoEntity" />
+        <virtual
+          name="typeName"
+          required="true"
+          concrete="typeName"
+          type="com.terraframe.mojo.system.metadata.MdType" />
+        <virtual
+          name="displayLabel"
+          required="true"
+          concrete="displayLabel"
+          type="com.terraframe.mojo.system.metadata.MdType" />
+        <virtual
+          name="description"
+          required="false"
+          concrete="description"
+          type="com.terraframe.mojo.system.metadata.MetaData" />
+      </attributes>
+    </mdView>
 
     <enumerationMaster
-      name="csu.mrc.ivcc.mdss.geo.TerrainMaster"
-      label="Terrain Master" />
+      name="csu.mrc.ivcc.mdss.geo.SpatialMaster"
+      label="Spatial Master"
+      description="Enumeration Master to define spatial attributes.">
+    </enumerationMaster>
 
     <object
-      id="SENTINEL_SITE"
-      type="csu.mrc.ivcc.mdss.geo.TerrainMaster">
+      id="LINE"
+      type="csu.mrc.ivcc.mdss.geo.SpatialMaster">
       <valueAttribute
         name="enumName"
-        value="SENTINEL_SITE" />
+        value="LINE" />
       <valueAttribute
         name="displayLabel"
-        value="Sentinel Site" />
+        value="Line" />
     </object>
 
     <object
-      id="NON_SENTINEL_SITE"
-      type="csu.mrc.ivcc.mdss.geo.TerrainMaster">
+      id="POINT"
+      type="csu.mrc.ivcc.mdss.geo.SpatialMaster">
       <valueAttribute
         name="enumName"
-        value="NON_SENTINEL_SITE" />
+        value="POINT" />
       <valueAttribute
         name="displayLabel"
-        value="Non Sentinel Site" />
+        value="Point" />
     </object>
 
     <object
-      id="FIXED_TRAP"
-      type="csu.mrc.ivcc.mdss.geo.TerrainMaster">
+      id="POLYGON"
+      type="csu.mrc.ivcc.mdss.geo.SpatialMaster">
       <valueAttribute
         name="enumName"
-        value="FIXED_TRAP" />
+        value="POLYGON" />
       <valueAttribute
         name="displayLabel"
-        value="Fixed Trap" />
+        value="Polygon" />
     </object>
-
-    <object
-      id="PERMANENT_WATER_BODY"
-      type="csu.mrc.ivcc.mdss.geo.TerrainMaster">
-      <valueAttribute
-        name="enumName"
-        value="PERMANENT_WATER_BODY" />
-      <valueAttribute
-        name="displayLabel"
-        value="Permanent Water Body" />
-    </object>
-
+    
     <mdEnumeration
-      name="csu.mrc.ivcc.mdss.geo.Terrain"
-      type="csu.mrc.ivcc.mdss.geo.TerrainMaster"
-      label="Terrain">
+      name="csu.mrc.ivcc.mdss.geo.SpatialTypes"
+      label="Spatial Types"
+      description="Defines all spatial types"
+      type="csu.mrc.ivcc.mdss.geo.SpatialMaster">
       <includeAll />
     </mdEnumeration>
 
-    <!-- DELETE WHEN REAL DEFINITION IS DONE -->
+    <mdController
+      name="csu.mrc.ivcc.mdss.geo.GeoEntityTreeController"
+      label="GeoEntity Tree Controller"
+      description="GeoEntity Tree Controller">
+    </mdController>
+
+    <mdController
+      name="csu.mrc.ivcc.mdss.geo.GeoEntityTypeController"
+      label="GeoEntity Type Controller"
+      description="Controller to define new GeoEntity types.">
+      <mdAction
+        name="newDefinition"
+        label="New GeoEntity Type"
+        isPost="false" />
+      <mdAction
+        name="createDefinition"
+        label="Create GeoEntity Type"
+        isPost="true">
+        <mdParameter
+          name="definition"
+          label="GeoEntityDefinition"
+          description="The GeoEntityDefinition"
+          order="0"
+          type="csu.mrc.ivcc.mdss.geo.GeoEntityDefinition" />
+        <mdParameter
+          name="allowedInIds"
+          label="Allowed In Ids"
+          description="The ids of allowed in GeoEntity types."
+          order="1"
+          type="java.lang.String[]" />
+      </mdAction>
+      <mdAction
+        name="cancelCreateDefinition"
+        label="Cancel Create Definition"
+        description="Cancels the request to create a new definition."
+        isPost="true">
+      </mdAction>
+    </mdController>
 
     <mdController
       name="com.terraframe.mojo.defaults.LoginController"
@@ -197,7 +361,7 @@
           name="geoEntity"
           required="true"
           label="Geo Entity"
-          type="csu.mrc.ivcc.mdss.geo.GeoEntity" />
+          type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity" />
       </attributes>
       <mdMethod
         name="getMorphologicalSpecieGroups"
@@ -254,7 +418,7 @@
         <mdParameter
           name="geoEntity"
           label="Geo Entity"
-          type="csu.mrc.ivcc.mdss.geo.GeoEntity"
+          type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
           order="0"
           description="GeoEntity" />
         <mdParameter
@@ -301,7 +465,7 @@
         <mdParameter
           name="geoEntity"
           label="Geo Entity"
-          type="csu.mrc.ivcc.mdss.geo.GeoEntity"
+          type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
           order="0"
           description="GeoEntity" />
         <mdParameter
@@ -794,7 +958,7 @@
             name="geoEntity"
             label="Geo Entity"
             order="0"
-            type="csu.mrc.ivcc.mdss.geo.GeoEntity"
+            type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
             description="GeoEntity to search" />
           <mdParameter
             name="collectionDate"
@@ -842,6 +1006,7 @@
         </mdAction>
       </create>
     </mdController>
+
   </update>
 
   <!--
@@ -1275,7 +1440,7 @@
           name="geoEntity"
           required="true"
           label="Geo Entity"
-          type="csu.mrc.ivcc.mdss.geo.GeoEntity" />
+          type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity" />
 
       </attributes>
       <mdMethod
@@ -1294,7 +1459,7 @@
         <mdParameter
           name="geoEntity"
           label="Geo Entity"
-          type="csu.mrc.ivcc.mdss.geo.GeoEntity"
+          type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
           order="0"
           description="GeoEntity" />
         <mdParameter

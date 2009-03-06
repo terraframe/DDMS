@@ -43,8 +43,8 @@ import csu.mrc.ivcc.mdss.entomology.assay.ResistantCollectionDTO;
 import csu.mrc.ivcc.mdss.entomology.assay.SusceptibleCollectionDTO;
 import csu.mrc.ivcc.mdss.entomology.assay.Unit;
 import csu.mrc.ivcc.mdss.entomology.assay.UnitDTO;
-import csu.mrc.ivcc.mdss.geo.GeoEntity;
-import csu.mrc.ivcc.mdss.geo.Terrain;
+import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
+import csu.mrc.ivcc.mdss.geo.generated.SentinalSite;
 import csu.mrc.ivcc.mdss.mo.CollectionMethod;
 import csu.mrc.ivcc.mdss.mo.Generation;
 import csu.mrc.ivcc.mdss.mo.GenerationDTO;
@@ -120,10 +120,9 @@ public class ADDATest extends TestCase
       SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
       Date date = dateTime.parse("2006-01-01");
 
-      geoEntity = new GeoEntity();
+      geoEntity = new SentinalSite();
       geoEntity.setGeoId("0");
       geoEntity.setEntityName("GeoEntity");
-      geoEntity.addTerrain(Terrain.SENTINEL_SITE);
       geoEntity.apply();
 
       collection = new MosquitoCollection();

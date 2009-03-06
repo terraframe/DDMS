@@ -1,13 +1,9 @@
 package csu.mrc.ivcc.mdss.entomology;
 
-import java.util.List;
-
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import csu.mrc.ivcc.mdss.entomology.MosquitoCollectionBase;
-import csu.mrc.ivcc.mdss.entomology.MosquitoCollectionQuery;
-import csu.mrc.ivcc.mdss.geo.Terrain;
+import csu.mrc.ivcc.mdss.geo.generated.AbstractSite;
 
 public class MosquitoCollection extends MosquitoCollectionBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -32,27 +28,21 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
   {
     super.validateGeoEntity();
 
-    List<Terrain> list = this.getGeoEntity().getTerrain();
-
-    if (list.size() != 0)
+    if (! (this.getGeoEntity() instanceof AbstractSite))
     {
-      Terrain terrain = list.get(0);
+      String msg = "The geoEntity of a mosquito collection must be a (non)sentinel site";
 
-      if (! ( terrain.equals(Terrain.NON_SENTINEL_SITE) || terrain.equals(Terrain.SENTINEL_SITE) ))
-      {
-        String msg = "The geoEntity of a mosquito collection must be a (non)sentinel site";
+      InvalidMosquitoCollectionGeoEntityException e = new InvalidMosquitoCollectionGeoEntityException(
+          msg);
+      e.setGeoId(this.getGeoEntity().getGeoId());
+      e.apply();
 
-        InvalidMosquitoCollectionGeoEntityException e = new InvalidMosquitoCollectionGeoEntityException(
-            msg);
-        e.setGeoId(this.getGeoEntity().getGeoId());
-        e.apply();
-
-        throw e;
-      }
+      throw e;
     }
   }
 
-  public static csu.mrc.ivcc.mdss.entomology.MosquitoCollection searchByGeoEntityAndDate(csu.mrc.ivcc.mdss.geo.GeoEntity geoEntity, java.util.Date collectionDate)
+  public static csu.mrc.ivcc.mdss.entomology.MosquitoCollection searchByGeoEntityAndDate(
+      csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)
   {
     QueryFactory factory = new QueryFactory();
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);
@@ -68,7 +58,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
       {
         return iterator.next();
       }
-      
+
       return null;
     }
     finally

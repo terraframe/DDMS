@@ -13,18 +13,12 @@ import junit.framework.TestSuite;
 
 import com.terraframe.mojo.constants.DatabaseProperties;
 
-import csu.mrc.ivcc.mdss.entomology.Mosquito;
-import csu.mrc.ivcc.mdss.entomology.MosquitoCollection;
-import csu.mrc.ivcc.mdss.entomology.MosquitoView;
-import csu.mrc.ivcc.mdss.entomology.Sex;
-import csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroup;
-import csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView;
 import csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult;
 import csu.mrc.ivcc.mdss.entomology.assay.biochemical.AEsteraseTestResult;
 import csu.mrc.ivcc.mdss.entomology.assay.biochemical.AcHETestResult;
 import csu.mrc.ivcc.mdss.entomology.assay.infectivity.PMalariaeTestResult;
-import csu.mrc.ivcc.mdss.geo.GeoEntity;
-import csu.mrc.ivcc.mdss.geo.Terrain;
+import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
+import csu.mrc.ivcc.mdss.geo.generated.SentinalSite;
 import csu.mrc.ivcc.mdss.mo.BiochemicalMethodology;
 import csu.mrc.ivcc.mdss.mo.CollectionMethod;
 import csu.mrc.ivcc.mdss.mo.Generation;
@@ -101,10 +95,9 @@ public class MosquitoTest extends TestCase
       SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
       Date date = dateTime.parse("2006-01-01");
 
-      geoEntity = new GeoEntity();
+      geoEntity = new SentinalSite();
       geoEntity.setGeoId("0");
       geoEntity.setEntityName("GeoEntity");
-      geoEntity.addTerrain(Terrain.SENTINEL_SITE);
       geoEntity.apply();
 
       collection = new MosquitoCollection();

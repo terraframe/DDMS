@@ -1,0 +1,15 @@
+<TerraFrame
+  xsi:noNamespaceSchemaLocation="file:/Users/justin/workspace/MDSS2/profiles/datatype.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+  <update>
+  
+    <mdBusiness name="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <create>
+
+      </create>
+    </mdBusiness>
+  
+  </update>
+  
+</TerraFrame>

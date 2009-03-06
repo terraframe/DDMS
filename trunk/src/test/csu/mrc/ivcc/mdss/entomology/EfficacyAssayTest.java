@@ -26,8 +26,8 @@ import csu.mrc.ivcc.mdss.entomology.assay.InvalidFedSexProblem;
 import csu.mrc.ivcc.mdss.entomology.assay.InvalidGenerationProblem;
 import csu.mrc.ivcc.mdss.entomology.assay.InvalidGravidQuantityProblem;
 import csu.mrc.ivcc.mdss.entomology.assay.InvalidGravidSexProblem;
-import csu.mrc.ivcc.mdss.geo.GeoEntity;
-import csu.mrc.ivcc.mdss.geo.Terrain;
+import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
+import csu.mrc.ivcc.mdss.geo.generated.SentinalSite;
 import csu.mrc.ivcc.mdss.mo.CollectionMethod;
 import csu.mrc.ivcc.mdss.mo.Generation;
 import csu.mrc.ivcc.mdss.mo.IdentificationMethod;
@@ -99,10 +99,9 @@ public class EfficacyAssayTest extends TestCase
       SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
       Date date = dateTime.parse("2006-01-01");
 
-      geoEntity = new GeoEntity();
+      geoEntity = new SentinalSite();
       geoEntity.setGeoId("0");
       geoEntity.setEntityName("GeoEntity");
-      geoEntity.addTerrain(Terrain.SENTINEL_SITE);
       geoEntity.apply();
 
       collection = new MosquitoCollection();

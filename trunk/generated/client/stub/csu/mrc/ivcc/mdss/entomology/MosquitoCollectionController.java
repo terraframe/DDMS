@@ -7,7 +7,7 @@ import java.util.Date;
 import javax.servlet.ServletException;
 
 import csu.mrc.ivcc.mdss.entomology.MosquitoCollectionControllerBase;
-import csu.mrc.ivcc.mdss.geo.GeoEntityDTO;
+import csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO;
 
 
 public class MosquitoCollectionController extends MosquitoCollectionControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -41,7 +41,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failDelete(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Mosquito Collections");
     render("editComponent.jsp");
@@ -51,7 +51,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO dto = new csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO(clientRequest);
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Mosquito Collections");
     render("createComponent.jsp");
@@ -75,12 +75,12 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failUpdate(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update a Mosquito Collection");
     render("updateComponent.jsp");
   }
-  public void failSearchByGeoEntityAndDate(csu.mrc.ivcc.mdss.geo.GeoEntityDTO geoEntity, java.lang.String collectionDate) throws java.io.IOException, javax.servlet.ServletException
+  public void failSearchByGeoEntityAndDate(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO geoEntity, java.lang.String collectionDate) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
@@ -88,7 +88,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View a Mosquito Collection");
     render("viewComponent.jsp");
@@ -134,7 +134,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO dto = csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO.lock(super.getClientRequest(), id);
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Mosquito Collection");
     render("editComponent.jsp");
@@ -158,7 +158,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failCreate(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Mosquito Collection");
     render("createComponent.jsp");
@@ -191,7 +191,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     }
 
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", collection);
     req.setAttribute("page_title", "Search Mosquito Collections");
     render(jsp);

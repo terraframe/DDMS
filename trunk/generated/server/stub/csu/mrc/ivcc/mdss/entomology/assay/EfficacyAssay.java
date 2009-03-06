@@ -7,7 +7,7 @@ import java.util.List;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import csu.mrc.ivcc.mdss.geo.GeoEntity;
+import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
 
 public class EfficacyAssay extends EfficacyAssayBase implements
     com.terraframe.mojo.generation.loader.Reloadable
