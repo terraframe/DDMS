@@ -8,7 +8,6 @@ import java.util.List;
 import javax.vecmath.GMatrix;
 import javax.vecmath.GVector;
 
-
 import com.gregdennis.drej.PolynomialKernel;
 import com.gregdennis.drej.Regression;
 import com.gregdennis.drej.Representer;
@@ -17,8 +16,6 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 import csu.mrc.ivcc.mdss.Property;
-import csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalQuery;
-import csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayBase;
 
 public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -96,7 +93,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     if (this.getQuantityDead() <= this.getQuantityTested())
     {
       this.setQuantityLive(this.getQuantityTested() - this.getQuantityDead());
-      this.setMortality(this.getQuantityDead() / ( (float) this.getQuantityTested()) * 100);
+      this.setMortality(((float) (this.getQuantityDead()) * 100 / this.getQuantityTested()));
     }
     else
     {
@@ -123,18 +120,18 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     
     if(this.isSusceptible())
     {
-//      SusceptibleCollection info = new SusceptibleCollection();
-//      info.throwIt();      
+      SusceptibleCollection info = new SusceptibleCollection();
+      info.throwIt();      
     }
     else if (this.isPotentiallyResistant())
     {
-//      PotentiallyResistantCollection info = new PotentiallyResistantCollection();
-//      info.throwIt();
+      PotentiallyResistantCollection info = new PotentiallyResistantCollection();
+      info.throwIt();
     }
     else if (this.isResistant())
     {
-//      ResistantCollection info = new ResistantCollection();
-//      info.throwIt();
+      ResistantCollection info = new ResistantCollection();
+      info.throwIt();
     }
   }
 

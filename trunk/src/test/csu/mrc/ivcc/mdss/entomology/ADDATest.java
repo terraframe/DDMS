@@ -1,26 +1,31 @@
 package csu.mrc.ivcc.mdss.entomology;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
+import com.terraframe.mojo.business.InformationDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
+import com.terraframe.mojo.web.WebClientSession;
 
 import csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval;
 import csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView;
 import csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRange;
 import csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay;
+import csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import csu.mrc.ivcc.mdss.entomology.assay.InvalidAgeProblem;
 import csu.mrc.ivcc.mdss.entomology.assay.InvalidAgeRangeProblem;
 import csu.mrc.ivcc.mdss.entomology.assay.InvalidDeadQuantityProblem;
@@ -33,14 +38,22 @@ import csu.mrc.ivcc.mdss.entomology.assay.InvalidIntervalTimeProblem;
 import csu.mrc.ivcc.mdss.entomology.assay.InvalidKnockDownQuantityProblem;
 import csu.mrc.ivcc.mdss.entomology.assay.InvalidPeriodProblem;
 import csu.mrc.ivcc.mdss.entomology.assay.InvalidTestDateProblem;
+import csu.mrc.ivcc.mdss.entomology.assay.PotentiallyResistantCollectionDTO;
+import csu.mrc.ivcc.mdss.entomology.assay.ResistantCollectionDTO;
+import csu.mrc.ivcc.mdss.entomology.assay.SusceptibleCollectionDTO;
 import csu.mrc.ivcc.mdss.entomology.assay.Unit;
+import csu.mrc.ivcc.mdss.entomology.assay.UnitDTO;
 import csu.mrc.ivcc.mdss.geo.GeoEntity;
 import csu.mrc.ivcc.mdss.geo.Terrain;
 import csu.mrc.ivcc.mdss.mo.CollectionMethod;
 import csu.mrc.ivcc.mdss.mo.Generation;
+import csu.mrc.ivcc.mdss.mo.GenerationDTO;
 import csu.mrc.ivcc.mdss.mo.IdentificationMethod;
+import csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO;
 import csu.mrc.ivcc.mdss.mo.Insecticide;
+import csu.mrc.ivcc.mdss.mo.InsecticideDTO;
 import csu.mrc.ivcc.mdss.mo.ResistanceMethodology;
+import csu.mrc.ivcc.mdss.mo.ResistanceMethodologyDTO;
 import csu.mrc.ivcc.mdss.mo.Specie;
 
 public class ADDATest extends TestCase
@@ -62,6 +75,10 @@ public class ADDATest extends TestCase
   private static Generation            F0                   = null;
 
   private static Generation            F1                   = null;
+
+  private static ClientSession         clientSession;
+
+  private static ClientRequestIF       clientRequest;
 
   public static Test suite()
   {
@@ -87,6 +104,9 @@ public class ADDATest extends TestCase
 
   protected static void classSetUp()
   {
+    clientSession = WebClientSession.createUserSession("SYSTEM", "SYSTEM", Locale.US);
+    clientRequest = clientSession.getRequest();
+
     collectionMethod = CollectionMethod.getAll()[0];
     specie = Specie.getAll()[0];
     identificationMethod = IdentificationMethod.getAll()[0];
@@ -94,7 +114,6 @@ public class ADDATest extends TestCase
     insecticide = Insecticide.getAll()[0];
     F0 = Generation.getAll()[0];
     F1 = Generation.getAll()[1];
-
 
     try
     {
@@ -123,6 +142,8 @@ public class ADDATest extends TestCase
   {
     collection.delete();
     geoEntity.delete();
+
+    clientSession.logout();
   }
 
   public void testAgeBoundary()
@@ -1196,9 +1217,7 @@ public class ADDATest extends TestCase
       assay.delete();
     }
   }
-  
-  
-  
+
   public void testIntervalUpdate() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
@@ -1227,7 +1246,7 @@ public class ADDATest extends TestCase
     assay.setGeneration(F1);
     assay.setGenericName(generic);
     assay.apply();
-    
+
     ADDATestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
@@ -1254,7 +1273,7 @@ public class ADDATest extends TestCase
       assay.delete();
     }
   }
-  
+
   public void testIntervalSaveAll() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
@@ -1283,14 +1302,14 @@ public class ADDATest extends TestCase
     assay.setGeneration(F1);
     assay.setGenericName(generic);
     assay.apply();
-    
+
     ADDATestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
       intervals[i].setKnockedDown(i);
     }
-    
+
     ADDATestIntervalView.saveAll(intervals);
 
     try
@@ -1311,8 +1330,6 @@ public class ADDATest extends TestCase
       assay.delete();
     }
   }
-  
-
 
   public void testInvalidPeriod() throws ParseException
   {
@@ -1373,7 +1390,7 @@ public class ADDATest extends TestCase
       assay.delete();
     }
   }
-  
+
   public void testDuplicatePeriod() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
@@ -1415,9 +1432,9 @@ public class ADDATest extends TestCase
 
       fail("Able to create a test interval with an duplicate period");
     }
-    catch(DuplicateDataDatabaseException e)
+    catch (DuplicateDataDatabaseException e)
     {
-      //This is expected
+      // This is expected
     }
     finally
     {
@@ -1518,7 +1535,7 @@ public class ADDATest extends TestCase
     {
       ADDATestIntervalView[] intervals = assay.getTestIntervals();
       interval = ADDATestInterval.get(intervals[0].getIntervalId());
-      
+
       interval.setAssay(assay);
       interval.setPeriod(0);
       interval.setKnockedDown(quantityKnockedDown);
@@ -1629,16 +1646,15 @@ public class ADDATest extends TestCase
     assay.setGenericName(generic);
     assay.apply();
 
-
     ADDATestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
       intervals[i].setKnockedDown(i * 3);
     }
-    
+
     ADDATestIntervalView.saveAll(intervals);
-    
+
     try
     {
       assertEquals(50, (int) Math.round(assay.getKD50()));
@@ -1684,7 +1700,7 @@ public class ADDATest extends TestCase
     {
       intervals[i].setKnockedDown(i * 3);
     }
-    
+
     ADDATestIntervalView.saveAll(intervals);
 
     try
@@ -1695,5 +1711,136 @@ public class ADDATest extends TestCase
     {
       assay.delete();
     }
+  }
+
+  public void testResistant() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySexDTO sex = AssaySexDTO.MALE;
+
+    AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(clientRequest);
+    assay.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(IdentificationMethodDTO.get(clientRequest, identificationMethod
+        .getId()));
+    assay.setTestMethod(ResistanceMethodologyDTO.get(clientRequest, assayMethod.getId()));
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setGeneration(GenerationDTO.get(clientRequest, F1.getId()));
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(0);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+    assay.setInsecticide(InsecticideDTO.get(clientRequest, insecticide.getId()));
+    assay.setAmount(10);
+    assay.addUnits(UnitDTO.PERCENT);
+    assay.setGenericName(generic);
+    assay.apply();
+
+    try
+    {
+      List<InformationDTO> information = clientRequest.getInformation();
+
+      assertEquals(1, information.size());
+      assertTrue(information.get(0) instanceof ResistantCollectionDTO);
+    }
+    finally
+    {
+      assay.delete();
+    }
+  }
+
+  public void testPotentiallyResistant() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySexDTO sex = AssaySexDTO.MALE;
+
+    AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(clientRequest);
+    assay.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(IdentificationMethodDTO.get(clientRequest, identificationMethod
+        .getId()));
+    assay.setTestMethod(ResistanceMethodologyDTO.get(clientRequest, assayMethod.getId()));
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setGeneration(GenerationDTO.get(clientRequest, F1.getId()));
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(29);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+    assay.setInsecticide(InsecticideDTO.get(clientRequest, insecticide.getId()));
+    assay.setAmount(10);
+    assay.addUnits(UnitDTO.PERCENT);
+    assay.setGenericName(generic);
+    assay.apply();
+
+    try
+    {
+      List<InformationDTO> information = clientRequest.getInformation();
+
+      assertEquals(1, information.size());
+      assertTrue(information.get(0) instanceof PotentiallyResistantCollectionDTO);
+    }
+    finally
+    {
+      assay.delete();
+    }
+
+  }
+
+  public void testSusceptible() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    String generic = "Sample Insecticide";
+    AssaySexDTO sex = AssaySexDTO.MALE;
+
+    AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(clientRequest);
+    assay.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
+    assay.setTestDate(date);
+    assay.addSex(sex);
+    assay.setIdentificationMethod(IdentificationMethodDTO.get(clientRequest, identificationMethod
+        .getId()));
+    assay.setTestMethod(ResistanceMethodologyDTO.get(clientRequest, assayMethod.getId()));
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setGeneration(GenerationDTO.get(clientRequest, F1.getId()));
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(99.99));
+    assay.setIsofemale(false);
+    assay.setQuantityDead(30);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+    assay.setInsecticide(InsecticideDTO.get(clientRequest, insecticide.getId()));
+    assay.setAmount(10);
+    assay.addUnits(UnitDTO.PERCENT);
+    assay.setGenericName(generic);
+    assay.apply();
+
+    try
+    {
+      List<InformationDTO> information = clientRequest.getInformation();
+
+      assertEquals(1, information.size());
+      assertTrue(information.get(0) instanceof SusceptibleCollectionDTO);
+    }
+    finally
+    {
+      assay.delete();
+    }
+
   }
 }
