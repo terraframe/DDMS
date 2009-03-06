@@ -1211,14 +1211,14 @@
         <float
           name="mortality"
           label="Mortality Rate"
-          length="4"
+          length="5"
           decimal="2"
           required="true"
           description="The mortality rate of mosquitos" />
         <float
           name="controlTestMortality"
           label="Control Test Mortality Rate"
-          length="4"
+          length="5"
           decimal="2"
           description="Mortality rate of the control test"
           required="false" />
