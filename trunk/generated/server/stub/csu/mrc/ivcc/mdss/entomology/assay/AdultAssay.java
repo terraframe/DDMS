@@ -119,7 +119,6 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
     validateAgeRange();
     validateGravid();
     validateFed();
-    validateInsecticide();
 
     validateIsofemale();
 

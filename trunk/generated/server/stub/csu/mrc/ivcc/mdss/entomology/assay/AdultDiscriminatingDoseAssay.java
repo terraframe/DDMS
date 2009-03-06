@@ -83,9 +83,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     boolean firstApply = this.isNew() && !this.isAppliedToDB();
 
-    validateCollection();
-    validateSex();
-
     validateTestDate();
     validateIntervalTime();
     validateQuantityDead();
