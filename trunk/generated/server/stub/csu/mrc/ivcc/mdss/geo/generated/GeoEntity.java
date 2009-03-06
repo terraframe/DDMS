@@ -8,7 +8,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntityBase;
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery;
 
-public class GeoEntity extends GeoEntityBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234288139462L;
   

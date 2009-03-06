@@ -4,8 +4,8 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
-import csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBody;
-import csu.mrc.ivcc.mdss.geo.generated.Trap;
+import csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBodyIF;
+import csu.mrc.ivcc.mdss.geo.generated.TrapIF;
 
 public class MosquitoCollectionPoint extends MosquitoCollectionPointBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -32,7 +32,7 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
 
     GeoEntity geoEntity = this.getGeoEntity();
 
-    if (! ( geoEntity instanceof Trap || geoEntity instanceof PermanentWaterBody ))
+    if (! ( geoEntity instanceof TrapIF || geoEntity instanceof PermanentWaterBodyIF ))
     {
       String msg = "The geoEntity of a mosquito collection must be a fixed trap or a permenent water body";
 

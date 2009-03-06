@@ -3,7 +3,7 @@ package csu.mrc.ivcc.mdss.entomology;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import csu.mrc.ivcc.mdss.geo.generated.AbstractSite;
+import csu.mrc.ivcc.mdss.geo.generated.AbstractSiteIF;
 
 public class MosquitoCollection extends MosquitoCollectionBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -28,7 +28,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
   {
     super.validateGeoEntity();
 
-    if (! (this.getGeoEntity() instanceof AbstractSite))
+    if (! (this.getGeoEntity() instanceof AbstractSiteIF))
     {
       String msg = "The geoEntity of a mosquito collection must be a (non)sentinel site";
 

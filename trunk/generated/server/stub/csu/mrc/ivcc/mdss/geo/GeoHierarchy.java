@@ -1,16 +1,21 @@
 package csu.mrc.ivcc.mdss.geo;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 
 import csu.mrc.ivcc.mdss.MDSSInfo;
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
@@ -33,28 +38,33 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
    */
   public static String defineAllowedTree(String geoEntityId)
   {
-    /*
     try
     {
       GeoEntity geoEntity = GeoEntity.get(geoEntityId);
+      MdBusiness rootMd = MdBusiness.getMdBusiness(geoEntity.getType());
 
       // Collect all MdBusinesses mapped to a GeoHierarchy
       QueryFactory f = new QueryFactory();
-      MdBusinessQuery mdQuery = new MdBusinessQuery(f);
       GeoHierarchyQuery geoQuery = new GeoHierarchyQuery(f);
+      geoQuery.WHERE(geoQuery.getGeoEntityClass().EQ(rootMd));
       
+      OIterator<? extends GeoHierarchy> iter = geoQuery.getIterator();
+      GeoHierarchy geo = null;
+      try
+      {
+        geo = iter.next(); // There will always be one result.
+      }
+      finally
+      {
+        iter.close();
+      }
       
-      GeoHierarchy geo = GeoHierarchy.get(geoHierarchyId);
-    
       JSONObject map = new JSONObject();
       JSONObject types = new JSONObject();
       HashSet<String> imports = new HashSet<String>();
       
-      String type = md.getPackageName()+"."+md.getTypeName();
-      
       treeRecurse(types, imports, geo);
     
-      map.put("rootType", type);
       map.put("types", types);
       map.put("imports", new JSONArray(imports));
 
@@ -64,9 +74,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     {
       throw new ProgrammingErrorException(e);
     }
-    */
-      
-      return null;
   }
   
   private static void treeRecurse(JSONObject types, HashSet<String> imports, GeoHierarchy geo) throws JSONException
