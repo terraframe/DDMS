@@ -1046,11 +1046,6 @@
           required="true"
           default_value="false"
           description="Flag denoting if this mosquito is from the iso-female line" />
-        <reference
-          name="collection"
-          label="Mosquito Collection"
-          required="true"
-          type="csu.mrc.ivcc.mdss.entomology.MosquitoCollection" />
         <enumeration
           name="sex"
           label="Sex"
@@ -1106,6 +1101,23 @@
           required="true"
           description="The total number mosquitos tested" />
         <reference
+          name="generation"
+          label="Generation"
+          required="true"
+          description="The generation of the mosquito"
+          type="csu.mrc.ivcc.mdss.mo.Generation" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.entomology.assay.InsecticideAssay"
+      label="Insecticide Assay"
+      isAbstract="true"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.AdultAssay"
+      extendable="true"
+      description="An assay performed which an Insecticide">
+      <attributes>
+        <reference
           name="insecticide"
           label="Insecticide"
           type="csu.mrc.ivcc.mdss.mo.Insecticide"
@@ -1127,67 +1139,14 @@
           label="Generic Name"
           size="255"
           description="Generic name of the insecticide.  Only displayed when an 'Other' insecticide is used." />
-        <reference
-          name="generation"
-          label="Generation"
-          required="true"
-          description="The generation of the mosquito"
-          type="csu.mrc.ivcc.mdss.mo.Generation" />
       </attributes>
     </mdBusiness>
-
-    <mdView
-      name="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView"
-      label="Test Interval View"
-      description="View for Adult Discriminating Dose Assay test intervals">
-      <attributes>
-        <char
-          name="assayId"
-          label="Adult Discriminating Dose Assay Id"
-          required="true"
-          size="255" />
-        <char
-          name="intervalId"
-          label="Test Interval Id"
-          required="true"
-          size="255" />
-        <integer
-          name="period"
-          label="Period"
-          rejectNegative="true"
-          required="true" />
-        <integer
-          name="intervalTime"
-          label="Interval Time"
-          rejectNegative="true"
-          required="true" />
-        <integer
-          name="knockedDown"
-          rejectNegative="true"
-          label="Knocked Down"
-          required="true"
-          default_value="0" />
-      </attributes>
-      <mdMethod
-        name="saveAll"
-        label="Save All"
-        returnType="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView[]"
-        static="true"
-        description="Saves an array of ADDATestIntervalViews in a single transaction">
-        <mdParameter
-          name="array"
-          label="Array"
-          description="Array of objects to save"
-          order="0"
-          type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView[]" />
-      </mdMethod>
-    </mdView>
 
     <mdBusiness
       name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay"
       label="Adult Discriminating Dose Assay"
       description="Discriminating dose assay which can be performed on a group of adult mosquitos"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.AdultAssay">
+      extends="csu.mrc.ivcc.mdss.entomology.assay.InsecticideAssay">
       <attributes>
         <integer
           name="holdingTime"
@@ -1231,6 +1190,11 @@
           required="true"
           description="The interval time in minutes"
           default_value="10" />
+        <reference
+          name="collection"
+          label="Mosquito Collection"
+          required="true"
+          type="csu.mrc.ivcc.mdss.entomology.MosquitoCollection" />
       </attributes>
       <mdMethod
         name="getTestIntervals"
@@ -1252,6 +1216,162 @@
         static="false"
         description="Returns the predicted KD95" />
     </mdBusiness>
+
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssay"
+      label="Efficacy Assay"
+      description="An efficacy assay which can be performed on a colony mosquitos"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.AdultAssay">
+      <attributes>
+        <integer
+          name="holdingTime"
+          label="Holding Time (hr)"
+          required="true"
+          rejectNegative="true"
+          description="The amount of time the mosquitos were held before exposure in hours"
+          default_value="23" />
+        <integer
+          name="quantityDead"
+          label="Quantity Dead"
+          rejectNegative="true"
+          required="true"
+          description="The total number of mosquitos which died during the assay" />
+        <integer
+          name="quantityLive"
+          label="Quantity Live"
+          rejectNegative="true"
+          required="true"
+          description="The total number of mosquitos which lived during the assay" />
+        <float
+          name="mortality"
+          label="Mortality Rate"
+          length="5"
+          decimal="2"
+          required="true"
+          description="The mortality rate of mosquitos" />
+        <char
+          name="colonyName"
+          size="255"
+          label="Colony Name"
+          description="The name of the colony" />
+        <reference
+          name="insecticide"
+          label="Insecticide"
+          type="csu.mrc.ivcc.mdss.mo.Insecticide"
+          required="true" />
+        <integer
+          name="insecticideLength"
+          label="Insecticide Time Length"
+          rejectZero="true"
+          rejectNegative="true"
+          description="The length of timein months that the insecticide has been on the surface" />
+        <enumeration
+          name="surfacePostion"
+          label="Surface Position"
+          type="csu.mrc.ivcc.mdss.SurfacePosition"
+          selectMultiple="false"
+          description="The surface position of the insecticide" />
+        <reference
+          name="geoEntity"
+          required="true"
+          label="Geo Entity"
+          type="csu.mrc.ivcc.mdss.geo.GeoEntity" />
+
+      </attributes>
+      <mdMethod
+        name="getOverallMortalityRate"
+        label="Get Overall Mortality Rate"
+        returnType="java.lang.Float"
+        description="Returns the overall mortality rate for all efficacy assays on the same suface and date"
+        static="false">
+      </mdMethod>
+      <mdMethod
+        name="searchByGeoEntityAndDate"
+        label="Search By GeoEntity and Date"
+        description="Searches for all efficacy assays with the given geo entity and date"
+        static="true"
+        returnType="csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssay[]">
+        <mdParameter
+          name="geoEntity"
+          label="Geo Entity"
+          type="csu.mrc.ivcc.mdss.geo.GeoEntity"
+          order="0"
+          description="GeoEntity" />
+        <mdParameter
+          name="collectionDate"
+          label="Colllection Date"
+          type="java.util.Date"
+          order="1" />
+      </mdMethod>
+    </mdBusiness>
+
+    <enumerationMaster
+      name="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      label="Surface Position"
+      description="Configurable table of surface positions" />
+
+    <object
+      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      id="TOP">
+      <valueAttribute
+        name="enumName"
+        value="TOP" />
+      <valueAttribute
+        name="displayLabel"
+        value="Top" />
+    </object>
+
+    <object
+      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      id="MIDDLE">
+      <valueAttribute
+        name="enumName"
+        value="MIDDLE" />
+      <valueAttribute
+        name="displayLabel"
+        value="Middle" />
+    </object>
+
+    <object
+      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      id="BOTTOM">
+      <valueAttribute
+        name="enumName"
+        value="BOTTOM" />
+      <valueAttribute
+        name="displayLabel"
+        value="Bottom" />
+    </object>
+
+    <object
+      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      id="RANDOM">
+      <valueAttribute
+        name="enumName"
+        value="RANDOM" />
+      <valueAttribute
+        name="displayLabel"
+        value="Random" />
+    </object>
+
+    <object
+      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      id="NOT_APPLICABLE">
+      <valueAttribute
+        name="enumName"
+        value="NOT_APPLICABLE" />
+      <valueAttribute
+        name="displayLabel"
+        value="Not Applicable" />
+    </object>
+
+    <mdEnumeration
+      name="csu.mrc.ivcc.mdss.SurfacePosition"
+      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      label="Surface Position"
+      description="List of all possible assay surface positions">
+      <includeAll />
+    </mdEnumeration>
 
     <mdInformation
       name="csu.mrc.ivcc.mdss.entomology.assay.ResistantCollection"
@@ -1304,6 +1424,54 @@
       <attribute
         name="period" />
     </mdIndex>
+
+    <mdView
+      name="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView"
+      label="Test Interval View"
+      description="View for Adult Discriminating Dose Assay test intervals">
+      <attributes>
+        <char
+          name="assayId"
+          label="Adult Discriminating Dose Assay Id"
+          required="true"
+          size="255" />
+        <char
+          name="intervalId"
+          label="Test Interval Id"
+          required="true"
+          size="255" />
+        <integer
+          name="period"
+          label="Period"
+          rejectNegative="true"
+          required="true" />
+        <integer
+          name="intervalTime"
+          label="Interval Time"
+          rejectNegative="true"
+          required="true" />
+        <integer
+          name="knockedDown"
+          rejectNegative="true"
+          label="Knocked Down"
+          required="true"
+          default_value="0" />
+      </attributes>
+      <mdMethod
+        name="saveAll"
+        label="Save All"
+        returnType="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView[]"
+        static="true"
+        description="Saves an array of ADDATestIntervalViews in a single transaction">
+        <mdParameter
+          name="array"
+          label="Array"
+          description="Array of objects to save"
+          order="0"
+          type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView[]" />
+      </mdMethod>
+    </mdView>
+
 
     <mdProblem
       name="csu.mrc.ivcc.mdss.entomology.assay.InvalidFedQuantityProblem"
