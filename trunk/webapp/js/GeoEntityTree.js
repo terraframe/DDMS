@@ -559,17 +559,15 @@ MDSS.GeoEntityTree = (function(){
     for(var i=0; i<selectable.length; i++)
     {
       var entry = selectable[i];
-      var type = Mojo.util.getKeys(entry)[0];
-      var dLabel = Mojo.util.getValues(entry)[0];
     	
       var liRaw = document.createElement('li');
       var li = new YAHOO.util.Element(liRaw);
       
       li.on('click', _createTypeSelected, {
-        type : type
+        type : entry.type
       });
       
-      liRaw.innerHTML = dLabel;
+      liRaw.innerHTML = entry.label;
       
       ul.appendChild(liRaw);
     }

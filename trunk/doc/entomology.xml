@@ -293,6 +293,83 @@
       </mdAction>
     </mdController>
 
+    <!-- START: GeoEntity Types -->
+    
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.Country"
+      label="Country"
+      description="Country"
+      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+    </mdBusiness>
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.Province"
+      label="Province"
+      description="Province"
+      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+    </mdBusiness>
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.District"
+      label="District"
+      description="District"
+      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+    </mdBusiness>
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.AdminPost"
+      label="Admin Post"
+      description="Admin Post"
+      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+    </mdBusiness>
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.Locality"
+      label="Locality"
+      description="Locality"
+      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+    </mdBusiness>
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.PopulatedArea"
+      label="Populated Area"
+      description="Populated Area"
+      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+    </mdBusiness>
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.AbstractSite"
+      label="Abstract Site"
+      description="Abstract Site"
+      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+    </mdBusiness>
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.SentinalSite"
+      label="Sentinal Site"
+      description="Sentinal Site"
+      extends="csu.mrc.ivcc.mdss.geo.generated.AbstractSite">
+    </mdBusiness>
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite"
+      label="Non Sentinal Site"
+      description="Non Sentinal Site"
+      extends="csu.mrc.ivcc.mdss.geo.generated.AbstractSite">
+    </mdBusiness>
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.Trap"
+      label="Trap"
+      description="Trap"
+      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+    </mdBusiness>
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.BreedingSite"
+      label="Breeding Site"
+      description="Breeding Site"
+      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+    </mdBusiness>
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBody"
+      label="Permanent Water Body"
+      description="Permanent Water Body"
+      extends="csu.mrc.ivcc.mdss.geo.generated.BreedingSite">
+    </mdBusiness>
+    
+    <!-- END: GeoEntity Types -->
+
     <mdController
       name="com.terraframe.mojo.defaults.LoginController"
       label="Login Controller"
@@ -502,6 +579,36 @@
           concrete="geoEntity" />
       </attributes>
     </mdView>
+
+    <mdException
+      name="csu.mrc.ivcc.mdss.geo.LocatedInException"
+      label="Located In Exception"
+      description="Exception for when a GeoEntity is being added to the wrong parent.">
+      <attributes>
+        <char
+          name="entityName"
+          label="Entity Name"
+          size="50"
+          required="true"
+          description="Geo Entity name" />
+        <char
+          name="parentDisplayLabel"
+          label="Parent Display Label"
+          size="50"
+          required="true"
+          description="Parent Display Label" />
+      </attributes>
+      <messages>
+      <![CDATA[
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
+  name="csu.mrc.ivcc.mdss.geo.LocatedInException">
+  <locale language="en">The Geo Entity [{entityName}] cannot be located in [{parentDisplayLabel}].</locale>
+</exception>
+      ]]>
+      </messages>
+    </mdException>
 
     <mdException
       name="csu.mrc.ivcc.mdss.entomology.InvalidMosquitoCollectionPointGeoEntityException"
@@ -7739,5 +7846,232 @@
         name="definition"
         value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
     </object>
+  </create>
+  
+  <existing>
+    <object key="csu.mrc.ivcc.mdss.geo.generated.Country" id="CountryMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object key="csu.mrc.ivcc.mdss.geo.generated.Province" id="ProvinceMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object key="csu.mrc.ivcc.mdss.geo.generated.District" id="DistrictMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object key="csu.mrc.ivcc.mdss.geo.generated.AdminPost" id="AdminPostMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object key="csu.mrc.ivcc.mdss.geo.generated.Locality" id="LocalityMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object key="csu.mrc.ivcc.mdss.geo.generated.PopulatedArea" id="PopulatedAreaMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object key="csu.mrc.ivcc.mdss.geo.generated.AbstractSite" id="AbstractSiteMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object key="csu.mrc.ivcc.mdss.geo.generated.SentinalSite" id="SentinalSiteMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object key="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite" id="NonSentinalSiteMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object key="csu.mrc.ivcc.mdss.geo.generated.Trap" id="TrapMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object key="csu.mrc.ivcc.mdss.geo.generated.BreedingSite" id="BreedingSiteMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object key="csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBody" id="PermanentWaterBodyMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+  </existing>
+  
+  <create>
+    <object
+      id="countryH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="true" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="CountryMd"/>
+    </object>
+    
+    <object
+      id="provinceH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="true" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="ProvinceMd"/>
+    </object>
+    
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="provinceH"
+      parentId="countryH"
+      id="provinceInCountry">
+    </relationship>
+    
+    <object
+      id="districtH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="true" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="DistrictMd"/>
+    </object>
+    
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="districtH"
+      parentId="provinceH"
+      id="districtInProvince">
+    </relationship>
+    
+    <object
+      id="adminPostH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="true" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="AdminPostMd"/>
+    </object>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="adminPostH"
+      parentId="districtH"
+      id="adminPostInDistrict">
+    </relationship>
+    
+    <object
+      id="localityH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="true" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="LocalityMd"/>
+    </object>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="localityH"
+      parentId="adminPostH"
+      id="localityInAdminPost">
+    </relationship>
+
+    <object
+      id="populatedAreaH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="true" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="PopulatedAreaMd"/>
+    </object>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="populatedAreaH"
+      parentId="localityH"
+      id="populatedAreaInLocality">
+    </relationship>
+        
+    <object
+      id="abstractSiteH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="AbstractSiteMd"/>
+    </object>
+    
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="abstractSiteH"
+      parentId="localityH"
+      id="abstractSiteInLocality">
+    </relationship>
+    
+    <object
+      id="sentinalSiteH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="SentinalSiteMd"/>
+    </object>
+    
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="sentinalSiteH"
+      parentId="localityH"
+      id="sentinalSiteInLocality">
+    </relationship>
+    
+    <object
+      id="nonSentinalSiteH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="NonSentinalSiteMd"/>
+    </object>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="nonSentinalSiteH"
+      parentId="localityH"
+      id="nonSentinalSiteInLocality">
+    </relationship>
+
+    <object
+      id="trapH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="TrapMd"/>
+    </object>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="trapH"
+      parentId="nonSentinalSiteH"
+      id="trapInNonSentinalSite">
+    </relationship>
+
+    <object
+      id="breedingSiteH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="BreedingSiteMd"/>
+    </object>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="breedingSiteH"
+      parentId="localityH"
+      id="breedingSiteInLocality">
+    </relationship>
+
+    <object
+      id="permanentWaterBodyH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="PermanentWaterBodyMd"/>
+    </object>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="permanentWaterBodyH"
+      parentId="localityH"
+      id="permanentWaterBodyInLocality">
+    </relationship>
+
   </create>
 </TerraFrame>

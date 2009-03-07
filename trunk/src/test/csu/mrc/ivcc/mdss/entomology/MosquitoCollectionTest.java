@@ -13,16 +13,15 @@ import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
-import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.session.StartSession;
 
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
-import csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteIF;
-import csu.mrc.ivcc.mdss.geo.generated.SentinalSiteIF;
-import csu.mrc.ivcc.mdss.geo.generated.TrapIF;
+import csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite;
+import csu.mrc.ivcc.mdss.geo.generated.SentinalSite;
+import csu.mrc.ivcc.mdss.geo.generated.Trap;
 import csu.mrc.ivcc.mdss.mo.CollectionMethod;
 import csu.mrc.ivcc.mdss.mo.IdentificationMethod;
 import csu.mrc.ivcc.mdss.mo.Specie;
@@ -69,17 +68,17 @@ public class MosquitoCollectionTest extends TestCase
     specie = Specie.getAll()[0];
     identificationMethod = IdentificationMethod.getAll()[0];
 
-    sentinelSite = (GeoEntity) BusinessFacade.newBusiness(SentinalSiteIF.CLASS);
+    sentinelSite = new SentinalSite();
     sentinelSite.setGeoId("0");
     sentinelSite.setEntityName("Sentinel Site");
     sentinelSite.apply();
 
-    nonSentinelSite = (GeoEntity) BusinessFacade.newBusiness(NonSentinalSiteIF.CLASS);
+    nonSentinelSite = new NonSentinalSite();
     nonSentinelSite.setGeoId("1");
     nonSentinelSite.setEntityName("Non Sentinel Site");
     nonSentinelSite.apply();
 
-    fixedTrap = (GeoEntity) BusinessFacade.newBusiness(TrapIF.CLASS);
+    fixedTrap = new Trap();
     fixedTrap.setGeoId("2");
     fixedTrap.setEntityName("Fixed Trap");
     fixedTrap.apply();

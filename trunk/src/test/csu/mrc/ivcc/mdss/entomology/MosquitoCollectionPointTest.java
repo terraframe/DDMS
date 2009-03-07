@@ -13,14 +13,13 @@ import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
-import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
-import csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBodyIF;
-import csu.mrc.ivcc.mdss.geo.generated.SentinalSiteIF;
-import csu.mrc.ivcc.mdss.geo.generated.TrapIF;
+import csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBody;
+import csu.mrc.ivcc.mdss.geo.generated.SentinalSite;
+import csu.mrc.ivcc.mdss.geo.generated.Trap;
 import csu.mrc.ivcc.mdss.mo.IdentificationMethod;
 import csu.mrc.ivcc.mdss.mo.Specie;
 
@@ -65,17 +64,17 @@ public class MosquitoCollectionPointTest extends TestCase
     specie = Specie.getAll()[0];
     identificationMethod = IdentificationMethod.getAll()[0];
 
-    sentinelSite = (GeoEntity) BusinessFacade.newBusiness(SentinalSiteIF.CLASS);
+    sentinelSite = new SentinalSite();
     sentinelSite.setGeoId("0");
     sentinelSite.setEntityName("Sentinel Site");
     sentinelSite.apply();
 
-    waterBody = (GeoEntity) BusinessFacade.newBusiness(PermanentWaterBodyIF.CLASS);
+    waterBody = new PermanentWaterBody();
     waterBody.setGeoId("1");
     waterBody.setEntityName("Water Body");
     waterBody.apply();
 
-    fixedTrap = (GeoEntity) BusinessFacade.newBusiness(TrapIF.CLASS);
+    fixedTrap = new Trap();
     fixedTrap.setGeoId("2");
     fixedTrap.setEntityName("Fixed Trap");
     fixedTrap.apply();

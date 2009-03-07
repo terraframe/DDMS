@@ -1,10 +1,8 @@
 package csu.mrc.ivcc.mdss.geo;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +13,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.metadata.MdBusiness;
-import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 
 import csu.mrc.ivcc.mdss.MDSSInfo;
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
@@ -43,21 +40,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       GeoEntity geoEntity = GeoEntity.get(geoEntityId);
       MdBusiness rootMd = MdBusiness.getMdBusiness(geoEntity.getType());
 
-      // Collect all MdBusinesses mapped to a GeoHierarchy
-      QueryFactory f = new QueryFactory();
-      GeoHierarchyQuery geoQuery = new GeoHierarchyQuery(f);
-      geoQuery.WHERE(geoQuery.getGeoEntityClass().EQ(rootMd));
-      
-      OIterator<? extends GeoHierarchy> iter = geoQuery.getIterator();
-      GeoHierarchy geo = null;
-      try
-      {
-        geo = iter.next(); // There will always be one result.
-      }
-      finally
-      {
-        iter.close();
-      }
+      GeoHierarchy geo = getGeoHierarchyFromType(rootMd);
       
       JSONObject map = new JSONObject();
       JSONObject types = new JSONObject();
@@ -76,6 +59,37 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
     }
   }
   
+  /**
+   * Returns the GeoHierarchy representative of the given MdBusiness (a GeoEntity subtype).
+   * 
+   * @param md
+   * @return
+   */
+  public static GeoHierarchy getGeoHierarchyFromType(MdBusiness md)
+  {
+    QueryFactory f = new QueryFactory();
+    GeoHierarchyQuery geoQuery = new GeoHierarchyQuery(f);
+    geoQuery.WHERE(geoQuery.getGeoEntityClass().EQ(md));
+    
+    OIterator<? extends GeoHierarchy> iter = geoQuery.getIterator();
+    try
+    {
+      return iter.next(); // There will always be one result.
+    }
+    finally
+    {
+      iter.close();
+    }
+  }
+  
+  /**
+   * Recursive function
+   * 
+   * @param types
+   * @param imports
+   * @param geo
+   * @throws JSONException
+   */
   private static void treeRecurse(JSONObject types, HashSet<String> imports, GeoHierarchy geo) throws JSONException
   {
     List<GeoHierarchy> geos = new LinkedList<GeoHierarchy>();
@@ -102,7 +116,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       String type = md.getPackageName()+"."+md.getTypeName();
       
       JSONObject typeAndLabel = new JSONObject();
-      typeAndLabel.put(type, md.getDisplayLabel());
+      typeAndLabel.put("type", type);
+      typeAndLabel.put("label", md.getDisplayLabel());
       
       allowed.put(typeAndLabel);
       
