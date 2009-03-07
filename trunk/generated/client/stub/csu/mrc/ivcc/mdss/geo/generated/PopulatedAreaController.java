@@ -5,7 +5,7 @@ public class PopulatedAreaController extends PopulatedAreaControllerBase impleme
   public static final String JSP_DIR = "WEB-INF/csu/mrc/ivcc/mdss/geo/generated/PopulatedArea/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1236375273435L;
+  private static final long serialVersionUID = 1236384562745L;
   
   public PopulatedAreaController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

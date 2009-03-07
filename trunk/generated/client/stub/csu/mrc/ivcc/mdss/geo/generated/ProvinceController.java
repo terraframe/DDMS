@@ -5,7 +5,7 @@ public class ProvinceController extends ProvinceControllerBase implements com.te
   public static final String JSP_DIR = "WEB-INF/csu/mrc/ivcc/mdss/geo/generated/Province/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1236375273757L;
+  private static final long serialVersionUID = 1236384563651L;
   
   public ProvinceController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

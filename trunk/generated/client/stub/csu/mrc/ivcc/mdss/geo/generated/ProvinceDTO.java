@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public class ProvinceDTO extends ProvinceDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1236375272581L;
+  private static final long serialVersionUID = 1236384562118L;
   
   public ProvinceDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

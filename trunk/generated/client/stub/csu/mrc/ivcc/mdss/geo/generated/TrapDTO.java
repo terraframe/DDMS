@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public class TrapDTO extends TrapDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1236375273268L;
+  private static final long serialVersionUID = 1236384562995L;
   
   public TrapDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

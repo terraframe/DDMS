@@ -5,7 +5,7 @@ public class DistrictController extends DistrictControllerBase implements com.te
   public static final String JSP_DIR = "WEB-INF/csu/mrc/ivcc/mdss/geo/generated/District/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1236375273851L;
+  private static final long serialVersionUID = 1236384563789L;
   
   public DistrictController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

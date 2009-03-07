@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public class PermanentWaterBodyDTO extends PermanentWaterBodyDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1236375271614L;
+  private static final long serialVersionUID = 1236384560862L;
   
   public PermanentWaterBodyDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

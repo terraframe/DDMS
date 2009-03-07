@@ -1,6 +1,5 @@
 package csu.mrc.ivcc.mdss.entomology.assay;
 
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -90,7 +89,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     if (this.getQuantityDead() <= this.getQuantityTested())
     {
       this.setQuantityLive(this.getQuantityTested() - this.getQuantityDead());
-      this.setMortality(((float) (this.getQuantityDead()) * 100 / this.getQuantityTested()));
+      this.setMortality( ( (float) ( this.getQuantityDead() ) * 100 / this.getQuantityTested() ));
     }
     else
     {
@@ -114,11 +113,11 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
         interval.apply();
       }
     }
-    
-    if(this.isSusceptible())
+
+    if (this.isSusceptible())
     {
       SusceptibleCollection info = new SusceptibleCollection();
-      info.throwIt();      
+      info.throwIt();
     }
     else if (this.isPotentiallyResistant())
     {
@@ -135,23 +134,23 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   private boolean isResistant()
   {
     Integer resistant = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_RESISTANCE);
-    
-    return (this.getMortality() < resistant);
+
+    return ( this.getMortality() < resistant );
   }
 
   private boolean isPotentiallyResistant()
   {
     Integer susceptible = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_SUSCEPTIBILE);
     Integer resistant = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_RESISTANCE);
-    
-    return (resistant < this.getMortality() && this.getMortality() <= susceptible);
+
+    return ( resistant < this.getMortality() && this.getMortality() <= susceptible );
   }
 
   private boolean isSusceptible()
   {
     Integer susceptible = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_SUSCEPTIBILE);
-    
-    return (this.getMortality() > susceptible);
+
+    return ( this.getMortality() > susceptible );
   }
 
   public Integer calculatePeriod()
@@ -188,24 +187,30 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     OIterator<? extends ADDATestInterval> iterator = query.getIterator();
 
-    while (iterator.hasNext())
+    try
     {
-      ADDATestInterval interval = iterator.next();
+      while (iterator.hasNext())
+      {
+        ADDATestInterval interval = iterator.next();
 
-      ADDATestIntervalView view = new ADDATestIntervalView();
-      view.setIntervalId(interval.getId());
-      view.setAssayId(this.getId());
-      view.setKnockedDown(interval.getKnockedDown());
-      view.setPeriod(interval.getPeriod());
-      view.setIntervalTime(interval.getIntervalTime());
-      view.applyNoPersist();
+        ADDATestIntervalView view = new ADDATestIntervalView();
+        view.setIntervalId(interval.getId());
+        view.setAssayId(this.getId());
+        view.setKnockedDown(interval.getKnockedDown());
+        view.setPeriod(interval.getPeriod());
+        view.setIntervalTime(interval.getIntervalTime());
+        view.applyNoPersist();
 
-      list.add(view);
+        list.add(view);
+      }
+      
+      return list.toArray(new ADDATestIntervalView[list.size()]);
+    }
+    finally
+    {
+      iterator.close();
     }
 
-    iterator.close();
-
-    return list.toArray(new ADDATestIntervalView[list.size()]);
   }
 
   @Override

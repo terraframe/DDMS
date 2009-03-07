@@ -5,7 +5,7 @@ public class CountryController extends CountryControllerBase implements com.terr
   public static final String JSP_DIR = "WEB-INF/csu/mrc/ivcc/mdss/geo/generated/Country/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1236375271083L;
+  private static final long serialVersionUID = 1236384560123L;
   
   public CountryController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

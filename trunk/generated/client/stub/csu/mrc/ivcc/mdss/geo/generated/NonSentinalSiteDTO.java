@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public class NonSentinalSiteDTO extends NonSentinalSiteDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1236375271379L;
+  private static final long serialVersionUID = 1236384560547L;
   
   public NonSentinalSiteDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

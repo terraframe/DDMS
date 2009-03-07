@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public class LocalityDTO extends LocalityDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1236375270843L;
+  private static final long serialVersionUID = 1236384559927L;
   
   public LocalityDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

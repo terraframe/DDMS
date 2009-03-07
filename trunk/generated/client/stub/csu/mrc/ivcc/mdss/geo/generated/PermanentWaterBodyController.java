@@ -5,7 +5,7 @@ public class PermanentWaterBodyController extends PermanentWaterBodyControllerBa
   public static final String JSP_DIR = "WEB-INF/csu/mrc/ivcc/mdss/geo/generated/PermanentWaterBody/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1236375274170L;
+  private static final long serialVersionUID = 1236384564234L;
   
   public PermanentWaterBodyController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -5,7 +5,7 @@ public class TrapController extends TrapControllerBase implements com.terraframe
   public static final String JSP_DIR = "WEB-INF/csu/mrc/ivcc/mdss/geo/generated/Trap/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1236375274278L;
+  private static final long serialVersionUID = 1236384564380L;
   
   public TrapController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

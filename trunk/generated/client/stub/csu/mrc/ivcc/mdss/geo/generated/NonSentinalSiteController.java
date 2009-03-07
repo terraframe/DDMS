@@ -5,7 +5,7 @@ public class NonSentinalSiteController extends NonSentinalSiteControllerBase imp
   public static final String JSP_DIR = "WEB-INF/csu/mrc/ivcc/mdss/geo/generated/NonSentinalSite/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1236375271972L;
+  private static final long serialVersionUID = 1236384561431L;
   
   public NonSentinalSiteController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public class PopulatedAreaDTO extends PopulatedAreaDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1236375274854L;
+  private static final long serialVersionUID = 1236384564859L;
   
   public PopulatedAreaDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

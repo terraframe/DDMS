@@ -32,8 +32,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
     {
       String msg = "The geoEntity of a mosquito collection must be a (non)sentinel site";
 
-      InvalidMosquitoCollectionGeoEntityException e = new InvalidMosquitoCollectionGeoEntityException(
-          msg);
+      InvalidMosquitoCollectionGeoEntityException e = new InvalidMosquitoCollectionGeoEntityException(msg);
       e.setGeoId(this.getGeoEntity().getGeoId());
       e.apply();
 

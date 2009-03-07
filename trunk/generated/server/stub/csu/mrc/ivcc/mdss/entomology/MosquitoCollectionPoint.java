@@ -48,7 +48,6 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
   public static csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint searchByGeoEntityAndDate(
       csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)
   {
-    MosquitoCollectionPoint collection = null;
 
     QueryFactory factory = new QueryFactory();
     MosquitoCollectionPointQuery query = new MosquitoCollectionPointQuery(factory);
@@ -58,14 +57,19 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
 
     OIterator<? extends MosquitoCollectionPoint> iterator = query.getIterator();
 
-    if (iterator.hasNext())
+    try
     {
-      collection = iterator.next();
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+
+      return null;
     }
-
-    iterator.close();
-
-    return collection;
+    finally
+    {
+      iterator.close();
+    }
   }
 
   public MosquitoCollectionPointView getView()

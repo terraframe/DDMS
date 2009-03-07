@@ -5,7 +5,7 @@ public class AdminPostController extends AdminPostControllerBase implements com.
   public static final String JSP_DIR = "WEB-INF/csu/mrc/ivcc/mdss/geo/generated/AdminPost/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1236375271875L;
+  private static final long serialVersionUID = 1236384561277L;
   
   public AdminPostController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

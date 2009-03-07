@@ -5,7 +5,7 @@ public class LocalityController extends LocalityControllerBase implements com.te
   public static final String JSP_DIR = "WEB-INF/csu/mrc/ivcc/mdss/geo/generated/Locality/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1236375274687L;
+  private static final long serialVersionUID = 1236384565012L;
   
   public LocalityController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

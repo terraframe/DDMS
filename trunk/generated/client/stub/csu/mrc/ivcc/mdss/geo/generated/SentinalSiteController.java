@@ -5,7 +5,7 @@ public class SentinalSiteController extends SentinalSiteControllerBase implement
   public static final String JSP_DIR = "WEB-INF/csu/mrc/ivcc/mdss/geo/generated/SentinalSite/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1236375272408L;
+  private static final long serialVersionUID = 1236384561903L;
   
   public SentinalSiteController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
