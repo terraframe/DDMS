@@ -4,6 +4,7 @@
 
 <div class="pageContent">
 <div class="pageTitle">${page_title}</div>
+<jsp:include page="/WEB-INF/inlineError.jsp" />
 <jsp:include page="${jsp}" flush="false" />
 </div>
 
