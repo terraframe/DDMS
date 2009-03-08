@@ -23,8 +23,8 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			fields :  table_data.fields
 	};
     
-	myDataTable = new YAHOO.widget.DataTable(table_data.div_id,
-			table_data.columnDefs, myDataSource, {width:"30em", height:"10em"});
+	myDataTable = new YAHOO.widget.ScrollingDataTable(table_data.div_id,
+			table_data.columnDefs, myDataSource, {width:"60em"});
 	
 
 	function getLabelFromId(feild,id)
@@ -342,7 +342,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 	// Hook up the SimpleDialog to the link
 	YAHOO.util.Event.addListener("dt-options-link", "click", showDlg, this, true);
-	
+	table_data.myDataTable = myDataTable; 
 	return {
         oDS: myDataSource,
         oDT: myDataTable

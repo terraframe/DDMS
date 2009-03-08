@@ -134,12 +134,12 @@ body {
 	text-shadow: 0 0 0 #000;
 }
 .submitButton:hover {
-	background-image: url(/MDSS/imgs/design/submitButtonBackOver.gif);
+	background-image: url(/MDSS/imgs/submitButtonBackOver.gif);
 }
 
 .submitButton .bl{
 	width: 36px;
-	background-image: url(/MDSS/imgs/design/submitButtonLeft.gif);
+	background-image: url(/MDSS/imgs/submitButtonLeft.gif);
 	height: 62px;
 	float: left;
 }
@@ -225,11 +225,11 @@ dd {
 	margin-bottom:.75em;
 }
 
-.submitButton > input{
+.submitButton {
 	display: block;
-	background-image: url(/MDSS/imgs/design/submitButtonBack.gif);
+	background-image: url(/MDSS/imgs/submitButtonBack.gif);
 	background-repeat: repeat-x;
-	height: 62px;
+	height: 39px;
 	background-position: right top;
 	font-size: 18px;
 	font-weight: bold;
@@ -238,5 +238,42 @@ dd {
 	text-decoration: none;
 	margin-left:-13px;
 	text-shadow: 0 0 0 #000;
-	border-width:0px
+}
+
+input[type="button"],input[type="submit"] {
+	display: block;
+	background:F00;
+	height: 39px;
+	background-position: right top;
+	font-size: 18px;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height: 30px;
+	text-decoration: none;
+	margin-left:-13px;
+	text-shadow: 0 0 0 #000;
+	border-width: 0px;
+	width: 130px;
+
+	padding:0px;
+	z-index:3;
+    position:relative;
+	top:-25px;
+}
+
+.submitButton:hover {
+	background-image: url(/MDSS/imgs/submitButtonBackOver.gif);
+}
+
+
+.submitButton_bl{
+	width: 24px;
+	background-image: url(/MDSS/imgs/submitButtonLeft.gif);
+	height: 39px;
+	float: left;
+
+	z-index:4;
+    position:relative;
+	left:24px;
+	top:-25px;
 }
