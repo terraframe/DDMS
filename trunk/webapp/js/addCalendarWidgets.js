@@ -38,12 +38,14 @@
 	        {	        	
 	          Event.addListener(el.id, 'focus', showCal);
 	          Event.addListener(el.id, 'blur', hideCal);
-	          if(/[1-2]\d\d\d-[0-1][0-2]-[0-3]\d/.test(el.value))
+	          if(/[1-2]\d\d\d-[0-1][0-9]-[0-3]\d/.test(el.value))
 	          {
-	        	 d = new Date(el.value.replace(/-/g,"/"));
+	        	  d = new Date(el.value.replace(/-/g,"/"));
 	        	 if(locale == "en_US")
 	  	         {        		  
-	        		 el.value = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+	        		 newdate = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+	        		 el.value = newdate;
+	        		 alert(newdate);
 	            }
 	          }
 	        }
