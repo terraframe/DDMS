@@ -22,9 +22,9 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	myDataSource.responseSchema = {
 			fields :  table_data.fields
 	};
-    
+    //FIXME: figure out how to set a max width
 	myDataTable = new YAHOO.widget.ScrollingDataTable(table_data.div_id,
-			table_data.columnDefs, myDataSource, {width:"60em"});
+			table_data.columnDefs, myDataSource, {maxWidth:table_data.width});
 	
 
 	function getLabelFromId(feild,id)
