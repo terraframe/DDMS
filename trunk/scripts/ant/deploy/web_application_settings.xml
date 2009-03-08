@@ -14,7 +14,7 @@
 
 <filter-mapping>
   <filter-name>LoginFilter</filter-name>
-  <url-pattern>/*.moj*</url-pattern>
+  <url-pattern>*.moj*</url-pattern>
 </filter-mapping>
 
 <context-param>
