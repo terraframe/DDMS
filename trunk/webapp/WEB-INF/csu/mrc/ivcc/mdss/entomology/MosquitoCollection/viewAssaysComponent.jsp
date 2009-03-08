@@ -20,6 +20,10 @@
 <%@page import="csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult"%>
 <%@page import="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupViewDTO"%>
 <%@page import="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResultDTO"%>
+<%@page import="com.terraframe.mojo.dataaccess.MdAttributeVirtualDAOIF"%>
+<%@page import="csu.mrc.ivcc.mdss.entomology.MosquitoView"%>
+<%@page import="com.terraframe.mojo.business.generation.GenerationUtil"%>
+<%@page import="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"%>
 
 <%!static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSONException {
 	JSONArray ids = new JSONArray();
@@ -123,9 +127,10 @@ Class v = view.getClass();
 ArrayList<String> ordered_attribs = new ArrayList(Arrays.asList(attribs));
 for(String a : view.getAccessorNames())
 {
-	if(! ordered_attribs.contains(a) && a.length() > 3 && autoload)
+	String upcased_attrib = a.substring(0,1).toUpperCase() + a.substring(1);
+    if(! ordered_attribs.contains(upcased_attrib) && a.length() > 3 && autoload)
 	{
-		ordered_attribs.add(a.substring(0,1).toUpperCase() + a.substring(1));
+		ordered_attribs.add(upcased_attrib);
 	}
 }
 
@@ -143,13 +148,18 @@ for(String attrib : ordered_attribs)
 		//buff.add("class:"+mdClass.toString());								
 		String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();	
 		buff.add("label:'"+label+"'");								
-		if(colnum == 0)
+		if(! Arrays.asList(attribs).contains(attrib))
 		{
 			buff.add("hidden:true");
 		}
 		else
 		{
-			String editor = "null";
+			if(colnum == 0)
+			{
+				buff.add("hidden:true");
+			}
+   
+            String editor = "null";
 			
 			if(md instanceof AttributeIntegerMdDTO)
 			{
@@ -215,18 +225,40 @@ return ("[" +Halp.join(arr,",\n")+ "]");
 }
 
 
-static String buildChekboxTable(ViewDTO view, AbstractAssayDTO assay) throws JSONException{
+static String buildChekboxTable(MosquitoViewDTO view, AssayTestResult superAssay ) throws JSONException{
 	String s = "<table><tr><th colspan=\"2\">";
-	s += assay.getMd().getDisplayLabel() +"</th></tr>";
-	try
-	{
-	 //Class c = assay.getClass();
-	 s = s + "<tr><td><input type=\"checkbox\" name=\"maillist\" id =\"assayid\"/></td><td>" ;
-	 s = s + assay.getClass().getSimpleName() + "</td></tr>";
-	}
-	catch (Exception x) {
-		System.out.println("Exception on "+x.getMessage() +" " + x.getCause());
-	}
+	s += superAssay.getClass().getSimpleName() +"</th></tr>";
+	
+    	Class viewClass = view.getClass();
+     
+    	MosquitoView mv = new MosquitoView();
+     
+    	 Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = mv.getAssayMap();
+     
+        Class superAssayClass = superAssay.getClass();
+        for (Class<AssayTestResult> c : assayMap.keySet())
+        {
+          // Get the result
+          MdAttributeVirtualDAOIF mdAttribute = assayMap.get(c);
+          String attributeName = GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
+    		try
+    		{      
+                //String getter = "get"+ attrib.substring(0,1).toUpperCase() + attrib.substring(1) +"Md";
+         		//s = s + "<tr><td>"+attributeName+" <input type=\"checkbox\" name=\"maillist\" id =\"assayid\"/></td><td>" ;
+     			//s = s + c.getName() + "</td></tr>";
+         
+         		if(superAssayClass.isAssignableFrom(c) )
+         		{
+         			 s += "<tr><td><input type=\"checkbox\" id =\""+ attributeName + "\" onclick=\"";
+                     s += "showCol('"+ attributeName + "',this.checked)";
+                     s += "\"/></td><td>" ;
+         			 s += attributeName + "</td></tr>";
+         		}
+    		}
+    		catch (Exception e) {
+    			System.out.println("Exception on "+e.getMessage() +" " + e);
+    		}
+    	}
 		
 	return s + "</table>";
 }
@@ -234,16 +266,19 @@ static String buildChekboxTable(ViewDTO view, AbstractAssayDTO assay) throws JSO
 %>
 
 
-
-
-
-
-
-<mjl:messages>
+<%@page import="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"%>
+<%@page import="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"%><mjl:messages>
 	<mjl:message />
 </mjl:messages>
+
+<h2>Mosquito Collection</h2>
 <mjl:form name="mdss.entomology.MosquitoCollection.form.name"
 	id="mdss.entomology.MosquitoCollection.form.id" method="POST">
+ <div class="fldContainer">
+    <div class="fcTop"><div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+    <div style="position:absolute; left:20px; top:25px;">
+ 
 	<mjl:input value="${item.id}" type="hidden" param="id" />
 	<dl>
 		<dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
@@ -261,10 +296,13 @@ static String buildChekboxTable(ViewDTO view, AbstractAssayDTO assay) throws JSO
 			<mjl:property value="${item.geoEntity.id}" name="id" />
 		</mjl:commandLink></dd>
 	</dl>
+ </div>
+ </div>
+ <div class="submitButton_bl"></div>    
 	<mjl:command value="Edit"
-		action="mdss.entomology.MosquitoCollectionController.edit.mojo"
-		name="mdss.entomology.MosquitoCollection.form.edit.button" />
-	<br />
+		action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.edit.mojo"
+		name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.edit.button" 
+  classes="submitButton"/>
 </mjl:form>
 
 <%
@@ -280,39 +318,59 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
 %>
 
 
+
+<div id="checkBoxContanier" >
+
+</div>
+
+
 <h2>Mosquitos</h2>
-<%=buildChekboxTable(mdView, new BiochemicalAssayTestResultDTO(clientRequest)) %>
-
-<input type="checkbox" name="maillist" id ="assayid">
+<div class="fldContainer">
+    <div class="fcTop"><div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+    <div style="position:absolute; left:20px; top:25px;">
+    
+    <div style="float:left;margin-left:3em;">
+<%=buildChekboxTable(mdView, new BiochemicalAssayTestResult()) %>
+</div>
+<div style="float:left;margin-left:3em;">
+<%=buildChekboxTable(mdView, new InfectivityAssayTestResult()) %>
+</div>
+<div style="float:left;margin-left:3em;">
+<%=buildChekboxTable(mdView, new MolecularAssayTestResult()) %>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <div id="Mosquitos"></div>
-<div id="dt-options"><a id="dt-options-link"
-	href="fallbacklink.html">Table Options</a></div>
-<div id="columnshowhide"></div>
 
-<div id="dt-dlg" class="inprogress"><span class="corner_tr"></span>
-<span class="corner_tl"></span> <span class="corner_br"></span> <span
-	class="corner_bl"></span>
-<div class="hd">Choose which columns you would like to see:</div>
-<div id="dt-dlg-picker" class="bd"></div>
 
 </div>
-
-<div id="buttons">
-
-<span id="MosquitosAddrow" class="yui-button yui-push-button">
- <span class="first-child">
-<button type="button">New Row</button>
-</span> 
-</span> 
-<span id="MosquitosSaverows" class="yui-button yui-push-button"> 
-<span class="first-child">
-<button type="button">Save Rows To DB</button>
-</span>
-</span>
 </div>
+<input id="MosquitosAddrow" class="submitButton" type="button" value="New Row"/>
+<input id="MosquitosSaverows" class="submitButton" type="button" value="Save Rows"/>
 
+<script type="text/javascript">   
 
-<script type="text/javascript">      
+function showCol(key,checked)
+{
+  if(checked)
+  {
+    table_data.myDataTable.showColumn(key);
+    table_data.myDataTable.showColumn(key+'Method');
+  }
+  else
+  {
+    table_data.myDataTable.hideColumn(key);
+    table_data.myDataTable.showColumn(key+'Method');
+  }
+}
+
     <%String[] types_to_load =
 	{
 	   "csu.mrc.ivcc.mdss.entomology.MosquitoView","csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView"
@@ -331,14 +389,19 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>
-
+<br>
+<br>
+<br>
 <h2>UninterestingSpecieGroups</h2>
+<div class="fldContainer">
+    <div class="fcTop"><div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+    <div style="position:absolute; left:20px; top:25px;">
+<div id="buttons">
 <div id="UninterestingSpecieGroups"></div>
 <div id="dt-options"><a id="dt-options-link"
 	href="fallbacklink.html">Table Options</a></div>
 
-
-<div id="buttons">
 
 <span id="UninterestingSpecieGroupsAddrow" class="yui-button yui-push-button"> <span
 	class="first-child">
@@ -365,3 +428,5 @@ UninterestingSpecieGroupData = { rows:<%=getDataMap(unint_rows,unint_attribs)%>,
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(UninterestingSpecieGroupData));
 </script>
+</div>
+</div>
