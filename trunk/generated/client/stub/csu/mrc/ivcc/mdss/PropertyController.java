@@ -1,6 +1,9 @@
 package csu.mrc.ivcc.mdss;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
+
 import csu.mrc.ivcc.mdss.PropertyControllerBase;
+import csu.mrc.ivcc.mdss.util.ErrorUtility;
 
 public class PropertyController extends PropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -32,8 +35,16 @@ public class PropertyController extends PropertyControllerBase implements com.te
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failDelete(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failDelete(dto);
     }
   }
@@ -50,8 +61,16 @@ public class PropertyController extends PropertyControllerBase implements com.te
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failCreate(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failCreate(dto);
     }
   }
@@ -101,8 +120,16 @@ public class PropertyController extends PropertyControllerBase implements com.te
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failUpdate(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failUpdate(dto);
     }
   }
