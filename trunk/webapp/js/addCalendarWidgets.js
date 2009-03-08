@@ -87,7 +87,9 @@
         	//var date = Dom.get(tar).value.replace(/-/g,"/");
         }
         
-        if (date.getFullYear()) {
+        
+        
+        if (date != "") {
             cal1.cfg.setProperty('selected', date);
             cal1.cfg.setProperty('pagedate', new Date(date), true);
         } else {
