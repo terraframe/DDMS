@@ -6,8 +6,10 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 
-import csu.mrc.ivcc.mdss.entomology.MosquitoCollectionControllerBase;
+import com.terraframe.mojo.ProblemExceptionDTO;
+
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO;
+import csu.mrc.ivcc.mdss.util.ErrorUtility;
 
 
 public class MosquitoCollectionController extends MosquitoCollectionControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -33,8 +35,16 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failDelete(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failDelete(dto);
     }
   }
@@ -67,8 +77,16 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failUpdate(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failUpdate(dto);
     }
   }
@@ -159,8 +177,16 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failCreate(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failCreate(dto);
     }
   }
