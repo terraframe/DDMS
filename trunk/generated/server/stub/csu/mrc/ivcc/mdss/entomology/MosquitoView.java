@@ -94,7 +94,7 @@ public class MosquitoView extends MosquitoViewBase implements
    *         attribute. The class must extend from AssayTestResult.
    */
   @SuppressWarnings("unchecked")
-  private Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> getAssayMap()
+  public Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> getAssayMap()
   {
     Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> map = new HashMap<Class<AssayTestResult>, MdAttributeVirtualDAOIF>();
     List<MdAttributeDAOIF> mdAttributeDAOs = (List<MdAttributeDAOIF>) this.getMdAttributeDAOs();
