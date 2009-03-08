@@ -3,18 +3,6 @@
 <%--TO USE ME: <jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />--%>
 <link rel="icon" type="image/png" href="/favicon.png" >
 
-<!--CSS source files for the entire YUI Library-->
-<!--CSS Foundation: (also partially aggegrated in reset-fonts-grids.css; does not include base.css)-->
-
-<!--<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/reset/reset-min.css"> 
-<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/base/base-min.css"> 
-<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/fonts/fonts-min.css"> 
-<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/grids/grids-min.css"> 
-<link rel="stylesheet" type="text/css"
-	href="/MDSS/yui/build/assets/skins/sam/skin.css">
-
--->
- 
 <!--CSS for Controls:--> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/container/assets/skins/sam/container.css"> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/menu/assets/skins/sam/menu.css"> 
@@ -146,3 +134,9 @@ body {
 <script type="text/javascript" src="js/Menu.js"></script>
 <script type="text/javascript" src="/MDSS/js/addCalendarWidgets.js"></script>
 <script type="text/javascript" src="js/dataTableWidget.js"></script>
+
+
+<!--  Stuff from the web designer  -->
+<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/reset-fonts-grids/reset-fonts-grids.css">
+<link href="/MDSS/css/style.css" rel="stylesheet" type="text/css">
+
