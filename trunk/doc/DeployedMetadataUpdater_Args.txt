@@ -9,6 +9,6 @@ csu.mrc.ivcc.mdss.entomology.assay.biochemical
 csu.mrc.ivcc.mdss.entomology.assay.molecular
 csu.mrc.ivcc.mdss.entomology.assay.infectivity
 csu.mrc.ivcc.mdss.geo
-csu.mrc.ivss.mdss.geo.generated
+csu.mrc.ivcc.mdss.geo.generated
 csu.mrc.ivcc.mdss.util
 csu.mrc.ivcc.mdss
