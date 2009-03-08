@@ -3,7 +3,7 @@
      to be scripted.
  */
 
-YAHOO.util.Event.onContentReady("navmenu", function() {
+YAHOO.util.Event.onContentReady("mainNav", function() {
 	var ua = YAHOO.env.ua, oAnim; // Animation instance
 
 		/*
@@ -229,7 +229,7 @@ function onSubmenuShow(p_sType, p_sArgs) {
  * literal of configuration properties.
  */
 
-var oMenuBar = new YAHOO.widget.MenuBar("navmenu", {
+var oMenuBar = new YAHOO.widget.MenuBar("mainNav", {
 	autosubmenudisplay :true,
 	hidedelay :750,
 	lazyload :true

@@ -140,10 +140,10 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 	myDataTable.subscribe("cellClickEvent", onCellClick);
     
-	if(YAHOO.util.Dom.get('saverows'))
+	if(YAHOO.util.Dom.get(table_data.div_id+'Saverows'))
 	{
 	// set up the button that saves the rows to the db
-	var btnSaveRows = new YAHOO.widget.Button("saverows"); 
+	var btnSaveRows = new YAHOO.widget.Button(table_data.div_id+"Saverows"); 
 	btnSaveRows.on("click", function() {
 		var request = new Mojo.ClientRequest( {
 			// success handler for saved rows
@@ -151,7 +151,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			table_data : table_data,
 			btnSaveRows :btnSaveRows,
 			onSuccess : function(savedRows) {
-				alert("Saved " + savedRows.length + " Rows!");
+				//alert("Saved " + savedRows.length + " Rows!");
 				var i = 0;
 				id_key = table_data.fields[0].key;
 				for each(row in savedRows)
@@ -210,8 +210,8 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	}
 	// function Add one row to the bottom
 	
-	if(YAHOO.util.Dom.get('addrow')){
-		var btnAddRow = new YAHOO.widget.Button("addrow");
+	if(YAHOO.util.Dom.get(table_data.div_id+'Addrow')){
+		var btnAddRow = new YAHOO.widget.Button(table_data.div_id+"Addrow");
 		btnAddRow.on("click", function() {
 		// Clear sort when necessary
 			if (bReverseSorted) {
@@ -227,16 +227,13 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			if (table_data.rows.length > 0)
 			{
 				last_row_index = table_data.rows.length - 1;
-				for each(feild in table_data.columnDefs)
+				for each(feild in table_data.copy_from_above)
 				{
-					if (feild.copy_from_above)
-					{	    	
-				    	str = 'new_data_row.' + feild.key + ' = table_data.rows[last_row_index].' + feild.key ;
+				    	str = 'new_data_row.' + feild + ' = table_data.rows[last_row_index].' + feild ;
 				    	eval(str);
-				    	label = myDataTable.getRecord(last_row_index).getData(feild.key);
-				    	str = 'new_label_row.' + feild.key + " = '"+ label + "'";
-				    	eval(str);
-					}	 
+				    	label = myDataTable.getRecord(last_row_index).getData(feild);
+				    	str = 'new_label_row.' + feild + " = '"+ label + "'";
+				    	eval(str); 
 				}
 	        }		
 			table_data.rows.push(new_data_row);
