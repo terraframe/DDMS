@@ -191,8 +191,8 @@ static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows) 
 </div>
 <div class="submitButton_bl"></div>    
  <mjl:command value="Edit"
-  action="mdss.entomology.MosquitoCollectionController.edit.mojo"
-  name="mdss.entomology.MosquitoCollection.form.edit.button" classes="submitButton"/>
+  action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.edit.mojo"
+  name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.edit.button" classes="submitButton"/>
   </mjl:form>
 
 <br/>
