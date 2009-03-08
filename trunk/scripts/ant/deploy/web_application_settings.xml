@@ -14,7 +14,12 @@
 
 <filter-mapping>
   <filter-name>LoginFilter</filter-name>
-  <url-pattern>*.moj*</url-pattern>
+  <url-pattern>*.mojo</url-pattern>
+</filter-mapping>
+
+<filter-mapping>
+  <filter-name>LoginFilter</filter-name>
+  <url-pattern>*.mojax</url-pattern>
 </filter-mapping>
 
 <filter-mapping>
