@@ -45,7 +45,6 @@
 	  	         {        		  
 	        		 newdate = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
 	        		 el.value = newdate;
-	        		 alert(newdate);
 	            }
 	          }
 	        }
@@ -88,7 +87,7 @@
         	//var date = Dom.get(tar).value.replace(/-/g,"/");
         }
         
-        if (date) {
+        if (date.getFullYear()) {
             cal1.cfg.setProperty('selected', date);
             cal1.cfg.setProperty('pagedate', new Date(date), true);
         } else {
