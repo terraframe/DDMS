@@ -1,0 +1,14 @@
+/* If you add or change a package, please put the new list of pakages here. */
+
+
+com.terraframe.mojo.defaults
+csu.mrc.ivcc.mdss.entomology
+csu.mrc.ivcc.mdss.mo
+csu.mrc.ivcc.mdss.entomology.assay
+csu.mrc.ivcc.mdss.entomology.assay.biochemical
+csu.mrc.ivcc.mdss.entomology.assay.molecular
+csu.mrc.ivcc.mdss.entomology.assay.infectivity
+csu.mrc.ivcc.mdss.geo
+csu.mrc.ivss.mdss.geo.generated
+csu.mrc.ivcc.mdss.util
+csu.mrc.ivcc.mdss
