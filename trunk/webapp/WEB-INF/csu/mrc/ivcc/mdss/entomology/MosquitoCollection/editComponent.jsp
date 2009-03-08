@@ -4,6 +4,11 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
+<div class="fldContainer">
+    <div class="fcTop"><div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+    <div style="position:absolute; left:20px; top:25px;">
+
 <mjl:form name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.name" id="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
@@ -48,5 +53,6 @@
   <mjl:command value="Delete" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.delete.mojo" name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.delete.button" />
   <mjl:command value="Cancel" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.cancel.mojo" name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.cancel.button" />
 </mjl:form>
-
+</div>
+</div>
 <div id="cal1Container" class="yui-skin-sam"></div> 

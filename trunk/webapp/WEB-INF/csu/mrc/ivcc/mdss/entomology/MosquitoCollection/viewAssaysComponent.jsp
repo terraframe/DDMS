@@ -9,11 +9,19 @@
 <%@page import="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO"%>
 <%@page import="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupViewDTO"%>
 <%@page import="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"%>
+<%@page import="csu.mrc.ivcc.mdss.entomology.assay.*"%>
 <%@page import="csu.mrc.ivcc.mdss.mo.*"%>
 <%@page import="csu.mrc.ivcc.mdss.util.Halp" %>
 <%@page import="org.json.*"%>
-<%!
-static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSONException {
+<%@page import="java.lang.reflect.InvocationTargetException"%>
+<%@page import="com.terraframe.mojo.transport.metadata.*"%>
+<%@page import="csu.mrc.ivcc.mdss.entomology.MosquitoViewDTO"%>
+<%@page import="com.terraframe.mojo.business.ViewDTO"%>
+<%@page import="csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult"%>
+<%@page import="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupViewDTO"%>
+<%@page import="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResultDTO"%>
+
+<%!static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSONException {
 	JSONArray ids = new JSONArray();
 	JSONArray labels = new JSONArray();
 	for(AbstractTermDTO term : terms)
@@ -23,12 +31,214 @@ static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSON
 	} 
 	return name +"Ids = " + ids.toString()+"; \n "+ name + "Labels = "+ labels.toString() +";";
 }
- 
+
+
+
+
+static String getDataMap(ViewDTO[] rows, String[] attribs) throws JSONException{
+	JSONArray map = new JSONArray();
+	for(ViewDTO row : rows)
+	 {
+		JSONObject element = new JSONObject();		
+		Class c = row.getClass();	
+		for(String attrib : attribs)
+		{		
+			try
+			{
+				String value = (String) c.getMethod("get"+attrib).invoke(row).toString();	
+				element.put(attrib,value);
+			}
+			catch (IllegalAccessException x) {
+			}
+			catch (IllegalArgumentException  x) {
+			}
+			catch (InvocationTargetException x) {
+			}
+			catch (NoSuchMethodException x) {
+				System.out.println("No such method get"+attrib);
+			}
+
+		}	
+		map.put(element);
+	} 
+	return map.toString();
+}
+
+static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows,ClientRequestIF clientRequest ) throws JSONException
+	{
+    ArrayList<String> arr = new ArrayList<String>();
+	int colnum = 0;
+	Class v = view.getClass();
+	//List<String> v_attribs = view.getAttributeNames();
+	ArrayList<String> ordered_attribs = new ArrayList(Arrays.asList(attribs));
+	for(String a : view.getAccessorNames())
+	{
+		if(! ordered_attribs.contains(a) && a.length() > 3 )
+		{
+			ordered_attribs.add(a.substring(0,1).toUpperCase() + a.substring(1));
+		}
+	}
+	
+	ArrayList<String> dropdownbuff = new ArrayList<String>();
+	for(String attrib : ordered_attribs)
+	 {
+		try
+		{			
+			AttributeMdDTO md = (AttributeMdDTO) v.getMethod("get"+attrib+"Md").invoke(view); 
+			Class mdClass = md.getClass();	
+			if(md instanceof AttributeReferenceMdDTO)
+			{
+				Class mo_term = md.getJavaType();
+				if(AbstractTermDTO.class.isAssignableFrom(mo_term) )
+				{
+			      AbstractTermDTO[] terms = (AbstractTermDTO[]) mo_term.getMethod("getAll",new Class[] {ClientRequestIF.class}).invoke(null,clientRequest);
+				  dropdownbuff.add(getDisplayLabels(terms,attrib));
+				}
+				else
+				{
+					//dropdownbuff.add(mo_term.getSimpleName());
+				}				
+				
+			}
+		}
+		catch (Exception x) {
+			System.out.println("Other exception on "+attrib +" " + x.getMessage());
+		}
+		colnum ++;
+	}	
+	if(extra_rows.length() > 0)
+	{
+		arr.add(extra_rows);
+	}
+	return (Halp.join(dropdownbuff,"\n"));
+}
+
+
+static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload ) throws JSONException
+{
+ArrayList<String> arr = new ArrayList<String>();
+int colnum = 0;
+Class v = view.getClass();
+//List<String> v_attribs = view.getAttributeNames();
+ArrayList<String> ordered_attribs = new ArrayList(Arrays.asList(attribs));
+for(String a : view.getAccessorNames())
+{
+	if(! ordered_attribs.contains(a) && a.length() > 3 && autoload)
+	{
+		ordered_attribs.add(a.substring(0,1).toUpperCase() + a.substring(1));
+	}
+}
+
+ArrayList<String> dropdownbuff = new ArrayList<String>();
+for(String attrib : ordered_attribs)
+ {
+	try
+	{
+		ArrayList<String> buff = new ArrayList<String>();
+		
+		buff.add("key:'"+attrib+"'");	
+		
+		AttributeMdDTO md = (AttributeMdDTO) v.getMethod("get"+attrib+"Md").invoke(view); 
+		Class mdClass = md.getClass();		
+		//buff.add("class:"+mdClass.toString());								
+		String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();	
+		buff.add("label:'"+label+"'");								
+		if(colnum == 0)
+		{
+			buff.add("hidden:true");
+		}
+		else
+		{
+			String editor = "null";
+			
+			if(md instanceof AttributeIntegerMdDTO)
+			{
+				editor = "new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})";
+			}
+			if(md instanceof AttributeBooleanMdDTO)
+			{
+				editor = "new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})";
+			}
+			if(md instanceof AttributeCharacterMdDTO)
+			{
+				editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+				buff.add("save_as_id:true");
+			}
+			if(md instanceof AttributeReferenceMdDTO)
+			{
+				Class refrenced_class = md.getJavaType();
+				
+				if(AssayTestResult.class.isAssignableFrom(refrenced_class) )
+				{
+					editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+				}
+				
+				if(AbstractTermDTO.class.isAssignableFrom(refrenced_class) )
+				{
+				   editor = "new YAHOO.widget.DropdownCellEditor({dropdownOptions:"+attrib+"Labels,disableBtns:true})";		
+				   //editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+				}
+				else
+				{
+					editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+				}
+				buff.add("save_as_id:true");	
+			}
+			buff.add("editor:"+ editor);
+	    }
+		
+		arr.add("{" +Halp.join(buff,",")+ "}"); 
+	}
+	catch (IllegalAccessException x) {
+		System.out.println("IllegalAccessException on " + attrib +" " + x.getMessage());			
+	}
+	catch (IllegalArgumentException  x) {
+		System.out.println("IllegalArgumentException on "+attrib +" " + x.getMessage());
+	}
+	catch (InvocationTargetException x) {
+		System.out.println("InvocationTargetException on "+attrib +" " + x.getMessage());
+	}
+	catch (NoSuchMethodException x) {
+		System.out.println("No such method on "+attrib + x.getMessage());
+	}	
+	catch (Exception x) {
+		System.out.println("Other exception on "+attrib +" " + x.getMessage());
+	}
+	colnum ++;
+}	
+if(extra_rows.length() > 0)
+{
+	arr.add(extra_rows);
+}
+return ("[" +Halp.join(arr,",\n")+ "]");
+//return (Halp.join(dropdownbuff,",\n")+ ",columnDefs:[" +Halp.join(arr,",\n")+ "]");
+}
+
+
+static String buildChekboxTable(ViewDTO view, AbstractAssayDTO assay) throws JSONException{
+	String s = "<table><tr><th colspan=\"2\">";
+	s += assay.getMd().getDisplayLabel() +"</th></tr>";
+	try
+	{
+	 //Class c = assay.getClass();
+	 s = s + "<tr><td><input type=\"checkbox\" name=\"maillist\" id =\"assayid\"/></td><td>" ;
+	 s = s + assay.getClass().getSimpleName() + "</td></tr>";
+	}
+	catch (Exception x) {
+		System.out.println("Exception on "+x.getMessage() +" " + x.getCause());
+	}
+		
+	return s + "</table>";
+}
 
 %>
 
 
-<%@page import="csu.mrc.ivcc.mdss.entomology.MosquitoViewDTO"%>
+
+
+
+
+
 <mjl:messages>
 	<mjl:message />
 </mjl:messages>
@@ -57,7 +267,24 @@ static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSON
 	<br />
 </mjl:form>
 
-<div id="MorphologicalSpecieGroups"></div>
+<%
+ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) request.getAttribute("item");
+MosquitoViewDTO[] rows = mosquito_collection.getMosquitos();
+MosquitoViewDTO mdView = new MosquitoViewDTO(clientRequest);
+String[] attribs = { "MosquitoId","Specie","IdentificationMethod","Generation","Isofemale"};
+
+String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
+//out.println(getColumnSetup(mdView,attribs,delete_row,clientRequest));
+
+%>
+
+
+<h2>Mosquitos</h2>
+<%=buildChekboxTable(mdView, new BiochemicalAssayTestResultDTO(clientRequest)) %>
+
+<input type="checkbox" name="maillist" id ="assayid">
+<div id="Mosquitos"></div>
 <div id="dt-options"><a id="dt-options-link"
 	href="fallbacklink.html">Table Options</a></div>
 <div id="columnshowhide"></div>
@@ -72,59 +299,69 @@ static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSON
 
 <div id="buttons">
 
-<span id="addrow" class="yui-button yui-push-button"> <span
-	class="first-child">
+<span id="MosquitosAddrow" class="yui-button yui-push-button">
+ <span class="first-child">
 <button type="button">New Row</button>
-</span> </span> <span id="saverows" class="yui-button yui-push-button"> <span
-	class="first-child">
+</span> 
+</span> 
+<span id="MosquitosSaverows" class="yui-button yui-push-button"> 
+<span class="first-child">
 <button type="button">Save Rows To DB</button>
-</span> </span></div>
+</span>
+</span>
+</div>
+
 
 <script type="text/javascript">      
     <%String[] types_to_load =
 	{
-	   "csu.mrc.ivcc.mdss.entomology.MosquitoView"
+	   "csu.mrc.ivcc.mdss.entomology.MosquitoView","csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView"
 	};
-    
-	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-		
-    out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
-
-    out.println( getDisplayLabels(SpecieDTO.getAll(clientRequest),"Specie"));
-    out.println(getDisplayLabels(IdentificationMethodDTO.getAll(clientRequest),"IdentificationMethod"));
-    out.println(getDisplayLabels(GenerationDTO.getAll(clientRequest),"Generation"));
-    MosquitoViewDTO msgView = new MosquitoViewDTO(clientRequest);
-    
+    out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));   
     %>
-    table_data = { rows:
-    	<%MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) request.getAttribute("item");
-                MosquitoViewDTO[] rows = mosquito_collection.getMosquitos();
-    		    ArrayList<String> arr = new ArrayList<String>();
-    		     for (MosquitoViewDTO row : rows)  {
-    		       ArrayList<String> buff = new ArrayList<String>();
-    		       buff.add("MosquitoId:'" + row.getMosquitoId() + "'");
-    		       buff.add("Specie:'" + row.getSpecie() + "'");
-    		       buff.add("IdentificationMethod:'" + row.getIdentificationMethod() + "'");
-    		       buff.add("Generation:'" + row.getGeneration() + "'");
-    		       buff.add("Isofemale:'" + row.getIsofemale() + "'");
-    		       arr.add("{" +Halp.join(buff,",")+ "}"); 
-    		     }
-    		     out.println("[" +Halp.join(arr,",\n")+ "]");%>
-    		   
-    	 ,columnDefs:[
-    	            {key:"MosquitoId",label:"ID",hidden:true},
-    	            {key:"Specie",label:'<%=msgView.getSpecieMd().getDisplayLabel()%>',resizeable:true,editor: new YAHOO.widget.DropdownCellEditor({dropdownOptions:SpecieLabels,disableBtns:true}),save_as_id:true},
-    	            {key:"IdentificationMethod",label:"<%=msgView.getIdentificationMethodMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.DropdownCellEditor({dropdownOptions:IdentificationMethodLabels,disableBtns:true}),save_as_id:true,copy_from_above:true},
-    	            {key:"Generation",label:'<%=msgView.getGenerationMd().getDisplayLabel()%>',resizeable:true,editor: new YAHOO.widget.DropdownCellEditor({dropdownOptions:GenerationLabels,disableBtns:true}),save_as_id:true},
-    	            {key:"Isofemale",label:'<%=msgView.getIsofemaleMd().getDisplayLabel()%>',resizeable:true,editor: new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})},
-    	            {key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}
-    	            
-    	        ],
-    	        defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
-    	        div_id: "MorphologicalSpecieGroups",
+    <%=getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
+    
+    table_data = {rows:<%=getDataMap(rows,attribs)%>,		   
+   	            columnDefs:<%=getColumnSetup(mdView,attribs,delete_row,true)%>,
+    	        defaults: {},
+    	        copy_from_above: ["IdentificationMethod"],
+    	        div_id: "Mosquitos",
     	        collection_setter: "setCollectionId('${item.id}')",
-        	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.MosquitoView"
-    	        
+        	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.MosquitoView"  	        
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
+</script>
+
+<h2>UninterestingSpecieGroups</h2>
+<div id="UninterestingSpecieGroups"></div>
+<div id="dt-options"><a id="dt-options-link"
+	href="fallbacklink.html">Table Options</a></div>
+
+
+<div id="buttons">
+
+<span id="UninterestingSpecieGroupsAddrow" class="yui-button yui-push-button"> <span
+	class="first-child">
+<button type="button">New Row</button>
+</span> </span> <span id="UninterestingSpecieGroupsSaverows" class="yui-button yui-push-button"> <span
+	class="first-child">
+<button type="button">Save Rows To DB</button>
+</span> </span></div>
+<%
+UninterestingSpecieGroupViewDTO[] unint_rows = mosquito_collection.getUninterestingSpecieGroups();
+UninterestingSpecieGroupViewDTO mdUnIntView = new UninterestingSpecieGroupViewDTO(clientRequest);
+String[] unint_attribs = { "GroupId","Specie","IdentificationMethod","Quantity"};
+%>
+
+<script type="text/javascript">      
+UninterestingSpecieGroupData = { rows:<%=getDataMap(unint_rows,unint_attribs)%>,		   
+    	 columnDefs: <%=getColumnSetup(mdUnIntView,unint_attribs,delete_row,true)%>,
+    	        defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
+    	        div_id: "UninterestingSpecieGroups",
+    	        copy_from_above: ["IdentificationMethod"],
+    	        collection_setter: "setCollectionId('${item.id}')",
+        	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView"
+    	        
+    	    };   
+    YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(UninterestingSpecieGroupData));
 </script>
