@@ -89,7 +89,7 @@
         
         
         
-        if (date != "") {
+        if (date && (new Date(date) != null)) {
             cal1.cfg.setProperty('selected', date);
             cal1.cfg.setProperty('pagedate', new Date(date), true);
         } else {
