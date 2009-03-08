@@ -11,7 +11,7 @@
       <mjl:header>
         Collection Method
       </mjl:header>
-      <mjl:row even ="altRow" odd="odd">
+      <mjl:row even ="evenRow" odd="oddRow">
         ${item.collectionMethod.termName}
       </mjl:row>
     </mjl:attributeColumn>
@@ -19,7 +19,7 @@
       <mjl:header>
         Date Collected
       </mjl:header>
-      <mjl:row even ="altRow">
+      <mjl:row even ="evenRow" odd="oddRow">
         ${item.dateCollected}
       </mjl:row>
     </mjl:attributeColumn>
@@ -27,7 +27,7 @@
       <mjl:header>
         Geo Entity
       </mjl:header>
-      <mjl:row even ="altRow">
+      <mjl:row even ="evenRow" odd="oddRow">
         ${item.geoEntity.entityName}
       </mjl:row>
     </mjl:attributeColumn>
@@ -35,7 +35,7 @@
       <mjl:header>
         
       </mjl:header>
-      <mjl:row >
+      <mjl:row even ="evenRow" odd="oddRow">
         <mjl:commandLink display="View" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.view.mojo" name="view.link">
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>

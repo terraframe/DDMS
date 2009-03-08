@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
 <%@page import="java.util.*"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
-<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%> 
 <%@page import="org.json.JSONArray"%>
 <%@page import="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO"%>
 <%@page import="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupViewDTO"%>
@@ -225,9 +225,9 @@ return ("[" +Halp.join(arr,",\n")+ "]");
 }
 
 
-static String buildChekboxTable(MosquitoViewDTO view, AssayTestResult superAssay ) throws JSONException{
+static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) throws JSONException{
 	String s = "<table><tr><th colspan=\"2\">";
-	s += superAssay.getClass().getSimpleName() +"</th></tr>";
+	s += superAssayClass.getSimpleName().substring(0,superAssayClass.getSimpleName().indexOf("Assay")) +"</th></tr>";
 	
     	Class viewClass = view.getClass();
      
@@ -235,7 +235,6 @@ static String buildChekboxTable(MosquitoViewDTO view, AssayTestResult superAssay
      
     	 Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = mv.getAssayMap();
      
-        Class superAssayClass = superAssay.getClass();
         for (Class<AssayTestResult> c : assayMap.keySet())
         {
           // Get the result
@@ -243,9 +242,6 @@ static String buildChekboxTable(MosquitoViewDTO view, AssayTestResult superAssay
           String attributeName = GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
     		try
     		{      
-                //String getter = "get"+ attrib.substring(0,1).toUpperCase() + attrib.substring(1) +"Md";
-         		//s = s + "<tr><td>"+attributeName+" <input type=\"checkbox\" name=\"maillist\" id =\"assayid\"/></td><td>" ;
-     			//s = s + c.getName() + "</td></tr>";
          
          		if(superAssayClass.isAssignableFrom(c) )
          		{
@@ -331,13 +327,13 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
     <div style="position:absolute; left:20px; top:25px;">
     
     <div style="float:left;margin-left:3em;">
-<%=buildChekboxTable(mdView, new BiochemicalAssayTestResult()) %>
+<%=buildChekboxTable(mdView, BiochemicalAssayTestResult.class) %>
 </div>
 <div style="float:left;margin-left:3em;">
-<%=buildChekboxTable(mdView, new InfectivityAssayTestResult()) %>
+<%=buildChekboxTable(mdView, InfectivityAssayTestResult.class) %>
 </div>
 <div style="float:left;margin-left:3em;">
-<%=buildChekboxTable(mdView, new MolecularAssayTestResult()) %>
+<%=buildChekboxTable(mdView, MolecularAssayTestResult.class) %>
 </div>
 <br>
 <br>
@@ -347,13 +343,26 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
 <br>
 <br>
 <br>
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+</div>
+</div>
+
+<div id="buttons">
 <div id="Mosquitos"></div>
-
-
-</div>
-</div>
-<input id="MosquitosAddrow" class="submitButton" type="button" value="New Row"/>
-<input id="MosquitosSaverows" class="submitButton" type="button" value="Save Rows"/>
+<span id="MosquitosAddrow" class="yui-button yui-push-button"> <span
+ class="first-child">
+<button type="button">New Row</button>
+</span> </span> <span id="MosquitosSaverows" class="yui-button yui-push-button"> <span
+ class="first-child">
+<button type="button">Save Rows To DB</button>
+</span> </span></div>
 
 <script type="text/javascript">   
 
@@ -367,7 +376,7 @@ function showCol(key,checked)
   else
   {
     table_data.myDataTable.hideColumn(key);
-    table_data.myDataTable.showColumn(key+'Method');
+    table_data.myDataTable.hideColumn(key+'Method');
   }
 }
 
@@ -385,7 +394,8 @@ function showCol(key,checked)
     	        copy_from_above: ["IdentificationMethod"],
     	        div_id: "Mosquitos",
     	        collection_setter: "setCollectionId('${item.id}')",
-        	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.MosquitoView"  	        
+        	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.MosquitoView",  
+                width:"60em"        
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>
@@ -418,12 +428,12 @@ String[] unint_attribs = { "GroupId","Specie","IdentificationMethod","Quantity"}
 
 <script type="text/javascript">      
 UninterestingSpecieGroupData = { rows:<%=getDataMap(unint_rows,unint_attribs)%>,		   
-    	 columnDefs: <%=getColumnSetup(mdUnIntView,unint_attribs,delete_row,true)%>,
+    	 columnDefs: <%=getColumnSetup(mdUnIntView,unint_attribs,delete_row,false)%>,
     	        defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
     	        div_id: "UninterestingSpecieGroups",
     	        copy_from_above: ["IdentificationMethod"],
     	        collection_setter: "setCollectionId('${item.id}')",
-        	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView"
+        	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView"
     	        
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(UninterestingSpecieGroupData));
