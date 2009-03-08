@@ -18,15 +18,39 @@
 </div>
 <div class="pageContent">
 <div class="pageTitle"><f:message key="login"/></div>
-
-
 <mjl:form method="post" id="mform" name="mform">  
-  <f:message key="username"/>: <mjl:input param="username" type="text" value="SYSTEM" />
-  <f:message key="password"/>: <mjl:input param="password" type="password" value="SYSTEM" />
-  <br/>
-  <mjl:command action="com.terraframe.mojo.defaults.LoginController.login.mojo" name="LoginController" value="Login"/>
+<div class="fldContainer">
+    <div class="fcTop"><div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+    <div style="position:absolute; left:20px; top:25px;">
+
+
+<dl>
+      <dt>
+        <label>
+         <f:message key="username"/>: 
+        </label>
+      </dt>
+      <dd>
+        <mjl:input param="username" type="text" value="SYSTEM" />
+      </dd>
+      <dt>
+        <label>
+         <f:message key="password"/>: 
+        </label>
+      </dt>
+      <dd>
+        <mjl:input param="password" type="password" value="SYSTEM" /> 
+      </dd>
+ </dl>
+
+</div>
+</div>
+<div class="submitButton_bl"></div> 
+  <mjl:command action="com.terraframe.mojo.defaults.LoginController.login.mojo" name="LoginController" value="Login" classes="submitButton" />
 </mjl:form>
 </div>
-
 </body>
 </html>
+
+ 
