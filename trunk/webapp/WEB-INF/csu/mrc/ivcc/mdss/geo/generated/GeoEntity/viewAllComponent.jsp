@@ -34,10 +34,22 @@
         
       </mjl:footer>
     </mjl:freeColumn>
+    <mjl:freeColumn>
+      <mjl:header>
+        
+      </mjl:header>
+      <mjl:row>
+        <mjl:commandLink display="Tree" action="csu.mrc.ivcc.mdss.geo.GeoEntityTreeController.displayTree.mojo" name="tree.link">
+          <mjl:property value="${item.id}" name="rootGeoEntityId" />
+        </mjl:commandLink>
+      </mjl:row>
+      <mjl:footer>
+        
+      </mjl:footer>
+    </mjl:freeColumn>
   </mjl:columns>
   <mjl:pagination>
     <mjl:page />
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Geo Entity" action="csu.mrc.ivcc.mdss.geo.generated.GeoEntityController.newInstance.mojo" name="GeoEntityController.newInstance" />

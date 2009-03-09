@@ -1,8 +1,11 @@
 package csu.mrc.ivcc.mdss;
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.constants.MdTypeInfo;
 import com.terraframe.mojo.constants.ServerConstants;
+import com.terraframe.mojo.dataaccess.BusinessDAOIF;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.BusinessDAOQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.StartSession;
@@ -10,9 +13,12 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import csu.mrc.ivcc.mdss.geo.GeoHierarchy;
 import csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery;
+import csu.mrc.ivcc.mdss.geo.LocatedInQuery;
 import csu.mrc.ivcc.mdss.geo.generated.Country;
+import csu.mrc.ivcc.mdss.geo.generated.CountryQuery;
 import csu.mrc.ivcc.mdss.geo.generated.District;
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
+import csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery;
 import csu.mrc.ivcc.mdss.geo.generated.Province;
 
 
@@ -69,13 +75,10 @@ public class Sandbox
   @StartSession
   private static void testDefineAllowedTree(String sessionId)
   {
-    MdBusiness mdGeoEntity = MdBusiness.getMdBusiness(Country.CLASS);
-    
     QueryFactory f = new QueryFactory();
-    GeoHierarchyQuery q = new GeoHierarchyQuery(f);
-    q.WHERE(q.getGeoEntityClass().EQ(mdGeoEntity.getId()));
+    CountryQuery q = new CountryQuery(f);
     
-    OIterator<? extends GeoHierarchy> iter = q.getIterator();
+    OIterator<? extends GeoEntity> iter = q.getIterator();
     try
     {
       String gHid = iter.next().getId();

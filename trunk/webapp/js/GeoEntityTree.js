@@ -334,7 +334,7 @@ YAHOO.extend(YAHOO.util.DDNodeProxy, YAHOO.util.DDProxy, {
       
       var childGeoEntity = MDSS.GeoEntityTree.getGeoEntity(this.id);
       var parentGeoEntity = MDSS.GeoEntityTree.getGeoEntity(id);
-      childGeoEntity.applyWithParentGeoEntity(request, parentGeoEntity.getId());
+      childGeoEntity.applyWithParentGeoEntity(request, parentGeoEntity.getId(), false);
     }
   },
   
@@ -440,7 +440,7 @@ MDSS.GeoEntityTree = (function(){
     geoEntity.setActivated(activated);
 
     var request = new Mojo.ClientRequest({
-      onSuccess : function(retVal, geoEntity){
+      onSuccess : function(ids, geoEntity){
         
         // add the node directly if the children have already been dynamically loaded
         if(_selectedNode.dynamicLoadComplete)
@@ -464,7 +464,7 @@ MDSS.GeoEntityTree = (function(){
     });
     
     var parentGeoEntity = _getGeoEntity(_selectedNode);
-    geoEntity.applyWithParentGeoEntity(request, parentGeoEntity.getId());
+    geoEntity.applyWithParentGeoEntity(request, parentGeoEntity.getId(), false);
   }
   
   /**
@@ -482,7 +482,7 @@ MDSS.GeoEntityTree = (function(){
     geoEntity.setActivated(activated);
     
     var request = new Mojo.ClientRequest({
-      onSuccess: function(geoEntity){
+      onSuccess: function(ids, geoEntity){
         _selectedNode.setHtml(geoEntity.getEntityName());
         _setMapping(_selectedNode, geoEntity);
         
@@ -493,7 +493,7 @@ MDSS.GeoEntityTree = (function(){
       }
     });
     
-    geoEntity.apply(request);
+    geoEntity.updateFromTree(request);
   }
   
   /**

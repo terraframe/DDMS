@@ -27,6 +27,13 @@
           description="Determines if this entity is active or not." />
       </attributes>
       <mdMethod
+        name="updateFromTree"
+        label="Update from tree"
+        description="Applies the GeoEntity from the tree view."
+        static="false"
+        returnType="java.lang.String[]">
+      </mdMethod>
+      <mdMethod
         name="searchByGeoId"
         label="Search by GeoId"
         description="Search for a GeoEntity by Geo Id"
@@ -40,25 +47,44 @@
           type="java.lang.String" />
       </mdMethod>
       <mdMethod
+        name="confirmChangeParent"
+        label="Confirm Change Parent"
+        description="Throws a localized exception with confirmation information to change an Entity's parent."
+        static="false"
+        returnType="void">
+        <mdParameter
+          name="parentId"
+          label="Parent Id"
+          description="The id of the current GeoEntity parent."
+          order="0"
+          type="java.lang.String" />
+      </mdMethod>
+      <mdMethod
         name="getOrderedChildEntities"
         label="Get Ordered Child Entities"
         description="Gets LocatedIn children ordered by label."
         static="false"
         returnType="csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery">
       </mdMethod>
-      <mdMethod
-        name="applyWithParentGeoEntity"
-        label="Apply Within GeoEntity"
-        description="Applies GeoEntity as being located within another GeoEntity."
-        returnType="void"
-        static="false">
-        <mdParameter
-          name="parentGeoEntityId"
-          label="Parent GeoEntity Id"
-          description="The id of the GeoEntity that will be the parent of this GeoEntity"
-          type="java.lang.String"
-          order="0" />
-      </mdMethod>
+       <mdMethod
+          name="applyWithParentGeoEntity"
+          label="Apply Within GeoEntity"
+          description="Applies GeoEntity as being located within another GeoEntity."
+          returnType="java.lang.String[]"
+          static="false">
+          <mdParameter
+            name="parentGeoEntityId"
+            label="Parent GeoEntity Id"
+            description="The id of the GeoEntity that will be the parent of this GeoEntity"
+            type="java.lang.String"
+            order="0"/>
+          <mdParameter
+            name="cloneOperation"
+            label="Clone Operation"
+            description="Denotes if this GeoEntity is being cloned to another parent."
+            order="1"
+            type="java.lang.Boolean" />
+        </mdMethod>
     </mdBusiness>
 
     <mdBusiness
@@ -157,11 +183,11 @@
       <parent
         cardinality="*"
         name="csu.mrc.ivcc.mdss.geo.GeoHierarchy"
-        method="AcceptsGeoEntity" />
+        method="AllowedInGeoEntity" />
       <child
         cardinality="*"
         name="csu.mrc.ivcc.mdss.geo.GeoHierarchy"
-        method="AllowedInGeoEntity" />
+        method="AcceptsGeoEntity" />
     </mdRelationship>
 
     <mdRelationship
@@ -171,11 +197,11 @@
       <parent
         cardinality="*"
         name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
-        method="ContainsGeoEntity" />
+        method="LocatedInGeoEntity" />
       <child
         cardinality="*"
         name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
-        method="LocatedInGeoEntity" />
+        method="ContainsGeoEntity" />
     </mdRelationship>
 
     <mdView
@@ -270,6 +296,36 @@
       name="csu.mrc.ivcc.mdss.geo.GeoEntityTreeController"
       label="GeoEntity Tree Controller"
       description="GeoEntity Tree Controller">
+        <mdAction
+          name="displayTree"
+          label="Display Tree"
+          description="Displays the GeoEntity tree."
+          isPost="false">
+          <mdParameter
+            name="rootGeoEntityId"
+            label="Root GeoEntity Id"
+            description="The id of the GeoEntity that will be the root of the tree"
+            order="0"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
+          name="confirmChangeParent"
+          label="Confirm Change Parent"
+          description="Confirm action to change an entity's parent."
+          isPost="false">
+          <mdParameter
+            name="childId"
+            label="Child Id"
+            description="Child Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="parentId"
+            label="Parent Id"
+            description="Parent Id"
+            order="1"
+            type="java.lang.String" />
+        </mdAction>
     </mdController>
 
     <mdController
@@ -347,6 +403,7 @@
       name="csu.mrc.ivcc.mdss.geo.generated.AbstractSite"
       label="Abstract Site"
       description="Abstract Site"
+      isAbstract="true"
       extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
     </mdBusiness>
     <mdBusiness
@@ -636,6 +693,30 @@
 xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
   name="csu.mrc.ivcc.mdss.geo.LocatedInException">
   <locale language="en">The Geo Entity [{entityName}] cannot be located in [{parentDisplayLabel}].</locale>
+</exception>
+      ]]>
+      </messages>
+    </mdException>
+    
+    <mdException
+      name="csu.mrc.ivcc.mdss.geo.ConfirmParentChangeException"
+      label="Confirmation Parent Change Exception"
+      description="Exception thrown to confirm a GeoEntity parent change">
+      <attributes>
+        <char
+          name="entityName"
+          label="Entity Name"
+          size="50"
+          required="true"
+          description="Geo Entity Parent name" />
+      </attributes>
+      <messages>
+      <![CDATA[
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
+  name="csu.mrc.ivcc.mdss.geo.ConfirmParentChangeException">
+  <locale language="en">Do you want to delete the old relationship with [{entityName}].</locale>
 </exception>
       ]]>
       </messages>
