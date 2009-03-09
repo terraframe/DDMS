@@ -19,18 +19,6 @@
       </dd>
       <dt>
         <label>
-          ${item.geoEntityMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_geoEntity}" param="geoEntity">
-          <mjl:option>
-            ${current.keyName}
-          </mjl:option>
-        </mjl:select>
-      </dd>
-      <dt>
-        <label>
           ${item.holdingTimeMd.displayLabel}
         </label>
       </dt>

@@ -4,6 +4,11 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.name" id="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.id" method="POST">
+<div class="fldContainer">
+    <div class="fcTop"><div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+    <div style="position:absolute; left:20px; top:25px;">
+
   <mjl:component item="${item}" param="dto">
     <dl>
       <dt>
@@ -38,5 +43,10 @@
       </dd>
     </dl>
   </mjl:component>
-  <mjl:command value="Create" action="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.create.mojo" name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.create.button" />
+  </div>
+</div>
+
+<div class="submitButton_bl"></div>  
+  
+  <mjl:command value="Create" action="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.create.mojo" name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.create.button" classes="submitButton"/>
 </mjl:form>

@@ -11,11 +11,6 @@
         Colony Name
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="geoEntity">
-      <mjl:header>
-        Geo Entity
-      </mjl:header>
-    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="holdingTime">
       <mjl:header>
         Holding Time (hr)

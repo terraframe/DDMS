@@ -4,6 +4,11 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.name" id="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.id" method="POST">
+  <div class="fldContainer">
+    <div class="fcTop"><div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+    <div style="position:absolute; left:20px; top:25px;">
+
   <mjl:component item="${item}" param="dto">
     <dl>
       <dt>
@@ -38,7 +43,11 @@
       </dd>
     </dl>
   </mjl:component>
-  <mjl:command value="Update" action="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.update.mojo" name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.update.button" />
-  <mjl:command value="Delete" action="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.delete.mojo" name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.delete.button" />
-  <mjl:command value="Cancel" action="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.cancel.mojo" name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.cancel.button" />
+  </div>
+</div>
+  
+  <div class="submitButton_bl"></div>
+  <mjl:command value="Update" action="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.update.mojo" name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.update.button" classes="submitButton"/>
+  <mjl:command value="Delete" action="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.delete.mojo" name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.delete.button" classes="submitButton"/>
+  <mjl:command value="Cancel" action="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.cancel.mojo" name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.cancel.button" classes="submitButton"/>
 </mjl:form>

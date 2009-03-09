@@ -16,16 +16,6 @@
     </dd>
     <dt>
       <label>
-        ${item.geoEntityMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.geoEntity.keyName}" action="csu.mrc.ivcc.mdss.geo.generated.GeoEntityController.view.mojo" name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity.form.view.link">
-        <mjl:property value="${item.geoEntity.id}" name="id" />
-      </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
         ${item.holdingTimeMd.displayLabel}
       </label>
     </dt>

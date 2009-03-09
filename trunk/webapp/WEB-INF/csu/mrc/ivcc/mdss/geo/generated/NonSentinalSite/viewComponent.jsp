@@ -4,6 +4,11 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.name" id="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.id" method="POST">
+  <div class="fldContainer">
+    <div class="fcTop"><div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+    <div style="position:absolute; left:20px; top:25px;">
+
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
     <dt>
@@ -31,37 +36,11 @@
       ${item.geoId}
     </dd>
   </dl>
-  <mjl:command value="Edit" action="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.edit.mojo" name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.edit.button" />
+  </div>
+</div>
+  
+  <div class="submitButton_bl"></div>    
+  <mjl:command value="Edit" action="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.edit.mojo" name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.form.edit.button" classes="submitButton"/>
   <br />
 </mjl:form>
-<dl>
-  <dt>
-    <label>
-      Parent Relationships
-    </label>
-  </dt>
-  <dd>
-    <ul>
-      <li>
-        <mjl:commandLink display="" action="csu.mrc.ivcc.mdss.geo.LocatedInController.parentQuery.mojo" name="csu.mrc.ivcc.mdss.geo.LocatedIn.parentQuery.link">
-          <mjl:property value="${item.id}" name="parentId" />
-        </mjl:commandLink>
-      </li>
-    </ul>
-  </dd>
-  <dt>
-    <label>
-      Child Relationships
-    </label>
-  </dt>
-  <dd>
-    <ul>
-      <li>
-        <mjl:commandLink display="" action="csu.mrc.ivcc.mdss.geo.LocatedInController.childQuery.mojo" name="csu.mrc.ivcc.mdss.geo.LocatedIn.childQuery.link">
-          <mjl:property value="${item.id}" name="childId" />
-        </mjl:commandLink>
-      </li>
-    </ul>
-  </dd>
-</dl>
 <mjl:commandLink display="View All" action="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.viewAll.mojo" name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite.viewAll.link" />

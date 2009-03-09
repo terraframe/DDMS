@@ -3,7 +3,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}">
+<mjl:table var="item" query="${query}" classes="displayTable">
   <mjl:context action="csu.mrc.ivcc.mdss.PropertyController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="description">
