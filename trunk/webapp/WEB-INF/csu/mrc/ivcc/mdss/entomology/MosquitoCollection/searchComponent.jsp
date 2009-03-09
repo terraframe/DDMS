@@ -1,7 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<mjl:form name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.search" method="POST">
+<mjl:form name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.search" method="POST" id ="searchMosquitoCollections">
   <dl>
     <dt> Geo Id </dt>
     <dd> <mjl:input param="geoId" type="text" /></dd>
@@ -10,7 +10,7 @@
   </dl>  
   <br>
   <br>
-  <mjl:command classes="submitButton" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.searchByGeoIdAndDate.mojo" name="search.button"
+  <mjl:command classes="submitButton" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.searchByGeoEntityAndDate.mojo" name="search.button"
   value="Search"
   />
 </mjl:form>
