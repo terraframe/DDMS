@@ -270,7 +270,9 @@ static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) th
 
 
 <%@page import="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"%>
-<%@page import="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"%><mjl:messages>
+<%@page import="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"%>
+
+<mjl:messages>
 	<mjl:message />
 </mjl:messages>
 
@@ -322,18 +324,12 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
 
 
 
-<div id="checkBoxContanier" >
-
-</div>
-
-
 <h2>Mosquitos</h2>
 <div class="fldContainer">
-    <div class="fcTop"><div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-    <div style="position:absolute; left:20px; top:25px;">
-    
-    <div style="float:left;margin-left:3em;">
+    <div class="fcTop">
+<br>
+    <div id="checkBoxContanier" >
+        <div style="float:left;margin-left:3em;">
 <%=buildChekboxTable(mdView, BiochemicalAssayTestResult.class) %>
 </div>
 <div style="float:left;margin-left:3em;">
@@ -342,26 +338,17 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
 <div style="float:left;margin-left:3em;">
 <%=buildChekboxTable(mdView, MolecularAssayTestResult.class) %>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<br>
-<br>
-<br>
-<br>
-
-
-
-</div>
 </div>
 
 <div id="buttons">
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <div id="Mosquitos"></div>
 <span id="MosquitosAddrow" class="yui-button yui-push-button"> <span
  class="first-child">
@@ -388,43 +375,49 @@ function showCol(key,checked)
 }
 
     <%String[] types_to_load =
-	{
-	   "csu.mrc.ivcc.mdss.entomology.MosquitoView","csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView"
-	};
+  {
+     "csu.mrc.ivcc.mdss.entomology.MosquitoView","csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView"
+  };
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));   
     %>
     <%=getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
     
-    table_data = {rows:<%=getDataMap(rows,attribs)%>,		   
-   	            columnDefs:<%=getColumnSetup(mdView,attribs,delete_row,true)%>,
-    	        defaults: {},
-    	        copy_from_above: ["IdentificationMethod"],
-    	        div_id: "Mosquitos",
-    	        collection_setter: "setCollection('${item.id}')",
-        	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.MosquitoView",  
+    table_data = {rows:<%=getDataMap(rows,attribs)%>,      
+                columnDefs:<%=getColumnSetup(mdView,attribs,delete_row,true)%>,
+              defaults: {},
+              copy_from_above: ["IdentificationMethod"],
+              div_id: "Mosquitos",
+              collection_setter: "setCollection('${item.id}')",
+              data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.MosquitoView",  
                 width:"60em"        
-    	    };   
+          };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>
+ 
+    <div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+    
+
+</div>
+
+
 <br>
 <br>
 <br>
 <h2>UninterestingSpecieGroups</h2>
 <div class="fldContainer">
-    <div class="fcTop"><div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-    <div style="position:absolute; left:20px; top:25px;">
-<div id="buttons">
+    <div class="fcTop">
+    <div id="buttons">
+    <br>
+<br>
+<br>
 <div id="UninterestingSpecieGroups"></div>
-<div id="dt-options"><a id="dt-options-link"
-	href="fallbacklink.html">Table Options</a></div>
-
 
 <span id="UninterestingSpecieGroupsAddrow" class="yui-button yui-push-button"> <span
-	class="first-child">
+  class="first-child">
 <button type="button">New Row</button>
 </span> </span> <span id="UninterestingSpecieGroupsSaverows" class="yui-button yui-push-button"> <span
-	class="first-child">
+  class="first-child">
 <button type="button">Save Rows To DB</button>
 </span> </span></div>
 <%
@@ -433,17 +426,22 @@ UninterestingSpecieGroupViewDTO mdUnIntView = new UninterestingSpecieGroupViewDT
 String[] unint_attribs = { "GroupId","SampleId","Specie","IdentificationMethod","Quantity"};
 %>
 
-<script type="text/javascript">      
-UninterestingSpecieGroupData = { rows:<%=getDataMap(unint_rows,unint_attribs)%>,		   
-    	 columnDefs: <%=getColumnSetup(mdUnIntView,unint_attribs,delete_row,false)%>,
-    	        defaults: {},
-    	        div_id: "UninterestingSpecieGroups",
-    	        copy_from_above: ["IdentificationMethod"],
-    	        collection_setter: "setCollection('${item.id}')",
-        	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView"
-    	        
-    	    };   
+<script type="text/javascript"> 
+<%=getDropdownSetup(mdUnIntView,unint_attribs,delete_row,clientRequest)%>
+
+UninterestingSpecieGroupData = { rows:<%=getDataMap(unint_rows,unint_attribs)%>,       
+       columnDefs: <%=getColumnSetup(mdUnIntView,unint_attribs,delete_row,false)%>,
+              defaults: {},
+              div_id: "UninterestingSpecieGroups",
+              copy_from_above: ["IdentificationMethod"],
+              collection_setter: "setCollection('${item.id}')",
+              data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView"
+              
+          };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(UninterestingSpecieGroupData));
 </script>
-</div>
+    
+    <div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+
 </div>
