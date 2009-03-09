@@ -24,6 +24,11 @@
 <%@page import="csu.mrc.ivcc.mdss.entomology.MosquitoView"%>
 <%@page import="com.terraframe.mojo.business.generation.GenerationUtil"%>
 <%@page import="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"%>
+<%@page import="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"%>
+<%@page import="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.regex.Pattern"%>
+
 
 <%!static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSONException {
 	JSONArray ids = new JSONArray();
@@ -39,33 +44,63 @@
 
 
 
-static String getDataMap(ViewDTO[] rows, String[] attribs) throws JSONException{
+static String getDataMap(ViewDTO[] rows, String[] attribs,ViewDTO view) throws JSONException{
 	JSONArray map = new JSONArray();
+	ArrayList<String> ordered_attribs = new ArrayList(Arrays.asList(attribs));
+	for(String a : view.getAccessorNames())
+	{
+		if(! ordered_attribs.contains(a)  )
+		{
+			ordered_attribs.add(a.substring(0,1).toUpperCase() + a.substring(1));
+		}
+	}
+	System.out.println("attribs length =  "+ordered_attribs.size());
 	for(ViewDTO row : rows)
 	 {
 		JSONObject element = new JSONObject();		
 		Class c = row.getClass();	
-		for(String attrib : attribs)
+
+		for(String attrib : ordered_attribs)
 		{		
 			try
 			{
-				String value = (String) c.getMethod("get"+attrib).invoke(row).toString();	
-				element.put(attrib,value);
+				System.out.println("Setting "+attrib);
+				String value = (String) c.getMethod("get"+attrib).invoke(row).toString();
+				System.out.println("Setting "+attrib+" to "+value);
+				      
+                if("TestDate" == attrib )
+                {
+                	SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                	element.put(attrib,df.format(new Date(value)));
+                }
+                else
+                {
+                	//FIXME: this is a hack for enums
+                   String clean_value = value.replaceAll("\\[", "").replaceAll("\\]", "");
+                   element.put(attrib,clean_value );
+                }
+                
 			}
 			catch (IllegalAccessException x) {
+				System.out.println(x+" "+x.getCause());
 			}
 			catch (IllegalArgumentException  x) {
+				System.out.println(x+" "+x.getCause());
 			}
 			catch (InvocationTargetException x) {
+				System.out.println(x+" "+x.getCause());
 			}
 			catch (NoSuchMethodException x) {
 				System.out.println("No such method get"+attrib);
+			}
+			catch (NullPointerException x) {
+				System.out.println("Null Pointer Exception get"+attrib);
 			}
 
 		}	
 		map.put(element);
 	} 
-	return map.toString();
+	return map.toString().replaceAll(",",",\n");
 }
 
 static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows,ClientRequestIF clientRequest ) throws JSONException
@@ -142,19 +177,17 @@ for(String attrib : ordered_attribs)
 		Class mdClass = md.getClass();		
 		//buff.add("class:"+mdClass.toString());								
 		String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();	
-		buff.add("label:'"+label+"'");								
-		if(! Arrays.asList(attribs).contains(attrib))
+		buff.add("label:'"+label+"'");				
+		if(colnum == 0)	
 		{
 			buff.add("hidden:true");
 		}
 		else
 		{
-			if(colnum == 0)
+			if(! Arrays.asList(attribs).contains(attrib))
 			{
 				buff.add("hidden:true");
 			}
-			else
-			{
             String editor = "null";
 			
 			if(md instanceof AttributeIntegerMdDTO)
@@ -171,7 +204,9 @@ for(String attrib : ordered_attribs)
 			}
 			if(md instanceof AttributeDateMdDTO)
 			{
-				editor = "new YAHOO.widget.DateCellEditor()";
+				buff.add("formatter:YAHOO.widget.DataTable.formatDate");
+                editor = "new YAHOO.widget.DateCellEditor({disableBtns:true})";
+                //editor = "new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})";
 				//editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
 			}
 			if(md instanceof AttributeEnumerationMdDTO)
@@ -179,7 +214,6 @@ for(String attrib : ordered_attribs)
 				editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['";    
 				editor += Halp.join(((AttributeEnumerationMdDTO) md).getEnumNames(),"','");  
                 editor += "'],disableBtns:true})";
-				buff.add("save_as_id:true");
 			}
 			if(md instanceof AttributeReferenceMdDTO)
 			{
@@ -193,17 +227,16 @@ for(String attrib : ordered_attribs)
 				if(AbstractTermDTO.class.isAssignableFrom(refrenced_class) )
 				{
 				   editor = "new YAHOO.widget.DropdownCellEditor({dropdownOptions:"+attrib+"Labels,disableBtns:true})";		
-				   //editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+				   buff.add("save_as_id:true");	
 				}
 				else
 				{
 					editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
 				}
-				buff.add("save_as_id:true");	
+				
 			}
 			buff.add("editor:"+ editor);
 	    }
-		}
 		arr.add("{" +Halp.join(buff,",")+ "}"); 
 	}
 	catch (IllegalAccessException x) {
@@ -269,8 +302,11 @@ static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) th
 %>
 
 
-<%@page import="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"%>
-<%@page import="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"%>
+
+
+
+
+<%@page import="java.text.SimpleDateFormat"%><div id="cal1Container" class="yui-skin-sam"></div> 
 
 <mjl:messages>
 	<mjl:message />
@@ -303,11 +339,7 @@ static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) th
 	</dl>
  </div>
  </div>
- <div class="submitButton_bl"></div>    
-	<mjl:command value="Edit"
-		action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.edit.mojo"
-		name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.edit.button" 
-  classes="submitButton"/>
+
 </mjl:form>
 
 <%
@@ -381,8 +413,8 @@ function showCol(key,checked)
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));   
     %>
     <%=getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
-    
-    table_data = {rows:<%=getDataMap(rows,attribs)%>,      
+    MojoCal.init()
+    table_data = {rows:<%=getDataMap(rows,attribs,mdView)%>,      
                 columnDefs:<%=getColumnSetup(mdView,attribs,delete_row,true)%>,
               defaults: {},
               copy_from_above: ["IdentificationMethod"],
@@ -429,7 +461,7 @@ String[] unint_attribs = { "GroupId","SampleId","Specie","IdentificationMethod",
 <script type="text/javascript"> 
 <%=getDropdownSetup(mdUnIntView,unint_attribs,delete_row,clientRequest)%>
 
-UninterestingSpecieGroupData = { rows:<%=getDataMap(unint_rows,unint_attribs)%>,       
+UninterestingSpecieGroupData = { rows:<%=getDataMap(unint_rows,unint_attribs,mdUnIntView)%>,       
        columnDefs: <%=getColumnSetup(mdUnIntView,unint_attribs,delete_row,false)%>,
               defaults: {},
               div_id: "UninterestingSpecieGroups",
@@ -445,3 +477,4 @@ UninterestingSpecieGroupData = { rows:<%=getDataMap(unint_rows,unint_attribs)%>,
     <div class="fcBottom"><div class="fcBottomLeft"></div></div>
 
 </div>
+

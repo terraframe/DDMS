@@ -10,7 +10,7 @@
   </dl>  
   <br>
   <br>
-  <mjl:command classes="submitButton" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.searchByGeoEntityAndDate.mojo" name="search.button"
+  <mjl:command classes="submitButton" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.searchByGeoIdAndDate.mojo" name="search.button"
   value="Search"
   />
 </mjl:form>

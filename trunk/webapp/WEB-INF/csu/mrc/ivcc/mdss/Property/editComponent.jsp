@@ -77,6 +77,7 @@
       </dd>
     </dl>
   </mjl:component>
+    <br>
       <div class="fcTopLeft"></div>
     </div>
     <div class="fcBottom"><div class="fcBottomLeft"></div></div>
@@ -84,6 +85,6 @@
   
   <div class="submitButton_bl"></div>
   <mjl:command value="Update" action="csu.mrc.ivcc.mdss.PropertyController.update.mojo" name="csu.mrc.ivcc.mdss.Property.form.update.button" classes="submitButton"/>
-  <mjl:command value="Delete" action="csu.mrc.ivcc.mdss.PropertyController.delete.mojo" name="csu.mrc.ivcc.mdss.Property.form.delete.button" classes="submitButton"/>
+  
   <mjl:command value="Cancel" action="csu.mrc.ivcc.mdss.PropertyController.cancel.mojo" name="csu.mrc.ivcc.mdss.Property.form.cancel.button" classes="submitButton"/>
 </mjl:form>
