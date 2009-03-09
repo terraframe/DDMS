@@ -151,7 +151,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			table_data : table_data,
 			btnSaveRows :btnSaveRows,
 			onSuccess : function(savedRows) {
-				//alert("Saved " + savedRows.length + " Rows!");
+				alert("Saved " + savedRows.length + " Rows!");
 				var i = 0;
 				id_key = table_data.fields[0].key;
 				for each(row in savedRows)
@@ -197,12 +197,32 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    		setter_exists = eval("typeof (v.set"+attrib.key+") == 'function'")
 	    		if(setter_exists)
 	    		{
-	    			eval('v.set'+attrib.key+'(row.'+attrib.key+')');
+	    			val = eval('row.'+ attrib.key);
+	    			if(typeof val !== 'undefined')
+	    			{
+	    				//val = null;
+	    				eval_str = 'v.set'+attrib.key+'(val)';
+		    			//alert (eval_str);
+		    			eval(eval_str);
+	    			}
+	    		
+	    		}
+	    		else
+	    		{
+	    			setter_exists = eval("typeof (v.add"+attrib.key+") == 'function'")
+		    		if(setter_exists)
+		    		{
+		    			eval_str = 'v.add'+attrib.key+'(row.'+attrib.key+')';
+		    			alert (eval_str);
+		    			eval(eval_str);
+		    		}
 	    		}
 	    	}
 			v_arr.push(v);
 	    }	    
 	    str = table_data.data_type + '.saveAll(request,v_arr)';
+	    alert(str);
+	    //alert(v_arr);
     	eval(str);
 
 	});
