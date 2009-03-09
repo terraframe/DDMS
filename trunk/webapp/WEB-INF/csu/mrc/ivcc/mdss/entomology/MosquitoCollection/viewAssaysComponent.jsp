@@ -97,12 +97,7 @@ static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows
 				{
 			      AbstractTermDTO[] terms = (AbstractTermDTO[]) mo_term.getMethod("getAll",new Class[] {ClientRequestIF.class}).invoke(null,clientRequest);
 				  dropdownbuff.add(getDisplayLabels(terms,attrib));
-				}
-				else
-				{
-					//dropdownbuff.add(mo_term.getSimpleName());
-				}				
-				
+				}					
 			}
 		}
 		catch (Exception x) {
@@ -158,7 +153,8 @@ for(String attrib : ordered_attribs)
 			{
 				buff.add("hidden:true");
 			}
-   
+			else
+			{
             String editor = "null";
 			
 			if(md instanceof AttributeIntegerMdDTO)
@@ -172,6 +168,17 @@ for(String attrib : ordered_attribs)
 			if(md instanceof AttributeCharacterMdDTO)
 			{
 				editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+			}
+			if(md instanceof AttributeDateMdDTO)
+			{
+				editor = "new YAHOO.widget.DateCellEditor()";
+				//editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+			}
+			if(md instanceof AttributeEnumerationMdDTO)
+			{
+				editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['";    
+				editor += Halp.join(((AttributeEnumerationMdDTO) md).getEnumNames(),"','");  
+                editor += "'],disableBtns:true})";
 				buff.add("save_as_id:true");
 			}
 			if(md instanceof AttributeReferenceMdDTO)
@@ -196,7 +203,7 @@ for(String attrib : ordered_attribs)
 			}
 			buff.add("editor:"+ editor);
 	    }
-		
+		}
 		arr.add("{" +Halp.join(buff,",")+ "}"); 
 	}
 	catch (IllegalAccessException x) {
@@ -306,7 +313,7 @@ ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientCon
 MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) request.getAttribute("item");
 MosquitoViewDTO[] rows = mosquito_collection.getMosquitos();
 MosquitoViewDTO mdView = new MosquitoViewDTO(clientRequest);
-String[] attribs = { "MosquitoId","Specie","IdentificationMethod","Generation","Isofemale"};
+String[] attribs = { "MosquitoId","Specie","IdentificationMethod","Generation","Isofemale","Sex","TestDate"};
 
 String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 //out.println(getColumnSetup(mdView,attribs,delete_row,clientRequest));
@@ -393,7 +400,7 @@ function showCol(key,checked)
     	        defaults: {},
     	        copy_from_above: ["IdentificationMethod"],
     	        div_id: "Mosquitos",
-    	        collection_setter: "setCollectionId('${item.id}')",
+    	        collection_setter: "setCollection('${item.id}')",
         	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.MosquitoView",  
                 width:"60em"        
     	    };   
@@ -423,16 +430,16 @@ function showCol(key,checked)
 <%
 UninterestingSpecieGroupViewDTO[] unint_rows = mosquito_collection.getUninterestingSpecieGroups();
 UninterestingSpecieGroupViewDTO mdUnIntView = new UninterestingSpecieGroupViewDTO(clientRequest);
-String[] unint_attribs = { "GroupId","Specie","IdentificationMethod","Quantity"};
+String[] unint_attribs = { "GroupId","SampleId","Specie","IdentificationMethod","Quantity"};
 %>
 
 <script type="text/javascript">      
 UninterestingSpecieGroupData = { rows:<%=getDataMap(unint_rows,unint_attribs)%>,		   
     	 columnDefs: <%=getColumnSetup(mdUnIntView,unint_attribs,delete_row,false)%>,
-    	        defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
+    	        defaults: {},
     	        div_id: "UninterestingSpecieGroups",
     	        copy_from_above: ["IdentificationMethod"],
-    	        collection_setter: "setCollectionId('${item.id}')",
+    	        collection_setter: "setCollection('${item.id}')",
         	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView"
     	        
     	    };   
