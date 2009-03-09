@@ -46,21 +46,21 @@
         static="false"
         returnType="csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery">
       </mdMethod>
-       <mdMethod
-          name="applyWithParentGeoEntity"
-          label="Apply Within GeoEntity"
-          description="Applies GeoEntity as being located within another GeoEntity."
-          returnType="void"
-          static="false">
-          <mdParameter
-            name="parentGeoEntityId"
-            label="Parent GeoEntity Id"
-            description="The id of the GeoEntity that will be the parent of this GeoEntity"
-            type="java.lang.String"
-            order="0"/>
-        </mdMethod>
+      <mdMethod
+        name="applyWithParentGeoEntity"
+        label="Apply Within GeoEntity"
+        description="Applies GeoEntity as being located within another GeoEntity."
+        returnType="void"
+        static="false">
+        <mdParameter
+          name="parentGeoEntityId"
+          label="Parent GeoEntity Id"
+          description="The id of the GeoEntity that will be the parent of this GeoEntity"
+          type="java.lang.String"
+          order="0" />
+      </mdMethod>
     </mdBusiness>
-    
+
     <mdBusiness
       name="csu.mrc.ivcc.mdss.geo.GeoHierarchy"
       generateController="false"
@@ -92,7 +92,7 @@
           order="0"
           type="java.lang.String" />
       </mdMethod>
-      <mdMethod 
+      <mdMethod
         name="defineGeoEntity"
         label="Define GeoEntity"
         description="Defines a new GeoEntity class"
@@ -119,7 +119,7 @@
         static="true">
       </mdMethod>
     </mdBusiness>
-    
+
     <mdView
       name="csu.mrc.ivcc.mdss.geo.GeoHierarchyView"
       label="Geo Hierarchy View"
@@ -149,23 +149,35 @@
           type="com.terraframe.mojo.system.metadata.MdType" />
       </attributes>
     </mdView>
-    
+
     <mdRelationship
       name="csu.mrc.ivcc.mdss.geo.AllowedIn"
       label="Allowed In"
       description="Relates which GeoEntity classes are allowed within one another.">
-      <parent cardinality="*" name="csu.mrc.ivcc.mdss.geo.GeoHierarchy" method="AcceptsGeoEntity" />
-      <child cardinality="*" name="csu.mrc.ivcc.mdss.geo.GeoHierarchy" method="AllowedInGeoEntity" />
+      <parent
+        cardinality="*"
+        name="csu.mrc.ivcc.mdss.geo.GeoHierarchy"
+        method="AcceptsGeoEntity" />
+      <child
+        cardinality="*"
+        name="csu.mrc.ivcc.mdss.geo.GeoHierarchy"
+        method="AllowedInGeoEntity" />
     </mdRelationship>
 
     <mdRelationship
       name="csu.mrc.ivcc.mdss.geo.LocatedIn"
       label="Located In"
       description="Relates how GeoEntities are located within one another.">
-      <parent cardinality="*" name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity" method="ContainsGeoEntity" />
-      <child cardinality="*" name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity" method="LocatedInGeoEntity" />
+      <parent
+        cardinality="*"
+        name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
+        method="ContainsGeoEntity" />
+      <child
+        cardinality="*"
+        name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
+        method="LocatedInGeoEntity" />
     </mdRelationship>
-    
+
     <mdView
       name="csu.mrc.ivcc.mdss.geo.GeoEntityDefinition"
       label="GeoEntityDefinition"
@@ -245,7 +257,7 @@
         name="displayLabel"
         value="Polygon" />
     </object>
-    
+
     <mdEnumeration
       name="csu.mrc.ivcc.mdss.geo.SpatialTypes"
       label="Spatial Types"
@@ -294,7 +306,7 @@
     </mdController>
 
     <!-- START: GeoEntity Types -->
-    
+
     <mdBusiness
       name="csu.mrc.ivcc.mdss.geo.generated.Country"
       label="Country"
@@ -367,7 +379,7 @@
       description="Permanent Water Body"
       extends="csu.mrc.ivcc.mdss.geo.generated.BreedingSite">
     </mdBusiness>
-    
+
     <!-- END: GeoEntity Types -->
 
     <mdController
@@ -814,6 +826,19 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           concrete="sampleId"
           required="true" />
       </attributes>
+      <mdMethod
+        name="saveAll"
+        label="Save All"
+        returnType="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView[]"
+        static="true"
+        description="Saves an array of MosquitoViews in a single transaction">
+        <mdParameter
+          name="array"
+          label="Array"
+          description="Array of objects to save"
+          order="0"
+          type="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView[]" />
+      </mdMethod>
     </mdView>
 
     <mdBusiness
@@ -2849,6 +2874,19 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           concrete="testMethod"
           required="false" />
       </attributes>
+      <mdMethod
+        name="saveAll"
+        label="Save All"
+        returnType="csu.mrc.ivcc.mdss.entomology.MosquitoView[]"
+        static="true"
+        description="Saves an array of MosquitoViews in a single transaction">
+        <mdParameter
+          name="array"
+          label="Array"
+          description="Array of objects to save"
+          order="0"
+          type="csu.mrc.ivcc.mdss.entomology.MosquitoView[]" />
+      </mdMethod>
     </mdView>
   </create>
 
@@ -7847,22 +7885,58 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
     </object>
   </create>
-  
+
   <existing>
-    <object key="csu.mrc.ivcc.mdss.geo.generated.Country" id="CountryMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    <object key="csu.mrc.ivcc.mdss.geo.generated.Province" id="ProvinceMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    <object key="csu.mrc.ivcc.mdss.geo.generated.District" id="DistrictMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    <object key="csu.mrc.ivcc.mdss.geo.generated.AdminPost" id="AdminPostMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    <object key="csu.mrc.ivcc.mdss.geo.generated.Locality" id="LocalityMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    <object key="csu.mrc.ivcc.mdss.geo.generated.PopulatedArea" id="PopulatedAreaMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    <object key="csu.mrc.ivcc.mdss.geo.generated.AbstractSite" id="AbstractSiteMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    <object key="csu.mrc.ivcc.mdss.geo.generated.SentinalSite" id="SentinalSiteMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    <object key="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite" id="NonSentinalSiteMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    <object key="csu.mrc.ivcc.mdss.geo.generated.Trap" id="TrapMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    <object key="csu.mrc.ivcc.mdss.geo.generated.BreedingSite" id="BreedingSiteMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
-    <object key="csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBody" id="PermanentWaterBodyMd" type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.Country"
+      id="CountryMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.Province"
+      id="ProvinceMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.District"
+      id="DistrictMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.AdminPost"
+      id="AdminPostMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.Locality"
+      id="LocalityMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.PopulatedArea"
+      id="PopulatedAreaMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.AbstractSite"
+      id="AbstractSiteMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.SentinalSite"
+      id="SentinalSiteMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite"
+      id="NonSentinalSiteMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.Trap"
+      id="TrapMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.BreedingSite"
+      id="BreedingSiteMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBody"
+      id="PermanentWaterBodyMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
   </existing>
-  
+
   <create>
     <object
       id="countryH"
@@ -7872,9 +7946,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="true" />
       <referenceAttribute
         name="geoEntityClass"
-        id="CountryMd"/>
+        id="CountryMd" />
     </object>
-    
+
     <object
       id="provinceH"
       type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
@@ -7883,16 +7957,16 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="true" />
       <referenceAttribute
         name="geoEntityClass"
-        id="ProvinceMd"/>
+        id="ProvinceMd" />
     </object>
-    
+
     <relationship
       type="csu.mrc.ivcc.mdss.geo.AllowedIn"
       childId="provinceH"
       parentId="countryH"
       id="provinceInCountry">
     </relationship>
-    
+
     <object
       id="districtH"
       type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
@@ -7901,16 +7975,16 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="true" />
       <referenceAttribute
         name="geoEntityClass"
-        id="DistrictMd"/>
+        id="DistrictMd" />
     </object>
-    
+
     <relationship
       type="csu.mrc.ivcc.mdss.geo.AllowedIn"
       childId="districtH"
       parentId="provinceH"
       id="districtInProvince">
     </relationship>
-    
+
     <object
       id="adminPostH"
       type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
@@ -7919,7 +7993,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="true" />
       <referenceAttribute
         name="geoEntityClass"
-        id="AdminPostMd"/>
+        id="AdminPostMd" />
     </object>
 
     <relationship
@@ -7928,7 +8002,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       parentId="districtH"
       id="adminPostInDistrict">
     </relationship>
-    
+
     <object
       id="localityH"
       type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
@@ -7937,7 +8011,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="true" />
       <referenceAttribute
         name="geoEntityClass"
-        id="LocalityMd"/>
+        id="LocalityMd" />
     </object>
 
     <relationship
@@ -7955,7 +8029,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="true" />
       <referenceAttribute
         name="geoEntityClass"
-        id="PopulatedAreaMd"/>
+        id="PopulatedAreaMd" />
     </object>
 
     <relationship
@@ -7964,7 +8038,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       parentId="localityH"
       id="populatedAreaInLocality">
     </relationship>
-        
+
     <object
       id="abstractSiteH"
       type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
@@ -7973,16 +8047,16 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="false" />
       <referenceAttribute
         name="geoEntityClass"
-        id="AbstractSiteMd"/>
+        id="AbstractSiteMd" />
     </object>
-    
+
     <relationship
       type="csu.mrc.ivcc.mdss.geo.AllowedIn"
       childId="abstractSiteH"
       parentId="localityH"
       id="abstractSiteInLocality">
     </relationship>
-    
+
     <object
       id="sentinalSiteH"
       type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
@@ -7991,16 +8065,16 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="false" />
       <referenceAttribute
         name="geoEntityClass"
-        id="SentinalSiteMd"/>
+        id="SentinalSiteMd" />
     </object>
-    
+
     <relationship
       type="csu.mrc.ivcc.mdss.geo.AllowedIn"
       childId="sentinalSiteH"
       parentId="localityH"
       id="sentinalSiteInLocality">
     </relationship>
-    
+
     <object
       id="nonSentinalSiteH"
       type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
@@ -8009,7 +8083,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="false" />
       <referenceAttribute
         name="geoEntityClass"
-        id="NonSentinalSiteMd"/>
+        id="NonSentinalSiteMd" />
     </object>
 
     <relationship
@@ -8027,7 +8101,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="false" />
       <referenceAttribute
         name="geoEntityClass"
-        id="TrapMd"/>
+        id="TrapMd" />
     </object>
 
     <relationship
@@ -8045,7 +8119,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="false" />
       <referenceAttribute
         name="geoEntityClass"
-        id="BreedingSiteMd"/>
+        id="BreedingSiteMd" />
     </object>
 
     <relationship
@@ -8063,7 +8137,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="false" />
       <referenceAttribute
         name="geoEntityClass"
-        id="PermanentWaterBodyMd"/>
+        id="PermanentWaterBodyMd" />
     </object>
 
     <relationship
