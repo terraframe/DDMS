@@ -110,7 +110,7 @@ public class SexMasterController extends SexMasterControllerBase implements com.
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update SexMasterController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {

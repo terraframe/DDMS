@@ -104,7 +104,7 @@ public class SentinalSiteController extends SentinalSiteControllerBase implement
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update SentinalSiteController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void cancel(csu.mrc.ivcc.mdss.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

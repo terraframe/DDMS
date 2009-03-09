@@ -127,7 +127,7 @@ public class POvaleTestResultController extends POvaleTestResultControllerBase i
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", csu.mrc.ivcc.mdss.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update POvaleTestResultController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {

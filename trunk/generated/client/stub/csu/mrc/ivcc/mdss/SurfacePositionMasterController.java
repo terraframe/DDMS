@@ -66,7 +66,7 @@ public class SurfacePositionMasterController extends SurfacePositionMasterContro
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update SurfacePositionMasterController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {

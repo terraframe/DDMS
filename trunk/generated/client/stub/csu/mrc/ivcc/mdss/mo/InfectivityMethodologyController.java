@@ -77,7 +77,7 @@ public class InfectivityMethodologyController extends InfectivityMethodologyCont
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update InfectivityMethodologyController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {

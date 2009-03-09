@@ -104,7 +104,7 @@ public class AbstractSiteController extends AbstractSiteControllerBase implement
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update AbstractSiteController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void cancel(csu.mrc.ivcc.mdss.geo.generated.AbstractSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

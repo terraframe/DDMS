@@ -130,7 +130,7 @@ public class MosquitoController extends MosquitoControllerBase implements com.te
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", csu.mrc.ivcc.mdss.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update MosquitoController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {

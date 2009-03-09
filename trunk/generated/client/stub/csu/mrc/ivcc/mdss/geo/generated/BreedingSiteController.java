@@ -104,7 +104,7 @@ public class BreedingSiteController extends BreedingSiteControllerBase implement
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update BreedingSiteController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void cancel(csu.mrc.ivcc.mdss.geo.generated.BreedingSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

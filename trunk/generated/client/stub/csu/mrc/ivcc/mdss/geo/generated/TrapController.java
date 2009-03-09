@@ -104,7 +104,7 @@ public class TrapController extends TrapControllerBase implements com.terraframe
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update TrapController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void cancel(csu.mrc.ivcc.mdss.geo.generated.TrapDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

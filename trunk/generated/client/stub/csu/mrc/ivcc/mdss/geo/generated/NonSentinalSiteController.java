@@ -124,7 +124,7 @@ public class NonSentinalSiteController extends NonSentinalSiteControllerBase imp
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update NonSentinalSiteController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void cancel(csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

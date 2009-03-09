@@ -108,7 +108,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update MosquitoCollectionPointController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void delete(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

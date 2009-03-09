@@ -96,7 +96,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update a Mosquito Collection");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void failSearchByGeoEntityAndDate(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO geoEntity, java.lang.String collectionDate) throws java.io.IOException, javax.servlet.ServletException
   {

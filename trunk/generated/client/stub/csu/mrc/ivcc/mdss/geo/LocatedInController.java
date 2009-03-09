@@ -143,7 +143,7 @@ public class LocatedInController extends LocatedInControllerBase implements com.
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update LocatedInController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {

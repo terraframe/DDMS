@@ -68,7 +68,7 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update GeoEntityController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void delete(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

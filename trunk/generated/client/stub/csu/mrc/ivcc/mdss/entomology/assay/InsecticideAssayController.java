@@ -96,7 +96,7 @@ public class InsecticideAssayController extends InsecticideAssayControllerBase i
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_testMethod", csu.mrc.ivcc.mdss.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update InsecticideAssayController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void create(csu.mrc.ivcc.mdss.entomology.assay.InsecticideAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

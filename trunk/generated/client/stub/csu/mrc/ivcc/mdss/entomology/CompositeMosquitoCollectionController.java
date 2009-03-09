@@ -80,7 +80,7 @@ public class CompositeMosquitoCollectionController extends CompositeMosquitoColl
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update CompositeMosquitoCollectionController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {

@@ -48,7 +48,7 @@ public class UninterestingSpecieGroupController extends UninterestingSpecieGroup
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie", csu.mrc.ivcc.mdss.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update UninterestingSpecieGroupController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {

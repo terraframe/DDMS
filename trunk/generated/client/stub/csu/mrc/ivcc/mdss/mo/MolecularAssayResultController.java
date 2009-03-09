@@ -30,7 +30,7 @@ public class MolecularAssayResultController extends MolecularAssayResultControll
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update MolecularAssayResultController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {

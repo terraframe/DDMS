@@ -139,6 +139,6 @@ public class ADDATestIntervalController extends ADDATestIntervalControllerBase i
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_ADDATestInterval_assay", csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update ADDATestIntervalController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
 }

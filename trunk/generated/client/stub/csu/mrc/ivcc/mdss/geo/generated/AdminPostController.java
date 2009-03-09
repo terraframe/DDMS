@@ -104,7 +104,7 @@ public class AdminPostController extends AdminPostControllerBase implements com.
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update AdminPostController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void cancel(csu.mrc.ivcc.mdss.geo.generated.AdminPostDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

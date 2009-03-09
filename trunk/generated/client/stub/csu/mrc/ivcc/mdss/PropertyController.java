@@ -21,7 +21,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", csu.mrc.ivcc.mdss.PropertyDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View PropertyController");
+    req.setAttribute("page_title", "View Property");
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -51,7 +51,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void failDelete(csu.mrc.ivcc.mdss.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit PropertyController");
+    req.setAttribute("page_title", "Edit Property");
     render("editComponent.jsp");
   }
   public void create(csu.mrc.ivcc.mdss.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -77,7 +77,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void failCreate(csu.mrc.ivcc.mdss.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create PropertyController");
+    req.setAttribute("page_title", "Create Property");
     render("createComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -85,7 +85,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     csu.mrc.ivcc.mdss.PropertyQueryDTO query = csu.mrc.ivcc.mdss.PropertyDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All PropertyController Objects");
+    req.setAttribute("page_title", "View All Property Objects");
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -106,7 +106,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     csu.mrc.ivcc.mdss.PropertyQueryDTO query = csu.mrc.ivcc.mdss.PropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All PropertyController Objects");
+    req.setAttribute("page_title", "View All Property Objects");
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -136,14 +136,14 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void failUpdate(csu.mrc.ivcc.mdss.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update PropertyController");
-    render("updateComponent.jsp");
+    req.setAttribute("page_title", "Update Property");
+    render("editComponent.jsp");
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     csu.mrc.ivcc.mdss.PropertyDTO dto = csu.mrc.ivcc.mdss.PropertyDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit PropertyController");
+    req.setAttribute("page_title", "Edit Property");
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -155,7 +155,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     csu.mrc.ivcc.mdss.PropertyDTO dto = new csu.mrc.ivcc.mdss.PropertyDTO(clientRequest);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create PropertyController");
+    req.setAttribute("page_title", "Create Property");
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException

@@ -139,6 +139,6 @@ public class MonooxygenaseTestResultController extends MonooxygenaseTestResultCo
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_AssayTestResult_mosquito", csu.mrc.ivcc.mdss.entomology.MosquitoDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update MonooxygenaseTestResultController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
 }
