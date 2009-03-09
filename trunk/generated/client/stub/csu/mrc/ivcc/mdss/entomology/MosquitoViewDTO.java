@@ -10,9 +10,4 @@ public class MosquitoViewDTO extends MosquitoViewDTOBase
   {
     super(clientRequest);
   }
-  
-  public void setCollectionId(String id)
-  {
-    this.setCollection(AbstractMosquitoCollectionDTO.get(clientRequest, id));
-  }
 }

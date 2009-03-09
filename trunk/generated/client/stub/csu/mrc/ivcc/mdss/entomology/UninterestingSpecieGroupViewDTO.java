@@ -10,9 +10,4 @@ public class UninterestingSpecieGroupViewDTO extends UninterestingSpecieGroupVie
   {
     super(clientRequest);
   }  
-  
-  public void setCollectionId(String id)
-  {
-    this.setCollection(AbstractMosquitoCollectionDTO.get(clientRequest, id));
-  }
 }
