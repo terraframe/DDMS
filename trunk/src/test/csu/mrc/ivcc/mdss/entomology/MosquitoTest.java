@@ -5,13 +5,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import com.terraframe.mojo.ClientSession;
+import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
+import com.terraframe.mojo.web.WebClientSession;
 
 import csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult;
 import csu.mrc.ivcc.mdss.entomology.assay.biochemical.AEsteraseTestResult;
@@ -20,13 +24,20 @@ import csu.mrc.ivcc.mdss.entomology.assay.infectivity.PMalariaeTestResult;
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
 import csu.mrc.ivcc.mdss.geo.generated.SentinalSite;
 import csu.mrc.ivcc.mdss.mo.BiochemicalMethodology;
+import csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO;
 import csu.mrc.ivcc.mdss.mo.CollectionMethod;
 import csu.mrc.ivcc.mdss.mo.Generation;
+import csu.mrc.ivcc.mdss.mo.GenerationDTO;
 import csu.mrc.ivcc.mdss.mo.IdentificationMethod;
+import csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO;
 import csu.mrc.ivcc.mdss.mo.InfectivityMethodology;
+import csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO;
 import csu.mrc.ivcc.mdss.mo.InsecticideMethodology;
+import csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO;
 import csu.mrc.ivcc.mdss.mo.MolecularAssayResult;
+import csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO;
 import csu.mrc.ivcc.mdss.mo.Specie;
+import csu.mrc.ivcc.mdss.mo.SpecieDTO;
 
 public class MosquitoTest extends TestCase
 {
@@ -50,6 +61,10 @@ public class MosquitoTest extends TestCase
   private static InsecticideMethodology insecticideMethodology = null;
   
   private static BiochemicalMethodology biochemicalMethodology = null;
+  
+  private static ClientSession         clientSession;
+
+  private static ClientRequestIF       clientRequest;
 
   public static Test suite()
   {
@@ -77,10 +92,15 @@ public class MosquitoTest extends TestCase
   {
     collection.delete();
     geoEntity.delete();
+    
+    clientSession.logout();
   }
 
   protected static void classSetUp()
   {
+    clientSession = WebClientSession.createUserSession("SYSTEM", "SYSTEM", Locale.US);
+    clientRequest = clientSession.getRequest();
+
     collectionMethod = CollectionMethod.getAll()[0];
     specie = Specie.getAll()[0];
     identificationMethod = IdentificationMethod.getAll()[0];
@@ -181,6 +201,78 @@ public class MosquitoTest extends TestCase
     }
   }
   
+  public void testCreateMosquitoDTO() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2007-01-01");
+  
+    MosquitoViewDTO view = new MosquitoViewDTO(clientRequest);
+    view.setSpecie(SpecieDTO.get(clientRequest, specie.getId()));
+    view.setCollection(MosquitoCollectionDTO.get(clientRequest,collection.getId()));
+    view.setGeneration(GenerationDTO.get(clientRequest,F0.getId()));
+    view.setIsofemale(false);
+    view.setIdentificationMethod(IdentificationMethodDTO.get(clientRequest,identificationMethod.getId()));
+    view.addSex(SexDTO.FEMALE);
+    view.setTestDate(date);
+    view.setAcHEBiochemical(MolecularAssayResultDTO.get(clientRequest,result.getId()));
+    view.setAcHEBiochemicalMethod(BiochemicalMethodologyDTO.get(clientRequest,biochemicalMethodology.getId()));
+    view.setAcHEMolecular(MolecularAssayResultDTO.get(clientRequest,result.getId()));
+    view.setAcHEMolecularMethod(InsecticideMethodologyDTO.get(clientRequest,insecticideMethodology.getId()));
+    view.setAEsterase(new Integer(4));
+    view.setAEsteraseMethod(BiochemicalMethodologyDTO .get(clientRequest,biochemicalMethodology.getId()));
+    view.setPMalariae(true);
+    view.setPMalariaeMethod(InfectivityMethodologyDTO.get(clientRequest,infectivityMethodology.getId()));
+    view.apply();
+  
+    try
+    {
+      Mosquito mosquito = Mosquito.get(view.getMosquitoId());
+  
+      assertEquals(specie.getId(), mosquito.getSpecie().getId());
+      assertEquals(F0.getId(), mosquito.getGeneration().getId());
+      assertEquals(view.getMosquitoId(), mosquito.getId());
+      assertEquals(identificationMethod.getId(), mosquito.getIdentificationMethod().getId());
+      assertEquals(Sex.FEMALE, mosquito.getSex().get(0));
+      assertEquals(date, mosquito.getTestDate());
+      assertEquals(new Boolean(false), mosquito.getIsofemale());
+  
+      List<AssayTestResult> testResults = mosquito.getTestResults();
+  
+      assertEquals(4, testResults.size());
+  
+      for (AssayTestResult r : testResults)
+      {
+        if (r instanceof AcHETestResult)
+        {
+          assertEquals(view.getAcHEBiochemical().getId(), ( (MolecularAssayResult) r.getTestResult() ).getId());
+          assertEquals(view.getAcHEBiochemicalMethod().getId(), r.getTestMethod().getId());
+        }
+        else if (r instanceof csu.mrc.ivcc.mdss.entomology.assay.molecular.AcHETestResult)
+        {
+          assertEquals(view.getAcHEMolecular().getId(), ( (MolecularAssayResult) r.getTestResult() ).getId());
+          assertEquals(view.getAcHEMolecularMethod().getId(), r.getTestMethod().getId());
+        }
+        else if (r instanceof AEsteraseTestResult)
+        {
+          assertEquals(view.getAEsterase(), (Integer) r.getTestResult());
+          assertEquals(view.getAEsteraseMethod().getId(), r.getTestMethod().getId());
+        }
+        else if (r instanceof PMalariaeTestResult)
+        {
+          assertEquals(view.getPMalariae(), (Boolean) r.getTestResult());
+          assertEquals(view.getPMalariaeMethod().getId(), r.getTestMethod().getId());
+        }
+      }
+      
+      assertNull(view.getEKDR());
+    }
+    finally
+    {
+      Mosquito.get(view.getMosquitoId()).delete();
+    }
+  }
+
+  
   public void testMosquitoSaveAll() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
@@ -273,6 +365,7 @@ public class MosquitoTest extends TestCase
     view.setAEsteraseMethod(biochemicalMethodology);
     view.setPMalariae(true);
     view.setPMalariaeMethod(infectivityMethodology);
+    view.apply();
   
     view.setAEsterase(new Integer(5));
     view.apply();
