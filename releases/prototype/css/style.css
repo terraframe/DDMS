@@ -1,0 +1,365 @@
+@charset "utf-8";
+
+/* CSS Document */
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	min-width: 800px;
+	text-align: left;
+}
+
+#freeText {
+	position: absolute;
+	left: 11px;
+	top: 18px;
+	width: 102px;
+	height: 53px;
+	z-index: 1;
+	font-size: 12px;
+	text-align: center;
+}
+
+#uploadLogo {
+	position: absolute;
+	left: 124px;
+	top: 14px;
+	width: 79px;
+	height: 58px;
+	z-index: 1;
+}
+
+.header {
+	background-color: #000000;
+	height: 86px;
+	background-image: url(/MDSS/imgs/design/header_back.gif);
+	background-repeat: no-repeat;
+	background-position: right top;
+}
+
+.hTitle {
+	background-image: url(/MDSS/imgs/design/header_title.gif);
+	height: 86px;
+	width: 670px;
+}
+
+.fldContainer {
+	position: relative;
+	min-width: 400px;
+	max-width: 860px;
+	margin-left: 12px;
+}
+
+.fldContainer .fcTop,.fldContainer .fcTopLeft,.fldContainer .fcBottom,.fldContainer .fcBottom div
+	{
+	background: url(/MDSS/imgs/design/background.gif) no-repeat top right;
+}
+
+.fldContainer .fcTop {
+	position: relative;
+	padding: 12px 12px 12px 0px;
+	min-height: 180px;
+	display: block;
+}
+
+.fldContainer .fcTopLeft {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 12px;
+	margin-left: -12px;
+	height: 100%;
+	background-position: top left;
+}
+
+.fldContainer .fcBottom {
+	background-position: bottom right;
+	position: relative;
+	width: 100%;
+	height: 30px;
+}
+
+.fldContainer .fcBottomLeft {
+	height: 30px;
+	display: block;
+}
+
+.fldContainer .fcBottom div {
+	position: relative;
+	width: 12px;
+	margin-left: -12px;
+	background-position: bottom left;
+}
+
+.pageTitle {
+	font-size: 32px;
+	color: #BBB;
+	margin-bottom: 10px;
+	margin-top: 15px;
+}
+
+.pageDescription {
+	font-size: 12px;
+	color: #333333;
+	margin-bottom: 20px;
+	width: 860px;
+}
+
+.pageContent {
+	padding-top: 0px;
+	padding-right: 15px;
+	padding-bottom: 15px;
+	padding-left: 15px;
+}
+
+.navContainer {
+	height: 32px;
+}
+
+.div {
+	text-align: left;
+}
+
+.fldLabel {
+	font-weight: bold;
+	font-size: 14px;
+	color: #666666;
+}
+
+.submitButton {
+	display: block;
+	background-image: url(/MDSS/imgs/design/submitButtonBack.gif);
+	background-repeat: repeat-x;
+	height: 62px;
+	background-position: right top;
+	font-size: 18px;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height: 60px;
+	text-decoration: none;
+	margin-left: -13px;
+	text-shadow: 0 0 0 #000;
+}
+
+.submitButton:hover {
+	background-image: url(/MDSS/imgs/submitButtonBackOver.gif);
+}
+
+.submitButton .bl {
+	width: 36px;
+	background-image: url(/MDSS/imgs/submitButtonLeft.gif);
+	height: 62px;
+	float: left;
+}
+
+.pageFooter {
+	font-size: 11px;
+	color: #666666;
+	margin-bottom: 20px;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #CCCCCC;
+	margin-top: 40px;
+	padding-top: 10px;
+	padding-left: 13px;
+	padding-right: 13px;
+}
+
+.pageFooter a {
+	color: #333333;
+	text-decoration: none;
+}
+
+.pageFooter a:hover {
+	color: #666666;
+	text-decoration: underline;
+}
+
+.displayTable {
+	background-color: #CCCCCC;
+}
+
+.displayTable th {
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+	font-weight: bold;
+	background-image: url(/MDSS/imgs/design/table_header_back.gif);
+	background-repeat: repeat-x;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #FFFFFF;
+	text-shadow: 0 0 0 #000;
+}
+
+/* Added by Darrell */
+.yui-skin-sam .yuimenubar {
+	font-size: 93%;
+	line-height: 2; *
+	line-height: 1.9;
+	border: solid 0px #866;
+	border-bottom: solid 0px #866;
+	background: url(/MDSS/imgs/design/sprite.png) repeat-x 0 0;
+}
+
+.yui-skin-sam .yuimenubaritemlabel {
+	border-color: #222;
+	border-style: solid;
+	border-width: 0px 0;
+	color: #FFF;
+	cursor: default;
+	margin: -1px 0;
+	padding: 0 10px;
+	text-decoration: none;
+}
+
+.yui-skin-sam .yuimenubaritem-selected {
+	background: url(/MDSS/imgs/design/sprite.png) repeat-x 0 -100px;
+}
+
+label {
+	font-weight: bold;
+	font-size: 14px;
+	color: #666666;
+}
+
+dd {
+	margin-bottom: .75em;
+}
+
+.submitButton {
+	display: inline;
+	background-image: url(/MDSS/imgs/submitButtonBack.gif);
+	background-repeat: repeat-x;
+	height: 39px;
+	background-position: right top;
+	font-size: 18px;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height: 60px;
+	text-decoration: none;
+	margin-left: -13px;
+	text-shadow: 0 0 0 #000;
+}
+
+input[type="button"],input[type="submit"] {
+	display: inline;
+	background: F00;
+	height: 39px;
+	background-position: right top;
+	font-size: 18px;
+	font-weight: bold;
+	color: #FFFFFF;
+	line-height: 30px;
+	text-decoration: none;
+	margin-left: -13px;
+	text-shadow: 0 0 0 #000;
+	border-width: 0px;
+	width: 130px;
+	padding: 0px;
+	z-index: 3;
+	position: relative;
+	top: -25px;
+}
+
+input[type="button"]:hover {
+	border:0px
+}
+input[type="button"]:active {
+	border:0px
+}
+
+.submitButton:hover {
+	background-image: url(/MDSS/imgs/submitButtonBackOver.gif);
+}
+
+.submitButton_bl {
+	width: 24px;
+	background-image: url(/MDSS/imgs/submitButtonLeft.gif);
+	height: 39px;
+	float: left;
+	z-index: 4;
+	position: relative;
+	left: 11px;
+	top: -25px;
+}
+
+.evenRow {
+	background-color: #f6f5ed;
+	padding: 5px;
+	border: 1px solid #CCCCCC;
+}
+
+.oddRow {
+	background-color: #ffffff;
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+}
+
+.displayTable th a {
+	padding: 5px;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #FFFFFF;
+	text-shadow: 0 0 0 #000;
+}
+
+a:hover {
+	outline-width: 0px;
+}
+
+
+#cal1Container {
+	position: absolute;
+	display: none;
+	background-color: WHITE;
+}
+
+#cal1Container {
+	margin: 1em;
+}
+
+textarea {
+	width: 100%;
+}
+
+#cal1Container {
+	z-index: 500;
+}
+
+.hide {
+	display: none;
+}
+
+.my-highlight-row {
+	font-weight: bold;
+}
+
+.delete-button {
+	cursor: pointer;
+	background: transparent url(/MDSS/imgs/icons/delete.png) no-repeat center
+		center;
+	width: 16px;
+	height: 16px;
+}
+
+.insert-button {
+	cursor: pointer;
+	background: transparent url(/MDSS/imgs/icons/add.png) no-repeat center center;
+	width: 16px;
+	height: 16px;
+}
+
+.yui-skin-sam .yui-dt td.align-right {
+	text-align: right;
+}
+
+#ft {
+	margin-top: 2em;
+}
+
+dt {
+	font-weight: bold;
+	margin-top: 5px;
+}
