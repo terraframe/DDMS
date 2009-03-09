@@ -146,6 +146,10 @@ public class MosquitoView extends MosquitoViewBase implements
         {
           result = c.newInstance();
         }
+        else
+        {
+          c.getMethod("lock").invoke(result);          
+        }
 
         c.getMethod("setMosquito", Mosquito.class).invoke(result, mosquito);
         c.getMethod("setTestResult", testResult.getClass()).invoke(result, testResult);
