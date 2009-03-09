@@ -21,12 +21,6 @@ public class IdentificationMethod extends IdentificationMethodBase implements co
   }
   
   @Override
-  public String toString()
-  {
-    return this.getTermName();
-  }
-  
-  @Override
   protected String buildKey()
   {
     return this.getTermName();
