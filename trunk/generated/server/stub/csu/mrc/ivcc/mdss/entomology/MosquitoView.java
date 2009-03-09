@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import com.terraframe.mojo.business.generation.GenerationUtil;
 import com.terraframe.mojo.constants.MdAttributeConcreteInfo;
 import com.terraframe.mojo.constants.MdAttributeVirtualInfo;
@@ -16,9 +15,9 @@ import com.terraframe.mojo.dataaccess.MdAttributeVirtualDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdAttributeConcreteDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 
-import csu.mrc.ivcc.mdss.entomology.MosquitoViewBase;
 import csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult;
 import csu.mrc.ivcc.mdss.mo.AbstractTerm;
 
@@ -181,4 +180,16 @@ public class MosquitoView extends MosquitoViewBase implements
       }
     }
   }
+  
+  @Transaction
+  public static MosquitoView[] saveAll(MosquitoView[] array)
+  {
+    for(MosquitoView view : array)
+    {
+      view.apply();
+    }
+    
+    return array;
+  }  
+
 }

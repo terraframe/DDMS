@@ -180,6 +180,77 @@ public class MosquitoTest extends TestCase
       view.delete();
     }
   }
+  
+  public void testMosquitoSaveAll() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2007-01-01");
+  
+    MosquitoView view = new MosquitoView();
+    view.setSpecie(specie);
+    view.setCollection(collection);
+    view.setGeneration(F0);
+    view.setIsofemale(false);
+    view.setIdentificationMethod(identificationMethod);
+    view.addSex(Sex.FEMALE);
+    view.setTestDate(date);
+    view.setAcHEBiochemical(result);
+    view.setAcHEBiochemicalMethod(biochemicalMethodology);
+    view.setAcHEMolecular(result);
+    view.setAcHEMolecularMethod(insecticideMethodology);
+    view.setAEsterase(new Integer(4));
+    view.setAEsteraseMethod(biochemicalMethodology);
+    view.setPMalariae(true);
+    view.setPMalariaeMethod(infectivityMethodology);
+    
+    MosquitoView.saveAll(new MosquitoView[]{view});
+  
+    try
+    {
+      Mosquito mosquito = Mosquito.get(view.getMosquitoId());
+  
+      assertEquals(specie.getId(), mosquito.getSpecie().getId());
+      assertEquals(F0.getId(), mosquito.getGeneration().getId());
+      assertEquals(view.getMosquitoId(), mosquito.getId());
+      assertEquals(identificationMethod.getId(), mosquito.getIdentificationMethod().getId());
+      assertEquals(Sex.FEMALE, mosquito.getSex().get(0));
+      assertEquals(date, mosquito.getTestDate());
+      assertEquals(new Boolean(false), mosquito.getIsofemale());
+  
+      List<AssayTestResult> testResults = mosquito.getTestResults();
+  
+      assertEquals(4, testResults.size());
+  
+      for (AssayTestResult r : testResults)
+      {
+        if (r instanceof AcHETestResult)
+        {
+          assertEquals(result.getId(), ( (MolecularAssayResult) r.getTestResult() ).getId());
+          assertEquals(biochemicalMethodology.getId(), r.getTestMethod().getId());
+        }
+        else if (r instanceof csu.mrc.ivcc.mdss.entomology.assay.molecular.AcHETestResult)
+        {
+          assertEquals(result.getId(), ( (MolecularAssayResult) r.getTestResult() ).getId());
+          assertEquals(insecticideMethodology.getId(), r.getTestMethod().getId());
+        }
+        else if (r instanceof AEsteraseTestResult)
+        {
+          assertEquals(new Integer(4), (Integer) r.getTestResult());
+          assertEquals(biochemicalMethodology.getId(), r.getTestMethod().getId());
+        }
+        else if (r instanceof PMalariaeTestResult)
+        {
+          assertEquals(new Boolean(true), (Boolean) r.getTestResult());
+          assertEquals(infectivityMethodology.getId(), r.getTestMethod().getId());
+        }
+      }
+    }
+    finally
+    {
+      view.delete();
+    }
+
+  }
 
   public void testUpdateMosquito() throws ParseException
   {
@@ -399,6 +470,33 @@ public class MosquitoTest extends TestCase
     view.setSampleId("0");
     view.setQuantity(200);
     view.apply();
+
+    try
+    {
+      UninterestingSpecieGroup group = UninterestingSpecieGroup.get(view.getGroupId());
+
+      assertEquals(specie.getId(), group.getSpecie().getId());
+      assertEquals(view.getGroupId(), group.getId());
+      assertEquals(identificationMethod.getId(), group.getIdentificationMethod().getId());
+      assertEquals("0", group.getSampleId());
+      assertEquals(new Integer(200), group.getQuantity());
+    }
+    finally
+    {
+      view.delete();
+    }
+  }
+  
+  public void testUninterestingGroupSaveAll()
+  {
+    UninterestingSpecieGroupView view = new UninterestingSpecieGroupView();
+    view.setSpecie(specie);
+    view.setCollection(collection);
+    view.setIdentificationMethod(identificationMethod);
+    view.setSampleId("0");
+    view.setQuantity(200);
+    
+    UninterestingSpecieGroupView.saveAll(new UninterestingSpecieGroupView[]{view});
 
     try
     {

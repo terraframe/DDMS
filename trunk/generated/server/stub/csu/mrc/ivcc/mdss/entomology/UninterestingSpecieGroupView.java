@@ -1,5 +1,7 @@
 package csu.mrc.ivcc.mdss.entomology;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
+
 import csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupViewBase;
 
 public class UninterestingSpecieGroupView extends UninterestingSpecieGroupViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -41,4 +43,15 @@ public class UninterestingSpecieGroupView extends UninterestingSpecieGroupViewBa
   {
     UninterestingSpecieGroup.get(this.getGroupId()).delete();
   }
+  
+  @Transaction
+  public static UninterestingSpecieGroupView[] saveAll(UninterestingSpecieGroupView[] array)
+  {
+    for(UninterestingSpecieGroupView view : array)
+    {
+      view.apply();
+    }
+    
+    return array;
+  }  
 }
