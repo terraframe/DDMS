@@ -412,6 +412,25 @@
       removable="true"
       isAbstract="true"
       cacheAlgorithm="nothing"
+      extendable="false"
+      label="MDSS Facade"
+      description="A collection of static methods that provide access to various server side implementations"
+      cacheSize="0"
+      name="csu.mrc.ivcc.mdss.util.Facade"
+      generateController="false">
+      <mdMethod
+        name="getMDSSClasses"
+        label="Get All MDSS Classes"
+        description="Returns a list of all MdClass definitions in the MDSS project"
+        static="true"
+        returnType="com.terraframe.mojo.system.metadata.MdClassQuery">
+      </mdMethod>
+    </mdBusiness>
+
+    <mdBusiness
+      removable="true"
+      isAbstract="true"
+      cacheAlgorithm="nothing"
       extendable="true"
       label="Abstract Mosquito Collection"
       description="This is a group of mosquitos of varing species that were collected via a certian techinque at a certian point in space and time"

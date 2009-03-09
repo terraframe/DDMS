@@ -103,6 +103,17 @@
                  </div>                                        
              
              </li>
+             
+             <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="#"><f:message key="Excel_Header"/></a>
+               <div id="excel" class="yuimenu">
+                 <div class="bd">                                        
+                   <ul>
+                     <li class="yuimenuitem"><a class="yuimenuitemlabel" href="excelexport"><f:message key="Excel_Export_Nav"/></a></li>
+                     <li class="yuimenuitem"><a class="yuimenuitemlabel" href="excelimport"><f:message key="Excel_Import_Nav"/></a></li>
+                   </ul>                    
+                 </div>
+               </div>
+             </li>
               <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="com.terraframe.mojo.defaults.LoginController.logout.mojo"><f:message key="Log_Out"/></a></li>
          </ul>            
      </div>
