@@ -27,6 +27,16 @@
   <url-pattern>*.jsp</url-pattern>
 </filter-mapping>
 
+<filter-mapping>
+  <filter-name>LoginFilter</filter-name>
+  <url-pattern>/excelimport</url-pattern>
+</filter-mapping>
+
+<filter-mapping>
+  <filter-name>LoginFilter</filter-name>
+  <url-pattern>/excelexport</url-pattern>
+</filter-mapping>
+
 <context-param>
     <param-name>
         javax.servlet.jsp.jstl.fmt.localizationContext
@@ -48,3 +58,24 @@
     <param-value>en_US</param-value>
 </context-param>
 
+<servlet>
+  <servlet-name>ExcelImportServlet</servlet-name>
+  <display-name>ExcelImportServlet</display-name>
+  <servlet-class>csu.mrc.ivcc.mdss.util.ExcelImportServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>ExcelImportServlet</servlet-name>
+  <url-pattern>/excelimport</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>ExcelExportServlet</servlet-name>
+  <display-name>ExcelExportServlet</display-name>
+  <servlet-class>csu.mrc.ivcc.mdss.util.ExcelExportServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>ExcelExportServlet</servlet-name>
+  <url-pattern>/excelexport</url-pattern>
+</servlet-mapping>
