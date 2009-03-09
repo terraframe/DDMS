@@ -3,56 +3,26 @@
 // 1. Put this at the bottom of the page <div id="cal1Container" class="yui-skin-sam"></div> 
 // 2. Set the class of the input to "DATE PICK"
 // 3. MAKE SURE THE ELEMENT HAS A DOM ID !!!!!!!
+var MojoCal= YAHOO.namespace('MojoCal');
+
 (function() {
     var Dom = YAHOO.util.Dom,
         Event = YAHOO.util.Event,
         cal1,
+        init_not_done = true,
+        cfg,
         over_cal = false,
         cur_field = '';
 
-    var init = function() {
-    
-        if(Dom.getElementsByClassName("DatePick").length > 0)
-        {
-	        cal1 = new YAHOO.widget.Calendar("cal1","cal1Container");
-	        
-		       /* cal1.cfg.setProperty("DATE_FIELD_DELIMITER", "-");
-		        cal1.cfg.setProperty("DATE_RANGE_DELIMITER", "*");
-		        cal1.cfg.setProperty("MDY_YEAR_POSITION", 1);
-				cal1.cfg.setProperty("MDY_MONTH_POSITION", 2);
-				cal1.cfg.setProperty("MDY_DAY_POSITION", 3);*/
-	        
-	        if(locale == "en_US")
-	        {
-	        	cal1.cfg.setProperty("DATE_FIELD_DELIMITER", "/");
-	     	    cal1.cfg.setProperty("DATE_RANGE_DELIMITER", "-");
-	     	    cal1.cfg.setProperty("MDY_YEAR_POSITION", 3);
-	     	    cal1.cfg.setProperty("MDY_MONTH_POSITION", 1);
-	     	    cal1.cfg.setProperty("MDY_DAY_POSITION", 2);
-	        }
-	               
-	        cal1.selectEvent.subscribe(getDate, cal1, true);
-	        cal1.renderEvent.subscribe(setupListeners, cal1, true);
-	
-	        for each (el in Dom.getElementsByClassName("DatePick"))
-	        {	        	
-	          Event.addListener(el.id, 'focus', showCal);
-	          Event.addListener(el.id, 'blur', hideCal);
-	          if(/[1-2]\d\d\d-[0-1][0-9]-[0-3]\d/.test(el.value))
-	          {
-	        	  d = new Date(el.value.replace(/-/g,"/"));
-	        	 if(locale == "en_US")
-	  	         {        		  
-	        		 newdate = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
-	        		 el.value = newdate;
-	            }
-	          }
-	        }
-	        
-	        cal1.render();
-        }
+    if(locale == "en_US")
+    {
+      cfg = {DATE_FIELD_DELIMITER:'/', 
+			DATE_RANGE_DELIMITER:'-',
+			MDY_YEAR_POSITION:3,
+			MDY_MONTH_POSITION:1,
+			MDY_DAY_POSITION:2
+      };
     }
-
 
     var setupListeners = function() {
         Event.addListener('cal1Container', 'mouseover', function() {
@@ -74,7 +44,8 @@
             over_cal = false;
             hideCal();
     }
-
+    
+    
     var showCal = function(ev) {
         var tar = Event.getTarget(ev);
         cur_field = tar;
@@ -107,7 +78,44 @@
             Dom.setStyle('cal1Container', 'display', 'none');
         }
     }
+    
+  /*  MojoCal.getConfig = function(){ return cfg; } ;
+    
+    MojoCal.getCal = function(){return cal;};*/
+    
+    
+    var init = function() {
+    
+        if(Dom.getElementsByClassName("DatePick").length > 0 && init_not_done)
+        {
+	        cal1 = new YAHOO.widget.Calendar("cal1","cal1Container",cfg);
+	        
+	        cal1.selectEvent.subscribe(getDate, cal1, true);
+	        cal1.renderEvent.subscribe(setupListeners, cal1, true);
+	
+	        for each (el in Dom.getElementsByClassName("DatePick"))
+	        {	        	
+	          Event.addListener(el.id, 'focus', showCal);
+	          Event.addListener(el.id, 'blur', hideCal);
+	          if(/[1-2]\d\d\d-[0-1][0-9]-[0-3]\d/.test(el.value))
+	          {
+	        	  d = new Date(el.value.replace(/-/g,"/"));
+	        	 if(locale == "en_US")
+	  	         {        		  
+	        		 newdate = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+	        		 el.value = newdate;
+	            }
+	          }
+	        }
+	        
+	        cal1.render();
+        }
+        init_not_done = false;
+        return cal1;
+    }
 
+    MojoCal.init = init;
+    
     Event.addListener(window, 'load', init);
     //YAHOO.util.Event.onContentReady("cal1Container", init);
 

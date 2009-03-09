@@ -105,11 +105,11 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		column = myDataTable.getColumn(target); 
 		record = myDataTable.getRecord(target);
 		row_id = record.getData(table_data.fields[0].key);
-        row_index = record._nCount;
+        row_index = myDataTable.getRecordIndex(record);
 		switch (column.action) {
 		case 'delete':
 			if (confirm('Are you sure you want to delete row ' + (record._nCount+1) + '?')) {
-				if(row_id.length > 1){
+				if(typeof row_id !== 'undefined' && row_id.length > 1){
 				var request = new Mojo.ClientRequest( {
 					dataTable :myDataTable,
 					row_index :row_index,
@@ -133,7 +133,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 				}
 			break;
 		default:
-			this.onEventShowCellEditor(oArgs);
+			myDataTable.onEventShowCellEditor(oArgs);
 			break;
 		}
 	};
@@ -151,7 +151,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			table_data : table_data,
 			btnSaveRows :btnSaveRows,
 			onSuccess : function(savedRows) {
-				alert("Saved " + savedRows.length + " Rows!");
+				//alert("Saved " + savedRows.length + " Rows!");
 				var i = 0;
 				id_key = table_data.fields[0].key;
 				for each(row in savedRows)
@@ -213,7 +213,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		    		if(setter_exists)
 		    		{
 		    			eval_str = 'v.add'+attrib.key+'(row.'+attrib.key+')';
-		    			alert (eval_str);
+		    			//alert (eval_str);
 		    			eval(eval_str);
 		    		}
 	    		}
@@ -221,7 +221,6 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			v_arr.push(v);
 	    }	    
 	    str = table_data.data_type + '.saveAll(request,v_arr)';
-	    alert(str);
 	    //alert(v_arr);
     	eval(str);
 
