@@ -31,17 +31,20 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     super.validateTestDate();
 
-    Date collectionDate = this.getCollection().getDateCollected();
-
-    if (this.getTestDate().before(collectionDate))
+    if (this.getTestDate() != null)
     {
-      String msg = "It is impossible to have a test date before the mosquito collection date";
+      Date collectionDate = this.getCollection().getDateCollected();
 
-      InvalidTestDateProblem p = new InvalidTestDateProblem(msg);
-      p.setTestDate(this.getTestDate());
-      p.setCollectionDate(collectionDate);
-      p.setAssayId(this.getId());
-      p.throwIt();
+      if (this.getTestDate().before(collectionDate))
+      {
+        String msg = "It is impossible to have a test date before the mosquito collection date";
+
+        InvalidTestDateProblem p = new InvalidTestDateProblem(msg);
+        p.setTestDate(this.getTestDate());
+        p.setCollectionDate(collectionDate);
+        p.setAssayId(this.getId());
+        p.throwIt();
+      }
     }
   }
 
@@ -203,7 +206,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
         list.add(view);
       }
-      
+
       return list.toArray(new ADDATestIntervalView[list.size()]);
     }
     finally
