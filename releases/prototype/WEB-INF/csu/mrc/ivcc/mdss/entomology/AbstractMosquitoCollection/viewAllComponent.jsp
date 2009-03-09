@@ -15,6 +15,9 @@
       <mjl:header>
         Geo Entity
       </mjl:header>
+      <mjl:row even="even" odd="odd">
+        ${item.geoEntity}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>

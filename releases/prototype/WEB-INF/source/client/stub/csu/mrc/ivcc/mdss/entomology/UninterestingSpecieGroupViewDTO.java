@@ -9,6 +9,5 @@ public class UninterestingSpecieGroupViewDTO extends UninterestingSpecieGroupVie
   public UninterestingSpecieGroupViewDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
-  }
-  
+  }  
 }

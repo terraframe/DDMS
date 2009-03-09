@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public  class AbstractAssayQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236382957629L;
+private static final long serialVersionUID = 1236612254523L;
 
   public AbstractAssayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -26,20 +26,6 @@ private static final long serialVersionUID = 1236382957629L;
   public String getClassType()
   {
     return "csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay";
-  }
-  public csu.mrc.ivcc.mdss.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection()
-  {
-    return getCollection(null);
-
-  }
- 
-  public csu.mrc.ivcc.mdss.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("collection");
-
-    return (csu.mrc.ivcc.mdss.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.COLLECTION, mdAttributeIF, this, alias);
-
   }
   public com.terraframe.mojo.query.AttributeMomentIF getCreateDate()
   {
@@ -270,11 +256,7 @@ private static final long serialVersionUID = 1236382957629L;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("collection")) 
-    {
-       return new csu.mrc.ivcc.mdss.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else if (name.equals("createdBy")) 
+    if (name.equals("createdBy")) 
     {
        return new com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
@@ -359,8 +341,6 @@ private static final long serialVersionUID = 1236382957629L;
   public interface AbstractAssayQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.AttributeReferenceIF
   {
 
-    public csu.mrc.ivcc.mdss.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection();
-    public csu.mrc.ivcc.mdss.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias);
     public com.terraframe.mojo.query.AttributeMomentIF getCreateDate();
     public com.terraframe.mojo.query.AttributeMomentIF getCreateDate(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
@@ -412,7 +392,7 @@ private static final long serialVersionUID = 1236382957629L;
  implements AbstractAssayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236382957744L;
+private static final long serialVersionUID = 1236612254639L;
 
   public AbstractAssayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -431,17 +411,6 @@ private static final long serialVersionUID = 1236382957744L;
       return this.NE(abstractAssay.getId());
     }
 
-  public csu.mrc.ivcc.mdss.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection()
-  {
-    return getCollection(null);
-
-  }
- 
-  public csu.mrc.ivcc.mdss.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias)
-  {
-    return (csu.mrc.ivcc.mdss.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.attributeFactory("collection", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
-
-  }
   public com.terraframe.mojo.query.AttributeMomentIF getCreateDate()
   {
     return getCreateDate(null);
@@ -644,11 +613,7 @@ private static final long serialVersionUID = 1236382957744L;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("collection")) 
-    {
-       return new csu.mrc.ivcc.mdss.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else if (name.equals("createdBy")) 
+    if (name.equals("createdBy")) 
     {
        return new com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }

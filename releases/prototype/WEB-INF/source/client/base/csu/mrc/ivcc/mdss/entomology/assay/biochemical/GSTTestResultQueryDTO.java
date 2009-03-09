@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.biochemical;
 public class GSTTestResultQueryDTO extends csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236382959006L;
+private static final long serialVersionUID = 1236612255776L;
 
   protected GSTTestResultQueryDTO(String type)
   {

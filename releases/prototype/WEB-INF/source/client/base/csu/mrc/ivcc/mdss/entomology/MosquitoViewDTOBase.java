@@ -1230,6 +1230,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("wKDRMethod").getAttributeMdDTO();
   }
   
+  public static final csu.mrc.ivcc.mdss.entomology.MosquitoViewDTO[] saveAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, csu.mrc.ivcc.mdss.entomology.MosquitoViewDTO[] array)
+  {
+    String[] _declaredTypes = new String[]{"[Lcsu.mrc.ivcc.mdss.entomology.MosquitoView;"};
+    Object[] _parameters = new Object[]{array};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.entomology.MosquitoViewDTO.CLASS, "saveAll", _declaredTypes);
+    return (csu.mrc.ivcc.mdss.entomology.MosquitoViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static MosquitoViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
   {
     com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);

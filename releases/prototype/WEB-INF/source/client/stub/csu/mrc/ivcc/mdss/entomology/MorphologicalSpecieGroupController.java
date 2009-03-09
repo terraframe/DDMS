@@ -104,7 +104,7 @@ public class MorphologicalSpecieGroupController extends MorphologicalSpecieGroup
     req.setAttribute("mdss_ivcc_mrc_csu_entomology_MorphologicalSpecieGroup_specie", csu.mrc.ivcc.mdss.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update MorphologicalSpecieGroupController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void delete(csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

@@ -4,6 +4,9 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
+<div class="fldContainer">
+    <div class="fcTop">
+
   <mjl:component item="${item}" param="dto">
     <dl>
     <dt>
@@ -296,8 +299,13 @@
       
     </dl>
   </mjl:component>
-   <mjl:command value="Update" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.update.mojo" name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.update.button" />
-  <mjl:command value="Delete" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.delete.mojo" name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.delete.button" />
-  <mjl:command value="Cancel" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.cancel.mojo" name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.cancel.button" />
+  <div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+  </div>
+  
+  <div class="submitButton_bl"></div>
+  <mjl:command value="Update" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.update.mojo" name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.update.button" classes="submitButton"/>
+  <mjl:command value="Delete" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.delete.mojo" name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.delete.button" classes="submitButton"/>
+  <mjl:command value="Cancel" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.cancel.mojo" name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.cancel.button" classes="submitButton"/>
 </mjl:form>
 <div id="cal1Container" class="yui-skin-sam"></div> 

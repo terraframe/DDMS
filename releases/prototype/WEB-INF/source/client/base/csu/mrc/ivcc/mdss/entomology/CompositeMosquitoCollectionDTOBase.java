@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology;
 
 public abstract class CompositeMosquitoCollectionDTOBase extends csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236382971873L;
+  private static final long serialVersionUID = 1236612273658L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollection";
   protected CompositeMosquitoCollectionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

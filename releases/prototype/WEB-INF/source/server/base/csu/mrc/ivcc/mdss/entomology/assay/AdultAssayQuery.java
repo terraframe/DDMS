@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public  class AdultAssayQuery extends csu.mrc.ivcc.mdss.entomology.assay.AbstractAssayQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236382960858L;
+private static final long serialVersionUID = 1236612258244L;
 
   public AdultAssayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -39,17 +39,6 @@ private static final long serialVersionUID = 1236382960858L;
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.AGERANGE);
 
     return (csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.AGERANGE, mdAttributeIF, this, alias);
-
-  }
-  public com.terraframe.mojo.query.AttributeIntegerIF getAmount()
-  {
-    return getAmount(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeIntegerIF getAmount(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeIntegerIF)this.getComponentQuery().attributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.AMOUNT, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
 
   }
   public com.terraframe.mojo.query.AttributeIntegerIF getExposureTime()
@@ -88,17 +77,6 @@ private static final long serialVersionUID = 1236382960858L;
     return (csu.mrc.ivcc.mdss.mo.GenerationQuery.GenerationQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.GENERATION, mdAttributeIF, this, alias);
 
   }
-  public com.terraframe.mojo.query.AttributeCharIF getGenericName()
-  {
-    return getGenericName(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeCharIF getGenericName(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.GENERICNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
-
-  }
   public com.terraframe.mojo.query.AttributeIntegerIF getGravid()
   {
     return getGravid(null);
@@ -108,20 +86,6 @@ private static final long serialVersionUID = 1236382960858L;
   public com.terraframe.mojo.query.AttributeIntegerIF getGravid(String alias)
   {
     return (com.terraframe.mojo.query.AttributeIntegerIF)this.getComponentQuery().attributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.GRAVID, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
-
-  }
-  public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
-  {
-    return getInsecticide(null);
-
-  }
- 
-  public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("insecticide");
-
-    return (csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.INSECTICIDE, mdAttributeIF, this, alias);
 
   }
   public com.terraframe.mojo.query.AttributeIntegerIF getQuantityTested()
@@ -135,20 +99,6 @@ private static final long serialVersionUID = 1236382960858L;
     return (com.terraframe.mojo.query.AttributeIntegerIF)this.getComponentQuery().attributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.QUANTITYTESTED, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
 
   }
-  public csu.mrc.ivcc.mdss.entomology.assay.UnitMasterQuery.UnitQueryIF getUnits()
-  {
-    return getUnits(null);
-
-  }
- 
-  public csu.mrc.ivcc.mdss.entomology.assay.UnitMasterQuery.UnitQueryIF getUnits(String alias)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("units");
-
-    return (csu.mrc.ivcc.mdss.entomology.assay.UnitMasterQuery.UnitQueryIF)this.getComponentQuery().internalAttributeFactory("units", mdAttributeIF, this, alias);
-
-  }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -156,10 +106,6 @@ private static final long serialVersionUID = 1236382960858L;
     if (name.equals("generation")) 
     {
        return new csu.mrc.ivcc.mdss.mo.GenerationQuery.GenerationQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else if (name.equals("insecticide")) 
-    {
-       return new csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else 
     {
@@ -178,20 +124,6 @@ private static final long serialVersionUID = 1236382960858L;
     else 
     {
       return super.structFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-  }
-
-  protected com.terraframe.mojo.query.AttributeEnumeration enumerationFactory( com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias)
-  {
-    String name = mdAttributeIF.definesAttribute();
-    
-    if (name.equals("units")) 
-    {
-       return new csu.mrc.ivcc.mdss.entomology.assay.UnitMasterQuery.UnitQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else 
-    {
-      return super.enumerationFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
   }
 
@@ -228,24 +160,16 @@ private static final long serialVersionUID = 1236382960858L;
 
     public csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange();
     public csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias);
-    public com.terraframe.mojo.query.AttributeIntegerIF getAmount();
-    public com.terraframe.mojo.query.AttributeIntegerIF getAmount(String alias);
     public com.terraframe.mojo.query.AttributeIntegerIF getExposureTime();
     public com.terraframe.mojo.query.AttributeIntegerIF getExposureTime(String alias);
     public com.terraframe.mojo.query.AttributeIntegerIF getFed();
     public com.terraframe.mojo.query.AttributeIntegerIF getFed(String alias);
     public csu.mrc.ivcc.mdss.mo.GenerationQuery.GenerationQueryReferenceIF getGeneration();
     public csu.mrc.ivcc.mdss.mo.GenerationQuery.GenerationQueryReferenceIF getGeneration(String alias);
-    public com.terraframe.mojo.query.AttributeCharIF getGenericName();
-    public com.terraframe.mojo.query.AttributeCharIF getGenericName(String alias);
     public com.terraframe.mojo.query.AttributeIntegerIF getGravid();
     public com.terraframe.mojo.query.AttributeIntegerIF getGravid(String alias);
-    public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide();
-    public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias);
     public com.terraframe.mojo.query.AttributeIntegerIF getQuantityTested();
     public com.terraframe.mojo.query.AttributeIntegerIF getQuantityTested(String alias);
-  public csu.mrc.ivcc.mdss.entomology.assay.UnitMasterQuery.UnitQueryIF getUnits();
-  public csu.mrc.ivcc.mdss.entomology.assay.UnitMasterQuery.UnitQueryIF getUnits(String alias);
 
     public com.terraframe.mojo.query.BasicCondition EQ(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay adultAssay);
 
@@ -261,7 +185,7 @@ private static final long serialVersionUID = 1236382960858L;
  implements AdultAssayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236382960985L;
+private static final long serialVersionUID = 1236612258372L;
 
   public AdultAssayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -289,17 +213,6 @@ private static final long serialVersionUID = 1236382960985L;
   public csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias)
   {
     return (csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF)this.attributeFactory("ageRange", "com.terraframe.mojo.system.metadata.MdAttributeStruct", alias);
-
-  }
-  public com.terraframe.mojo.query.AttributeIntegerIF getAmount()
-  {
-    return getAmount(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeIntegerIF getAmount(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeIntegerIF)this.attributeFactory("amount", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
 
   }
   public com.terraframe.mojo.query.AttributeIntegerIF getExposureTime()
@@ -335,17 +248,6 @@ private static final long serialVersionUID = 1236382960985L;
     return (csu.mrc.ivcc.mdss.mo.GenerationQuery.GenerationQueryReferenceIF)this.attributeFactory("generation", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
 
   }
-  public com.terraframe.mojo.query.AttributeCharIF getGenericName()
-  {
-    return getGenericName(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeCharIF getGenericName(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("genericName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
-
-  }
   public com.terraframe.mojo.query.AttributeIntegerIF getGravid()
   {
     return getGravid(null);
@@ -355,17 +257,6 @@ private static final long serialVersionUID = 1236382960985L;
   public com.terraframe.mojo.query.AttributeIntegerIF getGravid(String alias)
   {
     return (com.terraframe.mojo.query.AttributeIntegerIF)this.attributeFactory("gravid", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
-
-  }
-  public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
-  {
-    return getInsecticide(null);
-
-  }
- 
-  public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
-  {
-    return (csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF)this.attributeFactory("insecticide", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
 
   }
   public com.terraframe.mojo.query.AttributeIntegerIF getQuantityTested()
@@ -379,17 +270,6 @@ private static final long serialVersionUID = 1236382960985L;
     return (com.terraframe.mojo.query.AttributeIntegerIF)this.attributeFactory("quantityTested", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
 
   }
-  public csu.mrc.ivcc.mdss.entomology.assay.UnitMasterQuery.UnitQueryIF getUnits()
-  {
-    return getUnits(null);
-
-  }
- 
-  public csu.mrc.ivcc.mdss.entomology.assay.UnitMasterQuery.UnitQueryIF getUnits(String alias)
-  {
-    return (csu.mrc.ivcc.mdss.entomology.assay.UnitMasterQuery.UnitQueryIF)this.attributeFactory("units", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias);
-
-  }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -397,10 +277,6 @@ private static final long serialVersionUID = 1236382960985L;
     if (name.equals("generation")) 
     {
        return new csu.mrc.ivcc.mdss.mo.GenerationQuery.GenerationQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else if (name.equals("insecticide")) 
-    {
-       return new csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else 
     {
@@ -419,20 +295,6 @@ private static final long serialVersionUID = 1236382960985L;
     else 
     {
       return super.structFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-  }
-
-  protected com.terraframe.mojo.query.AttributeEnumeration enumerationFactory( com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias)
-  {
-    String name = mdAttributeIF.definesAttribute();
-    
-    if (name.equals("units")) 
-    {
-       return new csu.mrc.ivcc.mdss.entomology.assay.UnitMasterQuery.UnitQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else 
-    {
-      return super.enumerationFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
   }
 

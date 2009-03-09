@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public abstract class UnitMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.UnitMaster";
-  private static final long serialVersionUID = 1236382965827L;
+  private static final long serialVersionUID = 1236612265583L;
   
   public UnitMasterBase()
   {

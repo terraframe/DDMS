@@ -5,6 +5,8 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.name" id="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.id" method="POST">
+<div class="fldContainer">
+    <div class="fcTop">
   <mjl:component item="${item}" param="dto">
     <dl>
       <dt>
@@ -25,7 +27,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="dateCollected" classes="DatePick" id="dto.dateCollected.id"/>
+        <mjl:input type="text" param="dateCollected" classes="DatePick" id="dtodateCollectedidaa"/>
         <mjl:messages attribute="dateCollected">
           <mjl:message />
         </mjl:messages>
@@ -44,9 +46,17 @@
       </dd>
     </dl>
   </mjl:component>
-  <mjl:command value="Update" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.update.mojo" name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.update.button" />
-  <mjl:command value="Delete" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.delete.mojo" name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.delete.button" />
-  <mjl:command value="Cancel" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.cancel.mojo" name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.cancel.button" />
+<div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+</div>
+<div class="submitButton_bl"></div>
+<mjl:command value="Update" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.update.mojo" 
+name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.update.button" classes="submitButton"/>
+<mjl:command value="Delete" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.delete.mojo" 
+name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.delete.button" classes="submitButton"/>
+<mjl:command value="Cancel" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.cancel.mojo" 
+name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.cancel.button" classes="submitButton"/>
 </mjl:form>
 
+ 
 <div id="cal1Container" class="yui-skin-sam"></div> 

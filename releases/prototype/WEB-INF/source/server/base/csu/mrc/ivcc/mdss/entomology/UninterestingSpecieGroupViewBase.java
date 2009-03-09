@@ -17,7 +17,7 @@ public abstract class UninterestingSpecieGroupViewBase extends com.terraframe.mo
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String SAMPLEID = "sampleId";
   public static java.lang.String SPECIE = "specie";
-  private static final long serialVersionUID = 1236382964035L;
+  private static final long serialVersionUID = 1236612263086L;
   
   public UninterestingSpecieGroupViewBase()
   {
@@ -237,6 +237,11 @@ public abstract class UninterestingSpecieGroupViewBase extends com.terraframe.mo
   public static UninterestingSpecieGroupView get(String id)
   {
     return (UninterestingSpecieGroupView) com.terraframe.mojo.business.View.get(id);
+  }
+  
+  public static csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView[] saveAll(csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView[] array)
+  {
+    return null;
   }
   
   public String toString()

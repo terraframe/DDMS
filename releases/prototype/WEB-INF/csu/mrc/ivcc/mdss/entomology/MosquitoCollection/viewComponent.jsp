@@ -162,8 +162,14 @@ static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows) 
 
 	<mjl:message />
 </mjl:messages>
+
 <mjl:form name="mdss.entomology.MosquitoCollection.form.name"
-	id="mdss.entomology.MosquitoCollection.form.id" method="POST">
+ id="mdss.entomology.MosquitoCollection.form.id" method="POST">
+<div class="fldContainer">
+    <div class="fcTop"><div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+    <div style="position:absolute; left:20px; top:25px;">
+
 	<mjl:input value="${item.id}" type="hidden" param="id" />
 	<dl>
 		<dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
@@ -181,12 +187,15 @@ static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows) 
 			<mjl:property value="${item.geoEntity.id}" name="id" />
 		</mjl:commandLink></dd>
 	</dl>
-	<mjl:command value="Edit"
-		action="mdss.entomology.MosquitoCollectionController.edit.mojo"
-		name="mdss.entomology.MosquitoCollection.form.edit.button" />
-	<br />
-</mjl:form>
+</div>
+</div>
+<div class="submitButton_bl"></div>    
+ <mjl:command value="Edit"
+  action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.edit.mojo"
+  name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.edit.button" classes="submitButton"/>
+  </mjl:form>
 
+<br/>
 <div id="MorphologicalSpecieGroups"></div>
 <div id="dt-options"><a id="dt-options-link"
 	href="fallbacklink.html">Table Options</a></div>

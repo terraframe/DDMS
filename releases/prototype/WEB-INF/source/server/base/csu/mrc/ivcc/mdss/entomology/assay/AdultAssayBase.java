@@ -13,16 +13,12 @@ public abstract class AdultAssayBase extends csu.mrc.ivcc.mdss.entomology.assay.
   public static java.lang.String AGERANGE = "ageRange";
   private com.terraframe.mojo.business.Struct ageRange = null;
   
-  public static java.lang.String AMOUNT = "amount";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GENERATION = "generation";
-  public static java.lang.String GENERICNAME = "genericName";
   public static java.lang.String GRAVID = "gravid";
-  public static java.lang.String INSECTICIDE = "insecticide";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
-  public static java.lang.String UNITS = "units";
-  private static final long serialVersionUID = 1236382960760L;
+  private static final long serialVersionUID = 1236612258150L;
   
   public AdultAssayBase()
   {
@@ -44,34 +40,6 @@ public abstract class AdultAssayBase extends csu.mrc.ivcc.mdss.entomology.assay.
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.CLASS);
     return mdClassIF.definesAttribute(AGERANGE);
-  }
-  
-  public Integer getAmount()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
-  }
-  
-  public void validateAmount()
-  {
-    this.validateAttribute(AMOUNT);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAmountMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.CLASS);
-    return mdClassIF.definesAttribute(AMOUNT);
-  }
-  
-  public void setAmount(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(AMOUNT, "");
-    }
-    else
-    {
-      setValue(AMOUNT, java.lang.Integer.toString(value));
-    }
   }
   
   public Integer getExposureTime()
@@ -165,34 +133,6 @@ public abstract class AdultAssayBase extends csu.mrc.ivcc.mdss.entomology.assay.
     }
   }
   
-  public String getGenericName()
-  {
-    return getValue(GENERICNAME);
-  }
-  
-  public void validateGenericName()
-  {
-    this.validateAttribute(GENERICNAME);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGenericNameMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.CLASS);
-    return mdClassIF.definesAttribute(GENERICNAME);
-  }
-  
-  public void setGenericName(String value)
-  {
-    if(value == null)
-    {
-      setValue(GENERICNAME, "");
-    }
-    else
-    {
-      setValue(GENERICNAME, value);
-    }
-  }
-  
   public Integer getGravid()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(GRAVID));
@@ -218,41 +158,6 @@ public abstract class AdultAssayBase extends csu.mrc.ivcc.mdss.entomology.assay.
     else
     {
       setValue(GRAVID, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public csu.mrc.ivcc.mdss.mo.Insecticide getInsecticide()
-  {
-    try
-    {
-      return csu.mrc.ivcc.mdss.mo.Insecticide.get(getValue(INSECTICIDE));
-    }
-    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
-    {
-      return null;
-    }
-  }
-  
-  public void validateInsecticide()
-  {
-    this.validateAttribute(INSECTICIDE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getInsecticideMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDE);
-  }
-  
-  public void setInsecticide(csu.mrc.ivcc.mdss.mo.Insecticide value)
-  {
-    if(value == null)
-    {
-      setValue(INSECTICIDE, "");
-    }
-    else
-    {
-      setValue(INSECTICIDE, value.getId());
     }
   }
   
@@ -282,38 +187,6 @@ public abstract class AdultAssayBase extends csu.mrc.ivcc.mdss.entomology.assay.
     {
       setValue(QUANTITYTESTED, java.lang.Integer.toString(value));
     }
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<csu.mrc.ivcc.mdss.entomology.assay.Unit> getUnits()
-  {
-    return (java.util.List<csu.mrc.ivcc.mdss.entomology.assay.Unit>) getEnumValues(UNITS);
-  }
-  
-  public void addUnits(csu.mrc.ivcc.mdss.entomology.assay.Unit value)
-  {
-    addEnumItem(UNITS, value.getId());
-  }
-  
-  public void removeUnits(csu.mrc.ivcc.mdss.entomology.assay.Unit value)
-  {
-    removeEnumItem(UNITS, value.getId());
-  }
-  
-  public void clearUnits()
-  {
-    clearEnum(UNITS);
-  }
-  
-  public void validateUnits()
-  {
-    this.validateAttribute(UNITS);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getUnitsMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.AdultAssay.CLASS);
-    return mdClassIF.definesAttribute(UNITS);
   }
   
   protected String getDeclaredType()

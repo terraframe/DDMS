@@ -1,9 +1,10 @@
 package csu.mrc.ivcc.mdss.entomology.assay;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
 
-import com.terraframe.mojo.business.ProblemDTOIF;
+import csu.mrc.ivcc.mdss.util.ErrorUtility;
 
-import csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayControllerBase;
+
 
 
 public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingDoseAssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -75,8 +76,16 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failDelete(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failDelete(dto);
     }
   }
@@ -101,8 +110,16 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
       dto.apply();
       this.view(dto);
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failCreate(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failCreate(dto);
     }
   }
@@ -159,12 +176,16 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
       dto.apply();
       this.view(dto);
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
-     // for(ProblemDTOIF p : e.getProblems())
-      //{
-    //	  System.out.println(p.localMessage());
-      //}
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failUpdate(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failUpdate(dto);
     }
   }

@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class ADDATestIntervalDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236382966593L;
+  private static final long serialVersionUID = 1236612266699L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval";
   protected ADDATestIntervalDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

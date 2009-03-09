@@ -10,7 +10,6 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Business implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay";
-  public static java.lang.String COLLECTION = "collection";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -29,46 +28,11 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236382957482L;
+  private static final long serialVersionUID = 1236612254379L;
   
   public AbstractAssayBase()
   {
     super();
-  }
-  
-  public csu.mrc.ivcc.mdss.entomology.MosquitoCollection getCollection()
-  {
-    try
-    {
-      return csu.mrc.ivcc.mdss.entomology.MosquitoCollection.get(getValue(COLLECTION));
-    }
-    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
-    {
-      return null;
-    }
-  }
-  
-  public void validateCollection()
-  {
-    this.validateAttribute(COLLECTION);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getCollectionMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.CLASS);
-    return mdClassIF.definesAttribute(COLLECTION);
-  }
-  
-  public void setCollection(csu.mrc.ivcc.mdss.entomology.MosquitoCollection value)
-  {
-    if(value == null)
-    {
-      setValue(COLLECTION, "");
-    }
-    else
-    {
-      setValue(COLLECTION, value.getId());
-    }
   }
   
   public java.util.Date getCreateDate()

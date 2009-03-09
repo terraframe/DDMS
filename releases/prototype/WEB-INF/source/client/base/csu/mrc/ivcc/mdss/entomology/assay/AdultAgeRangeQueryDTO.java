@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public class AdultAgeRangeQueryDTO extends com.terraframe.mojo.business.StructQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236382974529L;
+private static final long serialVersionUID = 1236612278427L;
 
   protected AdultAgeRangeQueryDTO(String type)
   {

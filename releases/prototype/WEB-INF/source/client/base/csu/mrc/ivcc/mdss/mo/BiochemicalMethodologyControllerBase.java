@@ -9,7 +9,7 @@ public class BiochemicalMethodologyControllerBase implements com.terraframe.mojo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236382973855L;
+  private static final long serialVersionUID = 1236612276684L;
   
   public BiochemicalMethodologyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

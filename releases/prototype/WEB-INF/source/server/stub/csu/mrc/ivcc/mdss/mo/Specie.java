@@ -21,12 +21,6 @@ public class Specie extends SpecieBase implements com.terraframe.mojo.generation
   }
   
   @Override
-  public String toString()
-  {
-    return this.getTermName();
-  }
-  
-  @Override
   protected String buildKey()
   {
     return super.getTermName();

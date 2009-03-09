@@ -4,6 +4,7 @@ package com.terraframe.mojo.defaults;
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientConstants;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.constants.CommonProperties;
 import com.terraframe.mojo.constants.MdActionInfo;
 import com.terraframe.mojo.web.WebClientSession;
 
@@ -30,8 +31,10 @@ public class LoginController extends LoginControllerBase implements com.terrafra
     WebClientSession clientSession = WebClientSession.createUserSession(username, password, req.getLocale());
     ClientRequestIF clientRequest = clientSession.getRequest();
 
+    req.getSession().setMaxInactiveInterval(CommonProperties.getSessionTime());
     req.getSession().setAttribute(ClientConstants.CLIENTSESSION, clientSession);
     req.setAttribute(ClientConstants.CLIENTREQUEST, clientRequest);
+    
 
     // create a global cookie for geoserver to read
     GlobalSessionListener globalSessionListener = new GlobalSessionListener(clientSession.getSessionId());

@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo;
 public abstract class TerrainMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.TerrainMaster";
-  private static final long serialVersionUID = 1236382958270L;
+  private static final long serialVersionUID = 1236462515548L;
   
   public TerrainMasterBase()
   {

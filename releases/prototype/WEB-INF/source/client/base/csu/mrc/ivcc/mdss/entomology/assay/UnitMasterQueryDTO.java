@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public class UnitMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236382966059L;
+private static final long serialVersionUID = 1236612265819L;
 
   protected UnitMasterQueryDTO(String type)
   {

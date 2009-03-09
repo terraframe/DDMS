@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology;
 
 public abstract class MosquitoCollectionDTOBase extends csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollectionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236382961212L;
+  private static final long serialVersionUID = 1236612258725L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.MosquitoCollection";
   protected MosquitoCollectionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -57,9 +57,9 @@ public abstract class MosquitoCollectionDTOBase extends csu.mrc.ivcc.mdss.entomo
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("collectionMethod").getAttributeMdDTO();
   }
   
-  public static final csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO searchByGeoEntityAndDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, csu.mrc.ivcc.mdss.geo.GeoEntityDTO geoEntity, java.util.Date collectionDate)
+  public static final csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO searchByGeoEntityAndDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO geoEntity, java.util.Date collectionDate)
   {
-    String[] _declaredTypes = new String[]{"csu.mrc.ivcc.mdss.geo.GeoEntity", "java.util.Date"};
+    String[] _declaredTypes = new String[]{"csu.mrc.ivcc.mdss.geo.generated.GeoEntity", "java.util.Date"};
     Object[] _parameters = new Object[]{geoEntity, collectionDate};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO.CLASS, "searchByGeoEntityAndDate", _declaredTypes);
     return (csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO) clientRequest.invokeMethod(_metadata, null, _parameters);

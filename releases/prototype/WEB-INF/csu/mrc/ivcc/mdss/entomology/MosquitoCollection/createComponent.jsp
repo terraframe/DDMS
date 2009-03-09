@@ -4,7 +4,10 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
+
 <mjl:form name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.name" id="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.id" method="POST">
+<div class="fldContainer">
+    <div class="fcTop">
   <mjl:component item="${item}" param="dto">
     <dl>
       <dt>
@@ -44,6 +47,12 @@
       </dd>
     </dl>
   </mjl:component>
-  <mjl:command value="Create" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.create.mojo" name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.create.button" />
+   
+<div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+</div>
+
+<div class="submitButton_bl"></div>  
+  <mjl:command value="Create" action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.create.mojo" name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection.form.create.button" classes="submitButton"/>
 </mjl:form>
 <div id="cal1Container" class="yui-skin-sam"></div> 

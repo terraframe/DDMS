@@ -22,9 +22,9 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	myDataSource.responseSchema = {
 			fields :  table_data.fields
 	};
-    
-	myDataTable = new YAHOO.widget.DataTable(table_data.div_id,
-			table_data.columnDefs, myDataSource, {width:"30em", height:"10em"});
+    //FIXME: figure out how to set a max width
+	myDataTable = new YAHOO.widget.ScrollingDataTable(table_data.div_id,
+			table_data.columnDefs, myDataSource, {width:table_data.width});
 	
 
 	function getLabelFromId(feild,id)
@@ -105,11 +105,11 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		column = myDataTable.getColumn(target); 
 		record = myDataTable.getRecord(target);
 		row_id = record.getData(table_data.fields[0].key);
-        row_index = record._nCount;
+        row_index = myDataTable.getRecordIndex(record);
 		switch (column.action) {
 		case 'delete':
 			if (confirm('Are you sure you want to delete row ' + (record._nCount+1) + '?')) {
-				if(row_id.length > 1){
+				if(typeof row_id !== 'undefined' && row_id.length > 1){
 				var request = new Mojo.ClientRequest( {
 					dataTable :myDataTable,
 					row_index :row_index,
@@ -133,7 +133,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 				}
 			break;
 		default:
-			this.onEventShowCellEditor(oArgs);
+			myDataTable.onEventShowCellEditor(oArgs);
 			break;
 		}
 	};
@@ -197,12 +197,31 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    		setter_exists = eval("typeof (v.set"+attrib.key+") == 'function'")
 	    		if(setter_exists)
 	    		{
-	    			eval('v.set'+attrib.key+'(row.'+attrib.key+')');
+	    			val = eval('row.'+ attrib.key);
+	    			if(typeof val !== 'undefined')
+	    			{
+	    				//val = null;
+	    				eval_str = 'v.set'+attrib.key+'(val)';
+		    			//alert (eval_str);
+		    			eval(eval_str);
+	    			}
+	    		
+	    		}
+	    		else
+	    		{
+	    			setter_exists = eval("typeof (v.add"+attrib.key+") == 'function'")
+		    		if(setter_exists)
+		    		{
+		    			eval_str = 'v.add'+attrib.key+'(row.'+attrib.key+')';
+		    			//alert (eval_str);
+		    			eval(eval_str);
+		    		}
 	    		}
 	    	}
 			v_arr.push(v);
 	    }	    
 	    str = table_data.data_type + '.saveAll(request,v_arr)';
+	    //alert(v_arr);
     	eval(str);
 
 	});
@@ -229,14 +248,11 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 				last_row_index = table_data.rows.length - 1;
 				for each(feild in table_data.copy_from_above)
 				{
-					if (feild.copy_from_above)
-					{	    	
 				    	str = 'new_data_row.' + feild + ' = table_data.rows[last_row_index].' + feild ;
 				    	eval(str);
 				    	label = myDataTable.getRecord(last_row_index).getData(feild);
 				    	str = 'new_label_row.' + feild + " = '"+ label + "'";
-				    	eval(str);
-					}	 
+				    	eval(str); 
 				}
 	        }		
 			table_data.rows.push(new_data_row);
@@ -345,7 +361,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 	// Hook up the SimpleDialog to the link
 	YAHOO.util.Event.addListener("dt-options-link", "click", showDlg, this, true);
-	
+	table_data.myDataTable = myDataTable; 
 	return {
         oDS: myDataSource,
         oDT: myDataTable

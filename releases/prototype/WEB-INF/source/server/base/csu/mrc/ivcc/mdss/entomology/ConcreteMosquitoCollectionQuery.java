@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology;
 public  class ConcreteMosquitoCollectionQuery extends csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236382970103L;
+private static final long serialVersionUID = 1236612271559L;
 
   public ConcreteMosquitoCollectionQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -38,18 +38,18 @@ private static final long serialVersionUID = 1236382970103L;
     return (com.terraframe.mojo.query.AttributeMomentIF)this.getComponentQuery().attributeFactory(csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection.DATECOLLECTED, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias);
 
   }
-  public csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
+  public csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
   {
     return getGeoEntity(null);
 
   }
  
-  public csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias)
+  public csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias)
   {
 
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("geoEntity");
 
-    return (csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection.GEOENTITY, mdAttributeIF, this, alias);
+    return (csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection.GEOENTITY, mdAttributeIF, this, alias);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias)
@@ -58,7 +58,7 @@ private static final long serialVersionUID = 1236382970103L;
     
     if (name.equals("geoEntity")) 
     {
-       return new csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
+       return new csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else 
     {
@@ -99,8 +99,8 @@ private static final long serialVersionUID = 1236382970103L;
 
     public com.terraframe.mojo.query.AttributeMomentIF getDateCollected();
     public com.terraframe.mojo.query.AttributeMomentIF getDateCollected(String alias);
-    public csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity();
-    public csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias);
+    public csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity();
+    public csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias);
 
     public com.terraframe.mojo.query.BasicCondition EQ(csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection concreteMosquitoCollection);
 
@@ -116,7 +116,7 @@ private static final long serialVersionUID = 1236382970103L;
  implements ConcreteMosquitoCollectionQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236382970198L;
+private static final long serialVersionUID = 1236612271652L;
 
   public ConcreteMosquitoCollectionQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -146,15 +146,15 @@ private static final long serialVersionUID = 1236382970198L;
     return (com.terraframe.mojo.query.AttributeMomentIF)this.attributeFactory("dateCollected", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias);
 
   }
-  public csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
+  public csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
   {
     return getGeoEntity(null);
 
   }
  
-  public csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias)
+  public csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias)
   {
-    return (csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("geoEntity", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
+    return (csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.attributeFactory("geoEntity", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
 
   }
   protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias)
@@ -163,7 +163,7 @@ private static final long serialVersionUID = 1236382970198L;
     
     if (name.equals("geoEntity")) 
     {
-       return new csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
+       return new csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else 
     {

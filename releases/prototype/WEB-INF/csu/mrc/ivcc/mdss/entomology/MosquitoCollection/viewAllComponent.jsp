@@ -4,14 +4,14 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}">
+<mjl:table var="item" query="${query}" classes="displayTable" even ="evenRow" odd="oddRow">
   <mjl:context action="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="collectionMethod">
       <mjl:header>
         Collection Method
       </mjl:header>
-      <mjl:row>
+       <mjl:row>
         ${item.collectionMethod.termName}
       </mjl:row>
     </mjl:attributeColumn>
@@ -19,12 +19,15 @@
       <mjl:header>
         Date Collected
       </mjl:header>
+            <mjl:row >
+        ${item.dateCollected}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoEntity">
       <mjl:header>
         Geo Entity
       </mjl:header>
-      <mjl:row>
+        <mjl:row >
         ${item.geoEntity.entityName}
       </mjl:row>
     </mjl:attributeColumn>

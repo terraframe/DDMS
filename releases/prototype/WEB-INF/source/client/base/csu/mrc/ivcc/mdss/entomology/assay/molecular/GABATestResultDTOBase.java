@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.molecular;
 
 public abstract class GABATestResultDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236382968633L;
+  private static final long serialVersionUID = 1236612269007L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.molecular.GABATestResult";
   protected GABATestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

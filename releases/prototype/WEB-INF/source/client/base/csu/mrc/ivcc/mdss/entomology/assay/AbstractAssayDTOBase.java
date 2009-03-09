@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236382957557L;
+  private static final long serialVersionUID = 1236612254443L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay";
   protected AbstractAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -26,7 +26,6 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
     return CLASS;
   }
   
-  public static java.lang.String COLLECTION = "collection";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -45,36 +44,6 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TYPE = "type";
-  public csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO getCollection()
-  {
-    return csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
-  }
-  
-  public void setCollection(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO value)
-  {
-    setValue(COLLECTION, value.getId());
-  }
-  
-  public boolean isCollectionWritable()
-  {
-    return isWritable(COLLECTION);
-  }
-  
-  public boolean isCollectionReadable()
-  {
-    return isReadable(COLLECTION);
-  }
-  
-  public boolean isCollectionModified()
-  {
-    return isModified(COLLECTION);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("collection").getAttributeMdDTO();
-  }
-  
   public java.util.Date getCreateDate()
   {
     return com.terraframe.mojo.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));

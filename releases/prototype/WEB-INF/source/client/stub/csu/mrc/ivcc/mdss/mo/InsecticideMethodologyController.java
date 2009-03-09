@@ -30,7 +30,7 @@ public class InsecticideMethodologyController extends InsecticideMethodologyCont
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update InsecticideMethodologyController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {

@@ -11,7 +11,7 @@ public abstract class MosquitoCollectionBase extends csu.mrc.ivcc.mdss.entomolog
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.MosquitoCollection";
   public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
-  private static final long serialVersionUID = 1236382961176L;
+  private static final long serialVersionUID = 1236612258685L;
   
   public MosquitoCollectionBase()
   {
@@ -70,7 +70,7 @@ public abstract class MosquitoCollectionBase extends csu.mrc.ivcc.mdss.entomolog
     return (MosquitoCollection) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public static csu.mrc.ivcc.mdss.entomology.MosquitoCollection searchByGeoEntityAndDate(csu.mrc.ivcc.mdss.geo.GeoEntity geoEntity, java.util.Date collectionDate)
+  public static csu.mrc.ivcc.mdss.entomology.MosquitoCollection searchByGeoEntityAndDate(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)
   {
     return null;
   }

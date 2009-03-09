@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology;
 
 public abstract class ConcreteMosquitoCollectionDTOBase extends csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236382970067L;
+  private static final long serialVersionUID = 1236612271509L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection";
   protected ConcreteMosquitoCollectionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -65,12 +65,12 @@ public abstract class ConcreteMosquitoCollectionDTOBase extends csu.mrc.ivcc.mds
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("dateCollected").getAttributeMdDTO();
   }
   
-  public csu.mrc.ivcc.mdss.geo.GeoEntityDTO getGeoEntity()
+  public csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO getGeoEntity()
   {
-    return csu.mrc.ivcc.mdss.geo.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
+    return csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
   }
   
-  public void setGeoEntity(csu.mrc.ivcc.mdss.geo.GeoEntityDTO value)
+  public void setGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO value)
   {
     setValue(GEOENTITY, value.getId());
   }

@@ -11,7 +11,7 @@ public abstract class EKDRTestResultBase extends csu.mrc.ivcc.mdss.entomology.as
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.molecular.EKDRTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1236382962884L;
+  private static final long serialVersionUID = 1236612261365L;
   
   public EKDRTestResultBase()
   {

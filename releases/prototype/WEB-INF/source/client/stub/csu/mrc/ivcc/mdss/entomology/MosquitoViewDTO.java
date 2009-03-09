@@ -10,5 +10,4 @@ public class MosquitoViewDTO extends MosquitoViewDTOBase
   {
     super(clientRequest);
   }
-  
 }

@@ -11,7 +11,7 @@ public abstract class MonooxygenaseTestResultBase extends csu.mrc.ivcc.mdss.ento
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.biochemical.MonooxygenaseTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1236382973945L;
+  private static final long serialVersionUID = 1236612276773L;
   
   public MonooxygenaseTestResultBase()
   {

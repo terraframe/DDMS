@@ -5,19 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@page import="java.util.*"%>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" >
- <jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />
-<title>MDSS</title>
-</head>
-<body class="yui-skin-sam">
-<h1><f:message key="welcome"/></h1>
-<jsp:include page="/WEB-INF/templates/navMenu.jsp" /> 
+<jsp:include page="/WEB-INF/templates/header.jsp" />
+
+<div class="pageTitle"><f:message key="welcome"/></div>
 <br><br>
   <% 
    Locale locale = request.getLocale();
    out.println("Your Detected Locale is "+locale.toString());
    %>
-</body>
-</html>
+<jsp:include page="/WEB-INF/templates/footer.jsp" />

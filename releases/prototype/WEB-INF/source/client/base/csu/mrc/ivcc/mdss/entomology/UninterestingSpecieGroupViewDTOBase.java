@@ -221,6 +221,14 @@ public abstract class UninterestingSpecieGroupViewDTOBase extends com.terraframe
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("specie").getAttributeMdDTO();
   }
   
+  public static final csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupViewDTO[] saveAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupViewDTO[] array)
+  {
+    String[] _declaredTypes = new String[]{"[Lcsu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView;"};
+    Object[] _parameters = new Object[]{array};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupViewDTO.CLASS, "saveAll", _declaredTypes);
+    return (csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static UninterestingSpecieGroupViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)
   {
     com.terraframe.mojo.business.ViewDTO dto = (com.terraframe.mojo.business.ViewDTO)clientRequest.get(id);

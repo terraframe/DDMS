@@ -14,7 +14,7 @@ public abstract class InvalidKnockDownQuantityProblemBase extends com.terraframe
   public static java.lang.String INTERVALID = "intervalId";
   public static java.lang.String QUANTITYKNOCKDOWN = "quantityKnockDown";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
-  private static final long serialVersionUID = 1236382973838L;
+  private static final long serialVersionUID = 1236612276666L;
   
   public InvalidKnockDownQuantityProblemBase()
   {

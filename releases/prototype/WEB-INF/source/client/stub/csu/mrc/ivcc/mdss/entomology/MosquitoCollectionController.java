@@ -6,8 +6,11 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 
-import csu.mrc.ivcc.mdss.entomology.MosquitoCollectionControllerBase;
-import csu.mrc.ivcc.mdss.geo.GeoEntityDTO;
+import com.terraframe.mojo.ProblemExceptionDTO;
+
+import csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO;
+import csu.mrc.ivcc.mdss.util.DateConverter;
+import csu.mrc.ivcc.mdss.util.ErrorUtility;
 
 
 public class MosquitoCollectionController extends MosquitoCollectionControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -22,10 +25,6 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void failSearchByGeoIdAndDate(java.lang.String geoId, java.lang.String collectionDate) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
   public void delete(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -33,15 +32,23 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failDelete(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failDelete(dto);
     }
   }
   public void failDelete(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Mosquito Collections");
     render("editComponent.jsp");
@@ -51,7 +58,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO dto = new csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO(clientRequest);
     req.setAttribute("MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Mosquito Collections");
     render("createComponent.jsp");
@@ -67,20 +74,28 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failUpdate(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failUpdate(dto);
     }
   }
   public void failUpdate(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update a Mosquito Collection");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
-  public void failSearchByGeoEntityAndDate(csu.mrc.ivcc.mdss.geo.GeoEntityDTO geoEntity, java.lang.String collectionDate) throws java.io.IOException, javax.servlet.ServletException
+  public void failSearchByGeoEntityAndDate(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO geoEntity, java.lang.String collectionDate) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
@@ -88,7 +103,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View a Mosquito Collection");
     render("viewComponent.jsp");
@@ -97,7 +112,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View a Mosquito Collection");
     render("viewAssaysComponent.jsp");
@@ -143,7 +158,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO dto = csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO.lock(super.getClientRequest(), id);
     req.setAttribute("MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Mosquito Collection");
     render("editComponent.jsp");
@@ -159,25 +174,55 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch(ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
+      this.failCreate(dto);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req); 
+     
       this.failCreate(dto);
     }
   }
   public void failCreate(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Mosquito Collection");
     render("createComponent.jsp");
   }
   @Override
-  public void searchByGeoIdAndDate(String geoId, Date collectionDate) throws IOException,
-      ServletException
+  public void searchByGeoIdAndDate(String geoId, Date collectionDate) throws IOException, ServletException
   {
-    this.searchByGeoEntityAndDate(GeoEntityDTO.searchByGeoId(super.getClientRequest(), geoId), collectionDate);
+	  GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(super.getClientRequest(), geoId);
+	  if(geoEntity == null)
+	  {
+	    this.newInstance();
+	  }
+	  else
+	  {
+	    this.searchByGeoEntityAndDate(geoEntity, collectionDate);
+	  }
   }
+  
+  public void failSearchByGeoIdAndDate(String geoId, String collectionDate) throws java.io.IOException, javax.servlet.ServletException
+  {
+	  try
+	  {
+		Date d =  (Date) new DateConverter("Collection Date").parse(collectionDate, this.getRequest().getLocale());
+	    this.searchByGeoIdAndDate(geoId, d);
+	  }
+	  catch(Exception e)
+	  {
+	    req.setAttribute("page_title", "Search For Mosquito Collections");
+	    render("searchComponent.jsp");	  
+	  }
+  }
+  
   
   public void search() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -189,20 +234,20 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     MosquitoCollectionDTO collection = MosquitoCollectionDTO.searchByGeoEntityAndDate(super.getClientRequest(), geoEntity, collectionDate);
     String jsp =  "viewComponent.jsp";
-
+    req.setAttribute("page_title", "Found Mosquito Collections");
     if(collection == null)
     {
       collection = new MosquitoCollectionDTO(super.getClientRequest());
       collection.setDateCollected(collectionDate);
       collection.setGeoEntity(geoEntity);
-
+      req.setAttribute("page_title", "Mosquito Collection Not Found - Creating New");
       jsp = "createComponent.jsp";      
     }
 
     req.setAttribute("MosquitoCollection_collectionMethod", csu.mrc.ivcc.mdss.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("AbstractMosquitoCollection_geoEntity", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", collection);
-    req.setAttribute("page_title", "Search Mosquito Collections");
+    
     render(jsp);
   }
 

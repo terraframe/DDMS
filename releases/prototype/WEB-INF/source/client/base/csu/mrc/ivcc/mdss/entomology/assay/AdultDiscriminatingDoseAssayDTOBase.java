@@ -1,8 +1,8 @@
 package csu.mrc.ivcc.mdss.entomology.assay;
 
-public abstract class AdultDiscriminatingDoseAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.AdultAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class AdultDiscriminatingDoseAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.InsecticideAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236382972579L;
+  private static final long serialVersionUID = 1236612274702L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay";
   protected AdultDiscriminatingDoseAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -26,12 +26,43 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends csu.mrc.ivcc.m
     return CLASS;
   }
   
+  public static java.lang.String COLLECTION = "collection";
   public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
   public static java.lang.String HOLDINGTIME = "holdingTime";
   public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
+  public csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO getCollection()
+  {
+    return csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
+  }
+  
+  public void setCollection(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO value)
+  {
+    setValue(COLLECTION, value.getId());
+  }
+  
+  public boolean isCollectionWritable()
+  {
+    return isWritable(COLLECTION);
+  }
+  
+  public boolean isCollectionReadable()
+  {
+    return isReadable(COLLECTION);
+  }
+  
+  public boolean isCollectionModified()
+  {
+    return isModified(COLLECTION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("collection").getAttributeMdDTO();
+  }
+  
   public Float getControlTestMortality()
   {
     return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));

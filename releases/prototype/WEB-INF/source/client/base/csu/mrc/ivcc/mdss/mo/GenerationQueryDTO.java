@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public class GenerationQueryDTO extends csu.mrc.ivcc.mdss.mo.AbstractTermQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236382968588L;
+private static final long serialVersionUID = 1236612268426L;
 
   protected GenerationQueryDTO(String type)
   {

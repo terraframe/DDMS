@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology;
 public  abstract  class MosquitoCollectionPointViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236382963214L;
+private static final long serialVersionUID = 1236612261692L;
 
   public MosquitoCollectionPointViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -61,16 +61,16 @@ private static final long serialVersionUID = 1236382963214L;
 
   }
  
-  public csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
+  public csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity()
   {
     return getGeoEntity(null);
 
   }
  
-  public csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias)
+  public csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntity(String alias)
   {
 
-    return (csu.mrc.ivcc.mdss.geo.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointView.GEOENTITY, alias);
+    return (csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointView.GEOENTITY, alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getId()

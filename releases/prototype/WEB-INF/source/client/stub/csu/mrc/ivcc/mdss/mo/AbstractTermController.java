@@ -103,7 +103,7 @@ public class AbstractTermController extends AbstractTermControllerBase implement
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update AbstractTermController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void create(csu.mrc.ivcc.mdss.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

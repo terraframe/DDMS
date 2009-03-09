@@ -4,6 +4,9 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
+<div class="fldContainer">
+    <div class="fcTop">
+    <br> 
   <mjl:component item="${item}" param="dto">
     <dl>
     <dt>
@@ -296,6 +299,11 @@
       
     </dl>
   </mjl:component>
-  <mjl:command value="Create" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.create.mojo" name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.create.button" />
+    <div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+</div>
+
+<div class="submitButton_bl"></div>  
+  <mjl:command value="Create" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.create.mojo" name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.create.button" classes="submitButton" />
 </mjl:form>
 <div id="cal1Container" class="yui-skin-sam"></div> 

@@ -72,7 +72,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update InsecticideController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {

@@ -122,12 +122,12 @@ public abstract class MosquitoCollectionPointViewDTOBase extends com.terraframe.
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("dateCollected").getAttributeMdDTO();
   }
   
-  public csu.mrc.ivcc.mdss.geo.GeoEntityDTO getGeoEntity()
+  public csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO getGeoEntity()
   {
-    return csu.mrc.ivcc.mdss.geo.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
+    return csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
   }
   
-  public void setGeoEntity(csu.mrc.ivcc.mdss.geo.GeoEntityDTO value)
+  public void setGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO value)
   {
     setValue(GEOENTITY, value.getId());
   }

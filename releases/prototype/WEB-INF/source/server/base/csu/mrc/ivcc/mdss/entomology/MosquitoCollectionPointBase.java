@@ -11,7 +11,7 @@ public abstract class MosquitoCollectionPointBase extends csu.mrc.ivcc.mdss.ento
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint";
   public static java.lang.String COMPOSITECOLLECTION = "compositeCollection";
-  private static final long serialVersionUID = 1236382969611L;
+  private static final long serialVersionUID = 1236612270921L;
   
   public MosquitoCollectionPointBase()
   {
@@ -70,7 +70,7 @@ public abstract class MosquitoCollectionPointBase extends csu.mrc.ivcc.mdss.ento
     return (MosquitoCollectionPoint) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public static csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint searchByGeoEntityAndDate(csu.mrc.ivcc.mdss.geo.GeoEntity geoEntity, java.util.Date collectionDate)
+  public static csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint searchByGeoEntityAndDate(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)
   {
     return null;
   }

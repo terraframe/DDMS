@@ -19,6 +19,10 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
   <mjl:message />
 </mjl:messages>
 <mjl:form name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
+  <div class="fldContainer">
+    <div class="fcTop">
+      
+
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
     <dt>
@@ -251,18 +255,24 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
      
 
   </dl>
-  <mjl:command value="Edit" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.edit.mojo" name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.edit.button" />
+</div>
+  <div class="fcTopLeft"></div> 
+    <div class="fcBottom">
+      <div class="fcBottomLeft"></div>
+    </div>
+     </div>
+  <div class="submitButton_bl"></div>    
+  <mjl:command value="Edit" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.edit.mojo" name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo" name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.viewAll.link" />
 
 
 <div id="intervals"></div>
 
 <div id="buttons">
- <span id="saverows" class="yui-button yui-push-button"> 
+ <span id="intervalsSaverows" class="yui-button yui-push-button"> 
  <span class="first-child">
 <button type="button">Save Rows To DB</button>
 </span> 
@@ -304,7 +314,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     	        defaults: {IntervalId:"",Period:"",IntervalTime:"",KnockedDown:"",Percent:""},
     	        div_id: "intervals",
     	        collection_setter: "setAssayId('${item.id}')",
-        	    data_type: "Mojo.$.mdss.ivcc.mrc.csu.entomology.assay.ADDATestIntervalView",
+        	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView",
         	    after_row_edit:function(record){record.setData('Percent',((parseInt(record.getData('KnockedDown'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%");}
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));

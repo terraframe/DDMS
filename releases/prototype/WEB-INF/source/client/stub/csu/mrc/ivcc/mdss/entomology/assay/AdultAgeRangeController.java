@@ -42,7 +42,7 @@ public class AdultAgeRangeController extends AdultAgeRangeControllerBase impleme
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update AdultAgeRangeController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void delete(csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

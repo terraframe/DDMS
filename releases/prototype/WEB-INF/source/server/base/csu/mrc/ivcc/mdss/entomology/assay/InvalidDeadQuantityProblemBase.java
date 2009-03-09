@@ -14,7 +14,7 @@ public abstract class InvalidDeadQuantityProblemBase extends com.terraframe.mojo
   public static java.lang.String ID = "id";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
-  private static final long serialVersionUID = 1236382966434L;
+  private static final long serialVersionUID = 1236612266527L;
   
   public InvalidDeadQuantityProblemBase()
   {

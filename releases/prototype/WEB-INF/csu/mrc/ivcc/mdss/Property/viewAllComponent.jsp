@@ -3,7 +3,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}">
+<mjl:table var="item" query="${query}" classes="displayTable" even ="evenRow" odd="oddRow">
   <mjl:context action="csu.mrc.ivcc.mdss.PropertyController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="description">
@@ -15,26 +15,19 @@
       <mjl:header>
         Name
       </mjl:header>
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="propertyPackage">
       <mjl:header>
         Package
       </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="propertyType">
-      <mjl:header>
-        Type
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="propertyValidator">
-      <mjl:header>
-        Validator Regexp
-      </mjl:header>
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="propertyValue">
       <mjl:header>
         Value
       </mjl:header>
+      
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>

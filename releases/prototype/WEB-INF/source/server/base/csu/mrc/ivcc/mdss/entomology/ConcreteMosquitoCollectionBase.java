@@ -12,7 +12,7 @@ public abstract class ConcreteMosquitoCollectionBase extends csu.mrc.ivcc.mdss.e
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection";
   public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String GEOENTITY = "geoEntity";
-  private static final long serialVersionUID = 1236382970028L;
+  private static final long serialVersionUID = 1236612271457L;
   
   public ConcreteMosquitoCollectionBase()
   {
@@ -47,11 +47,11 @@ public abstract class ConcreteMosquitoCollectionBase extends csu.mrc.ivcc.mdss.e
     }
   }
   
-  public csu.mrc.ivcc.mdss.geo.GeoEntity getGeoEntity()
+  public csu.mrc.ivcc.mdss.geo.generated.GeoEntity getGeoEntity()
   {
     try
     {
-      return csu.mrc.ivcc.mdss.geo.GeoEntity.get(getValue(GEOENTITY));
+      return csu.mrc.ivcc.mdss.geo.generated.GeoEntity.get(getValue(GEOENTITY));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -70,7 +70,7 @@ public abstract class ConcreteMosquitoCollectionBase extends csu.mrc.ivcc.mdss.e
     return mdClassIF.definesAttribute(GEOENTITY);
   }
   
-  public void setGeoEntity(csu.mrc.ivcc.mdss.geo.GeoEntity value)
+  public void setGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntity value)
   {
     if(value == null)
     {

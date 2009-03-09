@@ -3,18 +3,6 @@
 <%--TO USE ME: <jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />--%>
 <link rel="icon" type="image/png" href="/favicon.png" >
 
-<!--CSS source files for the entire YUI Library-->
-<!--CSS Foundation: (also partially aggegrated in reset-fonts-grids.css; does not include base.css)-->
-
-<!--<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/reset/reset-min.css"> 
-<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/base/base-min.css"> 
-<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/fonts/fonts-min.css"> 
-<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/grids/grids-min.css"> 
-<link rel="stylesheet" type="text/css"
-	href="/MDSS/yui/build/assets/skins/sam/skin.css">
-
--->
- 
 <!--CSS for Controls:--> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/container/assets/skins/sam/container.css"> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/menu/assets/skins/sam/menu.css"> 
@@ -75,74 +63,15 @@ YUI download for details on each of the aggregate files and their contents):-->
 <script type="text/javascript" src="/MDSS/js/yui/build/uploader/uploader-min.js"></script> 
 
 
-<style type="text/css" media="screen">
-#cal1Container {
-	position: absolute;
-	display: none;
-	background-color: WHITE;
-}
-
-#cal1Container {
-	margin: 1em;
-}
-
-textarea {
-	width: 100%;
-}
-
-#cal1Container {
-	z-index: 500;
-}
-
-.hide {
-	display: none;
-}
-
-.my-highlight-row {
-	font-weight: bold;
-}
-
-.delete-button {
-	cursor: pointer;
-	background: transparent url(/MDSS/imgs/icons/delete.png) no-repeat center
-		center;
-	width: 16px;
-	height: 16px;
-}
-
-.insert-button {
-	cursor: pointer;
-	background: transparent url(/MDSS/imgs/icons/add.png) no-repeat center center;
-	width: 16px;
-	height: 16px;
-}
-
-.yui-skin-sam .yui-dt td.align-right {
-	text-align: right;
-}
-
-#ft {
-	margin-top: 2em;
-}
-
-dt {
-	font-weight: bold;
-	margin-top: 5px;
-}
-
-/*margin and padding on body element
-  can introduce errors in determining
-  element position and are not recommended;
-  we turn them off as a foundation for YUIß
-  CSS treatments. */
-body {
-	margin: 0;
-	padding: 0;
-}
-</style>
 <script type="text/javascript" src="js/Terraframe_Mojo.js"></script>
 <script type="text/javascript" src="js/MDSS.js"></script>
 <script type="text/javascript">var locale = "<%=request.getLocale().toString()%>";</script>
 <script type="text/javascript" src="js/Menu.js"></script>
 <script type="text/javascript" src="/MDSS/js/addCalendarWidgets.js"></script>
 <script type="text/javascript" src="js/dataTableWidget.js"></script>
+
+
+<!--  Stuff from the web designer  -->
+<link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/reset-fonts-grids/reset-fonts-grids.css">
+<link href="/MDSS/css/style.css" rel="stylesheet" type="text/css">
+

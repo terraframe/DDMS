@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class AdultAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236382960797L;
+  private static final long serialVersionUID = 1236612258187L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.AdultAssay";
   protected AdultAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -27,15 +27,11 @@ public abstract class AdultAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.ass
   }
   
   public static java.lang.String AGERANGE = "ageRange";
-  public static java.lang.String AMOUNT = "amount";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GENERATION = "generation";
-  public static java.lang.String GENERICNAME = "genericName";
   public static java.lang.String GRAVID = "gravid";
-  public static java.lang.String INSECTICIDE = "insecticide";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
-  public static java.lang.String UNITS = "units";
   public csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeDTO getAgeRange()
   {
     return (csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeDTO) this.getAttributeStructDTO(AGERANGE).getStructDTO();
@@ -59,43 +55,6 @@ public abstract class AdultAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.ass
   public final com.terraframe.mojo.transport.metadata.AttributeStructMdDTO getAgeRangeMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeStructMdDTO) getAttributeDTO("ageRange").getAttributeMdDTO();
-  }
-  
-  public Integer getAmount()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
-  }
-  
-  public void setAmount(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(AMOUNT, "");
-    }
-    else
-    {
-      setValue(AMOUNT, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isAmountWritable()
-  {
-    return isWritable(AMOUNT);
-  }
-  
-  public boolean isAmountReadable()
-  {
-    return isReadable(AMOUNT);
-  }
-  
-  public boolean isAmountModified()
-  {
-    return isModified(AMOUNT);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getAmountMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("amount").getAttributeMdDTO();
   }
   
   public Integer getExposureTime()
@@ -202,43 +161,6 @@ public abstract class AdultAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.ass
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("generation").getAttributeMdDTO();
   }
   
-  public String getGenericName()
-  {
-    return getValue(GENERICNAME);
-  }
-  
-  public void setGenericName(String value)
-  {
-    if(value == null)
-    {
-      setValue(GENERICNAME, "");
-    }
-    else
-    {
-      setValue(GENERICNAME, value);
-    }
-  }
-  
-  public boolean isGenericNameWritable()
-  {
-    return isWritable(GENERICNAME);
-  }
-  
-  public boolean isGenericNameReadable()
-  {
-    return isReadable(GENERICNAME);
-  }
-  
-  public boolean isGenericNameModified()
-  {
-    return isModified(GENERICNAME);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGenericNameMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("genericName").getAttributeMdDTO();
-  }
-  
   public Integer getGravid()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(GRAVID));
@@ -276,36 +198,6 @@ public abstract class AdultAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.ass
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("gravid").getAttributeMdDTO();
   }
   
-  public csu.mrc.ivcc.mdss.mo.InsecticideDTO getInsecticide()
-  {
-    return csu.mrc.ivcc.mdss.mo.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
-  }
-  
-  public void setInsecticide(csu.mrc.ivcc.mdss.mo.InsecticideDTO value)
-  {
-    setValue(INSECTICIDE, value.getId());
-  }
-  
-  public boolean isInsecticideWritable()
-  {
-    return isWritable(INSECTICIDE);
-  }
-  
-  public boolean isInsecticideReadable()
-  {
-    return isReadable(INSECTICIDE);
-  }
-  
-  public boolean isInsecticideModified()
-  {
-    return isModified(INSECTICIDE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getInsecticideMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("insecticide").getAttributeMdDTO();
-  }
-  
   public Integer getQuantityTested()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYTESTED));
@@ -341,52 +233,6 @@ public abstract class AdultAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.ass
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityTestedMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityTested").getAttributeMdDTO();
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<csu.mrc.ivcc.mdss.entomology.assay.UnitDTO> getUnits()
-  {
-    return (java.util.List<csu.mrc.ivcc.mdss.entomology.assay.UnitDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "csu.mrc.ivcc.mdss.entomology.assay.Unit", getEnumNames(UNITS));
-  }
-  
-  public java.util.List<String> getUnitsEnumNames()
-  {
-    return getEnumNames(UNITS);
-  }
-  
-  public void addUnits(csu.mrc.ivcc.mdss.entomology.assay.UnitDTO enumDTO)
-  {
-    addEnumItem(UNITS, enumDTO.toString());
-  }
-  
-  public void removeUnits(csu.mrc.ivcc.mdss.entomology.assay.UnitDTO enumDTO)
-  {
-    removeEnumItem(UNITS, enumDTO.toString());
-  }
-  
-  public void clearUnits()
-  {
-    clearEnum(UNITS);
-  }
-  
-  public boolean isUnitsWritable()
-  {
-    return isWritable(UNITS);
-  }
-  
-  public boolean isUnitsReadable()
-  {
-    return isReadable(UNITS);
-  }
-  
-  public boolean isUnitsModified()
-  {
-    return isModified(UNITS);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getUnitsMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("units").getAttributeMdDTO();
   }
   
   public static csu.mrc.ivcc.mdss.entomology.assay.AdultAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

@@ -111,7 +111,7 @@ public class GenerationController extends GenerationControllerBase implements co
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update GenerationController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {

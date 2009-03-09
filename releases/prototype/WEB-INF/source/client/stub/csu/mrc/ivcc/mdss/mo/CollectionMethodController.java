@@ -122,7 +122,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update CollectionMethodController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {

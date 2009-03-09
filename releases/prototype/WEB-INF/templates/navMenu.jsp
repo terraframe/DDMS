@@ -1,10 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
-
-<div id="navmenu" class="yuimenubar yuimenubarnav">
+<div class="navContainer">
+<div id="mainNav" class="yuimenubar yuimenubarnav">
      <div class="bd">
-
          <ul class="first-of-type">
              <li class="yuimenubaritem first-of-type"><a class="yuimenubaritemlabel" href="#communication"><f:message key="Administration" /></a>
 
@@ -25,7 +24,6 @@
                              
                              </li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><f:message key="Backup_Data"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><f:message key="Change_Settings"/></a></li> 
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="csu.mrc.ivcc.mdss.PropertyController.viewAll.mojo"><f:message key="Change_Settings"/></a></li>                                  
                          </ul>
                      </div>
@@ -98,15 +96,26 @@
                  <div id="gis" class="yuimenu">
                      <div class="bd">                                        
                          <ul>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="csu.mrc.ivcc.mdss.geo.GeoEntityController.viewAll.mojo"><f:message key="View_GeoEntites"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSiteController.viewAll.mojo"><f:message key="View_GeoEntites"/></a></li>
                          </ul>                    
                      </div>
 
                  </div>                                        
              
              </li>
+             
+             <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="#"><f:message key="Excel_Header"/></a>
+               <div id="excel" class="yuimenu">
+                 <div class="bd">                                        
+                   <ul>
+                     <li class="yuimenuitem"><a class="yuimenuitemlabel" href="excelexport"><f:message key="Excel_Export_Nav"/></a></li>
+                     <li class="yuimenuitem"><a class="yuimenuitemlabel" href="excelimport"><f:message key="Excel_Import_Nav"/></a></li>
+                   </ul>                    
+                 </div>
+               </div>
+             </li>
               <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="com.terraframe.mojo.defaults.LoginController.logout.mojo"><f:message key="Log_Out"/></a></li>
          </ul>            
      </div>
  </div>
- 
+  </div>

@@ -84,7 +84,7 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   {
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update SpecieController");
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
