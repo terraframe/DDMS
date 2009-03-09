@@ -5,10 +5,8 @@
 </mjl:messages>
 <mjl:form name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
 <div class="fldContainer">
-    <div class="fcTop"><div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-    <div style="position:absolute; left:20px; top:25px;">
-
+    <div class="fcTop">
+    <br> 
   <mjl:component item="${item}" param="dto">
     <dl>
     <dt>
@@ -301,7 +299,8 @@
       
     </dl>
   </mjl:component>
-  </div>
+    <div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
 </div>
 
 <div class="submitButton_bl"></div>  
