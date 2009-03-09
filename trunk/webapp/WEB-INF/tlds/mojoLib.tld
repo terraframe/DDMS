@@ -4281,6 +4281,34 @@
     </attribute>
     <attribute>
       <name>
+        odd
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        The class of odd rows
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        even
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        The class of even rows
+      </description>
+    </attribute>
+    <attribute>
+      <name>
         classes
       </name>
       <required>
@@ -4433,34 +4461,6 @@
     <description>
       Template for a single row in a table
     </description>
-    <attribute>
-      <name>
-        odd
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        The class of odd rows
-      </description>
-    </attribute>
-    <attribute>
-      <name>
-        even
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        The class of even rows
-      </description>
-    </attribute>
   </tag>
   <tag>
     <name>

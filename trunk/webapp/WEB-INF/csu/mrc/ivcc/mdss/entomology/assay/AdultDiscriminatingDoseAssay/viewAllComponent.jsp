@@ -1,34 +1,35 @@
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib
+  uri="/WEB-INF/tlds/mojoLib.tld"
+  prefix="mjl"%>
+<%@ taglib
+  uri="http://java.sun.com/jsp/jstl/core"
+  prefix="c"%>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}" classes="displayTable" >
-  <mjl:context action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.viewPage.mojo" />
+<mjl:table var="item" query="${query}" classes="displayTable" even ="evenRow" odd="oddRow">
+  <mjl:context
+    action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="controlTestMortality">
       <mjl:header>
         Control Test Mortality Rate
       </mjl:header>
-      <mjl:row even ="altRow" />      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="holdingTime">
       <mjl:header>
         Holding Time
       </mjl:header>
-      <mjl:row even ="altRow" />            
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="intervalTime">
       <mjl:header>
         Interval Time
       </mjl:header>
-      <mjl:row even ="altRow" />            
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="quantityDead">
       <mjl:header>
         Quantity Dead
       </mjl:header>
-      <mjl:row even ="altRow" />
     </mjl:attributeColumn>
     <mjl:structColumn attributeName="ageRange">
       <mjl:header>
@@ -38,38 +39,38 @@
         <mjl:header>
           Ending Age
         </mjl:header>
-        <mjl:row even ="altRow" />
+        
       </mjl:attributeColumn>
       <mjl:attributeColumn attributeName="startPoint">
         <mjl:header>
           Beginning Age
         </mjl:header>
-        <mjl:row even ="altRow" />
+        
       </mjl:attributeColumn>
     </mjl:structColumn>
     <mjl:attributeColumn attributeName="amount">
       <mjl:header>
         Amount
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="exposureTime">
       <mjl:header>
         Exposure Time
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="fed">
       <mjl:header>
         Fed
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="generation">
       <mjl:header>
         Generation
-      </mjl:header>      
-      <mjl:row even ="altRow" >
+      </mjl:header>
+      <mjl:row >
         ${item.generation.termName}
       </mjl:row>
     </mjl:attributeColumn>
@@ -77,19 +78,19 @@
       <mjl:header>
         Generic Name
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="gravid">
       <mjl:header>
         Gravid
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="insecticide">
       <mjl:header>
         Insecticide
       </mjl:header>
-      <mjl:row even ="altRow">
+      <mjl:row>
         ${item.insecticide.termName}
       </mjl:row>
     </mjl:attributeColumn>
@@ -97,67 +98,72 @@
       <mjl:header>
         Quantity Tested
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="units">
       <mjl:header>
         Units
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="collection">
       <mjl:header>
         Mosquito Collection
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="identificationMethod">
       <mjl:header>
         Identification Method
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="isofemale">
       <mjl:header>
         Isofemale
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="sex">
       <mjl:header>
         Sex
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="specie">
       <mjl:header>
         Specie
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="testDate">
       <mjl:header>
         Test Date
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="testMethod">
       <mjl:header>
         Test Method
       </mjl:header>
-      <mjl:row even ="altRow" />
+      
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
-        
+
       </mjl:header>
-      <mjl:row even ="altRow" >
-        <mjl:commandLink display="View" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.view.mojo" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
+      <mjl:row >
+        <mjl:commandLink
+          display="View"
+          action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.view.mojo"
+          name="view.link">
+          <mjl:property
+            value="${item.id}"
+            name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
-        
+
       </mjl:footer>
     </mjl:freeColumn>
   </mjl:columns>
@@ -166,4 +172,7 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Adult Discriminating Dose Assay" action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" name="AdultDiscriminatingDoseAssayController.newInstance" />
+<mjl:commandLink
+  display="Create a new Adult Discriminating Dose Assay"
+  action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo"
+  name="AdultDiscriminatingDoseAssayController.newInstance" />
