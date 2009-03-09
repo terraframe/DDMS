@@ -64,11 +64,11 @@ static String getDataMap(ViewDTO[] rows, String[] attribs,ViewDTO view) throws J
 		{		
 			try
 			{
-				System.out.println("Setting "+attrib);
+				//System.out.println("Setting "+attrib);
 				String value = (String) c.getMethod("get"+attrib).invoke(row).toString();
-				System.out.println("Setting "+attrib+" to "+value);
+				//System.out.println("Setting "+attrib+" to "+value);
 				      
-                if("TestDate" == attrib )
+                if(attrib.contains("Date"))
                 {
                 	SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                 	element.put(attrib,df.format(new Date(value)));
@@ -112,7 +112,7 @@ static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows
 	ArrayList<String> ordered_attribs = new ArrayList(Arrays.asList(attribs));
 	for(String a : view.getAccessorNames())
 	{
-		if(! ordered_attribs.contains(a) && a.length() > 3 )
+		if(! ordered_attribs.contains(a) && a.length() >= 3 )
 		{
 			ordered_attribs.add(a.substring(0,1).toUpperCase() + a.substring(1));
 		}
@@ -158,7 +158,7 @@ ArrayList<String> ordered_attribs = new ArrayList(Arrays.asList(attribs));
 for(String a : view.getAccessorNames())
 {
 	String upcased_attrib = a.substring(0,1).toUpperCase() + a.substring(1);
-    if(! ordered_attribs.contains(upcased_attrib) && a.length() > 3 && autoload)
+    if(! ordered_attribs.contains(upcased_attrib) && a.length() >= 3 && autoload)
 	{
 		ordered_attribs.add(upcased_attrib);
 	}
@@ -421,7 +421,7 @@ function showCol(key,checked)
               div_id: "Mosquitos",
               collection_setter: "setCollection('${item.id}')",
               data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.MosquitoView",  
-                width:"60em"        
+                width:"65em"        
           };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>
