@@ -555,10 +555,26 @@ MDSS.GeoEntityTree = (function(){
     // add all labels
     var geoEntity = _getGeoEntity(_selectedNode);
     var type = geoEntity.getType();
-    var selectable = MDSS.GeoTreeSelectables.types[type];
-    for(var i=0; i<selectable.length; i++)
+    
+    var allowedMap = {};
+    function collectSubtypes(map, parent)
     {
-      var entry = selectable[i];
+      var selectable = MDSS.GeoTreeSelectables.types[parent];
+      for(var i=0; i<selectable.length; i++)
+      {
+      	var entry = selectable[i];
+      	map[entry.type] = entry;
+      	
+      	collectSubtypes(map, entry.type);
+      }
+    }
+    
+    collectSubtypes(allowedMap, type);
+    
+    var allowedTypes = Mojo.util.getValues(allowedMap);
+    for(var i=0; i<allowedTypes.length; i++)
+    {
+      var entry = allowedTypes[i];
     	
       var liRaw = document.createElement('li');
       var li = new YAHOO.util.Element(liRaw);
