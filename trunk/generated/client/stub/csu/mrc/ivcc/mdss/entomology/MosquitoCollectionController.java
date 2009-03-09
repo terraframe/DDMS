@@ -199,10 +199,17 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     render("createComponent.jsp");
   }
   @Override
-  public void searchByGeoIdAndDate(String geoId, Date collectionDate) throws IOException,
-      ServletException
+  public void searchByGeoIdAndDate(String geoId, Date collectionDate) throws IOException, ServletException
   {
-    this.searchByGeoEntityAndDate(GeoEntityDTO.searchByGeoId(super.getClientRequest(), geoId), collectionDate);
+	  GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(super.getClientRequest(), geoId);
+	  if(geoEntity == null)
+	  {
+	    this.newInstance();
+	  }
+	  else
+	  {
+	    this.searchByGeoEntityAndDate(geoEntity, collectionDate);
+	  }
   }
   
   public void search() throws java.io.IOException, javax.servlet.ServletException
