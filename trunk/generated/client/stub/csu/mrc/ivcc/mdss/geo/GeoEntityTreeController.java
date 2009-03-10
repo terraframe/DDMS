@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ApplicationException;
 
+import csu.mrc.ivcc.mdss.geo.generated.CountryDTO;
+import csu.mrc.ivcc.mdss.geo.generated.CountryQueryDTO;
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO;
 
 public class GeoEntityTreeController extends GeoEntityTreeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -14,7 +16,11 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
   
   private static final String TREE_JSP = "/WEB-INF/geoEntityTree.jsp";
   
+  private static final String TREE_COMPONENT_JSP = "/WEB-INF/geoEntityTreeComponent.jsp";
+
   private static final String CONFIRM_PARENT_CHANGE_JSP = "/WEB-INF/confirmParentChange.jsp";
+  
+  public static final String ROOT_GEO_ENTITY_ID = "rootGeoEntityId";
   
   public GeoEntityTreeController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -24,9 +30,16 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
   @Override
   public void displayTree(String rootGeoEntityId) throws IOException, ServletException
   {
-    req.setAttribute("rootGeoEntityId", rootGeoEntityId);
+    req.setAttribute(ROOT_GEO_ENTITY_ID, rootGeoEntityId);
     
-    req.getRequestDispatcher(TREE_JSP).forward(req, resp);
+    if(this.isAsynchronous())
+    {
+      req.getRequestDispatcher(TREE_COMPONENT_JSP).forward(req, resp);
+    }
+    else
+    {
+      req.getRequestDispatcher(TREE_JSP).forward(req, resp);
+    }
   }
   
   @Override

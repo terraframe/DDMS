@@ -383,8 +383,36 @@ MDSS.GeoEntityTree = (function(){
   // The tree for GeoEntities
   var _geoTree = null;
   
+  // The menu for CRUD operations
+  var _menu = null;
+  
   // reference to modal for node create/edit
-  var _modal;
+  var _modal = null;
+  
+  // callback function for selecting a node in the tree
+  var _selectCallback = null;
+  
+  /**
+   * Removes everything from the current Tree
+   */
+  function _destroyAll()
+  {
+  	_nodeToGeoEntityMap = {};
+  	_geoEntityCache = {};
+  	_selectedNode = null;
+  	_modal = null;
+  	_selectCallback = null;
+  	try
+  	{
+  	  _menu.destroy();
+  	}
+  	catch(e)
+  	{
+  	  _menu = null;
+  	}
+  	_geoTree.destroy();
+  	_geoTree = null;
+  }
   
   /**
    * Sets the mapping between a node and GeoEntity.
@@ -686,10 +714,21 @@ MDSS.GeoEntityTree = (function(){
   }
   
   /**
+   * Invokes _selectedCallback with the id of the GeoEntity
+   * represented by the currently selected node.
+   */
+  function _customSelectHandler()
+  {
+    var geoEntity = _getGeoEntity(_selectedNode);
+    
+    _selectCallback(geoEntity, _selectedNode);
+  }
+  
+  /**
    * Event handler for a triggered context menu. This method
    * cancels the action if the menu was not triggered on a node.
    */
-  function _nodeMenuSelect(a, b, c)
+  function _nodeMenuSelect()
   {
     var oTarget = this.contextEventTarget;
 
@@ -735,41 +774,74 @@ MDSS.GeoEntityTree = (function(){
   }
   
   /**
-   * Initializes the tree by setting the GeoEntity with the
-   * given id as first node under the root.
+   * Renders the actual tree with the given root GeoEntity
    */
-  function _initializeTree(treeId, geoEntity) {
-
+  function _renderTree(treeId, geoEntity, selectCallback)
+  {
     var node = {type:"HTML", html:geoEntity.getEntityName()};
 
     _geoTree = new YAHOO.widget.TreeViewDD(treeId, [node]);
     _geoTree.setDynamicLoad(_dynamicLoad);
     _geoTree.render();
 
+    var itemData = [];
+
+    // the select callback is optional
+    if(Mojo.util.isFunction(selectCallback))
+    {
+      _selectCallback = selectCallback;
+      var selectMenuItem = new YAHOO.widget.ContextMenuItem("Select");
+      selectMenuItem.subscribe("click", _customSelectHandler);
+      itemData.push(selectMenuItem);
+    }
+
     var createMenuItem = new YAHOO.widget.ContextMenuItem("Create");
     createMenuItem.subscribe("click", _addNodeHandler);
+    itemData.push(createMenuItem);
     
     var editMenuItem = new YAHOO.widget.ContextMenuItem("Edit");
     editMenuItem.subscribe("click", _editNodeHandler);
+    itemData.push(editMenuItem);
     
     var deleteMenuItem = new YAHOO.widget.ContextMenuItem("Delete");
     deleteMenuItem.subscribe("click", _deleteNodeHandler);
+    itemData.push(deleteMenuItem);
 
-    var menu = new YAHOO.widget.ContextMenu("treeMenu", {
+    _menu = new YAHOO.widget.ContextMenu("treeMenu", {
       trigger:treeId,
       lazyload:true,
-      itemdata: [createMenuItem, editMenuItem, deleteMenuItem]
+      itemdata: itemData
     });
     
-    menu.subscribe("triggerContextMenu", _nodeMenuSelect);
+    _menu.subscribe("triggerContextMenu", _nodeMenuSelect);
     
     // map node to GeoEntity
     _setMapping(_geoTree.getRoot().children[0], geoEntity);
   }
   
+  /**
+   * Initializes the tree by setting the GeoEntity with the
+   * given id as first node under the root.
+   */
+  function _initializeTree(treeId, selectCallback) {
+    var request = new Mojo.ClientRequest({
+      onSuccess : function(geoEntity){
+        // build tree
+        _renderTree(treeId, geoEntity, selectCallback);
+      },
+      onFailure : function(e){
+        alert(e.getLocalizedMessage());
+      }
+    });
+    
+    // Fetch the root node
+    Mojo.$.csu.mrc.ivcc.mdss.geo.generated.GeoEntity.get(request, MDSS.GeoTreeRootId);
+  }
+  
   // return all public methods/properties
   return {
     initializeTree : _initializeTree,
-    getGeoEntity : _getGeoEntity
+    getGeoEntity : _getGeoEntity,
+    destroyAll : _destroyAll
   };
 })();
