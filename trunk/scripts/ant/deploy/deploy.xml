@@ -6,7 +6,7 @@
 	<!-- =================================================================== -->
 
 
-	<property name="profile.root" value="/home/jsmethie/workspace/MDSS/profiles" />
+	<property name="profile.root" value="../../../profiles" />
 	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties"
 		classpath="${profile.root};tfprops.jar" />
 	<tfproperties root="${profile.root}"/>
