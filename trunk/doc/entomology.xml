@@ -1,5 +1,5 @@
 <TerraFrame
-  xsi:noNamespaceSchemaLocation="file:/Users/justin/workspace/MDSS2/profiles/datatype.xsd"
+  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/profiles/datatype.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <create>
     <!-- DUMMY DEFITION FOR GEO ENTITIES -->
@@ -66,25 +66,25 @@
         static="false"
         returnType="csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery">
       </mdMethod>
-       <mdMethod
-          name="applyWithParentGeoEntity"
-          label="Apply Within GeoEntity"
-          description="Applies GeoEntity as being located within another GeoEntity."
-          returnType="java.lang.String[]"
-          static="false">
-          <mdParameter
-            name="parentGeoEntityId"
-            label="Parent GeoEntity Id"
-            description="The id of the GeoEntity that will be the parent of this GeoEntity"
-            type="java.lang.String"
-            order="0"/>
-          <mdParameter
-            name="cloneOperation"
-            label="Clone Operation"
-            description="Denotes if this GeoEntity is being cloned to another parent."
-            order="1"
-            type="java.lang.Boolean" />
-        </mdMethod>
+      <mdMethod
+        name="applyWithParentGeoEntity"
+        label="Apply Within GeoEntity"
+        description="Applies GeoEntity as being located within another GeoEntity."
+        returnType="java.lang.String[]"
+        static="false">
+        <mdParameter
+          name="parentGeoEntityId"
+          label="Parent GeoEntity Id"
+          description="The id of the GeoEntity that will be the parent of this GeoEntity"
+          type="java.lang.String"
+          order="0" />
+        <mdParameter
+          name="cloneOperation"
+          label="Clone Operation"
+          description="Denotes if this GeoEntity is being cloned to another parent."
+          order="1"
+          type="java.lang.Boolean" />
+      </mdMethod>
     </mdBusiness>
 
     <mdBusiness
@@ -296,36 +296,36 @@
       name="csu.mrc.ivcc.mdss.geo.GeoEntityTreeController"
       label="GeoEntity Tree Controller"
       description="GeoEntity Tree Controller">
-        <mdAction
-          name="displayTree"
-          label="Display Tree"
-          description="Displays the GeoEntity tree."
-          isPost="false">
-          <mdParameter
-            name="rootGeoEntityId"
-            label="Root GeoEntity Id"
-            description="The id of the GeoEntity that will be the root of the tree"
-            order="0"
-            type="java.lang.String" />
-        </mdAction>
-        <mdAction
-          name="confirmChangeParent"
-          label="Confirm Change Parent"
-          description="Confirm action to change an entity's parent."
-          isPost="false">
-          <mdParameter
-            name="childId"
-            label="Child Id"
-            description="Child Id"
-            order="0"
-            type="java.lang.String" />
-          <mdParameter
-            name="parentId"
-            label="Parent Id"
-            description="Parent Id"
-            order="1"
-            type="java.lang.String" />
-        </mdAction>
+      <mdAction
+        name="displayTree"
+        label="Display Tree"
+        description="Displays the GeoEntity tree."
+        isPost="false">
+        <mdParameter
+          name="rootGeoEntityId"
+          label="Root GeoEntity Id"
+          description="The id of the GeoEntity that will be the root of the tree"
+          order="0"
+          type="java.lang.String" />
+      </mdAction>
+      <mdAction
+        name="confirmChangeParent"
+        label="Confirm Change Parent"
+        description="Confirm action to change an entity's parent."
+        isPost="false">
+        <mdParameter
+          name="childId"
+          label="Child Id"
+          description="Child Id"
+          order="0"
+          type="java.lang.String" />
+        <mdParameter
+          name="parentId"
+          label="Parent Id"
+          description="Parent Id"
+          order="1"
+          type="java.lang.String" />
+      </mdAction>
     </mdController>
 
     <mdController
@@ -483,7 +483,6 @@
         returnType="com.terraframe.mojo.system.metadata.MdClassQuery">
       </mdMethod>
     </mdBusiness>
-
     <mdBusiness
       removable="true"
       isAbstract="true"
@@ -594,6 +593,28 @@
       </mdMethod>
     </mdBusiness>
 
+    <mdView
+      name="csu.mrc.ivcc.mdss.export.entomology.MosquitoCollectionView"
+      label="Mosquito Collection View"
+      description="View for importing/exporting human readable mosquito collections">
+      <attributes>
+        <char
+          name="collectionMethod"
+          label="Collection Method"
+          required="true"
+          size="255" />
+        <date
+          name="dateCollected"
+          label="Date Collected"
+          required="true" />
+        <char
+          name="geoEntity"
+          required="true"
+          label="Geo Entity"
+          size="6" />
+      </attributes>
+    </mdView>
+
     <mdException
       name="csu.mrc.ivcc.mdss.entomology.InvalidMosquitoCollectionGeoEntityException"
       label="Invalid Mosquito Collection"
@@ -697,7 +718,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       ]]>
       </messages>
     </mdException>
-    
+
     <mdException
       name="csu.mrc.ivcc.mdss.geo.ConfirmParentChangeException"
       label="Confirmation Parent Change Exception"
@@ -1105,14 +1126,27 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           description="If the MO term is enabled" />
       </attributes>
       <mdMethod
-        name="find"
-        label="Find"
+        name="searchByTermId"
+        label="Search by Term Id"
         returnType="csu.mrc.ivcc.mdss.mo.AbstractTerm"
         description="Returns the MO term with the corresponding MO id"
         static="true">
         <mdParameter
           name="moId"
           description="The MO id"
+          label="MO Id"
+          order="0"
+          type="java.lang.String" />
+      </mdMethod>
+      <mdMethod
+        name="searchByTermName"
+        label="Search by Term Name"
+        returnType="csu.mrc.ivcc.mdss.mo.AbstractTerm"
+        description="Returns the MO term with the corresponding MO term name"
+        static="true">
+        <mdParameter
+          name="termName"
+          description="The Mo Term Name"
           label="MO Id"
           order="0"
           type="java.lang.String" />
@@ -2988,6 +3022,27 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           type="csu.mrc.ivcc.mdss.entomology.MosquitoView[]" />
       </mdMethod>
     </mdView>
+  </create>
+
+  <create>
+    <mdController
+      name="csu.mrc.ivcc.mdss.report.ReportController"
+      label="Report Controller"
+      description="Dynamic report controller">
+      <mdAction
+        name="report"
+        isPost="false"
+        isQuery="false"
+        label="Runs a report"
+        description="Runs a report from the server">
+        <mdParameter
+          name="reportName"
+          order="0"
+          type="java.lang.String"
+          description="The name of the report"
+          label="Report Name" />
+      </mdAction>
+    </mdController>
   </create>
 
 
@@ -8248,9 +8303,15 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </relationship>
 
   </create>
+    
   <update>
-  <object key="com.terraframe.mojo.system.Users.SYSTEM" type="com.terraframe.mojo.system.Users" id="SystemUser">  
-    <valueAttribute name="sessionLimit" value="10" />
-     </object>
-   </update>  
+    <object
+      key="com.terraframe.mojo.system.Users.SYSTEM"
+      type="com.terraframe.mojo.system.Users"
+      id="SystemUser">
+      <valueAttribute
+        name="sessionLimit"
+        value="10" />
+    </object>
+  </update>
 </TerraFrame>
