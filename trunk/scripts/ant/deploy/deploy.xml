@@ -6,7 +6,7 @@
 	<!-- =================================================================== -->
 
 
-	<property name="profile.root" value="/Users/dt/workspace/MDSS/profiles" />
+	<property name="profile.root" value="/home/jsmethie/workspace/MDSS/profiles" />
 	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties"
 		classpath="${profile.root};tfprops.jar" />
 	<tfproperties root="${profile.root}"/>
@@ -149,6 +149,15 @@
 			</classpath>
 		</java>
 	</target>
+	
+	<target name="update_db_s_c_and_deploy" depends="update_db_source_and_classes">
+		<java classname="csu.mrc.ivcc.mdss.global.UpdateUtility" failonerror="true">
+			<arg value="${export.package}" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+		</java>
+	</target>
 
 	<target name="update_deploy_source">
 		<!-- Update the database with the new sources and classes -->
@@ -223,6 +232,7 @@
 				<include name="js/*.js" />
 				<include name="js/yui/**" />
 				<include name="**/*.css" />
+				<include name="reports/**" />
 				<include name="imgs/**" />
 			</fileset>
 		</copy>
@@ -239,6 +249,10 @@
 
 		<copy todir="${deploy.webinf}/tlds" overwrite="true" verbose="true">
 			<fileset dir="${webapp.root}/WEB-INF/tlds" />
+		</copy>
+		
+		<copy todir="${deploy.webinf}/platform" overwrite="true" verbose="true">
+			<fileset dir="${webapp.root}/WEB-INF/platform" />
 		</copy>
 
 		<!-- create the META-INF dir -->
