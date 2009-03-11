@@ -29,9 +29,10 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="csu.mrc.ivcc.mdss.PropertyController.view.mojax" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
-        </mjl:commandLink>
+        <mjl:form name="csu.mrc.ivcc.mdss.Property.form.name" id="csu.mrc.ivcc.mdss.Property.form.id" method="POST">
+          <mjl:input value="${item.id}" type="hidden" param="id" />
+        <mjl:command value="Edit" action="csu.mrc.ivcc.mdss.PropertyController.edit.mojo" name="csu.mrc.ivcc.mdss.Property.form.edit.button" classes="submitButton"/>
+        </mjl:form>
       </mjl:row>
       <mjl:footer>
         
