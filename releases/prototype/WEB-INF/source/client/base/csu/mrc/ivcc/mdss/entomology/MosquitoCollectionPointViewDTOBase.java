@@ -57,7 +57,14 @@ public abstract class MosquitoCollectionPointViewDTOBase extends com.terraframe.
   
   public csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollectionDTO getCompositeCollection()
   {
-    return csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollectionDTO.get(getRequest(), getValue(COMPOSITECOLLECTION));
+    if(getValue(COMPOSITECOLLECTION) == null || getValue(COMPOSITECOLLECTION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollectionDTO.get(getRequest(), getValue(COMPOSITECOLLECTION));
+    }
   }
   
   public void setCompositeCollection(csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollectionDTO value)
@@ -124,7 +131,14 @@ public abstract class MosquitoCollectionPointViewDTOBase extends com.terraframe.
   
   public csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO getGeoEntity()
   {
-    return csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
+    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
+    }
   }
   
   public void setGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO value)

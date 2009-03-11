@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.biochemical;
 
 public abstract class BiochemicalAssayTestResultDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.AssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612264042L;
+  private static final long serialVersionUID = 1236803161873L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult";
   protected BiochemicalAssayTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -29,7 +29,14 @@ public abstract class BiochemicalAssayTestResultDTOBase extends csu.mrc.ivcc.mds
   public static java.lang.String TESTMETHOD = "testMethod";
   public csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO getTestMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(TESTMETHOD));
+    if(getValue(TESTMETHOD) == null || getValue(TESTMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(TESTMETHOD));
+    }
   }
   
   public void setTestMethod(csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO value)

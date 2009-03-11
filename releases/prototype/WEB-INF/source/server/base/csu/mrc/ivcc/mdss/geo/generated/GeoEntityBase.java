@@ -25,7 +25,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236612257321L;
+  private static final long serialVersionUID = 1236803155591L;
   
   public GeoEntityBase()
   {
@@ -379,58 +379,58 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     return query;
   }
   
-  public csu.mrc.ivcc.mdss.geo.LocatedIn addLocatedInGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
+  public csu.mrc.ivcc.mdss.geo.LocatedIn addContainsGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
   {
     return (csu.mrc.ivcc.mdss.geo.LocatedIn) addChild(geoEntity, csu.mrc.ivcc.mdss.geo.LocatedIn.CLASS);
   }
   
-  public void removeLocatedInGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
+  public void removeContainsGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
   {
     removeAllChildren(geoEntity, csu.mrc.ivcc.mdss.geo.LocatedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity> getAllLocatedInGeoEntity()
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity> getAllContainsGeoEntity()
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity>) getChildren(csu.mrc.ivcc.mdss.geo.LocatedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn> getAllLocatedInGeoEntityRel()
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn> getAllContainsGeoEntityRel()
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn>) getChildRelationships(csu.mrc.ivcc.mdss.geo.LocatedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn> getLocatedInGeoEntityRel(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn> getContainsGeoEntityRel(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn>) getRelationshipsWithChild(geoEntity, csu.mrc.ivcc.mdss.geo.LocatedIn.CLASS);
   }
   
-  public csu.mrc.ivcc.mdss.geo.LocatedIn addContainsGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
+  public csu.mrc.ivcc.mdss.geo.LocatedIn addLocatedInGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
   {
     return (csu.mrc.ivcc.mdss.geo.LocatedIn) addParent(geoEntity, csu.mrc.ivcc.mdss.geo.LocatedIn.CLASS);
   }
   
-  public void removeContainsGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
+  public void removeLocatedInGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
   {
     removeAllParents(geoEntity, csu.mrc.ivcc.mdss.geo.LocatedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity> getAllContainsGeoEntity()
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity> getAllLocatedInGeoEntity()
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity>) getParents(csu.mrc.ivcc.mdss.geo.LocatedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn> getAllContainsGeoEntityRel()
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn> getAllLocatedInGeoEntityRel()
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn>) getParentRelationships(csu.mrc.ivcc.mdss.geo.LocatedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn> getContainsGeoEntityRel(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn> getLocatedInGeoEntityRel(csu.mrc.ivcc.mdss.geo.generated.GeoEntity geoEntity)
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.LocatedIn>) getRelationshipsWithParent(geoEntity, csu.mrc.ivcc.mdss.geo.LocatedIn.CLASS);
   }
@@ -440,9 +440,30 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     return (GeoEntity) com.terraframe.mojo.business.Business.get(id);
   }
   
+  public java.lang.String[] updateFromTree()
+  {
+    return null;
+  }
+  
+  public static final java.lang.String[] updateFromTree(java.lang.String id)
+  {
+    GeoEntity _instance = GeoEntity.get(id);
+    return _instance.updateFromTree();
+  }
+  
   public static csu.mrc.ivcc.mdss.geo.generated.GeoEntity searchByGeoId(java.lang.String geoId)
   {
     return null;
+  }
+  
+  public void confirmChangeParent(java.lang.String parentId)
+  {
+  }
+  
+  public static final void confirmChangeParent(java.lang.String id, java.lang.String parentId)
+  {
+    GeoEntity _instance = GeoEntity.get(id);
+    _instance.confirmChangeParent(parentId);
   }
   
   public csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery getOrderedChildEntities()
@@ -456,14 +477,15 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     return _instance.getOrderedChildEntities();
   }
   
-  public void applyWithParentGeoEntity(java.lang.String parentGeoEntityId)
+  public java.lang.String[] applyWithParentGeoEntity(java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
   {
+    return null;
   }
   
-  public static final void applyWithParentGeoEntity(java.lang.String id, java.lang.String parentGeoEntityId)
+  public static final java.lang.String[] applyWithParentGeoEntity(java.lang.String id, java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
   {
     GeoEntity _instance = GeoEntity.get(id);
-    _instance.applyWithParentGeoEntity(parentGeoEntityId);
+    return _instance.applyWithParentGeoEntity(parentGeoEntityId, cloneOperation);
   }
   
   public static GeoEntity lock(java.lang.String id)

@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class ADDATestIntervalDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612266699L;
+  private static final long serialVersionUID = 1236803164375L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval";
   protected ADDATestIntervalDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -43,7 +43,14 @@ public abstract class ADDATestIntervalDTOBase extends com.terraframe.mojo.busine
   public static java.lang.String TYPE = "type";
   public csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO getAssay()
   {
-    return csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.get(getRequest(), getValue(ASSAY));
+    if(getValue(ASSAY) == null || getValue(ASSAY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.get(getRequest(), getValue(ASSAY));
+    }
   }
   
   public void setAssay(csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO value)
@@ -98,7 +105,14 @@ public abstract class ADDATestIntervalDTOBase extends com.terraframe.mojo.busine
   
   public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
   {
-    return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+    if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+    }
   }
   
   public boolean isCreatedByWritable()
@@ -123,7 +137,14 @@ public abstract class ADDATestIntervalDTOBase extends com.terraframe.mojo.busine
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
   {
-    return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+    if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+    }
   }
   
   public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
@@ -240,7 +261,14 @@ public abstract class ADDATestIntervalDTOBase extends com.terraframe.mojo.busine
   
   public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
   {
-    return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+    if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+    }
   }
   
   public boolean isLastUpdatedByWritable()
@@ -265,7 +293,14 @@ public abstract class ADDATestIntervalDTOBase extends com.terraframe.mojo.busine
   
   public com.terraframe.mojo.system.UsersDTO getLockedBy()
   {
-    return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+    if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+    }
   }
   
   public boolean isLockedByWritable()
@@ -290,7 +325,14 @@ public abstract class ADDATestIntervalDTOBase extends com.terraframe.mojo.busine
   
   public com.terraframe.mojo.system.ActorDTO getOwner()
   {
-    return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+    if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+    }
   }
   
   public void setOwner(com.terraframe.mojo.system.ActorDTO value)

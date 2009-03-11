@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public abstract class BreedingSiteBase extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.BreedingSite";
-  private static final long serialVersionUID = 1236612278947L;
+  private static final long serialVersionUID = 1236803176479L;
   
   public BreedingSiteBase()
   {

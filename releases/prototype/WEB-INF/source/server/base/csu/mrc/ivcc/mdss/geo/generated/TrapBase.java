@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public abstract class TrapBase extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.Trap";
-  private static final long serialVersionUID = 1236612279314L;
+  private static final long serialVersionUID = 1236803176818L;
   
   public TrapBase()
   {

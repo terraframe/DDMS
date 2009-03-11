@@ -11,7 +11,7 @@ public abstract class AEsteraseTestResultBase extends csu.mrc.ivcc.mdss.entomolo
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.biochemical.AEsteraseTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1236612269314L;
+  private static final long serialVersionUID = 1236803168146L;
   
   public AEsteraseTestResultBase()
   {

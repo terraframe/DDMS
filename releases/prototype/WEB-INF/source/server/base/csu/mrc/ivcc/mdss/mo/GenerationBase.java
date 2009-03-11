@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public abstract class GenerationBase extends csu.mrc.ivcc.mdss.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.Generation";
-  private static final long serialVersionUID = 1236612268196L;
+  private static final long serialVersionUID = 1236803167148L;
   
   public GenerationBase()
   {

@@ -26,27 +26,11 @@
     </dd>
     <dt>
       <label>
-        ${item.propertyPackageMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.propertyPackage}
-    </dd>
-    <dt>
-      <label>
         ${item.propertyTypeMd.displayLabel}
       </label>
     </dt>
     <dd>
       ${item.propertyType}
-    </dd>
-    <dt>
-      <label>
-        ${item.propertyValidatorMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.propertyValidator}
     </dd>
     <dt>
       <label>
@@ -57,8 +41,7 @@
       ${item.propertyValue}
     </dd>
   </dl>
-  <br>
-
+ 
 <div class="fcTopLeft"></div></div>
     <div class="fcBottom"><div class="fcBottomLeft"></div></div>
 </div>

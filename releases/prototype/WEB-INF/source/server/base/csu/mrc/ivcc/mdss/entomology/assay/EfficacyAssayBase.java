@@ -19,7 +19,7 @@ public abstract class EfficacyAssayBase extends csu.mrc.ivcc.mdss.entomology.ass
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
   public static java.lang.String SURFACEPOSTION = "surfacePostion";
-  private static final long serialVersionUID = 1236612278146L;
+  private static final long serialVersionUID = 1236803175671L;
   
   public EfficacyAssayBase()
   {

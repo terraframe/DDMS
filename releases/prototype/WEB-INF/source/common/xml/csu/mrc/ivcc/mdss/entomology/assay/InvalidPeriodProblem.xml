@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../../../exceptions.xsd"
     - {intervalId} Interval Id
     - {period} Period
     -->
-  <locale language="en">Replace this with your customized error message.</locale>
+  <locale language="en">The test period [{period}] is invalid</locale>
 </exception>

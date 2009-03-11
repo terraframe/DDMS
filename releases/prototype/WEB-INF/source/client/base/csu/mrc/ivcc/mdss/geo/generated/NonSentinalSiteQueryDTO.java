@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public class NonSentinalSiteQueryDTO extends csu.mrc.ivcc.mdss.geo.generated.AbstractSiteQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236612278033L;
+private static final long serialVersionUID = 1236803175659L;
 
   protected NonSentinalSiteQueryDTO(String type)
   {

@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class AdultAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612258187L;
+  private static final long serialVersionUID = 1236803156302L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.AdultAssay";
   protected AdultAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -133,7 +133,14 @@ public abstract class AdultAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.ass
   
   public csu.mrc.ivcc.mdss.mo.GenerationDTO getGeneration()
   {
-    return csu.mrc.ivcc.mdss.mo.GenerationDTO.get(getRequest(), getValue(GENERATION));
+    if(getValue(GENERATION) == null || getValue(GENERATION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.GenerationDTO.get(getRequest(), getValue(GENERATION));
+    }
   }
   
   public void setGeneration(csu.mrc.ivcc.mdss.mo.GenerationDTO value)

@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public class AdultDiscriminatingDoseAssayQueryDTO extends csu.mrc.ivcc.mdss.entomology.assay.InsecticideAssayQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236612274965L;
+private static final long serialVersionUID = 1236803172428L;
 
   protected AdultDiscriminatingDoseAssayQueryDTO(String type)
   {

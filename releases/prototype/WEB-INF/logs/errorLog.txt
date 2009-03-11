@@ -9,3 +9,11 @@
 2009-03-06 23:06:55  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
 2009-03-06 23:06:56  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
 2009-03-07 14:37:16  FATAL: terminating connection due to administrator command
+2009-03-11 13:59:53  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2009-03-11 13:59:53  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2009-03-11 13:59:53  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2009-03-11 13:59:54  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2009-03-11 14:01:00  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2009-03-11 14:01:00  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2009-03-11 14:01:00  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2009-03-11 14:01:01  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.

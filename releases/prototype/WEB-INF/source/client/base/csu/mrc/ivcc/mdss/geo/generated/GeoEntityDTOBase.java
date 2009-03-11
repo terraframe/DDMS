@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612257388L;
+  private static final long serialVersionUID = 1236803155674L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.GeoEntity";
   protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -105,7 +105,14 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   
   public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
   {
-    return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+    if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+    }
   }
   
   public boolean isCreatedByWritable()
@@ -130,7 +137,14 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
   {
-    return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+    if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+    }
   }
   
   public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
@@ -284,7 +298,14 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   
   public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
   {
-    return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+    if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+    }
   }
   
   public boolean isLastUpdatedByWritable()
@@ -309,7 +330,14 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   
   public com.terraframe.mojo.system.UsersDTO getLockedBy()
   {
-    return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+    if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+    }
   }
   
   public boolean isLockedByWritable()
@@ -334,7 +362,14 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   
   public com.terraframe.mojo.system.ActorDTO getOwner()
   {
-    return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+    if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+    }
   }
   
   public void setOwner(com.terraframe.mojo.system.ActorDTO value)
@@ -412,12 +447,44 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("siteMaster").getAttributeMdDTO();
   }
   
+  public final java.lang.String[] updateFromTree()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "updateFromTree", _declaredTypes);
+    return (java.lang.String[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.String[] updateFromTree(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "updateFromTree", _declaredTypes);
+    return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO searchByGeoId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{geoId};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "searchByGeoId", _declaredTypes);
     return (csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final void confirmChangeParent(java.lang.String parentId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{parentId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "confirmChangeParent", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void confirmChangeParent(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, parentId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "confirmChangeParent", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO getOrderedChildEntities()
@@ -436,126 +503,126 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     return (csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final void applyWithParentGeoEntity(java.lang.String parentGeoEntityId)
+  public final java.lang.String[] applyWithParentGeoEntity(java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{parentGeoEntityId};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{parentGeoEntityId, cloneOperation};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "applyWithParentGeoEntity", _declaredTypes);
-    getRequest().invokeMethod(_metadata, this, _parameters);
+    return (java.lang.String[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyWithParentGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentGeoEntityId)
+  public static final java.lang.String[] applyWithParentGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{id, parentGeoEntityId};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{id, parentGeoEntityId, cloneOperation};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "applyWithParentGeoEntity", _declaredTypes);
-    clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO> getAllLocatedInGeoEntity()
-  {
-    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO>) getRequest().getChildren(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO> getAllLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO>) clientRequestIF.getChildren(id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO> getAllLocatedInGeoEntityRelationships()
-  {
-    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO>) getRequest().getChildRelationships(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO> getAllLocatedInGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO>) clientRequestIF.getChildRelationships(id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
-  }
-  
-  public csu.mrc.ivcc.mdss.geo.LocatedInDTO addLocatedInGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO child)
-  {
-    return (csu.mrc.ivcc.mdss.geo.LocatedInDTO) getRequest().addChild(this.getId(), child.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
-  }
-  
-  public static csu.mrc.ivcc.mdss.geo.LocatedInDTO addLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO child)
-  {
-    return (csu.mrc.ivcc.mdss.geo.LocatedInDTO) clientRequestIF.addChild(id, child.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
-  }
-  
-  public void removeLocatedInGeoEntity(csu.mrc.ivcc.mdss.geo.LocatedInDTO relationship)
-  {
-    getRequest().deleteChild(relationship.getId());
-  }
-  
-  public static void removeLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, csu.mrc.ivcc.mdss.geo.LocatedInDTO relationship)
-  {
-    clientRequestIF.deleteChild(relationship.getId());
-  }
-  
-  public void removeAllLocatedInGeoEntity()
-  {
-    getRequest().deleteChildren(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
-  }
-  
-  public static void removeAllLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    clientRequestIF.deleteChildren(id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+    return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO> getAllContainsGeoEntity()
   {
-    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO>) getRequest().getParents(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO>) getRequest().getChildren(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
   public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO> getAllContainsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO>) clientRequestIF.getParents(id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO>) clientRequestIF.getChildren(id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
   public java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO> getAllContainsGeoEntityRelationships()
   {
-    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO>) getRequest().getParentRelationships(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO>) getRequest().getChildRelationships(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
   public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO> getAllContainsGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
-    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO>) clientRequestIF.getParentRelationships(id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO>) clientRequestIF.getChildRelationships(id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
   }
   
-  public csu.mrc.ivcc.mdss.geo.LocatedInDTO addContainsGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO parent)
+  public csu.mrc.ivcc.mdss.geo.LocatedInDTO addContainsGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO child)
   {
-    return (csu.mrc.ivcc.mdss.geo.LocatedInDTO) getRequest().addParent(parent.getId(), this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+    return (csu.mrc.ivcc.mdss.geo.LocatedInDTO) getRequest().addChild(this.getId(), child.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
   }
   
-  public static csu.mrc.ivcc.mdss.geo.LocatedInDTO addContainsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO parent)
+  public static csu.mrc.ivcc.mdss.geo.LocatedInDTO addContainsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO child)
   {
-    return (csu.mrc.ivcc.mdss.geo.LocatedInDTO) clientRequestIF.addParent(parent.getId(), id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+    return (csu.mrc.ivcc.mdss.geo.LocatedInDTO) clientRequestIF.addChild(id, child.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
   }
   
   public void removeContainsGeoEntity(csu.mrc.ivcc.mdss.geo.LocatedInDTO relationship)
   {
-    getRequest().deleteParent(relationship.getId());
+    getRequest().deleteChild(relationship.getId());
   }
   
   public static void removeContainsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, csu.mrc.ivcc.mdss.geo.LocatedInDTO relationship)
   {
-    clientRequestIF.deleteParent(relationship.getId());
+    clientRequestIF.deleteChild(relationship.getId());
   }
   
   public void removeAllContainsGeoEntity()
   {
-    getRequest().deleteParents(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+    getRequest().deleteChildren(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
   }
   
   public static void removeAllContainsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteChildren(id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO> getAllLocatedInGeoEntity()
+  {
+    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO>) getRequest().getParents(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO> getAllLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO>) clientRequestIF.getParents(id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO> getAllLocatedInGeoEntityRelationships()
+  {
+    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO>) getRequest().getParentRelationships(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO> getAllLocatedInGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.LocatedInDTO>) clientRequestIF.getParentRelationships(id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+  }
+  
+  public csu.mrc.ivcc.mdss.geo.LocatedInDTO addLocatedInGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO parent)
+  {
+    return (csu.mrc.ivcc.mdss.geo.LocatedInDTO) getRequest().addParent(parent.getId(), this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+  }
+  
+  public static csu.mrc.ivcc.mdss.geo.LocatedInDTO addLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO parent)
+  {
+    return (csu.mrc.ivcc.mdss.geo.LocatedInDTO) clientRequestIF.addParent(parent.getId(), id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+  }
+  
+  public void removeLocatedInGeoEntity(csu.mrc.ivcc.mdss.geo.LocatedInDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, csu.mrc.ivcc.mdss.geo.LocatedInDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllLocatedInGeoEntity()
+  {
+    getRequest().deleteParents(this.getId(), csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
+  }
+  
+  public static void removeAllLocatedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, csu.mrc.ivcc.mdss.geo.LocatedInDTO.CLASS);
   }

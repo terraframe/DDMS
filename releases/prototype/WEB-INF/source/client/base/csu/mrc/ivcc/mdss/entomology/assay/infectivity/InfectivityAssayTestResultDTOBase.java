@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.infectivity;
 
 public abstract class InfectivityAssayTestResultDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.AssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612267998L;
+  private static final long serialVersionUID = 1236803166658L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult";
   protected InfectivityAssayTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -29,7 +29,14 @@ public abstract class InfectivityAssayTestResultDTOBase extends csu.mrc.ivcc.mds
   public static java.lang.String TESTMETHOD = "testMethod";
   public csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO getTestMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO.get(getRequest(), getValue(TESTMETHOD));
+    if(getValue(TESTMETHOD) == null || getValue(TESTMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO.get(getRequest(), getValue(TESTMETHOD));
+    }
   }
   
   public void setTestMethod(csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO value)

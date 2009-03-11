@@ -8,6 +8,67 @@
 <link rel="icon" type="image/png" href="/favicon.png"/>
 <title><f:message key="login"/></title>
 <jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />
+<style type="text/css">
+input[type="button"],input[type="submit"] {
+  display: inline;
+  background: F00;
+  height: 39px;
+  background-position: right top;
+  font-size: 18px;
+  font-weight: bold;
+  color: #FFFFFF;
+  line-height: 30px;
+  text-decoration: none;
+  margin-left: -13px;
+  text-shadow: 0 0 0 #000;
+  border-width: 0px;
+  width: 130px;
+  padding: 0px;
+  z-index: 3;
+  position: relative;
+  top: -25px;
+}
+.submitButton:hover {
+  background-image: url(/MDSS/imgs/submitButtonBackOver.gif);
+}
+
+.submitButton {
+  display: inline;
+  background-image: url(/MDSS/imgs/submitButtonBack.gif);
+  background-repeat: repeat-x;
+  height: 39px;
+  background-position: right top;
+  font-size: 18px;
+  font-weight: bold;
+  color: #FFFFFF;
+  line-height: 60px;
+  text-decoration: none;
+  margin-left: -13px;
+  text-shadow: 0 0 0 #000;
+}
+
+input[type="button"]:hover {
+  border:0px
+}
+input[type="button"]:active {
+  border:0px
+}
+
+.submitButton:hover {
+  background-image: url(/MDSS/imgs/submitButtonBackOver.gif);
+}
+
+.submitButton_bl {
+  width: 24px;
+  background-image: url(/MDSS/imgs/submitButtonLeft.gif);
+  height: 39px;
+  float: left;
+  z-index: 4;
+  position: relative;
+  left: 11px;
+  top: -25px;
+}
+</style>
 </head>
 <body class="yui-skin-sam">
 

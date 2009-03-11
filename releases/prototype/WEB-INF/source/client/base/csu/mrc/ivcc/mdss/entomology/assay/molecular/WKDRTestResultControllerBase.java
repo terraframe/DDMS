@@ -9,7 +9,7 @@ public class WKDRTestResultControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236612276270L;
+  private static final long serialVersionUID = 1236803173845L;
   
   public WKDRTestResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

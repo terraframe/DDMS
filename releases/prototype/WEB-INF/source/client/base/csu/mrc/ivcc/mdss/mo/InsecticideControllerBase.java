@@ -9,7 +9,7 @@ public class InsecticideControllerBase implements com.terraframe.mojo.generation
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236612263656L;
+  private static final long serialVersionUID = 1236803161500L;
   
   public InsecticideControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

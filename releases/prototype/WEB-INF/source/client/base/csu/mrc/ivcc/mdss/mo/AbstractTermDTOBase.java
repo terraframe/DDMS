@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.mo;
 
 public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612254045L;
+  private static final long serialVersionUID = 1236803152360L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.AbstractTerm";
   protected AbstractTermDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -73,7 +73,14 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
   {
-    return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+    if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+    }
   }
   
   public boolean isCreatedByWritable()
@@ -209,7 +216,14 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
   {
-    return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+    if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+    }
   }
   
   public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
@@ -363,7 +377,14 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
   {
-    return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+    if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+    }
   }
   
   public boolean isLastUpdatedByWritable()
@@ -388,7 +409,14 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public com.terraframe.mojo.system.UsersDTO getLockedBy()
   {
-    return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+    if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+    }
   }
   
   public boolean isLockedByWritable()
@@ -450,7 +478,14 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public com.terraframe.mojo.system.ActorDTO getOwner()
   {
-    return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+    if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+    }
   }
   
   public void setOwner(com.terraframe.mojo.system.ActorDTO value)
@@ -602,11 +637,19 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("termName").getAttributeMdDTO();
   }
   
-  public static final csu.mrc.ivcc.mdss.mo.AbstractTermDTO find(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String moId)
+  public static final csu.mrc.ivcc.mdss.mo.AbstractTermDTO searchByTermId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String moId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{moId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.mo.AbstractTermDTO.CLASS, "find", _declaredTypes);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.mo.AbstractTermDTO.CLASS, "searchByTermId", _declaredTypes);
+    return (csu.mrc.ivcc.mdss.mo.AbstractTermDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final csu.mrc.ivcc.mdss.mo.AbstractTermDTO searchByTermName(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String termName)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{termName};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.mo.AbstractTermDTO.CLASS, "searchByTermName", _declaredTypes);
     return (csu.mrc.ivcc.mdss.mo.AbstractTermDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

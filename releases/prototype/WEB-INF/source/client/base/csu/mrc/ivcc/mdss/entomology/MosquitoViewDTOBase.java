@@ -89,7 +89,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO getAEsteraseMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(AESTERASEMETHOD));
+    if(getValue(AESTERASEMETHOD) == null || getValue(AESTERASEMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(AESTERASEMETHOD));
+    }
   }
   
   public void setAEsteraseMethod(csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO value)
@@ -119,7 +126,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO getAcHEBiochemical()
   {
-    return csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO.get(getRequest(), getValue(ACHEBIOCHEMICAL));
+    if(getValue(ACHEBIOCHEMICAL) == null || getValue(ACHEBIOCHEMICAL).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO.get(getRequest(), getValue(ACHEBIOCHEMICAL));
+    }
   }
   
   public void setAcHEBiochemical(csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO value)
@@ -149,7 +163,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO getAcHEBiochemicalMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(ACHEBIOCHEMICALMETHOD));
+    if(getValue(ACHEBIOCHEMICALMETHOD) == null || getValue(ACHEBIOCHEMICALMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(ACHEBIOCHEMICALMETHOD));
+    }
   }
   
   public void setAcHEBiochemicalMethod(csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO value)
@@ -179,7 +200,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO getAcHEMolecular()
   {
-    return csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO.get(getRequest(), getValue(ACHEMOLECULAR));
+    if(getValue(ACHEMOLECULAR) == null || getValue(ACHEMOLECULAR).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO.get(getRequest(), getValue(ACHEMOLECULAR));
+    }
   }
   
   public void setAcHEMolecular(csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO value)
@@ -209,7 +237,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO getAcHEMolecularMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(ACHEMOLECULARMETHOD));
+    if(getValue(ACHEMOLECULARMETHOD) == null || getValue(ACHEMOLECULARMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(ACHEMOLECULARMETHOD));
+    }
   }
   
   public void setAcHEMolecularMethod(csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO value)
@@ -276,7 +311,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO getBEsteraseMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(BESTERASEMETHOD));
+    if(getValue(BESTERASEMETHOD) == null || getValue(BESTERASEMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(BESTERASEMETHOD));
+    }
   }
   
   public void setBEsteraseMethod(csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO value)
@@ -306,7 +348,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO getCollection()
   {
-    return csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
+    if(getValue(COLLECTION) == null || getValue(COLLECTION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
+    }
   }
   
   public void setCollection(csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO value)
@@ -336,7 +385,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO getEKDR()
   {
-    return csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO.get(getRequest(), getValue(EKDR));
+    if(getValue(EKDR) == null || getValue(EKDR).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO.get(getRequest(), getValue(EKDR));
+    }
   }
   
   public void setEKDR(csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO value)
@@ -366,7 +422,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO getEKDRMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(EKDRMETHOD));
+    if(getValue(EKDRMETHOD) == null || getValue(EKDRMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(EKDRMETHOD));
+    }
   }
   
   public void setEKDRMethod(csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO value)
@@ -396,7 +459,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO getGABA()
   {
-    return csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO.get(getRequest(), getValue(GABA));
+    if(getValue(GABA) == null || getValue(GABA).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO.get(getRequest(), getValue(GABA));
+    }
   }
   
   public void setGABA(csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO value)
@@ -426,7 +496,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO getGABAMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(GABAMETHOD));
+    if(getValue(GABAMETHOD) == null || getValue(GABAMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(GABAMETHOD));
+    }
   }
   
   public void setGABAMethod(csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO value)
@@ -493,7 +570,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO getGSTMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(GSTMETHOD));
+    if(getValue(GSTMETHOD) == null || getValue(GSTMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(GSTMETHOD));
+    }
   }
   
   public void setGSTMethod(csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO value)
@@ -523,7 +607,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.GenerationDTO getGeneration()
   {
-    return csu.mrc.ivcc.mdss.mo.GenerationDTO.get(getRequest(), getValue(GENERATION));
+    if(getValue(GENERATION) == null || getValue(GENERATION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.GenerationDTO.get(getRequest(), getValue(GENERATION));
+    }
   }
   
   public void setGeneration(csu.mrc.ivcc.mdss.mo.GenerationDTO value)
@@ -553,7 +644,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO getIdentificationMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO.get(getRequest(), getValue(IDENTIFICATIONMETHOD));
+    if(getValue(IDENTIFICATIONMETHOD) == null || getValue(IDENTIFICATIONMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO.get(getRequest(), getValue(IDENTIFICATIONMETHOD));
+    }
   }
   
   public void setIdentificationMethod(csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO value)
@@ -657,7 +755,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO getMonooxygenaseMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(MONOOXYGENASEMETHOD));
+    if(getValue(MONOOXYGENASEMETHOD) == null || getValue(MONOOXYGENASEMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(MONOOXYGENASEMETHOD));
+    }
   }
   
   public void setMonooxygenaseMethod(csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO value)
@@ -761,7 +866,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO getPFalciparumMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO.get(getRequest(), getValue(PFALCIPARUMMETHOD));
+    if(getValue(PFALCIPARUMMETHOD) == null || getValue(PFALCIPARUMMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO.get(getRequest(), getValue(PFALCIPARUMMETHOD));
+    }
   }
   
   public void setPFalciparumMethod(csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO value)
@@ -828,7 +940,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO getPMalariaeMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO.get(getRequest(), getValue(PMALARIAEMETHOD));
+    if(getValue(PMALARIAEMETHOD) == null || getValue(PMALARIAEMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO.get(getRequest(), getValue(PMALARIAEMETHOD));
+    }
   }
   
   public void setPMalariaeMethod(csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO value)
@@ -895,7 +1014,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO getPNPAMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(PNPAMETHOD));
+    if(getValue(PNPAMETHOD) == null || getValue(PNPAMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(PNPAMETHOD));
+    }
   }
   
   public void setPNPAMethod(csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyDTO value)
@@ -962,7 +1088,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO getPOvaleMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO.get(getRequest(), getValue(POVALEMETHOD));
+    if(getValue(POVALEMETHOD) == null || getValue(POVALEMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO.get(getRequest(), getValue(POVALEMETHOD));
+    }
   }
   
   public void setPOvaleMethod(csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO value)
@@ -1029,7 +1162,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO getPVivaxMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO.get(getRequest(), getValue(PVIVAXMETHOD));
+    if(getValue(PVIVAXMETHOD) == null || getValue(PVIVAXMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO.get(getRequest(), getValue(PVIVAXMETHOD));
+    }
   }
   
   public void setPVivaxMethod(csu.mrc.ivcc.mdss.mo.InfectivityMethodologyDTO value)
@@ -1105,7 +1245,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.SpecieDTO getSpecie()
   {
-    return csu.mrc.ivcc.mdss.mo.SpecieDTO.get(getRequest(), getValue(SPECIE));
+    if(getValue(SPECIE) == null || getValue(SPECIE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.SpecieDTO.get(getRequest(), getValue(SPECIE));
+    }
   }
   
   public void setSpecie(csu.mrc.ivcc.mdss.mo.SpecieDTO value)
@@ -1172,7 +1319,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO getWKDR()
   {
-    return csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO.get(getRequest(), getValue(WKDR));
+    if(getValue(WKDR) == null || getValue(WKDR).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO.get(getRequest(), getValue(WKDR));
+    }
   }
   
   public void setWKDR(csu.mrc.ivcc.mdss.mo.MolecularAssayResultDTO value)
@@ -1202,7 +1356,14 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO getWKDRMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(WKDRMETHOD));
+    if(getValue(WKDRMETHOD) == null || getValue(WKDRMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(WKDRMETHOD));
+    }
   }
   
   public void setWKDRMethod(csu.mrc.ivcc.mdss.mo.InsecticideMethodologyDTO value)

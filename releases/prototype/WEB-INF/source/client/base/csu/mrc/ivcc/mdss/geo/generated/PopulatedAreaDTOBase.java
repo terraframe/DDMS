@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public abstract class PopulatedAreaDTOBase extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612262185L;
+  private static final long serialVersionUID = 1236803160048L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.PopulatedArea";
   protected PopulatedAreaDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

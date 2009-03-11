@@ -69,7 +69,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 <script type="text/javascript" src="js/Menu.js"></script>
 <script type="text/javascript" src="/MDSS/js/addCalendarWidgets.js"></script>
 <script type="text/javascript" src="js/dataTableWidget.js"></script>
-
+<script type="text/javascript" src="js/GeoEntityTree.js"></script>
 
 <!--  Stuff from the web designer  -->
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/reset-fonts-grids/reset-fonts-grids.css">

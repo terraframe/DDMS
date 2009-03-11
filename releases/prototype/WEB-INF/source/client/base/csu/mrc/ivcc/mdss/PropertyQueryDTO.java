@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss;
 public class PropertyQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236612256414L;
+private static final long serialVersionUID = 1236803154695L;
 
   protected PropertyQueryDTO(String type)
   {

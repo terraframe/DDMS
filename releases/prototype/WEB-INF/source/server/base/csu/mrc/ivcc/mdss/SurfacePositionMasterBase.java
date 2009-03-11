@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss;
 public abstract class SurfacePositionMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.SurfacePositionMaster";
-  private static final long serialVersionUID = 1236612271221L;
+  private static final long serialVersionUID = 1236803168974L;
   
   public SurfacePositionMasterBase()
   {

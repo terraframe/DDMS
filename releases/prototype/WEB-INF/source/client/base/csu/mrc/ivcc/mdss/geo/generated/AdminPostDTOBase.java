@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public abstract class AdminPostDTOBase extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612265862L;
+  private static final long serialVersionUID = 1236803163343L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.AdminPost";
   protected AdminPostDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

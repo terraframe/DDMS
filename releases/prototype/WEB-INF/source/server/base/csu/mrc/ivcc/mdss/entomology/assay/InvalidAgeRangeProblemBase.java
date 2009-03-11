@@ -13,7 +13,7 @@ public abstract class InvalidAgeRangeProblemBase extends com.terraframe.mojo.bus
   public static java.lang.String ENDPOINT = "endPoint";
   public static java.lang.String ID = "id";
   public static java.lang.String STARTPOINT = "startPoint";
-  private static final long serialVersionUID = 1236612277103L;
+  private static final long serialVersionUID = 1236803174646L;
   
   public InvalidAgeRangeProblemBase()
   {

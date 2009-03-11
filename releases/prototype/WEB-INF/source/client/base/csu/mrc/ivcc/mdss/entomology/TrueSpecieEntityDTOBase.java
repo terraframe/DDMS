@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology;
 
 public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612275655L;
+  private static final long serialVersionUID = 1236803173232L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity";
   protected TrueSpecieEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -43,7 +43,14 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
   public static java.lang.String TYPE = "type";
   public csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO getCollection()
   {
-    return csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
+    if(getValue(COLLECTION) == null || getValue(COLLECTION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
+    }
   }
   
   public void setCollection(csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO value)
@@ -98,7 +105,14 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
   
   public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
   {
-    return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+    if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+    }
   }
   
   public boolean isCreatedByWritable()
@@ -123,7 +137,14 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
   {
-    return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+    if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+    }
   }
   
   public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
@@ -153,7 +174,14 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
   
   public csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO getIdentificationMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO.get(getRequest(), getValue(IDENTIFICATIONMETHOD));
+    if(getValue(IDENTIFICATIONMETHOD) == null || getValue(IDENTIFICATIONMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO.get(getRequest(), getValue(IDENTIFICATIONMETHOD));
+    }
   }
   
   public void setIdentificationMethod(csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO value)
@@ -233,7 +261,14 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
   
   public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
   {
-    return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+    if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+    }
   }
   
   public boolean isLastUpdatedByWritable()
@@ -258,7 +293,14 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
   
   public com.terraframe.mojo.system.UsersDTO getLockedBy()
   {
-    return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+    if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+    }
   }
   
   public boolean isLockedByWritable()
@@ -283,7 +325,14 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
   
   public com.terraframe.mojo.system.ActorDTO getOwner()
   {
-    return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+    if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+    }
   }
   
   public void setOwner(com.terraframe.mojo.system.ActorDTO value)
@@ -363,7 +412,14 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
   
   public csu.mrc.ivcc.mdss.mo.SpecieDTO getSpecie()
   {
-    return csu.mrc.ivcc.mdss.mo.SpecieDTO.get(getRequest(), getValue(SPECIE));
+    if(getValue(SPECIE) == null || getValue(SPECIE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.SpecieDTO.get(getRequest(), getValue(SPECIE));
+    }
   }
   
   public void setSpecie(csu.mrc.ivcc.mdss.mo.SpecieDTO value)

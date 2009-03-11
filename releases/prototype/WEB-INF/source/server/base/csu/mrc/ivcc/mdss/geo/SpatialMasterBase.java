@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo;
 public abstract class SpatialMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.SpatialMaster";
-  private static final long serialVersionUID = 1236612259957L;
+  private static final long serialVersionUID = 1236803157929L;
   
   public SpatialMasterBase()
   {

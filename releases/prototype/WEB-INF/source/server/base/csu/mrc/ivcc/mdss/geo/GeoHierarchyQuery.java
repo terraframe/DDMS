@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo;
 public  class GeoHierarchyQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236612261876L;
+private static final long serialVersionUID = 1236803159727L;
 
   public GeoHierarchyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -258,90 +258,32 @@ private static final long serialVersionUID = 1236612261876L;
   }
 
 
-  public com.terraframe.mojo.query.Condition acceptsGeoEntity()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
-  {
-    return this.getBusinessQuery().isChildIn(allowedInQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(geoHierarchyQuery));
-
-    return this.getBusinessQuery().isChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
-  {
-    allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
-    return this.getBusinessQuery().isChildIn(allowedInQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
-  {
-    return this.getBusinessQuery().isNotChildIn(allowedInQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(geoHierarchyQuery));
-
-    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
-  {
-    allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
-    return this.getBusinessQuery().isNotChildIn(allowedInQuery);
-  }
-
-
   public com.terraframe.mojo.query.Condition allowedInGeoEntity()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
     com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
 
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
   public com.terraframe.mojo.query.Condition allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
   {
-    return this.getBusinessQuery().isParentIn(allowedInQuery);
+    return this.getBusinessQuery().isChildIn(allowedInQuery);
   }
 
   public com.terraframe.mojo.query.Condition allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
     com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(geoHierarchyQuery));
+    relationshipQuery.AND(relationshipQuery.hasParent(geoHierarchyQuery));
 
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
   }
 
   public com.terraframe.mojo.query.Condition allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
   {
-    allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
-    return this.getBusinessQuery().isParentIn(allowedInQuery);
+    allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
+    return this.getBusinessQuery().isChildIn(allowedInQuery);
   }
 
 
@@ -350,15 +292,73 @@ private static final long serialVersionUID = 1236612261876L;
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
     com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
 
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
   {
-    return this.getBusinessQuery().isNotParentIn(allowedInQuery);
+    return this.getBusinessQuery().isNotChildIn(allowedInQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoHierarchyQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
+    return this.getBusinessQuery().isNotChildIn(allowedInQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition acceptsGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.getBusinessQuery().isParentIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(geoHierarchyQuery));
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
+    return this.getBusinessQuery().isParentIn(allowedInQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn(allowedInQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
     com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
@@ -367,7 +367,7 @@ private static final long serialVersionUID = 1236612261876L;
     return this.getBusinessQuery().isNotParentIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
   {
     allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
     return this.getBusinessQuery().isNotParentIn(allowedInQuery);
@@ -415,30 +415,30 @@ private static final long serialVersionUID = 1236612261876L;
     public com.terraframe.mojo.query.BasicCondition NE(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy);
 
 
-  public com.terraframe.mojo.query.Condition allowedInGeoEntity();
-
-  public com.terraframe.mojo.query.Condition allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery);
-
-  public com.terraframe.mojo.query.Condition allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery);
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity();
-
-  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery);
-
-  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery);
-
-
   public com.terraframe.mojo.query.Condition acceptsGeoEntity();
+
   public com.terraframe.mojo.query.Condition acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery);
 
   public com.terraframe.mojo.query.Condition acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery);
 
 
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity();
+
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery);
 
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery);
+
+
+  public com.terraframe.mojo.query.Condition allowedInGeoEntity();
+  public com.terraframe.mojo.query.Condition allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery);
+
+  public com.terraframe.mojo.query.Condition allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery);
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity();
+  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery);
+
+  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery);
 
   }
 
@@ -450,7 +450,7 @@ private static final long serialVersionUID = 1236612261876L;
  implements GeoHierarchyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236612262032L;
+private static final long serialVersionUID = 1236803159884L;
 
   public GeoHierarchyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -624,75 +624,27 @@ private static final long serialVersionUID = 1236612262032L;
 
   }
 
-  public com.terraframe.mojo.query.Condition allowedInGeoEntity()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(geoHierarchyQuery));
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
-  {
-    allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
-    return this.isParentIn(allowedInQuery);
-  }
-
-
-  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity()
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
-  {
-    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(geoHierarchyQuery));
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
-  {
-    allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
-    return this.isNotParentIn(allowedInQuery);
-  }
-
-
   public com.terraframe.mojo.query.Condition acceptsGeoEntity()
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
     com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
 
-    return this.isChildIn(relationshipQuery);
+    return this.isParentIn(relationshipQuery);
   }
 
   public com.terraframe.mojo.query.Condition acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
     com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasParent(geoHierarchyQuery));
+    relationshipQuery.AND(relationshipQuery.hasChild(geoHierarchyQuery));
 
-    return this.isChildIn(relationshipQuery);
+    return this.isParentIn(relationshipQuery);
   }
 
   public com.terraframe.mojo.query.Condition acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
   {
-    allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
-    return this.isChildIn(allowedInQuery);
+    allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
+    return this.isParentIn(allowedInQuery);
   }
 
 
@@ -701,10 +653,58 @@ private static final long serialVersionUID = 1236612262032L;
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
     com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
 
-    return this.isNotChildIn(relationshipQuery);
+    return this.isNotParentIn(relationshipQuery);
   }
 
   public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(geoHierarchyQuery));
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasChild(geoHierarchyQuery));
+    return this.isNotParentIn(allowedInQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition allowedInGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoHierarchyQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
+  {
+    allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
+    return this.isChildIn(allowedInQuery);
+  }
+
+
+  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity()
+  {
+    com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery)
   {
     com.terraframe.mojo.query.QueryFactory queryFactory = this.getQueryFactory();
     com.terraframe.mojo.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
@@ -713,7 +713,7 @@ private static final long serialVersionUID = 1236612262032L;
     return this.isNotChildIn(relationshipQuery);
   }
 
-  public com.terraframe.mojo.query.Condition NOT_IN_acceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
+  public com.terraframe.mojo.query.Condition NOT_IN_allowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyQuery geoHierarchyQuery, csu.mrc.ivcc.mdss.geo.AllowedInQuery allowedInQuery)
   {
     allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
     return this.isNotChildIn(allowedInQuery);

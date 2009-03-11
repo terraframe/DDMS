@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class AdultDiscriminatingDoseAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.InsecticideAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612274702L;
+  private static final long serialVersionUID = 1236803172178L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay";
   protected AdultDiscriminatingDoseAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -35,7 +35,14 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends csu.mrc.ivcc.m
   public static java.lang.String QUANTITYLIVE = "quantityLive";
   public csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO getCollection()
   {
-    return csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
+    if(getValue(COLLECTION) == null || getValue(COLLECTION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
+    }
   }
   
   public void setCollection(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO value)

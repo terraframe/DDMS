@@ -9,7 +9,7 @@ public class IdentificationMethodControllerBase implements com.terraframe.mojo.g
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236612273042L;
+  private static final long serialVersionUID = 1236803170558L;
   
   public IdentificationMethodControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

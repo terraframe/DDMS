@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology;
 public class MorphologicalSpecieGroupViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236612272384L;
+private static final long serialVersionUID = 1236803170027L;
 
   protected MorphologicalSpecieGroupViewQueryDTO(String type)
   {

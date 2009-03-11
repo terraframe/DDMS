@@ -8,6 +8,9 @@ import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 
+import csu.mrc.ivcc.mdss.geo.GeoEntityTreeController;
+import csu.mrc.ivcc.mdss.geo.generated.CountryDTO;
+import csu.mrc.ivcc.mdss.geo.generated.CountryQueryDTO;
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO;
 import csu.mrc.ivcc.mdss.util.DateConverter;
 import csu.mrc.ivcc.mdss.util.ErrorUtility;
@@ -226,6 +229,12 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   
   public void search() throws java.io.IOException, javax.servlet.ServletException
   {
+    // The Country is the root id of the tree for searching
+    CountryQueryDTO query = CountryDTO.getAllInstances(this.getClientRequest(), CountryDTO.KEYNAME, true, 1, 1);
+    CountryDTO country = query.getResultSet().get(0); // There should always be one country
+    String rootGeoEntityId = country.getId();
+    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, rootGeoEntityId);
+    
     req.setAttribute("page_title", "Search For Mosquito Collections");
     render("searchComponent.jsp");
   }

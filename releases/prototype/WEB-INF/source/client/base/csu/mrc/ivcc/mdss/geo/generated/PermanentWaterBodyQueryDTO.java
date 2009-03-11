@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public class PermanentWaterBodyQueryDTO extends csu.mrc.ivcc.mdss.geo.generated.BreedingSiteQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236612267958L;
+private static final long serialVersionUID = 1236803166622L;
 
   protected PermanentWaterBodyQueryDTO(String type)
   {

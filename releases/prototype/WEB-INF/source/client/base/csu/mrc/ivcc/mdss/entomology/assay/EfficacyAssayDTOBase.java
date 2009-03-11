@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.AdultAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612278191L;
+  private static final long serialVersionUID = 1236803175709L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssay";
   protected EfficacyAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -74,7 +74,14 @@ public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.
   
   public csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO getGeoEntity()
   {
-    return csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
+    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
+    }
   }
   
   public void setGeoEntity(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO value)
@@ -141,7 +148,14 @@ public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.
   
   public csu.mrc.ivcc.mdss.mo.InsecticideDTO getInsecticide()
   {
-    return csu.mrc.ivcc.mdss.mo.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
+    if(getValue(INSECTICIDE) == null || getValue(INSECTICIDE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
+    }
   }
   
   public void setInsecticide(csu.mrc.ivcc.mdss.mo.InsecticideDTO value)

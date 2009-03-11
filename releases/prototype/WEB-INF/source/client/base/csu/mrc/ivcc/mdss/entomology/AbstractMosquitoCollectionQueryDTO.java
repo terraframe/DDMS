@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology;
 public class AbstractMosquitoCollectionQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236612268674L;
+private static final long serialVersionUID = 1236803167609L;
 
   protected AbstractMosquitoCollectionQueryDTO(String type)
   {

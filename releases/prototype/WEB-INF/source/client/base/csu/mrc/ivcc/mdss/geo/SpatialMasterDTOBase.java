@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo;
 
 public abstract class SpatialMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612259993L;
+  private static final long serialVersionUID = 1236803157981L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.SpatialMaster";
   protected SpatialMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

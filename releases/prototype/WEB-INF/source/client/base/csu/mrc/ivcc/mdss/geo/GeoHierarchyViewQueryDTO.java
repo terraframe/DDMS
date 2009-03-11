@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo;
 public class GeoHierarchyViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236612274441L;
+private static final long serialVersionUID = 1236803172089L;
 
   protected GeoHierarchyViewQueryDTO(String type)
   {

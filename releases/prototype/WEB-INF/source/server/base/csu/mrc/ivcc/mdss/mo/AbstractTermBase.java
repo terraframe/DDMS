@@ -30,7 +30,7 @@ public abstract class AbstractTermBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TERMNAME = "termName";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236612253960L;
+  private static final long serialVersionUID = 1236803152275L;
   
   public AbstractTermBase()
   {
@@ -529,7 +529,12 @@ public abstract class AbstractTermBase extends com.terraframe.mojo.business.Busi
     return (AbstractTerm) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public static csu.mrc.ivcc.mdss.mo.AbstractTerm find(java.lang.String moId)
+  public static csu.mrc.ivcc.mdss.mo.AbstractTerm searchByTermId(java.lang.String moId)
+  {
+    return null;
+  }
+  
+  public static csu.mrc.ivcc.mdss.mo.AbstractTerm searchByTermName(java.lang.String termName)
   {
     return null;
   }

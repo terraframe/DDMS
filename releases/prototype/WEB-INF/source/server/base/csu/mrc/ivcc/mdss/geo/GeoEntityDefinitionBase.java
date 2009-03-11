@@ -17,7 +17,7 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String SPATIALTYPE = "spatialType";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = 1236612272018L;
+  private static final long serialVersionUID = 1236803169713L;
   
   public GeoEntityDefinitionBase()
   {

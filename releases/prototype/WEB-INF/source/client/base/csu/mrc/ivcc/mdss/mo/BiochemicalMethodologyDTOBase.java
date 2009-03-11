@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.mo;
 
 public abstract class BiochemicalMethodologyDTOBase extends csu.mrc.ivcc.mdss.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612270400L;
+  private static final long serialVersionUID = 1236803168402L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.BiochemicalMethodology";
   protected BiochemicalMethodologyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

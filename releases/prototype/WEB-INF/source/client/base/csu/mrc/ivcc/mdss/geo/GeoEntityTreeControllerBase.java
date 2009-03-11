@@ -9,7 +9,7 @@ public class GeoEntityTreeControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236612265821L;
+  private static final long serialVersionUID = 1236803163536L;
   
   public GeoEntityTreeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -61,6 +61,34 @@ public class GeoEntityTreeControllerBase implements com.terraframe.mojo.generati
   public com.terraframe.mojo.ClientSession getClientSession()
   {
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId", post=false)
+  public void displayTree(java.lang.String rootGeoEntityId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTreeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTreeController.displayTree");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId", post=false)
+  public void failDisplayTree(java.lang.String rootGeoEntityId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTreeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTreeController.failDisplayTree");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:childId, java.lang.String:parentId", post=false)
+  public void confirmChangeParent(java.lang.String childId, java.lang.String parentId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTreeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTreeController.confirmChangeParent");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:childId, java.lang.String:parentId", post=false)
+  public void failConfirmChangeParent(java.lang.String childId, java.lang.String parentId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTreeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTreeController.failConfirmChangeParent");
   }
   
 }

@@ -9,7 +9,7 @@ public class ProvinceControllerBase implements com.terraframe.mojo.generation.lo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236612266059L;
+  private static final long serialVersionUID = 1236803163565L;
   
   public ProvinceControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology;
 
 public abstract class MosquitoCollectionPointDTOBase extends csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollectionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612270959L;
+  private static final long serialVersionUID = 1236803168717L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint";
   protected MosquitoCollectionPointDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -29,7 +29,14 @@ public abstract class MosquitoCollectionPointDTOBase extends csu.mrc.ivcc.mdss.e
   public static java.lang.String COMPOSITECOLLECTION = "compositeCollection";
   public csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollectionDTO getCompositeCollection()
   {
-    return csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollectionDTO.get(getRequest(), getValue(COMPOSITECOLLECTION));
+    if(getValue(COMPOSITECOLLECTION) == null || getValue(COMPOSITECOLLECTION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollectionDTO.get(getRequest(), getValue(COMPOSITECOLLECTION));
+    }
   }
   
   public void setCompositeCollection(csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollectionDTO value)

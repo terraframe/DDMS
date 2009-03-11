@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.util;
 
 public abstract class FacadeDTO extends FacadeDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1236581953273L;
+  private static final long serialVersionUID = 1236605586720L;
   
   public FacadeDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

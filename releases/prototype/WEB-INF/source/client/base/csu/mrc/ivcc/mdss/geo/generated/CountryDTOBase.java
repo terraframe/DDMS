@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public abstract class CountryDTOBase extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612276464L;
+  private static final long serialVersionUID = 1236803174018L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.Country";
   protected CountryDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

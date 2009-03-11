@@ -9,7 +9,7 @@ public class PVivaxTestResultControllerBase implements com.terraframe.mojo.gener
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236612267455L;
+  private static final long serialVersionUID = 1236803166334L;
   
   public PVivaxTestResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

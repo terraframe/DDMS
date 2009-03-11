@@ -11,7 +11,7 @@ public abstract class PVivaxTestResultBase extends csu.mrc.ivcc.mdss.entomology.
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.infectivity.PVivaxTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1236612274969L;
+  private static final long serialVersionUID = 1236803172639L;
   
   public PVivaxTestResultBase()
   {

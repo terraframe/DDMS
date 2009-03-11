@@ -9,7 +9,7 @@ public class EKDRTestResultControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236612273419L;
+  private static final long serialVersionUID = 1236803171027L;
   
   public EKDRTestResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

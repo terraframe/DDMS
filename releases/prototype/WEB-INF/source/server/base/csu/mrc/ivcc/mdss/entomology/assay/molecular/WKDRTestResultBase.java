@@ -11,7 +11,7 @@ public abstract class WKDRTestResultBase extends csu.mrc.ivcc.mdss.entomology.as
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.molecular.WKDRTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1236612269554L;
+  private static final long serialVersionUID = 1236803167927L;
   
   public WKDRTestResultBase()
   {

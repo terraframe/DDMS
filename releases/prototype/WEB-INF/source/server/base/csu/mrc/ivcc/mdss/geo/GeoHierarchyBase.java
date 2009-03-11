@@ -24,7 +24,7 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236612261712L;
+  private static final long serialVersionUID = 1236803159563L;
   
   public GeoHierarchyBase()
   {
@@ -357,58 +357,58 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
     return query;
   }
   
-  public csu.mrc.ivcc.mdss.geo.AllowedIn addAllowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
+  public csu.mrc.ivcc.mdss.geo.AllowedIn addAcceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
   {
     return (csu.mrc.ivcc.mdss.geo.AllowedIn) addChild(geoHierarchy, csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
   }
   
-  public void removeAllowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
+  public void removeAcceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
   {
     removeAllChildren(geoHierarchy, csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchy> getAllAllowedInGeoEntity()
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchy> getAllAcceptsGeoEntity()
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchy>) getChildren(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn> getAllAllowedInGeoEntityRel()
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn> getAllAcceptsGeoEntityRel()
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn>) getChildRelationships(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn> getAllowedInGeoEntityRel(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn> getAcceptsGeoEntityRel(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn>) getRelationshipsWithChild(geoHierarchy, csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
   }
   
-  public csu.mrc.ivcc.mdss.geo.AllowedIn addAcceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
+  public csu.mrc.ivcc.mdss.geo.AllowedIn addAllowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
   {
     return (csu.mrc.ivcc.mdss.geo.AllowedIn) addParent(geoHierarchy, csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
   }
   
-  public void removeAcceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
+  public void removeAllowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
   {
     removeAllParents(geoHierarchy, csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchy> getAllAcceptsGeoEntity()
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchy> getAllAllowedInGeoEntity()
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchy>) getParents(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn> getAllAcceptsGeoEntityRel()
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn> getAllAllowedInGeoEntityRel()
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn>) getParentRelationships(csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn> getAcceptsGeoEntityRel(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
+  public com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn> getAllowedInGeoEntityRel(csu.mrc.ivcc.mdss.geo.GeoHierarchy geoHierarchy)
   {
     return (com.terraframe.mojo.query.OIterator<? extends csu.mrc.ivcc.mdss.geo.AllowedIn>) getRelationshipsWithParent(geoHierarchy, csu.mrc.ivcc.mdss.geo.AllowedIn.CLASS);
   }

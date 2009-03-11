@@ -22,7 +22,7 @@ public abstract class FacadeBase extends com.terraframe.mojo.business.Business i
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236612277353L;
+  private static final long serialVersionUID = 1236803174907L;
   
   public FacadeBase()
   {

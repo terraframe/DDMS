@@ -51,7 +51,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       map.put("types", types);
       map.put("imports", new JSONArray(imports));
 
-      return map.toString();
+      return map.toString(4);
     }
     catch (JSONException e)
     {
@@ -83,7 +83,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
   }
   
   /**
-   * Recursive function
+   * Recursive function to build a tree structure denoting what GeoHierarchy types are allowed in
+   * one another.
    * 
    * @param types
    * @param imports
@@ -115,21 +116,28 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.terraframe.moj
       MdBusiness md = g.getGeoEntityClass();
       String type = md.getPackageName()+"."+md.getTypeName();
       
-      JSONObject typeAndLabel = new JSONObject();
-      typeAndLabel.put("type", type);
-      typeAndLabel.put("label", md.getDisplayLabel());
-      
-      allowed.put(typeAndLabel);
+      if(!md.getIsAbstract())
+      {
+        JSONObject typeAndLabel = new JSONObject();
+        typeAndLabel.put("type", type);
+        typeAndLabel.put("label", md.getDisplayLabel());
+        allowed.put(typeAndLabel);
+      }
       
       treeRecurse(types, imports, g);
     }
     
     MdBusiness md = geo.getGeoEntityClass();
-    String type = md.getPackageName()+"."+md.getTypeName();
-    types.put(type, allowed);
     
-    imports.add(type);
-    imports.add(type+"Controller");
+    // don't let the user define an abstract GeoEntity
+    if(!md.getIsAbstract())
+    {
+      String type = md.getPackageName()+"."+md.getTypeName();
+      types.put(type, allowed);
+    
+      imports.add(type);
+      imports.add(type+"Controller");
+    }
   }
   
   /**

@@ -11,7 +11,7 @@ public abstract class InvalidMorphologicalQuantityProblemBase extends com.terraf
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.InvalidMorphologicalQuantityProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1236612274036L;
+  private static final long serialVersionUID = 1236803171693L;
   
   public InvalidMorphologicalQuantityProblemBase()
   {

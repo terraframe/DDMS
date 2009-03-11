@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   <!--
     - {id} ID
     -->
-  <locale language="en">Replace this with your customized error message.</locale>
+  <locale language="en">A mosquito collection cannot have a morphological specie group with zero mosquitos.</locale>
 </exception>

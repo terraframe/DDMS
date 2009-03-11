@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo;
 
 public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612261797L;
+  private static final long serialVersionUID = 1236803159647L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.GeoHierarchy";
   protected GeoHierarchyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -67,7 +67,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   
   public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
   {
-    return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+    if(getValue(CREATEDBY) == null || getValue(CREATEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
+    }
   }
   
   public boolean isCreatedByWritable()
@@ -92,7 +99,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
   {
-    return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+    if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
+    }
   }
   
   public void setEntityDomain(com.terraframe.mojo.system.metadata.MdDomainDTO value)
@@ -122,7 +136,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   
   public com.terraframe.mojo.system.metadata.MdBusinessDTO getGeoEntityClass()
   {
-    return com.terraframe.mojo.system.metadata.MdBusinessDTO.get(getRequest(), getValue(GEOENTITYCLASS));
+    if(getValue(GEOENTITYCLASS) == null || getValue(GEOENTITYCLASS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.metadata.MdBusinessDTO.get(getRequest(), getValue(GEOENTITYCLASS));
+    }
   }
   
   public void setGeoEntityClass(com.terraframe.mojo.system.metadata.MdBusinessDTO value)
@@ -202,7 +223,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   
   public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
   {
-    return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+    if(getValue(LASTUPDATEDBY) == null || getValue(LASTUPDATEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.SingleActorDTO.get(getRequest(), getValue(LASTUPDATEDBY));
+    }
   }
   
   public boolean isLastUpdatedByWritable()
@@ -227,7 +255,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   
   public com.terraframe.mojo.system.UsersDTO getLockedBy()
   {
-    return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+    if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+    }
   }
   
   public boolean isLockedByWritable()
@@ -252,7 +287,14 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   
   public com.terraframe.mojo.system.ActorDTO getOwner()
   {
-    return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+    if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.terraframe.mojo.system.ActorDTO.get(getRequest(), getValue(OWNER));
+    }
   }
   
   public void setOwner(com.terraframe.mojo.system.ActorDTO value)
@@ -392,109 +434,109 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO> getAllAllowedInGeoEntity()
+  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO> getAllAcceptsGeoEntity()
   {
     return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO>) getRequest().getChildren(this.getId(), csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO> getAllAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO> getAllAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO>) clientRequestIF.getChildren(id, csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO> getAllAllowedInGeoEntityRelationships()
+  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO> getAllAcceptsGeoEntityRelationships()
   {
     return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO>) getRequest().getChildRelationships(this.getId(), csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO> getAllAllowedInGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO> getAllAcceptsGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO>) clientRequestIF.getChildRelationships(id, csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
-  public csu.mrc.ivcc.mdss.geo.AllowedInDTO addAllowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO child)
+  public csu.mrc.ivcc.mdss.geo.AllowedInDTO addAcceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO child)
   {
     return (csu.mrc.ivcc.mdss.geo.AllowedInDTO) getRequest().addChild(this.getId(), child.getId(), csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
-  public static csu.mrc.ivcc.mdss.geo.AllowedInDTO addAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO child)
+  public static csu.mrc.ivcc.mdss.geo.AllowedInDTO addAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO child)
   {
     return (csu.mrc.ivcc.mdss.geo.AllowedInDTO) clientRequestIF.addChild(id, child.getId(), csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
-  public void removeAllowedInGeoEntity(csu.mrc.ivcc.mdss.geo.AllowedInDTO relationship)
+  public void removeAcceptsGeoEntity(csu.mrc.ivcc.mdss.geo.AllowedInDTO relationship)
   {
     getRequest().deleteChild(relationship.getId());
   }
   
-  public static void removeAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, csu.mrc.ivcc.mdss.geo.AllowedInDTO relationship)
+  public static void removeAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, csu.mrc.ivcc.mdss.geo.AllowedInDTO relationship)
   {
     clientRequestIF.deleteChild(relationship.getId());
   }
   
-  public void removeAllAllowedInGeoEntity()
+  public void removeAllAcceptsGeoEntity()
   {
     getRequest().deleteChildren(this.getId(), csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
-  public static void removeAllAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO> getAllAcceptsGeoEntity()
+  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO> getAllAllowedInGeoEntity()
   {
     return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO>) getRequest().getParents(this.getId(), csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO> getAllAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO> getAllAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO>) clientRequestIF.getParents(id, csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO> getAllAcceptsGeoEntityRelationships()
+  public java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO> getAllAllowedInGeoEntityRelationships()
   {
     return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO>) getRequest().getParentRelationships(this.getId(), csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")
-  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO> getAllAcceptsGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO> getAllAllowedInGeoEntityRelationships(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
     return (java.util.List<? extends csu.mrc.ivcc.mdss.geo.AllowedInDTO>) clientRequestIF.getParentRelationships(id, csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
-  public csu.mrc.ivcc.mdss.geo.AllowedInDTO addAcceptsGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO parent)
+  public csu.mrc.ivcc.mdss.geo.AllowedInDTO addAllowedInGeoEntity(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO parent)
   {
     return (csu.mrc.ivcc.mdss.geo.AllowedInDTO) getRequest().addParent(parent.getId(), this.getId(), csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
-  public static csu.mrc.ivcc.mdss.geo.AllowedInDTO addAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO parent)
+  public static csu.mrc.ivcc.mdss.geo.AllowedInDTO addAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id, csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO parent)
   {
     return (csu.mrc.ivcc.mdss.geo.AllowedInDTO) clientRequestIF.addParent(parent.getId(), id, csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
-  public void removeAcceptsGeoEntity(csu.mrc.ivcc.mdss.geo.AllowedInDTO relationship)
+  public void removeAllowedInGeoEntity(csu.mrc.ivcc.mdss.geo.AllowedInDTO relationship)
   {
     getRequest().deleteParent(relationship.getId());
   }
   
-  public static void removeAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, csu.mrc.ivcc.mdss.geo.AllowedInDTO relationship)
+  public static void removeAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, csu.mrc.ivcc.mdss.geo.AllowedInDTO relationship)
   {
     clientRequestIF.deleteParent(relationship.getId());
   }
   
-  public void removeAllAcceptsGeoEntity()
+  public void removeAllAllowedInGeoEntity()
   {
     getRequest().deleteParents(this.getId(), csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }
   
-  public static void removeAllAcceptsGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
+  public static void removeAllAllowedInGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, csu.mrc.ivcc.mdss.geo.AllowedInDTO.CLASS);
   }

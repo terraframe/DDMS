@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology;
 
 public abstract class MosquitoDTOBase extends csu.mrc.ivcc.mdss.entomology.TrueSpecieEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612266181L;
+  private static final long serialVersionUID = 1236803163892L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.Mosquito";
   protected MosquitoDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -32,7 +32,14 @@ public abstract class MosquitoDTOBase extends csu.mrc.ivcc.mdss.entomology.TrueS
   public static java.lang.String TESTDATE = "testDate";
   public csu.mrc.ivcc.mdss.mo.GenerationDTO getGeneration()
   {
-    return csu.mrc.ivcc.mdss.mo.GenerationDTO.get(getRequest(), getValue(GENERATION));
+    if(getValue(GENERATION) == null || getValue(GENERATION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.GenerationDTO.get(getRequest(), getValue(GENERATION));
+    }
   }
   
   public void setGeneration(csu.mrc.ivcc.mdss.mo.GenerationDTO value)

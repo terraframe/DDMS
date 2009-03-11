@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public class ADDATestIntervalViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236612279207L;
+private static final long serialVersionUID = 1236803176720L;
 
   protected ADDATestIntervalViewQueryDTO(String type)
   {

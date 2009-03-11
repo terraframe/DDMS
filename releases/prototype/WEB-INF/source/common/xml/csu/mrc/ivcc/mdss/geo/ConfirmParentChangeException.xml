@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
+  name="csu.mrc.ivcc.mdss.geo.ConfirmParentChangeException">
+  <locale language="en">Do you want to delete the old relationship with [{entityName}].</locale>
+</exception>

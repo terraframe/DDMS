@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public abstract class ResistanceMethodologyBase extends csu.mrc.ivcc.mdss.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.ResistanceMethodology";
-  private static final long serialVersionUID = 1236612273175L;
+  private static final long serialVersionUID = 1236803170727L;
   
   public ResistanceMethodologyBase()
   {

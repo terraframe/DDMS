@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class InsecticideAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.AdultAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612275896L;
+  private static final long serialVersionUID = 1236803173471L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.InsecticideAssay";
   protected InsecticideAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -106,7 +106,14 @@ public abstract class InsecticideAssayDTOBase extends csu.mrc.ivcc.mdss.entomolo
   
   public csu.mrc.ivcc.mdss.mo.InsecticideDTO getInsecticide()
   {
-    return csu.mrc.ivcc.mdss.mo.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
+    if(getValue(INSECTICIDE) == null || getValue(INSECTICIDE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
+    }
   }
   
   public void setInsecticide(csu.mrc.ivcc.mdss.mo.InsecticideDTO value)

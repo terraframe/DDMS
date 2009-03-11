@@ -22,7 +22,14 @@ public abstract class UninterestingSpecieGroupViewDTOBase extends com.terraframe
   public static java.lang.String SPECIE = "specie";
   public csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO getCollection()
   {
-    return csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
+    if(getValue(COLLECTION) == null || getValue(COLLECTION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
+    }
   }
   
   public void setCollection(csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollectionDTO value)
@@ -89,7 +96,14 @@ public abstract class UninterestingSpecieGroupViewDTOBase extends com.terraframe
   
   public csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO getIdentificationMethod()
   {
-    return csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO.get(getRequest(), getValue(IDENTIFICATIONMETHOD));
+    if(getValue(IDENTIFICATIONMETHOD) == null || getValue(IDENTIFICATIONMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO.get(getRequest(), getValue(IDENTIFICATIONMETHOD));
+    }
   }
   
   public void setIdentificationMethod(csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO value)
@@ -193,7 +207,14 @@ public abstract class UninterestingSpecieGroupViewDTOBase extends com.terraframe
   
   public csu.mrc.ivcc.mdss.mo.SpecieDTO getSpecie()
   {
-    return csu.mrc.ivcc.mdss.mo.SpecieDTO.get(getRequest(), getValue(SPECIE));
+    if(getValue(SPECIE) == null || getValue(SPECIE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.SpecieDTO.get(getRequest(), getValue(SPECIE));
+    }
   }
   
   public void setSpecie(csu.mrc.ivcc.mdss.mo.SpecieDTO value)

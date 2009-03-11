@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public abstract class BreedingSiteDTOBase extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236612278984L;
+  private static final long serialVersionUID = 1236803176512L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.BreedingSite";
   protected BreedingSiteDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
