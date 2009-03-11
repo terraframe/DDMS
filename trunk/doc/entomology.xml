@@ -8302,8 +8302,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       id="permanentWaterBodyInLocality">
     </relationship>
 
-  </create>
-    
+  </create>  
+  
   <update>
     <object
       key="com.terraframe.mojo.system.Users.SYSTEM"
