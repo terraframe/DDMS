@@ -345,4 +345,25 @@
 			</classpath>
 		</java>
 	</target>
+	
+	<target name="push_source" depends="">
+			<java classname="com.terraframe.mojo.dataaccess.io.dataDefinition.DeployedMetadataUpdater" fork="true" failonerror="true" dir="." timeout="4000000" taskname="pushSource">
+				<jvmarg value="-Xmx1024m" />
+				<classpath>
+					<path refid="framework.classpath" />
+				</classpath>
+				<arg value="com.terraframe.mojo.defaults" />
+				<arg value="csu.mrc.ivcc.mdss.entomology" />
+				<arg value="csu.mrc.ivcc.mdss.mo" />
+				<arg value="csu.mrc.ivcc.mdss.entomology.assay" />
+				<arg value="csu.mrc.ivcc.mdss.entomology.assay.biochemical" />
+				<arg value="csu.mrc.ivcc.mdss.entomology.assay.molecular" />
+				<arg value="csu.mrc.ivcc.mdss.entomology.assay.infectivity" />
+				<arg value="csu.mrc.ivcc.mdss.geo" />
+				<arg value="csu.mrc.ivcc.mdss.geo.generated" />
+				<arg value="csu.mrc.ivcc.mdss.util" />
+				<arg value="csu.mrc.ivcc.mdss" />
+			</java>
+		</target>
+	
 </project>

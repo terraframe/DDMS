@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MDSS" default="rebuild_all">
+	<property name="db_root_login" value="postgres" />
+	<property name="db_root_pasword" value="postgres" />
+	<property name="db_root_db" value="template1" />
+	<property name="max_memory_use" value="1024m"/>
+
+	<target name="rebuild_all" depends="develop_rebuild_import,deploy_all,deploy_rebuild_import,update_db,push_source">
+		<echo message="The build is complete" />
+		<exec executable="say" os="Mac OS X">
+			<arg value="The build is complete" />
+		</exec>
+	</target>
+
+	<target name="develop_rebuild_import" depends="">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild Import">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Droot.user=${db_root_login}" />
+			<arg value="-Droot.pass=${db_root_password}" />
+			<arg value="-Droot.db=${db_root_db}" />
+			<arg value="-Dmojo.keepSource=true" />
+			<arg value="rebuild_db" />
+			<arg value="update_domain_model" />
+		</java>
+	</target>
+
+	<target name="deploy_all" depends="">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy All">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="stop_tomcat_webapp" />
+			<arg value="deploy" />
+			<arg value="start_tomcat_webapp" />
+		</java>
+	</target>
+
+	<target name="deploy_rebuild_import" depends="">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy Rebuild Import">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Dprofile.name=deploy" />
+			<arg value="-Droot.user=${db_root_login}" />
+			<arg value="-Droot.pass=${db_root_password}" />
+			<arg value="-Droot.db=${db_root_db}" />
+			<arg value="rebuild_db" />
+			<arg value="update_domain_model" />
+		</java>
+	</target>
+
+	<target name="update_db" depends="">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Update Devlop DB With Source">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Droot.user=${db_root_login}" />
+			<arg value="-Droot.pass=${db_root_password}" />
+			<arg value="-Droot.db=${db_root_db}" />
+			<arg value="update_db_source_and_classes" />
+		</java>
+	</target>
+
+	<target name="push_source" depends="">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Push Source To Server">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="push_source" />
+			<arg value="stop_tomcat_webapp" />
+		    <arg value="start_tomcat_webapp" />
+		</java>
+	</target>
+
+</project>
+
+
+
+
+
+
+
+
+
+
+
+
+
