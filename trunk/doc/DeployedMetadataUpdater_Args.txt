@@ -12,3 +12,4 @@ csu.mrc.ivcc.mdss.geo
 csu.mrc.ivcc.mdss.geo.generated
 csu.mrc.ivcc.mdss.util
 csu.mrc.ivcc.mdss
+csu.mrc.ivcc.mdss.report
