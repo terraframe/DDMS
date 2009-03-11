@@ -15,10 +15,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="description" />
-        <mjl:messages attribute="description">
-          <mjl:message />
-        </mjl:messages>
+        ${item.description}
       </dd>
       <dt>
         <label>
@@ -26,43 +23,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="propertyName" />
-        <mjl:messages attribute="propertyName">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.propertyPackageMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="propertyPackage" />
-        <mjl:messages attribute="propertyPackage">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.propertyTypeMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="propertyType" />
-        <mjl:messages attribute="propertyType">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.propertyValidatorMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="propertyValidator" />
-        <mjl:messages attribute="propertyValidator">
-          <mjl:message />
-        </mjl:messages>
+          ${item.propertyNameMd.displayLabel}
       </dd>
       <dt>
         <label>
@@ -77,7 +38,6 @@
       </dd>
     </dl>
   </mjl:component>
-    <br>
       <div class="fcTopLeft"></div>
     </div>
     <div class="fcBottom"><div class="fcBottomLeft"></div></div>
