@@ -15,7 +15,6 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     super();
   }
   
-  
   @Override
   public void apply()
   {
