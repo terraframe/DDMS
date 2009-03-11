@@ -51,32 +51,27 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   public static GeoEntity searchByGeoId(java.lang.String geoId)
   {
-    GeoEntity geoEntity = null;
-    QueryFactory factory = new QueryFactory();
-    GeoEntityQuery query = new GeoEntityQuery(factory);
+    GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
 
-    query.getGeoId().EQ(geoId);
+    query.WHERE(query.getGeoId().EQ(geoId));
 
     OIterator<? extends GeoEntity> iterator = query.getIterator();
     try
     {
       if (iterator.hasNext())
       {
-        geoEntity = iterator.next();
+        return iterator.next();
+      }
+      else
+      {
+        String msg = "A GeoEntity with the geoId [" + geoId + "] does not exist";
+        throw new InvalidIdException(msg, geoId);        
       }
     }
     finally
     {
       iterator.close();
     }
-
-    if (geoEntity == null)
-    {
-      String msg = "A GeoEntity with the geoId [" + geoId + "] does not exist";
-      throw new InvalidIdException(msg, geoId);
-    }
-
-    return geoEntity;
   }
   
   /**

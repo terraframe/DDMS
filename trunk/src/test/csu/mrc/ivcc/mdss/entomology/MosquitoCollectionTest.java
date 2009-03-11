@@ -18,6 +18,7 @@ import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.session.StartSession;
 
+import csu.mrc.ivcc.mdss.export.entomology.MosquitoCollectionView;
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
 import csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite;
 import csu.mrc.ivcc.mdss.geo.generated.SentinalSite;
@@ -164,6 +165,29 @@ public class MosquitoCollectionTest extends TestCase
       {
         collection.delete();
       }
+    }
+  }
+  
+  public void testMosquitoCollectionView()
+  {
+    MosquitoCollectionView view = new MosquitoCollectionView();
+    
+    view.setCollectionMethod(collectionMethod.getTermName());
+    view.setDateCollected(new Date());
+    view.setGeoEntity(nonSentinelSite.getGeoId());
+    view.apply();
+    
+    try
+    {
+      MosquitoCollection collection = MosquitoCollection.get(view.getCollectionId());
+
+      assertEquals(collectionMethod.getId(), collection.getCollectionMethod().getId());
+      assertEquals(view.getDateCollected(), collection.getDateCollected());
+      assertEquals(nonSentinelSite.getId(), collection.getGeoEntity().getId());
+    }
+    finally
+    {
+      MosquitoCollection.get(view.getCollectionId()).delete();
     }
   }
 

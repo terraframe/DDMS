@@ -85,7 +85,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     csu.mrc.ivcc.mdss.PropertyQueryDTO query = csu.mrc.ivcc.mdss.PropertyDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Property Objects");
+    req.setAttribute("page_title", "View All Properties");
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -106,7 +106,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     csu.mrc.ivcc.mdss.PropertyQueryDTO query = csu.mrc.ivcc.mdss.PropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Property Objects");
+    req.setAttribute("page_title", "View All Properties");
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
