@@ -1452,64 +1452,70 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Test Date"
           description="The date the test was performed" />
         <reference
-          name="testMethod"
-          label="Test Method"
-          type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology" />
-        <reference
           name="specie"
           label="Specie"
           type="csu.mrc.ivcc.mdss.mo.Specie"
           required="false" />
+        <char
+          name="genericName"
+          label="Generic Name"
+          size="255"
+          description="Generic name of the insecticide.  Only displayed when an 'Other' insecticide is used." />
+        <reference
+          name="insecticide"
+          label="Insecticide"
+          type="csu.mrc.ivcc.mdss.mo.Insecticide"
+          required="true" />
+
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.entomology.assay.CollectionAssay"
+      label="Collection Assay"
+      extendable="true"
+      isAbstract="true"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay"
+      generateController="false">
+      <attributes>
+        <reference
+          name="collection"
+          label="Mosquito Collection"
+          required="true"
+          type="csu.mrc.ivcc.mdss.entomology.MosquitoCollection" />
+        <reference
+          name="testMethod"
+          label="Test Method"
+          type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology" />
         <reference
           name="identificationMethod"
           label="Identification Method"
           type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
           required="false" />
+        <integer
+          name="amount"
+          label="Amount"
+          rejectZero="true"
+          rejectNegative="true"
+          required="true" />
+        <enumeration
+          name="units"
+          label="Units"
+          required="true"
+          type="csu.mrc.ivcc.mdss.entomology.assay.Unit"
+          selectMultiple="false" />
         <boolean
           name="isofemale"
           label="Isofemale"
           required="true"
           default_value="false"
           description="Flag denoting if this mosquito is from the iso-female line" />
-        <enumeration
-          name="sex"
-          label="Sex"
+        <reference
+          name="generation"
+          label="Generation"
           required="true"
-          description="The sex of the tested mosquitos"
-          selectMultiple="false"
-          type="csu.mrc.ivcc.mdss.entomology.AssaySex" />
-      </attributes>
-    </mdBusiness>
-
-    <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.AdultAssay"
-      label="Adult Assay"
-      isAbstract="true"
-      extendable="true"
-      description="Abstract assay which can be performed on a group of adult mosquitos"
-      generateController="false"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay">
-      <attributes>
-        <struct
-          name="ageRange"
-          label="Age Range"
-          required="false"
-          description="The age range of the mosquitos tested"
-          type="csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRange" />
-        <integer
-          name="fed"
-          label="Fed"
-          description="Fed value (Only applicable when females are present)."
-          rejectNegative="true"
-          required="true"
-          default_value="0" />
-        <integer
-          name="gravid"
-          label="Gravid"
-          description="Gravid value (Only applicable when females are present)"
-          rejectNegative="true"
-          required="true"
-          default_value="0" />
+          description="The generation of the mosquito"
+          type="csu.mrc.ivcc.mdss.mo.Generation" />
         <integer
           name="exposureTime"
           label="Exposure Time (m)"
@@ -1525,53 +1531,26 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           rejectZero="true"
           required="true"
           description="The total number mosquitos tested" />
-        <reference
-          name="generation"
-          label="Generation"
-          required="true"
-          description="The generation of the mosquito"
-          type="csu.mrc.ivcc.mdss.mo.Generation" />
-      </attributes>
-    </mdBusiness>
-
-    <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.InsecticideAssay"
-      label="Insecticide Assay"
-      isAbstract="true"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.AdultAssay"
-      extendable="true"
-      description="An assay performed which an Insecticide">
-      <attributes>
-        <reference
-          name="insecticide"
-          label="Insecticide"
-          type="csu.mrc.ivcc.mdss.mo.Insecticide"
-          required="true" />
         <integer
-          name="amount"
-          label="Amount"
-          rejectZero="true"
+          name="intervalTime"
+          label="Interval Time (m)"
           rejectNegative="true"
-          required="true" />
-        <enumeration
-          name="units"
-          label="Units"
+          immutable="true"
+          rejectZero="true"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.assay.Unit"
-          selectMultiple="false" />
-        <char
-          name="genericName"
-          label="Generic Name"
-          size="255"
-          description="Generic name of the insecticide.  Only displayed when an 'Other' insecticide is used." />
+          description="The interval time in minutes"
+          default_value="10" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay"
-      label="Adult Discriminating Dose Assay"
-      description="Discriminating dose assay which can be performed on a group of adult mosquitos"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.InsecticideAssay">
+      name="csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay"
+      label="Discriminating Dose Assay"
+      description="Discriminating dose assay which can be performed on a collection mosquitos"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.CollectionAssay"
+      isAbstract="true"
+      extendable="true"
+      generateController="false">
       <attributes>
         <integer
           name="holdingTime"
@@ -1606,20 +1585,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           decimal="2"
           description="Mortality rate of the control test"
           required="false" />
-        <integer
-          name="intervalTime"
-          label="Interval Time (m)"
-          rejectNegative="true"
-          immutable="true"
-          rejectZero="true"
-          required="true"
-          description="The interval time in minutes"
-          default_value="10" />
-        <reference
-          name="collection"
-          label="Mosquito Collection"
-          required="true"
-          type="csu.mrc.ivcc.mdss.entomology.MosquitoCollection" />
       </attributes>
       <mdMethod
         name="getTestIntervals"
@@ -1642,12 +1607,55 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         description="Returns the predicted KD95" />
     </mdBusiness>
 
+
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay"
+      label="Adult Discriminating Dose Assay"
+      description="Abstract assay which can be performed on a group of adult mosquitos"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay">
+      <attributes>
+        <struct
+          name="ageRange"
+          label="Age Range"
+          required="false"
+          description="The age range of the mosquitos tested"
+          type="csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRange" />
+        <integer
+          name="fed"
+          label="Fed"
+          description="Fed value (Only applicable when females are present)."
+          rejectNegative="true"
+          required="true"
+          default_value="0" />
+        <integer
+          name="gravid"
+          label="Gravid"
+          description="Gravid value (Only applicable when females are present)"
+          rejectNegative="true"
+          required="true"
+          default_value="0" />
+        <enumeration
+          name="sex"
+          label="Sex"
+          required="true"
+          description="The sex of the tested mosquitos"
+          selectMultiple="false"
+          type="csu.mrc.ivcc.mdss.entomology.AssaySex" />
+      </attributes>
+
+    </mdBusiness>
+
+
     <mdBusiness
       name="csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssay"
       label="Efficacy Assay"
       description="An efficacy assay which can be performed on a colony mosquitos"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.AdultAssay">
+      extends="csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay">
       <attributes>
+        <reference
+          name="testMethod"
+          label="Test Method"
+          type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology" />
         <integer
           name="holdingTime"
           label="Holding Time (hr)"
@@ -1679,17 +1687,21 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           size="255"
           label="Colony Name"
           description="The name of the colony" />
-        <reference
-          name="insecticide"
-          label="Insecticide"
-          type="csu.mrc.ivcc.mdss.mo.Insecticide"
-          required="true" />
         <integer
-          name="insecticideLength"
-          label="Insecticide Time Length"
-          rejectZero="true"
+          name="exposureTime"
+          label="Exposure Time (months)"
+          description="The exposure time in months"
           rejectNegative="true"
-          description="The length of timein months that the insecticide has been on the surface" />
+          rejectZero="true"
+          default_value="60"
+          immutable="true" />
+        <integer
+          name="quantityTested"
+          label="Quantity Tested"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true"
+          description="The total number mosquitos tested" />
         <enumeration
           name="surfacePostion"
           label="Surface Position"
@@ -1701,7 +1713,33 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true"
           label="Geo Entity"
           type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity" />
-
+        <struct
+          name="ageRange"
+          label="Age Range"
+          required="false"
+          description="The age range of the mosquitos tested"
+          type="csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRange" />
+        <integer
+          name="fed"
+          label="Fed"
+          description="Fed value (Only applicable when females are present)."
+          rejectNegative="true"
+          required="true"
+          default_value="0" />
+        <integer
+          name="gravid"
+          label="Gravid"
+          description="Gravid value (Only applicable when females are present)"
+          rejectNegative="true"
+          required="true"
+          default_value="0" />
+        <enumeration
+          name="sex"
+          label="Sex"
+          required="true"
+          description="The sex of the tested mosquitos"
+          selectMultiple="false"
+          type="csu.mrc.ivcc.mdss.entomology.AssaySex" />
       </attributes>
       <mdMethod
         name="getOverallMortalityRate"
@@ -1821,9 +1859,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <attributes>
         <reference
           name="assay"
-          label="Adult Discriminating Dose Assay"
+          label="Discriminating Dose Assay"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay" />
+          type="csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay" />
         <integer
           name="period"
           label="Period"
