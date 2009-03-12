@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="MDSS" default="rebuild_all">
 	<property name="db_root_login" value="postgres" />
-	<property name="db_root_pasword" value="postgres" />
+	<property name="db_root_password" value="postgres" />
 	<property name="db_root_db" value="template1" />
 	<property name="max_memory_use" value="1024m"/>
 
