@@ -221,8 +221,8 @@ public class MosquitoCollectionTest extends TestCase
       assertEquals(2, list.length);
       assertEquals(new Integer(20), list[0].getQuantity());
       assertEquals(new Integer(10), list[1].getQuantity());
-      assertEquals(specie.getId(), list[0].getSpecie());
-      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod());
+      assertEquals(specie.getId(), list[0].getSpecie().getId());
+      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod().getId());
     }
     finally
     {
@@ -240,16 +240,16 @@ public class MosquitoCollectionTest extends TestCase
 
     MorphologicalSpecieGroupView group = new MorphologicalSpecieGroupView();
     group.setQuantity(20);
-    group.setSpecie(specie.getId());
-    group.setIdentificationMethod(identificationMethod.getId());
-    group.setCollectionId(collection.getId());
+    group.setSpecie(specie);
+    group.setIdentificationMethod(identificationMethod);
+    group.setCollection(collection);
     group.apply();
 
     MorphologicalSpecieGroupView group2 = new MorphologicalSpecieGroupView();
     group2.setQuantity(10);
-    group2.setSpecie(specie.getId());
-    group2.setIdentificationMethod(identificationMethod.getId());
-    group2.setCollectionId(collection.getId());
+    group2.setSpecie(specie);
+    group2.setIdentificationMethod(identificationMethod);
+    group2.setCollection(collection);
     group2.apply();
 
     try
@@ -260,8 +260,8 @@ public class MosquitoCollectionTest extends TestCase
       assertEquals(2, list.length);
       assertEquals(new Integer(20), list[0].getQuantity());
       assertEquals(new Integer(10), list[1].getQuantity());
-      assertEquals(specie.getId(), list[0].getSpecie());
-      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod());
+      assertEquals(specie.getId(), list[0].getSpecie().getId());
+      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod().getId());
     }
     finally
     {
@@ -281,14 +281,14 @@ public class MosquitoCollectionTest extends TestCase
 
     array[0] = new MorphologicalSpecieGroupView();
     array[0].setQuantity(20);
-    array[0].setSpecie(specie.getId());
-    array[0].setIdentificationMethod(identificationMethod.getId());
-    array[0].setCollectionId(collection.getId());
+    array[0].setSpecie(specie);
+    array[0].setIdentificationMethod(identificationMethod);
+    array[0].setCollection(collection);
     array[1] = new MorphologicalSpecieGroupView();
     array[1].setQuantity(10);
-    array[1].setSpecie(specie.getId());
-    array[1].setIdentificationMethod(identificationMethod.getId());
-    array[1].setCollectionId(collection.getId());
+    array[1].setSpecie(specie);
+    array[1].setIdentificationMethod(identificationMethod);
+    array[1].setCollection(collection);
 
     MorphologicalSpecieGroupView.saveAll(array);
 
@@ -300,8 +300,8 @@ public class MosquitoCollectionTest extends TestCase
       assertEquals(2, list.length);
       assertEquals(new Integer(20), list[0].getQuantity());
       assertEquals(new Integer(10), list[1].getQuantity());
-      assertEquals(specie.getId(), list[0].getSpecie());
-      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod());
+      assertEquals(specie.getId(), list[0].getSpecie().getId());
+      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod().getId());
     }
     finally
     {
@@ -326,9 +326,9 @@ public class MosquitoCollectionTest extends TestCase
 
     MorphologicalSpecieGroupView view = new MorphologicalSpecieGroupView();
     view.setQuantity(10);
-    view.setSpecie(specie.getId());
-    view.setIdentificationMethod(identificationMethod.getId());
-    view.setCollectionId(collection.getId());
+    view.setSpecie(specie);
+    view.setIdentificationMethod(identificationMethod);
+    view.setCollection(collection);
     view.setGroupId(group.getId());
     view.apply();
 
@@ -339,8 +339,8 @@ public class MosquitoCollectionTest extends TestCase
 
       assertEquals(1, list.length);
       assertEquals(new Integer(10), list[0].getQuantity());
-      assertEquals(specie.getId(), list[0].getSpecie());
-      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod());
+      assertEquals(specie.getId(), list[0].getSpecie().getId());
+      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod().getId());
     }
     finally
     {

@@ -194,8 +194,8 @@ public class MosquitoCollectionPointTest extends TestCase
       assertEquals(2, list.length);
       assertEquals(new Integer(20), list[0].getQuantity());
       assertEquals(new Integer(10), list[1].getQuantity());
-      assertEquals(specie.getId(), list[0].getSpecie());
-      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod());
+      assertEquals(specie.getId(), list[0].getSpecie().getId());
+      assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod().getId());
     }
     finally
     {
@@ -240,7 +240,7 @@ public class MosquitoCollectionPointTest extends TestCase
 
     MorphologicalSpecieGroupView group = new MorphologicalSpecieGroupView();
     group.setQuantity(0);
-    group.setCollectionId(collection.getId());
+    group.setCollection(collection);
     group.apply();
 
     try
@@ -432,6 +432,13 @@ public class MosquitoCollectionPointTest extends TestCase
     collection.setCompositeCollection(composite);
     collection.apply();
     
+    MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
+    group.setQuantity(20);
+    group.setSpecie(specie);
+    group.setIdentificationMethod(identificationMethod);
+    group.setCollection(collection);
+    group.apply();
+    
     try
     {
       
@@ -445,6 +452,67 @@ public class MosquitoCollectionPointTest extends TestCase
     finally
     {
       collection.delete();
+    }
+  }
+  
+  public void testGetCompositeCollections()
+  {    
+    MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
+    collection.setGeoEntity(fixedTrap);
+    collection.setDateCollected(new Date());
+    collection.setCompositeCollection(composite);
+    collection.apply();
+
+    MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
+    group.setQuantity(20);
+    group.setSpecie(specie);
+    group.setIdentificationMethod(identificationMethod);
+    group.setCollection(collection);
+    group.apply();
+
+    MorphologicalSpecieGroup group2 = new MorphologicalSpecieGroup();
+    group2.setQuantity(10);
+    group2.setSpecie(specie);
+    group2.setIdentificationMethod(identificationMethod);
+    group2.setCollection(collection);
+    group2.apply();
+    
+    MosquitoCollectionPoint collection2 = new MosquitoCollectionPoint();
+    collection2.setGeoEntity(waterBody);
+    collection2.setDateCollected(new Date());
+    collection2.setCompositeCollection(composite);
+    collection2.apply();
+
+    MorphologicalSpecieGroup group3 = new MorphologicalSpecieGroup();
+    group3.setQuantity(30);
+    group3.setSpecie(specie);
+    group3.setIdentificationMethod(identificationMethod);
+    group3.setCollection(collection2);
+    group3.apply();
+
+    MorphologicalSpecieGroup group4 = new MorphologicalSpecieGroup();
+    group4.setQuantity(40);
+    group4.setSpecie(specie);
+    group4.setIdentificationMethod(identificationMethod);
+    group4.setCollection(collection2);
+    group4.apply();
+    
+    try
+    {
+      MosquitoCollectionPointView[] collections = composite.getCollections();
+
+      assertEquals(4, collections.length);
+      assertEquals(new Integer(30), collections[0].getQuantity());
+      assertEquals(new Integer(40), collections[1].getQuantity());
+      assertEquals(new Integer(20), collections[2].getQuantity());
+      assertEquals(new Integer(10), collections[3].getQuantity());
+      assertEquals(specie.getId(), collections[0].getSpecie().getId());
+      assertEquals(identificationMethod.getId(), collections[0].getIdentificationMethod().getId());
+    }
+    finally
+    {
+      collection.delete();
+      collection2.delete();
     }
 
   }

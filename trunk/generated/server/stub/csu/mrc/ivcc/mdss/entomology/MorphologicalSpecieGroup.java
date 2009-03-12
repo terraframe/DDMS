@@ -1,8 +1,5 @@
 package csu.mrc.ivcc.mdss.entomology;
 
-import csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupBase;
-import csu.mrc.ivcc.mdss.mo.IdentificationMethod;
-import csu.mrc.ivcc.mdss.mo.Specie;
 
 public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -96,22 +93,12 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   public MorphologicalSpecieGroupView getView()
   {
     MorphologicalSpecieGroupView view = new MorphologicalSpecieGroupView();
-    Specie specie = this.getSpecie();
-    IdentificationMethod identificationMethod = this.getIdentificationMethod();
     
-    view.setCollectionId(this.getId());
     view.setGroupId(this.getId());
+    view.setCollection(this.getCollection());
     view.setQuantity(this.getQuantity());
-
-    if(specie != null)
-    {
-      view.setSpecie(specie.getId());
-    }
-    
-    if(identificationMethod != null)
-    {
-      view.setIdentificationMethod(identificationMethod.getId());
-    }
+    view.setSpecie(this.getSpecie());
+    view.setIdentificationMethod(this.getIdentificationMethod());
     
     view.applyNoPersist();
     
