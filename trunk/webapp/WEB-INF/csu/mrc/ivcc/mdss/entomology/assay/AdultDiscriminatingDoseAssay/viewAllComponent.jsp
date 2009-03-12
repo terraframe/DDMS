@@ -11,81 +11,28 @@
   <mjl:context
     action="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:attributeColumn attributeName="controlTestMortality">
+  
+  <mjl:attributeColumn attributeName="collection">
       <mjl:header>
-        Control Test Mortality Rate
+        Mosquito Collection
       </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="holdingTime">
-      <mjl:header>
-        Holding Time
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="intervalTime">
-      <mjl:header>
-        Interval Time
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="quantityDead">
-      <mjl:header>
-        Quantity Dead
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:structColumn attributeName="ageRange">
-      <mjl:header>
-        Age Range
-      </mjl:header>
-      <mjl:attributeColumn attributeName="endPoint">
-        <mjl:header>
-          Ending Age
-        </mjl:header>
-        
-      </mjl:attributeColumn>
-      <mjl:attributeColumn attributeName="startPoint">
-        <mjl:header>
-          Beginning Age
-        </mjl:header>
-        
-      </mjl:attributeColumn>
-    </mjl:structColumn>
-    <mjl:attributeColumn attributeName="amount">
-      <mjl:header>
-        Amount
-      </mjl:header>
-      
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="exposureTime">
-      <mjl:header>
-        Exposure Time
-      </mjl:header>
-      
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="fed">
-      <mjl:header>
-        Fed
-      </mjl:header>
-      
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="generation">
-      <mjl:header>
-        Generation
-      </mjl:header>
-      <mjl:row >
-        ${item.generation.termName}
+       <mjl:row>
+        ${item.collection.keyName}
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="genericName">
+  
+      <mjl:attributeColumn attributeName="testDate">
       <mjl:header>
-        Generic Name
+        Test Date
       </mjl:header>
-      
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="gravid">
+    
+     <mjl:attributeColumn attributeName="testMethod">
       <mjl:header>
-        Gravid
+        Test Method
       </mjl:header>
-      
     </mjl:attributeColumn>
+     
     <mjl:attributeColumn attributeName="insecticide">
       <mjl:header>
         Insecticide
@@ -94,59 +41,59 @@
         ${item.insecticide.termName}
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="quantityTested">
+       
+    <mjl:attributeColumn attributeName="genericName">
       <mjl:header>
-        Quantity Tested
+        Generic Name
       </mjl:header>
-      
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="units">
+     </mjl:attributeColumn>
+     
+      <mjl:attributeColumn attributeName="amount">
       <mjl:header>
-        Units
+        Amount
       </mjl:header>
-      
+     <mjl:row>
+        ${item.amount} 
+        <c:forEach var="enumName" items="${item.unitsEnumNames}">
+            ${item.unitsMd.enumItems[enumName]}
+        </c:forEach>
+      </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="collection">
+    
+    <mjl:attributeColumn attributeName="exposureTime">
       <mjl:header>
-        Mosquito Collection
+        Exposure Time
       </mjl:header>
-      
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="identificationMethod">
+    
+     <mjl:attributeColumn attributeName="specie">
+      <mjl:header>
+        Specie
+      </mjl:header>
+      <mjl:row >
+        ${item.specie.termName}
+      </mjl:row>
+    </mjl:attributeColumn>
+    
+     <mjl:attributeColumn attributeName="identificationMethod">
       <mjl:header>
         Identification Method
       </mjl:header>
-      
+      <mjl:row >
+        ${item.identificationMethod.termName}
+      </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="isofemale">
-      <mjl:header>
-        Isofemale
-      </mjl:header>
-      
-    </mjl:attributeColumn>
+    
     <mjl:attributeColumn attributeName="sex">
       <mjl:header>
         Sex
       </mjl:header>
-      
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="specie">
+    
+    <mjl:attributeColumn attributeName="quantityTested">
       <mjl:header>
-        Specie
+        Quantity Tested
       </mjl:header>
-      
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="testDate">
-      <mjl:header>
-        Test Date
-      </mjl:header>
-      
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="testMethod">
-      <mjl:header>
-        Test Method
-      </mjl:header>
-      
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
