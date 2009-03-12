@@ -9,7 +9,7 @@ import com.terraframe.mojo.query.QueryFactory;
 
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
 
-public class EfficacyAssay extends EfficacyAssayBase implements
+public class EfficacyAssay extends EfficacyAssayBase implements DiscriminatingDoseAssayIF, AdultAssayIF,
     com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236363373386L;
@@ -18,11 +18,48 @@ public class EfficacyAssay extends EfficacyAssayBase implements
   {
     super();
   }
+  
+  @Override
+  public void validateAgeRange()
+  {
+    super.validateAgeRange();
+    
+    AssayValidator.validateAdultAgeRange(this);
+  }
+
+  @Override
+  public void validateGravid()
+  {
+    super.validateGravid();
+    
+    AssayValidator.validateGravid(this);
+  }
+
+  @Override
+  public void validateFed()
+  {
+    super.validateFed();
+    
+    AssayValidator.validateFed(this);
+  }
+  
+  @Override
+  public void validateQuantityDead()
+  {
+    super.validateQuantityDead();
+
+    AssayValidator.validateQuantityDead(this);
+  }
+
+
 
   @Override
   public void apply()
   {
     validateQuantityDead();
+    validateAgeRange();
+    validateFed();
+    validateGravid();
 
     if (this.getQuantityDead() <= this.getQuantityTested())
     {
@@ -43,23 +80,6 @@ public class EfficacyAssay extends EfficacyAssayBase implements
   private static float calculateMortality(Integer dead, Integer total)
   {
     return ( dead * 100F / total );
-  }
-
-  @Override
-  public void validateQuantityDead()
-  {
-    super.validateQuantityDead();
-
-    if (this.getQuantityDead() > this.getQuantityTested())
-    {
-      String msg = "It is impossible to have a dead quantity larger than the total number of mosquitos tested";
-
-      InvalidDeadQuantityProblem p = new InvalidDeadQuantityProblem(msg);
-      p.setAssayId(this.getId());
-      p.setQuantityDead(this.getQuantityDead());
-      p.setQuantityTested(this.getQuantityTested());
-      p.throwIt();
-    }
   }
 
   public static EfficacyAssay[] searchByGeoEntityAndDate(GeoEntity geoEntity, Date collectionDate)

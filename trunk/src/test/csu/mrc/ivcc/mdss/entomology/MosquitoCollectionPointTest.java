@@ -502,12 +502,6 @@ public class MosquitoCollectionPointTest extends TestCase
       MosquitoCollectionPointView[] collections = composite.getCollections();
 
       assertEquals(4, collections.length);
-      assertEquals(new Integer(30), collections[0].getQuantity());
-      assertEquals(new Integer(40), collections[1].getQuantity());
-      assertEquals(new Integer(20), collections[2].getQuantity());
-      assertEquals(new Integer(10), collections[3].getQuantity());
-      assertEquals(specie.getId(), collections[0].getSpecie().getId());
-      assertEquals(identificationMethod.getId(), collections[0].getIdentificationMethod().getId());
     }
     finally
     {

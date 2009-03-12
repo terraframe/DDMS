@@ -1,10 +1,10 @@
 package csu.mrc.ivcc.mdss.entomology.assay;
 
-public abstract class InsecticideAssayDTO extends InsecticideAssayDTOBase
+public abstract class DiscriminatingDoseAssayDTO extends DiscriminatingDoseAssayDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1236363371765L;
+  private static final long serialVersionUID = 1236893766079L;
   
-  public InsecticideAssayDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public DiscriminatingDoseAssayDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -15,7 +15,7 @@ public abstract class InsecticideAssayDTO extends InsecticideAssayDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected InsecticideAssayDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected DiscriminatingDoseAssayDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
