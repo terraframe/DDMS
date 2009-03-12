@@ -662,33 +662,6 @@
       </mdMethod>
     </mdBusiness>
 
-    <mdView
-      name="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointView"
-      label="Mosquito Collection Point View"
-      description="This a view for collection of mosquitos from a permanant trap or water body, the trap is checked on a routine basis">
-      <attributes>
-        <char
-          name="collectionId"
-          size="255"
-          label="Collection Id" />
-        <virtual
-          name="compositeCollection"
-          type="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint"
-          concrete="compositeCollection"
-          required="true" />
-        <virtual
-          name="dateCollected"
-          type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
-          concrete="dateCollected"
-          required="true" />
-        <virtual
-          name="geoEntity"
-          required="true"
-          type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
-          concrete="geoEntity" />
-      </attributes>
-    </mdView>
-
     <mdException
       name="csu.mrc.ivcc.mdss.geo.LocatedInException"
       label="Located In Exception"
@@ -824,26 +797,27 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     <mdView
       name="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView"
       label="Morphological Specie Group View"
-      description="View for morphological specie groups">
+      description="View for morphological specie groups"
+      extendable="true">
       <attributes>
-        <char
+        <virtual
           name="specie"
-          label="Specie"
-          size="255" />
-        <char
+          type="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"
+          concrete="specie" />
+        <virtual
           name="identificationMethod"
-          label="Identification Method"
-          size="255" />
-        <integer
+          type="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"
+          concrete="identificationMethod" />
+        <virtual
           name="quantity"
-          label="Quantity"
+          type="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"
+          concrete="quantity"
+          required="true" />
+        <virtual
+          name="collection"
           required="true"
-          rejectNegative="true" />
-        <char
-          name="collectionId"
-          label="Collection Id"
-          required="true"
-          size="255" />
+          type="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"
+          concrete="collection" />
         <char
           name="groupId"
           label="Morphological Group Id"
@@ -864,6 +838,26 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           type="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView[]" />
       </mdMethod>
     </mdView>
+
+    <mdView
+      name="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointView"
+      label="Mosquito Collection Point View"
+      description="This a view for collection of mosquitos from a permanant trap or water body, the trap is checked on a routine basis"
+      extends="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView">
+      <attributes>
+        <virtual
+          name="dateCollected"
+          type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
+          concrete="dateCollected"
+          required="true" />
+        <virtual
+          name="geoEntity"
+          required="true"
+          type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
+          concrete="geoEntity" />
+      </attributes>
+    </mdView>
+
 
     <mdBusiness
       name="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
@@ -8302,8 +8296,154 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       id="permanentWaterBodyInLocality">
     </relationship>
 
-  </create>  
-  
+  </create>
+
+  <create>
+
+    <object
+      id="Country"
+      type="csu.mrc.ivcc.mdss.geo.generated.Country">
+      <valueAttribute
+        name="entityName"
+        value="Country" />
+      <valueAttribute
+        name="geoId"
+        value="401710" />
+      <valueAttribute
+        name="activated"
+        value="true" />
+    </object>
+
+    <object
+      id="Province1"
+      type="csu.mrc.ivcc.mdss.geo.generated.Province">
+      <valueAttribute
+        name="entityName"
+        value="Province 1" />
+      <valueAttribute
+        name="geoId"
+        value="571038" />
+      <valueAttribute
+        name="activated"
+        value="true" />
+    </object>
+
+    <object
+      id="Province2"
+      type="csu.mrc.ivcc.mdss.geo.generated.Province">
+      <valueAttribute
+        name="entityName"
+        value="Province 2" />
+      <valueAttribute
+        name="geoId"
+        value="470108" />
+      <valueAttribute
+        name="activated"
+        value="true" />
+    </object>
+
+    <object
+      id="District1"
+      type="csu.mrc.ivcc.mdss.geo.generated.District">
+      <valueAttribute
+        name="entityName"
+        value="District 1" />
+      <valueAttribute
+        name="geoId"
+        value="123471" />
+      <valueAttribute
+        name="activated"
+        value="true" />
+    </object>
+
+    <object
+      id="District2"
+      type="csu.mrc.ivcc.mdss.geo.generated.District">
+      <valueAttribute
+        name="entityName"
+        value="District 2" />
+      <valueAttribute
+        name="geoId"
+        value="810471" />
+      <valueAttribute
+        name="activated"
+        value="true" />
+    </object>
+
+    <object
+      id="District3"
+      type="csu.mrc.ivcc.mdss.geo.generated.District">
+      <valueAttribute
+        name="entityName"
+        value="District 3" />
+      <valueAttribute
+        name="geoId"
+        value="273017" />
+      <valueAttribute
+        name="activated"
+        value="true" />
+    </object>
+
+    <object
+      id="District4"
+      type="csu.mrc.ivcc.mdss.geo.generated.District">
+      <valueAttribute
+        name="entityName"
+        value="District 4" />
+      <valueAttribute
+        name="geoId"
+        value="204717" />
+      <valueAttribute
+        name="activated"
+        value="true" />
+    </object>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      childId="Province1"
+      parentId="Country"
+      id="p1InC">
+    </relationship>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      childId="Province2"
+      parentId="Country"
+      id="p2InC">
+    </relationship>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      childId="District1"
+      parentId="Province1"
+      id="d1InP1">
+    </relationship>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      childId="District2"
+      parentId="Province1"
+      id="d2InP1">
+    </relationship>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      childId="District3"
+      parentId="Province2"
+      id="d3InP2">
+    </relationship>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      childId="District4"
+      parentId="Province2"
+      id="d4InP2">
+    </relationship>
+
+
+  </create>
+
+
   <update>
     <object
       key="com.terraframe.mojo.system.Users.SYSTEM"
