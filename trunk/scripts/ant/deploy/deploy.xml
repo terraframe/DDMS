@@ -150,7 +150,7 @@
 		</java>
 	</target>
 	
-	<target name="update_db_s_c_and_deploy" depends="update_db_source_and_classes">
+	<target name="update_db_s_c_and_deploy" >
 		<java classname="csu.mrc.ivcc.mdss.global.UpdateUtility" failonerror="true">
 			<arg value="${export.package}" />
 			<classpath>
@@ -354,6 +354,7 @@
 				</classpath>
 				<arg value="com.terraframe.mojo.defaults" />
 				<arg value="csu.mrc.ivcc.mdss.entomology" />
+				<arg value="csu.mrc.ivcc.mdss.export.entomology" />
 				<arg value="csu.mrc.ivcc.mdss.mo" />
 				<arg value="csu.mrc.ivcc.mdss.entomology.assay" />
 				<arg value="csu.mrc.ivcc.mdss.entomology.assay.biochemical" />
