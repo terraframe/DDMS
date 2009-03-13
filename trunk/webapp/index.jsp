@@ -13,4 +13,10 @@
    Locale locale = request.getLocale();
    out.println("Your Detected Locale is "+locale.toString());
    %>
+   <br>
+   <br>
+<pre>   
+<jsp:include page="/revision.html" />   
+</pre>
+
 <jsp:include page="/WEB-INF/templates/footer.jsp" />
