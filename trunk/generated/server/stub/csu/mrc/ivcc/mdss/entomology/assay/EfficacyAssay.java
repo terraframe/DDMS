@@ -24,7 +24,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements DiscriminatingDo
   {
     super.validateAgeRange();
     
-    AssayValidator.validateAdultAgeRange(this);
+    new AssayValidator(this).validateAdultAgeRange();
   }
 
   @Override
@@ -32,7 +32,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements DiscriminatingDo
   {
     super.validateGravid();
     
-    AssayValidator.validateGravid(this);
+    new AssayValidator(this).validateGravid();
   }
 
   @Override
@@ -40,7 +40,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements DiscriminatingDo
   {
     super.validateFed();
     
-    AssayValidator.validateFed(this);
+    new AssayValidator(this).validateFed();
   }
   
   @Override
@@ -48,7 +48,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements DiscriminatingDo
   {
     super.validateQuantityDead();
 
-    AssayValidator.validateQuantityDead(this);
+    new AssayValidator(this).validateQuantityDead();
   }
 
 

@@ -38,7 +38,7 @@ public abstract class DiscriminatingDoseAssay extends DiscriminatingDoseAssayBas
   {
     super.validateQuantityDead();
 
-    AssayValidator.validateQuantityDead(this);
+    new AssayValidator(this).validateQuantityDead();
   }
 
   @Override

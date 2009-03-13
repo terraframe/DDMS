@@ -4,79 +4,112 @@ import csu.mrc.ivcc.mdss.entomology.AssaySex;
 
 public class AssayValidator
 {
-  private synchronized static boolean isAgeRangeModified(AdultAssayIF assay)
+  private AbstractAssay assay;
+
+  public AssayValidator(AbstractAssay assay)
   {
-    return assay.getAgeRange().isModified(AdultAgeRange.STARTPOINT)
-        || assay.getAgeRange().isModified(AdultAgeRange.ENDPOINT);
+    this.assay = assay;
   }
 
-  public synchronized static void validateAdultAgeRange(AdultAssayIF assay)
+  public boolean isAgeRangeModified()
   {
-    if (isAgeRangeModified(assay))
+    if (assay instanceof AdultAssayIF)
     {
-      assay.getAgeRange().validate();
+      AdultAssayIF adult = (AdultAssayIF) assay;
+      return adult.getAgeRange().isModified(AdultAgeRange.STARTPOINT)
+          || adult.getAgeRange().isModified(AdultAgeRange.ENDPOINT);
+    }
+
+    return false;
+  }
+
+  public void validateAdultAgeRange()
+  {
+    if (assay instanceof AdultAssayIF)
+    {
+      AdultAssayIF adult = (AdultAssayIF) assay;
+
+      if (isAgeRangeModified())
+      {
+        adult.getAgeRange().validate();
+      }
     }
   }
-  
-  public synchronized static void validateGravid(AdultAssayIF assay)
+
+  public void validateGravid()
   {
-    AssaySex sex = assay.getSex().get(0);
-
-    if (assay.getGravid() != 0 && ( sex.equals(AssaySex.MALE) || sex.equals(AssaySex.UNKNOWN) ))
+    if (assay instanceof AdultAssayIF)
     {
-      String msg = "It is impossible to have gravid values on male or unknown sex assays";
+      AdultAssayIF adult = (AdultAssayIF) assay;
 
-      InvalidGravidSexProblem p = new InvalidGravidSexProblem(msg);
-      p.setAssayId(assay.getId());
-      p.throwIt();
-    }
+      AssaySex sex = adult.getSex().get(0);
 
-    if (assay.getGravid() > assay.getQuantityTested())
-    {
-      String msg = "It is impossible to have gravid values larger than the quantity of mosquitos tested";
+      if (adult.getGravid() != 0 && ( sex.equals(AssaySex.MALE) || sex.equals(AssaySex.UNKNOWN) ))
+      {
+        String msg = "It is impossible to have gravid values on male or unknown sex assays";
 
-      InvalidGravidQuantityProblem p = new InvalidGravidQuantityProblem(msg);
-      p.setAssayId(assay.getId());
-      p.setGravid(assay.getGravid());
-      p.throwIt();
+        InvalidGravidSexProblem p = new InvalidGravidSexProblem(msg);
+        p.setAssayId(adult.getId());
+        p.throwIt();
+      }
+
+      if (adult.getGravid() > adult.getQuantityTested())
+      {
+        String msg = "It is impossible to have gravid values larger than the quantity of mosquitos tested";
+
+        InvalidGravidQuantityProblem p = new InvalidGravidQuantityProblem(msg);
+        p.setAssayId(adult.getId());
+        p.setGravid(adult.getGravid());
+        p.throwIt();
+      }
     }
   }
-  
-  public synchronized static void validateFed(AdultAssayIF assay)
+
+  public void validateFed()
   {
-    AssaySex sex = assay.getSex().get(0);
-
-    if (assay.getFed() != 0 && ( sex.equals(AssaySex.MALE) || sex.equals(AssaySex.UNKNOWN) ))
+    if (assay instanceof AdultAssayIF)
     {
-      String msg = "It is impossible to have fed values on male or unknown sex assays";
+      AdultAssayIF adult = (AdultAssayIF) assay;
 
-      InvalidFedSexProblem p = new InvalidFedSexProblem(msg);
-      p.setAssayId(assay.getId());
-      p.throwIt();
-    }
+      AssaySex sex = adult.getSex().get(0);
 
-    if (assay.getFed() > assay.getQuantityTested())
-    {
-      String msg = "It is impossible to have red values larger than the quantity of mosquitos tested";
+      if (adult.getFed() != 0 && ( sex.equals(AssaySex.MALE) || sex.equals(AssaySex.UNKNOWN) ))
+      {
+        String msg = "It is impossible to have fed values on male or unknown sex assays";
 
-      InvalidFedQuantityProblem p = new InvalidFedQuantityProblem(msg);
-      p.setAssayId(assay.getId());
-      p.setFed(assay.getFed());
-      p.throwIt();
+        InvalidFedSexProblem p = new InvalidFedSexProblem(msg);
+        p.setAssayId(adult.getId());
+        p.throwIt();
+      }
+
+      if (adult.getFed() > adult.getQuantityTested())
+      {
+        String msg = "It is impossible to have red values larger than the quantity of mosquitos tested";
+
+        InvalidFedQuantityProblem p = new InvalidFedQuantityProblem(msg);
+        p.setAssayId(adult.getId());
+        p.setFed(adult.getFed());
+        p.throwIt();
+      }
     }
   }
-  
-  public static synchronized void validateQuantityDead(DiscriminatingDoseAssayIF assay)
-  {
-    if (assay.getQuantityDead() > assay.getQuantityTested())
-    {
-      String msg = "It is impossible to have a dead quantity larger than the total number of mosquitos tested";
 
-      InvalidDeadQuantityProblem p = new InvalidDeadQuantityProblem(msg);
-      p.setAssayId(assay.getId());
-      p.setQuantityDead(assay.getQuantityDead());
-      p.setQuantityTested(assay.getQuantityTested());
-      p.throwIt();
+  public void validateQuantityDead()
+  {
+    if (assay instanceof DiscriminatingDoseAssayIF)
+    {
+      DiscriminatingDoseAssayIF dda = (DiscriminatingDoseAssayIF) assay;
+      
+      if (dda.getQuantityDead() > dda.getQuantityTested())
+      {
+        String msg = "It is impossible to have a dead quantity larger than the total number of mosquitos tested";
+
+        InvalidDeadQuantityProblem p = new InvalidDeadQuantityProblem(msg);
+        p.setAssayId(dda.getId());
+        p.setQuantityDead(dda.getQuantityDead());
+        p.setQuantityTested(dda.getQuantityTested());
+        p.throwIt();
+      }
     }
   }
 }

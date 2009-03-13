@@ -29,7 +29,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     super.validateAgeRange();
     
-    AssayValidator.validateAdultAgeRange(this);
+    new AssayValidator(this).validateAdultAgeRange();
   }
 
   @Override
@@ -37,7 +37,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     super.validateGravid();
     
-    AssayValidator.validateGravid(this);
+    new AssayValidator(this).validateGravid();
   }
 
   @Override
@@ -45,7 +45,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     super.validateFed();
     
-    AssayValidator.validateFed(this);
+    new AssayValidator(this).validateFed();
   }
 
 
