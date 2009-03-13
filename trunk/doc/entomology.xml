@@ -1679,6 +1679,21 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
+      name="csu.mrc.ivcc.mdss.entomology.assay.LarvaeDiscriminatingDoseAssay"
+      label="Larvae Discriminating Dose Assay"
+      description="Discriminating Dose Assay which can be performed on a group of larvae mosquitos"
+      extends="csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay">
+      <attributes>
+        <reference
+          name="ageRange"
+          label="Age Range"
+          type="csu.mrc.ivcc.mdss.entomology.assay.LarvaeAgeRange"
+          description="The larvae age range" />
+      </attributes>
+    </mdBusiness>
+
+
+    <mdBusiness
       name="csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssay"
       label="Efficacy Assay"
       description="An efficacy assay which can be performed on a colony mosquitos"
@@ -8103,6 +8118,27 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="definition"
         value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
     </object>
+    
+    <object
+      type="csu.mrc.ivcc.mdss.mo.LarvaeAge"
+      id="MIRO_99900063">
+      <valueAttribute
+        name="termId"
+        value="MIRO_99900063" />
+      <valueAttribute
+        name="termName"
+        value="Test Lavae Age" />
+      <valueAttribute
+        name="displayLabel"
+        value="Test Lavae Age" />
+      <valueAttribute
+        name="oboNamespace"
+        value="" />
+      <valueAttribute
+        name="definition"
+        value="A chemical substance which is being used as insecticide. [PT:PT]" />
+    </object>
+    
   </create>
 
   <existing>
