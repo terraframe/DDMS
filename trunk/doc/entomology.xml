@@ -1391,6 +1391,19 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <includeAll />
     </mdEnumeration>
 
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.mo.LarvaeAge"
+      label="Larvae Age"
+      description="List of larvae ages"
+      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      <mdMethod
+        name="getAll"
+        returnType="csu.mrc.ivcc.mdss.mo.LarvaeAge[]"
+        label="Get All Terms"
+        static="true"
+        description="Returns all term names of a MO subcatagory" />
+    </mdBusiness>
+
     <mdStruct
       name="csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRange"
       label="Age Range"
@@ -1410,6 +1423,27 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           description="Ending age of the age range" />
       </attributes>
     </mdStruct>
+
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.entomology.assay.LarvaeAgeRange"
+      label="Larvae Age Range"
+      description="Age range of larvae in an assay"
+      generateController="false">
+      <attributes>
+        <reference
+          name="startPoint"
+          label="Beginning Age"
+          required="true"
+          description="Starting age of the age range"
+          type="csu.mrc.ivcc.mdss.mo.LarvaeAge" />
+        <reference
+          name="endPoint"
+          label="End Age"
+          required="true"
+          description="End age of the age range"
+          type="csu.mrc.ivcc.mdss.mo.LarvaeAge" />
+      </attributes>
+    </mdBusiness>
 
     <mdProblem
       name="csu.mrc.ivcc.mdss.entomology.assay.InvalidAgeProblem"
@@ -1642,9 +1676,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           selectMultiple="false"
           type="csu.mrc.ivcc.mdss.entomology.AssaySex" />
       </attributes>
-
     </mdBusiness>
-
 
     <mdBusiness
       name="csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssay"
