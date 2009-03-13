@@ -5,15 +5,16 @@
 	<property name="db_root_db" value="template1" />
 	<property name="max_memory_use" value="1024m" />
 	<property name="deploy.path" value="/Library/Tomcat/Home/webapps/MDSS/" />
+	
 
 
-	<target name="rebuild_all" depends="develop_rebuild_import,deploy_all,deploy_rebuild_import,update_db,push_source">
+	<target name="rebuild_all" depends="alert_status,develop_rebuild_import,deploy_all,deploy_rebuild_import,update_db,push_source">
 		<echo message="The build is complete" />
 	</target>
 
 	<target name="deploy_to_test_server">
-		<exec executable="sh" os="Mac OS X" dir="${deploy.path}">
-			<arg value="info" />
+		<exec executable="/bin/sh" os="Mac OS X" dir="${deploy.path}" searchpath="true">
+			<arg line='update_prototype.sh' />
 		</exec>
 		<echo message="Deploy Is Complete" />
 	</target>
