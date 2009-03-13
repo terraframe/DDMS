@@ -8,6 +8,27 @@
     <div class="fcTop">
   <mjl:component item="${item}" param="dto">
     <dl>
+    <dt>
+        <label>
+          ${item.geoEntityMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+         <mjl:select var="current" valueAttribute="id" items="${geoEntintys}" param="geoEntity" >
+          <c:choose>
+            <c:when test="${current.geoId == item.geoEntity.geoId}">
+             <mjl:option selected="selected">
+               ${current.geoId}
+              </mjl:option>
+            </c:when>
+            <c:otherwise>
+              <mjl:option>
+                ${current.geoId}
+              </mjl:option>
+            </c:otherwise>
+          </c:choose>
+        </mjl:select>
+      </dd>
           <dt>
         <label>
           ${item.testDateMd.displayLabel}

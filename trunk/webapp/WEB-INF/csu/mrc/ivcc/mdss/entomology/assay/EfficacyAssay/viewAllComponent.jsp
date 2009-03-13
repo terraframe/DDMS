@@ -6,7 +6,14 @@
 <mjl:table var="item" query="${query}" classes="displayTable" even ="evenRow" odd="oddRow">
   <mjl:context action="csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssayController.viewPage.mojo" />
   <mjl:columns>
-  
+    <mjl:attributeColumn attributeName="geoEntity">
+      <mjl:header>
+        Geo Entity
+      </mjl:header>
+        <mjl:row >
+        ${item.geoEntity.entityName}
+      </mjl:row>
+    </mjl:attributeColumn>
    <mjl:attributeColumn attributeName="testDate">
       <mjl:header>
         Test Date
