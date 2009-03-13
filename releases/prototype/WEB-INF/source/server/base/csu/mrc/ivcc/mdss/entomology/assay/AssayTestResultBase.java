@@ -23,7 +23,7 @@ public abstract class AssayTestResultBase extends com.terraframe.mojo.business.B
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236803162537L;
+  private static final long serialVersionUID = 1236982468988L;
   
   public AssayTestResultBase()
   {

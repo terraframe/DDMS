@@ -9,7 +9,7 @@ public class ADDATestIntervalControllerBase implements com.terraframe.mojo.gener
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236803156857L;
+  private static final long serialVersionUID = 1236982461859L;
   
   public ADDATestIntervalControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

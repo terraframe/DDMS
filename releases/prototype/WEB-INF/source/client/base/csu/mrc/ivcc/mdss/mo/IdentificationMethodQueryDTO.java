@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public class IdentificationMethodQueryDTO extends csu.mrc.ivcc.mdss.mo.AbstractTermQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803157543L;
+private static final long serialVersionUID = 1236982462493L;
 
   protected IdentificationMethodQueryDTO(String type)
   {

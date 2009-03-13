@@ -13,22 +13,20 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String GENERICNAME = "genericName";
   public static java.lang.String ID = "id";
-  public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
-  public static java.lang.String ISOFEMALE = "isofemale";
+  public static java.lang.String INSECTICIDE = "insecticide";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
-  public static java.lang.String SEX = "sex";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
-  public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236803152729L;
+  private static final long serialVersionUID = 1236982457793L;
   
   public AbstractAssayBase()
   {
@@ -109,6 +107,34 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
     }
   }
   
+  public String getGenericName()
+  {
+    return getValue(GENERICNAME);
+  }
+  
+  public void validateGenericName()
+  {
+    this.validateAttribute(GENERICNAME);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGenericNameMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.CLASS);
+    return mdClassIF.definesAttribute(GENERICNAME);
+  }
+  
+  public void setGenericName(String value)
+  {
+    if(value == null)
+    {
+      setValue(GENERICNAME, "");
+    }
+    else
+    {
+      setValue(GENERICNAME, value);
+    }
+  }
+  
   public String getId()
   {
     return getValue(ID);
@@ -125,11 +151,11 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
     return mdClassIF.definesAttribute(ID);
   }
   
-  public csu.mrc.ivcc.mdss.mo.IdentificationMethod getIdentificationMethod()
+  public csu.mrc.ivcc.mdss.mo.Insecticide getInsecticide()
   {
     try
     {
-      return csu.mrc.ivcc.mdss.mo.IdentificationMethod.get(getValue(IDENTIFICATIONMETHOD));
+      return csu.mrc.ivcc.mdss.mo.Insecticide.get(getValue(INSECTICIDE));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -137,54 +163,26 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
     }
   }
   
-  public void validateIdentificationMethod()
+  public void validateInsecticide()
   {
-    this.validateAttribute(IDENTIFICATIONMETHOD);
+    this.validateAttribute(INSECTICIDE);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIdentificationMethodMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getInsecticideMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.CLASS);
-    return mdClassIF.definesAttribute(IDENTIFICATIONMETHOD);
+    return mdClassIF.definesAttribute(INSECTICIDE);
   }
   
-  public void setIdentificationMethod(csu.mrc.ivcc.mdss.mo.IdentificationMethod value)
+  public void setInsecticide(csu.mrc.ivcc.mdss.mo.Insecticide value)
   {
     if(value == null)
     {
-      setValue(IDENTIFICATIONMETHOD, "");
+      setValue(INSECTICIDE, "");
     }
     else
     {
-      setValue(IDENTIFICATIONMETHOD, value.getId());
-    }
-  }
-  
-  public Boolean getIsofemale()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISOFEMALE));
-  }
-  
-  public void validateIsofemale()
-  {
-    this.validateAttribute(ISOFEMALE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIsofemaleMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.CLASS);
-    return mdClassIF.definesAttribute(ISOFEMALE);
-  }
-  
-  public void setIsofemale(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(ISOFEMALE, "");
-    }
-    else
-    {
-      setValue(ISOFEMALE, java.lang.Boolean.toString(value));
+      setValue(INSECTICIDE, value.getId());
     }
   }
   
@@ -317,38 +315,6 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
     return mdClassIF.definesAttribute(SEQ);
   }
   
-  @SuppressWarnings("unchecked")
-  public java.util.List<csu.mrc.ivcc.mdss.entomology.AssaySex> getSex()
-  {
-    return (java.util.List<csu.mrc.ivcc.mdss.entomology.AssaySex>) getEnumValues(SEX);
-  }
-  
-  public void addSex(csu.mrc.ivcc.mdss.entomology.AssaySex value)
-  {
-    addEnumItem(SEX, value.getId());
-  }
-  
-  public void removeSex(csu.mrc.ivcc.mdss.entomology.AssaySex value)
-  {
-    removeEnumItem(SEX, value.getId());
-  }
-  
-  public void clearSex()
-  {
-    clearEnum(SEX);
-  }
-  
-  public void validateSex()
-  {
-    this.validateAttribute(SEX);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSexMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.CLASS);
-    return mdClassIF.definesAttribute(SEX);
-  }
-  
   public String getSiteMaster()
   {
     return getValue(SITEMASTER);
@@ -425,41 +391,6 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
     else
     {
       setValue(TESTDATE, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
-    }
-  }
-  
-  public csu.mrc.ivcc.mdss.mo.ResistanceMethodology getTestMethod()
-  {
-    try
-    {
-      return csu.mrc.ivcc.mdss.mo.ResistanceMethodology.get(getValue(TESTMETHOD));
-    }
-    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
-    {
-      return null;
-    }
-  }
-  
-  public void validateTestMethod()
-  {
-    this.validateAttribute(TESTMETHOD);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getTestMethodMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.CLASS);
-    return mdClassIF.definesAttribute(TESTMETHOD);
-  }
-  
-  public void setTestMethod(csu.mrc.ivcc.mdss.mo.ResistanceMethodology value)
-  {
-    if(value == null)
-    {
-      setValue(TESTMETHOD, "");
-    }
-    else
-    {
-      setValue(TESTMETHOD, value.getId());
     }
   }
   

@@ -33,7 +33,7 @@ public class CompositeMosquitoCollection extends CompositeMosquitoCollectionBase
 
     while (iterator.hasNext())
     {
-      list.add(iterator.next().getView());
+      list.addAll(iterator.next().getViews());
     }
 
     iterator.close();

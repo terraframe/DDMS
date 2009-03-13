@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss;
 
 public abstract class PropertyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803154470L;
+  private static final long serialVersionUID = 1236982459698L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.Property";
   protected PropertyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

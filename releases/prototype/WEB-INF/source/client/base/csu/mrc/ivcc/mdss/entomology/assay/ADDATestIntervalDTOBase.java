@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class ADDATestIntervalDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803164375L;
+  private static final long serialVersionUID = 1236982471025L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval";
   protected ADDATestIntervalDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -41,7 +41,7 @@ public abstract class ADDATestIntervalDTOBase extends com.terraframe.mojo.busine
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  public csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO getAssay()
+  public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayDTO getAssay()
   {
     if(getValue(ASSAY) == null || getValue(ASSAY).trim().equals(""))
     {
@@ -49,11 +49,11 @@ public abstract class ADDATestIntervalDTOBase extends com.terraframe.mojo.busine
     }
     else
     {
-      return csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.get(getRequest(), getValue(ASSAY));
+      return csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayDTO.get(getRequest(), getValue(ASSAY));
     }
   }
   
-  public void setAssay(csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO value)
+  public void setAssay(csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayDTO value)
   {
     setValue(ASSAY, value.getId());
   }

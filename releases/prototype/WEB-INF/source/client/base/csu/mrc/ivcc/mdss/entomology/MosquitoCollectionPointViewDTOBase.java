@@ -1,6 +1,6 @@
 package csu.mrc.ivcc.mdss.entomology;
 
-public abstract class MosquitoCollectionPointViewDTOBase extends com.terraframe.mojo.business.ViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class MosquitoCollectionPointViewDTOBase extends csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupViewDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointView";
   protected MosquitoCollectionPointViewDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -13,85 +13,8 @@ public abstract class MosquitoCollectionPointViewDTOBase extends com.terraframe.
     return CLASS;
   }
   
-  public static java.lang.String COLLECTIONID = "collectionId";
-  public static java.lang.String COMPOSITECOLLECTION = "compositeCollection";
   public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String GEOENTITY = "geoEntity";
-  public static java.lang.String ID = "id";
-  public String getCollectionId()
-  {
-    return getValue(COLLECTIONID);
-  }
-  
-  public void setCollectionId(String value)
-  {
-    if(value == null)
-    {
-      setValue(COLLECTIONID, "");
-    }
-    else
-    {
-      setValue(COLLECTIONID, value);
-    }
-  }
-  
-  public boolean isCollectionIdWritable()
-  {
-    return isWritable(COLLECTIONID);
-  }
-  
-  public boolean isCollectionIdReadable()
-  {
-    return isReadable(COLLECTIONID);
-  }
-  
-  public boolean isCollectionIdModified()
-  {
-    return isModified(COLLECTIONID);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("collectionId").getAttributeMdDTO();
-  }
-  
-  public csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollectionDTO getCompositeCollection()
-  {
-    if(getValue(COMPOSITECOLLECTION) == null || getValue(COMPOSITECOLLECTION).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollectionDTO.get(getRequest(), getValue(COMPOSITECOLLECTION));
-    }
-  }
-  
-  public void setCompositeCollection(csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollectionDTO value)
-  {
-    setValue(COMPOSITECOLLECTION, value.getId());
-  }
-  
-  public boolean isCompositeCollectionWritable()
-  {
-    return isWritable(COMPOSITECOLLECTION);
-  }
-  
-  public boolean isCompositeCollectionReadable()
-  {
-    return isReadable(COMPOSITECOLLECTION);
-  }
-  
-  public boolean isCompositeCollectionModified()
-  {
-    return isModified(COMPOSITECOLLECTION);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCompositeCollectionMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("compositeCollection").getAttributeMdDTO();
-  }
-  
   public java.util.Date getDateCollected()
   {
     return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATECOLLECTED));

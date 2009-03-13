@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803152792L;
+  private static final long serialVersionUID = 1236982457862L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay";
   protected AbstractAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -29,20 +29,18 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String GENERICNAME = "genericName";
   public static java.lang.String ID = "id";
-  public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
-  public static java.lang.String ISOFEMALE = "isofemale";
+  public static java.lang.String INSECTICIDE = "insecticide";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
-  public static java.lang.String SEX = "sex";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
-  public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TYPE = "type";
   public java.util.Date getCreateDate()
   {
@@ -138,78 +136,78 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("entityDomain").getAttributeMdDTO();
   }
   
-  public csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO getIdentificationMethod()
+  public String getGenericName()
   {
-    if(getValue(IDENTIFICATIONMETHOD) == null || getValue(IDENTIFICATIONMETHOD).trim().equals(""))
+    return getValue(GENERICNAME);
+  }
+  
+  public void setGenericName(String value)
+  {
+    if(value == null)
+    {
+      setValue(GENERICNAME, "");
+    }
+    else
+    {
+      setValue(GENERICNAME, value);
+    }
+  }
+  
+  public boolean isGenericNameWritable()
+  {
+    return isWritable(GENERICNAME);
+  }
+  
+  public boolean isGenericNameReadable()
+  {
+    return isReadable(GENERICNAME);
+  }
+  
+  public boolean isGenericNameModified()
+  {
+    return isModified(GENERICNAME);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGenericNameMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("genericName").getAttributeMdDTO();
+  }
+  
+  public csu.mrc.ivcc.mdss.mo.InsecticideDTO getInsecticide()
+  {
+    if(getValue(INSECTICIDE) == null || getValue(INSECTICIDE).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO.get(getRequest(), getValue(IDENTIFICATIONMETHOD));
+      return csu.mrc.ivcc.mdss.mo.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
     }
   }
   
-  public void setIdentificationMethod(csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO value)
+  public void setInsecticide(csu.mrc.ivcc.mdss.mo.InsecticideDTO value)
   {
-    setValue(IDENTIFICATIONMETHOD, value.getId());
+    setValue(INSECTICIDE, value.getId());
   }
   
-  public boolean isIdentificationMethodWritable()
+  public boolean isInsecticideWritable()
   {
-    return isWritable(IDENTIFICATIONMETHOD);
+    return isWritable(INSECTICIDE);
   }
   
-  public boolean isIdentificationMethodReadable()
+  public boolean isInsecticideReadable()
   {
-    return isReadable(IDENTIFICATIONMETHOD);
+    return isReadable(INSECTICIDE);
   }
   
-  public boolean isIdentificationMethodModified()
+  public boolean isInsecticideModified()
   {
-    return isModified(IDENTIFICATIONMETHOD);
+    return isModified(INSECTICIDE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIdentificationMethodMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getInsecticideMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("identificationMethod").getAttributeMdDTO();
-  }
-  
-  public Boolean getIsofemale()
-  {
-    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISOFEMALE));
-  }
-  
-  public void setIsofemale(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(ISOFEMALE, "");
-    }
-    else
-    {
-      setValue(ISOFEMALE, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isIsofemaleWritable()
-  {
-    return isWritable(ISOFEMALE);
-  }
-  
-  public boolean isIsofemaleReadable()
-  {
-    return isReadable(ISOFEMALE);
-  }
-  
-  public boolean isIsofemaleModified()
-  {
-    return isModified(ISOFEMALE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("isofemale").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("insecticide").getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -388,52 +386,6 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("seq").getAttributeMdDTO();
   }
   
-  @SuppressWarnings("unchecked")
-  public java.util.List<csu.mrc.ivcc.mdss.entomology.AssaySexDTO> getSex()
-  {
-    return (java.util.List<csu.mrc.ivcc.mdss.entomology.AssaySexDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "csu.mrc.ivcc.mdss.entomology.AssaySex", getEnumNames(SEX));
-  }
-  
-  public java.util.List<String> getSexEnumNames()
-  {
-    return getEnumNames(SEX);
-  }
-  
-  public void addSex(csu.mrc.ivcc.mdss.entomology.AssaySexDTO enumDTO)
-  {
-    addEnumItem(SEX, enumDTO.toString());
-  }
-  
-  public void removeSex(csu.mrc.ivcc.mdss.entomology.AssaySexDTO enumDTO)
-  {
-    removeEnumItem(SEX, enumDTO.toString());
-  }
-  
-  public void clearSex()
-  {
-    clearEnum(SEX);
-  }
-  
-  public boolean isSexWritable()
-  {
-    return isWritable(SEX);
-  }
-  
-  public boolean isSexReadable()
-  {
-    return isReadable(SEX);
-  }
-  
-  public boolean isSexModified()
-  {
-    return isModified(SEX);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSexMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("sex").getAttributeMdDTO();
-  }
-  
   public String getSiteMaster()
   {
     return getValue(SITEMASTER);
@@ -531,43 +483,6 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTestDateMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("testDate").getAttributeMdDTO();
-  }
-  
-  public csu.mrc.ivcc.mdss.mo.ResistanceMethodologyDTO getTestMethod()
-  {
-    if(getValue(TESTMETHOD) == null || getValue(TESTMETHOD).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return csu.mrc.ivcc.mdss.mo.ResistanceMethodologyDTO.get(getRequest(), getValue(TESTMETHOD));
-    }
-  }
-  
-  public void setTestMethod(csu.mrc.ivcc.mdss.mo.ResistanceMethodologyDTO value)
-  {
-    setValue(TESTMETHOD, value.getId());
-  }
-  
-  public boolean isTestMethodWritable()
-  {
-    return isWritable(TESTMETHOD);
-  }
-  
-  public boolean isTestMethodReadable()
-  {
-    return isReadable(TESTMETHOD);
-  }
-  
-  public boolean isTestMethodModified()
-  {
-    return isModified(TESTMETHOD);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("testMethod").getAttributeMdDTO();
   }
   
   public static csu.mrc.ivcc.mdss.entomology.assay.AbstractAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

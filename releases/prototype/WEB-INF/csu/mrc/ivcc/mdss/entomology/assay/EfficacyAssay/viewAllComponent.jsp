@@ -3,49 +3,41 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}">
+<mjl:table var="item" query="${query}" classes="displayTable" even ="evenRow" odd="oddRow">
   <mjl:context action="csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssayController.viewPage.mojo" />
   <mjl:columns>
+    <mjl:attributeColumn attributeName="geoEntity">
+      <mjl:header>
+        Geo Entity
+      </mjl:header>
+        <mjl:row >
+        ${item.geoEntity.entityName}
+      </mjl:row>
+    </mjl:attributeColumn>
+   <mjl:attributeColumn attributeName="testDate">
+      <mjl:header>
+        Test Date
+      </mjl:header>
+    </mjl:attributeColumn>
+    
+    <mjl:attributeColumn attributeName="testMethod">
+      <mjl:header>
+        Test Method
+      </mjl:header>
+    </mjl:attributeColumn>
+    
+     <mjl:attributeColumn attributeName="specie">
+      <mjl:header>
+        Specie
+      </mjl:header>
+    </mjl:attributeColumn>
+  
     <mjl:attributeColumn attributeName="colonyName">
       <mjl:header>
         Colony Name
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="holdingTime">
-      <mjl:header>
-        Holding Time (hr)
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="insecticide">
-      <mjl:header>
-        Insecticide
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="insecticideLength">
-      <mjl:header>
-        Insecticide Time Length
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="mortality">
-      <mjl:header>
-        Mortality Rate
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="quantityDead">
-      <mjl:header>
-        Quantity Dead
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="quantityLive">
-      <mjl:header>
-        Quantity Live
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="surfacePostion">
-      <mjl:header>
-        Surface Position
-      </mjl:header>
-    </mjl:attributeColumn>
+    
     <mjl:structColumn attributeName="ageRange">
       <mjl:header>
         Age Range
@@ -61,62 +53,74 @@
         </mjl:header>
       </mjl:attributeColumn>
     </mjl:structColumn>
-    <mjl:attributeColumn attributeName="exposureTime">
+    
+     <mjl:attributeColumn attributeName="sex">
       <mjl:header>
-        Exposure Time (m)
+        Sex
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="fed">
-      <mjl:header>
-        Fed
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="generation">
-      <mjl:header>
-        Generation
-      </mjl:header>
-    </mjl:attributeColumn>
+       
     <mjl:attributeColumn attributeName="gravid">
       <mjl:header>
         Gravid
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="quantityTested">
+    
+    <mjl:attributeColumn attributeName="fed">
       <mjl:header>
-        Quantity Tested
+        Fed
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="identificationMethod">
+    
+    <mjl:attributeColumn attributeName="insecticide">
       <mjl:header>
-        Identification Method
+        Insecticide
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="isofemale">
+    
+    <mjl:attributeColumn attributeName="insecticideLength">
       <mjl:header>
-        Isofemale
+        Insecticide Time Length
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="sex">
+        
+    <mjl:attributeColumn attributeName="surfacePostion">
       <mjl:header>
-        Sex
+        Surface Position
+      </mjl:header>
+    </mjl:attributeColumn>    
+        
+   <mjl:attributeColumn attributeName="exposureTime">
+      <mjl:header>
+        Exposure Time (m)
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="specie">
+    
+    <mjl:attributeColumn attributeName="holdingTime">
       <mjl:header>
-        Specie
+        Holding Time (hr)
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="testDate">
+        
+    <mjl:attributeColumn attributeName="quantityLive">
       <mjl:header>
-        Test Date
+        Quantity Live
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="testMethod">
+    
+    <mjl:attributeColumn attributeName="quantityDead">
       <mjl:header>
-        Test Method
+        Quantity Dead
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:freeColumn>
+        
+    <mjl:attributeColumn attributeName="mortality">
+      <mjl:header>
+        Mortality Rate
+      </mjl:header>
+    </mjl:attributeColumn>
+
+  <mjl:freeColumn>
       <mjl:header>
         
       </mjl:header>

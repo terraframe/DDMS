@@ -9,7 +9,7 @@ public class AbstractSiteControllerBase implements com.terraframe.mojo.generatio
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236803172893L;
+  private static final long serialVersionUID = 1236982480244L;
   
   public AbstractSiteControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

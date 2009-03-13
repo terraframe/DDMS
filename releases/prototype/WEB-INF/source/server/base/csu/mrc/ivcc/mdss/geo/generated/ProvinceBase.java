@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public abstract class ProvinceBase extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.Province";
-  private static final long serialVersionUID = 1236803163073L;
+  private static final long serialVersionUID = 1236982469455L;
   
   public ProvinceBase()
   {

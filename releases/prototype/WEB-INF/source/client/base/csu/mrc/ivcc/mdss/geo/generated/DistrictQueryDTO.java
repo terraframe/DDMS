@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public class DistrictQueryDTO extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803167067L;
+private static final long serialVersionUID = 1236982473050L;
 
   protected DistrictQueryDTO(String type)
   {

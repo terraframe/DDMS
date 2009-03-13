@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public abstract class AbstractSiteDTOBase extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803170335L;
+  private static final long serialVersionUID = 1236982477194L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.AbstractSite";
   protected AbstractSiteDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

@@ -14,7 +14,7 @@ public abstract class InsecticideAssayBase extends csu.mrc.ivcc.mdss.entomology.
   public static java.lang.String GENERICNAME = "genericName";
   public static java.lang.String INSECTICIDE = "insecticide";
   public static java.lang.String UNITS = "units";
-  private static final long serialVersionUID = 1236803173438L;
+  private static final long serialVersionUID = 1236807469715L;
   
   public InsecticideAssayBase()
   {

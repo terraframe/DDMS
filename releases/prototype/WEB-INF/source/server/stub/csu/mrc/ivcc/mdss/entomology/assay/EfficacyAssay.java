@@ -9,8 +9,7 @@ import com.terraframe.mojo.query.QueryFactory;
 
 import csu.mrc.ivcc.mdss.geo.generated.GeoEntity;
 
-public class EfficacyAssay extends EfficacyAssayBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236363373386L;
 
@@ -20,9 +19,44 @@ public class EfficacyAssay extends EfficacyAssayBase implements
   }
 
   @Override
+  public void validateAgeRange()
+  {
+    super.validateAgeRange();
+
+    new AdultAgeRangeValidator(this).validate();
+  }
+
+  @Override
+  public void validateGravid()
+  {
+    super.validateGravid();
+
+    new GravidValidator(this).validate();
+  }
+
+  @Override
+  public void validateFed()
+  {
+    super.validateFed();
+
+    new FedValidator(this).validate();
+  }
+
+  @Override
+  public void validateQuantityDead()
+  {
+    super.validateQuantityDead();
+
+    new QuantityDeadValidator(this).validate();
+  }
+
+  @Override
   public void apply()
   {
     validateQuantityDead();
+    validateAgeRange();
+    validateFed();
+    validateGravid();
 
     if (this.getQuantityDead() <= this.getQuantityTested())
     {
@@ -45,25 +79,8 @@ public class EfficacyAssay extends EfficacyAssayBase implements
     return ( dead * 100F / total );
   }
 
-  @Override
-  public void validateQuantityDead()
-  {
-    super.validateQuantityDead();
-
-    if (this.getQuantityDead() > this.getQuantityTested())
-    {
-      String msg = "It is impossible to have a dead quantity larger than the total number of mosquitos tested";
-
-      InvalidDeadQuantityProblem p = new InvalidDeadQuantityProblem(msg);
-      p.setAssayId(this.getId());
-      p.setQuantityDead(this.getQuantityDead());
-      p.setQuantityTested(this.getQuantityTested());
-      p.throwIt();
-    }
-  }
-
   public static EfficacyAssay[] searchByGeoEntityAndDate(GeoEntity geoEntity, Date collectionDate)
-  {    
+  {
     QueryFactory factory = new QueryFactory();
     EfficacyAssayQuery query = new EfficacyAssayQuery(factory);
 
@@ -75,12 +92,12 @@ public class EfficacyAssay extends EfficacyAssayBase implements
     try
     {
       List<EfficacyAssay> list = new LinkedList<EfficacyAssay>();
-      
+
       while (iterator.hasNext())
       {
         list.add(iterator.next());
       }
-      
+
       return list.toArray(new EfficacyAssay[list.size()]);
     }
     finally
@@ -88,25 +105,25 @@ public class EfficacyAssay extends EfficacyAssayBase implements
       iterator.close();
     }
   }
-  
+
   @Override
   public Float getOverallMortalityRate()
   {
     int dead = 0;
     int total = 0;
     EfficacyAssay[] assays = searchByGeoEntityAndDate(this.getGeoEntity(), this.getTestDate());
-    
-    for(EfficacyAssay assay : assays)
+
+    for (EfficacyAssay assay : assays)
     {
       dead += assay.getQuantityDead();
       total += assay.getQuantityTested();
     }
-      
-    if(total == 0)
+
+    if (total == 0)
     {
       return 0.0F;
     }
-    
-    return calculateMortality(dead, total);    
+
+    return calculateMortality(dead, total);
   }
 }

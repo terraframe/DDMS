@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo;
 
 public abstract class AllowedInDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803169986L;
+  private static final long serialVersionUID = 1236982476439L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.AllowedIn";
   public AllowedInDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)

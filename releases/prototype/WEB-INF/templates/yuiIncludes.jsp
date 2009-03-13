@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="java.util.*"%>
 <%--TO USE ME: <jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />--%>
-<link rel="icon" type="image/png" href="/favicon.png" >
+<link rel="icon" type="image/png" href="./imgs/favicon.png" >
 
 <!--CSS for Controls:--> 
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/container/assets/skins/sam/container.css"> 

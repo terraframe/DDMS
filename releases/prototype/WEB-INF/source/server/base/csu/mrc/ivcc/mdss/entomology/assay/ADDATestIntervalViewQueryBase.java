@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public  abstract  class ADDATestIntervalViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803176719L;
+private static final long serialVersionUID = 1236982484230L;
 
   public ADDATestIntervalViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

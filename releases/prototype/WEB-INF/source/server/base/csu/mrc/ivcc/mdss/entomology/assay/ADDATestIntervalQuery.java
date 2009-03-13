@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public  class ADDATestIntervalQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803164411L;
+private static final long serialVersionUID = 1236982471066L;
 
   public ADDATestIntervalQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -27,18 +27,18 @@ private static final long serialVersionUID = 1236803164411L;
   {
     return "csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval";
   }
-  public csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayQuery.AdultDiscriminatingDoseAssayQueryReferenceIF getAssay()
+  public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReferenceIF getAssay()
   {
     return getAssay(null);
 
   }
  
-  public csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayQuery.AdultDiscriminatingDoseAssayQueryReferenceIF getAssay(String alias)
+  public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReferenceIF getAssay(String alias)
   {
 
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("assay");
 
-    return (csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayQuery.AdultDiscriminatingDoseAssayQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval.ASSAY, mdAttributeIF, this, alias);
+    return (csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval.ASSAY, mdAttributeIF, this, alias);
 
   }
   public com.terraframe.mojo.query.AttributeMomentIF getCreateDate()
@@ -216,7 +216,7 @@ private static final long serialVersionUID = 1236803164411L;
     
     if (name.equals("assay")) 
     {
-       return new csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayQuery.AdultDiscriminatingDoseAssayQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
+       return new csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else if (name.equals("createdBy")) 
     {
@@ -276,8 +276,8 @@ private static final long serialVersionUID = 1236803164411L;
   public interface ADDATestIntervalQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, com.terraframe.mojo.query.AttributeReferenceIF
   {
 
-    public csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayQuery.AdultDiscriminatingDoseAssayQueryReferenceIF getAssay();
-    public csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayQuery.AdultDiscriminatingDoseAssayQueryReferenceIF getAssay(String alias);
+    public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReferenceIF getAssay();
+    public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReferenceIF getAssay(String alias);
     public com.terraframe.mojo.query.AttributeMomentIF getCreateDate();
     public com.terraframe.mojo.query.AttributeMomentIF getCreateDate(String alias);
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
@@ -321,7 +321,7 @@ private static final long serialVersionUID = 1236803164411L;
  implements ADDATestIntervalQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236803164501L;
+private static final long serialVersionUID = 1236982471164L;
 
   public ADDATestIntervalQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -340,15 +340,15 @@ private static final long serialVersionUID = 1236803164501L;
       return this.NE(aDDATestInterval.getId());
     }
 
-  public csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayQuery.AdultDiscriminatingDoseAssayQueryReferenceIF getAssay()
+  public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReferenceIF getAssay()
   {
     return getAssay(null);
 
   }
  
-  public csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayQuery.AdultDiscriminatingDoseAssayQueryReferenceIF getAssay(String alias)
+  public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReferenceIF getAssay(String alias)
   {
-    return (csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayQuery.AdultDiscriminatingDoseAssayQueryReferenceIF)this.attributeFactory("assay", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
+    return (csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReferenceIF)this.attributeFactory("assay", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
 
   }
   public com.terraframe.mojo.query.AttributeMomentIF getCreateDate()
@@ -511,7 +511,7 @@ private static final long serialVersionUID = 1236803164501L;
     
     if (name.equals("assay")) 
     {
-       return new csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayQuery.AdultDiscriminatingDoseAssayQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
+       return new csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else if (name.equals("createdBy")) 
     {

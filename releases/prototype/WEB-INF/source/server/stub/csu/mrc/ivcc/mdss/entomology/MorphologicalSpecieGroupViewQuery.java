@@ -42,12 +42,12 @@ private static final long serialVersionUID = 1234793969670L;
      */
     protected void buildSelectClause()
     {
-      MorphologicalSpecieGroupViewQuery viewQuery = this.getViewQuery();
-      
-      viewQuery.map(MorphologicalSpecieGroupView.GROUPID, groupQuery.getId());
-      viewQuery.map(MorphologicalSpecieGroupView.COLLECTIONID, groupQuery.getCollection().getId());
-      viewQuery.map(MorphologicalSpecieGroupView.SPECIE, groupQuery.getSpecie().getTermName());
-      viewQuery.map(MorphologicalSpecieGroupView.IDENTIFICATIONMETHOD, groupQuery.getIdentificationMethod().getTermName());
+//      MorphologicalSpecieGroupViewQuery viewQuery = this.getViewQuery();
+//      
+//      viewQuery.map(MorphologicalSpecieGroupView.GROUPID, groupQuery.getId());
+//      viewQuery.map(MorphologicalSpecieGroupView.COLLECTION, groupQuery.getCollection());
+//      viewQuery.map(MorphologicalSpecieGroupView.SPECIE, groupQuery.getSpecie().getTermName());
+//      viewQuery.map(MorphologicalSpecieGroupView.IDENTIFICATIONMETHOD, groupQuery.getIdentificationMethod().getTermName());
     }
 
     /**

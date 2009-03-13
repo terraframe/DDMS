@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo;
 
 public abstract class LocatedInDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803172010L;
+  private static final long serialVersionUID = 1236982479336L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.LocatedIn";
   public LocatedInDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)

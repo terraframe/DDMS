@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public class BreedingSiteQueryDTO extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803176708L;
+private static final long serialVersionUID = 1236982484215L;
 
   protected BreedingSiteQueryDTO(String type)
   {

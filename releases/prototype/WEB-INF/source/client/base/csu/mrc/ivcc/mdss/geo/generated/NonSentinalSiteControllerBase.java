@@ -9,7 +9,7 @@ public class NonSentinalSiteControllerBase implements com.terraframe.mojo.genera
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236803158207L;
+  private static final long serialVersionUID = 1236982463670L;
   
   public NonSentinalSiteControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

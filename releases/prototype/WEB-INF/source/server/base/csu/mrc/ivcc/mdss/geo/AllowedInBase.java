@@ -22,7 +22,7 @@ public abstract class AllowedInBase extends com.terraframe.mojo.business.Relatio
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236803169983L;
+  private static final long serialVersionUID = 1236982476436L;
   
   public AllowedInBase(String parentId, String childId)
   {

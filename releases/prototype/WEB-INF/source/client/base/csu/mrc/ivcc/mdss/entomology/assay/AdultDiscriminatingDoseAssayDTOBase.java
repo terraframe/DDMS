@@ -1,8 +1,8 @@
 package csu.mrc.ivcc.mdss.entomology.assay;
 
-public abstract class AdultDiscriminatingDoseAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.InsecticideAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class AdultDiscriminatingDoseAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803172178L;
+  private static final long serialVersionUID = 1236982479388L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay";
   protected AdultDiscriminatingDoseAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -26,318 +26,153 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends csu.mrc.ivcc.m
     return CLASS;
   }
   
-  public static java.lang.String COLLECTION = "collection";
-  public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
-  public static java.lang.String HOLDINGTIME = "holdingTime";
-  public static java.lang.String INTERVALTIME = "intervalTime";
-  public static java.lang.String MORTALITY = "mortality";
-  public static java.lang.String QUANTITYDEAD = "quantityDead";
-  public static java.lang.String QUANTITYLIVE = "quantityLive";
-  public csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO getCollection()
+  public static java.lang.String AGERANGE = "ageRange";
+  public static java.lang.String FED = "fed";
+  public static java.lang.String GRAVID = "gravid";
+  public static java.lang.String SEX = "sex";
+  public csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeDTO getAgeRange()
   {
-    if(getValue(COLLECTION) == null || getValue(COLLECTION).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
-    }
+    return (csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeDTO) this.getAttributeStructDTO(AGERANGE).getStructDTO();
   }
   
-  public void setCollection(csu.mrc.ivcc.mdss.entomology.MosquitoCollectionDTO value)
+  public boolean isAgeRangeWritable()
   {
-    setValue(COLLECTION, value.getId());
+    return isWritable(AGERANGE);
   }
   
-  public boolean isCollectionWritable()
+  public boolean isAgeRangeReadable()
   {
-    return isWritable(COLLECTION);
+    return isReadable(AGERANGE);
   }
   
-  public boolean isCollectionReadable()
+  public boolean isAgeRangeModified()
   {
-    return isReadable(COLLECTION);
+    return isModified(AGERANGE);
   }
   
-  public boolean isCollectionModified()
+  public final com.terraframe.mojo.transport.metadata.AttributeStructMdDTO getAgeRangeMd()
   {
-    return isModified(COLLECTION);
+    return (com.terraframe.mojo.transport.metadata.AttributeStructMdDTO) getAttributeDTO("ageRange").getAttributeMdDTO();
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
+  public Integer getFed()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("collection").getAttributeMdDTO();
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FED));
   }
   
-  public Float getControlTestMortality()
-  {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
-  }
-  
-  public void setControlTestMortality(Float value)
+  public void setFed(Integer value)
   {
     if(value == null)
     {
-      setValue(CONTROLTESTMORTALITY, "");
+      setValue(FED, "");
     }
     else
     {
-      setValue(CONTROLTESTMORTALITY, java.lang.Float.toString(value));
+      setValue(FED, java.lang.Integer.toString(value));
     }
   }
   
-  public boolean isControlTestMortalityWritable()
+  public boolean isFedWritable()
   {
-    return isWritable(CONTROLTESTMORTALITY);
+    return isWritable(FED);
   }
   
-  public boolean isControlTestMortalityReadable()
+  public boolean isFedReadable()
   {
-    return isReadable(CONTROLTESTMORTALITY);
+    return isReadable(FED);
   }
   
-  public boolean isControlTestMortalityModified()
+  public boolean isFedModified()
   {
-    return isModified(CONTROLTESTMORTALITY);
+    return isModified(FED);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getControlTestMortalityMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO("controlTestMortality").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("fed").getAttributeMdDTO();
   }
   
-  public Integer getHoldingTime()
+  public Integer getGravid()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOLDINGTIME));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(GRAVID));
   }
   
-  public void setHoldingTime(Integer value)
+  public void setGravid(Integer value)
   {
     if(value == null)
     {
-      setValue(HOLDINGTIME, "");
+      setValue(GRAVID, "");
     }
     else
     {
-      setValue(HOLDINGTIME, java.lang.Integer.toString(value));
+      setValue(GRAVID, java.lang.Integer.toString(value));
     }
   }
   
-  public boolean isHoldingTimeWritable()
+  public boolean isGravidWritable()
   {
-    return isWritable(HOLDINGTIME);
+    return isWritable(GRAVID);
   }
   
-  public boolean isHoldingTimeReadable()
+  public boolean isGravidReadable()
   {
-    return isReadable(HOLDINGTIME);
+    return isReadable(GRAVID);
   }
   
-  public boolean isHoldingTimeModified()
+  public boolean isGravidModified()
   {
-    return isModified(HOLDINGTIME);
+    return isModified(GRAVID);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getGravidMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("holdingTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("gravid").getAttributeMdDTO();
   }
   
-  public Integer getIntervalTime()
+  @SuppressWarnings("unchecked")
+  public java.util.List<csu.mrc.ivcc.mdss.entomology.AssaySexDTO> getSex()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVALTIME));
+    return (java.util.List<csu.mrc.ivcc.mdss.entomology.AssaySexDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "csu.mrc.ivcc.mdss.entomology.AssaySex", getEnumNames(SEX));
   }
   
-  public void setIntervalTime(Integer value)
+  public java.util.List<String> getSexEnumNames()
   {
-    if(value == null)
-    {
-      setValue(INTERVALTIME, "");
-    }
-    else
-    {
-      setValue(INTERVALTIME, java.lang.Integer.toString(value));
-    }
+    return getEnumNames(SEX);
   }
   
-  public boolean isIntervalTimeWritable()
+  public void addSex(csu.mrc.ivcc.mdss.entomology.AssaySexDTO enumDTO)
   {
-    return isWritable(INTERVALTIME);
+    addEnumItem(SEX, enumDTO.toString());
   }
   
-  public boolean isIntervalTimeReadable()
+  public void removeSex(csu.mrc.ivcc.mdss.entomology.AssaySexDTO enumDTO)
   {
-    return isReadable(INTERVALTIME);
+    removeEnumItem(SEX, enumDTO.toString());
   }
   
-  public boolean isIntervalTimeModified()
+  public void clearSex()
   {
-    return isModified(INTERVALTIME);
+    clearEnum(SEX);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getIntervalTimeMd()
+  public boolean isSexWritable()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("intervalTime").getAttributeMdDTO();
+    return isWritable(SEX);
   }
   
-  public Float getMortality()
+  public boolean isSexReadable()
   {
-    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(MORTALITY));
+    return isReadable(SEX);
   }
   
-  public void setMortality(Float value)
+  public boolean isSexModified()
   {
-    if(value == null)
-    {
-      setValue(MORTALITY, "");
-    }
-    else
-    {
-      setValue(MORTALITY, java.lang.Float.toString(value));
-    }
+    return isModified(SEX);
   }
   
-  public boolean isMortalityWritable()
+  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSexMd()
   {
-    return isWritable(MORTALITY);
-  }
-  
-  public boolean isMortalityReadable()
-  {
-    return isReadable(MORTALITY);
-  }
-  
-  public boolean isMortalityModified()
-  {
-    return isModified(MORTALITY);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getMortalityMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO("mortality").getAttributeMdDTO();
-  }
-  
-  public Integer getQuantityDead()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
-  }
-  
-  public void setQuantityDead(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(QUANTITYDEAD, "");
-    }
-    else
-    {
-      setValue(QUANTITYDEAD, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isQuantityDeadWritable()
-  {
-    return isWritable(QUANTITYDEAD);
-  }
-  
-  public boolean isQuantityDeadReadable()
-  {
-    return isReadable(QUANTITYDEAD);
-  }
-  
-  public boolean isQuantityDeadModified()
-  {
-    return isModified(QUANTITYDEAD);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityDead").getAttributeMdDTO();
-  }
-  
-  public Integer getQuantityLive()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
-  }
-  
-  public void setQuantityLive(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(QUANTITYLIVE, "");
-    }
-    else
-    {
-      setValue(QUANTITYLIVE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isQuantityLiveWritable()
-  {
-    return isWritable(QUANTITYLIVE);
-  }
-  
-  public boolean isQuantityLiveReadable()
-  {
-    return isReadable(QUANTITYLIVE);
-  }
-  
-  public boolean isQuantityLiveModified()
-  {
-    return isModified(QUANTITYLIVE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityLive").getAttributeMdDTO();
-  }
-  
-  public final csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalViewDTO[] getTestIntervals()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "getTestIntervals", _declaredTypes);
-    return (csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalViewDTO[] getTestIntervals(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "getTestIntervals", _declaredTypes);
-    return (csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public final java.lang.Double getKD50()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "getKD50", _declaredTypes);
-    return (java.lang.Double) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final java.lang.Double getKD50(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "getKD50", _declaredTypes);
-    return (java.lang.Double) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public final java.lang.Double getKD95()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "getKD95", _declaredTypes);
-    return (java.lang.Double) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final java.lang.Double getKD95(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "getKD95", _declaredTypes);
-    return (java.lang.Double) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("sex").getAttributeMdDTO();
   }
   
   public static csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

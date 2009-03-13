@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public class GeoEntityQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803155964L;
+private static final long serialVersionUID = 1236982461219L;
 
   protected GeoEntityQueryDTO(String type)
   {

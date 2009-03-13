@@ -10,44 +10,51 @@ package csu.mrc.ivcc.mdss.entomology;
 public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mojo.business.View implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView";
-  public static java.lang.String COLLECTIONID = "collectionId";
+  public static java.lang.String COLLECTION = "collection";
   public static java.lang.String GROUPID = "groupId";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String SPECIE = "specie";
-  private static final long serialVersionUID = 1236803170007L;
+  private static final long serialVersionUID = 1236982476555L;
   
   public MorphologicalSpecieGroupViewBase()
   {
     super();
   }
   
-  public String getCollectionId()
+  public csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection getCollection()
   {
-    return getValue(COLLECTIONID);
+    try
+    {
+      return csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection.get(getValue(COLLECTION));
+    }
+    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
+    {
+      return null;
+    }
   }
   
-  public void validateCollectionId()
+  public void validateCollection()
   {
-    this.validateAttribute(COLLECTIONID);
+    this.validateAttribute(COLLECTION);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getCollectionIdMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getCollectionMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONID);
+    return mdClassIF.definesAttribute(COLLECTION);
   }
   
-  public void setCollectionId(String value)
+  public void setCollection(csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection value)
   {
     if(value == null)
     {
-      setValue(COLLECTIONID, "");
+      setValue(COLLECTION, "");
     }
     else
     {
-      setValue(COLLECTIONID, value);
+      setValue(COLLECTION, value.getId());
     }
   }
   
@@ -95,9 +102,16 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
     return mdClassIF.definesAttribute(ID);
   }
   
-  public String getIdentificationMethod()
+  public csu.mrc.ivcc.mdss.mo.IdentificationMethod getIdentificationMethod()
   {
-    return getValue(IDENTIFICATIONMETHOD);
+    try
+    {
+      return csu.mrc.ivcc.mdss.mo.IdentificationMethod.get(getValue(IDENTIFICATIONMETHOD));
+    }
+    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
+    {
+      return null;
+    }
   }
   
   public void validateIdentificationMethod()
@@ -111,7 +125,7 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
     return mdClassIF.definesAttribute(IDENTIFICATIONMETHOD);
   }
   
-  public void setIdentificationMethod(String value)
+  public void setIdentificationMethod(csu.mrc.ivcc.mdss.mo.IdentificationMethod value)
   {
     if(value == null)
     {
@@ -119,7 +133,7 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
     }
     else
     {
-      setValue(IDENTIFICATIONMETHOD, value);
+      setValue(IDENTIFICATIONMETHOD, value.getId());
     }
   }
   
@@ -151,9 +165,16 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
     }
   }
   
-  public String getSpecie()
+  public csu.mrc.ivcc.mdss.mo.Specie getSpecie()
   {
-    return getValue(SPECIE);
+    try
+    {
+      return csu.mrc.ivcc.mdss.mo.Specie.get(getValue(SPECIE));
+    }
+    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
+    {
+      return null;
+    }
   }
   
   public void validateSpecie()
@@ -167,7 +188,7 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
     return mdClassIF.definesAttribute(SPECIE);
   }
   
-  public void setSpecie(String value)
+  public void setSpecie(csu.mrc.ivcc.mdss.mo.Specie value)
   {
     if(value == null)
     {
@@ -175,7 +196,7 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
     }
     else
     {
-      setValue(SPECIE, value);
+      setValue(SPECIE, value.getId());
     }
   }
   

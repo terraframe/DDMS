@@ -11,7 +11,7 @@ public abstract class PNPATestResultBase extends csu.mrc.ivcc.mdss.entomology.as
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.biochemical.PNPATestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1236803155051L;
+  private static final long serialVersionUID = 1236982460362L;
   
   public PNPATestResultBase()
   {

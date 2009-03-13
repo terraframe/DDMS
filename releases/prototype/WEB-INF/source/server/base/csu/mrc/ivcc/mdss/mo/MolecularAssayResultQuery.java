@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public  class MolecularAssayResultQuery extends csu.mrc.ivcc.mdss.mo.AbstractTermQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803153154L;
+private static final long serialVersionUID = 1236982458312L;
 
   public MolecularAssayResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1236803153154L;
  implements MolecularAssayResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236803153253L;
+private static final long serialVersionUID = 1236982458428L;
 
   public MolecularAssayResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

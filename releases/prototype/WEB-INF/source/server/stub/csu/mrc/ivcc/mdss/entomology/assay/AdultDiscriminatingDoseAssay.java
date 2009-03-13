@@ -1,6 +1,5 @@
 package csu.mrc.ivcc.mdss.entomology.assay;
 
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,8 +15,7 @@ import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 import csu.mrc.ivcc.mdss.Property;
 
-public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234543769104L;
 
@@ -25,144 +23,41 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     super();
   }
-
+  
   @Override
-  public void validateTestDate()
+  public void validateAgeRange()
   {
-    super.validateTestDate();
+    super.validateAgeRange();
 
-    if (this.getTestDate() != null)
-    {
-      Date collectionDate = this.getCollection().getDateCollected();
-
-      if (this.getTestDate().before(collectionDate))
-      {
-        String msg = "It is impossible to have a test date before the mosquito collection date";
-
-        InvalidTestDateProblem p = new InvalidTestDateProblem(msg);
-        p.setTestDate(this.getTestDate());
-        p.setCollectionDate(collectionDate);
-        p.setAssayId(this.getId());
-        p.throwIt();
-      }
-    }
+    new AdultAgeRangeValidator(this).validate();
   }
 
   @Override
-  public void validateQuantityDead()
+  public void validateGravid()
   {
-    super.validateQuantityDead();
+    super.validateGravid();
 
-    if (this.getQuantityDead() > this.getQuantityTested())
-    {
-      String msg = "It is impossible to have a dead quantity larger than the total number of mosquitos tested";
-
-      InvalidDeadQuantityProblem p = new InvalidDeadQuantityProblem(msg);
-      p.setAssayId(this.getId());
-      p.setQuantityDead(this.getQuantityDead());
-      p.setQuantityTested(this.getQuantityTested());
-      p.throwIt();
-    }
+    new GravidValidator(this).validate();
   }
 
   @Override
-  public void validateIntervalTime()
+  public void validateFed()
   {
-    if (this.getIntervalTime() > this.getExposureTime())
-    {
-      String msg = "It is impossible to have an interval time larger than the exposure time";
+    super.validateFed();
 
-      InvalidIntervalTimeProblem p = new InvalidIntervalTimeProblem(msg);
-      p.setIntervalTime(this.getIntervalTime());
-      p.setExposureTime(this.getExposureTime());
-      p.setAssayId(this.getId());
-      p.throwIt();
-    }
+    new FedValidator(this).validate();
   }
 
   @Override
   public void apply()
   {
-    boolean firstApply = this.isNew() && !this.isAppliedToDB();
-
-    validateTestDate();
-    validateIntervalTime();
-    validateQuantityDead();
-
-    if (this.getQuantityDead() <= this.getQuantityTested())
-    {
-      this.setQuantityLive(this.getQuantityTested() - this.getQuantityDead());
-      this.setMortality( ( (float) ( this.getQuantityDead() ) * 100 / this.getQuantityTested() ));
-    }
-    else
-    {
-      this.setQuantityLive(0);
-      this.setMortality(new Float(0));
-    }
-
+    validateAgeRange();
+    validateFed();
+    validateGravid();
+    
     super.apply();
-
-    // CREATE Test Intervals
-    if (firstApply)
-    {
-      int periods = this.calculatePeriod();
-
-      for (int i = 0; i < periods; i++)
-      {
-        ADDATestInterval interval = new ADDATestInterval();
-        interval.setAssay(this);
-        interval.setPeriod(i);
-        interval.setKnockedDown(0);
-        interval.apply();
-      }
-    }
-
-    if (this.isSusceptible())
-    {
-      SusceptibleCollection info = new SusceptibleCollection();
-      info.throwIt();
-    }
-    else if (this.isPotentiallyResistant())
-    {
-      PotentiallyResistantCollection info = new PotentiallyResistantCollection();
-      info.throwIt();
-    }
-    else if (this.isResistant())
-    {
-      ResistantCollection info = new ResistantCollection();
-      info.throwIt();
-    }
   }
 
-  private boolean isResistant()
-  {
-    Integer resistant = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_RESISTANCE);
-
-    return ( this.getMortality() < resistant );
-  }
-
-  private boolean isPotentiallyResistant()
-  {
-    Integer susceptible = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_SUSCEPTIBILE);
-    Integer resistant = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_RESISTANCE);
-
-    return ( resistant < this.getMortality() && this.getMortality() <= susceptible );
-  }
-
-  private boolean isSusceptible()
-  {
-    Integer susceptible = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_SUSCEPTIBILE);
-
-    return ( this.getMortality() > susceptible );
-  }
-
-  public Integer calculatePeriod()
-  {
-    double exposureTime = (double) this.getExposureTime();
-    Integer intervalTime = this.getIntervalTime();
-
-    return (int) Math.ceil(exposureTime / intervalTime) + 1;
-  }
 
   @Override
   public void delete()
@@ -291,4 +186,25 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     return d;
   }
 
+  protected boolean isResistant()
+  {
+    Integer resistant = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_RESISTANCE);
+
+    return ( this.getMortality() < resistant );
+  }
+
+  protected boolean isPotentiallyResistant()
+  {
+    Integer susceptible = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_SUSCEPTIBILE);
+    Integer resistant = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_RESISTANCE);
+
+    return ( resistant < this.getMortality() && this.getMortality() <= susceptible );
+  }
+
+  protected boolean isSusceptible()
+  {
+    Integer susceptible = Property.getInt(Property.RESISTANCE_PACKAGE, Property.ADULT_DDA_SUSCEPTIBILE);
+
+    return ( this.getMortality() > susceptible );
+  }
 }

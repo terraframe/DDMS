@@ -12,7 +12,7 @@ public abstract class InvalidMosquitoCollectionPointGeoEntityExceptionBase exten
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.InvalidMosquitoCollectionPointGeoEntityException";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1236803173144L;
+  private static final long serialVersionUID = 1236982480514L;
   
   public InvalidMosquitoCollectionPointGeoEntityExceptionBase()
   {

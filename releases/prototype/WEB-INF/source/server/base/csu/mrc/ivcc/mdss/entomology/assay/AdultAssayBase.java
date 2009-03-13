@@ -18,7 +18,7 @@ public abstract class AdultAssayBase extends csu.mrc.ivcc.mdss.entomology.assay.
   public static java.lang.String GENERATION = "generation";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
-  private static final long serialVersionUID = 1236803156270L;
+  private static final long serialVersionUID = 1236807452342L;
   
   public AdultAssayBase()
   {

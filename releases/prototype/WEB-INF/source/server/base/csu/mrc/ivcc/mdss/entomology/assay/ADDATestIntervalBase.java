@@ -25,18 +25,18 @@ public abstract class ADDATestIntervalBase extends com.terraframe.mojo.business.
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236803164338L;
+  private static final long serialVersionUID = 1236982470978L;
   
   public ADDATestIntervalBase()
   {
     super();
   }
   
-  public csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay getAssay()
+  public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay getAssay()
   {
     try
     {
-      return csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay.get(getValue(ASSAY));
+      return csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay.get(getValue(ASSAY));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -55,7 +55,7 @@ public abstract class ADDATestIntervalBase extends com.terraframe.mojo.business.
     return mdClassIF.definesAttribute(ASSAY);
   }
   
-  public void setAssay(csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay value)
+  public void setAssay(csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay value)
   {
     if(value == null)
     {

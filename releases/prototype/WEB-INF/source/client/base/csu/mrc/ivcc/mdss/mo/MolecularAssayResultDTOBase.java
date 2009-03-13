@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.mo;
 
 public abstract class MolecularAssayResultDTOBase extends csu.mrc.ivcc.mdss.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803153114L;
+  private static final long serialVersionUID = 1236982458194L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.MolecularAssayResult";
   protected MolecularAssayResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

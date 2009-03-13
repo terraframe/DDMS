@@ -15,7 +15,7 @@ public abstract class AdultAgeRangeBase extends com.terraframe.mojo.business.Str
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String STARTPOINT = "startPoint";
-  private static final long serialVersionUID = 1236803175953L;
+  private static final long serialVersionUID = 1236982483295L;
   
   public AdultAgeRangeBase()
   {

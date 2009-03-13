@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.mo;
 
 public abstract class GenerationDTOBase extends csu.mrc.ivcc.mdss.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803167193L;
+  private static final long serialVersionUID = 1236982473090L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.Generation";
   protected GenerationDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

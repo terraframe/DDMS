@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public class MolecularAssayResultQueryDTO extends csu.mrc.ivcc.mdss.mo.AbstractTermQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803153315L;
+private static final long serialVersionUID = 1236982458493L;
 
   protected MolecularAssayResultQueryDTO(String type)
   {

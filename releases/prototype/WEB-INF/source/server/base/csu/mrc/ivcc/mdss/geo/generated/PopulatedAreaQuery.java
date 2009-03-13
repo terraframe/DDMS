@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public  class PopulatedAreaQuery extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803160080L;
+private static final long serialVersionUID = 1236982466028L;
 
   public PopulatedAreaQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1236803160080L;
  implements PopulatedAreaQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236803160175L;
+private static final long serialVersionUID = 1236982466138L;
 
   public PopulatedAreaQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

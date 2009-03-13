@@ -13,47 +13,47 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
     return CLASS;
   }
   
-  public static java.lang.String COLLECTIONID = "collectionId";
+  public static java.lang.String COLLECTION = "collection";
   public static java.lang.String GROUPID = "groupId";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String SPECIE = "specie";
-  public String getCollectionId()
+  public csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollectionDTO getCollection()
   {
-    return getValue(COLLECTIONID);
-  }
-  
-  public void setCollectionId(String value)
-  {
-    if(value == null)
+    if(getValue(COLLECTION) == null || getValue(COLLECTION).trim().equals(""))
     {
-      setValue(COLLECTIONID, "");
+      return null;
     }
     else
     {
-      setValue(COLLECTIONID, value);
+      return csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
     }
   }
   
-  public boolean isCollectionIdWritable()
+  public void setCollection(csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollectionDTO value)
   {
-    return isWritable(COLLECTIONID);
+    setValue(COLLECTION, value.getId());
   }
   
-  public boolean isCollectionIdReadable()
+  public boolean isCollectionWritable()
   {
-    return isReadable(COLLECTIONID);
+    return isWritable(COLLECTION);
   }
   
-  public boolean isCollectionIdModified()
+  public boolean isCollectionReadable()
   {
-    return isModified(COLLECTIONID);
+    return isReadable(COLLECTION);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCollectionIdMd()
+  public boolean isCollectionModified()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("collectionId").getAttributeMdDTO();
+    return isModified(COLLECTION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("collection").getAttributeMdDTO();
   }
   
   public String getGroupId()
@@ -93,21 +93,21 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("groupId").getAttributeMdDTO();
   }
   
-  public String getIdentificationMethod()
+  public csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO getIdentificationMethod()
   {
-    return getValue(IDENTIFICATIONMETHOD);
-  }
-  
-  public void setIdentificationMethod(String value)
-  {
-    if(value == null)
+    if(getValue(IDENTIFICATIONMETHOD) == null || getValue(IDENTIFICATIONMETHOD).trim().equals(""))
     {
-      setValue(IDENTIFICATIONMETHOD, "");
+      return null;
     }
     else
     {
-      setValue(IDENTIFICATIONMETHOD, value);
+      return csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO.get(getRequest(), getValue(IDENTIFICATIONMETHOD));
     }
+  }
+  
+  public void setIdentificationMethod(csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO value)
+  {
+    setValue(IDENTIFICATIONMETHOD, value.getId());
   }
   
   public boolean isIdentificationMethodWritable()
@@ -125,9 +125,9 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
     return isModified(IDENTIFICATIONMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIdentificationMethodMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIdentificationMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("identificationMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("identificationMethod").getAttributeMdDTO();
   }
   
   public Integer getQuantity()
@@ -167,21 +167,21 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantity").getAttributeMdDTO();
   }
   
-  public String getSpecie()
+  public csu.mrc.ivcc.mdss.mo.SpecieDTO getSpecie()
   {
-    return getValue(SPECIE);
-  }
-  
-  public void setSpecie(String value)
-  {
-    if(value == null)
+    if(getValue(SPECIE) == null || getValue(SPECIE).trim().equals(""))
     {
-      setValue(SPECIE, "");
+      return null;
     }
     else
     {
-      setValue(SPECIE, value);
+      return csu.mrc.ivcc.mdss.mo.SpecieDTO.get(getRequest(), getValue(SPECIE));
     }
+  }
+  
+  public void setSpecie(csu.mrc.ivcc.mdss.mo.SpecieDTO value)
+  {
+    setValue(SPECIE, value.getId());
   }
   
   public boolean isSpecieWritable()
@@ -199,9 +199,9 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
     return isModified(SPECIE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSpecieMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSpecieMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("specie").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("specie").getAttributeMdDTO();
   }
   
   public static final csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupViewDTO[] saveAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupViewDTO[] array)

@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.biochemical;
 
 public abstract class BiochemicalAssayTestResultDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.AssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803161873L;
+  private static final long serialVersionUID = 1236982468027L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult";
   protected BiochemicalAssayTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

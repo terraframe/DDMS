@@ -1,5 +1,8 @@
 package csu.mrc.ivcc.mdss.entomology;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -71,19 +74,29 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
       iterator.close();
     }
   }
-
-  public MosquitoCollectionPointView getView()
+    
+  public List<MosquitoCollectionPointView> getViews()
   {
-    MosquitoCollectionPointView view = new MosquitoCollectionPointView();
+    List<MosquitoCollectionPointView> list = new LinkedList<MosquitoCollectionPointView>();
+    
+    for(MorphologicalSpecieGroupView group : this.getMorphologicalSpecieGroups())
+    {
+      MosquitoCollectionPointView view = new MosquitoCollectionPointView();
+      
+      view.setCollection(this);
+      view.setDateCollected(this.getDateCollected());
+      view.setGeoEntity(this.getGeoEntity());
+      view.setGroupId(this.getId());
+      view.setQuantity(group.getQuantity());
+      view.setSpecie(group.getSpecie());
+      view.setIdentificationMethod(group.getIdentificationMethod());
+      
+      view.applyNoPersist();
+      
+      list.add(view);
+    }
 
-    view.setCompositeCollection(this.getCompositeCollection());
-    view.setCollectionId(this.getId());
-    view.setDateCollected(this.getDateCollected());
-    view.setGeoEntity(this.getGeoEntity());
-
-    view.applyNoPersist();
-
-    return view;
+    return list;
   }
 
 }

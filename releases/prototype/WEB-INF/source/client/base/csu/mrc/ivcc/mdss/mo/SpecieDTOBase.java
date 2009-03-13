@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.mo;
 
 public abstract class SpecieDTOBase extends csu.mrc.ivcc.mdss.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803156001L;
+  private static final long serialVersionUID = 1236982461260L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.Specie";
   protected SpecieDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

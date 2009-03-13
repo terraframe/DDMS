@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public  class AbstractAssayQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803152866L;
+private static final long serialVersionUID = 1236982457933L;
 
   public AbstractAssayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -66,6 +66,17 @@ private static final long serialVersionUID = 1236803152866L;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.ENTITYDOMAIN, mdAttributeIF, this, alias);
 
   }
+  public com.terraframe.mojo.query.AttributeCharIF getGenericName()
+  {
+    return getGenericName(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getGenericName(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.GENERICNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
+
+  }
   public com.terraframe.mojo.query.AttributeCharIF getId()
   {
     return getId(null);
@@ -77,29 +88,18 @@ private static final long serialVersionUID = 1236803152866L;
     return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
 
   }
-  public csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReferenceIF getIdentificationMethod()
+  public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
   {
-    return getIdentificationMethod(null);
+    return getInsecticide(null);
 
   }
  
-  public csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReferenceIF getIdentificationMethod(String alias)
+  public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
   {
 
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("identificationMethod");
+    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("insecticide");
 
-    return (csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.IDENTIFICATIONMETHOD, mdAttributeIF, this, alias);
-
-  }
-  public com.terraframe.mojo.query.AttributeBooleanIF getIsofemale()
-  {
-    return getIsofemale(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBooleanIF getIsofemale(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBooleanIF)this.getComponentQuery().attributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.ISOFEMALE, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias);
+    return (csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.INSECTICIDE, mdAttributeIF, this, alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getKeyName()
@@ -177,20 +177,6 @@ private static final long serialVersionUID = 1236803152866L;
     return (com.terraframe.mojo.query.AttributeLongIF)this.getComponentQuery().attributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.SEQ, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias);
 
   }
-  public csu.mrc.ivcc.mdss.entomology.SexMasterQuery.AssaySexQueryIF getSex()
-  {
-    return getSex(null);
-
-  }
- 
-  public csu.mrc.ivcc.mdss.entomology.SexMasterQuery.AssaySexQueryIF getSex(String alias)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sex");
-
-    return (csu.mrc.ivcc.mdss.entomology.SexMasterQuery.AssaySexQueryIF)this.getComponentQuery().internalAttributeFactory("sex", mdAttributeIF, this, alias);
-
-  }
   public com.terraframe.mojo.query.AttributeCharIF getSiteMaster()
   {
     return getSiteMaster(null);
@@ -227,20 +213,6 @@ private static final long serialVersionUID = 1236803152866L;
     return (com.terraframe.mojo.query.AttributeMomentIF)this.getComponentQuery().attributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.TESTDATE, "com.terraframe.mojo.system.metadata.MdAttributeDate", alias);
 
   }
-  public csu.mrc.ivcc.mdss.mo.ResistanceMethodologyQuery.ResistanceMethodologyQueryReferenceIF getTestMethod()
-  {
-    return getTestMethod(null);
-
-  }
- 
-  public csu.mrc.ivcc.mdss.mo.ResistanceMethodologyQuery.ResistanceMethodologyQueryReferenceIF getTestMethod(String alias)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("testMethod");
-
-    return (csu.mrc.ivcc.mdss.mo.ResistanceMethodologyQuery.ResistanceMethodologyQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay.TESTMETHOD, mdAttributeIF, this, alias);
-
-  }
   public com.terraframe.mojo.query.AttributeCharIF getType()
   {
     return getType(null);
@@ -264,9 +236,9 @@ private static final long serialVersionUID = 1236803152866L;
     {
        return new com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
-    else if (name.equals("identificationMethod")) 
+    else if (name.equals("insecticide")) 
     {
-       return new csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
+       return new csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else if (name.equals("lastUpdatedBy")) 
     {
@@ -283,25 +255,6 @@ private static final long serialVersionUID = 1236803152866L;
     else if (name.equals("specie")) 
     {
        return new csu.mrc.ivcc.mdss.mo.SpecieQuery.SpecieQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else if (name.equals("testMethod")) 
-    {
-       return new csu.mrc.ivcc.mdss.mo.ResistanceMethodologyQuery.ResistanceMethodologyQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else 
-    {
-      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
-      throw new com.terraframe.mojo.query.QueryException(error);
-    }
-  }
-
-  protected com.terraframe.mojo.query.AttributeEnumeration enumerationFactory( com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias)
-  {
-    String name = mdAttributeIF.definesAttribute();
-    
-    if (name.equals("sex")) 
-    {
-       return new csu.mrc.ivcc.mdss.entomology.SexMasterQuery.AssaySexQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else 
     {
@@ -347,12 +300,12 @@ private static final long serialVersionUID = 1236803152866L;
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
+    public com.terraframe.mojo.query.AttributeCharIF getGenericName();
+    public com.terraframe.mojo.query.AttributeCharIF getGenericName(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getId();
     public com.terraframe.mojo.query.AttributeCharIF getId(String alias);
-    public csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReferenceIF getIdentificationMethod();
-    public csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReferenceIF getIdentificationMethod(String alias);
-    public com.terraframe.mojo.query.AttributeBooleanIF getIsofemale();
-    public com.terraframe.mojo.query.AttributeBooleanIF getIsofemale(String alias);
+    public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide();
+    public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getKeyName();
     public com.terraframe.mojo.query.AttributeCharIF getKeyName(String alias);
     public com.terraframe.mojo.query.AttributeMomentIF getLastUpdateDate();
@@ -365,16 +318,12 @@ private static final long serialVersionUID = 1236803152866L;
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.query.AttributeLongIF getSeq();
     public com.terraframe.mojo.query.AttributeLongIF getSeq(String alias);
-  public csu.mrc.ivcc.mdss.entomology.SexMasterQuery.AssaySexQueryIF getSex();
-  public csu.mrc.ivcc.mdss.entomology.SexMasterQuery.AssaySexQueryIF getSex(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getSiteMaster();
     public com.terraframe.mojo.query.AttributeCharIF getSiteMaster(String alias);
     public csu.mrc.ivcc.mdss.mo.SpecieQuery.SpecieQueryReferenceIF getSpecie();
     public csu.mrc.ivcc.mdss.mo.SpecieQuery.SpecieQueryReferenceIF getSpecie(String alias);
     public com.terraframe.mojo.query.AttributeMomentIF getTestDate();
     public com.terraframe.mojo.query.AttributeMomentIF getTestDate(String alias);
-    public csu.mrc.ivcc.mdss.mo.ResistanceMethodologyQuery.ResistanceMethodologyQueryReferenceIF getTestMethod();
-    public csu.mrc.ivcc.mdss.mo.ResistanceMethodologyQuery.ResistanceMethodologyQueryReferenceIF getTestMethod(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getType();
     public com.terraframe.mojo.query.AttributeCharIF getType(String alias);
 
@@ -392,7 +341,7 @@ private static final long serialVersionUID = 1236803152866L;
  implements AbstractAssayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236803152979L;
+private static final long serialVersionUID = 1236982458049L;
 
   public AbstractAssayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -444,6 +393,17 @@ private static final long serialVersionUID = 1236803152979L;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
 
   }
+  public com.terraframe.mojo.query.AttributeCharIF getGenericName()
+  {
+    return getGenericName(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getGenericName(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("genericName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
+
+  }
   public com.terraframe.mojo.query.AttributeCharIF getId()
   {
     return getId(null);
@@ -455,26 +415,15 @@ private static final long serialVersionUID = 1236803152979L;
     return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
 
   }
-  public csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReferenceIF getIdentificationMethod()
+  public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
   {
-    return getIdentificationMethod(null);
+    return getInsecticide(null);
 
   }
  
-  public csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReferenceIF getIdentificationMethod(String alias)
+  public csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
   {
-    return (csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReferenceIF)this.attributeFactory("identificationMethod", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
-
-  }
-  public com.terraframe.mojo.query.AttributeBooleanIF getIsofemale()
-  {
-    return getIsofemale(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeBooleanIF getIsofemale(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeBooleanIF)this.attributeFactory("isofemale", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias);
+    return (csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReferenceIF)this.attributeFactory("insecticide", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getKeyName()
@@ -543,17 +492,6 @@ private static final long serialVersionUID = 1236803152979L;
     return (com.terraframe.mojo.query.AttributeLongIF)this.attributeFactory("seq", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias);
 
   }
-  public csu.mrc.ivcc.mdss.entomology.SexMasterQuery.AssaySexQueryIF getSex()
-  {
-    return getSex(null);
-
-  }
- 
-  public csu.mrc.ivcc.mdss.entomology.SexMasterQuery.AssaySexQueryIF getSex(String alias)
-  {
-    return (csu.mrc.ivcc.mdss.entomology.SexMasterQuery.AssaySexQueryIF)this.attributeFactory("sex", "com.terraframe.mojo.system.metadata.MdAttributeEnumeration", alias);
-
-  }
   public com.terraframe.mojo.query.AttributeCharIF getSiteMaster()
   {
     return getSiteMaster(null);
@@ -587,17 +525,6 @@ private static final long serialVersionUID = 1236803152979L;
     return (com.terraframe.mojo.query.AttributeMomentIF)this.attributeFactory("testDate", "com.terraframe.mojo.system.metadata.MdAttributeDate", alias);
 
   }
-  public csu.mrc.ivcc.mdss.mo.ResistanceMethodologyQuery.ResistanceMethodologyQueryReferenceIF getTestMethod()
-  {
-    return getTestMethod(null);
-
-  }
- 
-  public csu.mrc.ivcc.mdss.mo.ResistanceMethodologyQuery.ResistanceMethodologyQueryReferenceIF getTestMethod(String alias)
-  {
-    return (csu.mrc.ivcc.mdss.mo.ResistanceMethodologyQuery.ResistanceMethodologyQueryReferenceIF)this.attributeFactory("testMethod", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
-
-  }
   public com.terraframe.mojo.query.AttributeCharIF getType()
   {
     return getType(null);
@@ -621,9 +548,9 @@ private static final long serialVersionUID = 1236803152979L;
     {
        return new com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
-    else if (name.equals("identificationMethod")) 
+    else if (name.equals("insecticide")) 
     {
-       return new csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
+       return new csu.mrc.ivcc.mdss.mo.InsecticideQuery.InsecticideQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else if (name.equals("lastUpdatedBy")) 
     {
@@ -640,25 +567,6 @@ private static final long serialVersionUID = 1236803152979L;
     else if (name.equals("specie")) 
     {
        return new csu.mrc.ivcc.mdss.mo.SpecieQuery.SpecieQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else if (name.equals("testMethod")) 
-    {
-       return new csu.mrc.ivcc.mdss.mo.ResistanceMethodologyQuery.ResistanceMethodologyQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else 
-    {
-      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
-      throw new com.terraframe.mojo.query.QueryException(error);
-    }
-  }
-
-  protected com.terraframe.mojo.query.AttributeEnumeration enumerationFactory( com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias)
-  {
-    String name = mdAttributeIF.definesAttribute();
-    
-    if (name.equals("sex")) 
-    {
-       return new csu.mrc.ivcc.mdss.entomology.SexMasterQuery.AssaySexQuery((com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else 
     {

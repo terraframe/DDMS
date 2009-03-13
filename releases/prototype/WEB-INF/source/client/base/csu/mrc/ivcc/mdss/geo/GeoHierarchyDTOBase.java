@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo;
 
 public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803159647L;
+  private static final long serialVersionUID = 1236982465532L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.GeoHierarchy";
   protected GeoHierarchyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

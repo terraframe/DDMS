@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public  class GeoEntityQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803155741L;
+private static final long serialVersionUID = 1236982460981L;
 
   public GeoEntityQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -456,7 +456,7 @@ private static final long serialVersionUID = 1236803155741L;
  implements GeoEntityQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236803155875L;
+private static final long serialVersionUID = 1236982461132L;
 
   public GeoEntityQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

@@ -12,7 +12,7 @@ public abstract class UninterestingSpecieGroupBase extends csu.mrc.ivcc.mdss.ent
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroup";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String SAMPLEID = "sampleId";
-  private static final long serialVersionUID = 1236803157621L;
+  private static final long serialVersionUID = 1236982462655L;
   
   public UninterestingSpecieGroupBase()
   {

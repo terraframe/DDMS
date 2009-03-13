@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss;
 public class SurfacePositionMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803169230L;
+private static final long serialVersionUID = 1236982475562L;
 
   protected SurfacePositionMasterQueryDTO(String type)
   {

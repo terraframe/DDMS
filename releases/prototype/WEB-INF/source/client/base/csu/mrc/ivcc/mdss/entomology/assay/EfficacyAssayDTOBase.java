@@ -1,8 +1,8 @@
 package csu.mrc.ivcc.mdss.entomology.assay;
 
-public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.AdultAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236803175709L;
+  private static final long serialVersionUID = 1236982482997L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssay";
   protected EfficacyAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -26,15 +26,45 @@ public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.
     return CLASS;
   }
   
+  public static java.lang.String AGERANGE = "ageRange";
   public static java.lang.String COLONYNAME = "colonyName";
+  public static java.lang.String EXPOSURETIME = "exposureTime";
+  public static java.lang.String FED = "fed";
   public static java.lang.String GEOENTITY = "geoEntity";
+  public static java.lang.String GRAVID = "gravid";
   public static java.lang.String HOLDINGTIME = "holdingTime";
-  public static java.lang.String INSECTICIDE = "insecticide";
-  public static java.lang.String INSECTICIDELENGTH = "insecticideLength";
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
+  public static java.lang.String QUANTITYTESTED = "quantityTested";
+  public static java.lang.String SEX = "sex";
   public static java.lang.String SURFACEPOSTION = "surfacePostion";
+  public static java.lang.String TESTMETHOD = "testMethod";
+  public csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeDTO getAgeRange()
+  {
+    return (csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRangeDTO) this.getAttributeStructDTO(AGERANGE).getStructDTO();
+  }
+  
+  public boolean isAgeRangeWritable()
+  {
+    return isWritable(AGERANGE);
+  }
+  
+  public boolean isAgeRangeReadable()
+  {
+    return isReadable(AGERANGE);
+  }
+  
+  public boolean isAgeRangeModified()
+  {
+    return isModified(AGERANGE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeStructMdDTO getAgeRangeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeStructMdDTO) getAttributeDTO("ageRange").getAttributeMdDTO();
+  }
+  
   public String getColonyName()
   {
     return getValue(COLONYNAME);
@@ -70,6 +100,80 @@ public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getColonyNameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("colonyName").getAttributeMdDTO();
+  }
+  
+  public Integer getExposureTime()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(EXPOSURETIME));
+  }
+  
+  public void setExposureTime(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(EXPOSURETIME, "");
+    }
+    else
+    {
+      setValue(EXPOSURETIME, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isExposureTimeWritable()
+  {
+    return isWritable(EXPOSURETIME);
+  }
+  
+  public boolean isExposureTimeReadable()
+  {
+    return isReadable(EXPOSURETIME);
+  }
+  
+  public boolean isExposureTimeModified()
+  {
+    return isModified(EXPOSURETIME);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getExposureTimeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("exposureTime").getAttributeMdDTO();
+  }
+  
+  public Integer getFed()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FED));
+  }
+  
+  public void setFed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(FED, "");
+    }
+    else
+    {
+      setValue(FED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isFedWritable()
+  {
+    return isWritable(FED);
+  }
+  
+  public boolean isFedReadable()
+  {
+    return isReadable(FED);
+  }
+  
+  public boolean isFedModified()
+  {
+    return isModified(FED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("fed").getAttributeMdDTO();
   }
   
   public csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO getGeoEntity()
@@ -109,6 +213,43 @@ public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("geoEntity").getAttributeMdDTO();
   }
   
+  public Integer getGravid()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(GRAVID));
+  }
+  
+  public void setGravid(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(GRAVID, "");
+    }
+    else
+    {
+      setValue(GRAVID, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isGravidWritable()
+  {
+    return isWritable(GRAVID);
+  }
+  
+  public boolean isGravidReadable()
+  {
+    return isReadable(GRAVID);
+  }
+  
+  public boolean isGravidModified()
+  {
+    return isModified(GRAVID);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getGravidMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("gravid").getAttributeMdDTO();
+  }
+  
   public Integer getHoldingTime()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOLDINGTIME));
@@ -144,80 +285,6 @@ public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("holdingTime").getAttributeMdDTO();
-  }
-  
-  public csu.mrc.ivcc.mdss.mo.InsecticideDTO getInsecticide()
-  {
-    if(getValue(INSECTICIDE) == null || getValue(INSECTICIDE).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return csu.mrc.ivcc.mdss.mo.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
-    }
-  }
-  
-  public void setInsecticide(csu.mrc.ivcc.mdss.mo.InsecticideDTO value)
-  {
-    setValue(INSECTICIDE, value.getId());
-  }
-  
-  public boolean isInsecticideWritable()
-  {
-    return isWritable(INSECTICIDE);
-  }
-  
-  public boolean isInsecticideReadable()
-  {
-    return isReadable(INSECTICIDE);
-  }
-  
-  public boolean isInsecticideModified()
-  {
-    return isModified(INSECTICIDE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getInsecticideMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("insecticide").getAttributeMdDTO();
-  }
-  
-  public Integer getInsecticideLength()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INSECTICIDELENGTH));
-  }
-  
-  public void setInsecticideLength(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INSECTICIDELENGTH, "");
-    }
-    else
-    {
-      setValue(INSECTICIDELENGTH, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isInsecticideLengthWritable()
-  {
-    return isWritable(INSECTICIDELENGTH);
-  }
-  
-  public boolean isInsecticideLengthReadable()
-  {
-    return isReadable(INSECTICIDELENGTH);
-  }
-  
-  public boolean isInsecticideLengthModified()
-  {
-    return isModified(INSECTICIDELENGTH);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInsecticideLengthMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("insecticideLength").getAttributeMdDTO();
   }
   
   public Float getMortality()
@@ -331,6 +398,89 @@ public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityLive").getAttributeMdDTO();
   }
   
+  public Integer getQuantityTested()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYTESTED));
+  }
+  
+  public void setQuantityTested(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(QUANTITYTESTED, "");
+    }
+    else
+    {
+      setValue(QUANTITYTESTED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isQuantityTestedWritable()
+  {
+    return isWritable(QUANTITYTESTED);
+  }
+  
+  public boolean isQuantityTestedReadable()
+  {
+    return isReadable(QUANTITYTESTED);
+  }
+  
+  public boolean isQuantityTestedModified()
+  {
+    return isModified(QUANTITYTESTED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityTestedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityTested").getAttributeMdDTO();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<csu.mrc.ivcc.mdss.entomology.AssaySexDTO> getSex()
+  {
+    return (java.util.List<csu.mrc.ivcc.mdss.entomology.AssaySexDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "csu.mrc.ivcc.mdss.entomology.AssaySex", getEnumNames(SEX));
+  }
+  
+  public java.util.List<String> getSexEnumNames()
+  {
+    return getEnumNames(SEX);
+  }
+  
+  public void addSex(csu.mrc.ivcc.mdss.entomology.AssaySexDTO enumDTO)
+  {
+    addEnumItem(SEX, enumDTO.toString());
+  }
+  
+  public void removeSex(csu.mrc.ivcc.mdss.entomology.AssaySexDTO enumDTO)
+  {
+    removeEnumItem(SEX, enumDTO.toString());
+  }
+  
+  public void clearSex()
+  {
+    clearEnum(SEX);
+  }
+  
+  public boolean isSexWritable()
+  {
+    return isWritable(SEX);
+  }
+  
+  public boolean isSexReadable()
+  {
+    return isReadable(SEX);
+  }
+  
+  public boolean isSexModified()
+  {
+    return isModified(SEX);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSexMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("sex").getAttributeMdDTO();
+  }
+  
   @SuppressWarnings("unchecked")
   public java.util.List<csu.mrc.ivcc.mdss.SurfacePositionDTO> getSurfacePostion()
   {
@@ -375,6 +525,43 @@ public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.
   public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSurfacePostionMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("surfacePostion").getAttributeMdDTO();
+  }
+  
+  public csu.mrc.ivcc.mdss.mo.ResistanceMethodologyDTO getTestMethod()
+  {
+    if(getValue(TESTMETHOD) == null || getValue(TESTMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return csu.mrc.ivcc.mdss.mo.ResistanceMethodologyDTO.get(getRequest(), getValue(TESTMETHOD));
+    }
+  }
+  
+  public void setTestMethod(csu.mrc.ivcc.mdss.mo.ResistanceMethodologyDTO value)
+  {
+    setValue(TESTMETHOD, value.getId());
+  }
+  
+  public boolean isTestMethodWritable()
+  {
+    return isWritable(TESTMETHOD);
+  }
+  
+  public boolean isTestMethodReadable()
+  {
+    return isReadable(TESTMETHOD);
+  }
+  
+  public boolean isTestMethodModified()
+  {
+    return isModified(TESTMETHOD);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("testMethod").getAttributeMdDTO();
   }
   
   public final java.lang.Float getOverallMortalityRate()

@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public abstract class InfectivityMethodologyBase extends csu.mrc.ivcc.mdss.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.InfectivityMethodology";
-  private static final long serialVersionUID = 1236803154811L;
+  private static final long serialVersionUID = 1236982460018L;
   
   public InfectivityMethodologyBase()
   {

@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology;
 public  abstract  class MorphologicalSpecieGroupViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236803170026L;
+private static final long serialVersionUID = 1236982476575L;
 
   public MorphologicalSpecieGroupViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -25,18 +25,18 @@ private static final long serialVersionUID = 1236803170026L;
   {
     return "csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView";
   }
-  public com.terraframe.mojo.query.AttributeCharIF getCollectionId()
+  public csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollectionQuery.ConcreteMosquitoCollectionQueryReferenceIF getCollection()
   {
-    return getCollectionId(null);
+    return getCollection(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeCharIF getCollectionId(String alias)
+  public csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollectionQuery.ConcreteMosquitoCollectionQueryReferenceIF getCollection(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView.COLLECTIONID, alias);
+
+    return (csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollectionQuery.ConcreteMosquitoCollectionQueryReferenceIF)this.getSelectable(csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView.COLLECTION, alias);
 
   }
- 
   public com.terraframe.mojo.query.AttributeCharIF getGroupId()
   {
     return getGroupId(null);
@@ -61,18 +61,18 @@ private static final long serialVersionUID = 1236803170026L;
 
   }
  
-  public com.terraframe.mojo.query.AttributeCharIF getIdentificationMethod()
+  public csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReferenceIF getIdentificationMethod()
   {
     return getIdentificationMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeCharIF getIdentificationMethod(String alias)
+  public csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReferenceIF getIdentificationMethod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView.IDENTIFICATIONMETHOD, alias);
+
+    return (csu.mrc.ivcc.mdss.mo.IdentificationMethodQuery.IdentificationMethodQueryReferenceIF)this.getSelectable(csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView.IDENTIFICATIONMETHOD, alias);
 
   }
- 
   public com.terraframe.mojo.query.AttributeIntegerIF getQuantity()
   {
     return getQuantity(null);
@@ -85,18 +85,18 @@ private static final long serialVersionUID = 1236803170026L;
 
   }
  
-  public com.terraframe.mojo.query.AttributeCharIF getSpecie()
+  public csu.mrc.ivcc.mdss.mo.SpecieQuery.SpecieQueryReferenceIF getSpecie()
   {
     return getSpecie(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeCharIF getSpecie(String alias)
+  public csu.mrc.ivcc.mdss.mo.SpecieQuery.SpecieQueryReferenceIF getSpecie(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView.SPECIE, alias);
+
+    return (csu.mrc.ivcc.mdss.mo.SpecieQuery.SpecieQueryReferenceIF)this.getSelectable(csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView.SPECIE, alias);
 
   }
- 
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 
