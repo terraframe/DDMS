@@ -3,13 +3,19 @@
 	<property name="db_root_login" value="postgres" />
 	<property name="db_root_password" value="postgres" />
 	<property name="db_root_db" value="template1" />
-	<property name="max_memory_use" value="1024m"/>
+	<property name="max_memory_use" value="1024m" />
+	<property name="deploy.path" value="/Library/Tomcat/Home/webapps/MDSS/" />
+
 
 	<target name="rebuild_all" depends="develop_rebuild_import,deploy_all,deploy_rebuild_import,update_db,push_source">
 		<echo message="The build is complete" />
-		<exec executable="say" os="Mac OS X">
-			<arg value="The build is complete" />
+	</target>
+
+	<target name="deploy_to_test_server">
+		<exec executable="sh" os="Mac OS X" dir="${deploy.path}">
+			<arg value="info" />
 		</exec>
+		<echo message="Deploy Is Complete" />
 	</target>
 
 	<target name="develop_rebuild_import" depends="">
@@ -76,7 +82,7 @@
 		</java>
 	</target>
 
-	<target name="push_source" depends="">
+	<target name="push_source" depends="alert_status">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Push Source To Server">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -86,8 +92,16 @@
 			<arg file="deploy.xml" />
 			<arg value="push_source" />
 			<arg value="stop_tomcat_webapp" />
-		    <arg value="start_tomcat_webapp" />
+			<arg value="start_tomcat_webapp" />
 		</java>
+	</target>
+
+	<target name="alert_status" unless="alert_status.done">
+		<sound>
+			<success source="../build_resources/build_complete.wav" />
+			<fail source="../build_resources/build_error.wav" loops="1" />
+		</sound>
+		<property name="alert_status.done" value="true" />
 	</target>
 
 </project>
