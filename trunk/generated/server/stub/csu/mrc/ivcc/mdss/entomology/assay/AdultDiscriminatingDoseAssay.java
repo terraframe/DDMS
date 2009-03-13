@@ -15,7 +15,7 @@ import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 import csu.mrc.ivcc.mdss.Property;
 
-public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements AdultAssayIF, com.terraframe.mojo.generation.loader.Reloadable
+public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234543769104L;
 
@@ -28,26 +28,25 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   public void validateAgeRange()
   {
     super.validateAgeRange();
-    
-    new AssayValidator(this).validateAdultAgeRange();
+
+    new AdultAgeRangeValidator(this).validate();
   }
 
   @Override
   public void validateGravid()
   {
     super.validateGravid();
-    
-    new AssayValidator(this).validateGravid();
+
+    new GravidValidator(this).validate();
   }
 
   @Override
   public void validateFed()
   {
     super.validateFed();
-    
-    new AssayValidator(this).validateFed();
-  }
 
+    new FedValidator(this).validate();
+  }
 
   @Override
   public void apply()

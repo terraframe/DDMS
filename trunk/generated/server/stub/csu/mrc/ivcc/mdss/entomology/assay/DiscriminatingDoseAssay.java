@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 import java.util.Date;
 
-public abstract class DiscriminatingDoseAssay extends DiscriminatingDoseAssayBase implements DiscriminatingDoseAssayIF, com.terraframe.mojo.generation.loader.Reloadable
+public abstract class DiscriminatingDoseAssay extends DiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236893766032L;
   
@@ -38,7 +38,7 @@ public abstract class DiscriminatingDoseAssay extends DiscriminatingDoseAssayBas
   {
     super.validateQuantityDead();
 
-    new AssayValidator(this).validateQuantityDead();
+    new QuantityDeadValidator(this).validate();
   }
 
   @Override
