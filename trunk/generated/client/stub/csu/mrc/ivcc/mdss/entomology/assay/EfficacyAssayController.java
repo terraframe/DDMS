@@ -38,7 +38,8 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   }
   public void failCreate(csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", csu.mrc.ivcc.mdss.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+	req.setAttribute("geoEntintys", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+	req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", csu.mrc.ivcc.mdss.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", csu.mrc.ivcc.mdss.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", csu.mrc.ivcc.mdss.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_identificationMethod", csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -73,6 +74,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssayDTO dto = csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssayDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("geoEntintys", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", csu.mrc.ivcc.mdss.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", csu.mrc.ivcc.mdss.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", csu.mrc.ivcc.mdss.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -110,6 +112,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   }
   public void failUpdate(csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
+	req.setAttribute("geoEntintys", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", csu.mrc.ivcc.mdss.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", csu.mrc.ivcc.mdss.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", csu.mrc.ivcc.mdss.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -124,6 +127,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("geoEntintys", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", csu.mrc.ivcc.mdss.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", csu.mrc.ivcc.mdss.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", csu.mrc.ivcc.mdss.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -161,7 +165,8 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   }
   public void failDelete(csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", csu.mrc.ivcc.mdss.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("geoEntintys", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+	req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", csu.mrc.ivcc.mdss.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", csu.mrc.ivcc.mdss.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", csu.mrc.ivcc.mdss.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_identificationMethod", csu.mrc.ivcc.mdss.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -188,6 +193,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssayDTO dto = new csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssayDTO(clientRequest);
+    req.setAttribute("geoEntintys", csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", csu.mrc.ivcc.mdss.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", csu.mrc.ivcc.mdss.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", csu.mrc.ivcc.mdss.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
