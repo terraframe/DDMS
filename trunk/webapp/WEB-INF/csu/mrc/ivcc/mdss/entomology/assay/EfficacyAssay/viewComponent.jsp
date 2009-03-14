@@ -23,7 +23,7 @@
     </dt>
     <dd>
       <mjl:commandLink display="${item.testMethod.keyName}" action="csu.mrc.ivcc.mdss.mo.ResistanceMethodologyController.view.mojo" name="csu.mrc.ivcc.mdss.mo.ResistanceMethodology.form.view.link">
-        <mjl:property value="${item.testMethod.id}" name="id" />
+        <mjl:property value="${item.testMethod.termName}" name="id" />
       </mjl:commandLink>
     </dd>
     <dt>
@@ -33,7 +33,7 @@
     </dt>
     <dd>
       <mjl:commandLink display="${item.specie.keyName}" action="csu.mrc.ivcc.mdss.mo.SpecieController.view.mojo" name="csu.mrc.ivcc.mdss.mo.Specie.form.view.link">
-        <mjl:property value="${item.specie.id}" name="id" />
+        <mjl:property value="${item.specie.termName}" name="id" />
       </mjl:commandLink>
     </dd>
     <dt>
@@ -106,7 +106,7 @@
     </dt>
     <dd>
       <mjl:commandLink display="${item.insecticide.keyName}" action="csu.mrc.ivcc.mdss.mo.InsecticideController.view.mojo" name="csu.mrc.ivcc.mdss.mo.Insecticide.form.view.link">
-        <mjl:property value="${item.insecticide.id}" name="id" />
+        <mjl:property value="${item.insecticide.termName}" name="id" />
       </mjl:commandLink>
     </dd>
      <dt>
