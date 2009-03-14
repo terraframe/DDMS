@@ -229,6 +229,7 @@
 		<copy toDir="${deploy.path}" overwrite="true">
 			<fileset dir="${webapp.root}">
 				<include name="**/*.jsp" />
+				<include name="**/*.html" />
 				<include name="js/*.js" />
 				<include name="js/yui/**" />
 				<include name="**/*.css" />

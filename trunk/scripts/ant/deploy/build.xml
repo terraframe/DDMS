@@ -4,19 +4,13 @@
 	<property name="db_root_password" value="postgres" />
 	<property name="db_root_db" value="template1" />
 	<property name="max_memory_use" value="1024m" />
-	<property name="deploy.path" value="/Library/Tomcat/Home/webapps/MDSS/" />
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties"  classpath= "../../../lib/common/ant-contrib-1.0b3.jar"/>
+
+
 	
-
-
 	<target name="rebuild_all" depends="alert_status,develop_rebuild_import,deploy_all,deploy_rebuild_import,update_db,push_source">
 		<echo message="The build is complete" />
-	</target>
-
-	<target name="deploy_to_test_server">
-		<exec executable="/bin/sh" os="Mac OS X" dir="${deploy.path}" searchpath="true">
-			<arg line='update_prototype.sh' />
-		</exec>
-		<echo message="Deploy Is Complete" />
 	</target>
 
 	<target name="develop_rebuild_import" depends="">
@@ -37,7 +31,7 @@
 		</java>
 	</target>
 
-	<target name="deploy_all" depends="">
+	<target name="deploy_all" depends="write_revision">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy All">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -105,7 +99,24 @@
 		<property name="alert_status.done" value="true" />
 	</target>
 
+	<target name="deploy_to_test_server">
+		<property name="deploy.path" value="/Library/Tomcat/Home/webapps/MDSS/" />
+		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true">
+			pg_dump -U mdssdeploy mdssdeploy > dump.sql 
+			svn add * --force
+			svn ci -m"Update Prototype"
+		</shellscript>
+		<echo message="Deploy Is Complete" />
+	</target>
+
+	<target name="write_revision">
+	   <shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
+	   	svn info|grep "Last Changed" > webapp/revision.html
+		</shellscript>
+	</target>
+	
 </project>
+
 
 
 
