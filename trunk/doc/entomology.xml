@@ -60,14 +60,14 @@
           type="java.lang.String" />
       </mdMethod>
       <mdMethod
-        name="getOrderedChildEntities"
+        name="getOrderedChildren"
         label="Get Ordered Child Entities"
         description="Gets LocatedIn children ordered by label."
         static="false"
         returnType="csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery">
       </mdMethod>
       <mdMethod
-        name="applyWithParentGeoEntity"
+        name="applyWithParent"
         label="Apply Within GeoEntity"
         description="Applies GeoEntity as being located within another GeoEntity."
         returnType="java.lang.String[]"
@@ -130,12 +130,6 @@
           description="The view used to define a new GeoEntity"
           order="0"
           type="csu.mrc.ivcc.mdss.geo.GeoEntityDefinition" />
-        <mdParameter
-          name="allowedIn"
-          label="Allowed In GeoEntities"
-          description="Ids of the GeoEntities in which the new Geo is allowed to be located."
-          order="1"
-          type="java.lang.String[]" />
       </mdMethod>
       <mdMethod
         name="getGeoEntityHierarchyViews"
@@ -143,6 +137,78 @@
         description="Gets views to represent GeoEntity Hierarchies"
         returnType="csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQuery"
         static="true">
+        <mdParameter
+          name="sortAttribute"
+          label="Sort Attribute"
+          order="0"
+          type="java.lang.String" />
+        <mdParameter
+          name="ascending"
+          label="ascending"
+          order="1"
+          type="java.lang.Boolean" />
+        <mdParameter
+          name="pageSize"
+          label="Page Size"
+          order="2"
+          type="java.lang.Integer" />
+        <mdParameter
+          name="pageNumber"
+          label="Page Number"
+          order="3"
+          type="java.lang.Integer" />
+      </mdMethod>
+      <mdMethod
+        name="deleteGeoHierarchy"
+        label="Delete Geo Hierarchy"
+        description="Deletes a Geo Hierarchy and all of its children (recursively)."
+        static="true"
+        returnType="void">
+        <mdParameter
+          name="geoHierarchyId"
+          label="GeoHierarchy Id"
+          description="The id of the GeoHierarchy that will be deleted"
+          type="java.lang.String"
+          order="0" />
+      </mdMethod>
+      <mdMethod
+        name="getViewForGeoHierarchy"
+        label="Get View For GeoHierarchy"
+        description="Returns a GeoHierarchyView for the given GeoHierarchy."
+        static="false"
+        returnType="csu.mrc.ivcc.mdss.geo.GeoHierarchyView">
+      </mdMethod>
+      <mdMethod
+        name="getOrderedChildren"
+        label="Get Ordered Child Hierarchy Types"
+        description="Gets Allowed In children ordered by label."
+        static="false"
+        returnType="csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQuery">
+      </mdMethod>
+      <mdMethod
+        name="applyExistingWithParent"
+        label="Apply Within GeoHierarchy"
+        description="Applies a GeoHierarchy as being allowed within another GeoHierarchy"
+        returnType="void"
+        static="true">
+        <mdParameter
+          name="childGeoHierarchyId"
+          label="Child GeoHierarchy Id"
+          description="The id of the GeoHierarchy that will be the child."
+          type="java.lang.String"
+          order="0" />
+        <mdParameter
+          name="parentGeoHierarchyId"
+          label="Parent GeoHierarchy Id"
+          description="The id of the GeoHierarchy that will be the parent"
+          type="java.lang.String"
+          order="1" />
+        <mdParameter
+          name="cloneOperation"
+          label="Clone Operation"
+          description="Denotes if this GeoHierarchy is being cloned to another parent."
+          order="2"
+          type="java.lang.Boolean" />
       </mdMethod>
     </mdBusiness>
 
@@ -214,6 +280,12 @@
           label="political"
           description="Denotes if this object is political (e.g., a Country)"
           required="true" />
+        <char
+          name="parentGeoHierarchyId"
+          label="Parent GeoHierarchy Id"
+          description="Parent GeoHierarchy Id"
+          required="true"
+          size="64" />
         <enumeration
           name="spatialType"
           label="Spatial Type"
@@ -224,7 +296,7 @@
         <char
           name="parentTypeId"
           required="false"
-          label="Parent Type Id"
+          label="Parent Type"
           size="64"
           description="The id GeoEntity type that is a parent of the GeoEntity" />
         <virtual
@@ -335,7 +407,14 @@
       <mdAction
         name="newDefinition"
         label="New GeoEntity Type"
-        isPost="false" />
+        isPost="false">
+        <mdParameter
+          name="parentGeoHierarchyId"
+          type="java.lang.String"
+          label="Parent GeoHierarchy Id"
+          description="Parent GeoHierarchy Id"
+          order="0" />
+      </mdAction>
       <mdAction
         name="createDefinition"
         label="Create GeoEntity Type"
@@ -346,12 +425,6 @@
           description="The GeoEntityDefinition"
           order="0"
           type="csu.mrc.ivcc.mdss.geo.GeoEntityDefinition" />
-        <mdParameter
-          name="allowedInIds"
-          label="Allowed In Ids"
-          description="The ids of allowed in GeoEntity types."
-          order="1"
-          type="java.lang.String[]" />
       </mdAction>
       <mdAction
         name="cancelCreateDefinition"
@@ -359,10 +432,48 @@
         description="Cancels the request to create a new definition."
         isPost="true">
       </mdAction>
+      <mdAction
+        name="viewAllDefinitions"
+        label="View Hierarchy List"
+        description="Views the Geo Hierarchy as a table."
+        isPost="false">
+      </mdAction>
+      <mdAction
+        name="viewPageDefinitions"
+        label="View Hierarchy List"
+        description="Views the Geo Hierarchy as a table."
+        isPost="false"
+        isQuery="true">
+      </mdAction>
+      <mdAction
+        name="viewHierarchyTree"
+        label="View Hierarchy Tree"
+        description="Views the Geo Hierarchy as a tree with an abitrary root."
+        isPost="false">
+        <mdParameter
+          name="rootGeoHierarchyId"
+          label="Root GeoHierarchy Id"
+          description="The id of the GeoHierarchy that will be the root of the tree"
+          order="0"
+          type="java.lang.String" />
+      </mdAction>
     </mdController>
 
     <!-- START: GeoEntity Types -->
-
+    <mdBusiness
+      name="csu.mrc.ivcc.mdss.geo.generated.Earth"
+      label="Earth"
+      description="Earth"
+      removable="false"
+      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+      <mdMethod
+        name="getEarthInstance"
+        label="get Earth Instance"
+        description="Gets the one and only instance of Earth."
+        returnType="csu.mrc.ivcc.mdss.geo.generated.Earth"
+        static="true">
+      </mdMethod>
+    </mdBusiness>
     <mdBusiness
       name="csu.mrc.ivcc.mdss.geo.generated.Country"
       label="Country"
@@ -715,6 +826,78 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       ]]>
       </messages>
     </mdException>
+    
+    <mdException
+      name="csu.mrc.ivcc.mdss.geo.DuplicateEarthException"
+      label="Dupliate Earth Exception"
+      description="Thrown when a user tries to create another Earth.">
+      <attributes>
+        <char
+          name="earthName"
+          label="Earth Name"
+          size="50"
+          required="true"
+          description="Name of Earth" />
+      </attributes>
+      <messages>
+      <![CDATA[
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
+  name="csu.mrc.ivcc.mdss.geo.DuplicateEarthException">
+  <locale language="en">There cannot be more than one [{earthName}].</locale>
+</exception>
+      ]]>
+      </messages>    
+    </mdException>
+
+    <mdException
+      name="csu.mrc.ivcc.mdss.geo.DeleteEarthException"
+      label="Delete Earth Exception"
+      description="Thrown when a user tries to delete Earth.">
+      <attributes>
+        <char
+          name="earthName"
+          label="Earth Name"
+          size="50"
+          required="true"
+          description="Name of Earth" />
+      </attributes>
+      <messages>
+      <![CDATA[
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
+  name="csu.mrc.ivcc.mdss.geo.DeleteEarthException">
+  <locale language="en">[{earthName}] cannot be deleted.</locale>
+</exception>
+      ]]>
+      </messages>    
+    </mdException>
+    
+    <mdException
+      name="csu.mrc.ivcc.mdss.geo.ModifyHierarchyWithInstancesException"
+      label="Modify hierarchy with instances exception."
+      description="Thrown when a hierarchy is modified with instance data.">
+      <attributes>
+        <char
+          name="displayLabel"
+          label="displayLabel"
+          size="50"
+          required="true"
+          description="Display Label" />
+      </attributes>
+      <messages>
+      <![CDATA[
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
+  name="csu.mrc.ivcc.mdss.geo.ModifyHierarchyWithInstancesExceptions">
+  <locale language="en">The universal [{displayLabel}] cannot be modified because Geo Entities exist.</locale>
+</exception>
+      ]]>
+      </messages>    
+    </mdException>
 
     <mdException
       name="csu.mrc.ivcc.mdss.entomology.InvalidMosquitoCollectionPointGeoEntityException"
@@ -729,7 +912,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           description="Id of the GeoEntity" />
       </attributes>
     </mdException>
-
 
     <mdBusiness
       name="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"
@@ -8142,6 +8324,10 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
   <existing>
     <object
+      key="csu.mrc.ivcc.mdss.geo.generated.Earth"
+      id="EarthMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
       key="csu.mrc.ivcc.mdss.geo.generated.Country"
       id="CountryMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
@@ -8193,6 +8379,17 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
   <create>
     <object
+      id="earthH"
+      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="true" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="EarthMd" />
+    </object>
+
+    <object
       id="countryH"
       type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
       <valueAttribute
@@ -8202,6 +8399,13 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="geoEntityClass"
         id="CountryMd" />
     </object>
+
+    <relationship
+      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      childId="countryH"
+      parentId="earthH"
+      id="countryInEarth">
+    </relationship>
 
     <object
       id="provinceH"
@@ -8304,13 +8508,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         id="AbstractSiteMd" />
     </object>
 
-    <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
-      childId="abstractSiteH"
-      parentId="localityH"
-      id="abstractSiteInLocality">
-    </relationship>
-
     <object
       id="sentinalSiteH"
       type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
@@ -8401,153 +8598,21 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       id="permanentWaterBodyInLocality">
     </relationship>
 
-  </create>
-
-  <create>
-
     <object
-      id="Country"
-      type="csu.mrc.ivcc.mdss.geo.generated.Country">
-      <valueAttribute
-        name="entityName"
-        value="Country" />
-      <valueAttribute
-        name="geoId"
-        value="401710" />
+      id="earth"
+      type="csu.mrc.ivcc.mdss.geo.generated.Earth">
       <valueAttribute
         name="activated"
         value="true" />
-    </object>
-
-    <object
-      id="Province1"
-      type="csu.mrc.ivcc.mdss.geo.generated.Province">
       <valueAttribute
         name="entityName"
-        value="Province 1" />
+        value="Earth" />
       <valueAttribute
         name="geoId"
-        value="571038" />
-      <valueAttribute
-        name="activated"
-        value="true" />
+        value="000000" />
     </object>
-
-    <object
-      id="Province2"
-      type="csu.mrc.ivcc.mdss.geo.generated.Province">
-      <valueAttribute
-        name="entityName"
-        value="Province 2" />
-      <valueAttribute
-        name="geoId"
-        value="470108" />
-      <valueAttribute
-        name="activated"
-        value="true" />
-    </object>
-
-    <object
-      id="District1"
-      type="csu.mrc.ivcc.mdss.geo.generated.District">
-      <valueAttribute
-        name="entityName"
-        value="District 1" />
-      <valueAttribute
-        name="geoId"
-        value="123471" />
-      <valueAttribute
-        name="activated"
-        value="true" />
-    </object>
-
-    <object
-      id="District2"
-      type="csu.mrc.ivcc.mdss.geo.generated.District">
-      <valueAttribute
-        name="entityName"
-        value="District 2" />
-      <valueAttribute
-        name="geoId"
-        value="810471" />
-      <valueAttribute
-        name="activated"
-        value="true" />
-    </object>
-
-    <object
-      id="District3"
-      type="csu.mrc.ivcc.mdss.geo.generated.District">
-      <valueAttribute
-        name="entityName"
-        value="District 3" />
-      <valueAttribute
-        name="geoId"
-        value="273017" />
-      <valueAttribute
-        name="activated"
-        value="true" />
-    </object>
-
-    <object
-      id="District4"
-      type="csu.mrc.ivcc.mdss.geo.generated.District">
-      <valueAttribute
-        name="entityName"
-        value="District 4" />
-      <valueAttribute
-        name="geoId"
-        value="204717" />
-      <valueAttribute
-        name="activated"
-        value="true" />
-    </object>
-
-    <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
-      childId="Province1"
-      parentId="Country"
-      id="p1InC">
-    </relationship>
-
-    <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
-      childId="Province2"
-      parentId="Country"
-      id="p2InC">
-    </relationship>
-
-    <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
-      childId="District1"
-      parentId="Province1"
-      id="d1InP1">
-    </relationship>
-
-    <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
-      childId="District2"
-      parentId="Province1"
-      id="d2InP1">
-    </relationship>
-
-    <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
-      childId="District3"
-      parentId="Province2"
-      id="d3InP2">
-    </relationship>
-
-    <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
-      childId="District4"
-      parentId="Province2"
-      id="d4InP2">
-    </relationship>
-
 
   </create>
-
 
   <update>
     <object

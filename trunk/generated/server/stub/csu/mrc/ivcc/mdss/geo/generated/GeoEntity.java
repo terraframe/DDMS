@@ -25,28 +25,45 @@ public abstract class GeoEntity extends GeoEntityBase implements
     super();
   }
 
+  @Override
+  public void apply()
+  {
+    applyInternal();
+  }
+
   /**
-   * Updates this GeoEntity and its children if its activated
-   * attribute has been modified.
+   * Applies this GeoEntity and recursively sets the activated status of all
+   * children if the status has changed on the parent.
+   * 
+   * @return
+   */
+  @Transaction
+  private String[] applyInternal()
+  {
+    List<String> ids = new LinkedList<String>();
+
+    if (this.isModified(GeoEntity.ACTIVATED))
+    {
+      ids.addAll(setChildEntityActivated(this.getActivated(), this));
+
+      ids.add(this.getId());
+    }
+
+    super.apply();
+
+    return ids.toArray(new String[ids.size()]);
+  }
+
+  /**
+   * Updates this GeoEntity and its children if its activated attribute has been
+   * modified.
    * 
    * @return
    */
   @Override
-  @Transaction
   public String[] updateFromTree()
   {
-    List<String> ids = new LinkedList<String>();
-    
-    if(this.isModified(GeoEntity.ACTIVATED))
-    {
-      ids.addAll(setChildEntityActivated(this.getActivated(), this));
-      
-      ids.add(this.getId());
-    }
-    
-    this.apply();
-    
-    return ids.toArray(new String[ids.size()]);
+    return applyInternal();
   }
 
   public static GeoEntity searchByGeoId(java.lang.String geoId)
@@ -73,18 +90,19 @@ public abstract class GeoEntity extends GeoEntityBase implements
       iterator.close();
     }
   }
-  
+
   /**
-   * Throws an exception to alert the user before they change an entity's parent.
+   * Throws an exception to alert the user before they change an entity's
+   * parent.
    */
   @Override
   public void confirmChangeParent(String parentId)
   {
     GeoEntity parent = GeoEntity.get(parentId);
-    
+
     ConfirmParentChangeException ex = new ConfirmParentChangeException();
     ex.setEntityName(parent.getEntityName());
-    
+
     throw ex;
   }
 
@@ -95,30 +113,23 @@ public abstract class GeoEntity extends GeoEntityBase implements
   @Transaction
   public void delete()
   {
-    OIterator<? extends GeoEntity> iter = this.getAllContainsGeoEntity();
+    List<GeoEntity> children = this.getImmediateChildren();
 
-    try
+    for (GeoEntity child : children)
     {
-      while (iter.hasNext())
-      {
-        // FIXME only delete if this entity is the sole parent
-        iter.next().delete();
-      }
-    }
-    finally
-    {
-      iter.close();
+      // FIXME only delete if this entity is the sole parent
+      child.delete();
     }
 
     super.delete();
   }
-  
+
   /**
-   * Returns all parents of this GeoEntity.
+   * Returns all parents of this GeoEntity up to one level.
    * 
    * @return
    */
-  private List<GeoEntity> getImmediateParents()
+  public List<GeoEntity> getImmediateParents()
   {
     List<GeoEntity> parents = new LinkedList<GeoEntity>();
     OIterator<? extends GeoEntity> iter = this.getAllLocatedInGeoEntity();
@@ -133,8 +144,32 @@ public abstract class GeoEntity extends GeoEntityBase implements
     {
       iter.close();
     }
-    
+
     return parents;
+  }
+
+  /**
+   * Returns all the children of this GeoEntity up to one level.
+   * 
+   * @return
+   */
+  public List<GeoEntity> getImmediateChildren()
+  {
+    List<GeoEntity> children = new LinkedList<GeoEntity>();
+    OIterator<? extends GeoEntity> iter = this.getAllContainsGeoEntity();
+    try
+    {
+      while (iter.hasNext())
+      {
+        children.add(iter.next());
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+
+    return children;
   }
 
   /**
@@ -145,60 +180,54 @@ public abstract class GeoEntity extends GeoEntityBase implements
    * @param parent
    * @return A list of ids for each updated child.
    */
-  private List<String> setChildEntityActivated(boolean activated, GeoEntity parent)
+  private static List<String> setChildEntityActivated(boolean activated, GeoEntity parent)
   {
     List<String> ids = new LinkedList<String>();
-    OIterator<? extends GeoEntity> iter = parent.getAllContainsGeoEntity();
-    try
-    {
-      while (iter.hasNext())
-      {
-        GeoEntity child = iter.next();
+    List<GeoEntity> children = parent.getImmediateChildren();
 
-        // CHECK: a child with more than one parent set to active
-        // cannot be deactivated.
-        List<GeoEntity> parents = child.getImmediateParents();
-        boolean changeActivated = true;
-        if(!activated && parents.size() > 1)
+    for (GeoEntity child : children)
+    {
+
+      // CHECK: a child with more than one parent set to active
+      // cannot be deactivated.
+      List<GeoEntity> parents = child.getImmediateParents();
+      boolean changeActivated = true;
+      if (!activated && parents.size() > 1)
+      {
+        for (GeoEntity nextParent : parents)
         {
-          for(GeoEntity nextParent : parents)
+          if (nextParent.getActivated())
           {
-            if(nextParent.getActivated())
-            {
-              changeActivated = false;
-              break;
-            }
+            changeActivated = false;
+            break;
           }
         }
-        
-        if (changeActivated)
-        {
-          child.appLock();
-          child.setActivated(activated);
-          child.apply();
-          
-          ids.add(child.getId());
+      }
 
-          setChildEntityActivated(activated, child);
-        }
+      if (changeActivated)
+      {
+        child.appLock();
+        child.setActivated(activated);
+        child.apply();
+
+        ids.add(child.getId());
+
+        setChildEntityActivated(activated, child);
       }
     }
-    finally
-    {
-      iter.close();
-    }
-    
+
     return ids;
   }
 
   /**
-   * Adds this GeoEntity as a child of the given parent for the {@link LocatedIn} relationship.
-   * If this is not for a clone operation then all prior parent relationships will be removed.
+   * Adds this GeoEntity as a child of the given parent for the
+   * {@link LocatedIn} relationship. If this is not for a clone operation then
+   * all prior parent relationships will be removed.
    * 
    */
   @Override
   @Transaction
-  public String[] applyWithParentGeoEntity(String parentGeoEntityId, Boolean cloneOperation)
+  public String[] applyWithParent(String parentGeoEntityId, Boolean cloneOperation)
   {
     if (this.isNew())
     {
@@ -220,22 +249,22 @@ public abstract class GeoEntity extends GeoEntityBase implements
         iter.close();
       }
     }
-    
-    GeoEntity parent =  GeoEntity.get(parentGeoEntityId);
+
+    GeoEntity parent = GeoEntity.get(parentGeoEntityId);
     this.addLocatedInGeoEntity(parent).apply();
-    
+
     // update activated status on all new children
     List<String> ids = setChildEntityActivated(parent.getActivated(), parent);
     return ids.toArray(new String[ids.size()]);
   }
-  
+
   @Override
   public LocatedIn addContainsGeoEntity(GeoEntity geoEntity)
   {
     validateHierarchy(geoEntity.getType(), this.getType());
     return super.addContainsGeoEntity(geoEntity);
   }
-  
+
   @Override
   public LocatedIn addLocatedInGeoEntity(GeoEntity geoEntity)
   {
@@ -265,8 +294,8 @@ public abstract class GeoEntity extends GeoEntityBase implements
       {
         GeoHierarchy gh = iter.next();
         match = checkHierarchy(parentGH, gh);
-        
-        if(match)
+
+        if (match)
         {
           break;
         }
@@ -326,7 +355,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
    * parent. The list is ordered by the entity name.
    */
   @Override
-  public GeoEntityQuery getOrderedChildEntities()
+  public GeoEntityQuery getOrderedChildren()
   {
     QueryFactory f = new QueryFactory();
     GeoEntityQuery geoQuery = new GeoEntityQuery(f);

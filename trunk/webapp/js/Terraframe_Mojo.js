@@ -890,7 +890,7 @@ var Mojo = {
    */
   _controllerWrapper : function(endpoint, clientRequest, params)
   {
-  	if(Mojo.util.isObject(params))
+    if(Mojo.util.isObject(params))
       params = {"com.terraframe.mojo.mojaxObject":Mojo.util.getJSON(params)};
   	
     new Mojo.ClientSession.AjaxCall(endpoint, clientRequest, params, true);  

@@ -97,6 +97,7 @@
                  <div id="gis" class="yuimenu">
                      <div class="bd">                                        
                          <ul>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.viewAllDefinitions.mojo"><f:message key="View_GeoEntityTypes"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="csu.mrc.ivcc.mdss.geo.generated.GeoEntityController.viewAll.mojo"><f:message key="View_GeoEntites"/></a></li>
                          </ul>                    
                      </div>

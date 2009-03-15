@@ -30,6 +30,6 @@
   %>
   
   MDSS.GeoTreeSelectables = <%= tree %>;
-  MDSS.GeoTreeRootId = '<%= rootId %>';
+  MDSS.GeoEntityTreeRootId = '<%= rootId %>';
   
 </script>
