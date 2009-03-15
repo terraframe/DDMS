@@ -401,10 +401,8 @@ public class EfficacyAssayTest extends TestCase
       assay.setTestMethod(assayMethod);
       assay.setFed(fed);
       assay.setGravid(10);
-      assay.setExposureTime(60);
-      
+      assay.setExposureTime(60);      
       assay.setHoldingTime(24);
-
       assay.setQuantityDead(5);
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
@@ -412,7 +410,6 @@ public class EfficacyAssayTest extends TestCase
       assay.setInsecticide(insecticide);
       assay.addSurfacePostion(position);
       assay.setGeoEntity(geoEntity);
-
       assay.setColonyName("Colony Name");
       assay.apply();
 
@@ -453,14 +450,11 @@ public class EfficacyAssayTest extends TestCase
     {
       assay.setTestDate(date);
       assay.addSex(sex);
-
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
-      assay.setGravid(gravid);
-      
+      assay.setGravid(gravid);      
       assay.setExposureTime(60);
       assay.setHoldingTime(24);
-
       assay.setQuantityDead(5);
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
@@ -468,7 +462,6 @@ public class EfficacyAssayTest extends TestCase
       assay.setInsecticide(insecticide);
       assay.addSurfacePostion(position);
       assay.setGeoEntity(geoEntity);
-
       assay.setColonyName("Colony Name");
       assay.apply();
 

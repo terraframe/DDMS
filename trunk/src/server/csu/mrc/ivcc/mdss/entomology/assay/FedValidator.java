@@ -18,12 +18,12 @@ public class FedValidator implements Reloadable
     
   public FedValidator(AdultDiscriminatingDoseAssay assay)
   {
-    this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay.getId());
+    this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay.getId());
   }
   
   public FedValidator(EfficacyAssay assay)
   {
-    this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay.getId());    
+    this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay.getId());    
   }
   
   public FedValidator(List<AssaySex> sex, Integer fed, Integer quantityTested, String assayId)
