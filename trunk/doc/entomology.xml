@@ -1941,31 +1941,30 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       description="View for Adult Discriminating Dose Assay test intervals">
       <attributes>
         <char
-          name="assayId"
-          label="Adult Discriminating Dose Assay Id"
-          required="true"
-          size="255" />
-        <char
           name="intervalId"
           label="Test Interval Id"
           required="true"
           size="255" />
         <integer
-          name="period"
-          label="Period"
-          rejectNegative="true"
-          required="true" />
-        <integer
           name="intervalTime"
           label="Interval Time"
           rejectNegative="true"
           required="true" />
-        <integer
-          name="knockedDown"
-          rejectNegative="true"
-          label="Knocked Down"
+        <virtual
+          name="assay"
           required="true"
-          default_value="0" />
+          type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
+          concrete="assay" />
+        <virtual
+          name="period"
+          required="true"
+          type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
+          concrete="period" />
+        <virtual
+          name="knockedDown"
+          required="true"
+          type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
+          concrete="knockedDown"/>
       </attributes>
       <mdMethod
         name="saveAll"
@@ -8118,7 +8117,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="definition"
         value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
     </object>
-    
+
     <object
       type="csu.mrc.ivcc.mdss.mo.LarvaeAge"
       id="MIRO_99900063">
@@ -8138,7 +8137,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="definition"
         value="A chemical substance which is being used as insecticide. [PT:PT]" />
     </object>
-    
+
   </create>
 
   <existing>
