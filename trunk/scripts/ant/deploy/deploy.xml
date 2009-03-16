@@ -151,7 +151,7 @@
 	</target>
 	
 	<target name="update_db_s_c_and_deploy" >
-		<java classname="csu.mrc.ivcc.mdss.global.UpdateUtility" failonerror="true">
+		<java classname="dss.vector.solutions.global.UpdateUtility" failonerror="true">
 			<arg value="${export.package}" />
 			<classpath>
 				<path refid="framework.classpath" />
@@ -353,18 +353,18 @@
 					<path refid="framework.classpath" />
 				</classpath>
 				<arg value="com.terraframe.mojo.defaults" />
-				<arg value="csu.mrc.ivcc.mdss.entomology" />
-				<arg value="csu.mrc.ivcc.mdss.export.entomology" />
-				<arg value="csu.mrc.ivcc.mdss.mo" />
-				<arg value="csu.mrc.ivcc.mdss.entomology.assay" />
-				<arg value="csu.mrc.ivcc.mdss.entomology.assay.biochemical" />
-				<arg value="csu.mrc.ivcc.mdss.entomology.assay.molecular" />
-				<arg value="csu.mrc.ivcc.mdss.entomology.assay.infectivity" />
-				<arg value="csu.mrc.ivcc.mdss.geo" />
-				<arg value="csu.mrc.ivcc.mdss.geo.generated" />
-				<arg value="csu.mrc.ivcc.mdss.util" />
-				<arg value="csu.mrc.ivcc.mdss" />
-				<arg value="csu.mrc.ivcc.mdss.report" />
+				<arg value="dss.vector.solutions.entomology" />
+				<arg value="dss.vector.solutions.export.entomology" />
+				<arg value="dss.vector.solutions.mo" />
+				<arg value="dss.vector.solutions.entomology.assay" />
+				<arg value="dss.vector.solutions.entomology.assay.biochemical" />
+				<arg value="dss.vector.solutions.entomology.assay.molecular" />
+				<arg value="dss.vector.solutions.entomology.assay.infectivity" />
+				<arg value="dss.vector.solutions.geo" />
+				<arg value="dss.vector.solutions.geo.generated" />
+				<arg value="dss.vector.solutions.util" />
+				<arg value="dss.vector.solutions" />
+				<arg value="dss.vector.solutions.report" />
 			</java>
 		</target>
 </project>
