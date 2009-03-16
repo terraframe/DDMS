@@ -30,240 +30,7 @@
 <%@page import="java.util.regex.Pattern"%>
 
 
-<%!static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSONException {
-	JSONArray ids = new JSONArray();
-	JSONArray labels = new JSONArray();
-	for(AbstractTermDTO term : terms)
-	 {
-	    ids.put(term.getId());
-	    labels.put(term.getDisplayLabel());
-	} 
-	return name +"Ids = " + ids.toString()+"; \n "+ name + "Labels = "+ labels.toString() +";";
-}
-
-
-
-
-static String getDataMap(ViewDTO[] rows, String[] attribs,ViewDTO view) throws JSONException{
-	JSONArray map = new JSONArray();
-	ArrayList<String> ordered_attribs = new ArrayList(Arrays.asList(attribs));
-	for(String a : view.getAccessorNames())
-	{
-		if(! ordered_attribs.contains(a)  )
-		{
-			ordered_attribs.add(a.substring(0,1).toUpperCase() + a.substring(1));
-		}
-	}
-	System.out.println("attribs length =  "+ordered_attribs.size());
-	for(ViewDTO row : rows)
-	 {
-		JSONObject element = new JSONObject();		
-		Class c = row.getClass();	
-
-		for(String attrib : ordered_attribs)
-		{		
-			try
-			{
-				//System.out.println("Setting "+attrib);
-				String value = (String) c.getMethod("get"+attrib).invoke(row).toString();
-				//System.out.println("Setting "+attrib+" to "+value);
-				      
-                if(attrib.contains("Date"))
-                {
-                	SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                	element.put(attrib,df.format(new Date(value)));
-                }
-                else
-                {
-                	//FIXME: this is a hack for enums
-                   String clean_value = value.replaceAll("\\[", "").replaceAll("\\]", "");
-                   element.put(attrib,clean_value );
-                }
-                
-			}
-			catch (IllegalAccessException x) {
-				System.out.println(x+" "+x.getCause());
-			}
-			catch (IllegalArgumentException  x) {
-				System.out.println(x+" "+x.getCause());
-			}
-			catch (InvocationTargetException x) {
-				System.out.println(x+" "+x.getCause());
-			}
-			catch (NoSuchMethodException x) {
-				System.out.println("No such method get"+attrib);
-			}
-			catch (NullPointerException x) {
-				System.out.println("Null Pointer Exception get"+attrib);
-			}
-
-		}	
-		map.put(element);
-	} 
-	return map.toString().replaceAll(",",",\n");
-}
-
-static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows,ClientRequestIF clientRequest ) throws JSONException
-	{
-    ArrayList<String> arr = new ArrayList<String>();
-	int colnum = 0;
-	Class v = view.getClass();
-	//List<String> v_attribs = view.getAttributeNames();
-	ArrayList<String> ordered_attribs = new ArrayList(Arrays.asList(attribs));
-	for(String a : view.getAccessorNames())
-	{
-		if(! ordered_attribs.contains(a) && a.length() >= 3 )
-		{
-			ordered_attribs.add(a.substring(0,1).toUpperCase() + a.substring(1));
-		}
-	}
-	
-	ArrayList<String> dropdownbuff = new ArrayList<String>();
-	for(String attrib : ordered_attribs)
-	 {
-		try
-		{			
-			AttributeMdDTO md = (AttributeMdDTO) v.getMethod("get"+attrib+"Md").invoke(view); 
-			Class mdClass = md.getClass();	
-			if(md instanceof AttributeReferenceMdDTO)
-			{
-				Class mo_term = md.getJavaType();
-				if(AbstractTermDTO.class.isAssignableFrom(mo_term) )
-				{
-			      AbstractTermDTO[] terms = (AbstractTermDTO[]) mo_term.getMethod("getAll",new Class[] {ClientRequestIF.class}).invoke(null,clientRequest);
-				  dropdownbuff.add(getDisplayLabels(terms,attrib));
-				}					
-			}
-		}
-		catch (Exception x) {
-			System.out.println("Other exception on "+attrib +" " + x.getMessage());
-		}
-		colnum ++;
-	}	
-	if(extra_rows.length() > 0)
-	{
-		arr.add(extra_rows);
-	}
-	return (Halp.join(dropdownbuff,"\n"));
-}
-
-
-static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload ) throws JSONException
-{
-ArrayList<String> arr = new ArrayList<String>();
-int colnum = 0;
-Class v = view.getClass();
-//List<String> v_attribs = view.getAttributeNames();
-ArrayList<String> ordered_attribs = new ArrayList(Arrays.asList(attribs));
-for(String a : view.getAccessorNames())
-{
-	String upcased_attrib = a.substring(0,1).toUpperCase() + a.substring(1);
-    if(! ordered_attribs.contains(upcased_attrib) && a.length() >= 3 && autoload)
-	{
-		ordered_attribs.add(upcased_attrib);
-	}
-}
-
-ArrayList<String> dropdownbuff = new ArrayList<String>();
-for(String attrib : ordered_attribs)
- {
-	try
-	{
-		ArrayList<String> buff = new ArrayList<String>();
-		
-		buff.add("key:'"+attrib+"'");	
-		
-		AttributeMdDTO md = (AttributeMdDTO) v.getMethod("get"+attrib+"Md").invoke(view); 
-		Class mdClass = md.getClass();		
-		//buff.add("class:"+mdClass.toString());								
-		String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();	
-		buff.add("label:'"+label+"'");				
-		if(colnum == 0)	
-		{
-			buff.add("hidden:true");
-		}
-		else
-		{
-			if(! Arrays.asList(attribs).contains(attrib))
-			{
-				buff.add("hidden:true");
-			}
-            String editor = "null";
-			
-			if(md instanceof AttributeIntegerMdDTO)
-			{
-				editor = "new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})";
-			}
-			if(md instanceof AttributeBooleanMdDTO)
-			{
-				editor = "new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})";
-			}
-			if(md instanceof AttributeCharacterMdDTO)
-			{
-				editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
-			}
-			if(md instanceof AttributeDateMdDTO)
-			{
-				buff.add("formatter:YAHOO.widget.DataTable.formatDate");
-                editor = "new YAHOO.widget.DateCellEditor({disableBtns:true})";
-                //editor = "new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})";
-				//editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
-			}
-			if(md instanceof AttributeEnumerationMdDTO)
-			{
-				editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['";    
-				editor += Halp.join(((AttributeEnumerationMdDTO) md).getEnumNames(),"','");  
-                editor += "'],disableBtns:true})";
-			}
-			if(md instanceof AttributeReferenceMdDTO)
-			{
-				Class refrenced_class = md.getJavaType();
-				
-				if(AssayTestResult.class.isAssignableFrom(refrenced_class) )
-				{
-					editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
-				}
-				
-				if(AbstractTermDTO.class.isAssignableFrom(refrenced_class) )
-				{
-				   editor = "new YAHOO.widget.DropdownCellEditor({dropdownOptions:"+attrib+"Labels,disableBtns:true})";		
-				   buff.add("save_as_id:true");	
-				}
-				else
-				{
-					editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
-				}
-				
-			}
-			buff.add("editor:"+ editor);
-	    }
-		arr.add("{" +Halp.join(buff,",")+ "}"); 
-	}
-	catch (IllegalAccessException x) {
-		System.out.println("IllegalAccessException on " + attrib +" " + x.getMessage());			
-	}
-	catch (IllegalArgumentException  x) {
-		System.out.println("IllegalArgumentException on "+attrib +" " + x.getMessage());
-	}
-	catch (InvocationTargetException x) {
-		System.out.println("InvocationTargetException on "+attrib +" " + x.getMessage());
-	}
-	catch (NoSuchMethodException x) {
-		System.out.println("No such method on "+attrib + x.getMessage());
-	}	
-	catch (Exception x) {
-		System.out.println("Other exception on "+attrib +" " + x.getMessage());
-	}
-	colnum ++;
-}	
-if(extra_rows.length() > 0)
-{
-	arr.add(extra_rows);
-}
-return ("[" +Halp.join(arr,",\n")+ "]");
-//return (Halp.join(dropdownbuff,",\n")+ ",columnDefs:[" +Halp.join(arr,",\n")+ "]");
-}
-
+<%!
 
 static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) throws JSONException{
 	String s = "<table><tr><th colspan=\"2\">";
@@ -412,10 +179,10 @@ function showCol(key,checked)
   };
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));   
     %>
-    <%=getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
+    <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
     MojoCal.init()
-    table_data = {rows:<%=getDataMap(rows,attribs,mdView)%>,      
-                columnDefs:<%=getColumnSetup(mdView,attribs,delete_row,true)%>,
+    table_data = {rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,      
+                columnDefs:<%=Halp.getColumnSetup(mdView,attribs,delete_row,true)%>,
               defaults: {},
               copy_from_above: ["IdentificationMethod"],
               div_id: "Mosquitos",
@@ -459,10 +226,10 @@ String[] unint_attribs = { "GroupId","SampleId","Specie","IdentificationMethod",
 %>
 
 <script type="text/javascript"> 
-<%=getDropdownSetup(mdUnIntView,unint_attribs,delete_row,clientRequest)%>
+<%=Halp.getDropdownSetup(mdUnIntView,unint_attribs,delete_row,clientRequest)%>
 
-UninterestingSpecieGroupData = { rows:<%=getDataMap(unint_rows,unint_attribs,mdUnIntView)%>,       
-       columnDefs: <%=getColumnSetup(mdUnIntView,unint_attribs,delete_row,false)%>,
+UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows,unint_attribs,mdUnIntView)%>,       
+       columnDefs: <%=Halp.getColumnSetup(mdUnIntView,unint_attribs,delete_row,false)%>,
               defaults: {},
               div_id: "UninterestingSpecieGroups",
               copy_from_above: ["IdentificationMethod"],
