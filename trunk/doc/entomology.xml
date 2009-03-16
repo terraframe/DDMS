@@ -826,7 +826,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       ]]>
       </messages>
     </mdException>
-    
+
     <mdException
       name="csu.mrc.ivcc.mdss.geo.DuplicateEarthException"
       label="Dupliate Earth Exception"
@@ -848,7 +848,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
   <locale language="en">There cannot be more than one [{earthName}].</locale>
 </exception>
       ]]>
-      </messages>    
+      </messages>
     </mdException>
 
     <mdException
@@ -872,9 +872,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
   <locale language="en">[{earthName}] cannot be deleted.</locale>
 </exception>
       ]]>
-      </messages>    
+      </messages>
     </mdException>
-    
+
     <mdException
       name="csu.mrc.ivcc.mdss.geo.ModifyHierarchyWithInstancesException"
       label="Modify hierarchy with instances exception."
@@ -896,7 +896,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
   <locale language="en">The universal [{displayLabel}] cannot be modified because Geo Entities exist.</locale>
 </exception>
       ]]>
-      </messages>    
+      </messages>
     </mdException>
 
     <mdException
@@ -1872,8 +1872,26 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           type="csu.mrc.ivcc.mdss.entomology.assay.LarvaeAgeRange"
           description="The larvae age range" />
       </attributes>
+      <mdMethod
+        name="setAgeRange"
+        returnType="void"
+        description="Sets the age range of the assay"
+        label="Set Age Range"
+        static="false">
+        <mdParameter
+          name="startAge"
+          description="The start age of the age range"
+          label="Start Age"
+          order="0"
+          type="csu.mrc.ivcc.mdss.mo.LarvaeAge" />
+        <mdParameter
+          name="endAge"
+          description="The end age of the age range"
+          label="End Age"
+          order="1"
+          type="csu.mrc.ivcc.mdss.mo.LarvaeAge" />
+      </mdMethod>
     </mdBusiness>
-
 
     <mdBusiness
       name="csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssay"
@@ -2146,7 +2164,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="knockedDown"
           required="true"
           type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
-          concrete="knockedDown"/>
+          concrete="knockedDown" />
       </attributes>
       <mdMethod
         name="saveAll"
