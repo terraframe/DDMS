@@ -293,9 +293,9 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     table_data = { 
     		rows:<%
     		     // AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request.getAttribute("item");
-                  ADDATestIntervalViewDTO[] rows = adda.getTestIntervals();
+                  DDATestIntervalViewDTO[] rows = adda.getTestIntervals();
     	          ArrayList<String> arr = new ArrayList<String>();
-   	    		     for (ADDATestIntervalViewDTO row : rows)  {
+   	    		     for (DDATestIntervalViewDTO row : rows)  {
    	    		       ArrayList<String> buff = new ArrayList<String>();
    	    		       buff.add("IntervalId:'" + row.getIntervalId() + "'");
    	    		       buff.add("Period:'" + row.getPeriod() + "'");
