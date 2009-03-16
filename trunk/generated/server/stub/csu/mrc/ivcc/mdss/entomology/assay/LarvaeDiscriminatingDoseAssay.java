@@ -1,6 +1,7 @@
 package csu.mrc.ivcc.mdss.entomology.assay;
 
 import csu.mrc.ivcc.mdss.Property;
+import csu.mrc.ivcc.mdss.mo.LarvaeAge;
 
 public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -9,6 +10,40 @@ public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssay
   public LarvaeDiscriminatingDoseAssay()
   {
     super();
+  }
+  
+  @Override
+  public void delete()
+  {
+    LarvaeAgeRange range = this.getAgeRange();
+        
+    super.delete();
+    
+    if (range != null)
+    {
+      range.delete();
+    }
+  }
+  
+  @Override
+  public void setAgeRange(LarvaeAge startAge, LarvaeAge endAge)
+  {
+    if(this.getAgeRange() != null)
+    {
+      LarvaeAgeRange ageRange = this.getAgeRange();      
+      ageRange.setStartPoint(startAge);
+      ageRange.setEndPoint(endAge);
+      ageRange.apply();      
+    }
+    else
+    {
+      LarvaeAgeRange ageRange = new LarvaeAgeRange();
+      ageRange.setStartPoint(startAge);
+      ageRange.setEndPoint(endAge);
+      ageRange.apply();      
+
+      this.setAgeRange(ageRange);
+    }        
   }
   
   protected boolean isResistant()

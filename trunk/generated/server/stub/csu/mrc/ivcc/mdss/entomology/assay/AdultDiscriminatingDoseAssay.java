@@ -1,18 +1,5 @@
 package csu.mrc.ivcc.mdss.entomology.assay;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.vecmath.GMatrix;
-import javax.vecmath.GVector;
-
-import com.gregdennis.drej.PolynomialKernel;
-import com.gregdennis.drej.Regression;
-import com.gregdennis.drej.Representer;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.OrderBy.SortOrder;
-
 import csu.mrc.ivcc.mdss.Property;
 
 public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -57,7 +44,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     
     super.apply();
   }
-
 
   protected boolean isResistant()
   {
