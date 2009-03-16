@@ -3,7 +3,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:form name="dss.vector.solutions.entomology.assay.ADDATestInterval.form.name" id="dss.vector.solutions.entomology.assay.ADDATestInterval.form.id" method="POST">
+<mjl:form name="dss.vector.solutions.entomology.assay.DDATestInterval.form.name" id="dss.vector.solutions.entomology.assay.DDATestInterval.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
       <dt>
@@ -42,7 +42,7 @@
       </dd>
     </dl>
   </mjl:component>
-  <mjl:command value="Update" action="dss.vector.solutions.entomology.assay.ADDATestIntervalController.update.mojo" name="dss.vector.solutions.entomology.assay.ADDATestInterval.form.update.button" />
-  <mjl:command value="Delete" action="dss.vector.solutions.entomology.assay.ADDATestIntervalController.delete.mojo" name="dss.vector.solutions.entomology.assay.ADDATestInterval.form.delete.button" />
-  <mjl:command value="Cancel" action="dss.vector.solutions.entomology.assay.ADDATestIntervalController.cancel.mojo" name="dss.vector.solutions.entomology.assay.ADDATestInterval.form.cancel.button" />
+  <mjl:command value="Update" action="dss.vector.solutions.entomology.assay.DDATestIntervalController.update.mojo" name="dss.vector.solutions.entomology.assay.DDATestInterval.form.update.button" />
+  <mjl:command value="Delete" action="dss.vector.solutions.entomology.assay.DDATestIntervalController.delete.mojo" name="dss.vector.solutions.entomology.assay.DDATestInterval.form.delete.button" />
+  <mjl:command value="Cancel" action="dss.vector.solutions.entomology.assay.DDATestIntervalController.cancel.mojo" name="dss.vector.solutions.entomology.assay.DDATestInterval.form.cancel.button" />
 </mjl:form>

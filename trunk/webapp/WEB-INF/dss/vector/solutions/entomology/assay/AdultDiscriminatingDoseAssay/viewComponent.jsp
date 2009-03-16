@@ -5,11 +5,11 @@
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="org.json.JSONArray"%>
-<%@page import="dss.vector.solutions.entomology.assay.ADDATestInterval"%>
+<%@page import="dss.vector.solutions.entomology.assay.DDATestInterval"%>
 <%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
 <%@page import="dss.vector.solutions.util.Halp" %>
 
-<%@page import="dss.vector.solutions.entomology.assay.ADDATestIntervalViewDTO"%>
+<%@page import="dss.vector.solutions.entomology.assay.DDATestIntervalViewDTO"%>
 <%
 AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request.getAttribute("item");
 %>
@@ -283,7 +283,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     String[] types_to_load =
 	{
 	   "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay",
-	   "dss.vector.solutions.entomology.assay.ADDATestIntervalView"
+	   "dss.vector.solutions.entomology.assay.DDATestIntervalView"
 	}; 
 	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));

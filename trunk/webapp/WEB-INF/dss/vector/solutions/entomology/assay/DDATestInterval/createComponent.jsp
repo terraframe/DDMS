@@ -3,7 +3,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:form name="dss.vector.solutions.entomology.assay.ADDATestInterval.form.name" id="dss.vector.solutions.entomology.assay.ADDATestInterval.form.id" method="POST">
+<mjl:form name="dss.vector.solutions.entomology.assay.DDATestInterval.form.name" id="dss.vector.solutions.entomology.assay.DDATestInterval.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
       <dt>
@@ -42,5 +42,5 @@
       </dd>
     </dl>
   </mjl:component>
-  <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.ADDATestIntervalController.create.mojo" name="dss.vector.solutions.entomology.assay.ADDATestInterval.form.create.button" />
+  <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.DDATestIntervalController.create.mojo" name="dss.vector.solutions.entomology.assay.DDATestInterval.form.create.button" />
 </mjl:form>

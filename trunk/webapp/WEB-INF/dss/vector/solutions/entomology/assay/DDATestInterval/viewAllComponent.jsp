@@ -4,7 +4,7 @@
   <mjl:message />
 </mjl:messages>
 <mjl:table var="item" query="${query}">
-  <mjl:context action="dss.vector.solutions.entomology.assay.ADDATestIntervalController.viewPage.mojo" />
+  <mjl:context action="dss.vector.solutions.entomology.assay.DDATestIntervalController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="assay">
       <mjl:header>
@@ -26,7 +26,7 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.entomology.assay.ADDATestIntervalController.view.mojo" name="view.link">
+        <mjl:commandLink display="View" action="dss.vector.solutions.entomology.assay.DDATestIntervalController.view.mojo" name="view.link">
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -40,4 +40,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Test Interval" action="dss.vector.solutions.entomology.assay.ADDATestIntervalController.newInstance.mojo" name="ADDATestIntervalController.newInstance" />
+<mjl:commandLink display="Create a new Test Interval" action="dss.vector.solutions.entomology.assay.DDATestIntervalController.newInstance.mojo" name="ADDATestIntervalController.newInstance" />

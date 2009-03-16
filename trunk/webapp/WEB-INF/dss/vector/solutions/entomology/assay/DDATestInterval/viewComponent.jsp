@@ -3,7 +3,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:form name="dss.vector.solutions.entomology.assay.ADDATestInterval.form.name" id="dss.vector.solutions.entomology.assay.ADDATestInterval.form.id" method="POST">
+<mjl:form name="dss.vector.solutions.entomology.assay.DDATestInterval.form.name" id="dss.vector.solutions.entomology.assay.DDATestInterval.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
     <dt>
@@ -33,9 +33,9 @@
       ${item.period}
     </dd>
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.ADDATestIntervalController.edit.mojo" name="dss.vector.solutions.entomology.assay.ADDATestInterval.form.edit.button" />
+  <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.DDATestIntervalController.edit.mojo" name="dss.vector.solutions.entomology.assay.DDATestInterval.form.edit.button" />
   <br />
 </mjl:form>
 <dl>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.ADDATestIntervalController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.ADDATestInterval.viewAll.link" />
+<mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.DDATestIntervalController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.DDATestInterval.viewAll.link" />
