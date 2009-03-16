@@ -5,7 +5,6 @@
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="org.json.JSONArray"%>
-<%@page import="dss.vector.solutions.entomology.assay.DDATestInterval"%>
 <%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
 <%@page import="dss.vector.solutions.util.Halp" %>
 
