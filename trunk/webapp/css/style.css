@@ -59,7 +59,7 @@ body {
 .fldContainer .fcTop {
 	position: relative;
 	padding: 12px 12px 12px 0px;
-	min-height: 180px;
+	min-height: 100px;
 	display: block;
 }
 
@@ -307,4 +307,9 @@ textarea {
 dt {
 	font-weight: bold;
 	margin-top: 5px;
+}
+
+h2
+{
+	margin-top:1em;
 }
