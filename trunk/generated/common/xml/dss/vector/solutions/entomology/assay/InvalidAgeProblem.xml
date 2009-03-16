@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../../../exceptions.xsd"
+  name="csu.mrc.ivcc.mdss.entomology.assay.InvalidAgeProblem">
+  <!--
+    - {age} Age
+    - {id} ID
+    -->
+  <locale language="en">The mosquito age [{age}] must be between 0 and 20.</locale>
+</exception>

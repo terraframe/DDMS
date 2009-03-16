@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../../../exceptions.xsd"
+  name="csu.mrc.ivcc.mdss.entomology.assay.InvalidIntervalTimeProblem">
+  <!--
+    - {assayId} Assay Id
+    - {exposureTime} Exposure Time
+    - {id} ID
+    - {intervalTime} Interval Time
+    -->
+  <locale language="en">The interval time [{intervalTime}] cannot exceed the exposure time [{exposureTime}]</locale>
+</exception>
