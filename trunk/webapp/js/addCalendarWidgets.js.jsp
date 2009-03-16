@@ -3,7 +3,7 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.AttributedCharacterIterator"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="csu.mrc.ivcc.mdss.util.Halp" %>
+<%@page import="dss.vector.solutions.util.Halp" %>
 <%@page import="org.json.JSONArray"%>
 <%
 Locale locale = request.getLocale();

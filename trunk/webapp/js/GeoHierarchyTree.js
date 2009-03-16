@@ -124,7 +124,7 @@ MDSS.GeoHierarchyTree = (function(){
         });
         
         // fetch the view
-        Mojo.$.csu.mrc.ivcc.mdss.geo.GeoHierarchy.getViewForGeoHierarchy(request, geoHierarchyId);
+        Mojo.$.dss.vector.solutions.geo.GeoHierarchy.getViewForGeoHierarchy(request, geoHierarchyId);
       },
       onFailure : function(e){
         alert(e.getLocalizedMessage());
@@ -205,7 +205,7 @@ MDSS.GeoHierarchyTree = (function(){
     
     var geoHierarchyView = _getGeoEntity(_selectedNode);
 
-    var controller = Mojo.$.csu.mrc.ivcc.mdss.geo.GeoEntityTypeController;
+    var controller = Mojo.$.dss.vector.solutions.geo.GeoEntityTypeController;
     controller.setCreateDefinitionListener(_createNode);
     controller.setCancelCreateDefinitionListener(function(){
       _modal.destroy();
@@ -253,7 +253,7 @@ MDSS.GeoHierarchyTree = (function(){
     });
 
     var geoHierarchyView = _getGeoEntity(_selectedNode);
-    Mojo.$.csu.mrc.ivcc.mdss.geo.GeoHierarchy.deleteGeoHierarchy(request, geoHierarchyView.getGeoHierarchyId());
+    Mojo.$.dss.vector.solutions.geo.GeoHierarchy.deleteGeoHierarchy(request, geoHierarchyView.getGeoHierarchyId());
   }
   
   /**
@@ -304,7 +304,7 @@ MDSS.GeoHierarchyTree = (function(){
     });
     
     var geoHierarchyView = _getGeoEntity(_selectedNode);
-    Mojo.$.csu.mrc.ivcc.mdss.geo.GeoHierarchy.deleteGeoHierarchy(request, geoHierarchyView.getGeoHierarchyId());
+    Mojo.$.dss.vector.solutions.geo.GeoHierarchy.deleteGeoHierarchy(request, geoHierarchyView.getGeoHierarchyId());
   }
   
   /**
@@ -364,7 +364,7 @@ MDSS.GeoHierarchyTree = (function(){
     });
 
     var geoHierarchyView = _getGeoEntity(parentNode); // DIFF Call
-    Mojo.$.csu.mrc.ivcc.mdss.geo.GeoHierarchy.getOrderedChildren(request, geoHierarchyView.getGeoHierarchyId());
+    Mojo.$.dss.vector.solutions.geo.GeoHierarchy.getOrderedChildren(request, geoHierarchyView.getGeoHierarchyId());
   }
   
   /**
@@ -417,7 +417,7 @@ MDSS.GeoHierarchyTree = (function(){
       
       var childGeoEntity = MDSS.GeoHierarchyTree.getGeoEntity(this.id);
       var parentGeoEntity = MDSS.GeoHierarchyTree.getGeoEntity(id);
-      Mojo.$.csu.mrc.ivcc.mdss.geo.GeoHierarchy.applyExistingWithParent(request, childGeoEntity.getGeoHierarchyId(), parentGeoEntity.getGeoHierarchyId(), false); // DIFF Call
+      Mojo.$.dss.vector.solutions.geo.GeoHierarchy.applyExistingWithParent(request, childGeoEntity.getGeoHierarchyId(), parentGeoEntity.getGeoHierarchyId(), false); // DIFF Call
   }
   
   /**
@@ -482,7 +482,7 @@ MDSS.GeoHierarchyTree = (function(){
     });
     
     // Fetch the root node
-    Mojo.$.csu.mrc.ivcc.mdss.geo.GeoHierarchy.getViewForGeoHierarchy(request, MDSS.GeoHierarchyTreeRootId);
+    Mojo.$.dss.vector.solutions.geo.GeoHierarchy.getViewForGeoHierarchy(request, MDSS.GeoHierarchyTreeRootId);
   }
   
   // return all public methods/properties

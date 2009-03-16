@@ -10,7 +10,7 @@
   <mjl:message />
 </mjl:messages>
 <mjl:table var="item" query="${query}">
-  <mjl:context action="csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.viewPageDefinitions.mojo" />
+  <mjl:context action="dss.vector.solutions.geo.GeoEntityTypeController.viewPageDefinitions.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="typeName">
       <mjl:header>
@@ -27,7 +27,7 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.viewDefinition.mojo" name="view.link">
+        <mjl:commandLink display="View" action="dss.vector.solutions.geo.GeoEntityTypeController.viewDefinition.mojo" name="view.link">
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -40,7 +40,7 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="Tree" action="csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.viewHierarchyTree.mojo" name="tree.link">
+        <mjl:commandLink display="Tree" action="dss.vector.solutions.geo.GeoEntityTypeController.viewHierarchyTree.mojo" name="tree.link">
           <mjl:property value="${item.geoHierarchyId}" name="rootGeoHierarchyId" />
         </mjl:commandLink>
       </mjl:row>

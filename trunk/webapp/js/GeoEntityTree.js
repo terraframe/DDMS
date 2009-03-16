@@ -529,7 +529,7 @@ MDSS.GeoEntityTree = (function(){
     });
     
     // Fetch the root node
-    Mojo.$.csu.mrc.ivcc.mdss.geo.generated.GeoEntity.get(request, MDSS.GeoEntityTreeRootId);
+    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, MDSS.GeoEntityTreeRootId);
   }
   
   // return all public methods/properties
