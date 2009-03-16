@@ -6,7 +6,7 @@
   
     <object
       id="Country"
-      type="csu.mrc.ivcc.mdss.geo.generated.Country">
+      type="dss.vector.solutions.geo.generated.Country">
       <valueAttribute
         name="entityName"
         value="Country" />
@@ -20,7 +20,7 @@
     
     <object
       id="Province1"
-      type="csu.mrc.ivcc.mdss.geo.generated.Province">
+      type="dss.vector.solutions.geo.generated.Province">
       <valueAttribute
         name="entityName"
         value="Province 1" />
@@ -34,7 +34,7 @@
     
     <object
       id="Province2"
-      type="csu.mrc.ivcc.mdss.geo.generated.Province">
+      type="dss.vector.solutions.geo.generated.Province">
       <valueAttribute
         name="entityName"
         value="Province 2" />
@@ -48,7 +48,7 @@
     
     <object
       id="District1"
-      type="csu.mrc.ivcc.mdss.geo.generated.District">
+      type="dss.vector.solutions.geo.generated.District">
       <valueAttribute
         name="entityName"
         value="District 1" />
@@ -62,7 +62,7 @@
     
     <object
       id="District2"
-      type="csu.mrc.ivcc.mdss.geo.generated.District">
+      type="dss.vector.solutions.geo.generated.District">
       <valueAttribute
         name="entityName"
         value="District 2" />
@@ -76,7 +76,7 @@
     
     <object
       id="District3"
-      type="csu.mrc.ivcc.mdss.geo.generated.District">
+      type="dss.vector.solutions.geo.generated.District">
       <valueAttribute
         name="entityName"
         value="District 3" />
@@ -90,7 +90,7 @@
     
     <object
       id="District4"
-      type="csu.mrc.ivcc.mdss.geo.generated.District">
+      type="dss.vector.solutions.geo.generated.District">
       <valueAttribute
         name="entityName"
         value="District 4" />
@@ -103,42 +103,42 @@
     </object>
     
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      type="dss.vector.solutions.geo.LocatedIn"
       childId="Province1"
       parentId="Country"
       id="p1InC">
     </relationship>
     
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      type="dss.vector.solutions.geo.LocatedIn"
       childId="Province2"
       parentId="Country"
       id="p2InC">
     </relationship>
     
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      type="dss.vector.solutions.geo.LocatedIn"
       childId="District1"
       parentId="Province1"
       id="d1InP1">
     </relationship>
     
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      type="dss.vector.solutions.geo.LocatedIn"
       childId="District2"
       parentId="Province1"
       id="d2InP1">
     </relationship>
     
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      type="dss.vector.solutions.geo.LocatedIn"
       childId="District3"
       parentId="Province2"
       id="d3InP2">
     </relationship>
     
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      type="dss.vector.solutions.geo.LocatedIn"
       childId="District4"
       parentId="Province2"
       id="d4InP2">
