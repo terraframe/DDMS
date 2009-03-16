@@ -25,8 +25,8 @@ import dss.vector.solutions.entomology.AssaySex;
 import dss.vector.solutions.entomology.AssaySexDTO;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
-import dss.vector.solutions.entomology.assay.ADDATestInterval;
-import dss.vector.solutions.entomology.assay.ADDATestIntervalView;
+import dss.vector.solutions.entomology.assay.DDATestInterval;
+import dss.vector.solutions.entomology.assay.DDATestIntervalView;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
@@ -1204,7 +1204,7 @@ public class ADDATest extends TestCase
     try
     {
       int max = assay.calculatePeriod();
-      ADDATestIntervalView[] intervals = assay.getTestIntervals();
+      DDATestIntervalView[] intervals = assay.getTestIntervals();
 
       assertEquals(max, intervals.length);
 
@@ -1250,7 +1250,7 @@ public class ADDATest extends TestCase
     assay.setGenericName(generic);
     assay.apply();
 
-    ADDATestIntervalView[] intervals = assay.getTestIntervals();
+    DDATestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
@@ -1306,14 +1306,14 @@ public class ADDATest extends TestCase
     assay.setGenericName(generic);
     assay.apply();
 
-    ADDATestIntervalView[] intervals = assay.getTestIntervals();
+    DDATestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
       intervals[i].setKnockedDown(i);
     }
 
-    ADDATestIntervalView.saveAll(intervals);
+    DDATestIntervalView.saveAll(intervals);
 
     try
     {
@@ -1340,7 +1340,7 @@ public class ADDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     String generic = "Sample Insecticide";
     AssaySex sex = AssaySex.MALE;
-    ADDATestInterval interval = new ADDATestInterval();
+    DDATestInterval interval = new DDATestInterval();
     int period = 20;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
@@ -1427,7 +1427,7 @@ public class ADDATest extends TestCase
 
     try
     {
-      ADDATestInterval interval = new ADDATestInterval();
+      DDATestInterval interval = new DDATestInterval();
       interval.setAssay(assay);
       interval.setPeriod(0);
       interval.setKnockedDown(2);
@@ -1474,7 +1474,7 @@ public class ADDATest extends TestCase
     assay.setGenericName(generic);
     assay.apply();
 
-    ADDATestIntervalView[] intervals = assay.getTestIntervals();
+    DDATestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
@@ -1507,7 +1507,7 @@ public class ADDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     String generic = "Sample Insecticide";
     AssaySex sex = AssaySex.MALE;
-    ADDATestInterval interval = null;
+    DDATestInterval interval = null;
     int quantityTested = 30;
     int quantityKnockedDown = 45;
 
@@ -1536,8 +1536,8 @@ public class ADDATest extends TestCase
 
     try
     {
-      ADDATestIntervalView[] intervals = assay.getTestIntervals();
-      interval = ADDATestInterval.get(intervals[0].getIntervalId());
+      DDATestIntervalView[] intervals = assay.getTestIntervals();
+      interval = DDATestInterval.get(intervals[0].getIntervalId());
 
       interval.setAssay(assay);
       interval.setPeriod(0);
@@ -1649,14 +1649,14 @@ public class ADDATest extends TestCase
     assay.setGenericName(generic);
     assay.apply();
 
-    ADDATestIntervalView[] intervals = assay.getTestIntervals();
+    DDATestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
       intervals[i].setKnockedDown(i * 3);
     }
 
-    ADDATestIntervalView.saveAll(intervals);
+    DDATestIntervalView.saveAll(intervals);
 
     try
     {
@@ -1697,14 +1697,14 @@ public class ADDATest extends TestCase
     assay.setGenericName(generic);
     assay.apply();
 
-    ADDATestIntervalView[] intervals = assay.getTestIntervals();
+    DDATestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
       intervals[i].setKnockedDown(i * 3);
     }
 
-    ADDATestIntervalView.saveAll(intervals);
+    DDATestIntervalView.saveAll(intervals);
 
     try
     {

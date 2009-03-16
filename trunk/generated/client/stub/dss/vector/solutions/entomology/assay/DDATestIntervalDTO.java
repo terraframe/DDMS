@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.ADDATestIntervalDTOBase;
+import dss.vector.solutions.entomology.assay.DDATestIntervalDTOBase;
 
-public class ADDATestIntervalDTO extends ADDATestIntervalDTOBase
+public class DDATestIntervalDTO extends DDATestIntervalDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   private static final long serialVersionUID = 1234731975406L;
   
-  public ADDATestIntervalDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public DDATestIntervalDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public class ADDATestIntervalDTO extends ADDATestIntervalDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected ADDATestIntervalDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected DDATestIntervalDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

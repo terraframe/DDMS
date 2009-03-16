@@ -14,7 +14,7 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
 
-import dss.vector.solutions.entomology.assay.ADDATestIntervalQuery;
+import dss.vector.solutions.entomology.assay.DDATestIntervalQuery;
 import dss.vector.solutions.entomology.assay.DiscriminatingDoseAssayBase;
 
 import dss.vector.solutions.entomology.assay.QuantityDeadValidator;
@@ -86,7 +86,7 @@ public abstract class DiscriminatingDoseAssay extends DiscriminatingDoseAssayBas
 
       for (int i = 0; i < periods; i++)
       {
-        ADDATestInterval interval = new ADDATestInterval();
+        DDATestInterval interval = new DDATestInterval();
         interval.setAssay(this);
         interval.setPeriod(i);
         interval.setKnockedDown(0);
@@ -121,9 +121,9 @@ public abstract class DiscriminatingDoseAssay extends DiscriminatingDoseAssayBas
 
   private void deleteIntevals()
   {
-    for (ADDATestIntervalView view : this.getTestIntervals())
+    for (DDATestIntervalView view : this.getTestIntervals())
     {
-      ADDATestInterval.get(view.getIntervalId()).delete();
+      DDATestInterval.get(view.getIntervalId()).delete();
     }
   }
 
@@ -174,7 +174,7 @@ public abstract class DiscriminatingDoseAssay extends DiscriminatingDoseAssayBas
 
   private double[] getTimeIntervals()
   {
-    ADDATestIntervalView[] array = this.getTestIntervals();
+    DDATestIntervalView[] array = this.getTestIntervals();
     double[] d = new double[array.length];
 
     for (int i = 0; i < array.length; i++)
@@ -187,7 +187,7 @@ public abstract class DiscriminatingDoseAssay extends DiscriminatingDoseAssayBas
 
   private double[] getLogKnockDownPercent()
   {
-    ADDATestIntervalView[] array = this.getTestIntervals();
+    DDATestIntervalView[] array = this.getTestIntervals();
 
     double[] d = new double[array.length];
 
@@ -209,23 +209,23 @@ public abstract class DiscriminatingDoseAssay extends DiscriminatingDoseAssayBas
     return d;
   }
   
-  public ADDATestIntervalView[] getTestIntervals()
+  public DDATestIntervalView[] getTestIntervals()
   {
-    List<ADDATestIntervalView> list = new LinkedList<ADDATestIntervalView>();
+    List<DDATestIntervalView> list = new LinkedList<DDATestIntervalView>();
 
-    ADDATestIntervalQuery query = new ADDATestIntervalQuery(new QueryFactory());
+    DDATestIntervalQuery query = new DDATestIntervalQuery(new QueryFactory());
     query.WHERE(query.getAssay().getId().EQ(this.getId()));
     query.ORDER_BY(query.getPeriod(), SortOrder.ASC);
 
-    OIterator<? extends ADDATestInterval> iterator = query.getIterator();
+    OIterator<? extends DDATestInterval> iterator = query.getIterator();
 
     try
     {
       while (iterator.hasNext())
       {
-        ADDATestInterval interval = iterator.next();
+        DDATestInterval interval = iterator.next();
 
-        ADDATestIntervalView view = new ADDATestIntervalView();
+        DDATestIntervalView view = new DDATestIntervalView();
         view.setIntervalId(interval.getId());
         view.setAssay(this);
         view.setKnockedDown(interval.getKnockedDown());
@@ -236,7 +236,7 @@ public abstract class DiscriminatingDoseAssay extends DiscriminatingDoseAssayBas
         list.add(view);
       }
 
-      return list.toArray(new ADDATestIntervalView[list.size()]);
+      return list.toArray(new DDATestIntervalView[list.size()]);
     }
     finally
     {

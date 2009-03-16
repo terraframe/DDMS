@@ -3,16 +3,16 @@ package dss.vector.solutions.entomology.assay;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
-import dss.vector.solutions.entomology.assay.ADDATestIntervalViewBase;
+import dss.vector.solutions.entomology.assay.DDATestIntervalView;
 
 
 
 
-public class ADDATestIntervalView extends ADDATestIntervalViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class DDATestIntervalView extends DDATestIntervalViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234906559542L;
   
-  public ADDATestIntervalView()
+  public DDATestIntervalView()
   {
     super();
   }
@@ -20,11 +20,11 @@ public class ADDATestIntervalView extends ADDATestIntervalViewBase implements co
   @Override
   public void apply()
   {
-    ADDATestInterval interval = null;
+    DDATestInterval interval = null;
     
     if(this.getIntervalId() == null || this.getIntervalId().equals(""))
     {
-      interval = new ADDATestInterval();
+      interval = new DDATestInterval();
       interval.setAssay(this.getAssay());
       interval.setPeriod(this.getPeriod());
       interval.setKnockedDown(this.getKnockedDown());
@@ -34,7 +34,7 @@ public class ADDATestIntervalView extends ADDATestIntervalViewBase implements co
     }
     else
     {
-      interval = ADDATestInterval.lock(this.getIntervalId());
+      interval = DDATestInterval.lock(this.getIntervalId());
       interval.setAssay(this.getAssay());
       interval.setPeriod(this.getPeriod());
       interval.setKnockedDown(this.getKnockedDown());
@@ -45,9 +45,9 @@ public class ADDATestIntervalView extends ADDATestIntervalViewBase implements co
   }
   
   @Transaction
-  public static dss.vector.solutions.entomology.assay.ADDATestIntervalView[] saveAll(dss.vector.solutions.entomology.assay.ADDATestIntervalView[] array)
+  public static dss.vector.solutions.entomology.assay.DDATestIntervalView[] saveAll(dss.vector.solutions.entomology.assay.DDATestIntervalView[] array)
   {
-    for(ADDATestIntervalView view : array)
+    for(DDATestIntervalView view : array)
     {
       view.apply();
     }

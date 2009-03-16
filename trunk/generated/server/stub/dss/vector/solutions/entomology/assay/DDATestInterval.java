@@ -1,13 +1,13 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.ADDATestIntervalBase;
+import dss.vector.solutions.entomology.assay.DDATestIntervalBase;
 
-public class ADDATestInterval extends ADDATestIntervalBase implements
+public class DDATestInterval extends DDATestIntervalBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234543764302L;
 
-  public ADDATestInterval()
+  public DDATestInterval()
   {
     super();
   }
