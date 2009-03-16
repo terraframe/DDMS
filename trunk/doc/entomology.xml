@@ -4,7 +4,7 @@
   <create>
     <!-- DUMMY DEFITION FOR GEO ENTITIES -->
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
+      name="dss.vector.solutions.geo.generated.GeoEntity"
       isAbstract="true"
       label="Geo Entity">
       <attributes>
@@ -38,7 +38,7 @@
         label="Search by GeoId"
         description="Search for a GeoEntity by Geo Id"
         static="true"
-        returnType="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+        returnType="dss.vector.solutions.geo.generated.GeoEntity">
         <mdParameter
           name="geoId"
           description="Geo Id of the Geo Entity"
@@ -64,7 +64,7 @@
         label="Get Ordered Child Entities"
         description="Gets LocatedIn children ordered by label."
         static="false"
-        returnType="csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery">
+        returnType="dss.vector.solutions.geo.generated.GeoEntityQuery">
       </mdMethod>
       <mdMethod
         name="applyWithParent"
@@ -88,7 +88,7 @@
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.GeoHierarchy"
+      name="dss.vector.solutions.geo.GeoHierarchy"
       generateController="false"
       label="Geo Hierarchy"
       description="Manages which GeoEntity types are allowed to be located in one another">
@@ -122,20 +122,20 @@
         name="defineGeoEntity"
         label="Define GeoEntity"
         description="Defines a new GeoEntity class"
-        returnType="csu.mrc.ivcc.mdss.geo.GeoHierarchyView"
+        returnType="dss.vector.solutions.geo.GeoHierarchyView"
         static="true">
         <mdParameter
           name="definition"
           label="GeoEntity Definition"
           description="The view used to define a new GeoEntity"
           order="0"
-          type="csu.mrc.ivcc.mdss.geo.GeoEntityDefinition" />
+          type="dss.vector.solutions.geo.GeoEntityDefinition" />
       </mdMethod>
       <mdMethod
         name="getGeoEntityHierarchyViews"
         label="Get GeoEntity Hierarchy Views"
         description="Gets views to represent GeoEntity Hierarchies"
-        returnType="csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQuery"
+        returnType="dss.vector.solutions.geo.GeoHierarchyViewQuery"
         static="true">
         <mdParameter
           name="sortAttribute"
@@ -176,14 +176,14 @@
         label="Get View For GeoHierarchy"
         description="Returns a GeoHierarchyView for the given GeoHierarchy."
         static="false"
-        returnType="csu.mrc.ivcc.mdss.geo.GeoHierarchyView">
+        returnType="dss.vector.solutions.geo.GeoHierarchyView">
       </mdMethod>
       <mdMethod
         name="getOrderedChildren"
         label="Get Ordered Child Hierarchy Types"
         description="Gets Allowed In children ordered by label."
         static="false"
-        returnType="csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQuery">
+        returnType="dss.vector.solutions.geo.GeoHierarchyViewQuery">
       </mdMethod>
       <mdMethod
         name="applyExistingWithParent"
@@ -213,7 +213,7 @@
     </mdBusiness>
 
     <mdView
-      name="csu.mrc.ivcc.mdss.geo.GeoHierarchyView"
+      name="dss.vector.solutions.geo.GeoHierarchyView"
       label="Geo Hierarchy View"
       description="Geo Hierarchy View">
       <attributes>
@@ -243,35 +243,35 @@
     </mdView>
 
     <mdRelationship
-      name="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      name="dss.vector.solutions.geo.AllowedIn"
       label="Allowed In"
       description="Relates which GeoEntity classes are allowed within one another.">
       <parent
         cardinality="*"
-        name="csu.mrc.ivcc.mdss.geo.GeoHierarchy"
+        name="dss.vector.solutions.geo.GeoHierarchy"
         method="AllowedInGeoEntity" />
       <child
         cardinality="*"
-        name="csu.mrc.ivcc.mdss.geo.GeoHierarchy"
+        name="dss.vector.solutions.geo.GeoHierarchy"
         method="AcceptsGeoEntity" />
     </mdRelationship>
 
     <mdRelationship
-      name="csu.mrc.ivcc.mdss.geo.LocatedIn"
+      name="dss.vector.solutions.geo.LocatedIn"
       label="Located In"
       description="Relates how GeoEntities are located within one another.">
       <parent
         cardinality="*"
-        name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
+        name="dss.vector.solutions.geo.generated.GeoEntity"
         method="LocatedInGeoEntity" />
       <child
         cardinality="*"
-        name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
+        name="dss.vector.solutions.geo.generated.GeoEntity"
         method="ContainsGeoEntity" />
     </mdRelationship>
 
     <mdView
-      name="csu.mrc.ivcc.mdss.geo.GeoEntityDefinition"
+      name="dss.vector.solutions.geo.GeoEntityDefinition"
       label="GeoEntityDefinition"
       description="View to define a new GeoEntity">
       <attributes>
@@ -292,7 +292,7 @@
           description="Spatial Type of GeoEntity attribute."
           required="true"
           selectMultiple="false"
-          type="csu.mrc.ivcc.mdss.geo.SpatialTypes" />
+          type="dss.vector.solutions.geo.SpatialTypes" />
         <char
           name="parentTypeId"
           required="false"
@@ -318,14 +318,14 @@
     </mdView>
 
     <enumerationMaster
-      name="csu.mrc.ivcc.mdss.geo.SpatialMaster"
+      name="dss.vector.solutions.geo.SpatialMaster"
       label="Spatial Master"
       description="Enumeration Master to define spatial attributes.">
     </enumerationMaster>
 
     <object
       id="LINE"
-      type="csu.mrc.ivcc.mdss.geo.SpatialMaster">
+      type="dss.vector.solutions.geo.SpatialMaster">
       <valueAttribute
         name="enumName"
         value="LINE" />
@@ -336,7 +336,7 @@
 
     <object
       id="POINT"
-      type="csu.mrc.ivcc.mdss.geo.SpatialMaster">
+      type="dss.vector.solutions.geo.SpatialMaster">
       <valueAttribute
         name="enumName"
         value="POINT" />
@@ -347,7 +347,7 @@
 
     <object
       id="POLYGON"
-      type="csu.mrc.ivcc.mdss.geo.SpatialMaster">
+      type="dss.vector.solutions.geo.SpatialMaster">
       <valueAttribute
         name="enumName"
         value="POLYGON" />
@@ -357,15 +357,15 @@
     </object>
 
     <mdEnumeration
-      name="csu.mrc.ivcc.mdss.geo.SpatialTypes"
+      name="dss.vector.solutions.geo.SpatialTypes"
       label="Spatial Types"
       description="Defines all spatial types"
-      type="csu.mrc.ivcc.mdss.geo.SpatialMaster">
+      type="dss.vector.solutions.geo.SpatialMaster">
       <includeAll />
     </mdEnumeration>
 
     <mdController
-      name="csu.mrc.ivcc.mdss.geo.GeoEntityTreeController"
+      name="dss.vector.solutions.geo.GeoEntityTreeController"
       label="GeoEntity Tree Controller"
       description="GeoEntity Tree Controller">
       <mdAction
@@ -401,7 +401,7 @@
     </mdController>
 
     <mdController
-      name="csu.mrc.ivcc.mdss.geo.GeoEntityTypeController"
+      name="dss.vector.solutions.geo.GeoEntityTypeController"
       label="GeoEntity Type Controller"
       description="Controller to define new GeoEntity types.">
       <mdAction
@@ -424,7 +424,7 @@
           label="GeoEntityDefinition"
           description="The GeoEntityDefinition"
           order="0"
-          type="csu.mrc.ivcc.mdss.geo.GeoEntityDefinition" />
+          type="dss.vector.solutions.geo.GeoEntityDefinition" />
       </mdAction>
       <mdAction
         name="cancelCreateDefinition"
@@ -461,91 +461,91 @@
 
     <!-- START: GeoEntity Types -->
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.Earth"
+      name="dss.vector.solutions.geo.generated.Earth"
       label="Earth"
       description="Earth"
       removable="false"
-      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
       <mdMethod
         name="getEarthInstance"
         label="get Earth Instance"
         description="Gets the one and only instance of Earth."
-        returnType="csu.mrc.ivcc.mdss.geo.generated.Earth"
+        returnType="dss.vector.solutions.geo.generated.Earth"
         static="true">
       </mdMethod>
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.Country"
+      name="dss.vector.solutions.geo.generated.Country"
       label="Country"
       description="Country"
-      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.Province"
+      name="dss.vector.solutions.geo.generated.Province"
       label="Province"
       description="Province"
-      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.District"
+      name="dss.vector.solutions.geo.generated.District"
       label="District"
       description="District"
-      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.AdminPost"
+      name="dss.vector.solutions.geo.generated.AdminPost"
       label="Admin Post"
       description="Admin Post"
-      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.Locality"
+      name="dss.vector.solutions.geo.generated.Locality"
       label="Locality"
       description="Locality"
-      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.PopulatedArea"
+      name="dss.vector.solutions.geo.generated.PopulatedArea"
       label="Populated Area"
       description="Populated Area"
-      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.AbstractSite"
+      name="dss.vector.solutions.geo.generated.AbstractSite"
       label="Abstract Site"
       description="Abstract Site"
       isAbstract="true"
-      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.SentinalSite"
+      name="dss.vector.solutions.geo.generated.SentinalSite"
       label="Sentinal Site"
       description="Sentinal Site"
-      extends="csu.mrc.ivcc.mdss.geo.generated.AbstractSite">
+      extends="dss.vector.solutions.geo.generated.AbstractSite">
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite"
+      name="dss.vector.solutions.geo.generated.NonSentinalSite"
       label="Non Sentinal Site"
       description="Non Sentinal Site"
-      extends="csu.mrc.ivcc.mdss.geo.generated.AbstractSite">
+      extends="dss.vector.solutions.geo.generated.AbstractSite">
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.Trap"
+      name="dss.vector.solutions.geo.generated.Trap"
       label="Trap"
       description="Trap"
-      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.BreedingSite"
+      name="dss.vector.solutions.geo.generated.BreedingSite"
       label="Breeding Site"
       description="Breeding Site"
-      extends="csu.mrc.ivcc.mdss.geo.generated.GeoEntity">
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
     </mdBusiness>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBody"
+      name="dss.vector.solutions.geo.generated.PermanentWaterBody"
       label="Permanent Water Body"
       description="Permanent Water Body"
-      extends="csu.mrc.ivcc.mdss.geo.generated.BreedingSite">
+      extends="dss.vector.solutions.geo.generated.BreedingSite">
     </mdBusiness>
 
     <!-- END: GeoEntity Types -->
@@ -584,7 +584,7 @@
       label="MDSS Facade"
       description="A collection of static methods that provide access to various server side implementations"
       cacheSize="0"
-      name="csu.mrc.ivcc.mdss.util.Facade"
+      name="dss.vector.solutions.util.Facade"
       generateController="false">
       <mdMethod
         name="getMDSSClasses"
@@ -602,31 +602,31 @@
       label="Abstract Mosquito Collection"
       description="This is a group of mosquitos of varing species that were collected via a certian techinque at a certian point in space and time"
       cacheSize="0"
-      name="csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollection"
+      name="dss.vector.solutions.entomology.AbstractMosquitoCollection"
       generateController="false">
       <mdMethod
         name="getMosquitos"
         label="Get Mosquitos"
         description="Returns a list of all mosquitos contained within this abstract mosquito collection"
         static="false"
-        returnType="csu.mrc.ivcc.mdss.entomology.MosquitoView[]">
+        returnType="dss.vector.solutions.entomology.MosquitoView[]">
       </mdMethod>
       <mdMethod
         name="getUninterestingSpecieGroups"
         label="Get Uninteresting Specie Groups"
         description="Returns a list of all uninteresting true specie groups which are contained within this abstract mosquito collection"
         static="false"
-        returnType="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView[]">
+        returnType="dss.vector.solutions.entomology.UninterestingSpecieGroupView[]">
       </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
+      name="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
       isAbstract="true"
       label="Concrete Mosquito Collection"
       generateController="false"
       extendable="true"
-      extends="csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollection">
+      extends="dss.vector.solutions.entomology.AbstractMosquitoCollection">
       <attributes>
         <date
           name="dateCollected"
@@ -636,32 +636,32 @@
           name="geoEntity"
           required="true"
           label="Geo Entity"
-          type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity" />
+          type="dss.vector.solutions.geo.generated.GeoEntity" />
       </attributes>
       <mdMethod
         name="getMorphologicalSpecieGroups"
         label="Get Morphological Specie Groups"
         description="Returns all morphological specie groups of this collection"
-        returnType="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView[]"
+        returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView[]"
         static="false">
       </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollection"
+      name="dss.vector.solutions.entomology.CompositeMosquitoCollection"
       label="Concrete Mosquito Collection"
-      extends="csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollection">
+      extends="dss.vector.solutions.entomology.AbstractMosquitoCollection">
       <mdMethod
         name="getCollections"
         label="Get Collections"
-        returnType="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointView[]"
+        returnType="dss.vector.solutions.entomology.MosquitoCollectionPointView[]"
         static="false"
         description="Returns an array of all the Mosquito Collections which compose this collection">
       </mdMethod>
     </mdBusiness>
 
     <mdIndex
-      type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
+      type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
       active="true"
       label="Concrete Mosquito Collection"
       unique="true"
@@ -673,15 +673,15 @@
     </mdIndex>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.MosquitoCollection"
+      name="dss.vector.solutions.entomology.MosquitoCollection"
       description="A mosqitio collection from a sentinal or non sental site, these are usualy collected only once from a given point, this is not for permenant traps"
       label="Mosquito Collection"
-      extends="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection">
+      extends="dss.vector.solutions.entomology.ConcreteMosquitoCollection">
       <attributes>
         <reference
           name="collectionMethod"
           label="Collection Method"
-          type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+          type="dss.vector.solutions.mo.CollectionMethod"
           required="true" />
       </attributes>
       <mdMethod
@@ -689,11 +689,11 @@
         label="Search By GeoEntity and Date"
         description="Searches for a Mosquito collection with the given geo entity and date"
         static="true"
-        returnType="csu.mrc.ivcc.mdss.entomology.MosquitoCollection">
+        returnType="dss.vector.solutions.entomology.MosquitoCollection">
         <mdParameter
           name="geoEntity"
           label="Geo Entity"
-          type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
+          type="dss.vector.solutions.geo.generated.GeoEntity"
           order="0"
           description="GeoEntity" />
         <mdParameter
@@ -705,7 +705,7 @@
     </mdBusiness>
 
     <mdView
-      name="csu.mrc.ivcc.mdss.export.entomology.MosquitoCollectionView"
+      name="dss.vector.solutions.export.entomology.MosquitoCollectionView"
       label="Mosquito Collection View"
       description="View for importing/exporting human readable mosquito collections">
       <attributes>
@@ -727,7 +727,7 @@
     </mdView>
 
     <mdException
-      name="csu.mrc.ivcc.mdss.entomology.InvalidMosquitoCollectionGeoEntityException"
+      name="dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException"
       label="Invalid Mosquito Collection"
       description="Exception thrown when a Mosquito Collection's GeoEntity is not a (non)sentinel site">
       <attributes>
@@ -741,9 +741,9 @@
     </mdException>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint"
+      name="dss.vector.solutions.entomology.MosquitoCollectionPoint"
       label="Mosquito Collection Point"
-      extends="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
+      extends="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
       description="This a collection of mosquitos from a permanant trap or water body, the trap is checked on a routine basis">
       <attributes>
         <reference
@@ -751,18 +751,18 @@
           label="Composite Collection"
           indexType="non-unique index"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.CompositeMosquitoCollection" />
+          type="dss.vector.solutions.entomology.CompositeMosquitoCollection" />
       </attributes>
       <mdMethod
         name="searchByGeoEntityAndDate"
         label="Search By GeoEntity and Date"
         description="Searches for a Mosquito collection with the given geo entity and date"
         static="true"
-        returnType="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPoint">
+        returnType="dss.vector.solutions.entomology.MosquitoCollectionPoint">
         <mdParameter
           name="geoEntity"
           label="Geo Entity"
-          type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
+          type="dss.vector.solutions.geo.generated.GeoEntity"
           order="0"
           description="GeoEntity" />
         <mdParameter
@@ -774,7 +774,7 @@
     </mdBusiness>
 
     <mdException
-      name="csu.mrc.ivcc.mdss.geo.LocatedInException"
+      name="dss.vector.solutions.geo.LocatedInException"
       label="Located In Exception"
       description="Exception for when a GeoEntity is being added to the wrong parent.">
       <attributes>
@@ -796,7 +796,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
-  name="csu.mrc.ivcc.mdss.geo.LocatedInException">
+  name="dss.vector.solutions.geo.LocatedInException">
   <locale language="en">The Geo Entity [{entityName}] cannot be located in [{parentDisplayLabel}].</locale>
 </exception>
       ]]>
@@ -804,7 +804,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdException>
 
     <mdException
-      name="csu.mrc.ivcc.mdss.geo.ConfirmParentChangeException"
+      name="dss.vector.solutions.geo.ConfirmParentChangeException"
       label="Confirmation Parent Change Exception"
       description="Exception thrown to confirm a GeoEntity parent change">
       <attributes>
@@ -820,7 +820,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 <?xml version="1.0" encoding="UTF-8" ?>
 <exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
-  name="csu.mrc.ivcc.mdss.geo.ConfirmParentChangeException">
+  name="dss.vector.solutions.geo.ConfirmParentChangeException">
   <locale language="en">Do you want to delete the old relationship with [{entityName}].</locale>
 </exception>
       ]]>
@@ -828,7 +828,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdException>
 
     <mdException
-      name="csu.mrc.ivcc.mdss.geo.DuplicateEarthException"
+      name="dss.vector.solutions.geo.DuplicateEarthException"
       label="Dupliate Earth Exception"
       description="Thrown when a user tries to create another Earth.">
       <attributes>
@@ -844,7 +844,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 <?xml version="1.0" encoding="UTF-8" ?>
 <exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
-  name="csu.mrc.ivcc.mdss.geo.DuplicateEarthException">
+  name="dss.vector.solutions.geo.DuplicateEarthException">
   <locale language="en">There cannot be more than one [{earthName}].</locale>
 </exception>
       ]]>
@@ -852,7 +852,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdException>
 
     <mdException
-      name="csu.mrc.ivcc.mdss.geo.DeleteEarthException"
+      name="dss.vector.solutions.geo.DeleteEarthException"
       label="Delete Earth Exception"
       description="Thrown when a user tries to delete Earth.">
       <attributes>
@@ -868,7 +868,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 <?xml version="1.0" encoding="UTF-8" ?>
 <exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
-  name="csu.mrc.ivcc.mdss.geo.DeleteEarthException">
+  name="dss.vector.solutions.geo.DeleteEarthException">
   <locale language="en">[{earthName}] cannot be deleted.</locale>
 </exception>
       ]]>
@@ -876,7 +876,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdException>
 
     <mdException
-      name="csu.mrc.ivcc.mdss.geo.ModifyHierarchyWithInstancesException"
+      name="dss.vector.solutions.geo.ModifyHierarchyWithInstancesException"
       label="Modify hierarchy with instances exception."
       description="Thrown when a hierarchy is modified with instance data.">
       <attributes>
@@ -892,7 +892,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 <?xml version="1.0" encoding="UTF-8" ?>
 <exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
-  name="csu.mrc.ivcc.mdss.geo.ModifyHierarchyWithInstancesExceptions">
+  name="dss.vector.solutions.geo.ModifyHierarchyWithInstancesExceptions">
   <locale language="en">The universal [{displayLabel}] cannot be modified because Geo Entities exist.</locale>
 </exception>
       ]]>
@@ -900,7 +900,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdException>
 
     <mdException
-      name="csu.mrc.ivcc.mdss.entomology.InvalidMosquitoCollectionPointGeoEntityException"
+      name="dss.vector.solutions.entomology.InvalidMosquitoCollectionPointGeoEntityException"
       label="Invalid Mosquito Collection"
       description="Exception thrown when a Mosquito Collection's GeoEntity is not a (non)sentinel site">
       <attributes>
@@ -914,7 +914,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdException>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"
+      name="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
       label="Morphological Specie Group"
       description="This is a row that records the quantity of a species and its identification method.">
       <attributes>
@@ -926,30 +926,30 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         <reference
           name="specie"
           label="Specie"
-          type="csu.mrc.ivcc.mdss.mo.Specie"
+          type="dss.vector.solutions.mo.Specie"
           required="false" />
         <reference
           name="identificationMethod"
           label="Identification Method"
-          type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
+          type="dss.vector.solutions.mo.IdentificationMethod"
           required="false" />
         <reference
           name="collection"
           label="MosquitoCollection"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
+          type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
           immutable="true" />
       </attributes>
     </mdBusiness>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.InvalidMorphologicalQuantityProblem"
+      name="dss.vector.solutions.entomology.InvalidMorphologicalQuantityProblem"
       label="Invalid Quantity"
       description="A MorphologicalSpecieGroup has a contextually invalid quantity (Equal to or less than 0)">
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.EmptyValueProblem"
+      name="dss.vector.solutions.entomology.EmptyValueProblem"
       label="Empty Value Problem"
       description="A MorphologicalSpecieGroup is missing contextual required values">
       <attributes>
@@ -963,7 +963,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.InvalidMorphologicalSpecieProblem"
+      name="dss.vector.solutions.entomology.InvalidMorphologicalSpecieProblem"
       label="Invalid Morphological Specie Problem"
       description="A morphological specie group cannot have an identification method or specie if the quantity is zero">
       <attributes>
@@ -977,28 +977,28 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdView
-      name="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView"
+      name="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
       label="Morphological Specie Group View"
       description="View for morphological specie groups"
       extendable="true">
       <attributes>
         <virtual
           name="specie"
-          type="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"
+          type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
           concrete="specie" />
         <virtual
           name="identificationMethod"
-          type="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"
+          type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
           concrete="identificationMethod" />
         <virtual
           name="quantity"
-          type="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"
+          type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
           concrete="quantity"
           required="true" />
         <virtual
           name="collection"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroup"
+          type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
           concrete="collection" />
         <char
           name="groupId"
@@ -1009,7 +1009,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <mdMethod
         name="saveAll"
         label="Save All"
-        returnType="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView[]"
+        returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView[]"
         static="true"
         description="Saves an array of MorphologicalSpecieGroupView in a single transaction">
         <mdParameter
@@ -1017,32 +1017,32 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Array"
           description="Array of objects to save"
           order="0"
-          type="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView[]" />
+          type="dss.vector.solutions.entomology.MorphologicalSpecieGroupView[]" />
       </mdMethod>
     </mdView>
 
     <mdView
-      name="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointView"
+      name="dss.vector.solutions.entomology.MosquitoCollectionPointView"
       label="Mosquito Collection Point View"
       description="This a view for collection of mosquitos from a permanant trap or water body, the trap is checked on a routine basis"
-      extends="csu.mrc.ivcc.mdss.entomology.MorphologicalSpecieGroupView">
+      extends="dss.vector.solutions.entomology.MorphologicalSpecieGroupView">
       <attributes>
         <virtual
           name="dateCollected"
-          type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
+          type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
           concrete="dateCollected"
           required="true" />
         <virtual
           name="geoEntity"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.ConcreteMosquitoCollection"
+          type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
           concrete="geoEntity" />
       </attributes>
     </mdView>
 
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
+      name="dss.vector.solutions.entomology.TrueSpecieEntity"
       label="True Specie Collection"
       isAbstract="true"
       extendable="true">
@@ -1050,27 +1050,27 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         <reference
           name="specie"
           label="Specie"
-          type="csu.mrc.ivcc.mdss.mo.Specie"
+          type="dss.vector.solutions.mo.Specie"
           required="false"
           description="The true specie of the collection" />
         <reference
           name="identificationMethod"
           label="Identification Method"
-          type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
+          type="dss.vector.solutions.mo.IdentificationMethod"
           description="Method used to indentify the true specie collection" />
         <reference
           name="collection"
           label="Mosquito Collection"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.AbstractMosquitoCollection"
+          type="dss.vector.solutions.entomology.AbstractMosquitoCollection"
           description="References to the mosquito collection from which the true specie sample came." />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroup"
+      name="dss.vector.solutions.entomology.UninterestingSpecieGroup"
       label="Uninteresting Specie"
-      extends="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity">
+      extends="dss.vector.solutions.entomology.TrueSpecieEntity">
       <attributes>
         <integer
           name="quantity"
@@ -1088,7 +1088,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdView
-      name="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView"
+      name="dss.vector.solutions.entomology.UninterestingSpecieGroupView"
       label="Uninteresting Specie Group View"
       description="View for Uninteresting Speice groups">
       <attributes>
@@ -1099,34 +1099,34 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           description="The id of the Uninteresting Specie Group, if this is left blank then the View represents a new UninterestingSpecieGroup" />
         <virtual
           name="collection"
-          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
+          type="dss.vector.solutions.entomology.TrueSpecieEntity"
           concrete="collection"
           required="true" />
         <virtual
           name="specie"
-          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
+          type="dss.vector.solutions.entomology.TrueSpecieEntity"
           required="true"
           concrete="specie" />
         <virtual
           name="identificationMethod"
-          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
+          type="dss.vector.solutions.entomology.TrueSpecieEntity"
           concrete="identificationMethod"
           required="true" />
         <virtual
           name="quantity"
-          type="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroup"
+          type="dss.vector.solutions.entomology.UninterestingSpecieGroup"
           concrete="quantity"
           required="true" />
         <virtual
           name="sampleId"
-          type="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroup"
+          type="dss.vector.solutions.entomology.UninterestingSpecieGroup"
           concrete="sampleId"
           required="true" />
       </attributes>
       <mdMethod
         name="saveAll"
         label="Save All"
-        returnType="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView[]"
+        returnType="dss.vector.solutions.entomology.UninterestingSpecieGroupView[]"
         static="true"
         description="Saves an array of MosquitoViews in a single transaction">
         <mdParameter
@@ -1134,14 +1134,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Array"
           description="Array of objects to save"
           order="0"
-          type="csu.mrc.ivcc.mdss.entomology.UninterestingSpecieGroupView[]" />
+          type="dss.vector.solutions.entomology.UninterestingSpecieGroupView[]" />
       </mdMethod>
     </mdView>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.Mosquito"
+      name="dss.vector.solutions.entomology.Mosquito"
       label="Mosquito"
-      extends="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity">
+      extends="dss.vector.solutions.entomology.TrueSpecieEntity">
       <attributes>
         <date
           name="testDate"
@@ -1160,24 +1160,24 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true"
           description="The sex of the mosquito"
           selectMultiple="false"
-          type="csu.mrc.ivcc.mdss.entomology.Sex" />
+          type="dss.vector.solutions.entomology.Sex" />
         <reference
           name="generation"
           label="Generation"
           required="true"
           description="The generation of the mosquito"
-          type="csu.mrc.ivcc.mdss.mo.Generation" />
+          type="dss.vector.solutions.mo.Generation" />
       </attributes>
     </mdBusiness>
 
     <enumerationMaster
-      name="csu.mrc.ivcc.mdss.entomology.SexMaster"
+      name="dss.vector.solutions.entomology.SexMaster"
       label="Sex Master"
       description="Master list of all possible mosquito sexes" />
 
     <object
       id="MALE"
-      type="csu.mrc.ivcc.mdss.entomology.SexMaster">
+      type="dss.vector.solutions.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="MALE" />
@@ -1188,7 +1188,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="FEMALE"
-      type="csu.mrc.ivcc.mdss.entomology.SexMaster">
+      type="dss.vector.solutions.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="FEMALE" />
@@ -1199,7 +1199,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="MIXED"
-      type="csu.mrc.ivcc.mdss.entomology.SexMaster">
+      type="dss.vector.solutions.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="MIXED" />
@@ -1210,7 +1210,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="UNKNOWN"
-      type="csu.mrc.ivcc.mdss.entomology.SexMaster">
+      type="dss.vector.solutions.entomology.SexMaster">
       <valueAttribute
         name="enumName"
         value="UNKNOWN" />
@@ -1220,8 +1220,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <mdEnumeration
-      name="csu.mrc.ivcc.mdss.entomology.Sex"
-      type="csu.mrc.ivcc.mdss.entomology.SexMaster"
+      name="dss.vector.solutions.entomology.Sex"
+      type="dss.vector.solutions.entomology.SexMaster"
       label="Sex"
       description="List of all possible single mosquito sex options">
       <addEnumItem
@@ -1233,8 +1233,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdEnumeration>
 
     <mdEnumeration
-      name="csu.mrc.ivcc.mdss.entomology.AssaySex"
-      type="csu.mrc.ivcc.mdss.entomology.SexMaster"
+      name="dss.vector.solutions.entomology.AssaySex"
+      type="dss.vector.solutions.entomology.SexMaster"
       label="Sex"
       description="List of all possible mosquito assay sex options">
       <includeAll />
@@ -1246,7 +1246,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     -->
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.AbstractTerm"
+      name="dss.vector.solutions.mo.AbstractTerm"
       label="MO Term"
       isAbstract="true"
       extendable="true">
@@ -1304,7 +1304,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <mdMethod
         name="searchByTermId"
         label="Search by Term Id"
-        returnType="csu.mrc.ivcc.mdss.mo.AbstractTerm"
+        returnType="dss.vector.solutions.mo.AbstractTerm"
         description="Returns the MO term with the corresponding MO id"
         static="true">
         <mdParameter
@@ -1317,7 +1317,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <mdMethod
         name="searchByTermName"
         label="Search by Term Name"
-        returnType="csu.mrc.ivcc.mdss.mo.AbstractTerm"
+        returnType="dss.vector.solutions.mo.AbstractTerm"
         description="Returns the MO term with the corresponding MO term name"
         static="true">
         <mdParameter
@@ -1330,52 +1330,52 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      name="dss.vector.solutions.mo.CollectionMethod"
       label="Collection Method"
       description="List of all possible collection methods"
-      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="csu.mrc.ivcc.mdss.mo.CollectionMethod[]"
+        returnType="dss.vector.solutions.mo.CollectionMethod[]"
         label="Get All Terms"
         static="true"
         description="Returns all term of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.Generation"
+      name="dss.vector.solutions.mo.Generation"
       label="Generation Method"
       description="List of all possible MO generation"
-      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="csu.mrc.ivcc.mdss.mo.Generation[]"
+        returnType="dss.vector.solutions.mo.Generation[]"
         label="Get All Terms"
         static="true"
         description="Returns all terms of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.Specie"
+      name="dss.vector.solutions.mo.Specie"
       label="Specie Method"
       description="List of all possible MO species"
-      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="csu.mrc.ivcc.mdss.mo.Specie[]"
+        returnType="dss.vector.solutions.mo.Specie[]"
         label="Get All Terms"
         static="true"
         description="Returns all terms of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
+      name="dss.vector.solutions.mo.IdentificationMethod"
       label="Identification Method"
       description="List of all possible MO specie identification methods"
-      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="csu.mrc.ivcc.mdss.mo.IdentificationMethod[]"
+        returnType="dss.vector.solutions.mo.IdentificationMethod[]"
         label="Get All Terms"
         static="true"
         description="Returns all terms of a MO subcatagory" />
@@ -1389,7 +1389,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
   </create>
   <update>
     <mdController
-      name="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController">
+      name="dss.vector.solutions.entomology.MosquitoCollectionController">
       <create>
         <mdAction
           name="searchByGeoEntityAndDate"
@@ -1400,7 +1400,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
             name="geoEntity"
             label="Geo Entity"
             order="0"
-            type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
             description="GeoEntity to search" />
           <mdParameter
             name="collectionDate"
@@ -1458,39 +1458,39 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
   <create>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.Insecticide"
+      name="dss.vector.solutions.mo.Insecticide"
       label="Insecticide"
       description="List of all MO insecticides"
-      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="csu.mrc.ivcc.mdss.mo.Insecticide[]"
+        returnType="dss.vector.solutions.mo.Insecticide[]"
         label="Get All Terms"
         static="true"
         description="Returns all terms of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      name="dss.vector.solutions.mo.ResistanceMethodology"
       label="Assay Method"
       description="List of all assay methods"
-      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="csu.mrc.ivcc.mdss.mo.ResistanceMethodology[]"
+        returnType="dss.vector.solutions.mo.ResistanceMethodology[]"
         label="Get All Terms"
         static="true"
         description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
 
     <enumerationMaster
-      name="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
+      name="dss.vector.solutions.entomology.assay.UnitMaster"
       label="Unit Master"
       description="Master list of all concentration units"
       generateController="false" />
 
     <object
-      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
+      type="dss.vector.solutions.entomology.assay.UnitMaster"
       id="MICROGRAM_PER_MILLILITER">
       <valueAttribute
         name="enumName"
@@ -1501,7 +1501,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
+      type="dss.vector.solutions.entomology.assay.UnitMaster"
       id="PERCENT">
       <valueAttribute
         name="enumName"
@@ -1512,7 +1512,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
+      type="dss.vector.solutions.entomology.assay.UnitMaster"
       id="PICOGRAM_PER_MILLILITER">
       <valueAttribute
         name="enumName"
@@ -1523,7 +1523,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
+      type="dss.vector.solutions.entomology.assay.UnitMaster"
       id="MILLIGRAM_PER_MILLILITER">
       <valueAttribute
         name="enumName"
@@ -1534,7 +1534,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
+      type="dss.vector.solutions.entomology.assay.UnitMaster"
       id="PICOGRAM_PER_LITER">
       <valueAttribute
         name="enumName"
@@ -1545,7 +1545,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
+      type="dss.vector.solutions.entomology.assay.UnitMaster"
       id="MILLIGRAM_PER_LITER">
       <valueAttribute
         name="enumName"
@@ -1556,7 +1556,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
+      type="dss.vector.solutions.entomology.assay.UnitMaster"
       id="MICROGRAM_PER_LITER">
       <valueAttribute
         name="enumName"
@@ -1567,27 +1567,27 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <mdEnumeration
-      name="csu.mrc.ivcc.mdss.entomology.assay.Unit"
-      type="csu.mrc.ivcc.mdss.entomology.assay.UnitMaster"
+      name="dss.vector.solutions.entomology.assay.Unit"
+      type="dss.vector.solutions.entomology.assay.UnitMaster"
       label="Unit">
       <includeAll />
     </mdEnumeration>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.LarvaeAge"
+      name="dss.vector.solutions.mo.LarvaeAge"
       label="Larvae Age"
       description="List of larvae ages"
-      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="csu.mrc.ivcc.mdss.mo.LarvaeAge[]"
+        returnType="dss.vector.solutions.mo.LarvaeAge[]"
         label="Get All Terms"
         static="true"
         description="Returns all term names of a MO subcatagory" />
     </mdBusiness>
 
     <mdStruct
-      name="csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRange"
+      name="dss.vector.solutions.entomology.assay.AdultAgeRange"
       label="Age Range"
       description="Age range of mosquitos in an assay">
       <attributes>
@@ -1607,7 +1607,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdStruct>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.LarvaeAgeRange"
+      name="dss.vector.solutions.entomology.assay.LarvaeAgeRange"
       label="Larvae Age Range"
       description="Age range of larvae in an assay"
       generateController="false">
@@ -1617,18 +1617,18 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Beginning Age"
           required="true"
           description="Starting age of the age range"
-          type="csu.mrc.ivcc.mdss.mo.LarvaeAge" />
+          type="dss.vector.solutions.mo.LarvaeAge" />
         <reference
           name="endPoint"
           label="End Age"
           required="true"
           description="End age of the age range"
-          type="csu.mrc.ivcc.mdss.mo.LarvaeAge" />
+          type="dss.vector.solutions.mo.LarvaeAge" />
       </attributes>
     </mdBusiness>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidAgeProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidAgeProblem"
       label="Invalid Age Exception"
       description="A mosquito age must be between 0 and 20 for adult assays">
       <attributes>
@@ -1640,7 +1640,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidAgeRangeProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem"
       label="Invalid Age Range Exception"
       description="A valid age range must have a starting point equal to or less than the ending point">
       <attributes>
@@ -1656,7 +1656,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay"
+      name="dss.vector.solutions.entomology.assay.AbstractAssay"
       label="Abstract Assay"
       isAbstract="true"
       extendable="true"
@@ -1670,7 +1670,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         <reference
           name="specie"
           label="Specie"
-          type="csu.mrc.ivcc.mdss.mo.Specie"
+          type="dss.vector.solutions.mo.Specie"
           required="false" />
         <char
           name="genericName"
@@ -1680,33 +1680,33 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         <reference
           name="insecticide"
           label="Insecticide"
-          type="csu.mrc.ivcc.mdss.mo.Insecticide"
+          type="dss.vector.solutions.mo.Insecticide"
           required="true" />
 
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.CollectionAssay"
+      name="dss.vector.solutions.entomology.assay.CollectionAssay"
       label="Collection Assay"
       extendable="true"
       isAbstract="true"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay"
+      extends="dss.vector.solutions.entomology.assay.AbstractAssay"
       generateController="false">
       <attributes>
         <reference
           name="collection"
           label="Mosquito Collection"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.MosquitoCollection" />
+          type="dss.vector.solutions.entomology.MosquitoCollection" />
         <reference
           name="testMethod"
           label="Test Method"
-          type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology" />
+          type="dss.vector.solutions.mo.ResistanceMethodology" />
         <reference
           name="identificationMethod"
           label="Identification Method"
-          type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
+          type="dss.vector.solutions.mo.IdentificationMethod"
           required="false" />
         <integer
           name="amount"
@@ -1718,7 +1718,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="units"
           label="Units"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.assay.Unit"
+          type="dss.vector.solutions.entomology.assay.Unit"
           selectMultiple="false" />
         <boolean
           name="isofemale"
@@ -1731,7 +1731,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Generation"
           required="true"
           description="The generation of the mosquito"
-          type="csu.mrc.ivcc.mdss.mo.Generation" />
+          type="dss.vector.solutions.mo.Generation" />
         <integer
           name="exposureTime"
           label="Exposure Time (m)"
@@ -1760,10 +1760,10 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay"
+      name="dss.vector.solutions.entomology.assay.DiscriminatingDoseAssay"
       label="Discriminating Dose Assay"
       description="Discriminating dose assay which can be performed on a collection mosquitos"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.CollectionAssay"
+      extends="dss.vector.solutions.entomology.assay.CollectionAssay"
       isAbstract="true"
       extendable="true"
       generateController="false">
@@ -1805,7 +1805,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <mdMethod
         name="getTestIntervals"
         label="Get Test Intervals"
-        returnType="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView[]"
+        returnType="dss.vector.solutions.entomology.assay.ADDATestIntervalView[]"
         static="false"
         description="Returns a list of test intervals">
       </mdMethod>
@@ -1825,17 +1825,17 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssay"
+      name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay"
       label="Adult Discriminating Dose Assay"
       description="Abstract assay which can be performed on a group of adult mosquitos"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay">
+      extends="dss.vector.solutions.entomology.assay.DiscriminatingDoseAssay">
       <attributes>
         <struct
           name="ageRange"
           label="Age Range"
           required="false"
           description="The age range of the mosquitos tested"
-          type="csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRange" />
+          type="dss.vector.solutions.entomology.assay.AdultAgeRange" />
         <integer
           name="fed"
           label="Fed"
@@ -1856,20 +1856,20 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true"
           description="The sex of the tested mosquitos"
           selectMultiple="false"
-          type="csu.mrc.ivcc.mdss.entomology.AssaySex" />
+          type="dss.vector.solutions.entomology.AssaySex" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.LarvaeDiscriminatingDoseAssay"
+      name="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay"
       label="Larvae Discriminating Dose Assay"
       description="Discriminating Dose Assay which can be performed on a group of larvae mosquitos"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay">
+      extends="dss.vector.solutions.entomology.assay.DiscriminatingDoseAssay">
       <attributes>
         <reference
           name="ageRange"
           label="Age Range"
-          type="csu.mrc.ivcc.mdss.entomology.assay.LarvaeAgeRange"
+          type="dss.vector.solutions.entomology.assay.LarvaeAgeRange"
           description="The larvae age range" />
       </attributes>
       <mdMethod
@@ -1883,26 +1883,26 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           description="The start age of the age range"
           label="Start Age"
           order="0"
-          type="csu.mrc.ivcc.mdss.mo.LarvaeAge" />
+          type="dss.vector.solutions.mo.LarvaeAge" />
         <mdParameter
           name="endAge"
           description="The end age of the age range"
           label="End Age"
           order="1"
-          type="csu.mrc.ivcc.mdss.mo.LarvaeAge" />
+          type="dss.vector.solutions.mo.LarvaeAge" />
       </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssay"
+      name="dss.vector.solutions.entomology.assay.EfficacyAssay"
       label="Efficacy Assay"
       description="An efficacy assay which can be performed on a colony mosquitos"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.AbstractAssay">
+      extends="dss.vector.solutions.entomology.assay.AbstractAssay">
       <attributes>
         <reference
           name="testMethod"
           label="Test Method"
-          type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology" />
+          type="dss.vector.solutions.mo.ResistanceMethodology" />
         <integer
           name="holdingTime"
           label="Holding Time (hr)"
@@ -1952,20 +1952,20 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         <enumeration
           name="surfacePostion"
           label="Surface Position"
-          type="csu.mrc.ivcc.mdss.SurfacePosition"
+          type="dss.vector.solutions.SurfacePosition"
           selectMultiple="false"
           description="The surface position of the insecticide" />
         <reference
           name="geoEntity"
           required="true"
           label="Geo Entity"
-          type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity" />
+          type="dss.vector.solutions.geo.generated.GeoEntity" />
         <struct
           name="ageRange"
           label="Age Range"
           required="false"
           description="The age range of the mosquitos tested"
-          type="csu.mrc.ivcc.mdss.entomology.assay.AdultAgeRange" />
+          type="dss.vector.solutions.entomology.assay.AdultAgeRange" />
         <integer
           name="fed"
           label="Fed"
@@ -1986,7 +1986,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true"
           description="The sex of the tested mosquitos"
           selectMultiple="false"
-          type="csu.mrc.ivcc.mdss.entomology.AssaySex" />
+          type="dss.vector.solutions.entomology.AssaySex" />
       </attributes>
       <mdMethod
         name="getOverallMortalityRate"
@@ -2000,11 +2000,11 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         label="Search By GeoEntity and Date"
         description="Searches for all efficacy assays with the given geo entity and date"
         static="true"
-        returnType="csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssay[]">
+        returnType="dss.vector.solutions.entomology.assay.EfficacyAssay[]">
         <mdParameter
           name="geoEntity"
           label="Geo Entity"
-          type="csu.mrc.ivcc.mdss.geo.generated.GeoEntity"
+          type="dss.vector.solutions.geo.generated.GeoEntity"
           order="0"
           description="GeoEntity" />
         <mdParameter
@@ -2016,12 +2016,12 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <enumerationMaster
-      name="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      name="dss.vector.solutions.SurfacePositionMaster"
       label="Surface Position"
       description="Configurable table of surface positions" />
 
     <object
-      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      type="dss.vector.solutions.SurfacePositionMaster"
       id="TOP">
       <valueAttribute
         name="enumName"
@@ -2032,7 +2032,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      type="dss.vector.solutions.SurfacePositionMaster"
       id="MIDDLE">
       <valueAttribute
         name="enumName"
@@ -2043,7 +2043,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      type="dss.vector.solutions.SurfacePositionMaster"
       id="BOTTOM">
       <valueAttribute
         name="enumName"
@@ -2054,7 +2054,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      type="dss.vector.solutions.SurfacePositionMaster"
       id="RANDOM">
       <valueAttribute
         name="enumName"
@@ -2065,7 +2065,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      type="dss.vector.solutions.SurfacePositionMaster"
       id="NOT_APPLICABLE">
       <valueAttribute
         name="enumName"
@@ -2076,31 +2076,31 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <mdEnumeration
-      name="csu.mrc.ivcc.mdss.SurfacePosition"
-      type="csu.mrc.ivcc.mdss.SurfacePositionMaster"
+      name="dss.vector.solutions.SurfacePosition"
+      type="dss.vector.solutions.SurfacePositionMaster"
       label="Surface Position"
       description="List of all possible assay surface positions">
       <includeAll />
     </mdEnumeration>
 
     <mdInformation
-      name="csu.mrc.ivcc.mdss.entomology.assay.ResistantCollection"
+      name="dss.vector.solutions.entomology.assay.ResistantCollection"
       label="Collection Resistant Information"
       description="A collection is resistant to the test assay" />
 
     <mdInformation
-      name="csu.mrc.ivcc.mdss.entomology.assay.PotentiallyResistantCollection"
+      name="dss.vector.solutions.entomology.assay.PotentiallyResistantCollection"
       label="Collection Resistant Information"
       description="A collection is potentially to the test assay" />
 
     <mdInformation
-      name="csu.mrc.ivcc.mdss.entomology.assay.SusceptibleCollection"
+      name="dss.vector.solutions.entomology.assay.SusceptibleCollection"
       label="Susceptible Collection"
       description="A collection is susceptible to the test assay" />
 
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
+      name="dss.vector.solutions.entomology.assay.ADDATestInterval"
       label="Test Interval"
       description="A single test interval for an individual adult discriminating dose assay">
       <attributes>
@@ -2108,7 +2108,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="assay"
           label="Discriminating Dose Assay"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay" />
+          type="dss.vector.solutions.entomology.assay.DiscriminatingDoseAssay" />
         <integer
           name="period"
           label="Period"
@@ -2124,7 +2124,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdIndex
-      type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
+      type="dss.vector.solutions.entomology.assay.ADDATestInterval"
       active="true"
       label="ADDA Test Interval Index"
       unique="true"
@@ -2136,7 +2136,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdIndex>
 
     <mdView
-      name="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView"
+      name="dss.vector.solutions.entomology.assay.ADDATestIntervalView"
       label="Test Interval View"
       description="View for Adult Discriminating Dose Assay test intervals">
       <attributes>
@@ -2153,23 +2153,23 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         <virtual
           name="assay"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
+          type="dss.vector.solutions.entomology.assay.ADDATestInterval"
           concrete="assay" />
         <virtual
           name="period"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
+          type="dss.vector.solutions.entomology.assay.ADDATestInterval"
           concrete="period" />
         <virtual
           name="knockedDown"
           required="true"
-          type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestInterval"
+          type="dss.vector.solutions.entomology.assay.ADDATestInterval"
           concrete="knockedDown" />
       </attributes>
       <mdMethod
         name="saveAll"
         label="Save All"
-        returnType="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView[]"
+        returnType="dss.vector.solutions.entomology.assay.ADDATestIntervalView[]"
         static="true"
         description="Saves an array of ADDATestIntervalViews in a single transaction">
         <mdParameter
@@ -2177,13 +2177,13 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Array"
           description="Array of objects to save"
           order="0"
-          type="csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView[]" />
+          type="dss.vector.solutions.entomology.assay.ADDATestIntervalView[]" />
       </mdMethod>
     </mdView>
 
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidFedQuantityProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidFedQuantityProblem"
       label="Invalid Fed Value">
       <attributes>
         <integer
@@ -2201,7 +2201,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidGravidQuantityProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem"
       label="Invalid Gravid Value">
       <attributes>
         <integer
@@ -2219,7 +2219,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidFedSexProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidFedSexProblem"
       label="Invalid Fed Sex">
       <attributes>
         <char
@@ -2232,7 +2232,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidGravidSexProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidGravidSexProblem"
       label="Invalid Gravid Sex">
       <attributes>
         <char
@@ -2245,7 +2245,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidGenerationProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidGenerationProblem"
       label="Invalid Generation Value">
       <attributes>
         <char
@@ -2258,7 +2258,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidIntervalTimeProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidIntervalTimeProblem"
       label="Invalid Interval Time">
       <attributes>
         <integer
@@ -2281,7 +2281,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidDeadQuantityProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidDeadQuantityProblem"
       label="Invalid Dead Quantity">
       <attributes>
         <integer
@@ -2304,7 +2304,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidKnockDownQuantityProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidKnockDownQuantityProblem"
       label="Invalid Knock Down Quantity">
       <attributes>
         <integer
@@ -2327,7 +2327,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidPeriodProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidPeriodProblem"
       label="Invalid Period Value">
       <attributes>
         <integer
@@ -2345,7 +2345,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdProblem>
 
     <mdProblem
-      name="csu.mrc.ivcc.mdss.entomology.assay.InvalidTestDateProblem"
+      name="dss.vector.solutions.entomology.assay.InvalidTestDateProblem"
       label="Invalid Test Date">
       <attributes>
         <date
@@ -2370,7 +2370,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
   <create>
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.Property"
+      name="dss.vector.solutions.Property"
       label="Property">
       <attributes>
         <char
@@ -2428,7 +2428,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         label="Get Property As String"
         description="Returns a global Property"
         static="true"
-        returnType="csu.mrc.ivcc.mdss.Property">
+        returnType="dss.vector.solutions.Property">
         <mdParameter
           name="pkg"
           description="Package to search for"
@@ -2447,7 +2447,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         label="Get Property As String"
         description="Returns a global Property"
         static="true"
-        returnType="csu.mrc.ivcc.mdss.Property">
+        returnType="dss.vector.solutions.Property">
         <mdParameter
           name="pkg"
           description="Package to search for"
@@ -2477,7 +2477,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdIndex
-      type="csu.mrc.ivcc.mdss.Property"
+      type="dss.vector.solutions.Property"
       active="true"
       label="Property Index"
       unique="true"
@@ -2489,7 +2489,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdIndex>
 
     <mdException
-      name="csu.mrc.ivcc.mdss.PropertyAllreadyExistsException"
+      name="dss.vector.solutions.PropertyAllreadyExistsException"
       label="Property Allready Exists"
       description="Exception thrown when createing a property with a package and key that allready exists.">
       <attributes>
@@ -2497,7 +2497,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdException>
 
     <mdException
-      name="csu.mrc.ivcc.mdss.PropertyValidationFailedException"
+      name="dss.vector.solutions.PropertyValidationFailedException"
       label="Property Validation Failed"
       description="Exception thrown when setting a property to an invalid value.">
       <attributes>
@@ -2511,14 +2511,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdException>
 
     <object
-      type="csu.mrc.ivcc.mdss.Property"
+      type="dss.vector.solutions.Property"
       id="aDDAR">
       <valueAttribute
         name="propertyName"
         value="aDDAR" />
       <valueAttribute
         name="propertyPackage"
-        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
+        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="95" />
@@ -2534,14 +2534,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.Property"
+      type="dss.vector.solutions.Property"
       id="aDDAS">
       <valueAttribute
         name="propertyName"
         value="aDDAS" />
       <valueAttribute
         name="propertyPackage"
-        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
+        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="98" />
@@ -2557,14 +2557,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.Property"
+      type="dss.vector.solutions.Property"
       id="lDDAR">
       <valueAttribute
         name="propertyName"
         value="lDDAR" />
       <valueAttribute
         name="propertyPackage"
-        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
+        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="95" />
@@ -2580,14 +2580,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.Property"
+      type="dss.vector.solutions.Property"
       id="lDDAS">
       <valueAttribute
         name="propertyName"
         value="lDDAS" />
       <valueAttribute
         name="propertyPackage"
-        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
+        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="98" />
@@ -2603,14 +2603,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.Property"
+      type="dss.vector.solutions.Property"
       id="aAKnockDownR">
       <valueAttribute
         name="propertyName"
         value="aAKnockDownR" />
       <valueAttribute
         name="propertyPackage"
-        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
+        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="95" />
@@ -2626,14 +2626,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.Property"
+      type="dss.vector.solutions.Property"
       id="aAKnockDownPR">
       <valueAttribute
         name="propertyName"
         value="aAKnockDownPR" />
       <valueAttribute
         name="propertyPackage"
-        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
+        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="98" />
@@ -2649,14 +2649,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.Property"
+      type="dss.vector.solutions.Property"
       id="lAKnockDownR">
       <valueAttribute
         name="propertyName"
         value="lAKnockDownR" />
       <valueAttribute
         name="propertyPackage"
-        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
+        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="95" />
@@ -2672,14 +2672,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.Property"
+      type="dss.vector.solutions.Property"
       id="lAKnockDownPR">
       <valueAttribute
         name="propertyName"
         value="lAKnockDownPR" />
       <valueAttribute
         name="propertyPackage"
-        value="csu.mrc.ivcc.mdss.entomology.ResistantanceCutOff" />
+        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
       <valueAttribute
         name="propertyValue"
         value="98" />
@@ -2699,7 +2699,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
   <create>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult"
+      type="dss.vector.solutions.mo.MolecularAssayResult"
       id="RR">
       <valueAttribute
         name="termName"
@@ -2719,7 +2719,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult"
+      type="dss.vector.solutions.mo.MolecularAssayResult"
       id="RS">
       <valueAttribute
         name="termName"
@@ -2739,7 +2739,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult"
+      type="dss.vector.solutions.mo.MolecularAssayResult"
       id="SS">
       <valueAttribute
         name="termName"
@@ -2759,59 +2759,59 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.MolecularAssayResult"
+      name="dss.vector.solutions.mo.MolecularAssayResult"
       label="Molecular Assay Result"
       description="List of molecular array results"
-      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="csu.mrc.ivcc.mdss.mo.MolecularAssayResult[]"
+        returnType="dss.vector.solutions.mo.MolecularAssayResult[]"
         label="Get All Terms"
         static="true"
         description="Returns all term of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.InfectivityMethodology"
+      name="dss.vector.solutions.mo.InfectivityMethodology"
       label="Infectivity Methodology"
       description="List of molecular array results"
-      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="csu.mrc.ivcc.mdss.mo.InfectivityMethodology[]"
+        returnType="dss.vector.solutions.mo.InfectivityMethodology[]"
         label="Get All Terms"
         static="true"
         description="Returns all term of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.BiochemicalMethodology"
+      name="dss.vector.solutions.mo.BiochemicalMethodology"
       label="Biochemical Methodology"
       description="List of molecular array results"
-      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="csu.mrc.ivcc.mdss.mo.BiochemicalMethodology[]"
+        returnType="dss.vector.solutions.mo.BiochemicalMethodology[]"
         label="Get All Terms"
         static="true"
         description="Returns all term of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.mo.InsecticideMethodology"
+      name="dss.vector.solutions.mo.InsecticideMethodology"
       label="Molecular Assay Result"
       description="List of molecular array results"
-      extends="csu.mrc.ivcc.mdss.mo.AbstractTerm">
+      extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod
         name="getAll"
-        returnType="csu.mrc.ivcc.mdss.mo.InsecticideMethodology[]"
+        returnType="dss.vector.solutions.mo.InsecticideMethodology[]"
         label="Get All Terms"
         static="true"
         description="Returns all term of a MO subcatagory" />
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult"
+      name="dss.vector.solutions.entomology.assay.AssayTestResult"
       label="Assay Test Result"
       extendable="true"
       isAbstract="true"
@@ -2824,20 +2824,20 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           indexType="non-unique index"
           immutable="true"
           description="The mosquito on which the W-KDR test was performed"
-          type="csu.mrc.ivcc.mdss.entomology.Mosquito" />
+          type="dss.vector.solutions.entomology.Mosquito" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+      name="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
       label="Molecular Assay Test Result"
       isAbstract="true"
       extendable="true"
       generateController="false"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult">
+      extends="dss.vector.solutions.entomology.assay.AssayTestResult">
       <attributes>
         <reference
-          type="csu.mrc.ivcc.mdss.mo.InsecticideMethodology"
+          type="dss.vector.solutions.mo.InsecticideMethodology"
           name="testMethod"
           label="Test Methodology"
           required="true"
@@ -2846,15 +2846,15 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <mdMethod
         name="getMolecularAssays"
         label="Get Molecular Assays"
-        returnType="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+        returnType="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
         static="true">
       </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.molecular.WKDRTestResult"
+      name="dss.vector.solutions.entomology.assay.molecular.WKDRTestResult"
       label="W-KDR Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
       description="W-KDR test result.">
       <attributes>
         <reference
@@ -2862,14 +2862,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="W-KDR Test Result"
           required="true"
           description="Molecular assay result"
-          type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult" />
+          type="dss.vector.solutions.mo.MolecularAssayResult" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.molecular.EKDRTestResult"
+      name="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult"
       label="E-KDR Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
       description="E-KDR test result.">
       <attributes>
         <reference
@@ -2877,14 +2877,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="E-KDR Test Result"
           required="true"
           description="Molecular assay result"
-          type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult" />
+          type="dss.vector.solutions.mo.MolecularAssayResult" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.molecular.AcHETestResult"
+      name="dss.vector.solutions.entomology.assay.molecular.AcHETestResult"
       label="AcHE Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
       description="AcHE test result.">
       <attributes>
         <reference
@@ -2892,14 +2892,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="AcHE Test Result"
           required="true"
           description="Molecular assay result"
-          type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult" />
+          type="dss.vector.solutions.mo.MolecularAssayResult" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.molecular.GABATestResult"
+      name="dss.vector.solutions.entomology.assay.molecular.GABATestResult"
       label="GABA Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
       description="GABA test result.">
       <attributes>
         <reference
@@ -2907,20 +2907,20 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="GABA Test Result"
           required="true"
           description="Molecular assay result"
-          type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult" />
+          type="dss.vector.solutions.mo.MolecularAssayResult" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      name="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
       label="Bio-Chemical Assay Test Result"
       isAbstract="true"
       extendable="true"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.AssayTestResult"
       generateController="false">
       <attributes>
         <reference
-          type="csu.mrc.ivcc.mdss.mo.BiochemicalMethodology"
+          type="dss.vector.solutions.mo.BiochemicalMethodology"
           name="testMethod"
           label="Test Methodology"
           required="true"
@@ -2929,15 +2929,15 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <mdMethod
         name="getBiochemicalAssays"
         label="Get Biochemical Assays"
-        returnType="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+        returnType="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
         static="true">
       </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.AEsteraseTestResult"
+      name="dss.vector.solutions.entomology.assay.biochemical.AEsteraseTestResult"
       label="α-Esterase Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="α-Esterase test result.">
       <attributes>
         <integer
@@ -2949,9 +2949,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BEsteraseTestResult"
+      name="dss.vector.solutions.entomology.assay.biochemical.BEsteraseTestResult"
       label="β-Esterase Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="β-Esterase test result.">
       <attributes>
         <integer
@@ -2963,9 +2963,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.PNPATestResult"
+      name="dss.vector.solutions.entomology.assay.biochemical.PNPATestResult"
       label="PNPA Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="PNPA test result.">
       <attributes>
         <integer
@@ -2977,9 +2977,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.GSTTestResult"
+      name="dss.vector.solutions.entomology.assay.biochemical.GSTTestResult"
       label="GST Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="GST test result.">
       <attributes>
         <integer
@@ -2991,9 +2991,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.MonooxygenaseTestResult"
+      name="dss.vector.solutions.entomology.assay.biochemical.MonooxygenaseTestResult"
       label="Monooxygenase Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="Monooxygenase test result.">
       <attributes>
         <integer
@@ -3005,9 +3005,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.biochemical.AcHETestResult"
+      name="dss.vector.solutions.entomology.assay.biochemical.AcHETestResult"
       label="AcHE Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
       description="AcHE test result.">
       <attributes>
         <reference
@@ -3015,20 +3015,20 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="AcHE Test Result"
           required="true"
           description="Molecular assay result"
-          type="csu.mrc.ivcc.mdss.mo.MolecularAssayResult" />
+          type="dss.vector.solutions.mo.MolecularAssayResult" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+      name="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
       label="Infectivity Assay Test Result"
       isAbstract="true"
       extendable="true"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.AssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.AssayTestResult"
       generateController="false">
       <attributes>
         <reference
-          type="csu.mrc.ivcc.mdss.mo.InfectivityMethodology"
+          type="dss.vector.solutions.mo.InfectivityMethodology"
           name="testMethod"
           label="Test Methodology"
           required="true"
@@ -3037,15 +3037,15 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <mdMethod
         name="getInfectivityAssays"
         label="Get Infectivity Assays"
-        returnType="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+        returnType="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
         static="true">
       </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PFalciparumTestResult"
+      name="dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult"
       label="P. Falciparum Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Falciparum test result.">
       <attributes>
         <boolean
@@ -3057,9 +3057,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.infectivity.POvaleTestResult"
+      name="dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult"
       label="P. Ovale Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Ovale test result.">
       <attributes>
         <boolean
@@ -3071,9 +3071,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PMalariaeTestResult"
+      name="dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult"
       label="P. Malariae Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Malariae test result.">
       <attributes>
         <boolean
@@ -3085,9 +3085,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PVivaxTestResult"
+      name="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult"
       label="P. Vivax Test Result"
-      extends="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+      extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
       description="P. Vivax test result.">
       <attributes>
         <boolean
@@ -3099,7 +3099,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdView
-      name="csu.mrc.ivcc.mdss.entomology.MosquitoView"
+      name="dss.vector.solutions.entomology.MosquitoView"
       label="Mosquito
       Assay View"
       description="A view of a mosquito reference and all of
@@ -3112,184 +3112,184 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           description="The id of the mosquito, if the Id is blank then it is assumed the mosquito is new" />
         <virtual
           name="collection"
-          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
+          type="dss.vector.solutions.entomology.TrueSpecieEntity"
           concrete="collection"
           required="true" />
         <virtual
           name="specie"
-          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
+          type="dss.vector.solutions.entomology.TrueSpecieEntity"
           required="true"
           concrete="specie" />
         <virtual
           name="identificationMethod"
-          type="csu.mrc.ivcc.mdss.entomology.TrueSpecieEntity"
+          type="dss.vector.solutions.entomology.TrueSpecieEntity"
           concrete="identificationMethod"
           required="true" />
         <virtual
           name="testDate"
-          type="csu.mrc.ivcc.mdss.entomology.Mosquito"
+          type="dss.vector.solutions.entomology.Mosquito"
           concrete="testDate"
           required="true" />
         <virtual
           name="isofemale"
-          type="csu.mrc.ivcc.mdss.entomology.Mosquito"
+          type="dss.vector.solutions.entomology.Mosquito"
           concrete="isofemale"
           required="true" />
         <virtual
           name="sex"
-          type="csu.mrc.ivcc.mdss.entomology.Mosquito"
+          type="dss.vector.solutions.entomology.Mosquito"
           concrete="sex"
           required="true" />
         <virtual
           name="generation"
-          type="csu.mrc.ivcc.mdss.entomology.Mosquito"
+          type="dss.vector.solutions.entomology.Mosquito"
           concrete="generation"
           required="true" />
         <virtual
           name="wKDR"
-          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.WKDRTestResult"
+          type="dss.vector.solutions.entomology.assay.molecular.WKDRTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="wKDRMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="eKDR"
-          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.EKDRTestResult"
+          type="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="eKDRMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="acHEMolecular"
-          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.AcHETestResult"
+          type="dss.vector.solutions.entomology.assay.molecular.AcHETestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="acHEMolecularMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="gABA"
-          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.GABATestResult"
+          type="dss.vector.solutions.entomology.assay.molecular.GABATestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="gABAMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="aEsterase"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.AEsteraseTestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.AEsteraseTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="aEsteraseMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="bEsterase"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BEsteraseTestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.BEsteraseTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="bEsteraseMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="pNPA"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.PNPATestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.PNPATestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="pNPAMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="gST"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.GSTTestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.GSTTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="gSTMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="monooxygenase"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.MonooxygenaseTestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.MonooxygenaseTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="monooxygenaseMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="acHEBiochemical"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.AcHETestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.AcHETestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="acHEBiochemicalMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="pFalciparum"
-          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PFalciparumTestResult"
+          type="dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="pFalciparumMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="pOvale"
-          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.POvaleTestResult"
+          type="dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="pOvaleMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="pMalariae"
-          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PMalariaeTestResult"
+          type="dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="pMalariaeMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
           name="pVivax"
-          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.PVivaxTestResult"
+          type="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult"
           concrete="testResult"
           required="false" />
         <virtual
           name="pVivaxMethod"
-          type="csu.mrc.ivcc.mdss.entomology.assay.infectivity.InfectivityAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
           concrete="testMethod"
           required="false" />
       </attributes>
       <mdMethod
         name="saveAll"
         label="Save All"
-        returnType="csu.mrc.ivcc.mdss.entomology.MosquitoView[]"
+        returnType="dss.vector.solutions.entomology.MosquitoView[]"
         static="true"
         description="Saves an array of MosquitoViews in a single transaction">
         <mdParameter
@@ -3297,14 +3297,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Array"
           description="Array of objects to save"
           order="0"
-          type="csu.mrc.ivcc.mdss.entomology.MosquitoView[]" />
+          type="dss.vector.solutions.entomology.MosquitoView[]" />
       </mdMethod>
     </mdView>
   </create>
 
   <create>
     <mdController
-      name="csu.mrc.ivcc.mdss.report.ReportController"
+      name="dss.vector.solutions.report.ReportController"
       label="Report Controller"
       description="Dynamic report controller">
       <mdAction
@@ -3327,7 +3327,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
   <!-- Test TERMS -->
   <create>
     <object
-      type="csu.mrc.ivcc.mdss.mo.Generation"
+      type="dss.vector.solutions.mo.Generation"
       id="F0">
       <valueAttribute
         name="termId"
@@ -3347,7 +3347,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Generation"
+      type="dss.vector.solutions.mo.Generation"
       id="F2">
       <valueAttribute
         name="termId"
@@ -3371,7 +3371,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
   <!-- MO TERMS -->
   <create>
     <object
-      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      type="dss.vector.solutions.mo.CollectionMethod"
       id="MIRO_30000044">
       <valueAttribute
         name="termId"
@@ -3397,7 +3397,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      type="dss.vector.solutions.mo.CollectionMethod"
       id="MIRO_30000045">
       <valueAttribute
         name="termId"
@@ -3423,7 +3423,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      type="dss.vector.solutions.mo.CollectionMethod"
       id="MIRO_30000048">
       <valueAttribute
         name="termId"
@@ -3449,7 +3449,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      type="dss.vector.solutions.mo.CollectionMethod"
       id="MIRO_30000022">
       <valueAttribute
         name="termId"
@@ -3475,7 +3475,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      type="dss.vector.solutions.mo.CollectionMethod"
       id="MIRO_30000049">
       <valueAttribute
         name="termId"
@@ -3501,7 +3501,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      type="dss.vector.solutions.mo.CollectionMethod"
       id="MIRO_30000053">
       <valueAttribute
         name="termId"
@@ -3527,7 +3527,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      type="dss.vector.solutions.mo.CollectionMethod"
       id="MIRO_30000060">
       <valueAttribute
         name="termId"
@@ -3553,7 +3553,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      type="dss.vector.solutions.mo.CollectionMethod"
       id="MIRO_30000050">
       <valueAttribute
         name="termId"
@@ -3579,7 +3579,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      type="dss.vector.solutions.mo.CollectionMethod"
       id="MIRO_30000051">
       <valueAttribute
         name="termId"
@@ -3605,7 +3605,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      type="dss.vector.solutions.mo.CollectionMethod"
       id="MIRO_30000052">
       <valueAttribute
         name="termId"
@@ -3631,7 +3631,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.CollectionMethod"
+      type="dss.vector.solutions.mo.CollectionMethod"
       id="MIRO_30000046">
       <valueAttribute
         name="termId"
@@ -3658,7 +3658,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
+      type="dss.vector.solutions.mo.IdentificationMethod"
       id="IRO_30000005">
       <valueAttribute
         name="termId"
@@ -3684,7 +3684,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
+      type="dss.vector.solutions.mo.IdentificationMethod"
       id="MIRO_30000036">
       <valueAttribute
         name="termId"
@@ -3710,7 +3710,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
+      type="dss.vector.solutions.mo.IdentificationMethod"
       id="MIRO_30000037">
       <valueAttribute
         name="termId"
@@ -3736,7 +3736,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
+      type="dss.vector.solutions.mo.IdentificationMethod"
       id="MIRO_30000038">
       <valueAttribute
         name="termId"
@@ -3762,7 +3762,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
+      type="dss.vector.solutions.mo.IdentificationMethod"
       id="MIRO_30000039">
       <valueAttribute
         name="termId"
@@ -3788,7 +3788,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
+      type="dss.vector.solutions.mo.IdentificationMethod"
       id="MIRO_30000040">
       <valueAttribute
         name="termId"
@@ -3814,7 +3814,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.IdentificationMethod"
+      type="dss.vector.solutions.mo.IdentificationMethod"
       id="MIRO_30000041">
       <valueAttribute
         name="termId"
@@ -3840,7 +3840,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000169">
       <valueAttribute
         name="termId"
@@ -3866,7 +3866,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000002">
       <valueAttribute
         name="termId"
@@ -3892,7 +3892,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000003">
       <valueAttribute
         name="termId"
@@ -3918,7 +3918,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000004">
       <valueAttribute
         name="termId"
@@ -3944,7 +3944,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000005">
       <valueAttribute
         name="termId"
@@ -3970,7 +3970,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000006">
       <valueAttribute
         name="termId"
@@ -3996,7 +3996,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000007">
       <valueAttribute
         name="termId"
@@ -4022,7 +4022,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000008">
       <valueAttribute
         name="termId"
@@ -4048,7 +4048,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000009">
       <valueAttribute
         name="termId"
@@ -4074,7 +4074,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000010">
       <valueAttribute
         name="termId"
@@ -4100,7 +4100,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000011">
       <valueAttribute
         name="termId"
@@ -4126,7 +4126,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000012">
       <valueAttribute
         name="termId"
@@ -4152,7 +4152,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000013">
       <valueAttribute
         name="termId"
@@ -4178,7 +4178,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000014">
       <valueAttribute
         name="termId"
@@ -4204,7 +4204,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000015">
       <valueAttribute
         name="termId"
@@ -4230,7 +4230,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000016">
       <valueAttribute
         name="termId"
@@ -4256,7 +4256,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000017">
       <valueAttribute
         name="termId"
@@ -4282,7 +4282,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000018">
       <valueAttribute
         name="termId"
@@ -4308,7 +4308,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000019">
       <valueAttribute
         name="termId"
@@ -4334,7 +4334,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000020">
       <valueAttribute
         name="termId"
@@ -4360,7 +4360,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000021">
       <valueAttribute
         name="termId"
@@ -4386,7 +4386,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000022">
       <valueAttribute
         name="termId"
@@ -4412,7 +4412,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000023">
       <valueAttribute
         name="termId"
@@ -4438,7 +4438,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000024">
       <valueAttribute
         name="termId"
@@ -4464,7 +4464,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000025">
       <valueAttribute
         name="termId"
@@ -4490,7 +4490,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000026">
       <valueAttribute
         name="termId"
@@ -4516,7 +4516,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000027">
       <valueAttribute
         name="termId"
@@ -4542,7 +4542,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000028">
       <valueAttribute
         name="termId"
@@ -4568,7 +4568,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000031">
       <valueAttribute
         name="termId"
@@ -4594,7 +4594,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000032">
       <valueAttribute
         name="termId"
@@ -4620,7 +4620,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000033">
       <valueAttribute
         name="termId"
@@ -4646,7 +4646,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000034">
       <valueAttribute
         name="termId"
@@ -4672,7 +4672,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000035">
       <valueAttribute
         name="termId"
@@ -4698,7 +4698,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000036">
       <valueAttribute
         name="termId"
@@ -4724,7 +4724,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000037">
       <valueAttribute
         name="termId"
@@ -4750,7 +4750,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000038">
       <valueAttribute
         name="termId"
@@ -4776,7 +4776,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000039">
       <valueAttribute
         name="termId"
@@ -4802,7 +4802,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000040">
       <valueAttribute
         name="termId"
@@ -4828,7 +4828,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000041">
       <valueAttribute
         name="termId"
@@ -4854,7 +4854,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000042">
       <valueAttribute
         name="termId"
@@ -4880,7 +4880,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000043">
       <valueAttribute
         name="termId"
@@ -4906,7 +4906,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000044">
       <valueAttribute
         name="termId"
@@ -4932,7 +4932,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000045">
       <valueAttribute
         name="termId"
@@ -4958,7 +4958,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000046">
       <valueAttribute
         name="termId"
@@ -4984,7 +4984,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000047">
       <valueAttribute
         name="termId"
@@ -5010,7 +5010,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000048">
       <valueAttribute
         name="termId"
@@ -5036,7 +5036,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000049">
       <valueAttribute
         name="termId"
@@ -5062,7 +5062,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000050">
       <valueAttribute
         name="termId"
@@ -5088,7 +5088,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000051">
       <valueAttribute
         name="termId"
@@ -5114,7 +5114,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000052">
       <valueAttribute
         name="termId"
@@ -5140,7 +5140,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000053">
       <valueAttribute
         name="termId"
@@ -5166,7 +5166,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000054">
       <valueAttribute
         name="termId"
@@ -5192,7 +5192,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000055">
       <valueAttribute
         name="termId"
@@ -5218,7 +5218,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000056">
       <valueAttribute
         name="termId"
@@ -5244,7 +5244,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000057">
       <valueAttribute
         name="termId"
@@ -5270,7 +5270,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000058">
       <valueAttribute
         name="termId"
@@ -5296,7 +5296,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000059">
       <valueAttribute
         name="termId"
@@ -5322,7 +5322,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000060">
       <valueAttribute
         name="termId"
@@ -5348,7 +5348,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000061">
       <valueAttribute
         name="termId"
@@ -5374,7 +5374,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000062">
       <valueAttribute
         name="termId"
@@ -5400,7 +5400,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000063">
       <valueAttribute
         name="termId"
@@ -5426,7 +5426,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000064">
       <valueAttribute
         name="termId"
@@ -5452,7 +5452,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000065">
       <valueAttribute
         name="termId"
@@ -5478,7 +5478,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000066">
       <valueAttribute
         name="termId"
@@ -5504,7 +5504,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000067">
       <valueAttribute
         name="termId"
@@ -5530,7 +5530,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000068">
       <valueAttribute
         name="termId"
@@ -5556,7 +5556,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000069">
       <valueAttribute
         name="termId"
@@ -5582,7 +5582,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000070">
       <valueAttribute
         name="termId"
@@ -5608,7 +5608,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000071">
       <valueAttribute
         name="termId"
@@ -5634,7 +5634,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000072">
       <valueAttribute
         name="termId"
@@ -5660,7 +5660,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000073">
       <valueAttribute
         name="termId"
@@ -5686,7 +5686,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000074">
       <valueAttribute
         name="termId"
@@ -5712,7 +5712,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000075">
       <valueAttribute
         name="termId"
@@ -5738,7 +5738,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000076">
       <valueAttribute
         name="termId"
@@ -5764,7 +5764,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000077">
       <valueAttribute
         name="termId"
@@ -5790,7 +5790,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000078">
       <valueAttribute
         name="termId"
@@ -5816,7 +5816,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000079">
       <valueAttribute
         name="termId"
@@ -5842,7 +5842,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000080">
       <valueAttribute
         name="termId"
@@ -5868,7 +5868,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000081">
       <valueAttribute
         name="termId"
@@ -5894,7 +5894,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000082">
       <valueAttribute
         name="termId"
@@ -5920,7 +5920,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000083">
       <valueAttribute
         name="termId"
@@ -5946,7 +5946,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000084">
       <valueAttribute
         name="termId"
@@ -5972,7 +5972,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000085">
       <valueAttribute
         name="termId"
@@ -5998,7 +5998,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000086">
       <valueAttribute
         name="termId"
@@ -6024,7 +6024,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000087">
       <valueAttribute
         name="termId"
@@ -6050,7 +6050,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000088">
       <valueAttribute
         name="termId"
@@ -6076,7 +6076,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000089">
       <valueAttribute
         name="termId"
@@ -6099,7 +6099,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000090">
       <valueAttribute
         name="termId"
@@ -6125,7 +6125,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000091">
       <valueAttribute
         name="termId"
@@ -6151,7 +6151,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000092">
       <valueAttribute
         name="termId"
@@ -6177,7 +6177,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000093">
       <valueAttribute
         name="termId"
@@ -6203,7 +6203,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000094">
       <valueAttribute
         name="termId"
@@ -6229,7 +6229,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000095">
       <valueAttribute
         name="termId"
@@ -6255,7 +6255,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000096">
       <valueAttribute
         name="termId"
@@ -6281,7 +6281,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000097">
       <valueAttribute
         name="termId"
@@ -6307,7 +6307,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000098">
       <valueAttribute
         name="termId"
@@ -6333,7 +6333,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000099">
       <valueAttribute
         name="termId"
@@ -6359,7 +6359,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000112">
       <valueAttribute
         name="termId"
@@ -6385,7 +6385,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000113">
       <valueAttribute
         name="termId"
@@ -6411,7 +6411,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000114">
       <valueAttribute
         name="termId"
@@ -6437,7 +6437,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000115">
       <valueAttribute
         name="termId"
@@ -6463,7 +6463,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000116">
       <valueAttribute
         name="termId"
@@ -6489,7 +6489,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000117">
       <valueAttribute
         name="termId"
@@ -6515,7 +6515,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000118">
       <valueAttribute
         name="termId"
@@ -6541,7 +6541,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000119">
       <valueAttribute
         name="termId"
@@ -6567,7 +6567,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000120">
       <valueAttribute
         name="termId"
@@ -6593,7 +6593,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000121">
       <valueAttribute
         name="termId"
@@ -6619,7 +6619,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000122">
       <valueAttribute
         name="termId"
@@ -6645,7 +6645,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000123">
       <valueAttribute
         name="termId"
@@ -6671,7 +6671,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000124">
       <valueAttribute
         name="termId"
@@ -6697,7 +6697,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000125">
       <valueAttribute
         name="termId"
@@ -6723,7 +6723,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000126">
       <valueAttribute
         name="termId"
@@ -6749,7 +6749,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000127">
       <valueAttribute
         name="termId"
@@ -6775,7 +6775,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000128">
       <valueAttribute
         name="termId"
@@ -6801,7 +6801,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000129">
       <valueAttribute
         name="termId"
@@ -6827,7 +6827,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000130">
       <valueAttribute
         name="termId"
@@ -6853,7 +6853,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000131">
       <valueAttribute
         name="termId"
@@ -6879,7 +6879,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000132">
       <valueAttribute
         name="termId"
@@ -6905,7 +6905,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000133">
       <valueAttribute
         name="termId"
@@ -6931,7 +6931,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000134">
       <valueAttribute
         name="termId"
@@ -6957,7 +6957,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000135">
       <valueAttribute
         name="termId"
@@ -6983,7 +6983,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000136">
       <valueAttribute
         name="termId"
@@ -7009,7 +7009,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000137">
       <valueAttribute
         name="termId"
@@ -7035,7 +7035,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000138">
       <valueAttribute
         name="termId"
@@ -7061,7 +7061,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000139">
       <valueAttribute
         name="termId"
@@ -7087,7 +7087,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000140">
       <valueAttribute
         name="termId"
@@ -7113,7 +7113,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000141">
       <valueAttribute
         name="termId"
@@ -7139,7 +7139,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000142">
       <valueAttribute
         name="termId"
@@ -7165,7 +7165,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000143">
       <valueAttribute
         name="termId"
@@ -7191,7 +7191,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000144">
       <valueAttribute
         name="termId"
@@ -7217,7 +7217,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000145">
       <valueAttribute
         name="termId"
@@ -7243,7 +7243,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000146">
       <valueAttribute
         name="termId"
@@ -7269,7 +7269,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000147">
       <valueAttribute
         name="termId"
@@ -7295,7 +7295,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000148">
       <valueAttribute
         name="termId"
@@ -7321,7 +7321,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000149">
       <valueAttribute
         name="termId"
@@ -7347,7 +7347,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000150">
       <valueAttribute
         name="termId"
@@ -7373,7 +7373,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000151">
       <valueAttribute
         name="termId"
@@ -7399,7 +7399,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000152">
       <valueAttribute
         name="termId"
@@ -7425,7 +7425,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000153">
       <valueAttribute
         name="termId"
@@ -7451,7 +7451,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000154">
       <valueAttribute
         name="termId"
@@ -7477,7 +7477,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000155">
       <valueAttribute
         name="termId"
@@ -7503,7 +7503,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000158">
       <valueAttribute
         name="termId"
@@ -7529,7 +7529,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Insecticide"
+      type="dss.vector.solutions.mo.Insecticide"
       id="MIRO_10000157">
       <valueAttribute
         name="termId"
@@ -7556,7 +7556,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      type="dss.vector.solutions.mo.ResistanceMethodology"
       id="MIRO_20000001">
       <valueAttribute
         name="termId"
@@ -7582,7 +7582,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      type="dss.vector.solutions.mo.ResistanceMethodology"
       id="MIRO_20000003">
       <valueAttribute
         name="termId"
@@ -7608,7 +7608,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      type="dss.vector.solutions.mo.ResistanceMethodology"
       id="MIRO_20000004">
       <valueAttribute
         name="termId"
@@ -7634,7 +7634,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      type="dss.vector.solutions.mo.ResistanceMethodology"
       id="MIRO_20000043">
       <valueAttribute
         name="termId"
@@ -7660,7 +7660,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      type="dss.vector.solutions.mo.ResistanceMethodology"
       id="MIRO_20000058">
       <valueAttribute
         name="termId"
@@ -7686,7 +7686,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      type="dss.vector.solutions.mo.ResistanceMethodology"
       id="MIRO_20000090">
       <valueAttribute
         name="termId"
@@ -7712,7 +7712,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      type="dss.vector.solutions.mo.ResistanceMethodology"
       id="MIRO_20000075">
       <valueAttribute
         name="termId"
@@ -7738,7 +7738,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      type="dss.vector.solutions.mo.ResistanceMethodology"
       id="MIRO_20000009">
       <valueAttribute
         name="termId"
@@ -7764,7 +7764,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      type="dss.vector.solutions.mo.ResistanceMethodology"
       id="MIRO_20000039">
       <valueAttribute
         name="termId"
@@ -7790,7 +7790,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      type="dss.vector.solutions.mo.ResistanceMethodology"
       id="MIRO_20000041">
       <valueAttribute
         name="termId"
@@ -7816,7 +7816,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.ResistanceMethodology"
+      type="dss.vector.solutions.mo.ResistanceMethodology"
       id="MIRO_20000049">
       <valueAttribute
         name="termId"
@@ -7843,7 +7843,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40003818">
       <valueAttribute
         name="termId"
@@ -7869,7 +7869,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40003652">
       <valueAttribute
         name="termId"
@@ -7895,7 +7895,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40003653">
       <valueAttribute
         name="termId"
@@ -7921,7 +7921,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40003478">
       <valueAttribute
         name="termId"
@@ -7947,7 +7947,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40002227">
       <valueAttribute
         name="termId"
@@ -7973,7 +7973,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40002237">
       <valueAttribute
         name="termId"
@@ -7999,7 +7999,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40002252">
       <valueAttribute
         name="termId"
@@ -8025,7 +8025,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40003479">
       <valueAttribute
         name="termId"
@@ -8051,7 +8051,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40003509">
       <valueAttribute
         name="termId"
@@ -8077,7 +8077,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40003561">
       <valueAttribute
         name="termId"
@@ -8103,7 +8103,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40002423">
       <valueAttribute
         name="termId"
@@ -8129,7 +8129,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40003480">
       <valueAttribute
         name="termId"
@@ -8155,7 +8155,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40002224">
       <valueAttribute
         name="termId"
@@ -8181,7 +8181,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40002241">
       <valueAttribute
         name="termId"
@@ -8207,7 +8207,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40003532">
       <valueAttribute
         name="termId"
@@ -8233,7 +8233,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.Specie"
+      type="dss.vector.solutions.mo.Specie"
       id="MIRO_40003572">
       <valueAttribute
         name="termId"
@@ -8259,7 +8259,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.InsecticideMethodology"
+      type="dss.vector.solutions.mo.InsecticideMethodology"
       id="MIRO_99903572">
       <valueAttribute
         name="termId"
@@ -8279,7 +8279,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.InfectivityMethodology"
+      type="dss.vector.solutions.mo.InfectivityMethodology"
       id="MIRO_99803572">
       <valueAttribute
         name="termId"
@@ -8299,7 +8299,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.BiochemicalMethodology"
+      type="dss.vector.solutions.mo.BiochemicalMethodology"
       id="MIRO_99703572">
       <valueAttribute
         name="termId"
@@ -8319,7 +8319,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <object
-      type="csu.mrc.ivcc.mdss.mo.LarvaeAge"
+      type="dss.vector.solutions.mo.LarvaeAge"
       id="MIRO_99900063">
       <valueAttribute
         name="termId"
@@ -8342,55 +8342,55 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
   <existing>
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.Earth"
+      key="dss.vector.solutions.geo.generated.Earth"
       id="EarthMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.Country"
+      key="dss.vector.solutions.geo.generated.Country"
       id="CountryMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.Province"
+      key="dss.vector.solutions.geo.generated.Province"
       id="ProvinceMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.District"
+      key="dss.vector.solutions.geo.generated.District"
       id="DistrictMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.AdminPost"
+      key="dss.vector.solutions.geo.generated.AdminPost"
       id="AdminPostMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.Locality"
+      key="dss.vector.solutions.geo.generated.Locality"
       id="LocalityMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.PopulatedArea"
+      key="dss.vector.solutions.geo.generated.PopulatedArea"
       id="PopulatedAreaMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.AbstractSite"
+      key="dss.vector.solutions.geo.generated.AbstractSite"
       id="AbstractSiteMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.SentinalSite"
+      key="dss.vector.solutions.geo.generated.SentinalSite"
       id="SentinalSiteMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.NonSentinalSite"
+      key="dss.vector.solutions.geo.generated.NonSentinalSite"
       id="NonSentinalSiteMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.Trap"
+      key="dss.vector.solutions.geo.generated.Trap"
       id="TrapMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.BreedingSite"
+      key="dss.vector.solutions.geo.generated.BreedingSite"
       id="BreedingSiteMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
-      key="csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBody"
+      key="dss.vector.solutions.geo.generated.PermanentWaterBody"
       id="PermanentWaterBodyMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
   </existing>
@@ -8398,7 +8398,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
   <create>
     <object
       id="earthH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="true" />
@@ -8409,7 +8409,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="countryH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="true" />
@@ -8419,7 +8419,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      type="dss.vector.solutions.geo.AllowedIn"
       childId="countryH"
       parentId="earthH"
       id="countryInEarth">
@@ -8427,7 +8427,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="provinceH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="true" />
@@ -8437,7 +8437,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      type="dss.vector.solutions.geo.AllowedIn"
       childId="provinceH"
       parentId="countryH"
       id="provinceInCountry">
@@ -8445,7 +8445,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="districtH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="true" />
@@ -8455,7 +8455,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      type="dss.vector.solutions.geo.AllowedIn"
       childId="districtH"
       parentId="provinceH"
       id="districtInProvince">
@@ -8463,7 +8463,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="adminPostH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="true" />
@@ -8473,7 +8473,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      type="dss.vector.solutions.geo.AllowedIn"
       childId="adminPostH"
       parentId="districtH"
       id="adminPostInDistrict">
@@ -8481,7 +8481,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="localityH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="true" />
@@ -8491,7 +8491,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      type="dss.vector.solutions.geo.AllowedIn"
       childId="localityH"
       parentId="adminPostH"
       id="localityInAdminPost">
@@ -8499,7 +8499,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="populatedAreaH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="true" />
@@ -8509,7 +8509,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      type="dss.vector.solutions.geo.AllowedIn"
       childId="populatedAreaH"
       parentId="localityH"
       id="populatedAreaInLocality">
@@ -8517,7 +8517,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="abstractSiteH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="false" />
@@ -8528,7 +8528,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="sentinalSiteH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="false" />
@@ -8538,7 +8538,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      type="dss.vector.solutions.geo.AllowedIn"
       childId="sentinalSiteH"
       parentId="localityH"
       id="sentinalSiteInLocality">
@@ -8546,7 +8546,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="nonSentinalSiteH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="false" />
@@ -8556,7 +8556,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      type="dss.vector.solutions.geo.AllowedIn"
       childId="nonSentinalSiteH"
       parentId="localityH"
       id="nonSentinalSiteInLocality">
@@ -8564,7 +8564,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="trapH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="false" />
@@ -8574,7 +8574,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      type="dss.vector.solutions.geo.AllowedIn"
       childId="trapH"
       parentId="nonSentinalSiteH"
       id="trapInNonSentinalSite">
@@ -8582,7 +8582,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="breedingSiteH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="false" />
@@ -8592,7 +8592,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      type="dss.vector.solutions.geo.AllowedIn"
       childId="breedingSiteH"
       parentId="localityH"
       id="breedingSiteInLocality">
@@ -8600,7 +8600,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="permanentWaterBodyH"
-      type="csu.mrc.ivcc.mdss.geo.GeoHierarchy">
+      type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
         value="false" />
@@ -8610,7 +8610,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </object>
 
     <relationship
-      type="csu.mrc.ivcc.mdss.geo.AllowedIn"
+      type="dss.vector.solutions.geo.AllowedIn"
       childId="permanentWaterBodyH"
       parentId="localityH"
       id="permanentWaterBodyInLocality">
@@ -8618,7 +8618,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <object
       id="earth"
-      type="csu.mrc.ivcc.mdss.geo.generated.Earth">
+      type="dss.vector.solutions.geo.generated.Earth">
       <valueAttribute
         name="activated"
         value="true" />
