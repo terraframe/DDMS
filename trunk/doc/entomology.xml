@@ -8677,5 +8677,16 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="sessionLimit"
         value="10" />
     </object>
+    <object
+      key="com.terraframe.mojo.system.Users.SYSTEM"
+      type="com.terraframe.mojo.system.Users"
+      id="SystemUser">
+      <valueAttribute
+        name="sessionLimit"
+        value="10" />
+      <valueAttribute
+        name="password"
+        value="mdsstest2" />
+    </object>
   </update>
 </TerraFrame>
