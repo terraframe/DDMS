@@ -25,6 +25,11 @@ public class GravidValidator implements Reloadable
     this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay.getId());
   }
   
+  public GravidValidator(KnockDownAssay assay)
+  {
+    this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay.getId());        
+  }
+  
   public GravidValidator(EfficacyAssay assay)
   {
     this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay.getId());    

@@ -67,7 +67,7 @@ public class DDATestInterval extends DDATestIntervalBase implements
   
   public Integer getIntervalTime()
   {
-    DiscriminatingDoseAssay assay = this.getAssay();
+    CollectionAssay assay = this.getAssay();
     
     return (Integer) Math.min(this.getPeriod() * assay.getIntervalTime(), assay.getExposureTime());
   }

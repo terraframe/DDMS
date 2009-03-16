@@ -10,5 +10,5 @@ public abstract class AbstractAssay extends AbstractAssayBase implements com.ter
   public AbstractAssay()
   {
     super();
-  }  
+  }    
 }

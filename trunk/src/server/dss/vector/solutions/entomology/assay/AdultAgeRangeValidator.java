@@ -17,6 +17,11 @@ public class AdultAgeRangeValidator implements Reloadable
     this(assay.getAgeRange());    
   }
   
+  public AdultAgeRangeValidator(KnockDownAssay assay)
+  {
+    this(assay.getAgeRange());    
+  }
+  
   public AdultAgeRangeValidator(EfficacyAssay assay)
   {
     this(assay.getAgeRange());

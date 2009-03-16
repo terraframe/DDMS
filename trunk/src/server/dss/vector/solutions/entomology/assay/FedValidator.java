@@ -24,11 +24,16 @@ public class FedValidator implements Reloadable
   {
     this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay.getId());
   }
+
+  public FedValidator(KnockDownAssay assay)
+  {
+    this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay.getId());        
+  }
   
   public FedValidator(EfficacyAssay assay)
   {
     this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay.getId());    
-  }
+  }  
   
   public FedValidator(List<AssaySex> sex, Integer fed, Integer quantityTested, String assayId)
   {
