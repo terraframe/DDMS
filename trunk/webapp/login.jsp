@@ -101,7 +101,7 @@ input[type="button"]:active {
         </label>
       </dt>
       <dd>
-        <mjl:input param="password" type="password" value="SYSTEM" /> 
+        <mjl:input param="password" type="password" value="" /> 
       </dd>
  </dl>
 
