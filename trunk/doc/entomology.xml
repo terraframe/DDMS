@@ -1805,7 +1805,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <mdMethod
         name="getTestIntervals"
         label="Get Test Intervals"
-        returnType="dss.vector.solutions.entomology.assay.ADDATestIntervalView[]"
+        returnType="dss.vector.solutions.entomology.assay.DDATestIntervalView[]"
         static="false"
         description="Returns a list of test intervals">
       </mdMethod>
@@ -2100,7 +2100,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.ADDATestInterval"
+      name="dss.vector.solutions.entomology.assay.DDATestInterval"
       label="Test Interval"
       description="A single test interval for an individual adult discriminating dose assay">
       <attributes>
@@ -2124,7 +2124,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdIndex
-      type="dss.vector.solutions.entomology.assay.ADDATestInterval"
+      type="dss.vector.solutions.entomology.assay.DDATestInterval"
       active="true"
       label="ADDA Test Interval Index"
       unique="true"
@@ -2136,7 +2136,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdIndex>
 
     <mdView
-      name="dss.vector.solutions.entomology.assay.ADDATestIntervalView"
+      name="dss.vector.solutions.entomology.assay.DDATestIntervalView"
       label="Test Interval View"
       description="View for Adult Discriminating Dose Assay test intervals">
       <attributes>
@@ -2153,23 +2153,23 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         <virtual
           name="assay"
           required="true"
-          type="dss.vector.solutions.entomology.assay.ADDATestInterval"
+          type="dss.vector.solutions.entomology.assay.DDATestInterval"
           concrete="assay" />
         <virtual
           name="period"
           required="true"
-          type="dss.vector.solutions.entomology.assay.ADDATestInterval"
+          type="dss.vector.solutions.entomology.assay.DDATestInterval"
           concrete="period" />
         <virtual
           name="knockedDown"
           required="true"
-          type="dss.vector.solutions.entomology.assay.ADDATestInterval"
+          type="dss.vector.solutions.entomology.assay.DDATestInterval"
           concrete="knockedDown" />
       </attributes>
       <mdMethod
         name="saveAll"
         label="Save All"
-        returnType="dss.vector.solutions.entomology.assay.ADDATestIntervalView[]"
+        returnType="dss.vector.solutions.entomology.assay.DDATestIntervalView[]"
         static="true"
         description="Saves an array of ADDATestIntervalViews in a single transaction">
         <mdParameter
@@ -2177,7 +2177,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Array"
           description="Array of objects to save"
           order="0"
-          type="dss.vector.solutions.entomology.assay.ADDATestIntervalView[]" />
+          type="dss.vector.solutions.entomology.assay.DDATestIntervalView[]" />
       </mdMethod>
     </mdView>
 
