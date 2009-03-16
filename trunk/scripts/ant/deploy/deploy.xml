@@ -230,8 +230,7 @@
 			<fileset dir="${webapp.root}">
 				<include name="**/*.jsp" />
 				<include name="**/*.html" />
-				<include name="js/*.js" />
-				<include name="js/yui/**" />
+				<include name="js/**" />
 				<include name="**/*.css" />
 				<include name="reports/**" />
 				<include name="imgs/**" />
@@ -365,7 +364,7 @@
 				<arg value="csu.mrc.ivcc.mdss.geo.generated" />
 				<arg value="csu.mrc.ivcc.mdss.util" />
 				<arg value="csu.mrc.ivcc.mdss" />
+				<arg value="csu.mrc.ivcc.mdss.report" />
 			</java>
 		</target>
-	
 </project>

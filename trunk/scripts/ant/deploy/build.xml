@@ -94,7 +94,7 @@
 	<target name="alert_status" unless="alert_status.done">
 		<sound>
 			<success source="../build_resources/build_complete.wav" />
-			<fail source="../build_resources/build_error.wav" loops="1" />
+			<fail source="../build_resources/build_error.wav" />
 		</sound>
 		<property name="alert_status.done" value="true" />
 	</target>
