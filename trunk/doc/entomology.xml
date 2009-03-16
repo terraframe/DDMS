@@ -1757,7 +1757,63 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           description="The interval time in minutes"
           default_value="10" />
       </attributes>
+      <mdMethod
+        name="getTestIntervals"
+        label="Get Test Intervals"
+        returnType="dss.vector.solutions.entomology.assay.DDATestIntervalView[]"
+        static="false"
+        description="Returns a list of test intervals">
+      </mdMethod>
+      <mdMethod
+        name="getKD50"
+        label="Get KD50"
+        returnType="java.lang.Double"
+        static="false"
+        description="Returns the predicted KD50" />
+      <mdMethod
+        name="getKD95"
+        label="Get KD95"
+        returnType="java.lang.Double"
+        static="false"
+        description="Returns the predicted KD95" />
     </mdBusiness>
+
+    <mdBusiness
+      name="dss.vector.solutions.entomology.assay.KnockDownAssay"
+      label="Knock Down Assay"
+      description="Knock down which can be performed on a group of adult mosquitos"
+      extends="dss.vector.solutions.entomology.assay.CollectionAssay">
+      <attributes>
+        <struct
+          name="ageRange"
+          label="Age Range"
+          required="false"
+          description="The age range of the mosquitos tested"
+          type="dss.vector.solutions.entomology.assay.AdultAgeRange" />
+        <integer
+          name="fed"
+          label="Fed"
+          description="Fed value (Only applicable when females are present)."
+          rejectNegative="true"
+          required="true"
+          default_value="0" />
+        <integer
+          name="gravid"
+          label="Gravid"
+          description="Gravid value (Only applicable when females are present)"
+          rejectNegative="true"
+          required="true"
+          default_value="0" />
+        <enumeration
+          name="sex"
+          label="Sex"
+          required="true"
+          description="The sex of the tested mosquitos"
+          selectMultiple="false"
+          type="dss.vector.solutions.entomology.AssaySex" />
+      </attributes>
+    </mdBusiness>
+
 
     <mdBusiness
       name="dss.vector.solutions.entomology.assay.DiscriminatingDoseAssay"
@@ -1802,27 +1858,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           description="Mortality rate of the control test"
           required="false" />
       </attributes>
-      <mdMethod
-        name="getTestIntervals"
-        label="Get Test Intervals"
-        returnType="dss.vector.solutions.entomology.assay.DDATestIntervalView[]"
-        static="false"
-        description="Returns a list of test intervals">
-      </mdMethod>
-      <mdMethod
-        name="getKD50"
-        label="Get KD50"
-        returnType="java.lang.Double"
-        static="false"
-        description="Returns the predicted KD50" />
-      <mdMethod
-        name="getKD95"
-        label="Get KD95"
-        returnType="java.lang.Double"
-        static="false"
-        description="Returns the predicted KD95" />
     </mdBusiness>
-
 
     <mdBusiness
       name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay"
@@ -2106,9 +2142,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <attributes>
         <reference
           name="assay"
-          label="Discriminating Dose Assay"
+          label="Collection Assay"
           required="true"
-          type="dss.vector.solutions.entomology.assay.DiscriminatingDoseAssay" />
+          type="dss.vector.solutions.entomology.assay.CollectionAssay" />
         <integer
           name="period"
           label="Period"
