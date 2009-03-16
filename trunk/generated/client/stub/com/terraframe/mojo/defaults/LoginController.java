@@ -8,7 +8,7 @@ import com.terraframe.mojo.constants.CommonProperties;
 import com.terraframe.mojo.constants.MdActionInfo;
 import com.terraframe.mojo.web.WebClientSession;
 
-import csu.mrc.ivcc.mdss.util.GlobalSessionListener;
+import dss.vector.solutions.util.GlobalSessionListener;
 
 public class LoginController extends LoginControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
