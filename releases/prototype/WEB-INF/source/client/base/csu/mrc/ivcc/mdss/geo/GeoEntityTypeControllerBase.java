@@ -9,7 +9,7 @@ public class GeoEntityTypeControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236982468225L;
+  private static final long serialVersionUID = 1237219385494L;
   
   public GeoEntityTypeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -63,29 +63,29 @@ public class GeoEntityTypeControllerBase implements com.terraframe.mojo.generati
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void newDefinition() throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:parentGeoHierarchyId", post=false)
+  public void newDefinition(java.lang.String parentGeoHierarchyId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.newDefinition");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failNewDefinition() throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:parentGeoHierarchyId", post=false)
+  public void failNewDefinition(java.lang.String parentGeoHierarchyId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.failNewDefinition");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="csu.mrc.ivcc.mdss.geo.GeoEntityDefinitionDTO:definition, [Ljava.lang.String;:allowedInIds", post=true)
-  public void createDefinition(csu.mrc.ivcc.mdss.geo.GeoEntityDefinitionDTO definition, java.lang.String[] allowedInIds) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="csu.mrc.ivcc.mdss.geo.GeoEntityDefinitionDTO:definition", post=true)
+  public void createDefinition(csu.mrc.ivcc.mdss.geo.GeoEntityDefinitionDTO definition) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.createDefinition");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="csu.mrc.ivcc.mdss.geo.GeoEntityDefinitionDTO:definition, [Ljava.lang.String;:allowedInIds", post=true)
-  public void failCreateDefinition(csu.mrc.ivcc.mdss.geo.GeoEntityDefinitionDTO definition, java.lang.String[] allowedInIds) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="csu.mrc.ivcc.mdss.geo.GeoEntityDefinitionDTO:definition", post=true)
+  public void failCreateDefinition(csu.mrc.ivcc.mdss.geo.GeoEntityDefinitionDTO definition) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.failCreateDefinition");
@@ -103,6 +103,48 @@ public class GeoEntityTypeControllerBase implements com.terraframe.mojo.generati
   {
     String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.failCancelCreateDefinition");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void viewAllDefinitions() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.viewAllDefinitions");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failViewAllDefinitions() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.failViewAllDefinitions");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
+  public void viewPageDefinitions(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.viewPageDefinitions");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.String:isAscending, java.lang.String:pageSize, java.lang.String:pageNumber", post=false)
+  public void failViewPageDefinitions(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.failViewPageDefinitions");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:rootGeoHierarchyId", post=false)
+  public void viewHierarchyTree(java.lang.String rootGeoHierarchyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.viewHierarchyTree");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:rootGeoHierarchyId", post=false)
+  public void failViewHierarchyTree(java.lang.String rootGeoHierarchyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.failViewHierarchyTree");
   }
   
 }

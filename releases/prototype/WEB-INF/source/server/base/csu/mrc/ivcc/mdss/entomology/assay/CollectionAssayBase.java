@@ -20,7 +20,7 @@ public abstract class CollectionAssayBase extends csu.mrc.ivcc.mdss.entomology.a
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String UNITS = "units";
-  private static final long serialVersionUID = 1236982472571L;
+  private static final long serialVersionUID = 1237219389444L;
   
   public CollectionAssayBase()
   {

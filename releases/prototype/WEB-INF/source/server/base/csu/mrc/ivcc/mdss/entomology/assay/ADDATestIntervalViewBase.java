@@ -10,44 +10,51 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public abstract class ADDATestIntervalViewBase extends com.terraframe.mojo.business.View implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView";
-  public static java.lang.String ASSAYID = "assayId";
+  public static java.lang.String ASSAY = "assay";
   public static java.lang.String ID = "id";
   public static java.lang.String INTERVALID = "intervalId";
   public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String KNOCKEDDOWN = "knockedDown";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = 1236982484219L;
+  private static final long serialVersionUID = 1237219401491L;
   
   public ADDATestIntervalViewBase()
   {
     super();
   }
   
-  public String getAssayId()
+  public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay getAssay()
   {
-    return getValue(ASSAYID);
+    try
+    {
+      return csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay.get(getValue(ASSAY));
+    }
+    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
+    {
+      return null;
+    }
   }
   
-  public void validateAssayId()
+  public void validateAssay()
   {
-    this.validateAttribute(ASSAYID);
+    this.validateAttribute(ASSAY);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAssayIdMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAssayMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView.CLASS);
-    return mdClassIF.definesAttribute(ASSAYID);
+    return mdClassIF.definesAttribute(ASSAY);
   }
   
-  public void setAssayId(String value)
+  public void setAssay(csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay value)
   {
     if(value == null)
     {
-      setValue(ASSAYID, "");
+      setValue(ASSAY, "");
     }
     else
     {
-      setValue(ASSAYID, value);
+      setValue(ASSAY, value.getId());
     }
   }
   

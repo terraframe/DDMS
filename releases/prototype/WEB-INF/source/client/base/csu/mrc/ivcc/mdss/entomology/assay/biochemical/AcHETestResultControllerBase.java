@@ -9,7 +9,7 @@ public class AcHETestResultControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236982469366L;
+  private static final long serialVersionUID = 1237219386229L;
   
   public AcHETestResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -133,14 +133,14 @@ public class AcHETestResultControllerBase implements com.terraframe.mojo.generat
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.entomology.assay.biochemical.AcHETestResultController.failCreate");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.entomology.assay.biochemical.AcHETestResultController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.entomology.assay.biochemical.AcHETestResultController.edit");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.entomology.assay.biochemical.AcHETestResultController.java";

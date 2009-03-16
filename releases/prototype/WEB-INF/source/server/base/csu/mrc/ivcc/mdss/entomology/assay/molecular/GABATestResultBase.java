@@ -11,7 +11,7 @@ public abstract class GABATestResultBase extends csu.mrc.ivcc.mdss.entomology.as
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.molecular.GABATestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1236982473697L;
+  private static final long serialVersionUID = 1237219390552L;
   
   public GABATestResultBase()
   {

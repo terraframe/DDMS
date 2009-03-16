@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public  class SentinalSiteQuery extends csu.mrc.ivcc.mdss.geo.generated.AbstractSiteQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982464528L;
+private static final long serialVersionUID = 1237219382147L;
 
   public SentinalSiteQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1236982464528L;
  implements SentinalSiteQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236982464641L;
+private static final long serialVersionUID = 1237219382268L;
 
   public SentinalSiteQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

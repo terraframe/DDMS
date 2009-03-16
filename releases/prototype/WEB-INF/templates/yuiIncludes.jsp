@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="java.util.*"%>
 <%--TO USE ME: <jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />--%>
+
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >
 
 <!--CSS for Controls:--> 
@@ -63,15 +63,22 @@ YUI download for details on each of the aggregate files and their contents):-->
 <script type="text/javascript" src="/MDSS/js/yui/build/uploader/uploader-min.js"></script> 
 
 
+<script type="text/javascript">
+var locale = "<%=request.getLocale().toString()%>";
+</script>
+
 <script type="text/javascript" src="js/Terraframe_Mojo.js"></script>
 <script type="text/javascript" src="js/MDSS.js"></script>
-<script type="text/javascript">var locale = "<%=request.getLocale().toString()%>";</script>
 <script type="text/javascript" src="js/Menu.js"></script>
-<script type="text/javascript" src="/MDSS/js/addCalendarWidgets.js"></script>
+<script type="text/javascript" src="js/date.js"></script>
+<script type="text/javascript" src="/MDSS/js/addCalendarWidgets.js.jsp"></script>
 <script type="text/javascript" src="js/dataTableWidget.js"></script>
+<script type="text/javascript" src="js/AbstractTree.js"></script>
 <script type="text/javascript" src="js/GeoEntityTree.js"></script>
+<script type="text/javascript" src="js/GeoHierarchyTree.js"></script>
 
 <!--  Stuff from the web designer  -->
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/reset-fonts-grids/reset-fonts-grids.css">
 <link href="/MDSS/css/style.css" rel="stylesheet" type="text/css">
+<link href="/MDSS/css/print_style.css" rel="stylesheet" type="text/css" media="print">
 

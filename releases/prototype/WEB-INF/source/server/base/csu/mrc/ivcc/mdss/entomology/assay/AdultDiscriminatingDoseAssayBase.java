@@ -16,7 +16,7 @@ public abstract class AdultDiscriminatingDoseAssayBase extends csu.mrc.ivcc.mdss
   public static java.lang.String FED = "fed";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String SEX = "sex";
-  private static final long serialVersionUID = 1236982479352L;
+  private static final long serialVersionUID = 1237219397048L;
   
   public AdultDiscriminatingDoseAssayBase()
   {

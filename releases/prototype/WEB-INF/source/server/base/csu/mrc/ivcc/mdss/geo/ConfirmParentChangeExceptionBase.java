@@ -12,7 +12,7 @@ public abstract class ConfirmParentChangeExceptionBase extends com.terraframe.mo
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.ConfirmParentChangeException";
   public static java.lang.String ENTITYNAME = "entityName";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1236982484680L;
+  private static final long serialVersionUID = 1237219401955L;
   
   public ConfirmParentChangeExceptionBase()
   {

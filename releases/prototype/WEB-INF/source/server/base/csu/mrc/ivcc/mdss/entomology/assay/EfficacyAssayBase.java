@@ -26,7 +26,7 @@ public abstract class EfficacyAssayBase extends csu.mrc.ivcc.mdss.entomology.ass
   public static java.lang.String SEX = "sex";
   public static java.lang.String SURFACEPOSTION = "surfacePostion";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1236982482937L;
+  private static final long serialVersionUID = 1237219400358L;
   
   public EfficacyAssayBase()
   {

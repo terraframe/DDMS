@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class DiscriminatingDoseAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.CollectionAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982463050L;
+  private static final long serialVersionUID = 1237219380547L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssay";
   protected DiscriminatingDoseAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public class TrapQueryDTO extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982484475L;
+private static final long serialVersionUID = 1237219401747L;
 
   protected TrapQueryDTO(String type)
   {

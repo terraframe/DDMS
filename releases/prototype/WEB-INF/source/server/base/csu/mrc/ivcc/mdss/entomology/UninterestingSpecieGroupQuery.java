@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology;
 public  class UninterestingSpecieGroupQuery extends csu.mrc.ivcc.mdss.entomology.TrueSpecieEntityQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982462769L;
+private static final long serialVersionUID = 1237219380307L;
 
   public UninterestingSpecieGroupQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -99,7 +99,7 @@ private static final long serialVersionUID = 1236982462769L;
  implements UninterestingSpecieGroupQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236982462891L;
+private static final long serialVersionUID = 1237219380403L;
 
   public UninterestingSpecieGroupQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

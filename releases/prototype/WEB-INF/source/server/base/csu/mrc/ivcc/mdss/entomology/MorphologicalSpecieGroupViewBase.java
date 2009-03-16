@@ -16,7 +16,7 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String SPECIE = "specie";
-  private static final long serialVersionUID = 1236982476555L;
+  private static final long serialVersionUID = 1237219393476L;
   
   public MorphologicalSpecieGroupViewBase()
   {

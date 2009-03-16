@@ -24,7 +24,7 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236982465177L;
+  private static final long serialVersionUID = 1237219382770L;
   
   public GeoHierarchyBase()
   {
@@ -423,14 +423,44 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
     return null;
   }
   
-  public static csu.mrc.ivcc.mdss.geo.GeoHierarchyView defineGeoEntity(csu.mrc.ivcc.mdss.geo.GeoEntityDefinition definition, java.lang.String[] allowedIn)
+  public static csu.mrc.ivcc.mdss.geo.GeoHierarchyView defineGeoEntity(csu.mrc.ivcc.mdss.geo.GeoEntityDefinition definition)
   {
     return null;
   }
   
-  public static csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQuery getGeoEntityHierarchyViews()
+  public static csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQuery getGeoEntityHierarchyViews(java.lang.String sortAttribute, java.lang.Boolean ascending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     return null;
+  }
+  
+  public static void deleteGeoHierarchy(java.lang.String geoHierarchyId)
+  {
+  }
+  
+  public csu.mrc.ivcc.mdss.geo.GeoHierarchyView getViewForGeoHierarchy()
+  {
+    return null;
+  }
+  
+  public static final csu.mrc.ivcc.mdss.geo.GeoHierarchyView getViewForGeoHierarchy(java.lang.String id)
+  {
+    GeoHierarchy _instance = GeoHierarchy.get(id);
+    return _instance.getViewForGeoHierarchy();
+  }
+  
+  public csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQuery getOrderedChildren()
+  {
+    return null;
+  }
+  
+  public static final csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQuery getOrderedChildren(java.lang.String id)
+  {
+    GeoHierarchy _instance = GeoHierarchy.get(id);
+    return _instance.getOrderedChildren();
+  }
+  
+  public static void applyExistingWithParent(java.lang.String childGeoHierarchyId, java.lang.String parentGeoHierarchyId, java.lang.Boolean cloneOperation)
+  {
   }
   
   public static GeoHierarchy lock(java.lang.String id)

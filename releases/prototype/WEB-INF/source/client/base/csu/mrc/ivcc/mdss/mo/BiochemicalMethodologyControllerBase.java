@@ -9,7 +9,7 @@ public class BiochemicalMethodologyControllerBase implements com.terraframe.mojo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1236982481453L;
+  private static final long serialVersionUID = 1237219398996L;
   
   public BiochemicalMethodologyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -133,14 +133,14 @@ public class BiochemicalMethodologyControllerBase implements com.terraframe.mojo
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyController.failCreate");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyController.edit");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in csu.mrc.ivcc.mdss.mo.BiochemicalMethodologyController.java";

@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public abstract class LarvaeAgeBase extends csu.mrc.ivcc.mdss.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.LarvaeAge";
-  private static final long serialVersionUID = 1236982475082L;
+  private static final long serialVersionUID = 1237219391926L;
   
   public LarvaeAgeBase()
   {

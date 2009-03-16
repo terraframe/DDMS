@@ -11,7 +11,7 @@ public abstract class AcHETestResultBase extends csu.mrc.ivcc.mdss.entomology.as
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.biochemical.AcHETestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1236982467367L;
+  private static final long serialVersionUID = 1237219384563L;
   
   public AcHETestResultBase()
   {

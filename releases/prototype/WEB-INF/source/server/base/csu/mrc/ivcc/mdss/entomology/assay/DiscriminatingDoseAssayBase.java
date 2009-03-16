@@ -15,7 +15,7 @@ public abstract class DiscriminatingDoseAssayBase extends csu.mrc.ivcc.mdss.ento
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
-  private static final long serialVersionUID = 1236982462969L;
+  private static final long serialVersionUID = 1237219380473L;
   
   public DiscriminatingDoseAssayBase()
   {

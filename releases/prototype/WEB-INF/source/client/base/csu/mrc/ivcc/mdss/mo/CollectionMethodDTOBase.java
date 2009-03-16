@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.mo;
 
 public abstract class CollectionMethodDTOBase extends csu.mrc.ivcc.mdss.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982467071L;
+  private static final long serialVersionUID = 1237219384253L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.CollectionMethod";
   protected CollectionMethodDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo;
 public class SpatialMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982463668L;
+private static final long serialVersionUID = 1237219381089L;
 
   protected SpatialMasterQueryDTO(String type)
   {

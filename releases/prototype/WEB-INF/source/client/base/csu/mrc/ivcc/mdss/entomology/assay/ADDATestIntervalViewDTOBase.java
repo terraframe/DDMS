@@ -13,47 +13,47 @@ public abstract class ADDATestIntervalViewDTOBase extends com.terraframe.mojo.bu
     return CLASS;
   }
   
-  public static java.lang.String ASSAYID = "assayId";
+  public static java.lang.String ASSAY = "assay";
   public static java.lang.String ID = "id";
   public static java.lang.String INTERVALID = "intervalId";
   public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String KNOCKEDDOWN = "knockedDown";
   public static java.lang.String PERIOD = "period";
-  public String getAssayId()
+  public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayDTO getAssay()
   {
-    return getValue(ASSAYID);
-  }
-  
-  public void setAssayId(String value)
-  {
-    if(value == null)
+    if(getValue(ASSAY) == null || getValue(ASSAY).trim().equals(""))
     {
-      setValue(ASSAYID, "");
+      return null;
     }
     else
     {
-      setValue(ASSAYID, value);
+      return csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayDTO.get(getRequest(), getValue(ASSAY));
     }
   }
   
-  public boolean isAssayIdWritable()
+  public void setAssay(csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayDTO value)
   {
-    return isWritable(ASSAYID);
+    setValue(ASSAY, value.getId());
   }
   
-  public boolean isAssayIdReadable()
+  public boolean isAssayWritable()
   {
-    return isReadable(ASSAYID);
+    return isWritable(ASSAY);
   }
   
-  public boolean isAssayIdModified()
+  public boolean isAssayReadable()
   {
-    return isModified(ASSAYID);
+    return isReadable(ASSAY);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAssayIdMd()
+  public boolean isAssayModified()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("assayId").getAttributeMdDTO();
+    return isModified(ASSAY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAssayMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("assay").getAttributeMdDTO();
   }
   
   public String getIntervalId()

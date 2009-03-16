@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public class PopulatedAreaQueryDTO extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982466209L;
+private static final long serialVersionUID = 1237219383512L;
 
   protected PopulatedAreaQueryDTO(String type)
   {

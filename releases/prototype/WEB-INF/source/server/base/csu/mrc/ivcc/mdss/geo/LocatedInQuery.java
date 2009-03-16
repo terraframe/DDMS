@@ -9,7 +9,7 @@ package csu.mrc.ivcc.mdss.geo;
  */
 public  class LocatedInQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982479342L;
+private static final long serialVersionUID = 1237219397032L;
 
   public LocatedInQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

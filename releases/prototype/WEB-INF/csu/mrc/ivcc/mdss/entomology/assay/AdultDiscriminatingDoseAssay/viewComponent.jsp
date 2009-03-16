@@ -313,7 +313,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     	            {key:"Percent",label:"%",resizeable:true} ],
     	        defaults: {IntervalId:"",Period:"",IntervalTime:"",KnockedDown:"",Percent:""},
     	        div_id: "intervals",
-    	        collection_setter: "setAssayId('${item.id}')",
+    	        collection_setter: "setAssay('${item.id}')",
         	    data_type: "Mojo.$.csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView",
         	    after_row_edit:function(record){record.setData('Percent',((parseInt(record.getData('KnockedDown'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%");}
     	    };   

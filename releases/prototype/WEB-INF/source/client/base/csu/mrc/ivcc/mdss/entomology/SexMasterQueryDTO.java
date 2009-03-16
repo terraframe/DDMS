@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology;
 public class SexMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982460827L;
+private static final long serialVersionUID = 1237219378055L;
 
   protected SexMasterQueryDTO(String type)
   {

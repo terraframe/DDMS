@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public abstract class CountryBase extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.Country";
-  private static final long serialVersionUID = 1236982481189L;
+  private static final long serialVersionUID = 1237219398652L;
   
   public CountryBase()
   {

@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class LarvaeAgeRangeDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982477612L;
+  private static final long serialVersionUID = 1237219395263L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.LarvaeAgeRange";
   protected LarvaeAgeRangeDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

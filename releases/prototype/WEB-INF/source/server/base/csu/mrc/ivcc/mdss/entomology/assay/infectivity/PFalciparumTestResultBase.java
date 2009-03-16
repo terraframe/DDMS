@@ -11,7 +11,7 @@ public abstract class PFalciparumTestResultBase extends csu.mrc.ivcc.mdss.entomo
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.infectivity.PFalciparumTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1236982471852L;
+  private static final long serialVersionUID = 1237219388480L;
   
   public PFalciparumTestResultBase()
   {

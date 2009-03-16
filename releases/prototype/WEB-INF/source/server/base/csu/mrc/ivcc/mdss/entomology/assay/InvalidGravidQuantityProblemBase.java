@@ -13,7 +13,7 @@ public abstract class InvalidGravidQuantityProblemBase extends com.terraframe.mo
   public static java.lang.String ASSAYID = "assayId";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1236982464101L;
+  private static final long serialVersionUID = 1237219381621L;
   
   public InvalidGravidQuantityProblemBase()
   {

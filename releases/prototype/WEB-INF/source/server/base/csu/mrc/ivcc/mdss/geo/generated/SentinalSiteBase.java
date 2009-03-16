@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public abstract class SentinalSiteBase extends csu.mrc.ivcc.mdss.geo.generated.AbstractSite implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.SentinalSite";
-  private static final long serialVersionUID = 1236982464411L;
+  private static final long serialVersionUID = 1237219382050L;
   
   public SentinalSiteBase()
   {

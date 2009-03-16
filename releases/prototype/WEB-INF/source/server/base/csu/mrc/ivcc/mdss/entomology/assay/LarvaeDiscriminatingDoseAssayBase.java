@@ -11,7 +11,7 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends csu.mrc.ivcc.mds
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.LarvaeDiscriminatingDoseAssay";
   public static java.lang.String AGERANGE = "ageRange";
-  private static final long serialVersionUID = 1236982476581L;
+  private static final long serialVersionUID = 1237219394298L;
   
   public LarvaeDiscriminatingDoseAssayBase()
   {
@@ -68,6 +68,16 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends csu.mrc.ivcc.mds
   public static LarvaeDiscriminatingDoseAssay get(String id)
   {
     return (LarvaeDiscriminatingDoseAssay) com.terraframe.mojo.business.Business.get(id);
+  }
+  
+  public void setAgeRange(csu.mrc.ivcc.mdss.mo.LarvaeAge startAge, csu.mrc.ivcc.mdss.mo.LarvaeAge endAge)
+  {
+  }
+  
+  public static final void setAgeRange(java.lang.String id, csu.mrc.ivcc.mdss.mo.LarvaeAge startAge, csu.mrc.ivcc.mdss.mo.LarvaeAge endAge)
+  {
+    LarvaeDiscriminatingDoseAssay _instance = LarvaeDiscriminatingDoseAssay.get(id);
+    _instance.setAgeRange(startAge, endAge);
   }
   
   public static LarvaeDiscriminatingDoseAssay lock(java.lang.String id)

@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982476633L;
+  private static final long serialVersionUID = 1237219394341L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.LarvaeDiscriminatingDoseAssay";
   protected LarvaeDiscriminatingDoseAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -62,6 +62,22 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends csu.mrc.ivcc.
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAgeRangeMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("ageRange").getAttributeMdDTO();
+  }
+  
+  public final void setAgeRange(csu.mrc.ivcc.mdss.mo.LarvaeAgeDTO startAge, csu.mrc.ivcc.mdss.mo.LarvaeAgeDTO endAge)
+  {
+    String[] _declaredTypes = new String[]{"csu.mrc.ivcc.mdss.mo.LarvaeAge", "csu.mrc.ivcc.mdss.mo.LarvaeAge"};
+    Object[] _parameters = new Object[]{startAge, endAge};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.CLASS, "setAgeRange", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void setAgeRange(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, csu.mrc.ivcc.mdss.mo.LarvaeAgeDTO startAge, csu.mrc.ivcc.mdss.mo.LarvaeAgeDTO endAge)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "csu.mrc.ivcc.mdss.mo.LarvaeAge", "csu.mrc.ivcc.mdss.mo.LarvaeAge"};
+    Object[] _parameters = new Object[]{id, startAge, endAge};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.CLASS, "setAgeRange", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static csu.mrc.ivcc.mdss.entomology.assay.LarvaeDiscriminatingDoseAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

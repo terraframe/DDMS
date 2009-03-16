@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="tlds/mojoLib.tld" prefix="mjl"%>
-<%@page import="csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO"%>
+<%@page import="dss.vector.solutions.geo.GeoHierarchyDTO"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 
-<%@page import="csu.mrc.ivcc.mdss.geo.GeoEntityTreeController"%>
+<%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <script type="text/javascript">
 
   <%
@@ -30,6 +30,6 @@
   %>
   
   MDSS.GeoTreeSelectables = <%= tree %>;
-  MDSS.GeoTreeRootId = '<%= rootId %>';
+  MDSS.GeoEntityTreeRootId = '<%= rootId %>';
   
 </script>

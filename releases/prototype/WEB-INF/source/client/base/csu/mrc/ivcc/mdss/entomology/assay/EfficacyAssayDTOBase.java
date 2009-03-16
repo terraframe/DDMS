@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 
 public abstract class EfficacyAssayDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982482997L;
+  private static final long serialVersionUID = 1237219400404L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssay";
   protected EfficacyAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

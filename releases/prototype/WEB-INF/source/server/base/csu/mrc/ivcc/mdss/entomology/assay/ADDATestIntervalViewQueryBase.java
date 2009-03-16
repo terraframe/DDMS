@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public  abstract  class ADDATestIntervalViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982484230L;
+private static final long serialVersionUID = 1237219401500L;
 
   public ADDATestIntervalViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -25,18 +25,18 @@ private static final long serialVersionUID = 1236982484230L;
   {
     return "csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView";
   }
-  public com.terraframe.mojo.query.AttributeCharIF getAssayId()
+  public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReferenceIF getAssay()
   {
-    return getAssayId(null);
+    return getAssay(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeCharIF getAssayId(String alias)
+  public csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReferenceIF getAssay(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView.ASSAYID, alias);
+
+    return (csu.mrc.ivcc.mdss.entomology.assay.DiscriminatingDoseAssayQuery.DiscriminatingDoseAssayQueryReferenceIF)this.getSelectable(csu.mrc.ivcc.mdss.entomology.assay.ADDATestIntervalView.ASSAY, alias);
 
   }
- 
   public com.terraframe.mojo.query.AttributeCharIF getId()
   {
     return getId(null);

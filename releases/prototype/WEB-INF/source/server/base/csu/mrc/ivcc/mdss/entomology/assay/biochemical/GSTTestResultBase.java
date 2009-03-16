@@ -11,7 +11,7 @@ public abstract class GSTTestResultBase extends csu.mrc.ivcc.mdss.entomology.ass
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.biochemical.GSTTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1236982458944L;
+  private static final long serialVersionUID = 1237219376463L;
   
   public GSTTestResultBase()
   {

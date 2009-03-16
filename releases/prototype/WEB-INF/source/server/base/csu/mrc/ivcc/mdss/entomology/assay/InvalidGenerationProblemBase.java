@@ -12,7 +12,7 @@ public abstract class InvalidGenerationProblemBase extends com.terraframe.mojo.b
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.InvalidGenerationProblem";
   public static java.lang.String ASSAYID = "assayId";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1236982470944L;
+  private static final long serialVersionUID = 1237219387768L;
   
   public InvalidGenerationProblemBase()
   {

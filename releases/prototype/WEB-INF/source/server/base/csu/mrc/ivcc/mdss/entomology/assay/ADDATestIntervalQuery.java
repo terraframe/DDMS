@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public  class ADDATestIntervalQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982471066L;
+private static final long serialVersionUID = 1237219387960L;
 
   public ADDATestIntervalQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -321,7 +321,7 @@ private static final long serialVersionUID = 1236982471066L;
  implements ADDATestIntervalQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236982471164L;
+private static final long serialVersionUID = 1237219388055L;
 
   public ADDATestIntervalQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

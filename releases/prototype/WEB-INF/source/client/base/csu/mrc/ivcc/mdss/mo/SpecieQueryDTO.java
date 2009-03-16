@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public class SpecieQueryDTO extends csu.mrc.ivcc.mdss.mo.AbstractTermQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982461462L;
+private static final long serialVersionUID = 1237219378522L;
 
   protected SpecieQueryDTO(String type)
   {

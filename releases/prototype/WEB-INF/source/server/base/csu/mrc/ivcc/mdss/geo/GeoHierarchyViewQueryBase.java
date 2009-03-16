@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo;
 public  abstract  class GeoHierarchyViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982479755L;
+private static final long serialVersionUID = 1237219397041L;
 
   public GeoHierarchyViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

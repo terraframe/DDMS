@@ -12,7 +12,7 @@ public abstract class MosquitoCollectionPointViewBase extends csu.mrc.ivcc.mdss.
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.MosquitoCollectionPointView";
   public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String GEOENTITY = "geoEntity";
-  private static final long serialVersionUID = 1236982465143L;
+  private static final long serialVersionUID = 1237219382747L;
   
   public MosquitoCollectionPointViewBase()
   {

@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public abstract class AbstractSiteBase extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.AbstractSite";
-  private static final long serialVersionUID = 1236982477123L;
+  private static final long serialVersionUID = 1237219394578L;
   
   public AbstractSiteBase()
   {

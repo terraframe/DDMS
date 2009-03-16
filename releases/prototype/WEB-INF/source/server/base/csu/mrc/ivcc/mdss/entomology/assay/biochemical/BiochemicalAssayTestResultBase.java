@@ -11,7 +11,7 @@ public abstract class BiochemicalAssayTestResultBase extends csu.mrc.ivcc.mdss.e
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResult";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1236982467987L;
+  private static final long serialVersionUID = 1237219385172L;
   
   public BiochemicalAssayTestResultBase()
   {

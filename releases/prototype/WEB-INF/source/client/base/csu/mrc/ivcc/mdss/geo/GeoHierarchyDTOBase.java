@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo;
 
 public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982465532L;
+  private static final long serialVersionUID = 1237219382891L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.GeoHierarchy";
   protected GeoHierarchyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -417,20 +417,68 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final csu.mrc.ivcc.mdss.geo.GeoHierarchyViewDTO defineGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, csu.mrc.ivcc.mdss.geo.GeoEntityDefinitionDTO definition, java.lang.String[] allowedIn)
+  public static final csu.mrc.ivcc.mdss.geo.GeoHierarchyViewDTO defineGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, csu.mrc.ivcc.mdss.geo.GeoEntityDefinitionDTO definition)
   {
-    String[] _declaredTypes = new String[]{"csu.mrc.ivcc.mdss.geo.GeoEntityDefinition", "[Ljava.lang.String;"};
-    Object[] _parameters = new Object[]{definition, allowedIn};
+    String[] _declaredTypes = new String[]{"csu.mrc.ivcc.mdss.geo.GeoEntityDefinition"};
+    Object[] _parameters = new Object[]{definition};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO.CLASS, "defineGeoEntity", _declaredTypes);
     return (csu.mrc.ivcc.mdss.geo.GeoHierarchyViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQueryDTO getGeoEntityHierarchyViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static final csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQueryDTO getGeoEntityHierarchyViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean ascending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{sortAttribute, ascending, pageSize, pageNumber};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO.CLASS, "getGeoEntityHierarchyViews", _declaredTypes);
+    return (csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void deleteGeoHierarchy(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoHierarchyId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{geoHierarchyId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO.CLASS, "deleteGeoHierarchy", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final csu.mrc.ivcc.mdss.geo.GeoHierarchyViewDTO getViewForGeoHierarchy()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO.CLASS, "getGeoEntityHierarchyViews", _declaredTypes);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO.CLASS, "getViewForGeoHierarchy", _declaredTypes);
+    return (csu.mrc.ivcc.mdss.geo.GeoHierarchyViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final csu.mrc.ivcc.mdss.geo.GeoHierarchyViewDTO getViewForGeoHierarchy(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO.CLASS, "getViewForGeoHierarchy", _declaredTypes);
+    return (csu.mrc.ivcc.mdss.geo.GeoHierarchyViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQueryDTO getOrderedChildren()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO.CLASS, "getOrderedChildren", _declaredTypes);
+    return (csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQueryDTO getOrderedChildren(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO.CLASS, "getOrderedChildren", _declaredTypes);
     return (csu.mrc.ivcc.mdss.geo.GeoHierarchyViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void applyExistingWithParent(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String childGeoHierarchyId, java.lang.String parentGeoHierarchyId, java.lang.Boolean cloneOperation)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{childGeoHierarchyId, parentGeoHierarchyId, cloneOperation};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.GeoHierarchyDTO.CLASS, "applyExistingWithParent", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   @SuppressWarnings("unchecked")

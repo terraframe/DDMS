@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public  class InsecticideMethodologyQuery extends csu.mrc.ivcc.mdss.mo.AbstractTermQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982476941L;
+private static final long serialVersionUID = 1237219394115L;
 
   public InsecticideMethodologyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1236982476941L;
  implements InsecticideMethodologyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236982477045L;
+private static final long serialVersionUID = 1237219394222L;
 
   public InsecticideMethodologyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

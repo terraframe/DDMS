@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.biochemical;
 
 public abstract class AcHETestResultDTOBase extends csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982467404L;
+  private static final long serialVersionUID = 1237219384601L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.assay.biochemical.AcHETestResult";
   protected AcHETestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

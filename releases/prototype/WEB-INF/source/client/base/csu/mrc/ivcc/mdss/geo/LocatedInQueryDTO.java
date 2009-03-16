@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo;
 public class LocatedInQueryDTO extends com.terraframe.mojo.business.RelationshipQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982479343L;
+private static final long serialVersionUID = 1237219397034L;
 
   protected LocatedInQueryDTO(String type)
   {

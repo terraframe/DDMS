@@ -25,7 +25,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236982460832L;
+  private static final long serialVersionUID = 1237219378531L;
   
   public GeoEntityBase()
   {
@@ -466,26 +466,26 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     _instance.confirmChangeParent(parentId);
   }
   
-  public csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery getOrderedChildEntities()
+  public csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery getOrderedChildren()
   {
     return null;
   }
   
-  public static final csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery getOrderedChildEntities(java.lang.String id)
+  public static final csu.mrc.ivcc.mdss.geo.generated.GeoEntityQuery getOrderedChildren(java.lang.String id)
   {
     GeoEntity _instance = GeoEntity.get(id);
-    return _instance.getOrderedChildEntities();
+    return _instance.getOrderedChildren();
   }
   
-  public java.lang.String[] applyWithParentGeoEntity(java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
+  public java.lang.String[] applyWithParent(java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
   {
     return null;
   }
   
-  public static final java.lang.String[] applyWithParentGeoEntity(java.lang.String id, java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
+  public static final java.lang.String[] applyWithParent(java.lang.String id, java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
   {
     GeoEntity _instance = GeoEntity.get(id);
-    return _instance.applyWithParentGeoEntity(parentGeoEntityId, cloneOperation);
+    return _instance.applyWithParent(parentGeoEntityId, cloneOperation);
   }
   
   public static GeoEntity lock(java.lang.String id)

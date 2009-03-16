@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982460918L;
+  private static final long serialVersionUID = 1237219378604L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.GeoEntity";
   protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -487,35 +487,35 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO getOrderedChildEntities()
+  public final csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO getOrderedChildren()
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildEntities", _declaredTypes);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildren", _declaredTypes);
     return (csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO getOrderedChildEntities(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO getOrderedChildren(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildEntities", _declaredTypes);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildren", _declaredTypes);
     return (csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final java.lang.String[] applyWithParentGeoEntity(java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
+  public final java.lang.String[] applyWithParent(java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{parentGeoEntityId, cloneOperation};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "applyWithParentGeoEntity", _declaredTypes);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "applyWithParent", _declaredTypes);
     return (java.lang.String[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.lang.String[] applyWithParentGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
+  public static final java.lang.String[] applyWithParent(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean"};
     Object[] _parameters = new Object[]{id, parentGeoEntityId, cloneOperation};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "applyWithParentGeoEntity", _declaredTypes);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(csu.mrc.ivcc.mdss.geo.generated.GeoEntityDTO.CLASS, "applyWithParent", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

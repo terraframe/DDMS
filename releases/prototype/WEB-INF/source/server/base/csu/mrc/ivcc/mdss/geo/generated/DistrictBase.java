@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public abstract class DistrictBase extends csu.mrc.ivcc.mdss.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.District";
-  private static final long serialVersionUID = 1236982472811L;
+  private static final long serialVersionUID = 1237219389677L;
   
   public DistrictBase()
   {

@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.util;
 public class FacadeQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982482293L;
+private static final long serialVersionUID = 1237219399883L;
 
   protected FacadeQueryDTO(String type)
   {

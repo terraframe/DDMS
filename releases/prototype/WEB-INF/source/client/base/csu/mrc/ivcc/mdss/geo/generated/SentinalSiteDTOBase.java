@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public abstract class SentinalSiteDTOBase extends csu.mrc.ivcc.mdss.geo.generated.AbstractSiteDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982464465L;
+  private static final long serialVersionUID = 1237219382099L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.SentinalSite";
   protected SentinalSiteDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

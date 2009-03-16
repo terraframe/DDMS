@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology;
 public abstract class SexMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.entomology.SexMaster";
-  private static final long serialVersionUID = 1236982460597L;
+  private static final long serialVersionUID = 1237219377814L;
   
   public SexMasterBase()
   {

@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo;
 public  abstract  class GeoEntityDefinitionQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982476080L;
+private static final long serialVersionUID = 1237219393212L;
 
   public GeoEntityDefinitionQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -58,6 +58,18 @@ private static final long serialVersionUID = 1236982476080L;
   public com.terraframe.mojo.query.AttributeCharIF getId(String alias)
   {
     return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(csu.mrc.ivcc.mdss.geo.GeoEntityDefinition.ID, alias);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getParentGeoHierarchyId()
+  {
+    return getParentGeoHierarchyId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getParentGeoHierarchyId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(csu.mrc.ivcc.mdss.geo.GeoEntityDefinition.PARENTGEOHIERARCHYID, alias);
 
   }
  

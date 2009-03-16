@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public abstract class SpecieBase extends csu.mrc.ivcc.mdss.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.Specie";
-  private static final long serialVersionUID = 1236982461223L;
+  private static final long serialVersionUID = 1237219378296L;
   
   public SpecieBase()
   {

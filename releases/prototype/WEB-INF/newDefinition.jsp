@@ -1,10 +1,13 @@
+<jsp:include page="/WEB-INF/inlineError.jsp" />
+
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:form name="csu.mrc.ivcc.mdss.geo.generated.GeoEntity.form.name" id="csu.mrc.ivcc.mdss.geo.generated.GeoEntity.form.id" method="POST">
+<mjl:form name="dss.vector.solutions.geo.generated.GeoEntity.form.name" id="dss.vector.solutions.geo.generated.GeoEntity.form.id" method="POST">
   <mjl:component item="${definition}" param="definition">
+  <mjl:input type="hidden" param="parentGeoHierarchyId" />
     <dl>
       <dt>
         <label>
@@ -41,30 +44,38 @@
       </dd>
       <dt>
         <label>
-          ${definition.parentTypeMdId.displayLabel}
+          ${definition.parentTypeIdMd.displayLabel}
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" param="parentType" items="${availableParents}">
+        <mjl:select var="current" valueAttribute="referenceId" param="parentTypeId" items="${availableParents}">
           <mjl:option>
-            ${current.keyName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
       </dd>
       <dt>
         <label>
-          ${definition.allowedInMd.displayLabel}
+          ${definition.politicalMd.displayLabel}
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" param="allowedIn" items="${allowedInParents}">
+        <mjl:boolean param="political" />
+      </dd>
+      <dt>
+        <label>
+          ${definition.spatialTypeMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:select var="current" valueAttribute="enumName" param="spatialType" items="${types}">
           <mjl:option>
-            ${current.keyName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
       </dd>
-    </dl>
   </mjl:component>
-  <mjl:command value="Create" action="csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.createDefinition.mojo" name="csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.form.createDefinition.button" />
-  <mjl:command value="Cancel" action="csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.cancelCreateDefinition.mojo" name="csu.mrc.ivcc.mdss.geo.GeoEntityTypeController.form.cancelCreateDefinition.button" />
+    </dl>
+  <mjl:command value="Create" action="dss.vector.solutions.geo.GeoEntityTypeController.createDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.createDefinition.button" />
+  <mjl:command value="Cancel" action="dss.vector.solutions.geo.GeoEntityTypeController.cancelCreateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.cancelCreateDefinition.button" />
 </mjl:form>

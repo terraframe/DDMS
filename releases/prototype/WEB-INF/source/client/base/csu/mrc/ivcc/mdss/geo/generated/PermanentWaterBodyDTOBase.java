@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 
 public abstract class PermanentWaterBodyDTOBase extends csu.mrc.ivcc.mdss.geo.generated.BreedingSiteDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982472119L;
+  private static final long serialVersionUID = 1237219389014L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.geo.generated.PermanentWaterBody";
   protected PermanentWaterBodyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

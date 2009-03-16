@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.mo;
 public abstract class InsecticideBase extends csu.mrc.ivcc.mdss.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.Insecticide";
-  private static final long serialVersionUID = 1236982483679L;
+  private static final long serialVersionUID = 1237219400870L;
   
   public InsecticideBase()
   {

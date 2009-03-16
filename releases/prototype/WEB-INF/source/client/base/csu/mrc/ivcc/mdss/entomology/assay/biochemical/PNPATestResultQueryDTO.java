@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.biochemical;
 public class PNPATestResultQueryDTO extends csu.mrc.ivcc.mdss.entomology.assay.biochemical.BiochemicalAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982460591L;
+private static final long serialVersionUID = 1237219378292L;
 
   protected PNPATestResultQueryDTO(String type)
   {

@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay.molecular;
 public class WKDRTestResultQueryDTO extends csu.mrc.ivcc.mdss.entomology.assay.molecular.MolecularAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982474180L;
+private static final long serialVersionUID = 1237219391047L;
 
   protected WKDRTestResultQueryDTO(String type)
   {

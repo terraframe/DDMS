@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.geo.generated;
 public class AbstractSiteQueryDTO extends csu.mrc.ivcc.mdss.geo.generated.GeoEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982477387L;
+private static final long serialVersionUID = 1237219394842L;
 
   protected AbstractSiteQueryDTO(String type)
   {

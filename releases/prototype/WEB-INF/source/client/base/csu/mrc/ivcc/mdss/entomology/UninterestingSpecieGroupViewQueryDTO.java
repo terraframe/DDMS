@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology;
 public class UninterestingSpecieGroupViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982467357L;
+private static final long serialVersionUID = 1237219384552L;
 
   protected UninterestingSpecieGroupViewQueryDTO(String type)
   {

@@ -13,11 +13,12 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
   public static java.lang.String DESCRIPTION = "description";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
+  public static java.lang.String PARENTGEOHIERARCHYID = "parentGeoHierarchyId";
   public static java.lang.String PARENTTYPEID = "parentTypeId";
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String SPATIALTYPE = "spatialType";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = 1236982476077L;
+  private static final long serialVersionUID = 1237219393199L;
   
   public GeoEntityDefinitionBase()
   {
@@ -94,6 +95,34 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.geo.GeoEntityDefinition.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getParentGeoHierarchyId()
+  {
+    return getValue(PARENTGEOHIERARCHYID);
+  }
+  
+  public void validateParentGeoHierarchyId()
+  {
+    this.validateAttribute(PARENTGEOHIERARCHYID);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getParentGeoHierarchyIdMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(csu.mrc.ivcc.mdss.geo.GeoEntityDefinition.CLASS);
+    return mdClassIF.definesAttribute(PARENTGEOHIERARCHYID);
+  }
+  
+  public void setParentGeoHierarchyId(String value)
+  {
+    if(value == null)
+    {
+      setValue(PARENTGEOHIERARCHYID, "");
+    }
+    else
+    {
+      setValue(PARENTGEOHIERARCHYID, value);
+    }
   }
   
   public String getParentTypeId()

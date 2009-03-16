@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.mo;
 
 public abstract class LarvaeAgeDTOBase extends csu.mrc.ivcc.mdss.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982475116L;
+  private static final long serialVersionUID = 1237219391962L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.LarvaeAge";
   protected LarvaeAgeDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

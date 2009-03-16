@@ -2,7 +2,7 @@ package csu.mrc.ivcc.mdss.mo;
 
 public abstract class IdentificationMethodDTOBase extends csu.mrc.ivcc.mdss.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236982462302L;
+  private static final long serialVersionUID = 1237219379913L;
   
   public final static String CLASS = "csu.mrc.ivcc.mdss.mo.IdentificationMethod";
   protected IdentificationMethodDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

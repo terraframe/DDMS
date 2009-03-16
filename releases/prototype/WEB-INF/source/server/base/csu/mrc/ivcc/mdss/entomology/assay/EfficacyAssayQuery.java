@@ -10,7 +10,7 @@ package csu.mrc.ivcc.mdss.entomology.assay;
 public  class EfficacyAssayQuery extends csu.mrc.ivcc.mdss.entomology.assay.AbstractAssayQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1236982483039L;
+private static final long serialVersionUID = 1237219400443L;
 
   public EfficacyAssayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -320,7 +320,7 @@ private static final long serialVersionUID = 1236982483039L;
  implements EfficacyAssayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1236982483136L;
+private static final long serialVersionUID = 1237219400535L;
 
   public EfficacyAssayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

@@ -24,7 +24,7 @@
                              
                              </li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><f:message key="Backup_Data"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="csu.mrc.ivcc.mdss.PropertyController.viewAll.mojo"><f:message key="Change_Settings"/></a></li>                                  
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.PropertyController.viewAll.mojo"><f:message key="Change_Settings"/></a></li>                                  
                          </ul>
                      </div>
                  </div>      
@@ -47,10 +47,10 @@
                  <div id="entomology" class="yuimenu">
                      <div class="bd">                    
                          <ul>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.search.mojo"><f:message key="Search_Mosquito_Collections"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="csu.mrc.ivcc.mdss.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>                               
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="csu.mrc.ivcc.mdss.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="View_All_ADDA"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="csu.mrc.ivcc.mdss.entomology.assay.EfficacyAssayController.viewAll.mojo"><f:message key="View_All_EfficacyAssay"/></a></li>                            
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo"><f:message key="Search_Mosquito_Collections"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>                               
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="View_All_ADDA"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo"><f:message key="View_All_EfficacyAssay"/></a></li>                            
                          </ul>                    
                      </div>
                  </div>                                        
@@ -97,7 +97,8 @@
                  <div id="gis" class="yuimenu">
                      <div class="bd">                                        
                          <ul>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="csu.mrc.ivcc.mdss.geo.generated.GeoEntityController.viewAll.mojo"><f:message key="View_GeoEntites"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.geo.GeoEntityTypeController.viewAllDefinitions.mojo"><f:message key="View_GeoEntityTypes"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.geo.generated.GeoEntityController.viewAll.mojo"><f:message key="View_GeoEntites"/></a></li>
                          </ul>                    
                      </div>
 

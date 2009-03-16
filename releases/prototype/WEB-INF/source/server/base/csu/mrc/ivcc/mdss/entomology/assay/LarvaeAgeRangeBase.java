@@ -24,7 +24,7 @@ public abstract class LarvaeAgeRangeBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String STARTPOINT = "startPoint";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1236982477568L;
+  private static final long serialVersionUID = 1237219395210L;
   
   public LarvaeAgeRangeBase()
   {
