@@ -39,7 +39,7 @@
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.search" method="POST" id ="searchMosquitoCollections">
   <dl>
     <dt> Geo Id </dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /> <span id="treeOpener">Search</span></dd>
+    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /> <span id="treeOpener"><img src="./imgs/icons/world.png"/></span></dd>
     <dt> Date </dt>
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick" id="collectionDate"/></dd>
   </dl>  

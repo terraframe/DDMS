@@ -68,11 +68,6 @@ static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) th
 
 %>
 
-
-
-
-
-
 <%@page import="java.text.SimpleDateFormat"%><div id="cal1Container" class="yui-skin-sam"></div> 
 
 <mjl:messages>
@@ -83,9 +78,7 @@ static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) th
 <mjl:form name="mdss.entomology.MosquitoCollection.form.name"
 	id="mdss.entomology.MosquitoCollection.form.id" method="POST">
  <div class="fldContainer">
-    <div class="fcTop"><div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-    <div style="position:absolute; left:20px; top:25px;">
+    <div class="fcTop">
  
 	<mjl:input value="${item.id}" type="hidden" param="id" />
 	<dl>
@@ -104,7 +97,8 @@ static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) th
 			<mjl:property value="${item.geoEntity.id}" name="id" />
 		</mjl:commandLink></dd>
 	</dl>
- </div>
+<div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
  </div>
 
 </mjl:form>
@@ -118,17 +112,15 @@ String[] attribs = { "MosquitoId","Specie","IdentificationMethod","Generation","
 
 String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 //out.println(getColumnSetup(mdView,attribs,delete_row,clientRequest));
-
 %>
-
 
 
 <h2>Mosquitos</h2>
 <div class="fldContainer">
     <div class="fcTop">
 <br>
-    <div id="checkBoxContanier" >
-        <div style="float:left;margin-left:3em;">
+<div id="checkBoxContanier" style="height:12em;">
+<div style="float:left;margin-left:3em;">
 <%=buildChekboxTable(mdView, BiochemicalAssayTestResult.class) %>
 </div>
 <div style="float:left;margin-left:3em;">
@@ -138,27 +130,21 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
 <%=buildChekboxTable(mdView, MolecularAssayTestResult.class) %>
 </div>
 </div>
-
-<div id="buttons">
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 <div id="Mosquitos"></div>
-<span id="MosquitosAddrow" class="yui-button yui-push-button"> <span
- class="first-child">
+<div id="buttons" class="noprint">
+<span id="MosquitosAddrow" class="yui-button yui-push-button"> <span class="first-child">
 <button type="button">New Row</button>
-</span> </span> <span id="MosquitosSaverows" class="yui-button yui-push-button"> <span
- class="first-child">
+</span> </span> <span id="MosquitosSaverows" class="yui-button yui-push-button"> <span class="first-child">
 <button type="button">Save Rows To DB</button>
-</span> </span></div>
+</span> </span>
+
+<a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
+
+
+
+</div>
 
 <script type="text/javascript">   
-
 function showCol(key,checked)
 {
   if(checked)
@@ -195,30 +181,40 @@ function showCol(key,checked)
  
     <div class="fcTopLeft"></div></div>
     <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-    
-
 </div>
 
 
-<br>
-<br>
-<br>
 <h2>UninterestingSpecieGroups</h2>
 <div class="fldContainer">
     <div class="fcTop">
-    <div id="buttons">
-    <br>
-<br>
-<br>
 <div id="UninterestingSpecieGroups"></div>
+<div class="noprint">
+<span id="UninterestingSpecieGroupsAddrow" class="yui-button yui-push-button"> <span class="first-child">
+<button type="button" >New Row</button>
+</span> </span> 
 
-<span id="UninterestingSpecieGroupsAddrow" class="yui-button yui-push-button"> <span
-  class="first-child">
-<button type="button">New Row</button>
-</span> </span> <span id="UninterestingSpecieGroupsSaverows" class="yui-button yui-push-button"> <span
-  class="first-child">
+<span id="UninterestingSpecieGroupsSaverows" class="yui-button yui-push-button"> <span class="first-child">
 <button type="button">Save Rows To DB</button>
-</span> </span></div>
+</span> </span>
+
+<form method="get" action="excelimport" style="display:inline;">
+       <span class="yui-button yui-push-button">
+       <span class="first-child">
+        <button type="submit"><f:message key="Excel_Import_Header" /></button>
+        </span>
+        </span>
+</form> 
+<form method="post" action="excelexport" style="display:inline;">
+        <input type="hidden" name="type" value="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"/>
+        <span class="yui-button yui-push-button"> 
+        <span class="first-child">
+        <button type="submit"><f:message key="Excel_Export_Header" /></button>
+        </span>
+        </span>
+</form> 
+<a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
+
+</div>
 <%
 UninterestingSpecieGroupViewDTO[] unint_rows = mosquito_collection.getUninterestingSpecieGroups();
 UninterestingSpecieGroupViewDTO mdUnIntView = new UninterestingSpecieGroupViewDTO(clientRequest);

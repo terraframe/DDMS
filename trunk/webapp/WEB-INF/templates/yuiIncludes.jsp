@@ -80,4 +80,5 @@ var locale = "<%=request.getLocale().toString()%>";
 <!--  Stuff from the web designer  -->
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/reset-fonts-grids/reset-fonts-grids.css">
 <link href="/MDSS/css/style.css" rel="stylesheet" type="text/css">
+<link href="/MDSS/css/print_style.css" rel="stylesheet" type="text/css" media="print">
 

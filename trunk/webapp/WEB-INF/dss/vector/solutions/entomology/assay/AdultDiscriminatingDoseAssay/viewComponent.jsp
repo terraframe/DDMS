@@ -270,12 +270,30 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
 
 <div id="intervals"></div>
 
-<div id="buttons">
+<div id="buttons" class="noprint">
  <span id="intervalsSaverows" class="yui-button yui-push-button"> 
  <span class="first-child">
 <button type="button">Save Rows To DB</button>
 </span> 
 </span>
+
+<form method="get" action="excelimport" style="display:inline;">
+       <span class="yui-button yui-push-button">
+       <span class="first-child">
+        <button type="submit"><f:message key="Excel_Import_Header" /></button>
+        </span>
+        </span>
+</form> 
+<form method="post" action="excelexport" style="display:inline;">
+        <input type="hidden" name="type" value="dss.vector.solutions.entomology.assay.DDATestIntervalView"/>
+        <span class="yui-button yui-push-button"> 
+        <span class="first-child">
+        <button type="submit"><f:message key="Excel_Export_Header" /></button>
+        </span>
+        </span>
+</form> 
+<a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
+
 </div>
 <script type="text/javascript">      
     <%
@@ -312,7 +330,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     	            {key:"Percent",label:"%",resizeable:true} ],
     	        defaults: {IntervalId:"",Period:"",IntervalTime:"",KnockedDown:"",Percent:""},
     	        div_id: "intervals",
-    	        collection_setter: "setAssayId('${item.id}')",
+    	        collection_setter: "setAssay('${item.id}')",
         	    data_type: "Mojo.$.dss.vector.solutions.entomology.assay.ADDATestIntervalView",
         	    after_row_edit:function(record){record.setData('Percent',((parseInt(record.getData('KnockedDown'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%");}
     	    };   

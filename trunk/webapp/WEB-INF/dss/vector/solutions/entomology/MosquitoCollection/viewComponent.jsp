@@ -16,148 +16,6 @@
 <%@page import="com.terraframe.mojo.transport.metadata.*"%>
 <%@page import="com.terraframe.mojo.business.ViewDTO"%>
 
-<%!static String getDropDownMap(AbstractTermDTO[] terms) throws JSONException {
-	JSONObject map = new JSONObject();
-	for(AbstractTermDTO term : terms)
-	 {
-	    map.put(term.getDisplayLabel(),term.getId());
-	} 
-	return map.toString();
-}
-
-
-static String getDropDownMap2(AbstractTermDTO[] terms) throws JSONException {
-	JSONArray map = new JSONArray();
-	for(AbstractTermDTO term : terms)
-	 {
-		JSONObject element = new JSONObject();
-		element.put("value",term.getId());
-		element.put("label",term.getDisplayLabel());
-		
-		map.put(element);
-	} 
-	return map.toString();
-}
-
-
-
-static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSONException {
-	JSONArray ids = new JSONArray();
-	JSONArray labels = new JSONArray();
-	for(AbstractTermDTO term : terms)
-	 {
-	    ids.put(term.getId());
-	    labels.put(term.getDisplayLabel());
-	} 
-	return name +"Ids = " + ids.toString()+"; \n "+ name + "Labels = "+ labels.toString() +";";
-}
-
-
-
-static String getDataMap(MorphologicalSpecieGroupViewDTO[] rows, String[] attribs) throws JSONException{
-	JSONArray map = new JSONArray();
-	for(MorphologicalSpecieGroupViewDTO row : rows)
-	 {
-		JSONObject element = new JSONObject();		
-		Class c = row.getClass();	
-		for(String attrib : attribs)
-		{		
-			try
-			{
-				String value = (String) c.getMethod("get"+attrib).invoke(row).toString();	
-				element.put(attrib,value);
-			}
-			catch (IllegalAccessException x) {
-			}
-			catch (IllegalArgumentException  x) {
-			}
-			catch (InvocationTargetException x) {
-			}
-			catch (NoSuchMethodException x) {
-				System.out.println("No such method get"+attrib);
-			}
-
-		}	
-		map.put(element);
-	} 
-	return map.toString();
-}
-
-
-static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows) throws JSONException
-	{
-    ArrayList<String> arr = new ArrayList<String>();
-	int colnum = 0;
-	Class v = view.getClass();
-	for(String attrib : attribs)
-	 {
-		try
-		{
-			ArrayList<String> buff = new ArrayList<String>();
-			
-			buff.add("key:'"+attrib+"'");	
-			
-			AttributeMdDTO md = (AttributeMdDTO) v.getMethod("get"+attrib+"Md").invoke(view); 
-			Class mdClass = md.getClass();		
-			//buff.add("class:"+mdClass.toString());								
-			String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();	
-			buff.add("label:'"+label+"'");								
-			if(colnum == 0)
-			{
-				buff.add("hidden:true");
-			}
-			else
-			{
-				String editor = "null";
-				
-				if(md instanceof AttributeIntegerMdDTO)
-				{
-					editor = "new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})";
-				}
-				if(md instanceof AttributeBooleanMdDTO)
-				{
-					editor = "new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})";
-				}
-				if(md instanceof AttributeCharacterMdDTO)
-				{
-					editor = "new YAHOO.widget.DropdownCellEditor({dropdownOptions:"+attrib+"Labels,disableBtns:true})";
-					buff.add("save_as_id:true");
-				}
-				if(md instanceof AttributeReferenceMdDTO)
-				{
-					editor = "new YAHOO.widget.DropdownCellEditor({dropdownOptions:"+attrib+"Labels,disableBtns:true})";					
-					buff.add("save_as_id:true");
-				}
-				buff.add("editor:"+ editor);
-		    }
-			
-			arr.add("{" +Halp.join(buff,",")+ "}"); 
-		}
-		catch (IllegalAccessException x) {
-			System.out.println("IllegalAccessException on " + attrib +" " + x.getMessage());			
-		}
-		catch (IllegalArgumentException  x) {
-			System.out.println("IllegalArgumentException on "+attrib +" " + x.getMessage());
-		}
-		catch (InvocationTargetException x) {
-			System.out.println("InvocationTargetException on "+attrib +" " + x.getMessage());
-		}
-		catch (NoSuchMethodException x) {
-			System.out.println("No such method on "+attrib + x.getMessage());
-		}	
-		colnum ++;
-	}	
-	if(extra_rows.length() > 0)
-	{
-		arr.add(extra_rows);
-	}
-	return ("[" +Halp.join(arr,",\n")+ "]");
-}%>
-
-
-
-
-
 <mjl:messages>
 
 	<mjl:message />
@@ -166,9 +24,7 @@ static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows) 
 <mjl:form name="mdss.entomology.MosquitoCollection.form.name"
  id="mdss.entomology.MosquitoCollection.form.id" method="POST">
 <div class="fldContainer">
-    <div class="fcTop"><div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-    <div style="position:absolute; left:20px; top:25px;">
+    <div class="fcTop">
 
 	<mjl:input value="${item.id}" type="hidden" param="id" />
 	<dl>
@@ -187,7 +43,8 @@ static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows) 
 			<mjl:property value="${item.geoEntity.id}" name="id" />
 		</mjl:commandLink></dd>
 	</dl>
-</div>
+<div class="fcTopLeft"></div></div>
+    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
 </div>
 <div class="submitButton_bl"></div>    
  <mjl:command value="Edit"
@@ -197,8 +54,7 @@ static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows) 
 
 <br/>
 <div id="MorphologicalSpecieGroups"></div>
-<div id="dt-options"><a id="dt-options-link"
-	href="fallbacklink.html">Table Options</a></div>
+<br/>
 <div id="columnshowhide"></div>
 
 <div id="dt-dlg" class="inprogress"><span class="corner_tr"></span>
@@ -209,7 +65,7 @@ static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows) 
 
 </div>
 
-<div id="buttons">
+<div id="buttons" class="noprint">
 
 <span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button"> 
 <span class="first-child">
@@ -220,7 +76,26 @@ static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows) 
 <span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button"> 
 <span class="first-child">
 <button type="button">Save Rows To DB</button>
-</span> </span></div>
+</span> </span>
+
+<form method="get" action="excelimport" style="display:inline;">
+       <span class="yui-button yui-push-button">
+       <span class="first-child">
+        <button type="submit"><f:message key="Excel_Import_Header" /></button>
+        </span>
+        </span>
+</form> 
+<form method="post" action="excelexport" style="display:inline;">
+        <input type="hidden" name="type" value="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"/>
+        <span class="yui-button yui-push-button"> 
+        <span class="first-child">
+        <button type="submit"><f:message key="Excel_Export_Header" /></button>
+        </span>
+        </span>
+</form> 
+<a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
+
+</div>
 
 
 <%
@@ -237,29 +112,28 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
 
 <script type="text/javascript">      
     <%String[] types_to_load =
-	{
-	   "dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
-	};
+  {
+     "dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
+  };
     
-	// THIS LINE CRASHES TOMCAT WITH Invalid memory access of location 00000000 eip=00000000
-	//out.println(Halp.getDropDownMap(SpecieDTO.getAll(clientRequest)));
-	//out.println(Halp.getDropDownMap2(Arrays.asList(SpecieDTO.getAll(clientRequest))));
+  // THIS LINE CRASHES TOMCAT WITH Invalid memory access of location 00000000 eip=00000000
+  //out.println(Halp.getDropDownMap(SpecieDTO.getAll(clientRequest)));
+  //out.println(Halp.getDropDownMap2(Arrays.asList(SpecieDTO.getAll(clientRequest))));
    // SpecieDTO[] arrggg = SpecieDTO.getAll(clientRequest);
-		
+    
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
-
-    out.println( getDisplayLabels(SpecieDTO.getAll(clientRequest),"Specie"));
-    out.println(getDisplayLabels(IdentificationMethodDTO.getAll(clientRequest),"IdentificationMethod"));
-
+    //out.println( getDisplayLabels(SpecieDTO.getAll(clientRequest),"Specie"));
+   // out.println(getDisplayLabels(IdentificationMethodDTO.getAll(clientRequest),"IdentificationMethod"));
     %>
-    table_data = { rows:<%=getDataMap(rows,attribs)%>,		   
-    	 columnDefs: <%=getColumnSetup(mdView,attribs,delete_row)%>,
-    	        defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
-    	        div_id: "MorphologicalSpecieGroups",
-    	        copy_from_above: ["IdentificationMethod"],
-    	        collection_setter: "setCollectionId('${item.id}')",
-        	    data_type: "Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
-    	        
-    	    };   
+    <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
+    table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,       
+       columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false)%>,
+              defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
+              div_id: "MorphologicalSpecieGroups",
+              copy_from_above: ["IdentificationMethod"],
+              collection_setter: "setCollection('${item.id}')",
+              data_type: "Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
+              
+          };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>
