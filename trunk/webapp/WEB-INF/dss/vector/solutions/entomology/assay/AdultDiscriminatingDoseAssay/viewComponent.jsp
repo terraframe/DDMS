@@ -331,7 +331,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     	        defaults: {IntervalId:"",Period:"",IntervalTime:"",KnockedDown:"",Percent:""},
     	        div_id: "intervals",
     	        collection_setter: "setAssay('${item.id}')",
-        	    data_type: "Mojo.$.dss.vector.solutions.entomology.assay.ADDATestIntervalView",
+        	    data_type: "Mojo.$.dss.vector.solutions.entomology.assay.DDATestIntervalView",
         	    after_row_edit:function(record){record.setData('Percent',((parseInt(record.getData('KnockedDown'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%");}
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
