@@ -24,12 +24,18 @@
       <mjl:header>
         Test Method
       </mjl:header>
+       <mjl:row >
+        ${item.testMethod.displayLabel}
+      </mjl:row>
     </mjl:attributeColumn>
     
      <mjl:attributeColumn attributeName="specie">
       <mjl:header>
         Specie
       </mjl:header>
+      <mjl:row >
+        ${item.specie.displayLabel}
+      </mjl:row>
     </mjl:attributeColumn>
   
     <mjl:attributeColumn attributeName="colonyName">
@@ -76,11 +82,14 @@
       <mjl:header>
         Insecticide
       </mjl:header>
+      <mjl:row >
+        ${item.insecticide.displayLabel}
+      </mjl:row>
     </mjl:attributeColumn>
     
-    <mjl:attributeColumn attributeName="insecticideLength">
+    <mjl:attributeColumn attributeName="exposureTime">
       <mjl:header>
-        Insecticide Time Length
+        ExposureTime
       </mjl:header>
     </mjl:attributeColumn>
         

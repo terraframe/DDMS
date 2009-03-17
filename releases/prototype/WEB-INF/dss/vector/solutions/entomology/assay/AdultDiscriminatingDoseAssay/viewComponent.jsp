@@ -213,11 +213,11 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     </dd>
      <dt>
       <label>
-        ${item.quantityLiveMd.displayLabel}
+        ${item.quantityDeadMd.displayLabel}
       </label>
     </dt>
     <dd>
-      ${item.quantityLive}
+      ${item.quantityDead}
     </dd>
      <dt>  
       <label>
