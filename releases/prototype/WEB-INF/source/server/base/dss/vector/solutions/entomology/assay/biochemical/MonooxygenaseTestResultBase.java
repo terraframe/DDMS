@@ -11,7 +11,7 @@ public abstract class MonooxygenaseTestResultBase extends dss.vector.solutions.e
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.MonooxygenaseTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1237311455761L;
+  private static final long serialVersionUID = 1237314879294L;
   
   public MonooxygenaseTestResultBase()
   {

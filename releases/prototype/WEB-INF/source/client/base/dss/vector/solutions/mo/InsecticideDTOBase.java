@@ -2,7 +2,7 @@ package dss.vector.solutions.mo;
 
 public abstract class InsecticideDTOBase extends dss.vector.solutions.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237311435213L;
+  private static final long serialVersionUID = 1237314858458L;
   
   public final static String CLASS = "dss.vector.solutions.mo.Insecticide";
   protected InsecticideDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

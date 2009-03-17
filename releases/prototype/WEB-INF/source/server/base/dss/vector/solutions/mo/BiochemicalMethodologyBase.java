@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class BiochemicalMethodologyBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.BiochemicalMethodology";
-  private static final long serialVersionUID = 1237311450788L;
+  private static final long serialVersionUID = 1237314874331L;
   
   public BiochemicalMethodologyBase()
   {

@@ -12,7 +12,7 @@ public abstract class MosquitoCollectionPointViewBase extends dss.vector.solutio
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionPointView";
   public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String GEOENTITY = "geoEntity";
-  private static final long serialVersionUID = 1237311439128L;
+  private static final long serialVersionUID = 1237314862361L;
   
   public MosquitoCollectionPointViewBase()
   {

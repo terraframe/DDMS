@@ -16,7 +16,7 @@ public abstract class KnockDownAssayBase extends dss.vector.solutions.entomology
   public static java.lang.String FED = "fed";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String SEX = "sex";
-  private static final long serialVersionUID = 1237311443868L;
+  private static final long serialVersionUID = 1237314867318L;
   
   public KnockDownAssayBase()
   {

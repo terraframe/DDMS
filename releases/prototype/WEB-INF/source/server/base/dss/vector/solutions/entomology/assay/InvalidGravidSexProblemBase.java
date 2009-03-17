@@ -12,7 +12,7 @@ public abstract class InvalidGravidSexProblemBase extends com.terraframe.mojo.bu
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidGravidSexProblem";
   public static java.lang.String ASSAYID = "assayId";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1237311450695L;
+  private static final long serialVersionUID = 1237314874242L;
   
   public InvalidGravidSexProblemBase()
   {

@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public class DDATestIntervalViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237311438527L;
+private static final long serialVersionUID = 1237314861858L;
 
   protected DDATestIntervalViewQueryDTO(String type)
   {

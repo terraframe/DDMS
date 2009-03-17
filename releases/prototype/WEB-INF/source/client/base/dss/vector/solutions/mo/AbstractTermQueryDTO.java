@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public class AbstractTermQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237311441493L;
+private static final long serialVersionUID = 1237314864901L;
 
   protected AbstractTermQueryDTO(String type)
   {

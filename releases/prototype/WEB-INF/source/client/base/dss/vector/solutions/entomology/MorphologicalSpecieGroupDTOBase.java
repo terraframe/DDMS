@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class MorphologicalSpecieGroupDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237311448313L;
+  private static final long serialVersionUID = 1237314871853L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.MorphologicalSpecieGroup";
   protected MorphologicalSpecieGroupDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

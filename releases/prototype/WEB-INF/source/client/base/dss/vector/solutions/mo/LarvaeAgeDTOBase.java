@@ -2,7 +2,7 @@ package dss.vector.solutions.mo;
 
 public abstract class LarvaeAgeDTOBase extends dss.vector.solutions.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237311459034L;
+  private static final long serialVersionUID = 1237314882648L;
   
   public final static String CLASS = "dss.vector.solutions.mo.LarvaeAge";
   protected LarvaeAgeDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

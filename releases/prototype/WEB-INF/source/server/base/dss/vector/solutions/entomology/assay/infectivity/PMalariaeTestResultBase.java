@@ -11,7 +11,7 @@ public abstract class PMalariaeTestResultBase extends dss.vector.solutions.entom
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1237311456036L;
+  private static final long serialVersionUID = 1237314879550L;
   
   public PMalariaeTestResultBase()
   {

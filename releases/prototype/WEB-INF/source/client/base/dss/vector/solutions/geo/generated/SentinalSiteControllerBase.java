@@ -9,7 +9,7 @@ public class SentinalSiteControllerBase implements com.terraframe.mojo.generatio
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237311455296L;
+  private static final long serialVersionUID = 1237314878824L;
   
   public SentinalSiteControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

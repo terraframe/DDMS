@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public class BiochemicalMethodologyQueryDTO extends dss.vector.solutions.mo.AbstractTermQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237311451025L;
+private static final long serialVersionUID = 1237314874558L;
 
   protected BiochemicalMethodologyQueryDTO(String type)
   {

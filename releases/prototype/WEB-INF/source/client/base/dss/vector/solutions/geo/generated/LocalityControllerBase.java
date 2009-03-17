@@ -9,7 +9,7 @@ public class LocalityControllerBase implements com.terraframe.mojo.generation.lo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237311448043L;
+  private static final long serialVersionUID = 1237314871574L;
   
   public LocalityControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

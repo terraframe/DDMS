@@ -25,7 +25,7 @@ public abstract class DDATestIntervalBase extends com.terraframe.mojo.business.B
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237311437761L;
+  private static final long serialVersionUID = 1237314861069L;
   
   public DDATestIntervalBase()
   {

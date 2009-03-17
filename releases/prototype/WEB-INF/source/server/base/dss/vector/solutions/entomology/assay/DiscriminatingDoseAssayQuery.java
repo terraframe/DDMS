@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public  class DiscriminatingDoseAssayQuery extends dss.vector.solutions.entomology.assay.CollectionAssayQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237311451260L;
+private static final long serialVersionUID = 1237314874786L;
 
   public DiscriminatingDoseAssayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -138,7 +138,7 @@ private static final long serialVersionUID = 1237311451260L;
  implements DiscriminatingDoseAssayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237311451352L;
+private static final long serialVersionUID = 1237314874881L;
 
   public DiscriminatingDoseAssayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

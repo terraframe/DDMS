@@ -2,7 +2,7 @@ package dss.vector.solutions.mo;
 
 public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237311441298L;
+  private static final long serialVersionUID = 1237314864699L;
   
   public final static String CLASS = "dss.vector.solutions.mo.AbstractTerm";
   protected AbstractTermDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

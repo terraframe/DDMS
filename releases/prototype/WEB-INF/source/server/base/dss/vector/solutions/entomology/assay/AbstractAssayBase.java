@@ -26,7 +26,7 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237311451416L;
+  private static final long serialVersionUID = 1237314874947L;
   
   public AbstractAssayBase()
   {

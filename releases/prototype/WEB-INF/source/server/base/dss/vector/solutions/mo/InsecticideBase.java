@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class InsecticideBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.Insecticide";
-  private static final long serialVersionUID = 1237311435176L;
+  private static final long serialVersionUID = 1237314858418L;
   
   public InsecticideBase()
   {

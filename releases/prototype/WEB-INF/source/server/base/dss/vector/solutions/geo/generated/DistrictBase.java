@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public abstract class DistrictBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.District";
-  private static final long serialVersionUID = 1237311441034L;
+  private static final long serialVersionUID = 1237314864424L;
   
   public DistrictBase()
   {

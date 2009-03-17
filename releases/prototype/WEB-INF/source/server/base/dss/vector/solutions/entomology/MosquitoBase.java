@@ -14,7 +14,7 @@ public abstract class MosquitoBase extends dss.vector.solutions.entomology.TrueS
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String SEX = "sex";
   public static java.lang.String TESTDATE = "testDate";
-  private static final long serialVersionUID = 1237311446036L;
+  private static final long serialVersionUID = 1237314869430L;
   
   public MosquitoBase()
   {

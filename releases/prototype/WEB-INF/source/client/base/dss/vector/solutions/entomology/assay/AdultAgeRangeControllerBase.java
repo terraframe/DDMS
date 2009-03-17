@@ -9,7 +9,7 @@ public class AdultAgeRangeControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237311452267L;
+  private static final long serialVersionUID = 1237314876480L;
   
   public AdultAgeRangeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

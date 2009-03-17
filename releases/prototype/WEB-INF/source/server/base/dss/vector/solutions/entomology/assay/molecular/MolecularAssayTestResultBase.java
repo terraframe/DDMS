@@ -11,7 +11,7 @@ public abstract class MolecularAssayTestResultBase extends dss.vector.solutions.
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1237311456780L;
+  private static final long serialVersionUID = 1237314880345L;
   
   public MolecularAssayTestResultBase()
   {

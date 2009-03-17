@@ -11,7 +11,7 @@ public abstract class BEsteraseTestResultBase extends dss.vector.solutions.entom
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.BEsteraseTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1237311458121L;
+  private static final long serialVersionUID = 1237314881724L;
   
   public BEsteraseTestResultBase()
   {

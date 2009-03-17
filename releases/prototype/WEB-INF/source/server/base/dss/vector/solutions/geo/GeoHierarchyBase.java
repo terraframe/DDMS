@@ -24,7 +24,7 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237311449729L;
+  private static final long serialVersionUID = 1237314873277L;
   
   public GeoHierarchyBase()
   {
