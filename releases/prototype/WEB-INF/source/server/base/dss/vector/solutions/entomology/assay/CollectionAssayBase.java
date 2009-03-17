@@ -20,7 +20,7 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String UNITS = "units";
-  private static final long serialVersionUID = 1237240903256L;
+  private static final long serialVersionUID = 1237311439466L;
   
   public CollectionAssayBase()
   {

@@ -10,7 +10,7 @@ package dss.vector.solutions.geo;
 public  class SpatialMasterQuery extends com.terraframe.mojo.system.EnumerationMasterQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237240909502L;
+private static final long serialVersionUID = 1237311445271L;
 
   public SpatialMasterQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -111,7 +111,7 @@ private static final long serialVersionUID = 1237240909502L;
  implements SpatialMasterQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237240909603L;
+private static final long serialVersionUID = 1237311445361L;
 
   public SpatialMasterQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -149,7 +149,7 @@ private static final long serialVersionUID = 1237240909603L;
   public static class SpatialMasterQueryEnumeration extends com.terraframe.mojo.system.EnumerationMasterQuery.EnumerationMasterQueryEnumeration
  implements SpatialMasterQueryEnumerationIF, com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237240909670L;
+private static final long serialVersionUID = 1237311445425L;
 
   public SpatialMasterQueryEnumeration(com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

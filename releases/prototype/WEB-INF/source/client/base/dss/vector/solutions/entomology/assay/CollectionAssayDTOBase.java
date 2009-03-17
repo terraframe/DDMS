@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237240903322L;
+  private static final long serialVersionUID = 1237311439537L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.CollectionAssay";
   protected CollectionAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

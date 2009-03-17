@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 public class PNPATestResultQueryDTO extends dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237240922656L;
+private static final long serialVersionUID = 1237311457297L;
 
   protected PNPATestResultQueryDTO(String type)
   {

@@ -11,7 +11,7 @@ public abstract class BiochemicalAssayTestResultBase extends dss.vector.solution
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1237240921802L;
+  private static final long serialVersionUID = 1237311456484L;
   
   public BiochemicalAssayTestResultBase()
   {

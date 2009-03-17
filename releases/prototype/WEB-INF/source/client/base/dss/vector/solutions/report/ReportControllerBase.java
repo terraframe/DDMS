@@ -9,7 +9,7 @@ public class ReportControllerBase implements com.terraframe.mojo.generation.load
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237240919871L;
+  private static final long serialVersionUID = 1237311454750L;
   
   public ReportControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

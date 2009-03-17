@@ -9,7 +9,7 @@ public class MorphologicalSpecieGroupControllerBase implements com.terraframe.mo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237240897803L;
+  private static final long serialVersionUID = 1237311434448L;
   
   public MorphologicalSpecieGroupControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

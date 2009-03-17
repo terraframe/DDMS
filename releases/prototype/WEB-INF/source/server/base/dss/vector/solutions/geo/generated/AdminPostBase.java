@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public abstract class AdminPostBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.AdminPost";
-  private static final long serialVersionUID = 1237240909088L;
+  private static final long serialVersionUID = 1237311444885L;
   
   public AdminPostBase()
   {

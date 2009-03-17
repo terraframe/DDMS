@@ -2,7 +2,7 @@ package dss.vector.solutions.mo;
 
 public abstract class GenerationDTOBase extends dss.vector.solutions.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237240908894L;
+  private static final long serialVersionUID = 1237311444694L;
   
   public final static String CLASS = "dss.vector.solutions.mo.Generation";
   protected GenerationDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

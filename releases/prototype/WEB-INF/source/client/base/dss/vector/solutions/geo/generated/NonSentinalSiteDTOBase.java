@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class NonSentinalSiteDTOBase extends dss.vector.solutions.geo.generated.AbstractSiteDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237240915071L;
+  private static final long serialVersionUID = 1237311450237L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.NonSentinalSite";
   protected NonSentinalSiteDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public abstract class CompositeMosquitoCollectionBase extends dss.vector.solutions.entomology.AbstractMosquitoCollection implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.CompositeMosquitoCollection";
-  private static final long serialVersionUID = 1237240914243L;
+  private static final long serialVersionUID = 1237311449459L;
   
   public CompositeMosquitoCollectionBase()
   {

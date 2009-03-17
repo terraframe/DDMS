@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 
 public abstract class GSTTestResultDTOBase extends dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237240899790L;
+  private static final long serialVersionUID = 1237311436306L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.GSTTestResult";
   protected GSTTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

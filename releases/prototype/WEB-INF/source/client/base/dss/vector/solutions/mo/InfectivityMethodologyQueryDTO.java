@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public class InfectivityMethodologyQueryDTO extends dss.vector.solutions.mo.AbstractTermQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237240912311L;
+private static final long serialVersionUID = 1237311447890L;
 
   protected InfectivityMethodologyQueryDTO(String type)
   {

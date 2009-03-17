@@ -9,7 +9,7 @@ public class SpatialMasterControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237240912313L;
+  private static final long serialVersionUID = 1237311447891L;
   
   public SpatialMasterControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

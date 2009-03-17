@@ -2,7 +2,7 @@ package dss.vector.solutions.mo;
 
 public abstract class MolecularAssayResultDTOBase extends dss.vector.solutions.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237240918429L;
+  private static final long serialVersionUID = 1237311452382L;
   
   public final static String CLASS = "dss.vector.solutions.mo.MolecularAssayResult";
   protected MolecularAssayResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

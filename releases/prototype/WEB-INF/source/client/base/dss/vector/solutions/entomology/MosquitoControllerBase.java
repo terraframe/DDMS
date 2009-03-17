@@ -9,7 +9,7 @@ public class MosquitoControllerBase implements com.terraframe.mojo.generation.lo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237240911575L;
+  private static final long serialVersionUID = 1237311447190L;
   
   public MosquitoControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

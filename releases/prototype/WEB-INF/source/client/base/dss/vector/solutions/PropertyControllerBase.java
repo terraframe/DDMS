@@ -9,7 +9,7 @@ public class PropertyControllerBase implements com.terraframe.mojo.generation.lo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237240901321L;
+  private static final long serialVersionUID = 1237311437651L;
   
   public PropertyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

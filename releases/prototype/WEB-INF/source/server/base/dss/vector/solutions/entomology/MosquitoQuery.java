@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public  class MosquitoQuery extends dss.vector.solutions.entomology.TrueSpecieEntityQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237240910423L;
+private static final long serialVersionUID = 1237311446110L;
 
   public MosquitoQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -159,7 +159,7 @@ private static final long serialVersionUID = 1237240910423L;
  implements MosquitoQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237240910521L;
+private static final long serialVersionUID = 1237311446203L;
 
   public MosquitoQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

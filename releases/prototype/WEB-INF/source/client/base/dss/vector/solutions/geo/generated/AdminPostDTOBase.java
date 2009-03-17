@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class AdminPostDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237240909123L;
+  private static final long serialVersionUID = 1237311444918L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.AdminPost";
   protected AdminPostDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

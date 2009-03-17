@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 public  class PNPATestResultQuery extends dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResultQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237240922500L;
+private static final long serialVersionUID = 1237311457145L;
 
   public PNPATestResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -86,7 +86,7 @@ private static final long serialVersionUID = 1237240922500L;
  implements PNPATestResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237240922595L;
+private static final long serialVersionUID = 1237311457237L;
 
   public PNPATestResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

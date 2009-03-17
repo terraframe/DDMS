@@ -10,7 +10,7 @@ package dss.vector.solutions.util;
 public  class FacadeQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237240920252L;
+private static final long serialVersionUID = 1237311454978L;
 
   public FacadeQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -275,7 +275,7 @@ private static final long serialVersionUID = 1237240920252L;
  implements FacadeQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237240920354L;
+private static final long serialVersionUID = 1237311455068L;
 
   public FacadeQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

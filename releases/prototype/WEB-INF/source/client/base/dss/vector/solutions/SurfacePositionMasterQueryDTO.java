@@ -10,7 +10,7 @@ package dss.vector.solutions;
 public class SurfacePositionMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237240900317L;
+private static final long serialVersionUID = 1237311436751L;
 
   protected SurfacePositionMasterQueryDTO(String type)
   {

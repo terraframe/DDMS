@@ -11,7 +11,7 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay";
   public static java.lang.String AGERANGE = "ageRange";
-  private static final long serialVersionUID = 1237240898007L;
+  private static final long serialVersionUID = 1237311434648L;
   
   public LarvaeDiscriminatingDoseAssayBase()
   {

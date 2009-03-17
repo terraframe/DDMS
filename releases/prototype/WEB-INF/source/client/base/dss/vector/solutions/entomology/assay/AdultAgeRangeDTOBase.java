@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.StructDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237240912892L;
+  private static final long serialVersionUID = 1237311448241L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AdultAgeRange";
   protected AdultAgeRangeDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

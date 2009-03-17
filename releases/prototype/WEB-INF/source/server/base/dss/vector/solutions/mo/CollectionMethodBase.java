@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class CollectionMethodBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.CollectionMethod";
-  private static final long serialVersionUID = 1237240919636L;
+  private static final long serialVersionUID = 1237311453794L;
   
   public CollectionMethodBase()
   {

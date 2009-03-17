@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
     - {assayId} Assay Id
     - {id} ID
     -->
-  <locale language="en">Replace this with your customized error message.</locale>
+  <locale language="en">An isofemale line cannot be of a F0 generation</locale>
 </exception>

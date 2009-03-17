@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public  class SexMasterQuery extends com.terraframe.mojo.system.EnumerationMasterQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237240907763L;
+private static final long serialVersionUID = 1237311443575L;
 
   public SexMasterQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -149,7 +149,7 @@ private static final long serialVersionUID = 1237240907763L;
  implements SexMasterQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237240907860L;
+private static final long serialVersionUID = 1237311443675L;
 
   public SexMasterQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -187,7 +187,7 @@ private static final long serialVersionUID = 1237240907860L;
   public static class SexMasterQueryEnumeration extends com.terraframe.mojo.system.EnumerationMasterQuery.EnumerationMasterQueryEnumeration
  implements SexMasterQueryEnumerationIF, com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237240907921L;
+private static final long serialVersionUID = 1237311443734L;
 
   public SexMasterQueryEnumeration(com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

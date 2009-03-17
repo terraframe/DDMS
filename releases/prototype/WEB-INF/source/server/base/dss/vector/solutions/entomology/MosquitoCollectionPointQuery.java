@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public  class MosquitoCollectionPointQuery extends dss.vector.solutions.entomology.ConcreteMosquitoCollectionQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237240917677L;
+private static final long serialVersionUID = 1237311452032L;
 
   public MosquitoCollectionPointQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -103,7 +103,7 @@ private static final long serialVersionUID = 1237240917677L;
  implements MosquitoCollectionPointQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237240917772L;
+private static final long serialVersionUID = 1237311452124L;
 
   public MosquitoCollectionPointQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

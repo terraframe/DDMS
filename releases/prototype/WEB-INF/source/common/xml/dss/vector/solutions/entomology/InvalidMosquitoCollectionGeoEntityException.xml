@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {geoId} Geo Id
     - {id} ID
     -->
-  <locale language="en">Replace this with your customized error message.</locale>
+  <locale language="en">The GeoEntity [{geoId}] is not a (non)sentinel-site. A mosquito collection can only have a GeoEntity which is a (non)sentienl-site</locale>
 </exception>

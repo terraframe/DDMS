@@ -11,7 +11,7 @@ public abstract class POvaleTestResultBase extends dss.vector.solutions.entomolo
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1237240902956L;
+  private static final long serialVersionUID = 1237311439138L;
   
   public POvaleTestResultBase()
   {

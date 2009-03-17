@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 public  class GSTTestResultQuery extends dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResultQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237240899836L;
+private static final long serialVersionUID = 1237311436353L;
 
   public GSTTestResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -86,7 +86,7 @@ private static final long serialVersionUID = 1237240899836L;
  implements GSTTestResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237240899944L;
+private static final long serialVersionUID = 1237311436447L;
 
   public GSTTestResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

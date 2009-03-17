@@ -16,7 +16,7 @@ public abstract class DDATestIntervalViewBase extends com.terraframe.mojo.busine
   public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String KNOCKEDDOWN = "knockedDown";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = 1237240902223L;
+  private static final long serialVersionUID = 1237311438512L;
   
   public DDATestIntervalViewBase()
   {

@@ -9,7 +9,7 @@ public class PopulatedAreaControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237240915559L;
+  private static final long serialVersionUID = 1237311450709L;
   
   public PopulatedAreaControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

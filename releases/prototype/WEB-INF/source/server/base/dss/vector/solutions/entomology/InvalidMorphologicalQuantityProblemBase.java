@@ -11,7 +11,7 @@ public abstract class InvalidMorphologicalQuantityProblemBase extends com.terraf
 {
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMorphologicalQuantityProblem";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1237240920958L;
+  private static final long serialVersionUID = 1237311455735L;
   
   public InvalidMorphologicalQuantityProblemBase()
   {

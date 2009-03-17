@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public  class InfectivityMethodologyQuery extends dss.vector.solutions.mo.AbstractTermQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237240912142L;
+private static final long serialVersionUID = 1237311447723L;
 
   public InfectivityMethodologyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1237240912142L;
  implements InfectivityMethodologyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237240912243L;
+private static final long serialVersionUID = 1237311447826L;
 
   public InfectivityMethodologyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
