@@ -22,8 +22,8 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.testMethod.keyName}" action="dss.vector.solutions.mo.ResistanceMethodologyController.view.mojo" name="dss.vector.solutions.mo.ResistanceMethodology.form.view.link">
-        <mjl:property value="${item.testMethod.termName}" name="id" />
+      <mjl:commandLink display="${item.testMethod.displayLabel}" action="dss.vector.solutions.mo.ResistanceMethodologyController.view.mojo" name="dss.vector.solutions.mo.ResistanceMethodology.form.view.link">
+        <mjl:property value="${item.testMethod.id}" name="id" />
       </mjl:commandLink>
     </dd>
     <dt>
@@ -32,8 +32,8 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.specie.keyName}" action="dss.vector.solutions.mo.SpecieController.view.mojo" name="dss.vector.solutions.mo.Specie.form.view.link">
-        <mjl:property value="${item.specie.termName}" name="id" />
+      <mjl:commandLink display="${item.specie.displayLabel}" action="dss.vector.solutions.mo.SpecieController.view.mojo" name="dss.vector.solutions.mo.Specie.form.view.link">
+        <mjl:property value="${item.specie.id}" name="id" />
       </mjl:commandLink>
     </dd>
     <dt>
@@ -105,8 +105,8 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.insecticide.keyName}" action="dss.vector.solutions.mo.InsecticideController.view.mojo" name="dss.vector.solutions.mo.Insecticide.form.view.link">
-        <mjl:property value="${item.insecticide.termName}" name="id" />
+      <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.mo.InsecticideController.view.mojo" name="dss.vector.solutions.mo.Insecticide.form.view.link">
+        <mjl:property value="${item.insecticide.id}" name="id" />
       </mjl:commandLink>
     </dd>
      <dt>
