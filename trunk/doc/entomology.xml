@@ -1,5 +1,5 @@
 <TerraFrame
-  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/profiles/datatype.xsd"
+  xsi:noNamespaceSchemaLocation="file:file:/home/jsmethie/workspace/MDSS/profiles/datatype.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <create>
     <!-- DUMMY DEFITION FOR GEO ENTITIES -->
@@ -65,6 +65,12 @@
         description="Gets LocatedIn children ordered by label."
         static="false"
         returnType="dss.vector.solutions.geo.generated.GeoEntityQuery">
+        <mdParameter
+          name="typeFilter"
+          label="Type Filter"
+          description="Name of GeoEntity subclass to filter."
+          order="0"
+          type="java.lang.String" />
       </mdMethod>
       <mdMethod
         name="applyWithParent"
@@ -106,6 +112,32 @@
           type="com.terraframe.mojo.system.metadata.MdBusiness" />
       </attributes>
       <mdMethod
+        name="getPoliticalGeoHierarchies"
+        label="Get Political GeoHierarchies"
+        description="Get Political GeoHierarchies"
+        static="true"
+        returnType="dss.vector.solutions.geo.GeoHierarchyView[]">
+        <mdParameter
+          name="geoEntityId"
+          label="GeoEntity id"
+          description="The GeoEntity which represents the root."
+          order="0"
+          type="java.lang.String" />
+      </mdMethod>
+      <mdMethod
+        name="updateFromView"
+        label="Update From View"
+        description="Update's the GeoHierarchy from a GeoHierarchyView"
+        returnType="void"
+        static="true">
+        <mdParameter
+          name="view"
+          label="View"
+          description="GeoHierarchyView"
+          order="0"
+          type="dss.vector.solutions.geo.GeoHierarchyView" />
+      </mdMethod>
+      <mdMethod
         name="defineAllowedTree"
         label="Define Allowed Tree"
         description="Defines a tree (in JSON) to represent allowed GeoEntity types."
@@ -122,7 +154,7 @@
         name="defineGeoEntity"
         label="Define GeoEntity"
         description="Defines a new GeoEntity class"
-        returnType="dss.vector.solutions.geo.GeoHierarchyView"
+        returnType="java.lang.String"
         static="true">
         <mdParameter
           name="definition"
@@ -239,6 +271,16 @@
           required="true"
           concrete="displayLabel"
           type="com.terraframe.mojo.system.metadata.MdType" />
+        <virtual
+          name="description"
+          required="true"
+          concrete="description"
+          type="com.terraframe.mojo.system.metadata.MetaData" />
+        <virtual
+          name="political"
+          required="true"
+          concrete="political"
+          type="dss.vector.solutions.geo.GeoHierarchy" />
       </attributes>
     </mdView>
 
@@ -369,6 +411,18 @@
       label="GeoEntity Tree Controller"
       description="GeoEntity Tree Controller">
       <mdAction
+        name="displaySelectSearch"
+        label="Display Select Search"
+        description="Display Select Search"
+        isPost="false">
+        <mdParameter
+          name="rootGeoEntityId"
+          label="Root GeoEntity Id"
+          description="The id of the GeoEntity that will be the root of the select lists."
+          order="0"
+          type="java.lang.String" />
+      </mdAction>
+      <mdAction
         name="displayTree"
         label="Display Tree"
         description="Displays the GeoEntity tree."
@@ -433,6 +487,41 @@
         isPost="true">
       </mdAction>
       <mdAction
+        name="editDefinition"
+        label="Edit Definition"
+        description="Edit Definition"
+        isPost="true">
+        <mdParameter
+          name="geoHierarchyId"
+          label="GeoHierarchy Id"
+          description="The id of the GeoHierarchy to lock and edit."
+          order="0"
+          type="java.lang.String" />
+      </mdAction>
+      <mdAction
+        name="updateDefinition"
+        label="Update Definition"
+        isPost="true">
+        <mdParameter
+          name="view"
+          label="GeoHierarchyView"
+          description="The GeoHierarchyView"
+          order="0"
+          type="dss.vector.solutions.geo.GeoHierarchyView" />
+      </mdAction>
+      <mdAction
+        name="cancelUpdateDefinition"
+        label="Cancel Update Definition"
+        description="Cancel Update Definition"
+        isPost="true">
+        <mdParameter
+          name="geoHierarchyId"
+          label="Geo Hierarchy Id"
+          description="Geo Hierarchy Id"
+          order="0"
+          type="java.lang.String" />
+      </mdAction>
+      <mdAction
         name="viewAllDefinitions"
         label="View Hierarchy List"
         description="Views the Geo Hierarchy as a table."
@@ -444,6 +533,18 @@
         description="Views the Geo Hierarchy as a table."
         isPost="false"
         isQuery="true">
+      </mdAction>
+      <mdAction
+        name="viewDefinition"
+        label="View Definition"
+        description="Views a Geo Hierarchy."
+        isPost="false">
+        <mdParameter
+          name="geoHierarchyId"
+          label="Geo Hierarchy Id"
+          description="Geo Hierarchy Id"
+          order="0"
+          type="java.lang.String" />
       </mdAction>
       <mdAction
         name="viewHierarchyTree"
@@ -8557,7 +8658,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
-        value="false" />
+        value="true" />
       <referenceAttribute
         name="geoEntityClass"
         id="SentinalSiteMd" />
@@ -8575,7 +8676,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       type="dss.vector.solutions.geo.GeoHierarchy">
       <valueAttribute
         name="political"
-        value="false" />
+        value="true" />
       <referenceAttribute
         name="geoEntityClass"
         id="NonSentinalSiteMd" />

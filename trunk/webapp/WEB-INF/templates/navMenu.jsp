@@ -99,7 +99,7 @@
                      <div class="bd">                                        
                          <ul>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.geo.GeoEntityTypeController.viewAllDefinitions.mojo"><f:message key="View_GeoEntityTypes"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.geo.generated.GeoEntityController.viewAll.mojo"><f:message key="View_GeoEntites"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.geo.generated.GeoEntityController.viewAll.mojo"><f:message key="View_GeoEntities"/></a></li>
                          </ul>                    
                      </div>
 

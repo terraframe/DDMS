@@ -8,38 +8,102 @@
 <%@page import="org.json.JSONArray"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 
-<jsp:include page="/WEB-INF/geoEntityTreeComponent.jsp"></jsp:include>
+<%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
+<%@page import="dss.vector.solutions.geo.generated.SentinalSiteDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.NonSentinalSiteDTO"%>
+<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
 
+MDSS.currentSearchModal = null;
+
   YAHOO.util.Event.onDOMReady(function(){
     
-    var opener = new YAHOO.util.Element("treeOpener");
+    var opener = new YAHOO.util.Element("searchOpener");
     opener.on("click", function(){
     
-      function selectHandler(geoEntity, node)
-      {
-        var geoId = document.getElementById('geoIdEl');
-        geoId.value = geoEntity.getGeoId();
-        
-        MDSS.GeoEntityTree.destroyAll();
-      }
+      var request = new Mojo.ClientRequest({
+        onSuccess : function(html){
+          
+          // use modal to contain MDSS101
+          MDSS.currentSearchModal = new YAHOO.widget.Panel("searchSelectModal",  {
+            width:"100%", 
+            height: "100%",
+            fixedcenter:true, 
+            close:true, 
+            draggable:false, 
+            zindex:4,
+            modal:true,
+            visible:true
+          });
     
-      MDSS.GeoEntityTree.initializeTree("treeView", selectHandler);   
-        
+          MDSS.currentSearchModal.setBody(html);
+          MDSS.currentSearchModal.render(document.body);
+          
+
+          function selectHandler(selected)
+          {
+            var geoId = document.getElementById('geoIdEl');
+
+            if(selected != null)
+            {
+              geoId.value = selected.getGeoId();
+            }
+            else
+            {
+              geoId.value = '';
+            }
+          }
+  
+          // select list and tree share the same handler
+          //var radios = YAHOO.util.Selector.query('input[type="radio"]', 'searchMosquitoCollections');
+          var filterType = '';
+          /*
+          for(var i=0; i<radios.length; i++)
+          {
+            var radio = radios[i];
+            if(radio.checked)
+            {
+              filterType = radio.value;
+            }
+          }
+          */
+          
+          MDSS.SelectSearch.initialize(selectHandler, selectHandler, filterType); 
+        },
+        onFailure : function(e){
+          alert(e.getLocalizedMessage());
+        }
+      });
+    
+      if(MDSS.currentSearchModal == null)
+      {
+        Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySelectSearch(request, '<%= (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID) %>');
+      }
+      else
+      {
+        MDSS.currentSearchModal.show();
+      }
     });
   }, null, true);
 
 </script>
 
-<div class="yui-skin-sam">
-  <div id="treeView"></div>
-</div>
+<%
+  request.setAttribute("SentinalSiteClass", SentinalSiteDTO.CLASS);
+  request.setAttribute("NonSentinalSiteClass", NonSentinalSiteDTO.CLASS);
+%>
 
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.search" method="POST" id ="searchMosquitoCollections">
   <dl>
+    <dt> Filter </dt>
+    <dd>
+        All <input type="radio" name="filterType" value="" checked="checked" />
+        Sentinal Site <input type="radio" name="filterType" value="${SentinalSiteClass}" />
+        (Non) Sentinal Site <input type="radio" name="filterType" value="${NonSentinalSiteClass}" />
+    </dd>
     <dt> Geo Id </dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /> <span id="treeOpener"><img src="./imgs/icons/world.png"/></span></dd>
+    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /><span id="searchOpener"><img src="./imgs/icons/world.png"/></span></dd>
     <dt> Date </dt>
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick" id="collectionDate"/></dd>
   </dl>  

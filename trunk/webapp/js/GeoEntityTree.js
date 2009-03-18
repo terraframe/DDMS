@@ -25,6 +25,9 @@ MDSS.GeoEntityTree = (function(){
   // callback function for selecting a node in the tree
   var _selectCallback = null;
   
+  // the geo entity class name to filter by
+  var _filterType = '';
+  
   /**
    * Removes everything from the current Tree
    */
@@ -411,7 +414,7 @@ MDSS.GeoEntityTree = (function(){
     });
 
     var geoEntity = _getGeoEntity(parentNode);
-    geoEntity.getOrderedChildren(request);
+    geoEntity.getOrderedChildren(request, _filterType);
   }
   
   /**
@@ -504,7 +507,8 @@ MDSS.GeoEntityTree = (function(){
     _menu = new YAHOO.widget.ContextMenu("treeMenu", {
       trigger:treeId,
       lazyload:true,
-      itemdata: itemData
+      itemdata: itemData,
+      zindex:9999
     });
     
     _menu.subscribe("triggerContextMenu", _nodeMenuSelect);
@@ -517,7 +521,7 @@ MDSS.GeoEntityTree = (function(){
    * Initializes the tree by setting the GeoEntity with the
    * given id as first node under the root.
    */
-  function _initializeTree(treeId, selectCallback) {
+  function _initializeTree(treeId, selectCallback, filterType) {
     var request = new Mojo.ClientRequest({
       onSuccess : function(geoEntity){
         // build tree
@@ -527,6 +531,8 @@ MDSS.GeoEntityTree = (function(){
         alert(e.getLocalizedMessage());
       }
     });
+    
+    _filterType = arguments.length === 3 ? filterType : '';
     
     // Fetch the root node
     Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, MDSS.GeoEntityTreeRootId);

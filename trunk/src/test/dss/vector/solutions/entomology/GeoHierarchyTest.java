@@ -210,7 +210,8 @@ public class GeoHierarchyTest extends GeoTest
       def.addSpatialType(SpatialTypes.POLYGON);
       def.setParentGeoHierarchyId(countryH.getId());
 
-      GeoHierarchyView view = GeoHierarchy.defineGeoEntity(def);
+      String geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
+      GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
       newTypeId = view.getGeoHierarchyId();
 
       // move TempType to NewGEType
@@ -269,7 +270,8 @@ public class GeoHierarchyTest extends GeoTest
       def.addSpatialType(SpatialTypes.POLYGON);
       def.setParentGeoHierarchyId(countryH.getId());
 
-      GeoHierarchyView view = GeoHierarchy.defineGeoEntity(def);
+      String geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
+      GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
       newTypeId = view.getGeoHierarchyId();
 
       fail("Able to change hierarchy when geo entities exist.");
@@ -315,7 +317,8 @@ public class GeoHierarchyTest extends GeoTest
       def.addSpatialType(SpatialTypes.POLYGON);
       def.setParentGeoHierarchyId(countryH.getId());
 
-      GeoHierarchyView view = GeoHierarchy.defineGeoEntity(def);
+      String geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
+      GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
       newTypeId = view.getGeoHierarchyId();
 
       // create a geo entity which should make the parent change fail
@@ -378,7 +381,8 @@ public class GeoHierarchyTest extends GeoTest
       def1.addSpatialType(SpatialTypes.POLYGON);
       def1.setParentGeoHierarchyId(countryH.getId());
 
-      GeoHierarchyView view = GeoHierarchy.defineGeoEntity(def1);
+      String geoHierarchyId = GeoHierarchy.defineGeoEntity(def1);
+      GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
 
       // Add a new GeoEntity type as a child of TempType1
       GeoEntityDefinition def2 = new GeoEntityDefinition();
