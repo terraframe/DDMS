@@ -99,12 +99,12 @@
 		<property name="alert_status.done" value="true" />
 	</target>
 
-	<target name="deploy_to_test_server">
+	<target name="deploy_to_test_server" depends="alert_status">
 		<property name="deploy.path" value="/Library/Tomcat/Home/webapps/MDSS/" />
 		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true">
-			pg_dump -U mdssdeploy mdssdeploy > dump.sql 
+			/Library/PostgreSQL8/bin/pg_dump --blobs -U mdssdeploy mdssdeploy > dump.sql 
 			svn add * --force
-			svn ci -m"Update Prototype"
+			svn ci -m"Update test servers to lastest version of MDSS"
 		</shellscript>
 		<echo message="Deploy Is Complete" />
 	</target>

@@ -18,6 +18,7 @@
 		</fileset>
 		<pathelement location="${profile.root}" />
 		<pathelement path="${java.ext.dirs}/sunjce_provider.jar" />
+		<pathelement location="${local.bin}" />
 	</path>
 	<path id="genpath">
 		<fileset dir="${local.lib}">
@@ -347,24 +348,13 @@
 	</target>
 	
 	<target name="push_source" depends="">
-			<java classname="com.terraframe.mojo.dataaccess.io.dataDefinition.DeployedMetadataUpdater" fork="true" failonerror="true" dir="." timeout="4000000" taskname="pushSource">
+			<java classname="dss.vector.solutions.MdssDmu" fork="true" failonerror="true" dir="." timeout="4000000" taskname="pushSource">
 				<jvmarg value="-Xmx1024m" />
 				<classpath>
 					<path refid="framework.classpath" />
 				</classpath>
-				<arg value="com.terraframe.mojo.defaults" />
-				<arg value="dss.vector.solutions.entomology" />
-				<arg value="dss.vector.solutions.export.entomology" />
-				<arg value="dss.vector.solutions.mo" />
-				<arg value="dss.vector.solutions.entomology.assay" />
-				<arg value="dss.vector.solutions.entomology.assay.biochemical" />
-				<arg value="dss.vector.solutions.entomology.assay.molecular" />
-				<arg value="dss.vector.solutions.entomology.assay.infectivity" />
-				<arg value="dss.vector.solutions.geo" />
-				<arg value="dss.vector.solutions.geo.generated" />
-				<arg value="dss.vector.solutions.util" />
-				<arg value="dss.vector.solutions" />
-				<arg value="dss.vector.solutions.report" />
+				<arg value="mdsstest2" />
+				<arg value="dss.vector.solutions%" />
 			</java>
 		</target>
 </project>
