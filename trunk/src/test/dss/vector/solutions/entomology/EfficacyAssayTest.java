@@ -26,29 +26,30 @@ import dss.vector.solutions.entomology.assay.InvalidFedQuantityProblem;
 import dss.vector.solutions.entomology.assay.InvalidFedSexProblem;
 import dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem;
 import dss.vector.solutions.entomology.assay.InvalidGravidSexProblem;
+import dss.vector.solutions.entomology.assay.Unit;
+import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinalSite;
 import dss.vector.solutions.mo.CollectionMethod;
-import dss.vector.solutions.mo.Insecticide;
+import dss.vector.solutions.mo.ActiveIngredient;
 import dss.vector.solutions.mo.ResistanceMethodology;
 import dss.vector.solutions.mo.Specie;
 
 public class EfficacyAssayTest extends TestCase
 {
-  private static GeoEntity             geoEntity            = null;
+  private static GeoEntity             geoEntity        = null;
 
-  private static MosquitoCollection    collection           = null;
+  private static MosquitoCollection    collection       = null;
 
-  private static CollectionMethod      collectionMethod     = null;
+  private static CollectionMethod      collectionMethod = null;
 
-  private static Specie                specie               = null;
+  private static Specie                specie           = null;
 
-  private static ResistanceMethodology assayMethod          = null;
+  private static ResistanceMethodology assayMethod      = null;
 
-  private static Insecticide           insecticide          = null;
+  private static Insecticide           insecticide      = null;
 
   private static ClientSession         clientSession;
-
 
   public static Test suite()
   {
@@ -74,15 +75,15 @@ public class EfficacyAssayTest extends TestCase
 
   protected static void classSetUp()
   {
-    clientSession = WebClientSession.createUserSession("SYSTEM", "SYSTEM", Locale.US);
+    clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
 
     collectionMethod = CollectionMethod.getAll()[0];
     specie = Specie.getAll()[0];
     assayMethod = ResistanceMethodology.getAll()[0];
-    insecticide = Insecticide.getAll()[0];
 
     try
     {
+      ActiveIngredient activeIngredient = ActiveIngredient.getAll()[0];
       SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
       Date date = dateTime.parse("2006-01-01");
 
@@ -96,6 +97,12 @@ public class EfficacyAssayTest extends TestCase
       collection.setCollectionMethod(collectionMethod);
       collection.setDateCollected(date);
       collection.apply();
+      
+      insecticide = new Insecticide();
+      insecticide.setActiveIngredient(activeIngredient);
+      insecticide.setAmount(40);
+      insecticide.addUnits(Unit.PERCENT);
+      insecticide.apply();
     }
     catch (ParseException e)
     {
@@ -105,6 +112,7 @@ public class EfficacyAssayTest extends TestCase
 
   protected static void classTearDown()
   {
+    insecticide.delete();
     collection.delete();
     geoEntity.delete();
 
@@ -133,7 +141,7 @@ public class EfficacyAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    
+
     assay.addSurfacePostion(position);
     assay.setGeoEntity(geoEntity);
 
@@ -147,7 +155,7 @@ public class EfficacyAssayTest extends TestCase
 
       assertEquals(date, assay2.getTestDate());
       assertEquals(sex, assay2.getSex().get(0));
-      
+
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(10), assay2.getFed());
       assertEquals(new Integer(10), assay2.getGravid());
@@ -155,7 +163,7 @@ public class EfficacyAssayTest extends TestCase
       assertEquals(new Integer(24), assay2.getHoldingTime());
       assertEquals(new Integer(5), assay2.getQuantityDead());
       assertEquals(new Integer(30), assay2.getQuantityTested());
-      
+
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
@@ -190,7 +198,7 @@ public class EfficacyAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    
+
     assay.addSurfacePostion(position);
     assay.setGeoEntity(geoEntity);
 
@@ -204,13 +212,13 @@ public class EfficacyAssayTest extends TestCase
 
       assertEquals(date, assay2.getTestDate());
       assertEquals(sex, assay2.getSex().get(0));
-      
+
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(60), assay2.getExposureTime());
       assertEquals(new Integer(24), assay2.getHoldingTime());
       assertEquals(new Integer(5), assay2.getQuantityDead());
       assertEquals(new Integer(30), assay2.getQuantityTested());
-      
+
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
@@ -245,7 +253,7 @@ public class EfficacyAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    
+
     assay.addSurfacePostion(position);
     assay.setGeoEntity(geoEntity);
 
@@ -259,13 +267,13 @@ public class EfficacyAssayTest extends TestCase
 
       assertEquals(date, assay2.getTestDate());
       assertEquals(sex, assay2.getSex().get(0));
-      
+
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(60), assay2.getExposureTime());
       assertEquals(new Integer(24), assay2.getHoldingTime());
       assertEquals(new Integer(5), assay2.getQuantityDead());
       assertEquals(new Integer(30), assay2.getQuantityTested());
-      
+
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
@@ -296,7 +304,7 @@ public class EfficacyAssayTest extends TestCase
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
       assay.setGravid(10);
-      
+
       assay.setExposureTime(60);
       assay.setHoldingTime(24);
 
@@ -350,7 +358,7 @@ public class EfficacyAssayTest extends TestCase
       assay.setFed(10);
       assay.setGravid(10);
       assay.setExposureTime(60);
-      
+
       assay.setHoldingTime(24);
 
       assay.setQuantityDead(5);
@@ -403,7 +411,7 @@ public class EfficacyAssayTest extends TestCase
       assay.setTestMethod(assayMethod);
       assay.setFed(fed);
       assay.setGravid(10);
-      assay.setExposureTime(60);      
+      assay.setExposureTime(60);
       assay.setHoldingTime(24);
       assay.setQuantityDead(5);
       assay.setQuantityTested(30);
@@ -454,7 +462,7 @@ public class EfficacyAssayTest extends TestCase
       assay.addSex(sex);
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
-      assay.setGravid(gravid);      
+      assay.setGravid(gravid);
       assay.setExposureTime(60);
       assay.setHoldingTime(24);
       assay.setQuantityDead(5);
@@ -511,7 +519,7 @@ public class EfficacyAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    
+
     assay.addSurfacePostion(position);
     assay.setGeoEntity(geoEntity);
 
@@ -525,13 +533,13 @@ public class EfficacyAssayTest extends TestCase
 
       assertEquals(date, assay2.getTestDate());
       assertEquals(sex, assay2.getSex().get(0));
-      
+
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(60), assay2.getExposureTime());
       assertEquals(new Integer(24), assay2.getHoldingTime());
       assertEquals(new Integer(0), assay2.getQuantityDead());
       assertEquals(new Integer(30), assay2.getQuantityTested());
-      
+
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
@@ -567,7 +575,7 @@ public class EfficacyAssayTest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    
+
     assay.addSurfacePostion(position);
     assay.setGeoEntity(geoEntity);
 
@@ -581,13 +589,13 @@ public class EfficacyAssayTest extends TestCase
 
       assertEquals(date, assay2.getTestDate());
       assertEquals(sex, assay2.getSex().get(0));
-      
+
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(60), assay2.getExposureTime());
       assertEquals(new Integer(24), assay2.getHoldingTime());
       assertEquals(new Integer(30), assay2.getQuantityDead());
       assertEquals(new Integer(30), assay2.getQuantityTested());
-      
+
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
@@ -620,7 +628,7 @@ public class EfficacyAssayTest extends TestCase
 
       assay.setTestMethod(assayMethod);
       assay.setFed(10);
-      
+
       assay.setGravid(10);
       assay.setExposureTime(60);
       assay.setHoldingTime(24);
@@ -697,7 +705,7 @@ public class EfficacyAssayTest extends TestCase
       assertEquals(specie.getId(), assay2.getSpecie().getId());
       assertEquals(date, assay2.getTestDate());
       assertEquals(AssaySex.FEMALE, assay2.getSex().get(0));
-      
+
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(10), assay2.getFed());
       assertEquals(new Integer(10), assay2.getGravid());
@@ -705,7 +713,7 @@ public class EfficacyAssayTest extends TestCase
       assertEquals(new Integer(24), assay2.getHoldingTime());
       assertEquals(new Integer(5), assay2.getQuantityDead());
       assertEquals(new Integer(30), assay2.getQuantityTested());
-      
+
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
@@ -757,13 +765,13 @@ public class EfficacyAssayTest extends TestCase
       assertEquals(specie.getId(), assay2.getSpecie().getId());
       assertEquals(date, assay2.getTestDate());
       assertEquals(AssaySex.FEMALE, assay2.getSex().get(0));
-      
+
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(10), assay2.getFed());
       assertEquals(new Integer(10), assay2.getGravid());
       assertEquals(new Integer(24), assay2.getHoldingTime());
       assertEquals(new Integer(5), assay2.getQuantityDead());
-      assertEquals(new Integer(30), assay2.getQuantityTested());      
+      assertEquals(new Integer(30), assay2.getQuantityTested());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());

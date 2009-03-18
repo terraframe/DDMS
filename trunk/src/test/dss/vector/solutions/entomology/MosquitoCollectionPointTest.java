@@ -16,13 +16,6 @@ import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 
-import dss.vector.solutions.entomology.CompositeMosquitoCollection;
-import dss.vector.solutions.entomology.InvalidMorphologicalSpecieProblem;
-import dss.vector.solutions.entomology.InvalidMosquitoCollectionPointGeoEntityException;
-import dss.vector.solutions.entomology.MorphologicalSpecieGroup;
-import dss.vector.solutions.entomology.MorphologicalSpecieGroupView;
-import dss.vector.solutions.entomology.MosquitoCollectionPoint;
-import dss.vector.solutions.entomology.MosquitoCollectionPointView;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.PermanentWaterBody;
 import dss.vector.solutions.geo.generated.SentinalSite;
@@ -41,8 +34,6 @@ public class MosquitoCollectionPointTest extends TestCase
   private static Specie                      specie               = null;
 
   private static IdentificationMethod        identificationMethod = null;
-
-  private static CompositeMosquitoCollection composite            = null;
 
   public static Test suite()
   {
@@ -85,14 +76,10 @@ public class MosquitoCollectionPointTest extends TestCase
     fixedTrap.setGeoId("2");
     fixedTrap.setEntityName("Fixed Trap");
     fixedTrap.apply();
-    
-    composite = new CompositeMosquitoCollection();
-    composite.apply();
   }
 
   protected static void classTearDown()
   {
-    composite.delete();
     sentinelSite.delete();
     waterBody.delete();
     fixedTrap.delete();
@@ -103,7 +90,7 @@ public class MosquitoCollectionPointTest extends TestCase
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(fixedTrap);
     collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
+    
     collection.apply();
 
     String id = collection.getId();
@@ -126,7 +113,7 @@ public class MosquitoCollectionPointTest extends TestCase
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(waterBody);
     collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
+    
     collection.apply();
 
     String id = collection.getId();
@@ -153,7 +140,7 @@ public class MosquitoCollectionPointTest extends TestCase
       collection = new MosquitoCollectionPoint();
       collection.setGeoEntity(sentinelSite);
       collection.setDateCollected(new Date());
-      collection.setCompositeCollection(composite);
+      
       collection.apply();
 
       fail("Able to create a mosquito collection point with a GeoEntity which is not a fixed trap or permenant water body");
@@ -176,7 +163,7 @@ public class MosquitoCollectionPointTest extends TestCase
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(fixedTrap);
     collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
+    
     collection.apply();
 
     MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
@@ -215,7 +202,7 @@ public class MosquitoCollectionPointTest extends TestCase
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(fixedTrap);
     collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
+    
     collection.apply();
 
     MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
@@ -242,7 +229,7 @@ public class MosquitoCollectionPointTest extends TestCase
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(fixedTrap);
     collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
+    
     collection.apply();
 
     MorphologicalSpecieGroupView group = new MorphologicalSpecieGroupView();
@@ -270,7 +257,7 @@ public class MosquitoCollectionPointTest extends TestCase
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(fixedTrap);
     collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
+    
     collection.apply();
 
     try
@@ -303,7 +290,7 @@ public class MosquitoCollectionPointTest extends TestCase
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(fixedTrap);
     collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
+    
     collection.apply();
 
     try
@@ -335,7 +322,7 @@ public class MosquitoCollectionPointTest extends TestCase
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(waterBody);
     collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
+    
     collection.apply();
 
     MosquitoCollectionPoint duplicate = null;
@@ -364,21 +351,58 @@ public class MosquitoCollectionPointTest extends TestCase
     }
   }
 
-  public void testSearchByGeoEntityAndDate()
+  public void testSearchByGeoEntityAndDate() throws ParseException
   {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date startDate = dateTime.parse("2008-01-01");
+    Date endDate = dateTime.parse("2009-01-01");
+    Date date = dateTime.parse("2008-03-01");
+    Date date2 = dateTime.parse("2008-05-01");
+
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(fixedTrap);
-    collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
+    collection.setDateCollected(date);    
     collection.apply();
+
+    MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
+    group.setQuantity(20);
+    group.setSpecie(specie);
+    group.setIdentificationMethod(identificationMethod);
+    group.setCollection(collection);
+    group.apply();
+    
+    MosquitoCollectionPoint collection2 = new MosquitoCollectionPoint();
+    collection2.setGeoEntity(fixedTrap);
+    collection2.setDateCollected(date2);    
+    collection2.apply();
+
+    MorphologicalSpecieGroup group2 = new MorphologicalSpecieGroup();
+    group2.setQuantity(20);
+    group2.setSpecie(specie);
+    group2.setIdentificationMethod(identificationMethod);
+    group2.setCollection(collection2);
+    group2.apply();
+
+    MorphologicalSpecieGroup group3 = new MorphologicalSpecieGroup();
+    group3.setQuantity(20);
+    group3.setSpecie(specie);
+    group3.setIdentificationMethod(identificationMethod);
+    group3.setCollection(collection2);
+    group3.apply();
+
 
     try
     {
-      MosquitoCollectionPoint search = MosquitoCollectionPoint.searchByGeoEntityAndDate(fixedTrap,
-          new Date());
+      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(fixedTrap, startDate, endDate);
 
-      assertNotNull(search);
-      assertEquals(collection.getId(), search.getId());
+      assertNotNull(groups);
+      assertEquals(3, groups.length);
+      assertEquals(collection.getId(), groups[0].getCollection().getId());
+      assertEquals(group.getId(), groups[0].getGroupId());
+      assertEquals(collection2.getId(), groups[1].getCollection().getId());
+      assertEquals(group2.getId(), groups[1].getGroupId());
+      assertEquals(collection2.getId(), groups[2].getCollection().getId());
+      assertEquals(group3.getId(), groups[2].getGroupId());
     }
     finally
     {
@@ -388,20 +412,33 @@ public class MosquitoCollectionPointTest extends TestCase
 
   public void testEmptySearchByGeoEntityAndDate()
   {
-    assertNull(MosquitoCollectionPoint.searchByGeoEntityAndDate(waterBody, new Date()));
+    MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(fixedTrap, new Date(), new Date());
+
+    assertNotNull(groups);
+    assertEquals(0, groups.length);
   }
 
   public void testWrongGeoEntitySearchByGeoEntityAndDate() throws ParseException
   {
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(fixedTrap);
-    collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
+    collection.setDateCollected(new Date());    
     collection.apply();
+    
+    MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
+    group.setQuantity(20);
+    group.setSpecie(specie);
+    group.setIdentificationMethod(identificationMethod);
+    group.setCollection(collection);
+    group.apply();
+
 
     try
     {
-      assertNull(MosquitoCollectionPoint.searchByGeoEntityAndDate(waterBody, new Date()));
+      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(waterBody, new Date(), new Date());
+
+      assertNotNull(groups);
+      assertEquals(0, groups.length);
     }
     finally
     {
@@ -413,108 +450,24 @@ public class MosquitoCollectionPointTest extends TestCase
   public void testWrongDateSearchByGeoEntityAndDate() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date searchDate = dateTime.parse("2009-01-01");
+    Date date = dateTime.parse("2008-01-01");
 
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(waterBody);
-    collection.setDateCollected(dateTime.parse("2008-01-01"));
-    collection.setCompositeCollection(composite);
+    collection.setDateCollected(date);    
     collection.apply();
 
     try
     {
-      assertNull(MosquitoCollectionPoint.searchByGeoEntityAndDate(waterBody, dateTime
-          .parse("2009-01-01")));
+      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(waterBody, searchDate, searchDate);
+
+      assertNotNull(groups);
+      assertEquals(0, groups.length);
     }
     finally
     {
       collection.delete();
     }
-  }
-  
-  public void testGetCollectionPoints()
-  {
-    MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
-    collection.setGeoEntity(waterBody);
-    collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
-    collection.apply();
-    
-    MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
-    group.setQuantity(20);
-    group.setSpecie(specie);
-    group.setIdentificationMethod(identificationMethod);
-    group.setCollection(collection);
-    group.apply();
-    
-    try
-    {
-      
-     MosquitoCollectionPointView[] collections = composite.getCollections();     
-
-     assertEquals(1, collections.length);
-
-     assertEquals(collection.getGeoEntity().getId(), collections[0].getGeoEntity().getId());
-     assertEquals(collection.getDateCollected(), collections[0].getDateCollected());
-    }
-    finally
-    {
-      collection.delete();
-    }
-  }
-  
-  public void testGetCompositeCollections()
-  {    
-    MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
-    collection.setGeoEntity(fixedTrap);
-    collection.setDateCollected(new Date());
-    collection.setCompositeCollection(composite);
-    collection.apply();
-
-    MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
-    group.setQuantity(20);
-    group.setSpecie(specie);
-    group.setIdentificationMethod(identificationMethod);
-    group.setCollection(collection);
-    group.apply();
-
-    MorphologicalSpecieGroup group2 = new MorphologicalSpecieGroup();
-    group2.setQuantity(10);
-    group2.setSpecie(specie);
-    group2.setIdentificationMethod(identificationMethod);
-    group2.setCollection(collection);
-    group2.apply();
-    
-    MosquitoCollectionPoint collection2 = new MosquitoCollectionPoint();
-    collection2.setGeoEntity(waterBody);
-    collection2.setDateCollected(new Date());
-    collection2.setCompositeCollection(composite);
-    collection2.apply();
-
-    MorphologicalSpecieGroup group3 = new MorphologicalSpecieGroup();
-    group3.setQuantity(30);
-    group3.setSpecie(specie);
-    group3.setIdentificationMethod(identificationMethod);
-    group3.setCollection(collection2);
-    group3.apply();
-
-    MorphologicalSpecieGroup group4 = new MorphologicalSpecieGroup();
-    group4.setQuantity(40);
-    group4.setSpecie(specie);
-    group4.setIdentificationMethod(identificationMethod);
-    group4.setCollection(collection2);
-    group4.apply();
-    
-    try
-    {
-      MosquitoCollectionPointView[] collections = composite.getCollections();
-
-      assertEquals(4, collections.length);
-    }
-    finally
-    {
-      collection.delete();
-      collection2.delete();
-    }
-
-  }
+  }  
 }

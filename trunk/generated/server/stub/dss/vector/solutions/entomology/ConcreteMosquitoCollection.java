@@ -1,15 +1,11 @@
 package dss.vector.solutions.entomology;
 
-import java.text.DateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
-
-import dss.vector.solutions.entomology.ConcreteMosquitoCollectionBase;
-import dss.vector.solutions.entomology.MorphologicalSpecieGroupQuery;
 
 public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollectionBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -19,19 +15,6 @@ public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollect
   public ConcreteMosquitoCollection()
   {
     super();
-  }
-
-  @Override
-  protected String buildKey()
-  {
-    // TODO The date format needs to be localizable
-    if (this.getDateCollected() != null)
-    {
-      DateFormat format = DateFormat.getDateInstance();
-      return format.format(this.getDateCollected()) + " - " + this.getGeoEntity().getGeoId();
-    }
-
-    return this.getId();
   }
 
   @Override

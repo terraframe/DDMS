@@ -17,9 +17,8 @@ import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
 
-import dss.vector.solutions.entomology.MosquitoCollectionQueryDTO;
-import dss.vector.solutions.report.ReportControllerBase;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
+import dss.vector.solutions.entomology.MosquitoCollectionQueryDTO;
 import dss.vector.solutions.util.BirtEngine;
 
 public class ReportController extends ReportControllerBase implements

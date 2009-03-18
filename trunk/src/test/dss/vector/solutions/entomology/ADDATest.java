@@ -21,15 +21,11 @@ import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.web.WebClientSession;
 
-import dss.vector.solutions.entomology.AssaySex;
-import dss.vector.solutions.entomology.AssaySexDTO;
-import dss.vector.solutions.entomology.MosquitoCollection;
-import dss.vector.solutions.entomology.MosquitoCollectionDTO;
-import dss.vector.solutions.entomology.assay.DDATestInterval;
-import dss.vector.solutions.entomology.assay.DDATestIntervalView;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
+import dss.vector.solutions.entomology.assay.DDATestInterval;
+import dss.vector.solutions.entomology.assay.DDATestIntervalView;
 import dss.vector.solutions.entomology.assay.InvalidAgeProblem;
 import dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem;
 import dss.vector.solutions.entomology.assay.InvalidDeadQuantityProblem;
@@ -46,16 +42,16 @@ import dss.vector.solutions.entomology.assay.PotentiallyResistantCollectionDTO;
 import dss.vector.solutions.entomology.assay.ResistantCollectionDTO;
 import dss.vector.solutions.entomology.assay.SusceptibleCollectionDTO;
 import dss.vector.solutions.entomology.assay.Unit;
-import dss.vector.solutions.entomology.assay.UnitDTO;
+import dss.vector.solutions.general.Insecticide;
+import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinalSite;
+import dss.vector.solutions.mo.ActiveIngredient;
 import dss.vector.solutions.mo.CollectionMethod;
 import dss.vector.solutions.mo.Generation;
 import dss.vector.solutions.mo.GenerationDTO;
 import dss.vector.solutions.mo.IdentificationMethod;
 import dss.vector.solutions.mo.IdentificationMethodDTO;
-import dss.vector.solutions.mo.Insecticide;
-import dss.vector.solutions.mo.InsecticideDTO;
 import dss.vector.solutions.mo.ResistanceMethodology;
 import dss.vector.solutions.mo.ResistanceMethodologyDTO;
 import dss.vector.solutions.mo.Specie;
@@ -108,19 +104,19 @@ public class ADDATest extends TestCase
 
   protected static void classSetUp()
   {
-    clientSession = WebClientSession.createUserSession("SYSTEM", "SYSTEM", Locale.US);
+    clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
     clientRequest = clientSession.getRequest();
 
     collectionMethod = CollectionMethod.getAll()[0];
     specie = Specie.getAll()[0];
     identificationMethod = IdentificationMethod.getAll()[0];
     assayMethod = ResistanceMethodology.getAll()[0];
-    insecticide = Insecticide.getAll()[0];
     F0 = Generation.getAll()[0];
     F1 = Generation.getAll()[1];
 
     try
     {
+      ActiveIngredient activeIngredient = ActiveIngredient.getAll()[0];
       SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
       Date date = dateTime.parse("2006-01-01");
 
@@ -134,6 +130,12 @@ public class ADDATest extends TestCase
       collection.setCollectionMethod(collectionMethod);
       collection.setDateCollected(date);
       collection.apply();
+
+      insecticide = new Insecticide();
+      insecticide.setActiveIngredient(activeIngredient);
+      insecticide.setAmount(40);
+      insecticide.addUnits(Unit.PERCENT);
+      insecticide.apply();
     }
     catch (ParseException e)
     {
@@ -143,6 +145,7 @@ public class ADDATest extends TestCase
 
   protected static void classTearDown()
   {
+    insecticide.delete();
     collection.delete();
     geoEntity.delete();
 
@@ -297,8 +300,6 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
     assay.apply();
 
     try
@@ -322,8 +323,6 @@ public class ADDATest extends TestCase
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-      assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -355,8 +354,6 @@ public class ADDATest extends TestCase
     assay.setQuantityDead(5);
     assay.setQuantityTested(30);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
     assay.apply();
 
     try
@@ -379,8 +376,6 @@ public class ADDATest extends TestCase
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-      assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
     }
     finally
     {
@@ -413,8 +408,6 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setStartPoint(24);
       assay.getAgeRange().setEndPoint(25);
       assay.setInsecticide(insecticide);
-      assay.setAmount(10);
-      assay.addUnits(Unit.PERCENT);
       assay.apply();
 
       fail("Able to create an adult assay with an invalid age range");
@@ -459,8 +452,6 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setStartPoint(3);
       assay.getAgeRange().setEndPoint(15);
       assay.setInsecticide(insecticide);
-      assay.setAmount(10);
-      assay.addUnits(Unit.PERCENT);
       assay.apply();
 
       fail("Able to create an adult assay with an test date before the collection date");
@@ -512,8 +503,6 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
     assay.setGeneration(F1);
     assay.apply();
 
@@ -537,8 +526,6 @@ public class ADDATest extends TestCase
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-      assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -570,8 +557,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
+
     assay.setGeneration(F1);
     assay.apply();
 
@@ -593,8 +579,6 @@ public class ADDATest extends TestCase
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-      assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -626,8 +610,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
+
     assay.setGeneration(F1);
     assay.apply();
 
@@ -649,8 +632,7 @@ public class ADDATest extends TestCase
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-      assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
+
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -687,8 +669,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
-      assay.setAmount(10);
-      assay.addUnits(Unit.PERCENT);
+
       assay.apply();
 
       fail("Able to create an assay of unknown sex with invalid gravid and fed values");
@@ -740,8 +721,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
-      assay.setAmount(10);
-      assay.addUnits(Unit.PERCENT);
+
       assay.apply();
 
       fail("Able to create an assay of male sex with invalid gravid and fed values");
@@ -794,8 +774,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
-      assay.setAmount(10);
-      assay.addUnits(Unit.PERCENT);
+
       assay.apply();
 
       fail("Able to create an assay with a larger Gravid value than quantity tested");
@@ -850,8 +829,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
-      assay.setAmount(10);
-      assay.addUnits(Unit.PERCENT);
+
       assay.apply();
 
       fail("Able to create an assay with a larger Fed value than quantity tested");
@@ -882,7 +860,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
@@ -901,9 +879,6 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
-    assay.setGenericName(generic);
     assay.setGeneration(F1);
     assay.apply();
 
@@ -925,9 +900,7 @@ public class ADDATest extends TestCase
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-      assertEquals(generic, assay2.getGenericName());
-      assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
+
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -941,7 +914,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
@@ -960,9 +933,6 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
-    assay.setGenericName(generic);
     assay.setGeneration(F1);
     assay.apply();
 
@@ -984,9 +954,7 @@ public class ADDATest extends TestCase
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-      assertEquals(generic, assay2.getGenericName());
-      assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
+
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -1000,7 +968,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
@@ -1019,9 +987,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
-    assay.setGenericName(generic);
+
     assay.setGeneration(F1);
     assay.apply();
 
@@ -1043,9 +1009,7 @@ public class ADDATest extends TestCase
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-      assertEquals(generic, assay2.getGenericName());
-      assertEquals(new Integer(10), assay2.getAmount());
-      assertEquals(Unit.PERCENT, assay2.getUnits().get(0));
+
       assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
       assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
     }
@@ -1084,8 +1048,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
-      assay.setAmount(10);
-      assay.addUnits(Unit.PERCENT);
+
       assay.apply();
 
       fail("Able to set the number dead larger than the total number tested");
@@ -1142,8 +1105,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
-      assay.setAmount(10);
-      assay.addUnits(Unit.PERCENT);
+
       assay.apply();
 
       fail("Able to set an interval time larger than the exposure time");
@@ -1175,7 +1137,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
@@ -1196,9 +1158,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
-    assay.setGenericName(generic);
+
     assay.apply();
 
     try
@@ -1225,7 +1185,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
@@ -1244,10 +1204,9 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
+
     assay.setGeneration(F1);
-    assay.setGenericName(generic);
+
     assay.apply();
 
     DDATestIntervalView[] intervals = assay.getTestIntervals();
@@ -1281,7 +1240,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
@@ -1300,10 +1259,9 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
+
     assay.setGeneration(F1);
-    assay.setGenericName(generic);
+
     assay.apply();
 
     DDATestIntervalView[] intervals = assay.getTestIntervals();
@@ -1338,7 +1296,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
     DDATestInterval interval = new DDATestInterval();
     int period = 20;
@@ -1361,9 +1319,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(period);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
-    assay.setGenericName(generic);
+
     assay.apply();
 
     try
@@ -1398,7 +1354,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
     int period = 20;
 
@@ -1420,9 +1376,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(period);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
-    assay.setGenericName(generic);
+
     assay.apply();
 
     try
@@ -1449,7 +1403,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
@@ -1469,9 +1423,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
-    assay.setGenericName(generic);
+
     assay.apply();
 
     DDATestIntervalView[] intervals = assay.getTestIntervals();
@@ -1505,7 +1457,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
     DDATestInterval interval = null;
     int quantityTested = 30;
@@ -1529,9 +1481,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
-    assay.setGenericName(generic);
+
     assay.apply();
 
     try
@@ -1593,8 +1543,7 @@ public class ADDATest extends TestCase
       assay.getAgeRange().setEndPoint(20);
       assay.setInsecticide(insecticide);
       assay.setGeneration(F0);
-      assay.setAmount(10);
-      assay.addUnits(Unit.PERCENT);
+
       assay.apply();
 
       fail("Able to set the isofemale line to true on a F0 generation");
@@ -1624,7 +1573,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
@@ -1644,9 +1593,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
-    assay.setGenericName(generic);
+
     assay.apply();
 
     DDATestIntervalView[] intervals = assay.getTestIntervals();
@@ -1672,7 +1619,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySex sex = AssaySex.MALE;
 
     AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
@@ -1692,9 +1639,7 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(insecticide);
-    assay.setAmount(10);
-    assay.addUnits(Unit.PERCENT);
-    assay.setGenericName(generic);
+
     assay.apply();
 
     DDATestIntervalView[] intervals = assay.getTestIntervals();
@@ -1720,7 +1665,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySexDTO sex = AssaySexDTO.MALE;
 
     AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(clientRequest);
@@ -1741,9 +1686,6 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(InsecticideDTO.get(clientRequest, insecticide.getId()));
-    assay.setAmount(10);
-    assay.addUnits(UnitDTO.PERCENT);
-    assay.setGenericName(generic);
     assay.apply();
 
     try
@@ -1763,7 +1705,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySexDTO sex = AssaySexDTO.MALE;
 
     AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(clientRequest);
@@ -1784,9 +1726,6 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(InsecticideDTO.get(clientRequest, insecticide.getId()));
-    assay.setAmount(10);
-    assay.addUnits(UnitDTO.PERCENT);
-    assay.setGenericName(generic);
     assay.apply();
 
     try
@@ -1807,7 +1746,7 @@ public class ADDATest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
-    String generic = "Sample Insecticide";
+
     AssaySexDTO sex = AssaySexDTO.MALE;
 
     AdultDiscriminatingDoseAssayDTO assay = new AdultDiscriminatingDoseAssayDTO(clientRequest);
@@ -1828,9 +1767,6 @@ public class ADDATest extends TestCase
     assay.getAgeRange().setStartPoint(2);
     assay.getAgeRange().setEndPoint(20);
     assay.setInsecticide(InsecticideDTO.get(clientRequest, insecticide.getId()));
-    assay.setAmount(10);
-    assay.addUnits(UnitDTO.PERCENT);
-    assay.setGenericName(generic);
     assay.apply();
 
     try

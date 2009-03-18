@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-import dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTOBase;
+import java.text.DateFormat;
 
 public abstract class ConcreteMosquitoCollectionDTO extends ConcreteMosquitoCollectionDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
@@ -22,4 +22,15 @@ public abstract class ConcreteMosquitoCollectionDTO extends ConcreteMosquitoColl
     super(businessDTO, clientRequest);
   }
   
+  public String getDisplayLabel()
+  {
+    // TODO The date format needs to be localizable
+    if (this.getDateCollected() != null)
+    {
+      DateFormat format = DateFormat.getDateInstance();
+      return format.format(this.getDateCollected()) + " - " + this.getGeoEntity().getGeoId();
+    }
+    
+    return this.getId();
+  }
 }

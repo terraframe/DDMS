@@ -53,7 +53,7 @@ public class MOTest extends TestCase
 
   protected static void classSetUp()
   {
-    clientSession = WebClientSession.createUserSession("SYSTEM", "SYSTEM", Locale.US);
+    clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
     clientRequest = clientSession.getRequest();
   }
 

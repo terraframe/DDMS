@@ -1,6 +1,11 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayControllerBase;
+import dss.vector.solutions.entomology.MosquitoCollectionDTO;
+import dss.vector.solutions.general.InsecticideDTO;
+import dss.vector.solutions.mo.GenerationDTO;
+import dss.vector.solutions.mo.IdentificationMethodDTO;
+import dss.vector.solutions.mo.ResistanceMethodologyDTO;
+import dss.vector.solutions.mo.SpecieDTO;
 
 public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatingDoseAssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -16,17 +21,17 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO dto = dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_LarvaeDiscriminatingDoseAssay_ageRange", dss.vector.solutions.entomology.assay.LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    LarvaeDiscriminatingDoseAssayDTO dto = LarvaeDiscriminatingDoseAssayDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("ageRange", LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit LarvaeDiscriminatingDoseAssayController");
+    req.setAttribute("page_title", "Edit Larvae Discriminating Dose Assay");
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -36,17 +41,17 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO dto = new dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO(clientRequest);
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_LarvaeDiscriminatingDoseAssay_ageRange", dss.vector.solutions.entomology.assay.LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    LarvaeDiscriminatingDoseAssayDTO dto = new LarvaeDiscriminatingDoseAssayDTO(clientRequest);
+    req.setAttribute("ageRange", LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create LarvaeDiscriminatingDoseAssayController");
+    req.setAttribute("page_title", "Create Larvae Discriminating Dose Assay");
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -56,9 +61,9 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO query = dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    LarvaeDiscriminatingDoseAssayQueryDTO query = LarvaeDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All LarvaeDiscriminatingDoseAssayController Objects");
+    req.setAttribute("page_title", "View All Larvae Discriminating Dose Assay Objects");
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -68,68 +73,68 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO query = dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    LarvaeDiscriminatingDoseAssayQueryDTO query = LarvaeDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All LarvaeDiscriminatingDoseAssayController Objects");
+    req.setAttribute("page_title", "View All Larvae Discriminating Dose Assay Objects");
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
-  public void update(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_LarvaeDiscriminatingDoseAssay_ageRange", dss.vector.solutions.entomology.assay.LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ageRange", LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update LarvaeDiscriminatingDoseAssayController");
+    req.setAttribute("page_title", "Update Larvae Discriminating Dose Assay");
     render("updateComponent.jsp");
   }
-  public void create(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
       this.failCreate(dto);
     }
   }
-  public void failCreate(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_LarvaeDiscriminatingDoseAssay_ageRange", dss.vector.solutions.entomology.assay.LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ageRange", LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create LarvaeDiscriminatingDoseAssayController");
+    req.setAttribute("page_title", "Create Larvae Discriminating Dose Assay");
     render("createComponent.jsp");
   }
-  public void delete(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -141,45 +146,54 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
       this.failDelete(dto);
     }
   }
-  public void failDelete(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_LarvaeDiscriminatingDoseAssay_ageRange", dss.vector.solutions.entomology.assay.LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("ageRange", LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit LarvaeDiscriminatingDoseAssayController");
+    req.setAttribute("page_title", "Edit Larvae Discriminating Dose Assay");
     render("editComponent.jsp");
   }
+  
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_LarvaeDiscriminatingDoseAssay_ageRange", dss.vector.solutions.entomology.assay.LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View LarvaeDiscriminatingDoseAssayController");
+    view(LarvaeDiscriminatingDoseAssayDTO.get(this.getClientRequest(), id));
+  }
+  
+  public void view(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("ageRange", LarvaeAgeRangeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);    
+    req.setAttribute("page_title", "View Larvae Discriminating Dose Assay");
+    
     render("viewComponent.jsp");
   }
+
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
   }
-  public void cancel(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  
+  public void cancel(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
-    this.view(dto.getId());
+    this.view(dto);
   }
-  public void failCancel(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  
+  public void failCancel(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
