@@ -17,7 +17,7 @@
         Mosquito Collection
       </mjl:header>
        <mjl:row>
-        ${item.collection.keyName}
+        ${item.collection.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
   
@@ -31,6 +31,9 @@
       <mjl:header>
         Test Method
       </mjl:header>
+      <mjl:row>
+        ${item.testMethod.displayLabel}
+      </mjl:row>      
     </mjl:attributeColumn>
      
     <mjl:attributeColumn attributeName="insecticide">
@@ -38,28 +41,10 @@
         Insecticide
       </mjl:header>
       <mjl:row>
-        ${item.insecticide.termName}
+        ${item.insecticide.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
-       
-    <mjl:attributeColumn attributeName="genericName">
-      <mjl:header>
-        Generic Name
-      </mjl:header>
-     </mjl:attributeColumn>
-     
-      <mjl:attributeColumn attributeName="amount">
-      <mjl:header>
-        Amount
-      </mjl:header>
-     <mjl:row>
-        ${item.amount} 
-        <c:forEach var="enumName" items="${item.unitsEnumNames}">
-            ${item.unitsMd.enumItems[enumName]}
-        </c:forEach>
-      </mjl:row>
-    </mjl:attributeColumn>
-    
+           
     <mjl:attributeColumn attributeName="exposureTime">
       <mjl:header>
         Exposure Time

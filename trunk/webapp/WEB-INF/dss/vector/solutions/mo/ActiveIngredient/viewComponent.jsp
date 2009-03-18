@@ -3,7 +3,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:form name="dss.vector.solutions.mo.Insecticide.form.name" id="dss.vector.solutions.mo.Insecticide.form.id" method="POST">
+<mjl:form name="dss.vector.solutions.mo.ActiveIngredient.form.name" id="dss.vector.solutions.mo.ActiveIngredient.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
     <dt>
@@ -13,6 +13,22 @@
     </dt>
     <dd>
       ${item.definition}
+    </dd>
+    <dt>
+      <label>
+        ${item.displayLabelMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.displayLabel}
+    </dd>
+    <dt>
+      <label>
+        ${item.enabledMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.enabled}
     </dd>
     <dt>
       <label>
@@ -55,9 +71,9 @@
       ${item.termName}
     </dd>
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.mo.InsecticideController.edit.mojo" name="dss.vector.solutions.mo.Insecticide.form.edit.button" />
+  <mjl:command value="Edit" action="dss.vector.solutions.mo.ActiveIngredientController.edit.mojo" name="dss.vector.solutions.mo.ActiveIngredient.form.edit.button" />
   <br />
 </mjl:form>
 <dl>
 </dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.mo.InsecticideController.viewAll.mojo" name="dss.vector.solutions.mo.Insecticide.viewAll.link" />
+<mjl:commandLink display="View All" action="dss.vector.solutions.mo.ActiveIngredientController.viewAll.mojo" name="dss.vector.solutions.mo.ActiveIngredient.viewAll.link" />

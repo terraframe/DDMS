@@ -4,11 +4,21 @@
   <mjl:message />
 </mjl:messages>
 <mjl:table var="item" query="${query}">
-  <mjl:context action="dss.vector.solutions.mo.InsecticideController.viewPage.mojo" />
+  <mjl:context action="dss.vector.solutions.mo.ActiveIngredientController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="definition">
       <mjl:header>
         Definition
+      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="displayLabel">
+      <mjl:header>
+        Display Label
+      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="enabled">
+      <mjl:header>
+        Enabled
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="inheritsTerm">
@@ -41,7 +51,7 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.mo.InsecticideController.view.mojo" name="view.link">
+        <mjl:commandLink display="View" action="dss.vector.solutions.mo.ActiveIngredientController.view.mojo" name="view.link">
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -55,4 +65,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Insecticide" action="dss.vector.solutions.mo.InsecticideController.newInstance.mojo" name="InsecticideController.newInstance" />
+<mjl:commandLink display="Create a new Active Ingredient" action="dss.vector.solutions.mo.ActiveIngredientController.newInstance.mojo" name="ActiveIngredientController.newInstance" />

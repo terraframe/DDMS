@@ -30,7 +30,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.collection.keyName}" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.view.link">
+      <mjl:commandLink display="${item.collection.displayLabel}" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.view.link">
         <mjl:property value="${item.collection.id}" name="id" />
       </mjl:commandLink>
     </dd>
@@ -171,29 +171,9 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.mo.InsecticideController.view.mojo" name="dss.vector.solutions.mo.Insecticide.form.view.link">
+      <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="insecticide.form.link">
         <mjl:property value="${item.insecticide.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.genericNameMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.genericName}
-    </dd>
-    <dt>
-      <label>
-        ${item.amountMd.displayLabel}
-      </label>
-        
-    </dt>
-    <dd>
-      ${item.amount} 
-      <c:forEach var="enumName" items="${item.unitsEnumNames}">
-            ${item.unitsMd.enumItems[enumName]}
-        </c:forEach>
     </dd>
     <dt>
       <label>

@@ -12,9 +12,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${csu_mrc_ivcc_mdss_entomology_assay_LarvaeDiscriminatingDoseAssay_ageRange}" param="ageRange">
+        <mjl:select var="current" valueAttribute="id" items="${ageRange}" param="ageRange">
           <mjl:option>
-            ${current.keyName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
       </dd>
@@ -75,24 +75,13 @@
       </dd>
       <dt>
         <label>
-          ${item.amountMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="amount" />
-        <mjl:messages attribute="amount">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
           ${item.collectionMd.displayLabel}
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_collection}" param="collection">
+        <mjl:select var="current" valueAttribute="id" items="${collection}" param="collection">
           <mjl:option>
-            ${current.keyName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
       </dd>
@@ -113,9 +102,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_generation}" param="generation">
+        <mjl:select var="current" valueAttribute="id" items="${generation}" param="generation">
           <mjl:option>
-            ${current.keyName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
       </dd>
@@ -125,9 +114,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_identificationMethod}" param="identificationMethod">
+        <mjl:select var="current" valueAttribute="id" items="${identificationMethod}" param="identificationMethod">
           <mjl:option>
-            ${current.keyName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
       </dd>
@@ -167,43 +156,11 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_testMethod}" param="testMethod">
+        <mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
           <mjl:option>
-            ${current.keyName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.unitsMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="enumName" items="${csu_mrc_ivcc_mdss_entomology_assay_CollectionAssay_units}" param="units">
-          <c:choose>
-            <c:when test="${mjl:contains(item.unitsEnumNames, current.enumName)}">
-              <mjl:option selected="selected">
-                ${item.unitsMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
-              <mjl:option>
-                ${item.unitsMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:otherwise>
-          </c:choose>
-        </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.genericNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="genericName" />
-        <mjl:messages attribute="genericName">
-          <mjl:message />
-        </mjl:messages>
       </dd>
       <dt>
         <label>
@@ -211,9 +168,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_insecticide}" param="insecticide">
+        <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
           <mjl:option>
-            ${current.keyName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
       </dd>
@@ -223,9 +180,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie}" param="specie">
+        <mjl:select var="current" valueAttribute="id" items="${specie}" param="specie">
           <mjl:option>
-            ${current.keyName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
       </dd>
