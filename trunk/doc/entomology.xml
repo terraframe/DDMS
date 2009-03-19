@@ -1,5 +1,5 @@
 <TerraFrame
-  xsi:noNamespaceSchemaLocation="file:file:/home/jsmethie/workspace/MDSS/profiles/datatype.xsd"
+  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/profiles/datatype.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <create>
     <!-- DUMMY DEFITION FOR GEO ENTITIES -->
@@ -836,7 +836,7 @@
       <mdMethod
         name="searchByGeoEntityAndDate"
         label="Search By GeoEntity and Date"
-        description="Searches for a Mosquito collection with the given geo entity and date"
+        description="Searches for all morphological specie group views on any mosquito collection between the given start and end date for a given geo entity"
         static="true"
         returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView[]">
         <mdParameter
@@ -1096,7 +1096,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           rejectNegative="true" />
         <virtual
           name="collection"
-          required="true"
+          required="false"
           type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
           concrete="collection" />
         <virtual
@@ -1104,6 +1104,11 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true"
           type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
           concrete="dateCollected" />
+        <virtual
+          name="geoEntity"
+          required="true"
+          type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
+          concrete="geoEntity" />
         <char
           name="groupId"
           label="Morphological Group Id"
@@ -2210,6 +2215,147 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <includeAll />
     </mdEnumeration>
 
+    <mdBusiness
+      name="dss.vector.solutions.general.KnockDownTimeProperty"
+      label="Knock down Cut-off Values">
+      <attributes>
+        <reference
+          name="insecticide"
+          label="Insecticide"
+          required="true"
+          type="dss.vector.solutions.general.Insecticide"
+          indexType="unique index" />
+        <integer
+          name="upperPercent"
+          label="Upper Percent"
+          required="true"
+          rejectNegative="true"
+          rejectZero="true"
+          default_value="95" />
+        <integer
+          name="upperTime"
+          label="Upper Time"
+          required="true"
+          rejectNegative="true"
+          rejectZero="true" />
+        <integer
+          name="lowerPercent"
+          label="Lower Percent"
+          required="true"
+          rejectNegative="true"
+          rejectZero="true"
+          default_value="50" />
+        <integer
+          name="lowerTime"
+          label="Lower Time"
+          required="true"
+          rejectNegative="true"
+          rejectZero="true" />
+      </attributes>
+      <mdMethod
+        name="searchByInsecticide"
+        returnType="dss.vector.solutions.general.KnockDownTimeProperty"
+        static="true"
+        label="Search By Insecticide">
+        <mdParameter
+          name="insecticide"
+          order="0"
+          label="Insecticide"
+          type="dss.vector.solutions.general.Insecticide" />
+      </mdMethod>
+    </mdBusiness>
+
+    <mdBusiness
+      name="dss.vector.solutions.general.LethalTimeProperty"
+      label="Lethal Time Property">
+      <attributes>
+        <reference
+          name="insecticide"
+          label="Insecticide"
+          required="true"
+          type="dss.vector.solutions.general.Insecticide"
+          indexType="unique index" />
+        <integer
+          name="upperPercent"
+          label="Upper Percent"
+          required="true"
+          rejectNegative="true"
+          rejectZero="true"
+          default_value="95" />
+        <integer
+          name="upperTime"
+          label="Upper Time"
+          required="true"
+          rejectNegative="true"
+          rejectZero="true" />
+        <integer
+          name="lowerPercent"
+          label="Lower Percent"
+          required="true"
+          rejectNegative="true"
+          rejectZero="true"
+          default_value="50" />
+        <integer
+          name="lowerTime"
+          label="Lower Time"
+          required="true"
+          rejectNegative="true"
+          rejectZero="true" />
+      </attributes>
+      <mdMethod
+        name="searchByInsecticide"
+        returnType="dss.vector.solutions.general.LethalTimeProperty"
+        static="true"
+        label="Search By Insecticide">
+        <mdParameter
+          name="insecticide"
+          order="0"
+          label="Insecticide"
+          type="dss.vector.solutions.general.Insecticide" />
+      </mdMethod>
+    </mdBusiness>
+
+    <mdProblem
+      name="dss.vector.solutions.general.InvalidPercentageProblem"
+      label="Invalid Percentage"
+      description="A percentage is larger than 100">
+      <attributes>
+        <integer
+          name="invalidPercent"
+          label="Percent"
+          rejectZero="true"
+          rejectNegative="true"
+          required="true" />
+      </attributes>
+    </mdProblem>
+
+    <mdException
+      name="dss.vector.solutions.general.UndefinedKnockDownPropertyException"
+      label="Undefined Knock Down Property"
+      description="A knock down property is undefined for the given insecticide">
+      <attributes>
+        <reference
+          name="insecticide"
+          label="Insecticide"
+          type="dss.vector.solutions.general.Insecticide"
+          required="true" />
+      </attributes>
+    </mdException>
+
+    <mdException
+      name="dss.vector.solutions.general.UndefinedLethalTimePropertyException"
+      label="Undefined Lethal Time Property"
+      description="A lethal time property is undefined for the given insecticide">
+      <attributes>
+        <reference
+          name="insecticide"
+          label="Insecticide"
+          type="dss.vector.solutions.general.Insecticide"
+          required="true" />
+      </attributes>
+    </mdException>
+
+
     <mdInformation
       name="dss.vector.solutions.entomology.assay.ResistantCollection"
       label="Collection Resistant Information"
@@ -2224,7 +2370,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       name="dss.vector.solutions.entomology.assay.SusceptibleCollection"
       label="Susceptible Collection"
       description="A collection is susceptible to the test assay" />
-
 
     <mdBusiness
       name="dss.vector.solutions.entomology.assay.DDATestInterval"
