@@ -85,6 +85,7 @@
 			<arg value="${root.db}" />
 			<arg file="${local.root}/scripts/metadata/schema.xsd" />
 			<arg file="${local.root}/scripts/metadata/metadata.xml" />
+			<arg file="${local.root}/scripts/metadata/gismetadata.xml" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
