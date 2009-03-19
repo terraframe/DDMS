@@ -303,16 +303,16 @@
 		</javac>
 
 		<!-- These files are needed for compilation, but should not exist in the deploy -->
-		<delete file="${deploy.bin}/csu/ivc/mrc/mdss/global/CredentialsSingleton.class" />
-		<delete file="${deploy.bin}/csu/ivc/mrc/mdss/global/CredentialsSingleton$Singleton.class" />
-		<delete file="${deploy.bin}/csu/ivc/mrc/mdss/geoserver/GeoServerRequestFilter.class" />
+		<delete file="${deploy.bin}/dss/vector/solutions/global/CredentialsSingleton.class" />
+		<delete file="${deploy.bin}/dss/vector/solutions/global/CredentialsSingleton$Singleton.class" />
+		<delete file="${deploy.bin}/dss/vector/solutions/geoserver/GeoServerRequestFilter.class" />
 
 	</target>
 
 	<target name="export_credentials_singleton">
 		<jar destfile="${deploy.root}/lib/credentialsSingleton.jar" basedir="${local.bin}" compress="true">
-			<include name="csu/ivc/mrc/mdss/global/CredentialsSingleton.class" />
-			<include name="csu/ivc/mrc/mdss/global/CredentialsSingleton$Singleton.class" />
+	      <include name="dss/vector/solutions/global/CredentialsSingleton.class"/>
+	      <include name="dss/vector/solutions/global/CredentialsSingleton$Singleton.class"/>
 		</jar>
 	</target>
 
