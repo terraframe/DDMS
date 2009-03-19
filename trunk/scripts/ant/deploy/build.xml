@@ -2,13 +2,11 @@
 <project name="MDSS" default="rebuild_all">
 	<property name="db_root_login" value="postgres" />
 	<property name="db_root_password" value="postgres" />
-	<property name="db_root_db" value="template1" />
+	<property name="db_root_db" value="template_postgis" />
 	<property name="max_memory_use" value="1024m" />
 
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties"  classpath= "../../../lib/common/ant-contrib-1.0b3.jar"/>
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../../../lib/common/ant-contrib-1.0b3.jar" />
 
-
-	
 	<target name="rebuild_all" depends="alert_status,develop_rebuild_import,deploy_all,deploy_rebuild_import,update_db,push_source">
 		<echo message="The build is complete" />
 	</target>
@@ -45,7 +43,19 @@
 		</java>
 	</target>
 
-	<target name="deploy_rebuild_import" depends="">
+	<target name="kill_tomcat">
+		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
+	   	ps -x  | grep Tomcat | egrep -o ^\ [0-9]+ | xargs kill -9
+		</shellscript>
+	</target>
+
+	<target name="start_tomcat">
+		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
+		/Library/Tomcat/Home/bin/startup.sh
+		</shellscript>
+	</target>
+
+	<target name="deploy_rebuild_import" depends="kill_tomcat">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy Rebuild Import">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -77,7 +87,7 @@
 		</java>
 	</target>
 
-	<target name="push_source" depends="alert_status">
+	<target name="push_source" depends="alert_status,start_tomcat">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Push Source To Server">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -86,8 +96,7 @@
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
 			<arg value="push_source" />
-			<arg value="stop_tomcat_webapp" />
-			<arg value="start_tomcat_webapp" />
+
 		</java>
 	</target>
 
@@ -99,6 +108,8 @@
 		<property name="alert_status.done" value="true" />
 	</target>
 
+
+
 	<target name="deploy_to_test_server" depends="alert_status">
 		<property name="deploy.path" value="/Library/Tomcat/Home/webapps/MDSS/" />
 		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true">
@@ -107,14 +118,15 @@
 			svn ci -m"Update test servers to lastest version of MDSS"
 		</shellscript>
 		<echo message="Deploy Is Complete" />
+
 	</target>
 
 	<target name="write_revision">
-	   <shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
+		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
 	   	svn info|grep "Last Changed" > webapp/revision.html
 		</shellscript>
 	</target>
-	
+
 </project>
 
 
