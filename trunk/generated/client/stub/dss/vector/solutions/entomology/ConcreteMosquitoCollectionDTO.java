@@ -44,5 +44,4 @@ public abstract class ConcreteMosquitoCollectionDTO extends ConcreteMosquitoColl
     
     return new DateConverter(label);
   }
-
 }
