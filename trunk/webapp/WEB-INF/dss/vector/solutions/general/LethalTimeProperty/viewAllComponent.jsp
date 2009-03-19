@@ -10,6 +10,9 @@
       <mjl:header>
         Insecticide
       </mjl:header>
+      <mjl:row>
+        ${item.insecticide.displayLabel}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="lowerPercent">
       <mjl:header>

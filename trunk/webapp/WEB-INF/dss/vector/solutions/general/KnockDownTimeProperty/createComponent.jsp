@@ -12,9 +12,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_general_KnockDownTimeProperty_insecticide}" param="insecticide">
+        <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
           <mjl:option>
-            ${current.keyName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
       </dd>
