@@ -7,9 +7,9 @@
 
 
 	<property name="profile.root" value="../../../profiles" />
-	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties"
-		classpath="${profile.root};tfprops.jar" />
-	<tfproperties root="${profile.root}"/>
+	<property name="system.password" value="mdsstest2" />
+	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties" classpath="${profile.root};tfprops.jar" />
+	<tfproperties root="${profile.root}" />
 
 	<!-- execution path -->
 	<path id="framework.classpath">
@@ -19,14 +19,11 @@
 		<pathelement location="${profile.root}" />
 		<pathelement path="${java.ext.dirs}/sunjce_provider.jar" />
 		<pathelement location="${local.bin}" />
+		<pathelement location="${client.bin}" />
+		<pathelement location="${server.bin}" />
+		<pathelement location="${common.bin}" />
 	</path>
-	<path id="genpath">
-		<fileset dir="${local.lib}">
-			<include name="**/*.jar" />
-		</fileset>
-		<pathelement location="${local.bin}" />
-	</path>
-	
+
 	<property name="domain.location" value="${local.root}/doc/entomology.xml" />
 
 	<!-- =================================================================== -->
@@ -114,25 +111,51 @@
 		<copy file="${profile.root}/exceptions.xsd" tofile="${common.src}/xml/exceptions.xsd" />
 	</target>
 
+	<target name="delete_generated_base" description="Removes all generated BASE classes and directories">
+		<!-- we don't want to fail on error because the dirs may not exist if this is a fresh install -->
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="${client.src}/base" includes="**/*" />
+			<fileset dir="${client.src}/bin" includes="**/*" />
+		</delete>
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="${common.src}/base" includes="**/*" />
+			<fileset dir="${common.src}/bin" includes="**/*" />
+		</delete>
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="${server.src}/base" includes="**/*" />
+			<fileset dir="${server.src}/bin" includes="**/*" />
+		</delete>
+		<echo message="Cleaned generated base directories" />
+	</target>
+
 	<target name="compile_generated">
+		<javac destdir="${local.bin}" srcdir="${local.src}" debug="true">
+			<classpath refid="framework.classpath" />
+		</javac>
 		<javac destdir="${common.bin}" srcdir="${common.src}" debug="true">
-			<classpath refid="genpath" />
+			<classpath refid="framework.classpath" />
 		</javac>
 		<javac destdir="${client.bin}" srcdir="${client.src}" debug="true">
 			<classpath>
-				<path refid="genpath" />
+				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
 			</classpath>
 		</javac>
 		<javac destdir="${server.bin}" srcdir="${server.src}" debug="true">
 			<classpath>
-				<path refid="genpath" />
+				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
 			</classpath>
 		</javac>
+		<javac destdir="${client.bin}" srcdir="${client.src}" debug="true">
+			<classpath>
+				<path refid="framework.classpath" />
+				<pathelement location="${common.bin}" />
+			</classpath>
+		</javac>		
 	</target>
-
-	<target name="update_domain_model">
+	
+	<target name="update_domain_model" depends="delete_generated_base">
 		<!-- Import the domain model -->
 		<java classname="ImportModel" failonerror="true">
 			<arg file="${domain.location}" />
@@ -145,15 +168,6 @@
 	<target name="update_db_source_and_classes">
 		<!-- Update the database with the new sources and classes -->
 		<java classname="com.terraframe.mojo.util.UpdateDatabaseSourceAndClasses" failonerror="true">
-			<classpath>
-				<path refid="framework.classpath" />
-			</classpath>
-		</java>
-	</target>
-	
-	<target name="update_db_s_c_and_deploy" >
-		<java classname="dss.vector.solutions.global.UpdateUtility" failonerror="true">
-			<arg value="${export.package}" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -251,7 +265,7 @@
 		<copy todir="${deploy.webinf}/tlds" overwrite="true" verbose="true">
 			<fileset dir="${webapp.root}/WEB-INF/tlds" />
 		</copy>
-		
+
 		<copy todir="${deploy.webinf}/platform" overwrite="true" verbose="true">
 			<fileset dir="${webapp.root}/WEB-INF/platform" />
 		</copy>
@@ -281,7 +295,7 @@
 		<!-- compile and jar the application library (e.g., servlet filters) -->
 		<javac srcdir="${local.src}" destDir="${deploy.bin}" debug="true" source="1.5" target="1.5">
 			<classpath>
-				<path refid="genpath" />
+				<path refid="framework.classpath" />
 				<pathelement location="${client.bin}" />
 				<pathelement location="${common.bin}" />
 				<pathelement location="${server.bin}" />
@@ -292,16 +306,16 @@
 		<delete file="${deploy.bin}/csu/ivc/mrc/mdss/global/CredentialsSingleton.class" />
 		<delete file="${deploy.bin}/csu/ivc/mrc/mdss/global/CredentialsSingleton$Singleton.class" />
 		<delete file="${deploy.bin}/csu/ivc/mrc/mdss/geoserver/GeoServerRequestFilter.class" />
-		
+
 	</target>
 
 	<target name="export_credentials_singleton">
 		<jar destfile="${deploy.root}/lib/credentialsSingleton.jar" basedir="${local.bin}" compress="true">
-	      <include name="csu/ivc/mrc/mdss/global/CredentialsSingleton.class"/>
-	      <include name="csu/ivc/mrc/mdss/global/CredentialsSingleton$Singleton.class"/>
+			<include name="csu/ivc/mrc/mdss/global/CredentialsSingleton.class" />
+			<include name="csu/ivc/mrc/mdss/global/CredentialsSingleton$Singleton.class" />
 		</jar>
 	</target>
-	
+
 	<target name="export_tomcat_classloader" description="Exports the Tomcat webapp classloader">
 		<copy file="terraframeTomcatLoader.jar" tofile="${deploy.classloader.jar}" />
 	</target>
@@ -346,15 +360,15 @@
 			</classpath>
 		</java>
 	</target>
-	
+
 	<target name="push_source" depends="">
-			<java classname="dss.vector.solutions.MdssDmu" fork="true" failonerror="true" dir="." timeout="4000000" taskname="pushSource">
-				<jvmarg value="-Xmx1024m" />
-				<classpath>
-					<path refid="framework.classpath" />
-				</classpath>
-				<arg value="mdsstest2" />
-				<arg value="dss.vector.solutions%" />
-			</java>
-		</target>
+		<java classname="dss.vector.solutions.MdssDmu" fork="true" failonerror="true" dir="." timeout="4000000" taskname="pushSource">
+			<jvmarg value="-Xmx1024m" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+			<arg value="${system.password}" />
+			<arg value="dss.vector.solutions%" />
+		</java>
+	</target>
 </project>
