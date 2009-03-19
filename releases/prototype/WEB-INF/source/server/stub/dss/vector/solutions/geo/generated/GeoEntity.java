@@ -9,11 +9,13 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntityBase;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInException;
 
@@ -357,7 +359,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
    * parent. The list is ordered by the entity name.
    */
   @Override
-  public GeoEntityQuery getOrderedChildren()
+  public GeoEntityQuery getOrderedChildren(String filter)
   {
     QueryFactory f = new QueryFactory();
     GeoEntityQuery geoQuery = new GeoEntityQuery(f);
@@ -365,9 +367,22 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     locQuery.WHERE(locQuery.parentId().EQ(this.getId()));
     geoQuery.WHERE(geoQuery.locatedInGeoEntity(locQuery));
+    
+    // filter by type if possible (and all of type's child subclasses)
+    if(filter != null && filter.trim().length() > 0)
+    {
+      GeoHierarchyView[] views = GeoHierarchy.getPoliticalGeoHierarchiesByType(filter);
+      String[] types = new String[views.length];
+      for(int i=0; i<views.length; i++)
+      {
+        types[i] = MDSSInfo.GENERATED_GEO_PACKAGE +"."+ views[i].getTypeName();
+      }
+      
+      geoQuery.WHERE(geoQuery.getType().IN(types));
+    }
+    
     geoQuery.ORDER_BY_ASC(geoQuery.getEntityName());
 
     return geoQuery;
   }
-
 }

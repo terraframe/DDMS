@@ -29,6 +29,23 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
       }
     }
   }
+  
+  @Override
+  public void validateQuantityLive()
+  {
+    if(this.getQuantityLive() != null && this.getQuantity() != null)
+    {
+      super.validateQuantityLive();
+      
+      if(this.getQuantityLive() > this.getQuantity())
+      {
+        String msg = "It is impossible to have more live mosquitos than the total number of mosquitos";
+        InvalidMorphologicalQuantityProblem p = new InvalidMorphologicalQuantityProblem(msg);
+        p.apply();
+        p.throwIt(); 
+      }
+    }
+  }
 
   @Override
   public void validateIdentificationMethod()
@@ -90,7 +107,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
         }
       }
     }
-  }
+  }  
   
   public MorphologicalSpecieGroupView getView()
   {
@@ -101,6 +118,13 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
     view.setQuantity(this.getQuantity());
     view.setSpecie(this.getSpecie());
     view.setIdentificationMethod(this.getIdentificationMethod());
+    view.setDateCollected(this.getCollection().getDateCollected());
+
+    if(this.getQuantityLive() != null)
+    {
+      view.setQuantityLive(this.getQuantityLive());
+      view.setQuantityDead(this.getQuantity() - this.getQuantityLive());
+    }
     
     view.applyNoPersist();
     
@@ -111,6 +135,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   public void apply()
   {
     validateQuantity();
+    validateQuantityLive();
     validateIdentificationMethod();
     validateSpecie();
 

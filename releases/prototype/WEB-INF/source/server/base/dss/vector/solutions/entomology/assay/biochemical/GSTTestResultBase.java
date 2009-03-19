@@ -11,7 +11,7 @@ public abstract class GSTTestResultBase extends dss.vector.solutions.entomology.
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.GSTTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1237314859469L;
+  private static final long serialVersionUID = 1237423097836L;
   
   public GSTTestResultBase()
   {

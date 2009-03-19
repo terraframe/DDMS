@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237314877476L;
+  private static final long serialVersionUID = 1237423117537L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
   protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -487,18 +487,18 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.geo.generated.GeoEntityQueryDTO getOrderedChildren()
+  public final dss.vector.solutions.geo.generated.GeoEntityQueryDTO getOrderedChildren(java.lang.String typeFilter)
   {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{typeFilter};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildren", _declaredTypes);
     return (dss.vector.solutions.geo.generated.GeoEntityQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.generated.GeoEntityQueryDTO getOrderedChildren(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.geo.generated.GeoEntityQueryDTO getOrderedChildren(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String typeFilter)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, typeFilter};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildren", _declaredTypes);
     return (dss.vector.solutions.geo.generated.GeoEntityQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

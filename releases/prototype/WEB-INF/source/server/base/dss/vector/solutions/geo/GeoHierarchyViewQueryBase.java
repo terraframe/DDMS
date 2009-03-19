@@ -10,7 +10,7 @@ package dss.vector.solutions.geo;
 public  abstract  class GeoHierarchyViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314868484L;
+private static final long serialVersionUID = 1237423107447L;
 
   public GeoHierarchyViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -25,6 +25,18 @@ private static final long serialVersionUID = 1237314868484L;
   {
     return "dss.vector.solutions.geo.GeoHierarchyView";
   }
+  public com.terraframe.mojo.query.AttributeCharIF getDescription()
+  {
+    return getDescription(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getDescription(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(dss.vector.solutions.geo.GeoHierarchyView.DESCRIPTION, alias);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeCharIF getDisplayLabel()
   {
     return getDisplayLabel(null);
@@ -58,6 +70,18 @@ private static final long serialVersionUID = 1237314868484L;
   public com.terraframe.mojo.query.AttributeCharIF getId(String alias)
   {
     return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(dss.vector.solutions.geo.GeoHierarchyView.ID, alias);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getPolitical()
+  {
+    return getPolitical(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getPolitical(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBooleanIF)this.getSelectable(dss.vector.solutions.geo.GeoHierarchyView.POLITICAL, alias);
 
   }
  

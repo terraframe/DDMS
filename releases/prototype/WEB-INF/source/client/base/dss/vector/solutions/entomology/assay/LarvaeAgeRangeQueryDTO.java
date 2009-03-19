@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public class LarvaeAgeRangeQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314859223L;
+private static final long serialVersionUID = 1237423097688L;
 
   protected LarvaeAgeRangeQueryDTO(String type)
   {

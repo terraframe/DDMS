@@ -11,7 +11,7 @@ public abstract class InfectivityAssayTestResultBase extends dss.vector.solution
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1237314875281L;
+  private static final long serialVersionUID = 1237423115968L;
   
   public InfectivityAssayTestResultBase()
   {
@@ -72,7 +72,8 @@ public abstract class InfectivityAssayTestResultBase extends dss.vector.solution
   
   public static dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult getInfectivityAssays()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static InfectivityAssayTestResult lock(java.lang.String id)

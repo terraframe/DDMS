@@ -11,7 +11,7 @@ public abstract class PFalciparumTestResultBase extends dss.vector.solutions.ent
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1237314872364L;
+  private static final long serialVersionUID = 1237423112857L;
   
   public PFalciparumTestResultBase()
   {

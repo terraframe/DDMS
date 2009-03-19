@@ -11,7 +11,7 @@ public abstract class EKDRTestResultBase extends dss.vector.solutions.entomology
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.EKDRTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1237314860604L;
+  private static final long serialVersionUID = 1237423099077L;
   
   public EKDRTestResultBase()
   {

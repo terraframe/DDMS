@@ -58,14 +58,6 @@
     </dd>
     <dt>
       <label>
-        ${item.amountMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.amount}
-    </dd>
-    <dt>
-      <label>
         ${item.collectionMd.displayLabel}
       </label>
     </dt>
@@ -138,33 +130,11 @@
     </dd>
     <dt>
       <label>
-        ${item.unitsMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <ul>
-        <c:forEach var="enumName" items="${item.unitsEnumNames}">
-          <li>
-            ${item.unitsMd.enumItems[enumName]}
-          </li>
-        </c:forEach>
-      </ul>
-    </dd>
-    <dt>
-      <label>
-        ${item.genericNameMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.genericName}
-    </dd>
-    <dt>
-      <label>
         ${item.insecticideMd.displayLabel}
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.insecticide.keyName}" action="dss.vector.solutions.mo.InsecticideController.view.mojo" name="dss.vector.solutions.mo.Insecticide.form.view.link">
+      <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="insecticide.form.view.link">
         <mjl:property value="${item.insecticide.id}" name="id" />
       </mjl:commandLink>
     </dd>

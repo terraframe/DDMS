@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class SpecieBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.Specie";
-  private static final long serialVersionUID = 1237314867553L;
+  private static final long serialVersionUID = 1237423106322L;
   
   public SpecieBase()
   {
@@ -36,7 +36,8 @@ public abstract class SpecieBase extends dss.vector.solutions.mo.AbstractTerm im
   
   public static dss.vector.solutions.mo.Specie[] getAll()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.Specie.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static Specie lock(java.lang.String id)

@@ -14,10 +14,13 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   }
   
   public static java.lang.String COLLECTION = "collection";
+  public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String GROUPID = "groupId";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
   public static java.lang.String QUANTITY = "quantity";
+  public static java.lang.String QUANTITYDEAD = "quantityDead";
+  public static java.lang.String QUANTITYLIVE = "quantityLive";
   public static java.lang.String SPECIE = "specie";
   public dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO getCollection()
   {
@@ -54,6 +57,43 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("collection").getAttributeMdDTO();
+  }
+  
+  public java.util.Date getDateCollected()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATECOLLECTED));
+  }
+  
+  public void setDateCollected(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(DATECOLLECTED, "");
+    }
+    else
+    {
+      setValue(DATECOLLECTED, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isDateCollectedWritable()
+  {
+    return isWritable(DATECOLLECTED);
+  }
+  
+  public boolean isDateCollectedReadable()
+  {
+    return isReadable(DATECOLLECTED);
+  }
+  
+  public boolean isDateCollectedModified()
+  {
+    return isModified(DATECOLLECTED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDateCollectedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("dateCollected").getAttributeMdDTO();
   }
   
   public String getGroupId()
@@ -165,6 +205,80 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantity").getAttributeMdDTO();
+  }
+  
+  public Integer getQuantityDead()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
+  }
+  
+  public void setQuantityDead(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(QUANTITYDEAD, "");
+    }
+    else
+    {
+      setValue(QUANTITYDEAD, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isQuantityDeadWritable()
+  {
+    return isWritable(QUANTITYDEAD);
+  }
+  
+  public boolean isQuantityDeadReadable()
+  {
+    return isReadable(QUANTITYDEAD);
+  }
+  
+  public boolean isQuantityDeadModified()
+  {
+    return isModified(QUANTITYDEAD);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityDead").getAttributeMdDTO();
+  }
+  
+  public Integer getQuantityLive()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
+  }
+  
+  public void setQuantityLive(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(QUANTITYLIVE, "");
+    }
+    else
+    {
+      setValue(QUANTITYLIVE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isQuantityLiveWritable()
+  {
+    return isWritable(QUANTITYLIVE);
+  }
+  
+  public boolean isQuantityLiveReadable()
+  {
+    return isReadable(QUANTITYLIVE);
+  }
+  
+  public boolean isQuantityLiveModified()
+  {
+    return isModified(QUANTITYLIVE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityLive").getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.SpecieDTO getSpecie()

@@ -9,7 +9,7 @@ public class GSTTestResultControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314883211L;
+  private static final long serialVersionUID = 1237423123726L;
   
   public GSTTestResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

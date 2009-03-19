@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class CollectionMethodBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.CollectionMethod";
-  private static final long serialVersionUID = 1237314877992L;
+  private static final long serialVersionUID = 1237423118111L;
   
   public CollectionMethodBase()
   {
@@ -36,7 +36,8 @@ public abstract class CollectionMethodBase extends dss.vector.solutions.mo.Abstr
   
   public static dss.vector.solutions.mo.CollectionMethod[] getAll()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.CollectionMethod.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static CollectionMethod lock(java.lang.String id)

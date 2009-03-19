@@ -22,7 +22,7 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237314870751L;
+  private static final long serialVersionUID = 1237423111073L;
   
   public AbstractMosquitoCollectionBase()
   {
@@ -299,7 +299,8 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
   
   public dss.vector.solutions.entomology.MosquitoView[] getMosquitos()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AbstractMosquitoCollection.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final dss.vector.solutions.entomology.MosquitoView[] getMosquitos(java.lang.String id)
@@ -310,7 +311,8 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
   
   public dss.vector.solutions.entomology.UninterestingSpecieGroupView[] getUninterestingSpecieGroups()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AbstractMosquitoCollection.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final dss.vector.solutions.entomology.UninterestingSpecieGroupView[] getUninterestingSpecieGroups(java.lang.String id)

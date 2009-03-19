@@ -15,9 +15,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_collection}" param="collection">
+        <mjl:select var="current" valueAttribute="id" items="${collection}" param="collection">
           <mjl:option>
-            ${current.keyName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
       </dd>
@@ -38,7 +38,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod}" param="testMethod">
+        <mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
@@ -50,7 +50,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_generation}" param="generation">
+        <mjl:select var="current" valueAttribute="id" items="${generation}" param="generation">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
@@ -70,7 +70,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="enumName" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_sex}" param="sex">
+        <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
           <c:choose>
             <c:when test="${mjl:contains(item.sexEnumNames, current.enumName)}">
               <mjl:option selected="selected">
@@ -91,7 +91,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_specie}" param="specie">
+        <mjl:select var="current" valueAttribute="id" items="${specie}" param="specie">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
@@ -103,7 +103,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_identificationMethod}" param="identificationMethod">
+        <mjl:select var="current" valueAttribute="id" items="${identificationMethod}" param="identificationMethod">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
@@ -204,49 +204,10 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_insecticide}" param="insecticide">
+        <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
-        </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.genericNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="genericName" />
-        <mjl:messages attribute="genericName">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-     <dt>
-       <label>
-          ${item.amountMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="amount" />
-        <mjl:messages attribute="amount">
-          <mjl:message />
-        </mjl:messages>
-        <label>
-          ${item.unitsMd.displayLabel}
-        </label>
-         <mjl:select var="current" valueAttribute="enumName" items="${mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_units}" param="units">
-          <c:choose>
-            <c:when test="${mjl:contains(item.unitsEnumNames, current.enumName)}">
-              <mjl:option selected="selected">
-                ${item.unitsMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
-              <mjl:option>
-                ${item.unitsMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:otherwise>
-          </c:choose>
         </mjl:select>
       </dd>
        <dt>

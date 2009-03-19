@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class LarvaeAgeBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.LarvaeAge";
-  private static final long serialVersionUID = 1237314882614L;
+  private static final long serialVersionUID = 1237423123053L;
   
   public LarvaeAgeBase()
   {
@@ -36,7 +36,8 @@ public abstract class LarvaeAgeBase extends dss.vector.solutions.mo.AbstractTerm
   
   public static dss.vector.solutions.mo.LarvaeAge[] getAll()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.LarvaeAge.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static LarvaeAge lock(java.lang.String id)

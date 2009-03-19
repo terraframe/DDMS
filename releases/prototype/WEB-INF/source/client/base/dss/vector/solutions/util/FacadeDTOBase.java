@@ -2,7 +2,7 @@ package dss.vector.solutions.util;
 
 public abstract class FacadeDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237314878470L;
+  private static final long serialVersionUID = 1237423118566L;
   
   public final static String CLASS = "dss.vector.solutions.util.Facade";
   protected FacadeDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

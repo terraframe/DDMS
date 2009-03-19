@@ -76,6 +76,7 @@ var locale = "<%=request.getLocale().toString()%>";
 <script type="text/javascript" src="js/AbstractTree.js"></script>
 <script type="text/javascript" src="js/GeoEntityTree.js"></script>
 <script type="text/javascript" src="js/GeoHierarchyTree.js"></script>
+<script type="text/javascript" src="js/SelectSearch.js"></script>
 
 <!--  Stuff from the web designer  -->
 <link rel="stylesheet" type="text/css" href="/MDSS/js/yui/build/reset-fonts-grids/reset-fonts-grids.css">

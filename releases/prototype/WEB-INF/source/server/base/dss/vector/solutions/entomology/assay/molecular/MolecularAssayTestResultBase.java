@@ -11,7 +11,7 @@ public abstract class MolecularAssayTestResultBase extends dss.vector.solutions.
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1237314880345L;
+  private static final long serialVersionUID = 1237423120602L;
   
   public MolecularAssayTestResultBase()
   {
@@ -72,7 +72,8 @@ public abstract class MolecularAssayTestResultBase extends dss.vector.solutions.
   
   public static dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult getMolecularAssays()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static MolecularAssayTestResult lock(java.lang.String id)

@@ -9,7 +9,7 @@ public class MonooxygenaseTestResultControllerBase implements com.terraframe.moj
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314872905L;
+  private static final long serialVersionUID = 1237423113656L;
   
   public MonooxygenaseTestResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

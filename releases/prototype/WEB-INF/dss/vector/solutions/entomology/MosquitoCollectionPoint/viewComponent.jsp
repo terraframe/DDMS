@@ -20,7 +20,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.geoEntity.keyName}" action="dss.vector.solutions.geo.GeoEntityController.view.mojo" name="dss.vector.solutions.geo.generated.GeoEntity.form.view.link">
+      <mjl:commandLink display="${item.geoEntity.keyName}" action="dss.vector.solutions.geo.generated.GeoEntityController.view.mojo" name="dss.vector.solutions.geo.generated.GeoEntity.form.view.link">
         <mjl:property value="${item.geoEntity.id}" name="id" />
       </mjl:commandLink>
     </dd>
@@ -29,19 +29,5 @@
   <br />
 </mjl:form>
 <dl>
-  <dt>
-    <label>
-      Parent Relationships
-    </label>
-  </dt>
-  <dd>
-    <ul>
-      <li>
-        <mjl:commandLink display="True Specie Collection" action="dss.vector.solutions.entomology.CollectionTrueSpecieController.parentQuery.mojo" name="dss.vector.solutions.entomology.CollectionTrueSpecie.parentQuery.link">
-          <mjl:property value="${item.id}" name="parentId" />
-        </mjl:commandLink>
-      </li>
-    </ul>
-  </dd>
 </dl>
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.MosquitoCollectionPointController.viewAll.mojo" name="dss.vector.solutions.entomology.MosquitoCollectionPoint.viewAll.link" />

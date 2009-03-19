@@ -22,7 +22,7 @@ public abstract class FacadeBase extends com.terraframe.mojo.business.Business i
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237314878434L;
+  private static final long serialVersionUID = 1237423118530L;
   
   public FacadeBase()
   {
@@ -299,7 +299,8 @@ public abstract class FacadeBase extends com.terraframe.mojo.business.Business i
   
   public static com.terraframe.mojo.system.metadata.MdClassQuery getMDSSClasses()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.Facade.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static Facade lock(java.lang.String id)

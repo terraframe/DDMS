@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237314874984L;
+  private static final long serialVersionUID = 1237423115698L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AbstractAssay";
   protected AbstractAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -29,7 +29,6 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
-  public static java.lang.String GENERICNAME = "genericName";
   public static java.lang.String ID = "id";
   public static java.lang.String INSECTICIDE = "insecticide";
   public static java.lang.String KEYNAME = "keyName";
@@ -136,44 +135,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("entityDomain").getAttributeMdDTO();
   }
   
-  public String getGenericName()
-  {
-    return getValue(GENERICNAME);
-  }
-  
-  public void setGenericName(String value)
-  {
-    if(value == null)
-    {
-      setValue(GENERICNAME, "");
-    }
-    else
-    {
-      setValue(GENERICNAME, value);
-    }
-  }
-  
-  public boolean isGenericNameWritable()
-  {
-    return isWritable(GENERICNAME);
-  }
-  
-  public boolean isGenericNameReadable()
-  {
-    return isReadable(GENERICNAME);
-  }
-  
-  public boolean isGenericNameModified()
-  {
-    return isModified(GENERICNAME);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGenericNameMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("genericName").getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.mo.InsecticideDTO getInsecticide()
+  public dss.vector.solutions.general.InsecticideDTO getInsecticide()
   {
     if(getValue(INSECTICIDE) == null || getValue(INSECTICIDE).trim().equals(""))
     {
@@ -181,11 +143,11 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
     }
     else
     {
-      return dss.vector.solutions.mo.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
+      return dss.vector.solutions.general.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
     }
   }
   
-  public void setInsecticide(dss.vector.solutions.mo.InsecticideDTO value)
+  public void setInsecticide(dss.vector.solutions.general.InsecticideDTO value)
   {
     setValue(INSECTICIDE, value.getId());
   }

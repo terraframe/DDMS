@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public  class IdentificationMethodQuery extends dss.vector.solutions.mo.AbstractTermQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314861937L;
+private static final long serialVersionUID = 1237423100438L;
 
   public IdentificationMethodQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1237314861937L;
  implements IdentificationMethodQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237314862028L;
+private static final long serialVersionUID = 1237423100530L;
 
   public IdentificationMethodQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

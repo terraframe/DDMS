@@ -26,7 +26,7 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
   public static java.lang.String SEX = "sex";
   public static java.lang.String SURFACEPOSTION = "surfacePostion";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1237314870065L;
+  private static final long serialVersionUID = 1237423110262L;
   
   public EfficacyAssayBase()
   {
@@ -455,7 +455,8 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
   
   public java.lang.Float getOverallMortalityRate()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.EfficacyAssay.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final java.lang.Float getOverallMortalityRate(java.lang.String id)
@@ -466,7 +467,8 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
   
   public static dss.vector.solutions.entomology.assay.EfficacyAssay[] searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.EfficacyAssay.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static EfficacyAssay lock(java.lang.String id)

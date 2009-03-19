@@ -12,7 +12,7 @@ public abstract class ConcreteMosquitoCollectionBase extends dss.vector.solution
   public final static String CLASS = "dss.vector.solutions.entomology.ConcreteMosquitoCollection";
   public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String GEOENTITY = "geoEntity";
-  private static final long serialVersionUID = 1237314877757L;
+  private static final long serialVersionUID = 1237423117835L;
   
   public ConcreteMosquitoCollectionBase()
   {
@@ -101,7 +101,8 @@ public abstract class ConcreteMosquitoCollectionBase extends dss.vector.solution
   
   public dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] getMorphologicalSpecieGroups()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.ConcreteMosquitoCollection.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] getMorphologicalSpecieGroups(java.lang.String id)

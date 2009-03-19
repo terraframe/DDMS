@@ -13,11 +13,50 @@ public abstract class GeoHierarchyViewDTOBase extends com.terraframe.mojo.busine
     return CLASS;
   }
   
+  public static java.lang.String DESCRIPTION = "description";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String GEOHIERARCHYID = "geoHierarchyId";
   public static java.lang.String ID = "id";
+  public static java.lang.String POLITICAL = "political";
   public static java.lang.String REFERENCEID = "referenceId";
   public static java.lang.String TYPENAME = "typeName";
+  public String getDescription()
+  {
+    return getValue(DESCRIPTION);
+  }
+  
+  public void setDescription(String value)
+  {
+    if(value == null)
+    {
+      setValue(DESCRIPTION, "");
+    }
+    else
+    {
+      setValue(DESCRIPTION, value);
+    }
+  }
+  
+  public boolean isDescriptionWritable()
+  {
+    return isWritable(DESCRIPTION);
+  }
+  
+  public boolean isDescriptionReadable()
+  {
+    return isReadable(DESCRIPTION);
+  }
+  
+  public boolean isDescriptionModified()
+  {
+    return isModified(DESCRIPTION);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDescriptionMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("description").getAttributeMdDTO();
+  }
+  
   public String getDisplayLabel()
   {
     return getValue(DISPLAYLABEL);
@@ -90,6 +129,43 @@ public abstract class GeoHierarchyViewDTOBase extends com.terraframe.mojo.busine
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoHierarchyIdMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("geoHierarchyId").getAttributeMdDTO();
+  }
+  
+  public Boolean getPolitical()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POLITICAL));
+  }
+  
+  public void setPolitical(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(POLITICAL, "");
+    }
+    else
+    {
+      setValue(POLITICAL, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isPoliticalWritable()
+  {
+    return isWritable(POLITICAL);
+  }
+  
+  public boolean isPoliticalReadable()
+  {
+    return isReadable(POLITICAL);
+  }
+  
+  public boolean isPoliticalModified()
+  {
+    return isModified(POLITICAL);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPoliticalMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("political").getAttributeMdDTO();
   }
   
   public String getReferenceId()

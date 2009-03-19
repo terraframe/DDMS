@@ -10,16 +10,46 @@ package dss.vector.solutions.geo;
 public abstract class GeoHierarchyViewBase extends com.terraframe.mojo.business.View implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoHierarchyView";
+  public static java.lang.String DESCRIPTION = "description";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String GEOHIERARCHYID = "geoHierarchyId";
   public static java.lang.String ID = "id";
+  public static java.lang.String POLITICAL = "political";
   public static java.lang.String REFERENCEID = "referenceId";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = 1237314868480L;
+  private static final long serialVersionUID = 1237423107443L;
   
   public GeoHierarchyViewBase()
   {
     super();
+  }
+  
+  public String getDescription()
+  {
+    return getValue(DESCRIPTION);
+  }
+  
+  public void validateDescription()
+  {
+    this.validateAttribute(DESCRIPTION);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getDescriptionMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoHierarchyView.CLASS);
+    return mdClassIF.definesAttribute(DESCRIPTION);
+  }
+  
+  public void setDescription(String value)
+  {
+    if(value == null)
+    {
+      setValue(DESCRIPTION, "");
+    }
+    else
+    {
+      setValue(DESCRIPTION, value);
+    }
   }
   
   public String getDisplayLabel()
@@ -92,6 +122,34 @@ public abstract class GeoHierarchyViewBase extends com.terraframe.mojo.business.
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoHierarchyView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public Boolean getPolitical()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POLITICAL));
+  }
+  
+  public void validatePolitical()
+  {
+    this.validateAttribute(POLITICAL);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPoliticalMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoHierarchyView.CLASS);
+    return mdClassIF.definesAttribute(POLITICAL);
+  }
+  
+  public void setPolitical(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(POLITICAL, "");
+    }
+    else
+    {
+      setValue(POLITICAL, java.lang.Boolean.toString(value));
+    }
   }
   
   public String getReferenceId()

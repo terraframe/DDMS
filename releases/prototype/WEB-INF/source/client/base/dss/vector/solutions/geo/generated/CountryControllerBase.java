@@ -9,7 +9,7 @@ public class CountryControllerBase implements com.terraframe.mojo.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314878234L;
+  private static final long serialVersionUID = 1237423118380L;
   
   public CountryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

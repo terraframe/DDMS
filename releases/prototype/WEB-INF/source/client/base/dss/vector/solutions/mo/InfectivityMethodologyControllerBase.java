@@ -9,7 +9,7 @@ public class InfectivityMethodologyControllerBase implements com.terraframe.mojo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314877346L;
+  private static final long serialVersionUID = 1237423117311L;
   
   public InfectivityMethodologyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

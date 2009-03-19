@@ -24,7 +24,7 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237314873277L;
+  private static final long serialVersionUID = 1237423113779L;
   
   public GeoHierarchyBase()
   {
@@ -418,28 +418,46 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
     return (GeoHierarchy) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public static java.lang.String defineAllowedTree(java.lang.String geoEntityId)
+  public static dss.vector.solutions.geo.GeoHierarchyView[] getPoliticalGeoHierarchies(java.lang.String geoEntityId)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchy.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static dss.vector.solutions.geo.GeoHierarchyView defineGeoEntity(dss.vector.solutions.geo.GeoEntityDefinition definition)
+  public static void updateFromView(dss.vector.solutions.geo.GeoHierarchyView view)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchy.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.String defineAllowedTree(java.lang.String geoEntityId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchy.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.String defineGeoEntity(dss.vector.solutions.geo.GeoEntityDefinition definition)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchy.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static dss.vector.solutions.geo.GeoHierarchyViewQuery getGeoEntityHierarchyViews(java.lang.String sortAttribute, java.lang.Boolean ascending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchy.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static void deleteGeoHierarchy(java.lang.String geoHierarchyId)
   {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchy.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public dss.vector.solutions.geo.GeoHierarchyView getViewForGeoHierarchy()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchy.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final dss.vector.solutions.geo.GeoHierarchyView getViewForGeoHierarchy(java.lang.String id)
@@ -450,7 +468,8 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
   
   public dss.vector.solutions.geo.GeoHierarchyViewQuery getOrderedChildren()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchy.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final dss.vector.solutions.geo.GeoHierarchyViewQuery getOrderedChildren(java.lang.String id)
@@ -461,6 +480,8 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
   
   public static void applyExistingWithParent(java.lang.String childGeoHierarchyId, java.lang.String parentGeoHierarchyId, java.lang.Boolean cloneOperation)
   {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchy.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static GeoHierarchy lock(java.lang.String id)

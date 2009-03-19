@@ -9,7 +9,7 @@ public class TrapControllerBase implements com.terraframe.mojo.generation.loader
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314882100L;
+  private static final long serialVersionUID = 1237423122551L;
   
   public TrapControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

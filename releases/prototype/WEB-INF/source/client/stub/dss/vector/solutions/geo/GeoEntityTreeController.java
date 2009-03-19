@@ -6,9 +6,6 @@ import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ApplicationException;
 
-import dss.vector.solutions.geo.GeoEntityTreeControllerBase;
-import dss.vector.solutions.geo.generated.CountryQueryDTO;
-import dss.vector.solutions.geo.generated.CountryDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 
 public class GeoEntityTreeController extends GeoEntityTreeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -21,11 +18,24 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
 
   private static final String CONFIRM_PARENT_CHANGE_JSP = "/WEB-INF/confirmParentChange.jsp";
   
+  private static final String SELECT_SEARCH_COMPONENT_JSP = "/WEB-INF/selectSearchComponent.jsp";
+  
   public static final String ROOT_GEO_ENTITY_ID = "rootGeoEntityId";
   
   public GeoEntityTreeController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
+  }
+  
+  @Override
+  public void displaySelectSearch(String rootGeoEntityId) throws IOException, ServletException
+  {
+    req.setAttribute(ROOT_GEO_ENTITY_ID, rootGeoEntityId);
+    
+    GeoHierarchyViewDTO[] views = GeoHierarchyDTO.getPoliticalGeoHierarchies(this.getClientRequest(), rootGeoEntityId);
+    req.setAttribute("views", views);
+    
+    req.getRequestDispatcher(SELECT_SEARCH_COMPONENT_JSP).forward(req, resp);
   }
   
   @Override

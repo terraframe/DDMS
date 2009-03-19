@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public  class ResistanceMethodologyQuery extends dss.vector.solutions.mo.AbstractTermQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314862168L;
+private static final long serialVersionUID = 1237423100690L;
 
   public ResistanceMethodologyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1237314862168L;
  implements ResistanceMethodologyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237314862260L;
+private static final long serialVersionUID = 1237423100789L;
 
   public ResistanceMethodologyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

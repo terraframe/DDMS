@@ -17,7 +17,7 @@ public abstract class UninterestingSpecieGroupViewBase extends com.terraframe.mo
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String SAMPLEID = "sampleId";
   public static java.lang.String SPECIE = "specie";
-  private static final long serialVersionUID = 1237314857517L;
+  private static final long serialVersionUID = 1237423095737L;
   
   public UninterestingSpecieGroupViewBase()
   {
@@ -241,7 +241,8 @@ public abstract class UninterestingSpecieGroupViewBase extends com.terraframe.mo
   
   public static dss.vector.solutions.entomology.UninterestingSpecieGroupView[] saveAll(dss.vector.solutions.entomology.UninterestingSpecieGroupView[] array)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.UninterestingSpecieGroupView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public String toString()

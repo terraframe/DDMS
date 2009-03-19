@@ -16,7 +16,7 @@ public abstract class DDATestIntervalViewBase extends com.terraframe.mojo.busine
   public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String KNOCKEDDOWN = "knockedDown";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = 1237314861843L;
+  private static final long serialVersionUID = 1237423100271L;
   
   public DDATestIntervalViewBase()
   {
@@ -198,7 +198,8 @@ public abstract class DDATestIntervalViewBase extends com.terraframe.mojo.busine
   
   public static dss.vector.solutions.entomology.assay.DDATestIntervalView[] saveAll(dss.vector.solutions.entomology.assay.DDATestIntervalView[] array)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.DDATestIntervalView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public String toString()

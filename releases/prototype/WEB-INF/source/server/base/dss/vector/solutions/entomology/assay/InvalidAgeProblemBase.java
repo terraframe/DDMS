@@ -12,7 +12,7 @@ public abstract class InvalidAgeProblemBase extends com.terraframe.mojo.business
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidAgeProblem";
   public static java.lang.String AGE = "age";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1237314877018L;
+  private static final long serialVersionUID = 1237423117008L;
   
   public InvalidAgeProblemBase()
   {

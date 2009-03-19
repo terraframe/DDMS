@@ -2,8 +2,6 @@ package dss.vector.solutions.entomology.assay;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 
-import dss.vector.solutions.entomology.assay.EfficacyAssayControllerBase;
-
 import dss.vector.solutions.util.ErrorUtility;
 
 public class EfficacyAssayController extends EfficacyAssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -41,13 +39,13 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   public void failCreate(dss.vector.solutions.entomology.assay.EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
 	req.setAttribute("geoEntintys", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-	req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+	req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create EfficacyAssayController");
     render("createComponent.jsp");
@@ -77,13 +75,13 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   {
     dss.vector.solutions.entomology.assay.EfficacyAssayDTO dto = dss.vector.solutions.entomology.assay.EfficacyAssayDTO.lock(super.getClientRequest(), id);
     req.setAttribute("geoEntintys", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit EfficacyAssayController");
     render("editComponent.jsp");
@@ -115,13 +113,13 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   public void failUpdate(dss.vector.solutions.entomology.assay.EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
 	req.setAttribute("geoEntintys", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update EfficacyAssayController");
     render("editComponent.jsp");
@@ -130,13 +128,13 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("geoEntintys", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.entomology.assay.EfficacyAssayDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View EfficacyAssayController");
     render("viewComponent.jsp");
@@ -168,13 +166,13 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   public void failDelete(dss.vector.solutions.entomology.assay.EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("geoEntintys", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-	req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+	req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit EfficacyAssayController");
     render("editComponent.jsp");
@@ -196,13 +194,13 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.EfficacyAssayDTO dto = new dss.vector.solutions.entomology.assay.EfficacyAssayDTO(clientRequest);
     req.setAttribute("geoEntintys", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AdultAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("surfacePostion", dss.vector.solutions.SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create EfficacyAssayController");
     render("createComponent.jsp");

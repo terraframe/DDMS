@@ -10,7 +10,7 @@ package dss.vector.solutions.geo;
 public class SpatialMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314868886L;
+private static final long serialVersionUID = 1237423108660L;
 
   protected SpatialMasterQueryDTO(String type)
   {

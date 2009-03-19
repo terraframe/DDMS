@@ -9,7 +9,7 @@ public class DistrictControllerBase implements com.terraframe.mojo.generation.lo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314863757L;
+  private static final long serialVersionUID = 1237423102483L;
   
   public DistrictControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

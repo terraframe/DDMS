@@ -1,0 +1,4 @@
+2009-03-18 14:15:47  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2009-03-18 14:15:47  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2009-03-18 14:15:47  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2009-03-18 14:15:48  Connection refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.

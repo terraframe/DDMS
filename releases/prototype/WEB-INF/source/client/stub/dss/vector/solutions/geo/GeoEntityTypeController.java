@@ -7,15 +7,18 @@ import javax.servlet.ServletException;
 
 import com.terraframe.mojo.constants.MdBusinessInfo;
 
-import dss.vector.solutions.geo.GeoEntityTypeControllerBase;
-import dss.vector.solutions.geo.GeoHierarchyViewQueryDTO;
-
 public class GeoEntityTypeController extends GeoEntityTypeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236133816932L;
 
   private static final String NEW_DEFINITION_JSP = "/WEB-INF/newDefinition.jsp";
+
+  private static final String EDIT_DEFINITION_JSP = "/WEB-INF/editDefinition.jsp";
+  
   private static final String VIEW_DEFINITION_JSP = "/WEB-INF/viewDefinition.jsp";
+  
+  private static final String VIEW_DEFINITION_COMPONENT_JSP = "/WEB-INF/viewDefinitionComponent.jsp";
+  
   private static final String VIEW_ALL_DEFINITIONS_JSP = "/WEB-INF/viewAllDefinitions.jsp";
   
   private static final String TREE_JSP = "/WEB-INF/geoHierarchyTree.jsp";
@@ -48,16 +51,46 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
   @Override
   public void createDefinition(GeoEntityDefinitionDTO definition) throws IOException, ServletException
   {
-    GeoHierarchyViewDTO view = GeoHierarchyDTO.defineGeoEntity(this.getClientRequest(), definition);
+    String geoHierarchyViewId = GeoHierarchyDTO.defineGeoEntity(this.getClientRequest(), definition);
     
     // return the id to the calling Ajax process
-    resp.getWriter().write(view.getGeoHierarchyId());
+    resp.getWriter().write(geoHierarchyViewId);
   }
 
   @Override
   public void cancelCreateDefinition() throws IOException, ServletException
   {
     // handled in Ajax calling process
+  }
+  
+  @Override
+  public void editDefinition(String geoHierarchyId) throws IOException, ServletException
+  {
+    GeoHierarchyDTO.lock(this.getClientRequest(), geoHierarchyId);
+    GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(this.getClientRequest(), geoHierarchyId);
+
+    req.setAttribute("geoHierarchyId", view.getGeoHierarchyId());
+    req.setAttribute("view", view);
+
+    req.getRequestDispatcher(EDIT_DEFINITION_JSP).forward(req, resp);
+  }
+  
+  @Override
+  public void updateDefinition(GeoHierarchyViewDTO view) throws IOException, ServletException
+  {
+    GeoHierarchyDTO.updateFromView(this.getClientRequest(), view);
+    
+    // return the id to the calling Ajax process
+    resp.getWriter().write(view.getGeoHierarchyId());
+  }
+  
+  @Override
+  public void cancelUpdateDefinition(String geoHierarchyId) throws IOException, ServletException
+  {
+    GeoHierarchyDTO.unlock(this.getClientRequest(), geoHierarchyId);
+    
+    // return the id to the calling Ajax process
+    resp.getWriter().write(geoHierarchyId);
   }
   
   @Override
@@ -83,6 +116,23 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
     req.setAttribute("query", query);
     
     req.getRequestDispatcher(VIEW_ALL_DEFINITIONS_JSP).forward(req, resp);
+  }
+
+  @Override
+  public void viewDefinition(String geoHierarchyId) throws IOException, ServletException
+  {
+    GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(this.getClientRequest(), geoHierarchyId);
+
+    req.setAttribute("view", view);
+
+    if(this.isAsynchronous())
+    {
+      req.getRequestDispatcher(VIEW_DEFINITION_COMPONENT_JSP).forward(req, resp);
+    }
+    else
+    {
+      req.getRequestDispatcher(VIEW_DEFINITION_JSP).forward(req, resp);
+    }
   }
   
   @Override

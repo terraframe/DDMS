@@ -13,7 +13,6 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
-  public static java.lang.String GENERICNAME = "genericName";
   public static java.lang.String ID = "id";
   public static java.lang.String INSECTICIDE = "insecticide";
   public static java.lang.String KEYNAME = "keyName";
@@ -26,7 +25,7 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237314874947L;
+  private static final long serialVersionUID = 1237423115661L;
   
   public AbstractAssayBase()
   {
@@ -107,34 +106,6 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
     }
   }
   
-  public String getGenericName()
-  {
-    return getValue(GENERICNAME);
-  }
-  
-  public void validateGenericName()
-  {
-    this.validateAttribute(GENERICNAME);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGenericNameMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.AbstractAssay.CLASS);
-    return mdClassIF.definesAttribute(GENERICNAME);
-  }
-  
-  public void setGenericName(String value)
-  {
-    if(value == null)
-    {
-      setValue(GENERICNAME, "");
-    }
-    else
-    {
-      setValue(GENERICNAME, value);
-    }
-  }
-  
   public String getId()
   {
     return getValue(ID);
@@ -151,11 +122,11 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
     return mdClassIF.definesAttribute(ID);
   }
   
-  public dss.vector.solutions.mo.Insecticide getInsecticide()
+  public dss.vector.solutions.general.Insecticide getInsecticide()
   {
     try
     {
-      return dss.vector.solutions.mo.Insecticide.get(getValue(INSECTICIDE));
+      return dss.vector.solutions.general.Insecticide.get(getValue(INSECTICIDE));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -174,7 +145,7 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
     return mdClassIF.definesAttribute(INSECTICIDE);
   }
   
-  public void setInsecticide(dss.vector.solutions.mo.Insecticide value)
+  public void setInsecticide(dss.vector.solutions.general.Insecticide value)
   {
     if(value == null)
     {

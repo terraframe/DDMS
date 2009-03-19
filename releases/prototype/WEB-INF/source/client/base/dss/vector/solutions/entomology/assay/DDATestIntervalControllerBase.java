@@ -9,7 +9,7 @@ public class DDATestIntervalControllerBase implements com.terraframe.mojo.genera
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314870394L;
+  private static final long serialVersionUID = 1237423110612L;
   
   public DDATestIntervalControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public  class KnockDownAssayQuery extends dss.vector.solutions.entomology.assay.CollectionAssayQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314867389L;
+private static final long serialVersionUID = 1237423106137L;
 
   public KnockDownAssayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -159,7 +159,7 @@ private static final long serialVersionUID = 1237314867389L;
  implements KnockDownAssayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237314867483L;
+private static final long serialVersionUID = 1237423106252L;
 
   public KnockDownAssayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

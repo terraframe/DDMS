@@ -10,7 +10,6 @@ package dss.vector.solutions.entomology.assay;
 public abstract class CollectionAssayBase extends dss.vector.solutions.entomology.assay.AbstractAssay implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.CollectionAssay";
-  public static java.lang.String AMOUNT = "amount";
   public static java.lang.String COLLECTION = "collection";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String GENERATION = "generation";
@@ -19,40 +18,11 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String TESTMETHOD = "testMethod";
-  public static java.lang.String UNITS = "units";
-  private static final long serialVersionUID = 1237314862790L;
+  private static final long serialVersionUID = 1237423101276L;
   
   public CollectionAssayBase()
   {
     super();
-  }
-  
-  public Integer getAmount()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
-  }
-  
-  public void validateAmount()
-  {
-    this.validateAttribute(AMOUNT);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAmountMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
-    return mdClassIF.definesAttribute(AMOUNT);
-  }
-  
-  public void setAmount(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(AMOUNT, "");
-    }
-    else
-    {
-      setValue(AMOUNT, java.lang.Integer.toString(value));
-    }
   }
   
   public dss.vector.solutions.entomology.MosquitoCollection getCollection()
@@ -307,38 +277,6 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     }
   }
   
-  @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.entomology.assay.Unit> getUnits()
-  {
-    return (java.util.List<dss.vector.solutions.entomology.assay.Unit>) getEnumValues(UNITS);
-  }
-  
-  public void addUnits(dss.vector.solutions.entomology.assay.Unit value)
-  {
-    addEnumItem(UNITS, value.getId());
-  }
-  
-  public void removeUnits(dss.vector.solutions.entomology.assay.Unit value)
-  {
-    removeEnumItem(UNITS, value.getId());
-  }
-  
-  public void clearUnits()
-  {
-    clearEnum(UNITS);
-  }
-  
-  public void validateUnits()
-  {
-    this.validateAttribute(UNITS);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getUnitsMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
-    return mdClassIF.definesAttribute(UNITS);
-  }
-  
   protected String getDeclaredType()
   {
     return CLASS;
@@ -358,7 +296,8 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
   
   public dss.vector.solutions.entomology.assay.DDATestIntervalView[] getTestIntervals()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.CollectionAssay.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final dss.vector.solutions.entomology.assay.DDATestIntervalView[] getTestIntervals(java.lang.String id)
@@ -369,7 +308,8 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
   
   public java.lang.Double getKD50()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.CollectionAssay.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final java.lang.Double getKD50(java.lang.String id)
@@ -380,7 +320,8 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
   
   public java.lang.Double getKD95()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.CollectionAssay.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final java.lang.Double getKD95(java.lang.String id)

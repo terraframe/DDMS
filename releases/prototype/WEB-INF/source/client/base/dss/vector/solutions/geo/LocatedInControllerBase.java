@@ -9,7 +9,7 @@ public class LocatedInControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314878741L;
+  private static final long serialVersionUID = 1237423118999L;
   
   public LocatedInControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

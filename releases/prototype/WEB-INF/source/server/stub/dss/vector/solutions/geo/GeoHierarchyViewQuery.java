@@ -65,10 +65,12 @@ private static final long serialVersionUID = 1236279045055L;
       GeoHierarchyViewQuery vQuery = this.getViewQuery();
 
       vQuery.map(GeoHierarchyView.GEOHIERARCHYID, geoHierarchyQuery.getId());
+      vQuery.map(GeoHierarchyView.POLITICAL, geoHierarchyQuery.getPolitical());
 
       vQuery.map(GeoHierarchyView.REFERENCEID, mdBusinessQuery.getId());
       vQuery.map(GeoHierarchyView.TYPENAME, mdBusinessQuery.getTypeName());
       vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel());
+      vQuery.map(GeoHierarchyView.DESCRIPTION, mdBusinessQuery.getDescription());
     }
 
     /**

@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class GenerationBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.Generation";
-  private static final long serialVersionUID = 1237314868022L;
+  private static final long serialVersionUID = 1237423106833L;
   
   public GenerationBase()
   {
@@ -36,7 +36,8 @@ public abstract class GenerationBase extends dss.vector.solutions.mo.AbstractTer
   
   public static dss.vector.solutions.mo.Generation[] getAll()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.Generation.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static Generation lock(java.lang.String id)

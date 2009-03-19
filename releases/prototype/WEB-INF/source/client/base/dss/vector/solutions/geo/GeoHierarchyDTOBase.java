@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237314873358L;
+  private static final long serialVersionUID = 1237423113869L;
   
   public final static String CLASS = "dss.vector.solutions.geo.GeoHierarchy";
   protected GeoHierarchyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -409,6 +409,22 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("siteMaster").getAttributeMdDTO();
   }
   
+  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO[] getPoliticalGeoHierarchies(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoEntityId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{geoEntityId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "getPoliticalGeoHierarchies", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoHierarchyViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void updateFromView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.GeoHierarchyViewDTO view)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.GeoHierarchyView"};
+    Object[] _parameters = new Object[]{view};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "updateFromView", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final java.lang.String defineAllowedTree(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String geoEntityId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
@@ -417,12 +433,12 @@ public abstract class GeoHierarchyDTOBase extends com.terraframe.mojo.business.B
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO defineGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.GeoEntityDefinitionDTO definition)
+  public static final java.lang.String defineGeoEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.GeoEntityDefinitionDTO definition)
   {
     String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.GeoEntityDefinition"};
     Object[] _parameters = new Object[]{definition};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.GeoHierarchyDTO.CLASS, "defineGeoEntity", _declaredTypes);
-    return (dss.vector.solutions.geo.GeoHierarchyViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.geo.GeoHierarchyViewQueryDTO getGeoEntityHierarchyViews(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean ascending, java.lang.Integer pageSize, java.lang.Integer pageNumber)

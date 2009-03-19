@@ -25,7 +25,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237314877414L;
+  private static final long serialVersionUID = 1237423117473L;
   
   public GeoEntityBase()
   {
@@ -442,7 +442,8 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   
   public java.lang.String[] updateFromTree()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final java.lang.String[] updateFromTree(java.lang.String id)
@@ -453,11 +454,14 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   
   public static dss.vector.solutions.geo.generated.GeoEntity searchByGeoId(java.lang.String geoId)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public void confirmChangeParent(java.lang.String parentId)
   {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final void confirmChangeParent(java.lang.String id, java.lang.String parentId)
@@ -466,20 +470,22 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     _instance.confirmChangeParent(parentId);
   }
   
-  public dss.vector.solutions.geo.generated.GeoEntityQuery getOrderedChildren()
+  public dss.vector.solutions.geo.generated.GeoEntityQuery getOrderedChildren(java.lang.String typeFilter)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.geo.generated.GeoEntityQuery getOrderedChildren(java.lang.String id)
+  public static final dss.vector.solutions.geo.generated.GeoEntityQuery getOrderedChildren(java.lang.String id, java.lang.String typeFilter)
   {
     GeoEntity _instance = GeoEntity.get(id);
-    return _instance.getOrderedChildren();
+    return _instance.getOrderedChildren(typeFilter);
   }
   
   public java.lang.String[] applyWithParent(java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final java.lang.String[] applyWithParent(java.lang.String id, java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)

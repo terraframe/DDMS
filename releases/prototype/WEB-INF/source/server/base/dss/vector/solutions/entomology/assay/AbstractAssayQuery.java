@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public  class AbstractAssayQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314875022L;
+private static final long serialVersionUID = 1237423115734L;
 
   public AbstractAssayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -66,17 +66,6 @@ private static final long serialVersionUID = 1237314875022L;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.AbstractAssay.ENTITYDOMAIN, mdAttributeIF, this, alias);
 
   }
-  public com.terraframe.mojo.query.AttributeCharIF getGenericName()
-  {
-    return getGenericName(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeCharIF getGenericName(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.AbstractAssay.GENERICNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
-
-  }
   public com.terraframe.mojo.query.AttributeCharIF getId()
   {
     return getId(null);
@@ -88,18 +77,18 @@ private static final long serialVersionUID = 1237314875022L;
     return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.assay.AbstractAssay.ID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
 
   }
-  public dss.vector.solutions.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
   {
     return getInsecticide(null);
 
   }
  
-  public dss.vector.solutions.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
   {
 
     com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("insecticide");
 
-    return (dss.vector.solutions.mo.InsecticideQuery.InsecticideQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.AbstractAssay.INSECTICIDE, mdAttributeIF, this, alias);
+    return (dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.AbstractAssay.INSECTICIDE, mdAttributeIF, this, alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getKeyName()
@@ -238,7 +227,7 @@ private static final long serialVersionUID = 1237314875022L;
     }
     else if (name.equals("insecticide")) 
     {
-       return new dss.vector.solutions.mo.InsecticideQuery.InsecticideQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
+       return new dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else if (name.equals("lastUpdatedBy")) 
     {
@@ -300,12 +289,10 @@ private static final long serialVersionUID = 1237314875022L;
     public com.terraframe.mojo.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
-    public com.terraframe.mojo.query.AttributeCharIF getGenericName();
-    public com.terraframe.mojo.query.AttributeCharIF getGenericName(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getId();
     public com.terraframe.mojo.query.AttributeCharIF getId(String alias);
-    public dss.vector.solutions.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide();
-    public dss.vector.solutions.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias);
+    public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide();
+    public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getKeyName();
     public com.terraframe.mojo.query.AttributeCharIF getKeyName(String alias);
     public com.terraframe.mojo.query.AttributeMomentIF getLastUpdateDate();
@@ -341,7 +328,7 @@ private static final long serialVersionUID = 1237314875022L;
  implements AbstractAssayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237314875117L;
+private static final long serialVersionUID = 1237423115830L;
 
   public AbstractAssayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -393,17 +380,6 @@ private static final long serialVersionUID = 1237314875117L;
     return (com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.attributeFactory("entityDomain", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
 
   }
-  public com.terraframe.mojo.query.AttributeCharIF getGenericName()
-  {
-    return getGenericName(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeCharIF getGenericName(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("genericName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
-
-  }
   public com.terraframe.mojo.query.AttributeCharIF getId()
   {
     return getId(null);
@@ -415,15 +391,15 @@ private static final long serialVersionUID = 1237314875117L;
     return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("id", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
 
   }
-  public dss.vector.solutions.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
   {
     return getInsecticide(null);
 
   }
  
-  public dss.vector.solutions.mo.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
   {
-    return (dss.vector.solutions.mo.InsecticideQuery.InsecticideQueryReferenceIF)this.attributeFactory("insecticide", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
+    return (dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF)this.attributeFactory("insecticide", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getKeyName()
@@ -550,7 +526,7 @@ private static final long serialVersionUID = 1237314875117L;
     }
     else if (name.equals("insecticide")) 
     {
-       return new dss.vector.solutions.mo.InsecticideQuery.InsecticideQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
+       return new dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
     else if (name.equals("lastUpdatedBy")) 
     {

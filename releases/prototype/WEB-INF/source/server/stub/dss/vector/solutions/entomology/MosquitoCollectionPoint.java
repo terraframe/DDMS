@@ -1,13 +1,11 @@
 package dss.vector.solutions.entomology;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-
-import dss.vector.solutions.entomology.MosquitoCollectionPointBase;
-import dss.vector.solutions.entomology.MosquitoCollectionPointQuery;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.PermanentWaterBody;
@@ -38,7 +36,7 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
 
     GeoEntity geoEntity = this.getGeoEntity();
 
-    if (! ( geoEntity instanceof Trap || geoEntity instanceof PermanentWaterBody))
+    if (! ( geoEntity instanceof Trap || geoEntity instanceof PermanentWaterBody ))
     {
       String msg = "The geoEntity of a mosquito collection must be a fixed trap or a permenent water body";
 
@@ -51,55 +49,35 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
     }
   }
 
-  public static dss.vector.solutions.entomology.MosquitoCollectionPoint searchByGeoEntityAndDate(
-      dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)
+  public static MorphologicalSpecieGroupView[] searchByGeoEntityAndDate(GeoEntity geoEntity, Date startDate, Date endDate)
   {
+    List<MorphologicalSpecieGroupView> list = new LinkedList<MorphologicalSpecieGroupView>();
 
     QueryFactory factory = new QueryFactory();
-    MosquitoCollectionPointQuery query = new MosquitoCollectionPointQuery(factory);
+    MosquitoCollectionPointQuery collectionQuery = new MosquitoCollectionPointQuery(factory);
+    MorphologicalSpecieGroupQuery specieQuery = new MorphologicalSpecieGroupQuery(factory);
 
-    query.AND(query.getGeoEntity().getId().EQ(geoEntity.getId()));
-    query.AND(query.getDateCollected().EQ(collectionDate));
+    collectionQuery.WHERE(collectionQuery.getGeoEntity().EQ(geoEntity));
+    collectionQuery.AND(collectionQuery.getDateCollected().GE(startDate));
+    collectionQuery.AND(collectionQuery.getDateCollected().LE(endDate));
+    
+    specieQuery.WHERE(specieQuery.getCollection().EQ(collectionQuery));
 
-    OIterator<? extends MosquitoCollectionPoint> iterator = query.getIterator();
+    OIterator<? extends MorphologicalSpecieGroup> iterator = specieQuery.getIterator();
 
     try
     {
-      if (iterator.hasNext())
+      while (iterator.hasNext())
       {
-        return iterator.next();
+        list.add(iterator.next().getView());
       }
-
-      return null;
     }
     finally
     {
       iterator.close();
     }
-  }
-    
-  public List<MosquitoCollectionPointView> getViews()
-  {
-    List<MosquitoCollectionPointView> list = new LinkedList<MosquitoCollectionPointView>();
-    
-    for(MorphologicalSpecieGroupView group : this.getMorphologicalSpecieGroups())
-    {
-      MosquitoCollectionPointView view = new MosquitoCollectionPointView();
-      
-      view.setCollection(this);
-      view.setDateCollected(this.getDateCollected());
-      view.setGeoEntity(this.getGeoEntity());
-      view.setGroupId(this.getId());
-      view.setQuantity(group.getQuantity());
-      view.setSpecie(group.getSpecie());
-      view.setIdentificationMethod(group.getIdentificationMethod());
-      
-      view.applyNoPersist();
-      
-      list.add(view);
-    }
 
-    return list;
+    return list.toArray(new MorphologicalSpecieGroupView[list.size()]);
   }
 
 }

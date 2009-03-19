@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class MolecularAssayResultBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.MolecularAssayResult";
-  private static final long serialVersionUID = 1237314876573L;
+  private static final long serialVersionUID = 1237423116546L;
   
   public MolecularAssayResultBase()
   {
@@ -36,7 +36,8 @@ public abstract class MolecularAssayResultBase extends dss.vector.solutions.mo.A
   
   public static dss.vector.solutions.mo.MolecularAssayResult[] getAll()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.MolecularAssayResult.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static MolecularAssayResult lock(java.lang.String id)

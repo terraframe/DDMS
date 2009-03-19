@@ -10,47 +10,11 @@ package dss.vector.solutions.entomology;
 public abstract class MosquitoCollectionPointBase extends dss.vector.solutions.entomology.ConcreteMosquitoCollection implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionPoint";
-  public static java.lang.String COMPOSITECOLLECTION = "compositeCollection";
-  private static final long serialVersionUID = 1237314875647L;
+  private static final long serialVersionUID = 1237423116220L;
   
   public MosquitoCollectionPointBase()
   {
     super();
-  }
-  
-  public dss.vector.solutions.entomology.CompositeMosquitoCollection getCompositeCollection()
-  {
-    try
-    {
-      return dss.vector.solutions.entomology.CompositeMosquitoCollection.get(getValue(COMPOSITECOLLECTION));
-    }
-    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
-    {
-      return null;
-    }
-  }
-  
-  public void validateCompositeCollection()
-  {
-    this.validateAttribute(COMPOSITECOLLECTION);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getCompositeCollectionMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionPoint.CLASS);
-    return mdClassIF.definesAttribute(COMPOSITECOLLECTION);
-  }
-  
-  public void setCompositeCollection(dss.vector.solutions.entomology.CompositeMosquitoCollection value)
-  {
-    if(value == null)
-    {
-      setValue(COMPOSITECOLLECTION, "");
-    }
-    else
-    {
-      setValue(COMPOSITECOLLECTION, value.getId());
-    }
   }
   
   protected String getDeclaredType()
@@ -70,9 +34,10 @@ public abstract class MosquitoCollectionPointBase extends dss.vector.solutions.e
     return (MosquitoCollectionPoint) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public static dss.vector.solutions.entomology.MosquitoCollectionPoint searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)
+  public static dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date startDate, java.util.Date endDate)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionPoint.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static MosquitoCollectionPoint lock(java.lang.String id)

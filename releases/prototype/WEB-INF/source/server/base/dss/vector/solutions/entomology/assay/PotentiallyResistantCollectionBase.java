@@ -11,7 +11,7 @@ public abstract class PotentiallyResistantCollectionBase extends com.terraframe.
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.PotentiallyResistantCollection";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1237314882093L;
+  private static final long serialVersionUID = 1237423122542L;
   
   public PotentiallyResistantCollectionBase()
   {

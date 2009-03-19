@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 public class MonooxygenaseTestResultQueryDTO extends dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314879511L;
+private static final long serialVersionUID = 1237423119733L;
 
   protected MonooxygenaseTestResultQueryDTO(String type)
   {

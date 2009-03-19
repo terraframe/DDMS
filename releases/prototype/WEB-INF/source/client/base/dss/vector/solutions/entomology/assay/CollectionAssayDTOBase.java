@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237314862864L;
+  private static final long serialVersionUID = 1237423101347L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.CollectionAssay";
   protected CollectionAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -26,7 +26,6 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
     return CLASS;
   }
   
-  public static java.lang.String AMOUNT = "amount";
   public static java.lang.String COLLECTION = "collection";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String GENERATION = "generation";
@@ -35,44 +34,6 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String TESTMETHOD = "testMethod";
-  public static java.lang.String UNITS = "units";
-  public Integer getAmount()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
-  }
-  
-  public void setAmount(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(AMOUNT, "");
-    }
-    else
-    {
-      setValue(AMOUNT, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isAmountWritable()
-  {
-    return isWritable(AMOUNT);
-  }
-  
-  public boolean isAmountReadable()
-  {
-    return isReadable(AMOUNT);
-  }
-  
-  public boolean isAmountModified()
-  {
-    return isModified(AMOUNT);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getAmountMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("amount").getAttributeMdDTO();
-  }
-  
   public dss.vector.solutions.entomology.MosquitoCollectionDTO getCollection()
   {
     if(getValue(COLLECTION) == null || getValue(COLLECTION).trim().equals(""))
@@ -367,52 +328,6 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("testMethod").getAttributeMdDTO();
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.entomology.assay.UnitDTO> getUnits()
-  {
-    return (java.util.List<dss.vector.solutions.entomology.assay.UnitDTO>) com.terraframe.mojo.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), "dss.vector.solutions.entomology.assay.Unit", getEnumNames(UNITS));
-  }
-  
-  public java.util.List<String> getUnitsEnumNames()
-  {
-    return getEnumNames(UNITS);
-  }
-  
-  public void addUnits(dss.vector.solutions.entomology.assay.UnitDTO enumDTO)
-  {
-    addEnumItem(UNITS, enumDTO.toString());
-  }
-  
-  public void removeUnits(dss.vector.solutions.entomology.assay.UnitDTO enumDTO)
-  {
-    removeEnumItem(UNITS, enumDTO.toString());
-  }
-  
-  public void clearUnits()
-  {
-    clearEnum(UNITS);
-  }
-  
-  public boolean isUnitsWritable()
-  {
-    return isWritable(UNITS);
-  }
-  
-  public boolean isUnitsReadable()
-  {
-    return isReadable(UNITS);
-  }
-  
-  public boolean isUnitsModified()
-  {
-    return isModified(UNITS);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getUnitsMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("units").getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.entomology.assay.DDATestIntervalViewDTO[] getTestIntervals()

@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public  abstract  class MorphologicalSpecieGroupViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314867290L;
+private static final long serialVersionUID = 1237423105940L;
 
   public MorphologicalSpecieGroupViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -37,6 +37,18 @@ private static final long serialVersionUID = 1237314867290L;
     return (dss.vector.solutions.entomology.ConcreteMosquitoCollectionQuery.ConcreteMosquitoCollectionQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MorphologicalSpecieGroupView.COLLECTION, alias);
 
   }
+  public com.terraframe.mojo.query.AttributeMomentIF getDateCollected()
+  {
+    return getDateCollected(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeMomentIF getDateCollected(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeMomentIF)this.getSelectable(dss.vector.solutions.entomology.MorphologicalSpecieGroupView.DATECOLLECTED, alias);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeCharIF getGroupId()
   {
     return getGroupId(null);
@@ -82,6 +94,30 @@ private static final long serialVersionUID = 1237314867290L;
   public com.terraframe.mojo.query.AttributeIntegerIF getQuantity(String alias)
   {
     return (com.terraframe.mojo.query.AttributeIntegerIF)this.getSelectable(dss.vector.solutions.entomology.MorphologicalSpecieGroupView.QUANTITY, alias);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeIntegerIF getQuantityDead()
+  {
+    return getQuantityDead(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeIntegerIF getQuantityDead(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeIntegerIF)this.getSelectable(dss.vector.solutions.entomology.MorphologicalSpecieGroupView.QUANTITYDEAD, alias);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeIntegerIF getQuantityLive()
+  {
+    return getQuantityLive(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeIntegerIF getQuantityLive(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeIntegerIF)this.getSelectable(dss.vector.solutions.entomology.MorphologicalSpecieGroupView.QUANTITYLIVE, alias);
 
   }
  

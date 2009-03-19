@@ -22,11 +22,12 @@ public abstract class MorphologicalSpecieGroupBase extends com.terraframe.mojo.b
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String QUANTITY = "quantity";
+  public static java.lang.String QUANTITYLIVE = "quantityLive";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237314871795L;
+  private static final long serialVersionUID = 1237423112177L;
   
   public MorphologicalSpecieGroupBase()
   {
@@ -331,6 +332,34 @@ public abstract class MorphologicalSpecieGroupBase extends com.terraframe.mojo.b
     else
     {
       setValue(QUANTITY, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getQuantityLive()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
+  }
+  
+  public void validateQuantityLive()
+  {
+    this.validateAttribute(QUANTITYLIVE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getQuantityLiveMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MorphologicalSpecieGroup.CLASS);
+    return mdClassIF.definesAttribute(QUANTITYLIVE);
+  }
+  
+  public void setQuantityLive(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(QUANTITYLIVE, "");
+    }
+    else
+    {
+      setValue(QUANTITYLIVE, java.lang.Integer.toString(value));
     }
   }
   

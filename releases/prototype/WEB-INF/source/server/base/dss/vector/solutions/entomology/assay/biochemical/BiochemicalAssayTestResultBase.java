@@ -11,7 +11,7 @@ public abstract class BiochemicalAssayTestResultBase extends dss.vector.solution
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1237314880028L;
+  private static final long serialVersionUID = 1237423120370L;
   
   public BiochemicalAssayTestResultBase()
   {
@@ -72,7 +72,8 @@ public abstract class BiochemicalAssayTestResultBase extends dss.vector.solution
   
   public static dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult getBiochemicalAssays()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static BiochemicalAssayTestResult lock(java.lang.String id)

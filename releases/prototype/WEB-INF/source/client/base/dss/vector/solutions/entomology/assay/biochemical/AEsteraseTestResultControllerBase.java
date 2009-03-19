@@ -9,7 +9,7 @@ public class AEsteraseTestResultControllerBase implements com.terraframe.mojo.ge
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314873666L;
+  private static final long serialVersionUID = 1237423114277L;
   
   public AEsteraseTestResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

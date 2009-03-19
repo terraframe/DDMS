@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class MorphologicalSpecieGroupDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237314871853L;
+  private static final long serialVersionUID = 1237423112238L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.MorphologicalSpecieGroup";
   protected MorphologicalSpecieGroupDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -38,6 +38,7 @@ public abstract class MorphologicalSpecieGroupDTOBase extends com.terraframe.moj
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String QUANTITY = "quantity";
+  public static java.lang.String QUANTITYLIVE = "quantityLive";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPECIE = "specie";
@@ -396,6 +397,43 @@ public abstract class MorphologicalSpecieGroupDTOBase extends com.terraframe.moj
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantity").getAttributeMdDTO();
+  }
+  
+  public Integer getQuantityLive()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
+  }
+  
+  public void setQuantityLive(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(QUANTITYLIVE, "");
+    }
+    else
+    {
+      setValue(QUANTITYLIVE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isQuantityLiveWritable()
+  {
+    return isWritable(QUANTITYLIVE);
+  }
+  
+  public boolean isQuantityLiveReadable()
+  {
+    return isReadable(QUANTITYLIVE);
+  }
+  
+  public boolean isQuantityLiveModified()
+  {
+    return isModified(QUANTITYLIVE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityLive").getAttributeMdDTO();
   }
   
   public Long getSeq()

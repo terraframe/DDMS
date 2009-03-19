@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class MosquitoCollectionPointDTOBase extends dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237314875716L;
+  private static final long serialVersionUID = 1237423116266L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionPoint";
   protected MosquitoCollectionPointDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -26,50 +26,12 @@ public abstract class MosquitoCollectionPointDTOBase extends dss.vector.solution
     return CLASS;
   }
   
-  public static java.lang.String COMPOSITECOLLECTION = "compositeCollection";
-  public dss.vector.solutions.entomology.CompositeMosquitoCollectionDTO getCompositeCollection()
+  public static final dss.vector.solutions.entomology.MorphologicalSpecieGroupViewDTO[] searchByGeoEntityAndDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.util.Date startDate, java.util.Date endDate)
   {
-    if(getValue(COMPOSITECOLLECTION) == null || getValue(COMPOSITECOLLECTION).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.entomology.CompositeMosquitoCollectionDTO.get(getRequest(), getValue(COMPOSITECOLLECTION));
-    }
-  }
-  
-  public void setCompositeCollection(dss.vector.solutions.entomology.CompositeMosquitoCollectionDTO value)
-  {
-    setValue(COMPOSITECOLLECTION, value.getId());
-  }
-  
-  public boolean isCompositeCollectionWritable()
-  {
-    return isWritable(COMPOSITECOLLECTION);
-  }
-  
-  public boolean isCompositeCollectionReadable()
-  {
-    return isReadable(COMPOSITECOLLECTION);
-  }
-  
-  public boolean isCompositeCollectionModified()
-  {
-    return isModified(COMPOSITECOLLECTION);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCompositeCollectionMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("compositeCollection").getAttributeMdDTO();
-  }
-  
-  public static final dss.vector.solutions.entomology.MosquitoCollectionPointDTO searchByGeoEntityAndDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.util.Date collectionDate)
-  {
-    String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.generated.GeoEntity", "java.util.Date"};
-    Object[] _parameters = new Object[]{geoEntity, collectionDate};
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.generated.GeoEntity", "java.util.Date", "java.util.Date"};
+    Object[] _parameters = new Object[]{geoEntity, startDate, endDate};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionPointDTO.CLASS, "searchByGeoEntityAndDate", _declaredTypes);
-    return (dss.vector.solutions.entomology.MosquitoCollectionPointDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (dss.vector.solutions.entomology.MorphologicalSpecieGroupViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.entomology.MosquitoCollectionPointDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

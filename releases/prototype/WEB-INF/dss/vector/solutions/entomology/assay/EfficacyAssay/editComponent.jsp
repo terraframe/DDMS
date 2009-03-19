@@ -46,7 +46,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_testMethod}" param="testMethod">
+        <mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
           <mjl:option>
             ${current.termName}
           </mjl:option>
@@ -58,7 +58,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_specie}" param="specie">
+        <mjl:select var="current" valueAttribute="id" items="${specie}" param="specie">
           <mjl:option>
             ${current.termName}
           </mjl:option>
@@ -114,7 +114,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="enumName" items="${csu_mrc_ivcc_mdss_entomology_assay_AbstractAssay_sex}" param="sex">
+        <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
           <c:choose>
             <c:when test="${mjl:contains(item.sexEnumNames, current.enumName)}">
               <mjl:option selected="selected">
@@ -157,9 +157,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_insecticide}" param="insecticide">
+        <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
           <mjl:option>
-            ${current.termName}
+            ${current.displayLabel}
           </mjl:option>
         </mjl:select>
       </dd>
@@ -180,7 +180,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="enumName" items="${csu_mrc_ivcc_mdss_entomology_assay_EfficacyAssay_surfacePostion}" param="surfacePostion">
+        <mjl:select var="current" valueAttribute="enumName" items="${surfacePostion}" param="surfacePostion">
           <c:choose>
             <c:when test="${mjl:contains(item.surfacePostionEnumNames, current.enumName)}">
               <mjl:option selected="selected">
@@ -228,17 +228,6 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-      <dt>
-        <label>
-          ${item.quantityLiveMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="quantityLive" />
-        <mjl:messages attribute="quantityLive">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
        <dt>
         <label>
           ${item.quantityDeadMd.displayLabel}
@@ -247,17 +236,6 @@
       <dd>
         <mjl:input type="text" param="quantityDead" />
         <mjl:messages attribute="quantityDead">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.mortalityMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="mortality" />
-        <mjl:messages attribute="mortality">
           <mjl:message />
         </mjl:messages>
       </dd>

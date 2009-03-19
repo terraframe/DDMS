@@ -11,12 +11,15 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MorphologicalSpecieGroupView";
   public static java.lang.String COLLECTION = "collection";
+  public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String GROUPID = "groupId";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
   public static java.lang.String QUANTITY = "quantity";
+  public static java.lang.String QUANTITYDEAD = "quantityDead";
+  public static java.lang.String QUANTITYLIVE = "quantityLive";
   public static java.lang.String SPECIE = "specie";
-  private static final long serialVersionUID = 1237314867280L;
+  private static final long serialVersionUID = 1237423105927L;
   
   public MorphologicalSpecieGroupViewBase()
   {
@@ -55,6 +58,34 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
     else
     {
       setValue(COLLECTION, value.getId());
+    }
+  }
+  
+  public java.util.Date getDateCollected()
+  {
+    return com.terraframe.mojo.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATECOLLECTED));
+  }
+  
+  public void validateDateCollected()
+  {
+    this.validateAttribute(DATECOLLECTED);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getDateCollectedMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MorphologicalSpecieGroupView.CLASS);
+    return mdClassIF.definesAttribute(DATECOLLECTED);
+  }
+  
+  public void setDateCollected(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(DATECOLLECTED, "");
+    }
+    else
+    {
+      setValue(DATECOLLECTED, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -165,6 +196,62 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
     }
   }
   
+  public Integer getQuantityDead()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
+  }
+  
+  public void validateQuantityDead()
+  {
+    this.validateAttribute(QUANTITYDEAD);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getQuantityDeadMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MorphologicalSpecieGroupView.CLASS);
+    return mdClassIF.definesAttribute(QUANTITYDEAD);
+  }
+  
+  public void setQuantityDead(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(QUANTITYDEAD, "");
+    }
+    else
+    {
+      setValue(QUANTITYDEAD, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getQuantityLive()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
+  }
+  
+  public void validateQuantityLive()
+  {
+    this.validateAttribute(QUANTITYLIVE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getQuantityLiveMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MorphologicalSpecieGroupView.CLASS);
+    return mdClassIF.definesAttribute(QUANTITYLIVE);
+  }
+  
+  public void setQuantityLive(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(QUANTITYLIVE, "");
+    }
+    else
+    {
+      setValue(QUANTITYLIVE, java.lang.Integer.toString(value));
+    }
+  }
+  
   public dss.vector.solutions.mo.Specie getSpecie()
   {
     try
@@ -212,7 +299,8 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
   
   public static dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] saveAll(dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] array)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MorphologicalSpecieGroupView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public String toString()

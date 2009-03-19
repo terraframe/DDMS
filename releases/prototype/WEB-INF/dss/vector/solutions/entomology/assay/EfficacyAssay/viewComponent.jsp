@@ -99,19 +99,19 @@
     <dd>
       ${item.fed}
     </dd>
-     <dt>
+    <dt>
       <label>
         ${item.insecticideMd.displayLabel}
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.mo.InsecticideController.view.mojo" name="dss.vector.solutions.mo.Insecticide.form.view.link">
+      <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="dss.vector.solutions.mo.ActiveIngredient.form.view.link">
         <mjl:property value="${item.insecticide.id}" name="id" />
       </mjl:commandLink>
     </dd>
      <dt>
       <label>
-        ${item.expousureTimeMd.displayLabel}
+        ${item.exposureTimeMd.displayLabel}
       </label>
     </dt>
     <dd>
@@ -138,14 +138,6 @@
     </dt>
     <dd>
       ${item.holdingTime}
-    </dd>
-    <dt>
-      <label>
-        ${item.exposureTimeMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.exposureTime}
     </dd>
    <dt>
       <label>

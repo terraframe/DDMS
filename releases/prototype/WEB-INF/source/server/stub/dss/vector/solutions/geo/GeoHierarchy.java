@@ -19,13 +19,10 @@ import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 
-import dss.vector.solutions.geo.AllowedInQuery;
-import dss.vector.solutions.geo.GeoHierarchyBase;
-import dss.vector.solutions.geo.GeoHierarchyQuery;
-import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 public class GeoHierarchy extends GeoHierarchyBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -169,20 +166,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   private static void treeRecurse(JSONObject types, HashSet<String> imports, GeoHierarchy geo)
       throws JSONException
   {
-    List<GeoHierarchy> geos = new LinkedList<GeoHierarchy>();
-
-    OIterator<? extends GeoHierarchy> iter = geo.getAllAcceptsGeoEntity();
-    try
-    {
-      while (iter.hasNext())
-      {
-        geos.add(iter.next());
-      }
-    }
-    finally
-    {
-      iter.close();
-    }
+    List<GeoHierarchy> geos = geo.getImmediateChildren();
 
     JSONArray allowed = new JSONArray();
     for (int i = 0; i < geos.size(); i++)
@@ -246,7 +230,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * Defines a new GeoEntity type based on the value of this view.
    */
   @Transaction
-  public static GeoHierarchyView defineGeoEntity(GeoEntityDefinition definition)
+  public static String defineGeoEntity(GeoEntityDefinition definition)
   {
     // validate attributes
     definition.applyNoPersist();
@@ -262,7 +246,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * @return
    */
   @AbortIfProblem
-  private static GeoHierarchyView defineGeoEntityInternal(GeoEntityDefinition definition)
+  private static String defineGeoEntityInternal(GeoEntityDefinition definition)
   {
     // define the new MdBusiness
     String typeName = definition.getTypeName();
@@ -307,13 +291,52 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     GeoHierarchy allowedIn = GeoHierarchy.get(definition.getParentGeoHierarchyId());
     geoHierarchy.addAllowedInGeoEntity(allowedIn).apply();
 
-    GeoHierarchyView view = new GeoHierarchyView();
-    view.setReferenceId(mdGeoEntity.getId());
-    view.setGeoHierarchyId(geoHierarchy.getId());
-    view.setTypeName(definition.getTypeName());
-    view.setDisplayLabel(definition.getDisplayLabel());
+    return geoHierarchy.getId();
+  }
 
-    return view;
+  /**
+   * Locks this object and the MdBusiness which represents
+   * a GeoEntity subtype.
+   */
+  @Override
+  @Transaction
+  public void lock()
+  {
+    super.lock();
+    
+    this.getGeoEntityClass().lock();
+  }
+
+  /**
+   * Unlocks this object and the MdBusiness which represents
+   * a GeoEntity subtype.
+   */
+  @Override
+  @Transaction
+  public void unlock()
+  {
+    super.unlock();
+
+    this.getGeoEntityClass().unlock();
+  }
+  
+  /**
+   * Updates a GeoHierarchy and its enclosed MdBusiness
+   * 
+   * @param view
+   */
+  @Transaction
+  public static void updateFromView(GeoHierarchyView view)
+  {
+    // GeoHierarchy should already be locked
+    GeoHierarchy geoHierarchy = GeoHierarchy.get(view.getGeoHierarchyId());
+    geoHierarchy.setPolitical(view.getPolitical());
+    geoHierarchy.apply();
+    
+    MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
+    geoEntityClass.setDisplayLabel(view.getDisplayLabel());
+    geoEntityClass.setDescription(view.getDescription());
+    geoEntityClass.apply();
   }
   
   /**
@@ -405,6 +428,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     MdBusiness md = this.getGeoEntityClass();
     
     GeoHierarchyView view = new GeoHierarchyView();
+    view.setPolitical(this.getPolitical());
+    view.setDescription(md.getDescription());
     view.setTypeName(md.getTypeName());
     view.setDisplayLabel(md.getDisplayLabel());
     view.setReferenceId(md.getId());
@@ -424,6 +449,50 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     GeoHierarchyViewQuery query = new GeoHierarchyViewQuery(f, new OrderedGeoHiearchyQueryBuilder(f, this));
     
     return query;
+  }
+  
+  /**
+   * Returns all political GeoHierarchy views starting with the GeoHierarchy
+   * that represents the given GeoEntity.
+   * 
+   * @param geoEntityId
+   * @return
+   */
+  public static GeoHierarchyView[] getPoliticalGeoHierarchies(String geoEntityId)
+  {
+    GeoEntity geoEntity = GeoEntity.get(geoEntityId);
+    
+    return getPoliticalGeoHierarchiesByType(geoEntity.getType());
+  }
+  
+  /**
+   * Returns all political GeoHierarchies under and including the given type.
+   * 
+   * @param type
+   * @return
+   */
+  public static GeoHierarchyView[] getPoliticalGeoHierarchiesByType(String type)
+  {
+    GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(type);
+
+    List<GeoHierarchyView> hierarchy = new LinkedList<GeoHierarchyView>();
+    treeRecurse(hierarchy, earthH);
+    
+    return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
+  }
+  
+  private static void treeRecurse(List<GeoHierarchyView> hierarchy, GeoHierarchy parent)
+  {
+    if(parent.getPolitical())
+    {
+      hierarchy.add(parent.getViewForGeoHierarchy());
+      
+      List<GeoHierarchy> children = parent.getImmediateChildren();
+      for(GeoHierarchy childH : children)
+      {
+        treeRecurse(hierarchy, childH);
+      }
+    }
   }
   
   /**
@@ -456,10 +525,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       GeneratedViewQuery vQuery = this.getViewQuery();
 
       vQuery.map(GeoHierarchyView.GEOHIERARCHYID, geoHierarchyQuery.getId());
+      vQuery.map(GeoHierarchyView.POLITICAL, geoHierarchyQuery.getPolitical());
 
       vQuery.map(GeoHierarchyView.REFERENCEID, mdBusinessQuery.getId());
       vQuery.map(GeoHierarchyView.TYPENAME, mdBusinessQuery.getTypeName());
       vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel());
+      vQuery.map(GeoHierarchyView.DESCRIPTION, mdBusinessQuery.getDescription());
     }
 
     @Override

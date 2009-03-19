@@ -16,7 +16,7 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
   public static java.lang.String FED = "fed";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String SEX = "sex";
-  private static final long serialVersionUID = 1237314865754L;
+  private static final long serialVersionUID = 1237423104395L;
   
   public AdultDiscriminatingDoseAssayBase()
   {

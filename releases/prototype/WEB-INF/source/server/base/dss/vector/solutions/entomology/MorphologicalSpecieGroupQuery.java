@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public  class MorphologicalSpecieGroupQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314871907L;
+private static final long serialVersionUID = 1237423112299L;
 
   public MorphologicalSpecieGroupQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -180,6 +180,17 @@ private static final long serialVersionUID = 1237314871907L;
     return (com.terraframe.mojo.query.AttributeIntegerIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.MorphologicalSpecieGroup.QUANTITY, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
 
   }
+  public com.terraframe.mojo.query.AttributeIntegerIF getQuantityLive()
+  {
+    return getQuantityLive(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeIntegerIF getQuantityLive(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeIntegerIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.MorphologicalSpecieGroup.QUANTITYLIVE, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
+
+  }
   public com.terraframe.mojo.query.AttributeLongIF getSeq()
   {
     return getSeq(null);
@@ -325,6 +336,8 @@ private static final long serialVersionUID = 1237314871907L;
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.terraframe.mojo.query.AttributeIntegerIF getQuantity();
     public com.terraframe.mojo.query.AttributeIntegerIF getQuantity(String alias);
+    public com.terraframe.mojo.query.AttributeIntegerIF getQuantityLive();
+    public com.terraframe.mojo.query.AttributeIntegerIF getQuantityLive(String alias);
     public com.terraframe.mojo.query.AttributeLongIF getSeq();
     public com.terraframe.mojo.query.AttributeLongIF getSeq(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getSiteMaster();
@@ -348,7 +361,7 @@ private static final long serialVersionUID = 1237314871907L;
  implements MorphologicalSpecieGroupQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237314872016L;
+private static final long serialVersionUID = 1237423112410L;
 
   public MorphologicalSpecieGroupQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -497,6 +510,17 @@ private static final long serialVersionUID = 1237314872016L;
   public com.terraframe.mojo.query.AttributeIntegerIF getQuantity(String alias)
   {
     return (com.terraframe.mojo.query.AttributeIntegerIF)this.attributeFactory("quantity", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
+
+  }
+  public com.terraframe.mojo.query.AttributeIntegerIF getQuantityLive()
+  {
+    return getQuantityLive(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeIntegerIF getQuantityLive(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeIntegerIF)this.attributeFactory("quantityLive", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
 
   }
   public com.terraframe.mojo.query.AttributeLongIF getSeq()

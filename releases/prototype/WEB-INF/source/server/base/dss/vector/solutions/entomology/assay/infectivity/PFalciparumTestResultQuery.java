@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.infectivity;
 public  class PFalciparumTestResultQuery extends dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314872465L;
+private static final long serialVersionUID = 1237423112959L;
 
   public PFalciparumTestResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -86,7 +86,7 @@ private static final long serialVersionUID = 1237314872465L;
  implements PFalciparumTestResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237314872558L;
+private static final long serialVersionUID = 1237423113057L;
 
   public PFalciparumTestResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

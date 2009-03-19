@@ -166,6 +166,10 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 				table_data.dirty = false;
 				btnSaveRows.set("disabled", true);
 				this.dataTable.render();
+				if(table_data.after_save)
+			    {
+			    	table_data.after_save();
+			    }
 			},
 
 			// alert the exception message

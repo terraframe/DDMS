@@ -9,7 +9,7 @@ public class BEsteraseTestResultControllerBase implements com.terraframe.mojo.ge
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314863868L;
+  private static final long serialVersionUID = 1237423102379L;
   
   public BEsteraseTestResultControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

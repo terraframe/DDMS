@@ -9,7 +9,7 @@ public class GeoEntityTypeControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314866791L;
+  private static final long serialVersionUID = 1237423105506L;
   
   public GeoEntityTypeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -105,6 +105,48 @@ public class GeoEntityTypeControllerBase implements com.terraframe.mojo.generati
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.failCancelCreateDefinition");
   }
   
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoHierarchyId", post=true)
+  public void editDefinition(java.lang.String geoHierarchyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.editDefinition");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoHierarchyId", post=true)
+  public void failEditDefinition(java.lang.String geoHierarchyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.failEditDefinition");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.GeoHierarchyViewDTO:view", post=true)
+  public void updateDefinition(dss.vector.solutions.geo.GeoHierarchyViewDTO view) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.updateDefinition");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.GeoHierarchyViewDTO:view", post=true)
+  public void failUpdateDefinition(dss.vector.solutions.geo.GeoHierarchyViewDTO view) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.failUpdateDefinition");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoHierarchyId", post=true)
+  public void cancelUpdateDefinition(java.lang.String geoHierarchyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.cancelUpdateDefinition");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoHierarchyId", post=true)
+  public void failCancelUpdateDefinition(java.lang.String geoHierarchyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.failCancelUpdateDefinition");
+  }
+  
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
   public void viewAllDefinitions() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -131,6 +173,20 @@ public class GeoEntityTypeControllerBase implements com.terraframe.mojo.generati
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.failViewPageDefinitions");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoHierarchyId", post=false)
+  public void viewDefinition(java.lang.String geoHierarchyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.viewDefinition");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:geoHierarchyId", post=false)
+  public void failViewDefinition(java.lang.String geoHierarchyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.failViewDefinition");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:rootGeoHierarchyId", post=false)

@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public  class MosquitoCollectionPointQuery extends dss.vector.solutions.entomology.ConcreteMosquitoCollectionQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237314875758L;
+private static final long serialVersionUID = 1237423116313L;
 
   public MosquitoCollectionPointQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -27,34 +27,6 @@ private static final long serialVersionUID = 1237314875758L;
   {
     return "dss.vector.solutions.entomology.MosquitoCollectionPoint";
   }
-  public dss.vector.solutions.entomology.CompositeMosquitoCollectionQuery.CompositeMosquitoCollectionQueryReferenceIF getCompositeCollection()
-  {
-    return getCompositeCollection(null);
-
-  }
- 
-  public dss.vector.solutions.entomology.CompositeMosquitoCollectionQuery.CompositeMosquitoCollectionQueryReferenceIF getCompositeCollection(String alias)
-  {
-
-    com.terraframe.mojo.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("compositeCollection");
-
-    return (dss.vector.solutions.entomology.CompositeMosquitoCollectionQuery.CompositeMosquitoCollectionQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MosquitoCollectionPoint.COMPOSITECOLLECTION, mdAttributeIF, this, alias);
-
-  }
-  protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias)
-  {
-    String name = mdAttributeIF.definesAttribute();
-    
-    if (name.equals("compositeCollection")) 
-    {
-       return new dss.vector.solutions.entomology.CompositeMosquitoCollectionQuery.CompositeMosquitoCollectionQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else 
-    {
-      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-  }
-
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 
@@ -86,8 +58,6 @@ private static final long serialVersionUID = 1237314875758L;
   public interface MosquitoCollectionPointQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, dss.vector.solutions.entomology.ConcreteMosquitoCollectionQuery.ConcreteMosquitoCollectionQueryReferenceIF
   {
 
-    public dss.vector.solutions.entomology.CompositeMosquitoCollectionQuery.CompositeMosquitoCollectionQueryReferenceIF getCompositeCollection();
-    public dss.vector.solutions.entomology.CompositeMosquitoCollectionQuery.CompositeMosquitoCollectionQueryReferenceIF getCompositeCollection(String alias);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.entomology.MosquitoCollectionPoint mosquitoCollectionPoint);
 
@@ -103,7 +73,7 @@ private static final long serialVersionUID = 1237314875758L;
  implements MosquitoCollectionPointQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237314875850L;
+private static final long serialVersionUID = 1237423116411L;
 
   public MosquitoCollectionPointQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -121,31 +91,6 @@ private static final long serialVersionUID = 1237314875850L;
     {
       return this.NE(mosquitoCollectionPoint.getId());
     }
-
-  public dss.vector.solutions.entomology.CompositeMosquitoCollectionQuery.CompositeMosquitoCollectionQueryReferenceIF getCompositeCollection()
-  {
-    return getCompositeCollection(null);
-
-  }
- 
-  public dss.vector.solutions.entomology.CompositeMosquitoCollectionQuery.CompositeMosquitoCollectionQueryReferenceIF getCompositeCollection(String alias)
-  {
-    return (dss.vector.solutions.entomology.CompositeMosquitoCollectionQuery.CompositeMosquitoCollectionQueryReferenceIF)this.attributeFactory("compositeCollection", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
-
-  }
-  protected com.terraframe.mojo.query.AttributeReference referenceFactory( com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String userDefinedAlias)
-  {
-    String name = mdAttributeIF.definesAttribute();
-    
-    if (name.equals("compositeCollection")) 
-    {
-       return new dss.vector.solutions.entomology.CompositeMosquitoCollectionQuery.CompositeMosquitoCollectionQueryReference((com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-    else 
-    {
-      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
-    }
-  }
 
   }
 }

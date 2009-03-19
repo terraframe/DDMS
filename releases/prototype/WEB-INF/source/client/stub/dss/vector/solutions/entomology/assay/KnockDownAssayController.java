@@ -32,7 +32,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create KnockDownAssayController");
@@ -68,7 +68,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit KnockDownAssayController");
@@ -98,7 +98,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit KnockDownAssayController");
@@ -126,7 +126,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create KnockDownAssayController");
@@ -145,7 +145,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.entomology.assay.KnockDownAssayDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View KnockDownAssayController");
@@ -175,7 +175,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update KnockDownAssayController");

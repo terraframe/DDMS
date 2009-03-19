@@ -22,7 +22,7 @@ public abstract class LocatedInBase extends com.terraframe.mojo.business.Relatio
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237314859248L;
+  private static final long serialVersionUID = 1237423097310L;
   
   public LocatedInBase(String parentId, String childId)
   {

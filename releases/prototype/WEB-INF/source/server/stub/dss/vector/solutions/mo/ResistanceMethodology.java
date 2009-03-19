@@ -20,18 +20,6 @@ public class ResistanceMethodology extends ResistanceMethodologyBase implements 
     super();
   }
   
-  @Override
-  public String toString()
-  {
-    return this.getTermName();
-  }
-  
-  @Override
-  protected String buildKey()
-  {
-    return this.getTermName();
-  }
-  
   public static ResistanceMethodology[] getAll()
   {
     List<ResistanceMethodology> list = new LinkedList<ResistanceMethodology>();   

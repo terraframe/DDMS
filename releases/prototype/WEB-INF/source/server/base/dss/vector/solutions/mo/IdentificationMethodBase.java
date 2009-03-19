@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class IdentificationMethodBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.IdentificationMethod";
-  private static final long serialVersionUID = 1237314861864L;
+  private static final long serialVersionUID = 1237423100290L;
   
   public IdentificationMethodBase()
   {
@@ -36,7 +36,8 @@ public abstract class IdentificationMethodBase extends dss.vector.solutions.mo.A
   
   public static dss.vector.solutions.mo.IdentificationMethod[] getAll()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.IdentificationMethod.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static IdentificationMethod lock(java.lang.String id)

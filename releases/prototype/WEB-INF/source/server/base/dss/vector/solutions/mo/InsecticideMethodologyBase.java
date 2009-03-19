@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class InsecticideMethodologyBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.InsecticideMethodology";
-  private static final long serialVersionUID = 1237314876795L;
+  private static final long serialVersionUID = 1237423116774L;
   
   public InsecticideMethodologyBase()
   {
@@ -36,7 +36,8 @@ public abstract class InsecticideMethodologyBase extends dss.vector.solutions.mo
   
   public static dss.vector.solutions.mo.InsecticideMethodology[] getAll()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.InsecticideMethodology.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static InsecticideMethodology lock(java.lang.String id)

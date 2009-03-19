@@ -28,7 +28,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.geo.GeoEntityTypeController.viewDefinition.mojo" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
+          <mjl:property value="${item.geoHierarchyId}" name="geoHierarchyId" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>

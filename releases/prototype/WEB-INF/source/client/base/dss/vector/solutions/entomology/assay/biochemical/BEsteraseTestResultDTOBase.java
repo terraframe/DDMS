@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 
 public abstract class BEsteraseTestResultDTOBase extends dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237314881757L;
+  private static final long serialVersionUID = 1237423122095L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.BEsteraseTestResult";
   protected BEsteraseTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

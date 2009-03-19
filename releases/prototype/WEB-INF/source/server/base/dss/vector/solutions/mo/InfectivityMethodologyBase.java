@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class InfectivityMethodologyBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.InfectivityMethodology";
-  private static final long serialVersionUID = 1237314871033L;
+  private static final long serialVersionUID = 1237423111438L;
   
   public InfectivityMethodologyBase()
   {
@@ -36,7 +36,8 @@ public abstract class InfectivityMethodologyBase extends dss.vector.solutions.mo
   
   public static dss.vector.solutions.mo.InfectivityMethodology[] getAll()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.InfectivityMethodology.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static InfectivityMethodology lock(java.lang.String id)

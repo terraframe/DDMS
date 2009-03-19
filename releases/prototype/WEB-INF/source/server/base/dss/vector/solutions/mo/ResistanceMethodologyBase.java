@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class ResistanceMethodologyBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.ResistanceMethodology";
-  private static final long serialVersionUID = 1237314862099L;
+  private static final long serialVersionUID = 1237423100600L;
   
   public ResistanceMethodologyBase()
   {
@@ -36,7 +36,8 @@ public abstract class ResistanceMethodologyBase extends dss.vector.solutions.mo.
   
   public static dss.vector.solutions.mo.ResistanceMethodology[] getAll()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ResistanceMethodology.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static ResistanceMethodology lock(java.lang.String id)

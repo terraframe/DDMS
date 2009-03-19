@@ -9,7 +9,7 @@ public class AbstractTermControllerBase implements com.terraframe.mojo.generatio
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237314881950L;
+  private static final long serialVersionUID = 1237423122287L;
   
   public AbstractTermControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

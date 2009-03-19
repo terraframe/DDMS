@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public abstract class EarthBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Earth";
-  private static final long serialVersionUID = 1237314865133L;
+  private static final long serialVersionUID = 1237423103840L;
   
   public EarthBase()
   {
@@ -36,7 +36,8 @@ public abstract class EarthBase extends dss.vector.solutions.geo.generated.GeoEn
   
   public static dss.vector.solutions.geo.generated.Earth getEarthInstance()
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.Earth.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static Earth lock(java.lang.String id)

@@ -11,7 +11,7 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay";
   public static java.lang.String AGERANGE = "ageRange";
-  private static final long serialVersionUID = 1237314857851L;
+  private static final long serialVersionUID = 1237423096147L;
   
   public LarvaeDiscriminatingDoseAssayBase()
   {
@@ -72,6 +72,8 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
   
   public void setAgeRange(dss.vector.solutions.mo.LarvaeAge startAge, dss.vector.solutions.mo.LarvaeAge endAge)
   {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static final void setAgeRange(java.lang.String id, dss.vector.solutions.mo.LarvaeAge startAge, dss.vector.solutions.mo.LarvaeAge endAge)

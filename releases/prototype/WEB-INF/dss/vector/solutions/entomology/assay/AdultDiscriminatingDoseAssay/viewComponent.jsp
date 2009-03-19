@@ -7,14 +7,14 @@
 <%@page import="org.json.JSONArray"%>
 <%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
 <%@page import="dss.vector.solutions.util.Halp" %>
-
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="dss.vector.solutions.entomology.assay.DDATestIntervalViewDTO"%>
 <%
 AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request.getAttribute("item");
 %>
 
 
-<%@page import="java.text.DecimalFormat"%><mjl:messages>
+<mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
@@ -30,7 +30,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.collection.keyName}" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.view.link">
+      <mjl:commandLink display="${item.collection.displayLabel}" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.view.link">
         <mjl:property value="${item.collection.id}" name="id" />
       </mjl:commandLink>
     </dd>
@@ -171,29 +171,9 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.mo.InsecticideController.view.mojo" name="dss.vector.solutions.mo.Insecticide.form.view.link">
+      <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="insecticide.form.link">
         <mjl:property value="${item.insecticide.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.genericNameMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.genericName}
-    </dd>
-    <dt>
-      <label>
-        ${item.amountMd.displayLabel}
-      </label>
-        
-    </dt>
-    <dd>
-      ${item.amount} 
-      <c:forEach var="enumName" items="${item.unitsEnumNames}">
-            ${item.unitsMd.enumItems[enumName]}
-        </c:forEach>
     </dd>
     <dt>
       <label>
@@ -333,6 +313,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     	        collection_setter: "setAssay('${item.id}')",
         	    data_type: "Mojo.$.dss.vector.solutions.entomology.assay.DDATestIntervalView",
         	    after_row_edit:function(record){record.setData('Percent',((parseInt(record.getData('KnockedDown'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%");}
+    	        after_save:function(){location.href="./dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.view.mojo?id=${item.id}";});}
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>

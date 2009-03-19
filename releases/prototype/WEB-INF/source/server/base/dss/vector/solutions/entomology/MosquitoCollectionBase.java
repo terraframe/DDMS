@@ -11,7 +11,7 @@ public abstract class MosquitoCollectionBase extends dss.vector.solutions.entomo
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollection";
   public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
-  private static final long serialVersionUID = 1237314863176L;
+  private static final long serialVersionUID = 1237423101879L;
   
   public MosquitoCollectionBase()
   {
@@ -72,7 +72,8 @@ public abstract class MosquitoCollectionBase extends dss.vector.solutions.entomo
   
   public static dss.vector.solutions.entomology.MosquitoCollection searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)
   {
-    return null;
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollection.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static MosquitoCollection lock(java.lang.String id)
