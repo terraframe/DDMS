@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="dss.vector.solutions.MDSSInfo"%>
 
-<div id="selectSearch">
+<div id="selectSearch" style="height:450px; height:450px; overflow:scroll">
   <dl>
   <c:forEach items="${views}" var="view" varStatus="status">
   <dt>
