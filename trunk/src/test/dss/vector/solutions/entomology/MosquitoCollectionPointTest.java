@@ -107,13 +107,41 @@ public class MosquitoCollectionPointTest extends TestCase
       collection.delete();
     }
   }
+  
+  public void testNewCollectionFromView()
+  {
+    MorphologicalSpecieGroupView view = new MorphologicalSpecieGroupView();
+    view.setQuantity(20);
+    view.setSpecie(specie);
+    view.setIdentificationMethod(identificationMethod);
+    view.setGeoEntity(waterBody);
+    view.setDateCollected(new Date());
+    view.apply();
+    
+    ConcreteMosquitoCollection collection = view.getCollection();
+    
+    try
+    {
+      MorphologicalSpecieGroupView[] groups = collection.getMorphologicalSpecieGroups();
+
+      assertEquals(view.getDateCollected(), collection.getDateCollected());
+      assertEquals(view.getGeoEntity().getId(), collection.getGeoEntity().getId());
+      assertEquals(1, groups.length);
+      assertEquals(view.getSpecie().getId(), groups[0].getSpecie().getId());
+      assertEquals(view.getIdentificationMethod().getId(), groups[0].getIdentificationMethod().getId());
+      assertEquals(view.getDateCollected(), groups[0].getDateCollected());      
+    }
+    finally
+    {
+      collection.delete();
+    }
+  }
 
   public void testWaterBodyCollection()
   {
     MosquitoCollectionPoint collection = new MosquitoCollectionPoint();
     collection.setGeoEntity(waterBody);
-    collection.setDateCollected(new Date());
-    
+    collection.setDateCollected(new Date());    
     collection.apply();
 
     String id = collection.getId();

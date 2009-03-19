@@ -17,6 +17,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.web.WebClientSession;
 
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.Mosquito;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;

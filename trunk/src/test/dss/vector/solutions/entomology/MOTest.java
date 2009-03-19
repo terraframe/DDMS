@@ -12,6 +12,7 @@ import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.web.WebClientSession;
 
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.mo.CollectionMethod;
 import dss.vector.solutions.mo.CollectionMethodDTO;
 import dss.vector.solutions.mo.IdentificationMethod;

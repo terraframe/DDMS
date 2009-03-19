@@ -1,4 +1,4 @@
-package dss.vector.solutions.entomology;
+package dss.vector.solutions;
 
 import java.util.Locale;
 

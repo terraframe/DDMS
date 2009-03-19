@@ -21,6 +21,7 @@ import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.web.WebClientSession;
 
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;

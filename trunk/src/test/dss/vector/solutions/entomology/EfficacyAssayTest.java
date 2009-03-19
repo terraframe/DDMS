@@ -18,6 +18,7 @@ import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.SurfacePosition;
+import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.AssaySex;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.assay.EfficacyAssay;

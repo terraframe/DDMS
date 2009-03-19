@@ -119,6 +119,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
     view.setSpecie(this.getSpecie());
     view.setIdentificationMethod(this.getIdentificationMethod());
     view.setDateCollected(this.getCollection().getDateCollected());
+    view.setGeoEntity(this.getCollection().getGeoEntity());
 
     if(this.getQuantityLive() != null)
     {

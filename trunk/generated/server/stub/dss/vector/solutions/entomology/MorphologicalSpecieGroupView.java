@@ -17,7 +17,11 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
   @Override
   public void apply()
   {
-
+    if(this.getCollection() == null)
+    {
+      this.setCollection(MosquitoCollectionPoint.findOrCreate(this.getGeoEntity(), this.getDateCollected()));
+    }
+    
     if(this.getGroupId() == null || this.getGroupId().equals(""))
     {
       MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();      
