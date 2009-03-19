@@ -30,9 +30,9 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
   }
   public void failDelete(dss.vector.solutions.general.LethalTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_general_LethalTimeProperty_insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit LethalTimePropertyController");
+    req.setAttribute("page_title", "Edit Lethal Time Property");
     render("editComponent.jsp");
   }
   public void update(dss.vector.solutions.general.LethalTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -49,9 +49,9 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
   }
   public void failUpdate(dss.vector.solutions.general.LethalTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_general_LethalTimeProperty_insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update LethalTimePropertyController");
+    req.setAttribute("page_title", "Update Lethal Time Property");
     render("updateComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -59,7 +59,7 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.LethalTimePropertyQueryDTO query = dss.vector.solutions.general.LethalTimePropertyDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All LethalTimePropertyController Objects");
+    req.setAttribute("page_title", "View All Lethal Time Properties");
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -70,9 +70,9 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.LethalTimePropertyDTO dto = new dss.vector.solutions.general.LethalTimePropertyDTO(clientRequest);
-    req.setAttribute("dss_vector_solutions_general_LethalTimeProperty_insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create LethalTimePropertyController");
+    req.setAttribute("page_title", "Create Lethal Time Property");
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -82,9 +82,9 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("dss_vector_solutions_general_LethalTimeProperty_insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dss.vector.solutions.general.LethalTimePropertyDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View LethalTimePropertyController");
+    req.setAttribute("page_title", "View Lethal Time Property");
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -96,7 +96,7 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.LethalTimePropertyQueryDTO query = dss.vector.solutions.general.LethalTimePropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All LethalTimePropertyController Objects");
+    req.setAttribute("page_title", "View All Lethal Time Properties");
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -126,17 +126,17 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
   }
   public void failCreate(dss.vector.solutions.general.LethalTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_general_LethalTimeProperty_insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create LethalTimePropertyController");
+    req.setAttribute("page_title", "Create Lethal Time Property");
     render("createComponent.jsp");
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     dss.vector.solutions.general.LethalTimePropertyDTO dto = dss.vector.solutions.general.LethalTimePropertyDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("dss_vector_solutions_general_LethalTimeProperty_insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit LethalTimePropertyController");
+    req.setAttribute("page_title", "Edit Lethal Time Property");
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -147,31 +147,36 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
   @Override
   public void search() throws IOException, ServletException
   {
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("page_title", "Search for a Knock Down Time");
     render("searchComponent.jsp");
   }
 
   @Override
-  public void searchByInsecticide(InsecticideDTO insecticide) throws IOException, ServletException
+  public void searchByInsecticide(String insecticideId) throws IOException, ServletException
   {
-    LethalTimePropertyDTO property = LethalTimePropertyDTO.searchByInsecticide(super.getClientRequest(), insecticide);
+    InsecticideDTO insecticide = InsecticideDTO.get(super.getClientRequest(), insecticideId);
 
-    String jsp =  "viewComponent.jsp";
-    req.setAttribute("page_title", "Found Lethal Time Property");
-
-    if(property == null)
+    try
     {
-      property = new LethalTimePropertyDTO(super.getClientRequest());
+      LethalTimePropertyDTO property = LethalTimePropertyDTO.searchByInsecticide(super.getClientRequest(), insecticide);
+      req.setAttribute("page_title", "Found Lethal Time Property");
+      req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
+      req.setAttribute("item", property);
+      
+      render("viewComponent.jsp");
+    }
+    catch(UndefinedLethalTimePropertyExceptionDTO e)
+    {
+      LethalTimePropertyDTO property = new LethalTimePropertyDTO(super.getClientRequest());
       property.setInsecticide(insecticide);
       
       req.setAttribute("page_title", "Lethal Time Property Not Found - Creating New");
-      jsp = "createComponent.jsp";      
-    }
-
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("item", property);
-    
-    render(jsp);
+      req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
+      req.setAttribute("item", property);
+      
+      render("createComponent.jsp");      
+    }    
   }  
 
 }

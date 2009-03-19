@@ -131,7 +131,9 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.general.KnockDownTimePropertyQueryDTO query = dss.vector.solutions.general.KnockDownTimePropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    req.setAttribute("query", query);
     req.setAttribute("page_title", "View All Knock Down Time Property");
     render("viewAllComponent.jsp");
   }
@@ -155,30 +157,35 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   @Override
   public void search() throws IOException, ServletException
   {
-    req.setAttribute("page_title", "Search for a Knock Down Time");
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("page_title", "Search for a Knock Down Time Property");
     render("searchComponent.jsp");
   }
 
   @Override
-  public void searchByInsecticide(InsecticideDTO insecticide) throws IOException, ServletException
+  public void searchByInsecticide(String insecticideId) throws IOException, ServletException
   {
-    KnockDownTimePropertyDTO property = KnockDownTimePropertyDTO.searchByInsecticide(super.getClientRequest(), insecticide);
-
-    String jsp =  "viewComponent.jsp";
-    req.setAttribute("page_title", "Found Knock Down Time Property");
-
-    if(property == null)
+    InsecticideDTO insecticide = InsecticideDTO.get(super.getClientRequest(), insecticideId);
+    
+    try
     {
-      property = new KnockDownTimePropertyDTO(super.getClientRequest());
+      KnockDownTimePropertyDTO property = KnockDownTimePropertyDTO.searchByInsecticide(super.getClientRequest(), insecticide);
+      req.setAttribute("page_title", "Found Knock Down Time Property");
+      req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
+      req.setAttribute("item", property);
+      
+      render("viewComponent.jsp");
+    }
+    catch(UndefinedKnockDownPropertyExceptionDTO e)
+    {
+      KnockDownTimePropertyDTO property = new KnockDownTimePropertyDTO(super.getClientRequest());
       property.setInsecticide(insecticide);
       
       req.setAttribute("page_title", "Knock Down Time Property Not Found - Creating New");
-      jsp = "createComponent.jsp";      
-    }
-
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("item", property);
-    
-    render(jsp);
+      req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
+      req.setAttribute("item", property);
+      
+      render("createComponent.jsp");      
+    }    
   }  
 }
