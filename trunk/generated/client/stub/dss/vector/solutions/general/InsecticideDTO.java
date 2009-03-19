@@ -1,5 +1,9 @@
 package dss.vector.solutions.general;
 
+import java.util.List;
+
+import com.terraframe.mojo.constants.ClientRequestIF;
+
 
 public class InsecticideDTO extends InsecticideDTOBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -34,5 +38,9 @@ public class InsecticideDTO extends InsecticideDTOBase implements
 
     return ingredientDisplayLabel + " - " + this.getAmount() + " " + unitDisplayLabel;
   }
-
+  
+  public static List<? extends InsecticideDTO> getAll(ClientRequestIF clientRequest)
+  {
+    return InsecticideDTO.getAllInstances(clientRequest, "keyName", true, 0, 0).getResultSet();
+  }
 }

@@ -52,7 +52,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   public void view(AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -92,7 +92,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   public void failDelete(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -126,7 +126,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   public void failCreate(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -154,7 +154,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto = new dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO(clientRequest);
     req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -192,7 +192,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   public void failUpdate(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -208,7 +208,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   {
     dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto = dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.lock(super.getClientRequest(), id);
     req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());

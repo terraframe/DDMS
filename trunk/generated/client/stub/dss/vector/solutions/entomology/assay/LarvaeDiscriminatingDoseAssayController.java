@@ -28,7 +28,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Larvae Discriminating Dose Assay");
@@ -48,7 +48,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Larvae Discriminating Dose Assay");
@@ -102,7 +102,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update Larvae Discriminating Dose Assay");
@@ -128,7 +128,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Larvae Discriminating Dose Assay");
@@ -154,7 +154,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Larvae Discriminating Dose Assay");
@@ -174,7 +174,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);    
     req.setAttribute("page_title", "View Larvae Discriminating Dose Assay");

@@ -1,5 +1,11 @@
 package dss.vector.solutions.general;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
+import com.terraframe.mojo.constants.ClientRequestIF;
+
 public class KnockDownTimePropertyController extends KnockDownTimePropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/general/KnockDownTimeProperty/";
@@ -12,7 +18,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void delete(dss.vector.solutions.general.KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -24,36 +30,36 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
       this.failDelete(dto);
     }
   }
-  public void failDelete(dss.vector.solutions.general.KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Knock Down Time Property");
     render("editComponent.jsp");
   }
-  public void update(dss.vector.solutions.general.KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(dss.vector.solutions.general.KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update Knock Down Time Property");
     render("updateComponent.jsp");
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.general.KnockDownTimePropertyDTO dto = dss.vector.solutions.general.KnockDownTimePropertyDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    KnockDownTimePropertyDTO dto = KnockDownTimePropertyDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Knock Down Time Property");
     render("editComponent.jsp");
@@ -64,9 +70,9 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.general.KnockDownTimePropertyDTO dto = new dss.vector.solutions.general.KnockDownTimePropertyDTO(clientRequest);
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    ClientRequestIF clientRequest = super.getClientRequest();
+    KnockDownTimePropertyDTO dto = new KnockDownTimePropertyDTO(clientRequest);
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Knock Down Time Property");
     render("createComponent.jsp");
@@ -75,48 +81,57 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   {
     this.viewAll();
   }
-  public void create(dss.vector.solutions.general.KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
       this.failCreate(dto);
     }
   }
-  public void failCreate(dss.vector.solutions.general.KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Knock Down Time Property");
     render("createComponent.jsp");
   }
-  public void cancel(dss.vector.solutions.general.KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
-    this.view(dto.getId());
+    this.view(dto);
   }
-  public void failCancel(dss.vector.solutions.general.KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
+
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dss.vector.solutions.general.KnockDownTimePropertyDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View Knock Down Time Property");
-    render("viewComponent.jsp");
+    this.view(KnockDownTimePropertyDTO.get(super.getClientRequest(), id));
   }
+  
+  public void view(KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "View Knock Down Time Property");
+
+    render("viewComponent.jsp");    
+  }
+  
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
   }
+  
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("page_title", "View All Knock Down Time Property");
     render("viewAllComponent.jsp");
   }
@@ -126,9 +141,9 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.general.KnockDownTimePropertyQueryDTO query = dss.vector.solutions.general.KnockDownTimePropertyDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    KnockDownTimePropertyQueryDTO query = KnockDownTimePropertyDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    req.setAttribute("query", query);    
     req.setAttribute("page_title", "View All Knock Down Time Property");
     render("viewAllComponent.jsp");
   }
@@ -136,4 +151,34 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   {
     resp.sendError(500);
   }
+  
+  @Override
+  public void search() throws IOException, ServletException
+  {
+    req.setAttribute("page_title", "Search for a Knock Down Time");
+    render("searchComponent.jsp");
+  }
+
+  @Override
+  public void searchByInsecticide(InsecticideDTO insecticide) throws IOException, ServletException
+  {
+    KnockDownTimePropertyDTO property = KnockDownTimePropertyDTO.searchByInsecticide(super.getClientRequest(), insecticide);
+
+    String jsp =  "viewComponent.jsp";
+    req.setAttribute("page_title", "Found Knock Down Time Property");
+
+    if(property == null)
+    {
+      property = new KnockDownTimePropertyDTO(super.getClientRequest());
+      property.setInsecticide(insecticide);
+      
+      req.setAttribute("page_title", "Knock Down Time Property Not Found - Creating New");
+      jsp = "createComponent.jsp";      
+    }
+
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("item", property);
+    
+    render(jsp);
+  }  
 }
