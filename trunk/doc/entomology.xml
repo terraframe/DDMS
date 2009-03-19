@@ -2639,6 +2639,56 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       </attributes>
     </mdProblem>
   </create>
+  
+    <update>
+    <mdController
+      name="dss.vector.solutions.general.KnockDownTimePropertyController">
+      <create>
+        <mdAction
+          name="searchByInsecticide"
+          label="Search By Insecticide"
+          isPost="true"
+          description="Searches for a knock down property with the given insecticide">
+          <mdParameter
+            name="insecticide"
+            label="Insecticide"
+            order="0"
+            type="dss.vector.solutions.general.Insecticide"
+            description="Insecticide" />
+        </mdAction>
+        <mdAction
+          name="search"
+          description="Forwards the user to the search page"
+          isPost="false"
+          label="Search"
+          isQuery="false" />
+      </create>
+    </mdController>
+    <mdController
+      name="dss.vector.solutions.general.LethalTimePropertyController">
+      <create>
+        <mdAction
+          name="searchByInsecticide"
+          label="Search By Insecticide"
+          isPost="true"
+          description="Searches for a knock down property with the given insecticide">
+          <mdParameter
+            name="insecticide"
+            label="Insecticide"
+            order="0"
+            type="dss.vector.solutions.general.Insecticide"
+            description="Insecticide" />
+        </mdAction>
+        <mdAction
+          name="search"
+          description="Forwards the user to the search page"
+          isPost="false"
+          label="Search"
+          isQuery="false" />
+      </create>
+    </mdController>
+  </update>
+  
 
   <create>
     <mdBusiness
