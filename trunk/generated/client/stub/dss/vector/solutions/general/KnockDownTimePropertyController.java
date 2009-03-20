@@ -154,7 +154,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
     resp.sendError(500);
   }
   
-  @Override
+  //@Override
   public void search() throws IOException, ServletException
   {
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
@@ -162,7 +162,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
     render("searchComponent.jsp");
   }
 
-  @Override
+  //@Override
   public void searchByInsecticide(String insecticideId) throws IOException, ServletException
   {
     InsecticideDTO insecticide = InsecticideDTO.get(super.getClientRequest(), insecticideId);

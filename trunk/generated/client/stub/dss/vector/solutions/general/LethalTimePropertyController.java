@@ -144,7 +144,7 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
     this.view(id);
   }
   
-  @Override
+  //@Override
   public void search() throws IOException, ServletException
   {
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
@@ -152,7 +152,7 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
     render("searchComponent.jsp");
   }
 
-  @Override
+  //@Override
   public void searchByInsecticide(String insecticideId) throws IOException, ServletException
   {
     InsecticideDTO insecticide = InsecticideDTO.get(super.getClientRequest(), insecticideId);
