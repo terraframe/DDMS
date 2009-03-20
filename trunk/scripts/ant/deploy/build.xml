@@ -4,6 +4,8 @@
 	<property name="db_root_password" value="postgres" />
 	<property name="db_root_db" value="template_postgis" />
 	<property name="max_memory_use" value="1024m" />
+	<property name="deoploy.path" value="/Library/Tomcat/Home/webapps/MDSS/" />
+	<property name="postgres.bin" value="/Library/PostgreSQL/8.3/bin" />
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../../../lib/common/ant-contrib-1.0b3.jar" />
 
@@ -51,8 +53,9 @@
 
 	<target name="start_tomcat">
 		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
-		/Library/Tomcat/Home/bin/startup.sh
+		${deploy.path}../../bin/startup.sh
 		</shellscript>
+		<sleep seconds="10"/>
 	</target>
 
 	<target name="deploy_rebuild_import" depends="kill_tomcat">
@@ -72,7 +75,7 @@
 		</java>
 	</target>
 
-	<target name="update_db" depends="">
+	<target name="update_db" depends="start_tomcat">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Update Devlop DB With Source">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -87,7 +90,7 @@
 		</java>
 	</target>
 
-	<target name="push_source" depends="alert_status,start_tomcat">
+	<target name="push_source" depends="alert_status">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Push Source To Server">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -111,9 +114,8 @@
 
 
 	<target name="deploy_to_test_server" depends="alert_status">
-		<property name="deploy.path" value="/Library/Tomcat/Home/webapps/MDSS/" />
 		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true">
-			/Library/PostgreSQL8/bin/pg_dump --blobs -U mdssdeploy mdssdeploy > dump.sql 
+			${postgres.bin}pg_dump --blobs -U mdssdeploy mdssdeploy > dump.sql 
 			svn add * --force
 			svn ci -m"Update test servers to lastest version of MDSS"
 		</shellscript>
