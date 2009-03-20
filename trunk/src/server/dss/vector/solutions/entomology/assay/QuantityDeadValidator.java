@@ -2,10 +2,6 @@ package dss.vector.solutions.entomology.assay;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.entomology.assay.DiscriminatingDoseAssay;
-import dss.vector.solutions.entomology.assay.EfficacyAssay;
-import dss.vector.solutions.entomology.assay.InvalidDeadQuantityProblem;
-
 public class QuantityDeadValidator implements Reloadable
 {
   private Integer quantityDead;
@@ -14,7 +10,12 @@ public class QuantityDeadValidator implements Reloadable
   
   private String assayId;
   
-  public QuantityDeadValidator(DiscriminatingDoseAssay assay)
+  public QuantityDeadValidator(AdultDiscriminatingDoseAssay assay)
+  {
+    this(assay.getQuantityDead(), assay.getQuantityTested(), assay.getId());    
+  }
+  
+  public QuantityDeadValidator(LarvaeDiscriminatingDoseAssay assay)
   {
     this(assay.getQuantityDead(), assay.getQuantityTested(), assay.getId());    
   }

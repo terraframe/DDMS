@@ -21,8 +21,8 @@ import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.TestConstants;
-import dss.vector.solutions.entomology.assay.DDATestInterval;
-import dss.vector.solutions.entomology.assay.DDATestIntervalView;
+import dss.vector.solutions.entomology.assay.LarvaeTestInterval;
+import dss.vector.solutions.entomology.assay.LarvaeTestIntervalView;
 import dss.vector.solutions.entomology.assay.InvalidDeadQuantityProblem;
 import dss.vector.solutions.entomology.assay.InvalidGenerationProblem;
 import dss.vector.solutions.entomology.assay.InvalidIntervalTimeProblem;
@@ -171,10 +171,9 @@ public class LDDATest extends TestCase
     assay.setGeneration(F0);
     assay.setQuantityDead(5);
     assay.setQuantityTested(30);    
-    assay.setInsecticide(insecticide);
-    
-    
-    assay.setAgeRange(startTime, endTime);
+    assay.setInsecticide(insecticide);        
+    assay.setStartPoint(startTime);
+    assay.setEndPoint(endTime);
     assay.apply();
 
     try
@@ -197,8 +196,8 @@ public class LDDATest extends TestCase
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
       
       
-      assertEquals(startTime.getId(), assay2.getAgeRange().getStartPoint().getId());
-      assertEquals(endTime.getId(), assay2.getAgeRange().getEndPoint().getId());
+      assertEquals(startTime.getId(), assay2.getStartPoint().getId());
+      assertEquals(endTime.getId(), assay2.getEndPoint().getId());
     }
     finally
     {
@@ -662,7 +661,7 @@ public class LDDATest extends TestCase
     try
     {
       int max = assay.calculatePeriod();
-      DDATestIntervalView[] intervals = assay.getTestIntervals();
+      LarvaeTestIntervalView[] intervals = assay.getTestIntervals();
 
       assertEquals(max, intervals.length);
 
@@ -670,7 +669,7 @@ public class LDDATest extends TestCase
       {
         assertEquals(assay.getId(), intervals[i].getAssay().getId());
         assertEquals(new Integer(i), intervals[i].getPeriod());
-        assertEquals(new Integer(0), intervals[i].getKnockedDown());
+        assertEquals(new Integer(0), intervals[i].getQuantityDead());
       }
     }
     finally
@@ -706,11 +705,11 @@ public class LDDATest extends TestCase
     
     assay.apply();
 
-    DDATestIntervalView[] intervals = assay.getTestIntervals();
+    LarvaeTestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
-      intervals[i].setKnockedDown(i);
+      intervals[i].setQuantityDead(i);
       intervals[i].apply();
     }
 
@@ -724,7 +723,7 @@ public class LDDATest extends TestCase
       {
         assertEquals(assay.getId(), intervals[i].getAssay().getId());
         assertEquals(new Integer(i), intervals[i].getPeriod());
-        assertEquals(new Integer(i), intervals[i].getKnockedDown());
+        assertEquals(new Integer(i), intervals[i].getQuantityDead());
       }
     }
     finally
@@ -760,14 +759,14 @@ public class LDDATest extends TestCase
     
     assay.apply();
 
-    DDATestIntervalView[] intervals = assay.getTestIntervals();
+    LarvaeTestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
-      intervals[i].setKnockedDown(i);
+      intervals[i].setQuantityDead(i);
     }
 
-    DDATestIntervalView.saveAll(intervals);
+    LarvaeTestIntervalView.saveAll(intervals);
 
     try
     {
@@ -779,7 +778,7 @@ public class LDDATest extends TestCase
       {
         assertEquals(assay.getId(), intervals[i].getAssay().getId());
         assertEquals(new Integer(i), intervals[i].getPeriod());
-        assertEquals(new Integer(i), intervals[i].getKnockedDown());
+        assertEquals(new Integer(i), intervals[i].getQuantityDead());
       }
     }
     finally
@@ -794,7 +793,7 @@ public class LDDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     
 
-    DDATestInterval interval = new DDATestInterval();
+    LarvaeTestInterval interval = new LarvaeTestInterval();
     int period = 20;
 
     LarvaeDiscriminatingDoseAssay assay = new LarvaeDiscriminatingDoseAssay();
@@ -823,7 +822,7 @@ public class LDDATest extends TestCase
     {
       interval.setAssay(assay);
       interval.setPeriod(period);
-      interval.setKnockedDown(2);
+      interval.setQuantityDead(2);
       interval.apply();
 
       fail("Able to create a test interval with an invalid period");
@@ -877,10 +876,10 @@ public class LDDATest extends TestCase
 
     try
     {
-      DDATestInterval interval = new DDATestInterval();
+      LarvaeTestInterval interval = new LarvaeTestInterval();
       interval.setAssay(assay);
       interval.setPeriod(0);
-      interval.setKnockedDown(2);
+      interval.setQuantityDead(2);
       interval.apply();
 
       fail("Able to create a test interval with an duplicate period");
@@ -922,11 +921,11 @@ public class LDDATest extends TestCase
     
     assay.apply();
 
-    DDATestIntervalView[] intervals = assay.getTestIntervals();
+    LarvaeTestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
-      intervals[i].setKnockedDown(30);
+      intervals[i].setQuantityDead(30);
       intervals[i].apply();
     }
 
@@ -940,7 +939,7 @@ public class LDDATest extends TestCase
       {
         assertEquals(assay.getId(), intervals[i].getAssay().getId());
         assertEquals(new Integer(i), intervals[i].getPeriod());
-        assertEquals(new Integer(30), intervals[i].getKnockedDown());
+        assertEquals(new Integer(30), intervals[i].getQuantityDead());
       }
     }
     finally
@@ -955,7 +954,7 @@ public class LDDATest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     
 
-    DDATestInterval interval = null;
+    LarvaeTestInterval interval = null;
     int quantityTested = 30;
     int quantityKnockedDown = 45;
 
@@ -983,12 +982,12 @@ public class LDDATest extends TestCase
 
     try
     {
-      DDATestIntervalView[] intervals = assay.getTestIntervals();
-      interval = DDATestInterval.get(intervals[0].getIntervalId());
+      LarvaeTestIntervalView[] intervals = assay.getTestIntervals();
+      interval = LarvaeTestInterval.get(intervals[0].getIntervalId());
 
       interval.setAssay(assay);
       interval.setPeriod(0);
-      interval.setKnockedDown(quantityKnockedDown);
+      interval.setQuantityDead(quantityKnockedDown);
       interval.apply();
 
       fail("Able to create a set the knocked down value greater than the number tested");
@@ -1091,14 +1090,14 @@ public class LDDATest extends TestCase
     
     assay.apply();
 
-    DDATestIntervalView[] intervals = assay.getTestIntervals();
+    LarvaeTestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
-      intervals[i].setKnockedDown(i * 3);
+      intervals[i].setQuantityDead(i * 3);
     }
 
-    DDATestIntervalView.saveAll(intervals);
+    LarvaeTestIntervalView.saveAll(intervals);
 
     try
     {
@@ -1137,14 +1136,14 @@ public class LDDATest extends TestCase
     
     assay.apply();
 
-    DDATestIntervalView[] intervals = assay.getTestIntervals();
+    LarvaeTestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
-      intervals[i].setKnockedDown(i * 3);
+      intervals[i].setQuantityDead(i * 3);
     }
 
-    DDATestIntervalView.saveAll(intervals);
+    LarvaeTestIntervalView.saveAll(intervals);
 
     try
     {

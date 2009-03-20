@@ -5,10 +5,6 @@ import java.util.List;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.entomology.AssaySex;
-import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
-import dss.vector.solutions.entomology.assay.EfficacyAssay;
-import dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem;
-import dss.vector.solutions.entomology.assay.InvalidGravidSexProblem;
 
 public class GravidValidator implements Reloadable
 {
@@ -20,14 +16,9 @@ public class GravidValidator implements Reloadable
   
   private String assayId;
   
-  public GravidValidator(AdultDiscriminatingDoseAssay assay)
+  public GravidValidator(AdultAssay assay)
   {
     this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay.getId());
-  }
-  
-  public GravidValidator(KnockDownAssay assay)
-  {
-    this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay.getId());        
   }
   
   public GravidValidator(EfficacyAssay assay)

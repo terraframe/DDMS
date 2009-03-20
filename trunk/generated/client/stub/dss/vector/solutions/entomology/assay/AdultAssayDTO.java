@@ -1,12 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.LarvaeAgeRangeDTOBase;
-
-public class LarvaeAgeRangeDTO extends LarvaeAgeRangeDTOBase
+public abstract class AdultAssayDTO extends AdultAssayDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1236960169261L;
+  private static final long serialVersionUID = 1237579415896L;
   
-  public LarvaeAgeRangeDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public AdultAssayDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +15,7 @@ public class LarvaeAgeRangeDTO extends LarvaeAgeRangeDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected LarvaeAgeRangeDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AdultAssayDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

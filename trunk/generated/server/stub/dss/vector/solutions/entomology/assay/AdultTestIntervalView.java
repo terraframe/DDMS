@@ -1,30 +1,26 @@
 package dss.vector.solutions.entomology.assay;
 
-
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.entomology.assay.DDATestIntervalView;
-
-
-
-
-public class DDATestIntervalView extends DDATestIntervalViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class AdultTestIntervalView extends AdultTestIntervalViewBase implements TestIntervalIF,  Reloadable
 {
-  private static final long serialVersionUID = 1234906559542L;
+  private static final long serialVersionUID = 1237579420788L;
   
-  public DDATestIntervalView()
+  public AdultTestIntervalView()
   {
     super();
   }
-
+  
+  
   @Override
   public void apply()
   {
-    DDATestInterval interval = null;
+    AdultTestInterval interval = null;
     
     if(this.getIntervalId() == null || this.getIntervalId().equals(""))
     {
-      interval = new DDATestInterval();
+      interval = new AdultTestInterval();
       interval.setAssay(this.getAssay());
       interval.setPeriod(this.getPeriod());
       interval.setKnockedDown(this.getKnockedDown());
@@ -34,7 +30,7 @@ public class DDATestIntervalView extends DDATestIntervalViewBase implements com.
     }
     else
     {
-      interval = DDATestInterval.lock(this.getIntervalId());
+      interval = AdultTestInterval.lock(this.getIntervalId());
       interval.setAssay(this.getAssay());
       interval.setPeriod(this.getPeriod());
       interval.setKnockedDown(this.getKnockedDown());
@@ -45,13 +41,18 @@ public class DDATestIntervalView extends DDATestIntervalViewBase implements com.
   }
   
   @Transaction
-  public static dss.vector.solutions.entomology.assay.DDATestIntervalView[] saveAll(dss.vector.solutions.entomology.assay.DDATestIntervalView[] array)
+  public static AdultTestIntervalView[] saveAll(AdultTestIntervalView[] array)
   {
-    for(DDATestIntervalView view : array)
+    for(AdultTestIntervalView view : array)
     {
       view.apply();
     }
     
     return array;
-  }  
+  }
+
+  public Integer getValue()
+  {
+    return this.getKnockedDown();
+  }    
 }

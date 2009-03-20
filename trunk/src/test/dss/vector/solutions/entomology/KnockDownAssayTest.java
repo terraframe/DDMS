@@ -23,8 +23,8 @@ import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
-import dss.vector.solutions.entomology.assay.DDATestInterval;
-import dss.vector.solutions.entomology.assay.DDATestIntervalView;
+import dss.vector.solutions.entomology.assay.AdultTestInterval;
+import dss.vector.solutions.entomology.assay.AdultTestIntervalView;
 import dss.vector.solutions.entomology.assay.InvalidAgeProblem;
 import dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem;
 import dss.vector.solutions.entomology.assay.InvalidFedQuantityProblem;
@@ -680,17 +680,12 @@ public class KnockDownAssayTest extends TestCase
       assay.setGravid(10);
       assay.setGeneration(F1);
       assay.setExposureTime(60);
-      assay.setIntervalTime(10);
-      
-      
-      assay.setIsofemale(false);
-      
+      assay.setIntervalTime(10);      
+      assay.setIsofemale(false);      
       assay.setQuantityTested(30);
       assay.getAgeRange().setStartPoint(2);
       assay.getAgeRange().setEndPoint(20);
-      assay.setInsecticide(insecticide);
-      
-      
+      assay.setInsecticide(insecticide);            
       assay.apply();
 
       fail("Able to create an assay of unknown sex with invalid gravid and fed values");
@@ -1017,7 +1012,7 @@ public class KnockDownAssayTest extends TestCase
     try
     {
       int max = assay.calculatePeriod();
-      DDATestIntervalView[] intervals = assay.getTestIntervals();
+      AdultTestIntervalView[] intervals = assay.getTestIntervals();
 
       assertEquals(max, intervals.length);
 
@@ -1063,7 +1058,7 @@ public class KnockDownAssayTest extends TestCase
     
     assay.apply();
 
-    DDATestIntervalView[] intervals = assay.getTestIntervals();
+    AdultTestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
@@ -1119,14 +1114,14 @@ public class KnockDownAssayTest extends TestCase
     
     assay.apply();
 
-    DDATestIntervalView[] intervals = assay.getTestIntervals();
+    AdultTestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
       intervals[i].setKnockedDown(i);
     }
 
-    DDATestIntervalView.saveAll(intervals);
+    AdultTestIntervalView.saveAll(intervals);
 
     try
     {
@@ -1153,7 +1148,7 @@ public class KnockDownAssayTest extends TestCase
     Date date = dateTime.parse("2008-01-01");
     
     AssaySex sex = AssaySex.MALE;
-    DDATestInterval interval = new DDATestInterval();
+    AdultTestInterval interval = new AdultTestInterval();
     int period = 20;
 
     KnockDownAssay assay = new KnockDownAssay();
@@ -1240,7 +1235,7 @@ public class KnockDownAssayTest extends TestCase
 
     try
     {
-      DDATestInterval interval = new DDATestInterval();
+      AdultTestInterval interval = new AdultTestInterval();
       interval.setAssay(assay);
       interval.setPeriod(0);
       interval.setKnockedDown(2);
@@ -1287,7 +1282,7 @@ public class KnockDownAssayTest extends TestCase
     
     assay.apply();
 
-    DDATestIntervalView[] intervals = assay.getTestIntervals();
+    AdultTestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
@@ -1394,14 +1389,14 @@ public class KnockDownAssayTest extends TestCase
     
     assay.apply();
 
-    DDATestIntervalView[] intervals = assay.getTestIntervals();
+    AdultTestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
       intervals[i].setKnockedDown(i * 3);
     }
 
-    DDATestIntervalView.saveAll(intervals);
+    AdultTestIntervalView.saveAll(intervals);
 
     try
     {
@@ -1442,14 +1437,14 @@ public class KnockDownAssayTest extends TestCase
     
     assay.apply();
 
-    DDATestIntervalView[] intervals = assay.getTestIntervals();
+    AdultTestIntervalView[] intervals = assay.getTestIntervals();
 
     for (int i = 0; i < intervals.length; i++)
     {
       intervals[i].setKnockedDown(i * 3);
     }
 
-    DDATestIntervalView.saveAll(intervals);
+    AdultTestIntervalView.saveAll(intervals);
 
     try
     {

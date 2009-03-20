@@ -5,10 +5,6 @@ import java.util.List;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.entomology.AssaySex;
-import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
-import dss.vector.solutions.entomology.assay.EfficacyAssay;
-import dss.vector.solutions.entomology.assay.InvalidFedQuantityProblem;
-import dss.vector.solutions.entomology.assay.InvalidFedSexProblem;
 
 public class FedValidator implements Reloadable
 {
@@ -20,14 +16,9 @@ public class FedValidator implements Reloadable
   
   private String assayId;
     
-  public FedValidator(AdultDiscriminatingDoseAssay assay)
+  public FedValidator(AdultAssay assay)
   {
     this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay.getId());
-  }
-
-  public FedValidator(KnockDownAssay assay)
-  {
-    this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay.getId());        
   }
   
   public FedValidator(EfficacyAssay assay)

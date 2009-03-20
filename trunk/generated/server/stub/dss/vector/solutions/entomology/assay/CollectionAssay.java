@@ -10,9 +10,6 @@ import javax.vecmath.GVector;
 import com.gregdennis.drej.PolynomialKernel;
 import com.gregdennis.drej.Regression;
 import com.gregdennis.drej.Representer;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 import dss.vector.solutions.mo.Generation;
 
@@ -124,10 +121,12 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
     // return representer.eval(new GVector(new double[]{Math.log(value)}));
     return representer.eval(new GVector(new double[] { value }));
   }
+  
+  public abstract TestIntervalIF[] getTestIntervals();
 
   private double[] getTimeIntervals()
   {
-    DDATestIntervalView[] array = this.getTestIntervals();
+    TestIntervalIF[] array = this.getTestIntervals();
     double[] d = new double[array.length];
 
     for (int i = 0; i < array.length; i++)
@@ -140,13 +139,13 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
 
   private double[] getLogKnockDownPercent()
   {
-    DDATestIntervalView[] array = this.getTestIntervals();
+    TestIntervalIF[] array = this.getTestIntervals();
 
     double[] d = new double[array.length];
 
     for (int i = 0; i < array.length; i++)
     {
-      double percent = array[i].getKnockedDown() / (double) this.getQuantityTested() * 100;
+      double percent = array[i].getValue() / (double) this.getQuantityTested() * 100;
 
       if (percent > 0)
       {
@@ -162,41 +161,6 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
     return d;
   }
   
-  public DDATestIntervalView[] getTestIntervals()
-  {
-    List<DDATestIntervalView> list = new LinkedList<DDATestIntervalView>();
-
-    DDATestIntervalQuery query = new DDATestIntervalQuery(new QueryFactory());
-    query.WHERE(query.getAssay().getId().EQ(this.getId()));
-    query.ORDER_BY(query.getPeriod(), SortOrder.ASC);
-
-    OIterator<? extends DDATestInterval> iterator = query.getIterator();
-
-    try
-    {
-      while (iterator.hasNext())
-      {
-        DDATestInterval interval = iterator.next();
-
-        DDATestIntervalView view = new DDATestIntervalView();
-        view.setIntervalId(interval.getId());
-        view.setAssay(this);
-        view.setKnockedDown(interval.getKnockedDown());
-        view.setPeriod(interval.getPeriod());
-        view.setIntervalTime(interval.getIntervalTime());
-        view.applyNoPersist();
-
-        list.add(view);
-      }
-
-      return list.toArray(new DDATestIntervalView[list.size()]);
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
   @Override
   public void apply()
   {
@@ -204,41 +168,9 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
     validateIntervalTime();
     validateTestDate();
 
-    boolean firstApply = this.isNew() && !this.isAppliedToDB();
-    
     super.apply();
-    
-    // CREATE Test Intervals
-    if (firstApply)
-    {
-      int periods = this.calculatePeriod();
-
-      for (int i = 0; i < periods; i++)
-      {
-        DDATestInterval interval = new DDATestInterval();
-        interval.setAssay(this);
-        interval.setPeriod(i);
-        interval.setKnockedDown(0);
-        interval.apply();
-      }
-    }
   }
     
-  @Override
-  public void delete()
-  {
-    this.deleteIntevals();
-
-    super.delete();
-  }
-  
-  private void deleteIntevals()
-  {
-    for (DDATestIntervalView view : this.getTestIntervals())
-    {
-      DDATestInterval.get(view.getIntervalId()).delete();
-    }
-  }
 
   
   public Integer calculatePeriod()
