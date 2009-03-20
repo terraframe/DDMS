@@ -1695,27 +1695,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       </attributes>
     </mdStruct>
 
-    <mdBusiness
-      name="dss.vector.solutions.entomology.assay.LarvaeAgeRange"
-      label="Larvae Age Range"
-      description="Age range of larvae in an assay"
-      generateController="false">
-      <attributes>
-        <reference
-          name="startPoint"
-          label="Beginning Age"
-          required="true"
-          description="Starting age of the age range"
-          type="dss.vector.solutions.mo.LarvaeAge" />
-        <reference
-          name="endPoint"
-          label="End Age"
-          required="true"
-          description="End age of the age range"
-          type="dss.vector.solutions.mo.LarvaeAge" />
-      </attributes>
-    </mdBusiness>
-
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidAgeProblem"
       label="Invalid Age Exception"
@@ -1854,13 +1833,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           default_value="10" />
       </attributes>
       <mdMethod
-        name="getTestIntervals"
-        label="Get Test Intervals"
-        returnType="dss.vector.solutions.entomology.assay.DDATestIntervalView[]"
-        static="false"
-        description="Returns a list of test intervals">
-      </mdMethod>
-      <mdMethod
         name="getKD50"
         label="Get KD50"
         returnType="java.lang.Double"
@@ -1875,10 +1847,11 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.KnockDownAssay"
-      label="Knock Down Assay"
-      description="Knock down which can be performed on a group of adult mosquitos"
-      extends="dss.vector.solutions.entomology.assay.CollectionAssay">
+      name="dss.vector.solutions.entomology.assay.AdultAssay"
+      generateController="false"
+      label="Adult Assay"
+      extends="dss.vector.solutions.entomology.assay.CollectionAssay"
+      isAbstract="true">
       <attributes>
         <struct
           name="ageRange"
@@ -1908,17 +1881,27 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           selectMultiple="false"
           type="dss.vector.solutions.entomology.AssaySex" />
       </attributes>
+      <mdMethod
+        name="getTestIntervals"
+        label="Get Test Intervals"
+        returnType="dss.vector.solutions.entomology.assay.AdultTestIntervalView[]"
+        static="false"
+        description="Returns a list of test intervals">
+      </mdMethod>
     </mdBusiness>
 
+    <mdBusiness
+      name="dss.vector.solutions.entomology.assay.KnockDownAssay"
+      label="Knock Down Assay"
+      description="Knock down which can be performed on a group of adult mosquitos"
+      extends="dss.vector.solutions.entomology.assay.AdultAssay">
+    </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.DiscriminatingDoseAssay"
-      label="Discriminating Dose Assay"
-      description="Discriminating dose assay which can be performed on a collection mosquitos"
-      extends="dss.vector.solutions.entomology.assay.CollectionAssay"
-      isAbstract="true"
-      extendable="true"
-      generateController="false">
+      name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay"
+      label="Adult Discriminating Dose Assay"
+      description="Abstract assay which can be performed on a group of adult mosquitos"
+      extends="dss.vector.solutions.entomology.assay.AdultAssay">
       <attributes>
         <integer
           name="holdingTime"
@@ -1957,72 +1940,74 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay"
-      label="Adult Discriminating Dose Assay"
-      description="Abstract assay which can be performed on a group of adult mosquitos"
-      extends="dss.vector.solutions.entomology.assay.DiscriminatingDoseAssay">
+      name="dss.vector.solutions.entomology.assay.LarvaeAssay"
+      generateController="false"
+      label="Larvae Assay"
+      extends="dss.vector.solutions.entomology.assay.CollectionAssay"
+      isAbstract="true">
       <attributes>
-        <struct
-          name="ageRange"
-          label="Age Range"
+        <reference
+          name="startPoint"
+          label="Beginning Age"
           required="false"
-          description="The age range of the mosquitos tested"
-          type="dss.vector.solutions.entomology.assay.AdultAgeRange" />
-        <integer
-          name="fed"
-          label="Fed"
-          description="Fed value (Only applicable when females are present)."
-          rejectNegative="true"
-          required="true"
-          default_value="0" />
-        <integer
-          name="gravid"
-          label="Gravid"
-          description="Gravid value (Only applicable when females are present)"
-          rejectNegative="true"
-          required="true"
-          default_value="0" />
-        <enumeration
-          name="sex"
-          label="Sex"
-          required="true"
-          description="The sex of the tested mosquitos"
-          selectMultiple="false"
-          type="dss.vector.solutions.entomology.AssaySex" />
+          description="Starting age of the age range"
+          type="dss.vector.solutions.mo.LarvaeAge" />
+        <reference
+          name="endPoint"
+          label="End Age"
+          required="false"
+          description="End age of the age range"
+          type="dss.vector.solutions.mo.LarvaeAge" />
       </attributes>
+      <mdMethod
+        name="getTestIntervals"
+        label="Get Test Intervals"
+        returnType="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView[]"
+        static="false"
+        description="Returns a list of test intervals">
+      </mdMethod>
     </mdBusiness>
 
     <mdBusiness
       name="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay"
       label="Larvae Discriminating Dose Assay"
       description="Discriminating Dose Assay which can be performed on a group of larvae mosquitos"
-      extends="dss.vector.solutions.entomology.assay.DiscriminatingDoseAssay">
+      extends="dss.vector.solutions.entomology.assay.LarvaeAssay">
       <attributes>
-        <reference
-          name="ageRange"
-          label="Age Range"
-          type="dss.vector.solutions.entomology.assay.LarvaeAgeRange"
-          description="The larvae age range" />
+        <integer
+          name="holdingTime"
+          label="Holding Time (hr)"
+          required="true"
+          rejectNegative="true"
+          description="The amount of time the mosquitos were held before exposure in hours"
+          default_value="23" />
+        <integer
+          name="quantityDead"
+          label="Quantity Dead"
+          rejectNegative="true"
+          required="true"
+          description="The total number of mosquitos which died during the assay" />
+        <integer
+          name="quantityLive"
+          label="Quantity Live"
+          rejectNegative="true"
+          required="true"
+          description="The total number of mosquitos which lived during the assay" />
+        <float
+          name="mortality"
+          label="Mortality Rate"
+          length="5"
+          decimal="2"
+          required="true"
+          description="The mortality rate of mosquitos" />
+        <float
+          name="controlTestMortality"
+          label="Control Test Mortality Rate"
+          length="5"
+          decimal="2"
+          description="Mortality rate of the control test"
+          required="false" />
       </attributes>
-      <mdMethod
-        name="setAgeRange"
-        returnType="void"
-        description="Sets the age range of the assay"
-        label="Set Age Range"
-        static="false">
-        <mdParameter
-          name="startAge"
-          description="The start age of the age range"
-          label="Start Age"
-          order="0"
-          type="dss.vector.solutions.mo.LarvaeAge" />
-        <mdParameter
-          name="endAge"
-          description="The end age of the age range"
-          label="End Age"
-          order="1"
-          type="dss.vector.solutions.mo.LarvaeAge" />
-      </mdMethod>
     </mdBusiness>
 
     <mdBusiness
@@ -2372,15 +2357,15 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       description="A collection is susceptible to the test assay" />
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.DDATestInterval"
+      name="dss.vector.solutions.entomology.assay.AdultTestInterval"
       label="Test Interval"
       description="A single test interval for an individual adult discriminating dose assay">
       <attributes>
         <reference
           name="assay"
-          label="Collection Assay"
+          label="Adult Assay"
           required="true"
-          type="dss.vector.solutions.entomology.assay.CollectionAssay" />
+          type="dss.vector.solutions.entomology.assay.AdultAssay" />
         <integer
           name="period"
           label="Period"
@@ -2396,7 +2381,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdIndex
-      type="dss.vector.solutions.entomology.assay.DDATestInterval"
+      type="dss.vector.solutions.entomology.assay.AdultTestInterval"
       active="true"
       label="ADDA Test Interval Index"
       unique="true"
@@ -2408,7 +2393,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdIndex>
 
     <mdView
-      name="dss.vector.solutions.entomology.assay.DDATestIntervalView"
+      name="dss.vector.solutions.entomology.assay.AdultTestIntervalView"
       label="Test Interval View"
       description="View for Adult Discriminating Dose Assay test intervals">
       <attributes>
@@ -2425,23 +2410,23 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         <virtual
           name="assay"
           required="true"
-          type="dss.vector.solutions.entomology.assay.DDATestInterval"
+          type="dss.vector.solutions.entomology.assay.AdultTestInterval"
           concrete="assay" />
         <virtual
           name="period"
           required="true"
-          type="dss.vector.solutions.entomology.assay.DDATestInterval"
+          type="dss.vector.solutions.entomology.assay.AdultTestInterval"
           concrete="period" />
         <virtual
           name="knockedDown"
           required="true"
-          type="dss.vector.solutions.entomology.assay.DDATestInterval"
+          type="dss.vector.solutions.entomology.assay.AdultTestInterval"
           concrete="knockedDown" />
       </attributes>
       <mdMethod
         name="saveAll"
         label="Save All"
-        returnType="dss.vector.solutions.entomology.assay.DDATestIntervalView[]"
+        returnType="dss.vector.solutions.entomology.assay.AdultTestIntervalView[]"
         static="true"
         description="Saves an array of ADDATestIntervalViews in a single transaction">
         <mdParameter
@@ -2449,7 +2434,89 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Array"
           description="Array of objects to save"
           order="0"
-          type="dss.vector.solutions.entomology.assay.DDATestIntervalView[]" />
+          type="dss.vector.solutions.entomology.assay.AdultTestIntervalView[]" />
+      </mdMethod>
+    </mdView>
+
+    <mdBusiness
+      name="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
+      label="Test Interval"
+      description="A single test interval for an individual larvae discriminating dose assay">
+      <attributes>
+        <reference
+          name="assay"
+          label="Larvae Assay"
+          required="true"
+          type="dss.vector.solutions.entomology.assay.LarvaeAssay" />
+        <integer
+          name="period"
+          label="Period"
+          rejectNegative="true"
+          required="true" />
+        <integer
+          name="quantityDead"
+          rejectNegative="true"
+          label="Quantity Dead"
+          required="true"
+          default_value="0" />
+      </attributes>
+    </mdBusiness>
+
+    <mdIndex
+      type="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
+      active="true"
+      label="Larvase Test Interval Index"
+      unique="true"
+      description="Uniqueness constraint between an assay and its interval period">
+      <attribute
+        name="assay" />
+      <attribute
+        name="period" />
+    </mdIndex>
+
+    <mdView
+      name="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView"
+      label="Test Interval View"
+      description="View for Larvae Discriminating Dose Assay test intervals">
+      <attributes>
+        <char
+          name="intervalId"
+          label="Test Interval Id"
+          required="true"
+          size="255" />
+        <integer
+          name="intervalTime"
+          label="Interval Time"
+          rejectNegative="true"
+          required="true" />
+        <virtual
+          name="assay"
+          required="true"
+          type="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
+          concrete="assay" />
+        <virtual
+          name="period"
+          required="true"
+          type="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
+          concrete="period" />
+        <virtual
+          name="quantityDead"
+          required="true"
+          type="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
+          concrete="quantityDead" />
+      </attributes>
+      <mdMethod
+        name="saveAll"
+        label="Save All"
+        returnType="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView[]"
+        static="true"
+        description="Saves an array of KDTestIntervalViews in a single transaction">
+        <mdParameter
+          name="array"
+          label="Array"
+          description="Array of objects to save"
+          order="0"
+          type="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView[]" />
       </mdMethod>
     </mdView>
 
@@ -2639,8 +2706,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       </attributes>
     </mdProblem>
   </create>
-  
-    <update>
+
+  <update>
     <mdController
       name="dss.vector.solutions.general.KnockDownTimePropertyController">
       <create>
@@ -2650,10 +2717,10 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           isPost="true"
           description="Searches for a knock down property with the given insecticide">
           <mdParameter
-            name="insecticide"
-            label="Insecticide"
+            name="insecticideId"
+            label="Insecticide Id"
             order="0"
-            type="dss.vector.solutions.general.Insecticide"
+            type="java.lang.String"
             description="Insecticide" />
         </mdAction>
         <mdAction
@@ -2673,10 +2740,10 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           isPost="true"
           description="Searches for a knock down property with the given insecticide">
           <mdParameter
-            name="insecticide"
-            label="Insecticide"
+            name="insecticideId"
+            label="Insecticide Id"
             order="0"
-            type="dss.vector.solutions.general.Insecticide"
+            type="java.lang.String"
             description="Insecticide" />
         </mdAction>
         <mdAction
@@ -2688,7 +2755,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       </create>
     </mdController>
   </update>
-  
+
 
   <create>
     <mdBusiness
