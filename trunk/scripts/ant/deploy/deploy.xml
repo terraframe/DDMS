@@ -9,7 +9,7 @@
 	<property name="system.password" value="mdsstest2" />
 	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties" classpath="${profile.root};tfprops.jar" />
 	<tfproperties root="${profile.root}" />
-
+	
 	<!-- execution path -->
 	<path id="framework.classpath">
 		<fileset dir="${local.lib}">
@@ -39,13 +39,14 @@
 		<reload url="${deploy.manager.url}" username="${deploy.username}" password="${deploy.password}" path="/${deploy.appname}" />
 		<echo message="The Tomcat webapp '${deploy.appname}' has been stopped" />
 	</target>
-
-	<target name="stop_tomcat_webapp" description="Calls tomcat's manager to stop the webapp">
+	
+	<!--If this is the first time this project is built, these tasks will not run-->
+	<available file="${deploy.path}" type="dir"	 property="deploy_path_exists"/>
+	<target name="stop_tomcat_webapp" description="Calls tomcat's manager to stop the webapp" if="deploy_path_exists">
 		<stop url="${deploy.manager.url}" username="${deploy.username}" password="${deploy.password}" path="/${deploy.appname}" />
 		<echo message="The Tomcat webapp '${deploy.appname}' has been stopped" />
 	</target>
 	
-	<available file="${deploy.path}" type="dir"	 property="deploy_path_exists"/>
 	<target name="start_tomcat_webapp" description="Calls tomcat's manager to start the webapp" if="deploy_path_exists">
 		<start url="${deploy.manager.url}" username="${deploy.username}" password="${deploy.password}" path="/${deploy.appname}" />
 		<echo message="The Tomcat webapp '${deploy.appname}' has been started." />
@@ -77,7 +78,7 @@
 	</target>
 
 	<target name="rebuild_db" description="Rebuilds the metadata" depends="get_root_login,get_root_password,get_root_database">
-		<echo message="Setting up users and metadata on database" />
+		<echo message="Setting up users and metadata on database!!!!!" />
 		<java classname="com.terraframe.mojo.dataaccess.Installer" failonerror="true">
 			<arg value="${root.user}" />
 			<arg value="${root.pass}" />
@@ -154,8 +155,8 @@
 			</classpath>
 		</javac>		
 	</target>
-	
-	<target name="update_domain_model" depends="delete_generated_base">
+
+	<target name="update_domain_model" depends="delete_generated_base" >
 		<!-- Import the domain model -->
 		<java classname="ImportModel" failonerror="true">
 			<arg file="${domain.location}" />
@@ -184,7 +185,7 @@
 		</java>
 	</target>
 
-	<target name="deploy" depends="deploy_presentation_files,deploy_application_files,deploy_web_xml">
+	<target name="deploy" depends="deploy_presentation_files,deploy_application_files,deploy_web_xml">		
 		<!-- Flatten a profile and stick it on tomcat. -->
 		<java classname="com.terraframe.mojo.ant.ProfileFlattener" fork="false" failonerror="true">
 			<arg value="${deploy.profile}" />
