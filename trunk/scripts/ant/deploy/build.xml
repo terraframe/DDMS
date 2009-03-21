@@ -14,12 +14,13 @@
 	<property name="db_root_db" value="template_postgis" />
 	<property name="max_memory_use" value="1024m" />
 
-	<property name="deoploy.path" value="/Users/nathan/tomcat-6.0.16/webapps/MDSS/" />
+	<property name="deoploy.path" value="{deploy.root}/webapps/MDSS/" />
 
 	<property name="postgres.bin" value="/Library/PostgreSQL/8.3/bin" />
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
-	<property name="kill_tomcat" value="false" />
+	<!-- comment out the below line if you want to automaticly restart tomcat -->
+	<property name="dont_kill_tomcat" value="true" />
 	
 	<!-- =================================================================== -->
 	<!--         CAUTION: THIS WILL OVERWRITE EXISTING DATA                  -->
@@ -112,22 +113,22 @@
 	<!-- These are some utility tasks and tasks for restarting things        -->
 	<!-- =================================================================== -->
 	
-	<target name="kill_tomcat" if="kill_tomcat">
+	<target name="kill_tomcat" unless="dont_kill_tomcat">
 		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
 	   	ps -x  | grep Tomcat | egrep -o ^\ [0-9]+ | xargs kill -9
 		</shellscript>
-		<shellscript shell="bash" dir="../../../" os="Windows" searchpath="true">
-			${deploy.path}../../bin/shutdown.bat
+		<shellscript shell="bash" dir="${deploy.root}/bin" os="Windows" searchpath="true">
+			shutdown.bat
 	    </shellscript>
 		<sleep seconds="5"/>
 	</target>
 
-	<target name="start_tomcat" if="kill_tomcat">
-		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
-		    ${deploy.path}../../bin/startup.sh
+	<target name="start_tomcat" unless="dont_kill_tomcat">
+		<shellscript shell="bash" dir="${deploy.root}/bin" os="Mac OS X" searchpath="true">
+		    startup.sh
 		</shellscript>
-		<shellscript shell="bash" dir="../../../" os="Windows" searchpath="true">
-			${deploy.path}../../bin/startup.bat
+		<shellscript shell="bash" dir="${deploy.root}/bin" os="Windows" searchpath="true">
+			startup.bat
 	    </shellscript>
 		<sleep seconds="5"/>
 	</target>
@@ -139,6 +140,13 @@
 		</sound>
 		<property name="alert_status.done" value="true" />
 	</target>
+	
+	<!-- =================================================================== -->
+	<!-- Commands to restart postgres -->
+	<!-- sudo su postgres -c "./pg_ctl stop -m i -D ../data" -->
+	<!-- sudo su postgres -c "./pg_ctl start -D ../data" -->
+	<!-- =================================================================== -->
+	
 	
 	<!-- =================================================================== -->
 	<!-- CAUTION: THESE TASKS UPDATE THE LIVE TEST SERVER!                   -->
@@ -170,7 +178,7 @@
 			password="${testserver.password}"
 		  	command="CMD /c 'C:\\Program Files\\Apache Software Foundation\\Tomcat 6.0\\webapps\\MDSS\\update.bat'"/>
 	</target>
-	
+		
 </project>
 
 
