@@ -13,10 +13,13 @@
 	<property name="db_root_password" value="postgres" />
 	<property name="db_root_db" value="template_postgis" />
 	<property name="max_memory_use" value="1024m" />
-	<property name="deoploy.path" value="{deploy.root}/webapps/MDSS/" />
+
+	<property name="deoploy.path" value="/Users/nathan/tomcat-6.0.16/webapps/MDSS/" />
+
 	<property name="postgres.bin" value="/Library/PostgreSQL/8.3/bin" />
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
+	<property name="kill_tomcat" value="false" />
 	
 	<!-- =================================================================== -->
 	<!--         CAUTION: THIS WILL OVERWRITE EXISTING DATA                  -->
@@ -109,7 +112,7 @@
 	<!-- These are some utility tasks and tasks for restarting things        -->
 	<!-- =================================================================== -->
 	
-	<target name="kill_tomcat">
+	<target name="kill_tomcat" if="kill_tomcat">
 		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
 	   	ps -x  | grep Tomcat | egrep -o ^\ [0-9]+ | xargs kill -9
 		</shellscript>
@@ -119,7 +122,7 @@
 		<sleep seconds="5"/>
 	</target>
 
-	<target name="start_tomcat">
+	<target name="start_tomcat" if="kill_tomcat">
 		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
 		    ${deploy.path}../../bin/startup.sh
 		</shellscript>
