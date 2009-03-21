@@ -5,7 +5,6 @@
 	<!-- Set up our properties                                               -->
 	<!-- =================================================================== -->
 
-
 	<property name="profile.root" value="../../../profiles" />
 	<property name="system.password" value="mdsstest2" />
 	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties" classpath="${profile.root};tfprops.jar" />
@@ -45,12 +44,12 @@
 		<stop url="${deploy.manager.url}" username="${deploy.username}" password="${deploy.password}" path="/${deploy.appname}" />
 		<echo message="The Tomcat webapp '${deploy.appname}' has been stopped" />
 	</target>
-
-	<target name="start_tomcat_webapp" description="Calls tomcat's manager to start the webapp">
+	
+	<available file="${deploy.path}" type="dir"	 property="deploy_path_exists"/>
+	<target name="start_tomcat_webapp" description="Calls tomcat's manager to start the webapp" if="deploy_path_exists">
 		<start url="${deploy.manager.url}" username="${deploy.username}" password="${deploy.password}" path="/${deploy.appname}" />
 		<echo message="The Tomcat webapp '${deploy.appname}' has been started." />
 	</target>
-
 
 	<!-- Add in AspectJ task definitions -->
 	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">

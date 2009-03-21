@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="MDSS" default="rebuild_all">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../../../lib/common/ant-contrib-1.0b3.jar" />
+
+	<!-- =================================================================== -->
+	<!-- These are defualt properties.                                       -->
+	<!-- You can overide them in your external tools configueration.         -->
+	<!-- =================================================================== -->
+	
+	<property file="../../../profiles/default/common/terraframe.properties"/>
+	
 	<property name="db_root_login" value="postgres" />
 	<property name="db_root_password" value="postgres" />
 	<property name="db_root_db" value="template_postgis" />
 	<property name="max_memory_use" value="1024m" />
-	<property name="deoploy.path" value="/Library/Tomcat/Home/webapps/MDSS/" />
+	<property name="deoploy.path" value="{deploy.root}/webapps/MDSS/" />
 	<property name="postgres.bin" value="/Library/PostgreSQL/8.3/bin" />
-
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../../../lib/common/ant-contrib-1.0b3.jar" />
-
+	<property name="testserver.address" value="66.116.103.235" />
+	<property name="testserver.username" value="administrator" />
+	
+	<!-- =================================================================== -->
+	<!--         CAUTION: THIS WILL OVERWRITE EXISTING DATA                  -->
+	<!--This is the main task to run if you want to completely rebuild mdss. -->
+	<!-- =================================================================== -->
 	<target name="rebuild_all" depends="alert_status,develop_rebuild_import,deploy_all,deploy_rebuild_import,update_db,push_source">
 		<echo message="The build is complete" />
 	</target>
-
+	
+	<!-- =================================================================== -->
+	<!-- These are five tasks that rebuild MDSS.                             -->
+	<!-- You can run them one at a time if you wish.                         -->
+	<!-- =================================================================== -->
 	<target name="develop_rebuild_import" depends="">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild Import">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(1)Develop Rebuild Import">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
@@ -25,14 +42,13 @@
 			<arg value="-Droot.user=${db_root_login}" />
 			<arg value="-Droot.pass=${db_root_password}" />
 			<arg value="-Droot.db=${db_root_db}" />
-			<arg value="-Dmojo.keepSource=true" />
 			<arg value="rebuild_db" />
 			<arg value="update_domain_model" />
 		</java>
 	</target>
 
 	<target name="deploy_all" depends="write_revision">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy All">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(2)Deploy All">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -45,21 +61,8 @@
 		</java>
 	</target>
 
-	<target name="kill_tomcat">
-		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
-	   	ps -x  | grep Tomcat | egrep -o ^\ [0-9]+ | xargs kill -9
-		</shellscript>
-	</target>
-
-	<target name="start_tomcat">
-		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
-		${deploy.path}../../bin/startup.sh
-		</shellscript>
-		<sleep seconds="10"/>
-	</target>
-
 	<target name="deploy_rebuild_import" depends="kill_tomcat">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy Rebuild Import">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(3)Deploy Rebuild Import">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -76,7 +79,7 @@
 	</target>
 
 	<target name="update_db" depends="start_tomcat">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Update Devlop DB With Source">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(4)Update Devlop DB With Source">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -91,7 +94,7 @@
 	</target>
 
 	<target name="push_source" depends="alert_status">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Push Source To Server">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(5)Push Source To Server">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -99,10 +102,33 @@
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
 			<arg value="push_source" />
-
 		</java>
 	</target>
 
+	<!-- =================================================================== -->
+	<!-- These are some utility tasks and tasks for restarting things        -->
+	<!-- =================================================================== -->
+	
+	<target name="kill_tomcat">
+		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
+	   	ps -x  | grep Tomcat | egrep -o ^\ [0-9]+ | xargs kill -9
+		</shellscript>
+		<shellscript shell="bash" dir="../../../" os="Windows" searchpath="true">
+			${deploy.path}../../bin/shutdown.bat
+	    </shellscript>
+		<sleep seconds="5"/>
+	</target>
+
+	<target name="start_tomcat">
+		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
+		    ${deploy.path}../../bin/startup.sh
+		</shellscript>
+		<shellscript shell="bash" dir="../../../" os="Windows" searchpath="true">
+			${deploy.path}../../bin/startup.bat
+	    </shellscript>
+		<sleep seconds="5"/>
+	</target>
+	
 	<target name="alert_status" unless="alert_status.done">
 		<sound>
 			<success source="../build_resources/build_complete.wav" />
@@ -110,8 +136,10 @@
 		</sound>
 		<property name="alert_status.done" value="true" />
 	</target>
-
-
+	
+	<!-- =================================================================== -->
+	<!-- CAUTION: THESE TASKS UPDATE THE LIVE TEST SERVER!                   -->
+	<!-- =================================================================== -->
 
 	<target name="deploy_to_test_server" depends="alert_status">
 		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true">
@@ -119,8 +147,7 @@
 			svn add * --force
 			svn ci -m"Update test servers to lastest version of MDSS"
 		</shellscript>
-		<echo message="Deploy Is Complete" />
-
+		<echo message="SVN updated with image for test server" />
 	</target>
 
 	<target name="write_revision">
@@ -128,7 +155,19 @@
 	   	svn info|grep "Last Changed" > webapp/revision.html
 		</shellscript>
 	</target>
-
+     
+	<target name="get_root_password" description="Checks for root password and prompts for it if not found." unless="testserver.password">
+		<input message="Test Server Password:" addproperty="testserver.password" />
+	</target>
+	
+	<!-- lib/common/jsch-0.1.31.jar must be added to your ant classpath-->
+	<target name="update_test_server" depends="get_root_password" >
+		  <sshexec host="${testserver.address}" 
+			username="${testserver.username}"
+			password="${testserver.password}"
+		  	command="CMD /c 'C:\\Program Files\\Apache Software Foundation\\Tomcat 6.0\\webapps\\MDSS\\update.bat'"/>
+	</target>
+	
 </project>
 
 
