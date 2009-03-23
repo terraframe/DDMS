@@ -31,15 +31,15 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   }
   
   @Override
-  public void validateQuantityLive()
+  public void validateQuantityFemale()
   {
-    if(this.getQuantityLive() != null && this.getQuantity() != null)
+    if(this.getQuantityFemale() != null && this.getQuantity() != null)
     {
-      super.validateQuantityLive();
+      super.validateQuantityFemale();
       
-      if(this.getQuantityLive() > this.getQuantity())
+      if(this.getQuantityFemale() > this.getQuantity())
       {
-        String msg = "It is impossible to have more live mosquitos than the total number of mosquitos";
+        String msg = "It is impossible to have more female mosquitos than the total number of mosquitos";
         InvalidMorphologicalQuantityProblem p = new InvalidMorphologicalQuantityProblem(msg);
         p.apply();
         p.throwIt(); 
@@ -121,12 +121,16 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
     view.setDateCollected(this.getCollection().getDateCollected());
     view.setGeoEntity(this.getCollection().getGeoEntity());
 
-    if(this.getQuantityLive() != null)
+    if(this.getQuantityFemale() != null)
     {
-      view.setQuantityLive(this.getQuantityLive());
-      view.setQuantityDead(this.getQuantity() - this.getQuantityLive());
+      view.setQuantityFemale(this.getQuantityFemale());
     }
-    
+
+    if(this.getQuantityMale() != null)
+    {
+      view.setQuantityMale(this.getQuantityMale());
+    }
+
     view.applyNoPersist();
     
     return view;
