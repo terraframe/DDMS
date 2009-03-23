@@ -1009,8 +1009,13 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           rejectNegative="true"
           required="true" />
         <integer
-          name="quantityLive"
-          label="Quantity Live"
+          name="quantityFemale"
+          label="Quantity Female"
+          rejectNegative="true"
+          required="false" />
+        <integer
+          name="quantityMale"
+          label="Quantity Male"
           rejectNegative="true"
           required="false" />
         <reference
@@ -1086,14 +1091,13 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           concrete="quantity"
           required="true" />
         <virtual
-          name="quantityLive"
+          name="quantityMale"
           type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-          concrete="quantityLive" />
-        <integer
-          name="quantityDead"
-          required="false"
-          label="Quantity Dead"
-          rejectNegative="true" />
+          concrete="quantityMale" />
+        <virtual
+          name="quantityFemale"
+          type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
+          concrete="quantityFemale" />
         <virtual
           name="collection"
           required="false"
@@ -1153,8 +1157,26 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true"
           type="dss.vector.solutions.entomology.AbstractMosquitoCollection"
           description="References to the mosquito collection from which the true specie sample came." />
+        <char
+          name="sampleId"
+          label="Sample Id"
+          required="true"
+          size="4"
+          description="The id the entomologist gives to a sample when its true specie is determined." />
       </attributes>
     </mdBusiness>
+
+    <mdIndex
+      type="dss.vector.solutions.entomology.TrueSpecieEntity"
+      label="True Specie Entity Index"
+      active="true"
+      unique="true"
+      description="Enforces a unique index between a collection and its sample id">
+      <attribute
+        name="sampleId" />
+      <attribute
+        name="collection" />
+    </mdIndex>
 
     <mdBusiness
       name="dss.vector.solutions.entomology.UninterestingSpecieGroup"
@@ -1167,12 +1189,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           rejectNegative="true"
           rejectZero="true"
           required="true" />
-        <char
-          name="sampleId"
-          label="Sample Id"
-          required="true"
-          size="4"
-          description="The id the entomologist gives to a sample when its true specie is determined." />
       </attributes>
     </mdBusiness>
 
@@ -1208,7 +1224,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true" />
         <virtual
           name="sampleId"
-          type="dss.vector.solutions.entomology.UninterestingSpecieGroup"
+          type="dss.vector.solutions.entomology.TrueSpecieEntity"
           concrete="sampleId"
           required="true" />
       </attributes>
@@ -3174,19 +3190,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.mo.BiochemicalMethodology"
-      label="Biochemical Methodology"
-      description="List of molecular array results"
-      extends="dss.vector.solutions.mo.AbstractTerm">
-      <mdMethod
-        name="getAll"
-        returnType="dss.vector.solutions.mo.BiochemicalMethodology[]"
-        label="Get All Terms"
-        static="true"
-        description="Returns all term of a MO subcatagory" />
-    </mdBusiness>
-
-    <mdBusiness
       name="dss.vector.solutions.mo.InsecticideMethodology"
       label="Molecular Assay Result"
       description="List of molecular array results"
@@ -3218,7 +3221,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
+      name="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
       label="Molecular Assay Test Result"
       isAbstract="true"
       extendable="true"
@@ -3232,23 +3235,18 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true"
           description="The test methodology use for the gene mutation assay" />
       </attributes>
-      <mdMethod
-        name="getMolecularAssays"
-        label="Get Molecular Assays"
-        returnType="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
-        static="true">
-      </mdMethod>
     </mdBusiness>
 
     <mdBusiness
       name="dss.vector.solutions.entomology.assay.molecular.WKDRTestResult"
-      label="W-KDR Test Result"
-      extends="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
-      description="W-KDR test result.">
+      label="Kdr L104F (west)"
+      extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
+      description="W-KDR test result."
+      generateController="false">
       <attributes>
         <reference
           name="testResult"
-          label="W-KDR Test Result"
+          label="Kdr L104F (west)"
           required="true"
           description="Molecular assay result"
           type="dss.vector.solutions.mo.MolecularAssayResult" />
@@ -3257,13 +3255,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <mdBusiness
       name="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult"
-      label="E-KDR Test Result"
-      extends="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
-      description="E-KDR test result.">
+      label="Kdr L104S (east)"
+      extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
+      description="E-KDR test result."
+      generateController="false">
       <attributes>
         <reference
           name="testResult"
-          label="E-KDR Test Result"
+          label="Kdr L104S (east)"
           required="true"
           description="Molecular assay result"
           type="dss.vector.solutions.mo.MolecularAssayResult" />
@@ -3271,14 +3270,15 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.molecular.AcHETestResult"
-      label="AcHE Test Result"
-      extends="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
-      description="AcHE test result.">
+      name="dss.vector.solutions.entomology.assay.molecular.IAcHETestResult"
+      label="Insensitive AChE"
+      extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
+      description="AcHE test result."
+      generateController="false">
       <attributes>
         <reference
           name="testResult"
-          label="AcHE Test Result"
+          label="Insensitive AChE"
           required="true"
           description="Molecular assay result"
           type="dss.vector.solutions.mo.MolecularAssayResult" />
@@ -3286,14 +3286,15 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.molecular.GABATestResult"
-      label="GABA Test Result"
-      extends="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
-      description="GABA test result.">
+      name="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResult"
+      label="AChE F290V"
+      extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
+      description="AcHE test result."
+      generateController="false">
       <attributes>
         <reference
           name="testResult"
-          label="GABA Test Result"
+          label="AChE F290V"
           required="true"
           description="Molecular assay result"
           type="dss.vector.solutions.mo.MolecularAssayResult" />
@@ -3301,51 +3302,103 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-      label="Bio-Chemical Assay Test Result"
+      name="dss.vector.solutions.entomology.assay.molecular.AcHEWTestResult"
+      label="AChE F331W"
+      extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
+      description="AcHE test result."
+      generateController="false">
+      <attributes>
+        <reference
+          name="testResult"
+          label="AChE F331W"
+          required="true"
+          description="Molecular assay result"
+          type="dss.vector.solutions.mo.MolecularAssayResult" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="dss.vector.solutions.entomology.assay.molecular.AcHESTestResult"
+      label="AChE G119S"
+      extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
+      description="AcHE test result."
+      generateController="false">
+      <attributes>
+        <reference
+          name="testResult"
+          label="AChE G119S"
+          required="true"
+          description="Molecular assay result"
+          type="dss.vector.solutions.mo.MolecularAssayResult" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="dss.vector.solutions.entomology.assay.molecular.GABAGTestResult"
+      label="GABA Rdl A296G"
+      extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
+      description="GABA test result."
+      generateController="false">
+      <attributes>
+        <reference
+          name="testResult"
+          label="GABA Rdl A296G"
+          required="true"
+          description="Molecular assay result"
+          type="dss.vector.solutions.mo.MolecularAssayResult" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="dss.vector.solutions.entomology.assay.molecular.GABASTestResult"
+      label="GABA Rdl A296S"
+      extends="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
+      description="GABA test result."
+      generateController="false">
+      <attributes>
+        <reference
+          name="testResult"
+          label="GABA Rdl A296S"
+          required="true"
+          description="Molecular assay result"
+          type="dss.vector.solutions.mo.MolecularAssayResult" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
+      label="Metabolic Resistance Assay"
       isAbstract="true"
       extendable="true"
       extends="dss.vector.solutions.entomology.assay.AssayTestResult"
       generateController="false">
-      <attributes>
-        <reference
-          type="dss.vector.solutions.mo.BiochemicalMethodology"
-          name="testMethod"
-          label="Test Methodology"
-          required="true"
-          description="The test methodology used for the biochemical assay" />
-      </attributes>
-      <mdMethod
-        name="getBiochemicalAssays"
-        label="Get Biochemical Assays"
-        returnType="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-        static="true">
-      </mdMethod>
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.biochemical.AEsteraseTestResult"
-      label="α-Esterase Test Result"
-      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-      description="α-Esterase test result.">
+      name="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult"
+      label="α-napthyl acetate assay"
+      extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
+      description="α-Esterase test result."
+      generateController="false">
       <attributes>
-        <integer
+        <boolean
           name="testResult"
-          label="α-Esterase Test Result"
+          label="α-napthyl acetate assay"
           required="true"
           description="assay result" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.biochemical.BEsteraseTestResult"
-      label="β-Esterase Test Result"
-      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-      description="β-Esterase test result.">
+      name="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResult"
+      label="β-napthyl acetate assay"
+      extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
+      description="β-napthyl acetate assay test result."
+      generateController="false">
       <attributes>
-        <integer
+        <boolean
           name="testResult"
-          label="β-Esterase Test Result"
+          label="β-napthyl acetate assay"
           required="true"
           description="assay result" />
       </attributes>
@@ -3353,58 +3406,76 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <mdBusiness
       name="dss.vector.solutions.entomology.assay.biochemical.PNPATestResult"
-      label="PNPA Test Result"
-      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-      description="PNPA test result.">
+      label="pNPA assay"
+      extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
+      description="PNPA test result."
+      generateController="false">
       <attributes>
-        <integer
+        <boolean
           name="testResult"
-          label="PNPA Test Result"
+          label="pNPA assay"
           required="true"
           description="assay result" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.biochemical.GSTTestResult"
-      label="GST Test Result"
-      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-      description="GST test result.">
+      name="dss.vector.solutions.entomology.assay.biochemical.GSTCDNBTestResult"
+      label="GST CDNB rate reaction assay"
+      extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
+      description="GST CDNB rate reaction assay test result."
+      generateController="false">
       <attributes>
-        <integer
+        <boolean
           name="testResult"
-          label="GST Test Result"
+          label="GST CDNB rate reaction assay"
           required="true"
           description="assay result" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.biochemical.MonooxygenaseTestResult"
-      label="Monooxygenase Test Result"
-      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-      description="Monooxygenase test result.">
+      name="dss.vector.solutions.entomology.assay.biochemical.GSTDCNBTestResult"
+      label="GST DCNB rate reaction assay"
+      extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
+      description="GST DCNB rate reaction assay test result."
+      generateController="false">
       <attributes>
-        <integer
+        <boolean
           name="testResult"
-          label="Monooxygenase Test Result"
+          label="GST DCNB rate reaction assay"
           required="true"
           description="assay result" />
       </attributes>
     </mdBusiness>
 
     <mdBusiness
-      name="dss.vector.solutions.entomology.assay.biochemical.AcHETestResult"
-      label="AcHE Test Result"
-      extends="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-      description="AcHE test result.">
+      name="dss.vector.solutions.entomology.assay.biochemical.HemeTestResult"
+      label="heme content"
+      extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
+      description="Monooxygenase test result."
+      generateController="false">
       <attributes>
-        <reference
+        <boolean
           name="testResult"
-          label="AcHE Test Result"
+          label="heme content"
           required="true"
-          description="Molecular assay result"
-          type="dss.vector.solutions.mo.MolecularAssayResult" />
+          description="assay result" />
+      </attributes>
+    </mdBusiness>
+
+    <mdBusiness
+      name="dss.vector.solutions.entomology.assay.biochemical.P450TestResult"
+      label="p450 activity assay"
+      extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
+      description="p450 activity assay test result."
+      generateController="false">
+      <attributes>
+        <boolean
+          name="testResult"
+          label="p450 activity assay"
+          required="true"
+          description="p450 activity assay result" />
       </attributes>
     </mdBusiness>
 
@@ -3435,7 +3506,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       name="dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult"
       label="P. Falciparum Test Result"
       extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-      description="P. Falciparum test result.">
+      description="P. Falciparum test result."
+      generateController="false">
       <attributes>
         <boolean
           name="testResult"
@@ -3449,7 +3521,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       name="dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult"
       label="P. Ovale Test Result"
       extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-      description="P. Ovale test result.">
+      description="P. Ovale test result."
+      generateController="false">
       <attributes>
         <boolean
           name="testResult"
@@ -3463,7 +3536,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       name="dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult"
       label="P. Malariae Test Result"
       extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-      description="P. Malariae test result.">
+      description="P. Malariae test result."
+      generateController="false">
       <attributes>
         <boolean
           name="testResult"
@@ -3477,7 +3551,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       name="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult"
       label="P. Vivax Test Result"
       extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-      description="P. Vivax test result.">
+      description="P. Vivax test result."
+      generateController="false">
       <attributes>
         <boolean
           name="testResult"
@@ -3541,7 +3616,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="false" />
         <virtual
           name="wKDRMethod"
-          type="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
@@ -3551,48 +3626,78 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="false" />
         <virtual
           name="eKDRMethod"
-          type="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
+          type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
-          name="acHEMolecular"
-          type="dss.vector.solutions.entomology.assay.molecular.AcHETestResult"
+          name="iAcHE"
+          type="dss.vector.solutions.entomology.assay.molecular.IAcHETestResult"
           concrete="testResult"
           required="false" />
         <virtual
-          name="acHEMolecularMethod"
-          type="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
+          name="iAcHEMethod"
+          type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
-          name="gABA"
-          type="dss.vector.solutions.entomology.assay.molecular.GABATestResult"
+          name="acHEV"
+          type="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResult"
           concrete="testResult"
           required="false" />
         <virtual
-          name="gABAMethod"
-          type="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"
+          name="acHEVMethod"
+          type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
-          name="aEsterase"
-          type="dss.vector.solutions.entomology.assay.biochemical.AEsteraseTestResult"
+          name="acHEW"
+          type="dss.vector.solutions.entomology.assay.molecular.AcHEWTestResult"
           concrete="testResult"
           required="false" />
         <virtual
-          name="aEsteraseMethod"
-          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          name="acHEWMethod"
+          type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
           concrete="testMethod"
           required="false" />
         <virtual
-          name="bEsterase"
-          type="dss.vector.solutions.entomology.assay.biochemical.BEsteraseTestResult"
+          name="acHES"
+          type="dss.vector.solutions.entomology.assay.molecular.AcHESTestResult"
           concrete="testResult"
           required="false" />
         <virtual
-          name="bEsteraseMethod"
-          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
+          name="acHESMethod"
+          type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
           concrete="testMethod"
+          required="false" />
+        <virtual
+          name="gABAG"
+          type="dss.vector.solutions.entomology.assay.molecular.GABAGTestResult"
+          concrete="testResult"
+          required="false" />
+        <virtual
+          name="gABAGMethod"
+          type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
+          concrete="testMethod"
+          required="false" />
+        <virtual
+          name="gABAS"
+          type="dss.vector.solutions.entomology.assay.molecular.GABASTestResult"
+          concrete="testResult"
+          required="false" />
+        <virtual
+          name="gABASMethod"
+          type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
+          concrete="testMethod"
+          required="false" />
+        <virtual
+          name="aAcetate"
+          type="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult"
+          concrete="testResult"
+          required="false" />
+        <virtual
+          name="bAcetate"
+          type="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResult"
+          concrete="testResult"
           required="false" />
         <virtual
           name="pNPA"
@@ -3600,39 +3705,24 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           concrete="testResult"
           required="false" />
         <virtual
-          name="pNPAMethod"
-          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-          concrete="testMethod"
-          required="false" />
-        <virtual
-          name="gST"
-          type="dss.vector.solutions.entomology.assay.biochemical.GSTTestResult"
+          name="gSTCDNB"
+          type="dss.vector.solutions.entomology.assay.biochemical.GSTCDNBTestResult"
           concrete="testResult"
           required="false" />
         <virtual
-          name="gSTMethod"
-          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-          concrete="testMethod"
-          required="false" />
-        <virtual
-          name="monooxygenase"
-          type="dss.vector.solutions.entomology.assay.biochemical.MonooxygenaseTestResult"
+          name="gSTDCNB"
+          type="dss.vector.solutions.entomology.assay.biochemical.GSTDCNBTestResult"
           concrete="testResult"
           required="false" />
         <virtual
-          name="monooxygenaseMethod"
-          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-          concrete="testMethod"
-          required="false" />
-        <virtual
-          name="acHEBiochemical"
-          type="dss.vector.solutions.entomology.assay.biochemical.AcHETestResult"
+          name="heme"
+          type="dss.vector.solutions.entomology.assay.biochemical.HemeTestResult"
           concrete="testResult"
           required="false" />
         <virtual
-          name="acHEBiochemicalMethod"
-          type="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"
-          concrete="testMethod"
+          name="p450"
+          type="dss.vector.solutions.entomology.assay.biochemical.P450TestResult"
+          concrete="testResult"
           required="false" />
         <virtual
           name="pFalciparum"
@@ -8679,26 +8769,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <valueAttribute
         name="displayLabel"
         value="Test Infectivity Method" />
-      <valueAttribute
-        name="oboNamespace"
-        value="mosquito_insecticide_resistance_ontology" />
-      <valueAttribute
-        name="definition"
-        value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-    </object>
-
-    <object
-      type="dss.vector.solutions.mo.BiochemicalMethodology"
-      id="MIRO_99703572">
-      <valueAttribute
-        name="termId"
-        value="MIRO_99703572" />
-      <valueAttribute
-        name="termName"
-        value="Test Biochemical Method" />
-      <valueAttribute
-        name="displayLabel"
-        value="Test Biochemical Method" />
       <valueAttribute
         name="oboNamespace"
         value="mosquito_insecticide_resistance_ontology" />
