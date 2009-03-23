@@ -140,7 +140,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   public void apply()
   {
     validateQuantity();
-    validateQuantityLive();
+    validateQuantityFemale();
     validateIdentificationMethod();
     validateSpecie();
 
