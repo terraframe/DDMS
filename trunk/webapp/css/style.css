@@ -320,3 +320,15 @@ h2
 	overflow-y:scroll;
 	margin-top: 15px;
 }
+
+dl
+{
+	border: 2px solid #CCC;
+	-moz-border-radius: 10px;
+	padding: 1em;
+	background: url(/MDSS/imgs/design/grad_white.png) repeat-x top right;
+	background-color: #E8E8E8;
+	min-width: 300px;
+	max-width: 860px;
+	margin-left: 12px;
+}
