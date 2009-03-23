@@ -22,67 +22,38 @@ MDSS.currentSearchModal = null;
     var opener = new YAHOO.util.Element("searchOpener");
     opener.on("click", function(){
     
-      var request = new Mojo.ClientRequest({
-        onSuccess : function(html){
-          
-          // use modal to contain MDSS101
-          MDSS.currentSearchModal = new YAHOO.widget.Panel("searchSelectModal",  {
-            width:"100%", 
-            height: "100%",
-            fixedcenter:true, 
-            close:true, 
-            draggable:false, 
-            zindex:4,
-            modal:true,
-            visible:true
-          });
-    
-          MDSS.currentSearchModal.setBody(html);
-          MDSS.currentSearchModal.render(document.body);
-          
-
-          function selectHandler(selected)
-          {
-            var geoId = document.getElementById('geoIdEl');
-
-            if(selected != null)
-            {
-              geoId.value = selected.getGeoId();
-            }
-            else
-            {
-              geoId.value = '';
-            }
-          }
-  
-          // select list and tree share the same handler
-          //var radios = YAHOO.util.Selector.query('input[type="radio"]', 'searchMosquitoCollections');
-          var filterType = '';
-          /*
-          for(var i=0; i<radios.length; i++)
-          {
-            var radio = radios[i];
-            if(radio.checked)
-            {
-              filterType = radio.value;
-            }
-          }
-          */
-          
-          MDSS.SelectSearch.initialize(selectHandler, selectHandler, filterType); 
-        },
-        onFailure : function(e){
-          alert(e.getLocalizedMessage());
-        }
-      });
-    
-      if(MDSS.currentSearchModal == null)
+      if(MDSS.SelectSearch.isInitialized())
       {
-        Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySelectSearch(request, '<%= (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID) %>');
+        MDSS.SelectSearch.show();
       }
       else
       {
-        MDSS.currentSearchModal.show();
+        var radios = YAHOO.util.Selector.query('input[type="radio"]', 'searchMosquitoCollections');
+        var filterType = '';
+        for(var i=0; i<radios.length; i++)
+        {
+          var radio = radios[i];
+          if(radio.checked)
+          {
+            filterType = radio.value;
+          }
+        }
+        
+       function selectHandler(selected)
+       {
+         var geoId = document.getElementById('geoIdEl');
+
+         if(selected != null)
+         {
+           geoId.value = selected.getGeoId();
+         }
+         else
+         {
+           geoId.value = '';
+         }
+       }
+          
+       MDSS.SelectSearch.initialize(selectHandler, selectHandler, filterType);
       }
     });
   }, null, true);
