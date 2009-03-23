@@ -3575,6 +3575,11 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Mosquito Id"
           description="The id of the mosquito, if the Id is blank then it is assumed the mosquito is new" />
         <virtual
+          name="sampleId"
+          type="dss.vector.solutions.entomology.TrueSpecieEntity"
+          concrete="sampleId"
+          required="true" />
+        <virtual
           name="collection"
           type="dss.vector.solutions.entomology.TrueSpecieEntity"
           concrete="collection"
