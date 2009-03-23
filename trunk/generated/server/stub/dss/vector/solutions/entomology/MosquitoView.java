@@ -70,6 +70,7 @@ public class MosquitoView extends MosquitoViewBase implements
     mosquito.setSpecie(this.getSpecie());
     mosquito.setTestDate(this.getTestDate());
     mosquito.setCollection(this.getCollection());
+    mosquito.setSampleId(this.getSampleId());
 
     if (list.size() > 0)
     {
@@ -113,11 +114,11 @@ public class MosquitoView extends MosquitoViewBase implements
             .getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
 
         Class<?> c = LoaderDecorator.load(mdClass.definesType());
+
         // We filter all abstract classes because we do not want to add the
-        // virtual attributes which
-        // represent test methodology and these virtual attributes are defined
-        // on abstract classes
-        if (AssayTestResult.class.isAssignableFrom(c) && Modifier.isAbstract(c.getModifiers()))
+        // virtual attributes which represent test methodology and these
+        // virtual attributes are defined on abstract classes
+        if (AssayTestResult.class.isAssignableFrom(c) && !Modifier.isAbstract(c.getModifiers()))
         {
           map.put((Class<AssayTestResult>) c, virtual);
         }
@@ -149,33 +150,33 @@ public class MosquitoView extends MosquitoViewBase implements
       {
         testMethod = MosquitoView.class.getMethod(methodName).invoke(this);
       }
-      catch(NoSuchMethodException e)
+      catch (NoSuchMethodException e)
       {
         testMethod = null;
       }
 
-      if (result == null)
-      {
-        result = c.newInstance();
-      }
-      else
-      {
-        c.getMethod("lock").invoke(result);
-      }
-
-      c.getMethod("setMosquito", Mosquito.class).invoke(result, mosquito);
-
       if (testResult != null)
       {
+        if (result == null)
+        {
+          result = c.newInstance();
+        }
+        else
+        {
+          c.getMethod("lock").invoke(result);
+        }
+
+        c.getMethod("setMosquito", Mosquito.class).invoke(result, mosquito);
+
         c.getMethod("setTestResult", testResult.getClass()).invoke(result, testResult);
-      }
 
-      if (testMethod != null)
-      {
-        c.getMethod("setTestMethod", testMethod.getClass()).invoke(result, testMethod);
-      }
+        if (testMethod != null)
+        {
+          c.getMethod("setTestMethod", testMethod.getClass()).invoke(result, testMethod);
+        }
 
-      c.getMethod("apply").invoke(result);
+        c.getMethod("apply").invoke(result);
+      }
     }
   }
 

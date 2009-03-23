@@ -147,6 +147,7 @@ public class MosquitoTest extends TestCase
     view.setAAcetate(false);
     view.setPMalariae(true);
     view.setPMalariaeMethod(infectivityMethodology);
+    view.setSampleId("0");
     view.apply();
 
     try
@@ -178,7 +179,7 @@ public class MosquitoTest extends TestCase
         }
         else if (r instanceof AAcetateTestResult)
         {
-          assertEquals(new Integer(4), (Integer) r.getTestResult());
+          assertEquals(new Boolean(false), r.getTestResult());
         }
         else if (r instanceof PMalariaeTestResult)
         {
@@ -203,6 +204,7 @@ public class MosquitoTest extends TestCase
     view.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
     view.setGeneration(GenerationDTO.get(clientRequest, F0.getId()));
     view.setIsofemale(false);
+    view.setSampleId("0");
     view.setIdentificationMethod(IdentificationMethodDTO
         .get(clientRequest, identificationMethod.getId()));
     view.addSex(SexDTO.FEMALE);
@@ -245,7 +247,7 @@ public class MosquitoTest extends TestCase
         }
         else if (r instanceof AAcetateTestResult)
         {
-          assertEquals(view.getAAcetate(), (Integer) r.getTestResult());
+          assertEquals(new Boolean(false), r.getTestResult());
         }
         else if (r instanceof PMalariaeTestResult)
         {
@@ -281,6 +283,7 @@ public class MosquitoTest extends TestCase
     view.setAAcetate(false);
     view.setPMalariae(true);
     view.setPMalariaeMethod(infectivityMethodology);
+    view.setSampleId("0");
 
     MosquitoView.saveAll(new MosquitoView[] { view });
 
@@ -313,8 +316,7 @@ public class MosquitoTest extends TestCase
         }
         else if (r instanceof AAcetateTestResult)
         {
-          assertEquals(new Integer(4), (Integer) r.getTestResult());
-
+          assertEquals(new Boolean(false), r.getTestResult());
         }
         else if (r instanceof PMalariaeTestResult)
         {
@@ -349,6 +351,7 @@ public class MosquitoTest extends TestCase
     view.setAAcetate(false);
     view.setPMalariae(true);
     view.setPMalariaeMethod(infectivityMethodology);
+    view.setSampleId("0");
     view.apply();
 
     view.setAAcetate(true);
@@ -412,11 +415,10 @@ public class MosquitoTest extends TestCase
     view.addSex(Sex.FEMALE);
     view.setTestDate(date);
     view.setP450(true);
-
+    view.setSampleId("0");
     view.setIAcHE(result);
     view.setIAcHEMethod(insecticideMethodology);
     view.setAAcetate(false);
-
     view.setPMalariae(true);
     view.setPMalariaeMethod(infectivityMethodology);
     view.apply();
@@ -466,6 +468,7 @@ public class MosquitoTest extends TestCase
     view.setAAcetate(false);
     view.setPMalariae(true);
     view.setPMalariaeMethod(infectivityMethodology);
+    view.setSampleId("0");
     view.apply();
 
     MosquitoView view2 = new MosquitoView();
@@ -482,6 +485,7 @@ public class MosquitoTest extends TestCase
     view2.setAAcetate(true);
     view2.setPMalariae(true);
     view2.setPMalariaeMethod(infectivityMethodology);
+    view2.setSampleId("1");
     view2.apply();
 
     try
@@ -539,13 +543,12 @@ public class MosquitoTest extends TestCase
     view.addSex(Sex.FEMALE);
     view.setTestDate(date);
     view.setP450(true);
-
     view.setIAcHE(result);
     view.setIAcHEMethod(insecticideMethodology);
     view.setAAcetate(false);
-
     view.setPMalariae(true);
     view.setPMalariaeMethod(infectivityMethodology);
+    view.setSampleId("0");
     view.apply();
 
     try
@@ -564,6 +567,7 @@ public class MosquitoTest extends TestCase
       view2.setAAcetate(false);
       view2.setPMalariae(true);
       view2.setPMalariaeMethod(infectivityMethodology);
+      view.setSampleId("0");
       view2.apply();
 
       fail("Able to create an mosquito with a non unique collection-sample id combintation");
