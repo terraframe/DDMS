@@ -20,7 +20,7 @@
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
 	<!-- comment out the below line if you want to automaticly restart tomcat -->
-	<property name="dont_kill_tomcat" value="true" />
+	<property name="dont_kill_tomcat" value="true" /> 
 	
 	<!-- =================================================================== -->
 	<!--         CAUTION: THIS WILL OVERWRITE EXISTING DATA                  -->
@@ -118,17 +118,17 @@
 	   	ps -x  | grep Tomcat | egrep -o ^\ [0-9]+ | xargs kill -9
 		</shellscript>
 		<shellscript shell="bash" dir="${deploy.root}/bin" os="Windows" searchpath="true">
-			shutdown.bat
+			./shutdown.bat
 	    </shellscript>
 		<sleep seconds="5"/>
 	</target>
 
 	<target name="start_tomcat" unless="dont_kill_tomcat">
 		<shellscript shell="bash" dir="${deploy.root}/bin" os="Mac OS X" searchpath="true">
-		    startup.sh
+		    ./startup.sh
 		</shellscript>
 		<shellscript shell="bash" dir="${deploy.root}/bin" os="Windows" searchpath="true">
-			startup.bat
+			./startup.bat
 	    </shellscript>
 		<sleep seconds="5"/>
 	</target>
@@ -153,8 +153,9 @@
 	<!-- =================================================================== -->
 
 	<target name="deploy_to_test_server" depends="alert_status">
+		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true"
+			inputstring="${postgres.bin}/pg_dump --blobs -U mdssdeploy mdssdeploy > dump.sql"/>
 		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true">
-			${postgres.bin}pg_dump --blobs -U mdssdeploy mdssdeploy > dump.sql 
 			svn add * --force
 			svn ci -m"Update test servers to lastest version of MDSS"
 		</shellscript>
