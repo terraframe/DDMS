@@ -567,7 +567,7 @@ public class MosquitoTest extends TestCase
       view2.setAAcetate(false);
       view2.setPMalariae(true);
       view2.setPMalariaeMethod(infectivityMethodology);
-      view.setSampleId("0");
+      view2.setSampleId("0");
       view2.apply();
 
       fail("Able to create an mosquito with a non unique collection-sample id combintation");

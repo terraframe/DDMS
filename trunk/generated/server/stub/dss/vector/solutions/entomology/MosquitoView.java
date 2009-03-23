@@ -48,9 +48,10 @@ public class MosquitoView extends MosquitoViewBase implements
       mosquito = Mosquito.lock(id);
     }
 
+    applyMosquito(mosquito);
+
     try
     {
-      applyMosquito(mosquito);
       applyAssays(mosquito);
     }
     catch (Exception e)
