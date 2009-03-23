@@ -23,7 +23,9 @@
 <title><f:message key="login" /></title>
 
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >
+<link rel="stylesheet" type="text/css" href="js/yui/build/reset-fonts-grids/reset-fonts-grids.css">
 <link href="css/style.css" rel="stylesheet" type="text/css">
+
 
 <style type="text/css">
 input[type="button"],input[type="submit"] {
