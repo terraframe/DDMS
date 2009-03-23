@@ -21,7 +21,10 @@
   type="text/javascript"
   src="js/check_for_firefox.js"></script>
 <title><f:message key="login" /></title>
-<jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />
+
+<link rel="icon" type="image/png" href="./imgs/favicon.png" >
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
 <style type="text/css">
 input[type="button"],input[type="submit"] {
 	display: inline;
@@ -87,8 +90,7 @@ input[type="button"]:active {
 <body
   onload="sevenUp.test()"
   class="yui-skin-sam">
-<div id="freeText"><strong>National Malaria Control Program</strong><br />
-MALAWI</div>
+<div id="freeText"><strong>National Malaria Control Program</strong><br />MALAWI</div>
 <div id="uploadLogo"><img
   src="./imgs/design/sample_logo.gif"
   width="85"
@@ -102,7 +104,6 @@ MALAWI</div>
   method="post"
   id="mform"
   name="mform">
-  <div class="fldContainer">
   <div class="fcTop"><c:if test="${bad_password}">
     <f:message key="bad_username_or_password" />
   </c:if>
@@ -128,12 +129,6 @@ MALAWI</div>
     value="Login"
     classes="submitButton" />
     
-  <div class="fcTopLeft"></div>
-  </div>
-  <div class="fcBottom">
-  <div class="fcBottomLeft"></div>
-  </div>
-  </div>
 
 </mjl:form></div>
 </body>
