@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay.biochemical;
 
-import dss.vector.solutions.entomology.assay.biochemical.GSTTestResultDTOBase;
+import dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResultDTOBase;
 
-public class GSTTestResultDTO extends GSTTestResultDTOBase
+public class AAcetateTestResultDTO extends AAcetateTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1235751251946L;
+  private static final long serialVersionUID = 1235751244587L;
   
-  public GSTTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public AAcetateTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public class GSTTestResultDTO extends GSTTestResultDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected GSTTestResultDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected AAcetateTestResultDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

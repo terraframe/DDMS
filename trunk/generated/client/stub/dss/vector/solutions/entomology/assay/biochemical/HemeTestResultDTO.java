@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay.biochemical;
 
-import dss.vector.solutions.entomology.assay.biochemical.AEsteraseTestResultDTOBase;
+import dss.vector.solutions.entomology.assay.biochemical.HemeTestResultDTOBase;
 
-public class AEsteraseTestResultDTO extends AEsteraseTestResultDTOBase
+public class HemeTestResultDTO extends HemeTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1235751244587L;
+  private static final long serialVersionUID = 1235751238754L;
   
-  public AEsteraseTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public HemeTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public class AEsteraseTestResultDTO extends AEsteraseTestResultDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected AEsteraseTestResultDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected HemeTestResultDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

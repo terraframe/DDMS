@@ -1,12 +1,12 @@
 package dss.vector.solutions.entomology.assay.biochemical;
 
-import dss.vector.solutions.entomology.assay.biochemical.BEsteraseTestResultDTOBase;
+import dss.vector.solutions.entomology.assay.biochemical.P450TestResultDTOBase;
 
-public class BEsteraseTestResultDTO extends BEsteraseTestResultDTOBase
+public class P450TestResultDTO extends P450TestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1235751236467L;
+  private static final long serialVersionUID = 1235751255963L;
   
-  public BEsteraseTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public P450TestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
@@ -17,7 +17,7 @@ public class BEsteraseTestResultDTO extends BEsteraseTestResultDTOBase
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected BEsteraseTestResultDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  protected P450TestResultDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }

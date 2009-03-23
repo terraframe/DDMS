@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay.infectivity;
 
-import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultBase;
 
 public abstract class InfectivityAssayTestResult extends InfectivityAssayTestResultBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -10,5 +9,9 @@ public abstract class InfectivityAssayTestResult extends InfectivityAssayTestRes
   {
     super();
   }
-  
+
+  public Boolean hasTestMethod()
+  {
+    return true;
+  }
 }
