@@ -207,6 +207,8 @@ public class MosquitoCollectionTest extends TestCase
 
     MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
     group.setQuantity(20);
+    group.setQuantityFemale(10);
+    group.setQuantityMale(10);
     group.setSpecie(specie);
     group.setIdentificationMethod(identificationMethod);
     group.setCollection(collection);
@@ -214,6 +216,8 @@ public class MosquitoCollectionTest extends TestCase
 
     MorphologicalSpecieGroup group2 = new MorphologicalSpecieGroup();
     group2.setQuantity(10);
+    group2.setQuantityFemale(5);
+    group2.setQuantityMale(5);
     group2.setSpecie(specie);
     group2.setIdentificationMethod(identificationMethod);
     group2.setCollection(collection);
@@ -226,7 +230,11 @@ public class MosquitoCollectionTest extends TestCase
 
       assertEquals(2, list.length);
       assertEquals(new Integer(20), list[0].getQuantity());
+      assertEquals(new Integer(10), list[0].getQuantityFemale());
+      assertEquals(new Integer(10), list[0].getQuantityMale());
       assertEquals(new Integer(10), list[1].getQuantity());
+      assertEquals(new Integer(5), list[1].getQuantityFemale());
+      assertEquals(new Integer(5), list[1].getQuantityMale());
       assertEquals(specie.getId(), list[0].getSpecie().getId());
       assertEquals(identificationMethod.getId(), list[0].getIdentificationMethod().getId());
     }
@@ -235,7 +243,7 @@ public class MosquitoCollectionTest extends TestCase
       collection.delete();
     }
   }
-
+  
   public void testApplyMorphologicalSpecieGroupView()
   {
     MosquitoCollection collection = new MosquitoCollection();
@@ -415,6 +423,7 @@ public class MosquitoCollectionTest extends TestCase
       collection.delete();
     }
   }
+  
 
   public void testEmptyMorphologicalSpeicie()
   {
@@ -580,4 +589,105 @@ public class MosquitoCollectionTest extends TestCase
       collection.delete();
     }
   }
+  
+  public void testInvalidMaleAndFemale()
+  {
+    MosquitoCollection collection = new MosquitoCollection();
+    collection.setGeoEntity(sentinelSite);
+    collection.setDateCollected(new Date());
+    collection.setCollectionMethod(collectionMethod);
+    collection.apply();
+
+    try
+    {
+        MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
+        group.setQuantity(20);
+        group.setQuantityFemale(12);
+        group.setQuantityMale(10);
+        group.setSpecie(specie);
+        group.setIdentificationMethod(identificationMethod);
+        group.setCollection(collection);
+        group.apply();
+
+        fail("Able to create a morphological specie group with an quantity mismatch");
+    }
+    catch(ProblemException e)
+    {
+    	List<ProblemIF> problems = e.getProblems();
+    	
+    	assertEquals(1, problems.size());
+    	assertTrue(problems.get(0) instanceof QuantityMismatchProblem);
+    }
+    finally
+    {
+      collection.delete();
+    }
+  }
+  
+  public void testInvalidMale()
+  {
+    MosquitoCollection collection = new MosquitoCollection();
+    collection.setGeoEntity(sentinelSite);
+    collection.setDateCollected(new Date());
+    collection.setCollectionMethod(collectionMethod);
+    collection.apply();
+
+    try
+    {
+        MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
+        group.setQuantity(20);
+        group.setQuantityMale(30);
+        group.setSpecie(specie);
+        group.setIdentificationMethod(identificationMethod);
+        group.setCollection(collection);
+        group.apply();
+        
+        fail("Able to create a morphological specie group with an invalid male quantity");
+    }
+    catch(ProblemException e)
+    {
+    	List<ProblemIF> problems = e.getProblems();
+    	
+    	assertEquals(1, problems.size());
+    	assertTrue(problems.get(0) instanceof InvalidMaleQuantityProblem);
+    }
+    finally
+    {
+      collection.delete();
+    }
+  }
+
+  public void testInvalidFemale()
+  {
+    MosquitoCollection collection = new MosquitoCollection();
+    collection.setGeoEntity(sentinelSite);
+    collection.setDateCollected(new Date());
+    collection.setCollectionMethod(collectionMethod);
+    collection.apply();
+
+    try
+    {
+        MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
+        group.setQuantity(20);
+        group.setQuantityFemale(30);
+        group.setSpecie(specie);
+        group.setIdentificationMethod(identificationMethod);
+        group.setCollection(collection);
+        group.apply();
+        
+        fail("Able to create a morphological specie group with an invalid female quantity");
+    }
+    catch(ProblemException e)
+    {
+    	List<ProblemIF> problems = e.getProblems();
+    	
+    	assertEquals(1, problems.size());
+    	assertTrue(problems.get(0) instanceof InvalidFemaleQuantityProblem);
+    }
+    finally
+    {
+      collection.delete();
+    }
+  }
+
 }

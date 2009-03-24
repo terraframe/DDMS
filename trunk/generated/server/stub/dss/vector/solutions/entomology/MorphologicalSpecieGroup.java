@@ -28,6 +28,17 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
         p.throwIt();
       }
     }
+    
+    if(this.getQuantityFemale() != null && this.getQuantityMale() != null && this.getQuantity() != (this.getQuantityFemale() + this.getQuantityMale()))
+    {
+        String msg = "The total number of mosquitos is not equal to the number of female and male mosquitos";
+        QuantityMismatchProblem p = new QuantityMismatchProblem(msg);
+        p.setQuantity(this.getQuantity());
+        p.setQuantityFemale(this.getQuantityFemale());
+        p.setQuantityMale(this.getQuantityMale());
+        p.apply();
+        p.throwIt();
+    }
   }
   
   @Override
@@ -40,12 +51,34 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
       if(this.getQuantityFemale() > this.getQuantity())
       {
         String msg = "It is impossible to have more female mosquitos than the total number of mosquitos";
-        InvalidMorphologicalQuantityProblem p = new InvalidMorphologicalQuantityProblem(msg);
+        InvalidFemaleQuantityProblem p = new InvalidFemaleQuantityProblem(msg);
+        p.setQuantity(this.getQuantity());
+        p.setQuantityFemale(this.getQuantityFemale());
         p.apply();
         p.throwIt(); 
       }
     }
   }
+  
+  @Override
+  public void validateQuantityMale()
+  {
+    if(this.getQuantityMale() != null && this.getQuantity() != null)
+    {
+      super.validateQuantityMale();
+      
+      if(this.getQuantityMale() > this.getQuantity())
+      {
+        String msg = "It is impossible to have more male mosquitos than the total number of mosquitos";
+        InvalidMaleQuantityProblem p = new InvalidMaleQuantityProblem(msg);
+        p.setQuantity(this.getQuantity());
+        p.setQuantityMale(this.getQuantityMale());
+        p.apply();
+        p.throwIt(); 
+      }
+    }
+  }
+
 
   @Override
   public void validateIdentificationMethod()
@@ -141,6 +174,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   {
     validateQuantity();
     validateQuantityFemale();
+    validateQuantityMale();
     validateIdentificationMethod();
     validateSpecie();
 
