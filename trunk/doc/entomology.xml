@@ -1038,6 +1038,72 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <mdProblem
+      name="dss.vector.solutions.entomology.InvalidFemaleQuantityProblem"
+      label="Invalid Female Quantity"
+      description="The number of female is greater than the total number of mosquitos">
+      <attributes>
+        <integer
+          name="quantity"
+          label="Quantity"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true" />
+        <integer
+          name="quantityFemale"
+          label="Quantity Female"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="dss.vector.solutions.entomology.InvalidMaleQuantityProblem"
+      label="Invalid Male Quantity"
+      description="The number of male is greater than the total number of mosquitos">
+      <attributes>
+        <integer
+          name="quantity"
+          label="Quantity"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true" />
+        <integer
+          name="quantityMale"
+          label="Quantity Male"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="dss.vector.solutions.entomology.QuantityMismatchProblem"
+      label="Quantity Mismatch Problem"
+      description="The number of total number of mosquitos does not equal the number of male and number of female">
+      <attributes>
+        <integer
+          name="quantity"
+          label="Quantity"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true" />
+        <integer
+          name="quantityMale"
+          label="Quantity Male"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true" />
+        <integer
+          name="quantityFemale"
+          label="Quantity Female"
+          rejectNegative="true"
+          rejectZero="true"
+          required="true" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
       name="dss.vector.solutions.entomology.InvalidMorphologicalQuantityProblem"
       label="Invalid Quantity"
       description="A MorphologicalSpecieGroup has a contextually invalid quantity (Equal to or less than 0)">
@@ -1346,9 +1412,13 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdEnumeration>
 
     <!--
-      ***************************************************** Start of MIRO enumerations. These enumerations will change onces the MIRO ontology has been sorted out. We have outstanding questions of
-      wether or not we will use the MIRO ontology or just take the terms from the ontology and create our own enumerations *****************************************************
-    -->
+			***************************************************** Start of MIRO
+			enumerations. These enumerations will change onces the MIRO ontology
+			has been sorted out. We have outstanding questions of wether or not
+			we will use the MIRO ontology or just take the terms from the
+			ontology and create our own enumerations
+			*****************************************************
+		-->
 
     <mdBusiness
       name="dss.vector.solutions.mo.AbstractTerm"
@@ -1487,10 +1557,10 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     </mdBusiness>
 
     <!--
-      ************************************************************** End
-      of MIRO definitions
-      **************************************************************
-    -->
+			************************************************************** End of
+			MIRO definitions
+			**************************************************************
+		-->
   </create>
   <update>
     <mdController
@@ -1557,9 +1627,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
   </update>
 
   <!--
-    ********************************** Adult Discriminating Dose Assay
-    **********************************
-  -->
+		********************************** Adult Discriminating Dose Assay
+		**********************************
+	-->
 
   <create>
     <mdBusiness
