@@ -54,7 +54,7 @@
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>                               
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="View_All_ADDA"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo"><f:message key="View_All_EfficacyAssay"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="LaraveDDA"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="LarvaeDDA"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionPointController.search.mojo"><f:message key="Mosquito_Collection_Points"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo"><f:message key="Knock_Down_Assay"/></a></li>                            
                          </ul>                    
