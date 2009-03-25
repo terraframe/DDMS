@@ -187,17 +187,7 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-      <dt>
-        <label>
-          ${item.gravidMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="gravid" />
-        <mjl:messages attribute="gravid">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+      
       <dt>
         <label>
           ${item.insecticideMd.displayLabel}

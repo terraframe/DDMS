@@ -188,17 +188,6 @@
       </dd>
       <dt>
         <label>
-          ${item.gravidMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="gravid" />
-        <mjl:messages attribute="gravid">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
           ${item.insecticideMd.displayLabel}
         </label>
       </dt>
@@ -265,4 +254,3 @@
 <div class="submitButton_bl"></div>  
   <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.create.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.create.button" classes="submitButton" />
 </mjl:form>
-<div id="cal1Container" class="yui-skin-sam"></div> 
