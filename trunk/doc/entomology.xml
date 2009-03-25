@@ -1564,6 +1564,61 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
   </create>
   <update>
     <mdController
+      name="dss.vector.solutions.entomology.MosquitoCollectionPointController">
+      <create>
+        <mdAction
+          name="searchByGeoEntityAndDate"
+          label="Search By Geo Entity And Date"
+          isPost="true"
+          description="Searches for a single mosquito collection with the given GeoEntity and Collection Date">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            order="0"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            description="GeoEntity to search" />
+          <mdParameter
+            name="startDate"
+            label="Start Date"
+            type="java.util.Date"
+            order="1" />
+          <mdParameter
+            name="endDate"
+            label="End Date"
+            type="java.util.Date"
+            order="2" />
+        </mdAction>
+        <mdAction
+          name="searchByGeoIdAndDate"
+          label="Search By Geo Id And Date"
+          isPost="true"
+          description="Searches for a single mosquito collection with the given Geo Id and Collection Date">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String"
+            description="GeoId to search" />
+          <mdParameter
+            name="startDate"
+            label="Start Date"
+            type="java.util.Date"
+            order="1" />
+          <mdParameter
+            name="endDate"
+            label="End Date"
+            type="java.util.Date"
+            order="2" />
+        </mdAction>
+        <mdAction
+          name="search"
+          description="Forwards the user to the search page"
+          isPost="false"
+          label="Search"
+          isQuery="false" />
+      </create>
+    </mdController>
+    <mdController
       name="dss.vector.solutions.entomology.MosquitoCollectionController">
       <create>
         <mdAction
