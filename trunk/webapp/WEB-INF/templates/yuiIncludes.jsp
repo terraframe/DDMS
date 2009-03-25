@@ -27,11 +27,11 @@
 YUI download for details on each of the aggregate files and their contents):--> 
 <script type="text/javascript" src="js/yui/build/yahoo/yahoo-min.js"></script> 
 <script type="text/javascript" src="js/yui/build/dom/dom-min.js"></script> 
-<script type="text/javascript" src="js/yui/build/event/event-min.js"></script> 
+<script type="text/javascript" src="js/yui/build/event/event.js"></script> 
  
 <!--Utilities (also partialy aggregated utilities.js; see readmes in the 
 YUI download for details on each of the aggregate files and their contents):--> 
-<script type="text/javascript" src="js/yui/build/element/element-min.js"></script> 
+<script type="text/javascript" src="js/yui/build/element/element.js"></script> 
 <script type="text/javascript" src="js/yui/build/animation/animation-min.js"></script> 
 <script type="text/javascript" src="js/yui/build/connection/connection-min.js"></script> 
 <script type="text/javascript" src="js/yui/build/datasource/datasource-min.js"></script> 
@@ -53,7 +53,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 <script type="text/javascript" src="js/yui/build/autocomplete/autocomplete-min.js"></script> 
 <script type="text/javascript" src="js/yui/build/button/button-min.js"></script> 
 <script type="text/javascript" src="js/yui/build/calendar/calendar-min.js"></script> 
-<script type="text/javascript" src="js/yui/build/datatable/datatable-min.js"></script> 
+<script type="text/javascript" src="js/yui/build/datatable/datatable.js"></script> 
 <script type="text/javascript" src="js/yui/build/treeview/treeview-min.js"></script> 
 <!--  
 <script type="text/javascript" src="js/yui/build/layout/layout-min.js"></script> 
