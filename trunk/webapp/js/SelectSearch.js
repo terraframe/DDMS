@@ -9,9 +9,6 @@ MDSS.SelectSearch = (function(){
   // container id that holds the select id
   var _containerId = "selectSearchComponent";
   
-  // freeform text field
-  var _freeTextId = "freeTextField";
-  
   // handler for when a new geo entity is selected
   var _selectHandler = null;
   
@@ -238,8 +235,7 @@ MDSS.SelectSearch = (function(){
     
     if(Mojo.util.isFunction(_selectHandler))
     {
-      var freeText = document.getElementById(_freeTextId);
-      _selectHandler(geoEntity, allSelected, freeText);
+      _selectHandler(geoEntity, allSelected);
     }
   }
   

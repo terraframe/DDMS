@@ -27,7 +27,7 @@ MDSS.GeoEntityTree = (function(){
   
   // the geo entity class name to filter by
   var _filterType = '';
-  
+
   /**
    * Removes everything from the current Tree
    */

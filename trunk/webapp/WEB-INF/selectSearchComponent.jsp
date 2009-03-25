@@ -40,5 +40,4 @@
     <dd id="bestFitIdValue">
     </dd>
   </dl>
-  Free-Form Text: <input type="text" id="freeTextField" /><br />
 </div>
