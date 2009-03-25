@@ -244,21 +244,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
 </span> 
 </span>
 
-<form method="get" action="excelimport" style="display:inline;">
-       <span class="yui-button yui-push-button">
-       <span class="first-child">
-        <button type="submit"><f:message key="Excel_Import_Header" /></button>
-        </span>
-        </span>
-</form> 
-<form method="post" action="excelexport" style="display:inline;">
-        <input type="hidden" name="type" value="dss.vector.solutions.entomology.assay.DDATestIntervalView"/>
-        <span class="yui-button yui-push-button"> 
-        <span class="first-child">
-        <button type="submit"><f:message key="Excel_Export_Header" /></button>
-        </span>
-        </span>
-</form> 
+
 <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
 
 </div>
