@@ -8,26 +8,37 @@
     <dl>
       <dt>
         <label>
-          ${item.dateCollectedMd.displayLabel}
+          ${item.geoEntityMd.displayLabel}
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="dateCollected" />
-        <mjl:messages attribute="dateCollected">
+        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_ConcreteMosquitoCollection_geoEntity}" param="geoEntity">
+          <mjl:option>
+            ${current.keyName}
+          </mjl:option>
+        </mjl:select>
+      </dd>
+      <dt>
+        <label>
+          ${item.startDateMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="startDate" classes="DatePick" id="dto.startDate.id"/>
+        <mjl:messages attribute="startDate">
           <mjl:message />
         </mjl:messages>
       </dd>
       <dt>
         <label>
-          ${item.geoEntityMd.displayLabel}
+          ${item.endDateMd.displayLabel}
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity}" param="geoEntity">
-          <mjl:option>
-            ${current.keyName}
-          </mjl:option>
-        </mjl:select>
+        <mjl:input type="text" param="endDate" classes="DatePick" id="dto.endDate.id"/>
+        <mjl:messages attribute="endDate">
+          <mjl:message />
+        </mjl:messages>
       </dd>
     </dl>
   </mjl:component>
