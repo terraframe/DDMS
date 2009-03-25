@@ -296,3 +296,20 @@ dl
 	max-width: 860px;
 	margin-left: 12px;
 }
+
+.alert
+{
+	color:#ff0000;
+}
+.alertbox
+{
+	border: 2px solid #ff0000;
+	-moz-border-radius: 10px;
+	padding: 1em;
+	background: url(/MDSS/imgs/design/grad_white.png) repeat-x top right;
+	background-color: #FFBBBB;
+	min-width: 300px;
+	max-width: 860px;
+	margin-left: 12px;
+	margin-bottom: 12px;
+}
