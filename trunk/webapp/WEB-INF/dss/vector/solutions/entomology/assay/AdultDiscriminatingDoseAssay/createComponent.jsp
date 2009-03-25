@@ -1,5 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -207,6 +208,7 @@
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
+         <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><f:message key="Manage_Insecticides"/></a>
       </dd>
        <dt>
         <label>

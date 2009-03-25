@@ -107,12 +107,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
         <mjl:property value="${item.identificationMethod.id}" name="id" />
       </mjl:commandLink>
     </dd>
-    <dt>
-      <label>
-        ${item.ageRangeMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+
       <dl>
         <dt>
           <label>
@@ -130,8 +125,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
         <dd>
           ${item.ageRange.endPoint}
         </dd>
-      </dl>
-    </dd>    
+      </dl>  
     <dt>
       <label>
         ${item.fedMd.displayLabel}
