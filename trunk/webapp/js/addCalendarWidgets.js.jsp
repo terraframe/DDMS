@@ -20,9 +20,11 @@ List<String> day_list = new ArrayList<String>(Arrays.asList(formatter.getDateFor
 day_list.removeAll(Arrays.asList(""));
 JSONArray short_days = new JSONArray(day_list);
 %>
-// If you include this file it will add calandar popups to all elements with the class "DatePick"
+// If you include this file it will add calandar popups to all elements with the
+// class "DatePick"
 // HOW TO USE
-// 1. Put this at the bottom of the page  <div id="cal1Container" class="yui-skin-sam"></div> 
+// 1. Put this at the bottom of the page <div id="cal1Container"
+// class="yui-skin-sam"></div>
 // 2. Set the class of the input to "DATE PICK"
 // 3. MAKE SURE THE ELEMENT HAS A DOM ID !!!!!!!
 var MojoCal= YAHOO.namespace('MojoCal');
@@ -34,7 +36,10 @@ var MojoCal= YAHOO.namespace('MojoCal');
         init_not_done = true,
         java_date_format = '<%=formatter.toPattern()%>',
         over_cal = false,
-        cur_field = '';
+        cur_field = ''
+        db_date_format = 'yyyy-MM-dd'
+        	;
+        
         
       cfg = {DATE_FIELD_DELIMITER:'/', 
 			DATE_RANGE_DELIMITER:'-',
@@ -77,6 +82,34 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
             hideCal();
     }
     
+    var localized_string_to_date = function(date_str) {
+    	if(date_str instanceof Date) return date_str;
+    	date = Date.parseString(date_str,java_date_format);
+    	if(date == null) date = Date.parseString(date_str,java_date_format);
+    	return date;
+    }
+    
+    MojoCal.parseDate = localized_string_to_date;
+    
+    var date_str_to_db_string = function(date_str) {
+    	if(date_str instanceof Date) 
+    	{
+    		date = date_str;
+    	}
+    	else
+    	{
+    		date = Date.parseString(date_str,java_date_format);
+    		if(date == null) 
+    		{
+    			date = Date.parseString(date_str,java_date_format);
+    		}
+    	}
+    	return date.format(db_date_format);
+    }
+    
+    MojoCal.getMojoDateString = date_str_to_db_string;
+    
+    
     
     var showCal = function(ev) {
         var tar = Event.getTarget(ev);
@@ -84,7 +117,7 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
         var xy = Dom.getXY(tar);
         	
         var date_str = Dom.get(tar).value;
-        var date =  Date.parseString(date_str,java_date_format);
+        var date =  parseDate(date_str);
         
              
         if (date_str && (date != null)) {
@@ -106,9 +139,11 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
         }
     }
     
-  /*  MojoCal.getConfig = function(){ return cfg; } ;
-    
-    MojoCal.getCal = function(){return cal;};*/
+  /*
+	 * MojoCal.getConfig = function(){ return cfg; } ;
+	 * 
+	 * MojoCal.getCal = function(){return cal;};
+	 */
     
     
     var init = function() {
@@ -144,6 +179,6 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
     MojoCal.init = init;
     
     Event.addListener(window, 'load', init);
-    //YAHOO.util.Event.onContentReady("cal1Container", init);
+    // YAHOO.util.Event.onContentReady("cal1Container", init);
 
 })();
