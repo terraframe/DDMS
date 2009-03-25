@@ -44,54 +44,6 @@ body {
 	width: 670px;
 }
 
-.fldContainer {
-	position: relative;
-	min-width: 400px;
-	max-width: 860px;
-	margin-left: 12px;
-}
-
-.fldContainer .fcTop,.fldContainer .fcTopLeft,.fldContainer .fcBottom,.fldContainer .fcBottom div
-	{
-	background: url(/MDSS/imgs/design/background.gif) no-repeat top right;
-}
-
-.fldContainer .fcTop {
-	position: relative;
-	padding: 12px 12px 12px 0px;
-	min-height: 100px;
-	display: block;
-}
-
-.fldContainer .fcTopLeft {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width: 12px;
-	margin-left: -12px;
-	height: 100%;
-	background-position: top left;
-}
-
-.fldContainer .fcBottom {
-	background-position: bottom right;
-	position: relative;
-	width: 100%;
-	height: 30px;
-}
-
-.fldContainer .fcBottomLeft {
-	height: 30px;
-	display: block;
-}
-
-.fldContainer .fcBottom div {
-	position: relative;
-	width: 12px;
-	margin-left: -12px;
-	background-position: bottom left;
-}
-
 .pageTitle {
 	font-size: 32px;
 	color: #BBB;
@@ -322,6 +274,18 @@ h2
 }
 
 dl
+{
+	border: 2px solid #CCC;
+	-moz-border-radius: 10px;
+	padding: 1em;
+	background: url(/MDSS/imgs/design/grad_white.png) repeat-x top right;
+	background-color: #E8E8E8;
+	min-width: 300px;
+	max-width: 860px;
+	margin-left: 12px;
+}
+
+.fldContainer
 {
 	border: 2px solid #CCC;
 	-moz-border-radius: 10px;
