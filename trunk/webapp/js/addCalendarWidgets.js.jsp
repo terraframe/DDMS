@@ -23,10 +23,8 @@ JSONArray short_days = new JSONArray(day_list);
 // If you include this file it will add calandar popups to all elements with the
 // class "DatePick"
 // HOW TO USE
-// 1. Put this at the bottom of the page <div id="cal1Container"
-// class="yui-skin-sam"></div>
-// 2. Set the class of the input to "DATE PICK"
-// 3. MAKE SURE THE ELEMENT HAS A DOM ID !!!!!!!
+// 1. Set the class of the input to "DATE PICK"
+// 2. MAKE SURE THE ELEMENT HAS A DOM ID !!!!!!!
 var MojoCal= YAHOO.namespace('MojoCal');
 
 (function() {
@@ -37,8 +35,7 @@ var MojoCal= YAHOO.namespace('MojoCal');
         java_date_format = '<%=formatter.toPattern()%>',
         over_cal = false,
         cur_field = ''
-        db_date_format = 'yyyy-MM-dd'
-        	;
+        db_date_format = 'yyyy-MM-dd';
         
         
       cfg = {DATE_FIELD_DELIMITER:'/', 
@@ -82,34 +79,33 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
             hideCal();
     }
     
-    var localized_string_to_date = function(date_str) {
+    var var_to_date = function(date_str) {
     	if(date_str instanceof Date) return date_str;
+    	
     	date = Date.parseString(date_str,java_date_format);
-    	if(date == null) date = Date.parseString(date_str,java_date_format);
+    	if(date == null) date = Date.parseString(date_str,db_date_format);
+    	if(date == null) date = Date.parseString(date_str);
+    	if(date == null && date_str.length > 16) date = new Date(date_str);
     	return date;
     }
     
-    MojoCal.parseDate = localized_string_to_date;
+    MojoCal.parseDate = var_to_date;
     
-    var date_str_to_db_string = function(date_str) {
-    	if(date_str instanceof Date) 
-    	{
-    		date = date_str;
-    	}
-    	else
-    	{
-    		date = Date.parseString(date_str,java_date_format);
-    		if(date == null) 
-    		{
-    			date = Date.parseString(date_str,java_date_format);
-    		}
-    	}
+    var var_to_db_string = function(date_str) {
+    	date = var_to_date(date_str);
+    	if(date == null) return null;
     	return date.format(db_date_format);
     }
     
-    MojoCal.getMojoDateString = date_str_to_db_string;
+    MojoCal.getMojoDateString = var_to_db_string;
     
+    var var_to_localized_string = function(date_str) {
+    	date = var_to_date(date_str);
+    	if(date == null) return null;
+    	return date.format(java_date_format);
+    }
     
+    MojoCal.getLocalizedString = var_to_localized_string;
     
     var showCal = function(ev) {
         var tar = Event.getTarget(ev);
@@ -117,7 +113,7 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
         var xy = Dom.getXY(tar);
         	
         var date_str = Dom.get(tar).value;
-        var date =  parseDate(date_str);
+        var date =  var_to_date(date_str);
         
              
         if (date_str && (date != null)) {
@@ -148,9 +144,27 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
     
     var init = function() {
     
-        if(Dom.getElementsByClassName("DatePick").length > 0 && init_not_done)
+    	if(Dom.getElementsByClassName("formatDate").length > 0 && init_not_done)
+    	{
+    		for each (el in Dom.getElementsByClassName("formatDate"))
+	        {	        	
+	          el.innerHTML = var_to_localized_string(el.innerHTML);
+	        }
+    	}
+    	
+    	
+    	if(Dom.getElementsByClassName("DatePick").length > 0 && init_not_done)
         {
-	        cal1 = new YAHOO.widget.Calendar("cal1","cal1Container",cfg);
+    		
+    		if(! Dom.get('cal1Container'))
+    		{
+	    		caldiv = document.createElement('div');
+	    		caldiv.id="cal1Container";
+	    		document.getElementsByTagName('body')[0].appendChild(caldiv);
+	    		YAHOO.util.Dom.addClass('cal1Container', 'yui-skin-sam'); 
+    		}
+    		 		
+    		cal1 = new YAHOO.widget.Calendar("cal1","cal1Container",cfg);
 	        
 	        cal1.selectEvent.subscribe(getDate, cal1, true);
 	        cal1.renderEvent.subscribe(setupListeners, cal1, true);
@@ -159,17 +173,8 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
 	        {	        	
 	          Event.addListener(el.id, 'focus', showCal);
 	          Event.addListener(el.id, 'blur', hideCal);
-	          if(/[1-2]\d\d\d-[0-1][0-9]-[0-3]\d/.test(el.value))
-	          {
-	        	  d = new Date(el.value.replace(/-/g,"/"));
-	        	 if(locale == "en_US")
-	  	         {        		  
-	        		 newdate = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
-	        		 el.value = newdate;
-	            }
-	          }
-	        }
-	        
+	          el.value = var_to_localized_string(el.value);
+	        }	        
 	        cal1.render();
         }
         init_not_done = false;

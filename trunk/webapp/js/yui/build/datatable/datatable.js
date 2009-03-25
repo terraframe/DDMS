@@ -16318,9 +16318,17 @@ handleDisabledBtns : function() {
  * Resets DateCellEditor UI to initial state.
  *
  * @method resetForm
- */
+
 resetForm : function() {
     var value = this.value;
+    var selectedValue = (value.getMonth()+1)+"/"+value.getDate()+"/"+value.getFullYear();
+    this.calendar.cfg.setProperty("selected",selectedValue,false);
+	this.calendar.render();
+}, */
+//CHANGED BY DARRELL TAYLOR
+//@HACK
+resetForm : function() {
+    var value = MojoCal.parseDate(this.value);
     var selectedValue = (value.getMonth()+1)+"/"+value.getDate()+"/"+value.getFullYear();
     this.calendar.cfg.setProperty("selected",selectedValue,false);
 	this.calendar.render();

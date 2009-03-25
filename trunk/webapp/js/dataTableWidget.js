@@ -22,7 +22,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	myDataSource.responseSchema = {
 			fields :  table_data.fields
 	};
-    //FIXME: figure out how to set a max width
+    // FIXME: figure out how to set a max width
 	myDataTable = new YAHOO.widget.ScrollingDataTable(table_data.div_id,
 			table_data.columnDefs, myDataSource, {width:table_data.width});
 	
@@ -69,6 +69,37 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	};
 	myDataTable.subscribe("cellMouseoverEvent", highlightEditableCell);
 	
+	/***************************************************************************
+	 * handleEditorKeyEvent ( obj ) Handle a keypress when the Cell Editor is
+	 * open Enter will close the editor and move down Tab will close the editor
+	 * and move right. Use the handleTableKeyEvent() to handle the moving Open a
+	 * new cell editor on the newly focused cell
+	 */
+    var editorKeyEvent = function ( obj ) {
+        // 9 = tab, 13 = enter
+        var e   = obj.event;
+        if ( e.keyCode == 9 || e.keyCode == 13 ) {
+            var cell        = myDataTable.getCellEditor().getTdEl();
+            var nextCell    = myDataTable.getNextTdEl( cell );
+            myDataTable.saveCellEditor();
+            if ( nextCell ) {
+            	myDataTable.showCellEditor( nextCell );
+                e.returnValue   = false;
+                e.preventDefault();
+                return false;
+            }
+            else {
+                // No next cell, make a new row and open the editor for that one
+            	myDataTable.addRow( {} );
+            }
+            // BUG: If pressing Enter, editor gets hidden right away due to YUI
+			// default event
+            // putting e.preventDefault() and return false here makes no
+			// difference
+        }
+    };
+    myDataTable.subscribe("editorKeydownEvent", editorKeyEvent);
+	
 	// Save edits back to the original data array
 	var saveSomeData = function(oArgs) {
 		  var record = oArgs.editor.getRecord();
@@ -103,12 +134,12 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	var onCellClick = function(oArgs) {
 		var target = oArgs.target;
 		column = myDataTable.getColumn(target); 
-		record = myDataTable.getRecord(target);
-		row_id = record.getData(table_data.fields[0].key);
-        row_index = myDataTable.getRecordIndex(record);
 		switch (column.action) {
-		case 'delete':
-			if (confirm('Are you sure you want to delete row ' + (record._nCount+1) + '?')) {
+		case 'delete':		
+			record = myDataTable.getRecord(target);
+			row_id = record.getData(table_data.fields[0].key);
+			row_index = myDataTable.getRecordIndex(record);
+			if (confirm('Are you sure you want to delete row ' + (row_index+1) + '?')) {
 				if(typeof row_id !== 'undefined' && row_id.length > 1){
 				var request = new Mojo.ClientRequest( {
 					dataTable :myDataTable,
@@ -130,7 +161,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 				table_data.rows.splice(row_index,1);
 			}
 				
-				}
+			}
 			break;
 		default:
 			myDataTable.onEventShowCellEditor(oArgs);
@@ -151,21 +182,28 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			table_data : table_data,
 			btnSaveRows :btnSaveRows,
 			onSuccess : function(savedRows) {
-				//alert("Saved " + savedRows.length + " Rows!");
-				var i = 0;
-				id_key = table_data.fields[0].key;
-				for each(row in savedRows)
-				{
-					record = this.dataTable.getRecord(i);
-					id = eval("savedRows[i].get" + id_key +"()");
-					str = "record.setData('" + id_key + "','" + id + "')";
-					eval(str);
-			        eval("this.table_data.rows[i]."+id_key+"= id");				
-					i = i + 1;
-				}
-				table_data.dirty = false;
-				btnSaveRows.set("disabled", true);
-				this.dataTable.render();
+				// alert("Saved " + savedRows.length + " Rows!");
+			    if(! table_data.dont_update_on_save)
+			    {
+					var i = 0;
+					id_key = table_data.fields[0].key;
+					for each(row in savedRows)
+					{
+						record = this.dataTable.getRecord(i);
+						id = eval("savedRows[i].get" + id_key +"()");
+						str = "record.setData('" + id_key + "','" + id + "')";
+						eval(str);
+				        eval("this.table_data.rows[i]."+id_key+"= id");				
+						i = i + 1;
+					}
+					table_data.dirty = false;
+					btnSaveRows.set("disabled", true);
+					this.dataTable.render();
+					if(table_data.after_save)
+				    {
+				    	table_data.after_save();
+				    }
+		        }
 			},
 
 			// alert the exception message
@@ -190,8 +228,11 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    	var v;
 	    	str = 'v = new ' + table_data.data_type + '()';
 	    	eval(str);
-	    	str = "v."+table_data.collection_setter;
-	        eval(str);
+	    	if(table_data.collection_setter)
+	    	{
+	    		str = "v."+table_data.collection_setter;
+	    		eval(str);
+	    	}
 	    	for each (attrib in table_data.fields)
 	    	{
 	    		setter_exists = eval("typeof (v.set"+attrib.key+") == 'function'")
@@ -200,9 +241,8 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    			val = eval('row.'+ attrib.key);
 	    			if(typeof val !== 'undefined')
 	    			{
-	    				//val = null;
 	    				eval_str = 'v.set'+attrib.key+'(val)';
-		    			//alert (eval_str);
+		    			// alert (eval_str);
 		    			eval(eval_str);
 	    			}
 	    		
@@ -213,7 +253,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		    		if(setter_exists)
 		    		{
 		    			eval_str = 'v.add'+attrib.key+'(row.'+attrib.key+')';
-		    			//alert (eval_str);
+		    			// alert (eval_str);
 		    			eval(eval_str);
 		    		}
 	    		}
@@ -221,7 +261,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			v_arr.push(v);
 	    }	    
 	    str = table_data.data_type + '.saveAll(request,v_arr)';
-	    //alert(v_arr);
+	    // alert(v_arr);
     	eval(str);
 
 	});
