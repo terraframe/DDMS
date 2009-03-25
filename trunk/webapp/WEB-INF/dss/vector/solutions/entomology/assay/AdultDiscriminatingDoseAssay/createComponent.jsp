@@ -4,9 +4,7 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
-<div class="fldContainer">
-    <div class="fcTop">
-    <br> 
+
   <mjl:component item="${item}" param="dto">
     <dl>
     <dt>
@@ -260,9 +258,7 @@
       
     </dl>
   </mjl:component>
-    <div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-</div>
+
 
 <div class="submitButton_bl"></div>  
   <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.create.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.create.button" classes="submitButton" />
