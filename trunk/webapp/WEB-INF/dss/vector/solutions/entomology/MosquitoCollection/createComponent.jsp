@@ -6,8 +6,7 @@
 </mjl:messages>
 
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.form.name" id="dss.vector.solutions.entomology.MosquitoCollection.form.id" method="POST">
-<div class="fldContainer">
-    <div class="fcTop">
+
   <mjl:component item="${item}" param="dto">
     <dl>
       <dt>
@@ -57,9 +56,7 @@
     </dl>
   </mjl:component>
    
-<div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-</div>
+
 
 <div class="submitButton_bl"></div>  
   <mjl:command value="Create" action="dss.vector.solutions.entomology.MosquitoCollectionController.create.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.create.button" classes="submitButton"/>
