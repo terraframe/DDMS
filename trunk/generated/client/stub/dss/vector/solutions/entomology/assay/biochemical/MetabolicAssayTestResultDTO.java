@@ -1,10 +1,8 @@
 package dss.vector.solutions.entomology.assay.biochemical;
 
-import dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResultDTOBase;
-
 public abstract class MetabolicAssayTestResultDTO extends MetabolicAssayTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1235751250098L;
+  private static final long serialVersionUID = 1237829485020L;
   
   public MetabolicAssayTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

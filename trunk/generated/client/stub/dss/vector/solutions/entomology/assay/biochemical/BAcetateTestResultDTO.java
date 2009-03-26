@@ -1,10 +1,8 @@
 package dss.vector.solutions.entomology.assay.biochemical;
 
-import dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResultDTOBase;
-
 public class BAcetateTestResultDTO extends BAcetateTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1235751236467L;
+  private static final long serialVersionUID = 1237829465962L;
   
   public BAcetateTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

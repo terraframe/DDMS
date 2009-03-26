@@ -1,6 +1,15 @@
 package dss.vector.solutions.entomology;
 
+import java.io.IOException;
+import java.util.Date;
+
+import javax.servlet.ServletException;
+
 import dss.vector.solutions.entomology.MosquitoCollectionPointControllerBase;
+import dss.vector.solutions.geo.GeoEntityTreeController;
+import dss.vector.solutions.geo.generated.EarthDTO;
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.util.DateConverter;
 
 public class MosquitoCollectionPointController extends MosquitoCollectionPointControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -140,5 +149,57 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
+  }
+  @Override
+  public void searchByGeoIdAndDate(String geoId, Date startDate, Date endDate) throws IOException, ServletException
+  {
+	  GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(super.getClientRequest(), geoId);
+	  if(geoEntity == null)
+	  {
+	    this.newInstance();
+	  }
+	  else
+	  {
+	    this.searchByGeoEntityAndDate(geoEntity, startDate, endDate);
+	  }
+  }
+  
+  public void failSearchByGeoIdAndDate(String geoId, String startDate, String endDate) throws java.io.IOException, javax.servlet.ServletException
+  {
+	  try
+	  {
+		Date sd =  (Date) new DateConverter("Start Date").parse(startDate, this.getRequest().getLocale());
+		Date ed =  (Date) new DateConverter("End Date").parse(endDate, this.getRequest().getLocale());
+	    this.searchByGeoIdAndDate(geoId, sd, ed);
+	  }
+	  catch(Exception e)
+	  {
+	    req.setAttribute("page_title", "Search For Mosquito Collections");
+	    render("searchComponent.jsp");	  
+	  }
+  }
+  
+  
+  public void search() throws java.io.IOException, javax.servlet.ServletException
+  {
+    // The Earth is the root.
+    EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+    
+    req.setAttribute("page_title", "Search For Mosquito Collection Points");
+    render("searchComponent.jsp");
+  }
+  
+  public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, Date startDate, Date endDate) throws IOException, ServletException
+  {
+	MorphologicalSpecieGroupViewDTO[] collection = MosquitoCollectionPointDTO.searchByGeoEntityAndDate(super.getClientRequest(), geoEntity,startDate,endDate);
+    String jsp =  "viewAllComponent.jsp";
+    req.setAttribute("page_title", "Mosquito Collection Points");
+    req.setAttribute("geoEntity", geoEntity);
+    req.setAttribute("startDate", startDate);
+    req.setAttribute("endDate", endDate);
+    req.setAttribute("collection_points", collection);
+    
+    render(jsp);
   }
 }

@@ -1,10 +1,8 @@
 package dss.vector.solutions.entomology.assay.biochemical;
 
-import dss.vector.solutions.entomology.assay.biochemical.P450TestResultDTOBase;
-
 public class P450TestResultDTO extends P450TestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1235751255963L;
+  private static final long serialVersionUID = 1237829455291L;
   
   public P450TestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

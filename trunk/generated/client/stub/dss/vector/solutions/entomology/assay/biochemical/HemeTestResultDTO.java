@@ -1,10 +1,8 @@
 package dss.vector.solutions.entomology.assay.biochemical;
 
-import dss.vector.solutions.entomology.assay.biochemical.HemeTestResultDTOBase;
-
 public class HemeTestResultDTO extends HemeTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1235751238754L;
+  private static final long serialVersionUID = 1237829494221L;
   
   public HemeTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

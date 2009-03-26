@@ -1,10 +1,8 @@
 package dss.vector.solutions.entomology.assay.biochemical;
 
-import dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResultDTOBase;
-
 public class AAcetateTestResultDTO extends AAcetateTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1235751244587L;
+  private static final long serialVersionUID = 1237829468148L;
   
   public AAcetateTestResultDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
