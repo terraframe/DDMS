@@ -82,34 +82,42 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
             var cell        = myDataTable.getCellEditor().getTdEl();
             var nextCell    = myDataTable.getNextTdEl( cell );
             myDataTable.saveCellEditor();
-            if ( nextCell &&  myDataTable.getColumn(nextCell).editor) {
+            if ( nextCell &&  myDataTable.getColumn(nextCell).editor) 
+            {
             	myDataTable.showCellEditor( nextCell );
                 e.returnValue   = false;
                 e.preventDefault();
                 return false;
             }
-            else {
-                // No next cell, go to the next row an search for editable cells
+             // No next cell, go to the next row and search for editable cell
+            else 
+            {
             	var nextRow = myDataTable.getNextTrEl(cell);
-            	if(nextRow)
-            	{
-	                var nextCell  = myDataTable.getFirstTdEl(nextRow);
-	                while(nextCell && ! myDataTable.getColumn(nextCell).editor)
-	                {
-	                	var nextCell = myDataTable.getNextTdEl( nextCell );
-	                }
-	                if ( nextCell ) {
-	                	myDataTable.showCellEditor( nextCell );
-	                    e.returnValue   = false;
-	                    e.preventDefault();
-	                    return false;
-	                }
-            	}
+            	// No next cell, make a new row and open the editor for that one
+            	if(! nextRow) 
+                {
+            		addRow();
+            		var nextRow = myDataTable.getNextTrEl(cell);
+                }
+                var nextCell  = myDataTable.getFirstTdEl(nextRow);
+                while(nextCell && ! myDataTable.getColumn(nextCell).editor)
+                {
+                	var nextCell = myDataTable.getNextTdEl( nextCell );
+                }
+                if ( nextCell ) {
+                	myDataTable.showCellEditor( nextCell );
+                    e.returnValue   = false;
+                    e.preventDefault();
+                    return false;
+                }
+            	
             }
            
         }
+        //not sure we want to do this for enter
+        /*
         if ( e.keyCode == 13 ) {
-
+           
             var cell        = myDataTable.getCellEditor().getTdEl();  
             var nextCell    = myDataTable.getBelowTdEl( cell );
             myDataTable.saveCellEditor();
@@ -128,7 +136,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			// default event
             // putting e.preventDefault() and return false here makes no
 			// difference
-        }
+        }*/
     };
     myDataTable.subscribe("editorKeydownEvent", editorKeyEvent);
 	
