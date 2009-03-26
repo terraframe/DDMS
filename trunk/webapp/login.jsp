@@ -106,8 +106,11 @@ input[type="button"]:active {
   method="post"
   id="mform"
   name="mform">
-  <div class="fcTop"><c:if test="${bad_password}">
+  <div class="fcTop">
+  <c:if test="${bad_password}">
+    <div class="alert alertbox">
     <f:message key="bad_username_or_password" />
+    </div>
   </c:if>
 
 
