@@ -7,16 +7,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.controller.DateParseException;
-
-import dss.vector.solutions.util.DateConverter;
-
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
+import com.terraframe.mojo.controller.DateParseProblemDTO;
+
+import dss.vector.solutions.util.DateConverter;
 
 public class ConverterTest extends TestCase
 {
@@ -73,7 +73,7 @@ public class ConverterTest extends TestCase
       List<ProblemDTOIF> p = dto.getProblems();
       
       assertEquals(1, p.size());
-      assertTrue(p.get(0) instanceof DateParseException);
+      assertTrue(p.get(0) instanceof DateParseProblemDTO);
     }    
   }
   
