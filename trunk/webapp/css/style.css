@@ -299,7 +299,7 @@ dl
 
 .alert
 {
-	color:#ff0000;
+	color:#BB0000;
 }
 .alertbox
 {
@@ -312,4 +312,11 @@ dl
 	max-width: 860px;
 	margin-left: 12px;
 	margin-bottom: 12px;
+}
+
+.alertbox > p
+{
+	background: url(/MDSS/imgs/icons/error_large.gif) no-repeat top left;
+	min-height: 32px;
+	text-indent: 40px;
 }
