@@ -2042,7 +2042,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           default_value="0" />
         <integer
           name="gravid"
-          label="Gravid"
+          label="Number Gravid"
           description="Gravid value (Only applicable when females are present)"
           rejectNegative="true"
           required="true"
@@ -2266,7 +2266,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           default_value="0" />
         <integer
           name="gravid"
-          label="Gravid"
+          label="Number Gravid"
           description="Gravid value (Only applicable when females are present)"
           rejectNegative="true"
           required="true"
@@ -2719,7 +2719,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <attributes>
         <integer
           name="gravid"
-          label="Gravid"
+          label="Number Gravid"
           description="The Gravid value"
           required="true" />
         <char
