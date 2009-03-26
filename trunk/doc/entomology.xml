@@ -2242,7 +2242,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           description="The total number mosquitos tested" />
         <enumeration
           name="surfacePostion"
-          label="Surface Position"
+          label="Position on surface"
           type="dss.vector.solutions.SurfacePosition"
           selectMultiple="false"
           description="The surface position of the insecticide" />
@@ -2308,7 +2308,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <enumerationMaster
       name="dss.vector.solutions.SurfacePositionMaster"
-      label="Surface Position"
+      label="Position on surface"
       description="Configurable table of surface positions" />
 
     <object
