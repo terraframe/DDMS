@@ -744,7 +744,7 @@
       <attributes>
         <date
           name="dateCollected"
-          label="Date Collected"
+          label="Collection Date"
           required="true" />
         <reference
           name="geoEntity"
@@ -817,7 +817,7 @@
           size="255" />
         <date
           name="dateCollected"
-          label="Date Collected"
+          label="Collection Date"
           required="true" />
         <char
           name="geoEntity"
@@ -1018,22 +1018,22 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <attributes>
         <integer
           name="quantity"
-          label="Quantity"
+          label="Total Number"
           rejectNegative="true"
           required="true" />
         <integer
           name="quantityFemale"
-          label="Quantity Female"
+          label="Number Female"
           rejectNegative="true"
           required="false" />
         <integer
           name="quantityMale"
-          label="Quantity Male"
+          label="Number Male"
           rejectNegative="true"
           required="false" />
         <reference
           name="specie"
-          label="Specie"
+          label="Species"
           type="dss.vector.solutions.mo.Specie"
           required="false" />
         <reference
