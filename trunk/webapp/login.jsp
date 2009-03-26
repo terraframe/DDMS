@@ -39,6 +39,7 @@ input[type="button"],input[type="submit"] {
 	line-height: 30px;
 	text-decoration: none;
 	margin-left: -13px;
+    margin-top: 13px;
 	text-shadow: 0 0 0 #000;
 	border-width: 0px;
 	width: 130px;
@@ -63,6 +64,7 @@ input[type="button"],input[type="submit"] {
 	text-decoration: none;
 	margin-left: -13px;
 	text-shadow: 0 0 0 #000;
+    margin-top: 13px;
 }
 
 input[type="button"]:hover {
@@ -85,6 +87,7 @@ input[type="button"]:active {
 	z-index: 4;
 	position: relative;
 	left: 11px;
+   margin-top: 13px;
 }
 </style>
 </head>
@@ -109,7 +112,9 @@ input[type="button"]:active {
   <div class="fcTop">
   <c:if test="${bad_password}">
     <div class="alert alertbox">
+    <p>
     <f:message key="bad_username_or_password" />
+    </p>
     </div>
   </c:if>
 
