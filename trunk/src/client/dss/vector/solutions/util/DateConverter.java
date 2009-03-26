@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
-import com.terraframe.mojo.controller.DateParseException;
+import com.terraframe.mojo.controller.DateParseProblemDTO;
 import com.terraframe.mojo.util.Converter;
 
 
@@ -38,7 +38,7 @@ public class DateConverter implements Converter
     catch (ParseException e)
     {      
       LinkedList<ProblemDTOIF> list = new LinkedList<ProblemDTOIF>();
-      list.add(new DateParseException(name, locale, value, format.toString()));
+      list.add(new DateParseProblemDTO(name, locale, value, format.toString()));
 
       throw new ProblemExceptionDTO("Invalid date format", list);
     }
