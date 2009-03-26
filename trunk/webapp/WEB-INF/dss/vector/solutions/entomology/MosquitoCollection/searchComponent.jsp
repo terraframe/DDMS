@@ -74,7 +74,7 @@ MDSS.currentSearchModal = null;
         (Non) Sentinal Site <input type="radio" name="filterType" value="${NonSentinalSiteClass}" />
     </dd>
     <dt> Geo Id </dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /><span id="searchOpener"><img src="./imgs/icons/world.png"/></span></dd>
+    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>
     <dt> Date </dt>
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick" id="collectionDate"/></dd>
   </dl>  
