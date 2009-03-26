@@ -14,19 +14,10 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod" >
-          <c:choose>
-            <c:when test="${current.termName == item.geoEntity.termName}">
-             <mjl:option selected="selected">
-               ${current.termName}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
-              <mjl:option>
-                ${current.termName}
-              </mjl:option>
-            </c:otherwise>
-          </c:choose>
+        <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod">
+          <mjl:option>
+            ${current.termName}
+          </mjl:option>
         </mjl:select>
       </dd>
       <dt>
@@ -35,7 +26,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="dateCollected" classes="DatePick" id="dtodateCollectedidaa"/>
+        <mjl:input type="text" param="dateCollected" classes="DatePick" id="dto.dateCollected.id"/>
         <mjl:messages attribute="dateCollected">
           <mjl:message />
         </mjl:messages>
@@ -46,7 +37,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${AbstractMosquitoCollection_geoEntity}" param="geoEntity" >
+         <mjl:select var="current" valueAttribute="id" items="${AbstractMosquitoCollection_geoEntity}" param="geoEntity" >
           <c:choose>
             <c:when test="${current.geoId == item.geoEntity.geoId}">
              <mjl:option selected="selected">
