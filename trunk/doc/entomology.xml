@@ -406,6 +406,8 @@
       <includeAll />
     </mdEnumeration>
 
+
+
     <mdController
       name="dss.vector.solutions.geo.GeoEntityTreeController"
       label="GeoEntity Tree Controller"
@@ -650,6 +652,17 @@
     </mdBusiness>
 
     <!-- END: GeoEntity Types -->
+
+    <mdController
+      name="dss.vector.solutions.entomology.QueryController"
+      label="Query Controller"
+      description="Query Controller">
+      <mdAction
+        name="queryEntomology"
+        label="Query Entomology"
+        description="Query Entomology"
+        isPost="false" />
+    </mdController>
 
     <mdController
       name="com.terraframe.mojo.defaults.LoginController"
@@ -1339,6 +1352,19 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           description="The generation of the mosquito"
           type="dss.vector.solutions.mo.Generation" />
       </attributes>
+      <mdMethod
+        name="queryEntomology"
+        label="Query Entomology"
+        description="Query Entomology"
+        static="true"
+        returnType="com.terraframe.mojo.query.ValueQuery" >
+        <mdParameter
+          name="queryXML"
+          label="Query XML"
+          description="Query XML"
+          order="0"
+          type="java.lang.String" />
+      </mdMethod>
     </mdBusiness>
 
     <enumerationMaster
@@ -1912,6 +1938,13 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           type="dss.vector.solutions.general.Insecticide"
           required="true" />
       </attributes>
+      <mdMethod
+        name="getAssayTree"
+        label="Get Assay Tree"
+        description="Gets the Assay Hierarchy Tree"
+        static="true"
+        returnType="java.lang.String">
+      </mdMethod>
     </mdBusiness>
 
     <mdBusiness
@@ -3316,7 +3349,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <mdBusiness
       name="dss.vector.solutions.mo.InsecticideMethodology"
-      label="Molecular Assay Result"
+      label="Insecticide Assay Result"
       description="List of molecular array results"
       extends="dss.vector.solutions.mo.AbstractTerm">
       <mdMethod

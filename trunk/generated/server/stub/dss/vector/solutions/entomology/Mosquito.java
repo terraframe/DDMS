@@ -3,14 +3,16 @@ package dss.vector.solutions.entomology;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-
+import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.query.ValueQueryParser;
 
-import dss.vector.solutions.entomology.MosquitoBase;
-import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
 import dss.vector.solutions.entomology.assay.AssayTestResult;
+import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
 
 public class Mosquito extends MosquitoBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -95,5 +97,29 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     }
     
     return null;
+  }
+  
+  /**
+   * Queries for Mosquitos.
+   * 
+   * @param xml
+   */
+  public static com.terraframe.mojo.query.ValueQuery queryEntomology(String xml)
+  {
+    QueryFactory queryFactory = new QueryFactory();
+    
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+    
+    ValueQueryParser valueQueryParser = new ValueQueryParser(xml, valueQuery);
+
+    Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
+
+    return valueQuery;
+    
+//    MosquitoQuery mdBusinessQuery = (MosquitoQuery)queryMap.get("mosquito");
+//    
+//    String sql = valueQuery.getSQL();
+//    
+//    System.out.println(sql);
   }
 }

@@ -15,8 +15,10 @@
 <!-- 
 <link rel="stylesheet" type="text/css" href="js/yui/build/carousel/assets/skins/sam/carousel.css"> 
 <link rel="stylesheet" type="text/css" href="js/yui/build/colorpicker/assets/skins/sam/colorpicker.css">
-<link rel="stylesheet" type="text/css" href="js/yui/build/imagecropper/assets/skins/sam/imagecropper.css"> 
+<link rel="stylesheet" type="text/css" href="js/yui/build/imagecropper/assets/skins/sam/imagecropper.css">
+-->
 <link rel="stylesheet" type="text/css" href="js/yui/build/layout/assets/skins/sam/layout.css"> 
+<!--
 <link rel="stylesheet" type="text/css" href="js/yui/build/paginator/assets/skins/sam/paginator.css">
 <link rel="stylesheet" type="text/css" href="js/yui/build/tabview/assets/skins/sam/tabview.css">   
 <link rel="stylesheet" type="text/css" href="js/yui/build/editor/assets/skins/sam/editor.css"> 
@@ -55,8 +57,8 @@ YUI download for details on each of the aggregate files and their contents):-->
 <script type="text/javascript" src="js/yui/build/calendar/calendar-min.js"></script> 
 <script type="text/javascript" src="js/yui/build/datatable/datatable.js"></script> 
 <script type="text/javascript" src="js/yui/build/treeview/treeview-min.js"></script> 
-<!--  
 <script type="text/javascript" src="js/yui/build/layout/layout-min.js"></script> 
+<!--  
 <script type="text/javascript" src="js/yui/build/paginator/paginator-min.js"></script> 
 <script type="text/javascript" src="js/yui/build/slider/slider-min.js"></script> 
 <script type="text/javascript" src="js/yui/build/tabview/tabview-min.js"></script> 
@@ -72,6 +74,7 @@ var locale = "<%=request.getLocale().toString()%>";
 </script>
 
 <script type="text/javascript" src="js/Terraframe_Mojo.js"></script>
+<script type="text/javascript" src="js/Terraframe_MojoGIS.js"></script>
 <script type="text/javascript" src="js/MDSS.js"></script>
 <script type="text/javascript" src="js/navMenu.js"></script>
 <script type="text/javascript" src="js/date.js"></script>
@@ -81,6 +84,7 @@ var locale = "<%=request.getLocale().toString()%>";
 <script type="text/javascript" src="js/GeoEntityTree.js"></script>
 <script type="text/javascript" src="js/GeoHierarchyTree.js"></script>
 <script type="text/javascript" src="js/SelectSearch.js"></script>
+<script type="text/javascript" src="js/QueryPanel.js"></script>
 
 <!--  Stuff from the web designer  -->
 <link rel="stylesheet" type="text/css" href="js/yui/build/reset-fonts-grids/reset-fonts-grids.css">

@@ -273,6 +273,28 @@ h2
 	margin-top: 15px;
 }
 
+#queryPanel {
+	width: 520px;
+	height: 620px;
+	border: 1px solid black;
+}
+
+ul#queryItems li {
+  background-color: white;
+  padding:5px;
+  border: 1px solid black;
+}
+
+div#dateRange {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+#startDateRange, #endDateRange {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 dl
 {
 	border: 2px solid #CCC;
@@ -283,6 +305,12 @@ dl
 	min-width: 300px;
 	max-width: 860px;
 	margin-left: 12px;
+}
+
+input.queryButton {
+	float: right;
+	margin-top: 10px;
+	margin-right: 10px;
 }
 
 .fldContainer

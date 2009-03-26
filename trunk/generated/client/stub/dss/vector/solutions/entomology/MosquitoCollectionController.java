@@ -229,7 +229,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   
   public void search() throws java.io.IOException, javax.servlet.ServletException
   {
-    // The Earth is the root.
+    // The Earth is the root. FIXME use country's default root
     EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
     req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
     

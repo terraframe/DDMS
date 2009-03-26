@@ -39,6 +39,14 @@ var MDSS = {
       return function(){
         func.apply(this, args.concat([].splice.call(arguments, 0)))
       }
+    },
+    
+    /**
+     * Strips the leading and trailing whitespace from the string.
+     */
+    stripWhitespace : function(str)
+    {
+      return str.replace(/^\s+/, '').replace(/\s+$/, '');
     }
   }
 };

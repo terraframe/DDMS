@@ -45,6 +45,7 @@ var Mojo = {
     IS_FUNCTION_TO_STRING : Object.prototype.toString.call(function(){}),
     IS_DATE_TO_STRING : Object.prototype.toString.call(new Date()),
     IS_STRING_TO_STRING : Object.prototype.toString.call(''),
+    IS_NUMBER_TO_STRING : Object.prototype.toString.call(0),
   
     isObject : function(o)
     {
@@ -69,6 +70,11 @@ var Mojo = {
     isString : function(o)
     {
       return o != null && Object.prototype.toString.call(o) === this.IS_STRING_TO_STRING;
+    },
+    
+    isNumber : function(o)
+    {
+      return o != null && Object.prototype.toString.call(o) === this.IS_NUMBER_TO_STRING;
     },
   
     /**
@@ -2053,7 +2059,7 @@ Mojo.dto.ComponentDTO.prototype = {
   
   getType : function() { return this._type; },
   
-  getTypeMd : function() { return this.getAttributeDTO('type').getAttributeMdDTO() },
+  getTypeMd : function() { return this._typeMd; },
   
   getId : function() { return this.id; },
   

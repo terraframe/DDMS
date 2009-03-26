@@ -15,8 +15,6 @@
 
 <script type="text/javascript">
 
-MDSS.currentSearchModal = null;
-
   YAHOO.util.Event.onDOMReady(function(){
     
     var opener = new YAHOO.util.Element("searchOpener");
