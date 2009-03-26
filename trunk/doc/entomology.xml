@@ -1991,7 +1991,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           immutable="true" />
         <integer
           name="quantityTested"
-          label="Quantity Tested"
+          label="Number Exposed"
           rejectNegative="true"
           rejectZero="true"
           required="true"
@@ -2086,19 +2086,19 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           default_value="23" />
         <integer
           name="quantityDead"
-          label="Quantity Dead"
+          label="Number Dead"
           rejectNegative="true"
           required="true"
           description="The total number of mosquitos which died during the assay" />
         <integer
           name="quantityLive"
-          label="Quantity Live"
+          label="Number Alive"
           rejectNegative="true"
           required="true"
           description="The total number of mosquitos which lived during the assay" />
         <float
           name="mortality"
-          label="Mortality Rate"
+          label="Percentage Mortality"
           length="5"
           decimal="2"
           required="true"
@@ -2157,19 +2157,19 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           default_value="23" />
         <integer
           name="quantityDead"
-          label="Quantity Dead"
+          label="Number Dead"
           rejectNegative="true"
           required="true"
           description="The total number of mosquitos which died during the assay" />
         <integer
           name="quantityLive"
-          label="Quantity Live"
+          label="Number Alive"
           rejectNegative="true"
           required="true"
           description="The total number of mosquitos which lived during the assay" />
         <float
           name="mortality"
-          label="Mortality Rate"
+          label="Percentage Mortality"
           length="5"
           decimal="2"
           required="true"
@@ -2203,19 +2203,19 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           default_value="23" />
         <integer
           name="quantityDead"
-          label="Quantity Dead"
+          label="Number Dead"
           rejectNegative="true"
           required="true"
           description="The total number of mosquitos which died during the assay" />
         <integer
           name="quantityLive"
-          label="Quantity Live"
+          label="Number Alive"
           rejectNegative="true"
           required="true"
           description="The total number of mosquitos which lived during the assay" />
         <float
           name="mortality"
-          label="Mortality Rate"
+          label="Percentage Mortality"
           length="5"
           decimal="2"
           required="true"
@@ -2227,7 +2227,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           description="The name of the colony" />
         <integer
           name="exposureTime"
-          label="Exposure Time (months)"
+          label="Exposure Time (minuites)"
           description="The exposure time in months"
           rejectNegative="true"
           rejectZero="true"
@@ -2235,7 +2235,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           immutable="true" />
         <integer
           name="quantityTested"
-          label="Quantity Tested"
+          label="Number Exposed"
           rejectNegative="true"
           rejectZero="true"
           required="true"
@@ -2630,7 +2630,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         <integer
           name="quantityDead"
           rejectNegative="true"
-          label="Quantity Dead"
+          label="Number Dead"
           required="true"
           default_value="0" />
       </attributes>
@@ -2799,12 +2799,12 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <attributes>
         <integer
           name="quantityDead"
-          label="Quantity Dead"
+          label="Number Dead"
           description="Quantity Dead"
           required="true" />
         <integer
           name="quantityTested"
-          label="Quantity Tested"
+          label="Number Exposed"
           description="Quantity Tested"
           required="true" />
         <char
@@ -2827,7 +2827,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true" />
         <integer
           name="quantityTested"
-          label="Quantity Tested"
+          label="Number Exposed"
           description="Quantity Tested"
           required="true" />
         <char
