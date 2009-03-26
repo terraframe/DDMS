@@ -1849,13 +1849,13 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       <attributes>
         <integer
           name="startPoint"
-          label="Beginning Age"
+          label="From"
           rejectNegative="true"
           required="true"
           description="Starting age of the age range" />
         <integer
           name="endPoint"
-          label="Ending Age"
+          label="To"
           rejectNegative="true"
           required="true"
           description="Ending age of the age range" />
