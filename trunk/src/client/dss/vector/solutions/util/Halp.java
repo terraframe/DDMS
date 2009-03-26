@@ -166,8 +166,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 		}
 		return (Halp.join(dropdownbuff, "\n"));
 	}
-
-	public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload) throws JSONException {
+	public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload)throws JSONException
+	{
+		return getColumnSetup(view,attribs,extra_rows,autoload,1);
+	}
+	
+	public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, int num_to_hide) throws JSONException {
 		ArrayList<String> arr = new ArrayList<String>();
 		int colnum = 0;
 		Class<?> v = view.getClass();
@@ -191,7 +195,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 				// buff.add("class:"+mdClass.toString());
 				String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();
 				buff.add("label:'" + label + "'");
-				if (colnum == 0) {
+				if (colnum < num_to_hide) {
 					buff.add("hidden:true");
 				} else {
 					if (!Arrays.asList(attribs).contains(attrib)) {
@@ -210,11 +214,9 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 					}
 					if (md instanceof AttributeDateMdDTO) {
 						buff.add("formatter:YAHOO.widget.DataTable.formatDate");
-						editor = "new YAHOO.widget.DateCellEditor({disableBtns:true})";
-						// editor =
-						// "new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})";
-						// editor =
-						// "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+						// editor = "new YAHOO.widget.DateCellEditor({disableBtns:true})";
+						 editor = "new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})";
+						// editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
 					}
 					if (md instanceof AttributeEnumerationMdDTO) {
 						editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['";
