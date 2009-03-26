@@ -78,19 +78,51 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
     var editorKeyEvent = function ( obj ) {
         // 9 = tab, 13 = enter
         var e   = obj.event;
-        if ( e.keyCode == 9 || e.keyCode == 13 ) {
+        if ( e.keyCode == 9 ) {
             var cell        = myDataTable.getCellEditor().getTdEl();
             var nextCell    = myDataTable.getNextTdEl( cell );
             myDataTable.saveCellEditor();
-            if ( nextCell ) {
+            if ( nextCell &&  myDataTable.getColumn(nextCell).editor) {
             	myDataTable.showCellEditor( nextCell );
                 e.returnValue   = false;
                 e.preventDefault();
                 return false;
             }
             else {
+                // No next cell, go to the next row an search for editable cells
+            	var nextRow = myDataTable.getNextTrEl(cell);
+            	if(nextRow)
+            	{
+	                var nextCell  = myDataTable.getFirstTdEl(nextRow);
+	                while(nextCell && ! myDataTable.getColumn(nextCell).editor)
+	                {
+	                	var nextCell = myDataTable.getNextTdEl( nextCell );
+	                }
+	                if ( nextCell ) {
+	                	myDataTable.showCellEditor( nextCell );
+	                    e.returnValue   = false;
+	                    e.preventDefault();
+	                    return false;
+	                }
+            	}
+            }
+           
+        }
+        if ( e.keyCode == 13 ) {
+
+            var cell        = myDataTable.getCellEditor().getTdEl();  
+            var nextCell    = myDataTable.getBelowTdEl( cell );
+            myDataTable.saveCellEditor();
+            if ( nextCell ) {
+            	myDataTable.showCellEditor( nextCell );
+                e.returnValue   = false;
+                e.preventDefault();
+                e=null;
+                return false;
+            }
+            else {
                 // No next cell, make a new row and open the editor for that one
-            	myDataTable.addRow( {} );
+            	addRow();
             }
             // BUG: If pressing Enter, editor gets hidden right away due to YUI
 			// default event
@@ -267,41 +299,45 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	});
 	btnSaveRows.set("disabled", true);
 	}
+	
+	
 	// function Add one row to the bottom
+	var addRow = function() {
+		// Clear sort when necessary
+		if (bReverseSorted) {
+			 myDataTable.set("sortedBy", null);
+		}
+        // clone the object
+		// FIREFOX ONLY
+		new_data_row = eval(uneval(table_data.defaults));
+		new_label_row = eval(uneval(table_data.defaults));
+		// var record = YAHOO.widget.DataTable._cloneObject(new_defs);
+		// record = new YAHOO.widget.Record(table_data.defaults);
+		// record.row = i++;
+		if (table_data.rows.length > 0)
+		{
+			last_row_index = table_data.rows.length - 1;
+			for each(feild in table_data.copy_from_above)
+			{
+			    	str = 'new_data_row.' + feild + ' = table_data.rows[last_row_index].' + feild ;
+			    	eval(str);
+			    	label = myDataTable.getRecord(last_row_index).getData(feild);
+			    	str = 'new_label_row.' + feild + " = '"+ label + "'";
+			    	eval(str); 
+			}
+        }		
+		table_data.rows.push(new_data_row);
+		myDataTable.addRow(new_label_row);
+		table_data.dirty = true;
+		btnSaveRows.set("disabled", false);
+	}
 	
 	if(YAHOO.util.Dom.get(table_data.div_id+'Addrow')){
 		var btnAddRow = new YAHOO.widget.Button(table_data.div_id+"Addrow");
-		btnAddRow.on("click", function() {
-		// Clear sort when necessary
-			if (bReverseSorted) {
-				 myDataTable.set("sortedBy", null);
-			}
-            // clone the object
-			// FIREFOX ONLY
-			new_data_row = eval(uneval(table_data.defaults));
-			new_label_row = eval(uneval(table_data.defaults));
-			// var record = YAHOO.widget.DataTable._cloneObject(new_defs);
-			// record = new YAHOO.widget.Record(table_data.defaults);
-			// record.row = i++;
-			if (table_data.rows.length > 0)
-			{
-				last_row_index = table_data.rows.length - 1;
-				for each(feild in table_data.copy_from_above)
-				{
-				    	str = 'new_data_row.' + feild + ' = table_data.rows[last_row_index].' + feild ;
-				    	eval(str);
-				    	label = myDataTable.getRecord(last_row_index).getData(feild);
-				    	str = 'new_label_row.' + feild + " = '"+ label + "'";
-				    	eval(str); 
-				}
-	        }		
-			table_data.rows.push(new_data_row);
-			myDataTable.addRow(new_label_row);
-			table_data.dirty = true;
-			btnSaveRows.set("disabled", false);
-		});
+		btnAddRow.on("click", addRow);
 		
 	}
+	
 	// stuff to turn cols on and off
 	// Shows dialog, creating one when necessary
 	var newCols = true;
