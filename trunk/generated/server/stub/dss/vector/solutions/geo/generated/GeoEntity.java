@@ -309,7 +309,8 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     if (!match)
     {
-      LocatedInException e = new LocatedInException();
+      String error = "The universal type ["+childType+"] cannot be located in ["+parentType+"].";
+      LocatedInException e = new LocatedInException(error);
       e.setEntityName(this.getEntityName());
       e.setParentDisplayLabel(parentMd.getDisplayLabel());
       throw e;
