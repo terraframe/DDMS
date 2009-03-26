@@ -9,7 +9,7 @@ public class ResistanceMethodologyControllerBase implements com.terraframe.mojo.
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237423104725L;
+  private static final long serialVersionUID = 1238027430924L;
   
   public ResistanceMethodologyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

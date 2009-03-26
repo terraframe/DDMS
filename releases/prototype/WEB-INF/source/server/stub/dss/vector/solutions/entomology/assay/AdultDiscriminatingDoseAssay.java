@@ -1,10 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayBase;
 import dss.vector.solutions.Property;
-import dss.vector.solutions.entomology.assay.AdultAgeRangeValidator;
-import dss.vector.solutions.entomology.assay.FedValidator;
-import dss.vector.solutions.entomology.assay.GravidValidator;
 
 public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -16,37 +12,46 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   }
   
   @Override
-  public void validateAgeRange()
+  public void validateQuantityDead()
   {
-    super.validateAgeRange();
+    super.validateQuantityDead();
 
-    new AdultAgeRangeValidator(this).validate();
+    new QuantityDeadValidator(this).validate();
   }
-
-  @Override
-  public void validateGravid()
-  {
-    super.validateGravid();
-
-    new GravidValidator(this).validate();
-  }
-
-  @Override
-  public void validateFed()
-  {
-    super.validateFed();
-
-    new FedValidator(this).validate();
-  }
-
+  
   @Override
   public void apply()
   {
-    validateAgeRange();
-    validateFed();
-    validateGravid();
+    validateQuantityDead();
+
+    if (this.getQuantityDead() <= this.getQuantityTested())
+    {
+      this.setQuantityLive(this.getQuantityTested() - this.getQuantityDead());
+      this.setMortality( ( (float) ( this.getQuantityDead() ) * 100 / this.getQuantityTested() ));
+    }
+    else
+    {
+      this.setQuantityLive(0);
+      this.setMortality(new Float(0));
+    }
     
     super.apply();
+    
+    if (this.isSusceptible())
+    {
+      SusceptibleCollection info = new SusceptibleCollection();
+      info.throwIt();
+    }
+    else if (this.isPotentiallyResistant())
+    {
+      PotentiallyResistantCollection info = new PotentiallyResistantCollection();
+      info.throwIt();
+    }
+    else if (this.isResistant())
+    {
+      ResistantCollection info = new ResistantCollection();
+      info.throwIt();
+    }
   }
 
   protected boolean isResistant()

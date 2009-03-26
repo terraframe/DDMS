@@ -1,10 +1,8 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.DDATestIntervalDTOBase;
-
 public class DDATestIntervalDTO extends DDATestIntervalDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1234731975406L;
+  private static final long serialVersionUID = 1237573013311L;
   
   public DDATestIntervalDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

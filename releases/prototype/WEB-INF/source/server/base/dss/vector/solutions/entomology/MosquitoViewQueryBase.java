@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public  abstract  class MosquitoViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237423098990L;
+private static final long serialVersionUID = 1238027423232L;
 
   public MosquitoViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -25,102 +25,102 @@ private static final long serialVersionUID = 1237423098990L;
   {
     return "dss.vector.solutions.entomology.MosquitoView";
   }
-  public com.terraframe.mojo.query.AttributeIntegerIF getAEsterase()
+  public com.terraframe.mojo.query.AttributeBooleanIF getAAcetate()
   {
-    return getAEsterase(null);
+    return getAAcetate(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeIntegerIF getAEsterase(String alias)
+  public com.terraframe.mojo.query.AttributeBooleanIF getAAcetate(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeIntegerIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.AESTERASE, alias);
+    return (com.terraframe.mojo.query.AttributeBooleanIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.AACETATE, alias);
 
   }
  
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getAEsteraseMethod()
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getAcHES()
   {
-    return getAEsteraseMethod(null);
+    return getAcHES(null);
 
   }
  
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getAEsteraseMethod(String alias)
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getAcHES(String alias)
   {
 
-    return (dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.AESTERASEMETHOD, alias);
+    return (dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.ACHES, alias);
 
   }
-  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getAcHEBiochemical()
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getAcHESMethod()
   {
-    return getAcHEBiochemical(null);
-
-  }
- 
-  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getAcHEBiochemical(String alias)
-  {
-
-    return (dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.ACHEBIOCHEMICAL, alias);
-
-  }
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getAcHEBiochemicalMethod()
-  {
-    return getAcHEBiochemicalMethod(null);
+    return getAcHESMethod(null);
 
   }
  
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getAcHEBiochemicalMethod(String alias)
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getAcHESMethod(String alias)
   {
 
-    return (dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.ACHEBIOCHEMICALMETHOD, alias);
+    return (dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.ACHESMETHOD, alias);
 
   }
-  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getAcHEMolecular()
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getAcHEV()
   {
-    return getAcHEMolecular(null);
-
-  }
- 
-  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getAcHEMolecular(String alias)
-  {
-
-    return (dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.ACHEMOLECULAR, alias);
-
-  }
-  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getAcHEMolecularMethod()
-  {
-    return getAcHEMolecularMethod(null);
+    return getAcHEV(null);
 
   }
  
-  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getAcHEMolecularMethod(String alias)
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getAcHEV(String alias)
   {
 
-    return (dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.ACHEMOLECULARMETHOD, alias);
-
-  }
-  public com.terraframe.mojo.query.AttributeIntegerIF getBEsterase()
-  {
-    return getBEsterase(null);
+    return (dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.ACHEV, alias);
 
   }
- 
-  public com.terraframe.mojo.query.AttributeIntegerIF getBEsterase(String alias)
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getAcHEVMethod()
   {
-    return (com.terraframe.mojo.query.AttributeIntegerIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.BESTERASE, alias);
+    return getAcHEVMethod(null);
 
   }
  
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getBEsteraseMethod()
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getAcHEVMethod(String alias)
   {
-    return getBEsteraseMethod(null);
+
+    return (dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.ACHEVMETHOD, alias);
+
+  }
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getAcHEW()
+  {
+    return getAcHEW(null);
 
   }
  
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getBEsteraseMethod(String alias)
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getAcHEW(String alias)
   {
 
-    return (dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.BESTERASEMETHOD, alias);
+    return (dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.ACHEW, alias);
 
   }
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getAcHEWMethod()
+  {
+    return getAcHEWMethod(null);
+
+  }
+ 
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getAcHEWMethod(String alias)
+  {
+
+    return (dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.ACHEWMETHOD, alias);
+
+  }
+  public com.terraframe.mojo.query.AttributeBooleanIF getBAcetate()
+  {
+    return getBAcetate(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getBAcetate(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBooleanIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.BACETATE, alias);
+
+  }
+ 
   public dss.vector.solutions.entomology.AbstractMosquitoCollectionQuery.AbstractMosquitoCollectionQueryReferenceIF getCollection()
   {
     return getCollection(null);
@@ -157,54 +157,78 @@ private static final long serialVersionUID = 1237423098990L;
     return (dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.EKDRMETHOD, alias);
 
   }
-  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getGABA()
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getGABAG()
   {
-    return getGABA(null);
+    return getGABAG(null);
 
   }
  
-  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getGABA(String alias)
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getGABAG(String alias)
   {
 
-    return (dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.GABA, alias);
+    return (dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.GABAG, alias);
 
   }
-  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getGABAMethod()
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getGABAGMethod()
   {
-    return getGABAMethod(null);
-
-  }
- 
-  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getGABAMethod(String alias)
-  {
-
-    return (dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.GABAMETHOD, alias);
-
-  }
-  public com.terraframe.mojo.query.AttributeIntegerIF getGST()
-  {
-    return getGST(null);
+    return getGABAGMethod(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeIntegerIF getGST(String alias)
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getGABAGMethod(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeIntegerIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.GST, alias);
+
+    return (dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.GABAGMETHOD, alias);
+
+  }
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getGABAS()
+  {
+    return getGABAS(null);
 
   }
  
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getGSTMethod()
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getGABAS(String alias)
   {
-    return getGSTMethod(null);
+
+    return (dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.GABAS, alias);
+
+  }
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getGABASMethod()
+  {
+    return getGABASMethod(null);
 
   }
  
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getGSTMethod(String alias)
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getGABASMethod(String alias)
   {
 
-    return (dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.GSTMETHOD, alias);
+    return (dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.GABASMETHOD, alias);
 
   }
+  public com.terraframe.mojo.query.AttributeBooleanIF getGSTCDNB()
+  {
+    return getGSTCDNB(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getGSTCDNB(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBooleanIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.GSTCDNB, alias);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getGSTDCNB()
+  {
+    return getGSTDCNB(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getGSTDCNB(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBooleanIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.GSTDCNB, alias);
+
+  }
+ 
   public dss.vector.solutions.mo.GenerationQuery.GenerationQueryReferenceIF getGeneration()
   {
     return getGeneration(null);
@@ -215,6 +239,42 @@ private static final long serialVersionUID = 1237423098990L;
   {
 
     return (dss.vector.solutions.mo.GenerationQuery.GenerationQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.GENERATION, alias);
+
+  }
+  public com.terraframe.mojo.query.AttributeBooleanIF getHeme()
+  {
+    return getHeme(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getHeme(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBooleanIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.HEME, alias);
+
+  }
+ 
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getIAcHE()
+  {
+    return getIAcHE(null);
+
+  }
+ 
+  public dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF getIAcHE(String alias)
+  {
+
+    return (dss.vector.solutions.mo.MolecularAssayResultQuery.MolecularAssayResultQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.IACHE, alias);
+
+  }
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getIAcHEMethod()
+  {
+    return getIAcHEMethod(null);
+
+  }
+ 
+  public dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF getIAcHEMethod(String alias)
+  {
+
+    return (dss.vector.solutions.mo.InsecticideMethodologyQuery.InsecticideMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.IACHEMETHOD, alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getId()
@@ -253,30 +313,6 @@ private static final long serialVersionUID = 1237423098990L;
 
   }
  
-  public com.terraframe.mojo.query.AttributeIntegerIF getMonooxygenase()
-  {
-    return getMonooxygenase(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeIntegerIF getMonooxygenase(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeIntegerIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.MONOOXYGENASE, alias);
-
-  }
- 
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getMonooxygenaseMethod()
-  {
-    return getMonooxygenaseMethod(null);
-
-  }
- 
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getMonooxygenaseMethod(String alias)
-  {
-
-    return (dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.MONOOXYGENASEMETHOD, alias);
-
-  }
   public com.terraframe.mojo.query.AttributeCharIF getMosquitoId()
   {
     return getMosquitoId(null);
@@ -286,6 +322,18 @@ private static final long serialVersionUID = 1237423098990L;
   public com.terraframe.mojo.query.AttributeCharIF getMosquitoId(String alias)
   {
     return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.MOSQUITOID, alias);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getP450()
+  {
+    return getP450(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getP450(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBooleanIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.P450, alias);
 
   }
  
@@ -337,30 +385,18 @@ private static final long serialVersionUID = 1237423098990L;
     return (dss.vector.solutions.mo.InfectivityMethodologyQuery.InfectivityMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.PMALARIAEMETHOD, alias);
 
   }
-  public com.terraframe.mojo.query.AttributeIntegerIF getPNPA()
+  public com.terraframe.mojo.query.AttributeBooleanIF getPNPA()
   {
     return getPNPA(null);
 
   }
  
-  public com.terraframe.mojo.query.AttributeIntegerIF getPNPA(String alias)
+  public com.terraframe.mojo.query.AttributeBooleanIF getPNPA(String alias)
   {
-    return (com.terraframe.mojo.query.AttributeIntegerIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.PNPA, alias);
+    return (com.terraframe.mojo.query.AttributeBooleanIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.PNPA, alias);
 
   }
  
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getPNPAMethod()
-  {
-    return getPNPAMethod(null);
-
-  }
- 
-  public dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF getPNPAMethod(String alias)
-  {
-
-    return (dss.vector.solutions.mo.BiochemicalMethodologyQuery.BiochemicalMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.PNPAMETHOD, alias);
-
-  }
   public com.terraframe.mojo.query.AttributeBooleanIF getPOvale()
   {
     return getPOvale(null);
@@ -409,6 +445,18 @@ private static final long serialVersionUID = 1237423098990L;
     return (dss.vector.solutions.mo.InfectivityMethodologyQuery.InfectivityMethodologyQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.PVIVAXMETHOD, alias);
 
   }
+  public com.terraframe.mojo.query.AttributeCharIF getSampleId()
+  {
+    return getSampleId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getSampleId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoView.SAMPLEID, alias);
+
+  }
+ 
   public dss.vector.solutions.entomology.SexMasterQuery.SexQueryIF getSex()
   {
     return getSex(null);

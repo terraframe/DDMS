@@ -2037,7 +2037,7 @@ Mojo.dto.ComponentDTO.prototype = {
       this.dto_type = obj.dto_type;
       this.id = obj.id;
       this._type = obj._type;
-      this._typeMd = (obj._typeMd) ? new Mojo.dto.TypeMd(obj._typeMd) : null;
+      this._typeMd = Mojo.util.isObject(obj._typeMd) ? new Mojo.dto.TypeMd(obj._typeMd) : null;
       this._toString = obj._toString;
       this.readable = obj.readable;
 
@@ -2068,7 +2068,9 @@ Mojo.dto.ComponentDTO.prototype = {
   
   toString : function() { return this._toString; },
   
-  isReadable : function() { return this.readable; }
+  isReadable : function() { return this.readable; },
+  
+  setValue : function(attributeName, value) { this.getAttributeDTO(attributeName).setValue(value); }
 };
 
 /**
@@ -2199,7 +2201,7 @@ Mojo.dto.WarningDTO.prototype = Mojo.Class.extend(Mojo.dto.MessageDTO, {
 });
 
 /**
- * ProblemDTO
+ * ProblemDTO (super-type of all generated problems)
  */
 Mojo.dto.ProblemDTO = Mojo.Class.create();
 Mojo.dto.ProblemDTO.prototype = Mojo.Class.extend(Mojo.dto.NotificationDTO, {
@@ -2210,39 +2212,46 @@ Mojo.dto.ProblemDTO.prototype = Mojo.Class.extend(Mojo.dto.NotificationDTO, {
     if(obj)
     {
       this.localizedMessage = obj.localizedMessage;
-      this.message = obj.message;
+      this.developerMessage = obj.developerMessage;
     }
   },
   
   getLocalizedMessage : function() { return this.localizedMessage; },
   
-  getMessage : function() { return this.message; }
+  getMessage : function() { return this.localizedMessage; },
+
+  getDeveloperMessage : function() { return this.developerMessage; }
 });
 
-Mojo.dto.FrameworkProblemDTO = Mojo.Class.create();
-Mojo.dto.FrameworkProblemDTO.prototype = {
+/**
+ * Super-type of all hard-coded exceptions.
+ */
+Mojo.dto.MojoProblemDTO = Mojo.Class.create();
+Mojo.dto.MojoProblemDTO.prototype = {
   initialize : function(obj)
   {
     if(obj)
     {
       this.localizedMessage = obj.localizedMessage;
-      this.message = obj.message;
+      this.developerMessage = obj.developerMessage;
     }
   },
   
   getLocalizedMessage : function() { return this.localizedMessage; },
   
-  getMessage : function() { return this.message; }
+  getMessage : function() { return this.localizedMessage; },
+
+  getDeveloperMessage : function() { return this.developerMessage; }
 };
 
 /**
  * AttributeProblemDTO
  */
 Mojo.dto.AttributeProblemDTO = Mojo.Class.create();
-Mojo.dto.AttributeProblemDTO.prototype = Mojo.Class.extend(Mojo.dto.FrameworkProblemDTO, {
+Mojo.dto.AttributeProblemDTO.prototype = Mojo.Class.extend(Mojo.dto.MojoProblemDTO, {
   initialize : function(obj)
   {
-    Mojo.dto.FrameworkProblemDTO.prototype.initialize.call(this, obj);
+    Mojo.dto.MojoProblemDTO.prototype.initialize.call(this, obj);
     
     if(obj)
     {
@@ -2309,45 +2318,47 @@ Mojo.dto.Exception.prototype = {
   {
     if(arguments.length == 1)
     {
-      var arg1 = arguments[0];
-      if(arg1 === null)
+      var arg = arguments[0];
+      if(arg == null)
       {
         this.localizedMessage = null;
-        this.message = null;
+        this.developerMessage = null;
       }
-      else if(typeof arg1 === 'string')
+      else if(Mojo.util.isString(arg))
       {
-        this.localizedMessage = arg1;
-          this.message = arg1;
+        this.localizedMessage = arg;
+        this.developerMessage = null;
       }
-      else if(typeof arg1 === 'object' 
-        && 'localizedMessage' in arg1 
-        && 'message' in arg1)
+      else if(Mojo.util.isObject(arg) 
+        && 'localizedMessage' in arg 
+        && 'developerMessage' in arg)
       {
-        this.localizedMessage = arg1.localizedMessage;
-        this.message = arg1.message;
+        this.localizedMessage = arg.localizedMessage;
+        this.developerMessage = arg.developerMessage;
       }
       else
       {
         this.localizedMessage = null;
-        this.message = null;
+        this.developerMessage = null;
       }
     }
     else if(arguments.length === 2)
     {
-      this.localizedMessage = arguments[1];
-      this.message = arguments[2];
+      this.localizedMessage = arguments[0];
+      this.developerMessage = arguments[1];
     }
     else
     {
       this.localizedMessage = null;
-      this.message = null;
+      this.developerMessage = null;
     }
   },
   
   getLocalizedMessage : function() { return this.localizedMessage; },
   
-  getMessage : function() { return this.message; },
+  getMessage : function() { return this.localizedMessage; },
+  
+  getDeveloperMessage : function() { return this.developerMessage; },
   
   toString : function() { return this.localizedMessage; }
 };
@@ -2389,7 +2400,7 @@ Mojo.dto.SmartExceptionDTO.prototype = Mojo.Class.extend(Mojo.dto.Exception, {
   
   isWritable : function() { return this.ex.isWritable(); },
   
-  setModified : function(modified) { return this.ex.setModified(modified); }
+  setModified : function(modified) { return this.ex.setModified(modified); }  
 });
 
 /**
@@ -2403,9 +2414,9 @@ Mojo.dto.MojoExceptionDTO.prototype = Mojo.Class.extend(Mojo.dto.Exception, {
   {
     Mojo.dto.Exception.prototype.initialize.call(this,obj);  
                 
-    if(obj !== null)
+    if(obj)
     {
-      if(typeof obj === 'object')
+      if(Mojo.util.isString(obj.wrappedException))
       {  
         this.wrappedException = obj.wrappedException;
       }  
@@ -2697,7 +2708,8 @@ Mojo.dto.AttributeDTO.prototype = {
   {
     if(this.isWritable())
     {
-      this.value = value;
+      // null and undefined should be null
+      this.value = value != null ? value : null;
       this.setModified(true);
     }
   },  
@@ -2723,6 +2735,7 @@ Mojo.dto.AttributeMdDTO.prototype = {
       this.description = obj.description;
       this.required = obj.required;
       this.immutable = obj.immutable;
+      this.accessorName = obj.accessorName;
       this.id = obj.id;
       this.system = obj.system;
       this.name = obj.name;
@@ -2741,7 +2754,9 @@ Mojo.dto.AttributeMdDTO.prototype = {
   
   isSystem : function() { return this.system; },
   
-  getName : function() { return this.name; }
+  getName : function() { return this.name; },
+  
+  getAccessorName : function() { return this.accessorName; }
 };
 
 // number
@@ -3032,7 +3047,7 @@ Mojo.dto.AttributeMomentDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeDTO,
     if(obj)
     {
       // set internal value as a date
-      if(this.value != null && this.value != '')
+      if(this.value != null && this.value !== '')
       {
         this.value = new Date(this.value);  
       }
@@ -3047,7 +3062,14 @@ Mojo.dto.AttributeMomentDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeDTO,
   {
     if(this.isWritable())
     {
-      this.value = Mojo.util.isDate(value) ? value : new Date(value);
+      if(value != null)
+      {
+        this.value = Mojo.util.isDate(value) ? value : new Date(value);
+      }
+      else
+      {
+        this.value = null;
+      }
 
       this.setModified(true);
     }

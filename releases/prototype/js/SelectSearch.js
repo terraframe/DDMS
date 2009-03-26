@@ -6,10 +6,8 @@ MDSS.SelectSearch = (function(){
   // cache of GeoEntities with key/value = geoEntity.getId()/geoEntity
   var _geoEntityCache = {};
 
-  var containerId = null;
-
-  // freeform text field
-  var _freeTextId = null;
+  // container id that holds the select id
+  var _containerId = "selectSearchComponent";
   
   // handler for when a new geo entity is selected
   var _selectHandler = null;
@@ -22,9 +20,14 @@ MDSS.SelectSearch = (function(){
   
   // mapping between child and parents
   var _childMap = {};
-  
+
+  // reference to modal that contains the select search
+  var _searchModal = null;
+
+  // reference to the Yahoo Panel that contains the search tree.
   var _geoTreePanel = null;
   
+  // the GeoEntity subtype class by which to filter results
   var _filterType = null;
   
   _setParentChildMapping = function(parent, child)
@@ -62,21 +65,21 @@ MDSS.SelectSearch = (function(){
    */
   _getAllSelected = function()
   {
-  	var geos = [];
-  	var selects = YAHOO.util.Selector.query('select', _containerId);
+    var geos = [];
+    var selects = YAHOO.util.Selector.query('select', _containerId);
     for(var i=0; i<selects.length; i++)
     {
       var select = selects[i];
       var options = select.options;
       for(var j=0; j<options.length; j++)
       {
-      	var option = options[j];
-      	if(option.selected)
-      	{
-      	  var geo = _geoEntityCache[option.id];
-      	
-      	  geos.push(geo);
-      	}
+        var option = options[j];
+        if(option.selected)
+        {
+          var geo = _geoEntityCache[option.id];
+        
+          geos.push(geo);
+        }
       }
     }
     
@@ -100,7 +103,7 @@ MDSS.SelectSearch = (function(){
     {
       select.selectedIndex = -1;
       select.disabled = true;
-    }   	  
+    }       
   }
   
   /**
@@ -146,21 +149,21 @@ MDSS.SelectSearch = (function(){
    */
   _setEntityOption = function(geoEntity)
   {
-  	var select = document.getElementById(geoEntity.getType());
+    var select = document.getElementById(geoEntity.getType());
 
     if(select && !_geoEntityCache[geoEntity.getId()])
     {
       select.disabled = false;
 
-  	  var optionRaw = document.createElement('option');
-  	  optionRaw.value = geoEntity.getId();
-  	  optionRaw.id = geoEntity.getId();
-  	  optionRaw.innerHTML = geoEntity.getEntityName();
-  	    
-  	  select.appendChild(optionRaw);
-  	  
-  	  var option = new YAHOO.util.Element(optionRaw);
-  	  option.on('click', _getChildren);
+      var optionRaw = document.createElement('option');
+      optionRaw.value = geoEntity.getId();
+      optionRaw.id = geoEntity.getId();
+      optionRaw.innerHTML = geoEntity.getEntityName();
+        
+      select.appendChild(optionRaw);
+      
+      var option = new YAHOO.util.Element(optionRaw);
+      option.on('click', _getChildren);
 
       _geoEntityCache[geoEntity.getId()] = geoEntity;
     }
@@ -171,10 +174,10 @@ MDSS.SelectSearch = (function(){
    */
   _clearOptions = function(e)
   {
-  	var defaultOption = e.target;
-  	var select = defaultOption.parentNode;
-  	
-  	_clearOptionsOnSelect(select);
+    var defaultOption = e.target;
+    var select = defaultOption.parentNode;
+    
+    _clearOptionsOnSelect(select);
   }
   
   /**
@@ -219,10 +222,10 @@ MDSS.SelectSearch = (function(){
    */
   _notifySelectHandler = function(geoEntity)
   {
-  	var allSelected = _getAllSelected();
+    var allSelected = _getAllSelected();
 
-  	// update the best fit field
-  	var lastEntity = null;
+    // update the best fit field
+    var lastEntity = null;
     if(allSelected != null && allSelected.length > 0)
     {
       var lastEntity = allSelected[allSelected.length-1];
@@ -231,10 +234,9 @@ MDSS.SelectSearch = (function(){
     _updateBestFit(lastEntity);
     
     if(Mojo.util.isFunction(_selectHandler))
-  	{
-      var freeText = document.getElementById(_freeTextId);
-  	  _selectHandler(geoEntity, allSelected, freeText);
-  	}
+    {
+      _selectHandler(geoEntity, allSelected);
+    }
   }
   
   /**
@@ -245,11 +247,11 @@ MDSS.SelectSearch = (function(){
    */
   _getChildren = function(e)
   {
-  	var currentOption = e.target;
-  	var select = currentOption.parentNode;
-  	
-  	// clear all unchecked options
-  	var options = select.options;
+    var currentOption = e.target;
+    var select = currentOption.parentNode;
+    
+    // clear all unchecked options
+    var options = select.options;
     for(var i=0; i<options.length; i++)
     {
       var option = options[i];
@@ -258,42 +260,42 @@ MDSS.SelectSearch = (function(){
         _clearOptionChildren(option.id);
       }
     }
-  	
-  	if(!currentOption.selected)
-  	{
+    
+    if(!currentOption.selected)
+    {
       // do nothign. Options already cleared before reaching
       // this point.
       _notifySelectHandler(null);
       return;
-  	}
-  	else
-  	{
+    }
+    else
+    {
       // get the children
       var request = new Mojo.ClientRequest({
-  	  
-  	  onSuccess : function(query, geoEntity){
-  	    
-  	    var geoEntities = query.getResultSet();
-  	    
-  	    for(var i=0; i<geoEntities.length; i++)
-  	    {
-  	      var child = geoEntities[i];
-  	      _setEntityOption(child);
-  	      
-  	      _setParentChildMapping(geoEntity, child);
-  	    }
-  	    
-  	    _notifySelectHandler(geoEntity);
-  	  },
-  	  onFailure : function(e){
-  	    alert(e.getLocalizedMessage());
-  	    }
-  	  });
-  	
-  	  var geoEntity = _geoEntityCache[currentOption.id];
-  	
-  	  geoEntity.getOrderedChildren(request, null);
-  	}
+      
+      onSuccess : function(query, geoEntity){
+        
+        var geoEntities = query.getResultSet();
+        
+        for(var i=0; i<geoEntities.length; i++)
+        {
+          var child = geoEntities[i];
+          _setEntityOption(child);
+          
+          _setParentChildMapping(geoEntity, child);
+        }
+        
+        _notifySelectHandler(geoEntity);
+      },
+      onFailure : function(e){
+        alert(e.getLocalizedMessage());
+        }
+      });
+    
+      var geoEntity = _geoEntityCache[currentOption.id];
+    
+      geoEntity.getOrderedChildren(request, _filterType);
+    }
   }
   
   /**
@@ -315,87 +317,181 @@ MDSS.SelectSearch = (function(){
         _setEntityOption(geoEntity);
       },
       onFailure : function(e){
-  	    alert(e.getLocalizedMessage());
+        alert(e.getLocalizedMessage());
       }
     });
     
-  	Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByGeoId(request, geoId);
+    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByGeoId(request, geoId);
   }
   
+  /**
+   * Opens the tree for extra search functionality.
+   */
   _openTree = function()
   {
-  	if(_geoTreePanel == null)
-  	{
-  	  _geoTreePanel = new YAHOO.widget.Panel("treeViewContainer", {width:'300px', height:'300px', zindex:9});
+    if(_geoTreePanel == null)
+    {
+      _geoTreePanel = new YAHOO.widget.Panel("treeViewContainer", {width:'300px', height:'300px', zindex:9});
+      
+      // Bug Workaround: The Yahoo ContextMenu loses its event handlers in
+      // the tree, so destroy the tree every time the panel is closed, then
+      // use a new tree per request.
+      _geoTreePanel.subscribe('beforeHide', function(){
+        MDSS.GeoEntityTree.destroyAll();
+      });
       _geoTreePanel.render();
       _geoTreePanel.bringToTop();
-  	
-      MDSS.GeoEntityTree.initializeTree("treeView", function(geoEntity){
-        _updateBestFit(geoEntity);
-        _treeSelectHandler(geoEntity);
-      }, _filterType);
-  	}
-  	else
-  	{
-  	  _geoTreePanel.show();
-  	}
+    }
+    else
+    {
+      _geoTreePanel.show();
+    }
+    
+    // always create a new tree per request
+    MDSS.GeoEntityTree.initializeTree("treeView", function(geoEntity){
+      _updateBestFit(geoEntity);
+      _treeSelectHandler(geoEntity);
+    }, _filterType);
   }
   
+  /**
+   * Changes the GeoEntity subtype filter and clears
+   * the select search and tree.
+   */
+  _changeFilter = function(filter)
+  {
+    
+  }
+  
+  /**
+   * Creates the root entity and adds it to the select search.
+   */
   _createRoot = function()
   {
-  	// Populate the root
-  	var request = new Mojo.ClientRequest({
-  	  onSuccess : function(geoEntity){
+    // Populate the root
+    var request = new Mojo.ClientRequest({
+      onSuccess : function(geoEntity){
         _setEntityOption(geoEntity);
-  	  },
-  	  onFailure : function(e){
-  	    alert(e.getLocalizedMessage());
-  	  }
-  	});
-  	
-  	Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, MDSS.SelectSearchRootId);
+      },
+      onFailure : function(e){
+        alert(e.getLocalizedMessage());
+      }
+    });
+    
+    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, MDSS.SelectSearchRootId);
   }
   
+  /**
+   * Renders the modal with the default select search.
+   */
+  _renderModal = function()
+  {
+    var request = new Mojo.ClientRequest({
+      onSuccess : function(html){
+        
+        // use modal to contain MDSS101
+        _searchModal = new YAHOO.widget.Panel("searchSelectModal",  {
+          width:"100%", 
+          height: "100%",
+          fixedcenter:true, 
+          close:true, 
+          draggable:false, 
+          zindex:4,
+          modal:true,
+          visible:true
+        });
+  
+        // must hide the tree if search model is hidden
+        _searchModal.subscribe('beforeHide', function(){
+          if(_geoTreePanel != null)
+          {
+            _geoTreePanel.hide();
+          }
+        });
+  
+        _searchModal.setBody(html);
+        _searchModal.render(document.body);
+        
+        // hook event to open tree
+        var treeOpener = new YAHOO.util.Element("treeOpener");
+        treeOpener.on('click', _openTree);
+        
+        _createRoot();
+      },
+      onFailure : function(e){
+        alert(e.getLocalizedMessage());
+      }
+    });
+  
+    Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySelectSearch(request, MDSS.SelectSearchRootId);
+  }
+  
+  /**
+   * Checks if the searching has been enabled (i.e., the modal has
+   * been initialized).
+   */
+  _isInitialized = function()
+  {
+  	return _searchModal != null;
+  }
+  
+  /**
+   * Shows the select modal if it is hidden.
+   */
+  _show = function()
+  {
+    _searchModal.show();
+  }
+  
+  /**
+   * Hides the modal if it visibile.
+   */
+  _hide = function()
+  {
+  	_selectModal.hide();
+  }
+  
+  /**
+   * Initializes the select search.
+   */
   _initialize = function(selectHandler, treeSelectHandler, filterType)
   {
-  	_containerId = "selectSearch";
-  	_freeTextId = "freeTextField";
-  	_selectHandler = selectHandler;
-  	_treeSelectHandler = treeSelectHandler;
-  	
-  	var selects = YAHOO.util.Selector.query('select', containerId);
-  	for(var i=0; i<selects.length; i++)
-  	{
-  	  var select = selects[i];
-  	  
-  	  // add handler to clear nodes (except for the root)
-  	  if(i != 0)
-  	  {
-  	    var defaultOption = new YAHOO.util.Element(select.options[0]);
-  	    defaultOption.on('click', _clearOptions);
-  	  }
-  	}
-  	
-  	// hook all search events for manual entry
-  	var searches = YAHOO.util.Selector.query('input.manualSearch', containerId);
-  	for(var i=0; i<searches.length; i++)
-  	{
-  	  var search = new YAHOO.util.Element(searches[i]);
-  	  search.on('click', _manualSearch);
-  	}
-  	
-  	// hook event to open tree
-  	var treeOpener = new YAHOO.util.Element("treeOpener");
-  	treeOpener.on('click', _openTree);
-  	
-  	_filterType = arguments.length === 3 ? filterType : '';
-  	
-  	_createRoot();
+    _selectHandler = selectHandler;
+    _treeSelectHandler = treeSelectHandler;
+    
+    var selects = YAHOO.util.Selector.query('select', _containerId);
+    for(var i=0; i<selects.length; i++)
+    {
+      var select = selects[i];
+      
+      // add handler to clear nodes (except for the root)
+      if(i != 0)
+      {
+        var defaultOption = new YAHOO.util.Element(select.options[0]);
+        defaultOption.on('click', _clearOptions);
+      }
+    }
+    
+    // hook all search events for manual entry
+    var searches = YAHOO.util.Selector.query('input.manualSearch', _containerId);
+    for(var i=0; i<searches.length; i++)
+    {
+      var search = new YAHOO.util.Element(searches[i]);
+      search.on('click', _manualSearch);
+    }
+    
+    _filterType = arguments.length === 3 ? filterType : '';
+
+    _renderModal();
   }
   
   // public methods/properties
   return {
-  	initialize : _initialize
+    initialize : _initialize,
+    isInitialized : _isInitialized,
+    show : _show,
+    hide : _hide,
+    changeFilter : _changeFilter
   };
   
 })();

@@ -28,24 +28,57 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
         p.throwIt();
       }
     }
+    
+    if(this.getQuantityFemale() != null && this.getQuantityMale() != null && this.getQuantity() != (this.getQuantityFemale() + this.getQuantityMale()))
+    {
+        String msg = "The total number of mosquitos is not equal to the number of female and male mosquitos";
+        QuantityMismatchProblem p = new QuantityMismatchProblem(msg);
+        p.setQuantity(this.getQuantity());
+        p.setQuantityFemale(this.getQuantityFemale());
+        p.setQuantityMale(this.getQuantityMale());
+        p.apply();
+        p.throwIt();
+    }
   }
   
   @Override
-  public void validateQuantityLive()
+  public void validateQuantityFemale()
   {
-    if(this.getQuantityLive() != null && this.getQuantity() != null)
+    if(this.getQuantityFemale() != null && this.getQuantity() != null)
     {
-      super.validateQuantityLive();
+      super.validateQuantityFemale();
       
-      if(this.getQuantityLive() > this.getQuantity())
+      if(this.getQuantityFemale() > this.getQuantity())
       {
-        String msg = "It is impossible to have more live mosquitos than the total number of mosquitos";
-        InvalidMorphologicalQuantityProblem p = new InvalidMorphologicalQuantityProblem(msg);
+        String msg = "It is impossible to have more female mosquitos than the total number of mosquitos";
+        InvalidFemaleQuantityProblem p = new InvalidFemaleQuantityProblem(msg);
+        p.setQuantity(this.getQuantity());
+        p.setQuantityFemale(this.getQuantityFemale());
         p.apply();
         p.throwIt(); 
       }
     }
   }
+  
+  @Override
+  public void validateQuantityMale()
+  {
+    if(this.getQuantityMale() != null && this.getQuantity() != null)
+    {
+      super.validateQuantityMale();
+      
+      if(this.getQuantityMale() > this.getQuantity())
+      {
+        String msg = "It is impossible to have more male mosquitos than the total number of mosquitos";
+        InvalidMaleQuantityProblem p = new InvalidMaleQuantityProblem(msg);
+        p.setQuantity(this.getQuantity());
+        p.setQuantityMale(this.getQuantityMale());
+        p.apply();
+        p.throwIt(); 
+      }
+    }
+  }
+
 
   @Override
   public void validateIdentificationMethod()
@@ -119,13 +152,18 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
     view.setSpecie(this.getSpecie());
     view.setIdentificationMethod(this.getIdentificationMethod());
     view.setDateCollected(this.getCollection().getDateCollected());
+    view.setGeoEntity(this.getCollection().getGeoEntity());
 
-    if(this.getQuantityLive() != null)
+    if(this.getQuantityFemale() != null)
     {
-      view.setQuantityLive(this.getQuantityLive());
-      view.setQuantityDead(this.getQuantity() - this.getQuantityLive());
+      view.setQuantityFemale(this.getQuantityFemale());
     }
-    
+
+    if(this.getQuantityMale() != null)
+    {
+      view.setQuantityMale(this.getQuantityMale());
+    }
+
     view.applyNoPersist();
     
     return view;
@@ -135,7 +173,8 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   public void apply()
   {
     validateQuantity();
-    validateQuantityLive();
+    validateQuantityFemale();
+    validateQuantityMale();
     validateIdentificationMethod();
     validateSpecie();
 

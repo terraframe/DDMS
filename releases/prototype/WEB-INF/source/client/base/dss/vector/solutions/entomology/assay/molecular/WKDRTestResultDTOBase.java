@@ -1,8 +1,8 @@
 package dss.vector.solutions.entomology.assay.molecular;
 
-public abstract class WKDRTestResultDTOBase extends dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class WKDRTestResultDTOBase extends dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237423109362L;
+  private static final long serialVersionUID = 1238027436897L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.WKDRTestResult";
   protected WKDRTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

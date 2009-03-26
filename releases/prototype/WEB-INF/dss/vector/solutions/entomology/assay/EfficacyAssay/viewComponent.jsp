@@ -4,8 +4,7 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.name" id="dss.vector.solutions.entomology.assay.EfficacyAssay.form.id" method="POST">
-<div class="fldContainer">
-    <div class="fcTop">
+
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
       <dt>
@@ -172,9 +171,7 @@
       ${item.mortality}
     </dd>  
   </dl>
-     <div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-  </div>
+
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.edit.button" />
   <br />
 </mjl:form>

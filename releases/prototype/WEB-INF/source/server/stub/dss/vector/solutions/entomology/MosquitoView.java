@@ -1,7 +1,7 @@
 package dss.vector.solutions.entomology;
 
-
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,9 +48,10 @@ public class MosquitoView extends MosquitoViewBase implements
       mosquito = Mosquito.lock(id);
     }
 
+    applyMosquito(mosquito);
+
     try
     {
-      applyMosquito(mosquito);
       applyAssays(mosquito);
     }
     catch (Exception e)
@@ -70,6 +71,7 @@ public class MosquitoView extends MosquitoViewBase implements
     mosquito.setSpecie(this.getSpecie());
     mosquito.setTestDate(this.getTestDate());
     mosquito.setCollection(this.getCollection());
+    mosquito.setSampleId(this.getSampleId());
 
     if (list.size() > 0)
     {
@@ -102,6 +104,7 @@ public class MosquitoView extends MosquitoViewBase implements
 
     for (MdAttributeDAOIF mdAttribute : mdAttributeDAOs)
     {
+      // We want to return a map for all virtual attributes which
       if (mdAttribute instanceof MdAttributeVirtualDAOIF)
       {
         MdAttributeVirtualDAOIF virtual = (MdAttributeVirtualDAOIF) mdAttribute;
@@ -113,7 +116,10 @@ public class MosquitoView extends MosquitoViewBase implements
 
         Class<?> c = LoaderDecorator.load(mdClass.definesType());
 
-        if (AssayTestResult.class.isAssignableFrom(c) && !virtual.definesAttribute().contains("Method"))
+        // We filter all abstract classes because we do not want to add the
+        // virtual attributes which represent test methodology and these
+        // virtual attributes are defined on abstract classes
+        if (AssayTestResult.class.isAssignableFrom(c) && !Modifier.isAbstract(c.getModifiers()))
         {
           map.put((Class<AssayTestResult>) c, virtual);
         }
@@ -138,24 +144,38 @@ public class MosquitoView extends MosquitoViewBase implements
       String methodName = "get" + attributeName + "Method";
 
       Object testResult = MosquitoView.class.getMethod(resultName).invoke(this);
-      Object testMethod = MosquitoView.class.getMethod(methodName).invoke(this);
+      Object testMethod = null;
+      Object result = mosquito.getTestResult(c);
 
-      if (testResult != null && testMethod != null)
+      try
       {
-        Object result = mosquito.getTestResult(c);
+        testMethod = MosquitoView.class.getMethod(methodName).invoke(this);
+      }
+      catch (NoSuchMethodException e)
+      {
+        testMethod = null;
+      }
 
+      if (testResult != null)
+      {
         if (result == null)
         {
           result = c.newInstance();
         }
         else
         {
-          c.getMethod("lock").invoke(result);          
+          c.getMethod("lock").invoke(result);
         }
 
         c.getMethod("setMosquito", Mosquito.class).invoke(result, mosquito);
+
         c.getMethod("setTestResult", testResult.getClass()).invoke(result, testResult);
-        c.getMethod("setTestMethod", testMethod.getClass()).invoke(result, testMethod);
+
+        if (testMethod != null)
+        {
+          c.getMethod("setTestMethod", testMethod.getClass()).invoke(result, testMethod);
+        }
+
         c.getMethod("apply").invoke(result);
       }
     }
@@ -179,23 +199,27 @@ public class MosquitoView extends MosquitoViewBase implements
         AbstractTerm testMethod = result.getTestMethod();
 
         String resultName = "set" + attributeName;
-        String methodName = "set" + attributeName + "Method";
 
         MosquitoView.class.getMethod(resultName, testResult.getClass()).invoke(this, testResult);
-        MosquitoView.class.getMethod(methodName, testMethod.getClass()).invoke(this, testMethod);
+
+        if (result.hasTestMethod())
+        {
+          String methodName = "set" + attributeName + "Method";
+          MosquitoView.class.getMethod(methodName, testMethod.getClass()).invoke(this, testMethod);
+        }
       }
     }
   }
-  
+
   @Transaction
   public static MosquitoView[] saveAll(MosquitoView[] array)
   {
-    for(MosquitoView view : array)
+    for (MosquitoView view : array)
     {
       view.apply();
     }
-    
+
     return array;
-  }  
+  }
 
 }

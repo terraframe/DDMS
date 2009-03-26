@@ -12,14 +12,15 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
   public final static String CLASS = "dss.vector.solutions.entomology.MorphologicalSpecieGroupView";
   public static java.lang.String COLLECTION = "collection";
   public static java.lang.String DATECOLLECTED = "dateCollected";
+  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String GROUPID = "groupId";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
   public static java.lang.String QUANTITY = "quantity";
-  public static java.lang.String QUANTITYDEAD = "quantityDead";
-  public static java.lang.String QUANTITYLIVE = "quantityLive";
+  public static java.lang.String QUANTITYFEMALE = "quantityFemale";
+  public static java.lang.String QUANTITYMALE = "quantityMale";
   public static java.lang.String SPECIE = "specie";
-  private static final long serialVersionUID = 1237423105927L;
+  private static final long serialVersionUID = 1238027433229L;
   
   public MorphologicalSpecieGroupViewBase()
   {
@@ -86,6 +87,41 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
     else
     {
       setValue(DATECOLLECTED, new java.text.SimpleDateFormat(com.terraframe.mojo.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntity getGeoEntity()
+  {
+    try
+    {
+      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
+    }
+    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
+    {
+      return null;
+    }
+  }
+  
+  public void validateGeoEntity()
+  {
+    this.validateAttribute(GEOENTITY);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGeoEntityMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MorphologicalSpecieGroupView.CLASS);
+    return mdClassIF.definesAttribute(GEOENTITY);
+  }
+  
+  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntity value)
+  {
+    if(value == null)
+    {
+      setValue(GEOENTITY, "");
+    }
+    else
+    {
+      setValue(GEOENTITY, value.getId());
     }
   }
   
@@ -196,59 +232,59 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
     }
   }
   
-  public Integer getQuantityDead()
+  public Integer getQuantityFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYFEMALE));
   }
   
-  public void validateQuantityDead()
+  public void validateQuantityFemale()
   {
-    this.validateAttribute(QUANTITYDEAD);
+    this.validateAttribute(QUANTITYFEMALE);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getQuantityDeadMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getQuantityFemaleMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MorphologicalSpecieGroupView.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYDEAD);
+    return mdClassIF.definesAttribute(QUANTITYFEMALE);
   }
   
-  public void setQuantityDead(Integer value)
+  public void setQuantityFemale(Integer value)
   {
     if(value == null)
     {
-      setValue(QUANTITYDEAD, "");
+      setValue(QUANTITYFEMALE, "");
     }
     else
     {
-      setValue(QUANTITYDEAD, java.lang.Integer.toString(value));
+      setValue(QUANTITYFEMALE, java.lang.Integer.toString(value));
     }
   }
   
-  public Integer getQuantityLive()
+  public Integer getQuantityMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYMALE));
   }
   
-  public void validateQuantityLive()
+  public void validateQuantityMale()
   {
-    this.validateAttribute(QUANTITYLIVE);
+    this.validateAttribute(QUANTITYMALE);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getQuantityLiveMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getQuantityMaleMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MorphologicalSpecieGroupView.CLASS);
-    return mdClassIF.definesAttribute(QUANTITYLIVE);
+    return mdClassIF.definesAttribute(QUANTITYMALE);
   }
   
-  public void setQuantityLive(Integer value)
+  public void setQuantityMale(Integer value)
   {
     if(value == null)
     {
-      setValue(QUANTITYLIVE, "");
+      setValue(QUANTITYMALE, "");
     }
     else
     {
-      setValue(QUANTITYLIVE, java.lang.Integer.toString(value));
+      setValue(QUANTITYMALE, java.lang.Integer.toString(value));
     }
   }
   

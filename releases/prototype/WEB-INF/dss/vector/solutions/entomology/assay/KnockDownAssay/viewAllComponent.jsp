@@ -3,120 +3,94 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}">
+<mjl:table var="item" query="${query}"  classes="displayTable" even ="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:structColumn attributeName="ageRange">
+  
+  <mjl:attributeColumn attributeName="collection">
       <mjl:header>
-        Age Range
+        Mosquito Collection
       </mjl:header>
-      <mjl:attributeColumn attributeName="endPoint">
-        <mjl:header>
-          Ending Age
-        </mjl:header>
-      </mjl:attributeColumn>
-      <mjl:attributeColumn attributeName="startPoint">
-        <mjl:header>
-          Beginning Age
-        </mjl:header>
-      </mjl:attributeColumn>
-    </mjl:structColumn>
-    <mjl:attributeColumn attributeName="fed">
+       <mjl:row>
+        ${item.collection.displayLabel}
+      </mjl:row>
+    </mjl:attributeColumn>
+  
+      <mjl:attributeColumn attributeName="testDate">
       <mjl:header>
-        Fed
+        Test Date
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="gravid">
+    
+     <mjl:attributeColumn attributeName="testMethod">
       <mjl:header>
-        Gravid
+        Test Method
+      </mjl:header>
+      <mjl:row>
+        ${item.testMethod.displayLabel}
+      </mjl:row>      
+    </mjl:attributeColumn>
+     
+    <mjl:attributeColumn attributeName="insecticide">
+      <mjl:header>
+        Insecticide
+      </mjl:header>
+      <mjl:row>
+        ${item.insecticide.displayLabel}
+      </mjl:row>
+    </mjl:attributeColumn>
+           
+    <mjl:attributeColumn attributeName="exposureTime">
+      <mjl:header>
+        Exposure Time
       </mjl:header>
     </mjl:attributeColumn>
+    
+     <mjl:attributeColumn attributeName="specie">
+      <mjl:header>
+        Specie
+      </mjl:header>
+      <mjl:row >
+        ${item.specie.termName}
+      </mjl:row>
+    </mjl:attributeColumn>
+    
+     <mjl:attributeColumn attributeName="identificationMethod">
+      <mjl:header>
+        Identification Method
+      </mjl:header>
+      <mjl:row >
+        ${item.identificationMethod.termName}
+      </mjl:row>
+    </mjl:attributeColumn>
+    
     <mjl:attributeColumn attributeName="sex">
       <mjl:header>
         Sex
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="amount">
-      <mjl:header>
-        Amount
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="collection">
-      <mjl:header>
-        Mosquito Collection
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="exposureTime">
-      <mjl:header>
-        Exposure Time (m)
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="generation">
-      <mjl:header>
-        Generation
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="identificationMethod">
-      <mjl:header>
-        Identification Method
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="intervalTime">
-      <mjl:header>
-        Interval Time (m)
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="isofemale">
-      <mjl:header>
-        Isofemale
-      </mjl:header>
-    </mjl:attributeColumn>
+    
     <mjl:attributeColumn attributeName="quantityTested">
       <mjl:header>
         Quantity Tested
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="testMethod">
-      <mjl:header>
-        Test Method
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="units">
-      <mjl:header>
-        Units
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="genericName">
-      <mjl:header>
-        Generic Name
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="insecticide">
-      <mjl:header>
-        Insecticide
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="specie">
-      <mjl:header>
-        Specie
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="testDate">
-      <mjl:header>
-        Test Date
-      </mjl:header>
-    </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
-        
+
       </mjl:header>
-      <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.view.mojo" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
+      <mjl:row >
+        <mjl:commandLink
+          display="View"
+          action="dss.vector.solutions.entomology.assay.KnockDownAssayController.view.mojo"
+          name="view.link">
+          <mjl:property
+            value="${item.id}"
+            name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
-        
+
       </mjl:footer>
     </mjl:freeColumn>
   </mjl:columns>

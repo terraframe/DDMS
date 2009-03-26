@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.infectivity;
 public  class InfectivityAssayTestResultQuery extends dss.vector.solutions.entomology.assay.AssayTestResultQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237423116050L;
+private static final long serialVersionUID = 1238027446770L;
 
   public InfectivityAssayTestResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -103,7 +103,7 @@ private static final long serialVersionUID = 1237423116050L;
  implements InfectivityAssayTestResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237423116149L;
+private static final long serialVersionUID = 1238027446926L;
 
   public InfectivityAssayTestResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
@@ -19,17 +19,17 @@
 <%@page import="com.terraframe.mojo.business.ViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.AssayTestResult"%>
 <%@page import="dss.vector.solutions.entomology.UninterestingSpecieGroupViewDTO"%>
-<%@page import="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResultDTO"%>
 <%@page import="com.terraframe.mojo.dataaccess.MdAttributeVirtualDAOIF"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoView"%>
 <%@page import="com.terraframe.mojo.business.generation.GenerationUtil"%>
-<%@page import="dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResult"%>
 <%@page import="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"%>
-<%@page import="dss.vector.solutions.entomology.assay.molecular.MolecularAssayTestResult"%>
+<%@page import="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"%>
+<%@page import="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.regex.Pattern"%>
-
-
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.terraframe.mojo.dataaccess.database.Database"%>
+<%@page import="java.sql.ResultSet"%>
 <%!
 
 static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) throws JSONException{
@@ -68,7 +68,11 @@ static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) th
 
 %>
 
-<%@page import="java.text.SimpleDateFormat"%><div id="cal1Container" class="yui-skin-sam"></div> 
+
+
+
+
+<%@page import="java.io.PrintStream"%><div id="cal1Container" class="yui-skin-sam"></div> 
 
 <mjl:messages>
 	<mjl:message />
@@ -77,8 +81,6 @@ static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) th
 <h2>Mosquito Collection</h2>
 <mjl:form name="mdss.entomology.MosquitoCollection.form.name"
 	id="mdss.entomology.MosquitoCollection.form.id" method="POST">
- <div class="fldContainer">
-    <div class="fcTop">
  
 	<mjl:input value="${item.id}" type="hidden" param="id" />
 	<dl>
@@ -97,9 +99,6 @@ static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) th
 			<mjl:property value="${item.geoEntity.id}" name="id" />
 		</mjl:commandLink></dd>
 	</dl>
-<div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
- </div>
 
 </mjl:form>
 
@@ -108,7 +107,7 @@ ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientCon
 MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) request.getAttribute("item");
 MosquitoViewDTO[] rows = mosquito_collection.getMosquitos();
 MosquitoViewDTO mdView = new MosquitoViewDTO(clientRequest);
-String[] attribs = { "MosquitoId","Specie","IdentificationMethod","Generation","Isofemale","Sex","TestDate"};
+String[] attribs = { "MosquitoId","SampleId","Specie","IdentificationMethod","Generation","Isofemale","Sex","TestDate"};
 
 String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 //out.println(getColumnSetup(mdView,attribs,delete_row,clientRequest));
@@ -117,17 +116,16 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
 
 <h2>Mosquitos</h2>
 <div class="fldContainer">
-    <div class="fcTop">
 <br>
 <div id="checkBoxContanier" style="height:12em;">
 <div style="float:left;margin-left:3em;">
-<%=buildChekboxTable(mdView, BiochemicalAssayTestResult.class) %>
+<%=buildChekboxTable(mdView, MetabolicAssayTestResult.class) %>
 </div>
 <div style="float:left;margin-left:3em;">
 <%=buildChekboxTable(mdView, InfectivityAssayTestResult.class) %>
 </div>
 <div style="float:left;margin-left:3em;">
-<%=buildChekboxTable(mdView, MolecularAssayTestResult.class) %>
+<%=buildChekboxTable(mdView, TargetSiteAssayTestResult.class) %>
 </div>
 </div>
 <div id="Mosquitos"></div>
@@ -179,14 +177,32 @@ function showCol(key,checked)
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>
  
-    <div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
+
 </div>
 
+<%
+//FIXME:multibyte chars are mangled!
+
+//JSONArray labels = new JSONArray();
+//labels.put("β-napthyl");
+//out.println(labels.toString());
+String test = "β-napthyl acetate assay";
+out.println(test);
+out.println(test.length());
+
+String roundTrip = (mdView.getBAcetateMd().getDisplayLabel());
+//out.println(roundTrip);
+//out.println(roundTrip.length());
+
+//PrintStream utfOut = new PrintStream(out, true, "UTF-8");
+//utfOut.println(mdView.getBAcetateMd().getDisplayLabel());
+//ResultSet rs = Database.query("Select * from md_type;");
+//rs.next();
+//out.println(rs.getString(1));
+%>
 
 <h2>UninterestingSpecieGroups</h2>
 <div class="fldContainer">
-    <div class="fcTop">
 <div id="UninterestingSpecieGroups"></div>
 <div class="noprint">
 <span id="UninterestingSpecieGroupsAddrow" class="yui-button yui-push-button"> <span class="first-child">
@@ -236,8 +252,7 @@ UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows,unint_attrib
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(UninterestingSpecieGroupData));
 </script>
     
-    <div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-
 </div>
+
+
 

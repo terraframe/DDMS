@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237423101347L;
+  private static final long serialVersionUID = 1238027426395L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.CollectionAssay";
   protected CollectionAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -328,22 +328,6 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("testMethod").getAttributeMdDTO();
-  }
-  
-  public final dss.vector.solutions.entomology.assay.DDATestIntervalViewDTO[] getTestIntervals()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "getTestIntervals", _declaredTypes);
-    return (dss.vector.solutions.entomology.assay.DDATestIntervalViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final dss.vector.solutions.entomology.assay.DDATestIntervalViewDTO[] getTestIntervals(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.CollectionAssayDTO.CLASS, "getTestIntervals", _declaredTypes);
-    return (dss.vector.solutions.entomology.assay.DDATestIntervalViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final java.lang.Double getKD50()

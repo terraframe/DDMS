@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public abstract class CountryBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Country";
-  private static final long serialVersionUID = 1237423122826L;
+  private static final long serialVersionUID = 1238027455733L;
   
   public CountryBase()
   {

@@ -2,7 +2,7 @@ package dss.vector.solutions;
 
 public abstract class PropertyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237423123417L;
+  private static final long serialVersionUID = 1238027456520L;
   
   public final static String CLASS = "dss.vector.solutions.Property";
   protected PropertyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

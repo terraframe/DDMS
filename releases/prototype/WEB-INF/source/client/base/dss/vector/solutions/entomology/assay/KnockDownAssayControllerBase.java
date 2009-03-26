@@ -9,7 +9,7 @@ public class KnockDownAssayControllerBase implements com.terraframe.mojo.generat
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237423115260L;
+  private static final long serialVersionUID = 1238027445543L;
   
   public KnockDownAssayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

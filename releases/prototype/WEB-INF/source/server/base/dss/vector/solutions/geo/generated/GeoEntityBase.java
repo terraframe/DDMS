@@ -25,7 +25,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237423117473L;
+  private static final long serialVersionUID = 1238027449492L;
   
   public GeoEntityBase()
   {

@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public abstract class LocalityBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Locality";
-  private static final long serialVersionUID = 1237423098652L;
+  private static final long serialVersionUID = 1238027423240L;
   
   public LocalityBase()
   {

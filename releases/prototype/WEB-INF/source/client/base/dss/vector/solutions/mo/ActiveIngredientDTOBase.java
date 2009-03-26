@@ -2,7 +2,7 @@ package dss.vector.solutions.mo;
 
 public abstract class ActiveIngredientDTOBase extends dss.vector.solutions.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237423096776L;
+  private static final long serialVersionUID = 1238027421707L;
   
   public final static String CLASS = "dss.vector.solutions.mo.ActiveIngredient";
   protected ActiveIngredientDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237423110061L;
+  private static final long serialVersionUID = 1238027437906L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.TrueSpecieEntity";
   protected TrueSpecieEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -37,6 +37,7 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String SAMPLEID = "sampleId";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPECIE = "specie";
@@ -358,6 +359,43 @@ public abstract class TrueSpecieEntityDTOBase extends com.terraframe.mojo.busine
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("owner").getAttributeMdDTO();
+  }
+  
+  public String getSampleId()
+  {
+    return getValue(SAMPLEID);
+  }
+  
+  public void setSampleId(String value)
+  {
+    if(value == null)
+    {
+      setValue(SAMPLEID, "");
+    }
+    else
+    {
+      setValue(SAMPLEID, value);
+    }
+  }
+  
+  public boolean isSampleIdWritable()
+  {
+    return isWritable(SAMPLEID);
+  }
+  
+  public boolean isSampleIdReadable()
+  {
+    return isReadable(SAMPLEID);
+  }
+  
+  public boolean isSampleIdModified()
+  {
+    return isModified(SAMPLEID);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSampleIdMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("sampleId").getAttributeMdDTO();
   }
   
   public Long getSeq()

@@ -17,5 +17,13 @@ public abstract class AssayTestResult extends AssayTestResultBase implements com
    */
   public abstract Object getTestResult();
   
-  public abstract AbstractTerm getTestMethod();
+  public AbstractTerm getTestMethod()
+  {
+    return null;
+  }
+  
+  public Boolean hasTestMethod()
+  {
+    return false;
+  }
 }

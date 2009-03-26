@@ -17,7 +17,7 @@ public abstract class GeoHierarchyViewBase extends com.terraframe.mojo.business.
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String REFERENCEID = "referenceId";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = 1237423107443L;
+  private static final long serialVersionUID = 1238027436191L;
   
   public GeoHierarchyViewBase()
   {

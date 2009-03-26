@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public abstract class SentinalSiteBase extends dss.vector.solutions.geo.generated.AbstractSite implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.SentinalSite";
-  private static final long serialVersionUID = 1237423100019L;
+  private static final long serialVersionUID = 1238027424576L;
   
   public SentinalSiteBase()
   {

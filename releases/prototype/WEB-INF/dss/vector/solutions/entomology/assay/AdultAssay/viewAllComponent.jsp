@@ -21,29 +21,9 @@
         </mjl:header>
       </mjl:attributeColumn>
     </mjl:structColumn>
-    <mjl:attributeColumn attributeName="amount">
-      <mjl:header>
-        Amount
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="exposureTime">
-      <mjl:header>
-        Exposure Time
-      </mjl:header>
-    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="fed">
       <mjl:header>
         Fed
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="generation">
-      <mjl:header>
-        Generation
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="genericName">
-      <mjl:header>
-        Generic Name
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="gravid">
@@ -51,19 +31,9 @@
         Gravid
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="insecticide">
+    <mjl:attributeColumn attributeName="sex">
       <mjl:header>
-        Insecticide
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="quantityTested">
-      <mjl:header>
-        Quantity Tested
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="units">
-      <mjl:header>
-        Units
+        Sex
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="collection">
@@ -71,9 +41,24 @@
         Mosquito Collection
       </mjl:header>
     </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="exposureTime">
+      <mjl:header>
+        Exposure Time (m)
+      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="generation">
+      <mjl:header>
+        Generation
+      </mjl:header>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="identificationMethod">
       <mjl:header>
         Identification Method
+      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="intervalTime">
+      <mjl:header>
+        Interval Time (m)
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="isofemale">
@@ -81,9 +66,19 @@
         Isofemale
       </mjl:header>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="sex">
+    <mjl:attributeColumn attributeName="quantityTested">
       <mjl:header>
-        Sex
+        Quantity Tested
+      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="testMethod">
+      <mjl:header>
+        Test Method
+      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="insecticide">
+      <mjl:header>
+        Insecticide
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="specie">
@@ -94,11 +89,6 @@
     <mjl:attributeColumn attributeName="testDate">
       <mjl:header>
         Test Date
-      </mjl:header>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="testMethod">
-      <mjl:header>
-        Test Method
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:freeColumn>

@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public abstract class EarthBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Earth";
-  private static final long serialVersionUID = 1237423103840L;
+  private static final long serialVersionUID = 1238027430471L;
   
   public EarthBase()
   {

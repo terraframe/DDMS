@@ -18,7 +18,7 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1237423101276L;
+  private static final long serialVersionUID = 1238027426311L;
   
   public CollectionAssayBase()
   {
@@ -292,18 +292,6 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
   public static CollectionAssay get(String id)
   {
     return (CollectionAssay) com.terraframe.mojo.business.Business.get(id);
-  }
-  
-  public dss.vector.solutions.entomology.assay.DDATestIntervalView[] getTestIntervals()
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.CollectionAssay.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final dss.vector.solutions.entomology.assay.DDATestIntervalView[] getTestIntervals(java.lang.String id)
-  {
-    CollectionAssay _instance = CollectionAssay.get(id);
-    return _instance.getTestIntervals();
   }
   
   public java.lang.Double getKD50()

@@ -12,7 +12,7 @@ public abstract class EmptyValueProblemBase extends com.terraframe.mojo.business
   public final static String CLASS = "dss.vector.solutions.entomology.EmptyValueProblem";
   public static java.lang.String ATTRIBUTELABEL = "attributeLabel";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1237423113129L;
+  private static final long serialVersionUID = 1238027442400L;
   
   public EmptyValueProblemBase()
   {

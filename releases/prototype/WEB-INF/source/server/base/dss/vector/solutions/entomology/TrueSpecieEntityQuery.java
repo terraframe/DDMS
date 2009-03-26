@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public  class TrueSpecieEntityQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237423110098L;
+private static final long serialVersionUID = 1238027437961L;
 
   public TrueSpecieEntityQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -169,6 +169,17 @@ private static final long serialVersionUID = 1237423110098L;
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.TrueSpecieEntity.OWNER, mdAttributeIF, this, alias);
 
   }
+  public com.terraframe.mojo.query.AttributeCharIF getSampleId()
+  {
+    return getSampleId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getSampleId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.TrueSpecieEntity.SAMPLEID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
+
+  }
   public com.terraframe.mojo.query.AttributeLongIF getSeq()
   {
     return getSeq(null);
@@ -312,6 +323,8 @@ private static final long serialVersionUID = 1237423110098L;
     public com.terraframe.mojo.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
+    public com.terraframe.mojo.query.AttributeCharIF getSampleId();
+    public com.terraframe.mojo.query.AttributeCharIF getSampleId(String alias);
     public com.terraframe.mojo.query.AttributeLongIF getSeq();
     public com.terraframe.mojo.query.AttributeLongIF getSeq(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getSiteMaster();
@@ -335,7 +348,7 @@ private static final long serialVersionUID = 1237423110098L;
  implements TrueSpecieEntityQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237423110194L;
+private static final long serialVersionUID = 1238027438119L;
 
   public TrueSpecieEntityQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -473,6 +486,17 @@ private static final long serialVersionUID = 1237423110194L;
   public com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
     return (com.terraframe.mojo.system.ActorQuery.ActorQueryReferenceIF)this.attributeFactory("owner", "com.terraframe.mojo.system.metadata.MdAttributeReference", alias);
+
+  }
+  public com.terraframe.mojo.query.AttributeCharIF getSampleId()
+  {
+    return getSampleId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getSampleId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("sampleId", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
 
   }
   public com.terraframe.mojo.query.AttributeLongIF getSeq()

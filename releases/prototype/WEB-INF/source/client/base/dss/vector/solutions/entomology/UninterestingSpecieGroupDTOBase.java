@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class UninterestingSpecieGroupDTOBase extends dss.vector.solutions.entomology.TrueSpecieEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237423120177L;
+  private static final long serialVersionUID = 1238027452868L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.UninterestingSpecieGroup";
   protected UninterestingSpecieGroupDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -27,7 +27,6 @@ public abstract class UninterestingSpecieGroupDTOBase extends dss.vector.solutio
   }
   
   public static java.lang.String QUANTITY = "quantity";
-  public static java.lang.String SAMPLEID = "sampleId";
   public Integer getQuantity()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITY));
@@ -63,43 +62,6 @@ public abstract class UninterestingSpecieGroupDTOBase extends dss.vector.solutio
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantity").getAttributeMdDTO();
-  }
-  
-  public String getSampleId()
-  {
-    return getValue(SAMPLEID);
-  }
-  
-  public void setSampleId(String value)
-  {
-    if(value == null)
-    {
-      setValue(SAMPLEID, "");
-    }
-    else
-    {
-      setValue(SAMPLEID, value);
-    }
-  }
-  
-  public boolean isSampleIdWritable()
-  {
-    return isWritable(SAMPLEID);
-  }
-  
-  public boolean isSampleIdReadable()
-  {
-    return isReadable(SAMPLEID);
-  }
-  
-  public boolean isSampleIdModified()
-  {
-    return isModified(SAMPLEID);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSampleIdMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("sampleId").getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.entomology.UninterestingSpecieGroupDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

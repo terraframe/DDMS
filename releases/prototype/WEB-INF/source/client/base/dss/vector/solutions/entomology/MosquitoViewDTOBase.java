@@ -13,337 +13,341 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
     return CLASS;
   }
   
-  public static java.lang.String AESTERASE = "aEsterase";
-  public static java.lang.String AESTERASEMETHOD = "aEsteraseMethod";
-  public static java.lang.String ACHEBIOCHEMICAL = "acHEBiochemical";
-  public static java.lang.String ACHEBIOCHEMICALMETHOD = "acHEBiochemicalMethod";
-  public static java.lang.String ACHEMOLECULAR = "acHEMolecular";
-  public static java.lang.String ACHEMOLECULARMETHOD = "acHEMolecularMethod";
-  public static java.lang.String BESTERASE = "bEsterase";
-  public static java.lang.String BESTERASEMETHOD = "bEsteraseMethod";
+  public static java.lang.String AACETATE = "aAcetate";
+  public static java.lang.String ACHES = "acHES";
+  public static java.lang.String ACHESMETHOD = "acHESMethod";
+  public static java.lang.String ACHEV = "acHEV";
+  public static java.lang.String ACHEVMETHOD = "acHEVMethod";
+  public static java.lang.String ACHEW = "acHEW";
+  public static java.lang.String ACHEWMETHOD = "acHEWMethod";
+  public static java.lang.String BACETATE = "bAcetate";
   public static java.lang.String COLLECTION = "collection";
   public static java.lang.String EKDR = "eKDR";
   public static java.lang.String EKDRMETHOD = "eKDRMethod";
-  public static java.lang.String GABA = "gABA";
-  public static java.lang.String GABAMETHOD = "gABAMethod";
-  public static java.lang.String GST = "gST";
-  public static java.lang.String GSTMETHOD = "gSTMethod";
+  public static java.lang.String GABAG = "gABAG";
+  public static java.lang.String GABAGMETHOD = "gABAGMethod";
+  public static java.lang.String GABAS = "gABAS";
+  public static java.lang.String GABASMETHOD = "gABASMethod";
+  public static java.lang.String GSTCDNB = "gSTCDNB";
+  public static java.lang.String GSTDCNB = "gSTDCNB";
   public static java.lang.String GENERATION = "generation";
+  public static java.lang.String HEME = "heme";
+  public static java.lang.String IACHE = "iAcHE";
+  public static java.lang.String IACHEMETHOD = "iAcHEMethod";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
   public static java.lang.String ISOFEMALE = "isofemale";
-  public static java.lang.String MONOOXYGENASE = "monooxygenase";
-  public static java.lang.String MONOOXYGENASEMETHOD = "monooxygenaseMethod";
   public static java.lang.String MOSQUITOID = "mosquitoId";
+  public static java.lang.String P450 = "p450";
   public static java.lang.String PFALCIPARUM = "pFalciparum";
   public static java.lang.String PFALCIPARUMMETHOD = "pFalciparumMethod";
   public static java.lang.String PMALARIAE = "pMalariae";
   public static java.lang.String PMALARIAEMETHOD = "pMalariaeMethod";
   public static java.lang.String PNPA = "pNPA";
-  public static java.lang.String PNPAMETHOD = "pNPAMethod";
   public static java.lang.String POVALE = "pOvale";
   public static java.lang.String POVALEMETHOD = "pOvaleMethod";
   public static java.lang.String PVIVAX = "pVivax";
   public static java.lang.String PVIVAXMETHOD = "pVivaxMethod";
+  public static java.lang.String SAMPLEID = "sampleId";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String WKDR = "wKDR";
   public static java.lang.String WKDRMETHOD = "wKDRMethod";
-  public Integer getAEsterase()
+  public Boolean getAAcetate()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AESTERASE));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(AACETATE));
   }
   
-  public void setAEsterase(Integer value)
+  public void setAAcetate(Boolean value)
   {
     if(value == null)
     {
-      setValue(AESTERASE, "");
+      setValue(AACETATE, "");
     }
     else
     {
-      setValue(AESTERASE, java.lang.Integer.toString(value));
+      setValue(AACETATE, java.lang.Boolean.toString(value));
     }
   }
   
-  public boolean isAEsteraseWritable()
+  public boolean isAAcetateWritable()
   {
-    return isWritable(AESTERASE);
+    return isWritable(AACETATE);
   }
   
-  public boolean isAEsteraseReadable()
+  public boolean isAAcetateReadable()
   {
-    return isReadable(AESTERASE);
+    return isReadable(AACETATE);
   }
   
-  public boolean isAEsteraseModified()
+  public boolean isAAcetateModified()
   {
-    return isModified(AESTERASE);
+    return isModified(AACETATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getAEsteraseMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getAAcetateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("aEsterase").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("aAcetate").getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.mo.BiochemicalMethodologyDTO getAEsteraseMethod()
+  public dss.vector.solutions.mo.MolecularAssayResultDTO getAcHES()
   {
-    if(getValue(AESTERASEMETHOD) == null || getValue(AESTERASEMETHOD).trim().equals(""))
+    if(getValue(ACHES) == null || getValue(ACHES).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(AESTERASEMETHOD));
+      return dss.vector.solutions.mo.MolecularAssayResultDTO.get(getRequest(), getValue(ACHES));
     }
   }
   
-  public void setAEsteraseMethod(dss.vector.solutions.mo.BiochemicalMethodologyDTO value)
+  public void setAcHES(dss.vector.solutions.mo.MolecularAssayResultDTO value)
   {
-    setValue(AESTERASEMETHOD, value.getId());
+    setValue(ACHES, value.getId());
   }
   
-  public boolean isAEsteraseMethodWritable()
+  public boolean isAcHESWritable()
   {
-    return isWritable(AESTERASEMETHOD);
+    return isWritable(ACHES);
   }
   
-  public boolean isAEsteraseMethodReadable()
+  public boolean isAcHESReadable()
   {
-    return isReadable(AESTERASEMETHOD);
+    return isReadable(ACHES);
   }
   
-  public boolean isAEsteraseMethodModified()
+  public boolean isAcHESModified()
   {
-    return isModified(AESTERASEMETHOD);
+    return isModified(ACHES);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAEsteraseMethodMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHESMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("aEsteraseMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHES").getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.mo.MolecularAssayResultDTO getAcHEBiochemical()
+  public dss.vector.solutions.mo.InsecticideMethodologyDTO getAcHESMethod()
   {
-    if(getValue(ACHEBIOCHEMICAL) == null || getValue(ACHEBIOCHEMICAL).trim().equals(""))
+    if(getValue(ACHESMETHOD) == null || getValue(ACHESMETHOD).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.mo.MolecularAssayResultDTO.get(getRequest(), getValue(ACHEBIOCHEMICAL));
+      return dss.vector.solutions.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(ACHESMETHOD));
     }
   }
   
-  public void setAcHEBiochemical(dss.vector.solutions.mo.MolecularAssayResultDTO value)
+  public void setAcHESMethod(dss.vector.solutions.mo.InsecticideMethodologyDTO value)
   {
-    setValue(ACHEBIOCHEMICAL, value.getId());
+    setValue(ACHESMETHOD, value.getId());
   }
   
-  public boolean isAcHEBiochemicalWritable()
+  public boolean isAcHESMethodWritable()
   {
-    return isWritable(ACHEBIOCHEMICAL);
+    return isWritable(ACHESMETHOD);
   }
   
-  public boolean isAcHEBiochemicalReadable()
+  public boolean isAcHESMethodReadable()
   {
-    return isReadable(ACHEBIOCHEMICAL);
+    return isReadable(ACHESMETHOD);
   }
   
-  public boolean isAcHEBiochemicalModified()
+  public boolean isAcHESMethodModified()
   {
-    return isModified(ACHEBIOCHEMICAL);
+    return isModified(ACHESMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEBiochemicalMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHESMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEBiochemical").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHESMethod").getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.mo.BiochemicalMethodologyDTO getAcHEBiochemicalMethod()
+  public dss.vector.solutions.mo.MolecularAssayResultDTO getAcHEV()
   {
-    if(getValue(ACHEBIOCHEMICALMETHOD) == null || getValue(ACHEBIOCHEMICALMETHOD).trim().equals(""))
+    if(getValue(ACHEV) == null || getValue(ACHEV).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(ACHEBIOCHEMICALMETHOD));
+      return dss.vector.solutions.mo.MolecularAssayResultDTO.get(getRequest(), getValue(ACHEV));
     }
   }
   
-  public void setAcHEBiochemicalMethod(dss.vector.solutions.mo.BiochemicalMethodologyDTO value)
+  public void setAcHEV(dss.vector.solutions.mo.MolecularAssayResultDTO value)
   {
-    setValue(ACHEBIOCHEMICALMETHOD, value.getId());
+    setValue(ACHEV, value.getId());
   }
   
-  public boolean isAcHEBiochemicalMethodWritable()
+  public boolean isAcHEVWritable()
   {
-    return isWritable(ACHEBIOCHEMICALMETHOD);
+    return isWritable(ACHEV);
   }
   
-  public boolean isAcHEBiochemicalMethodReadable()
+  public boolean isAcHEVReadable()
   {
-    return isReadable(ACHEBIOCHEMICALMETHOD);
+    return isReadable(ACHEV);
   }
   
-  public boolean isAcHEBiochemicalMethodModified()
+  public boolean isAcHEVModified()
   {
-    return isModified(ACHEBIOCHEMICALMETHOD);
+    return isModified(ACHEV);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEBiochemicalMethodMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEVMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEBiochemicalMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEV").getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.mo.MolecularAssayResultDTO getAcHEMolecular()
+  public dss.vector.solutions.mo.InsecticideMethodologyDTO getAcHEVMethod()
   {
-    if(getValue(ACHEMOLECULAR) == null || getValue(ACHEMOLECULAR).trim().equals(""))
+    if(getValue(ACHEVMETHOD) == null || getValue(ACHEVMETHOD).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.mo.MolecularAssayResultDTO.get(getRequest(), getValue(ACHEMOLECULAR));
+      return dss.vector.solutions.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(ACHEVMETHOD));
     }
   }
   
-  public void setAcHEMolecular(dss.vector.solutions.mo.MolecularAssayResultDTO value)
+  public void setAcHEVMethod(dss.vector.solutions.mo.InsecticideMethodologyDTO value)
   {
-    setValue(ACHEMOLECULAR, value.getId());
+    setValue(ACHEVMETHOD, value.getId());
   }
   
-  public boolean isAcHEMolecularWritable()
+  public boolean isAcHEVMethodWritable()
   {
-    return isWritable(ACHEMOLECULAR);
+    return isWritable(ACHEVMETHOD);
   }
   
-  public boolean isAcHEMolecularReadable()
+  public boolean isAcHEVMethodReadable()
   {
-    return isReadable(ACHEMOLECULAR);
+    return isReadable(ACHEVMETHOD);
   }
   
-  public boolean isAcHEMolecularModified()
+  public boolean isAcHEVMethodModified()
   {
-    return isModified(ACHEMOLECULAR);
+    return isModified(ACHEVMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEMolecularMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEVMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEMolecular").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEVMethod").getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.mo.InsecticideMethodologyDTO getAcHEMolecularMethod()
+  public dss.vector.solutions.mo.MolecularAssayResultDTO getAcHEW()
   {
-    if(getValue(ACHEMOLECULARMETHOD) == null || getValue(ACHEMOLECULARMETHOD).trim().equals(""))
+    if(getValue(ACHEW) == null || getValue(ACHEW).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(ACHEMOLECULARMETHOD));
+      return dss.vector.solutions.mo.MolecularAssayResultDTO.get(getRequest(), getValue(ACHEW));
     }
   }
   
-  public void setAcHEMolecularMethod(dss.vector.solutions.mo.InsecticideMethodologyDTO value)
+  public void setAcHEW(dss.vector.solutions.mo.MolecularAssayResultDTO value)
   {
-    setValue(ACHEMOLECULARMETHOD, value.getId());
+    setValue(ACHEW, value.getId());
   }
   
-  public boolean isAcHEMolecularMethodWritable()
+  public boolean isAcHEWWritable()
   {
-    return isWritable(ACHEMOLECULARMETHOD);
+    return isWritable(ACHEW);
   }
   
-  public boolean isAcHEMolecularMethodReadable()
+  public boolean isAcHEWReadable()
   {
-    return isReadable(ACHEMOLECULARMETHOD);
+    return isReadable(ACHEW);
   }
   
-  public boolean isAcHEMolecularMethodModified()
+  public boolean isAcHEWModified()
   {
-    return isModified(ACHEMOLECULARMETHOD);
+    return isModified(ACHEW);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEMolecularMethodMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEWMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEMolecularMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEW").getAttributeMdDTO();
   }
   
-  public Integer getBEsterase()
+  public dss.vector.solutions.mo.InsecticideMethodologyDTO getAcHEWMethod()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(BESTERASE));
+    if(getValue(ACHEWMETHOD) == null || getValue(ACHEWMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(ACHEWMETHOD));
+    }
   }
   
-  public void setBEsterase(Integer value)
+  public void setAcHEWMethod(dss.vector.solutions.mo.InsecticideMethodologyDTO value)
+  {
+    setValue(ACHEWMETHOD, value.getId());
+  }
+  
+  public boolean isAcHEWMethodWritable()
+  {
+    return isWritable(ACHEWMETHOD);
+  }
+  
+  public boolean isAcHEWMethodReadable()
+  {
+    return isReadable(ACHEWMETHOD);
+  }
+  
+  public boolean isAcHEWMethodModified()
+  {
+    return isModified(ACHEWMETHOD);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEWMethodMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEWMethod").getAttributeMdDTO();
+  }
+  
+  public Boolean getBAcetate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(BACETATE));
+  }
+  
+  public void setBAcetate(Boolean value)
   {
     if(value == null)
     {
-      setValue(BESTERASE, "");
+      setValue(BACETATE, "");
     }
     else
     {
-      setValue(BESTERASE, java.lang.Integer.toString(value));
+      setValue(BACETATE, java.lang.Boolean.toString(value));
     }
   }
   
-  public boolean isBEsteraseWritable()
+  public boolean isBAcetateWritable()
   {
-    return isWritable(BESTERASE);
+    return isWritable(BACETATE);
   }
   
-  public boolean isBEsteraseReadable()
+  public boolean isBAcetateReadable()
   {
-    return isReadable(BESTERASE);
+    return isReadable(BACETATE);
   }
   
-  public boolean isBEsteraseModified()
+  public boolean isBAcetateModified()
   {
-    return isModified(BESTERASE);
+    return isModified(BACETATE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getBEsteraseMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getBAcetateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("bEsterase").getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.mo.BiochemicalMethodologyDTO getBEsteraseMethod()
-  {
-    if(getValue(BESTERASEMETHOD) == null || getValue(BESTERASEMETHOD).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(BESTERASEMETHOD));
-    }
-  }
-  
-  public void setBEsteraseMethod(dss.vector.solutions.mo.BiochemicalMethodologyDTO value)
-  {
-    setValue(BESTERASEMETHOD, value.getId());
-  }
-  
-  public boolean isBEsteraseMethodWritable()
-  {
-    return isWritable(BESTERASEMETHOD);
-  }
-  
-  public boolean isBEsteraseMethodReadable()
-  {
-    return isReadable(BESTERASEMETHOD);
-  }
-  
-  public boolean isBEsteraseMethodModified()
-  {
-    return isModified(BESTERASEMETHOD);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getBEsteraseMethodMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("bEsteraseMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("bAcetate").getAttributeMdDTO();
   }
   
   public dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO getCollection()
@@ -457,152 +461,226 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("eKDRMethod").getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.mo.MolecularAssayResultDTO getGABA()
+  public dss.vector.solutions.mo.MolecularAssayResultDTO getGABAG()
   {
-    if(getValue(GABA) == null || getValue(GABA).trim().equals(""))
+    if(getValue(GABAG) == null || getValue(GABAG).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.mo.MolecularAssayResultDTO.get(getRequest(), getValue(GABA));
+      return dss.vector.solutions.mo.MolecularAssayResultDTO.get(getRequest(), getValue(GABAG));
     }
   }
   
-  public void setGABA(dss.vector.solutions.mo.MolecularAssayResultDTO value)
+  public void setGABAG(dss.vector.solutions.mo.MolecularAssayResultDTO value)
   {
-    setValue(GABA, value.getId());
+    setValue(GABAG, value.getId());
   }
   
-  public boolean isGABAWritable()
+  public boolean isGABAGWritable()
   {
-    return isWritable(GABA);
+    return isWritable(GABAG);
   }
   
-  public boolean isGABAReadable()
+  public boolean isGABAGReadable()
   {
-    return isReadable(GABA);
+    return isReadable(GABAG);
   }
   
-  public boolean isGABAModified()
+  public boolean isGABAGModified()
   {
-    return isModified(GABA);
+    return isModified(GABAG);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGABAMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGABAGMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("gABA").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("gABAG").getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.mo.InsecticideMethodologyDTO getGABAMethod()
+  public dss.vector.solutions.mo.InsecticideMethodologyDTO getGABAGMethod()
   {
-    if(getValue(GABAMETHOD) == null || getValue(GABAMETHOD).trim().equals(""))
+    if(getValue(GABAGMETHOD) == null || getValue(GABAGMETHOD).trim().equals(""))
     {
       return null;
     }
     else
     {
-      return dss.vector.solutions.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(GABAMETHOD));
+      return dss.vector.solutions.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(GABAGMETHOD));
     }
   }
   
-  public void setGABAMethod(dss.vector.solutions.mo.InsecticideMethodologyDTO value)
+  public void setGABAGMethod(dss.vector.solutions.mo.InsecticideMethodologyDTO value)
   {
-    setValue(GABAMETHOD, value.getId());
+    setValue(GABAGMETHOD, value.getId());
   }
   
-  public boolean isGABAMethodWritable()
+  public boolean isGABAGMethodWritable()
   {
-    return isWritable(GABAMETHOD);
+    return isWritable(GABAGMETHOD);
   }
   
-  public boolean isGABAMethodReadable()
+  public boolean isGABAGMethodReadable()
   {
-    return isReadable(GABAMETHOD);
+    return isReadable(GABAGMETHOD);
   }
   
-  public boolean isGABAMethodModified()
+  public boolean isGABAGMethodModified()
   {
-    return isModified(GABAMETHOD);
+    return isModified(GABAGMETHOD);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGABAMethodMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGABAGMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("gABAMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("gABAGMethod").getAttributeMdDTO();
   }
   
-  public Integer getGST()
+  public dss.vector.solutions.mo.MolecularAssayResultDTO getGABAS()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(GST));
+    if(getValue(GABAS) == null || getValue(GABAS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.mo.MolecularAssayResultDTO.get(getRequest(), getValue(GABAS));
+    }
   }
   
-  public void setGST(Integer value)
+  public void setGABAS(dss.vector.solutions.mo.MolecularAssayResultDTO value)
+  {
+    setValue(GABAS, value.getId());
+  }
+  
+  public boolean isGABASWritable()
+  {
+    return isWritable(GABAS);
+  }
+  
+  public boolean isGABASReadable()
+  {
+    return isReadable(GABAS);
+  }
+  
+  public boolean isGABASModified()
+  {
+    return isModified(GABAS);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGABASMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("gABAS").getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.mo.InsecticideMethodologyDTO getGABASMethod()
+  {
+    if(getValue(GABASMETHOD) == null || getValue(GABASMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(GABASMETHOD));
+    }
+  }
+  
+  public void setGABASMethod(dss.vector.solutions.mo.InsecticideMethodologyDTO value)
+  {
+    setValue(GABASMETHOD, value.getId());
+  }
+  
+  public boolean isGABASMethodWritable()
+  {
+    return isWritable(GABASMETHOD);
+  }
+  
+  public boolean isGABASMethodReadable()
+  {
+    return isReadable(GABASMETHOD);
+  }
+  
+  public boolean isGABASMethodModified()
+  {
+    return isModified(GABASMETHOD);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGABASMethodMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("gABASMethod").getAttributeMdDTO();
+  }
+  
+  public Boolean getGSTCDNB()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(GSTCDNB));
+  }
+  
+  public void setGSTCDNB(Boolean value)
   {
     if(value == null)
     {
-      setValue(GST, "");
+      setValue(GSTCDNB, "");
     }
     else
     {
-      setValue(GST, java.lang.Integer.toString(value));
+      setValue(GSTCDNB, java.lang.Boolean.toString(value));
     }
   }
   
-  public boolean isGSTWritable()
+  public boolean isGSTCDNBWritable()
   {
-    return isWritable(GST);
+    return isWritable(GSTCDNB);
   }
   
-  public boolean isGSTReadable()
+  public boolean isGSTCDNBReadable()
   {
-    return isReadable(GST);
+    return isReadable(GSTCDNB);
   }
   
-  public boolean isGSTModified()
+  public boolean isGSTCDNBModified()
   {
-    return isModified(GST);
+    return isModified(GSTCDNB);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getGSTMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getGSTCDNBMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("gST").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("gSTCDNB").getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.mo.BiochemicalMethodologyDTO getGSTMethod()
+  public Boolean getGSTDCNB()
   {
-    if(getValue(GSTMETHOD) == null || getValue(GSTMETHOD).trim().equals(""))
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(GSTDCNB));
+  }
+  
+  public void setGSTDCNB(Boolean value)
+  {
+    if(value == null)
     {
-      return null;
+      setValue(GSTDCNB, "");
     }
     else
     {
-      return dss.vector.solutions.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(GSTMETHOD));
+      setValue(GSTDCNB, java.lang.Boolean.toString(value));
     }
   }
   
-  public void setGSTMethod(dss.vector.solutions.mo.BiochemicalMethodologyDTO value)
+  public boolean isGSTDCNBWritable()
   {
-    setValue(GSTMETHOD, value.getId());
+    return isWritable(GSTDCNB);
   }
   
-  public boolean isGSTMethodWritable()
+  public boolean isGSTDCNBReadable()
   {
-    return isWritable(GSTMETHOD);
+    return isReadable(GSTDCNB);
   }
   
-  public boolean isGSTMethodReadable()
+  public boolean isGSTDCNBModified()
   {
-    return isReadable(GSTMETHOD);
+    return isModified(GSTDCNB);
   }
   
-  public boolean isGSTMethodModified()
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getGSTDCNBMd()
   {
-    return isModified(GSTMETHOD);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGSTMethodMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("gSTMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("gSTDCNB").getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.GenerationDTO getGeneration()
@@ -640,6 +718,117 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGenerationMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("generation").getAttributeMdDTO();
+  }
+  
+  public Boolean getHeme()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HEME));
+  }
+  
+  public void setHeme(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(HEME, "");
+    }
+    else
+    {
+      setValue(HEME, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isHemeWritable()
+  {
+    return isWritable(HEME);
+  }
+  
+  public boolean isHemeReadable()
+  {
+    return isReadable(HEME);
+  }
+  
+  public boolean isHemeModified()
+  {
+    return isModified(HEME);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getHemeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("heme").getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.mo.MolecularAssayResultDTO getIAcHE()
+  {
+    if(getValue(IACHE) == null || getValue(IACHE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.mo.MolecularAssayResultDTO.get(getRequest(), getValue(IACHE));
+    }
+  }
+  
+  public void setIAcHE(dss.vector.solutions.mo.MolecularAssayResultDTO value)
+  {
+    setValue(IACHE, value.getId());
+  }
+  
+  public boolean isIAcHEWritable()
+  {
+    return isWritable(IACHE);
+  }
+  
+  public boolean isIAcHEReadable()
+  {
+    return isReadable(IACHE);
+  }
+  
+  public boolean isIAcHEModified()
+  {
+    return isModified(IACHE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIAcHEMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("iAcHE").getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.mo.InsecticideMethodologyDTO getIAcHEMethod()
+  {
+    if(getValue(IACHEMETHOD) == null || getValue(IACHEMETHOD).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.mo.InsecticideMethodologyDTO.get(getRequest(), getValue(IACHEMETHOD));
+    }
+  }
+  
+  public void setIAcHEMethod(dss.vector.solutions.mo.InsecticideMethodologyDTO value)
+  {
+    setValue(IACHEMETHOD, value.getId());
+  }
+  
+  public boolean isIAcHEMethodWritable()
+  {
+    return isWritable(IACHEMETHOD);
+  }
+  
+  public boolean isIAcHEMethodReadable()
+  {
+    return isReadable(IACHEMETHOD);
+  }
+  
+  public boolean isIAcHEMethodModified()
+  {
+    return isModified(IACHEMETHOD);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIAcHEMethodMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("iAcHEMethod").getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.IdentificationMethodDTO getIdentificationMethod()
@@ -716,80 +905,6 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
     return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("isofemale").getAttributeMdDTO();
   }
   
-  public Integer getMonooxygenase()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MONOOXYGENASE));
-  }
-  
-  public void setMonooxygenase(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(MONOOXYGENASE, "");
-    }
-    else
-    {
-      setValue(MONOOXYGENASE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isMonooxygenaseWritable()
-  {
-    return isWritable(MONOOXYGENASE);
-  }
-  
-  public boolean isMonooxygenaseReadable()
-  {
-    return isReadable(MONOOXYGENASE);
-  }
-  
-  public boolean isMonooxygenaseModified()
-  {
-    return isModified(MONOOXYGENASE);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getMonooxygenaseMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("monooxygenase").getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.mo.BiochemicalMethodologyDTO getMonooxygenaseMethod()
-  {
-    if(getValue(MONOOXYGENASEMETHOD) == null || getValue(MONOOXYGENASEMETHOD).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(MONOOXYGENASEMETHOD));
-    }
-  }
-  
-  public void setMonooxygenaseMethod(dss.vector.solutions.mo.BiochemicalMethodologyDTO value)
-  {
-    setValue(MONOOXYGENASEMETHOD, value.getId());
-  }
-  
-  public boolean isMonooxygenaseMethodWritable()
-  {
-    return isWritable(MONOOXYGENASEMETHOD);
-  }
-  
-  public boolean isMonooxygenaseMethodReadable()
-  {
-    return isReadable(MONOOXYGENASEMETHOD);
-  }
-  
-  public boolean isMonooxygenaseMethodModified()
-  {
-    return isModified(MONOOXYGENASEMETHOD);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getMonooxygenaseMethodMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("monooxygenaseMethod").getAttributeMdDTO();
-  }
-  
   public String getMosquitoId()
   {
     return getValue(MOSQUITOID);
@@ -825,6 +940,43 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMosquitoIdMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("mosquitoId").getAttributeMdDTO();
+  }
+  
+  public Boolean getP450()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(P450));
+  }
+  
+  public void setP450(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(P450, "");
+    }
+    else
+    {
+      setValue(P450, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isP450Writable()
+  {
+    return isWritable(P450);
+  }
+  
+  public boolean isP450Readable()
+  {
+    return isReadable(P450);
+  }
+  
+  public boolean isP450Modified()
+  {
+    return isModified(P450);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getP450Md()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("p450").getAttributeMdDTO();
   }
   
   public Boolean getPFalciparum()
@@ -975,12 +1127,12 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("pMalariaeMethod").getAttributeMdDTO();
   }
   
-  public Integer getPNPA()
+  public Boolean getPNPA()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PNPA));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PNPA));
   }
   
-  public void setPNPA(Integer value)
+  public void setPNPA(Boolean value)
   {
     if(value == null)
     {
@@ -988,7 +1140,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
     }
     else
     {
-      setValue(PNPA, java.lang.Integer.toString(value));
+      setValue(PNPA, java.lang.Boolean.toString(value));
     }
   }
   
@@ -1007,46 +1159,9 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
     return isModified(PNPA);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPNPAMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPNPAMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("pNPA").getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.mo.BiochemicalMethodologyDTO getPNPAMethod()
-  {
-    if(getValue(PNPAMETHOD) == null || getValue(PNPAMETHOD).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.mo.BiochemicalMethodologyDTO.get(getRequest(), getValue(PNPAMETHOD));
-    }
-  }
-  
-  public void setPNPAMethod(dss.vector.solutions.mo.BiochemicalMethodologyDTO value)
-  {
-    setValue(PNPAMETHOD, value.getId());
-  }
-  
-  public boolean isPNPAMethodWritable()
-  {
-    return isWritable(PNPAMETHOD);
-  }
-  
-  public boolean isPNPAMethodReadable()
-  {
-    return isReadable(PNPAMETHOD);
-  }
-  
-  public boolean isPNPAMethodModified()
-  {
-    return isModified(PNPAMETHOD);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPNPAMethodMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("pNPAMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("pNPA").getAttributeMdDTO();
   }
   
   public Boolean getPOvale()
@@ -1195,6 +1310,43 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPVivaxMethodMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("pVivaxMethod").getAttributeMdDTO();
+  }
+  
+  public String getSampleId()
+  {
+    return getValue(SAMPLEID);
+  }
+  
+  public void setSampleId(String value)
+  {
+    if(value == null)
+    {
+      setValue(SAMPLEID, "");
+    }
+    else
+    {
+      setValue(SAMPLEID, value);
+    }
+  }
+  
+  public boolean isSampleIdWritable()
+  {
+    return isWritable(SAMPLEID);
+  }
+  
+  public boolean isSampleIdReadable()
+  {
+    return isReadable(SAMPLEID);
+  }
+  
+  public boolean isSampleIdModified()
+  {
+    return isModified(SAMPLEID);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSampleIdMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("sampleId").getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")

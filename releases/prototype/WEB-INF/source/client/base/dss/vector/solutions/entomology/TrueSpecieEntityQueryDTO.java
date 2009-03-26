@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public class TrueSpecieEntityQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237423110257L;
+private static final long serialVersionUID = 1238027438228L;
 
   protected TrueSpecieEntityQueryDTO(String type)
   {

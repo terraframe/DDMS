@@ -17,12 +17,18 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
   @Override
   public void apply()
   {
-
+    if(this.getCollection() == null)
+    {
+      this.setCollection(MosquitoCollectionPoint.findOrCreate(this.getGeoEntity(), this.getDateCollected()));
+    }
+    
     if(this.getGroupId() == null || this.getGroupId().equals(""))
     {
       MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();      
       group.setCollection(this.getCollection());
       group.setQuantity(this.getQuantity());
+      group.setQuantityFemale(this.getQuantityFemale());
+      group.setQuantityMale(this.getQuantityMale());
       group.setIdentificationMethod(this.getIdentificationMethod());
       group.setSpecie(this.getSpecie());
       group.apply();
@@ -34,6 +40,8 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
       MorphologicalSpecieGroup group = MorphologicalSpecieGroup.lock(this.getGroupId());      
       group.setCollection(this.getCollection());
       group.setQuantity(this.getQuantity());
+      group.setQuantityFemale(this.getQuantityFemale());
+      group.setQuantityMale(this.getQuantityMale());
       group.setIdentificationMethod(this.getIdentificationMethod());
       group.setSpecie(this.getSpecie());
       group.apply();      

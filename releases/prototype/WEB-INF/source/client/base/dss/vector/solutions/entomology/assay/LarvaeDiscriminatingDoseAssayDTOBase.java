@@ -1,8 +1,8 @@
 package dss.vector.solutions.entomology.assay;
 
-public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.solutions.entomology.assay.DiscriminatingDoseAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.solutions.entomology.assay.LarvaeAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237423096192L;
+  private static final long serialVersionUID = 1238027421192L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay";
   protected LarvaeDiscriminatingDoseAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -26,58 +26,194 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
     return CLASS;
   }
   
-  public static java.lang.String AGERANGE = "ageRange";
-  public dss.vector.solutions.entomology.assay.LarvaeAgeRangeDTO getAgeRange()
+  public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
+  public static java.lang.String HOLDINGTIME = "holdingTime";
+  public static java.lang.String MORTALITY = "mortality";
+  public static java.lang.String QUANTITYDEAD = "quantityDead";
+  public static java.lang.String QUANTITYLIVE = "quantityLive";
+  public Float getControlTestMortality()
   {
-    if(getValue(AGERANGE) == null || getValue(AGERANGE).trim().equals(""))
+    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
+  }
+  
+  public void setControlTestMortality(Float value)
+  {
+    if(value == null)
     {
-      return null;
+      setValue(CONTROLTESTMORTALITY, "");
     }
     else
     {
-      return dss.vector.solutions.entomology.assay.LarvaeAgeRangeDTO.get(getRequest(), getValue(AGERANGE));
+      setValue(CONTROLTESTMORTALITY, java.lang.Float.toString(value));
     }
   }
   
-  public void setAgeRange(dss.vector.solutions.entomology.assay.LarvaeAgeRangeDTO value)
+  public boolean isControlTestMortalityWritable()
   {
-    setValue(AGERANGE, value.getId());
+    return isWritable(CONTROLTESTMORTALITY);
   }
   
-  public boolean isAgeRangeWritable()
+  public boolean isControlTestMortalityReadable()
   {
-    return isWritable(AGERANGE);
+    return isReadable(CONTROLTESTMORTALITY);
   }
   
-  public boolean isAgeRangeReadable()
+  public boolean isControlTestMortalityModified()
   {
-    return isReadable(AGERANGE);
+    return isModified(CONTROLTESTMORTALITY);
   }
   
-  public boolean isAgeRangeModified()
+  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getControlTestMortalityMd()
   {
-    return isModified(AGERANGE);
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO("controlTestMortality").getAttributeMdDTO();
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAgeRangeMd()
+  public Integer getHoldingTime()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("ageRange").getAttributeMdDTO();
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(HOLDINGTIME));
   }
   
-  public final void setAgeRange(dss.vector.solutions.mo.LarvaeAgeDTO startAge, dss.vector.solutions.mo.LarvaeAgeDTO endAge)
+  public void setHoldingTime(Integer value)
   {
-    String[] _declaredTypes = new String[]{"dss.vector.solutions.mo.LarvaeAge", "dss.vector.solutions.mo.LarvaeAge"};
-    Object[] _parameters = new Object[]{startAge, endAge};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.CLASS, "setAgeRange", _declaredTypes);
-    getRequest().invokeMethod(_metadata, this, _parameters);
+    if(value == null)
+    {
+      setValue(HOLDINGTIME, "");
+    }
+    else
+    {
+      setValue(HOLDINGTIME, java.lang.Integer.toString(value));
+    }
   }
   
-  public static final void setAgeRange(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.mo.LarvaeAgeDTO startAge, dss.vector.solutions.mo.LarvaeAgeDTO endAge)
+  public boolean isHoldingTimeWritable()
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "dss.vector.solutions.mo.LarvaeAge", "dss.vector.solutions.mo.LarvaeAge"};
-    Object[] _parameters = new Object[]{id, startAge, endAge};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO.CLASS, "setAgeRange", _declaredTypes);
-    clientRequest.invokeMethod(_metadata, null, _parameters);
+    return isWritable(HOLDINGTIME);
+  }
+  
+  public boolean isHoldingTimeReadable()
+  {
+    return isReadable(HOLDINGTIME);
+  }
+  
+  public boolean isHoldingTimeModified()
+  {
+    return isModified(HOLDINGTIME);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("holdingTime").getAttributeMdDTO();
+  }
+  
+  public Float getMortality()
+  {
+    return com.terraframe.mojo.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(MORTALITY));
+  }
+  
+  public void setMortality(Float value)
+  {
+    if(value == null)
+    {
+      setValue(MORTALITY, "");
+    }
+    else
+    {
+      setValue(MORTALITY, java.lang.Float.toString(value));
+    }
+  }
+  
+  public boolean isMortalityWritable()
+  {
+    return isWritable(MORTALITY);
+  }
+  
+  public boolean isMortalityReadable()
+  {
+    return isReadable(MORTALITY);
+  }
+  
+  public boolean isMortalityModified()
+  {
+    return isModified(MORTALITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getMortalityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO("mortality").getAttributeMdDTO();
+  }
+  
+  public Integer getQuantityDead()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
+  }
+  
+  public void setQuantityDead(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(QUANTITYDEAD, "");
+    }
+    else
+    {
+      setValue(QUANTITYDEAD, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isQuantityDeadWritable()
+  {
+    return isWritable(QUANTITYDEAD);
+  }
+  
+  public boolean isQuantityDeadReadable()
+  {
+    return isReadable(QUANTITYDEAD);
+  }
+  
+  public boolean isQuantityDeadModified()
+  {
+    return isModified(QUANTITYDEAD);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityDead").getAttributeMdDTO();
+  }
+  
+  public Integer getQuantityLive()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
+  }
+  
+  public void setQuantityLive(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(QUANTITYLIVE, "");
+    }
+    else
+    {
+      setValue(QUANTITYLIVE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isQuantityLiveWritable()
+  {
+    return isWritable(QUANTITYLIVE);
+  }
+  
+  public boolean isQuantityLiveReadable()
+  {
+    return isReadable(QUANTITYLIVE);
+  }
+  
+  public boolean isQuantityLiveModified()
+  {
+    return isModified(QUANTITYLIVE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityLive").getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

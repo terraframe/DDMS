@@ -23,8 +23,6 @@
 
 <mjl:form name="mdss.entomology.MosquitoCollection.form.name"
  id="mdss.entomology.MosquitoCollection.form.id" method="POST">
-<div class="fldContainer">
-    <div class="fcTop">
 
 	<mjl:input value="${item.id}" type="hidden" param="id" />
 	<dl>
@@ -43,13 +41,15 @@
 			<mjl:property value="${item.geoEntity.id}" name="id" />
 		</mjl:commandLink></dd>
 	</dl>
-<div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-</div>
+
 <div class="submitButton_bl"></div>    
  <mjl:command value="Edit"
   action="dss.vector.solutions.entomology.MosquitoCollectionController.edit.mojo"
   name="dss.vector.solutions.entomology.MosquitoCollection.form.edit.button" classes="submitButton"/>
+  
+  <mjl:commandLink display="ViewAssays" action="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo" name="viewAssays.link">
+          <mjl:property value="${item.id}" name="id" />
+        </mjl:commandLink>
   </mjl:form>
 
 <br/>
@@ -103,7 +103,7 @@ ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientCon
 Object ojbect = request.getAttribute("item");
 MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) ojbect;
 MorphologicalSpecieGroupViewDTO[] rows = mosquito_collection.getMorphologicalSpecieGroups();
-String[] attribs = { "GroupId","Specie","IdentificationMethod","Quantity"};
+String[] attribs = { "GroupId","Specie","IdentificationMethod","QuantityMale","QuantityFemale","Quantity"};
 MorphologicalSpecieGroupViewDTO mdView = new MorphologicalSpecieGroupViewDTO(clientRequest);
 
 String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
@@ -128,7 +128,7 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
     <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
     table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,       
        columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false)%>,
-              defaults: {GroupId:"",Specie:"",IdentificationMethod:"",Quantity:""},
+              defaults: {GroupId:"",Specie:"",IdentificationMethod:"",QuantityMale:"",QuantityFemale:"",Quantity:""},
               div_id: "MorphologicalSpecieGroups",
               copy_from_above: ["IdentificationMethod"],
               collection_setter: "setCollection('${item.id}')",

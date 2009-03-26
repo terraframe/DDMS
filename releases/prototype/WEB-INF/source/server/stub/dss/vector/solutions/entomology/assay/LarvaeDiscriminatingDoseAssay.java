@@ -1,8 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayBase;
 import dss.vector.solutions.Property;
-import dss.vector.solutions.mo.LarvaeAge;
 
 public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -14,39 +12,48 @@ public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssay
   }
   
   @Override
-  public void delete()
+  public void validateQuantityDead()
   {
-    LarvaeAgeRange range = this.getAgeRange();
-        
-    super.delete();
-    
-    if (range != null)
-    {
-      range.delete();
-    }
+    super.validateQuantityDead();
+
+    new QuantityDeadValidator(this).validate();
   }
-  
+
   @Override
-  public void setAgeRange(LarvaeAge startAge, LarvaeAge endAge)
+  public void apply()
   {
-    if(this.getAgeRange() != null)
+    validateQuantityDead();
+    
+    if (this.getQuantityDead() <= this.getQuantityTested())
     {
-      LarvaeAgeRange ageRange = this.getAgeRange();      
-      ageRange.setStartPoint(startAge);
-      ageRange.setEndPoint(endAge);
-      ageRange.apply();      
+      this.setQuantityLive(this.getQuantityTested() - this.getQuantityDead());
+      this.setMortality( ( (float) ( this.getQuantityDead() ) * 100 / this.getQuantityTested() ));
     }
     else
     {
-      LarvaeAgeRange ageRange = new LarvaeAgeRange();
-      ageRange.setStartPoint(startAge);
-      ageRange.setEndPoint(endAge);
-      ageRange.apply();      
-
-      this.setAgeRange(ageRange);
-    }        
+      this.setQuantityLive(0);
+      this.setMortality(new Float(0));
+    }
+    
+    super.apply();
+    
+    if (this.isSusceptible())
+    {
+      SusceptibleCollection info = new SusceptibleCollection();
+      info.throwIt();
+    }
+    else if (this.isPotentiallyResistant())
+    {
+      PotentiallyResistantCollection info = new PotentiallyResistantCollection();
+      info.throwIt();
+    }
+    else if (this.isResistant())
+    {
+      ResistantCollection info = new ResistantCollection();
+      info.throwIt();
+    }
   }
-  
+    
   protected boolean isResistant()
   {
     Integer resistant = Property.getInt(Property.RESISTANCE_PACKAGE, Property.LARVAE_DDA_RESISTANCE);

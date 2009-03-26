@@ -8,7 +8,7 @@
 <%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
 <%@page import="dss.vector.solutions.util.Halp" %>
 <%@page import="java.text.DecimalFormat"%>
-<%@page import="dss.vector.solutions.entomology.assay.DDATestIntervalViewDTO"%>
+<%@page import="dss.vector.solutions.entomology.assay.AdultTestIntervalViewDTO"%>
 <%
 AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request.getAttribute("item");
 %>
@@ -18,8 +18,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
-  <div class="fldContainer">
-    <div class="fcTop">
+
       
 
   <mjl:input value="${item.id}" type="hidden" param="id" />
@@ -108,12 +107,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
         <mjl:property value="${item.identificationMethod.id}" name="id" />
       </mjl:commandLink>
     </dd>
-    <dt>
-      <label>
-        ${item.ageRangeMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+
       <dl>
         <dt>
           <label>
@@ -131,8 +125,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
         <dd>
           ${item.ageRange.endPoint}
         </dd>
-      </dl>
-    </dd>    
+      </dl>  
     <dt>
       <label>
         ${item.fedMd.displayLabel}
@@ -234,12 +227,6 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
      
 
   </dl>
-</div>
-  <div class="fcTopLeft"></div> 
-    <div class="fcBottom">
-      <div class="fcBottomLeft"></div>
-    </div>
-     </div>
   <div class="submitButton_bl"></div>    
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
   <br />
@@ -257,21 +244,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
 </span> 
 </span>
 
-<form method="get" action="excelimport" style="display:inline;">
-       <span class="yui-button yui-push-button">
-       <span class="first-child">
-        <button type="submit"><f:message key="Excel_Import_Header" /></button>
-        </span>
-        </span>
-</form> 
-<form method="post" action="excelexport" style="display:inline;">
-        <input type="hidden" name="type" value="dss.vector.solutions.entomology.assay.DDATestIntervalView"/>
-        <span class="yui-button yui-push-button"> 
-        <span class="first-child">
-        <button type="submit"><f:message key="Excel_Export_Header" /></button>
-        </span>
-        </span>
-</form> 
+
 <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
 
 </div>
@@ -280,7 +253,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     String[] types_to_load =
 	{
 	   "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay",
-	   "dss.vector.solutions.entomology.assay.DDATestIntervalView"
+	   "dss.vector.solutions.entomology.assay.AdultTestIntervalView"
 	}; 
 	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
@@ -290,9 +263,9 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     table_data = { 
     		rows:<%
     		     // AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request.getAttribute("item");
-                  DDATestIntervalViewDTO[] rows = adda.getTestIntervals();
+                  AdultTestIntervalViewDTO[] rows = adda.getTestIntervals();
     	          ArrayList<String> arr = new ArrayList<String>();
-   	    		     for (DDATestIntervalViewDTO row : rows)  {
+   	    		     for (AdultTestIntervalViewDTO row : rows)  {
    	    		       ArrayList<String> buff = new ArrayList<String>();
    	    		       buff.add("IntervalId:'" + row.getIntervalId() + "'");
    	    		       buff.add("Period:'" + row.getPeriod() + "'");
@@ -311,9 +284,9 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     	        defaults: {IntervalId:"",Period:"",IntervalTime:"",KnockedDown:"",Percent:""},
     	        div_id: "intervals",
     	        collection_setter: "setAssay('${item.id}')",
-        	    data_type: "Mojo.$.dss.vector.solutions.entomology.assay.DDATestIntervalView",
-        	    after_row_edit:function(record){record.setData('Percent',((parseInt(record.getData('KnockedDown'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%");}
-    	        after_save:function(){location.href="./dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.view.mojo?id=${item.id}";});}
+        	    data_type: "Mojo.$.dss.vector.solutions.entomology.assay.AdultTestIntervalView",
+        	    after_row_edit:function(record){record.setData('Percent',((parseInt(record.getData('KnockedDown'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%");},
+    	        after_save:function(){location.href="./dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.view.mojo?id=${item.id}";}
     	    };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>

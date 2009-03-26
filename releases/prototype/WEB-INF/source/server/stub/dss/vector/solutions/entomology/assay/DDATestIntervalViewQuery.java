@@ -6,7 +6,7 @@ package dss.vector.solutions.entomology.assay;
  */
 public class DDATestIntervalViewQuery extends dss.vector.solutions.entomology.assay.DDATestIntervalViewQueryBase  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1234906559595L;
+private static final long serialVersionUID = 1237573014521L;
 
   public DDATestIntervalViewQuery(com.terraframe.mojo.query.QueryFactory queryFactory)
   {
@@ -36,6 +36,8 @@ private static final long serialVersionUID = 1234906559595L;
      */
     protected void buildSelectClause()
     {
+      DDATestIntervalViewQuery viewQuery = this.getViewQuery();
+
       String errMsg = "buildSelectClause() method in class DefaultDDATestIntervalViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

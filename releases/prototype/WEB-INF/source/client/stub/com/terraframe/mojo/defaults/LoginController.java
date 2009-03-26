@@ -38,7 +38,9 @@ public class LoginController extends LoginControllerBase implements com.terrafra
 
 			req.getRequestDispatcher("index.jsp").forward(req, resp);
 		} catch (Exception e) {
+			req.setAttribute("bad_password", true);
 			req.getRequestDispatcher("login.jsp").forward(req, resp);
+			
 		}
 
 	}

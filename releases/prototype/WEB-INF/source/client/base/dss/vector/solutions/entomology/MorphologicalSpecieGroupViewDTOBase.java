@@ -15,12 +15,13 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   
   public static java.lang.String COLLECTION = "collection";
   public static java.lang.String DATECOLLECTED = "dateCollected";
+  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String GROUPID = "groupId";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
   public static java.lang.String QUANTITY = "quantity";
-  public static java.lang.String QUANTITYDEAD = "quantityDead";
-  public static java.lang.String QUANTITYLIVE = "quantityLive";
+  public static java.lang.String QUANTITYFEMALE = "quantityFemale";
+  public static java.lang.String QUANTITYMALE = "quantityMale";
   public static java.lang.String SPECIE = "specie";
   public dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO getCollection()
   {
@@ -94,6 +95,43 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDateCollectedMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("dateCollected").getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
+  {
+    if(getValue(GEOENTITY) == null || getValue(GEOENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
+    }
+  }
+  
+  public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    setValue(GEOENTITY, value.getId());
+  }
+  
+  public boolean isGeoEntityWritable()
+  {
+    return isWritable(GEOENTITY);
+  }
+  
+  public boolean isGeoEntityReadable()
+  {
+    return isReadable(GEOENTITY);
+  }
+  
+  public boolean isGeoEntityModified()
+  {
+    return isModified(GEOENTITY);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("geoEntity").getAttributeMdDTO();
   }
   
   public String getGroupId()
@@ -207,78 +245,78 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantity").getAttributeMdDTO();
   }
   
-  public Integer getQuantityDead()
+  public Integer getQuantityFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYDEAD));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYFEMALE));
   }
   
-  public void setQuantityDead(Integer value)
+  public void setQuantityFemale(Integer value)
   {
     if(value == null)
     {
-      setValue(QUANTITYDEAD, "");
+      setValue(QUANTITYFEMALE, "");
     }
     else
     {
-      setValue(QUANTITYDEAD, java.lang.Integer.toString(value));
+      setValue(QUANTITYFEMALE, java.lang.Integer.toString(value));
     }
   }
   
-  public boolean isQuantityDeadWritable()
+  public boolean isQuantityFemaleWritable()
   {
-    return isWritable(QUANTITYDEAD);
+    return isWritable(QUANTITYFEMALE);
   }
   
-  public boolean isQuantityDeadReadable()
+  public boolean isQuantityFemaleReadable()
   {
-    return isReadable(QUANTITYDEAD);
+    return isReadable(QUANTITYFEMALE);
   }
   
-  public boolean isQuantityDeadModified()
+  public boolean isQuantityFemaleModified()
   {
-    return isModified(QUANTITYDEAD);
+    return isModified(QUANTITYFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityDead").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityFemale").getAttributeMdDTO();
   }
   
-  public Integer getQuantityLive()
+  public Integer getQuantityMale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYMALE));
   }
   
-  public void setQuantityLive(Integer value)
+  public void setQuantityMale(Integer value)
   {
     if(value == null)
     {
-      setValue(QUANTITYLIVE, "");
+      setValue(QUANTITYMALE, "");
     }
     else
     {
-      setValue(QUANTITYLIVE, java.lang.Integer.toString(value));
+      setValue(QUANTITYMALE, java.lang.Integer.toString(value));
     }
   }
   
-  public boolean isQuantityLiveWritable()
+  public boolean isQuantityMaleWritable()
   {
-    return isWritable(QUANTITYLIVE);
+    return isWritable(QUANTITYMALE);
   }
   
-  public boolean isQuantityLiveReadable()
+  public boolean isQuantityMaleReadable()
   {
-    return isReadable(QUANTITYLIVE);
+    return isReadable(QUANTITYMALE);
   }
   
-  public boolean isQuantityLiveModified()
+  public boolean isQuantityMaleModified()
   {
-    return isModified(QUANTITYLIVE);
+    return isModified(QUANTITYMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityLive").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityMale").getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.SpecieDTO getSpecie()

@@ -9,7 +9,7 @@ public class LoginControllerBase implements com.terraframe.mojo.generation.loade
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237423101771L;
+  private static final long serialVersionUID = 1238027426896L;
   
   public LoginControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

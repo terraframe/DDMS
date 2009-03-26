@@ -49,7 +49,8 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
     }
   }
 
-  public static MorphologicalSpecieGroupView[] searchByGeoEntityAndDate(GeoEntity geoEntity, Date startDate, Date endDate)
+  public static MorphologicalSpecieGroupView[] searchByGeoEntityAndDate(GeoEntity geoEntity,
+      Date startDate, Date endDate)
   {
     List<MorphologicalSpecieGroupView> list = new LinkedList<MorphologicalSpecieGroupView>();
 
@@ -60,7 +61,7 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
     collectionQuery.WHERE(collectionQuery.getGeoEntity().EQ(geoEntity));
     collectionQuery.AND(collectionQuery.getDateCollected().GE(startDate));
     collectionQuery.AND(collectionQuery.getDateCollected().LE(endDate));
-    
+
     specieQuery.WHERE(specieQuery.getCollection().EQ(collectionQuery));
 
     OIterator<? extends MorphologicalSpecieGroup> iterator = specieQuery.getIterator();
@@ -78,6 +79,38 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
     }
 
     return list.toArray(new MorphologicalSpecieGroupView[list.size()]);
+  }
+
+  public static MosquitoCollectionPoint findOrCreate(GeoEntity geoEntity, Date dateCollected)
+  {
+    QueryFactory factory = new QueryFactory();
+    MosquitoCollectionPointQuery query = new MosquitoCollectionPointQuery(factory);
+
+    query.AND(query.getGeoEntity().getId().EQ(geoEntity.getId()));
+    query.AND(query.getDateCollected().EQ(dateCollected));
+
+    OIterator<? extends MosquitoCollectionPoint> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        MosquitoCollectionPoint point = new MosquitoCollectionPoint();
+        point.setGeoEntity(geoEntity);
+        point.setDateCollected(dateCollected);
+        point.apply();
+        
+        return point;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
   }
 
 }

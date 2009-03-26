@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public  class UninterestingSpecieGroupQuery extends dss.vector.solutions.entomology.TrueSpecieEntityQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237423120211L;
+private static final long serialVersionUID = 1238027452921L;
 
   public UninterestingSpecieGroupQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -36,17 +36,6 @@ private static final long serialVersionUID = 1237423120211L;
   public com.terraframe.mojo.query.AttributeIntegerIF getQuantity(String alias)
   {
     return (com.terraframe.mojo.query.AttributeIntegerIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.UninterestingSpecieGroup.QUANTITY, "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
-
-  }
-  public com.terraframe.mojo.query.AttributeCharIF getSampleId()
-  {
-    return getSampleId(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeCharIF getSampleId(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.entomology.UninterestingSpecieGroup.SAMPLEID, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
 
   }
   /**  
@@ -82,8 +71,6 @@ private static final long serialVersionUID = 1237423120211L;
 
     public com.terraframe.mojo.query.AttributeIntegerIF getQuantity();
     public com.terraframe.mojo.query.AttributeIntegerIF getQuantity(String alias);
-    public com.terraframe.mojo.query.AttributeCharIF getSampleId();
-    public com.terraframe.mojo.query.AttributeCharIF getSampleId(String alias);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.entomology.UninterestingSpecieGroup uninterestingSpecieGroup);
 
@@ -99,7 +86,7 @@ private static final long serialVersionUID = 1237423120211L;
  implements UninterestingSpecieGroupQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237423120305L;
+private static final long serialVersionUID = 1238027453072L;
 
   public UninterestingSpecieGroupQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -127,17 +114,6 @@ private static final long serialVersionUID = 1237423120305L;
   public com.terraframe.mojo.query.AttributeIntegerIF getQuantity(String alias)
   {
     return (com.terraframe.mojo.query.AttributeIntegerIF)this.attributeFactory("quantity", "com.terraframe.mojo.system.metadata.MdAttributeInteger", alias);
-
-  }
-  public com.terraframe.mojo.query.AttributeCharIF getSampleId()
-  {
-    return getSampleId(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeCharIF getSampleId(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("sampleId", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
 
   }
   }

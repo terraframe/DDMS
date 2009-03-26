@@ -10,83 +10,87 @@ package dss.vector.solutions.entomology;
 public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoView";
-  public static java.lang.String AESTERASE = "aEsterase";
-  public static java.lang.String AESTERASEMETHOD = "aEsteraseMethod";
-  public static java.lang.String ACHEBIOCHEMICAL = "acHEBiochemical";
-  public static java.lang.String ACHEBIOCHEMICALMETHOD = "acHEBiochemicalMethod";
-  public static java.lang.String ACHEMOLECULAR = "acHEMolecular";
-  public static java.lang.String ACHEMOLECULARMETHOD = "acHEMolecularMethod";
-  public static java.lang.String BESTERASE = "bEsterase";
-  public static java.lang.String BESTERASEMETHOD = "bEsteraseMethod";
+  public static java.lang.String AACETATE = "aAcetate";
+  public static java.lang.String ACHES = "acHES";
+  public static java.lang.String ACHESMETHOD = "acHESMethod";
+  public static java.lang.String ACHEV = "acHEV";
+  public static java.lang.String ACHEVMETHOD = "acHEVMethod";
+  public static java.lang.String ACHEW = "acHEW";
+  public static java.lang.String ACHEWMETHOD = "acHEWMethod";
+  public static java.lang.String BACETATE = "bAcetate";
   public static java.lang.String COLLECTION = "collection";
   public static java.lang.String EKDR = "eKDR";
   public static java.lang.String EKDRMETHOD = "eKDRMethod";
-  public static java.lang.String GABA = "gABA";
-  public static java.lang.String GABAMETHOD = "gABAMethod";
-  public static java.lang.String GST = "gST";
-  public static java.lang.String GSTMETHOD = "gSTMethod";
+  public static java.lang.String GABAG = "gABAG";
+  public static java.lang.String GABAGMETHOD = "gABAGMethod";
+  public static java.lang.String GABAS = "gABAS";
+  public static java.lang.String GABASMETHOD = "gABASMethod";
+  public static java.lang.String GSTCDNB = "gSTCDNB";
+  public static java.lang.String GSTDCNB = "gSTDCNB";
   public static java.lang.String GENERATION = "generation";
+  public static java.lang.String HEME = "heme";
+  public static java.lang.String IACHE = "iAcHE";
+  public static java.lang.String IACHEMETHOD = "iAcHEMethod";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
   public static java.lang.String ISOFEMALE = "isofemale";
-  public static java.lang.String MONOOXYGENASE = "monooxygenase";
-  public static java.lang.String MONOOXYGENASEMETHOD = "monooxygenaseMethod";
   public static java.lang.String MOSQUITOID = "mosquitoId";
+  public static java.lang.String P450 = "p450";
   public static java.lang.String PFALCIPARUM = "pFalciparum";
   public static java.lang.String PFALCIPARUMMETHOD = "pFalciparumMethod";
   public static java.lang.String PMALARIAE = "pMalariae";
   public static java.lang.String PMALARIAEMETHOD = "pMalariaeMethod";
   public static java.lang.String PNPA = "pNPA";
-  public static java.lang.String PNPAMETHOD = "pNPAMethod";
   public static java.lang.String POVALE = "pOvale";
   public static java.lang.String POVALEMETHOD = "pOvaleMethod";
   public static java.lang.String PVIVAX = "pVivax";
   public static java.lang.String PVIVAXMETHOD = "pVivaxMethod";
+  public static java.lang.String SAMPLEID = "sampleId";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String WKDR = "wKDR";
   public static java.lang.String WKDRMETHOD = "wKDRMethod";
-  private static final long serialVersionUID = 1237423098904L;
+  private static final long serialVersionUID = 1238027423194L;
   
   public MosquitoViewBase()
   {
     super();
   }
   
-  public Integer getAEsterase()
+  public Boolean getAAcetate()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AESTERASE));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(AACETATE));
   }
   
-  public void validateAEsterase()
+  public void validateAAcetate()
   {
-    this.validateAttribute(AESTERASE);
+    this.validateAttribute(AACETATE);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAEsteraseMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAAcetateMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(AESTERASE);
+    return mdClassIF.definesAttribute(AACETATE);
   }
   
-  public void setAEsterase(Integer value)
+  public void setAAcetate(Boolean value)
   {
     if(value == null)
     {
-      setValue(AESTERASE, "");
+      setValue(AACETATE, "");
     }
     else
     {
-      setValue(AESTERASE, java.lang.Integer.toString(value));
+      setValue(AACETATE, java.lang.Boolean.toString(value));
     }
   }
   
-  public dss.vector.solutions.mo.BiochemicalMethodology getAEsteraseMethod()
+  public dss.vector.solutions.mo.MolecularAssayResult getAcHES()
   {
     try
     {
-      return dss.vector.solutions.mo.BiochemicalMethodology.get(getValue(AESTERASEMETHOD));
+      return dss.vector.solutions.mo.MolecularAssayResult.get(getValue(ACHES));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -94,34 +98,34 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public void validateAEsteraseMethod()
+  public void validateAcHES()
   {
-    this.validateAttribute(AESTERASEMETHOD);
+    this.validateAttribute(ACHES);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAEsteraseMethodMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAcHESMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(AESTERASEMETHOD);
+    return mdClassIF.definesAttribute(ACHES);
   }
   
-  public void setAEsteraseMethod(dss.vector.solutions.mo.BiochemicalMethodology value)
+  public void setAcHES(dss.vector.solutions.mo.MolecularAssayResult value)
   {
     if(value == null)
     {
-      setValue(AESTERASEMETHOD, "");
+      setValue(ACHES, "");
     }
     else
     {
-      setValue(AESTERASEMETHOD, value.getId());
+      setValue(ACHES, value.getId());
     }
   }
   
-  public dss.vector.solutions.mo.MolecularAssayResult getAcHEBiochemical()
+  public dss.vector.solutions.mo.InsecticideMethodology getAcHESMethod()
   {
     try
     {
-      return dss.vector.solutions.mo.MolecularAssayResult.get(getValue(ACHEBIOCHEMICAL));
+      return dss.vector.solutions.mo.InsecticideMethodology.get(getValue(ACHESMETHOD));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -129,34 +133,34 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public void validateAcHEBiochemical()
+  public void validateAcHESMethod()
   {
-    this.validateAttribute(ACHEBIOCHEMICAL);
+    this.validateAttribute(ACHESMETHOD);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAcHEBiochemicalMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAcHESMethodMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(ACHEBIOCHEMICAL);
+    return mdClassIF.definesAttribute(ACHESMETHOD);
   }
   
-  public void setAcHEBiochemical(dss.vector.solutions.mo.MolecularAssayResult value)
+  public void setAcHESMethod(dss.vector.solutions.mo.InsecticideMethodology value)
   {
     if(value == null)
     {
-      setValue(ACHEBIOCHEMICAL, "");
+      setValue(ACHESMETHOD, "");
     }
     else
     {
-      setValue(ACHEBIOCHEMICAL, value.getId());
+      setValue(ACHESMETHOD, value.getId());
     }
   }
   
-  public dss.vector.solutions.mo.BiochemicalMethodology getAcHEBiochemicalMethod()
+  public dss.vector.solutions.mo.MolecularAssayResult getAcHEV()
   {
     try
     {
-      return dss.vector.solutions.mo.BiochemicalMethodology.get(getValue(ACHEBIOCHEMICALMETHOD));
+      return dss.vector.solutions.mo.MolecularAssayResult.get(getValue(ACHEV));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -164,34 +168,34 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public void validateAcHEBiochemicalMethod()
+  public void validateAcHEV()
   {
-    this.validateAttribute(ACHEBIOCHEMICALMETHOD);
+    this.validateAttribute(ACHEV);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAcHEBiochemicalMethodMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAcHEVMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(ACHEBIOCHEMICALMETHOD);
+    return mdClassIF.definesAttribute(ACHEV);
   }
   
-  public void setAcHEBiochemicalMethod(dss.vector.solutions.mo.BiochemicalMethodology value)
+  public void setAcHEV(dss.vector.solutions.mo.MolecularAssayResult value)
   {
     if(value == null)
     {
-      setValue(ACHEBIOCHEMICALMETHOD, "");
+      setValue(ACHEV, "");
     }
     else
     {
-      setValue(ACHEBIOCHEMICALMETHOD, value.getId());
+      setValue(ACHEV, value.getId());
     }
   }
   
-  public dss.vector.solutions.mo.MolecularAssayResult getAcHEMolecular()
+  public dss.vector.solutions.mo.InsecticideMethodology getAcHEVMethod()
   {
     try
     {
-      return dss.vector.solutions.mo.MolecularAssayResult.get(getValue(ACHEMOLECULAR));
+      return dss.vector.solutions.mo.InsecticideMethodology.get(getValue(ACHEVMETHOD));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -199,34 +203,34 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public void validateAcHEMolecular()
+  public void validateAcHEVMethod()
   {
-    this.validateAttribute(ACHEMOLECULAR);
+    this.validateAttribute(ACHEVMETHOD);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAcHEMolecularMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAcHEVMethodMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(ACHEMOLECULAR);
+    return mdClassIF.definesAttribute(ACHEVMETHOD);
   }
   
-  public void setAcHEMolecular(dss.vector.solutions.mo.MolecularAssayResult value)
+  public void setAcHEVMethod(dss.vector.solutions.mo.InsecticideMethodology value)
   {
     if(value == null)
     {
-      setValue(ACHEMOLECULAR, "");
+      setValue(ACHEVMETHOD, "");
     }
     else
     {
-      setValue(ACHEMOLECULAR, value.getId());
+      setValue(ACHEVMETHOD, value.getId());
     }
   }
   
-  public dss.vector.solutions.mo.InsecticideMethodology getAcHEMolecularMethod()
+  public dss.vector.solutions.mo.MolecularAssayResult getAcHEW()
   {
     try
     {
-      return dss.vector.solutions.mo.InsecticideMethodology.get(getValue(ACHEMOLECULARMETHOD));
+      return dss.vector.solutions.mo.MolecularAssayResult.get(getValue(ACHEW));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -234,62 +238,34 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public void validateAcHEMolecularMethod()
+  public void validateAcHEW()
   {
-    this.validateAttribute(ACHEMOLECULARMETHOD);
+    this.validateAttribute(ACHEW);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAcHEMolecularMethodMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAcHEWMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(ACHEMOLECULARMETHOD);
+    return mdClassIF.definesAttribute(ACHEW);
   }
   
-  public void setAcHEMolecularMethod(dss.vector.solutions.mo.InsecticideMethodology value)
+  public void setAcHEW(dss.vector.solutions.mo.MolecularAssayResult value)
   {
     if(value == null)
     {
-      setValue(ACHEMOLECULARMETHOD, "");
+      setValue(ACHEW, "");
     }
     else
     {
-      setValue(ACHEMOLECULARMETHOD, value.getId());
+      setValue(ACHEW, value.getId());
     }
   }
   
-  public Integer getBEsterase()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(BESTERASE));
-  }
-  
-  public void validateBEsterase()
-  {
-    this.validateAttribute(BESTERASE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getBEsteraseMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(BESTERASE);
-  }
-  
-  public void setBEsterase(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(BESTERASE, "");
-    }
-    else
-    {
-      setValue(BESTERASE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public dss.vector.solutions.mo.BiochemicalMethodology getBEsteraseMethod()
+  public dss.vector.solutions.mo.InsecticideMethodology getAcHEWMethod()
   {
     try
     {
-      return dss.vector.solutions.mo.BiochemicalMethodology.get(getValue(BESTERASEMETHOD));
+      return dss.vector.solutions.mo.InsecticideMethodology.get(getValue(ACHEWMETHOD));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -297,26 +273,54 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public void validateBEsteraseMethod()
+  public void validateAcHEWMethod()
   {
-    this.validateAttribute(BESTERASEMETHOD);
+    this.validateAttribute(ACHEWMETHOD);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getBEsteraseMethodMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getAcHEWMethodMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(BESTERASEMETHOD);
+    return mdClassIF.definesAttribute(ACHEWMETHOD);
   }
   
-  public void setBEsteraseMethod(dss.vector.solutions.mo.BiochemicalMethodology value)
+  public void setAcHEWMethod(dss.vector.solutions.mo.InsecticideMethodology value)
   {
     if(value == null)
     {
-      setValue(BESTERASEMETHOD, "");
+      setValue(ACHEWMETHOD, "");
     }
     else
     {
-      setValue(BESTERASEMETHOD, value.getId());
+      setValue(ACHEWMETHOD, value.getId());
+    }
+  }
+  
+  public Boolean getBAcetate()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(BACETATE));
+  }
+  
+  public void validateBAcetate()
+  {
+    this.validateAttribute(BACETATE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getBAcetateMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
+    return mdClassIF.definesAttribute(BACETATE);
+  }
+  
+  public void setBAcetate(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(BACETATE, "");
+    }
+    else
+    {
+      setValue(BACETATE, java.lang.Boolean.toString(value));
     }
   }
   
@@ -425,11 +429,11 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public dss.vector.solutions.mo.MolecularAssayResult getGABA()
+  public dss.vector.solutions.mo.MolecularAssayResult getGABAG()
   {
     try
     {
-      return dss.vector.solutions.mo.MolecularAssayResult.get(getValue(GABA));
+      return dss.vector.solutions.mo.MolecularAssayResult.get(getValue(GABAG));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -437,34 +441,34 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public void validateGABA()
+  public void validateGABAG()
   {
-    this.validateAttribute(GABA);
+    this.validateAttribute(GABAG);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGABAMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGABAGMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(GABA);
+    return mdClassIF.definesAttribute(GABAG);
   }
   
-  public void setGABA(dss.vector.solutions.mo.MolecularAssayResult value)
+  public void setGABAG(dss.vector.solutions.mo.MolecularAssayResult value)
   {
     if(value == null)
     {
-      setValue(GABA, "");
+      setValue(GABAG, "");
     }
     else
     {
-      setValue(GABA, value.getId());
+      setValue(GABAG, value.getId());
     }
   }
   
-  public dss.vector.solutions.mo.InsecticideMethodology getGABAMethod()
+  public dss.vector.solutions.mo.InsecticideMethodology getGABAGMethod()
   {
     try
     {
-      return dss.vector.solutions.mo.InsecticideMethodology.get(getValue(GABAMETHOD));
+      return dss.vector.solutions.mo.InsecticideMethodology.get(getValue(GABAGMETHOD));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -472,62 +476,34 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public void validateGABAMethod()
+  public void validateGABAGMethod()
   {
-    this.validateAttribute(GABAMETHOD);
+    this.validateAttribute(GABAGMETHOD);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGABAMethodMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGABAGMethodMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(GABAMETHOD);
+    return mdClassIF.definesAttribute(GABAGMETHOD);
   }
   
-  public void setGABAMethod(dss.vector.solutions.mo.InsecticideMethodology value)
+  public void setGABAGMethod(dss.vector.solutions.mo.InsecticideMethodology value)
   {
     if(value == null)
     {
-      setValue(GABAMETHOD, "");
+      setValue(GABAGMETHOD, "");
     }
     else
     {
-      setValue(GABAMETHOD, value.getId());
+      setValue(GABAGMETHOD, value.getId());
     }
   }
   
-  public Integer getGST()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(GST));
-  }
-  
-  public void validateGST()
-  {
-    this.validateAttribute(GST);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGSTMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(GST);
-  }
-  
-  public void setGST(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(GST, "");
-    }
-    else
-    {
-      setValue(GST, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public dss.vector.solutions.mo.BiochemicalMethodology getGSTMethod()
+  public dss.vector.solutions.mo.MolecularAssayResult getGABAS()
   {
     try
     {
-      return dss.vector.solutions.mo.BiochemicalMethodology.get(getValue(GSTMETHOD));
+      return dss.vector.solutions.mo.MolecularAssayResult.get(getValue(GABAS));
     }
     catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
     {
@@ -535,26 +511,117 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public void validateGSTMethod()
+  public void validateGABAS()
   {
-    this.validateAttribute(GSTMETHOD);
+    this.validateAttribute(GABAS);
   }
   
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGSTMethodMd()
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGABASMd()
   {
     com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(GSTMETHOD);
+    return mdClassIF.definesAttribute(GABAS);
   }
   
-  public void setGSTMethod(dss.vector.solutions.mo.BiochemicalMethodology value)
+  public void setGABAS(dss.vector.solutions.mo.MolecularAssayResult value)
   {
     if(value == null)
     {
-      setValue(GSTMETHOD, "");
+      setValue(GABAS, "");
     }
     else
     {
-      setValue(GSTMETHOD, value.getId());
+      setValue(GABAS, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.mo.InsecticideMethodology getGABASMethod()
+  {
+    try
+    {
+      return dss.vector.solutions.mo.InsecticideMethodology.get(getValue(GABASMETHOD));
+    }
+    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
+    {
+      return null;
+    }
+  }
+  
+  public void validateGABASMethod()
+  {
+    this.validateAttribute(GABASMETHOD);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGABASMethodMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
+    return mdClassIF.definesAttribute(GABASMETHOD);
+  }
+  
+  public void setGABASMethod(dss.vector.solutions.mo.InsecticideMethodology value)
+  {
+    if(value == null)
+    {
+      setValue(GABASMETHOD, "");
+    }
+    else
+    {
+      setValue(GABASMETHOD, value.getId());
+    }
+  }
+  
+  public Boolean getGSTCDNB()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(GSTCDNB));
+  }
+  
+  public void validateGSTCDNB()
+  {
+    this.validateAttribute(GSTCDNB);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGSTCDNBMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
+    return mdClassIF.definesAttribute(GSTCDNB);
+  }
+  
+  public void setGSTCDNB(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(GSTCDNB, "");
+    }
+    else
+    {
+      setValue(GSTCDNB, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getGSTDCNB()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(GSTDCNB));
+  }
+  
+  public void validateGSTDCNB()
+  {
+    this.validateAttribute(GSTDCNB);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGSTDCNBMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
+    return mdClassIF.definesAttribute(GSTDCNB);
+  }
+  
+  public void setGSTDCNB(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(GSTDCNB, "");
+    }
+    else
+    {
+      setValue(GSTDCNB, java.lang.Boolean.toString(value));
     }
   }
   
@@ -590,6 +657,104 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     else
     {
       setValue(GENERATION, value.getId());
+    }
+  }
+  
+  public Boolean getHeme()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HEME));
+  }
+  
+  public void validateHeme()
+  {
+    this.validateAttribute(HEME);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getHemeMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
+    return mdClassIF.definesAttribute(HEME);
+  }
+  
+  public void setHeme(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(HEME, "");
+    }
+    else
+    {
+      setValue(HEME, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public dss.vector.solutions.mo.MolecularAssayResult getIAcHE()
+  {
+    try
+    {
+      return dss.vector.solutions.mo.MolecularAssayResult.get(getValue(IACHE));
+    }
+    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
+    {
+      return null;
+    }
+  }
+  
+  public void validateIAcHE()
+  {
+    this.validateAttribute(IACHE);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIAcHEMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
+    return mdClassIF.definesAttribute(IACHE);
+  }
+  
+  public void setIAcHE(dss.vector.solutions.mo.MolecularAssayResult value)
+  {
+    if(value == null)
+    {
+      setValue(IACHE, "");
+    }
+    else
+    {
+      setValue(IACHE, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.mo.InsecticideMethodology getIAcHEMethod()
+  {
+    try
+    {
+      return dss.vector.solutions.mo.InsecticideMethodology.get(getValue(IACHEMETHOD));
+    }
+    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
+    {
+      return null;
+    }
+  }
+  
+  public void validateIAcHEMethod()
+  {
+    this.validateAttribute(IACHEMETHOD);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIAcHEMethodMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
+    return mdClassIF.definesAttribute(IACHEMETHOD);
+  }
+  
+  public void setIAcHEMethod(dss.vector.solutions.mo.InsecticideMethodology value)
+  {
+    if(value == null)
+    {
+      setValue(IACHEMETHOD, "");
+    }
+    else
+    {
+      setValue(IACHEMETHOD, value.getId());
     }
   }
   
@@ -672,69 +837,6 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public Integer getMonooxygenase()
-  {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(MONOOXYGENASE));
-  }
-  
-  public void validateMonooxygenase()
-  {
-    this.validateAttribute(MONOOXYGENASE);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMonooxygenaseMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(MONOOXYGENASE);
-  }
-  
-  public void setMonooxygenase(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(MONOOXYGENASE, "");
-    }
-    else
-    {
-      setValue(MONOOXYGENASE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public dss.vector.solutions.mo.BiochemicalMethodology getMonooxygenaseMethod()
-  {
-    try
-    {
-      return dss.vector.solutions.mo.BiochemicalMethodology.get(getValue(MONOOXYGENASEMETHOD));
-    }
-    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
-    {
-      return null;
-    }
-  }
-  
-  public void validateMonooxygenaseMethod()
-  {
-    this.validateAttribute(MONOOXYGENASEMETHOD);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMonooxygenaseMethodMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(MONOOXYGENASEMETHOD);
-  }
-  
-  public void setMonooxygenaseMethod(dss.vector.solutions.mo.BiochemicalMethodology value)
-  {
-    if(value == null)
-    {
-      setValue(MONOOXYGENASEMETHOD, "");
-    }
-    else
-    {
-      setValue(MONOOXYGENASEMETHOD, value.getId());
-    }
-  }
-  
   public String getMosquitoId()
   {
     return getValue(MOSQUITOID);
@@ -760,6 +862,34 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     else
     {
       setValue(MOSQUITOID, value);
+    }
+  }
+  
+  public Boolean getP450()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(P450));
+  }
+  
+  public void validateP450()
+  {
+    this.validateAttribute(P450);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getP450Md()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
+    return mdClassIF.definesAttribute(P450);
+  }
+  
+  public void setP450(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(P450, "");
+    }
+    else
+    {
+      setValue(P450, java.lang.Boolean.toString(value));
     }
   }
   
@@ -889,9 +1019,9 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
   }
   
-  public Integer getPNPA()
+  public Boolean getPNPA()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PNPA));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PNPA));
   }
   
   public void validatePNPA()
@@ -905,7 +1035,7 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     return mdClassIF.definesAttribute(PNPA);
   }
   
-  public void setPNPA(Integer value)
+  public void setPNPA(Boolean value)
   {
     if(value == null)
     {
@@ -913,42 +1043,7 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     }
     else
     {
-      setValue(PNPA, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public dss.vector.solutions.mo.BiochemicalMethodology getPNPAMethod()
-  {
-    try
-    {
-      return dss.vector.solutions.mo.BiochemicalMethodology.get(getValue(PNPAMETHOD));
-    }
-    catch (com.terraframe.mojo.dataaccess.cache.DataNotFoundException e)
-    {
-      return null;
-    }
-  }
-  
-  public void validatePNPAMethod()
-  {
-    this.validateAttribute(PNPAMETHOD);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPNPAMethodMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
-    return mdClassIF.definesAttribute(PNPAMETHOD);
-  }
-  
-  public void setPNPAMethod(dss.vector.solutions.mo.BiochemicalMethodology value)
-  {
-    if(value == null)
-    {
-      setValue(PNPAMETHOD, "");
-    }
-    else
-    {
-      setValue(PNPAMETHOD, value.getId());
+      setValue(PNPA, java.lang.Boolean.toString(value));
     }
   }
   
@@ -1075,6 +1170,34 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
     else
     {
       setValue(PVIVAXMETHOD, value.getId());
+    }
+  }
+  
+  public String getSampleId()
+  {
+    return getValue(SAMPLEID);
+  }
+  
+  public void validateSampleId()
+  {
+    this.validateAttribute(SAMPLEID);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSampleIdMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoView.CLASS);
+    return mdClassIF.definesAttribute(SAMPLEID);
+  }
+  
+  public void setSampleId(String value)
+  {
+    if(value == null)
+    {
+      setValue(SAMPLEID, "");
+    }
+    else
+    {
+      setValue(SAMPLEID, value);
     }
   }
   

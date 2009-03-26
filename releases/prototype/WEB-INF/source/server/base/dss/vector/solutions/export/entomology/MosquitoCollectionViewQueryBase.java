@@ -10,7 +10,7 @@ package dss.vector.solutions.export.entomology;
 public  abstract  class MosquitoCollectionViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237423095891L;
+private static final long serialVersionUID = 1238027420326L;
 
   public MosquitoCollectionViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public  class NonSentinalSiteQuery extends dss.vector.solutions.geo.generated.AbstractSiteQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237423114459L;
+private static final long serialVersionUID = 1238027444523L;
 
   public NonSentinalSiteQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1237423114459L;
  implements NonSentinalSiteQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237423114572L;
+private static final long serialVersionUID = 1238027444687L;
 
   public NonSentinalSiteQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

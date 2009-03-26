@@ -12,7 +12,7 @@ public abstract class ConcreteMosquitoCollectionBase extends dss.vector.solution
   public final static String CLASS = "dss.vector.solutions.entomology.ConcreteMosquitoCollection";
   public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String GEOENTITY = "geoEntity";
-  private static final long serialVersionUID = 1237423117835L;
+  private static final long serialVersionUID = 1238027450005L;
   
   public ConcreteMosquitoCollectionBase()
   {

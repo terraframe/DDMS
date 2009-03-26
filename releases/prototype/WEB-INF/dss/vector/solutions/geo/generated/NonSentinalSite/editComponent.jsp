@@ -4,11 +4,6 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.geo.generated.NonSentinalSite.form.name" id="dss.vector.solutions.geo.generated.NonSentinalSite.form.id" method="POST">
-  <div class="fldContainer">
-    <div class="fcTop"><div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-    <div style="position:absolute; left:20px; top:25px;">
-
   <mjl:component item="${item}" param="dto">
     <dl>
       <dt>
@@ -43,10 +38,6 @@
       </dd>
     </dl>
   </mjl:component>
-  </div>
-</div>
-  
-  <div class="submitButton_bl"></div>
   <mjl:command value="Update" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.update.mojo" name="dss.vector.solutions.geo.generated.NonSentinalSite.form.update.button" classes="submitButton"/>
   <mjl:command value="Delete" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.delete.mojo" name="dss.vector.solutions.geo.generated.NonSentinalSite.form.delete.button" classes="submitButton"/>
   <mjl:command value="Cancel" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.cancel.mojo" name="dss.vector.solutions.geo.generated.NonSentinalSite.form.cancel.button" classes="submitButton"/>

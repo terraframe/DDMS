@@ -11,7 +11,7 @@ public abstract class PropertyAllreadyExistsExceptionBase extends com.terraframe
 {
   public final static String CLASS = "dss.vector.solutions.PropertyAllreadyExistsException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1237423102365L;
+  private static final long serialVersionUID = 1238027427380L;
   
   public PropertyAllreadyExistsExceptionBase()
   {

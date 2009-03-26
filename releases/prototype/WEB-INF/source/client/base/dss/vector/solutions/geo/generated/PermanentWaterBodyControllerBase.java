@@ -9,7 +9,7 @@ public class PermanentWaterBodyControllerBase implements com.terraframe.mojo.gen
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1237423104221L;
+  private static final long serialVersionUID = 1238027430839L;
   
   public PermanentWaterBodyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

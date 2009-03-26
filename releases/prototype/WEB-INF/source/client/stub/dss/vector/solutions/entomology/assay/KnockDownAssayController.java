@@ -26,14 +26,14 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   }
   public void failCreate(dss.vector.solutions.entomology.assay.KnockDownAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_entomology_assay_KnockDownAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create KnockDownAssayController");
     render("createComponent.jsp");
@@ -62,14 +62,14 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     dss.vector.solutions.entomology.assay.KnockDownAssayDTO dto = dss.vector.solutions.entomology.assay.KnockDownAssayDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("dss_vector_solutions_entomology_assay_KnockDownAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit KnockDownAssayController");
     render("editComponent.jsp");
@@ -92,14 +92,14 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   }
   public void failDelete(dss.vector.solutions.entomology.assay.KnockDownAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_entomology_assay_KnockDownAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit KnockDownAssayController");
     render("editComponent.jsp");
@@ -120,14 +120,14 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.KnockDownAssayDTO dto = new dss.vector.solutions.entomology.assay.KnockDownAssayDTO(clientRequest);
-    req.setAttribute("dss_vector_solutions_entomology_assay_KnockDownAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create KnockDownAssayController");
     render("createComponent.jsp");
@@ -139,14 +139,14 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("dss_vector_solutions_entomology_assay_KnockDownAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.entomology.assay.KnockDownAssayDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View KnockDownAssayController");
     render("viewComponent.jsp");
@@ -169,14 +169,14 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   }
   public void failUpdate(dss.vector.solutions.entomology.assay.KnockDownAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_entomology_assay_KnockDownAssay_sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_CollectionAssay_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_insecticide", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_entomology_assay_AbstractAssay_specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("identificationMethod", dss.vector.solutions.mo.IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("testMethod", dss.vector.solutions.mo.ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update KnockDownAssayController");
     render("updateComponent.jsp");

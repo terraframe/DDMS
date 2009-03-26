@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class MorphologicalSpecieGroupDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237423112238L;
+  private static final long serialVersionUID = 1238027441112L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.MorphologicalSpecieGroup";
   protected MorphologicalSpecieGroupDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -38,7 +38,8 @@ public abstract class MorphologicalSpecieGroupDTOBase extends com.terraframe.moj
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String QUANTITY = "quantity";
-  public static java.lang.String QUANTITYLIVE = "quantityLive";
+  public static java.lang.String QUANTITYFEMALE = "quantityFemale";
+  public static java.lang.String QUANTITYMALE = "quantityMale";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPECIE = "specie";
@@ -399,41 +400,78 @@ public abstract class MorphologicalSpecieGroupDTOBase extends com.terraframe.moj
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantity").getAttributeMdDTO();
   }
   
-  public Integer getQuantityLive()
+  public Integer getQuantityFemale()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYLIVE));
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYFEMALE));
   }
   
-  public void setQuantityLive(Integer value)
+  public void setQuantityFemale(Integer value)
   {
     if(value == null)
     {
-      setValue(QUANTITYLIVE, "");
+      setValue(QUANTITYFEMALE, "");
     }
     else
     {
-      setValue(QUANTITYLIVE, java.lang.Integer.toString(value));
+      setValue(QUANTITYFEMALE, java.lang.Integer.toString(value));
     }
   }
   
-  public boolean isQuantityLiveWritable()
+  public boolean isQuantityFemaleWritable()
   {
-    return isWritable(QUANTITYLIVE);
+    return isWritable(QUANTITYFEMALE);
   }
   
-  public boolean isQuantityLiveReadable()
+  public boolean isQuantityFemaleReadable()
   {
-    return isReadable(QUANTITYLIVE);
+    return isReadable(QUANTITYFEMALE);
   }
   
-  public boolean isQuantityLiveModified()
+  public boolean isQuantityFemaleModified()
   {
-    return isModified(QUANTITYLIVE);
+    return isModified(QUANTITYFEMALE);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityLive").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityFemale").getAttributeMdDTO();
+  }
+  
+  public Integer getQuantityMale()
+  {
+    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYMALE));
+  }
+  
+  public void setQuantityMale(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(QUANTITYMALE, "");
+    }
+    else
+    {
+      setValue(QUANTITYMALE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isQuantityMaleWritable()
+  {
+    return isWritable(QUANTITYMALE);
+  }
+  
+  public boolean isQuantityMaleReadable()
+  {
+    return isReadable(QUANTITYMALE);
+  }
+  
+  public boolean isQuantityMaleModified()
+  {
+    return isModified(QUANTITYMALE);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMaleMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityMale").getAttributeMdDTO();
   }
   
   public Long getSeq()

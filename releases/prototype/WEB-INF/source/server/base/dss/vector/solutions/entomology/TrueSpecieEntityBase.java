@@ -21,11 +21,12 @@ public abstract class TrueSpecieEntityBase extends com.terraframe.mojo.business.
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String SAMPLEID = "sampleId";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1237423110016L;
+  private static final long serialVersionUID = 1238027437850L;
   
   public TrueSpecieEntityBase()
   {
@@ -302,6 +303,34 @@ public abstract class TrueSpecieEntityBase extends com.terraframe.mojo.business.
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public String getSampleId()
+  {
+    return getValue(SAMPLEID);
+  }
+  
+  public void validateSampleId()
+  {
+    this.validateAttribute(SAMPLEID);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSampleIdMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.TrueSpecieEntity.CLASS);
+    return mdClassIF.definesAttribute(SAMPLEID);
+  }
+  
+  public void setSampleId(String value)
+  {
+    if(value == null)
+    {
+      setValue(SAMPLEID, "");
+    }
+    else
+    {
+      setValue(SAMPLEID, value);
     }
   }
   

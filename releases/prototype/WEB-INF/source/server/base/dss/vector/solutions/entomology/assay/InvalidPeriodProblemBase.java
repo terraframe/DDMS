@@ -13,7 +13,7 @@ public abstract class InvalidPeriodProblemBase extends com.terraframe.mojo.busin
   public static java.lang.String ID = "id";
   public static java.lang.String INTERVALID = "intervalId";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = 1237423122427L;
+  private static final long serialVersionUID = 1238027455169L;
   
   public InvalidPeriodProblemBase()
   {

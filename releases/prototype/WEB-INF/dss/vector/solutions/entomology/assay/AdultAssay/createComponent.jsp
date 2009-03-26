@@ -41,57 +41,12 @@
       </dd>
       <dt>
         <label>
-          ${item.amountMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="amount" />
-        <mjl:messages attribute="amount">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.exposureTimeMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="exposureTime" />
-        <mjl:messages attribute="exposureTime">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
           ${item.fedMd.displayLabel}
         </label>
       </dt>
       <dd>
         <mjl:input type="text" param="fed" />
         <mjl:messages attribute="fed">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.generationMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_generation}" param="generation">
-          <mjl:option>
-            ${current.keyName}
-          </mjl:option>
-        </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.genericNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="genericName" />
-        <mjl:messages attribute="genericName">
           <mjl:message />
         </mjl:messages>
       </dd>
@@ -108,77 +63,11 @@
       </dd>
       <dt>
         <label>
-          ${item.insecticideMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AdultAssay_insecticide}" param="insecticide">
-          <mjl:option>
-            ${current.keyName}
-          </mjl:option>
-        </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.quantityTestedMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="quantityTested" />
-        <mjl:messages attribute="quantityTested">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.unitsMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="units" />
-        <mjl:messages attribute="units">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.collectionMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_collection}" param="collection">
-          <mjl:option>
-            ${current.keyName}
-          </mjl:option>
-        </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.identificationMethodMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_identificationMethod}" param="identificationMethod">
-          <mjl:option>
-            ${current.keyName}
-          </mjl:option>
-        </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.isofemaleMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:boolean param="isofemale" />
-      </dd>
-      <dt>
-        <label>
           ${item.sexMd.displayLabel}
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="enumName" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_sex}" param="sex">
+        <mjl:select var="current" valueAttribute="enumName" items="${dss_vector_solutions_entomology_assay_AdultAssay_sex}" param="sex">
           <c:choose>
             <c:when test="${mjl:contains(item.sexEnumNames, current.enumName)}">
               <mjl:option selected="selected">
@@ -195,11 +84,112 @@
       </dd>
       <dt>
         <label>
+          ${item.collectionMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_CollectionAssay_collection}" param="collection">
+          <mjl:option>
+            ${current.keyName}
+          </mjl:option>
+        </mjl:select>
+      </dd>
+      <dt>
+        <label>
+          ${item.exposureTimeMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="exposureTime" />
+        <mjl:messages attribute="exposureTime">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
+          ${item.generationMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_CollectionAssay_generation}" param="generation">
+          <mjl:option>
+            ${current.keyName}
+          </mjl:option>
+        </mjl:select>
+      </dd>
+      <dt>
+        <label>
+          ${item.identificationMethodMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_CollectionAssay_identificationMethod}" param="identificationMethod">
+          <mjl:option>
+            ${current.keyName}
+          </mjl:option>
+        </mjl:select>
+      </dd>
+      <dt>
+        <label>
+          ${item.intervalTimeMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="intervalTime" />
+        <mjl:messages attribute="intervalTime">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
+          ${item.isofemaleMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:boolean param="isofemale" />
+      </dd>
+      <dt>
+        <label>
+          ${item.quantityTestedMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="quantityTested" />
+        <mjl:messages attribute="quantityTested">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
+          ${item.testMethodMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_CollectionAssay_testMethod}" param="testMethod">
+          <mjl:option>
+            ${current.keyName}
+          </mjl:option>
+        </mjl:select>
+      </dd>
+      <dt>
+        <label>
+          ${item.insecticideMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_AbstractAssay_insecticide}" param="insecticide">
+          <mjl:option>
+            ${current.keyName}
+          </mjl:option>
+        </mjl:select>
+      </dd>
+      <dt>
+        <label>
           ${item.specieMd.displayLabel}
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_specie}" param="specie">
+        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_AbstractAssay_specie}" param="specie">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
@@ -215,18 +205,6 @@
         <mjl:messages attribute="testDate">
           <mjl:message />
         </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.testMethodMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_AbstractAssay_testMethod}" param="testMethod">
-          <mjl:option>
-            ${current.keyName}
-          </mjl:option>
-        </mjl:select>
       </dd>
     </dl>
   </mjl:component>

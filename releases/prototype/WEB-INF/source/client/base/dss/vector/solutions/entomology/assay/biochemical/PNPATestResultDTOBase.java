@@ -1,8 +1,8 @@
 package dss.vector.solutions.entomology.assay.biochemical;
 
-public abstract class PNPATestResultDTOBase extends dss.vector.solutions.entomology.assay.biochemical.BiochemicalAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class PNPATestResultDTOBase extends dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237423121050L;
+  private static final long serialVersionUID = 1238027453774L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.PNPATestResult";
   protected PNPATestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -27,12 +27,12 @@ public abstract class PNPATestResultDTOBase extends dss.vector.solutions.entomol
   }
   
   public static java.lang.String TESTRESULT = "testResult";
-  public Integer getTestResult()
+  public Boolean getTestResult()
   {
-    return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TESTRESULT));
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(TESTRESULT));
   }
   
-  public void setTestResult(Integer value)
+  public void setTestResult(Boolean value)
   {
     if(value == null)
     {
@@ -40,7 +40,7 @@ public abstract class PNPATestResultDTOBase extends dss.vector.solutions.entomol
     }
     else
     {
-      setValue(TESTRESULT, java.lang.Integer.toString(value));
+      setValue(TESTRESULT, java.lang.Boolean.toString(value));
     }
   }
   
@@ -59,9 +59,9 @@ public abstract class PNPATestResultDTOBase extends dss.vector.solutions.entomol
     return isModified(TESTRESULT);
   }
   
-  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getTestResultMd()
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getTestResultMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("testResult").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("testResult").getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.entomology.assay.biochemical.PNPATestResultDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

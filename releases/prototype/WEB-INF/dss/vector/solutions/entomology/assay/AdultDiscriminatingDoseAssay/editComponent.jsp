@@ -1,11 +1,11 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
-<div class="fldContainer">
-    <div class="fcTop">
+
 
   <mjl:component item="${item}" param="dto">
     <dl>
@@ -187,17 +187,7 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-      <dt>
-        <label>
-          ${item.gravidMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="gravid" />
-        <mjl:messages attribute="gravid">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+      
       <dt>
         <label>
           ${item.insecticideMd.displayLabel}
@@ -209,6 +199,7 @@
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
+         <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><f:message key="Manage_Insecticides"/></a>
       </dd>
        <dt>
         <label>
@@ -260,9 +251,7 @@
       
     </dl>
   </mjl:component>
-  <div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-  </div>
+
   
   <div class="submitButton_bl"></div>
   <mjl:command value="Update" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.update.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.update.button" classes="submitButton"/>

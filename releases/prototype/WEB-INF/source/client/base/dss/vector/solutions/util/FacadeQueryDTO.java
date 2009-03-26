@@ -10,7 +10,7 @@ package dss.vector.solutions.util;
 public class FacadeQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237423118786L;
+private static final long serialVersionUID = 1238027451473L;
 
   protected FacadeQueryDTO(String type)
   {

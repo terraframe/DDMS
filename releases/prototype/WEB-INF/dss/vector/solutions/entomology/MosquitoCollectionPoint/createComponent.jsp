@@ -8,17 +8,6 @@
     <dl>
       <dt>
         <label>
-          ${item.dateCollectedMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="dateCollected" />
-        <mjl:messages attribute="dateCollected">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
           ${item.geoEntityMd.displayLabel}
         </label>
       </dt>
@@ -28,6 +17,28 @@
             ${current.keyName}
           </mjl:option>
         </mjl:select>
+      </dd>
+      <dt>
+        <label>
+          ${item.startDateMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="startDate" classes="DatePick" id="dto.startDate.id"/>
+        <mjl:messages attribute="startDate">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
+          ${item.endDateMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="endDate" classes="DatePick" id="dto.endDate.id"/>
+        <mjl:messages attribute="endDate">
+          <mjl:message />
+        </mjl:messages>
       </dd>
     </dl>
   </mjl:component>

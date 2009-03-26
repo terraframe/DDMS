@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class MolecularAssayResultBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.MolecularAssayResult";
-  private static final long serialVersionUID = 1237423116546L;
+  private static final long serialVersionUID = 1238027447813L;
   
   public MolecularAssayResultBase()
   {

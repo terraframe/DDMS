@@ -14,7 +14,7 @@ public abstract class InvalidTestDateProblemBase extends com.terraframe.mojo.bus
   public static java.lang.String COLLECTIONDATE = "collectionDate";
   public static java.lang.String ID = "id";
   public static java.lang.String TESTDATE = "testDate";
-  private static final long serialVersionUID = 1237423102834L;
+  private static final long serialVersionUID = 1238027428974L;
   
   public InvalidTestDateProblemBase()
   {

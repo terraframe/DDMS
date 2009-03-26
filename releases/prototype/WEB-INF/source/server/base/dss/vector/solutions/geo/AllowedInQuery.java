@@ -9,7 +9,7 @@ package dss.vector.solutions.geo;
  */
 public  class AllowedInQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237423119480L;
+private static final long serialVersionUID = 1238027452254L;
 
   public AllowedInQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

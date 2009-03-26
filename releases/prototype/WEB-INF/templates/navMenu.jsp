@@ -26,6 +26,8 @@
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><f:message key="Backup_Data"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.PropertyController.viewAll.mojo"><f:message key="Change_Settings"/></a></li>                                  
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><f:message key="Manage_Insecticides"/></a></li>                                                               
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo"><f:message key="Manage_Knock_Down_Properties"/></a></li>                                                               
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.general.LethalTimePropertyController.search.mojo"><f:message key="Manage_Lethal_Properties"/></a></li>                                                                                            
                          </ul>
                      </div>
                  </div>      
@@ -52,8 +54,9 @@
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>                               
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="View_All_ADDA"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo"><f:message key="View_All_EfficacyAssay"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="LaraveDDA"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionPointController.viewAll.mojo"><f:message key="View_All_Mosquito_Collection_Points"/></a></li>                            
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="LarvaeDDA"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionPointController.search.mojo"><f:message key="Mosquito_Collection_Points"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo"><f:message key="Knock_Down_Assay"/></a></li>                            
                          </ul>                    
                      </div>
                  </div>                                        

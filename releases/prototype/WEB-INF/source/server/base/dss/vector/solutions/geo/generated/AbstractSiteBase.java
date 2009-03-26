@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public abstract class AbstractSiteBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.AbstractSite";
-  private static final long serialVersionUID = 1237423112504L;
+  private static final long serialVersionUID = 1238027441575L;
   
   public AbstractSiteBase()
   {

@@ -11,8 +11,7 @@ public abstract class UninterestingSpecieGroupBase extends dss.vector.solutions.
 {
   public final static String CLASS = "dss.vector.solutions.entomology.UninterestingSpecieGroup";
   public static java.lang.String QUANTITY = "quantity";
-  public static java.lang.String SAMPLEID = "sampleId";
-  private static final long serialVersionUID = 1237423120139L;
+  private static final long serialVersionUID = 1238027452809L;
   
   public UninterestingSpecieGroupBase()
   {
@@ -44,34 +43,6 @@ public abstract class UninterestingSpecieGroupBase extends dss.vector.solutions.
     else
     {
       setValue(QUANTITY, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public String getSampleId()
-  {
-    return getValue(SAMPLEID);
-  }
-  
-  public void validateSampleId()
-  {
-    this.validateAttribute(SAMPLEID);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSampleIdMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.UninterestingSpecieGroup.CLASS);
-    return mdClassIF.definesAttribute(SAMPLEID);
-  }
-  
-  public void setSampleId(String value)
-  {
-    if(value == null)
-    {
-      setValue(SAMPLEID, "");
-    }
-    else
-    {
-      setValue(SAMPLEID, value);
     }
   }
   

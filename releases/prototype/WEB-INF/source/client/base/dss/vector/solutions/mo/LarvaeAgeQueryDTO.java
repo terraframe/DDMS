@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public class LarvaeAgeQueryDTO extends dss.vector.solutions.mo.AbstractTermQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237423123275L;
+private static final long serialVersionUID = 1238027456454L;
 
   protected LarvaeAgeQueryDTO(String type)
   {

@@ -12,7 +12,7 @@ public abstract class InvalidMorphologicalSpecieProblemBase extends com.terrafra
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMorphologicalSpecieProblem";
   public static java.lang.String ATTRIBUTELABEL = "attributeLabel";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1237423096713L;
+  private static final long serialVersionUID = 1238027421573L;
   
   public InvalidMorphologicalSpecieProblemBase()
   {

@@ -4,8 +4,6 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.name" id="dss.vector.solutions.entomology.assay.EfficacyAssay.form.id" method="POST">
-<div class="fldContainer">
-    <div class="fcTop">
   <mjl:component item="${item}" param="dto">
     <dl>
     <dt>
@@ -241,9 +239,6 @@
       </dd>
     </dl>
   </mjl:component>
-   <div class="fcTopLeft"></div></div>
-    <div class="fcBottom"><div class="fcBottomLeft"></div></div>
-  </div>
   <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.create.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.create.button" />
 </mjl:form>
 <div id="cal1Container" class="yui-skin-sam"></div> 

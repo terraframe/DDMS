@@ -1,19 +1,41 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.DDATestIntervalControllerBase;
-
 public class DDATestIntervalController extends DDATestIntervalControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/entomology/assay/DDATestInterval/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1235073594740L;
+  private static final long serialVersionUID = 1237573031646L;
   
   public DDATestIntervalController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    dss.vector.solutions.entomology.assay.DDATestIntervalDTO dto = dss.vector.solutions.entomology.assay.DDATestIntervalDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("dss_vector_solutions_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.CollectionAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit DDATestIntervalController");
+    render("editComponent.jsp");
+  }
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.view(id);
+  }
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("dss_vector_solutions_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.CollectionAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dss.vector.solutions.entomology.assay.DDATestIntervalDTO.get(clientRequest, id));
+    req.setAttribute("page_title", "View DDATestIntervalController");
+    render("viewComponent.jsp");
+  }
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -26,18 +48,24 @@ public class DDATestIntervalController extends DDATestIntervalControllerBase imp
   {
     resp.sendError(500);
   }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void update(dss.vector.solutions.entomology.assay.DDATestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.entomology.assay.DDATestIntervalDTO dto = new dss.vector.solutions.entomology.assay.DDATestIntervalDTO(clientRequest);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create DDATestIntervalController");
-    render("createComponent.jsp");
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failUpdate(dto);
+    }
   }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(dss.vector.solutions.entomology.assay.DDATestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.viewAll();
+    req.setAttribute("dss_vector_solutions_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.CollectionAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Update DDATestIntervalController");
+    render("updateComponent.jsp");
   }
   public void delete(dss.vector.solutions.entomology.assay.DDATestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -53,7 +81,7 @@ public class DDATestIntervalController extends DDATestIntervalControllerBase imp
   }
   public void failDelete(dss.vector.solutions.entomology.assay.DDATestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.CollectionAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit DDATestIntervalController");
     render("editComponent.jsp");
@@ -81,10 +109,23 @@ public class DDATestIntervalController extends DDATestIntervalControllerBase imp
   }
   public void failCreate(dss.vector.solutions.entomology.assay.DDATestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.CollectionAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create DDATestIntervalController");
     render("createComponent.jsp");
+  }
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.entomology.assay.DDATestIntervalDTO dto = new dss.vector.solutions.entomology.assay.DDATestIntervalDTO(clientRequest);
+    req.setAttribute("dss_vector_solutions_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.CollectionAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create DDATestIntervalController");
+    render("createComponent.jsp");
+  }
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -97,48 +138,5 @@ public class DDATestIntervalController extends DDATestIntervalControllerBase imp
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
-  }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dss.vector.solutions.entomology.assay.DDATestIntervalDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View DDATestIntervalController");
-    render("viewComponent.jsp");
-  }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dss.vector.solutions.entomology.assay.DDATestIntervalDTO dto = dss.vector.solutions.entomology.assay.DDATestIntervalDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit DDATestIntervalController");
-    render("editComponent.jsp");
-  }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.view(id);
-  }
-  public void update(dss.vector.solutions.entomology.assay.DDATestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failUpdate(dto);
-    }
-  }
-  public void failUpdate(dss.vector.solutions.entomology.assay.DDATestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_assay_DDATestInterval_assay", dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update DDATestIntervalController");
-    render("editComponent.jsp");
   }
 }

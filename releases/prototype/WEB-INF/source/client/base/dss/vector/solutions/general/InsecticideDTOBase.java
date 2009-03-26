@@ -2,7 +2,7 @@ package dss.vector.solutions.general;
 
 public abstract class InsecticideDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1237423113263L;
+  private static final long serialVersionUID = 1238027442611L;
   
   public final static String CLASS = "dss.vector.solutions.general.Insecticide";
   protected InsecticideDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

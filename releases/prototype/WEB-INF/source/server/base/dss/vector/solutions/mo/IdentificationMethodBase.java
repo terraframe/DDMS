@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class IdentificationMethodBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.IdentificationMethod";
-  private static final long serialVersionUID = 1237423100290L;
+  private static final long serialVersionUID = 1238027425044L;
   
   public IdentificationMethodBase()
   {

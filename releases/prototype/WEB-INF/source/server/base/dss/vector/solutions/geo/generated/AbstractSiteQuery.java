@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public  class AbstractSiteQuery extends dss.vector.solutions.geo.generated.GeoEntityQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1237423112666L;
+private static final long serialVersionUID = 1238027441699L;
 
   public AbstractSiteQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1237423112666L;
  implements AbstractSiteQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1237423112774L;
+private static final long serialVersionUID = 1238027441856L;
 
   public AbstractSiteQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
