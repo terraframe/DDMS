@@ -9,7 +9,7 @@
 	<property name="system.password" value="mdsstest2" />
 	<taskdef name="tfproperties" classname="com.terraframe.mojo.ant.TFProperties" classpath="${profile.root};tfprops.jar" />
 	<tfproperties root="${profile.root}" />
-	
+
 	<!-- execution path -->
 	<path id="framework.classpath">
 		<fileset dir="${local.lib}">
@@ -24,6 +24,7 @@
 	</path>
 
 	<property name="domain.location" value="${local.root}/doc/entomology.xml" />
+	<property name="xsd.location" value="${local.root}/profiles/datatype_gis.xsd" />
 
 	<!-- =================================================================== -->
 	<!-- Define tomcat tasks                                                 -->
@@ -39,14 +40,14 @@
 		<reload url="${deploy.manager.url}" username="${deploy.username}" password="${deploy.password}" path="/${deploy.appname}" />
 		<echo message="The Tomcat webapp '${deploy.appname}' has been stopped" />
 	</target>
-	
+
 	<!--If this is the first time this project is built, these tasks will not run-->
-	<available file="${deploy.path}" type="dir"	 property="deploy_path_exists"/>
+	<available file="${deploy.path}" type="dir" property="deploy_path_exists" />
 	<target name="stop_tomcat_webapp" description="Calls tomcat's manager to stop the webapp" if="deploy_path_exists">
 		<stop url="${deploy.manager.url}" username="${deploy.username}" password="${deploy.password}" path="/${deploy.appname}" />
 		<echo message="The Tomcat webapp '${deploy.appname}' has been stopped" />
 	</target>
-	
+
 	<target name="start_tomcat_webapp" description="Calls tomcat's manager to start the webapp" if="deploy_path_exists">
 		<start url="${deploy.manager.url}" username="${deploy.username}" password="${deploy.password}" path="/${deploy.appname}" />
 		<echo message="The Tomcat webapp '${deploy.appname}' has been started." />
@@ -153,13 +154,17 @@
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
 			</classpath>
-		</javac>		
+		</javac>
 	</target>
 
-	<target name="update_domain_model" depends="delete_generated_base" >
+	<target name="update_domain_model" depends="delete_generated_base">
+		
+		<echoproperties></echoproperties>
+		
 		<!-- Import the domain model -->
 		<java classname="ImportModel" failonerror="true">
 			<arg file="${domain.location}" />
+			<arg file="${xsd.location}" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -185,7 +190,7 @@
 		</java>
 	</target>
 
-	<target name="deploy" depends="deploy_presentation_files,deploy_application_files,deploy_web_xml">		
+	<target name="deploy" depends="deploy_presentation_files,deploy_application_files,deploy_web_xml">
 		<!-- Flatten a profile and stick it on tomcat. -->
 		<java classname="com.terraframe.mojo.ant.ProfileFlattener" fork="false" failonerror="true">
 			<arg value="${deploy.profile}" />
@@ -312,8 +317,8 @@
 
 	<target name="export_credentials_singleton">
 		<jar destfile="${deploy.root}/lib/credentialsSingleton.jar" basedir="${local.bin}" compress="true">
-	      <include name="dss/vector/solutions/global/CredentialsSingleton.class"/>
-	      <include name="dss/vector/solutions/global/CredentialsSingleton$Singleton.class"/>
+			<include name="dss/vector/solutions/global/CredentialsSingleton.class" />
+			<include name="dss/vector/solutions/global/CredentialsSingleton$Singleton.class" />
 		</jar>
 	</target>
 
