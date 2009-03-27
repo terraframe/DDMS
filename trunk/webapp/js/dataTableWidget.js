@@ -4,6 +4,11 @@
 var MojoGrid = YAHOO.namespace('MojoGrid');
 
 (function () {
+	
+	MojoGrid.validateBool = function(inputValue, currentValue, editorInstance){
+		return "test";
+	}
+	
 	MojoGrid.createDataTable = function(table_data) {
 	// locals to be returned
     var myDataSource, myDataTable;
@@ -46,6 +51,20 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			  // alert(label);
 			  record.setData(feild.key, label);
 			}
+			//now we set the labels for bools
+			editor = myDataTable.getColumn(feild.key).editor
+			 if(editor && editor instanceof YAHOO.widget.RadioCellEditor )
+			  {			  
+				  if(record.getData(feild.key)== editor.radioOptions[0].value)
+				  {
+					  record.setData(feild.key, editor.radioOptions[0].label);
+				  }
+				  if(record.getData(feild.key) == editor.radioOptions[1].value)
+				  {
+					  record.setData(feild.key, editor.radioOptions[1].label);
+				  }
+				  myDataTable.render();
+			  }
 		}
 	}
 	myDataTable.render();
@@ -147,8 +166,10 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		  index = myDataTable.getRecordIndex(record);
 		  if(editor instanceof YAHOO.widget.DropdownCellEditor )
 		  {
+			  //look get the index for this label
 			  str = oArgs.editor.getColumn().key+"Labels.indexOf(oArgs.newData)";
 			  i = eval(str);
+			  //use the index to find the ID from the IDs array
 			  str = oArgs.editor.getColumn().key+"Ids["+i+"]" ;
 			  id = eval(str);
 			  var save_now = 'table_data.rows[' + index + '].' + oArgs.editor.getColumn().key + ' = "' + id + '"';
@@ -156,6 +177,19 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		  else
 		  {
 			  var save_now = 'table_data.rows[' + index + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newData + '"';
+			  if(editor instanceof YAHOO.widget.RadioCellEditor )
+			  {			  
+				  if(oArgs.newData == editor.radioOptions[0].value)
+				  {
+					  record.setData(editor.getColumn().key, editor.radioOptions[0].label);
+				  }
+				  if(oArgs.newData == editor.radioOptions[1].value)
+				  {
+					  record.setData(editor.getColumn().key, editor.radioOptions[1].label);
+				  }
+				  myDataTable.render();
+			  }
+			  
 		  }
 	      eval(save_now);	
 	      table_data.dirty = true;
