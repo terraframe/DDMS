@@ -1949,7 +1949,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the controller parameter or attribute
@@ -1963,7 +1963,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the controller parameter or attribute
