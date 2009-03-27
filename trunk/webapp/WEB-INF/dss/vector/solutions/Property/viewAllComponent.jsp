@@ -6,7 +6,7 @@
 <mjl:table var="item" query="${query}" classes="displayTable" even ="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.PropertyController.viewPage.mojo" />
   <mjl:columns>
-  <mjl:attributeColumn attributeName="propertyName">
+  <mjl:attributeColumn attributeName="displayLabel">
       <mjl:header>
         Name
       </mjl:header>    
