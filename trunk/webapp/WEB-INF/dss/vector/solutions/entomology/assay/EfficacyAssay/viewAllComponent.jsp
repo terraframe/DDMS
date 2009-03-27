@@ -56,16 +56,16 @@
       <mjl:header>
         Age Range
       </mjl:header>
-      <mjl:attributeColumn attributeName="endPoint">
-        <mjl:header>
-          Ending Age
-        </mjl:header>
-      </mjl:attributeColumn>
       <mjl:attributeColumn attributeName="startPoint">
         <mjl:header>
-          Beginning Age
+          From
         </mjl:header>
       </mjl:attributeColumn>
+      <mjl:attributeColumn attributeName="endPoint">
+        <mjl:header>
+          To
+        </mjl:header>
+      </mjl:attributeColumn>      
     </mjl:structColumn>
     
      <mjl:attributeColumn attributeName="sex">
