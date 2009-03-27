@@ -157,10 +157,7 @@
 		</javac>
 	</target>
 
-	<target name="update_domain_model" depends="delete_generated_base">
-		
-		<echoproperties></echoproperties>
-		
+	<target name="update_domain_model" depends="delete_generated_base">		
 		<!-- Import the domain model -->
 		<java classname="ImportModel" failonerror="true">
 			<arg file="${domain.location}" />
