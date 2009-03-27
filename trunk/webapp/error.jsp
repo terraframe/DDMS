@@ -25,5 +25,13 @@
 		Halp.sendErrorMail(exception, request);
 		out.print(exception.getClass().getName() + "<br/><br/>");
 		out.println("A developer has been sent an email regarding this error.");
+		out.println("<pre style='color:#000'>");
+		out.print(exception.getLocalizedMessage());
+		out.println("</pre>");
+		out.println("<pre style='color:#000'>");
+		PrintWriter pw = new PrintWriter(out);
+		exception.printStackTrace(pw);
+		out.println("</pre>");
+    
 	}
 %>
