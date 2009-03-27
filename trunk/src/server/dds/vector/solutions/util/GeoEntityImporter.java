@@ -8,23 +8,16 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.postgis.jts.JtsGeometry;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.postgresql.ds.common.BaseDataSource;
 
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.StartSession;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.geom.MultiPoint;
-import com.vividsolutions.jts.geom.MultiPolygon;
-import com.vividsolutions.jts.geom.Point;
-import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.io.WKTReader;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
@@ -176,9 +169,9 @@ public class GeoEntityImporter
   @Transaction
   private void importGeoEntities() throws Exception
   {
-    this.buildGeoHierarchyMap();
+//    this.buildGeoHierarchyMap();
     this.createGeoEntities();
-    this.createLocatedInRelationships();
+//    this.createLocatedInRelationships();
   }
 
   
@@ -295,76 +288,98 @@ public class GeoEntityImporter
         long gazId = resultSet.getLong(GAZ_ID);
         String geoName = resultSet.getString(GEO_NAME);
 
-        GeoHierarchy geoHierarchy = this.geoHierarchyMap.get(universalId);
-
-        String type = geoHierarchy.getGeoEntityClass().definesType();
-        
-        Class<?> businessClass = LoaderDecorator.load(type);
-        
-        GeoEntity geoEntity = (GeoEntity)businessClass.getConstructor().newInstance();
-        
-        geoEntity.setGeoId(Long.toString(geoId));
-        geoEntity.setGazId(gazId);
-        geoEntity.setEntityName(geoName);
-
-        JtsGeometry pontField = (JtsGeometry)resultSet.getObject(GEOM_CENTRIOD);
-        JtsGeometry lineStringField = (JtsGeometry)resultSet.getObject(GEOM_LINESTRING);
-        JtsGeometry polygonField = (JtsGeometry)resultSet.getObject(GEOM_POLYGON);
-        JtsGeometry multiPointField = (JtsGeometry)resultSet.getObject(GEOM_MULTIPOINT);
-        JtsGeometry multiPolygonField = (JtsGeometry)resultSet.getObject(GEOM_MULTIPOLYGON);
-      
-        try
+        if (resultSet.getObject(GEOM_CENTRIOD) != null)
         {
-        if (pontField != null)
-        {
-          businessClass.getMethod("setPoint", Point.class).invoke(geoEntity, (Point)pontField.getGeometry());
-        }
-        else if (lineStringField != null)
-        {
-          businessClass.getMethod("setLineString", LineString.class).invoke(geoEntity, (LineString)lineStringField.getGeometry());
-        }
-        else if (polygonField != null)
-        {
-          businessClass.getMethod("setPolygon", Polygon.class).invoke(geoEntity, (Polygon)polygonField.getGeometry());
-        }
-        else if (multiPointField != null)
-        {
-          businessClass.getMethod("setMultiPoint", MultiPoint.class).invoke(geoEntity, (MultiPoint)multiPointField.getGeometry());
-        }
-        else if (multiPolygonField != null)
-        {
-          Geometry geometry = multiPolygonField.getGeometry();
+//          Heads up:
+          System.out.println("--------------------------------------------------------"); 
           
-          MultiPolygon multiPolygon;
+          org.postgis.PGgeometry pgGeometry = (org.postgis.PGgeometry)resultSet.getObject(GEOM_CENTRIOD);
+            
+          org.postgis.Geometry geometry = pgGeometry.getGeometry();     
           
-          if (geometry instanceof Polygon)
-          {
-            multiPolygon = new MultiPolygon(new Polygon[]{(Polygon)geometry}, geometry.getFactory());
-          }
-          else
-          {
-            multiPolygon = (MultiPolygon)geometry;
-          }
-          
-          businessClass.getMethod("setMultiPolygon", MultiPolygon.class).invoke(geoEntity, multiPolygon);
-        }
-        }
-        catch(Exception e)
-        {
-          System.out.println(geoName+"  geoId: "+geoId+"  type: "+type); 
-          throw e;
-        }
-       
-        System.out.print(".");
+          System.out.println(geometry.getClass().getName());     
+          System.out.println(geometry.toString());
 
-        applyCount++;
-       
-        if (applyCount % feedbackMod == 0)
-        {
-          System.out.println();
+      System.out.println("Type: "+geometry.getType());
+      System.out.println("Value: "+geometry.getValue());
+      System.out.println("TypeString: "+geometry.getTypeString());      
+
+          com.vividsolutions.jts.geom.Geometry jtsGeometry2 = new WKTReader().read( geometry.getTypeString()+geometry.getValue());
+//          com.vividsolutions.jts.geom.Geometry jtsGeometry2 = new WKTReader().read( geometry.toString());
+          
+          System.out.println(jtsGeometry2.getClass().getName());
+          System.out.println(jtsGeometry2.toString());   
         }
-        
-        geoEntity.apply();
+//        GeoHierarchy geoHierarchy = this.geoHierarchyMap.get(universalId);
+//
+//        String type = geoHierarchy.getGeoEntityClass().definesType();
+//        
+//        Class<?> businessClass = LoaderDecorator.load(type);
+//        
+//        GeoEntity geoEntity = (GeoEntity)businessClass.getConstructor().newInstance();
+//        
+//        geoEntity.setGeoId(Long.toString(geoId));
+//        geoEntity.setGazId(gazId);
+//        geoEntity.setEntityName(geoName);
+//
+//        JtsGeometry pontField = (JtsGeometry)resultSet.getObject(GEOM_CENTRIOD);
+//        JtsGeometry lineStringField = (JtsGeometry)resultSet.getObject(GEOM_LINESTRING);
+//        JtsGeometry polygonField = (JtsGeometry)resultSet.getObject(GEOM_POLYGON);
+//        JtsGeometry multiPointField = (JtsGeometry)resultSet.getObject(GEOM_MULTIPOINT);
+//        JtsGeometry multiPolygonField = (JtsGeometry)resultSet.getObject(GEOM_MULTIPOLYGON);
+//      
+//        try
+//        {
+//          if (pontField != null)
+//          {
+//            businessClass.getMethod("setPoint", Point.class).invoke(geoEntity, (Point)pontField.getGeometry());
+//          }
+//          else if (lineStringField != null)
+//          {
+//            businessClass.getMethod("setLineString", LineString.class).invoke(geoEntity, (LineString)lineStringField.getGeometry());
+//          }
+//          else if (polygonField != null)
+//          {
+//            businessClass.getMethod("setPolygon", Polygon.class).invoke(geoEntity, (Polygon)polygonField.getGeometry());
+//          }
+//          else if (multiPointField != null)
+//          {
+//            businessClass.getMethod("setMultiPoint", MultiPoint.class).invoke(geoEntity, (MultiPoint)multiPointField.getGeometry());
+//          }
+//          else if (multiPolygonField != null)
+//          {
+//            Geometry geometry = multiPolygonField.getGeometry();
+//          
+//            MultiPolygon multiPolygon;
+//          
+//            if (geometry instanceof Polygon)
+//            {
+//              multiPolygon = new MultiPolygon(new Polygon[]{(Polygon)geometry}, geometry.getFactory());
+//            }
+//            else
+//            {
+//              multiPolygon = (MultiPolygon)geometry;
+//            }
+//          
+//            businessClass.getMethod("setMultiPolygon", MultiPolygon.class).invoke(geoEntity, multiPolygon);
+//          }
+//        }
+//        catch(Exception e)
+//        {
+//          System.out.println(geoName+"  geoId: "+geoId+"  type: "+type); 
+//          throw e;
+//        }
+//       
+//        System.out.print(".");
+//
+//        applyCount++;
+//       
+//        if (applyCount % feedbackMod == 0)
+//        {
+//          System.out.println();
+//        }
+//        
+//        geoEntity.apply();
       }
     }
     finally
