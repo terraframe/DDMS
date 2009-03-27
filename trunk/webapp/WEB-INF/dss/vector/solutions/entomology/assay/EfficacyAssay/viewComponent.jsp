@@ -7,12 +7,16 @@
 
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
+      <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
+    <dd><mjl:commandLink display="${item.geoEntity.geoId}" action="mdss.test.GeoEntityController.view.mojo" name="mdss.test.GeoEntity.form.view.link">
+      <mjl:property value="${item.geoEntity.id}" name="id" />
+    </mjl:commandLink></dd>
       <dt>
       <label>
         ${item.testDateMd.displayLabel}
       </label>
     </dt>
-    <dd>
+    <dd class="formatDate">
       ${item.testDate}
     </dd>
      <dt>
