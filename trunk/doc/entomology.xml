@@ -1583,7 +1583,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Isofemale"
           required="true"
           default_value="false"
-          description="Flag denoting if this mosquito is from the iso-female line" />
+          description="Flag denoting if this mosquito is from the iso-female line|Yes|No" />
         <enumeration
           name="sex"
           label="Sex"
@@ -2220,7 +2220,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Isofemale"
           required="true"
           default_value="false"
-          description="Flag denoting if this mosquito is from the iso-female line" />
+          description="Flag denoting if this mosquito is from the iso-female line|Yes|No" />
         <reference
           name="generation"
           label="Generation"
