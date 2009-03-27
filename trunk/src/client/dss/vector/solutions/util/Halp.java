@@ -4,17 +4,19 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.ibm.icu.text.SimpleDateFormat;
 import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO;
@@ -41,10 +43,12 @@ import javax.mail.PasswordAuthentication;
 
 
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 
 	public final static String CLASS = "dss.vector.solutions.util.Halp";
+	public final static String EMAIL_ERRORS_TO = "dtaylor@terraframe.com";
 
 	public static String join(List<String> s, String delimiter) {
 		StringBuilder builder = new StringBuilder();
@@ -67,13 +71,25 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 		return map.toString();
 	}
 
-	public static String getDropDownMap2(List<SpecieDTO> terms) throws JSONException {
-		JSONObject map = new JSONObject();
-		for (SpecieDTO term : terms) {
-			map.put(term.getDisplayLabel(), term.getId());
+	public static String translateBool(AttributeMdDTO md, boolean bool) {
+		//if(Pattern.matches("^[^|]+\\|[^|]+\\|[^|]$+", md.getDescription()))
+		Pattern pipe = Pattern.compile("\\|");
+		String[]arr = pipe.split(md.getDescription());
+		if(arr.length == 3)
+		{
+			if(bool)
+			{
+				return arr[1];
+			}
+			else
+			{
+				return arr[2];
+			}
 		}
-		return map.toString();
+		return null;
 	}
+	
+	
 
 	public static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSONException {
 		JSONArray ids = new JSONArray();
@@ -207,7 +223,17 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 						editor = "new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})";
 					}
 					if (md instanceof AttributeBooleanMdDTO) {
-						editor = "new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})";
+						//editor = "new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})";
+						if(translateBool(md,true)!=null)
+						{
+							
+							editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'"+translateBool(md,true)+"', value:'true'}, {label:'"+translateBool(md,false)+"', value:'false'}],disableBtns:true})";
+							//editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['"+translateBool(md,true)+"','"+translateBool(md,false)+"'],disableBtns:true})";
+						}
+						else
+						{
+							editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['true','false'],disableBtns:true})";
+						}
 					}
 					if (md instanceof AttributeCharacterMdDTO) {
 						editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
@@ -262,7 +288,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 
 	public static void sendErrorMail(Throwable exception, HttpServletRequest request) {
 		String from = "MDSSS-no-reply@terraframe.com";
-		String to = "dtaylor@terraframe.com";
+		String to = EMAIL_ERRORS_TO;
 		String subject = "MDSS has produced an uncaught exception";
 		String text = "Requested url: ";
 		text += request.getAttribute("javax.servlet.forward.request_uri") + "\n\n";
@@ -305,6 +331,13 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 		protected PasswordAuthentication getPasswordAuthentication() {
 			return new PasswordAuthentication("dtaylor", "Rc9hs8Z2");
 		}
+	}
+	
+	public static String getDateFormatString(HttpServletRequest request) {
+		Locale locale = request.getLocale();
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+		SimpleDateFormat formatter = (SimpleDateFormat)df;
+		return formatter.toPattern();
 	}
 
 }
