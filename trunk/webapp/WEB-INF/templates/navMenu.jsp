@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
-<div class="navContainer">
+<div class="navContainer" style="min-width: 1024px;">
 <div id="mainNav" class="yuimenubar yuimenubarnav">
      <div class="bd">
          <ul class="first-of-type">
