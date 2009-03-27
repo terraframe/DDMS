@@ -1,5 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<fmt:setLocale value="<%=request.getLocale()%>" />
+
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -18,6 +23,9 @@
       <mjl:header>
         Test Date
       </mjl:header>
+      <mjl:row>
+        <fmt:formatDate value="${item.testDate}" dateStyle="SHORT" />
+      </mjl:row>
     </mjl:attributeColumn>
     
     <mjl:attributeColumn attributeName="testMethod">
@@ -95,7 +103,7 @@
         
     <mjl:attributeColumn attributeName="surfacePostion">
       <mjl:header>
-        Surface Position
+        Position on surface
       </mjl:header>
     </mjl:attributeColumn>    
         

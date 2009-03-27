@@ -33,7 +33,7 @@ LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) reque
         ${item.testDateMd.displayLabel}
       </label>
     </dt>
-    <dd>
+    <dd class="formatDate">
       ${item.testDate}
     </dd>
     <dt>

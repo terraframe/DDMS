@@ -38,7 +38,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
         ${item.testDateMd.displayLabel}
       </label>
     </dt>
-    <dd>
+    <dd class="formatDate">
       ${item.testDate}
     </dd>
     <dt>
