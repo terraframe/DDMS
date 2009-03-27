@@ -3,10 +3,13 @@ package dss.vector.solutions.geo.generated;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.dataaccess.InvalidIdException;
+import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.MDSSInfo;
@@ -69,16 +72,25 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   public static GeoEntity searchByGeoId(java.lang.String geoId)
   {
-    GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
+    QueryFactory queryFactory = new QueryFactory();
+    
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
 
-    query.WHERE(query.getGeoId().EQ(geoId));
+    GeoEntityQuery geoEntityQ = new GeoEntityQuery(queryFactory);
+    
+    valueQuery.SELECT(geoEntityQ.getId(GeoEntity.ID));
+    valueQuery.WHERE(geoEntityQ.getGeoId().EQ(geoId));
 
-    OIterator<? extends GeoEntity> iterator = query.getIterator();
+    OIterator<? extends ValueObject> iterator = valueQuery.getIterator();
     try
     {
       if (iterator.hasNext())
       {
-        return iterator.next();
+        ValueObject valueObject = iterator.next();
+        
+        String id = valueObject.getValue(GeoEntity.ID);
+        
+        return (GeoEntity)Business.get(id);
       }
       else
       {
@@ -90,6 +102,29 @@ public abstract class GeoEntity extends GeoEntityBase implements
     {
       iterator.close();
     }
+
+// Heads up: clean up    
+//    GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
+//
+//    query.WHERE(query.getGeoId().EQ(geoId));
+//
+//    OIterator<? extends GeoEntity> iterator = query.getIterator();
+//    try
+//    {
+//      if (iterator.hasNext())
+//      {
+//        return iterator.next();
+//      }
+//      else
+//      {
+//        String msg = "A GeoEntity with the geoId [" + geoId + "] does not exist";
+//        throw new InvalidIdException(msg, geoId);        
+//      }
+//    }
+//    finally
+//    {
+//      iterator.close();
+//    }
   }
 
   /**

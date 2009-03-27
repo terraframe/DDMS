@@ -266,6 +266,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     geoHierarchy.delete();
   }
 
+  @Transaction
+  protected String buildKey()
+  {
+    return this.getMdClass().getTypeName()+"_"+this.getGeoEntityClass().getTypeName();
+  }
+  
   /**
    * Deletes this GeoHierarchy and it's associated MdBusiness that defines a
    * GeoEntity subtype. All children are deleted recursively.
