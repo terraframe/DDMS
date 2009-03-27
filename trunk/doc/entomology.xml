@@ -1,8 +1,8 @@
 <TerraFrame
-  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/profiles/datatype_gis.xsd"
+  xsi:noNamespaceSchemaLocation="file:/home/dt/workspace/MDSS/profiles/datatype_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <create>
-    <!-- DUMMY DEFITION FOR GEO ENTITIES -->
+
     <mdBusiness
       name="dss.vector.solutions.geo.generated.GeoEntity"
       isAbstract="true"
@@ -17,7 +17,7 @@
         <long
           name="gazId"
           label="Gaz Id"
-          required="false"/>
+          required="false" />
         <char
           name="entityName"
           required="false"
@@ -587,15 +587,15 @@
       description="Country"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-      <!-- was multipolygon but the imported mozambique data was polygon. We may need to change back.-->
-        <polygon 
+        <!-- was multipolygon but the imported mozambique data was polygon. We may need to change back.-->
+        <polygon
           name="polygon"
-          label="Polygon" 
+          label="Polygon"
           description="Polygon"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -604,14 +604,14 @@
       description="Province"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <multipolygon 
+        <multipolygon
           name="multiPolygon"
-          label="Multi Polygon" 
+          label="Multi Polygon"
           description="Multi Polygon"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -620,14 +620,14 @@
       description="District"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <polygon 
+        <polygon
           name="polygon"
-          label="Polygon" 
+          label="Polygon"
           description="Polygon"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -636,14 +636,14 @@
       description="Admin Post"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <multipolygon 
+        <multipolygon
           name="multiPolygon"
-          label="Multi Polygon" 
+          label="Multi Polygon"
           description="Multi Polygon"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -652,14 +652,14 @@
       description="Locality"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <multipolygon 
+        <multipolygon
           name="multiPolygon"
-          label="Multi Polygon" 
+          label="Multi Polygon"
           description="Multi Polygon"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -674,14 +674,14 @@
       description="City"
       extends="dss.vector.solutions.geo.generated.PopulatedArea">
       <attributes>
-        <point 
+        <point
           name="point"
-          label="Point" 
+          label="Point"
           description="Point"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -690,14 +690,14 @@
       description="Town"
       extends="dss.vector.solutions.geo.generated.PopulatedArea">
       <attributes>
-        <point 
+        <point
           name="point"
-          label="Point" 
+          label="Point"
           description="Point"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -706,14 +706,14 @@
       description="Village"
       extends="dss.vector.solutions.geo.generated.PopulatedArea">
       <attributes>
-        <multipoint 
+        <multipoint
           name="multiPoint"
-          label="Multi Point" 
+          label="Multi Point"
           description="Multi Point"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -723,14 +723,14 @@
       isAbstract="true"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <multipoint 
+        <multipoint
           name="multiPoint"
-          label="Multi Point" 
+          label="Multi Point"
           description="Multi Point"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -751,14 +751,14 @@
       description="Health Facility"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <point 
+        <point
           name="point"
-          label="Point" 
+          label="Point"
           description="Point"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -767,14 +767,14 @@
       description="Exit Trap"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <point 
+        <point
           name="point"
-          label="Point" 
+          label="Point"
           description="Point"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -783,14 +783,14 @@
       description="Spray Zone"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <polygon 
+        <polygon
           name="polygon"
-          label="Polygon" 
+          label="Polygon"
           description="Polygon"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -805,14 +805,14 @@
       description="Permanent Water Body"
       extends="dss.vector.solutions.geo.generated.BreedingSite">
       <attributes>
-        <polygon 
+        <polygon
           name="polygon"
-          label="Polygon" 
+          label="Polygon"
           description="Polygon"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -821,14 +821,14 @@
       description="River"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <linestring 
+        <linestring
           name="lineString"
-          label="LineString" 
+          label="LineString"
           description="LineString"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -837,14 +837,14 @@
       description="Road"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <linestring 
+        <linestring
           name="lineString"
-          label="LineString" 
+          label="LineString"
           description="LineString"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -853,14 +853,14 @@
       description="National Road"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <linestring 
+        <linestring
           name="lineString"
-          label="LineString" 
+          label="LineString"
           description="LineString"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -869,14 +869,14 @@
       description="Reserve"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <polygon 
+        <polygon
           name="polygon"
-          label="Polygon" 
+          label="Polygon"
           description="Polygon"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
     <mdBusiness
@@ -885,14 +885,14 @@
       description="Railway"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
       <attributes>
-        <linestring 
+        <linestring
           name="lineString"
-          label="LineString" 
+          label="LineString"
           description="LineString"
-          removable="false" 
-          required="false" 
-          srid="4326" 
-          dimension="2"/> 
+          removable="false"
+          required="false"
+          srid="4326"
+          dimension="2" />
       </attributes>
     </mdBusiness>
 
@@ -1006,6 +1006,56 @@
         static="false">
       </mdMethod>
     </mdBusiness>
+
+    <mdProblem
+      name="dss.vector.solutions.NotificationProblem"
+      isAbstract="true"
+      extendable="true">
+      <attributes>
+        <char
+          name="componentId"
+          label="ComponentId"
+          required="true"
+          size="255" />
+        <char
+          name="definingType"
+          label="Defining Type"
+          required="true"
+          size="255" />
+        <char
+          name="definingTypeDisplayLabel"
+          label="Defining Type Display Label"
+          required="true"
+          size="255" />
+        <char
+          name="attributeName"
+          label="Attribute Name"
+          required="true"
+          size="255" />
+        <char
+          name="attributeDisplayLabel"
+          label="Attribute Display Label"
+          required="true"
+          size="255" />
+      </attributes>
+    </mdProblem>
+
+    <mdProblem
+      name="dss.vector.solutions.entomology.InvalidCollectionDateProblem"
+      label="Invalid Collection Date Problem"
+      description="Collection date is after the current date"
+      extends="dss.vector.solutions.NotificationProblem">
+      <attributes>
+        <date
+          name="collectionDate"
+          label="Collection Date"
+          required="true" />
+        <date
+          name="currentDate"
+          label="Current Date"
+          required="true" />
+      </attributes>
+    </mdProblem>
 
     <mdIndex
       type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
@@ -1486,7 +1536,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="sampleId"
           label="Sample Id"
           required="true"
-          size="4"
+          size="255"
           description="The id the entomologist gives to a sample when its true specie is determined." />
       </attributes>
     </mdBusiness>
@@ -1603,7 +1653,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         label="Query Entomology"
         description="Query Entomology"
         static="true"
-        returnType="com.terraframe.mojo.query.ValueQuery" >
+        returnType="com.terraframe.mojo.query.ValueQuery">
         <mdParameter
           name="queryXML"
           label="Query XML"
@@ -3129,6 +3179,24 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
   <update>
     <mdController
+      name="dss.vector.solutions.entomology.assay.EfficacyAssayController">
+      <create>
+        <mdAction
+          name="cloneAssay"
+          isPost="false"
+          description="Creates a new EfficacyAssay with some of the values from the given assay"
+          label="Clone Assay"
+          isQuery="false">
+          <mdParameter
+            type="java.lang.String"
+            order="0"
+            name="id"
+            label="Id" />
+        </mdAction>
+      </create>
+    </mdController>
+
+    <mdController
       name="dss.vector.solutions.general.KnockDownTimePropertyController">
       <create>
         <mdAction
@@ -3185,6 +3253,11 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         <char
           name="propertyName"
           label="Name"
+          required="true"
+          size="255" />
+        <char
+          name="displayLabel"
+          label="Display Label"
           required="true"
           size="255" />
         <char
@@ -3326,6 +3399,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="propertyName"
         value="aDDAR" />
       <valueAttribute
+        name="displayLabel"
+        value="Adult Diagnostic Dose Assay Resistant" />
+      <valueAttribute
         name="propertyPackage"
         value="dss.vector.solutions.entomology.ResistantanceCutOff" />
       <valueAttribute
@@ -3339,7 +3415,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="^[0-9]+$" />
       <valueAttribute
         name="description"
-        value="Adult Diagnostic Dose Assay Resistant Limit" />
+        value="% mortality that the population is resistant – Less Than" />
     </object>
 
     <object
@@ -3349,6 +3425,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="propertyName"
         value="aDDAS" />
       <valueAttribute
+        name="displayLabel"
+        value="Adult Diagnostic Dose Assay Susceptible" />
+      <valueAttribute
         name="propertyPackage"
         value="dss.vector.solutions.entomology.ResistantanceCutOff" />
       <valueAttribute
@@ -3362,7 +3441,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="^[0-9]+$" />
       <valueAttribute
         name="description"
-        value="Adult Diagnostic Dose Assay Potentially Resistant Limit" />
+        value="% mortality that the population is susceptible – Greater than or Equal to" />
     </object>
 
     <object
@@ -3372,6 +3451,9 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="propertyName"
         value="lDDAR" />
       <valueAttribute
+        name="displayLabel"
+        value="Larvae Diagnostic Dose Assay Resistant" />
+      <valueAttribute
         name="propertyPackage"
         value="dss.vector.solutions.entomology.ResistantanceCutOff" />
       <valueAttribute
@@ -3385,7 +3467,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="^[0-9]+$" />
       <valueAttribute
         name="description"
-        value="Larvae Diagnostic Dose Assay Resistant Limit" />
+        value="% mortality that the population is resistant – Less Than" />
     </object>
 
     <object
@@ -3395,51 +3477,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="propertyName"
         value="lDDAS" />
       <valueAttribute
-        name="propertyPackage"
-        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
-      <valueAttribute
-        name="propertyValue"
-        value="98" />
-      <valueAttribute
-        name="propertyType"
-        value="Integer" />
-      <valueAttribute
-        name="propertyValidator"
-        value="^[0-9]+$" />
-      <valueAttribute
-        name="description"
-        value="Larvae Diagnostic Dose Assay Potentially Resistant Limit" />
-    </object>
-
-    <object
-      type="dss.vector.solutions.Property"
-      id="aAKnockDownR">
-      <valueAttribute
-        name="propertyName"
-        value="aAKnockDownR" />
-      <valueAttribute
-        name="propertyPackage"
-        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
-      <valueAttribute
-        name="propertyValue"
-        value="95" />
-      <valueAttribute
-        name="propertyType"
-        value="Integer" />
-      <valueAttribute
-        name="propertyValidator"
-        value="^[0-9]+$" />
-      <valueAttribute
-        name="description"
-        value="Adult Assay Knock Down Resistant Limit" />
-    </object>
-
-    <object
-      type="dss.vector.solutions.Property"
-      id="aAKnockDownPR">
-      <valueAttribute
-        name="propertyName"
-        value="aAKnockDownPR" />
+        name="displayLabel"
+        value="Larvae Diagnostic Dose Assay Susceptible" />
       <valueAttribute
         name="propertyPackage"
         value="dss.vector.solutions.entomology.ResistantanceCutOff" />
@@ -3454,53 +3493,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         value="^[0-9]+$" />
       <valueAttribute
         name="description"
-        value="Adult Assay Knock Down Potentially Resistant Limit" />
-    </object>
-
-    <object
-      type="dss.vector.solutions.Property"
-      id="lAKnockDownR">
-      <valueAttribute
-        name="propertyName"
-        value="lAKnockDownR" />
-      <valueAttribute
-        name="propertyPackage"
-        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
-      <valueAttribute
-        name="propertyValue"
-        value="95" />
-      <valueAttribute
-        name="propertyType"
-        value="Integer" />
-      <valueAttribute
-        name="propertyValidator"
-        value="^[0-9]+$" />
-      <valueAttribute
-        name="description"
-        value="Larvae Assay Knock Down Resistance Limit" />
-    </object>
-
-    <object
-      type="dss.vector.solutions.Property"
-      id="lAKnockDownPR">
-      <valueAttribute
-        name="propertyName"
-        value="lAKnockDownPR" />
-      <valueAttribute
-        name="propertyPackage"
-        value="dss.vector.solutions.entomology.ResistantanceCutOff" />
-      <valueAttribute
-        name="propertyValue"
-        value="98" />
-      <valueAttribute
-        name="propertyType"
-        value="Integer" />
-      <valueAttribute
-        name="propertyValidator"
-        value="^[0-9]+$" />
-      <valueAttribute
-        name="description"
-        value="Larvae Assay Knock Down Potentially Resistant Limit" />
+        value="% mortality that the population is susceptible – Greater than or Equal to" />
     </object>
 
   </create>
@@ -3908,14 +3901,14 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <mdBusiness
       name="dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult"
-      label="P. Falciparum Test Result"
+      label="P. falciparum"
       extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
-      description="P. Falciparum test result."
+      description="P. falciparum"
       generateController="false">
       <attributes>
         <boolean
           name="testResult"
-          label="P. Falciparum Test Result"
+          label="P. falciparum"
           required="true"
           description="assay result|Positive|Negative" />
       </attributes>
@@ -9437,7 +9430,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="geoEntityClass"
         id="TownMd" />
     </object>
-    
+
     <object
       id="villageH"
       type="dss.vector.solutions.geo.GeoHierarchy">
@@ -9459,7 +9452,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="geoEntityClass"
         id="FacilityMd" />
     </object>
-    
+
     <object
       id="riverH"
       type="dss.vector.solutions.geo.GeoHierarchy">
@@ -9528,7 +9521,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       parentId="populatedAreaH"
       id="cityInPopulatedArea">
     </relationship>
-    
+
     <relationship
       type="dss.vector.solutions.geo.AllowedIn"
       childId="townH"
@@ -9563,7 +9556,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       parentId="countryH"
       id="roadInCountry">
     </relationship>
-    
+
     <relationship
       type="dss.vector.solutions.geo.AllowedIn"
       childId="nationalRoadH"
