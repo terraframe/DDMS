@@ -1,7 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 
