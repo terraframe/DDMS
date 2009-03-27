@@ -18,6 +18,7 @@ import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
+import com.terraframe.mojo.gis.dataaccess.database.PostGIS;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -182,6 +183,8 @@ public class GeoEntityImporter
       throw new ProgrammingErrorException(errMsg, e);
     }
 
+    this.conn = (Connection)PostGIS.mapColumnTypes((PGConnection)this.conn);
+    
     this.geoHierarchyMap = new HashMap<Integer, GeoHierarchy>();
   }
 
@@ -198,10 +201,13 @@ public class GeoEntityImporter
     System.out.println("Creating GeoEntity LocatedIn Relatoinships ");
 
     int applyCount = 0;
-
-    String sql = " SELECT rel." + LOCATED_IN + ", rel." + GEO_ID + ",\n" + "        ent." + ENTITY_ID
-        + "\n" + "   FROM " + GEOGRAPHIC_ENTITIES_RELATIONS + " rel, " + GEOGRAPHIC_ENTITIES + " ent\n"
-        + "  WHERE rel." + GEO_ID + " = ent." + GEO_ID;
+    
+    String sql = 
+    " SELECT rel."+LOCATED_IN+", rel."+GEO_ID+",\n"+
+    "        ent."+ENTITY_ID+"\n"+
+    "   FROM "+GEOGRAPHIC_ENTITIES_RELATIONS+" rel, "+GEOGRAPHIC_ENTITIES+" ent\n"+
+    "  WHERE rel."+GEO_ID+" = ent."+GEO_ID+"\n"+
+    appendFileteredUniversalClause();
 
     Statement statement = null;
     ResultSet resultSet = null;
@@ -252,6 +258,16 @@ public class GeoEntityImporter
     System.out.println("\nFINISHED\n");
   }
 
+  private String appendFileteredUniversalClause()
+  {
+    return
+    "    AND rel."+INSTANCE_OF+" != 14 \n"+
+    "    AND rel."+INSTANCE_OF+" != 16 \n"+
+    "    AND rel."+INSTANCE_OF+" != 17 \n"+
+    "    AND rel."+INSTANCE_OF+" != 18 \n"+      
+    "    AND rel."+INSTANCE_OF+" != 19";
+  }
+  
   /*
    * SELECT geom.geom_centriod, rel.instance_of, rel.geo_id, ent.geo_name FROM
    * geographic_entities_geometry geom, geographic_entities_relations rel,
@@ -273,14 +289,16 @@ public class GeoEntityImporter
     System.out.println("Creating GeoEntities ");
 
     int applyCount = 0;
-
-    String sql = " SELECT geom." + GEOM_CENTRIOD + ", geom." + GEOM_LINESTRING + ", geom."
-        + GEOM_POLYGON + ", geom." + GEOM_MULTIPOINT + ", geom." + GEOM_MULTIPOLYGON + ",\n"
-        + "        rel." + INSTANCE_OF + ", rel." + GEO_ID + ",\n" + "        ent." + GEO_NAME
-        + ", ent." + ENTITY_ID + ",\n" + "        ent." + GAZ_ID + "\n" + "   FROM "
-        + GEOGRAPHIC_ENTITIES_RELATIONS + " rel,\n" + "        " + GEOGRAPHIC_ENTITIES
-        + " ent LEFT JOIN " + GEOGRAPHIC_ENTITIES_GEOMETRY + " geom ON ent." + GEO_ID + " = geom."
-        + GEO_ID + "\n" + "  WHERE rel." + GEO_ID + " = ent." + GEO_ID;
+    
+    String sql = 
+      " SELECT geom."+GEOM_CENTRIOD+", geom."+GEOM_LINESTRING+", geom."+GEOM_POLYGON+", geom."+GEOM_MULTIPOINT+", geom."+GEOM_MULTIPOLYGON+",\n" +
+      "        rel."+INSTANCE_OF+", rel."+GEO_ID+",\n"+
+      "        ent."+GEO_NAME+", ent."+ENTITY_ID+",\n"+
+      "        ent."+GAZ_ID+"\n"+
+      "   FROM "+GEOGRAPHIC_ENTITIES_RELATIONS+" rel,\n" +
+      "        "+GEOGRAPHIC_ENTITIES+" ent LEFT JOIN "+GEOGRAPHIC_ENTITIES_GEOMETRY+" geom ON ent."+GEO_ID+" = geom."+GEO_ID+"\n"+
+      "  WHERE rel."+GEO_ID+" = ent."+GEO_ID+"\n"+
+      appendFileteredUniversalClause();
 
     Statement statement = null;
     ResultSet resultSet = null;
