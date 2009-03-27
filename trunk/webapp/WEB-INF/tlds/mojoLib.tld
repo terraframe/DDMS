@@ -1943,6 +1943,34 @@
     </attribute>
     <attribute>
       <name>
+        trueLabel
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        The name of the controller parameter or attribute
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        falseLabel
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        The name of the controller parameter or attribute
+      </description>
+    </attribute>    
+    <attribute>
+      <name>
         value
       </name>
       <required>
