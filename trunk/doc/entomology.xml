@@ -1,5 +1,5 @@
 <TerraFrame
-  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/profiles/datatype.xsd"
+  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/profiles/datatype_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <create>
     <!-- DUMMY DEFITION FOR GEO ENTITIES -->
@@ -13,10 +13,14 @@
           label="Geo Id"
           required="true"
           indexType="unique index"
-          size="6" />
+          size="16" />
+        <long
+          name="gazId"
+          label="Gaz Id"
+          required="false"/>
         <char
           name="entityName"
-          required="true"
+          required="false"
           label="Geo Entity Name"
           size="255" />
         <boolean
@@ -582,30 +586,81 @@
       label="Country"
       description="Country"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+      <!-- was multipolygon but the imported mozambique data was polygon. We may need to change back.-->
+        <polygon 
+          name="polygon"
+          label="Polygon" 
+          description="Polygon"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
     </mdBusiness>
     <mdBusiness
       name="dss.vector.solutions.geo.generated.Province"
       label="Province"
       description="Province"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <multipolygon 
+          name="multiPolygon"
+          label="Multi Polygon" 
+          description="Multi Polygon"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
     </mdBusiness>
     <mdBusiness
       name="dss.vector.solutions.geo.generated.District"
       label="District"
       description="District"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <polygon 
+          name="polygon"
+          label="Polygon" 
+          description="Polygon"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
     </mdBusiness>
     <mdBusiness
       name="dss.vector.solutions.geo.generated.AdminPost"
-      label="Admin Post"
+      label="Administrative post"
       description="Admin Post"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <multipolygon 
+          name="multiPolygon"
+          label="Multi Polygon" 
+          description="Multi Polygon"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
     </mdBusiness>
     <mdBusiness
       name="dss.vector.solutions.geo.generated.Locality"
       label="Locality"
       description="Locality"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <multipolygon 
+          name="multiPolygon"
+          label="Multi Polygon" 
+          description="Multi Polygon"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
     </mdBusiness>
     <mdBusiness
       name="dss.vector.solutions.geo.generated.PopulatedArea"
@@ -614,11 +669,69 @@
       extends="dss.vector.solutions.geo.generated.GeoEntity">
     </mdBusiness>
     <mdBusiness
+      name="dss.vector.solutions.geo.generated.City"
+      label="City"
+      description="City"
+      extends="dss.vector.solutions.geo.generated.PopulatedArea">
+      <attributes>
+        <point 
+          name="point"
+          label="Point" 
+          description="Point"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
+    </mdBusiness>
+    <mdBusiness
+      name="dss.vector.solutions.geo.generated.Town"
+      label="Town"
+      description="Town"
+      extends="dss.vector.solutions.geo.generated.PopulatedArea">
+      <attributes>
+        <point 
+          name="point"
+          label="Point" 
+          description="Point"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
+    </mdBusiness>
+    <mdBusiness
+      name="dss.vector.solutions.geo.generated.Village"
+      label="Village"
+      description="Village"
+      extends="dss.vector.solutions.geo.generated.PopulatedArea">
+      <attributes>
+        <multipoint 
+          name="multiPoint"
+          label="Multi Point" 
+          description="Multi Point"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
+    </mdBusiness>
+    <mdBusiness
       name="dss.vector.solutions.geo.generated.AbstractSite"
       label="Abstract Site"
       description="Abstract Site"
       isAbstract="true"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <multipoint 
+          name="multiPoint"
+          label="Multi Point" 
+          description="Multi Point"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
     </mdBusiness>
     <mdBusiness
       name="dss.vector.solutions.geo.generated.SentinalSite"
@@ -633,10 +746,52 @@
       extends="dss.vector.solutions.geo.generated.AbstractSite">
     </mdBusiness>
     <mdBusiness
-      name="dss.vector.solutions.geo.generated.Trap"
-      label="Trap"
-      description="Trap"
+      name="dss.vector.solutions.geo.generated.Facility"
+      label="Health Facility"
+      description="Health Facility"
       extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <point 
+          name="point"
+          label="Point" 
+          description="Point"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
+    </mdBusiness>
+    <mdBusiness
+      name="dss.vector.solutions.geo.generated.Trap"
+      label="Exit Trap"
+      description="Exit Trap"
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <point 
+          name="point"
+          label="Point" 
+          description="Point"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
+    </mdBusiness>
+    <mdBusiness
+      name="dss.vector.solutions.geo.generated.SprayZone"
+      label="Spray Zone"
+      description="Spray Zone"
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <polygon 
+          name="polygon"
+          label="Polygon" 
+          description="Polygon"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
     </mdBusiness>
     <mdBusiness
       name="dss.vector.solutions.geo.generated.BreedingSite"
@@ -649,7 +804,98 @@
       label="Permanent Water Body"
       description="Permanent Water Body"
       extends="dss.vector.solutions.geo.generated.BreedingSite">
+      <attributes>
+        <polygon 
+          name="polygon"
+          label="Polygon" 
+          description="Polygon"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
     </mdBusiness>
+    <mdBusiness
+      name="dss.vector.solutions.geo.generated.River"
+      label="River"
+      description="River"
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <linestring 
+          name="lineString"
+          label="LineString" 
+          description="LineString"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
+    </mdBusiness>
+    <mdBusiness
+      name="dss.vector.solutions.geo.generated.Road"
+      label="Road"
+      description="Road"
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <linestring 
+          name="lineString"
+          label="LineString" 
+          description="LineString"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
+    </mdBusiness>
+    <mdBusiness
+      name="dss.vector.solutions.geo.generated.NationalRoad"
+      label="national Road"
+      description="National Road"
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <linestring 
+          name="lineString"
+          label="LineString" 
+          description="LineString"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
+    </mdBusiness>
+    <mdBusiness
+      name="dss.vector.solutions.geo.generated.Reserve"
+      label="Reserve"
+      description="Reserve"
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <polygon 
+          name="polygon"
+          label="Polygon" 
+          description="Polygon"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
+    </mdBusiness>
+    <mdBusiness
+      name="dss.vector.solutions.geo.generated.Railway"
+      label="Railway"
+      description="Railway"
+      extends="dss.vector.solutions.geo.generated.GeoEntity">
+      <attributes>
+        <linestring 
+          name="lineString"
+          label="LineString" 
+          description="LineString"
+          removable="false" 
+          required="false" 
+          srid="4326" 
+          dimension="2"/> 
+      </attributes>
+    </mdBusiness>
+
 
     <!-- END: GeoEntity Types -->
 
@@ -8992,6 +9238,18 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       id="PopulatedAreaMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
+      key="dss.vector.solutions.geo.generated.City"
+      id="CityMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="dss.vector.solutions.geo.generated.Town"
+      id="TownMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="dss.vector.solutions.geo.generated.Village"
+      id="VillageMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
       key="dss.vector.solutions.geo.generated.AbstractSite"
       id="AbstractSiteMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
@@ -9004,8 +9262,16 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
       id="NonSentinalSiteMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
+      key="dss.vector.solutions.geo.generated.Facility"
+      id="FacilityMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
       key="dss.vector.solutions.geo.generated.Trap"
       id="TrapMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="dss.vector.solutions.geo.generated.SprayZone"
+      id="SprayZoneMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
     <object
       key="dss.vector.solutions.geo.generated.BreedingSite"
@@ -9014,6 +9280,26 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     <object
       key="dss.vector.solutions.geo.generated.PermanentWaterBody"
       id="PermanentWaterBodyMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="dss.vector.solutions.geo.generated.River"
+      id="RiverMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="dss.vector.solutions.geo.generated.Road"
+      id="RoadMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="dss.vector.solutions.geo.generated.NationalRoad"
+      id="NationalRoadMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="dss.vector.solutions.geo.generated.Reserve"
+      id="ReserveMd"
+      type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    <object
+      key="dss.vector.solutions.geo.generated.Railway"
+      id="RailwayMd"
       type="com.terraframe.mojo.system.metadata.MdBusiness" />
   </existing>
 
@@ -9130,11 +9416,173 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         id="PopulatedAreaMd" />
     </object>
 
+    <object
+      id="cityH"
+      type="dss.vector.solutions.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="true" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="CityMd" />
+    </object>
+
+    <object
+      id="townH"
+      type="dss.vector.solutions.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="true" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="TownMd" />
+    </object>
+    
+    <object
+      id="villageH"
+      type="dss.vector.solutions.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="true" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="VillageMd" />
+    </object>
+
+    <object
+      id="facilityH"
+      type="dss.vector.solutions.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="FacilityMd" />
+    </object>
+    
+    <object
+      id="riverH"
+      type="dss.vector.solutions.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="RiverMd" />
+    </object>
+
+    <object
+      id="roadH"
+      type="dss.vector.solutions.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="RoadMd" />
+    </object>
+
+    <object
+      id="nationalRoadH"
+      type="dss.vector.solutions.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="NationalRoadMd" />
+    </object>
+
+    <object
+      id="reserveH"
+      type="dss.vector.solutions.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="ReserveMd" />
+    </object>
+
+    <object
+      id="railwayH"
+      type="dss.vector.solutions.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="RailwayMd" />
+    </object>
+
     <relationship
       type="dss.vector.solutions.geo.AllowedIn"
       childId="populatedAreaH"
       parentId="localityH"
       id="populatedAreaInLocality">
+    </relationship>
+
+    <relationship
+      type="dss.vector.solutions.geo.AllowedIn"
+      childId="cityH"
+      parentId="populatedAreaH"
+      id="cityInPopulatedArea">
+    </relationship>
+    
+    <relationship
+      type="dss.vector.solutions.geo.AllowedIn"
+      childId="townH"
+      parentId="populatedAreaH"
+      id="townInPopulatedArea">
+    </relationship>
+
+    <relationship
+      type="dss.vector.solutions.geo.AllowedIn"
+      childId="villageH"
+      parentId="populatedAreaH"
+      id="villageInPopulatedArea">
+    </relationship>
+
+    <relationship
+      type="dss.vector.solutions.geo.AllowedIn"
+      childId="facilityH"
+      parentId="populatedAreaH"
+      id="facilityInPopulatedArea">
+    </relationship>
+
+    <relationship
+      type="dss.vector.solutions.geo.AllowedIn"
+      childId="riverH"
+      parentId="countryH"
+      id="riverInCountry">
+    </relationship>
+
+    <relationship
+      type="dss.vector.solutions.geo.AllowedIn"
+      childId="roadH"
+      parentId="countryH"
+      id="roadInCountry">
+    </relationship>
+    
+    <relationship
+      type="dss.vector.solutions.geo.AllowedIn"
+      childId="nationalRoadH"
+      parentId="countryH"
+      id="nationalRoadInCountry">
+    </relationship>
+
+    <relationship
+      type="dss.vector.solutions.geo.AllowedIn"
+      childId="reserveH"
+      parentId="populatedAreaH"
+      id="reserveInPopulatedArea">
+    </relationship>
+
+    <relationship
+      type="dss.vector.solutions.geo.AllowedIn"
+      childId="railwayH"
+      parentId="countryH"
+      id="railwayInCountry">
     </relationship>
 
     <object
@@ -9194,6 +9642,24 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         name="geoEntityClass"
         id="TrapMd" />
     </object>
+
+    <object
+      id="sprayZoneH"
+      type="dss.vector.solutions.geo.GeoHierarchy">
+      <valueAttribute
+        name="political"
+        value="false" />
+      <referenceAttribute
+        name="geoEntityClass"
+        id="SprayZoneMd" />
+    </object>
+
+    <relationship
+      type="dss.vector.solutions.geo.AllowedIn"
+      childId="sprayZoneH"
+      parentId="localityH"
+      id="sprayZoneInLocality">
+    </relationship>
 
     <relationship
       type="dss.vector.solutions.geo.AllowedIn"
