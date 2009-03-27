@@ -31,7 +31,7 @@ public class MdssDmu
       packages.add(object.getValue(MdTypeInfo.PACKAGE));
     packages.add("com.terraframe.mojo.defaults");
     
-    DeployedMetadataUpdater.go(packages, ServerConstants.SYSTEM_USER_NAME, args[0]);
+    DeployedMetadataUpdater.go("datatype_gis.xsd", packages, ServerConstants.SYSTEM_USER_NAME, args[0]);
   }
 
 }
