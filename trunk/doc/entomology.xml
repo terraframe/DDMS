@@ -3789,7 +3789,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="testResult"
           label="α-napthyl acetate assay"
           required="true"
-          description="assay result" />
+          description="assay result|Positive|Negative" />
       </attributes>
     </mdBusiness>
 
@@ -3804,7 +3804,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="testResult"
           label="β-napthyl acetate assay"
           required="true"
-          description="assay result" />
+          description="assay result|Positive|Negative" />
       </attributes>
     </mdBusiness>
 
@@ -3819,7 +3819,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="testResult"
           label="pNPA assay"
           required="true"
-          description="assay result" />
+          description="assay result|Positive|Negative" />
       </attributes>
     </mdBusiness>
 
@@ -3834,7 +3834,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="testResult"
           label="GST CDNB rate reaction assay"
           required="true"
-          description="assay result" />
+          description="assay result|Positive|Negative" />
       </attributes>
     </mdBusiness>
 
@@ -3849,7 +3849,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="testResult"
           label="GST DCNB rate reaction assay"
           required="true"
-          description="assay result" />
+          description="assay result|Positive|Negative" />
       </attributes>
     </mdBusiness>
 
@@ -3864,7 +3864,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="testResult"
           label="heme content"
           required="true"
-          description="assay result" />
+          description="assay result|Positive|Negative" />
       </attributes>
     </mdBusiness>
 
@@ -3917,7 +3917,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="testResult"
           label="P. Falciparum Test Result"
           required="true"
-          description="assay result" />
+          description="assay result|Positive|Negative" />
       </attributes>
     </mdBusiness>
 
@@ -3932,7 +3932,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="testResult"
           label="P. Ovale Test Result"
           required="true"
-          description="assay result" />
+          description="assay result|Positive|Negative" />
       </attributes>
     </mdBusiness>
 
@@ -3947,7 +3947,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="testResult"
           label="P. Malariae Test Result"
           required="true"
-          description="assay result" />
+          description="assay result|Positive|Negative" />
       </attributes>
     </mdBusiness>
 
@@ -3962,7 +3962,7 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           name="testResult"
           label="P. Vivax Test Result"
           required="true"
-          description="assay result" />
+          description="assay result|Positive|Negative" />
       </attributes>
     </mdBusiness>
 
