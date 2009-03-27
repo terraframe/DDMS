@@ -1,5 +1,5 @@
 <TerraFrame
-  xsi:noNamespaceSchemaLocation="file:/home/dt/workspace/MDSS/profiles/datatype_gis.xsd"
+  xsi:noNamespaceSchemaLocation="file:/home/jsmethie/workspace/MDSS/profiles/datatype_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <create>
 
@@ -1009,6 +1009,7 @@
 
     <mdProblem
       name="dss.vector.solutions.NotificationProblem"
+      label="Notification Problem"
       isAbstract="true"
       extendable="true">
       <attributes>
