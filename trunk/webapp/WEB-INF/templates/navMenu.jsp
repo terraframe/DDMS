@@ -51,10 +51,24 @@
                      <div class="bd">                    
                          <ul>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo"><f:message key="Search_Mosquito_Collections"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>                               
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="View_All_ADDA"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo"><f:message key="View_All_EfficacyAssay"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="LarvaeDDA"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>
+                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><f:message key="Resistance_Monitoring"/></a>                             
+                                 <div id="pim" class="yuimenu">
+                                     <div class="bd">
+                                         <h6 class="first-of-type"><f:message key="Bioassays"/></h6> 
+                                         <ul class="first-of-type">
+                                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="Adult_DDA"/></a></li>  
+                                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo"><f:message key="Larvae_DDA"/></a></li>
+                                         </ul>
+                                         <h6 class=""><f:message key="Efficacy_Assays"/></h6>
+                                         <ul class="first-of-type">
+                                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo"><f:message key="View_All_EfficacyAssay"/></a></li>
+                                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo"><f:message key="Knock_Down_Assay"/></a></li> 
+                                          </ul>             
+                                     </div>
+                                 </div>                        
+                             </li>                               
+
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionPointController.search.mojo"><f:message key="Mosquito_Collection_Points"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo"><f:message key="Knock_Down_Assay"/></a></li>                            
                          </ul>                    
