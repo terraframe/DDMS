@@ -1,20 +1,27 @@
 package dss.vector.solutions.geo;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.terraframe.mojo.business.generation.EntityQueryAPIGenerator;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFacade;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
@@ -567,6 +574,120 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   }
 
+  @SuppressWarnings("unchecked")
+  public static void addGeoHierarchyJoinConditions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryParserMap)
+  {
+    QueryFactory queryFactory = valueQuery.getQueryFactory();
+    
+    Map<String, GeneratedEntityQuery> geoEntityQueryMap = new HashMap<String, GeneratedEntityQuery>();
+    HashMap<String, GeoHierarchy> geoHierarchyMap = new HashMap<String, GeoHierarchy>();
+    
+    // Identify the entities in the query that are GeoEntities
+    for (GeneratedEntityQuery entityQuery : queryParserMap.values())
+    {
+      if (GeoEntityQuery.class.isAssignableFrom(entityQuery.getClass()))
+      {
+        String type = entityQuery.getClassType();
+        
+        geoEntityQueryMap.put(type, entityQuery);
+        
+        geoHierarchyMap.put(type, getGeoHierarchyFromType(type));
+      }
+    }
+  
+    
+    // Get all children of Earth
+    GeoHierarchy earthGeoHierarchy = getGeoHierarchyFromType(Earth.CLASS);
+    List<GeoHierarchy> allEarthChildren = new LinkedList<GeoHierarchy>();  
+    getAllChildren(allEarthChildren, earthGeoHierarchy);
+
+    
+    List<GeoHierarchy> pathFromParentToChild = new LinkedList<GeoHierarchy>();
+    
+    GeoHierarchy parentMostGeoHierarchy = null;    
+    HashMap<String, GeoHierarchy> cloneGeoHierarchyMap = (HashMap<String, GeoHierarchy>)geoHierarchyMap.clone();
+    // locate the bottom of the hierarchy in this query
+    // locate the top of the hierarchy in this query
+    // compute the path between the top and the bottom in this hierarch
+    for (GeoHierarchy childOfEarthGeoHierarchy : allEarthChildren)
+    {
+      String childOfEarthType = childOfEarthGeoHierarchy.getGeoEntityClass().definesType();
+      
+      if (parentMostGeoHierarchy == null && 
+          cloneGeoHierarchyMap.containsKey(childOfEarthType))
+      {
+        parentMostGeoHierarchy = cloneGeoHierarchyMap.get(childOfEarthType);
+      }
+      
+      if (parentMostGeoHierarchy != null)
+      {
+        pathFromParentToChild.add(childOfEarthGeoHierarchy);
+      }
+      
+      if (cloneGeoHierarchyMap.size() == 1)
+      {
+        break;
+      }
+        
+      cloneGeoHierarchyMap.remove(childOfEarthType);
+    }
+
+
+    // create entity queries for types in the path from parent to child that are not yet in the parser map
+    for (GeoHierarchy geoHierarchy : pathFromParentToChild)
+    {
+      String type = geoHierarchy.getGeoEntityClass().definesType();
+      
+      // No criteria was specified for this entity universal in the path from parent to child.  We need
+      // to add it to the map.
+      if (!queryParserMap.containsKey(type))
+      {       
+        String queryType = EntityQueryAPIGenerator.getQueryClass(type);
+        
+        Class<?> queryClass = LoaderDecorator.load(queryType);
+        
+        GeneratedEntityQuery generatedEntityQuery = null;
+        
+        try
+        {
+          generatedEntityQuery = (GeneratedEntityQuery)queryClass.getConstructor(QueryFactory.class).newInstance(queryFactory);
+          queryParserMap.put(type, generatedEntityQuery);
+        }
+        catch (Throwable e)
+        {
+          throw new ProgrammingErrorException(e);
+        }
+        
+        QueryFacade.setUsedInSelectClause(valueQuery, generatedEntityQuery);
+      }
+    }
+
+    // Now that we have <code>GeneratedEntityQuery</code> objects defined for every type in the path from parent to
+    // child, we need to build the join criteria.
+    for (int i=pathFromParentToChild.size()-1; i >=0; i-- )
+    {
+       // Stop joining when we have reached the parent.
+       if (i - 1 >= 0)
+       {
+         GeoHierarchy childGeoHierarchy =  pathFromParentToChild.get(i);
+         GeoHierarchy parentGeoHierarchy =  pathFromParentToChild.get(i - 1);
+         
+         String childType = childGeoHierarchy.getGeoEntityClass().definesType();
+         String parentType = parentGeoHierarchy.getGeoEntityClass().definesType();
+         
+         GeoEntityQuery childQuery = (GeoEntityQuery)queryParserMap.get(childType);
+         GeoEntityQuery parentQuery = (GeoEntityQuery)queryParserMap.get(parentType);
+         
+         valueQuery.AND(childQuery.locatedInGeoEntity(parentQuery));
+       }
+       else
+       {
+         break;
+       }
+    }
+    
+  }
+  
   /**
    * Gets GeoHierarchy views that are immediate children of the given
    * GeoHierarchy.

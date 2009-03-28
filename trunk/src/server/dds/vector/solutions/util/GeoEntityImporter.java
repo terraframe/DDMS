@@ -482,9 +482,7 @@ public class GeoEntityImporter
     GeoHierarchyQuery q = new GeoHierarchyQuery(f);
 
     q.WHERE(F.UPPER(F.TRIM(q.getGeoEntityClass().getTypeName())).EQ(universalName.trim().toUpperCase())
-        .OR(
-            F.UPPER(F.TRIM(q.getGeoEntityClass().getDisplayLabel())).EQ(
-                universalName.trim().toUpperCase())));
+        .OR(F.UPPER(F.TRIM(q.getGeoEntityClass().getDisplayLabel())).EQ(universalName.trim().toUpperCase())));
 
     OIterator<? extends GeoHierarchy> i = q.getIterator();
 
