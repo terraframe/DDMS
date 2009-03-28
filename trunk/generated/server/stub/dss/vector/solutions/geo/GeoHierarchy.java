@@ -604,6 +604,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     
     List<GeoHierarchy> pathFromParentToChild = new LinkedList<GeoHierarchy>();
     
+//    for (GeoHierarchy childOfEarthGeoHierarchy : allEarthChildren)
+//    {
+//      System.out.println( childOfEarthGeoHierarchy.getGeoEntityClass().definesType());
+//    }
+    
     GeoHierarchy parentMostGeoHierarchy = null;    
     HashMap<String, GeoHierarchy> cloneGeoHierarchyMap = (HashMap<String, GeoHierarchy>)geoHierarchyMap.clone();
     // locate the bottom of the hierarchy in this query
@@ -619,12 +624,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements
         parentMostGeoHierarchy = cloneGeoHierarchyMap.get(childOfEarthType);
       }
       
-      if (parentMostGeoHierarchy != null)
+      if (parentMostGeoHierarchy != null && cloneGeoHierarchyMap.containsKey(childOfEarthType))
       {
         pathFromParentToChild.add(childOfEarthGeoHierarchy);
       }
       
-      if (cloneGeoHierarchyMap.size() == 1)
+      if (cloneGeoHierarchyMap.size() <= 0)
       {
         break;
       }
