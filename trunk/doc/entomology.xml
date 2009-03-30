@@ -1350,7 +1350,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     <mdProblem
       name="dss.vector.solutions.entomology.InvalidFemaleQuantityProblem"
       label="Invalid Female Quantity"
-      description="The number of female is greater than the total number of mosquitos">
+      description="The number of female is greater than the total number of mosquitos"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="quantity"
@@ -1370,7 +1371,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     <mdProblem
       name="dss.vector.solutions.entomology.InvalidMaleQuantityProblem"
       label="Invalid Male Quantity"
-      description="The number of male is greater than the total number of mosquitos">
+      description="The number of male is greater than the total number of mosquitos"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="quantity"
@@ -1390,7 +1392,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     <mdProblem
       name="dss.vector.solutions.entomology.QuantityMismatchProblem"
       label="Quantity Mismatch Problem"
-      description="The number of total number of mosquitos does not equal the number of male and number of female">
+      description="The number of total number of mosquitos does not equal the number of male and number of female"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="quantity"
@@ -1416,36 +1419,21 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     <mdProblem
       name="dss.vector.solutions.entomology.InvalidMorphologicalQuantityProblem"
       label="Invalid Quantity"
-      description="A MorphologicalSpecieGroup has a contextually invalid quantity (Equal to or less than 0)">
+      description="A MorphologicalSpecieGroup has a contextually invalid quantity (Equal to or less than 0)"
+      extends="dss.vector.solutions.NotificationProblem">
     </mdProblem>
 
     <mdProblem
       name="dss.vector.solutions.entomology.EmptyValueProblem"
       label="Empty Value Problem"
-      description="A MorphologicalSpecieGroup is missing contextual required values">
-      <attributes>
-        <char
-          name="attributeLabel"
-          size="255"
-          label="Attribute Label"
-          required="true"
-          description="Label of the attribute" />
-      </attributes>
-    </mdProblem>
+      description="A MorphologicalSpecieGroup is missing contextual required values"
+      extends="dss.vector.solutions.NotificationProblem" />
 
     <mdProblem
       name="dss.vector.solutions.entomology.InvalidMorphologicalSpecieProblem"
       label="Invalid Morphological Specie Problem"
-      description="A morphological specie group cannot have an identification method or specie if the quantity is zero">
-      <attributes>
-        <char
-          name="attributeLabel"
-          size="255"
-          label="Attribute Label"
-          required="true"
-          description="Label of the attribute" />
-      </attributes>
-    </mdProblem>
+      description="A morphological specie group cannot have an identification method or specie if the quantity is zero"
+      extends="dss.vector.solutions.NotificationProblem" />
 
     <mdView
       name="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
@@ -2162,7 +2150,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidAgeProblem"
       label="Invalid Age Exception"
-      description="A mosquito age must be between 0 and 20 for adult assays">
+      description="A mosquito age must be between 0 and 20 for adult assays"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="age"
@@ -2174,7 +2163,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem"
       label="Invalid Age Range Exception"
-      description="A valid age range must have a starting point equal to or less than the ending point">
+      description="A valid age range must have a starting point equal to or less than the ending point"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="startPoint"
@@ -2774,7 +2764,8 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
     <mdProblem
       name="dss.vector.solutions.general.InvalidPercentageProblem"
       label="Invalid Percentage"
-      description="A percentage is larger than 100">
+      description="A percentage is larger than 100"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="invalidPercent"
@@ -2994,82 +2985,49 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
 
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidFedQuantityProblem"
-      label="Invalid Fed Value">
+      label="Invalid Fed Value"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="fed"
           label="Fed"
           description="The Fed value"
           required="true" />
-        <char
-          name="assayId"
-          label="Assay Id"
-          description="The id of the assay"
-          required="true"
-          size="255" />
       </attributes>
     </mdProblem>
 
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem"
-      label="Invalid Gravid Value">
+      label="Invalid Gravid Value"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="gravid"
           label="Number Gravid"
           description="The Gravid value"
           required="true" />
-        <char
-          name="assayId"
-          label="Assay Id"
-          description="The id of the assay"
-          required="true"
-          size="255" />
       </attributes>
     </mdProblem>
 
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidFedSexProblem"
-      label="Invalid Fed Sex">
-      <attributes>
-        <char
-          name="assayId"
-          label="Assay Id"
-          description="The id of the assay"
-          required="true"
-          size="255" />
-      </attributes>
-    </mdProblem>
+      label="Invalid Fed Sex"
+      extends="dss.vector.solutions.NotificationProblem" />
 
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidGravidSexProblem"
-      label="Invalid Gravid Sex">
-      <attributes>
-        <char
-          name="assayId"
-          label="Assay Id"
-          description="The id of the assay"
-          required="true"
-          size="255" />
-      </attributes>
-    </mdProblem>
+      label="Invalid Gravid Sex" 
+      extends="dss.vector.solutions.NotificationProblem"/>
 
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidGenerationProblem"
-      label="Invalid Generation Value">
-      <attributes>
-        <char
-          name="assayId"
-          label="Assay Id"
-          description="The id of the assay"
-          required="true"
-          size="255" />
-      </attributes>
-    </mdProblem>
+      label="Invalid Generation Value"
+      extends="dss.vector.solutions.NotificationProblem" />
 
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidIntervalTimeProblem"
-      label="Invalid Interval Time">
+      label="Invalid Interval Time"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="exposureTime"
@@ -3081,18 +3039,13 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Interval Time"
           description="Interval Time"
           required="true" />
-        <char
-          name="assayId"
-          label="Assay Id"
-          description="The id of the assay"
-          required="true"
-          size="255" />
       </attributes>
     </mdProblem>
 
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidDeadQuantityProblem"
-      label="Invalid Dead Quantity">
+      label="Invalid Dead Quantity"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="quantityDead"
@@ -3104,18 +3057,13 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Number Exposed"
           description="Quantity Tested"
           required="true" />
-        <char
-          name="assayId"
-          label="Assay Id"
-          description="The id of the assay"
-          required="true"
-          size="255" />
       </attributes>
     </mdProblem>
 
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidKnockDownQuantityProblem"
-      label="Invalid Knock Down Quantity">
+      label="Invalid Knock Down Quantity"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="quantityKnockDown"
@@ -3127,36 +3075,26 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Number Exposed"
           description="Quantity Tested"
           required="true" />
-        <char
-          name="intervalId"
-          label="Interval Id"
-          description="The id of the interval"
-          required="true"
-          size="255" />
       </attributes>
     </mdProblem>
 
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidPeriodProblem"
-      label="Invalid Period Value">
+      label="Invalid Period Value"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <integer
           name="period"
           label="Period"
           description="period"
           required="true" />
-        <char
-          name="intervalId"
-          label="Interval Id"
-          description="The id of the interval"
-          required="true"
-          size="255" />
       </attributes>
     </mdProblem>
 
     <mdProblem
       name="dss.vector.solutions.entomology.assay.InvalidTestDateProblem"
-      label="Invalid Test Date">
+      label="Invalid Test Date"
+      extends="dss.vector.solutions.NotificationProblem">
       <attributes>
         <date
           name="testDate"
@@ -3168,12 +3106,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           label="Period"
           description="period"
           required="true" />
-        <char
-          name="assayId"
-          label="Assay Id"
-          description="The id of the assay"
-          required="true"
-          size="255" />
       </attributes>
     </mdProblem>
   </create>
