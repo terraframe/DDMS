@@ -48,5 +48,55 @@ var MDSS = {
     {
       return str.replace(/^\s+/, '').replace(/\s+$/, '');
     }
+  },
+  
+  /**
+   * Provides a default request implementation.
+   */
+  Request : function(handler)
+  {
+  	this.createModal = function(content)
+  	{
+       var modal = new YAHOO.widget.Panel("errorModal",  
+       {
+          width:"400px", 
+          height: "200px",
+          fixedcenter:true, 
+          close:true, 
+          draggable:false, 
+          zindex:9999,
+          modal:true,
+          visible:true
+        }
+      );
+    
+      var div = document.createElement('div');
+      YAHOO.util.Dom.addClass(div, 'alert alertbox modalAlertBox');
+      div.innerHTML = content;
+    
+      modal.setBody(div);
+      modal.bringToTop();
+      modal.render(document.body);
+  	};
+  	
+    // provide default error handler
+    this.onFailure = function(e)
+    {
+      this.createModal(e.getLocalizedMessage());
+    };
+    
+    this.onProblemExceptionDTO = function(e)
+    {
+      var problems = e.getProblems();
+      var content = '';
+      for(var i=0; i<problems.length; i++)
+      {
+        content += problems[i].getLocalizedMessage()+"<br />";
+      }
+      
+      this.createModal(content);
+    }
+    
+    Mojo.util.copy(new Mojo.ClientRequest(handler), this);
   }
 };
