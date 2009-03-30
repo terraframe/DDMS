@@ -206,7 +206,7 @@
       </attribute>
       <attribute>
         <name>description</name>
-        <value>Point Spatial Attribute Type</value>
+        <value>Point Geometry Attribute Type</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
       </attribute>
       <attribute>
@@ -376,7 +376,7 @@
           </enumeration>
         </indexType_c>
         <indexName>NM2009021900000000000000000021</indexName>
-        <system>1</system>
+        <system>0</system>
         <immutable>1</immutable>
         <owner>0000000000000000000000000000001000000000000000000000000000000003</owner>
         <setterVisibility>NM200902190000000000000000000017</setterVisibility>
@@ -395,7 +395,7 @@
             <item_id>20071109NM000000000000000000000520071109NM0000000000000000000001</item_id>
           </enumeration>
         </getterVisibility_c>
-        <defaultValue/>
+        <defaultValue>2</defaultValue>
         <rejectPositive>0</rejectPositive>
         <rejectZero>1</rejectZero>
         <rejectNegative>1</rejectNegative>
@@ -509,7 +509,7 @@
       </attribute>
       <attribute>
         <name>tableName</name>
-        <value>md_attribute_spatial</value>
+        <value>md_attribute_geometry</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdEntity</definingComponent>
       </attribute>
       <attribute>
@@ -564,7 +564,7 @@
       </attribute>
       <attribute>
         <name>description</name>
-        <value>Root Spatial Attribute Type</value>
+        <value>Root Geometry Attribute Type</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
       </attribute>
       <attribute>
@@ -958,7 +958,7 @@
       </attribute>
       <attribute>
         <name>description</name>
-        <value>Line String Spatial Attribute Type</value>
+        <value>Line String Geometry Attribute Type</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
       </attribute>
       <attribute>
@@ -1218,7 +1218,7 @@
       </attribute>
       <attribute>
         <name>description</name>
-        <value>Polygon Spatial Attribute Type</value>
+        <value>Polygon Geometry Attribute Type</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
       </attribute>
       <attribute>
@@ -1478,7 +1478,7 @@
       </attribute>
       <attribute>
         <name>description</name>
-        <value>MultiPoint Spatial Attribute Type</value>
+        <value>MultiPoint Geometry Attribute Type</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
       </attribute>
       <attribute>
@@ -1738,7 +1738,7 @@
       </attribute>
       <attribute>
         <name>description</name>
-        <value>MultiLineString Spatial Attribute Type</value>
+        <value>MultiLineString Geometry Attribute Type</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
       </attribute>
       <attribute>
@@ -1998,7 +1998,7 @@
       </attribute>
       <attribute>
         <name>description</name>
-        <value>MultiPolygon Spatial Attribute Type</value>
+        <value>MultiPolygon Geometry Attribute Type</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
       </attribute>
       <attribute>
