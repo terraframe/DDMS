@@ -405,7 +405,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       attr = new MdAttributePolygon();
       attr.setAttributeName("polygon");
     }
-    if(spatialType == SpatialTypes.MULTI_POINT)
+    else if(spatialType == SpatialTypes.MULTI_POINT)
     {
       attr = new MdAttributeMultiPoint();
       attr.setAttributeName("multiPoint");
