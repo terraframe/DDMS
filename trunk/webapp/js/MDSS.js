@@ -79,6 +79,16 @@ var MDSS = {
       modal.render(document.body);
   	};
   	
+  	this.onSend = function()
+  	{
+  	  // Work your magic Darrell.
+  	}
+  	
+  	this.onComplete = function()
+  	{
+  	  // Work your magic Darrell.
+  	}
+  	
     // provide default error handler
     this.onFailure = function(e)
     {

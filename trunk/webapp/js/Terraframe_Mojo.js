@@ -770,6 +770,12 @@ var Mojo = {
         {
           if(this.xmlHttp.readyState == 4)
           {
+          	// signal that the load is complete
+          	if(Mojo.util.isFunction(clientRequest.onComplete))
+          	{
+          	  clientRequest.onComplete();
+          	}
+          	
             if(this.xmlHttp.status >= this.requestOptions.successRange[0]
               && this.xmlHttp.status <= this.requestOptions.successRange[1])
             {
@@ -784,6 +790,12 @@ var Mojo = {
           
         cb.call(that);
       };
+      
+      // signal that the Ajax call is about to take place.
+      if(Mojo.util.isFunction(clientRequest.onSend))
+      {
+        clientRequest.onSend();
+      }
       
       var url = baseEndpoint + endpoint;
       if(this.requestOptions.method == 'post')
