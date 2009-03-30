@@ -339,7 +339,7 @@ public class LDDATest extends TestCase
 
       InvalidTestDateProblem problem = (InvalidTestDateProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(date, problem.getTestDate());
       assertEquals(assay.getCollection().getDateCollected(), problem.getCollectionDate());
     }
@@ -561,7 +561,7 @@ public class LDDATest extends TestCase
 
       InvalidDeadQuantityProblem problem = (InvalidDeadQuantityProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(new Integer(quantityDead), problem.getQuantityDead());
       assertEquals(new Integer(quantityTested), problem.getQuantityTested());
     }
@@ -617,7 +617,7 @@ public class LDDATest extends TestCase
 
       InvalidIntervalTimeProblem problem = (InvalidIntervalTimeProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(new Integer(exposureTime), problem.getExposureTime());
       assertEquals(new Integer(intervalTime), problem.getIntervalTime());
     }
@@ -837,7 +837,7 @@ public class LDDATest extends TestCase
 
       InvalidPeriodProblem problem = (InvalidPeriodProblem) problems.get(0);
 
-      assertEquals(interval.getId(), problem.getIntervalId());
+      assertEquals(interval.getId(), problem.getComponentId());
       assertEquals(new Integer(period), problem.getPeriod());
     }
     finally
@@ -1002,7 +1002,7 @@ public class LDDATest extends TestCase
 
       InvalidKnockDownQuantityProblem problem = (InvalidKnockDownQuantityProblem) problems.get(0);
 
-      assertEquals(interval.getId(), problem.getIntervalId());
+      assertEquals(interval.getId(), problem.getComponentId());
       assertEquals(new Integer(quantityKnockedDown), problem.getQuantityKnockDown());
       assertEquals(new Integer(quantityTested), problem.getQuantityTested());
     }
@@ -1052,7 +1052,7 @@ public class LDDATest extends TestCase
 
       InvalidGenerationProblem problem = (InvalidGenerationProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
     }
     finally
     {

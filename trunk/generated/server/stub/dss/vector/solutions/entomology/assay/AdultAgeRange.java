@@ -27,6 +27,7 @@ public class AdultAgeRange extends AdultAgeRangeBase implements com.terraframe.m
       
       InvalidAgeProblem p = new InvalidAgeProblem(msg);
       p.setAge(this.getStartPoint());
+      p.setNotification(this, STARTPOINT);
       p.apply();
       p.throwIt();      
     }
@@ -43,6 +44,7 @@ public class AdultAgeRange extends AdultAgeRangeBase implements com.terraframe.m
 
       InvalidAgeProblem p = new InvalidAgeProblem(msg);
       p.setAge(this.getEndPoint());
+      p.setNotification(this, ENDPOINT);
       p.apply();
       p.throwIt();      
     }
@@ -57,6 +59,7 @@ public class AdultAgeRange extends AdultAgeRangeBase implements com.terraframe.m
       InvalidAgeRangeProblem p = new InvalidAgeRangeProblem(msg);
       p.setStartPoint(this.getStartPoint());
       p.setEndPoint(this.getEndPoint());
+      p.setNotification(this, STARTPOINT);
       p.apply();
       p.throwIt();      
     }    

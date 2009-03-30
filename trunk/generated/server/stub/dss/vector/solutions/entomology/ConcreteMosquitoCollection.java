@@ -29,10 +29,24 @@ public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollect
 
       if (current.before(this.getDateCollected()))
       {
-        String msg = "It is impossible to have a collection date before the current date";
-//        throw new Invalid
+        String msg = "It is impossible to have a collection date before the current date";        
+        
+        InvalidCollectionDateProblem p = new InvalidCollectionDateProblem(msg);
+        p.setCollectionDate(this.getDateCollected());
+        p.setCurrentDate(current);
+        p.setNotification(this, DATECOLLECTED);
+        p.apply();
+        p.throwIt();
       }
     }
+  }
+  
+  @Override
+  public void apply()
+  {
+    validateDateCollected();
+    
+    super.apply();
   }
 
   @Override

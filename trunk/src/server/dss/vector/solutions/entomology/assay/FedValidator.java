@@ -14,25 +14,25 @@ public class FedValidator implements Reloadable
   
   private Integer quantityTested;
   
-  private String assayId;
+  private AbstractAssay assay;
     
   public FedValidator(AdultAssay assay)
   {
-    this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay.getId());
+    this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay);
   }
   
   public FedValidator(EfficacyAssay assay)
   {
-    this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay.getId());    
+    this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay);    
   }  
   
-  public FedValidator(List<AssaySex> sex, Integer fed, Integer quantityTested, String assayId)
+  public FedValidator(List<AssaySex> sex, Integer fed, Integer quantityTested, AbstractAssay assay)
   {
     super();
     this.sex = sex;
     this.fed = fed;
     this.quantityTested = quantityTested;
-    this.assayId = assayId;
+    this.assay = assay;
   }
 
   public void validate()
@@ -43,7 +43,8 @@ public class FedValidator implements Reloadable
       String msg = "It is impossible to have fed values on male or unknown sex assays";
 
       InvalidFedSexProblem p = new InvalidFedSexProblem(msg);
-      p.setAssayId(assayId);
+      p.setNotification(assay, AdultDiscriminatingDoseAssay.FED);
+      p.apply();
       p.throwIt();
     }
 
@@ -52,8 +53,9 @@ public class FedValidator implements Reloadable
       String msg = "It is impossible to have red values larger than the quantity of mosquitos tested";
 
       InvalidFedQuantityProblem p = new InvalidFedQuantityProblem(msg);
-      p.setAssayId(assayId);
       p.setFed(fed);
+      p.setNotification(assay, AdultDiscriminatingDoseAssay.FED);
+      p.apply();
       p.throwIt();
     } 
   }

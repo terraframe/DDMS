@@ -4,6 +4,7 @@ package dss.vector.solutions.entomology;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import junit.extensions.TestSetup;
@@ -15,6 +16,7 @@ import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
+import com.terraframe.mojo.query.OIterator;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.PermanentWaterBody;
@@ -80,6 +82,20 @@ public class MosquitoCollectionPointTest extends TestCase
 
   protected static void classTearDown()
   {
+    MosquitoCollectionPointQuery query = MosquitoCollectionPoint.getAllInstances("keyName", true, 0, 0);    
+    OIterator<? extends MosquitoCollectionPoint> iterator = query.getIterator();
+    List<MosquitoCollectionPoint> list = new LinkedList<MosquitoCollectionPoint>();
+    
+    while(iterator.hasNext())
+    {
+      MosquitoCollectionPoint next = iterator.next();
+      System.out.println(next.getDateCollected() + " " + next.getGeoEntity().getEntityName());
+
+      list.add(next);
+    }
+    
+    for(MosquitoCollectionPoint p : list) p.delete();
+        
     sentinelSite.delete();
     waterBody.delete();
     fixedTrap.delete();
@@ -435,6 +451,7 @@ public class MosquitoCollectionPointTest extends TestCase
     finally
     {
       collection.delete();
+      collection2.delete();
     }
   }
 

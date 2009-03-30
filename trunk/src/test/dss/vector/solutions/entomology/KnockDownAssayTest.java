@@ -477,7 +477,7 @@ public class KnockDownAssayTest extends TestCase
 
       InvalidTestDateProblem problem = (InvalidTestDateProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(date, problem.getTestDate());
       assertEquals(assay.getCollection().getDateCollected(), problem.getCollectionDate());
     }
@@ -807,7 +807,7 @@ public class KnockDownAssayTest extends TestCase
 
       InvalidFedQuantityProblem problem = (InvalidFedQuantityProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(new Integer(fed), problem.getFed());
     }
     finally
@@ -863,7 +863,7 @@ public class KnockDownAssayTest extends TestCase
 
       InvalidGravidQuantityProblem problem = (InvalidGravidQuantityProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(new Integer(gravid), problem.getGravid());
     }
     finally
@@ -966,7 +966,7 @@ public class KnockDownAssayTest extends TestCase
 
       InvalidIntervalTimeProblem problem = (InvalidIntervalTimeProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(new Integer(exposureTime), problem.getExposureTime());
       assertEquals(new Integer(intervalTime), problem.getIntervalTime());
     }
@@ -1193,7 +1193,7 @@ public class KnockDownAssayTest extends TestCase
 
       InvalidPeriodProblem problem = (InvalidPeriodProblem) problems.get(0);
 
-      assertEquals(interval.getId(), problem.getIntervalId());
+      assertEquals(interval.getId(), problem.getComponentId());
       assertEquals(new Integer(period), problem.getPeriod());
     }
     finally
@@ -1349,7 +1349,7 @@ public class KnockDownAssayTest extends TestCase
 
       InvalidGenerationProblem problem = (InvalidGenerationProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
     }
     finally
     {

@@ -14,24 +14,24 @@ public class GravidValidator implements Reloadable
   
   private Integer quantityTested;
   
-  private String assayId;
+  private AbstractAssay assay;
   
   public GravidValidator(AdultAssay assay)
   {
-    this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay.getId());
+    this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay);
   }
   
   public GravidValidator(EfficacyAssay assay)
   {
-    this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay.getId());    
+    this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay);    
   }
   
-  public GravidValidator(List<AssaySex> sex, Integer gravid, Integer quantityTested, String assayId)
+  public GravidValidator(List<AssaySex> sex, Integer gravid, Integer quantityTested, AbstractAssay assay)
   {
     this.sex = sex;
     this.gravid = gravid;
     this.quantityTested = quantityTested;
-    this.assayId = assayId;
+    this.assay = assay;
   }
 
   public void validate()
@@ -41,7 +41,8 @@ public class GravidValidator implements Reloadable
       String msg = "It is impossible to have gravid values on male or unknown sex assays";
 
       InvalidGravidSexProblem p = new InvalidGravidSexProblem(msg);
-      p.setAssayId(assayId);
+      p.setNotification(assay, AdultDiscriminatingDoseAssay.GRAVID);
+      p.apply();
       p.throwIt();
     }
 
@@ -50,8 +51,9 @@ public class GravidValidator implements Reloadable
       String msg = "It is impossible to have gravid values larger than the quantity of mosquitos tested";
 
       InvalidGravidQuantityProblem p = new InvalidGravidQuantityProblem(msg);
-      p.setAssayId(assayId);
       p.setGravid(gravid);
+      p.setNotification(assay, AdultDiscriminatingDoseAssay.GRAVID);
+      p.apply();
       p.throwIt();
     }
   }

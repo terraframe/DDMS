@@ -14,16 +14,11 @@ import junit.framework.TestSuite;
 import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
+import com.terraframe.mojo.dataaccess.CannotDeleteReferencedObject;
 import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.session.StartSession;
 
-import dss.vector.solutions.entomology.EmptyValueProblem;
-import dss.vector.solutions.entomology.InvalidMorphologicalQuantityProblem;
-import dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException;
-import dss.vector.solutions.entomology.MorphologicalSpecieGroup;
-import dss.vector.solutions.entomology.MorphologicalSpecieGroupView;
-import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.export.entomology.MosquitoCollectionView;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.NonSentinalSite;
@@ -590,6 +585,53 @@ public class MosquitoCollectionTest extends TestCase
     }
   }
   
+  public void testDeleteReferencedGeoEntity()  throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+
+    SentinalSite entity = new SentinalSite();
+    entity.setGeoId("490");
+    entity.setEntityName("Sentinel Site");
+    entity.apply();
+
+    MosquitoCollection collection = new MosquitoCollection();
+    collection.setGeoEntity(entity);
+    collection.setDateCollected(dateTime.parse("2008-01-01"));
+    collection.setCollectionMethod(collectionMethod);
+    collection.apply();
+
+    String entityId = entity.getId();
+    String collectionId = collection.getId();
+    
+    try
+    {
+      entity.delete();
+      
+      fail("Able to delete Geo Entity which is referenced in a mosquito collection");
+    }
+    catch(CannotDeleteReferencedObject e)
+    {
+      //This is expected
+    }
+    finally
+    {
+      MosquitoCollection m = MosquitoCollection.get(collectionId);
+      
+      if(m != null && m.isAppliedToDB())
+      {
+        m.delete();
+      }
+
+      SentinalSite s = SentinalSite.get(entityId);
+
+      if(s != null && s.isAppliedToDB())
+      {
+        s.delete();
+      }
+      
+    }
+  }
+  
   public void testInvalidMaleAndFemale()
   {
     MosquitoCollection collection = new MosquitoCollection();
@@ -689,5 +731,4 @@ public class MosquitoCollectionTest extends TestCase
       collection.delete();
     }
   }
-
 }

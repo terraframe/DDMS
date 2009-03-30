@@ -436,7 +436,7 @@ public class EfficacyAssayTest extends TestCase
 
       InvalidFedQuantityProblem problem = (InvalidFedQuantityProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(new Integer(fed), problem.getFed());
     }
     finally
@@ -488,7 +488,7 @@ public class EfficacyAssayTest extends TestCase
 
       InvalidGravidQuantityProblem problem = (InvalidGravidQuantityProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(new Integer(gravid), problem.getGravid());
     }
     finally
@@ -657,7 +657,7 @@ public class EfficacyAssayTest extends TestCase
 
       InvalidDeadQuantityProblem problem = (InvalidDeadQuantityProblem) problems.get(0);
 
-      assertEquals(assay.getId(), problem.getAssayId());
+      assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(new Integer(quantityDead), problem.getQuantityDead());
       assertEquals(new Integer(quantityTested), problem.getQuantityTested());
     }

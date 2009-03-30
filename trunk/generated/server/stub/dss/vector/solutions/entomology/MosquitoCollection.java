@@ -3,9 +3,6 @@ package dss.vector.solutions.entomology;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.entomology.MosquitoCollectionBase;
-import dss.vector.solutions.entomology.MosquitoCollectionQuery;
-
 import dss.vector.solutions.geo.generated.AbstractSite;
 
 public class MosquitoCollection extends MosquitoCollectionBase implements

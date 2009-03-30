@@ -32,7 +32,8 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
       String msg = "Isofemale line cannot be selected if the generation is F0.";
 
       InvalidGenerationProblem p = new InvalidGenerationProblem(msg);
-      p.setAssayId(this.getId());
+      p.setNotification(this, ISOFEMALE);
+      p.apply();      
       p.throwIt();
     }
   }
@@ -56,7 +57,8 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
       InvalidIntervalTimeProblem p = new InvalidIntervalTimeProblem(msg);
       p.setIntervalTime(this.getIntervalTime());
       p.setExposureTime(this.getExposureTime());
-      p.setAssayId(this.getId());
+      p.setNotification(this, INTERVALTIME);
+      p.apply();      
       p.throwIt();
     }
   }
@@ -77,7 +79,8 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
         InvalidTestDateProblem p = new InvalidTestDateProblem(msg);
         p.setTestDate(this.getTestDate());
         p.setCollectionDate(collectionDate);
-        p.setAssayId(this.getId());
+        p.setNotification(this, TESTDATE);
+        p.apply();
         p.throwIt();
       }
     }
