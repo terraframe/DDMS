@@ -97,10 +97,10 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _createNode(params, action)
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(geoHierarchyId){
         
-        var request = new Mojo.ClientRequest({
+        var request = new MDSS.Request({
           onSuccess : function(geoHierarchyView){
             // add the node directly if the children have already been dynamically loaded
             if(_selectedNode.dynamicLoadComplete)
@@ -117,17 +117,11 @@ MDSS.GeoHierarchyTree = (function(){
             _selectedNode.expand();
         
             _modal.destroy();
-          },
-          onFailure : function(e){
-            alert(e.getLocalizedMessage());
           }
         });
         
         // fetch the view
         Mojo.$.dss.vector.solutions.geo.GeoHierarchy.getViewForGeoHierarchy(request, geoHierarchyId);
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     
@@ -139,27 +133,20 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _updateNode(params, actions)
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess: function(geoHierarchyId){
       	
-      	var request = new Mojo.ClientRequest({
+      	var request = new MDSS.Request({
       	  onSuccess : function(geoHierarchy)
       	  {
             _setMapping(_selectedNode, geoHierarchy);
             _selectedNode.setHtml(geoHierarchy.getDisplayLabel());
             
             _modal.destroy();
-      	  },
-      	  onFailure : function(e)
-      	  {
-            alert(e.getLocalizedMessage());
       	  }
       	});
       	
         Mojo.$.dss.vector.solutions.geo.GeoHierarchy.getViewForGeoHierarchy(request, geoHierarchyId);
-      },
-      onFailure: function(e){
-        alert(e.getLocalizedMessage());
       }
     });
 
@@ -192,7 +179,7 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _addNodeHandler()
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(html){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
@@ -200,9 +187,6 @@ MDSS.GeoHierarchyTree = (function(){
         _createModal(html);
         
         eval(executable);
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     
@@ -221,12 +205,9 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _cancelNode()
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess: function(){
         _modal.destroy();
-      },
-      onFailure: function(e){
-        alert(e.getLocalizedMessage());
       }
     });
 
@@ -238,7 +219,7 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _deleteNode()
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess: function(){
         
         _modal.destroy();
@@ -248,9 +229,6 @@ MDSS.GeoHierarchyTree = (function(){
         var parent = _selectedNode.parent;
         _geoTree.removeNode(_selectedNode);
         parent.refresh();
-      },
-      onFailure: function(e){
-        alert(e.getLocalizedMessage());
       }
     });
 
@@ -263,7 +241,7 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _editNodeHandler()
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess: function(html){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
@@ -271,9 +249,6 @@ MDSS.GeoHierarchyTree = (function(){
         _createModal(html, false);
         
         eval(executable);
-      },
-      onFailure: function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     
@@ -290,7 +265,7 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _deleteNodeHandler()
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(){
         
         _removeMapping(_selectedNode);
@@ -298,9 +273,6 @@ MDSS.GeoHierarchyTree = (function(){
         var parent = _selectedNode.parent;
         _geoTree.removeNode(_selectedNode);
         parent.refresh();
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     
@@ -342,7 +314,7 @@ MDSS.GeoHierarchyTree = (function(){
   function _dynamicLoad(parentNode, fnLoadComplete)
   {
     // request to fetch children
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(query){
         
         var childNodes = query.getResultSet();
@@ -358,9 +330,6 @@ MDSS.GeoHierarchyTree = (function(){
         
         fnLoadComplete();
         parentNode.refresh();
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
 
@@ -376,7 +345,7 @@ MDSS.GeoHierarchyTree = (function(){
   {
       /* JN change: create new relationship between parent and child */
       var ddThis = this;
-      var request = new Mojo.ClientRequest({
+      var request = new MDSS.Request({
         ddThis : ddThis,
         onSuccess : function(){
           
@@ -410,9 +379,6 @@ MDSS.GeoHierarchyTree = (function(){
 
           destNode.expanded = false; // force re-expansion
           destNode.expand();
-        },
-        onFailure : function(e){
-          alert(e.getLocalizedMessage());
         }
       });
       
@@ -472,13 +438,10 @@ MDSS.GeoHierarchyTree = (function(){
    * given id as first node under the root.
    */
   function _initializeTree(treeId, selectCallback) {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(geoHierarchyView){
         // build tree
         _renderTree(treeId, geoHierarchyView, selectCallback);
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     

@@ -75,11 +75,28 @@ MDSS.QueryXML.Query.prototype = {
   },
   
   /**
+   * Returns the Entity with the given
+   * key or null if it does not exist.
+   */
+  getEntity : function(key)
+  {
+  	return this._entities.getEntity(key);
+  },
+  
+  /**
    * Adds a selectable to the query.
    */
   addSelectable : function(key, selectable)
   {
     this._select.addSelectable(key, selectable);
+  },
+  
+  /**
+   * Removes the Selectable with the given key.
+   */
+  removeSelectable : function(key)
+  {
+    this._select.removeSelectable(key);
   },
   
   /**
@@ -118,6 +135,11 @@ MDSS.QueryXML.Entities.prototype = {
   addEntity : function(key, entity)
   {
     this._entityMap[key] = entity;
+  },
+  
+  getEntity : function(key, entity)
+  {
+  	return this._entityMap[key];
   },
   
   /**
@@ -449,12 +471,13 @@ MDSS.QueryPanel = function(panelId, config)
 {
   this._layout = new YAHOO.widget.Layout(panelId, {
     height: 480,
-    width: 700,
+    width: 8000,
     units: [
         { position: 'top', height: 50, resize: false, body: '', gutter: '2' },
         { position: 'left', width: 150, resize: false, body: '', gutter: '0 5 0 2', scroll: true },
         { position: 'bottom', height: 50, body: '', gutter: '2' },
-        { position: 'center', body: '<div id="'+this.QUERY_DATA_TABLE+'"></div>', gutter: '0 2 0 0', scroll: true }
+        { position: 'center', body: '<div id="'+this.QUERY_DATA_TABLE+'"></div>', gutter: '0 2 0 0', scroll: true },
+        { position: 'right', width: 150, body: '', resize: false, scroll: true, gutter: '0 5 0 2'}
     ]
   });
   
@@ -469,11 +492,25 @@ MDSS.QueryPanel = function(panelId, config)
   // references to date range DOM elements
   this._startDate = null;
   this._endDate = null;
+  
+  // references to the panel units
+  this._topUnit = null;
+  this._leftUnit = null;
+  this._bottomUnit = null;
+  this._centerUnit = null;
+  this._rightUnit = null;
+  
+    
+  // map between header ids (TH tags) and context menu builder functions
+  this._headerMenuBuilders = {};
+  
+  // map between query list entries (LI tags) and context menu builder functions
+  this._queryMenuBuilders = {};
 };
 
 MDSS.QueryPanel.prototype = {
 
-  QUERY_ITEMS : "queryItems",
+  QUERY_ITEMS : "queryItemsList",
 
   QUERY_DATA_TABLE : "queryDataTable",
 
@@ -562,38 +599,50 @@ MDSS.QueryPanel.prototype = {
     
       // create the item
       var li = document.createElement('li');
+      var liE = new YAHOO.util.Element(li);
       li.innerHTML = queryItem.displayLabel;
 
       // add click event handler
       if(queryItem.onclick)
       {
-        var liE = new YAHOO.util.Element(li);
         liE.on('click', queryItem.onclick.handler, queryItem.onclick.obj);
       }
 
-      var id = YAHOO.util.Dom.generateId(li);
-      queryItem.id = id;
+      liE.set('id', queryItem.id);
       
       ul.appendChild(li);
+      
+      // add the builder function to create an entry
+      // specific context menu
+      if(Mojo.util.isFunction(queryItem.menuBuilder))
+      {
+        this._queryMenuBuilders[queryItem.id] = queryItem.menuBuilder;
+      }
     }
     
     var body = new YAHOO.util.Element(this._leftUnit.body);
     body.appendChild(ul);
     
-    // add the context menus (now that the items are in the DOM)
-    for(var i=0; i<this._queryItems.length; i++)
-    {
-      var queryItem = this._queryItems[i];
+    // add context menu for the query item list
+    var menu = new YAHOO.widget.ContextMenu(this.QUERY_ITEMS+"_menu", {
+      trigger:this.QUERY_ITEMS,
+      lazyload:true,
+      zindex:9999
+    });
 
-      // each item gets its own context menu
-      new YAHOO.widget.ContextMenu(queryItem.id+"_menu", {
-        trigger:queryItem.id,
-        lazyload:true,
-        itemdata: queryItem.menuData,
-        zindex:9999
-      });
-    }
+    menu.subscribe("beforeShow", this._queryMenuBeforeShow, {thisRef:this});
+    menu.subscribe("triggerContextMenu", this._queryMenuTrigger, {thisRef:this});
   },
+  
+  getTopUnit : function() { return this._topUnit; },
+  
+  getLeftUnit : function() { return this._leftUnit; },
+  
+  getBottomUnit : function() { return this._bottomUnit; },
+  
+  getCenterUnit : function() { return this._centerUnit; },
+  
+  getRightUnit : function() { return this._rightUnit; },
   
   /**
    * Should be called after QueryPanel has been rendered.
@@ -604,6 +653,7 @@ MDSS.QueryPanel.prototype = {
     this._leftUnit = this._layout.getUnitByPosition('left');
     this._bottomUnit = this._layout.getUnitByPosition('bottom');
     this._centerUnit = this._layout.getUnitByPosition('center');
+    this._rightUnit = this._layout.getUnitByPosition('right');
     
     // action buttons
     this._buildButtons();
@@ -644,6 +694,143 @@ MDSS.QueryPanel.prototype = {
   },
   
   /**
+   * Checks if the context menu has been triggered for
+   * a TH tag.
+   */
+  _tableMenuTrigger : function(a, b, c)
+  {
+    var oTarget = this.contextEventTarget;
+
+    if(c.thisRef._getHeader(oTarget) == null)
+    {
+      this.cancel();
+    }
+  },
+  
+  /**
+   * Checks if the context menu has been trigged for
+   * an LI tag.
+   */
+  _queryMenuTrigger : function(a, b, c)
+  {
+    var oTarget = this.contextEventTarget;
+
+    if(c.thisRef._getListEntry(oTarget) == null)
+    {
+      this.cancel();
+    }
+  },
+  
+  /**
+   * Gets the header element from the given event target.
+   * Null is returned if the header element is not found.
+   */
+  _getHeader : function(oTarget)
+  {
+    var nodeName = oTarget.nodeName.toUpperCase();
+    
+    if(nodeName === 'TH')
+    {
+      return oTarget;
+    }
+    else
+    {
+      // check he nodes parents for a TH
+      var parent = YAHOO.util.Dom.getAncestorByTagName(oTarget, "TH");
+      if(parent != null)
+      {
+      	return parent;
+      }
+    }
+    
+    return null; // nothing found
+  },
+
+  /**
+   * Gets the list element from the given event target.
+   * Null is returned if the header element is not found.
+   */
+  _getListEntry : function(oTarget)
+  {
+    var nodeName = oTarget.nodeName.toUpperCase();
+    
+    if(nodeName === 'LI')
+    {
+      return oTarget;
+    }
+    else
+    {
+      // check he nodes parents for a TH
+      var parent = YAHOO.util.Dom.getAncestorByTagName(oTarget, "LI");
+      if(parent != null)
+      {
+      	return parent;
+      }
+    }
+    
+    return null; // nothing found
+  },
+  
+  /**
+   * Modifies the table context menu
+   * depending on the state of the QueryPanel.
+   */
+  _tableMenuBeforeShow : function(a, b, c)
+  {
+    this.clearContent();
+    
+    // get the header id
+    var header = c.thisRef._getHeader(this.contextEventTarget);
+
+    // add items specific to the header    
+    if(header != null)
+    {
+      var column = c.thisRef._dataTable.getColumn(header);
+      var builder = c.thisRef._headerMenuBuilders[column != null ? column.getKey() : ''];        
+      var menuItems = builder != null ? builder(column) : [];
+      this.addItems(menuItems);
+    }
+    else
+    {
+      this.addItems([]);
+    }
+    
+    this.render();
+  },
+
+  /**
+   * Modifies the query items context menu
+   * depending on the state of the QueryPanel.
+   */
+  _queryMenuBeforeShow : function(a, b, c)
+  {
+  	// this.contextEventTarget will be null for menu 
+  	// dimensions > 1. Let render as normal.
+    var cet = this.contextEventTarget
+    if(cet != null)
+    {
+      // get the li
+      var liEntry = c.thisRef._getListEntry(cet);
+
+      this.clearContent();
+      // add items specific to the list entry    
+
+      if(liEntry != null)
+      {
+        var builder = c.thisRef._queryMenuBuilders[liEntry.id];        
+        var menuItems = builder != null ? builder(liEntry) : [];
+        this.addItems(menuItems);
+      }
+      else
+      {
+        this.addItems([]);
+      }
+    
+      this.render();
+    }
+  },
+  
+  /**
    * Builds the content grid to contain the query criteria.
    */
   _buildContentGrid : function()
@@ -659,6 +846,16 @@ MDSS.QueryPanel.prototype = {
   	this._dataTable = new YAHOO.widget.DataTable(this.QUERY_DATA_TABLE, [], dataSource);
 
   	this._dataTable.render();
+  	
+  	// add context menu to table
+    var menu = new YAHOO.widget.ContextMenu(this.QUERY_DATA_TABLE+"_menu", {
+      trigger:this.QUERY_DATA_TABLE,
+      lazyload:true,
+      zindex:9999
+    });
+
+    menu.subscribe("beforeShow", this._tableMenuBeforeShow, {thisRef:this});
+    menu.subscribe("triggerContextMenu", this._tableMenuTrigger, {thisRef:this});
   },
   
   /**
@@ -674,9 +871,17 @@ MDSS.QueryPanel.prototype = {
    * Returns an updated column object (the column
    * argument will be stale).
    */
-  insertColumn : function(column)
+  insertColumn : function(column, menuBuilder)
   {
-    return this._dataTable.insertColumn(column);
+    column = this._dataTable.insertColumn(column);
+    
+    if(Mojo.util.isFunction(menuBuilder))
+    {
+      // add mapping between column and menuItems
+      this._headerMenuBuilders[column.getKey()] = menuBuilder;
+    }
+    
+    return column;
   },
   
   /**
@@ -688,6 +893,23 @@ MDSS.QueryPanel.prototype = {
   },
   
   /**
+   * Gets the column with given column reference or key or id.
+   * Returns null if the column doesn't exist.
+   */
+  getColumn : function(column)
+  {
+    return this._dataTable.getColumn(column);
+  },
+  
+  /**
+   * 
+   */
+  getColumnSet : function()
+  {
+    return this._dataTable.getColumnSet();
+  },
+  
+  /**
    * Sets the row data on the data table.
    */
   setRowData : function(rowData)
@@ -695,9 +917,25 @@ MDSS.QueryPanel.prototype = {
   	this._dataTable.addRows(rowData);
   },
   
-  enableMapButton : function()
+  /**
+   * Clears all records in the table.
+   */
+  clearAllRecords : function()
   {
-  	this._mapButton.set('disabled', '');
+  	this._dataTable.deleteRows(0, this._dataTable.getRecordSet().getLength());
+  },
+  
+  enableMapping : function()
+  {
+  	var mapButton = new YAHOO.util.Element(this.MAP_QUERY_BUTTON);
+  	mapButton.set('disabled', '');
+  },
+  
+  isMappingEnabled : function()
+  {
+  	var mapButton = new YAHOO.util.Element(this.MAP_QUERY_BUTTON);
+  	var disabled = mapButton.get('disabled');
+    return disabled != true && disabled !== 'disabled';
   },
   
   _mapQuery : function()

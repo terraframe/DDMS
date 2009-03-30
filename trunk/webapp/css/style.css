@@ -279,7 +279,7 @@ h2
 	border: 1px solid black;
 }
 
-ul#queryItems li {
+ul#queryItemsList li {
   background-color: white;
   padding:5px;
   border: 1px solid black;
@@ -347,4 +347,19 @@ input.queryButton {
 	background: url(/MDSS/imgs/icons/error_large.gif) no-repeat top left;
 	min-height: 32px;
 	text-indent: 40px;
+}
+
+.modalAlertBox
+{
+	margin-top: 20px;
+}
+
+ul.geoEntityPanelList
+{
+	margin: 5px;
+}
+
+div.thematicVariable
+{
+	background-color: red !important;
 }

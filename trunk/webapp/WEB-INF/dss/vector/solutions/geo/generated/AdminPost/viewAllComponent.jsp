@@ -6,6 +6,11 @@
 <mjl:table var="item" query="${query}">
   <mjl:context action="dss.vector.solutions.geo.generated.AdminPostController.viewPage.mojo" />
   <mjl:columns>
+    <mjl:attributeColumn attributeName="multiPolygon">
+      <mjl:header>
+        Multi Polygon
+      </mjl:header>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="activated">
       <mjl:header>
         Activated
@@ -14,6 +19,11 @@
     <mjl:attributeColumn attributeName="entityName">
       <mjl:header>
         Geo Entity Name
+      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="gazId">
+      <mjl:header>
+        Gaz Id
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoId">
@@ -40,4 +50,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Admin Post" action="dss.vector.solutions.geo.generated.AdminPostController.newInstance.mojo" name="AdminPostController.newInstance" />
+<mjl:commandLink display="Create a new Administrative post" action="dss.vector.solutions.geo.generated.AdminPostController.newInstance.mojo" name="AdminPostController.newInstance" />

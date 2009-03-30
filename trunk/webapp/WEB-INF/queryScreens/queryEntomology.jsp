@@ -6,10 +6,10 @@
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
+<%@page import="dss.vector.solutions.geo.generated.EarthDTO"%>
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
-
 <script type="text/javascript">
 
 // mosquito definition
@@ -24,6 +24,8 @@
 (function(){
   
   YAHOO.util.Event.onDOMReady(function(){
+
+    var thematicVariableColumnKey = null;
 
     /**
      * Final function called before query is executed.
@@ -83,12 +85,14 @@
       // execute the query
       var xml = this.getQuery().getXML();
       
-      var request = new Mojo.ClientRequest({
+      var request = new MDSS.Request({
         onSuccess : function(query)
         {
+          // column key is selectable alias name
+          var columnSet = queryPanel.getColumnSet();
+          var columns = columnSet.keys;
+        
           // add query results to table
-          var names = query.getAttributeNames();
-          
           var resultSet = query.getResultSet();
           var jsonData = [];
           for(var i=0; i<resultSet.length; i++)
@@ -96,25 +100,34 @@
             var result = resultSet[i];
             
             var entry = {};
-            for(var j=0; j<names.length; j++)
+            for(var j=0; j<columns.length; j++)
             {
-              var name = names[j];
-              entry[name] = result.getAttributeDTO(name).getValue();
+              var column = columns[j];
+              var attr = column.getKey();
+              entry[attr] = result.getAttributeDTO(attr).getValue();
             }
             
             jsonData.push(entry);
           }
           
+          // clear previous records
+          queryPanel.clearAllRecords();
+          
           queryPanel.setRowData(jsonData);
-          queryPanel.enableMapButton();       
-        },
-        onFailure : function(e)
-        {
-          alert(e.getDeveloperMessage());
+          queryPanel.enableMapping();       
         }
       });
       
       Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml);
+    }
+  
+    /**
+     * Handler called to generate a map with a thematic variable.
+     */  
+    function mapQuery()
+    {
+      var xml = this.getQuery().getXML();
+      alert(xml);
     }
     
     /**
@@ -138,27 +151,147 @@
             filterType = radio.value;
           }
         }
-        
+       
+       /**
+        * Handler for a selected GeoEntity. The selected GeoEntity
+        * is added as restricting criteria and the type is added
+        * as a column for the query output.
+        */
        function selectHandler(selected, allSelected)
        {
+         var listIdSuffix = '_entry';
+       
          var bestFit = allSelected[allSelected.length-1];
          
-         var obj = {
-           key: bestFit.getId(),
-           label: bestFit.getTypeMd().getDisplayLabel()
-         };
-         var column = new YAHOO.widget.Column(obj);
-         column = queryPanel.insertColumn(column);
+         // Earth is not allowed in the Select
+         if(bestFit.getType() === '<%= EarthDTO.CLASS %>')
+         {
+           return;
+         }
+         
+         // do nothing if the GeoEntith has already been added
+         if(YAHOO.util.Dom.inDocument(bestFit.getId()+listIdSuffix))
+         {
+           return;
+         }
+         
+         var type = bestFit.getType();
+         var typeName = type.substring(type.lastIndexOf('.')+1);
+         
+         var entityNameColumn = typeName+'_'+bestFit.getEntityNameMd().getName();
+         var geoIdColumn = typeName+'_'+bestFit.getGeoIdMd().getName();
+         
+         // instantiate new DTO to get Metadata display label
+         // (not ideal, but it gets the job done)
+         var _constructor = Mojo.util.getType(type);
+         var temp = new _constructor();
+         
+         // Add entity as restricting criteria to right column
+         var li = document.createElement('li');
+         YAHOO.util.Dom.setAttribute(li, 'id', bestFit.getId()+listIdSuffix);
+         li.innerHTML = bestFit.getEntityName() + " " + bestFit.getGeoId();
+         
+         var rightUnit = queryPanel.getRightUnit();
+         var ul = rightUnit.body.firstChild;
+         ul.appendChild(li);
+         
+         // only add the column if it does not exist
+         if(queryPanel.getColumn(entityNameColumn) == null)
+         {
+           var obj = {
+             key: entityNameColumn,
+             label: (temp.getTypeMd().getDisplayLabel() + " " + bestFit.getEntityNameMd().getDisplayLabel())
+           };
+         
+           var column = new YAHOO.widget.Column(obj);
+           queryPanel.insertColumn(column);
+         }
+         
+         if(queryPanel.getColumn(geoIdColumn) == null)
+         {
+           var obj = {
+             key: geoIdColumn,
+             label: (temp.getTypeMd().getDisplayLabel() + " " + bestFit.getGeoIdMd().getDisplayLabel())
+           };
+         
+           var column = new YAHOO.widget.Column(obj);
+           queryPanel.insertColumn(column);
+         }
 
-         /*
-         var attribute = new MDSS.QueryXML.Attribute(mosquitoEntity.getAlias(), attributeObj.key);
+         // add the GeoEntity as restricting criteria
+         // FIXME not compatible w/ two entities of the same type
+         var geoEntityQuery = query.getEntity(type);
+         if(geoEntityQuery == null)
+         {
+           var geoEntityQuery = new MDSS.QueryXML.Entity(type, type);
+           query.addEntity(bestFit.getType(), geoEntityQuery); 
+
+           // selectables (entityName, geoId and spatial attribute)
+           var entityNameAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getEntityNameMd().getName(), entityNameColumn);
+           var entityNameSel = new MDSS.QueryXML.SimpleSelectable(entityNameAttr);
+         
+           query.addSelectable(type+'_'+entityNameAttr.getName(), entityNameSel);
+
+           var geoIdAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getGeoIdMd().getName(), geoIdColumn);
+           var geoIdSel = new MDSS.QueryXML.SimpleSelectable(geoIdAttr);
+         
+           query.addSelectable(type+'_'+geoIdAttr.getName(), geoIdSel, geoIdAttr.getName());
+
+           // geo entities either have getPoint or getPolygon
+           var attributeName = '';
+           if('getPoint' in bestFit)
+           {
+             attributeName = 'point';
+           }
+           else if('getLineString' in bestFit)
+           {
+             attributeName = 'lineString';
+           }
+           else if('getPolygon' in bestFit)
+           {
+             attributeName = 'polygon';
+           }
+           else if('getMultiPoint' in bestFit)
+           {
+             attributeName = 'multiPoint';
+           }
+           else if('getMultiLineString' in bestFit)
+           {
+             attributeName = 'multiLineString';
+           }
+           else if('getMultiPolygon' in bestFit)
+           {
+             attributeName = 'multiPolygon';
+           }
+           
+           var geoAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), attributeName, typeName+'_'+attributeName);
+           var geoSel = new MDSS.QueryXML.SimpleSelectable(geoAttr);
+         
+           //query.addSelectable(type+'_'+geoAttr.getName(), geoSel);
+         }
+
+         // add restriction based on geoId
+         var attribute = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getGeoIdMd().getName());
          var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
-         query.addSelectable(mosquitoEntity.getAlias()+'_'+attributeObj.key, selectable);
-         */
+         var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, bestFit.getGeoId());
+        
+         var and = new MDSS.QueryXML.And();
+         and.addCondition('geoIdCondition', geoIdCondition);
+         var compositeCondition = new MDSS.QueryXML.CompositeCondition(and);
+         geoEntityQuery.setCondition(compositeCondition);        
        }
           
        MDSS.SelectSearch.initialize(selectHandler, selectHandler, '');
       }
+    }
+    
+    /**
+     * Execute when the user requests that the given
+     * column is to be removed from the table.
+     */
+    function removeSelectableColumn(columnId)
+    {
+      var column = queryPanel.getColumn(columnId);
     }
     
     var queryPanel = new MDSS.QueryPanel('queryPanel', {
@@ -166,7 +299,8 @@
       endDateLabel: "End Date",
       mapButtonLabel: "Map",
       runButtonLabel: "Run",
-      executeQuery: executeQuery
+      executeQuery: executeQuery,
+      mapQuery: mapQuery
     });
     var query = queryPanel.getQuery();
 
@@ -182,6 +316,12 @@
     
     function trueSpeciesHandler(obj)
     {
+      // do nothing if the column already exists
+      if(queryPanel.getColumn(obj.key) != null)
+      {
+        return;
+      }
+    
       var column = new YAHOO.widget.Column(obj);
       queryPanel.insertColumn(column);
       
@@ -215,31 +355,77 @@
       var column = new YAHOO.widget.Column(obj);
       queryPanel.insertColumn(column);
     }
+
+    /**
+     * Builds menu items for attributes native to Mosquito
+     */
+    function buildMenuForAttributes(column)
+    {
+      var items = [];
+      
+      // all attributes are removable
+      items.push({
+        text: "Remove", onclick: {fn: removeAttribute, obj:{column: column}}
+      });
+      
+      // enable thematic selection if mapping is enabled
+      if(queryPanel.isMappingEnabled())
+      {
+        items.push({
+          text: "Mark Thematic", onclick: {fn: markThematic, obj:{column: column}}
+        });
+      }
+      
+      return items;
+    }
     
+    /**
+     * Handler to remove Mosquito attributes from the table
+     * and query.
+     */
     function removeAttribute(eventType, event, obj)
     {
-      queryPanel.removeColumn(obj.column);
+      var column = obj.column;
+      query.removeSelectable(mosquitoEntity.getAlias()+'_'+column.getKey());
+      queryPanel.removeColumn(column);
+    }
+    
+    function markThematic(eventType, event, obj)
+    {
+      var thematicClass = "thematicVariable";
+      
+      // remove current thematic variable
+      var currentColumn = queryPanel.getColumn(thematicVariableColumnKey);
+      if(currentColumn != null)
+      {
+        YAHOO.util.Dom.removeClass(currentColumn.getThEl().firstChild, thematicClass);
+      }
+      
+      // add new thematic var
+      var column = obj.column;
+      YAHOO.util.Dom.addClass(column.getThEl().firstChild, thematicClass);
+      
+      thematicVariableColumnKey = column.getKey();
     }
 
     /**
-     * Helper method to add attributes to selectables and as a column.
+     * Helper method to add mosquito attributes to selectables and as a column.
      */
-    function addSelectable(attributeObj)
+    function addAttribute(attributeObj)
     {
       var column = new YAHOO.widget.Column(attributeObj);
-      column = queryPanel.insertColumn(column);
+      column = queryPanel.insertColumn(column, buildMenuForAttributes);
 
       var attribute = new MDSS.QueryXML.Attribute(mosquitoEntity.getAlias(), attributeObj.key, attributeObj.key);
       var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
-      query.addSelectable(mosquitoEntity.getAlias()+'_'+attributeObj.key, selectable);
+      query.addSelectable(mosquitoEntity.getAlias()+'_'+column.getKey(), selectable);
     }
     
     // area (geo entity search)
     queryPanel.addQueryItem({
-      displayLabel: "Area",
-      menuData: [
-        {text:"Search", onclick: {fn: displaySearch}}
-      ]
+      displayLabel: 'Area <img src="./imgs/icons/world.png"/>',
+      onclick: {handler: displaySearch},
+      id: "areaItem"
     });
     
     // true species
@@ -247,19 +433,29 @@
     queryPanel.addQueryItem({
       displayLabel: tsObj.label,
       onclick: {handler: clickTrueSpecies, obj: tsObj},
-      menuData: [
-        {text:"Add", onclick: {fn: addTrueSpecies, obj: tsObj}}
-      ]
+      id:"trueSpeciesItem",
+      menuBuilder: (function(onClickHandler, obj){
+        return function(){
+          return [
+            {text:"Add", onclick: {fn: onClickHandler, obj: obj}}
+          ];
+        };
+      })(addTrueSpecies, tsObj)
     });
     
     // species ratio
     var srObj = {key: "speciesRatio", label: "Species Ratio"};
     queryPanel.addQueryItem({
       displayLabel: srObj.label,
+      id:"speciesRatioItem",
       onclick: {handler: clickSpeciesRatio, obj: srObj},
-      menuData: [
-        {text:"Add", onclick: {fn: addSpeciesRatio, obj: srObj}}
-      ]
+      menuBuilder: (function(onClickHandler, obj){
+        return function(){
+          return [
+            {text:"Add", onclick: {fn: onClickHandler, obj: obj}}
+          ];
+        }
+      })(addSpeciesRatio, srObj)
     });
     
     // assays
@@ -309,11 +505,23 @@
     
     queryPanel.addQueryItem({
       displayLabel: "Assay",
-      menuData: assayMenuData
+      id: "assayItem",
+      menuBuilder: (function(menuData){
+        return function(){
+          return menuData;
+        };
+      })(assayMenuData)
     });
     
     // render the panel    
     queryPanel.render();
+    
+    // modify the right panel to accept GeoEntity data as a list
+    var rightUnit = queryPanel.getRightUnit();
+    var body = rightUnit.body;
+    var ul = document.createElement('ul');
+    YAHOO.util.Dom.addClass(ul, 'geoEntityPanelList');
+    body.appendChild(ul);
 
     /*
      * Mosquito entity and select attributes (will automatically be added to the query select)
@@ -321,7 +529,7 @@
     <% ClassQueryDTO query = (ClassQueryDTO) request.getAttribute("query"); %>
 
     // entity definition
-    var mosquitoEntity = new MDSS.QueryXML.Entity('<%= query.getType() %>', 'mosquito');
+    var mosquitoEntity = new MDSS.QueryXML.Entity('<%= query.getType() %>', '<%= query.getType() %>');
     query.addEntity('mosquito', mosquitoEntity);
     
     // generation
@@ -330,7 +538,7 @@
       generation.put("key", query.getAttributeDTO(MosquitoDTO.GENERATION).getAttributeMdDTO().getName());
       generation.put("label", query.getAttributeDTO(MosquitoDTO.GENERATION).getAttributeMdDTO().getDisplayLabel());
     %>
-    addSelectable(<%= generation.toString() %>);
+    addAttribute(<%= generation.toString() %>);
     
     // isofemale
     <%
@@ -338,7 +546,7 @@
       isofemale.put("key", query.getAttributeDTO(MosquitoDTO.ISOFEMALE).getAttributeMdDTO().getName());
       isofemale.put("label", query.getAttributeDTO(MosquitoDTO.ISOFEMALE).getAttributeMdDTO().getDisplayLabel());
     %>
-    addSelectable(<%= isofemale.toString() %>);
+    addAttribute(<%= isofemale.toString() %>);
     
     // sex
     <%
@@ -346,7 +554,7 @@
       sex.put("key", query.getAttributeDTO(MosquitoDTO.SEX).getAttributeMdDTO().getName());
       sex.put("label", query.getAttributeDTO(MosquitoDTO.SEX).getAttributeMdDTO().getDisplayLabel());
     %>
-    addSelectable(<%= sex.toString() %>);
+    addAttribute(<%= sex.toString() %>);
     
     // test date
     <%
@@ -354,7 +562,7 @@
       testDate.put("key", query.getAttributeDTO(MosquitoDTO.TESTDATE).getAttributeMdDTO().getName());
       testDate.put("label", query.getAttributeDTO(MosquitoDTO.TESTDATE).getAttributeMdDTO().getDisplayLabel());
     %>
-    addSelectable(<%= testDate.toString() %>);
+    addAttribute(<%= testDate.toString() %>);
     
     
     

@@ -10,6 +10,12 @@ public enum SpatialTypesDTO implements com.terraframe.mojo.business.EnumerationD
 {
   LINE(),
   
+  MULTI_LINE(),
+  
+  MULTI_POINT(),
+  
+  MULTI_POLYGON(),
+  
   POINT(),
   
   POLYGON();

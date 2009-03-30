@@ -290,7 +290,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
     this.addLocatedInGeoEntity(parent).apply();
 
     // update activated status on all new children
-    List<String> ids = setChildEntityActivated(parent.getActivated(), parent);
+    List<String> ids = setChildEntityActivated(parent.getActivated(), this);
     return ids.toArray(new String[ids.size()]);
   }
 

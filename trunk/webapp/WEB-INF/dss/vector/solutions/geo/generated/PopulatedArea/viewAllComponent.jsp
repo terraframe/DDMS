@@ -16,6 +16,11 @@
         Geo Entity Name
       </mjl:header>
     </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="gazId">
+      <mjl:header>
+        Gaz Id
+      </mjl:header>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoId">
       <mjl:header>
         Geo Id
@@ -40,4 +45,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new PopulatedArea" action="dss.vector.solutions.geo.generated.PopulatedAreaController.newInstance.mojo" name="PopulatedAreaController.newInstance" />
+<mjl:commandLink display="Create a new Populated Area" action="dss.vector.solutions.geo.generated.PopulatedAreaController.newInstance.mojo" name="PopulatedAreaController.newInstance" />

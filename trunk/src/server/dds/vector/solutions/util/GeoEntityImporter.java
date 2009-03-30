@@ -32,6 +32,7 @@ import com.vividsolutions.jts.geom.Polygon;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
+import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
@@ -224,23 +225,29 @@ public class GeoEntityImporter
         String locatedIn = resultSet.getString(LOCATED_IN);
         String geoId = resultSet.getString(GEO_ID);
 
+        // Parent GeoEntity (will be Earth if unspecified)
+        GeoEntity parentGeoEntity;
         if (locatedIn != null && !locatedIn.trim().equals(""))
         {
-          GeoEntity childGeoEntity = GeoEntity.searchByGeoId(geoId);
-
-          GeoEntity parentGoEntity = GeoEntity.searchByGeoId(locatedIn);
-
-          System.out.print(".");
-
-          applyCount++;
-
-          if (applyCount % feedbackMod == 0)
-          {
-            System.out.println();
-          }
-
-          childGeoEntity.addLocatedInGeoEntity(parentGoEntity).apply();
+          parentGeoEntity = GeoEntity.searchByGeoId(locatedIn);
         }
+        else
+        {
+          parentGeoEntity = Earth.getEarthInstance();
+        }
+        
+        GeoEntity childGeoEntity = GeoEntity.searchByGeoId(geoId);
+        
+        System.out.print(".");
+        
+        applyCount++;
+        
+        if (applyCount % feedbackMod == 0)
+        {
+          System.out.println();
+        }
+        
+        childGeoEntity.addLocatedInGeoEntity(parentGeoEntity).apply();
       }
     }
     finally

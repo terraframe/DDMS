@@ -116,6 +116,13 @@
           type="com.terraframe.mojo.system.metadata.MdBusiness" />
       </attributes>
       <mdMethod
+        name="getEarthGeoHierarchy"
+        label="Get Earth GeoHierarchy"
+        description="Get Earth GeoHierarchy"
+        static="true"
+        returnType="dss.vector.solutions.geo.GeoHierarchyView" >
+      </mdMethod>
+      <mdMethod
         name="getPoliticalGeoHierarchies"
         label="Get Political GeoHierarchies"
         description="Get Political GeoHierarchies"
@@ -339,12 +346,6 @@
           required="true"
           selectMultiple="false"
           type="dss.vector.solutions.geo.SpatialTypes" />
-        <char
-          name="parentTypeId"
-          required="false"
-          label="Parent Type"
-          size="64"
-          description="The id GeoEntity type that is a parent of the GeoEntity" />
         <virtual
           name="typeName"
           required="true"
@@ -381,6 +382,17 @@
     </object>
 
     <object
+      id="MUTLI_LINE"
+      type="dss.vector.solutions.geo.SpatialMaster">
+      <valueAttribute
+        name="enumName"
+        value="MULTI_LINE" />
+      <valueAttribute
+        name="displayLabel"
+        value="Multi-Line" />
+    </object>
+
+    <object
       id="POINT"
       type="dss.vector.solutions.geo.SpatialMaster">
       <valueAttribute
@@ -389,6 +401,17 @@
       <valueAttribute
         name="displayLabel"
         value="Point" />
+    </object>
+    
+    <object
+      id="MULTI_POINT"
+      type="dss.vector.solutions.geo.SpatialMaster">
+      <valueAttribute
+        name="enumName"
+        value="MULTI_POINT" />
+      <valueAttribute
+        name="displayLabel"
+        value="Multi-Point" />
     </object>
 
     <object
@@ -400,6 +423,17 @@
       <valueAttribute
         name="displayLabel"
         value="Polygon" />
+    </object>
+
+    <object
+      id="MULTI_POLYGON"
+      type="dss.vector.solutions.geo.SpatialMaster">
+      <valueAttribute
+        name="enumName"
+        value="MULTI_POLYGON" />
+      <valueAttribute
+        name="displayLabel"
+        value="Multi-Polygon" />
     </object>
 
     <mdEnumeration
@@ -1643,6 +1677,19 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
         description="Query Entomology"
         static="true"
         returnType="com.terraframe.mojo.query.ValueQuery">
+        <mdParameter
+          name="queryXML"
+          label="Query XML"
+          description="Query XML"
+          order="0"
+          type="java.lang.String" />
+      </mdMethod>
+      <mdMethod
+        name="mapQuery"
+        label="Map Query"
+        description="Map Query"
+        static="true"
+        returnType="java.lang.String" >
         <mdParameter
           name="queryXML"
           label="Query XML"

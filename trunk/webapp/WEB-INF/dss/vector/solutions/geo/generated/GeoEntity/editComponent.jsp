@@ -27,6 +27,17 @@
       </dd>
       <dt>
         <label>
+          ${item.gazIdMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="gazId" />
+        <mjl:messages attribute="gazId">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
           ${item.geoIdMd.displayLabel}
         </label>
       </dt>

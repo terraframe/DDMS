@@ -8,6 +8,14 @@
   <dl>
     <dt>
       <label>
+        ${item.multiPolygonMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.multiPolygon}
+    </dd>
+    <dt>
+      <label>
         ${item.activatedMd.displayLabel}
       </label>
     </dt>
@@ -21,6 +29,14 @@
     </dt>
     <dd>
       ${item.entityName}
+    </dd>
+    <dt>
+      <label>
+        ${item.gazIdMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.gazId}
     </dd>
     <dt>
       <label>

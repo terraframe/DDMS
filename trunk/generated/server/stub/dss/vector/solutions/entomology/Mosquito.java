@@ -13,6 +13,10 @@ import com.terraframe.mojo.query.ValueQueryParser;
 
 import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.SentinalSite;
+import dss.vector.solutions.geo.generated.SentinalSiteQuery;
+import dss.vector.solutions.mo.SpecieQuery;
 
 public class Mosquito extends MosquitoBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -114,12 +118,26 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
 
-    return valueQuery;
+    GeoHierarchy.addGeoHierarchyJoinConditions(valueQuery, queryMap);
     
-//    MosquitoQuery mdBusinessQuery = (MosquitoQuery)queryMap.get("mosquito");
-//    
-//    String sql = valueQuery.getSQL();
-//    
-//    System.out.println(sql);
+    MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
+
+    // join Mosquito with mosquito collection
+    MosquitoCollectionQuery collectionQuery = new MosquitoCollectionQuery(queryFactory);
+    valueQuery.WHERE(mosquitoQuery.getCollection().EQ(collectionQuery));
+    
+    // join collection with geo entity
+    SentinalSiteQuery ssQuery = (SentinalSiteQuery) queryMap.get(SentinalSite.CLASS);
+    valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(ssQuery));
+    
+    String sql = valueQuery.getSQL();
+    System.out.println(sql);
+    
+    return valueQuery;
+  }
+  
+  public static String mapQuery(String xml)
+  {
+    return null; // return DB::View
   }
 }

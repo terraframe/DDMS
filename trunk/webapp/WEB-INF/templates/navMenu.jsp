@@ -51,6 +51,7 @@
                      <div class="bd">                    
                          <ul>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo"><f:message key="Search_Mosquito_Collections"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.QueryController.queryEntomology.mojo"><f:message key="Query_Entomology"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>
                               <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><f:message key="Resistance_Monitoring"/></a>                             
                                  <div id="pim" class="yuimenu">
@@ -117,8 +118,8 @@
                  <div id="gis" class="yuimenu">
                      <div class="bd">                                        
                          <ul>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.geo.GeoEntityTypeController.viewAllDefinitions.mojo"><f:message key="View_GeoEntityTypes"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.geo.generated.GeoEntityController.viewAll.mojo"><f:message key="View_GeoEntities"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.geo.GeoEntityTypeController.viewHierarchyTree.mojo?rootGeoHierarchyId="><f:message key="View_GeoEntityTypes"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.geo.GeoEntityTreeController.displayTree.mojo?rootGeoEntityId="><f:message key="View_GeoEntities"/></a></li>
                          </ul>                    
                      </div>
 

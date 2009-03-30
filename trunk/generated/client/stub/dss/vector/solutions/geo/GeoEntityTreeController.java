@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ApplicationException;
 
+import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 
 public class GeoEntityTreeController extends GeoEntityTreeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -41,6 +42,12 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
   @Override
   public void displayTree(String rootGeoEntityId) throws IOException, ServletException
   {
+    if(rootGeoEntityId == null || rootGeoEntityId.trim().length() == 0)
+    {
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      rootGeoEntityId = earth.getId();
+    }
+    
     req.setAttribute(ROOT_GEO_ENTITY_ID, rootGeoEntityId);
     
     if(this.isAsynchronous())

@@ -91,6 +91,53 @@ MDSS.GeoEntityTree = (function(){
     delete _geoEntityCache[geId];
   }
   
+  function _setGeoEntityAttributes(params, geoEntity)
+  {
+    var entityName = params['dto.entityName'];
+    var gazId = params['dto.gazId'];
+    var geoId = params['dto.geoId'];
+    var activated = params['dto.activated'];
+    
+    var geoSetter = '';
+    var geoValue = '';
+    if('setPoint' in geoEntity)
+    {
+      geoSetter = 'setPoint';
+      geoValue = params['dto.point'];
+    }
+    else if('setLineString' in geoEntity)
+    {
+      geoSetter = 'setLineString';
+      geoValue = params['dto.lineString'];
+    }
+    else if('setPolygon' in geoEntity)
+    {
+      geoSetter = 'setPolygon';
+      geoValue = params['dto.polygon'];
+    }
+    else if('setMultiPoint' in geoEntity)
+    {
+      geoSetter = 'setMultiPoint';
+      geoValue = params['dto.multiPoint'];
+    }
+    else if('setMultiLineString' in geoEntity)
+    {
+      geoSetter = 'setMultiLineString';
+      geoValue = params['dto.multiLineString'];
+    }
+    else if('setMultiPolygon' in geoEntity)
+    {
+      geoSetter = 'setMultiPolygon';
+      geoValue = params['dto.multiPolygon'];
+    }
+    
+    geoEntity.setEntityName(entityName);
+    geoEntity.setGazId(gazId);
+    geoEntity.setGeoId(geoId);
+    geoEntity.setActivated(activated);
+    geoEntity[geoSetter](geoValue); 
+  }
+  
   /**
    * Creates a new node.
    */
@@ -99,15 +146,9 @@ MDSS.GeoEntityTree = (function(){
     var geConstructor = Mojo.util.getType(type);
     var geoEntity = new geConstructor();
 
-    var entityName = params['dto.entityName'];
-    var geoId = params['dto.geoId'];
-    var activated = params['dto.activated'];
-    
-    geoEntity.setEntityName(entityName);
-    geoEntity.setGeoId(geoId);
-    geoEntity.setActivated(activated);
+   _setGeoEntityAttributes(params, geoEntity);
 
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(ids, geoEntity){
         
         // add the node directly if the children have already been dynamically loaded
@@ -115,7 +156,7 @@ MDSS.GeoEntityTree = (function(){
         {
           var node = new YAHOO.widget.HTMLNode(geoEntity.getEntityName(), _selectedNode);
           
-          _selectedNode.expanded = false // force a re-expansions
+          _selectedNode.expanded = false; // force a re-expansions
           _selectedNode.refresh();
           
           // must reset mapping with new id
@@ -125,9 +166,6 @@ MDSS.GeoEntityTree = (function(){
         _selectedNode.expand();
         
         _modal.destroy();
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     
@@ -140,24 +178,16 @@ MDSS.GeoEntityTree = (function(){
    */
   function _updateNode(params, actions)
   {
-    var entityName = params['dto.entityName'];
-    var geoId = params['dto.geoId'];
-    var activated = params['dto.activated'];
-    
     var geoEntity = _getGeoEntity(_selectedNode);
-    geoEntity.setEntityName(entityName);
-    geoEntity.setGeoId(geoId);
-    geoEntity.setActivated(activated);
+
+    _setGeoEntityAttributes(params, geoEntity);
     
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess: function(ids, geoEntity){
         _selectedNode.setHtml(geoEntity.getEntityName());
         _setMapping(_selectedNode, geoEntity);
         
         _modal.destroy();
-      },
-      onFailure: function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     
@@ -171,7 +201,7 @@ MDSS.GeoEntityTree = (function(){
   function _createTypeSelected(e, obj)
   {
   	var type = obj.type;
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       label : obj.label,
       onSuccess : function(html){
         var executable = MDSS.util.extractScripts(html);
@@ -182,9 +212,6 @@ MDSS.GeoEntityTree = (function(){
         _modal.setBody(html);
         
         eval(executable);
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
 
@@ -268,12 +295,9 @@ MDSS.GeoEntityTree = (function(){
    */
   function _cancelNode()
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess: function(){
         _modal.destroy();
-      },
-      onFailure: function(e){
-        alert(e.getLocalizedMessage());
       }
     });
 
@@ -286,7 +310,7 @@ MDSS.GeoEntityTree = (function(){
    */
   function _deleteNode()
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess: function(){
         
         _modal.destroy();
@@ -296,9 +320,6 @@ MDSS.GeoEntityTree = (function(){
         var parent = _selectedNode.parent;
         _geoTree.removeNode(_selectedNode);
         parent.refresh();
-      },
-      onFailure: function(e){
-        alert(e.getLocalizedMessage());
       }
     });
 
@@ -311,7 +332,7 @@ MDSS.GeoEntityTree = (function(){
    */
   function _editNodeHandler()
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess: function(html){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
@@ -319,9 +340,6 @@ MDSS.GeoEntityTree = (function(){
         _createModal(html);
         
         eval(executable);
-      },
-      onFailure: function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     
@@ -339,7 +357,7 @@ MDSS.GeoEntityTree = (function(){
    */
   function _deleteNodeHandler()
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(){
         
         _removeMapping(_selectedNode);
@@ -347,9 +365,6 @@ MDSS.GeoEntityTree = (function(){
         var parent = _selectedNode.parent;
         _geoTree.removeNode(_selectedNode);
         parent.refresh();
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     
@@ -391,7 +406,7 @@ MDSS.GeoEntityTree = (function(){
   function _dynamicLoad(parentNode, fnLoadComplete)
   {
     // request to fetch children
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(query){
         
         var childNodes = query.getResultSet();
@@ -407,9 +422,6 @@ MDSS.GeoEntityTree = (function(){
         
         fnLoadComplete();
         parentNode.refresh();
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
 
@@ -425,7 +437,7 @@ MDSS.GeoEntityTree = (function(){
   {
       /* JN change: create new relationship between parent and child */
       var ddThis = this;
-      var request = new Mojo.ClientRequest({
+      var request = new MDSS.Request({
         ddThis : ddThis,
         onSuccess : function(){
           
@@ -459,9 +471,6 @@ MDSS.GeoEntityTree = (function(){
 
           destNode.expanded = false; // force re-expansion
           destNode.expand();
-        },
-        onFailure : function(e){
-          alert(e.getLocalizedMessage());
         }
       });
       
@@ -508,7 +517,7 @@ MDSS.GeoEntityTree = (function(){
       trigger:treeId,
       lazyload:true,
       itemdata: itemData,
-      zindex:9999
+      zindex:1000
     });
     
     _menu.subscribe("triggerContextMenu", _nodeMenuSelect);
@@ -522,13 +531,10 @@ MDSS.GeoEntityTree = (function(){
    * given id as first node under the root.
    */
   function _initializeTree(treeId, selectCallback, filterType) {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(geoEntity){
         // build tree
         _renderTree(treeId, geoEntity, selectCallback);
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     

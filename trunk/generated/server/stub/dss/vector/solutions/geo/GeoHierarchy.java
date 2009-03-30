@@ -23,8 +23,16 @@ import com.terraframe.mojo.query.QueryFacade;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeLineString;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiLineString;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPoint;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPolygon;
+import com.terraframe.mojo.system.gis.metadata.MdAttributePoint;
+import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
+import com.terraframe.mojo.web.view.content.ChildGroovy;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.generated.Earth;
@@ -36,9 +44,23 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 {
   private static final long serialVersionUID = 1236133816255L;
 
+  private static final Integer SRID = 4326;
+  
+  private static final Integer DIMENSION = 2;
+  
   public GeoHierarchy()
   {
     super();
+  }
+  
+  /**
+   * Returns the {@link GeoHierarchyView} that represents Earth.
+   * 
+   * @return
+   */
+  public static GeoHierarchyView getEarthGeoHierarchy()
+  {
+    return getGeoHierarchyFromType(Earth.CLASS).getViewForGeoHierarchy();
   }
 
   /**
@@ -329,8 +351,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     String label = definition.getDisplayLabel();
     String description = definition.getDescription();
 
-    validateModifyGeoHierarchy(label);
-
     MdBusiness mdGeoEntity = new MdBusiness();
     mdGeoEntity.setPackageName(MDSSInfo.GENERATED_GEO_PACKAGE);
     mdGeoEntity.setTypeName(typeName);
@@ -340,24 +360,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     mdGeoEntity.setExtendable(true);
     mdGeoEntity.setPublish(true);
 
-    String parentTypeId = definition.getParentTypeId();
-    MdBusiness parent;
-
-    if (parentTypeId != null && parentTypeId.trim().length() > 0)
-    {
-      parent = MdBusiness.get(parentTypeId);
-    }
-    else
-    {
-      parent = MdBusiness.getMdBusiness(GeoEntity.CLASS);
-    }
+    MdBusiness parent = MdBusiness.getMdBusiness(GeoEntity.CLASS);
     mdGeoEntity.setSuperMdBusiness(parent);
     mdGeoEntity.apply();
 
     // add the spatial attribute to the MdBusiness
-    // SpatialTypes spatialTypes = definition.getSpatialType().get(0);
-    // FIXME add spatial attribute when nathan is done
-
+    SpatialTypes spatialType = definition.getSpatialType().get(0);
+    addGeometryAttribute(mdGeoEntity, spatialType);
+    
     // create the GeoHeirachy and relationship
     GeoHierarchy geoHierarchy = new GeoHierarchy();
     geoHierarchy.setPolitical(definition.getPolitical());
@@ -368,6 +378,60 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     geoHierarchy.addAllowedInGeoEntity(allowedIn).apply();
 
     return geoHierarchy.getId();
+  }
+  
+  /**
+   * Adds a Geometric attribute to the given MdBusiness.
+   * 
+   * @param mdGeoEntity
+   * @param spatialType
+   */
+  private static void addGeometryAttribute(MdBusiness mdGeoEntity, SpatialTypes spatialType)
+  {
+    
+    MdAttributeGeometry attr;
+    if(spatialType == SpatialTypes.POINT)
+    {
+      attr = new MdAttributePoint();
+      attr.setAttributeName("point");
+    }
+    else if(spatialType == SpatialTypes.LINE)
+    {
+      attr = new MdAttributeLineString();
+      attr.setAttributeName("lineString");
+    }
+    else if(spatialType == SpatialTypes.POLYGON)
+    {
+      attr = new MdAttributePolygon();
+      attr.setAttributeName("polygon");
+    }
+    if(spatialType == SpatialTypes.MULTI_POINT)
+    {
+      attr = new MdAttributeMultiPoint();
+      attr.setAttributeName("multiPoint");
+    }
+    else if(spatialType == SpatialTypes.MULTI_LINE)
+    {
+      attr = new MdAttributeMultiLineString();
+      attr.setAttributeName("multiLineString");
+    }
+    else if(spatialType == SpatialTypes.MULTI_POLYGON)
+    {
+      attr = new MdAttributeMultiPolygon();
+      attr.setAttributeName("multiPolygon");
+    }
+    else
+    {
+      String error = "The geometry type ["+spatialType.getDisplayLabel()+"] is not supported.";
+      throw new ProgrammingErrorException(error);
+    }
+    
+    String attrDisplayLabel = spatialType.getDisplayLabel();
+    
+    attr.setDisplayLabel(attrDisplayLabel);  
+    attr.setDefiningMdClass(mdGeoEntity);
+    attr.setSrid(SRID);
+    attr.apply();
   }
 
   /**
@@ -429,7 +493,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     GeoHierarchy childGeoHierarchy = GeoHierarchy.get(childGeoHierarchyId);
     GeoHierarchy parentGeoHierarchy = GeoHierarchy.get(parentGeoHierarchyId);
 
-    validateModifyGeoHierarchy(childGeoHierarchy.getGeoEntityClass().getDisplayLabel());
+    validateModifyGeoHierarchy(childGeoHierarchy);
 
     if (!cloneOperation)
     {
@@ -458,20 +522,37 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * 
    * @throws ModifyHierarchyWithInstancesException
    */
-  private static void validateModifyGeoHierarchy(String displayLabel)
+  private static void validateModifyGeoHierarchy(GeoHierarchy toValidate)
   {
     Earth earth = Earth.getEarthInstance();
 
     QueryFactory f = new QueryFactory();
     GeoEntityQuery q = new GeoEntityQuery(f);
 
+    // exclude earth
     q.WHERE(q.getId().NE(earth.getId()));
+    
+    // the GeoHierarchy to modify cannot have any children (recursively)
+    List<GeoHierarchy> included = toValidate.getAllChildren();
+    included.add(toValidate);
+    
+    String[] typeNames = new String[included.size()];
+
+    int count = 0;
+    for(GeoHierarchy geo : included)
+    {
+      MdBusiness md = geo.getGeoEntityClass();
+      typeNames[count] = md.getPackageName()+"."+md.getTypeName();
+      count++;
+    }
+    
+    q.WHERE(q.getType().IN(typeNames));
 
     if (q.getCount() > 0)
     {
       String error = "Cannot modify the Hierarchy when Geo Entity data exists.";
       ModifyHierarchyWithInstancesException ex = new ModifyHierarchyWithInstancesException(error);
-      ex.setDisplayLabel(displayLabel);
+      ex.setDisplayLabel(toValidate.getGeoEntityClass().getDisplayLabel());
       throw ex;
     }
   }

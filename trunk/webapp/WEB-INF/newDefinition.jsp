@@ -44,18 +44,6 @@
       </dd>
       <dt>
         <label>
-          ${definition.parentTypeIdMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="referenceId" param="parentTypeId" items="${availableParents}">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </dd>
-      <dt>
-        <label>
           ${definition.politicalMd.displayLabel}
         </label>
       </dt>

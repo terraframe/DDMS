@@ -8,6 +8,17 @@
     <dl>
       <dt>
         <label>
+          ${item.multiPointMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="multiPoint" />
+        <mjl:messages attribute="multiPoint">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
           ${item.activatedMd.displayLabel}
         </label>
       </dt>
@@ -27,6 +38,17 @@
       </dd>
       <dt>
         <label>
+          ${item.gazIdMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="gazId" />
+        <mjl:messages attribute="gazId">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
           ${item.geoIdMd.displayLabel}
         </label>
       </dt>
@@ -38,7 +60,7 @@
       </dd>
     </dl>
   </mjl:component>
-  <mjl:command value="Update" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.update.mojo" name="dss.vector.solutions.geo.generated.NonSentinalSite.form.update.button" classes="submitButton"/>
-  <mjl:command value="Delete" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.delete.mojo" name="dss.vector.solutions.geo.generated.NonSentinalSite.form.delete.button" classes="submitButton"/>
-  <mjl:command value="Cancel" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.cancel.mojo" name="dss.vector.solutions.geo.generated.NonSentinalSite.form.cancel.button" classes="submitButton"/>
+  <mjl:command value="Update" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.update.mojo" name="dss.vector.solutions.geo.generated.NonSentinalSite.form.update.button" />
+  <mjl:command value="Delete" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.delete.mojo" name="dss.vector.solutions.geo.generated.NonSentinalSite.form.delete.button" />
+  <mjl:command value="Cancel" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.cancel.mojo" name="dss.vector.solutions.geo.generated.NonSentinalSite.form.cancel.button" />
 </mjl:form>

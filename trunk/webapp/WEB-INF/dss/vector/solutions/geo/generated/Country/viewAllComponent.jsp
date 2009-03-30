@@ -6,6 +6,11 @@
 <mjl:table var="item" query="${query}">
   <mjl:context action="dss.vector.solutions.geo.generated.CountryController.viewPage.mojo" />
   <mjl:columns>
+    <mjl:attributeColumn attributeName="polygon">
+      <mjl:header>
+        Polygon
+      </mjl:header>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="activated">
       <mjl:header>
         Activated
@@ -14,6 +19,11 @@
     <mjl:attributeColumn attributeName="entityName">
       <mjl:header>
         Geo Entity Name
+      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="gazId">
+      <mjl:header>
+        Gaz Id
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoId">
