@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.entomology.InvalidCollectionDateProblem">
+  <!--
+    - {collectionDate} Collection Date
+    - {currentDate} Current Date
+    -->
+  <locale language="en">The collection date [{collectionDate}] is not allowed to be after the current date [{currentDate}]</locale>
+</exception>
