@@ -14,13 +14,12 @@
 	<property name="db_root_db" value="template_postgis" />
 	<property name="max_memory_use" value="1024m" />
 
-	<property name="deoploy.path" value="{deploy.root}/webapps/MDSS/" />
+	<property name="deploy.path" value="${deploy.root}/webapps/MDSS/" />
 
 	<property name="postgres.bin" value="/Library/PostgreSQL/8.3/bin" />
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
-	<!-- comment out the below line if you want to automaticly restart tomcat -->
-	<property name="dont_kill_tomcat" value="true" /> 
+
 	
 	<!-- =================================================================== -->
 	<!--         CAUTION: THIS WILL OVERWRITE EXISTING DATA                  -->
@@ -65,7 +64,7 @@
 		</java>
 	</target>
 
-	<target name="deploy_rebuild_import" depends="kill_tomcat">
+	<target name="deploy_rebuild_import" depends="">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(3)Deploy Rebuild Import">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -82,7 +81,7 @@
 		</java>
 	</target>
 
-	<target name="update_db" depends="start_tomcat">
+	<target name="update_db" depends="">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(4)Update Devlop DB With Source">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -115,7 +114,7 @@
 	
 	<target name="kill_tomcat" unless="dont_kill_tomcat">
 		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
-	   	ps -x  | grep Tomcat | egrep -o ^\ [0-9]+ | xargs kill -9
+	   	ps -x  | grep Tomcat | egrep -o ^\ ?[0-9]+ | xargs kill
 		</shellscript>
 		<shellscript shell="bash" dir="${deploy.root}/bin" os="Windows" searchpath="true">
 			./shutdown.bat
@@ -130,7 +129,7 @@
 		<shellscript shell="bash" dir="${deploy.root}/bin" os="Windows" searchpath="true">
 			./startup.bat
 	    </shellscript>
-		<sleep seconds="5"/>
+		<sleep seconds="10"/>
 	</target>
 	
 	<target name="alert_status" unless="alert_status.done">
@@ -152,7 +151,7 @@
 	<!-- CAUTION: THESE TASKS UPDATE THE LIVE TEST SERVER!                   -->
 	<!-- =================================================================== -->
 
-	<target name="deploy_to_test_server" depends="alert_status">
+	<target name="deploy_to_test_server" depends="alert_status" description="dumps the sql and update the svn with your currently tomcat dir">
 		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true"
 			inputstring="${postgres.bin}/pg_dump --blobs -U mdssdeploy mdssdeploy > dump.sql"/>
 		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true">
@@ -173,7 +172,7 @@
 	</target>
 	
 	<!-- lib/common/jsch-0.1.31.jar must be added to your ant classpath-->
-	<target name="update_test_server" depends="get_root_password" >
+	<target name="update_test_server" depends="get_root_password" description="logs in to the test server and preforms an update">
 		  <sshexec host="${testserver.address}" 
 			username="${testserver.username}"
 			password="${testserver.password}"
