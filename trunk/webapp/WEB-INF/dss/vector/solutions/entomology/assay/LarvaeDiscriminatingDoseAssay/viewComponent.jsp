@@ -14,9 +14,6 @@ LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) reque
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:form name="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.id" method="POST">
-  
-<mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
     <dt>
       <label>
@@ -70,7 +67,7 @@ LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) reque
       </label>
     </dt>
     <dd>
-      ${item.isofemale}
+    <%= Halp.translateBool(((LarvaeDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),(((LarvaeDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemale()))%>    
     </dd>
     <dt>
       <label>
@@ -102,8 +99,7 @@ LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) reque
         <mjl:property value="${item.startPoint.id}" name="id" />
       </mjl:commandLink>
     </dd>
-
-<dt>
+    <dt>
       <label>
         ${item.endPointMd.displayLabel}
       </label>
@@ -183,6 +179,8 @@ LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) reque
      
 
   </dl>
+  <mjl:form name="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.id" method="POST">
+  <mjl:input value="${item.id}" type="hidden" param="id" />
   <div class="submitButton_bl"></div>    
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
   <br />
