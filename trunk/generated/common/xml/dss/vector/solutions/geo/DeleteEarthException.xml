@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
-  name="csu.mrc.ivcc.mdss.geo.DeleteEarthException">
+  name="dss.vector.solutions.geo.DeleteEarthException">
   <locale language="en">[{earthName}] cannot be deleted.</locale>
 </exception>

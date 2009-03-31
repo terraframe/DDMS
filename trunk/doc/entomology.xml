@@ -1220,16 +1220,6 @@
           required="true"
           description="Parent Display Label" />
       </attributes>
-      <messages>
-      <![CDATA[
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
-  name="dss.vector.solutions.geo.LocatedInException">
-  <locale language="en">The Geo Entity [{entityName}] cannot be located in [{parentDisplayLabel}].</locale>
-</exception>
-      ]]>
-      </messages>
     </mdException>
 
     <mdException
@@ -1244,16 +1234,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true"
           description="Geo Entity Parent name" />
       </attributes>
-      <messages>
-      <![CDATA[
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
-  name="dss.vector.solutions.geo.ConfirmParentChangeException">
-  <locale language="en">Do you want to delete the old relationship with [{entityName}].</locale>
-</exception>
-      ]]>
-      </messages>
     </mdException>
 
     <mdException
@@ -1268,16 +1248,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true"
           description="Name of Earth" />
       </attributes>
-      <messages>
-      <![CDATA[
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
-  name="dss.vector.solutions.geo.DuplicateEarthException">
-  <locale language="en">There cannot be more than one [{earthName}].</locale>
-</exception>
-      ]]>
-      </messages>
     </mdException>
 
     <mdException
@@ -1292,16 +1262,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true"
           description="Name of Earth" />
       </attributes>
-      <messages>
-      <![CDATA[
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
-  name="dss.vector.solutions.geo.DeleteEarthException">
-  <locale language="en">[{earthName}] cannot be deleted.</locale>
-</exception>
-      ]]>
-      </messages>
     </mdException>
 
     <mdException
@@ -1316,16 +1276,6 @@ xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
           required="true"
           description="Display Label" />
       </attributes>
-      <messages>
-      <![CDATA[
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../exceptions.xsd"
-  name="dss.vector.solutions.geo.ModifyHierarchyWithInstancesExceptions">
-  <locale language="en">The universal [{displayLabel}] cannot be modified because Geo Entities exist.</locale>
-</exception>
-      ]]>
-      </messages>
     </mdException>
 
     <mdException
