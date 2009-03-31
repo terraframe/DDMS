@@ -1,10 +1,13 @@
 package dss.vector.solutions.util;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.terraframe.mojo.AttributeNotificationDTO;
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
 
 public class ErrorUtility
 {
@@ -14,11 +17,20 @@ public class ErrorUtility
   
   public static void prepareProblems(ProblemExceptionDTO e, HttpServletRequest req)
   {
-    List<String> messages = e.getProblemMessages();
-    messages.add(0, e.getLocalizedMessage());
-    String[] messagesArr = messages.toArray(new String[messages.size()]);
+    List<String> messages = new LinkedList<String>();
     
-    req.setAttribute(ErrorUtility.ERROR_MESSAGE_ARRAY, messagesArr);
+    for(ProblemDTOIF problem : e.getProblems())
+    {
+      if(!(problem instanceof AttributeNotificationDTO))
+      {
+        messages.add(problem.getMessage());
+      }
+    }
+    
+    if(messages.size() > 0)
+    {
+      req.setAttribute(ErrorUtility.ERROR_MESSAGE_ARRAY, messages.toArray(new String[messages.size()]));
+    }
   }
   
   public static void prepareThrowable(Throwable t, HttpServletRequest req)
