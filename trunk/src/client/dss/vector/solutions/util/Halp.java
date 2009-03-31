@@ -1,5 +1,6 @@
 package dss.vector.solutions.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -19,6 +20,8 @@ import org.json.JSONObject;
 
 import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.transport.attributes.AttributeBooleanDTO;
+import com.terraframe.mojo.transport.attributes.AttributeDTO;
 import com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeDateMdDTO;
@@ -37,10 +40,11 @@ import javax.mail.Transport;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.InternetAddress;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-import javax.mail.Authenticator;  
-import javax.mail.PasswordAuthentication;  
-
+import javax.servlet.http.HttpServletResponse;
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
 
 import java.util.Properties;
 import java.util.regex.Pattern;
@@ -71,25 +75,31 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 		return map.toString();
 	}
 
+	public static String getLocalizedBool(AttributeBooleanDTO attrib) {
+		// if(Pattern.matches("^[^|]+\\|[^|]+\\|[^|]$+", md.getDescription()))
+		AttributeMdDTO md = attrib.getAttributeMdDTO();
+		if (attrib.getValue() == "true") {
+			return translateBool(md, true);
+		}
+		if (attrib.getValue() == "false") {
+			return translateBool(md, false);
+		}
+		return null;
+	}
+
 	public static String translateBool(AttributeMdDTO md, boolean bool) {
-		//if(Pattern.matches("^[^|]+\\|[^|]+\\|[^|]$+", md.getDescription()))
+		// if(Pattern.matches("^[^|]+\\|[^|]+\\|[^|]$+", md.getDescription()))
 		Pattern pipe = Pattern.compile("\\|");
-		String[]arr = pipe.split(md.getDescription());
-		if(arr.length == 3)
-		{
-			if(bool)
-			{
+		String[] arr = pipe.split(md.getDescription());
+		if (arr.length == 3) {
+			if (bool) {
 				return arr[1];
-			}
-			else
-			{
+			} else {
 				return arr[2];
 			}
 		}
 		return null;
 	}
-	
-	
 
 	public static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSONException {
 		JSONArray ids = new JSONArray();
@@ -182,11 +192,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 		}
 		return (Halp.join(dropdownbuff, "\n"));
 	}
-	public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload)throws JSONException
-	{
-		return getColumnSetup(view,attribs,extra_rows,autoload,1);
+
+	public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload) throws JSONException {
+		return getColumnSetup(view, attribs, extra_rows, autoload, 1);
 	}
-	
+
 	public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, int num_to_hide) throws JSONException {
 		ArrayList<String> arr = new ArrayList<String>();
 		int colnum = 0;
@@ -220,18 +230,18 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 					String editor = "null";
 
 					if (md instanceof AttributeIntegerMdDTO) {
-						editor = "new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})";
+						editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
 					}
 					if (md instanceof AttributeBooleanMdDTO) {
-						//editor = "new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})";
-						if(translateBool(md,true)!=null)
-						{
-							
-							editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'"+translateBool(md,true)+"', value:'true'}, {label:'"+translateBool(md,false)+"', value:'false'}],disableBtns:true})";
-							//editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['"+translateBool(md,true)+"','"+translateBool(md,false)+"'],disableBtns:true})";
-						}
-						else
-						{
+						// editor =
+						// "new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})";
+						if (translateBool(md, true) != null) {
+
+							editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'" + translateBool(md, true) + "', value:'true'}, {label:'" + translateBool(md, false)
+									+ "', value:'false'}],disableBtns:true})";
+							// editor =
+							// "new YAHOO.widget.RadioCellEditor({radioOptions:['"+translateBool(md,true)+"','"+translateBool(md,false)+"'],disableBtns:true})";
+						} else {
 							editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['true','false'],disableBtns:true})";
 						}
 					}
@@ -240,9 +250,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 					}
 					if (md instanceof AttributeDateMdDTO) {
 						buff.add("formatter:YAHOO.widget.DataTable.formatDate");
-						// editor = "new YAHOO.widget.DateCellEditor({disableBtns:true})";
-						 editor = "new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})";
-						// editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+						// editor =
+						// "new YAHOO.widget.DateCellEditor({disableBtns:true})";
+						editor = "new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})";
+						// editor =
+						// "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
 					}
 					if (md instanceof AttributeEnumerationMdDTO) {
 						editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['";
@@ -297,10 +309,10 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 		text += exception.getLocalizedMessage() + "\n\n";
 		text += request.getQueryString() + "\n\n";
 		final Writer result = new StringWriter();
-	    final PrintWriter printWriter = new PrintWriter(result);
-	    exception.printStackTrace(printWriter);
+		final PrintWriter printWriter = new PrintWriter(result);
+		exception.printStackTrace(printWriter);
 		text += result.toString() + "\n\n";
-		
+
 		//
 		// A properties to store mail server smtp information such as the host
 		// name and the port number. With this properties we create a Session
@@ -326,18 +338,56 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 		}
 	}
 
-	class MyAuth extends Authenticator
-	{
+	class MyAuth extends Authenticator {
 		protected PasswordAuthentication getPasswordAuthentication() {
 			return new PasswordAuthentication("dtaylor", "Rc9hs8Z2");
 		}
 	}
-	
+
 	public static String getDateFormatString(HttpServletRequest request) {
 		Locale locale = request.getLocale();
 		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-		SimpleDateFormat formatter = (SimpleDateFormat)df;
+		SimpleDateFormat formatter = (SimpleDateFormat) df;
 		return formatter.toPattern();
 	}
 
+	public static String renderJspToString(HttpServletRequest request, HttpServletResponse response, String emailURL) {
+		try {
+			// create an output stream - to file, to memory...
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			// create the "dummy" response object
+			RedirectingServletResponse dummyResponse;
+			dummyResponse = new RedirectingServletResponse(response, out);
+
+			// get a request dispatcher for the email template to load
+			RequestDispatcher rd = request.getRequestDispatcher(emailURL);
+			// execute that JSP
+			rd.include(request, dummyResponse);
+
+			// at this point the ByteArrayOutputStream has had the response
+			// written into it.
+			// dummyResponse.flushBuffer();
+
+			byte[] result = out.toByteArray();
+			// System.out.println("result = " + result.length);
+			// now you can do with it what you will.
+			String emailText = new String(result);
+			return emailText;
+		} catch (Exception exception) {
+			exception.printStackTrace(System.out);
+			String text = "<pre> ";
+			text += request.getAttribute("javax.servlet.forward.request_uri") + "\n\n";
+			text += "Error in class: ";
+			text += exception.getClass().getName() + "\n\n";
+			text += exception.getLocalizedMessage() + "\n\n";
+			text += request.getQueryString() + "\n\n";
+			final Writer result = new StringWriter();
+			final PrintWriter printWriter = new PrintWriter(result);
+			exception.printStackTrace(printWriter);
+			text += result.toString() + "\n\n</pre>";
+
+			return text;
+		}
+
+	}
 }
