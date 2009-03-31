@@ -104,7 +104,16 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+	//if this method is being accessed from create or edit, redirect so the url will be correct and refresh will 
+    //not create a new object
+	if (! req.getRequestURI().contains(".view.mojo"))
+	{
+	    String path = req.getRequestURL().toString();
+	    resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id="+id);
+	    return;
+	}
+	  
+	com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.entomology.MosquitoCollectionDTO.get(clientRequest, id));
@@ -126,7 +135,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   }
   public void cancel(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    dto.unlock();
+	dto.unlock();
     this.view(dto.getId());
   }
   public void failCancel(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
