@@ -215,16 +215,16 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			row_index = myDataTable.getRecordIndex(record);
 			if (confirm('Are you sure you want to delete row ' + (row_index+1) + '?')) {
 				if(typeof row_id !== 'undefined' && row_id.length > 1){
-				var request = new Mojo.ClientRequest( {
+				var request = new MDSS.Request( {
 					dataTable :myDataTable,
 					row_index :row_index,
 					onSuccess : function(deletedRow) {
 					table_data.rows.splice(request.row_index,1);
 					request.dataTable.deleteRow(target);					
 					// alert('row deleted on server');
-				},
-				onFailure : function(e) {
-					alert(e.getLocalizedMessage());
+				//},
+				//onFailure : function(e) {
+				//	alert(e.getLocalizedMessage());
 				}
 				});
 				Mojo.deleteEntity(request, row_id);
@@ -250,7 +250,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	// set up the button that saves the rows to the db
 	var btnSaveRows = new YAHOO.widget.Button(table_data.div_id+"Saverows"); 
 	btnSaveRows.on("click", function() {
-		var request = new Mojo.ClientRequest( {
+		var request = new MDSS.Request( {
 			// success handler for saved rows
 			dataTable : myDataTable,
 			table_data : table_data,
@@ -278,20 +278,20 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 				    	table_data.after_save();
 				    }
 		        }
-			},
+			//},
 
 			// alert the exception message
-			onFailure : function(e) {
-				if(e instanceof Mojo.dto.ProblemExceptionDTO )
-				{
-					 for each (problem in e.getProblems())
-					{
-					   alert(problem.getLocalizedMessage());
-					}
-				}
-				else{
-					alert(e.getLocalizedMessage());
-				}
+			//onFailure : function(e) {
+			//	if(e instanceof Mojo.dto.ProblemExceptionDTO )
+			//	{
+			//		 for each (problem in e.getProblems())
+			//		{
+			//		   alert(problem.getLocalizedMessage());
+			//		}
+			//	}
+			//	else{
+			//		alert(e.getLocalizedMessage());
+			//	}
 			}
 		});
 	
