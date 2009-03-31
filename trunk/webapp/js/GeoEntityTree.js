@@ -27,7 +27,7 @@ MDSS.GeoEntityTree = (function(){
   
   // the geo entity class name to filter by
   var _filterType = '';
-
+  
   /**
    * Removes everything from the current Tree
    */
@@ -496,20 +496,20 @@ MDSS.GeoEntityTree = (function(){
     if(Mojo.util.isFunction(selectCallback))
     {
       _selectCallback = selectCallback;
-      var selectMenuItem = new YAHOO.widget.ContextMenuItem("Select");
+      var selectMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Select);
       selectMenuItem.subscribe("click", _customSelectHandler);
       itemData.push(selectMenuItem);
     }
 
-    var createMenuItem = new YAHOO.widget.ContextMenuItem("Create");
+    var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Create);
     createMenuItem.subscribe("click", _addNodeHandler);
     itemData.push(createMenuItem);
     
-    var editMenuItem = new YAHOO.widget.ContextMenuItem("Edit");
+    var editMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Edit);
     editMenuItem.subscribe("click", _editNodeHandler);
     itemData.push(editMenuItem);
     
-    var deleteMenuItem = new YAHOO.widget.ContextMenuItem("Delete");
+    var deleteMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Delete);
     deleteMenuItem.subscribe("click", _deleteNodeHandler);
     itemData.push(deleteMenuItem);
 
@@ -517,7 +517,7 @@ MDSS.GeoEntityTree = (function(){
       trigger:treeId,
       lazyload:true,
       itemdata: itemData,
-      zindex:1000
+      zindex:500
     });
     
     _menu.subscribe("triggerContextMenu", _nodeMenuSelect);
@@ -531,6 +531,7 @@ MDSS.GeoEntityTree = (function(){
    * given id as first node under the root.
    */
   function _initializeTree(treeId, selectCallback, filterType) {
+  	
     var request = new MDSS.Request({
       onSuccess : function(geoEntity){
         // build tree

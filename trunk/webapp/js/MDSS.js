@@ -94,7 +94,7 @@ var MDSS = {
   					} 
   				);
 
-  		MDSS.util.wait_for_ajax.setHeader("Communicating With Server...");
+  		MDSS.util.wait_for_ajax.setHeader(MDSS.Localized.Ajax_Loading);
   		MDSS.util.wait_for_ajax.setBody('<img src="imgs/rel_interstitial_loading.gif" />');
   		MDSS.util.wait_for_ajax.render(document.body);
   	}

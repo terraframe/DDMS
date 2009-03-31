@@ -363,3 +363,15 @@ div.thematicVariable
 {
 	background-color: red !important;
 }
+
+.drag-hint {
+  background-color: #ff0000;
+  color: white;
+}
+
+.dragging
+{
+  opacity: 0.76;
+  border: 1px solid gray;
+  filter: "alpha(opacity=76)";
+}
