@@ -2,6 +2,8 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<c:set var="page_title" value="View All Mosquito Collections"  scope="request"/>
 <fmt:setLocale value="<%=request.getLocale()%>" />
 
 <mjl:messages>
@@ -61,3 +63,4 @@
 <mjl:commandLink display="View Mosquito Collection Report" action="dss.vector.solutions.report.ReportController.report.mojo" name="MosquitoCollection.viewReport">
   <mjl:property name="reportName" value="collection.rptdesign" />
 </mjl:commandLink>
+<%out.flush();%>

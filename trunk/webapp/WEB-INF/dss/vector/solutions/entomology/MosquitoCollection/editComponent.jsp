@@ -66,3 +66,4 @@ name="dss.vector.solutions.entomology.MosquitoCollection.form.cancel.button" cla
 
  
 <div id="cal1Container" class="yui-skin-sam"></div> 
+<%out.flush();%>

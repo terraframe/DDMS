@@ -131,3 +131,4 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
           };   
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>
+<%out.flush();%>
