@@ -81,12 +81,27 @@ var MDSS = {
   	
   	this.onSend = function()
   	{
-  	  // Work your magic Darrell.
+        //Show a modal wait screen to prevent user from clicking an ajax link twice
+  		MDSS.util.wait_for_ajax = 
+  				new YAHOO.widget.Panel("wait_for_ajax",  
+  					{ width:"240px", 
+  					  fixedcenter:true, 
+  					  close:false, 
+  					  draggable:false, 
+  					  zindex:999,
+  					  modal:true,
+  					  visible:true
+  					} 
+  				);
+
+  		MDSS.util.wait_for_ajax.setHeader("Communicating With Server...");
+  		MDSS.util.wait_for_ajax.setBody('<img src="imgs/rel_interstitial_loading.gif" />');
+  		MDSS.util.wait_for_ajax.render(document.body);
   	}
   	
   	this.onComplete = function()
   	{
-  	  // Work your magic Darrell.
+  		MDSS.util.wait_for_ajax.hide(); 
   	}
   	
     // provide default error handler
