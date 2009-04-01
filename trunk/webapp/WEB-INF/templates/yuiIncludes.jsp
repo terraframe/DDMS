@@ -76,6 +76,7 @@ var locale = "<%=request.getLocale().toString()%>";
 <script type="text/javascript" src="js/Terraframe_Mojo.js"></script>
 <script type="text/javascript" src="js/Terraframe_MojoGIS.js"></script>
 <script type="text/javascript" src="js/MDSS.js"></script>
+<script type="text/javascript" src="js/Localized.js.jsp"></script>
 <script type="text/javascript" src="js/navMenu.js"></script>
 <script type="text/javascript" src="js/date.js"></script>
 <script type="text/javascript" src="js/addCalendarWidgets.js.jsp"></script>
