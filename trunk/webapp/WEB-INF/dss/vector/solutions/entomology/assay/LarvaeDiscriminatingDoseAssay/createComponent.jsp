@@ -1,15 +1,15 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
 <%@page import="dss.vector.solutions.util.Halp"%>
-
-
 <%@page import="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO"%>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 
 <c:set var="true_label" value='<%=Halp.translateBool(((LarvaeDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),true)%>'/>
-<c:set var="false_label" value='<%=Halp.translateBool(((LarvaeDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),true)%>'/>
+<c:set var="false_label" value='<%=Halp.translateBool(((LarvaeDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),false)%>'/>
 <mjl:form name="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
@@ -48,7 +48,7 @@
           </mjl:option>
       </mjl:select></dd>
       <dt><label> ${item.isofemaleMd.displayLabel} </label></dt>
-      <dd><mjl:boolean param="isofemale" trueLabel="${true_label}" falseLabel="${false_label}" /></dd> 
+      <dd><mjl:boolean param="isofemale" trueLabel="${true_label}" falseLabel="${false_label}" /></dd>
       <dt><label> ${item.startPointMd.displayLabel} </label></dt>
       <dd><mjl:select var="current" valueAttribute="id" items="${ageRange}" param="startPoint">
         <mjl:option>
@@ -66,7 +66,7 @@
         <mjl:option>
             ${current.displayLabel}
           </mjl:option>
-      </mjl:select></dd>
+      </mjl:select> <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><f:message key="Manage_Insecticides"/></a></dd>
       <dt><label> ${item.exposureTimeMd.displayLabel} </label></dt>
       <dd><mjl:input type="text" param="exposureTime" /> <mjl:messages attribute="exposureTime">
         <mjl:message />
