@@ -13,5 +13,11 @@ MDSS.Localized = {
     Edit: '<f:message key="Tree_Edit"/>',
     Delete: '<f:message key="Tree_Delete"/>',
     Select: '<f:message key="Tree_Select"/>'
+  },
+  
+  // Basic choices
+  Choice: {
+    Yes: '<f:message key="Choice_Yes"/>',
+    No: '<f:message key="Choice_No"/>'
   }
 };
