@@ -1,5 +1,5 @@
 <%@ page import="java.io.*" %>
-<%@ page import="csu.mrc.ivcc.mdss.util.RedirectingServletResponse" %>
+<%@ page import="dss.vector.solutions.util.RedirectingServletResponse" %>
 <%@ page contentType="text/html;charset=UTF8" %>
  
 <%!
