@@ -20,12 +20,12 @@ import com.terraframe.mojo.web.WebClientSession;
 public class LoginFilter implements Filter, Reloadable
 {
   private FilterConfig filterConfig;
-  
+
   public void init(FilterConfig filterConfig) throws ServletException
   {
     this.filterConfig = filterConfig;
   }
-  
+
   public void destroy()
   {
   }
@@ -34,13 +34,13 @@ public class LoginFilter implements Filter, Reloadable
   {
     HttpServletRequest httpReq = (HttpServletRequest) req;
     HttpServletResponse httpRes = (HttpServletResponse) res;
-    
+
     HttpSession session = httpReq.getSession();
 
     WebClientSession clientSession = (WebClientSession)session.getAttribute(ClientConstants.CLIENTSESSION);
- 
+
     String uri = httpReq.getRequestURI();
-    
+
     // let some requests pass through
     if(pathAllowed(uri))
     {
@@ -51,19 +51,19 @@ public class LoginFilter implements Filter, Reloadable
     {
       // Create a request object for this request
       ClientRequestIF clientRequest = clientSession.getRequest();
-      
+
       if (clientRequest.isLoggedIn())
       {
-        req.setAttribute(ClientConstants.CLIENTREQUEST, clientRequest);      
+        req.setAttribute(ClientConstants.CLIENTREQUEST, clientRequest);
         chain.doFilter(req, res);
         return;
       }
     }
-    
+
     // redirect to the login page because the user is not logged in
     filterConfig.getServletContext().getRequestDispatcher("/login.jsp").forward(httpReq, httpRes);
   }
-  
+
   private boolean pathAllowed(String uri)
   {
     // Allow style files for GIS maps
@@ -71,13 +71,18 @@ public class LoginFilter implements Filter, Reloadable
     {
       return true;
     }
-    
+
+    if(uri.endsWith("reload.jsp"))
+    {
+      return true;
+    }
+
     // Login/Logout requests
     if(uri.endsWith(LoginController.LOGIN_ACTION) || uri.endsWith(LoginController.LOGOUT_ACTION))
     {
       return true;
     }
-    
+
     return false;
   }
 }
