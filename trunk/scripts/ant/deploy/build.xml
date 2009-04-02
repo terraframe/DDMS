@@ -10,7 +10,7 @@
 	<property file="../../../profiles/default/common/terraframe.properties"/>
 	
 	<property name="db_root_login" value="postgres" />
-	<property name="db_root_password" value="postgres" />
+	<property name="db_root_password" value="framework" />
 	<property name="db_root_db" value="template_postgis" />
 	<property name="max_memory_use" value="1024m" />
 
@@ -46,7 +46,7 @@
 			<arg value="-Droot.pass=${db_root_password}" />
 			<arg value="-Droot.db=${db_root_db}" />
 			<arg value="rebuild_db" />
-			<arg value="update_domain_model" />
+			<arg value="import_most_recent" />
 		</java>
 	</target>
 
@@ -77,7 +77,7 @@
 			<arg value="-Droot.pass=${db_root_password}" />
 			<arg value="-Droot.db=${db_root_db}" />
 			<arg value="rebuild_db" />
-			<arg value="update_domain_model" />
+			<arg value="import_most_recent" />
 		</java>
 	</target>
 
