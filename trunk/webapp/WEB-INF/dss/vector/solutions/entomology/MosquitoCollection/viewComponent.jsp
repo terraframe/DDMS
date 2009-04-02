@@ -61,13 +61,13 @@
 
 <div id="buttons" class="noprint">
 
-<span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button"> 
+<span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button">
 <span class="first-child">
 <button type="button">New Row</button>
- </span> 
- </span> 
+ </span>
+ </span>
 
-<span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button"> 
+<span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button">
 <span class="first-child">
 <button type="button">Save Rows To DB</button>
 </span> </span>
@@ -78,15 +78,15 @@
         <button type="submit"><f:message key="Excel_Import_Header" /></button>
         </span>
         </span>
-</form> 
+</form>
 <form method="post" action="excelexport" style="display:inline;">
         <input type="hidden" name="type" value="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"/>
-        <span class="yui-button yui-push-button"> 
+        <span class="yui-button yui-push-button">
         <span class="first-child">
         <button type="submit"><f:message key="Excel_Export_Header" /></button>
         </span>
         </span>
-</form> 
+</form>
 <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
 
 </div>
@@ -104,31 +104,30 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
 //out.println(getColumnSetup(mdView,attribs,delete_row));
 %>
 
-<script type="text/javascript">      
+<script type="text/javascript">
     <%String[] types_to_load =
   {
      "dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
   };
-    
+
   // THIS LINE CRASHES TOMCAT WITH Invalid memory access of location 00000000 eip=00000000
   //out.println(Halp.getDropDownMap(SpecieDTO.getAll(clientRequest)));
   //out.println(Halp.getDropDownMap2(Arrays.asList(SpecieDTO.getAll(clientRequest))));
    // SpecieDTO[] arrggg = SpecieDTO.getAll(clientRequest);
-    
+
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
     //out.println( getDisplayLabels(SpecieDTO.getAll(clientRequest),"Specie"));
    // out.println(getDisplayLabels(IdentificationMethodDTO.getAll(clientRequest),"IdentificationMethod"));
     %>
     <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
-    table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,       
+    table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,
        columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false)%>,
               defaults: {GroupId:"",Specie:"",IdentificationMethod:"",QuantityMale:"",QuantityFemale:"",Quantity:""},
               div_id: "MorphologicalSpecieGroups",
               copy_from_above: ["IdentificationMethod"],
               collection_setter: "setCollection('${item.id}')",
               data_type: "Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
-              
-          };   
+
+          };
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>
-<%out.flush();%>

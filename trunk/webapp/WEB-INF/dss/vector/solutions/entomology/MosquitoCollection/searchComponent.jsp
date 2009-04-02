@@ -16,10 +16,10 @@
 <script type="text/javascript">
 
   YAHOO.util.Event.onDOMReady(function(){
-    
+
     var opener = new YAHOO.util.Element("searchOpener");
     opener.on("click", function(){
-    
+
       if(MDSS.SelectSearch.isInitialized())
       {
         MDSS.SelectSearch.show();
@@ -36,7 +36,7 @@
             filterType = radio.value;
           }
         }
-        
+
        function selectHandler(selected)
        {
          var geoId = document.getElementById('geoIdEl');
@@ -50,7 +50,7 @@
            geoId.value = '';
          }
        }
-          
+
        MDSS.SelectSearch.initialize(selectHandler, selectHandler, filterType);
       }
     });
@@ -75,7 +75,7 @@
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>
     <dt> Date </dt>
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick" id="collectionDate"/></dd>
-  </dl>  
+  </dl>
   <br>
   <br>
   <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionController.searchByGeoIdAndDate.mojo" name="search.button"
@@ -84,4 +84,4 @@
 </mjl:form>
 
 <div id="cal1Container" class="yui-skin-sam"></div>
-<%out.flush();%>
+<%//out.flush();%>

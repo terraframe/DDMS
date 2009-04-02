@@ -63,4 +63,3 @@
 <mjl:commandLink display="View Mosquito Collection Report" action="dss.vector.solutions.report.ReportController.report.mojo" name="MosquitoCollection.viewReport">
   <mjl:property name="reportName" value="collection.rptdesign" />
 </mjl:commandLink>
-<%out.flush();%>

@@ -33,21 +33,21 @@
 <%!static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) throws JSONException{
 	String s = "<table><tr><th colspan=\"2\">";
 	s += superAssayClass.getSimpleName().substring(0,superAssayClass.getSimpleName().indexOf("Assay")) +"</th></tr>";
-	
+
     	Class viewClass = view.getClass();
-     
+
     	MosquitoView mv = new MosquitoView();
-     
+
     	 Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = mv.getAssayMap();
-     
+
         for (Class<AssayTestResult> c : assayMap.keySet())
         {
           // Get the result
           MdAttributeVirtualDAOIF mdAttribute = assayMap.get(c);
           String attributeName = GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
     		try
-    		{      
-         
+    		{
+
          		if(superAssayClass.isAssignableFrom(c) )
          		{
          			 s += "<tr><td><input type=\"checkbox\" id =\""+ attributeName + "\" onclick=\"";
@@ -60,7 +60,7 @@
     			System.out.println("Exception on "+e.getMessage() +" " + e);
     		}
     	}
-		
+
 	return s + "</table>";
 }%>
 
@@ -126,7 +126,7 @@
 <button type="button">Save Rows To DB</button>
 </span> </span> <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a></div>
 
-<script type="text/javascript">   
+<script type="text/javascript">
 function showCol(key,checked)
 {
   if(checked)
@@ -150,15 +150,15 @@ function showCol(key,checked)
     <%=Halp.getDropdownSetup(mdView, attribs, delete_row,
 							clientRequest)%>
     MojoCal.init()
-    table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,      
+    table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
                 columnDefs:<%=Halp.getColumnSetup(mdView, attribs, delete_row, true)%>,
               defaults: {},
               copy_from_above: ["IdentificationMethod"],
               div_id: "Mosquitos",
               collection_setter: "setCollection('${item.id}')",
-              data_type: "Mojo.$.dss.vector.solutions.entomology.MosquitoView",  
-                width:"65em"        
-          };   
+              data_type: "Mojo.$.dss.vector.solutions.entomology.MosquitoView",
+                width:"65em"
+          };
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script></div>
 
@@ -207,11 +207,11 @@ function showCol(key,checked)
 			clientRequest);
 	String[] unint_attribs = {"GroupId", "SampleId", "Specie",
 			"IdentificationMethod", "Quantity"};
-%> <script type="text/javascript"> 
+%> <script type="text/javascript">
 <%=Halp.getDropdownSetup(mdUnIntView, unint_attribs,
 							delete_row, clientRequest)%>
 
-UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows, unint_attribs, mdUnIntView)%>,       
+UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows, unint_attribs, mdUnIntView)%>,
        columnDefs: <%=Halp.getColumnSetup(mdUnIntView, unint_attribs,
 							delete_row, false)%>,
               defaults: {},
@@ -219,8 +219,7 @@ UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows, unint_attri
               copy_from_above: ["IdentificationMethod"],
               collection_setter: "setCollection('${item.id}')",
               data_type: "Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroupView"
-              
-          };   
+
+          };
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(UninterestingSpecieGroupData));
 </script></div>
-<%out.flush();%>

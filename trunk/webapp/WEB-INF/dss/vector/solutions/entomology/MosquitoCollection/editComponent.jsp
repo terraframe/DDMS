@@ -56,14 +56,13 @@
   </mjl:component>
 
 <div class="submitButton_bl"></div>
-<mjl:command value="Update" action="dss.vector.solutions.entomology.MosquitoCollectionController.update.mojo" 
+<mjl:command value="Update" action="dss.vector.solutions.entomology.MosquitoCollectionController.update.mojo"
 name="dss.vector.solutions.entomology.MosquitoCollection.form.update.button" classes="submitButton"/>
-<mjl:command value="Delete" action="dss.vector.solutions.entomology.MosquitoCollectionController.delete.mojo" 
+<mjl:command value="Delete" action="dss.vector.solutions.entomology.MosquitoCollectionController.delete.mojo"
 name="dss.vector.solutions.entomology.MosquitoCollection.form.delete.button" classes="submitButton"/>
-<mjl:command value="Cancel" action="dss.vector.solutions.entomology.MosquitoCollectionController.cancel.mojo" 
+<mjl:command value="Cancel" action="dss.vector.solutions.entomology.MosquitoCollectionController.cancel.mojo"
 name="dss.vector.solutions.entomology.MosquitoCollection.form.cancel.button" classes="submitButton"/>
 </mjl:form>
 
- 
-<div id="cal1Container" class="yui-skin-sam"></div> 
-<%out.flush();%>
+
+<div id="cal1Container" class="yui-skin-sam"></div>
