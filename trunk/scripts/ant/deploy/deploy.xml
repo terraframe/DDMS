@@ -25,6 +25,8 @@
 
 	<property name="domain.location" value="${local.root}/doc/entomology.xml" />
 	<property name="xsd.location" value="${local.root}/profiles/datatype_gis.xsd" />
+	<property name="version.dir" value="${local.root}/doc/" />
+	<property name="version.xsd" value="/version_gis.xsd" />
 
 	<!-- =================================================================== -->
 	<!-- Define tomcat tasks                                                 -->
@@ -354,17 +356,27 @@
 		<property name="${version.number}" value="0" />
 	</target>
 
-	<target name="import_version" description="Reverts the domain model to the given version number" depends="get_version_number">
-		<echo message="Reverts the domain model to the given version number" />
+	<target name="import_most_recent" description="Updates the domain model to the most recent schema" depends="get_version_number">
+		<echo message="Update domain to the most recent schema" />
 		<java classname="com.terraframe.mojo.dataaccess.io.Versioning" failonerror="true">
 			<arg value="${version.dir}/" />
-			<arg value="${version.number}" />
+			<arg value="${version.xsd}"/>
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
 		</java>
 	</target>
 
+	<target name="create_new_domain_model" description="Creates a new time stamped domain model">
+		<echo message="Create a time stamped schema" />
+		<java classname="com.terraframe.mojo.dataaccess.io.CreateDomainModel" failonerror="true">
+			<arg value="${version.dir}/" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+		</java>
+	</target>
+	
 	<target name="push_source" depends="">
 		<java classname="dss.vector.solutions.MdssDmu" fork="true" failonerror="true" dir="." timeout="4000000" taskname="pushSource">
 			<jvmarg value="-Xmx1024m" />
