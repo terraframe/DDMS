@@ -6,11 +6,11 @@
 	<!-- These are defualt properties.                                       -->
 	<!-- You can overide them in your external tools configueration.         -->
 	<!-- =================================================================== -->
-	
-	<property file="../../../profiles/default/common/terraframe.properties"/>
-	
+
+	<property file="../../../profiles/default/common/terraframe.properties" />
+
 	<property name="db_root_login" value="postgres" />
-	<property name="db_root_password" value="framework" />
+	<property name="db_root_password" value="postgres" />
 	<property name="db_root_db" value="template_postgis" />
 	<property name="max_memory_use" value="1024m" />
 
@@ -20,7 +20,7 @@
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
 
-	
+
 	<!-- =================================================================== -->
 	<!--         CAUTION: THIS WILL OVERWRITE EXISTING DATA                  -->
 	<!--This is the main task to run if you want to completely rebuild mdss. -->
@@ -28,12 +28,12 @@
 	<target name="rebuild_all" depends="alert_status,develop_rebuild_import,deploy_all,deploy_rebuild_import,update_db,push_source">
 		<echo message="The build is complete" />
 	</target>
-	
+
 	<!-- =================================================================== -->
 	<!-- These are five tasks that rebuild MDSS.                             -->
 	<!-- You can run them one at a time if you wish.                         -->
 	<!-- =================================================================== -->
-	<target name="develop_rebuild_import" depends="">
+	<target name="develop_rebuild_import" depends="" description="Step 1">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(1)Develop Rebuild Import">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
@@ -50,7 +50,7 @@
 		</java>
 	</target>
 
-	<target name="deploy_all" depends="write_revision">
+	<target name="deploy_all" depends="write_revision" description="Step 2">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(2)Deploy All">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -64,7 +64,7 @@
 		</java>
 	</target>
 
-	<target name="deploy_rebuild_import" depends="">
+	<target name="deploy_rebuild_import" depends="" description="Step 3">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(3)Deploy Rebuild Import">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -81,7 +81,7 @@
 		</java>
 	</target>
 
-	<target name="update_db" depends="">
+	<target name="update_db" depends="" description="Step 4">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(4)Update Devlop DB With Source">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -96,7 +96,7 @@
 		</java>
 	</target>
 
-	<target name="push_source" depends="alert_status">
+	<target name="push_source" depends="alert_status" description="Step 5">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(5)Push Source To Server">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -111,7 +111,7 @@
 	<!-- =================================================================== -->
 	<!-- These are some utility tasks and tasks for restarting things        -->
 	<!-- =================================================================== -->
-	
+
 	<target name="kill_tomcat" unless="dont_kill_tomcat">
 		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
 	   	ps -x  | grep Tomcat | egrep -o ^\ ?[0-9]+ | xargs kill
@@ -119,7 +119,7 @@
 		<shellscript shell="bash" dir="${deploy.root}/bin" os="Windows" searchpath="true">
 			./shutdown.bat
 	    </shellscript>
-		<sleep seconds="5"/>
+		<sleep seconds="5" />
 	</target>
 
 	<target name="start_tomcat" unless="dont_kill_tomcat">
@@ -129,9 +129,9 @@
 		<shellscript shell="bash" dir="${deploy.root}/bin" os="Windows" searchpath="true">
 			./startup.bat
 	    </shellscript>
-		<sleep seconds="10"/>
+		<sleep seconds="10" />
 	</target>
-	
+
 	<target name="alert_status" unless="alert_status.done">
 		<sound>
 			<success source="../build_resources/build_complete.wav" />
@@ -139,21 +139,20 @@
 		</sound>
 		<property name="alert_status.done" value="true" />
 	</target>
-	
+
 	<!-- =================================================================== -->
 	<!-- Commands to restart postgres -->
 	<!-- sudo su postgres -c "./pg_ctl stop -m i -D ../data" -->
 	<!-- sudo su postgres -c "./pg_ctl start -D ../data" -->
 	<!-- =================================================================== -->
-	
-	
+
+
 	<!-- =================================================================== -->
 	<!-- CAUTION: THESE TASKS UPDATE THE LIVE TEST SERVER!                   -->
 	<!-- =================================================================== -->
 
 	<target name="deploy_to_test_server" depends="alert_status" description="dumps the sql and update the svn with your currently tomcat dir">
-		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true"
-			inputstring="${postgres.bin}/pg_dump --blobs -U mdssdeploy mdssdeploy > dump.sql"/>
+		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true" inputstring="${postgres.bin}/pg_dump --blobs -U mdssdeploy mdssdeploy > dump.sql" />
 		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true">
 			svn add * --force
 			svn ci -m"Update test servers to lastest version of MDSS"
@@ -166,19 +165,36 @@
 	   	svn info|grep "Last Changed" > webapp/revision.html
 		</shellscript>
 	</target>
-     
+
 	<target name="get_root_password" description="Checks for root password and prompts for it if not found." unless="testserver.password">
 		<input message="Test Server Password:" addproperty="testserver.password" />
 	</target>
-	
+
 	<!-- lib/common/jsch-0.1.31.jar must be added to your ant classpath-->
 	<target name="update_test_server" depends="get_root_password" description="logs in to the test server and preforms an update">
-		  <sshexec host="${testserver.address}" 
-			username="${testserver.username}"
-			password="${testserver.password}"
-		  	command="CMD /c 'C:\\Program Files\\Apache Software Foundation\\Tomcat 6.0\\webapps\\MDSS\\update.bat'"/>
+		<sshexec host="${testserver.address}" username="${testserver.username}" password="${testserver.password}" command="CMD /c 'C:\\Program Files\\Apache Software Foundation\\Tomcat 6.0\\webapps\\MDSS\\update.bat'" />
 	</target>
-		
+
+	<!-- =================================================================== -->
+	<!-- CAUTION: THESE TASKS UPDATE THE LIVE TEST SERVER!                   -->
+	<!-- =================================================================== -->
+
+	<target name="update_source" depends="alert_status" description="Step 6, Copies all the source files to tomcat and calls reload.jsp">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(6)Update Source">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="deploy_application_files" />
+			<!--<arg value="deploy_presentation_files" /> -->
+		</java>
+		<!-- Call reload.jsp to force tomcat to dump its cache-->
+		<get src="http://localhost:8080/MDSS/test/reload.jsp" dest="./delme.html" verbose="true" />
+		<delete file="./delme.html" />
+	</target>
+
 </project>
 
 
