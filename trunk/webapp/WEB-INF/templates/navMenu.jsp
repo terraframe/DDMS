@@ -51,6 +51,7 @@
                      <div class="bd">
                          <ul>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo"><f:message key="Search_Mosquito_Collections"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionPointController.search.mojo"><f:message key="Mosquito_Collection_Points"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.QueryController.queryEntomology.mojo"><f:message key="Query_Entomology"/></a></li><!--
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAll.mojo"><f:message key="View_All_Mosquito_Collections"/></a></li>
                               --><li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><f:message key="Resistance_Monitoring"/></a>
@@ -70,8 +71,7 @@
                                  </div>
                              </li>
 
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionPointController.search.mojo"><f:message key="Mosquito_Collection_Points"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo"><f:message key="Knock_Down_Assay"/></a></li>
+
                          </ul>
                      </div>
                  </div>
