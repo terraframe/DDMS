@@ -125,7 +125,7 @@
 
                  </div>
 
-             </li>
+             </li><!--
 
              <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="#"><f:message key="Excel_Header"/></a>
                <div id="excel" class="yuimenu">
@@ -137,7 +137,9 @@
                  </div>
                </div>
              </li>
-              <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="com.terraframe.mojo.defaults.LoginController.logout.mojo"><f:message key="Log_Out"/></a></li>
+
+
+              --><li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="com.terraframe.mojo.defaults.LoginController.logout.mojo"><f:message key="Log_Out"/></a></li>
          </ul>
      </div>
  </div>
