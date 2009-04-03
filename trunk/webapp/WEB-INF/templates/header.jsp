@@ -6,11 +6,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />
-<title>${page_title}</title>
+<c:choose>
+  <c:when test='${window_title != null}'>
+    <title>${window_title}</title>
+  </c:when>
+  <c:otherwise>
+    <title>${page_title}</title>
+  </c:otherwise>
+</c:choose>
 </head>
 <body class="yui-skin-sam">
 
-<div id="freeText"><strong>National Malaria Control Program</strong><br /> MALAWI</div>
+<div id="freeText"><strong>National Malaria Control Program</strong><br />
+MALAWI</div>
 <div id="uploadLogo"><img src="./imgs/design/sample_logo.gif" width="85" height="57" /></div>
 <div class="header">
 <div class="hTitle"></div>
