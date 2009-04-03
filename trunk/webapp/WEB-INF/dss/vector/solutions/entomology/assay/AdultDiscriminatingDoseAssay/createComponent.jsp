@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<c:set var="page_title" value="Enter new data"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -138,7 +139,7 @@
                 <mjl:message />
               </mjl:messages>
             </dd>
-           
+
           </mjl:struct>
         </dl>
       </dd>
@@ -209,9 +210,9 @@
         <mjl:messages attribute="quantityTested">
           <mjl:message />
         </mjl:messages>
-        
+
       </dd>
-    
+
       <dt>
         <label>
           ${item.quantityDeadMd.displayLabel}
@@ -234,7 +235,7 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-      
+
         <dt>
         <label>
           ${item.intervalTimeMd.displayLabel}
@@ -246,11 +247,11 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-      
+
     </dl>
   </mjl:component>
 
 
-<div class="submitButton_bl"></div>  
+<div class="submitButton_bl"></div>
   <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.create.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.create.button" classes="submitButton" />
 </mjl:form>
