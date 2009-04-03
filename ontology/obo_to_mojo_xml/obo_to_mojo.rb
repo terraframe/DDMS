@@ -3,44 +3,55 @@
 
 #obo file must be ASCII, not unicode, and have unix style newlines
 
+require 'spreadsheet'
 
-#id: MIRO:30000044
-#name: field population catch
-#namespace: mosquito_insecticide_resistance_ontology
-#def: "Any population catch method using either aspiration or traps." [KL:KL]
-#is_a: MIRO:20000000 ! method
 
-#
-#    <object
-#      type="mdss.entomology.CollectionMethod"
-#      id="NIGHT_BITING">
-#      <valueAttribute
-#        name="termName"
-#        value="Night Biting" />
-#    </object>
 
-type = $*[1]
-java_id = ''
+obo_file = "../MO - MDSS ontology.obo"
+excel_file = "LOOKUP.XLS"
+xml_file = "miro.xml"
+out_buff = ""
+obo = Hash.new
+used_ids = []
+
+sheet_names = Hash.new
+
+sheet_names['Parasite tick list'] = nil
+sheet_names['Targetsite resistance tick list'] = nil
+sheet_names['Parasite detection methodology'] = 'dss.vector.solutions.mo.InfectivityMethodology'
+sheet_names['Target site resistance methods'] = nil
+sheet_names['diagnoistic test bio larvae'] = nil
+sheet_names['Diagnostic Tests Bioassay adult'] = 'dss.vector.solutions.mo.InsecticideMethodology'
+sheet_names['insecticide active ingreedients'] = 'dss.vector.solutions.mo.ActiveIngredient'
+sheet_names['sPECIES names'] = 'dss.vector.solutions.mo.Specie'
+sheet_names['Sheet 1'] = ''
+
+
+
+
+def write_xml(id,display_label,classname,obo)
+full_id = 'MIRO:'+id
+str = obo[full_id]
+xml = ""
 miro_name = ''
 value = ''
-miro_id = ''
 is_a_string = ''
 is_a_id = ''
 namespace = ''
 miro_def = ''
+miro_id = full_id.strip
+java_id = full_id.strip.upcase.gsub(/[^A-Z0-9]/,'_')
 
-out_buff = ''
+unless str
+  print "ERROR COULD NOT FIND MIRO:#{id} \n" 
+  return ""
+end
 
-used_ids = []
+#print " ------- " +str
 
-out_file = $*[0].gsub(/txt|obo/,'xml')
-
-File.open($*[0] , "r").each_line do |line|
+str.each_line do |line|
   array = line.strip.split(': ')
   case array[0]
-    when 'id'
-      miro_id = array[1].strip
-      java_id = array[1].strip.upcase.gsub(/[^A-Z0-9]/,'_')
     when 'name'      
       miro_name = array[1]
     when 'namespace'
@@ -51,12 +62,11 @@ File.open($*[0] , "r").each_line do |line|
       arr = array[1].split('!')
       is_a_id = arr[0].strip.upcase.gsub(/[^A-Z0-9]/,'_')
       is_a_string = arr[1].strip
-    else
-      if line.strip.empty? and ! used_ids.include?(java_id)
-        
-        out_buff << "
+    end
+end        
+        xml = "
   <object
-    type=\"#{type}\"
+    type=\"#{classname}\"
     id=\"#{java_id}\">
 <valueAttribute
       name=\"termId\"
@@ -66,7 +76,7 @@ File.open($*[0] , "r").each_line do |line|
       value=\"#{miro_name}\" />
 <valueAttribute
       name=\"displayLabel\"
-      value=\"#{miro_name}\" />
+      value=\"#{display_label}\" />
  <valueAttribute
       name=\"oboNamespace\"
       value=\"#{namespace}\" />
@@ -80,13 +90,45 @@ File.open($*[0] , "r").each_line do |line|
       name=\"inheritsTermName\"
       value=\"#{is_a_id}\" />
   </object> \n"
-      used_ids << java_id
-      end
-  end
+      
+     return xml
 end
 
+cur_id = ""
+p "Reading OBO file: #{obo_file}"
+File.open(obo_file , "r").each_line do |line|
+  unless  line.strip.empty? or line =~/\[Term\]/i
+  array = line.strip.split(': ')
+  case array[0]
+    when 'id'
+      cur_id = line.gsub(/id:/,'').strip
+    # p "cur id = #{cur_id}"
+      obo[cur_id] = ""
+    else
+      obo[cur_id] = (obo[cur_id]+line) unless cur_id == ""
+     end
+   end
+end
 
-File.open(out_file,'w').write(out_buff)
+p "Read #{obo.length} terms"
 
+book = Spreadsheet.open excel_file
 
+book.worksheets.each do |sheet| 
+	print sheet.name + "\n"
+	classname = sheet_names[sheet.name]
+	classname ||= sheet.row(0)[2]
+	if classname
+		sheet.each do |row|
+		     if row[0] and row[1]
+		       #print row[0] +','+ row[1].to_s + "\n" 
+		       #used_ids << java_id
+		       out_buff << write_xml(row[1].to_i.to_s,row[0], classname,obo)
+		     end
+	 	 end
+	end
+end
 
+#print out_buff
+
+File.open(xml_file,'w').write(out_buff)
