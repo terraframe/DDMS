@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <fmt:setLocale value="<%=request.getLocale()%>" />
-
+<c:set var="page_title" value="View all efficacy bioassay"  scope="request"/>
 
 <mjl:messages>
   <mjl:message />
@@ -27,7 +27,7 @@
         <fmt:formatDate value="${item.testDate}" dateStyle="SHORT" />
       </mjl:row>
     </mjl:attributeColumn>
-    
+
     <mjl:attributeColumn attributeName="testMethod">
       <mjl:header>
         Test Method
@@ -36,7 +36,7 @@
         ${item.testMethod.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
-    
+
      <mjl:attributeColumn attributeName="specie">
       <mjl:header>
         Specie
@@ -45,13 +45,13 @@
         ${item.specie.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
-  
+
     <mjl:attributeColumn attributeName="colonyName">
       <mjl:header>
         Colony Name
       </mjl:header>
     </mjl:attributeColumn>
-    
+
     <mjl:structColumn attributeName="ageRange">
       <mjl:header>
         Age Range
@@ -65,27 +65,27 @@
         <mjl:header>
           To
         </mjl:header>
-      </mjl:attributeColumn>      
+      </mjl:attributeColumn>
     </mjl:structColumn>
-    
+
      <mjl:attributeColumn attributeName="sex">
       <mjl:header>
         Sex
       </mjl:header>
     </mjl:attributeColumn>
-       
+
     <mjl:attributeColumn attributeName="gravid">
       <mjl:header>
         Gravid
       </mjl:header>
     </mjl:attributeColumn>
-    
+
     <mjl:attributeColumn attributeName="fed">
       <mjl:header>
         Fed
       </mjl:header>
     </mjl:attributeColumn>
-    
+
     <mjl:attributeColumn attributeName="insecticide">
       <mjl:header>
         Insecticide
@@ -94,43 +94,43 @@
         ${item.insecticide.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
-    
+
     <mjl:attributeColumn attributeName="exposureTime">
       <mjl:header>
         ExposureTime
       </mjl:header>
     </mjl:attributeColumn>
-        
+
     <mjl:attributeColumn attributeName="surfacePostion">
       <mjl:header>
         Position on surface
       </mjl:header>
-    </mjl:attributeColumn>    
-        
+    </mjl:attributeColumn>
+
    <mjl:attributeColumn attributeName="exposureTime">
       <mjl:header>
         Exposure Time (m)
       </mjl:header>
     </mjl:attributeColumn>
-    
+
     <mjl:attributeColumn attributeName="holdingTime">
       <mjl:header>
         Holding Time (hr)
       </mjl:header>
     </mjl:attributeColumn>
-        
+
     <mjl:attributeColumn attributeName="quantityLive">
       <mjl:header>
         Quantity Live
       </mjl:header>
     </mjl:attributeColumn>
-    
+
     <mjl:attributeColumn attributeName="quantityDead">
       <mjl:header>
         Quantity Dead
       </mjl:header>
     </mjl:attributeColumn>
-        
+
     <mjl:attributeColumn attributeName="mortality">
       <mjl:header>
         Mortality Rate
@@ -139,7 +139,7 @@
 
   <mjl:freeColumn>
       <mjl:header>
-        
+
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.view.mojo" name="view.link">
@@ -147,7 +147,7 @@
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
-        
+
       </mjl:footer>
     </mjl:freeColumn>
   </mjl:columns>
