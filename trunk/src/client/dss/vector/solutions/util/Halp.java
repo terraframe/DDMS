@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -132,7 +133,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 
 					if (attrib.contains("Date")) {
 						SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-						element.put(attrib, df.format(new Date(value)));
+						DateFormat df_full = DateFormat.getDateInstance(DateFormat.FULL);
+						element.put(attrib, df.format( df_full.parse(value)));
 					} else {
 						// FIXME: this is a hack for enums
 						String clean_value = value.replaceAll("\\[", "").replaceAll("\\]", "");
@@ -149,7 +151,9 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 					System.out.println("No such method get" + attrib);
 				} catch (NullPointerException x) {
 					System.out.println("Null Pointer Exception get" + attrib);
-				}
+				} catch (ParseException x) {
+                    System.out.println("Could not parse date" + attrib);
+                }
 
 			}
 			map.put(element);
@@ -351,26 +355,25 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 		return formatter.toPattern();
 	}
 
-	public static String renderJspToString(HttpServletRequest request, HttpServletResponse response, String emailURL) {
+
+	//This renders a jsp to a string, usefull for emails, etc
+	public static String renderJspToString(HttpServletRequest request, HttpServletResponse response, String jsp_to_render) {
 		try {
 			// create an output stream - to file, to memory...
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			// create the "dummy" response object
 			RedirectingServletResponse dummyResponse;
 			dummyResponse = new RedirectingServletResponse(response, out);
+            String path = request.getServletPath().substring(0,request.getServletPath().lastIndexOf("/")+1);
 
 			// get a request dispatcher for the email template to load
-			RequestDispatcher rd = request.getRequestDispatcher(emailURL);
-			// execute that JSP
+            request.setAttribute("jsp_to_render", path+jsp_to_render );
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/templates/force_flush.jsp");
+			// execute the jsp inside another jsp that will force the flush
 			rd.include(request, dummyResponse);
 
-			// at this point the ByteArrayOutputStream has had the response
-			// written into it.
-			// dummyResponse.flushBuffer();
-
 			byte[] result = out.toByteArray();
-			// System.out.println("result = " + result.length);
-			// now you can do with it what you will.
+
 			String emailText = new String(result);
 			return emailText;
 		} catch (Exception exception) {
