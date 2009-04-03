@@ -356,7 +356,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 	}
 
 
-	//This renders a jsp to a string, usefull for emails, etc
+	//This renders a jsp to a string, usefull for emails and inside out rendering
 	public static String renderJspToString(HttpServletRequest request, HttpServletResponse response, String jsp_to_render) {
 		try {
 			// create an output stream - to file, to memory...
@@ -364,14 +364,20 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
 			// create the "dummy" response object
 			RedirectingServletResponse dummyResponse;
 			dummyResponse = new RedirectingServletResponse(response, out);
+
+			//get the path to our jsp's folder
             String path = request.getServletPath().substring(0,request.getServletPath().lastIndexOf("/")+1);
 
-			// get a request dispatcher for the email template to load
+			//set the full path of the jsp to render
             request.setAttribute("jsp_to_render", path+jsp_to_render );
+
+            // get a request dispatcher for the jsp template
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/templates/force_flush.jsp");
+
 			// execute the jsp inside another jsp that will force the flush
 			rd.include(request, dummyResponse);
 
+			//FIXME: make sure this is not mangeling multibyte chars
 			byte[] result = out.toByteArray();
 
 			String emailText = new String(result);
