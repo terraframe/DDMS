@@ -176,10 +176,10 @@
 	</target>
 
 	<!-- =================================================================== -->
-	<!-- CAUTION: THESE TASKS UPDATE THE LIVE TEST SERVER!                   -->
+	<!-- CAUTION: CHANGES PUSHED TO TOMCAT WITH THESE TASKS WILL BE LOST UPON RESTART!                   -->
 	<!-- =================================================================== -->
 
-	<target name="update_source" depends="alert_status,call_reload_jsp" description="Step 6, Copies all the source files to tomcat and calls reload.jsp">
+	<target name="update_source" depends="alert_status,call_reload_jsp" description="Step 6, use this if you have changed java code and want send changes to tomcat">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(6)Update Source">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -194,23 +194,9 @@
 	</target>
 
 
-	<target name="call_reload_jsp"  description="Step 6, Copies all the source files to tomcat and calls reload.jsp">
+	<target name="call_reload_jsp"  description="Make tomcat reload all its classes">
 			<!-- get reload.jsp to force tomcat to dump its cache-->
 			<get src="http://localhost:8080/MDSS/test/reload.jsp" dest="./delme.html" verbose="true" />
 			<delete file="./delme.html" />
 		</target>
 </project>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
