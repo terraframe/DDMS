@@ -27,6 +27,7 @@
 	<property name="xsd.location" value="${local.root}/profiles/datatype_gis.xsd" />
 	<property name="version.dir" value="${local.root}/doc/" />
 	<property name="version.xsd" value="/version_gis.xsd" />
+	<property name="geo_data_db" value="mozambique" />
 
 	<!-- =================================================================== -->
 	<!-- Define tomcat tasks                                                 -->
@@ -159,7 +160,7 @@
 		</javac>
 	</target>
 
-	<target name="update_domain_model" depends="delete_generated_base">		
+	<target name="update_domain_model" depends="delete_generated_base">
 		<!-- Import the domain model -->
 		<java classname="ImportModel" failonerror="true">
 			<arg file="${domain.location}" />
@@ -376,7 +377,7 @@
 			</classpath>
 		</java>
 	</target>
-	
+
 	<target name="push_source" depends="">
 		<java classname="dss.vector.solutions.MdssDmu" fork="true" failonerror="true" dir="." timeout="4000000" taskname="pushSource">
 			<jvmarg value="-Xmx1024m" />
@@ -387,4 +388,20 @@
 			<arg value="dss.vector.solutions%" />
 		</java>
 	</target>
+
+	<!-- =================================================================== -->
+	<!-- Import the geo data into the deploy db                              -->
+	<!-- =================================================================== -->
+	<target name="import_geodata" depends="" description="imports a db of geodata into the deploy db">
+		<java classname="dds.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
+			<jvmarg value="-Xmx1024m" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+			<arg value="${root.user}" />
+			<arg value="${root.pass}" />
+			<arg value="${geo_data_db}" />
+		</java>
+	</target>
+
 </project>
