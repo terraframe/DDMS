@@ -4,6 +4,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
+<c:set var="page_title" value="Edit ADDA data"  scope="request"/>
 <mjl:form name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
 
 
@@ -139,7 +140,7 @@
                 <mjl:message />
               </mjl:messages>
             </dd>
-           
+
           </mjl:struct>
         </dl>
       </dd>
@@ -187,7 +188,7 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-      
+
       <dt>
         <label>
           ${item.insecticideMd.displayLabel}
@@ -211,9 +212,9 @@
         <mjl:messages attribute="quantityTested">
           <mjl:message />
         </mjl:messages>
-        
+
       </dd>
-    
+
       <dt>
         <label>
           ${item.quantityDeadMd.displayLabel}
@@ -236,7 +237,7 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-      
+
         <dt>
         <label>
           ${item.intervalTimeMd.displayLabel}
@@ -248,14 +249,14 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-      
+
     </dl>
   </mjl:component>
 
-  
+
   <div class="submitButton_bl"></div>
   <mjl:command value="Update" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.update.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.update.button" classes="submitButton"/>
   <mjl:command value="Delete" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.delete.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.delete.button" classes="submitButton"/>
   <mjl:command value="Cancel" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.cancel.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.cancel.button" classes="submitButton"/>
 </mjl:form>
-<div id="cal1Container" class="yui-skin-sam"></div> 
+<div id="cal1Container" class="yui-skin-sam"></div>

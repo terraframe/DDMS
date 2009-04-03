@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<c:set var="window_title" value="Enter new adult diagnostic assay data"  scope="request"/>
 <c:set var="page_title" value="Enter new data"  scope="request"/>
 <mjl:messages>
   <mjl:message />
