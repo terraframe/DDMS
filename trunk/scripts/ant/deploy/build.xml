@@ -151,7 +151,7 @@
 	<!-- CAUTION: THESE TASKS UPDATE THE LIVE TEST SERVER!                   -->
 	<!-- =================================================================== -->
 
-	<target name="deploy_to_test_server" depends="alert_status" description="dumps the sql and update the svn with your currently tomcat dir">
+	<target name="deploy_to_test_server" depends="alert_status" description="Dumps the sql and update the svn with your currently tomcat dir">
 		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true" inputstring="${postgres.bin}/pg_dump --blobs -U mdssdeploy mdssdeploy > dump.sql" />
 		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true">
 			svn add * --force
@@ -160,7 +160,7 @@
 		<echo message="SVN updated with image for test server" />
 	</target>
 
-	<target name="write_revision">
+	<target name="write_revision" description="Writes the current svn revision info to an html file">
 		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
 	   	svn info|grep "Last Changed" > webapp/revision.html
 		</shellscript>
@@ -179,7 +179,7 @@
 	<!-- CAUTION: THESE TASKS UPDATE THE LIVE TEST SERVER!                   -->
 	<!-- =================================================================== -->
 
-	<target name="update_source" depends="alert_status" description="Step 6, Copies all the source files to tomcat and calls reload.jsp">
+	<target name="update_source" depends="alert_status,call_reload_jsp" description="Step 6, Copies all the source files to tomcat and calls reload.jsp">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(6)Update Source">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
@@ -190,11 +190,15 @@
 			<arg value="deploy_application_files" />
 			<!--<arg value="deploy_presentation_files" /> -->
 		</java>
-		<!-- Call reload.jsp to force tomcat to dump its cache-->
-		<get src="http://localhost:8080/MDSS/test/reload.jsp" dest="./delme.html" verbose="true" />
-		<delete file="./delme.html" />
+		<antcall target="call_reload_jsp"></antcall>
 	</target>
 
+
+	<target name="call_reload_jsp"  description="Step 6, Copies all the source files to tomcat and calls reload.jsp">
+			<!-- get reload.jsp to force tomcat to dump its cache-->
+			<get src="http://localhost:8080/MDSS/test/reload.jsp" dest="./delme.html" verbose="true" />
+			<delete file="./delme.html" />
+		</target>
 </project>
 
 
