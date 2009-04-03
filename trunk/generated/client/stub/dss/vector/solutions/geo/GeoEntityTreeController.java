@@ -60,29 +60,4 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
     }
   }
   
-  @Override
-  public void confirmChangeParent(String childId, String parentId) throws IOException, ServletException
-  {
-    req.setAttribute("parentId", parentId);
-    req.setAttribute("childId", childId);
-    
-    try
-    {
-      GeoEntityDTO.confirmChangeParent(this.getClientRequest(), childId, parentId);
-      
-      // We should never reach here
-      String error = "Unable to confirm parent change.";
-      ApplicationException ae = new ApplicationException(error);
-      String message = ae.getLocalizedMessage();
-      resp.sendError(500, message);
-    }
-    catch(ConfirmParentChangeExceptionDTO e)
-    {
-      String message = e.getLocalizedMessage();
-      req.setAttribute("confirmMessage", message);
-      
-      req.getRequestDispatcher(CONFIRM_PARENT_CHANGE_JSP).forward(req, resp);
-    }
-  }
-  
 }

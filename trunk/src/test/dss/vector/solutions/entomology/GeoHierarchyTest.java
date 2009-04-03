@@ -30,6 +30,8 @@ public class GeoHierarchyTest extends GeoTest
 
   private static final String NEW_TYPE      = MDSSInfo.GENERATED_GEO_PACKAGE + "." + NEW_TYPE_NAME;
 
+  private static final Earth earth = Earth.getEarthInstance();
+  
   public static Test suite()
   {
 
@@ -124,7 +126,7 @@ public class GeoHierarchyTest extends GeoTest
       Country country = new Country();
       country.setEntityName("Country 1");
       country.setActivated(true);
-      country.setGeoId("892749");
+      country.setGeoId(genGeoId());
       country.apply();
       testEntities.add(country);
 
@@ -132,7 +134,7 @@ public class GeoHierarchyTest extends GeoTest
       GeoEntity geo = (GeoEntity) newTypeClass.newInstance();
       geo.setEntityName("New Type 1");
       geo.setActivated(true);
-      geo.setGeoId("481017");
+      geo.setGeoId(genGeoId());
       geo.applyWithParent(country.getId(), false);
       testEntities.add(geo);
 
@@ -165,14 +167,14 @@ public class GeoHierarchyTest extends GeoTest
       GeoEntity geo = (GeoEntity) newTypeClass.newInstance();
       geo.setEntityName("New Type 1");
       geo.setActivated(true);
-      geo.setGeoId("481017");
+      geo.setGeoId(genGeoId());
       geo.apply();
       testEntities.add(geo);
 
       Country country = new Country();
       country.setEntityName("Country 1");
       country.setActivated(true);
-      country.setGeoId("892749");
+      country.setGeoId(genGeoId());
       country.applyWithParent(geo.getId(), false);
       testEntities.add(country);
 
@@ -239,64 +241,12 @@ public class GeoHierarchyTest extends GeoTest
   }
 
   /**
-   * Tests adding that adding a new hierarchy entry fails if any non-earth geo
-   * entities exist.
-   */
-  public void testNewParentInvalid()
-  {
-    List<GeoEntity> testEntities = new LinkedList<GeoEntity>();
-
-    String tempType = "TempType";
-    String newTypeId = null;
-
-    try
-    {
-      // create a geo entity which should make the new entity definition fail
-      Country country = new Country();
-      country.setEntityName("Country 1");
-      country.setGeoId("123321");
-      country.setActivated(true);
-      country.apply();
-      testEntities.add(country);
-
-      // Add a new GeoEntity type as a child of Country
-      GeoHierarchy countryH = GeoHierarchy.getGeoHierarchyFromType(Country.CLASS);
-
-      GeoEntityDefinition def = new GeoEntityDefinition();
-      def.setTypeName(tempType);
-      def.setPolitical(true);
-      def.setDisplayLabel("New Geo Entity Type");
-      def.setDescription("New Geo Entity Type Description");
-      def.addSpatialType(SpatialTypes.POLYGON);
-      def.setParentGeoHierarchyId(countryH.getId());
-
-      String geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
-      GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
-      newTypeId = view.getGeoHierarchyId();
-
-      fail("Able to change hierarchy when geo entities exist.");
-    }
-    catch (ModifyHierarchyWithInstancesException e)
-    {
-      // Success
-    }
-    finally
-    {
-      deleteAll(testEntities);
-
-      if (newTypeId != null)
-      {
-        GeoHierarchy newTypeH = GeoHierarchy.get(newTypeId);
-        newTypeH.delete();
-      }
-    }
-  }
-
-  /**
    * Tests that a GeoHierarchy cannot change parents if pre-existing (non-earth)
-   * geo entities exist.
+   * if geoentities of the new type.
+   * @throws IllegalAccessException 
+   * @throws InstantiationException 
    */
-  public void testChangeParentInvalid()
+  public void testChangeParentInvalid() throws InstantiationException, IllegalAccessException
   {
     List<GeoEntity> testEntities = new LinkedList<GeoEntity>();
 
@@ -322,12 +272,13 @@ public class GeoHierarchyTest extends GeoTest
       newTypeId = view.getGeoHierarchyId();
 
       // create a geo entity which should make the parent change fail
-      Country country = new Country();
-      country.setEntityName("Country 1");
-      country.setGeoId("123321");
-      country.setActivated(true);
-      country.apply();
-      testEntities.add(country);
+      Class<?> newTypeClass = LoaderDecorator.load(MDSSInfo.GENERATED_GEO_PACKAGE+"."+tempTypeName);
+      GeoEntity geo = (GeoEntity) newTypeClass.newInstance();
+      geo.setEntityName("New Type 1");
+      geo.setActivated(true);
+      geo.setGeoId(genGeoId());
+      geo.applyWithParent(earth.getId(), false);
+      testEntities.add(geo);
 
       // move TempType to NewGEType
       GeoHierarchy newTypeH = GeoHierarchy.getGeoHierarchyFromType(NEW_TYPE);
@@ -368,8 +319,6 @@ public class GeoHierarchyTest extends GeoTest
 
     try
     {
-      Earth earth = Earth.getEarthInstance();
-
       // Add a new GeoEntity type as a child of Country
       GeoHierarchy countryH = GeoHierarchy.getGeoHierarchyFromType(Country.CLASS);
 
@@ -400,14 +349,14 @@ public class GeoHierarchyTest extends GeoTest
       Class<?> type1Class = LoaderDecorator.load(tempType1);
       GeoEntity type1Instance = (GeoEntity) type1Class.newInstance();
       type1Instance.setEntityName("Type 1");
-      type1Instance.setGeoId("923749");
+      type1Instance.setGeoId(genGeoId());
       type1Instance.setActivated(true);
       type1Instance.applyWithParent(earth.getId(), false);
 
       Class<?> type2Class = LoaderDecorator.load(tempType2);
       GeoEntity type2Instance = (GeoEntity) type2Class.newInstance();
       type2Instance.setEntityName("Type 2");
-      type2Instance.setGeoId("921749");
+      type2Instance.setGeoId(genGeoId());
       type2Instance.setActivated(true);
       type2Instance.applyWithParent(earth.getId(), false);
 

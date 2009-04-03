@@ -493,10 +493,17 @@ var Mojo = {
           exceptionType = obj.dto_type;
           e = Mojo.util.convertToType(obj);
         }
-        else if('_type' in obj && Mojo.util.typeExists(obj._type))
+        else if('_type' in obj)
         {
           exceptionType = obj._type;
-          e = Mojo.util.convertToType(obj);
+          if(Mojo.util.typeExists(obj._type))
+          {
+            e = Mojo.util.convertToType(obj);
+          }
+          else
+          {
+            e = new Mojo.dto.Exception(obj);
+          }
         }
         else
         {
@@ -611,9 +618,9 @@ var Mojo = {
     {
       if(map == null)
       {
-      	return '';
+        return '';
       }
-    	
+      
       var params = [];
       for(var key in map)
       {
@@ -770,12 +777,12 @@ var Mojo = {
         {
           if(this.xmlHttp.readyState == 4)
           {
-          	// signal that the load is complete
-          	if(Mojo.util.isFunction(clientRequest.onComplete))
-          	{
-          	  clientRequest.onComplete();
-          	}
-          	
+            // signal that the load is complete
+            if(Mojo.util.isFunction(clientRequest.onComplete))
+            {
+              clientRequest.onComplete();
+            }
+            
             if(this.xmlHttp.status >= this.requestOptions.successRange[0]
               && this.xmlHttp.status <= this.requestOptions.successRange[1])
             {
@@ -910,7 +917,7 @@ var Mojo = {
   {
     if(Mojo.util.isObject(params))
       params = {"com.terraframe.mojo.mojaxObject":Mojo.util.getJSON(params)};
-  	
+    
     new Mojo.ClientSession.AjaxCall(endpoint, clientRequest, params, true);  
   },
   
@@ -2471,6 +2478,10 @@ Mojo.dto.ProblemExceptionDTO.prototype = Mojo.Class.extend(Mojo.dto.Exception, {
             var constructor_ = Mojo.util.getType(problemJSON._type);
             problem = new constructor_(problemJSON);
           }
+          else if('dto_type' in problemJSON && problemJSON.dto_type === 'Mojo.dto.AttributeProblemDTO')
+          {
+            problem = new Mojo.dto.AttributeProblemDTO(problemJSON);
+          }
           else
           {
             problem = new Mojo.dto.ProblemDTO(problemJSON);
@@ -3289,19 +3300,19 @@ Mojo.dto.AttributeEnumerationMdDTO.prototype = Mojo.Class.extend(Mojo.dto.Attrib
   
   getEnumLabels : function()
   {
-  	return Mojo.util.getValues(this.enumNames);
+    return Mojo.util.getValues(this.enumNames);
   },
   
   getEnumDisplayLabel : function(enumName)
   {
-  	return this.enumNames[enumName];
+    return this.enumNames[enumName];
   },
   
   getEnumItems : function()
   {
-  	var copy = {};
-  	Mojo.util.copy(this.enumNames, cop);
-  	return copy;
+    var copy = {};
+    Mojo.util.copy(this.enumNames, cop);
+    return copy;
   }
 });
 

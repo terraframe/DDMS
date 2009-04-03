@@ -7,6 +7,9 @@ MDSS.GeoEntityTree = (function(){
   // key/value is node id/GeoEntity id
   var _nodeToGeoEntityMap = {};
 
+  // key/value is entity id/[node ids]
+  var _geoEntityIdToNodeIdMap = {};
+
   // key/value is GeoEntity id/GeoEntity
   var _geoEntityCache = {};
 
@@ -66,6 +69,32 @@ MDSS.GeoEntityTree = (function(){
     // overwrite any existing entries
     _nodeToGeoEntityMap[nodeId] = geId;
     _geoEntityCache[geId] = geoEntity;
+    
+    // map the entity id to the node id
+    var nodeIds = _geoEntityIdToNodeIdMap[geId];
+    if(Mojo.util.isArray(nodeIds))
+    {
+      var match = false;
+      for(var i=0; i<nodeIds.length; i++)
+      {
+        if(nodeIds[i] === nodeId)
+        {
+          match = true;
+          break;
+        }
+      }
+      
+      if(!match)
+      {
+        nodeIds.push(nodeId);
+      }
+    }
+    else
+    {
+      nodeIds = [];
+      nodeIds.push(nodeId);
+      _geoEntityIdToNodeIdMap[geId] = nodeIds;
+    }
   }
   
   /**
@@ -88,7 +117,22 @@ MDSS.GeoEntityTree = (function(){
     var geId = _getGeoEntity(nodeId).getId();
     
     delete _nodeToGeoEntityMap[nodeId];
-    delete _geoEntityCache[geId];
+    
+    var nodeIds = _geoEntityIdToNodeIdMap[geId];
+    for(var i=0; i<nodeIds.length; i++)
+    {
+      if(nodeIds[i] === nodeId)
+      {
+      	nodeIds.splice(i, 1);
+        break;
+      }
+    }
+    
+    if(nodeIds.length === 0)
+    {
+      // no more nodes pointing to the GeoEntity
+      delete _geoEntityCache[geId];
+    }
   }
   
   function _setGeoEntityAttributes(params, geoEntity)
@@ -96,9 +140,10 @@ MDSS.GeoEntityTree = (function(){
     var entityName = params['dto.entityName'];
     var gazId = params['dto.gazId'];
     var geoId = params['dto.geoId'];
-    var activated = params['dto.activated'];
+    var activatedVal = params['dto.activated'];
+    var activated = (activatedVal === "true") ? true : false;
     
-    var geoSetter = '';
+    var geoSetter = null;
     var geoValue = '';
     if('setPoint' in geoEntity)
     {
@@ -135,7 +180,12 @@ MDSS.GeoEntityTree = (function(){
     geoEntity.setGazId(gazId);
     geoEntity.setGeoId(geoId);
     geoEntity.setActivated(activated);
-    geoEntity[geoSetter](geoValue); 
+    
+    // Earth doesn't have a geoSetter
+    if(geoSetter != null)
+    {
+      geoEntity[geoSetter](geoValue);
+    }
   }
   
   /**
@@ -154,7 +204,9 @@ MDSS.GeoEntityTree = (function(){
         // add the node directly if the children have already been dynamically loaded
         if(_selectedNode.dynamicLoadComplete)
         {
-          var node = new YAHOO.widget.HTMLNode(geoEntity.getEntityName(), _selectedNode);
+          var div = _createNodeDiv(geoEntity);
+          
+          var node = new YAHOO.widget.HTMLNode(div, _selectedNode);
           
           _selectedNode.expanded = false; // force a re-expansions
           _selectedNode.refresh();
@@ -184,8 +236,26 @@ MDSS.GeoEntityTree = (function(){
     
     var request = new MDSS.Request({
       onSuccess: function(ids, geoEntity){
-        _selectedNode.setHtml(geoEntity.getEntityName());
-        _setMapping(_selectedNode, geoEntity);
+      	
+      	// replace the contents (active status will be modified in
+      	// another operation).
+      	var div = _selectedNode.getContentEl().innerHTML;
+      	var span = _createContentSpan(geoEntity);
+      	div = div.replace(/(<div class=["']\w*["']>).*?(<\/div>)/, '$1'+span+'$2');
+      	
+      	// update selected node and all copies
+        //_selectedNode.setHtml(div);
+        var nodeIds = _geoEntityIdToNodeIdMap[geoEntity.getId()];
+        for(var i=0; i<nodeIds.length; i++)
+        {
+          var id = nodeIds[i];
+          var el = document.getElementById(id);
+          el.innerHTML = div;
+        }
+        
+        //_setMapping(_selectedNode, geoEntity); Is this needed?
+        
+        _updateActivatedOnNodes(ids, geoEntity.getActivated());
         
         _modal.destroy();
       }
@@ -414,7 +484,10 @@ MDSS.GeoEntityTree = (function(){
         for(var i=0; i<childNodes.length; i++)
         {
           var child = childNodes[i];
-          var node = new YAHOO.widget.HTMLNode(child.getEntityName());
+
+          var div = _createNodeDiv(child);
+          
+          var node = new YAHOO.widget.HTMLNode(div);
           parentNode.appendChild(node);
           
           _setMapping(node, child);
@@ -430,53 +503,172 @@ MDSS.GeoEntityTree = (function(){
   }
   
   /**
-   * Handler for the drag/drop operation. The this
-   * reference is set to the YAHOO.util.DDNodeProxy instance.
+   * Adds a parent to a new child.
    */
-  function _dragDropHandler(id)
+  function _addChildToParent(e, obj)
   {
-      /* JN change: create new relationship between parent and child */
-      var ddThis = this;
-      var request = new MDSS.Request({
-        ddThis : ddThis,
-        onSuccess : function(){
-          
-          // remove drag-hint class
-          this.ddThis.getElDom(id).className = this.ddThis.getElDom(id).classNameBeforeDrag;
-      
-          var destNode = YAHOO.util.DDM.getDDById(id).node;
-          
-          // remove
-          thisParent = this.ddThis.node.parent;
-          this.ddThis.node.tree.popNode(this.ddThis.node);
-      
+    var clone = obj.clone;
+
+    var ddThis = this;
+    var request = new MDSS.Request({
+      onSuccess : function(){
+        
+        var ddThis = obj.references.ddThis;
+        var parentId = obj.references.parentId;
+        
+        // remove drag-hint class
+        ddThis.getElDom(parentId).className = ddThis.getElDom(parentId).classNameBeforeDrag;
+    
+        var destNode = YAHOO.util.DDM.getDDById(parentId).node;
+        
+        // remove
+        if(!obj.clone)
+        {
+          thisParent = ddThis.node.parent;
+          ddThis.node.tree.popNode(ddThis.node);
+    
           // fixes bug where a parent with 1 item is still marked
           // expanded, so when a new node is dragged to it, it doesn't
           // draw the new node (thinks it's already expanded)
           if (thisParent.children.length == 0) {
             thisParent.expanded = false;
           }
-      
+    
           // make removal changes visible
           thisParent.refresh();
-          
-          // Only add the node if the children have loaded via Ajax.
-          // Otherwise, the node will appear twice (i.e., once from
-          // the drag and drop and once from the Ajax load).
-          if(destNode.dynamicLoadComplete)
-          {
-            this.ddThis.node.appendTo(destNode);
-            destNode.refresh();  
-          }
-
-          destNode.expanded = false; // force re-expansion
-          destNode.expand();
+        
         }
-      });
+  
+        // Only add the node if the children have loaded via Ajax.
+        // Otherwise, the node will appear twice (i.e., once from
+        // the drag and drop and once from the Ajax load).
+        if(destNode.dynamicLoadComplete)
+        {
+          ddThis.node.appendTo(destNode);
+          destNode.refresh();  
+        }
+
+        destNode.expanded = false; // force re-expansion
+        destNode.expand();
+      }
+    });
+    
+    
+    var childGeoEntity = MDSS.GeoEntityTree.getGeoEntity(obj.references.childId);
+    var parentGeoEntity = MDSS.GeoEntityTree.getGeoEntity(obj.references.parentId);
+    
+    obj.references.modal.destroy();
+
+    childGeoEntity.applyWithParent(request, parentGeoEntity.getId(), obj.clone);
+  }
+  
+  /**
+   * Handler for the drag/drop operation. The this
+   * reference is set to the YAHOO.util.DDNodeProxy instance.
+   */
+  function _dragDropHandler(id)
+  {
+  	// create popup asking if this is for a copy operation
+  	var request = new MDSS.Request({
+  	  references: {childId:this.id, parentId:id, ddThis:this},
+  	  onConfirmParentChangeException : function(e)
+  	  {
+  	  	var modal = new YAHOO.widget.Panel("confirmParentChange", {
+  	  	  fixedcenter: true,
+  	  	  width: '300px',
+  	  	  visible: true,
+  	  	  draggable: false,
+  	  	  zindex: 8000,
+  	  	  modal:true
+  	  	});
+  	  	
+  	  	var upperDiv = document.createElement('div');
+  	  	YAHOO.util.Dom.addClass(upperDiv, 'modalAlertBox');
+  	  	
+  	  	var message = document.createElement('span');
+  	  	message.innerHTML = e.getLocalizedMessage();
+  	  	upperDiv.appendChild(message);
+  	  	
+  	  	// yes/no buttons
+  	  	var lowerDiv = document.createElement('div');
+  	  	YAHOO.util.Dom.addClass(lowerDiv, 'modalAlertBox');
+
+        this.references.modal = modal;
+
+  	  	var yes = document.createElement('input');
+  	  	YAHOO.util.Dom.setAttribute(yes, 'type', 'button');
+  	  	YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.Localized.Choice.Yes);
+  	  	YAHOO.util.Event.on(yes, 'click', _addChildToParent, {clone:false, references:this.references}); // this == tree
+        lowerDiv.appendChild(yes);
+
+  	  	var no = document.createElement('input');
+  	  	YAHOO.util.Dom.setAttribute(no, 'type', 'button');
+  	  	YAHOO.util.Dom.setAttribute(no, 'value', MDSS.Localized.Choice.No);
+  	  	YAHOO.util.Event.on(no, 'click', _addChildToParent, {clone:true, references:this.references}); // this == tree
+  	  	lowerDiv.appendChild(no);
+  	  	
+  	  	var wrapperDiv = document.createElement('div');
+  	  	wrapperDiv.appendChild(upperDiv);
+  	  	wrapperDiv.appendChild(lowerDiv);
+  	  	
+  	  	modal.bringToTop();
+  	  	modal.setBody(wrapperDiv);
+        modal.render(document.body);
+  	  }
+  	});
+  	
+  	
+    var childGeoEntity = MDSS.GeoEntityTree.getGeoEntity(this.id);
+    var parentGeoEntity = MDSS.GeoEntityTree.getGeoEntity(id);
+    childGeoEntity.confirmChangeParent(request, parentGeoEntity.getId()); 
+  }
+  
+  /**
+   * Creates a div element as a string that represents the given GeoEntity.
+   */
+  function _createNodeDiv(geoEntity)
+  {
+    var activeClass = geoEntity.getActivated() === true ? 'activeEntity' : 'inactiveEntity';
+    
+    var span = _createContentSpan(geoEntity);
+    var div = "<div class='"+activeClass+"'>"+span+"</div>";
+          
+    return div;
+  }
+  
+  function _createContentSpan(geoEntity)
+  {
+    return "<span title='"+geoEntity.getGeoId()+"'>"+geoEntity.getEntityName()+"</span>";
+  }
+  
+  /**
+   * Flips the activated status (via a class) on all nodes
+   * represented by the given ids, if that node exists in the DOM.
+   */
+  function _updateActivatedOnNodes(ids, activated)
+  {
+    for(var i=0; i<ids.length; i++)
+    {
+      var id = ids[i];
       
-      var childGeoEntity = MDSS.GeoEntityTree.getGeoEntity(this.id);
-      var parentGeoEntity = MDSS.GeoEntityTree.getGeoEntity(id);
-      childGeoEntity.applyWithParent(request, parentGeoEntity.getId(), false);
+      var nodeIds = _geoEntityIdToNodeIdMap[id];
+      for(var j=0; j<nodeIds.length; j++)
+      {
+        var el = document.getElementById(nodeIds[j]);
+        var nodeDiv = new YAHOO.util.Element(el.firstChild);
+
+        if(activated === true)
+        {
+          nodeDiv.removeClass('inactiveEntity');
+          nodeDiv.addClass('activeEntity');
+        }
+        else
+        {
+          nodeDiv.removeClass('activeEntity');
+          nodeDiv.addClass('inactiveEntity');
+        }
+      }
+    }
   }
   
   /**
@@ -484,7 +676,8 @@ MDSS.GeoEntityTree = (function(){
    */
   function _renderTree(treeId, geoEntity, selectCallback)
   {
-    var node = {type:"HTML", html:geoEntity.getEntityName()};
+  	var div = _createNodeDiv(geoEntity);
+    var node =  {type:"HTML", html:div};
 
     _geoTree = new YAHOO.widget.TreeViewDD(treeId, [node], _dragDropHandler);
     _geoTree.setDynamicLoad(_dynamicLoad);

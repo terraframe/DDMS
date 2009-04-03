@@ -292,6 +292,14 @@ YAHOO.extend(YAHOO.util.DDNodeProxy, YAHOO.util.DDProxy, {
   onDragDrop: function(e, id) {
     if (this.validDest(id)) {
       this.node.tree.dragDropHandler.call(this, id);
+      
+      // JN Change: remove dragging, drag-hint classes in
+      // both success/failure cases
+      var target = this.getElDom(id);
+      var drag = this.getDragEl();
+      
+      YAHOO.util.Dom.removeClass(target, 'drag-hint');
+      YAHOO.util.Dom.removeClass(drag, 'dragging');
     }
   },
   

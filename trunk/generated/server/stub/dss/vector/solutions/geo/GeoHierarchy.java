@@ -46,8 +46,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   private static final Integer SRID = 4326;
   
-  private static final Integer DIMENSION = 2;
-  
   public GeoHierarchy()
   {
     super();

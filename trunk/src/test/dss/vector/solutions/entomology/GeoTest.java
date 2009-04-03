@@ -45,4 +45,10 @@ public abstract class GeoTest extends TestCase
     }
   }
   
+  public String genGeoId()
+  {
+    String r = String.valueOf(Math.random());
+    return r.substring(r.length()-6);
+  }
+  
 }

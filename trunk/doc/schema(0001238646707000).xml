@@ -53,7 +53,7 @@
         <mdMethod
           name="confirmChangeParent"
           label="Confirm Change Parent"
-          description="Throws a localized exception with confirmation information to change an Entity's parent."
+          description="Throws an exception with confirmation information to change an Entity's parent."
           static="false"
           returnType="void">
           <mdParameter
@@ -472,24 +472,6 @@
             label="Root GeoEntity Id"
             description="The id of the GeoEntity that will be the root of the tree"
             order="0"
-            type="java.lang.String" />
-        </mdAction>
-        <mdAction
-          name="confirmChangeParent"
-          label="Confirm Change Parent"
-          description="Confirm action to change an entity's parent."
-          isPost="false">
-          <mdParameter
-            name="childId"
-            label="Child Id"
-            description="Child Id"
-            order="0"
-            type="java.lang.String" />
-          <mdParameter
-            name="parentId"
-            label="Parent Id"
-            description="Parent Id"
-            order="1"
             type="java.lang.String" />
         </mdAction>
       </mdController>
@@ -1210,13 +1192,13 @@
           <char
             name="entityName"
             label="Entity Name"
-            size="50"
+            size="100"
             required="true"
             description="Geo Entity name" />
           <char
             name="parentDisplayLabel"
             label="Parent Display Label"
-            size="50"
+            size="100"
             required="true"
             description="Parent Display Label" />
         </attributes>
@@ -1230,7 +1212,7 @@
           <char
             name="entityName"
             label="Entity Name"
-            size="50"
+            size="100"
             required="true"
             description="Geo Entity Parent name" />
         </attributes>
@@ -1244,7 +1226,7 @@
           <char
             name="earthName"
             label="Earth Name"
-            size="50"
+            size="100"
             required="true"
             description="Name of Earth" />
         </attributes>
@@ -1258,7 +1240,7 @@
           <char
             name="earthName"
             label="Earth Name"
-            size="50"
+            size="100"
             required="true"
             description="Name of Earth" />
         </attributes>
@@ -1272,7 +1254,7 @@
           <char
             name="displayLabel"
             label="displayLabel"
-            size="50"
+            size="100"
             required="true"
             description="Display Label" />
         </attributes>
