@@ -1,7 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="window_title" value="Enter new efficacy bioassay data"  scope="request"/>
-<c:set var="page_title" value="Enter new data"  scope="request"/>
+<c:set var="window_title" value="Efficacy bioassay data entry"  scope="request"/>
+<c:set var="page_title" value="Enter New Data"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
