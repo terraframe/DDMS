@@ -9,9 +9,9 @@
 
 	<property file="../../../profiles/default/common/terraframe.properties" />
 
-	<property name="db_root_login" value="postgres" />
-	<property name="db_root_password" value="postgres" />
-	<property name="db_root_db" value="template_postgis" />
+	<property name="root.user" value="postgres" />
+	<property name="root.pass" value="postgres" />
+	<property name="root.db" value="template_postgis" />
 	<property name="max_memory_use" value="1024m" />
 
 	<property name="deploy.path" value="${deploy.root}/webapps/MDSS/" />
@@ -42,9 +42,9 @@
 			</classpath>
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
-			<arg value="-Droot.user=${db_root_login}" />
-			<arg value="-Droot.pass=${db_root_password}" />
-			<arg value="-Droot.db=${db_root_db}" />
+			<arg value="-Droot.user=${root.user}" />
+			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="-Droot.db=${root.db}" />
 			<arg value="rebuild_db" />
 			<arg value="import_most_recent" />
 		</java>
@@ -73,25 +73,25 @@
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
 			<arg value="-Dprofile.name=deploy" />
-			<arg value="-Droot.user=${db_root_login}" />
-			<arg value="-Droot.pass=${db_root_password}" />
-			<arg value="-Droot.db=${db_root_db}" />
+			<arg value="-Droot.user=${root.user}" />
+			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="-Droot.db=${root.db}" />
 			<arg value="rebuild_db" />
 			<arg value="import_most_recent" />
 		</java>
 	</target>
 
 	<target name="update_db" depends="" description="Step 4">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(4)Update Devlop DB With Source">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(4)Update Deploy DB With Source">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
-			<arg value="-Droot.user=${db_root_login}" />
-			<arg value="-Droot.pass=${db_root_password}" />
-			<arg value="-Droot.db=${db_root_db}" />
+			<arg value="-Droot.user=${root.user}" />
+			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="-Droot.db=${root.db}" />
 			<arg value="update_db_source_and_classes" />
 		</java>
 	</target>
@@ -190,13 +190,48 @@
 			<arg value="deploy_application_files" />
 			<!--<arg value="deploy_presentation_files" /> -->
 		</java>
-		<antcall target="call_reload_jsp"></antcall>
+		<antcall target="call_reload_jsp">
+		</antcall>
 	</target>
 
 
-	<target name="call_reload_jsp"  description="Make tomcat reload all its classes">
-			<!-- get reload.jsp to force tomcat to dump its cache-->
-			<get src="http://localhost:8080/MDSS/test/reload.jsp" dest="./delme.html" verbose="true" />
-			<delete file="./delme.html" />
-		</target>
+	<target name="call_reload_jsp" description="Make tomcat reload all its classes">
+		<!-- get reload.jsp to force tomcat to dump its cache-->
+		<get src="http://localhost:8080/MDSS/test/reload.jsp" dest="./delme.html" verbose="true" />
+		<delete file="./delme.html" />
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Import the geo data into the deploy db                              -->
+	<!-- =================================================================== -->
+
+	<target name="import_geodata" depends="" description="imports a db of geodata into the deploy db">
+		<!--<diagnostics/>-->
+
+		<!-- backup deploy properties-->
+		<copy file="../../../profiles/develop/server/database.properties" tofile="../../../profiles/develop/server/database.properties.bak" />
+		<!-- change develop to temporaly point to deploy -->
+		<propertyfile file="../../../profiles/develop/server/database.properties">
+			<entry key="user" value="mdssdeploy"/>
+			<entry key="password" value="mdssdeploy"/>
+			<entry key="databaseName" value="mdssdeploy"/>
+		</propertyfile>
+		<!-- run the importer-->
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Droot.user=${root.user}" />
+			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="import_geodata" />
+		</java>
+		<!-- change develop back to develop-->
+		<move file="../../../profiles/develop/server/database.properties.bak" tofile="../../../profiles/develop/server/database.properties" />
+	</target>
+
+
 </project>
