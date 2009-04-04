@@ -5,13 +5,12 @@
 
     <create>
 
-
   <object
     type="dss.vector.solutions.mo.InsecticideMethodology"
     id="MIRO_20000009">
 <valueAttribute
       name="termId"
-      value="MIRO_20000009" />
+      value="MIRO_20000009A" />
 <valueAttribute
       name="termName"
       value="bottle bioassay DT" />
@@ -37,7 +36,7 @@
     id="MIRO_20000039">
 <valueAttribute
       name="termId"
-      value="MIRO_20000039" />
+      value="MIRO_20000039A" />
 <valueAttribute
       name="termName"
       value="cone DT" />
@@ -63,7 +62,7 @@
     id="MIRO_20000041">
 <valueAttribute
       name="termId"
-      value="MIRO_20000041" />
+      value="MIRO_20000041A" />
 <valueAttribute
       name="termName"
       value="WHO paper kit DT" />
@@ -83,6 +82,7 @@
       name="inheritsTermName"
       value="MIRO_20000075" />
   </object>
+
 
   <object
     type="dss.vector.solutions.mo.ActiveIngredient"
@@ -3826,32 +3826,6 @@
 <valueAttribute
       name="inheritsTermName"
       value="MIRO_40002217" />
-  </object>
-
-  <object
-    type="dss.vector.solutions.mo.Specie"
-    id="MIRO_40003653">
-<valueAttribute
-      name="termId"
-      value="MIRO_40003653" />
-<valueAttribute
-      name="termName"
-      value="Culicinae" />
-<valueAttribute
-      name="displayLabel"
-      value="An. aruni" />
- <valueAttribute
-      name="oboNamespace"
-      value="" />
- <valueAttribute
-      name="definition"
-      value="A subfamily of Culicidae. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
-<valueAttribute
-      name="inheritsTerm"
-      value="Culicidae" />
-<valueAttribute
-      name="inheritsTermName"
-      value="MIRO_40003818" />
   </object>
 
   <object
