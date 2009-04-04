@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.molecular;
 
 public abstract class TargetSiteAssayTestResultDTOBase extends dss.vector.solutions.entomology.assay.AssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238027454709L;
+  private static final long serialVersionUID = 1238826382087L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult";
   protected TargetSiteAssayTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

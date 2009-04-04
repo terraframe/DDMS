@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.molecular;
 public  class AcHEWTestResultQuery extends dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027443230L;
+private static final long serialVersionUID = 1238826373395L;
 
   public AcHEWTestResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -103,7 +103,7 @@ private static final long serialVersionUID = 1238027443230L;
  implements AcHEWTestResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1238027443382L;
+private static final long serialVersionUID = 1238826373547L;
 
   public AcHEWTestResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

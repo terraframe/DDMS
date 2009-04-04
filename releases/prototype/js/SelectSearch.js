@@ -329,16 +329,19 @@ MDSS.SelectSearch = (function(){
    */
   _openTree = function()
   {
+  	var containerId = "treeViewContainer";
+  	
     if(_geoTreePanel == null)
     {
-      _geoTreePanel = new YAHOO.widget.Panel("treeViewContainer", {width:'300px', height:'300px', zindex:9});
+      _geoTreePanel = new YAHOO.widget.Panel(containerId, {width:'400px', height:'400px', zindex:9});
       
       // Bug Workaround: The Yahoo ContextMenu loses its event handlers in
       // the tree, so destroy the tree every time the panel is closed, then
       // use a new tree per request.
-      _geoTreePanel.subscribe('beforeHide', function(){
+      _geoTreePanel.subscribe('beforeHide', function(e, obj){
+      	YAHOO.util.Dom.setStyle(obj.containerId, 'overflow', 'none');
         MDSS.GeoEntityTree.destroyAll();
-      });
+      }, {containerId:containerId});
       _geoTreePanel.render();
       _geoTreePanel.bringToTop();
     }
@@ -352,6 +355,9 @@ MDSS.SelectSearch = (function(){
       _updateBestFit(geoEntity);
       _treeSelectHandler(geoEntity);
     }, _filterType);
+    
+    
+    YAHOO.util.Dom.setStyle(containerId, 'overflow', 'scroll');
   }
   
   /**

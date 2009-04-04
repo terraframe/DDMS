@@ -8,6 +8,17 @@
     <dl>
       <dt>
         <label>
+          ${item.multiPointMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="multiPoint" />
+        <mjl:messages attribute="multiPoint">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
           ${item.activatedMd.displayLabel}
         </label>
       </dt>
@@ -27,6 +38,17 @@
       </dd>
       <dt>
         <label>
+          ${item.gazIdMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="gazId" />
+        <mjl:messages attribute="gazId">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
           ${item.geoIdMd.displayLabel}
         </label>
       </dt>
@@ -38,5 +60,5 @@
       </dd>
     </dl>
   </mjl:component>
-  <mjl:command value="Create" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.create.mojo" name="dss.vector.solutions.geo.generated.NonSentinalSite.form.create.button" classes="submitButton"/>
+  <mjl:command value="Create" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.create.mojo" name="dss.vector.solutions.geo.generated.NonSentinalSite.form.create.button" />
 </mjl:form>

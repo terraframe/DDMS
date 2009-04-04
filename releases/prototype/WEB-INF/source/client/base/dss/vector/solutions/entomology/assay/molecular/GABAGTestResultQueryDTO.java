@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.molecular;
 public class GABAGTestResultQueryDTO extends dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027440537L;
+private static final long serialVersionUID = 1238826372123L;
 
   protected GABAGTestResultQueryDTO(String type)
   {

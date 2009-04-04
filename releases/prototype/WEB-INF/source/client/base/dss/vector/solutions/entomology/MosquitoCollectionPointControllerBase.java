@@ -9,7 +9,7 @@ public class MosquitoCollectionPointControllerBase implements com.terraframe.moj
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238027428987L;
+  private static final long serialVersionUID = 1238826344238L;
   
   public MosquitoCollectionPointControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

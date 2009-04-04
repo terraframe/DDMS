@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ApplicationException;
 
+import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 
 public class GeoEntityTreeController extends GeoEntityTreeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -41,6 +42,12 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
   @Override
   public void displayTree(String rootGeoEntityId) throws IOException, ServletException
   {
+    if(rootGeoEntityId == null || rootGeoEntityId.trim().length() == 0)
+    {
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      rootGeoEntityId = earth.getId();
+    }
+    
     req.setAttribute(ROOT_GEO_ENTITY_ID, rootGeoEntityId);
     
     if(this.isAsynchronous())
@@ -50,31 +57,6 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
     else
     {
       req.getRequestDispatcher(TREE_JSP).forward(req, resp);
-    }
-  }
-  
-  @Override
-  public void confirmChangeParent(String childId, String parentId) throws IOException, ServletException
-  {
-    req.setAttribute("parentId", parentId);
-    req.setAttribute("childId", childId);
-    
-    try
-    {
-      GeoEntityDTO.confirmChangeParent(this.getClientRequest(), childId, parentId);
-      
-      // We should never reach here
-      String error = "Unable to confirm parent change.";
-      ApplicationException ae = new ApplicationException(error);
-      String message = ae.getLocalizedMessage();
-      resp.sendError(500, message);
-    }
-    catch(ConfirmParentChangeExceptionDTO e)
-    {
-      String message = e.getLocalizedMessage();
-      req.setAttribute("confirmMessage", message);
-      
-      req.getRequestDispatcher(CONFIRM_PARENT_CHANGE_JSP).forward(req, resp);
     }
   }
   

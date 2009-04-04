@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
 public  class LethalTimePropertyQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027419423L;
+private static final long serialVersionUID = 1238826358801L;
 
   public LethalTimePropertyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -347,7 +347,7 @@ private static final long serialVersionUID = 1238027419423L;
  implements LethalTimePropertyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1238027419617L;
+private static final long serialVersionUID = 1238826358958L;
 
   public LethalTimePropertyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

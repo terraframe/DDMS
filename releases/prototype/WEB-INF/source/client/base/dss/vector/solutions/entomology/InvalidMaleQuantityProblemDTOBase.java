@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-public abstract class InvalidMaleQuantityProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class InvalidMaleQuantityProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMaleQuantityProblem";
   public InvalidMaleQuantityProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
@@ -18,7 +18,6 @@ public abstract class InvalidMaleQuantityProblemDTOBase extends com.terraframe.m
     return CLASS;
   }
   
-  public static java.lang.String ID = "id";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String QUANTITYMALE = "quantityMale";
   public Integer getQuantity()
@@ -116,7 +115,6 @@ public abstract class InvalidMaleQuantityProblemDTOBase extends com.terraframe.m
     {
       java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.InvalidMaleQuantityProblem", locale);
       
-      message = message.replace("{id}", this.getId().toString());
       message = message.replace("{quantity}", this.getQuantity().toString());
       message = message.replace("{quantityMale}", this.getQuantityMale().toString());
       

@@ -12,7 +12,7 @@ public abstract class PropertyValidationFailedExceptionBase extends com.terrafra
   public final static String CLASS = "dss.vector.solutions.PropertyValidationFailedException";
   public static java.lang.String ID = "id";
   public static java.lang.String VALIDVALUES = "validValues";
-  private static final long serialVersionUID = 1238027452797L;
+  private static final long serialVersionUID = 1238826354888L;
   
   public PropertyValidationFailedExceptionBase()
   {
@@ -112,15 +112,4 @@ public abstract class PropertyValidationFailedExceptionBase extends com.terrafra
     }
   }
   
-  public String toString()
-  {
-    if (this.isNew())
-    {
-      return "New: Property Validation Failed";
-    }
-    else
-    {
-      return super.toString();
-    }
-  }
 }

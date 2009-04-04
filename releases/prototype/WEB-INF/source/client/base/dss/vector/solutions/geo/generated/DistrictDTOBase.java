@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class DistrictDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238027429258L;
+  private static final long serialVersionUID = 1238826344526L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.District";
   protected DistrictDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -24,6 +24,44 @@ public abstract class DistrictDTOBase extends dss.vector.solutions.geo.generated
   protected java.lang.String getDeclaredType()
   {
     return CLASS;
+  }
+  
+  public static java.lang.String POLYGON = "polygon";
+  public com.vividsolutions.jts.geom.Polygon getPolygon()
+  {
+    return (com.vividsolutions.jts.geom.Polygon)getObjectValue(POLYGON);
+  }
+  
+  public void setPolygon(com.vividsolutions.jts.geom.Polygon value)
+  {
+    if(value == null)
+    {
+      setValue(POLYGON, "");
+    }
+    else
+    {
+      setValue(POLYGON, value);
+    }
+  }
+  
+  public boolean isPolygonWritable()
+  {
+    return isWritable(POLYGON);
+  }
+  
+  public boolean isPolygonReadable()
+  {
+    return isReadable(POLYGON);
+  }
+  
+  public boolean isPolygonModified()
+  {
+    return isModified(POLYGON);
+  }
+  
+  public final com.terraframe.mojo.gis.transport.metadata.AttributePolygonMdDTO getPolygonMd()
+  {
+    return (com.terraframe.mojo.gis.transport.metadata.AttributePolygonMdDTO) getAttributeDTO("polygon").getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.geo.generated.DistrictDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

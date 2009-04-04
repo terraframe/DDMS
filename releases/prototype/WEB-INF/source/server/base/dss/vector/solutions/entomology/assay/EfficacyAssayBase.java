@@ -26,7 +26,7 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
   public static java.lang.String SEX = "sex";
   public static java.lang.String SURFACEPOSTION = "surfacePostion";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1238027438233L;
+  private static final long serialVersionUID = 1238826369906L;
   
   public EfficacyAssayBase()
   {

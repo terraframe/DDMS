@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 public abstract class MetabolicAssayTestResultBase extends dss.vector.solutions.entomology.assay.AssayTestResult implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult";
-  private static final long serialVersionUID = 1238027449037L;
+  private static final long serialVersionUID = 1238826377731L;
   
   public MetabolicAssayTestResultBase()
   {

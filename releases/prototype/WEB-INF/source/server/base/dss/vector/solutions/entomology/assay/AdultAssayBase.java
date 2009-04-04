@@ -16,7 +16,7 @@ public abstract class AdultAssayBase extends dss.vector.solutions.entomology.ass
   public static java.lang.String FED = "fed";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String SEX = "sex";
-  private static final long serialVersionUID = 1238027432210L;
+  private static final long serialVersionUID = 1238826346540L;
   
   public AdultAssayBase()
   {

@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public  class AbstractSiteQuery extends dss.vector.solutions.geo.generated.GeoEntityQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027441699L;
+private static final long serialVersionUID = 1238826351172L;
 
   public AbstractSiteQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -26,6 +26,17 @@ private static final long serialVersionUID = 1238027441699L;
   public String getClassType()
   {
     return "dss.vector.solutions.geo.generated.AbstractSite";
+  }
+  public com.terraframe.mojo.query.AttributeCharIF getMultiPoint()
+  {
+    return getMultiPoint(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getMultiPoint(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.generated.AbstractSite.MULTIPOINT, "com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPoint", alias);
+
   }
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
@@ -58,6 +69,8 @@ private static final long serialVersionUID = 1238027441699L;
   public interface AbstractSiteQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF
   {
 
+    public com.terraframe.mojo.query.AttributeCharIF getMultiPoint();
+    public com.terraframe.mojo.query.AttributeCharIF getMultiPoint(String alias);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.geo.generated.AbstractSite abstractSite);
 
@@ -73,7 +86,7 @@ private static final long serialVersionUID = 1238027441699L;
  implements AbstractSiteQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1238027441856L;
+private static final long serialVersionUID = 1238826351325L;
 
   public AbstractSiteQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -92,5 +105,16 @@ private static final long serialVersionUID = 1238027441856L;
       return this.NE(abstractSite.getId());
     }
 
+  public com.terraframe.mojo.query.AttributeCharIF getMultiPoint()
+  {
+    return getMultiPoint(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getMultiPoint(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("multiPoint", "com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPoint", alias);
+
+  }
   }
 }

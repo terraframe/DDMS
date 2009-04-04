@@ -8,6 +8,17 @@
     <dl>
       <dt>
         <label>
+          ${item.multiPointMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="multiPoint" />
+        <mjl:messages attribute="multiPoint">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
           ${item.activatedMd.displayLabel}
         </label>
       </dt>
@@ -22,6 +33,17 @@
       <dd>
         <mjl:input type="text" param="entityName" />
         <mjl:messages attribute="entityName">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
+          ${item.gazIdMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="gazId" />
+        <mjl:messages attribute="gazId">
           <mjl:message />
         </mjl:messages>
       </dd>

@@ -12,7 +12,7 @@ public abstract class ModifyHierarchyWithInstancesExceptionBase extends com.terr
   public final static String CLASS = "dss.vector.solutions.geo.ModifyHierarchyWithInstancesException";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1238027422077L;
+  private static final long serialVersionUID = 1238826340401L;
   
   public ModifyHierarchyWithInstancesExceptionBase()
   {
@@ -112,15 +112,4 @@ public abstract class ModifyHierarchyWithInstancesExceptionBase extends com.terr
     }
   }
   
-  public String toString()
-  {
-    if (this.isNew())
-    {
-      return "New: Modify hierarchy with instances exception.";
-    }
-    else
-    {
-      return super.toString();
-    }
-  }
 }

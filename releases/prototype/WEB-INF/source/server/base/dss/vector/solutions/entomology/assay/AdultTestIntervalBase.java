@@ -25,7 +25,7 @@ public abstract class AdultTestIntervalBase extends com.terraframe.mojo.business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1238027435798L;
+  private static final long serialVersionUID = 1238826348593L;
   
   public AdultTestIntervalBase()
   {

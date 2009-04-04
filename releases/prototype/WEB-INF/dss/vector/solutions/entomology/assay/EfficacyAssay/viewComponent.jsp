@@ -7,12 +7,20 @@
 
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-      <dt>
+    <dt>
+      <label> ${item.geoEntityMd.displayLabel} </label>
+    </dt>
+    <dd>
+      <mjl:commandLink display="${item.geoEntity.entityName}" action="mdss.test.GeoEntityController.view.mojo" name="mdss.test.GeoEntity.form.view.link">
+        <mjl:property value="${item.geoEntity.id}" name="id" />
+      </mjl:commandLink>
+    </dd>
+    <dt>
       <label>
         ${item.testDateMd.displayLabel}
       </label>
     </dt>
-    <dd>
+    <dd class="formatDate">
       ${item.testDate}
     </dd>
      <dt>
@@ -170,9 +178,18 @@
     <dd>
       ${item.mortality}
     </dd>  
+    <dt>
+      <label>
+        Overall Mortality for surface: ${item.geoEntity.entityName}
+      </label>
+    </dt>
+    <dd>
+      ${item.overallMortalityRate}
+    </dd>      
   </dl>
 
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.edit.button" />
+  <mjl:command value="Copy Assay" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.cloneAssay.mojo" name="form.cloneAssay.button" />
   <br />
 </mjl:form>
 <dl>

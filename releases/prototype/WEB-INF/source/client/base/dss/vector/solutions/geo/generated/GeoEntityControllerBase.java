@@ -9,7 +9,7 @@ public class GeoEntityControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238027454079L;
+  private static final long serialVersionUID = 1238826381043L;
   
   public GeoEntityControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -2,7 +2,7 @@ package dss.vector.solutions;
 
 public abstract class PropertyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238027456520L;
+  private static final long serialVersionUID = 1238826383429L;
   
   public final static String CLASS = "dss.vector.solutions.Property";
   protected PropertyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -29,6 +29,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DESCRIPTION = "description";
+  public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
@@ -136,6 +137,43 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDescriptionMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("description").getAttributeMdDTO();
+  }
+  
+  public String getDisplayLabel()
+  {
+    return getValue(DISPLAYLABEL);
+  }
+  
+  public void setDisplayLabel(String value)
+  {
+    if(value == null)
+    {
+      setValue(DISPLAYLABEL, "");
+    }
+    else
+    {
+      setValue(DISPLAYLABEL, value);
+    }
+  }
+  
+  public boolean isDisplayLabelWritable()
+  {
+    return isWritable(DISPLAYLABEL);
+  }
+  
+  public boolean isDisplayLabelReadable()
+  {
+    return isReadable(DISPLAYLABEL);
+  }
+  
+  public boolean isDisplayLabelModified()
+  {
+    return isModified(DISPLAYLABEL);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("displayLabel").getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()

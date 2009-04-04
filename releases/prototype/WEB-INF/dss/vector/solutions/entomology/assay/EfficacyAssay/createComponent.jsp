@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="window_title" value="Efficacy bioassay data entry"  scope="request"/>
+<c:set var="page_title" value="Enter New Data"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -102,7 +104,7 @@
               <mjl:messages attribute="endPoint">
                 <mjl:message />
               </mjl:messages>
-            </dd>         
+            </dd>
           </mjl:struct>
         </dl>
       </dd>
@@ -241,4 +243,4 @@
   </mjl:component>
   <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.create.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.create.button" />
 </mjl:form>
-<div id="cal1Container" class="yui-skin-sam"></div> 
+<div id="cal1Container" class="yui-skin-sam"></div>

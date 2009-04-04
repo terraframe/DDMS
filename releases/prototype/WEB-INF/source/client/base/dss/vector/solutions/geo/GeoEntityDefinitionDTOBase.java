@@ -17,7 +17,6 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTGEOHIERARCHYID = "parentGeoHierarchyId";
-  public static java.lang.String PARENTTYPEID = "parentTypeId";
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String SPATIALTYPE = "spatialType";
   public static java.lang.String TYPENAME = "typeName";
@@ -130,43 +129,6 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getParentGeoHierarchyIdMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("parentGeoHierarchyId").getAttributeMdDTO();
-  }
-  
-  public String getParentTypeId()
-  {
-    return getValue(PARENTTYPEID);
-  }
-  
-  public void setParentTypeId(String value)
-  {
-    if(value == null)
-    {
-      setValue(PARENTTYPEID, "");
-    }
-    else
-    {
-      setValue(PARENTTYPEID, value);
-    }
-  }
-  
-  public boolean isParentTypeIdWritable()
-  {
-    return isWritable(PARENTTYPEID);
-  }
-  
-  public boolean isParentTypeIdReadable()
-  {
-    return isReadable(PARENTTYPEID);
-  }
-  
-  public boolean isParentTypeIdModified()
-  {
-    return isModified(PARENTTYPEID);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getParentTypeIdMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("parentTypeId").getAttributeMdDTO();
   }
   
   public Boolean getPolitical()

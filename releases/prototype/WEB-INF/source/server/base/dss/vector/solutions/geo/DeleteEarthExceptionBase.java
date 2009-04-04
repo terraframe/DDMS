@@ -12,7 +12,7 @@ public abstract class DeleteEarthExceptionBase extends com.terraframe.mojo.busin
   public final static String CLASS = "dss.vector.solutions.geo.DeleteEarthException";
   public static java.lang.String EARTHNAME = "earthName";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1238027419865L;
+  private static final long serialVersionUID = 1238826339666L;
   
   public DeleteEarthExceptionBase()
   {
@@ -112,15 +112,4 @@ public abstract class DeleteEarthExceptionBase extends com.terraframe.mojo.busin
     }
   }
   
-  public String toString()
-  {
-    if (this.isNew())
-    {
-      return "New: Delete Earth Exception";
-    }
-    else
-    {
-      return super.toString();
-    }
-  }
 }

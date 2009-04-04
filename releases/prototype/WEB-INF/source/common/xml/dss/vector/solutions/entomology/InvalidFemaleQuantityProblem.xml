@@ -3,7 +3,6 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.InvalidFemaleQuantityProblem">
   <!--
-    - {id} ID
     - {quantity} Quantity
     - {quantityFemale} Quantity Female
     -->

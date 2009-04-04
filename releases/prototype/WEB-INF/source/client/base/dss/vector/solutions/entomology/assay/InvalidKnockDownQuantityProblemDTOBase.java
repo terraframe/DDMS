@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-public abstract class InvalidKnockDownQuantityProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class InvalidKnockDownQuantityProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidKnockDownQuantityProblem";
   public InvalidKnockDownQuantityProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
@@ -18,47 +18,8 @@ public abstract class InvalidKnockDownQuantityProblemDTOBase extends com.terrafr
     return CLASS;
   }
   
-  public static java.lang.String ID = "id";
-  public static java.lang.String INTERVALID = "intervalId";
   public static java.lang.String QUANTITYKNOCKDOWN = "quantityKnockDown";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
-  public String getIntervalId()
-  {
-    return getValue(INTERVALID);
-  }
-  
-  public void setIntervalId(String value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVALID, "");
-    }
-    else
-    {
-      setValue(INTERVALID, value);
-    }
-  }
-  
-  public boolean isIntervalIdWritable()
-  {
-    return isWritable(INTERVALID);
-  }
-  
-  public boolean isIntervalIdReadable()
-  {
-    return isReadable(INTERVALID);
-  }
-  
-  public boolean isIntervalIdModified()
-  {
-    return isModified(INTERVALID);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIntervalIdMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("intervalId").getAttributeMdDTO();
-  }
-  
   public Integer getQuantityKnockDown()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITYKNOCKDOWN));
@@ -154,8 +115,6 @@ public abstract class InvalidKnockDownQuantityProblemDTOBase extends com.terrafr
     {
       java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.assay.InvalidKnockDownQuantityProblem", locale);
       
-      message = message.replace("{id}", this.getId().toString());
-      message = message.replace("{intervalId}", this.getIntervalId().toString());
       message = message.replace("{quantityKnockDown}", this.getQuantityKnockDown().toString());
       message = message.replace("{quantityTested}", this.getQuantityTested().toString());
       

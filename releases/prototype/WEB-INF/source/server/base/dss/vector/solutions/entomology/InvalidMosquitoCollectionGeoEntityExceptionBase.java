@@ -12,7 +12,7 @@ public abstract class InvalidMosquitoCollectionGeoEntityExceptionBase extends co
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1238027442381L;
+  private static final long serialVersionUID = 1238826351433L;
   
   public InvalidMosquitoCollectionGeoEntityExceptionBase()
   {
@@ -112,15 +112,4 @@ public abstract class InvalidMosquitoCollectionGeoEntityExceptionBase extends co
     }
   }
   
-  public String toString()
-  {
-    if (this.isNew())
-    {
-      return "New: Invalid Mosquito Collection";
-    }
-    else
-    {
-      return super.toString();
-    }
-  }
 }

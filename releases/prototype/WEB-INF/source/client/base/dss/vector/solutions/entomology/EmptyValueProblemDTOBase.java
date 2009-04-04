@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-public abstract class EmptyValueProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class EmptyValueProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.EmptyValueProblem";
   public EmptyValueProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
@@ -16,45 +16,6 @@ public abstract class EmptyValueProblemDTOBase extends com.terraframe.mojo.busin
   protected java.lang.String getDeclaredType()
   {
     return CLASS;
-  }
-  
-  public static java.lang.String ATTRIBUTELABEL = "attributeLabel";
-  public static java.lang.String ID = "id";
-  public String getAttributeLabel()
-  {
-    return getValue(ATTRIBUTELABEL);
-  }
-  
-  public void setAttributeLabel(String value)
-  {
-    if(value == null)
-    {
-      setValue(ATTRIBUTELABEL, "");
-    }
-    else
-    {
-      setValue(ATTRIBUTELABEL, value);
-    }
-  }
-  
-  public boolean isAttributeLabelWritable()
-  {
-    return isWritable(ATTRIBUTELABEL);
-  }
-  
-  public boolean isAttributeLabelReadable()
-  {
-    return isReadable(ATTRIBUTELABEL);
-  }
-  
-  public boolean isAttributeLabelModified()
-  {
-    return isModified(ATTRIBUTELABEL);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAttributeLabelMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("attributeLabel").getAttributeMdDTO();
   }
   
   /**
@@ -78,8 +39,6 @@ public abstract class EmptyValueProblemDTOBase extends com.terraframe.mojo.busin
     {
       java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.EmptyValueProblem", locale);
       
-      message = message.replace("{attributeLabel}", this.getAttributeLabel().toString());
-      message = message.replace("{id}", this.getId().toString());
       
       return message;
     }

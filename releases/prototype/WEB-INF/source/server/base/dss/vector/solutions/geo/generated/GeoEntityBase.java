@@ -15,6 +15,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String GAZID = "gazId";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
@@ -25,7 +26,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1238027449492L;
+  private static final long serialVersionUID = 1238826378561L;
   
   public GeoEntityBase()
   {
@@ -159,6 +160,34 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     else
     {
       setValue(ENTITYNAME, value);
+    }
+  }
+  
+  public Long getGazId()
+  {
+    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(GAZID));
+  }
+  
+  public void validateGazId()
+  {
+    this.validateAttribute(GAZID);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getGazIdMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.generated.GeoEntity.CLASS);
+    return mdClassIF.definesAttribute(GAZID);
+  }
+  
+  public void setGazId(Long value)
+  {
+    if(value == null)
+    {
+      setValue(GAZID, "");
+    }
+    else
+    {
+      setValue(GAZID, java.lang.Long.toString(value));
     }
   }
   
@@ -492,6 +521,18 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   {
     GeoEntity _instance = GeoEntity.get(id);
     return _instance.applyWithParent(parentGeoEntityId, cloneOperation);
+  }
+  
+  public void confirmDeleteEntity(java.lang.String parentId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void confirmDeleteEntity(java.lang.String id, java.lang.String parentId)
+  {
+    GeoEntity _instance = GeoEntity.get(id);
+    _instance.confirmDeleteEntity(parentId);
   }
   
   public static GeoEntity lock(java.lang.String id)

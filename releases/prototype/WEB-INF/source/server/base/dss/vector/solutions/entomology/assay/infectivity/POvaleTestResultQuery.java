@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.infectivity;
 public  class POvaleTestResultQuery extends dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027425995L;
+private static final long serialVersionUID = 1238826363905L;
 
   public POvaleTestResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -86,7 +86,7 @@ private static final long serialVersionUID = 1238027425995L;
  implements POvaleTestResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1238027426146L;
+private static final long serialVersionUID = 1238826364061L;
 
   public POvaleTestResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

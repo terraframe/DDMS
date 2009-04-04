@@ -3,9 +3,14 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}" classes="displayTable">
+<mjl:table var="item" query="${query}">
   <mjl:context action="dss.vector.solutions.geo.generated.NonSentinalSiteController.viewPage.mojo" />
   <mjl:columns>
+    <mjl:attributeColumn attributeName="multiPoint">
+      <mjl:header>
+        Multi Point
+      </mjl:header>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="activated">
       <mjl:header>
         Activated
@@ -14,6 +19,11 @@
     <mjl:attributeColumn attributeName="entityName">
       <mjl:header>
         Geo Entity Name
+      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="gazId">
+      <mjl:header>
+        Gaz Id
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoId">
@@ -40,4 +50,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Non-Sentinal Site" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.newInstance.mojo" name="NonSentinalSiteController.newInstance" />
+<mjl:commandLink display="Create a new Non Sentinal Site" action="dss.vector.solutions.geo.generated.NonSentinalSiteController.newInstance.mojo" name="NonSentinalSiteController.newInstance" />

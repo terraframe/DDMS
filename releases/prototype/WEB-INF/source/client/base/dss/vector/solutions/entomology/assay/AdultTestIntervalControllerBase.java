@@ -9,7 +9,7 @@ public class AdultTestIntervalControllerBase implements com.terraframe.mojo.gene
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238027420609L;
+  private static final long serialVersionUID = 1238826359559L;
   
   public AdultTestIntervalControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

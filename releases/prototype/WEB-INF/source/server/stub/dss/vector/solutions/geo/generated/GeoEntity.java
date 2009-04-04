@@ -1,16 +1,22 @@
 package dss.vector.solutions.geo.generated;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
+import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.dataaccess.InvalidIdException;
+import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
+import dss.vector.solutions.geo.DuplicateParentException;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInException;
@@ -39,9 +45,9 @@ public abstract class GeoEntity extends GeoEntityBase implements
    * @return
    */
   @Transaction
-  private String[] applyInternal()
+  private Set<String> applyInternal()
   {
-    List<String> ids = new LinkedList<String>();
+    Set<String> ids = new HashSet<String>();
 
     if (this.isModified(GeoEntity.ACTIVATED))
     {
@@ -52,7 +58,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     super.apply();
 
-    return ids.toArray(new String[ids.size()]);
+    return ids;
   }
 
   /**
@@ -64,32 +70,65 @@ public abstract class GeoEntity extends GeoEntityBase implements
   @Override
   public String[] updateFromTree()
   {
-    return applyInternal();
+    Set<String> ids = applyInternal();
+    return ids.toArray(new String[ids.size()]);
   }
 
   public static GeoEntity searchByGeoId(java.lang.String geoId)
   {
-    GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
+    QueryFactory queryFactory = new QueryFactory();
 
-    query.WHERE(query.getGeoId().EQ(geoId));
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
 
-    OIterator<? extends GeoEntity> iterator = query.getIterator();
+    GeoEntityQuery geoEntityQ = new GeoEntityQuery(queryFactory);
+
+    valueQuery.SELECT(geoEntityQ.getId(GeoEntity.ID));
+    valueQuery.WHERE(geoEntityQ.getGeoId().EQ(geoId));
+
+    OIterator<? extends ValueObject> iterator = valueQuery.getIterator();
     try
     {
       if (iterator.hasNext())
       {
-        return iterator.next();
+        ValueObject valueObject = iterator.next();
+
+        String id = valueObject.getValue(GeoEntity.ID);
+
+        return (GeoEntity) Business.get(id);
       }
       else
       {
         String msg = "A GeoEntity with the geoId [" + geoId + "] does not exist";
-        throw new InvalidIdException(msg, geoId);        
+        throw new InvalidIdException(msg, geoId);
       }
     }
     finally
     {
       iterator.close();
     }
+
+    // Heads up: clean up
+    // GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
+    //
+    // query.WHERE(query.getGeoId().EQ(geoId));
+    //
+    // OIterator<? extends GeoEntity> iterator = query.getIterator();
+    // try
+    // {
+    // if (iterator.hasNext())
+    // {
+    // return iterator.next();
+    // }
+    // else
+    // {
+    // String msg = "A GeoEntity with the geoId [" + geoId + "] does not exist";
+    // throw new InvalidIdException(msg, geoId);
+    // }
+    // }
+    // finally
+    // {
+    // iterator.close();
+    // }
   }
 
   /**
@@ -191,33 +230,48 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
       // CHECK: a child with more than one parent set to active
       // cannot be deactivated.
-      List<GeoEntity> parents = child.getImmediateParents();
-      boolean changeActivated = true;
-      if (!activated && parents.size() > 1)
-      {
-        for (GeoEntity nextParent : parents)
-        {
-          if (nextParent.getActivated())
-          {
-            changeActivated = false;
-            break;
-          }
-        }
-      }
-
-      if (changeActivated)
+      if (child.eligibleForActiveChange(activated))
       {
         child.appLock();
         child.setActivated(activated);
-        child.apply();
+        ids.addAll(child.applyInternal());
 
         ids.add(child.getId());
-
-        setChildEntityActivated(activated, child);
       }
     }
 
     return ids;
+  }
+
+  /**
+   * Checks if this GoeEntity is eligible to have its active status changed. The
+   * general rule is as follows: A child with more than one parent set to active
+   * cannot be deactivated. All other cases are allowed.
+   * 
+   * @param activated
+   *            The active status of the parent.
+   * @return
+   */
+  private boolean eligibleForActiveChange(boolean activated)
+  {
+    List<GeoEntity> parents = this.getImmediateParents();
+
+    if (!activated && parents.size() > 1)
+    {
+      for (GeoEntity nextParent : parents)
+      {
+        if (nextParent.getActivated())
+        {
+          return false;
+        }
+      }
+
+      return true;
+    }
+    else
+    {
+      return true;
+    }
   }
 
   /**
@@ -230,9 +284,25 @@ public abstract class GeoEntity extends GeoEntityBase implements
   @Transaction
   public String[] applyWithParent(String parentGeoEntityId, Boolean cloneOperation)
   {
+    GeoEntity parent = GeoEntity.get(parentGeoEntityId);
+
+    // set the active status of the child to that of the parent
+    // unless the child has more than one parent.
+
     if (this.isNew())
     {
-      this.apply();
+      this.apply(); // has no children
+    }
+
+    // make sure a child cannot be applied to itself
+    if (this.getId().equals(parentGeoEntityId))
+    {
+      String error = "The child [" + this.getEntityName() + "] cannot be its own parent.";
+
+      LocatedInException e = new LocatedInException(error);
+      e.setEntityName(this.getEntityName());
+      e.setParentDisplayLabel(this.getEntityName());
+      throw e;
     }
 
     if (!cloneOperation)
@@ -250,13 +320,48 @@ public abstract class GeoEntity extends GeoEntityBase implements
         iter.close();
       }
     }
+    else
+    {
+      // confirm this entity can't be applied to the same
+      // parent more than once.
+      QueryFactory f = new QueryFactory();
+      LocatedInQuery q = new LocatedInQuery(f);
+      q.WHERE(q.childId().EQ(this.getId()));
+      q.WHERE(q.parentId().EQ(parentGeoEntityId));
 
-    GeoEntity parent = GeoEntity.get(parentGeoEntityId);
+      if (q.getCount() > 0)
+      {
+        String childDL = this.getEntityName();
+        String parentDL = parent.getEntityName();
+
+        String error = "The child [" + childDL + "] is already located in the parent [" + parentDL
+            + "].";
+        DuplicateParentException e = new DuplicateParentException(error);
+        e.setChildEntityName(childDL);
+        e.setParentEntityName(parentDL);
+
+        throw e;
+      }
+    }
+
     this.addLocatedInGeoEntity(parent).apply();
 
-    // update activated status on all new children
-    List<String> ids = setChildEntityActivated(parent.getActivated(), parent);
-    return ids.toArray(new String[ids.size()]);
+    // update this GeoEntity and all its 
+    // children with the parent's active status.
+    boolean parentActivated = parent.getActivated();
+    boolean childActivated = this.getActivated();
+    
+    if (parentActivated != childActivated && this.eligibleForActiveChange(parentActivated))
+    {
+      this.appLock();
+      this.setActivated(parentActivated);
+      Set<String> ids = this.applyInternal();
+      return ids.toArray(new String[ids.size()]);
+    }
+    else
+    {
+      return new String[]{};
+    }
   }
 
   @Override
@@ -309,7 +414,8 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     if (!match)
     {
-      LocatedInException e = new LocatedInException();
+      String error = "The universal type [" + childType + "] cannot be located in [" + parentType + "].";
+      LocatedInException e = new LocatedInException(error);
       e.setEntityName(this.getEntityName());
       e.setParentDisplayLabel(parentMd.getDisplayLabel());
       throw e;
@@ -364,29 +470,29 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     locQuery.WHERE(locQuery.parentId().EQ(this.getId()));
     geoQuery.WHERE(geoQuery.locatedInGeoEntity(locQuery));
-    
+
     // filter by type if possible (and all of type's child subclasses)
-    if(filter != null && filter.trim().length() > 0)
+    if (filter != null && filter.trim().length() > 0)
     {
       // get allowed types by filter, which includes all parents and children
       // of the filter type and the filter type itself.
       List<GeoHierarchy> allowedTypes = new LinkedList<GeoHierarchy>();
       GeoHierarchy filterType = GeoHierarchy.getGeoHierarchyFromType(filter);
-      
+
       allowedTypes.addAll(filterType.getAllChildren());
       allowedTypes.add(filterType);
       allowedTypes.addAll(filterType.getAllParents());
-      
+
       String[] types = new String[allowedTypes.size()];
-      for(int i=0; i<allowedTypes.size(); i++)
+      for (int i = 0; i < allowedTypes.size(); i++)
       {
         GeoHierarchy allowedType = allowedTypes.get(i);
-        types[i] = MDSSInfo.GENERATED_GEO_PACKAGE +"."+ allowedType.getGeoEntityClass().getTypeName();
+        types[i] = MDSSInfo.GENERATED_GEO_PACKAGE + "." + allowedType.getGeoEntityClass().getTypeName();
       }
-      
+
       geoQuery.WHERE(geoQuery.getType().IN(types));
     }
-    
+
     geoQuery.ORDER_BY_ASC(geoQuery.getEntityName());
 
     return geoQuery;

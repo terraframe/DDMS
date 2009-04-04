@@ -11,7 +11,7 @@ public abstract class BAcetateTestResultBase extends dss.vector.solutions.entomo
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1238027431371L;
+  private static final long serialVersionUID = 1238826366378L;
   
   public BAcetateTestResultBase()
   {

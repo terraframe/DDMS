@@ -3,8 +3,6 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.assay.InvalidFedSexProblem">
   <!--
-    - {assayId} Assay Id
-    - {id} ID
     -->
   <locale language="en">Fed values must be zero when a collection sex is male or unknown.</locale>
 </exception>

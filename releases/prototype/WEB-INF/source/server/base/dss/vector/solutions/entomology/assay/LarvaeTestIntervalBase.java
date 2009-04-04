@@ -25,7 +25,7 @@ public abstract class LarvaeTestIntervalBase extends com.terraframe.mojo.busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1238027447406L;
+  private static final long serialVersionUID = 1238826376560L;
   
   public LarvaeTestIntervalBase()
   {

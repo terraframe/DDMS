@@ -9,7 +9,7 @@ public class AdultDiscriminatingDoseAssayControllerBase implements com.terrafram
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238027423065L;
+  private static final long serialVersionUID = 1238826361436L;
   
   public AdultDiscriminatingDoseAssayControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -12,7 +12,7 @@ public abstract class DuplicateEarthExceptionBase extends com.terraframe.mojo.bu
   public final static String CLASS = "dss.vector.solutions.geo.DuplicateEarthException";
   public static java.lang.String EARTHNAME = "earthName";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1238027450472L;
+  private static final long serialVersionUID = 1238826353389L;
   
   public DuplicateEarthExceptionBase()
   {
@@ -112,15 +112,4 @@ public abstract class DuplicateEarthExceptionBase extends com.terraframe.mojo.bu
     }
   }
   
-  public String toString()
-  {
-    if (this.isNew())
-    {
-      return "New: Dupliate Earth Exception";
-    }
-    else
-    {
-      return super.toString();
-    }
-  }
 }

@@ -10,19 +10,20 @@
   <dl>
     <dt>
       <label>
+        ${item.propertyNameMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.displayLabel}
+    </dd>
+  
+    <dt>
+      <label>
         ${item.descriptionMd.displayLabel}
       </label>
     </dt>
     <dd>
       ${item.description}
-    </dd>
-    <dt>
-      <label>
-        ${item.propertyNameMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.propertyName}
     </dd>
     <dt>
       <label>

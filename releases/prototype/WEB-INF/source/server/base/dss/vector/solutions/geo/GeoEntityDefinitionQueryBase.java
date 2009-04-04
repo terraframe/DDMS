@@ -10,7 +10,7 @@ package dss.vector.solutions.geo;
 public  abstract  class GeoEntityDefinitionQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027433268L;
+private static final long serialVersionUID = 1238826347637L;
 
   public GeoEntityDefinitionQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -70,18 +70,6 @@ private static final long serialVersionUID = 1238027433268L;
   public com.terraframe.mojo.query.AttributeCharIF getParentGeoHierarchyId(String alias)
   {
     return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(dss.vector.solutions.geo.GeoEntityDefinition.PARENTGEOHIERARCHYID, alias);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeCharIF getParentTypeId()
-  {
-    return getParentTypeId(null);
-
-  }
- 
-  public com.terraframe.mojo.query.AttributeCharIF getParentTypeId(String alias)
-  {
-    return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(dss.vector.solutions.geo.GeoEntityDefinition.PARENTTYPEID, alias);
 
   }
  

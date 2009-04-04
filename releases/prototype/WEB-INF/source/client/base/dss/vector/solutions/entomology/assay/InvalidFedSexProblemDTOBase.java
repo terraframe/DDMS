@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-public abstract class InvalidFedSexProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class InvalidFedSexProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidFedSexProblem";
   public InvalidFedSexProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
@@ -16,45 +16,6 @@ public abstract class InvalidFedSexProblemDTOBase extends com.terraframe.mojo.bu
   protected java.lang.String getDeclaredType()
   {
     return CLASS;
-  }
-  
-  public static java.lang.String ASSAYID = "assayId";
-  public static java.lang.String ID = "id";
-  public String getAssayId()
-  {
-    return getValue(ASSAYID);
-  }
-  
-  public void setAssayId(String value)
-  {
-    if(value == null)
-    {
-      setValue(ASSAYID, "");
-    }
-    else
-    {
-      setValue(ASSAYID, value);
-    }
-  }
-  
-  public boolean isAssayIdWritable()
-  {
-    return isWritable(ASSAYID);
-  }
-  
-  public boolean isAssayIdReadable()
-  {
-    return isReadable(ASSAYID);
-  }
-  
-  public boolean isAssayIdModified()
-  {
-    return isModified(ASSAYID);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAssayIdMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("assayId").getAttributeMdDTO();
   }
   
   /**
@@ -78,8 +39,6 @@ public abstract class InvalidFedSexProblemDTOBase extends com.terraframe.mojo.bu
     {
       java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.assay.InvalidFedSexProblem", locale);
       
-      message = message.replace("{assayId}", this.getAssayId().toString());
-      message = message.replace("{id}", this.getId().toString());
       
       return message;
     }

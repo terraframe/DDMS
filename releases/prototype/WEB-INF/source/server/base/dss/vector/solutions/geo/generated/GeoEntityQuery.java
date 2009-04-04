@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public  class GeoEntityQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027449673L;
+private static final long serialVersionUID = 1238826378747L;
 
   public GeoEntityQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -86,6 +86,17 @@ private static final long serialVersionUID = 1238027449673L;
   public com.terraframe.mojo.query.AttributeCharIF getEntityName(String alias)
   {
     return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
+
+  }
+  public com.terraframe.mojo.query.AttributeLongIF getGazId()
+  {
+    return getGazId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeLongIF getGazId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeLongIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.generated.GeoEntity.GAZID, "com.terraframe.mojo.system.metadata.MdAttributeLong", alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getGeoId()
@@ -395,6 +406,8 @@ private static final long serialVersionUID = 1238027449673L;
     public com.terraframe.mojo.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getEntityName();
     public com.terraframe.mojo.query.AttributeCharIF getEntityName(String alias);
+    public com.terraframe.mojo.query.AttributeLongIF getGazId();
+    public com.terraframe.mojo.query.AttributeLongIF getGazId(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getGeoId();
     public com.terraframe.mojo.query.AttributeCharIF getGeoId(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getId();
@@ -456,7 +469,7 @@ private static final long serialVersionUID = 1238027449673L;
  implements GeoEntityQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1238027449871L;
+private static final long serialVersionUID = 1238826378952L;
 
   public GeoEntityQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -528,6 +541,17 @@ private static final long serialVersionUID = 1238027449871L;
   public com.terraframe.mojo.query.AttributeCharIF getEntityName(String alias)
   {
     return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("entityName", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
+
+  }
+  public com.terraframe.mojo.query.AttributeLongIF getGazId()
+  {
+    return getGazId(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeLongIF getGazId(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeLongIF)this.attributeFactory("gazId", "com.terraframe.mojo.system.metadata.MdAttributeLong", alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getGeoId()

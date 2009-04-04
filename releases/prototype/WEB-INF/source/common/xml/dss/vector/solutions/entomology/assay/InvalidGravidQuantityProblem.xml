@@ -3,9 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem">
   <!--
-    - {assayId} Assay Id
-    - {gravid} Gravid
-    - {id} ID
+    - {gravid} Number Gravid
     -->
   <locale language="en">The quantity of gravid [{gravid}] cannot exceed the total quantity of mosquitos tested.</locale>
 </exception>

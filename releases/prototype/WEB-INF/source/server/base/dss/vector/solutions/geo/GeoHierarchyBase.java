@@ -24,7 +24,7 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1238027443874L;
+  private static final long serialVersionUID = 1238826351630L;
   
   public GeoHierarchyBase()
   {
@@ -416,6 +416,12 @@ public abstract class GeoHierarchyBase extends com.terraframe.mojo.business.Busi
   public static GeoHierarchy get(String id)
   {
     return (GeoHierarchy) com.terraframe.mojo.business.Business.get(id);
+  }
+  
+  public static dss.vector.solutions.geo.GeoHierarchyView getEarthGeoHierarchy()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoHierarchy.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static dss.vector.solutions.geo.GeoHierarchyView[] getPoliticalGeoHierarchies(java.lang.String geoEntityId)

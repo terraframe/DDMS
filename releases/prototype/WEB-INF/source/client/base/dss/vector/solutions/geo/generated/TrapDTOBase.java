@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class TrapDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238027451936L;
+  private static final long serialVersionUID = 1238826354416L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.Trap";
   protected TrapDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -24,6 +24,44 @@ public abstract class TrapDTOBase extends dss.vector.solutions.geo.generated.Geo
   protected java.lang.String getDeclaredType()
   {
     return CLASS;
+  }
+  
+  public static java.lang.String POINT = "point";
+  public com.vividsolutions.jts.geom.Point getPoint()
+  {
+    return (com.vividsolutions.jts.geom.Point)getObjectValue(POINT);
+  }
+  
+  public void setPoint(com.vividsolutions.jts.geom.Point value)
+  {
+    if(value == null)
+    {
+      setValue(POINT, "");
+    }
+    else
+    {
+      setValue(POINT, value);
+    }
+  }
+  
+  public boolean isPointWritable()
+  {
+    return isWritable(POINT);
+  }
+  
+  public boolean isPointReadable()
+  {
+    return isReadable(POINT);
+  }
+  
+  public boolean isPointModified()
+  {
+    return isModified(POINT);
+  }
+  
+  public final com.terraframe.mojo.gis.transport.metadata.AttributePointMdDTO getPointMd()
+  {
+    return (com.terraframe.mojo.gis.transport.metadata.AttributePointMdDTO) getAttributeDTO("point").getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.geo.generated.TrapDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

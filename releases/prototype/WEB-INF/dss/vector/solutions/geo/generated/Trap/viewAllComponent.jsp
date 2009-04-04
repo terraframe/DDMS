@@ -6,6 +6,11 @@
 <mjl:table var="item" query="${query}">
   <mjl:context action="dss.vector.solutions.geo.generated.TrapController.viewPage.mojo" />
   <mjl:columns>
+    <mjl:attributeColumn attributeName="point">
+      <mjl:header>
+        Point
+      </mjl:header>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="activated">
       <mjl:header>
         Activated
@@ -14,6 +19,11 @@
     <mjl:attributeColumn attributeName="entityName">
       <mjl:header>
         Geo Entity Name
+      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="gazId">
+      <mjl:header>
+        Gaz Id
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoId">
@@ -40,4 +50,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Trap" action="dss.vector.solutions.geo.generated.TrapController.newInstance.mojo" name="TrapController.newInstance" />
+<mjl:commandLink display="Create a new Exit Trap" action="dss.vector.solutions.geo.generated.TrapController.newInstance.mojo" name="TrapController.newInstance" />

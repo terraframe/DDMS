@@ -273,6 +273,28 @@ h2
 	margin-top: 15px;
 }
 
+#queryPanel {
+	width: 520px;
+	height: 620px;
+	border: 1px solid black;
+}
+
+ul#queryItemsList li {
+  background-color: white;
+  padding:5px;
+  border: 1px solid black;
+}
+
+div#dateRange {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+#startDateRange, #endDateRange {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 dl
 {
 	border: 2px solid #CCC;
@@ -283,6 +305,12 @@ dl
 	min-width: 300px;
 	max-width: 860px;
 	margin-left: 12px;
+}
+
+input.queryButton {
+	float: right;
+	margin-top: 10px;
+	margin-right: 10px;
 }
 
 .fldContainer
@@ -319,4 +347,43 @@ dl
 	background: url(/MDSS/imgs/icons/error_large.gif) no-repeat top left;
 	min-height: 32px;
 	text-indent: 40px;
+}
+
+.modalAlertBox
+{
+	margin-top: 20px;
+}
+
+ul.geoEntityPanelList
+{
+	margin: 5px;
+}
+
+div.thematicVariable
+{
+	background-color: red !important;
+}
+
+.drag-hint {
+  background-color: #ff0000;
+  color: white;
+}
+
+.dragging
+{
+  opacity: 0.76;
+  border: 1px solid gray;
+  filter: "alpha(opacity=76)";
+}
+
+.activeEntity
+{
+	background: url(/MDSS/imgs/green_dot.gif) no-repeat left;
+	padding-left: 10px;
+}
+
+.inactiveEntity
+{
+	background: url(/MDSS/imgs/red_dot.gif) no-repeat left;
+	padding-left: 10px;
 }

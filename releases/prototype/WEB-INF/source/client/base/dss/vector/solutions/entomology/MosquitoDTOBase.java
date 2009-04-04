@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class MosquitoDTOBase extends dss.vector.solutions.entomology.TrueSpecieEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238027437407L;
+  private static final long serialVersionUID = 1238826369592L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.Mosquito";
   protected MosquitoDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -185,6 +185,22 @@ public abstract class MosquitoDTOBase extends dss.vector.solutions.entomology.Tr
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTestDateMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("testDate").getAttributeMdDTO();
+  }
+  
+  public static final com.terraframe.mojo.query.ValueQuery queryEntomology(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String queryXML)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{queryXML};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoDTO.CLASS, "queryEntomology", _declaredTypes);
+    return (com.terraframe.mojo.query.ValueQuery) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.String mapQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String queryXML)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{queryXML};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoDTO.CLASS, "mapQuery", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.entomology.MosquitoDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

@@ -3,7 +3,6 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.general.InvalidPercentageProblem">
   <!--
-    - {id} ID
     - {invalidPercent} Percent
     -->
   <locale language="en">Replace this with your customized error message.</locale>

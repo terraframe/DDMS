@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public  class TrapQuery extends dss.vector.solutions.geo.generated.GeoEntityQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027451989L;
+private static final long serialVersionUID = 1238826354471L;
 
   public TrapQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -26,6 +26,17 @@ private static final long serialVersionUID = 1238027451989L;
   public String getClassType()
   {
     return "dss.vector.solutions.geo.generated.Trap";
+  }
+  public com.terraframe.mojo.query.AttributeCharIF getPoint()
+  {
+    return getPoint(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getPoint(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.generated.Trap.POINT, "com.terraframe.mojo.system.gis.metadata.MdAttributePoint", alias);
+
   }
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
@@ -58,6 +69,8 @@ private static final long serialVersionUID = 1238027451989L;
   public interface TrapQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF
   {
 
+    public com.terraframe.mojo.query.AttributeCharIF getPoint();
+    public com.terraframe.mojo.query.AttributeCharIF getPoint(String alias);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.geo.generated.Trap trap);
 
@@ -73,7 +86,7 @@ private static final long serialVersionUID = 1238027451989L;
  implements TrapQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1238027452142L;
+private static final long serialVersionUID = 1238826354623L;
 
   public TrapQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -92,5 +105,16 @@ private static final long serialVersionUID = 1238027452142L;
       return this.NE(trap.getId());
     }
 
+  public com.terraframe.mojo.query.AttributeCharIF getPoint()
+  {
+    return getPoint(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getPoint(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("point", "com.terraframe.mojo.system.gis.metadata.MdAttributePoint", alias);
+
+  }
   }
 }

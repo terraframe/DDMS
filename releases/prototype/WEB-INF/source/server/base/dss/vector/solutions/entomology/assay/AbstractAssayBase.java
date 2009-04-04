@@ -25,7 +25,7 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1238027445629L;
+  private static final long serialVersionUID = 1238826352168L;
   
   public AbstractAssayBase()
   {
@@ -396,6 +396,12 @@ public abstract class AbstractAssayBase extends com.terraframe.mojo.business.Bus
   public static AbstractAssay get(String id)
   {
     return (AbstractAssay) com.terraframe.mojo.business.Business.get(id);
+  }
+  
+  public static java.lang.String getAssayTree()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AbstractAssay.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static AbstractAssay lock(java.lang.String id)

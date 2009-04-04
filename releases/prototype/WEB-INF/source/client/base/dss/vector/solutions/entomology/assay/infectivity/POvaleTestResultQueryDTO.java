@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.infectivity;
 public class POvaleTestResultQueryDTO extends dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027426247L;
+private static final long serialVersionUID = 1238826364161L;
 
   protected POvaleTestResultQueryDTO(String type)
   {

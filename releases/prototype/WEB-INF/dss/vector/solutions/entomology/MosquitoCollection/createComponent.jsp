@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:messages>
@@ -55,10 +55,10 @@
       </dd>
     </dl>
   </mjl:component>
-   
 
 
-<div class="submitButton_bl"></div>  
+
+<div class="submitButton_bl"></div>
   <mjl:command value="Create" action="dss.vector.solutions.entomology.MosquitoCollectionController.create.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.create.button" classes="submitButton"/>
 </mjl:form>
-<div id="cal1Container" class="yui-skin-sam"></div> 
+<div id="cal1Container" class="yui-skin-sam"></div>

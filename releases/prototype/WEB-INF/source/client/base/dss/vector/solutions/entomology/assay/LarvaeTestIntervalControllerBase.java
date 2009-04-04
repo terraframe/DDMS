@@ -9,7 +9,7 @@ public class LarvaeTestIntervalControllerBase implements com.terraframe.mojo.gen
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238027442410L;
+  private static final long serialVersionUID = 1238826351445L;
   
   public LarvaeTestIntervalControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

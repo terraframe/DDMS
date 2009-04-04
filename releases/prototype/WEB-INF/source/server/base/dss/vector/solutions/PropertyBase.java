@@ -13,6 +13,7 @@ public abstract class PropertyBase extends com.terraframe.mojo.business.Business
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DESCRIPTION = "description";
+  public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
@@ -28,7 +29,7 @@ public abstract class PropertyBase extends com.terraframe.mojo.business.Business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1238027456457L;
+  private static final long serialVersionUID = 1238826383334L;
   
   public PropertyBase()
   {
@@ -99,6 +100,34 @@ public abstract class PropertyBase extends com.terraframe.mojo.business.Business
     else
     {
       setValue(DESCRIPTION, value);
+    }
+  }
+  
+  public String getDisplayLabel()
+  {
+    return getValue(DISPLAYLABEL);
+  }
+  
+  public void validateDisplayLabel()
+  {
+    this.validateAttribute(DISPLAYLABEL);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getDisplayLabelMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.Property.CLASS);
+    return mdClassIF.definesAttribute(DISPLAYLABEL);
+  }
+  
+  public void setDisplayLabel(String value)
+  {
+    if(value == null)
+    {
+      setValue(DISPLAYLABEL, "");
+    }
+    else
+    {
+      setValue(DISPLAYLABEL, value);
     }
   }
   

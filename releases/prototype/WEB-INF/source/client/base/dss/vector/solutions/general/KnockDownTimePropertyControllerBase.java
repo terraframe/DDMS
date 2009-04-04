@@ -9,7 +9,7 @@ public class KnockDownTimePropertyControllerBase implements com.terraframe.mojo.
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238027451475L;
+  private static final long serialVersionUID = 1238826380036L;
   
   public KnockDownTimePropertyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

@@ -23,7 +23,8 @@ public class LarvaeTestInterval extends LarvaeTestIntervalBase implements com.te
         String msg = "Interval time * period is larger than exposure time";
         InvalidPeriodProblem p = new InvalidPeriodProblem(msg);
         p.setPeriod(this.getPeriod());
-        p.setIntervalId(this.getId());
+        p.setNotification(this, PERIOD);
+        p.apply();
         p.throwIt();
       }
     }
@@ -45,7 +46,8 @@ public class LarvaeTestInterval extends LarvaeTestIntervalBase implements com.te
         InvalidKnockDownQuantityProblem p = new InvalidKnockDownQuantityProblem(msg);
         p.setQuantityKnockDown(this.getQuantityDead());
         p.setQuantityTested(quantityTested);
-        p.setIntervalId(this.getId());
+        p.setNotification(this, QUANTITYDEAD);
+        p.apply();
         p.throwIt();
       }
     }

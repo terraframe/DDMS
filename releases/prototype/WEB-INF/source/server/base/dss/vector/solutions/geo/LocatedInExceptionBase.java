@@ -13,7 +13,7 @@ public abstract class LocatedInExceptionBase extends com.terraframe.mojo.busines
   public static java.lang.String ENTITYNAME = "entityName";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTDISPLAYLABEL = "parentDisplayLabel";
-  private static final long serialVersionUID = 1238027444804L;
+  private static final long serialVersionUID = 1238826352153L;
   
   public LocatedInExceptionBase()
   {
@@ -142,15 +142,4 @@ public abstract class LocatedInExceptionBase extends com.terraframe.mojo.busines
     }
   }
   
-  public String toString()
-  {
-    if (this.isNew())
-    {
-      return "New: Located In Exception";
-    }
-    else
-    {
-      return super.toString();
-    }
-  }
 }

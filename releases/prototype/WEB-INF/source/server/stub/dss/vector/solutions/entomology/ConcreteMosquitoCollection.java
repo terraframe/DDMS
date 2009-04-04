@@ -1,5 +1,6 @@
 package dss.vector.solutions.entomology;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,37 @@ public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollect
   public ConcreteMosquitoCollection()
   {
     super();
+  }
+
+  @Override
+  public void validateDateCollected()
+  {
+    if (this.getDateCollected() != null)
+    {
+      super.validateDateCollected();
+
+      Date current = new Date();
+
+      if (current.before(this.getDateCollected()))
+      {
+        String msg = "It is impossible to have a collection date before the current date";        
+        
+        InvalidCollectionDateProblem p = new InvalidCollectionDateProblem(msg);
+        p.setCollectionDate(this.getDateCollected());
+        p.setCurrentDate(current);
+        p.setNotification(this, DATECOLLECTED);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+  
+  @Override
+  public void apply()
+  {
+    validateDateCollected();
+    
+    super.apply();
   }
 
   @Override

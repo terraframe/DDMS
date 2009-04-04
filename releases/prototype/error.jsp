@@ -1,7 +1,7 @@
 <%@ page
   language="java"
-  contentType="text/html; charset=ISO-8859-1"
-  pageEncoding="ISO-8859-1"%>
+  contentType="text/html; charset=UTF-8"
+  pageEncoding="UTF-8"%>
 <%@page isErrorPage="true"%>
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
@@ -25,5 +25,13 @@
 		Halp.sendErrorMail(exception, request);
 		out.print(exception.getClass().getName() + "<br/><br/>");
 		out.println("A developer has been sent an email regarding this error.");
+		out.println("<pre style='color:#000'>");
+		out.print(exception.getLocalizedMessage());
+		out.println("</pre>");
+		out.println("<pre style='color:#000'>");
+		PrintWriter pw = new PrintWriter(out);
+		exception.printStackTrace(pw);
+		out.println("</pre>");
+    
 	}
 %>

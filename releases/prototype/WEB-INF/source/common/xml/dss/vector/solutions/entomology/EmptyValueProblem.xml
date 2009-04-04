@@ -3,8 +3,6 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.EmptyValueProblem">
   <!--
-    - {attributeLabel} Attribute Label
-    - {id} ID
     -->
   <locale language="en">The attribute [{attributeLabel}] for morphological specie groups on mosquito collections requires a value.</locale>
 </exception>

@@ -35,7 +35,7 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
         ${item.testDateMd.displayLabel}
       </label>
     </dt>
-    <dd>
+    <dd class="formatDate">
       ${item.testDate}
     </dd>
      <dt>

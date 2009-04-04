@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class ProvinceDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238027424259L;
+  private static final long serialVersionUID = 1238826362541L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.Province";
   protected ProvinceDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -24,6 +24,44 @@ public abstract class ProvinceDTOBase extends dss.vector.solutions.geo.generated
   protected java.lang.String getDeclaredType()
   {
     return CLASS;
+  }
+  
+  public static java.lang.String MULTIPOLYGON = "multiPolygon";
+  public com.vividsolutions.jts.geom.MultiPolygon getMultiPolygon()
+  {
+    return (com.vividsolutions.jts.geom.MultiPolygon)getObjectValue(MULTIPOLYGON);
+  }
+  
+  public void setMultiPolygon(com.vividsolutions.jts.geom.MultiPolygon value)
+  {
+    if(value == null)
+    {
+      setValue(MULTIPOLYGON, "");
+    }
+    else
+    {
+      setValue(MULTIPOLYGON, value);
+    }
+  }
+  
+  public boolean isMultiPolygonWritable()
+  {
+    return isWritable(MULTIPOLYGON);
+  }
+  
+  public boolean isMultiPolygonReadable()
+  {
+    return isReadable(MULTIPOLYGON);
+  }
+  
+  public boolean isMultiPolygonModified()
+  {
+    return isModified(MULTIPOLYGON);
+  }
+  
+  public final com.terraframe.mojo.gis.transport.metadata.AttributeMultiPolygonMdDTO getMultiPolygonMd()
+  {
+    return (com.terraframe.mojo.gis.transport.metadata.AttributeMultiPolygonMdDTO) getAttributeDTO("multiPolygon").getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.geo.generated.ProvinceDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

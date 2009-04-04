@@ -9,7 +9,7 @@ public class CollectionMethodControllerBase implements com.terraframe.mojo.gener
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238027433146L;
+  private static final long serialVersionUID = 1238826366753L;
   
   public CollectionMethodControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

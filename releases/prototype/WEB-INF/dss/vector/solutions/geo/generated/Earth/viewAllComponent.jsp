@@ -16,6 +16,11 @@
         Geo Entity Name
       </mjl:header>
     </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="gazId">
+      <mjl:header>
+        Gaz Id
+      </mjl:header>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoId">
       <mjl:header>
         Geo Id

@@ -24,6 +24,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
       {
         String msg = "Morphological groups of a Mosquito Collection must have a quantity";
         InvalidMorphologicalQuantityProblem p = new InvalidMorphologicalQuantityProblem(msg);
+        p.setNotification(this, QUANTITY);
         p.apply();
         p.throwIt();
       }
@@ -36,6 +37,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
         p.setQuantity(this.getQuantity());
         p.setQuantityFemale(this.getQuantityFemale());
         p.setQuantityMale(this.getQuantityMale());
+        p.setNotification(this, QUANTITY);
         p.apply();
         p.throwIt();
     }
@@ -54,6 +56,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
         InvalidFemaleQuantityProblem p = new InvalidFemaleQuantityProblem(msg);
         p.setQuantity(this.getQuantity());
         p.setQuantityFemale(this.getQuantityFemale());
+        p.setNotification(this, QUANTITYFEMALE);
         p.apply();
         p.throwIt(); 
       }
@@ -73,6 +76,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
         InvalidMaleQuantityProblem p = new InvalidMaleQuantityProblem(msg);
         p.setQuantity(this.getQuantity());
         p.setQuantityMale(this.getQuantityMale());
+        p.setNotification(this, QUANTITYMALE);
         p.apply();
         p.throwIt(); 
       }
@@ -92,7 +96,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
         String msg = "Morphological groups of a Mosquito Collection must have a identification method";
 
         EmptyValueProblem p = new EmptyValueProblem(msg);
-        p.setAttributeLabel(getIdentificationMethodMd().getDisplayLabel());
+        p.setNotification(this, IDENTIFICATIONMETHOD);
         p.apply();
         p.throwIt();
       }
@@ -103,7 +107,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
           String msg = "Morphological groups of a MosquitoCollectionPoint cannot have an IdentificationMethod when the quantity is zero";
 
           InvalidMorphologicalSpecieProblem p = new InvalidMorphologicalSpecieProblem(msg);
-          p.setAttributeLabel(getIdentificationMethodMd().getDisplayLabel());
+          p.setNotification(this, IDENTIFICATIONMETHOD);
           p.apply();
           p.throwIt();
         }
@@ -123,7 +127,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
         String msg = "Morphological groups of a Mosquito Collection must have a specie";
 
         EmptyValueProblem p = new EmptyValueProblem(msg);
-        p.setAttributeLabel(getSpecieMd().getDisplayLabel());
+        p.setNotification(this, SPECIE);
         p.apply();
         p.throwIt();
       }
@@ -134,7 +138,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
           String msg = "Morphological groups of a MosquitoCollectionPoint cannot have a Specie when the quantity is zero";
 
           InvalidMorphologicalSpecieProblem p = new InvalidMorphologicalSpecieProblem(msg);
-          p.setAttributeLabel(getSpecieMd().getDisplayLabel());
+          p.setNotification(this, SPECIE);
           p.apply();
           p.throwIt();
         }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-public abstract class InvalidAgeProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class InvalidAgeProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidAgeProblem";
   public InvalidAgeProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
@@ -19,7 +19,6 @@ public abstract class InvalidAgeProblemDTOBase extends com.terraframe.mojo.busin
   }
   
   public static java.lang.String AGE = "age";
-  public static java.lang.String ID = "id";
   public Integer getAge()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AGE));
@@ -79,7 +78,6 @@ public abstract class InvalidAgeProblemDTOBase extends com.terraframe.mojo.busin
       java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.assay.InvalidAgeProblem", locale);
       
       message = message.replace("{age}", this.getAge().toString());
-      message = message.replace("{id}", this.getId().toString());
       
       return message;
     }

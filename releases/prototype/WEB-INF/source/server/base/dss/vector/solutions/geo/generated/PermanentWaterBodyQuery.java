@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public  class PermanentWaterBodyQuery extends dss.vector.solutions.geo.generated.BreedingSiteQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027448764L;
+private static final long serialVersionUID = 1238826378300L;
 
   public PermanentWaterBodyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -26,6 +26,17 @@ private static final long serialVersionUID = 1238027448764L;
   public String getClassType()
   {
     return "dss.vector.solutions.geo.generated.PermanentWaterBody";
+  }
+  public com.terraframe.mojo.query.AttributeCharIF getPolygon()
+  {
+    return getPolygon(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getPolygon(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.generated.PermanentWaterBody.POLYGON, "com.terraframe.mojo.system.gis.metadata.MdAttributePolygon", alias);
+
   }
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
@@ -58,6 +69,8 @@ private static final long serialVersionUID = 1238027448764L;
   public interface PermanentWaterBodyQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, dss.vector.solutions.geo.generated.BreedingSiteQuery.BreedingSiteQueryReferenceIF
   {
 
+    public com.terraframe.mojo.query.AttributeCharIF getPolygon();
+    public com.terraframe.mojo.query.AttributeCharIF getPolygon(String alias);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.geo.generated.PermanentWaterBody permanentWaterBody);
 
@@ -73,7 +86,7 @@ private static final long serialVersionUID = 1238027448764L;
  implements PermanentWaterBodyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1238027448920L;
+private static final long serialVersionUID = 1238826378454L;
 
   public PermanentWaterBodyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -92,5 +105,16 @@ private static final long serialVersionUID = 1238027448920L;
       return this.NE(permanentWaterBody.getId());
     }
 
+  public com.terraframe.mojo.query.AttributeCharIF getPolygon()
+  {
+    return getPolygon(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getPolygon(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("polygon", "com.terraframe.mojo.system.gis.metadata.MdAttributePolygon", alias);
+
+  }
   }
 }

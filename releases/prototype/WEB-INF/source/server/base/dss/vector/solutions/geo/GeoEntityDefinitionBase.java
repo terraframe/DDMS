@@ -14,11 +14,10 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTGEOHIERARCHYID = "parentGeoHierarchyId";
-  public static java.lang.String PARENTTYPEID = "parentTypeId";
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String SPATIALTYPE = "spatialType";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = 1238027433264L;
+  private static final long serialVersionUID = 1238826347546L;
   
   public GeoEntityDefinitionBase()
   {
@@ -122,34 +121,6 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
     else
     {
       setValue(PARENTGEOHIERARCHYID, value);
-    }
-  }
-  
-  public String getParentTypeId()
-  {
-    return getValue(PARENTTYPEID);
-  }
-  
-  public void validateParentTypeId()
-  {
-    this.validateAttribute(PARENTTYPEID);
-  }
-  
-  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getParentTypeIdMd()
-  {
-    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
-    return mdClassIF.definesAttribute(PARENTTYPEID);
-  }
-  
-  public void setParentTypeId(String value)
-  {
-    if(value == null)
-    {
-      setValue(PARENTTYPEID, "");
-    }
-    else
-    {
-      setValue(PARENTTYPEID, value);
     }
   }
   

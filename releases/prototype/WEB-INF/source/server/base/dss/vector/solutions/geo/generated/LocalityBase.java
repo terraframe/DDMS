@@ -10,11 +10,40 @@ package dss.vector.solutions.geo.generated;
 public abstract class LocalityBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Locality";
-  private static final long serialVersionUID = 1238027423240L;
+  public static java.lang.String MULTIPOLYGON = "multiPolygon";
+  private static final long serialVersionUID = 1238826361644L;
   
   public LocalityBase()
   {
     super();
+  }
+  
+  public com.vividsolutions.jts.geom.MultiPolygon getMultiPolygon()
+  {
+    return (com.vividsolutions.jts.geom.MultiPolygon)getObjectValue(MULTIPOLYGON);
+  }
+  
+  public void validateMultiPolygon()
+  {
+    this.validateAttribute(MULTIPOLYGON);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getMultiPolygonMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.generated.Locality.CLASS);
+    return mdClassIF.definesAttribute(MULTIPOLYGON);
+  }
+  
+  public void setMultiPolygon(com.vividsolutions.jts.geom.MultiPolygon value)
+  {
+    if(value == null)
+    {
+      setValue(MULTIPOLYGON, "");
+    }
+    else
+    {
+      setValue(MULTIPOLYGON, value);
+    }
   }
   
   protected String getDeclaredType()

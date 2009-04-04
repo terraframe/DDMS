@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public class IdentificationMethodQueryDTO extends dss.vector.solutions.mo.AbstractTermQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027425409L;
+private static final long serialVersionUID = 1238826341735L;
 
   protected IdentificationMethodQueryDTO(String type)
   {

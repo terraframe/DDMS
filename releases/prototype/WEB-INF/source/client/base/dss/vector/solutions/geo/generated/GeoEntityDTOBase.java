@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238027449581L;
+  private static final long serialVersionUID = 1238826378651L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
   protected GeoEntityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -31,6 +31,7 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String GAZID = "gazId";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
@@ -207,6 +208,43 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
   {
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("entityName").getAttributeMdDTO();
+  }
+  
+  public Long getGazId()
+  {
+    return com.terraframe.mojo.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(GAZID));
+  }
+  
+  public void setGazId(Long value)
+  {
+    if(value == null)
+    {
+      setValue(GAZID, "");
+    }
+    else
+    {
+      setValue(GAZID, java.lang.Long.toString(value));
+    }
+  }
+  
+  public boolean isGazIdWritable()
+  {
+    return isWritable(GAZID);
+  }
+  
+  public boolean isGazIdReadable()
+  {
+    return isReadable(GAZID);
+  }
+  
+  public boolean isGazIdModified()
+  {
+    return isModified(GAZID);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getGazIdMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("gazId").getAttributeMdDTO();
   }
   
   public String getGeoId()
@@ -517,6 +555,22 @@ public abstract class GeoEntityDTOBase extends com.terraframe.mojo.business.Busi
     Object[] _parameters = new Object[]{id, parentGeoEntityId, cloneOperation};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "applyWithParent", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final void confirmDeleteEntity(java.lang.String parentId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{parentId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "confirmDeleteEntity", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void confirmDeleteEntity(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String parentId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, parentId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "confirmDeleteEntity", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   @SuppressWarnings("unchecked")

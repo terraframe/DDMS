@@ -24,6 +24,14 @@
     </dd>
     <dt>
       <label>
+        ${item.gazIdMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.gazId}
+    </dd>
+    <dt>
+      <label>
         ${item.geoIdMd.displayLabel}
       </label>
     </dt>

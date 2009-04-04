@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class AbstractSiteDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238027441635L;
+  private static final long serialVersionUID = 1238826351118L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.AbstractSite";
   protected AbstractSiteDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -24,6 +24,44 @@ public abstract class AbstractSiteDTOBase extends dss.vector.solutions.geo.gener
   protected java.lang.String getDeclaredType()
   {
     return CLASS;
+  }
+  
+  public static java.lang.String MULTIPOINT = "multiPoint";
+  public com.vividsolutions.jts.geom.MultiPoint getMultiPoint()
+  {
+    return (com.vividsolutions.jts.geom.MultiPoint)getObjectValue(MULTIPOINT);
+  }
+  
+  public void setMultiPoint(com.vividsolutions.jts.geom.MultiPoint value)
+  {
+    if(value == null)
+    {
+      setValue(MULTIPOINT, "");
+    }
+    else
+    {
+      setValue(MULTIPOINT, value);
+    }
+  }
+  
+  public boolean isMultiPointWritable()
+  {
+    return isWritable(MULTIPOINT);
+  }
+  
+  public boolean isMultiPointReadable()
+  {
+    return isReadable(MULTIPOINT);
+  }
+  
+  public boolean isMultiPointModified()
+  {
+    return isModified(MULTIPOINT);
+  }
+  
+  public final com.terraframe.mojo.gis.transport.metadata.AttributeMultiPointMdDTO getMultiPointMd()
+  {
+    return (com.terraframe.mojo.gis.transport.metadata.AttributeMultiPointMdDTO) getAttributeDTO("multiPoint").getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.geo.generated.AbstractSiteDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

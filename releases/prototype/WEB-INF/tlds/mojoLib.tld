@@ -53,6 +53,20 @@
     </attribute>
     <attribute>
       <name>
+        required
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Flage denoting if an empty option should be generated.
+      </description>
+    </attribute>
+    <attribute>
+      <name>
         param
       </name>
       <required>
@@ -1939,6 +1953,34 @@
       </rtexprvalue>
       <description>
         The name of the controller parameter or attribute
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        trueLabel
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        The display label for the true option
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        falseLabel
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        The display label for the false option
       </description>
     </attribute>
     <attribute>
@@ -3929,6 +3971,20 @@
     <description>
       Display all messages concerning a given attribute
     </description>
+    <attribute>
+      <name>
+        classes
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        Class of span surronding the message
+      </description>
+    </attribute>
     <attribute>
       <name>
         attribute

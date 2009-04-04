@@ -45,6 +45,7 @@ var Mojo = {
     IS_FUNCTION_TO_STRING : Object.prototype.toString.call(function(){}),
     IS_DATE_TO_STRING : Object.prototype.toString.call(new Date()),
     IS_STRING_TO_STRING : Object.prototype.toString.call(''),
+    IS_NUMBER_TO_STRING : Object.prototype.toString.call(0),
   
     isObject : function(o)
     {
@@ -69,6 +70,11 @@ var Mojo = {
     isString : function(o)
     {
       return o != null && Object.prototype.toString.call(o) === this.IS_STRING_TO_STRING;
+    },
+    
+    isNumber : function(o)
+    {
+      return o != null && Object.prototype.toString.call(o) === this.IS_NUMBER_TO_STRING;
     },
   
     /**
@@ -487,10 +493,17 @@ var Mojo = {
           exceptionType = obj.dto_type;
           e = Mojo.util.convertToType(obj);
         }
-        else if('_type' in obj && Mojo.util.typeExists(obj._type))
+        else if('_type' in obj)
         {
           exceptionType = obj._type;
-          e = Mojo.util.convertToType(obj);
+          if(Mojo.util.typeExists(obj._type))
+          {
+            e = Mojo.util.convertToType(obj);
+          }
+          else
+          {
+            e = new Mojo.dto.Exception(obj);
+          }
         }
         else
         {
@@ -605,9 +618,9 @@ var Mojo = {
     {
       if(map == null)
       {
-      	return '';
+        return '';
       }
-    	
+      
       var params = [];
       for(var key in map)
       {
@@ -764,6 +777,12 @@ var Mojo = {
         {
           if(this.xmlHttp.readyState == 4)
           {
+            // signal that the load is complete
+            if(Mojo.util.isFunction(clientRequest.onComplete))
+            {
+              clientRequest.onComplete();
+            }
+            
             if(this.xmlHttp.status >= this.requestOptions.successRange[0]
               && this.xmlHttp.status <= this.requestOptions.successRange[1])
             {
@@ -778,6 +797,12 @@ var Mojo = {
           
         cb.call(that);
       };
+      
+      // signal that the Ajax call is about to take place.
+      if(Mojo.util.isFunction(clientRequest.onSend))
+      {
+        clientRequest.onSend();
+      }
       
       var url = baseEndpoint + endpoint;
       if(this.requestOptions.method == 'post')
@@ -892,7 +917,7 @@ var Mojo = {
   {
     if(Mojo.util.isObject(params))
       params = {"com.terraframe.mojo.mojaxObject":Mojo.util.getJSON(params)};
-  	
+    
     new Mojo.ClientSession.AjaxCall(endpoint, clientRequest, params, true);  
   },
   
@@ -2053,7 +2078,7 @@ Mojo.dto.ComponentDTO.prototype = {
   
   getType : function() { return this._type; },
   
-  getTypeMd : function() { return this.getAttributeDTO('type').getAttributeMdDTO() },
+  getTypeMd : function() { return this._typeMd; },
   
   getId : function() { return this.id; },
   
@@ -2452,6 +2477,10 @@ Mojo.dto.ProblemExceptionDTO.prototype = Mojo.Class.extend(Mojo.dto.Exception, {
           {
             var constructor_ = Mojo.util.getType(problemJSON._type);
             problem = new constructor_(problemJSON);
+          }
+          else if('dto_type' in problemJSON && problemJSON.dto_type === 'Mojo.dto.AttributeProblemDTO')
+          {
+            problem = new Mojo.dto.AttributeProblemDTO(problemJSON);
           }
           else
           {
@@ -3271,19 +3300,19 @@ Mojo.dto.AttributeEnumerationMdDTO.prototype = Mojo.Class.extend(Mojo.dto.Attrib
   
   getEnumLabels : function()
   {
-  	return Mojo.util.getValues(this.enumNames);
+    return Mojo.util.getValues(this.enumNames);
   },
   
   getEnumDisplayLabel : function(enumName)
   {
-  	return this.enumNames[enumName];
+    return this.enumNames[enumName];
   },
   
   getEnumItems : function()
   {
-  	var copy = {};
-  	Mojo.util.copy(this.enumNames, cop);
-  	return copy;
+    var copy = {};
+    Mojo.util.copy(this.enumNames, cop);
+    return copy;
   }
 });
 

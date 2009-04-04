@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-public abstract class InvalidPercentageProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class InvalidPercentageProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.InvalidPercentageProblem";
   public InvalidPercentageProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
@@ -18,7 +18,6 @@ public abstract class InvalidPercentageProblemDTOBase extends com.terraframe.moj
     return CLASS;
   }
   
-  public static java.lang.String ID = "id";
   public static java.lang.String INVALIDPERCENT = "invalidPercent";
   public Integer getInvalidPercent()
   {
@@ -78,7 +77,6 @@ public abstract class InvalidPercentageProblemDTOBase extends com.terraframe.moj
     {
       java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.general.InvalidPercentageProblem", locale);
       
-      message = message.replace("{id}", this.getId().toString());
       message = message.replace("{invalidPercent}", this.getInvalidPercent().toString());
       
       return message;

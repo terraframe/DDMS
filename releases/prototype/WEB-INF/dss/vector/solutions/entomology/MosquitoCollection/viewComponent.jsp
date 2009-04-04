@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
@@ -21,36 +21,30 @@
 	<mjl:message />
 </mjl:messages>
 
-<mjl:form name="mdss.entomology.MosquitoCollection.form.name"
- id="mdss.entomology.MosquitoCollection.form.id" method="POST">
+<mjl:form name="mdss.entomology.MosquitoCollection.form.name" id="mdss.entomology.MosquitoCollection.form.id" method="POST">
 
-	<mjl:input value="${item.id}" type="hidden" param="id" />
-	<dl>
-		<dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
-		<dd><mjl:commandLink display="${item.collectionMethod.termName}"
-			action="mdss.entomology.CollectionMethodController.view.mojo"
-			name="mdss.entomology.CollectionMethod.form.view.link">
-			<mjl:property value="${item.collectionMethod.id}" name="id" />
-		</mjl:commandLink></dd>
-		<dt><label> ${item.dateCollectedMd.displayLabel} </label></dt>
-		<dd>${item.dateCollected}</dd>
-		<dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
-		<dd><mjl:commandLink display="${item.geoEntity.geoId}"
-			action="mdss.test.GeoEntityController.view.mojo"
-			name="mdss.test.GeoEntity.form.view.link">
-			<mjl:property value="${item.geoEntity.id}" name="id" />
-		</mjl:commandLink></dd>
-	</dl>
+  <mjl:input value="${item.id}" type="hidden" param="id" />
+  <dl>
+    <dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
+    <dd><mjl:commandLink display="${item.collectionMethod.termName}" action="mdss.entomology.CollectionMethodController.view.mojo" name="mdss.entomology.CollectionMethod.form.view.link">
+      <mjl:property value="${item.collectionMethod.id}" name="id" />
+    </mjl:commandLink></dd>
+    <dt><label > ${item.dateCollectedMd.displayLabel} </label></dt>
+    <dd class="formatDate">${item.dateCollected}</dd>
+    <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
+    <dd><mjl:commandLink display="${item.geoEntity.geoId}" action="mdss.test.GeoEntityController.view.mojo" name="mdss.test.GeoEntity.form.view.link">
+      <mjl:property value="${item.geoEntity.id}" name="id" />
+    </mjl:commandLink></dd>
+  </dl>
 
-<div class="submitButton_bl"></div>    
- <mjl:command value="Edit"
-  action="dss.vector.solutions.entomology.MosquitoCollectionController.edit.mojo"
-  name="dss.vector.solutions.entomology.MosquitoCollection.form.edit.button" classes="submitButton"/>
-  
+  <div class="submitButton_bl"></div>
+  <mjl:command value="Edit" action="dss.vector.solutions.entomology.MosquitoCollectionController.edit.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.edit.button"
+    classes="submitButton" />
+
   <mjl:commandLink display="ViewAssays" action="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo" name="viewAssays.link">
-          <mjl:property value="${item.id}" name="id" />
-        </mjl:commandLink>
-  </mjl:form>
+    <mjl:property value="${item.id}" name="id" />
+  </mjl:commandLink>
+</mjl:form>
 
 <br/>
 <div id="MorphologicalSpecieGroups"></div>
@@ -67,13 +61,13 @@
 
 <div id="buttons" class="noprint">
 
-<span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button"> 
+<span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button">
 <span class="first-child">
 <button type="button">New Row</button>
- </span> 
- </span> 
+ </span>
+ </span>
 
-<span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button"> 
+<span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button">
 <span class="first-child">
 <button type="button">Save Rows To DB</button>
 </span> </span>
@@ -84,15 +78,15 @@
         <button type="submit"><f:message key="Excel_Import_Header" /></button>
         </span>
         </span>
-</form> 
+</form>
 <form method="post" action="excelexport" style="display:inline;">
         <input type="hidden" name="type" value="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"/>
-        <span class="yui-button yui-push-button"> 
+        <span class="yui-button yui-push-button">
         <span class="first-child">
         <button type="submit"><f:message key="Excel_Export_Header" /></button>
         </span>
         </span>
-</form> 
+</form>
 <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
 
 </div>
@@ -110,30 +104,30 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
 //out.println(getColumnSetup(mdView,attribs,delete_row));
 %>
 
-<script type="text/javascript">      
+<script type="text/javascript">
     <%String[] types_to_load =
   {
      "dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
   };
-    
+
   // THIS LINE CRASHES TOMCAT WITH Invalid memory access of location 00000000 eip=00000000
   //out.println(Halp.getDropDownMap(SpecieDTO.getAll(clientRequest)));
   //out.println(Halp.getDropDownMap2(Arrays.asList(SpecieDTO.getAll(clientRequest))));
    // SpecieDTO[] arrggg = SpecieDTO.getAll(clientRequest);
-    
+
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
     //out.println( getDisplayLabels(SpecieDTO.getAll(clientRequest),"Specie"));
    // out.println(getDisplayLabels(IdentificationMethodDTO.getAll(clientRequest),"IdentificationMethod"));
     %>
     <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
-    table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,       
+    table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,
        columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false)%>,
               defaults: {GroupId:"",Specie:"",IdentificationMethod:"",QuantityMale:"",QuantityFemale:"",Quantity:""},
               div_id: "MorphologicalSpecieGroups",
               copy_from_above: ["IdentificationMethod"],
               collection_setter: "setCollection('${item.id}')",
               data_type: "Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
-              
-          };   
+
+          };
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>

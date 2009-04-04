@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:messages>
@@ -14,19 +14,10 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod" >
-          <c:choose>
-            <c:when test="${current.termName == item.geoEntity.termName}">
-             <mjl:option selected="selected">
-               ${current.termName}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
-              <mjl:option>
-                ${current.termName}
-              </mjl:option>
-            </c:otherwise>
-          </c:choose>
+        <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod">
+          <mjl:option>
+            ${current.termName}
+          </mjl:option>
         </mjl:select>
       </dd>
       <dt>
@@ -35,7 +26,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="dateCollected" classes="DatePick" id="dtodateCollectedidaa"/>
+        <mjl:input type="text" param="dateCollected" classes="DatePick" id="dto.dateCollected.id"/>
         <mjl:messages attribute="dateCollected">
           <mjl:message />
         </mjl:messages>
@@ -46,7 +37,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${AbstractMosquitoCollection_geoEntity}" param="geoEntity" >
+         <mjl:select var="current" valueAttribute="id" items="${AbstractMosquitoCollection_geoEntity}" param="geoEntity" >
           <c:choose>
             <c:when test="${current.geoId == item.geoEntity.geoId}">
              <mjl:option selected="selected">
@@ -65,13 +56,13 @@
   </mjl:component>
 
 <div class="submitButton_bl"></div>
-<mjl:command value="Update" action="dss.vector.solutions.entomology.MosquitoCollectionController.update.mojo" 
+<mjl:command value="Update" action="dss.vector.solutions.entomology.MosquitoCollectionController.update.mojo"
 name="dss.vector.solutions.entomology.MosquitoCollection.form.update.button" classes="submitButton"/>
-<mjl:command value="Delete" action="dss.vector.solutions.entomology.MosquitoCollectionController.delete.mojo" 
+<mjl:command value="Delete" action="dss.vector.solutions.entomology.MosquitoCollectionController.delete.mojo"
 name="dss.vector.solutions.entomology.MosquitoCollection.form.delete.button" classes="submitButton"/>
-<mjl:command value="Cancel" action="dss.vector.solutions.entomology.MosquitoCollectionController.cancel.mojo" 
+<mjl:command value="Cancel" action="dss.vector.solutions.entomology.MosquitoCollectionController.cancel.mojo"
 name="dss.vector.solutions.entomology.MosquitoCollection.form.cancel.button" classes="submitButton"/>
 </mjl:form>
 
- 
-<div id="cal1Container" class="yui-skin-sam"></div> 
+
+<div id="cal1Container" class="yui-skin-sam"></div>

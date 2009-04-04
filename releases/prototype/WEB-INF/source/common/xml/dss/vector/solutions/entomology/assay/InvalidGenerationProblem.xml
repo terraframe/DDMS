@@ -3,8 +3,6 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.assay.InvalidGenerationProblem">
   <!--
-    - {assayId} Assay Id
-    - {id} ID
     -->
   <locale language="en">An isofemale line cannot be of a F0 generation</locale>
 </exception>

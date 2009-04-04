@@ -327,7 +327,7 @@
     <xs:complexContent>
       <xs:extension base="mdTransient">
         <xs:sequence>
-          <xs:element ref="attributes" minOccurs="0" maxOccurs="1" />
+          <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1" />
           <xs:element name="create" type="mdExceptionOptions" minOccurs="0" maxOccurs="1" />
           <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
           <xs:element name="dtoStubSource" minOccurs="0" maxOccurs="1" />
@@ -340,7 +340,7 @@
 
   <xs:complexType name="mdExceptionOptions">
     <xs:sequence>
-      <xs:element ref="attributes" minOccurs="0" maxOccurs="1" />
+      <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1" />
     </xs:sequence>
   </xs:complexType>
 
@@ -348,7 +348,7 @@
     <xs:complexContent>
       <xs:extension base="mdTransient">
         <xs:sequence>
-          <xs:element ref="attributes" minOccurs="0" maxOccurs="1" />
+          <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1" />
           <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
           <xs:element name="create" type="mdSessionOptions" minOccurs="0" maxOccurs="1" />
           <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
@@ -361,7 +361,7 @@
 
   <xs:complexType name="mdSessionOptions">
     <xs:sequence>
-      <xs:element ref="attributes" minOccurs="0" maxOccurs="1" />
+      <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1" />
       <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
@@ -378,7 +378,7 @@
 
   <xs:complexType name="mdEntityOptions">
     <xs:sequence>
-      <xs:element ref="attributes" minOccurs="0" maxOccurs="1" />
+      <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1" />
       <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
@@ -387,7 +387,7 @@
     <xs:complexContent>
       <xs:extension base="mdClass">
         <xs:sequence>
-          <xs:element ref="attributes" minOccurs="0" />
+          <xs:element name="attributes" type="attributes" minOccurs="0" />
           <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
           <xs:element name="create" type="mdEntityOptions" minOccurs="0" maxOccurs="1" />
           <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
@@ -452,7 +452,7 @@
     <xs:complexContent>
       <xs:restriction base="mdBusinessBase">
         <xs:sequence>
-          <xs:element ref="attributes" minOccurs="0" />
+          <xs:element name="attributes" type="attributes" minOccurs="0" />
           <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
           <xs:element name="mdStateMachine" type="mdStateMachine" minOccurs="0" maxOccurs="1" />
           <xs:element name="create" type="mdBusinessOptions" minOccurs="0" maxOccurs="1" />
@@ -472,7 +472,7 @@
           <xs:element name="parent" type="participant" minOccurs="0" maxOccurs="1" />
           <!--The child mdBusiness of the mdRelationship -->
           <xs:element name="child" type="participant" minOccurs="0" maxOccurs="1" />
-          <xs:element ref="attributes" minOccurs="0" />
+          <xs:element name="attributes" type="attributes" minOccurs="0" />
           <xs:element name="mdMethod" type="mdMethod" minOccurs="0" maxOccurs="unbounded" />
           <xs:element name="create" type="mdEntityOptions" minOccurs="0" maxOccurs="1" />
           <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
@@ -711,8 +711,7 @@
 	-->
 
   <!--A list of all possible attributes-->
-  <xs:element name="attributes">
-    <xs:complexType>
+    <xs:complexType name="attributes">
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="char" type="char" />
         <xs:element name="text" type="text" />
@@ -733,16 +732,8 @@
         <xs:element name="blob" type="blob" />
         <xs:element name="file" type="file" />
         <xs:element name="virtual" type="virtual" />
- <!-- GIS Module -->
-         <xs:element name="point" type="point" />
-         <xs:element name="linestring" type="linestring" />
-         <xs:element name="polygon" type="polygon" />
-         <xs:element name="multipoint" type="multipoint" />
-         <xs:element name="multilinestring" type="multilinestring" />
-         <xs:element name="multipolygon" type="multipolygon" />
       </xs:choice>
     </xs:complexType>
-  </xs:element>
 
   <!--Common Attributes of all attributes-->
   <xs:attributeGroup name="attribute">
@@ -1214,38 +1205,5 @@
       <xs:enumeration value="WRITE_CHILD" />
     </xs:restriction>
   </xs:simpleType>
-  
-  <!-- GIS Module -->
-  
-   <!--Common Attributes of all attributes-->
-  <xs:attributeGroup name="attributeSpatial">
-    <xs:attributeGroup ref="attribute" />
-    <xs:attribute name="srid" type="xs:integer" use="required" />
-    <xs:attribute name="dimension" type="xs:integer" use="required" />
-  </xs:attributeGroup>
-  
-  <xs:complexType name="point">
-    <xs:attributeGroup ref="attributeSpatial" />
-  </xs:complexType>
-  
-  <xs:complexType name="linestring">
-    <xs:attributeGroup ref="attributeSpatial" />
-  </xs:complexType>
-  
-  <xs:complexType name="polygon">
-    <xs:attributeGroup ref="attributeSpatial" />
-  </xs:complexType>
-  
-  <xs:complexType name="multipoint">
-    <xs:attributeGroup ref="attributeSpatial" />
-  </xs:complexType>
-
-  <xs:complexType name="multilinestring">
-    <xs:attributeGroup ref="attributeSpatial" />
-  </xs:complexType>
-
-  <xs:complexType name="multipolygon">
-    <xs:attributeGroup ref="attributeSpatial" />
-  </xs:complexType> 
   
 </xs:schema>

@@ -23,7 +23,8 @@ public class AdultTestInterval extends AdultTestIntervalBase implements com.terr
         String msg = "Interval time * period is larger than exposure time";
         InvalidPeriodProblem p = new InvalidPeriodProblem(msg);
         p.setPeriod(this.getPeriod());
-        p.setIntervalId(this.getId());
+        p.setNotification(this, PERIOD);
+        p.apply();
         p.throwIt();
       }
     }
@@ -45,7 +46,8 @@ public class AdultTestInterval extends AdultTestIntervalBase implements com.terr
         InvalidKnockDownQuantityProblem p = new InvalidKnockDownQuantityProblem(msg);
         p.setQuantityKnockDown(this.getKnockedDown());
         p.setQuantityTested(quantityTested);
-        p.setIntervalId(this.getId());
+        p.setNotification(this, KNOCKEDDOWN);
+        p.apply();
         p.throwIt();
       }
     }

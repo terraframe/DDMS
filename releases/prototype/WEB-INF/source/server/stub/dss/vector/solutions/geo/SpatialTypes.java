@@ -10,6 +10,12 @@ public enum SpatialTypes implements com.terraframe.mojo.business.BusinessEnumera
 {
   LINE(),
   
+  MULTI_LINE(),
+  
+  MULTI_POINT(),
+  
+  MULTI_POLYGON(),
+  
   POINT(),
   
   POLYGON();

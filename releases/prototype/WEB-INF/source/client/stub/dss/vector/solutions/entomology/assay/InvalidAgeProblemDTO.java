@@ -1,9 +1,9 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.InvalidAgeProblemDTOBase;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
-public class InvalidAgeProblemDTO extends InvalidAgeProblemDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+public class InvalidAgeProblemDTO extends InvalidAgeProblemDTOBase implements Reloadable
+{
   private static final long serialVersionUID = 1234731978550L;
   
   public InvalidAgeProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
@@ -14,6 +14,5 @@ public class InvalidAgeProblemDTO extends InvalidAgeProblemDTOBase
   public InvalidAgeProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.util.Locale locale)
   {
     super(clientRequest, locale);
-  }
-  
+  }  
 }

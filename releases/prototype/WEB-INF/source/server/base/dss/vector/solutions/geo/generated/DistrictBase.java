@@ -10,11 +10,40 @@ package dss.vector.solutions.geo.generated;
 public abstract class DistrictBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.District";
-  private static final long serialVersionUID = 1238027429206L;
+  public static java.lang.String POLYGON = "polygon";
+  private static final long serialVersionUID = 1238826344468L;
   
   public DistrictBase()
   {
     super();
+  }
+  
+  public com.vividsolutions.jts.geom.Polygon getPolygon()
+  {
+    return (com.vividsolutions.jts.geom.Polygon)getObjectValue(POLYGON);
+  }
+  
+  public void validatePolygon()
+  {
+    this.validateAttribute(POLYGON);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPolygonMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.generated.District.CLASS);
+    return mdClassIF.definesAttribute(POLYGON);
+  }
+  
+  public void setPolygon(com.vividsolutions.jts.geom.Polygon value)
+  {
+    if(value == null)
+    {
+      setValue(POLYGON, "");
+    }
+    else
+    {
+      setValue(POLYGON, value);
+    }
   }
   
   protected String getDeclaredType()

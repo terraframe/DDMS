@@ -9,7 +9,7 @@ public class BreedingSiteControllerBase implements com.terraframe.mojo.generatio
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238027432122L;
+  private static final long serialVersionUID = 1238826345956L;
   
   public BreedingSiteControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

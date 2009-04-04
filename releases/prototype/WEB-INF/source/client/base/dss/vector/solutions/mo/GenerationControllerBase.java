@@ -9,7 +9,7 @@ public class GenerationControllerBase implements com.terraframe.mojo.generation.
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238027453280L;
+  private static final long serialVersionUID = 1238826355294L;
   
   public GenerationControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {

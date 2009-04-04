@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-public abstract class InvalidPeriodProblemDTOBase extends com.terraframe.mojo.business.ProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class InvalidPeriodProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidPeriodProblem";
   public InvalidPeriodProblemDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
@@ -18,46 +18,7 @@ public abstract class InvalidPeriodProblemDTOBase extends com.terraframe.mojo.bu
     return CLASS;
   }
   
-  public static java.lang.String ID = "id";
-  public static java.lang.String INTERVALID = "intervalId";
   public static java.lang.String PERIOD = "period";
-  public String getIntervalId()
-  {
-    return getValue(INTERVALID);
-  }
-  
-  public void setIntervalId(String value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVALID, "");
-    }
-    else
-    {
-      setValue(INTERVALID, value);
-    }
-  }
-  
-  public boolean isIntervalIdWritable()
-  {
-    return isWritable(INTERVALID);
-  }
-  
-  public boolean isIntervalIdReadable()
-  {
-    return isReadable(INTERVALID);
-  }
-  
-  public boolean isIntervalIdModified()
-  {
-    return isModified(INTERVALID);
-  }
-  
-  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIntervalIdMd()
-  {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("intervalId").getAttributeMdDTO();
-  }
-  
   public Integer getPeriod()
   {
     return com.terraframe.mojo.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
@@ -116,8 +77,6 @@ public abstract class InvalidPeriodProblemDTOBase extends com.terraframe.mojo.bu
     {
       java.lang.String message = com.terraframe.mojo.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.assay.InvalidPeriodProblem", locale);
       
-      message = message.replace("{id}", this.getId().toString());
-      message = message.replace("{intervalId}", this.getIntervalId().toString());
       message = message.replace("{period}", this.getPeriod().toString());
       
       return message;

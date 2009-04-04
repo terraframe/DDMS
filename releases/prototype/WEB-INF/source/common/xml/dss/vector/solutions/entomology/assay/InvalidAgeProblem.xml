@@ -4,7 +4,6 @@ xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.assay.InvalidAgeProblem">
   <!--
     - {age} Age
-    - {id} ID
     -->
   <locale language="en">The mosquito age [{age}] must be between 0 and 20.</locale>
 </exception>

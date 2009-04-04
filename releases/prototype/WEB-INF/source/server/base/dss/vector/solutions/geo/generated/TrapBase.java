@@ -10,11 +10,40 @@ package dss.vector.solutions.geo.generated;
 public abstract class TrapBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Trap";
-  private static final long serialVersionUID = 1238027451882L;
+  public static java.lang.String POINT = "point";
+  private static final long serialVersionUID = 1238826354362L;
   
   public TrapBase()
   {
     super();
+  }
+  
+  public com.vividsolutions.jts.geom.Point getPoint()
+  {
+    return (com.vividsolutions.jts.geom.Point)getObjectValue(POINT);
+  }
+  
+  public void validatePoint()
+  {
+    this.validateAttribute(POINT);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getPointMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.generated.Trap.CLASS);
+    return mdClassIF.definesAttribute(POINT);
+  }
+  
+  public void setPoint(com.vividsolutions.jts.geom.Point value)
+  {
+    if(value == null)
+    {
+      setValue(POINT, "");
+    }
+    else
+    {
+      setValue(POINT, value);
+    }
   }
   
   protected String getDeclaredType()

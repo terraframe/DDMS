@@ -4,6 +4,11 @@
 var MojoGrid = YAHOO.namespace('MojoGrid');
 
 (function () {
+	
+	MojoGrid.validateBool = function(inputValue, currentValue, editorInstance){
+		return "test";
+	}
+	
 	MojoGrid.createDataTable = function(table_data) {
 	// locals to be returned
     var myDataSource, myDataTable;
@@ -46,6 +51,20 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			  // alert(label);
 			  record.setData(feild.key, label);
 			}
+			//now we set the labels for bools
+			editor = myDataTable.getColumn(feild.key).editor
+			 if(editor && editor instanceof YAHOO.widget.RadioCellEditor )
+			  {			  
+				  if(record.getData(feild.key)== editor.radioOptions[0].value)
+				  {
+					  record.setData(feild.key, editor.radioOptions[0].label);
+				  }
+				  if(record.getData(feild.key) == editor.radioOptions[1].value)
+				  {
+					  record.setData(feild.key, editor.radioOptions[1].label);
+				  }
+				  myDataTable.render();
+			  }
 		}
 	}
 	myDataTable.render();
@@ -78,25 +97,65 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
     var editorKeyEvent = function ( obj ) {
         // 9 = tab, 13 = enter
         var e   = obj.event;
-        if ( e.keyCode == 9 || e.keyCode == 13 ) {
+        if ( e.keyCode == 9 ) {
             var cell        = myDataTable.getCellEditor().getTdEl();
             var nextCell    = myDataTable.getNextTdEl( cell );
             myDataTable.saveCellEditor();
-            if ( nextCell ) {
+            if ( nextCell &&  myDataTable.getColumn(nextCell).editor) 
+            {
             	myDataTable.showCellEditor( nextCell );
                 e.returnValue   = false;
                 e.preventDefault();
                 return false;
             }
+             // No next cell, go to the next row and search for editable cell
+            else 
+            {
+            	var nextRow = myDataTable.getNextTrEl(cell);
+            	// No next cell, make a new row and open the editor for that one
+            	if(! nextRow) 
+                {
+            		addRow();
+            		var nextRow = myDataTable.getNextTrEl(cell);
+                }
+                var nextCell  = myDataTable.getFirstTdEl(nextRow);
+                while(nextCell && ! myDataTable.getColumn(nextCell).editor)
+                {
+                	var nextCell = myDataTable.getNextTdEl( nextCell );
+                }
+                if ( nextCell ) {
+                	myDataTable.showCellEditor( nextCell );
+                    e.returnValue   = false;
+                    e.preventDefault();
+                    return false;
+                }
+            	
+            }
+           
+        }
+        //not sure we want to do this for enter
+        /*
+        if ( e.keyCode == 13 ) {
+           
+            var cell        = myDataTable.getCellEditor().getTdEl();  
+            var nextCell    = myDataTable.getBelowTdEl( cell );
+            myDataTable.saveCellEditor();
+            if ( nextCell ) {
+            	myDataTable.showCellEditor( nextCell );
+                e.returnValue   = false;
+                e.preventDefault();
+                e=null;
+                return false;
+            }
             else {
                 // No next cell, make a new row and open the editor for that one
-            	myDataTable.addRow( {} );
+            	addRow();
             }
             // BUG: If pressing Enter, editor gets hidden right away due to YUI
 			// default event
             // putting e.preventDefault() and return false here makes no
 			// difference
-        }
+        }*/
     };
     myDataTable.subscribe("editorKeydownEvent", editorKeyEvent);
 	
@@ -107,8 +166,10 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		  index = myDataTable.getRecordIndex(record);
 		  if(editor instanceof YAHOO.widget.DropdownCellEditor )
 		  {
+			  //look get the index for this label
 			  str = oArgs.editor.getColumn().key+"Labels.indexOf(oArgs.newData)";
 			  i = eval(str);
+			  //use the index to find the ID from the IDs array
 			  str = oArgs.editor.getColumn().key+"Ids["+i+"]" ;
 			  id = eval(str);
 			  var save_now = 'table_data.rows[' + index + '].' + oArgs.editor.getColumn().key + ' = "' + id + '"';
@@ -116,6 +177,19 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		  else
 		  {
 			  var save_now = 'table_data.rows[' + index + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newData + '"';
+			  if(editor instanceof YAHOO.widget.RadioCellEditor )
+			  {			  
+				  if(oArgs.newData == editor.radioOptions[0].value)
+				  {
+					  record.setData(editor.getColumn().key, editor.radioOptions[0].label);
+				  }
+				  if(oArgs.newData == editor.radioOptions[1].value)
+				  {
+					  record.setData(editor.getColumn().key, editor.radioOptions[1].label);
+				  }
+				  myDataTable.render();
+			  }
+			  
 		  }
 	      eval(save_now);	
 	      table_data.dirty = true;
@@ -141,16 +215,16 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			row_index = myDataTable.getRecordIndex(record);
 			if (confirm('Are you sure you want to delete row ' + (row_index+1) + '?')) {
 				if(typeof row_id !== 'undefined' && row_id.length > 1){
-				var request = new Mojo.ClientRequest( {
+				var request = new MDSS.Request( {
 					dataTable :myDataTable,
 					row_index :row_index,
 					onSuccess : function(deletedRow) {
 					table_data.rows.splice(request.row_index,1);
 					request.dataTable.deleteRow(target);					
 					// alert('row deleted on server');
-				},
-				onFailure : function(e) {
-					alert(e.getLocalizedMessage());
+				//},
+				//onFailure : function(e) {
+				//	alert(e.getLocalizedMessage());
 				}
 				});
 				Mojo.deleteEntity(request, row_id);
@@ -176,7 +250,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	// set up the button that saves the rows to the db
 	var btnSaveRows = new YAHOO.widget.Button(table_data.div_id+"Saverows"); 
 	btnSaveRows.on("click", function() {
-		var request = new Mojo.ClientRequest( {
+		var request = new MDSS.Request( {
 			// success handler for saved rows
 			dataTable : myDataTable,
 			table_data : table_data,
@@ -204,20 +278,20 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 				    	table_data.after_save();
 				    }
 		        }
-			},
+			//},
 
 			// alert the exception message
-			onFailure : function(e) {
-				if(e instanceof Mojo.dto.ProblemExceptionDTO )
-				{
-					 for each (problem in e.getProblems())
-					{
-					   alert(problem.getLocalizedMessage());
-					}
-				}
-				else{
-					alert(e.getLocalizedMessage());
-				}
+			//onFailure : function(e) {
+			//	if(e instanceof Mojo.dto.ProblemExceptionDTO )
+			//	{
+			//		 for each (problem in e.getProblems())
+			//		{
+			//		   alert(problem.getLocalizedMessage());
+			//		}
+			//	}
+			//	else{
+			//		alert(e.getLocalizedMessage());
+			//	}
 			}
 		});
 	
@@ -267,41 +341,45 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	});
 	btnSaveRows.set("disabled", true);
 	}
+	
+	
 	// function Add one row to the bottom
+	var addRow = function() {
+		// Clear sort when necessary
+		if (bReverseSorted) {
+			 myDataTable.set("sortedBy", null);
+		}
+        // clone the object
+		// FIREFOX ONLY
+		new_data_row = eval(uneval(table_data.defaults));
+		new_label_row = eval(uneval(table_data.defaults));
+		// var record = YAHOO.widget.DataTable._cloneObject(new_defs);
+		// record = new YAHOO.widget.Record(table_data.defaults);
+		// record.row = i++;
+		if (table_data.rows.length > 0)
+		{
+			last_row_index = table_data.rows.length - 1;
+			for each(feild in table_data.copy_from_above)
+			{
+			    	str = 'new_data_row.' + feild + ' = table_data.rows[last_row_index].' + feild ;
+			    	eval(str);
+			    	label = myDataTable.getRecord(last_row_index).getData(feild);
+			    	str = 'new_label_row.' + feild + " = '"+ label + "'";
+			    	eval(str); 
+			}
+        }		
+		table_data.rows.push(new_data_row);
+		myDataTable.addRow(new_label_row);
+		table_data.dirty = true;
+		btnSaveRows.set("disabled", false);
+	}
 	
 	if(YAHOO.util.Dom.get(table_data.div_id+'Addrow')){
 		var btnAddRow = new YAHOO.widget.Button(table_data.div_id+"Addrow");
-		btnAddRow.on("click", function() {
-		// Clear sort when necessary
-			if (bReverseSorted) {
-				 myDataTable.set("sortedBy", null);
-			}
-            // clone the object
-			// FIREFOX ONLY
-			new_data_row = eval(uneval(table_data.defaults));
-			new_label_row = eval(uneval(table_data.defaults));
-			// var record = YAHOO.widget.DataTable._cloneObject(new_defs);
-			// record = new YAHOO.widget.Record(table_data.defaults);
-			// record.row = i++;
-			if (table_data.rows.length > 0)
-			{
-				last_row_index = table_data.rows.length - 1;
-				for each(feild in table_data.copy_from_above)
-				{
-				    	str = 'new_data_row.' + feild + ' = table_data.rows[last_row_index].' + feild ;
-				    	eval(str);
-				    	label = myDataTable.getRecord(last_row_index).getData(feild);
-				    	str = 'new_label_row.' + feild + " = '"+ label + "'";
-				    	eval(str); 
-				}
-	        }		
-			table_data.rows.push(new_data_row);
-			myDataTable.addRow(new_label_row);
-			table_data.dirty = true;
-			btnSaveRows.set("disabled", false);
-		});
+		btnAddRow.on("click", addRow);
 		
 	}
+	
 	// stuff to turn cols on and off
 	// Shows dialog, creating one when necessary
 	var newCols = true;

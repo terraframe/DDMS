@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
 public  class InsecticideQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027442673L;
+private static final long serialVersionUID = 1238826372984L;
 
   public InsecticideQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -339,7 +339,7 @@ private static final long serialVersionUID = 1238027442673L;
  implements InsecticideQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1238027442831L;
+private static final long serialVersionUID = 1238826373169L;
 
   public InsecticideQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public  class DistrictQuery extends dss.vector.solutions.geo.generated.GeoEntityQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238027429315L;
+private static final long serialVersionUID = 1238826344580L;
 
   public DistrictQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -26,6 +26,17 @@ private static final long serialVersionUID = 1238027429315L;
   public String getClassType()
   {
     return "dss.vector.solutions.geo.generated.District";
+  }
+  public com.terraframe.mojo.query.AttributeCharIF getPolygon()
+  {
+    return getPolygon(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getPolygon(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.generated.District.POLYGON, "com.terraframe.mojo.system.gis.metadata.MdAttributePolygon", alias);
+
   }
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
@@ -58,6 +69,8 @@ private static final long serialVersionUID = 1238027429315L;
   public interface DistrictQueryReferenceIF extends com.terraframe.mojo.generation.loader.Reloadable, dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF
   {
 
+    public com.terraframe.mojo.query.AttributeCharIF getPolygon();
+    public com.terraframe.mojo.query.AttributeCharIF getPolygon(String alias);
 
     public com.terraframe.mojo.query.BasicCondition EQ(dss.vector.solutions.geo.generated.District district);
 
@@ -73,7 +86,7 @@ private static final long serialVersionUID = 1238027429315L;
  implements DistrictQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1238027429470L;
+private static final long serialVersionUID = 1238826344733L;
 
   public DistrictQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -92,5 +105,16 @@ private static final long serialVersionUID = 1238027429470L;
       return this.NE(district.getId());
     }
 
+  public com.terraframe.mojo.query.AttributeCharIF getPolygon()
+  {
+    return getPolygon(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getPolygon(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("polygon", "com.terraframe.mojo.system.gis.metadata.MdAttributePolygon", alias);
+
+  }
   }
 }
