@@ -549,3 +549,4 @@ AND md_business_2.id = md_entity_10.id
 AND md_business_2.id NOT IN (SELECT md_state_machine.id FROM md_state_machine)
 AND metadata_1.keyName = 'dss.vector.solutions.geo.generated.GeoEntity'
 ]
+2009-04-04 01:00:15  FATAL: terminating connection due to administrator command
