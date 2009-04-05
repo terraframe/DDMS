@@ -1116,6 +1116,29 @@
             type="java.util.Date"
             order="1" />
         </mdMethod>
+        <mdMethod
+          name="searchByGeoEntityAndDateAndCollectionMethod"
+          label="Search By GeoEntity and Date"
+          description="Searches for a Mosquito collection with the given geo entity and date"
+          static="true"
+          returnType="dss.vector.solutions.entomology.MosquitoCollection">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            order="0"
+            description="GeoEntity" />
+          <mdParameter
+            name="collectionDate"
+            label="Colllection Date"
+            type="java.util.Date"
+            order="1" />
+           <mdParameter
+            name="collectionMethod"
+            label="Colllection Method"
+            type="dss.vector.solutions.mo.CollectionMethod"
+            order="2" />
+        </mdMethod>
       </mdBusiness>
 
       <mdView
@@ -1180,6 +1203,29 @@
             name="endDate"
             label="End Date"
             type="java.util.Date"
+            order="2" />
+        </mdMethod>
+        <mdMethod
+          name="searchByGeoEntityAndDateAndCollectionMethod"
+          label="Search By GeoEntity and Date"
+          description="Searches for a Mosquito collection with the given geo entity and date"
+          static="true"
+          returnType="dss.vector.solutions.entomology.MosquitoCollectionPoint">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            order="0"
+            description="GeoEntity" />
+          <mdParameter
+            name="collectionDate"
+            label="Colllection Date"
+            type="java.util.Date"
+            order="1" />
+           <mdParameter
+            name="collectionMethod"
+            label="Colllection Method"
+            type="dss.vector.solutions.mo.CollectionMethod"
             order="2" />
         </mdMethod>
       </mdBusiness>
@@ -1924,6 +1970,11 @@
               description="The date the mosquito collection was collected"
               order="1"
               type="java.util.Date" />
+             <mdParameter
+              name="collectionMethod"
+              label="Colllection Method"
+              type="dss.vector.solutions.mo.CollectionMethod"
+              order="2" />
           </mdAction>
           <mdAction
             name="searchByGeoIdAndDate"
@@ -1942,6 +1993,11 @@
               description="The date the mosquito collection was collected"
               order="1"
               type="java.util.Date" />
+              <mdParameter
+               name="collectionMethod"
+               label="Colllection Method"
+               type="dss.vector.solutions.mo.CollectionMethod"
+               order="2" />
           </mdAction>
           <mdAction
             name="search"
