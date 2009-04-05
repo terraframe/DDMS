@@ -20,14 +20,14 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/entomology/MosquitoCollection/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
-  
+
   private static final long serialVersionUID = 1235073590401L;
-  
+
   public MosquitoCollectionController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   public void delete(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -38,13 +38,13 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     catch(ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
+
       this.failDelete(dto);
     }
     catch(Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req); 
-     
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failDelete(dto);
     }
   }
@@ -80,13 +80,13 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     catch(ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
+
       this.failUpdate(dto);
     }
     catch(Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req); 
-     
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failUpdate(dto);
     }
   }
@@ -104,7 +104,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-	//if this method is being accessed from create or edit, redirect so the url will be correct and refresh will 
+	//if this method is being accessed from create or edit, redirect so the url will be correct and refresh will
     //not create a new object
 	if (! req.getRequestURI().contains(".view.mojo"))
 	{
@@ -112,7 +112,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 	    resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id="+id);
 	    return;
 	}
-	  
+
 	com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
@@ -189,13 +189,13 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     catch(ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
+
       this.failCreate(dto);
     }
     catch(Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req); 
-     
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failCreate(dto);
     }
   }
@@ -220,32 +220,32 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 	    this.searchByGeoEntityAndDate(geoEntity, collectionDate);
 	  }
   }
-  
+
   public void failSearchByGeoIdAndDate(String geoId, String collectionDate) throws java.io.IOException, javax.servlet.ServletException
   {
-	  try
+      if(geoId == null || collectionDate == null)
+      {
+        render("searchComponent.jsp");
+        return;
+      }
+      try
 	  {
 		Date d =  (Date) new DateConverter("Collection Date").parse(collectionDate, this.getRequest().getLocale());
 	    this.searchByGeoIdAndDate(geoId, d);
 	  }
 	  catch(Exception e)
 	  {
-	    req.setAttribute("page_title", "Search For Mosquito Collections");
-	    render("searchComponent.jsp");	  
+	    render("searchComponent.jsp");
 	  }
   }
-  
-  
+
+
   public void search() throws java.io.IOException, javax.servlet.ServletException
   {
-    // The Earth is the root. FIXME use country's default root
-    EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-    
     req.setAttribute("page_title", "Search For Mosquito Collections");
     render("searchComponent.jsp");
   }
-  
+
   public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, Date collectionDate) throws IOException, ServletException
   {
     MosquitoCollectionDTO collection = MosquitoCollectionDTO.searchByGeoEntityAndDate(super.getClientRequest(), geoEntity, collectionDate);
@@ -257,13 +257,13 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       collection.setDateCollected(collectionDate);
       collection.setGeoEntity(geoEntity);
       req.setAttribute("page_title", "Mosquito Collection Not Found - Creating New");
-      jsp = "createComponent.jsp";      
+      jsp = "createComponent.jsp";
     }
 
     req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", collection);
-    
+
     render(jsp);
   }
 
