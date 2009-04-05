@@ -11,6 +11,9 @@
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinalSiteDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.NonSentinalSiteDTO"%>
+
+<c:set var="page_title" value="Search Mosquito Collections"  scope="request"/>
+
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
@@ -83,5 +86,4 @@
   />
 </mjl:form>
 
-<div id="cal1Container" class="yui-skin-sam"></div>
 <%//out.flush();%>
