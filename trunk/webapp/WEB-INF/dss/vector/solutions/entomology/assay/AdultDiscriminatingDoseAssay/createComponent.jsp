@@ -1,8 +1,15 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
+<c:set var="true_label" value='<%=Halp.translateBool(((AdultDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),true)%>'/>
+<c:set var="false_label" value='<%=Halp.translateBool(((AdultDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),false)%>'/>
+
+
 <c:set var="window_title" value="Enter new adult diagnostic assay data"  scope="request"/>
 <c:set var="page_title" value="Enter new data"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -63,7 +70,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:boolean param="isofemale" />
+        <mjl:boolean param="isofemale" trueLabel="${true_label}" falseLabel="${false_label}" />
       </dd>
       <dt>
         <label>

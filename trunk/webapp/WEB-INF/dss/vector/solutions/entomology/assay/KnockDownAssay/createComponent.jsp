@@ -1,5 +1,11 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="dss.vector.solutions.entomology.assay.KnockDownAssayDTO"%>
+
+<c:set var="true_label" value='<%=Halp.translateBool(((KnockDownAssayDTO)request.getAttribute("item")).getIsofemaleMd(),true)%>'/>
+<c:set var="false_label" value='<%=Halp.translateBool(((KnockDownAssayDTO)request.getAttribute("item")).getIsofemaleMd(),false)%>'/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -59,7 +65,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:boolean param="isofemale" />
+        <mjl:boolean param="isofemale" trueLabel="${true_label}" falseLabel="${false_label}" />
       </dd>
       <dt>
         <label>
@@ -163,7 +169,7 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-      
+
       <dt>
         <label>
           ${item.insecticideMd.displayLabel}
@@ -199,7 +205,7 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-      
+
     </dl>
   </mjl:component>
   <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.create.mojo" name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.create.button" />
