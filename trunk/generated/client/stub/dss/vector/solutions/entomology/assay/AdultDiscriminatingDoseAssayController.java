@@ -2,6 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 
+import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
 
@@ -162,6 +163,11 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO dto = new dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO(clientRequest);
+    if(req.getParameter("collection_id") != null)
+    {
+      dto.setCollection(MosquitoCollectionDTO.get(clientRequest, req.getParameter("collection_id")));
+    }
+
     req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));

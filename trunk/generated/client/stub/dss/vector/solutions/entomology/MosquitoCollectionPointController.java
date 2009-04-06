@@ -15,14 +15,14 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/entomology/MosquitoCollectionPoint/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
-  
+
   private static final long serialVersionUID = 1235073586764L;
-  
+
   public MosquitoCollectionPointController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   public void create(dss.vector.solutions.entomology.MosquitoCollectionPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -37,7 +37,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
   }
   public void failCreate(dss.vector.solutions.entomology.MosquitoCollectionPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    //req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create MosquitoCollectionPointController");
     render("createComponent.jsp");
@@ -46,7 +46,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.MosquitoCollectionPointDTO dto = new dss.vector.solutions.entomology.MosquitoCollectionPointDTO(clientRequest);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    //req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create MosquitoCollectionPointController");
     render("createComponent.jsp");
@@ -79,7 +79,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    //req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.entomology.MosquitoCollectionPointDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View MosquitoCollectionPointController");
     render("viewComponent.jsp");
@@ -91,7 +91,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     dss.vector.solutions.entomology.MosquitoCollectionPointDTO dto = dss.vector.solutions.entomology.MosquitoCollectionPointDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    //req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit MosquitoCollectionPointController");
     render("editComponent.jsp");
@@ -114,7 +114,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
   }
   public void failUpdate(dss.vector.solutions.entomology.MosquitoCollectionPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    //req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update MosquitoCollectionPointController");
     render("editComponent.jsp");
@@ -133,7 +133,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
   }
   public void failDelete(dss.vector.solutions.entomology.MosquitoCollectionPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    //req.setAttribute("mdss_ivcc_mrc_csu_entomology_AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit MosquitoCollectionPointController");
     render("editComponent.jsp");
@@ -163,7 +163,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
 	    this.searchByGeoEntityAndDate(geoEntity, startDate, endDate);
 	  }
   }
-  
+
   public void failSearchByGeoIdAndDate(String geoId, String startDate, String endDate) throws java.io.IOException, javax.servlet.ServletException
   {
 	  try
@@ -175,21 +175,18 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
 	  catch(Exception e)
 	  {
 	    req.setAttribute("page_title", "Search For Mosquito Collections");
-	    render("searchComponent.jsp");	  
+	    render("searchComponent.jsp");
 	  }
   }
-  
-  
+
+
   public void search() throws java.io.IOException, javax.servlet.ServletException
   {
-    // The Earth is the root.
-    EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-    
+
     req.setAttribute("page_title", "Search For Mosquito Collection Points");
     render("searchComponent.jsp");
   }
-  
+
   public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, Date startDate, Date endDate) throws IOException, ServletException
   {
 	MorphologicalSpecieGroupViewDTO[] collection = MosquitoCollectionPointDTO.searchByGeoEntityAndDate(super.getClientRequest(), geoEntity,startDate,endDate);
@@ -199,7 +196,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
     req.setAttribute("startDate", startDate);
     req.setAttribute("endDate", endDate);
     req.setAttribute("collection_points", collection);
-    
+
     render(jsp);
   }
 }

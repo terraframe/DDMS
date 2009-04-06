@@ -96,7 +96,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     //req.setAttribute("AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update a Mosquito Collection");
+    req.setAttribute("page_title", "Error - Update a Mosquito Collection");
     render("editComponent.jsp");
   }
   public void failSearchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.lang.String collectionDate) throws java.io.IOException, javax.servlet.ServletException
@@ -203,9 +203,9 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failCreate(dss.vector.solutions.entomology.MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    //req.setAttribute("AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Mosquito Collection");
+    req.setAttribute("page_title", "ERROR - Create Mosquito Collection");
     render("createComponent.jsp");
   }
   //@Override
@@ -224,9 +224,10 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void failSearchByGeoIdAndDate(String geoId, String collectionDate, CollectionMethodDTO collectionMethod) throws java.io.IOException, javax.servlet.ServletException
   {
+      req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
       if(geoId == null || collectionDate == null)
       {
-        render("searchComponent.jsp");
+          render("searchComponent.jsp");
         return;
       }
       try
@@ -244,25 +245,25 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void search() throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("page_title", "Search For Mosquito Collections");
+    req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     render("searchComponent.jsp");
   }
 
   public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, Date collectionDate, CollectionMethodDTO collectionMethod) throws IOException, ServletException
   {
-    MosquitoCollectionDTO collection = MosquitoCollectionDTO.searchByGeoEntityAndDate(super.getClientRequest(), geoEntity, collectionDate);
+    MosquitoCollectionDTO collection = MosquitoCollectionDTO.searchByGeoEntityAndDateAndCollectionMethod(super.getClientRequest(), geoEntity, collectionDate, collectionMethod);
     String jsp =  "viewComponent.jsp";
-    req.setAttribute("page_title", "Found Mosquito Collections");
+
     if(collection == null)
     {
       collection = new MosquitoCollectionDTO(super.getClientRequest());
       collection.setDateCollected(collectionDate);
       collection.setGeoEntity(geoEntity);
+      collection.setCollectionMethod(collectionMethod);
       req.setAttribute("page_title", "Mosquito Collection Not Found - Creating New");
       jsp = "createComponent.jsp";
     }
-
     req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", collection);
 
     render(jsp);
