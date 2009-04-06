@@ -1973,6 +1973,7 @@
              <mdParameter
               name="collectionMethod"
               label="Colllection Method"
+              description="The method used to collect these mosquitos"
               type="dss.vector.solutions.mo.CollectionMethod"
               order="2" />
           </mdAction>
@@ -1993,10 +1994,11 @@
               description="The date the mosquito collection was collected"
               order="1"
               type="java.util.Date" />
-              <mdParameter
+            <mdParameter
                name="collectionMethod"
                label="Colllection Method"
                type="dss.vector.solutions.mo.CollectionMethod"
+               description="The method used to collect these mosquitos"
                order="2" />
           </mdAction>
           <mdAction
