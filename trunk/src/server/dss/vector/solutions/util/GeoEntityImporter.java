@@ -1,4 +1,4 @@
-package dds.vector.solutions.util;
+package dss.vector.solutions.util;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
