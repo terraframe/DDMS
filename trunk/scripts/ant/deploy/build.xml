@@ -208,7 +208,7 @@
 	<target name="import_geodata" depends="" description="imports a db of geodata into the deploy db">
 		<!--<diagnostics/>-->
 
-		<!-- backup deploy properties-->
+		<!-- backup deploy properties -->
 		<copy file="../../../profiles/develop/server/database.properties" tofile="../../../profiles/develop/server/database.properties.bak" />
 		<!-- change develop to temporaly point to deploy -->
 		<propertyfile file="../../../profiles/develop/server/database.properties">
@@ -216,7 +216,7 @@
 			<entry key="password" value="mdssdeploy"/>
 			<entry key="databaseName" value="mdssdeploy"/>
 		</propertyfile>
-		<!-- run the importer-->
+		<!-- run the importer -->
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
@@ -225,12 +225,14 @@
 			</classpath>
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
+
 			<arg value="-Droot.user=${root.user}" />
 			<arg value="-Droot.pass=${root.pass}" />
 			<arg value="import_geodata" />
 		</java>
-		<!-- change develop back to develop-->
+		<!-- change develop back to develop -->
 		<move file="../../../profiles/develop/server/database.properties.bak" tofile="../../../profiles/develop/server/database.properties" />
+
 	</target>
 
 

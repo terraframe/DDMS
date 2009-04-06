@@ -393,7 +393,7 @@
 	<!-- Import the geo data into the db                             -->
 	<!-- =================================================================== -->
 	<target name="import_geodata" depends="" description="imports a db of geodata into the db">
-		<java classname="dds.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
+		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
 			<classpath>
 				<path refid="framework.classpath" />
