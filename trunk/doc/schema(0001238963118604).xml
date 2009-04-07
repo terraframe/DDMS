@@ -1,0 +1,80 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.geo.GeoEntityView"
+        label="GeoEntity View"
+        description="Simplified view of a GeoEntity">
+        <attributes>
+          <char
+            name="geoEntityId"
+            required="true"
+            size="64"
+            label="The GeoEntity id" />
+          <char
+            name="entityType"
+            required="true"
+            size="255"
+            label="The GeoEntity type" />
+          <virtual
+            name="entityName"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            concrete="entityName" />
+          <virtual
+            name="geoId"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            concrete="geoId" />
+          <virtual
+            name="activated"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            concrete="activated" />
+        </attributes>
+      </mdView>
+    </create>
+    
+    <update>
+      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
+        <mdMethod
+          name="getOrderedChildren"
+          label="Get Ordered Child Entities"
+          description="Gets LocatedIn children ordered by label."
+          static="false"
+          returnType="dss.vector.solutions.geo.GeoEntityViewQuery">
+          <mdParameter
+            name="typeFilter"
+            label="Type Filter"
+            description="Name of GeoEntity subclass to filter."
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+      </mdBusiness>
+
+      <!-- Possible Bug when this is included as a create in the above MdBusiness tag.
+           The MdMethod was never created (verify this with Smethie). -->      
+      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <mdMethod
+            name="deleteRelationship"
+            label="Delete Relationship"
+            description="Deletes the LocatedIn relationship with the given parent."
+            static="false"
+            returnType="void">
+            <mdParameter
+              name="parentId"
+              label="parent id"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+        
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>

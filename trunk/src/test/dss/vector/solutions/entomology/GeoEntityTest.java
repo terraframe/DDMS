@@ -7,12 +7,15 @@ import com.terraframe.mojo.query.OIterator;
 
 import dss.vector.solutions.geo.DeleteEarthException;
 import dss.vector.solutions.geo.DuplicateEarthException;
+import dss.vector.solutions.geo.GeoEntityView;
+import dss.vector.solutions.geo.GeoEntityViewQuery;
 import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.generated.AdminPost;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.District;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.geo.generated.Province;
 
 public class GeoEntityTest extends GeoTest
@@ -648,6 +651,86 @@ public class GeoEntityTest extends GeoTest
     catch(LocatedInException e)
     {
       // success
+    }
+    finally
+    {
+      deleteAll(testEntities);
+    }
+  }
+  
+  /**
+   * Tests that getting immediate ordered children of an entity.
+   */
+  public void testGetChildren()
+  {
+    List<GeoEntity> testEntities = new LinkedList<GeoEntity>();
+
+    Country country = null;
+    Province province = null;
+    District district = null;
+    AdminPost adminPost = null;
+    
+    try
+    {
+      
+      country = new Country();
+      country.setActivated(true);
+      country.setEntityName("Country 1");
+      country.setGeoId(genGeoId());
+      country.apply();
+      testEntities.add(country);
+      
+      province = new Province();
+      province.setActivated(true);
+      province.setEntityName("Province 1");
+      province.setGeoId(genGeoId());
+      province.applyWithParent(country.getId(), false);
+      testEntities.add(province);
+      
+      district = new District(); // starts under Country
+      district.setActivated(true);
+      district.setEntityName("District 1");
+      district.setGeoId(genGeoId());
+      district.applyWithParent(country.getId(), false);
+      testEntities.add(district);
+      
+      adminPost = new AdminPost();
+      adminPost.setActivated(true);
+      adminPost.setEntityName("Admin Post 1");
+      adminPost.setGeoId(genGeoId());
+      adminPost.applyWithParent(country.getId(), false);
+
+      List<GeoEntity> ordered = new LinkedList<GeoEntity>();
+      ordered.add(adminPost);
+      ordered.add(district);
+      ordered.add(province);
+      
+      GeoEntityViewQuery query = country.getOrderedChildren("");
+      
+      assertEquals(query.getCount(), 3L);
+      
+      // make sure the entities are in order
+      OIterator<? extends GeoEntityView> iter = query.getIterator();
+      
+      try
+      {
+        int count = 0;
+        while(iter.hasNext())
+        {
+          GeoEntityView view = iter.next();
+          GeoEntity entity = ordered.get(count);
+          
+          assertEquals(entity.getId(), view.getGeoEntityId());
+          assertEquals(entity.getGeoId(), view.getGeoId());
+          assertEquals(entity.getActivated(), view.getActivated());
+          assertEquals(entity.getEntityName(), view.getEntityName());
+          count++;
+        }
+      }
+      finally
+      {
+        iter.close();
+      }
     }
     finally
     {

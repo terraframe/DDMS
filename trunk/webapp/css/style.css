@@ -378,12 +378,12 @@ div.thematicVariable
 
 .activeEntity
 {
-	background: url(/MDSS/imgs/green_dot.gif) no-repeat left;
 	padding-left: 10px;
+	color: #000000;
 }
 
 .inactiveEntity
 {
-	background: url(/MDSS/imgs/red_dot.gif) no-repeat left;
 	padding-left: 10px;
+	color: #808080;
 }

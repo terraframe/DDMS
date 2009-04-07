@@ -19,5 +19,11 @@ MDSS.Localized = {
   Choice: {
     Yes: '<f:message key="Choice_Yes"/>',
     No: '<f:message key="Choice_No"/>'
+  },
+  
+  // Delete GeoEntity choices
+  Delete: {
+    Entity: '<f:message key="Delete_Entity" />',
+    Relationship: '<f:message key="Delete_Relationship" />'
   }
 };

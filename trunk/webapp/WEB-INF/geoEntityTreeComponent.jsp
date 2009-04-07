@@ -9,7 +9,8 @@
 
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 
-<%@page import="dss.vector.solutions.geo.generated.EarthDTO"%><script type="text/javascript">
+<%@page import="dss.vector.solutions.geo.generated.EarthDTO"%><%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
+<script type="text/javascript">
 
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
@@ -27,11 +28,13 @@
     JSONObject obj = new JSONObject(tree);
     JSONArray imports = obj.getJSONArray("imports");
 
-    String[] types = new String[imports.length()];
-    for(int i=0; i<types.length; i++)
+    int length = imports.length()+1;
+    String[] types = new String[length];
+    for(int i=0; i<types.length-1; i++)
     {
       types[i] = imports.getString(i);
     }
+    types[length-1] = GeoEntityViewDTO.CLASS;
 
     String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
     out.print(js);
