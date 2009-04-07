@@ -29,6 +29,25 @@
 		<echo message="The build is complete" />
 	</target>
 
+	<target name="fast_build" depends="alert_status,develop_rebuild_import,deploy_all" description="Rebuild Develop from scratch and then copy everything to deploy.">
+		<shellscript shell="bash" os="Mac OS X" dir="./" searchpath="true"
+			inputstring="${postgres.bin}/pg_dump --blobs -U mdssdevelop mdssdevelop > dump.sql" />
+		<replaceregexp byline="true">
+		  <regexp pattern="mdssdevelop"/>
+		  <substitution expression="mdssdeploy"/>
+		  <fileset file ="./dump.sql"/>
+		 </replaceregexp>
+
+		<shellscript shell="bash" os="Mac OS X" dir="./" searchpath="true"
+					inputstring="${postgres.bin}/psql -U postgres postgres -f drop_deploy.sql" />
+		<shellscript shell="bash" os="Mac OS X" dir="./" searchpath="true"
+					inputstring="${postgres.bin}/psql -U mdssdeploy mdssdeploy -f dump.sql" />
+		<antcall target="call_reload_jsp"/>
+		<echo message="The build is complete" />
+	</target>
+
+
+
 	<!-- =================================================================== -->
 	<!-- These are five tasks that rebuild MDSS.                             -->
 	<!-- You can run them one at a time if you wish.                         -->
@@ -179,7 +198,7 @@
 	<!-- CAUTION: CHANGES PUSHED TO TOMCAT WITH THESE TASKS WILL BE LOST UPON RESTART!                   -->
 	<!-- =================================================================== -->
 
-	<target name="update_source" depends="alert_status,call_reload_jsp" description="Step 6, use this if you have changed java code and want send changes to tomcat">
+	<target name="update_source" depends="alert_status" description="Step 6, use this if you have changed java code and want send changes to tomcat">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(6)Update Source">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
