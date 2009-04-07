@@ -272,7 +272,7 @@ MDSS.SelectSearch = (function(){
     else
     {
       // get the children
-      var request = new Mojo.ClientRequest({
+      var request = new MDSS.Request({
       parentEntityView: parentEntityView,
       onSuccess : function(query){
         
@@ -288,10 +288,7 @@ MDSS.SelectSearch = (function(){
         }
         
         _notifySelectHandler(this.parentEntityView);
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
-        }
+      }
       });
     
       Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getOrderedChildren(request, parentEntityView.getGeoEntityId(), _filterType);
@@ -321,7 +318,7 @@ MDSS.SelectSearch = (function(){
     
     var geoId = input.value;
     
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(geoEntity)
       {
         var select = document.getElementById(geoEntity.getType());
@@ -329,9 +326,6 @@ MDSS.SelectSearch = (function(){
         
         var view = _copyEntityToView(geoEntity);
         _setEntityOption(view);
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     
@@ -389,13 +383,10 @@ MDSS.SelectSearch = (function(){
   _createRoot = function()
   {
     // Populate the root
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(geoEntity){
         var view = _copyEntityToView(geoEntity);
         _setEntityOption(view);
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
     
@@ -407,7 +398,7 @@ MDSS.SelectSearch = (function(){
    */
   _renderModal = function()
   {
-    var request = new Mojo.ClientRequest({
+    var request = new MDSS.Request({
       onSuccess : function(html){
         
         // use modal to contain MDSS101
@@ -438,9 +429,6 @@ MDSS.SelectSearch = (function(){
         treeOpener.on('click', _openTree);
         
         _createRoot();
-      },
-      onFailure : function(e){
-        alert(e.getLocalizedMessage());
       }
     });
   
