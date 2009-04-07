@@ -258,7 +258,7 @@
   </mjl:component>
 
 
-  <div class="submitButton_bl"></div>
+
   <mjl:command value="Update" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.update.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.update.button" classes="submitButton"/>
   <mjl:command value="Delete" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.delete.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.delete.button" classes="submitButton"/>
   <mjl:command value="Cancel" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.cancel.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.cancel.button" classes="submitButton"/>

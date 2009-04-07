@@ -19,14 +19,23 @@
     <dl>
     <dt>
         <label>
-          ${item.collectionMd.displayLabel}
+          ${item.collectionMd.displayLabel} ${item.collection.displayLabel}
         </label>
       </dt>
       <dd>
         <mjl:select var="current" valueAttribute="id" items="${collection}" param="collection">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
+          <c:choose>
+            <c:when test="${current.id == item.collection.id}">
+             <mjl:option selected="selected">
+               ${current.displayLabel}
+              </mjl:option>
+            </c:when>
+            <c:otherwise>
+              <mjl:option>
+                ${current.displayLabel}
+              </mjl:option>
+            </c:otherwise>
+          </c:choose>
         </mjl:select>
       </dd>
       <dt>
@@ -260,6 +269,6 @@
   </mjl:component>
 
 
-<div class="submitButton_bl"></div>
+
   <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.create.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.create.button" classes="submitButton" />
 </mjl:form>

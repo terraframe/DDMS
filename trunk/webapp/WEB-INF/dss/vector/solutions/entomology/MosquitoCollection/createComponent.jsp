@@ -20,6 +20,9 @@
             ${current.termName}
           </mjl:option>
         </mjl:select>
+         <mjl:messages attribute="collectionMethod">
+          <mjl:message />
+        </mjl:messages>
       </dd>
       <dt>
         <label>
@@ -38,27 +41,16 @@
         </label>
       </dt>
       <dd>
-         <mjl:select var="current" valueAttribute="id" items="${AbstractMosquitoCollection_geoEntity}" param="geoEntity" >
-          <c:choose>
-            <c:when test="${current.geoId == item.geoEntity.geoId}">
-             <mjl:option selected="selected">
-               ${current.geoId}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
-              <mjl:option>
-                ${current.geoId}
-              </mjl:option>
-            </c:otherwise>
-          </c:choose>
-        </mjl:select>
+          ${item.geoEntity.geoId}
+          <mjl:input type="hidden" param="geoEntity" id="dto.geoEntity.id" />
+         <mjl:messages attribute="geoEntity">
+          <mjl:message />
+        </mjl:messages>
       </dd>
     </dl>
   </mjl:component>
 
 
-
-<div class="submitButton_bl"></div>
   <mjl:command value="Create" action="dss.vector.solutions.entomology.MosquitoCollectionController.create.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.create.button" classes="submitButton"/>
 </mjl:form>
 <div id="cal1Container" class="yui-skin-sam"></div>

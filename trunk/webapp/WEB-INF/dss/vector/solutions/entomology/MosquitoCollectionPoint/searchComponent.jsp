@@ -21,10 +21,10 @@
 MDSS.currentSearchModal = null;
 
   YAHOO.util.Event.onDOMReady(function(){
-    
+
     var opener = new YAHOO.util.Element("searchOpener");
     opener.on("click", function(){
-    
+
       if(MDSS.SelectSearch.isInitialized())
       {
         MDSS.SelectSearch.show();
@@ -41,7 +41,7 @@ MDSS.currentSearchModal = null;
             filterType = radio.value;
           }
         }
-        
+
        function selectHandler(selected)
        {
          var geoId = document.getElementById('geoIdEl');
@@ -55,7 +55,7 @@ MDSS.currentSearchModal = null;
            geoId.value = '';
          }
        }
-          
+
        MDSS.SelectSearch.initialize(selectHandler, selectHandler, filterType);
       }
     });
@@ -72,9 +72,9 @@ MDSS.currentSearchModal = null;
   <dl>
     <dt> Filter </dt>
     <dd>
-        All <input type="radio" name="filterType" value="" checked="checked" />
-        Trap<input type="radio" name="filterType" value="${TrapClass}" />
-        Permanent Water Body<input type="radio" name="filterType" value="${PermanentWaterBodyClass}" />
+        <input type="radio" name="filterType" value="" checked="checked" />All &nbsp;&nbsp;&nbsp;
+        <input type="radio" name="filterType" value="${TrapClass}" />Trap &nbsp;&nbsp;&nbsp;
+        <input type="radio" name="filterType" value="${PermanentWaterBodyClass}" />Permanent Water Body
     </dd>
     <dt> Geo Id </dt>
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /><a id="searchOpener" href="#"><img src="./imgs/icons/world.png"/></a></dd>
@@ -82,8 +82,8 @@ MDSS.currentSearchModal = null;
     <dd> <mjl:input param="startDate" type="text" classes="DatePick" id="startDate"/></dd>
     <dt>End Date </dt>
     <dd> <mjl:input param="endDate" type="text" classes="DatePick" id="endDate"/></dd>
-    
-  </dl>  
+
+  </dl>
   <br>
   <br>
   <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionPointController.searchByGeoIdAndDate.mojo" name="search.button"

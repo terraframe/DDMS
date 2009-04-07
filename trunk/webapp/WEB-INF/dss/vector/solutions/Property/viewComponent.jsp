@@ -46,7 +46,7 @@
 <div class="fcTopLeft"></div></div>
     <div class="fcBottom"><div class="fcBottomLeft"></div></div>
 </div>
-<div class="submitButton_bl"></div>      
+
   <mjl:command value="Edit" action="dss.vector.solutions.PropertyController.edit.mojo" name="dss.vector.solutions.Property.form.edit.button" classes="submitButton"/>
   <br />
 </mjl:form>

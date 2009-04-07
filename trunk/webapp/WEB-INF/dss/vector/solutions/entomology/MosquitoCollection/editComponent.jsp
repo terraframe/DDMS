@@ -55,7 +55,7 @@
     </dl>
   </mjl:component>
 
-<div class="submitButton_bl"></div>
+
 <mjl:command value="Update" action="dss.vector.solutions.entomology.MosquitoCollectionController.update.mojo"
 name="dss.vector.solutions.entomology.MosquitoCollection.form.update.button" classes="submitButton"/>
 <mjl:command value="Delete" action="dss.vector.solutions.entomology.MosquitoCollectionController.delete.mojo"
