@@ -4,7 +4,7 @@
 MDSS.SelectSearch = (function(){
   
   // cache of GeoEntities with key/value = geoEntity.getId()/geoEntity
-  var _geoEntityCache = {};
+  var _geoEntityViewCache = {};
 
   // container id that holds the select id
   var _containerId = "selectSearchComponent";
@@ -33,30 +33,30 @@ MDSS.SelectSearch = (function(){
   _setParentChildMapping = function(parent, child)
   {
     // check if entry already exists for child
-    var cEntry = _childMap[child.getId()];
+    var cEntry = _childMap[child.getGeoEntityId()];
     if(cEntry == null)
     {
       cEntry = {};
-      cEntry[parent.getId()] = parent.getEntityName();
-      _childMap[child.getId()] = cEntry;
+      cEntry[parent.getGeoEntityId()] = parent.getEntityName();
+      _childMap[child.getGeoEntityId()] = cEntry;
     }
     else
     {
       // add a second parent
-      cEntry[parent.getId()] = parent.getEntityName();
+      cEntry[parent.getGeoEntityId()] = parent.getEntityName();
     }
     
     // set the parent/child mapping
-    var pEntry = _parentMap[parent.getId()];
+    var pEntry = _parentMap[parent.getGeoEntityId()];
     if(pEntry == null)
     {
       pEntry = {};
-      pEntry[child.getId()] = child.getEntityName();
-      _parentMap[parent.getId()] = pEntry;
+      pEntry[child.getGeoEntityId()] = child.getEntityName();
+      _parentMap[parent.getGeoEntityId()] = pEntry;
     }
     else
     {
-      pEntry[child.getId()] = child.getEntityName();
+      pEntry[child.getGeoEntityId()] = child.getEntityName();
     }
   }
   
@@ -76,7 +76,7 @@ MDSS.SelectSearch = (function(){
         var option = options[j];
         if(option.selected)
         {
-          var geo = _geoEntityCache[option.id];
+          var geo = _geoEntityViewCache[option.id];
         
           geos.push(geo);
         }
@@ -97,7 +97,7 @@ MDSS.SelectSearch = (function(){
     var select = optionEl.parentNode;
     select.removeChild(optionEl);
       
-    delete _geoEntityCache[optionEl.id];
+    delete _geoEntityViewCache[optionEl.id];
       
     if(select.options.length == 1)
     {
@@ -147,25 +147,25 @@ MDSS.SelectSearch = (function(){
    * and an option for the give select element that represents
    * the GeoEntity's type.
    */
-  _setEntityOption = function(geoEntity)
+  _setEntityOption = function(geoEntityView)
   {
-    var select = document.getElementById(geoEntity.getType());
+    var select = document.getElementById(geoEntityView.getEntityType());
 
-    if(select && !_geoEntityCache[geoEntity.getId()])
+    if(select && !_geoEntityViewCache[geoEntityView.getGeoEntityId()])
     {
       select.disabled = false;
 
       var optionRaw = document.createElement('option');
-      optionRaw.value = geoEntity.getId();
-      optionRaw.id = geoEntity.getId();
-      optionRaw.innerHTML = geoEntity.getEntityName();
+      optionRaw.value = geoEntityView.getGeoEntityId();
+      optionRaw.id = geoEntityView.getGeoEntityId();
+      optionRaw.innerHTML = geoEntityView.getEntityName();
         
       select.appendChild(optionRaw);
       
       var option = new YAHOO.util.Element(optionRaw);
       option.on('click', _getChildren);
 
-      _geoEntityCache[geoEntity.getId()] = geoEntity;
+      _geoEntityViewCache[geoEntityView.getGeoEntityId()] = geoEntityView;
     }
   }
   
@@ -220,7 +220,7 @@ MDSS.SelectSearch = (function(){
    * Notifies the select handler that a new select list
    * option has been chosen.
    */
-  _notifySelectHandler = function(geoEntity)
+  _notifySelectHandler = function(geoEntityView)
   {
     var allSelected = _getAllSelected();
 
@@ -235,7 +235,7 @@ MDSS.SelectSearch = (function(){
     
     if(Mojo.util.isFunction(_selectHandler))
     {
-      _selectHandler(geoEntity, allSelected);
+      _selectHandler(geoEntityView, allSelected);
     }
   }
   
@@ -249,6 +249,7 @@ MDSS.SelectSearch = (function(){
   {
     var currentOption = e.target;
     var select = currentOption.parentNode;
+    var parentEntityView = _geoEntityViewCache[currentOption.id];
     
     // clear all unchecked options
     var options = select.options;
@@ -272,30 +273,42 @@ MDSS.SelectSearch = (function(){
     {
       // get the children
       var request = new Mojo.ClientRequest({
-      
-      onSuccess : function(query, geoEntity){
+      parentEntityView: parentEntityView,
+      onSuccess : function(query){
         
+        // these are GeoEntityView objects
         var geoEntities = query.getResultSet();
         
         for(var i=0; i<geoEntities.length; i++)
         {
-          var child = geoEntities[i];
-          _setEntityOption(child);
+          var childView = geoEntities[i];
+          _setEntityOption(childView);
           
-          _setParentChildMapping(geoEntity, child);
+          _setParentChildMapping(this.parentEntityView, childView);
         }
         
-        _notifySelectHandler(geoEntity);
+        _notifySelectHandler(this.parentEntityView);
       },
       onFailure : function(e){
         alert(e.getLocalizedMessage());
         }
       });
     
-      var geoEntity = _geoEntityCache[currentOption.id];
-    
-      geoEntity.getOrderedChildren(request, _filterType);
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getOrderedChildren(request, parentEntityView.getGeoEntityId(), _filterType);
     }
+  }
+  
+  function _copyEntityToView(geoEntity)
+  {
+    var view = new Mojo.$.dss.vector.solutions.geo.GeoEntityView();
+    
+    view.setGeoEntityId(geoEntity.getId());
+    view.setGeoId(geoEntity.getGeoId());
+    view.setActivated(geoEntity.getActivated());
+    view.setEntityName(geoEntity.getEntityName());
+    view.setEntityType(geoEntity.getType());
+    
+    return view;
   }
   
   /**
@@ -314,7 +327,8 @@ MDSS.SelectSearch = (function(){
         var select = document.getElementById(geoEntity.getType());
         _clearOptionsOnSelect(select);
         
-        _setEntityOption(geoEntity);
+        var view = _copyEntityToView(geoEntity);
+        _setEntityOption(view);
       },
       onFailure : function(e){
         alert(e.getLocalizedMessage());
@@ -377,7 +391,8 @@ MDSS.SelectSearch = (function(){
     // Populate the root
     var request = new Mojo.ClientRequest({
       onSuccess : function(geoEntity){
-        _setEntityOption(geoEntity);
+        var view = _copyEntityToView(geoEntity);
+        _setEntityOption(view);
       },
       onFailure : function(e){
         alert(e.getLocalizedMessage());

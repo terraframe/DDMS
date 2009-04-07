@@ -471,7 +471,7 @@ MDSS.QueryPanel = function(panelId, config)
 {
   this._layout = new YAHOO.widget.Layout(panelId, {
     height: 480,
-    width: 8000,
+    width: 800,
     units: [
         { position: 'top', height: 50, resize: false, body: '', gutter: '2' },
         { position: 'left', width: 150, resize: false, body: '', gutter: '0 5 0 2', scroll: true },
