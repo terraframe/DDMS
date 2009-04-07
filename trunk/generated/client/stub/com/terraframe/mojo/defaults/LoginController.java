@@ -5,6 +5,7 @@ import com.terraframe.mojo.constants.ClientConstants;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.CommonProperties;
 import com.terraframe.mojo.constants.MdActionInfo;
+import com.terraframe.mojo.session.LoginException;
 import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.util.GlobalSessionListener;
@@ -37,10 +38,10 @@ public class LoginController extends LoginControllerBase implements com.terrafra
 			req.getSession().setAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER, globalSessionListener);
 
 			req.getRequestDispatcher("index.jsp").forward(req, resp);
-		} catch (Exception e) {
+		} catch (LoginException e) {
 			req.setAttribute("bad_password", true);
 			req.getRequestDispatcher("login.jsp").forward(req, resp);
-			
+
 		}
 
 	}
