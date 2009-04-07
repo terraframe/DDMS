@@ -10,13 +10,13 @@
 	<property file="../../../profiles/default/common/terraframe.properties" />
 
 	<property name="root.user" value="postgres" />
-	<property name="root.pass" value="postgres" />
+	<property name="root.pass" value="framework" />
 	<property name="root.db" value="template_postgis" />
 	<property name="max_memory_use" value="1024m" />
 
 	<property name="deploy.path" value="${deploy.root}/webapps/MDSS/" />
 
-	<property name="postgres.bin" value="/Library/PostgreSQL/8.3/bin" />
+	<property name="postgres.bin" value="/usr/bin" />
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
 
@@ -33,7 +33,7 @@
 		<antcall target="kill_tomcat"/>
 		<!--dump the develop db to a sql file -->
 		<shellscript shell="bash" os="Mac OS X,Linux" dir="./" searchpath="true"
-			inputstring="${postgres.bin}/pg_dump --blobs -U mdssdevelop mdssdevelop > dump.sql" />
+			inputstring="${postgres.bin}/pg_dump --blobs -h 127.0.0.1 -U mdssdevelop mdssdevelop > dump.sql" />
 		<shellscript  shell="cmd" os="Windows" dir="./" searchpath="true"
 					inputstring="${postgres.bin}/pg_dump --blobs -U mdssdevelop mdssdevelop > dump.sql" />
 		<!--change 'mdssdevelop' to 'mdssdeploy' -->
@@ -44,12 +44,12 @@
 		 </replaceregexp>
 		<!--drop and recreate the deploy db -->
 		<shellscript shell="bash" os="Mac OS X,Linux" dir="./" searchpath="true"
-					inputstring="${postgres.bin}/psql -U postgres postgres -f drop_deploy.sql" />
+					inputstring="${postgres.bin}/psql -h 127.0.0.1 -U postgres postgres -f drop_deploy.sql" />
 		<shellscript shell="cmd" os="Windows" dir="./" searchpath="true"
 							inputstring="${postgres.bin}/psql -U postgres postgres -f drop_deploy.sql" />
 		<!--import the sql dump into the develop db -->
 		<shellscript shell="bash" os="Mac OS X,Linux" dir="./" searchpath="true"
-					inputstring="${postgres.bin}/psql -U mdssdeploy mdssdeploy -f dump.sql" />
+					inputstring="${postgres.bin}/psql -h 127.0.0.1 -U mdssdeploy mdssdeploy -f dump.sql" />
 		<shellscript shell="cmd" os="Windows" dir="./" searchpath="true"
 							inputstring="${postgres.bin}/psql -U mdssdeploy mdssdeploy -f dump.sql" />
 		<!--make tomcat reload-->
@@ -146,6 +146,9 @@
 		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
 	   	ps -x  | grep Tomcat | egrep -o ^\ ?[0-9]+ | xargs kill -9
 		</shellscript>
+		<shellscript shell="bash" dir="../../../" os="Linux" searchpath="true">
+	   	ps ax  | grep tomcat | egrep -o ^\ ?[0-9]+ | xargs kill -9
+		</shellscript>
 		<shellscript  shell="cmd" dir="${deploy.root}\bin" os="Windows" searchpath="true">
 			./shutdown.bat
 	    </shellscript>
@@ -153,7 +156,7 @@
 	</target>
 
 	<target name="start_tomcat" unless="dont_kill_tomcat">
-		<shellscript shell="bash" dir="${deploy.root}/bin" os="Mac OS X" searchpath="true">
+		<shellscript shell="bash" dir="${deploy.root}/bin" os="Mac OS X,Linux" searchpath="true">
 		    ./startup.sh
 		</shellscript>
 		<shellscript shell="cmd" dir="${deploy.root}\bin" os="Windows" searchpath="true">
