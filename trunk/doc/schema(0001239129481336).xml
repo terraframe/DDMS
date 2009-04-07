@@ -1,0 +1,1086 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        label="Age Group"
+        generateController="true">
+        <attributes>
+          <char
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255"
+            description="The display label of the aggregated age group" />
+          <boolean
+            name="active"
+            label="active"
+            required="true"
+            default_value="true"
+            description="If this is an active age group" />
+          <integer
+            name="startAge"
+            label="from"
+            required="true"
+            rejectNegative="true"
+            description="The start age of the aggregated age group" />
+          <integer
+            name="endAge"
+            label="to"
+            required="true"
+            rejectNegative="true"
+            description="The end age of the aggreated age group" />
+        </attributes>
+      </mdBusiness>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        id="LT1">
+        <valueAttribute
+          name="startAge"
+          value="0" />
+        <valueAttribute
+          name="endAge"
+          value="1" />
+        <valueAttribute
+          name="displayLabel"
+          value="[0,1)" />
+        <valueAttribute
+          name="active"
+          value="true" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        id="GTE1">
+        <valueAttribute
+          name="startAge"
+          value="1" />
+        <valueAttribute
+          name="endAge"
+          value="5" />
+        <valueAttribute
+          name="active"
+          value="true" />
+        <valueAttribute
+          name="displayLabel"
+          value="[1,5)" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        id="GET5">
+        <valueAttribute
+          name="startAge"
+          value="5" />
+        <valueAttribute
+          name="endAge"
+          value="14" />
+        <valueAttribute
+          name="active"
+          value="true" />
+        <valueAttribute
+          name="displayLabel"
+          value="[5,14)" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        id="GTE14">
+        <valueAttribute
+          name="startAge"
+          value="14" />
+        <valueAttribute
+          name="endAge"
+          value="200" />
+        <valueAttribute
+          name="active"
+          value="true" />
+        <valueAttribute
+          name="displayLabel"
+          value="14+" />
+      </object>
+
+      <mdProblem
+        name="dss.vector.solutions.surveillance.InvalidAgeGroupProblem"
+        label="Invalid Age Group Problem"
+        extends="dss.vector.solutions.NotificationProblem"
+        description="The end age of an age group may not be before the start date">
+        <attributes>
+          <integer
+            name="startAge"
+            label="from"
+            required="true"
+            rejectNegative="true"
+            description="The start age of the aggregated age group" />
+          <integer
+            name="endAge"
+            label="to"
+            required="true"
+            rejectNegative="true"
+            description="The end age of the aggreated age group" />
+        </attributes>
+      </mdProblem>
+
+      <mdException
+        name="dss.vector.solutions.surveillance.DistinctAgeGroupException"
+        label="Distinct Age Group Exception"
+        description="An age group in the given range already exists">
+        <attributes>
+          <integer
+            name="startAge"
+            label="from"
+            required="true"
+            rejectNegative="true"
+            description="The start age of the aggregated age group" />
+          <integer
+            name="endAge"
+            label="to"
+            required="true"
+            rejectNegative="true"
+            description="The end age of the aggreated age group" />
+        </attributes>
+      </mdException>
+
+      <object
+        type="dss.vector.solutions.Property"
+        id="aDDAR">
+        <valueAttribute
+          name="propertyName"
+          value="epiStart" />
+        <valueAttribute
+          name="displayLabel"
+          value="First Day of the Epi Year" />
+        <valueAttribute
+          name="propertyPackage"
+          value="dss.vector.solutions.surveillance.EpiWeek" />
+        <valueAttribute
+          name="propertyValue"
+          value="01-01" />
+        <valueAttribute
+          name="propertyType"
+          value="String" />
+        <valueAttribute
+          name="propertyValidator"
+          value="\\d{2}-\\d{2}" />
+        <valueAttribute
+          name="description"
+          value="Start date of the EPI year" />
+      </object>
+
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.AggregatedCase"
+        label="Aggregated Case"
+        generateController="true">
+        <attributes>
+          <date
+            name="startDate"
+            label="Start Date"
+            required="true" />
+          <date
+            name="endDate"
+            label="End Date"
+            required="true" />
+          <reference
+            name="geoEntity"
+            required="true"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <integer
+            name="startAge"
+            label="from"
+            required="true"
+            rejectNegative="true"
+            description="The start age of the aggregated age group"
+            immutable="true" />
+          <integer
+            name="endAge"
+            label="to"
+            required="true"
+            rejectNegative="true"
+            description="The end age of the aggreated age group"
+            immutable="true" />
+          <integer
+            name="cases"
+            label="Cases"
+            rejectNegative="true" />
+          <integer
+            name="casesMale"
+            label="Male Cases"
+            rejectNegative="true" />
+          <integer
+            name="casesFemale"
+            label="Female Cases"
+            rejectNegative="true" />
+          <integer
+            name="casesPregnant"
+            label="Pregnant Cases"
+            rejectNegative="true" />
+          <integer
+            name="deaths"
+            label="Deaths"
+            rejectNegative="true" />
+          <integer
+            name="deathsMale"
+            label="Male Deaths"
+            rejectNegative="true" />
+          <integer
+            name="deathsFemale"
+            label="Female Deaths"
+            rejectNegative="true" />
+          <integer
+            name="deathsPregnant"
+            label="Pregnant Deaths"
+            rejectNegative="true" />
+          <integer
+            name="inPatients"
+            label="In-Patients"
+            rejectNegative="true" />
+          <integer
+            name="outPatients"
+            label="Out-Patients"
+            rejectNegative="true" />
+          <integer
+            name="referralsReceived"
+            label="Referrals received from other facilities"
+            rejectNegative="true" />
+          <integer
+            name="referralsSent"
+            label="Referrals to other facilities"
+            rejectNegative="true" />
+          <integer
+            name="pregnantReferralsReceived"
+            label="Pregnant referrals received from other facilities, definitively diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="pregnantDiagnosis"
+            label="Patients who were pregnant with definitive diagnosis"
+            rejectNegative="true" />
+          <integer
+            name="pregnantDiagnosisDeath"
+            label="Patients who were pregnant with definitive diagnosis who died"
+            rejectNegative="true" />
+          <integer
+            name="clinicallyDiagnosed"
+            label="Cases clinically diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="definitivelyDiagnosed"
+            label="Cases definitively diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="clinicallyDiagnosedDeath"
+            label="Cases clinically diagnosed, deaths"
+            rejectNegative="true" />
+          <integer
+            name="definitivelyDiagnosedDeath"
+            label="Cases definitively diagnosed, deaths"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsTotal"
+            label="In-patients total (not limited to malaria)"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsAnemia"
+            label="In-patients with anaemia"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsPregnantAnemia"
+            label="In-patients, pregnant, with anaemia"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsPregnantDianosis"
+            label="In-patients who were pregnant with definitive diagnosis"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsFemale"
+            label="In-patient female cases"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsMale"
+            label="In-patient male cases"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsDefinitive"
+            label="In-patients, definitively diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsClinically"
+            label="In-patients, clinically diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsDischarged"
+            label="In-patient discharges"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsNotTreated"
+            label="Patients who did not receive treatment in-patient"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsTotal"
+            label="Out-patients total (not limited to malaria)"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsFemale"
+            label="Out-patient female cases"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsMale"
+            label="Out-patient male cases"
+            rejectNegative="true" />
+          <integer
+            name="patientsNotTreated"
+            label="Patients who did not receive treatment"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsNotTreated"
+            label="Patients who did not receive treatment out-patient"
+            rejectNegative="true" />
+          <integer
+            name="stillBirths"
+            label="Still births"
+            rejectNegative="true" />
+          <integer
+            name="daysOutOfStock"
+            label="Days that the facility/s were out of stock of malaria medication"
+            rejectNegative="true" />
+        </attributes>
+        <mdMethod
+          name="applyAll"
+          static="false"
+          returnType="void"
+          label="Apply All"
+          description="Apply an aggregated case and all of its corresponding grids">
+          <mdParameter
+            name="treatments"
+            type="dss.vector.solutions.surveillance.CaseTreatment[]"
+            order="1"
+            label="Case Treatments" />
+          <mdParameter
+            name="treatmentMethods"
+            type="dss.vector.solutions.surveillance.CaseTreatmentMethod[]"
+            order="2"
+            label="Treatment Methods" />
+          <mdParameter
+            name="stock"
+            type="dss.vector.solutions.surveillance.CaseTreatmentStock[]"
+            order="3"
+            label="Treatment stock" />
+          <mdParameter
+            name="diagnosticMethods"
+            type="dss.vector.solutions.surveillance.CaseDiagnostic[]"
+            order="4"
+            label="Diagnostic Methods" />
+          <mdParameter
+            name="referrals"
+            type="dss.vector.solutions.surveillance.CaseReferral[]"
+            order="5"
+            label="Referrals" />
+        </mdMethod>
+        <mdMethod
+          name="searchByGeoEntityAndDate"
+          returnType="dss.vector.solutions.surveillance.AggregatedCase"
+          static="true"
+          label="Search By GeoEntity and Date">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            order="0"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <mdParameter
+            name="startDate"
+            label="Start Date"
+            order="1"
+            type="java.util.Date" />
+          <mdParameter
+            name="endDate"
+            label="End Date"
+            order="2"
+            type="java.util.Date" />
+          <mdParameter
+            name="ageGroup"
+            label="Age Group"
+            order="3"
+            type="dss.vector.solutions.surveillance.AggregatedAgeGroup" />
+        </mdMethod>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.surveillance.AggregatedCase"
+        label="Aggregated Case Index"
+        active="true"
+        unique="true">
+        <attribute
+          name="startDate" />
+        <attribute
+          name="endDate" />
+        <attribute
+          name="geoEntity" />
+        <attribute
+          name="startAge" />
+        <attribute
+          name="endAge" />
+      </mdIndex>
+
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.AbstractGrid"
+        label="Referral Grid"
+        description="Configurable list of surveillance referral reasons"
+        isAbstract="true"
+        extendable="true"
+        generateController="false">
+        <attributes>
+          <char
+            name="optionName"
+            required="true"
+            size="255"
+            label="Name"
+            description="The name of the grid option" />
+          <char
+            name="displayLabel"
+            required="true"
+            size="255"
+            label="Display Label"
+            description="Localizable label of the referral reason" />
+          <boolean
+            name="active"
+            label="Active"
+            required="true"
+            default_value="true" />
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.TreatmentGrid"
+        label="Treatment Grid"
+        description="Configurable list of surveillance treatments"
+        extends="dss.vector.solutions.surveillance.AbstractGrid"
+        generateController="true">
+        <mdMethod
+          name="getAll"
+          returnType="dss.vector.solutions.surveillance.TreatmentGrid[]"
+          static="true"
+          label="Get All"
+          description="Returns all of the surveillance treatmens" />
+      </mdBusiness>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentGrid"
+        id="LA">
+        <valueAttribute
+          name="optionName"
+          value="LA" />
+        <valueAttribute
+          name="displayLabel"
+          value="LA" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentGrid"
+        id="AA">
+        <valueAttribute
+          name="optionName"
+          value="AA" />
+        <valueAttribute
+          name="displayLabel"
+          value="AA" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentGrid"
+        id="SP">
+        <valueAttribute
+          name="optionName"
+          value="SP" />
+        <valueAttribute
+          name="displayLabel"
+          value="SP" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentGrid"
+        id="AS+SP">
+        <valueAttribute
+          name="optionName"
+          value="AS_SP" />
+        <valueAttribute
+          name="displayLabel"
+          value="AS+SP" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentGrid"
+        id="Cloroquine">
+        <valueAttribute
+          name="optionName"
+          value="Cloroquine" />
+        <valueAttribute
+          name="displayLabel"
+          value="Cloroquine" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentGrid"
+        id="Quinine">
+        <valueAttribute
+          name="optionName"
+          value="Quinine" />
+        <valueAttribute
+          name="displayLabel"
+          value="Quinine" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentGrid"
+        id="T_None">
+        <valueAttribute
+          name="optionName"
+          value="None" />
+        <valueAttribute
+          name="displayLabel"
+          value="None" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentGrid"
+        id="T_Other">
+        <valueAttribute
+          name="optionName"
+          value="Other" />
+        <valueAttribute
+          name="displayLabel"
+          value="Other" />
+      </object>
+
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.ReferralGrid"
+        label="Referral Grid"
+        description="Configurable list of surveillance referral reasons"
+        extends="dss.vector.solutions.surveillance.AbstractGrid"
+        generateController="true">
+        <mdMethod
+          name="getAll"
+          returnType="dss.vector.solutions.surveillance.ReferralGrid[]"
+          static="true"
+          label="Get All"
+          description="Returns all of the surveillance referral reasons" />
+      </mdBusiness>
+
+      <object
+        type="dss.vector.solutions.surveillance.ReferralGrid"
+        id="Complicated case">
+        <valueAttribute
+          name="optionName"
+          value="ComplicatedCase" />
+        <valueAttribute
+          name="displayLabel"
+          value="Complicated case" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.ReferralGrid"
+        id="Less than one">
+        <valueAttribute
+          name="optionName"
+          value="LessThanOne" />
+        <valueAttribute
+          name="displayLabel"
+          value="Less than one year old" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.ReferralGrid"
+        id="Out of stock">
+        <valueAttribute
+          name="optionName"
+          value="OutOfStock" />
+        <valueAttribute
+          name="displayLabel"
+          value="Out of stock" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.ReferralGrid"
+        id="R_Other">
+        <valueAttribute
+          name="optionName"
+          value="Other" />
+        <valueAttribute
+          name="displayLabel"
+          value="Other" />
+      </object>
+
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.DiagnosticGrid"
+        label="Diagnostic Grid"
+        description="Configurable list of surveillance diagnostic methods"
+        extends="dss.vector.solutions.surveillance.AbstractGrid"
+        generateController="true">
+        <mdMethod
+          name="getAll"
+          returnType="dss.vector.solutions.surveillance.DiagnosticGrid[]"
+          static="true"
+          label="Get All"
+          description="Returns all of the surveillance referral reasons" />
+      </mdBusiness>
+
+      <object
+        type="dss.vector.solutions.surveillance.DiagnosticGrid"
+        id="Blood smear">
+        <valueAttribute
+          name="optionName"
+          value="BloodSmear" />
+        <valueAttribute
+          name="displayLabel"
+          value="Blood smear" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.DiagnosticGrid"
+        id="RDT">
+        <valueAttribute
+          name="optionName"
+          value="RDT" />
+        <valueAttribute
+          name="displayLabel"
+          value="RDT" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.DiagnosticGrid"
+        id="Clinical">
+        <valueAttribute
+          name="optionName"
+          value="Clinical" />
+        <valueAttribute
+          name="displayLabel"
+          value="Clinical" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.DiagnosticGrid"
+        id="D_Other">
+        <valueAttribute
+          name="optionName"
+          value="Other" />
+        <valueAttribute
+          name="displayLabel"
+          value="Other" />
+      </object>
+
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.TreatmentMethodGrid"
+        label="Treatment Method Grid"
+        description="Configurable list of surveillance treatment methods"
+        extends="dss.vector.solutions.surveillance.AbstractGrid"
+        generateController="true">
+        <mdMethod
+          name="getAll"
+          returnType="dss.vector.solutions.surveillance.TreatmentMethodGrid[]"
+          static="true"
+          label="Get All"
+          description="Returns all of the surveillance referral reasons" />
+      </mdBusiness>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
+        id="Tablets">
+        <valueAttribute
+          name="optionName"
+          value="Tablets" />
+        <valueAttribute
+          name="displayLabel"
+          value="Tablets" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
+        id="Syrup">
+        <valueAttribute
+          name="optionName"
+          value="Syrup" />
+        <valueAttribute
+          name="displayLabel"
+          value="Syrup" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
+        id="IV">
+        <valueAttribute
+          name="optionName"
+          value="IV" />
+        <valueAttribute
+          name="displayLabel"
+          value="IV" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
+        id="IM">
+        <valueAttribute
+          name="optionName"
+          value="IM" />
+        <valueAttribute
+          name="displayLabel"
+          value="IM" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.TreatmentMethodGrid"
+        id="TM_Other">
+        <valueAttribute
+          name="optionName"
+          value="Other" />
+        <valueAttribute
+          name="displayLabel"
+          value="Other" />
+      </object>
+
+      <mdTree
+        name="dss.vector.solutions.surveillance.CaseTreatmentStock"
+        label="Case Treatment Stock"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.AggregatedCase"
+          method="CaseTreatmentStock" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.TreatmentGrid"
+          method="TreatmentStock" />
+        <attributes>
+          <boolean
+            name="outOfStock"
+            label="Treatment out of Stock"
+            required="true"
+            description="Flag denoting if the treatment is out of stock" />
+        </attributes>
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.surveillance.CaseTreatment"
+        label="Case Treatment"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.AggregatedCase"
+          method="CaseTreatment" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.TreatmentGrid"
+          method="Treatment" />
+        <attributes>
+          <integer
+            name="amount"
+            label="Amount"
+            description="Amount of people treated for a given treatment"
+            rejectNegative="true"
+            required="true"
+            default_value="0" />
+        </attributes>
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.surveillance.CaseDiagnostic"
+        label="Case Diagnostic Methods"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.AggregatedCase"
+          method="AggregatedCase" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.DiagnosticGrid"
+          method="DiagnosticMethod" />
+        <attributes>
+          <integer
+            name="amount"
+            label="Amount"
+            description="Amount of people a diagnostic test was performed upon"
+            rejectNegative="true"
+            required="true"
+            default_value="0" />
+          <integer
+            name="amountPositive"
+            label="Amount Positive"
+            description="Amount of positive people a diagnostic test was performed upon"
+            rejectNegative="true"
+            required="true"
+            default_value="0" />
+        </attributes>
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.surveillance.CaseReferral"
+        label="Case Referral"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.AggregatedCase"
+          method="AggregatedCase" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.ReferralGrid"
+          method="Referral" />
+        <attributes>
+          <integer
+            name="amount"
+            label="Amount"
+            description="Amount of people treated for a given treatment"
+            rejectNegative="true"
+            required="true"
+            default_value="0" />
+        </attributes>
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.surveillance.CaseTreatmentMethod"
+        label="Case Treatment Method"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.AggregatedCase"
+          method="AggregatedCase" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.TreatmentMethodGrid"
+          method="TreatmentMethod" />
+        <attributes>
+          <integer
+            name="amount"
+            label="Amount"
+            description="Amount of people treated for a given treatment"
+            rejectNegative="true"
+            required="true"
+            default_value="0" />
+        </attributes>
+      </mdTree>
+
+      <enumerationMaster
+        name="dss.vector.solutions.surveillance.PeriodTypeMaster"
+        label="Period Type Master"
+        generateController="false">
+        <attributes>
+          <integer
+            name="maximumPeriod"
+            label="Maximum Period"
+            description="The maximum valid period number"
+            required="true"
+            rejectNegative="true"
+            rejectZero="true" />
+        </attributes>
+      </enumerationMaster>
+
+      <object
+        type="dss.vector.solutions.surveillance.PeriodTypeMaster"
+        id="WEEK">
+        <valueAttribute
+          name="enumName"
+          value="WEEK" />
+        <valueAttribute
+          name="displayLabel"
+          value="Week" />
+        <valueAttribute
+          name="maximumPeriod"
+          value="53" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.PeriodTypeMaster"
+        id="MONTH">
+        <valueAttribute
+          name="enumName"
+          value="MONTH" />
+        <valueAttribute
+          name="displayLabel"
+          value="Month" />
+        <valueAttribute
+          name="maximumPeriod"
+          value="12" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.PeriodTypeMaster"
+        id="QUARTER">
+        <valueAttribute
+          name="enumName"
+          value="QUARTER" />
+        <valueAttribute
+          name="displayLabel"
+          value="Quarter" />
+        <valueAttribute
+          name="maximumPeriod"
+          value="4" />
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.surveillance.PeriodType"
+        type="dss.vector.solutions.surveillance.PeriodTypeMaster"
+        label="Period Type">
+        <includeAll />
+      </mdEnumeration>
+    </create>
+
+    <update>
+      <mdController
+        name="dss.vector.solutions.surveillance.AggregatedCaseController"
+        label="Age Group">
+        <mdAction
+          name="newInstance"
+          isPost="true">
+          <create>
+            <mdParameter
+              name="ageGroup"
+              order="0"
+              label="Age Group"
+              type="dss.vector.solutions.surveillance.AggregatedAgeGroup" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true"
+          isQuery="false">
+          <create>
+            <mdParameter
+              name="treatments"
+              type="dss.vector.solutions.surveillance.CaseTreatment[]"
+              order="1"
+              label="Case Treatments" />
+            <mdParameter
+              name="treatmentMethods"
+              type="dss.vector.solutions.surveillance.CaseTreatmentMethod[]"
+              order="2"
+              label="Treatment Methods" />
+            <mdParameter
+              name="stock"
+              type="dss.vector.solutions.surveillance.CaseTreatmentStock[]"
+              order="3"
+              label="Treatment stock" />
+            <mdParameter
+              name="diagnosticMethods"
+              type="dss.vector.solutions.surveillance.CaseDiagnostic[]"
+              order="4"
+              label="Diagnostic Methods" />
+            <mdParameter
+              name="referrals"
+              type="dss.vector.solutions.surveillance.CaseReferral[]"
+              order="5"
+              label="Referrals" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true"
+          isQuery="false">
+          <create>
+            <mdParameter
+              name="treatments"
+              type="dss.vector.solutions.surveillance.CaseTreatment[]"
+              order="1"
+              label="Case Treatments" />
+            <mdParameter
+              name="treatmentMethods"
+              type="dss.vector.solutions.surveillance.CaseTreatmentMethod[]"
+              order="2"
+              label="Treatment Methods" />
+            <mdParameter
+              name="stock"
+              type="dss.vector.solutions.surveillance.CaseTreatmentStock[]"
+              order="3"
+              label="Treatment stock" />
+            <mdParameter
+              name="diagnosticMethods"
+              type="dss.vector.solutions.surveillance.CaseDiagnostic[]"
+              order="4"
+              label="Diagnostic Methods" />
+            <mdParameter
+              name="referrals"
+              type="dss.vector.solutions.surveillance.CaseReferral[]"
+              order="5"
+              label="Referrals" />
+          </create>
+        </mdAction>
+
+        <create>
+          <mdAction
+            name="search"
+            isPost="false"
+            isQuery="false"
+            label="Search" />
+          <mdAction
+            name="searchByGeoIdAndDate"
+            isPost="true"
+            label="Search By GeoId and Date"
+            isQuery="false">
+            <mdParameter
+              name="geoId"
+              order="0"
+              type="java.lang.String"
+              label="Geo Id" />
+            <mdParameter
+              name="startDate"
+              label="Start Date"
+              type="java.util.Date"
+              order="1" />
+            <mdParameter
+              name="endDate"
+              label="endDate"
+              order="2"
+              type="java.util.Date" />
+            <mdParameter
+              name="ageGroup"
+              label="Age Group"
+              order="3"
+              type="dss.vector.solutions.surveillance.AggregatedAgeGroup" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.surveillance.InvalidAgeGroupProblem"
+        type="com.terraframe.mojo.system.metadata.MdProblem" />
+      <object
+        key="dss.vector.solutions.surveillance.DistinctAgeGroupException"
+        type="com.terraframe.mojo.system.metadata.MdException" />
+      <object
+        key="dss.vector.solutions.surveillance.AbstractGrid"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.surveillance.TreatmentGrid"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.surveillance.ReferralGrid"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.surveillance.DiagnosticGrid"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.surveillance.TreatmentMethodGrid"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseTreatmentMethod"
+        type="com.terraframe.mojo.system.metadata.MdRelationship" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseTreatmentStock"
+        type="com.terraframe.mojo.system.metadata.MdRelationship" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseTreatment"
+        type="com.terraframe.mojo.system.metadata.MdRelationship" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseDiagnostic"
+        type="com.terraframe.mojo.system.metadata.MdRelationship" />
+      <object
+        key="dss.vector.solutions.surveillance.CaseReferral"
+        type="com.terraframe.mojo.system.metadata.MdRelationship" />
+    </delete>
+  </undoIt>
+</version>
