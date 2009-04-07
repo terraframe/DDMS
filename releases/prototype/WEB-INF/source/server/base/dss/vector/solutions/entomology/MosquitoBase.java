@@ -14,7 +14,7 @@ public abstract class MosquitoBase extends dss.vector.solutions.entomology.TrueS
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String SEX = "sex";
   public static java.lang.String TESTDATE = "testDate";
-  private static final long serialVersionUID = 1238826369536L;
+  private static final long serialVersionUID = 1239075025353L;
   
   public MosquitoBase()
   {
@@ -161,13 +161,13 @@ public abstract class MosquitoBase extends dss.vector.solutions.entomology.TrueS
     return (Mosquito) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public static com.terraframe.mojo.query.ValueQuery queryEntomology(java.lang.String queryXML)
+  public static java.lang.String mapQuery(java.lang.String queryXML)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.Mosquito.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static java.lang.String mapQuery(java.lang.String queryXML)
+  public static com.terraframe.mojo.query.ValueQuery queryEntomology(java.lang.String queryXML)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.Mosquito.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class ReserveDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238826364705L;
+  private static final long serialVersionUID = 1239075019791L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.Reserve";
   protected ReserveDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

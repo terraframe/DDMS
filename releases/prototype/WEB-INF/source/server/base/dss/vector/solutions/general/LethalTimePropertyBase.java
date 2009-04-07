@@ -27,7 +27,7 @@ public abstract class LethalTimePropertyBase extends com.terraframe.mojo.busines
   public static java.lang.String TYPE = "type";
   public static java.lang.String UPPERPERCENT = "upperPercent";
   public static java.lang.String UPPERTIME = "upperTime";
-  private static final long serialVersionUID = 1238826358668L;
+  private static final long serialVersionUID = 1239075012801L;
   
   public LethalTimePropertyBase()
   {

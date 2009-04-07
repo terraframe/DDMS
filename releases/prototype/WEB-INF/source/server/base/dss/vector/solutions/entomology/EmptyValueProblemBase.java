@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public abstract class EmptyValueProblemBase extends dss.vector.solutions.NotificationProblem implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.EmptyValueProblem";
-  private static final long serialVersionUID = 1238826372838L;
+  private static final long serialVersionUID = 1239075029004L;
   
   public EmptyValueProblemBase()
   {

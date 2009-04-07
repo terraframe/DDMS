@@ -11,7 +11,7 @@ public abstract class GABAGTestResultBase extends dss.vector.solutions.entomolog
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.GABAGTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1238826371752L;
+  private static final long serialVersionUID = 1239075027813L;
   
   public GABAGTestResultBase()
   {

@@ -1,8 +1,15 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
+<c:set var="true_label" value='<%=Halp.translateBool(((AdultDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),true)%>'/>
+<c:set var="false_label" value='<%=Halp.translateBool(((AdultDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),false)%>'/>
+
+
 <c:set var="window_title" value="Enter new adult diagnostic assay data"  scope="request"/>
 <c:set var="page_title" value="Enter new data"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -12,14 +19,23 @@
     <dl>
     <dt>
         <label>
-          ${item.collectionMd.displayLabel}
+          ${item.collectionMd.displayLabel} ${item.collection.displayLabel}
         </label>
       </dt>
       <dd>
         <mjl:select var="current" valueAttribute="id" items="${collection}" param="collection">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
+          <c:choose>
+            <c:when test="${current.id == item.collection.id}">
+             <mjl:option selected="selected">
+               ${current.displayLabel}
+              </mjl:option>
+            </c:when>
+            <c:otherwise>
+              <mjl:option>
+                ${current.displayLabel}
+              </mjl:option>
+            </c:otherwise>
+          </c:choose>
         </mjl:select>
       </dd>
       <dt>
@@ -63,7 +79,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:boolean param="isofemale" />
+        <mjl:boolean param="isofemale" trueLabel="${true_label}" falseLabel="${false_label}" />
       </dd>
       <dt>
         <label>
@@ -253,6 +269,6 @@
   </mjl:component>
 
 
-<div class="submitButton_bl"></div>
+
   <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.create.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.create.button" classes="submitButton" />
 </mjl:form>

@@ -11,7 +11,7 @@ public abstract class PVivaxTestResultBase extends dss.vector.solutions.entomolo
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1238826344839L;
+  private static final long serialVersionUID = 1239074998499L;
   
   public PVivaxTestResultBase()
   {

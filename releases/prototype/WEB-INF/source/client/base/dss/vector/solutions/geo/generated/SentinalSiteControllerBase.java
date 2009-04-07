@@ -9,7 +9,7 @@ public class SentinalSiteControllerBase implements com.terraframe.mojo.generatio
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238826354034L;
+  private static final long serialVersionUID = 1239075009545L;
   
   public SentinalSiteControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -91,6 +91,48 @@ public class SentinalSiteControllerBase implements com.terraframe.mojo.generatio
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.failViewAll");
   }
   
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
+  public void delete(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.delete");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
+  public void failDelete(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.failDelete");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
+  public void cancel(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.cancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
+  public void failCancel(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.failCancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
+  public void create(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.create");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
+  public void failCreate(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.failCreate");
+  }
+  
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -120,17 +162,17 @@ public class SentinalSiteControllerBase implements com.terraframe.mojo.generatio
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
-  public void create(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.create");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.update");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
-  public void failCreate(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.failCreate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.failUpdate");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
@@ -145,48 +187,6 @@ public class SentinalSiteControllerBase implements com.terraframe.mojo.generatio
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.failEdit");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
-  public void update(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.update");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
-  public void failUpdate(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.failUpdate");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
-  public void cancel(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.cancel");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
-  public void failCancel(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.failCancel");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
-  public void delete(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.delete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.generated.SentinalSiteDTO:dto", post=true)
-  public void failDelete(dss.vector.solutions.geo.generated.SentinalSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.SentinalSiteController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.generated.SentinalSiteController.failDelete");
   }
   
 }

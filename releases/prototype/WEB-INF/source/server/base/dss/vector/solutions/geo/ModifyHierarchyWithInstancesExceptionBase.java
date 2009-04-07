@@ -12,7 +12,7 @@ public abstract class ModifyHierarchyWithInstancesExceptionBase extends com.terr
   public final static String CLASS = "dss.vector.solutions.geo.ModifyHierarchyWithInstancesException";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1238826340401L;
+  private static final long serialVersionUID = 1239074993861L;
   
   public ModifyHierarchyWithInstancesExceptionBase()
   {

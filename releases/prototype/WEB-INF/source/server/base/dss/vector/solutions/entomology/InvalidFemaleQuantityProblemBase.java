@@ -12,7 +12,7 @@ public abstract class InvalidFemaleQuantityProblemBase extends dss.vector.soluti
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidFemaleQuantityProblem";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String QUANTITYFEMALE = "quantityFemale";
-  private static final long serialVersionUID = 1238826376932L;
+  private static final long serialVersionUID = 1239075033884L;
   
   public InvalidFemaleQuantityProblemBase()
   {

@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.molecular;
 
 public abstract class AcHEWTestResultDTOBase extends dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238826373339L;
+  private static final long serialVersionUID = 1239075029559L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.AcHEWTestResult";
   protected AcHEWTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

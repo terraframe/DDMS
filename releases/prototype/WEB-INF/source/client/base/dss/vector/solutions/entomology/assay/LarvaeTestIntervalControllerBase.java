@@ -9,7 +9,7 @@ public class LarvaeTestIntervalControllerBase implements com.terraframe.mojo.gen
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238826351445L;
+  private static final long serialVersionUID = 1239075005739L;
   
   public LarvaeTestIntervalControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -77,6 +77,34 @@ public class LarvaeTestIntervalControllerBase implements com.terraframe.mojo.gen
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failViewPage");
   }
   
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.edit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failEdit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
+  public void create(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.create");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
+  public void failCreate(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failCreate");
+  }
+  
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -91,6 +119,20 @@ public class LarvaeTestIntervalControllerBase implements com.terraframe.mojo.gen
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failViewAll");
   }
   
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
+  public void update(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.update");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
+  public void failUpdate(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failUpdate");
+  }
+  
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -103,6 +145,20 @@ public class LarvaeTestIntervalControllerBase implements com.terraframe.mojo.gen
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failView");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
+  public void delete(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.delete");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
+  public void failDelete(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failDelete");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
@@ -120,48 +176,6 @@ public class LarvaeTestIntervalControllerBase implements com.terraframe.mojo.gen
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
-  public void create(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.create");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
-  public void failCreate(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failCreate");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.edit");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failEdit");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
-  public void update(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.update");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
-  public void failUpdate(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failUpdate");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
   public void cancel(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
@@ -173,20 +187,6 @@ public class LarvaeTestIntervalControllerBase implements com.terraframe.mojo.gen
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failCancel");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
-  public void delete(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.delete");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO:dto", post=true)
-  public void failDelete(dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.failDelete");
   }
   
 }

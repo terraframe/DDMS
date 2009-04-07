@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class ResistanceMethodologyBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.ResistanceMethodology";
-  private static final long serialVersionUID = 1238826363322L;
+  private static final long serialVersionUID = 1239075018193L;
   
   public ResistanceMethodologyBase()
   {

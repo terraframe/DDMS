@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 public abstract class LocatedInDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238826340499L;
+  private static final long serialVersionUID = 1239074994010L;
   
   public final static String CLASS = "dss.vector.solutions.geo.LocatedIn";
   public LocatedInDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)

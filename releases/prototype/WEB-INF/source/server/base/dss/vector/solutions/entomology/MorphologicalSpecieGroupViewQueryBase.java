@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public  abstract  class MorphologicalSpecieGroupViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238826367345L;
+private static final long serialVersionUID = 1239075022908L;
 
   public MorphologicalSpecieGroupViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

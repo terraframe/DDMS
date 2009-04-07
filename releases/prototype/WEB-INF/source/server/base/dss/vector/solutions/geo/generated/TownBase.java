@@ -11,7 +11,7 @@ public abstract class TownBase extends dss.vector.solutions.geo.generated.Popula
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Town";
   public static java.lang.String POINT = "point";
-  private static final long serialVersionUID = 1238826360029L;
+  private static final long serialVersionUID = 1239075014455L;
   
   public TownBase()
   {

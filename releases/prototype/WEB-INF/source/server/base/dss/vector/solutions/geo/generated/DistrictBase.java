@@ -11,7 +11,7 @@ public abstract class DistrictBase extends dss.vector.solutions.geo.generated.Ge
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.District";
   public static java.lang.String POLYGON = "polygon";
-  private static final long serialVersionUID = 1238826344468L;
+  private static final long serialVersionUID = 1239074998042L;
   
   public DistrictBase()
   {

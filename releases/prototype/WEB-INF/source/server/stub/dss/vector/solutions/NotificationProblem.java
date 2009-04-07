@@ -1,8 +1,10 @@
 package dss.vector.solutions;
 
+import com.terraframe.mojo.AttributeNotification;
 import com.terraframe.mojo.business.Entity;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
-public abstract class NotificationProblem extends NotificationProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class NotificationProblem extends NotificationProblemBase implements AttributeNotification,  Reloadable
 {
   private static final long serialVersionUID = 1238204417262L;
   

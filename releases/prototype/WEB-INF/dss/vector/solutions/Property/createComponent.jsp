@@ -82,6 +82,6 @@
   </div>
 </div>
 
-<div class="submitButton_bl"></div>  
+
   <mjl:command value="Create" action="dss.vector.solutions.PropertyController.create.mojo" name="dss.vector.solutions.Property.form.create.button" classes="submitButton"/>
 </mjl:form>

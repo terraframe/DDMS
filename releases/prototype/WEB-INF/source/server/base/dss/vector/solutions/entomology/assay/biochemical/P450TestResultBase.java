@@ -11,7 +11,7 @@ public abstract class P450TestResultBase extends dss.vector.solutions.entomology
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.P450TestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1238826339765L;
+  private static final long serialVersionUID = 1239074993082L;
   
   public P450TestResultBase()
   {

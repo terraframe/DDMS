@@ -12,7 +12,7 @@ public abstract class InvalidMaleQuantityProblemBase extends dss.vector.solution
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMaleQuantityProblem";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String QUANTITYMALE = "quantityMale";
-  private static final long serialVersionUID = 1238826367350L;
+  private static final long serialVersionUID = 1239075022920L;
   
   public InvalidMaleQuantityProblemBase()
   {

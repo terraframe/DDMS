@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public class ResistanceMethodologyQueryDTO extends dss.vector.solutions.mo.AbstractTermQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238826363685L;
+private static final long serialVersionUID = 1239075018587L;
 
   protected ResistanceMethodologyQueryDTO(String type)
   {

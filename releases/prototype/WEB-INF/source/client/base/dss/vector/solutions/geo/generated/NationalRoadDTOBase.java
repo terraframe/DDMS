@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class NationalRoadDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238826382566L;
+  private static final long serialVersionUID = 1239075041044L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.NationalRoad";
   protected NationalRoadDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

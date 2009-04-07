@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 public class MetabolicAssayTestResultQueryDTO extends dss.vector.solutions.entomology.assay.AssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238826378092L;
+private static final long serialVersionUID = 1239075035249L;
 
   protected MetabolicAssayTestResultQueryDTO(String type)
   {

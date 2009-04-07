@@ -15,16 +15,17 @@
 <%@page import="java.lang.reflect.InvocationTargetException"%>
 <%@page import="com.terraframe.mojo.transport.metadata.*"%>
 <%@page import="com.terraframe.mojo.business.ViewDTO"%>
-
+<c:set var="page_title" value="View_Mosquito_Collection"  scope="request"/>
 <mjl:messages>
 
 	<mjl:message />
 </mjl:messages>
-
-<mjl:form name="mdss.entomology.MosquitoCollection.form.name" id="mdss.entomology.MosquitoCollection.form.id" method="POST">
+<h2>Collection</h2>
+<dl>
+<mjl:form name="mdss.entomology.MosquitoCollection.form.name" id="mdss.entomology.MosquitoCollection.form.id" method="POST" style="display:inline;">
 
   <mjl:input value="${item.id}" type="hidden" param="id" />
-  <dl>
+
     <dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
     <dd><mjl:commandLink display="${item.collectionMethod.termName}" action="mdss.entomology.CollectionMethodController.view.mojo" name="mdss.entomology.CollectionMethod.form.view.link">
       <mjl:property value="${item.collectionMethod.id}" name="id" />
@@ -35,18 +36,33 @@
     <dd><mjl:commandLink display="${item.geoEntity.geoId}" action="mdss.test.GeoEntityController.view.mojo" name="mdss.test.GeoEntity.form.view.link">
       <mjl:property value="${item.geoEntity.id}" name="id" />
     </mjl:commandLink></dd>
-  </dl>
 
-  <div class="submitButton_bl"></div>
-  <mjl:command value="Edit" action="dss.vector.solutions.entomology.MosquitoCollectionController.edit.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.edit.button"
-    classes="submitButton" />
-
-  <mjl:commandLink display="ViewAssays" action="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo" name="viewAssays.link">
-    <mjl:property value="${item.id}" name="id" />
-  </mjl:commandLink>
+  <mjl:command value="Edit" action="dss.vector.solutions.entomology.MosquitoCollectionController.edit.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.edit.button" classes="submitButton" />
 </mjl:form>
 
+<form method="get" action="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo"" style="display:inline;">
+        <input value="${item.id}" name="id" type="hidden"/>
+        <button type="submit"><f:message key="View_Assays" /></button>
+</form>
+
+<form method="get" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" style="display:inline;">
+        <input value="${item.id}" name="collection_id" type="hidden"/>
+        <button type="submit"><f:message key="Adult_DDA" /></button>
+</form>
+
+<form method="get" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" style="display:inline;">
+        <input value="${item.id}" name="collection_id" type="hidden"/>
+        <button type="submit"><f:message key="Larvae_DDA" /></button>
+</form>
+
+<form method="get" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" style="display:inline;">
+        <input value="${item.id}" name="collection_id" type="hidden"/>
+        <button type="submit"><f:message key="Knock_Down_Assay" /></button>
+</form>
+</dl>
 <br/>
+<h2>Specimens</h2>
+<dl>
 <div id="MorphologicalSpecieGroups"></div>
 <br/>
 <div id="columnshowhide"></div>
@@ -90,7 +106,7 @@
 <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
 
 </div>
-
+</dl>
 
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);

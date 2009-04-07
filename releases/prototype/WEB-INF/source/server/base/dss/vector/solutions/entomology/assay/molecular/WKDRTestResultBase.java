@@ -11,7 +11,7 @@ public abstract class WKDRTestResultBase extends dss.vector.solutions.entomology
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.WKDRTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1238826349116L;
+  private static final long serialVersionUID = 1239075002854L;
   
   public WKDRTestResultBase()
   {

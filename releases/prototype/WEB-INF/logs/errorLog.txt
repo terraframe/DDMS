@@ -550,3 +550,55 @@ AND md_business_2.id NOT IN (SELECT md_state_machine.id FROM md_state_machine)
 AND metadata_1.keyName = 'dss.vector.solutions.geo.generated.GeoEntity'
 ]
 2009-04-04 01:00:15  FATAL: terminating connection due to administrator command
+2009-04-06 19:06:44  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:06:52  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:06:58  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:07:06  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:09:21  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:12:43  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:18:07  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:20:42  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:24:49  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:25:06  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:28:44  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:32:54  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]
+2009-04-06 19:35:08  ERROR: permission denied for relation md_type - The statement that caused the error was [ SELECT md_type.typeName, 
+md_type.packageName 
+   FROM md_type, md_element
+  WHERE md_type.id = md_element.id]

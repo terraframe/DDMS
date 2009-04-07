@@ -11,7 +11,7 @@ public abstract class RoadBase extends dss.vector.solutions.geo.generated.GeoEnt
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Road";
   public static java.lang.String LINESTRING = "lineString";
-  private static final long serialVersionUID = 1238826340943L;
+  private static final long serialVersionUID = 1239074994356L;
   
   public RoadBase()
   {

@@ -43,7 +43,7 @@
     <div class="fcBottom"><div class="fcBottomLeft"></div></div>
 </div>
   
-  <div class="submitButton_bl"></div>
+
   <mjl:command value="Update" action="dss.vector.solutions.PropertyController.update.mojo" name="dss.vector.solutions.Property.form.update.button" classes="submitButton"/>
   
   <mjl:command value="Cancel" action="dss.vector.solutions.PropertyController.cancel.mojo" name="dss.vector.solutions.Property.form.cancel.button" classes="submitButton"/>

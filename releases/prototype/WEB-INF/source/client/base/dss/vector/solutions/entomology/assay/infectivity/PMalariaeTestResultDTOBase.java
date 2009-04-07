@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.infectivity;
 
 public abstract class PMalariaeTestResultDTOBase extends dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238826380363L;
+  private static final long serialVersionUID = 1239075037651L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult";
   protected PMalariaeTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

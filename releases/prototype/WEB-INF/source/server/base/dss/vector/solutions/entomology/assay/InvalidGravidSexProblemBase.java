@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public abstract class InvalidGravidSexProblemBase extends dss.vector.solutions.NotificationProblem implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidGravidSexProblem";
-  private static final long serialVersionUID = 1238826374890L;
+  private static final long serialVersionUID = 1239075031548L;
   
   public InvalidGravidSexProblemBase()
   {

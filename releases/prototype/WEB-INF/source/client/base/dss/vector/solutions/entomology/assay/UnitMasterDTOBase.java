@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class UnitMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238826343871L;
+  private static final long serialVersionUID = 1239074997500L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.UnitMaster";
   protected UnitMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

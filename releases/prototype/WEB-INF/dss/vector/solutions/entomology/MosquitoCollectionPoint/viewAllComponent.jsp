@@ -62,13 +62,13 @@
 
 <div id="buttons" class="noprint">
 
-<span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button"> 
+<span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button">
 <span class="first-child">
 <button type="button">New Row</button>
- </span> 
- </span> 
+ </span>
+ </span>
 
-<span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button"> 
+<span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button">
 <span class="first-child">
 <button type="button">Save Rows To DB</button>
 </span> </span>
@@ -79,15 +79,15 @@
         <button type="submit"><f:message key="Excel_Import_Header" /></button>
         </span>
         </span>
-</form> 
+</form>
 <form method="post" action="excelexport" style="display:inline;">
         <input type="hidden" name="type" value="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"/>
-        <span class="yui-button yui-push-button"> 
+        <span class="yui-button yui-push-button">
         <span class="first-child">
         <button type="submit"><f:message key="Excel_Export_Header" /></button>
         </span>
         </span>
-</form> 
+</form>
 <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
 
 </div>
@@ -99,12 +99,12 @@ MorphologicalSpecieGroupViewDTO[] rows = (MorphologicalSpecieGroupViewDTO[]) req
 String[] attribs = {"GroupId","GeoEntity","DateCollected","Specie","IdentificationMethod","QuantityMale","QuantityFemale","Quantity"};
 MorphologicalSpecieGroupViewDTO mdView = new MorphologicalSpecieGroupViewDTO(clientRequest);
 
-String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
+String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true},{key:'go_to_assays', label:'Assays', action:'window.location = \"../index.jsp\";', madeUp:true}";
 //out.println(getColumnSetup(mdView,attribs,delete_row));
 
 %>
 
-<script type="text/javascript">      
+<script type="text/javascript">
     <%String[] types_to_load =
   {
      "dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
@@ -112,13 +112,13 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
     %>
     <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
-    table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,       
+    table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,
        columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false,2)%>,
               defaults: {GroupId:"",GeoEntity:"${geoEntity.id}",Specie:"",DateCollected:"${startDate}",IdentificationMethod:"",QuantityMale:"",QuantityFemale:"",Quantity:""},
               div_id: "MorphologicalSpecieGroups",
               copy_from_above: ["DateCollected","IdentificationMethod"],
               data_type: "Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
-          };   
+          };
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>
 

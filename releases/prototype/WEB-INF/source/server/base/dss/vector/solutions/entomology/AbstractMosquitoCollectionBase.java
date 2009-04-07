@@ -22,7 +22,7 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1238826349586L;
+  private static final long serialVersionUID = 1239075003452L;
   
   public AbstractMosquitoCollectionBase()
   {
@@ -297,18 +297,6 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
     return (AbstractMosquitoCollection) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public dss.vector.solutions.entomology.MosquitoView[] getMosquitos()
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AbstractMosquitoCollection.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final dss.vector.solutions.entomology.MosquitoView[] getMosquitos(java.lang.String id)
-  {
-    AbstractMosquitoCollection _instance = AbstractMosquitoCollection.get(id);
-    return _instance.getMosquitos();
-  }
-  
   public dss.vector.solutions.entomology.UninterestingSpecieGroupView[] getUninterestingSpecieGroups()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AbstractMosquitoCollection.java";
@@ -319,6 +307,18 @@ public abstract class AbstractMosquitoCollectionBase extends com.terraframe.mojo
   {
     AbstractMosquitoCollection _instance = AbstractMosquitoCollection.get(id);
     return _instance.getUninterestingSpecieGroups();
+  }
+  
+  public dss.vector.solutions.entomology.MosquitoView[] getMosquitos()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.AbstractMosquitoCollection.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.entomology.MosquitoView[] getMosquitos(java.lang.String id)
+  {
+    AbstractMosquitoCollection _instance = AbstractMosquitoCollection.get(id);
+    return _instance.getMosquitos();
   }
   
   public static AbstractMosquitoCollection lock(java.lang.String id)

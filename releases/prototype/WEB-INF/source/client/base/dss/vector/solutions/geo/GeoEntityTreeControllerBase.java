@@ -9,7 +9,7 @@ public class GeoEntityTreeControllerBase implements com.terraframe.mojo.generati
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1238826362009L;
+  private static final long serialVersionUID = 1239075016710L;
   
   public GeoEntityTreeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -64,20 +64,6 @@ public class GeoEntityTreeControllerBase implements com.terraframe.mojo.generati
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId", post=false)
-  public void displaySelectSearch(java.lang.String rootGeoEntityId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.displaySelectSearch");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId", post=false)
-  public void failDisplaySelectSearch(java.lang.String rootGeoEntityId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.failDisplaySelectSearch");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId", post=false)
   public void displayTree(java.lang.String rootGeoEntityId) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
@@ -89,6 +75,20 @@ public class GeoEntityTreeControllerBase implements com.terraframe.mojo.generati
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.failDisplayTree");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId", post=false)
+  public void displaySelectSearch(java.lang.String rootGeoEntityId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.displaySelectSearch");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:rootGeoEntityId", post=false)
+  public void failDisplaySelectSearch(java.lang.String rootGeoEntityId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.failDisplaySelectSearch");
   }
   
 }

@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public class CountryQueryDTO extends dss.vector.solutions.geo.generated.GeoEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238826358339L;
+private static final long serialVersionUID = 1239075012665L;
 
   protected CountryQueryDTO(String type)
   {

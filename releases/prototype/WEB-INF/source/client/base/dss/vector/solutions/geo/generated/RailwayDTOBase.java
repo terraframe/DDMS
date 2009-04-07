@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class RailwayDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238826381254L;
+  private static final long serialVersionUID = 1239075038987L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.Railway";
   protected RailwayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

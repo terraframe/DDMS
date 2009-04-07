@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class RiverDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238826341796L;
+  private static final long serialVersionUID = 1239074995402L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.River";
   protected RiverDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

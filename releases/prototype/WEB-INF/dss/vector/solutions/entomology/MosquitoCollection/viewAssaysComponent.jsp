@@ -45,6 +45,7 @@
           // Get the result
           MdAttributeVirtualDAOIF mdAttribute = assayMap.get(c);
           String attributeName = GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
+          String displayLabel = GenerationUtil.upperFirstCharacter(mdAttribute.getDisplayLabel());
     		try
     		{
 
@@ -53,7 +54,7 @@
          			 s += "<tr><td><input type=\"checkbox\" id =\""+ attributeName + "\" onclick=\"";
                      s += "showCol('"+ attributeName + "',this.checked)";
                      s += "\"/></td><td>" ;
-         			 s += attributeName + "</td></tr>";
+         			 s += displayLabel + "</td></tr>";
          		}
     		}
     		catch (Exception e) {

@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public abstract class MosquitoCollectionPointBase extends dss.vector.solutions.entomology.ConcreteMosquitoCollection implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionPoint";
-  private static final long serialVersionUID = 1238826375785L;
+  private static final long serialVersionUID = 1239075032309L;
   
   public MosquitoCollectionPointBase()
   {
@@ -32,6 +32,12 @@ public abstract class MosquitoCollectionPointBase extends dss.vector.solutions.e
   public static MosquitoCollectionPoint get(String id)
   {
     return (MosquitoCollectionPoint) com.terraframe.mojo.business.Business.get(id);
+  }
+  
+  public static dss.vector.solutions.entomology.MosquitoCollectionPoint searchByGeoEntityAndDateAndCollectionMethod(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate, dss.vector.solutions.mo.CollectionMethod collectionMethod)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionPoint.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date startDate, java.util.Date endDate)

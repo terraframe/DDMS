@@ -11,7 +11,7 @@ public abstract class ReserveBase extends dss.vector.solutions.geo.generated.Geo
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Reserve";
   public static java.lang.String POLYGON = "polygon";
-  private static final long serialVersionUID = 1238826364648L;
+  private static final long serialVersionUID = 1239075019732L;
   
   public ReserveBase()
   {

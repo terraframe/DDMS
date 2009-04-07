@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public abstract class PopulatedAreaBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.PopulatedArea";
-  private static final long serialVersionUID = 1238826346119L;
+  private static final long serialVersionUID = 1239074999613L;
   
   public PopulatedAreaBase()
   {

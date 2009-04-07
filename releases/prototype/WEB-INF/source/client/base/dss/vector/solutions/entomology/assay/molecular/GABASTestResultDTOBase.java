@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.molecular;
 
 public abstract class GABASTestResultDTOBase extends dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238826352786L;
+  private static final long serialVersionUID = 1239075007211L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.GABASTestResult";
   protected GABASTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 public  class AAcetateTestResultQuery extends dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResultQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238826367953L;
+private static final long serialVersionUID = 1239075023627L;
 
   public AAcetateTestResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -86,7 +86,7 @@ private static final long serialVersionUID = 1238826367953L;
  implements AAcetateTestResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1238826368102L;
+private static final long serialVersionUID = 1239075023802L;
 
   public AAcetateTestResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

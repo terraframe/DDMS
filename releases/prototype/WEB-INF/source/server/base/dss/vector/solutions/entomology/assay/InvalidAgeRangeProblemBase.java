@@ -12,7 +12,7 @@ public abstract class InvalidAgeRangeProblemBase extends dss.vector.solutions.No
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem";
   public static java.lang.String ENDPOINT = "endPoint";
   public static java.lang.String STARTPOINT = "startPoint";
-  private static final long serialVersionUID = 1238826358366L;
+  private static final long serialVersionUID = 1239075012755L;
   
   public InvalidAgeRangeProblemBase()
   {

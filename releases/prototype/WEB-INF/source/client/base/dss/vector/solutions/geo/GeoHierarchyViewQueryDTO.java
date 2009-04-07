@@ -10,7 +10,7 @@ package dss.vector.solutions.geo;
 public class GeoHierarchyViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238826349025L;
+private static final long serialVersionUID = 1239075002375L;
 
   protected GeoHierarchyViewQueryDTO(String type)
   {

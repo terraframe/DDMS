@@ -19,7 +19,8 @@
   href="/favicon.png" />
 <script
   type="text/javascript"
-  src="js/check_for_firefox.js"></script>
+  src="js/check_for_firefox.js"
+  charset="utf-8"></script>
 <title><f:message key="login" /></title>
 
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >

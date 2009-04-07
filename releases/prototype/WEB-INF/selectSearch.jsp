@@ -8,17 +8,19 @@
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="org.json.JSONArray"%>
 
+
+<%@page import="dss.vector.solutions.geo.generated.EarthDTO"%>
 <jsp:include page="geoEntityTreeComponent.jsp"></jsp:include>
 
 <script type="text/javascript">
   <%
-    ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);   
+    ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     String rootId = (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID);
-    
+
     String[] types = new String[]{GeoHierarchyDTO.CLASS, GeoHierarchyViewDTO.CLASS, GeoEntityTreeController.CLASS};
     String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
     out.print(js);
   %>
-  
+
   MDSS.SelectSearchRootId = '<%= rootId %>';
 </script>

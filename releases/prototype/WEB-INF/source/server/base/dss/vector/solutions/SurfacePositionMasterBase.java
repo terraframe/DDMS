@@ -10,7 +10,7 @@ package dss.vector.solutions;
 public abstract class SurfacePositionMasterBase extends com.terraframe.mojo.system.EnumerationMaster implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.SurfacePositionMaster";
-  private static final long serialVersionUID = 1238826361069L;
+  private static final long serialVersionUID = 1239075015670L;
   
   public SurfacePositionMasterBase()
   {

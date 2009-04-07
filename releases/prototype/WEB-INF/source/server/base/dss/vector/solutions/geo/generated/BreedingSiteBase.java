@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public abstract class BreedingSiteBase extends dss.vector.solutions.geo.generated.GeoEntity implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.BreedingSite";
-  private static final long serialVersionUID = 1238826368575L;
+  private static final long serialVersionUID = 1239075023925L;
   
   public BreedingSiteBase()
   {

@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.infectivity;
 
 public abstract class PVivaxTestResultDTOBase extends dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1238826344897L;
+  private static final long serialVersionUID = 1239074998590L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult";
   protected PVivaxTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

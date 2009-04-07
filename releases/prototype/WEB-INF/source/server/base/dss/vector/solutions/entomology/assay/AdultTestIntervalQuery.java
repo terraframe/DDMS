@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public  class AdultTestIntervalQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238826348738L;
+private static final long serialVersionUID = 1239075002520L;
 
   public AdultTestIntervalQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -321,7 +321,7 @@ private static final long serialVersionUID = 1238826348738L;
  implements AdultTestIntervalQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1238826348896L;
+private static final long serialVersionUID = 1239075002714L;
 
   public AdultTestIntervalQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

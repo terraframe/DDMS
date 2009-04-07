@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public class PermanentWaterBodyQueryDTO extends dss.vector.solutions.geo.generated.BreedingSiteQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1238826378558L;
+private static final long serialVersionUID = 1239075035679L;
 
   protected PermanentWaterBodyQueryDTO(String type)
   {
