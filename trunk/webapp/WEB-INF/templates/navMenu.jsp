@@ -82,7 +82,7 @@
                  <div id="cases" class="yuimenu">
                      <div class="bd">
                          <ul>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#">Test</a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo"><f:message key="Search_Aggregated_Cases"/></a></li>
                          </ul>
                      </div>
 
