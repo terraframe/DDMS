@@ -10,13 +10,13 @@
 	<property file="../../../profiles/default/common/terraframe.properties" />
 
 	<property name="root.user" value="postgres" />
-	<property name="root.pass" value="framework" />
+	<property name="root.pass" value="postgres" />
 	<property name="root.db" value="template_postgis" />
 	<property name="max_memory_use" value="1024m" />
 
 	<property name="deploy.path" value="${deploy.root}/webapps/MDSS/" />
 
-	<property name="postgres.bin" value="/usr/bin" />
+	<property name="postgres.bin" value="/Library/PostgreSQL/8.3/bin" />
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
 
@@ -248,6 +248,8 @@
 			<entry key="user" value="mdssdeploy"/>
 			<entry key="password" value="mdssdeploy"/>
 			<entry key="databaseName" value="mdssdeploy"/>
+			<entry key="db.connection.initial" value="20"/>
+			<entry key="db.connection.max" value="30"/>
 		</propertyfile>
 		<!-- run the importer -->
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
