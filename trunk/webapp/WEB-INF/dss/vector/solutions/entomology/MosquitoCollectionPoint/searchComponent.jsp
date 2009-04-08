@@ -68,7 +68,7 @@ MDSS.currentSearchModal = null;
   request.setAttribute("PermanentWaterBodyClass", PermanentWaterBodyDTO.CLASS);
 %>
 
-<mjl:form name="dss.vector.solutions.entomology.MosquitoCollectionPoint.search" method="POST" id ="searchMosquitoCollections">
+<mjl:form name="dss.vector.solutions.entomology.MosquitoCollectionPoint.search" method="GET" id ="searchMosquitoCollections">
   <dl>
     <dt> Filter </dt>
     <dd>
