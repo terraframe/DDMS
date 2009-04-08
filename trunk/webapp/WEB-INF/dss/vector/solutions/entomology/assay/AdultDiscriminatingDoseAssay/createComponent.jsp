@@ -19,7 +19,7 @@
     <dl>
     <dt>
         <label>
-          ${item.collectionMd.displayLabel} ${item.collection.displayLabel}
+          ${item.collectionMd.displayLabel}
         </label>
       </dt>
       <dd>

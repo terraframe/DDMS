@@ -69,7 +69,8 @@
 
 
 
-<%@page import="java.io.PrintStream"%><div id="cal1Container" class="yui-skin-sam"></div>
+<%@page import="java.io.PrintStream"%>
+<%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%><div id="cal1Container" class="yui-skin-sam"></div>
 
 <mjl:messages>
   <mjl:message />
@@ -80,25 +81,20 @@
 
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
-    <dd><mjl:commandLink display="${item.collectionMethod.termName}" action="mdss.entomology.CollectionMethodController.view.mojo" name="mdss.entomology.CollectionMethod.form.view.link">
-      <mjl:property value="${item.collectionMethod.id}" name="id" />
-    </mjl:commandLink></dd>
-    <dt><label> ${item.dateCollectedMd.displayLabel} </label></dt>
-    <dd class="formatDate">${item.dateCollected}</dd>
     <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
     <dd><mjl:commandLink display="${item.geoEntity.geoId}" action="mdss.test.GeoEntityController.view.mojo" name="mdss.test.GeoEntity.form.view.link">
       <mjl:property value="${item.geoEntity.id}" name="id" />
     </mjl:commandLink></dd>
+    <dt><label> ${item.dateCollectedMd.displayLabel} </label></dt>
+    <dd class="formatDate">${item.dateCollected}</dd>
+
   </dl>
 
 </mjl:form>
 
 <%
-	ClientRequestIF clientRequest = (ClientRequestIF) request
-			.getAttribute(ClientConstants.CLIENTREQUEST);
-	MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) request
-			.getAttribute("item");
+	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+	ConcreteMosquitoCollectionDTO mosquito_collection = (ConcreteMosquitoCollectionDTO) request.getAttribute("item");
 	MosquitoViewDTO[] rows = mosquito_collection.getMosquitos();
 	MosquitoViewDTO mdView = new MosquitoViewDTO(clientRequest);
 	String[] attribs = {"MosquitoId", "SampleId", "Specie",
@@ -202,10 +198,8 @@ function showCol(key,checked)
 </span> </span></form>
 <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a></div>
 <%
-	UninterestingSpecieGroupViewDTO[] unint_rows = mosquito_collection
-			.getUninterestingSpecieGroups();
-	UninterestingSpecieGroupViewDTO mdUnIntView = new UninterestingSpecieGroupViewDTO(
-			clientRequest);
+	UninterestingSpecieGroupViewDTO[] unint_rows = mosquito_collection.getUninterestingSpecieGroups();
+	UninterestingSpecieGroupViewDTO mdUnIntView = new UninterestingSpecieGroupViewDTO(clientRequest);
 	String[] unint_attribs = {"GroupId", "SampleId", "Specie",
 			"IdentificationMethod", "Quantity"};
 %> <script type="text/javascript">

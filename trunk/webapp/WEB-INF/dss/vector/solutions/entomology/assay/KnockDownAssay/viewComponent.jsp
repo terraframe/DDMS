@@ -72,8 +72,8 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
       </label>
     </dt>
     <dd>
-        <c:forEach var="enumName" items="${item.sexEnumNames}">     
-            ${item.sexMd.enumItems[enumName]}    
+        <c:forEach var="enumName" items="${item.sexEnumNames}">
+            ${item.sexMd.enumItems[enumName]}
         </c:forEach>
     </dd>
     <dt>
@@ -136,7 +136,7 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
     <dd>
       ${item.exposureTime}
     </dd>
-     
+
     <dt>
       <label>
         ${item.insecticideMd.displayLabel}
@@ -156,7 +156,7 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
       ${item.quantityTested}
     </dd>
 
-     
+
     <dt>
       <label>
         ${item.intervalTimeMd.displayLabel}
@@ -165,7 +165,7 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
     <dd>
       ${item.intervalTime}
     </dd>
-     
+
 
   </dl>
 
@@ -179,29 +179,29 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
 <div id="intervals"></div>
 
 <div id="buttons" class="noprint">
- <span id="intervalsSaverows" class="yui-button yui-push-button"> 
+ <span id="intervalsSaverows" class="yui-button yui-push-button">
  <span class="first-child">
 <button type="button">Save Rows To DB</button>
-</span> 
+</span>
 </span>
 
 
 <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
 
 </div>
-<script type="text/javascript">      
+<script type="text/javascript">
     <%
     String[] types_to_load =
   {
      "dss.vector.solutions.entomology.assay.KnockDownAssay",
      "dss.vector.solutions.entomology.assay.AdultTestIntervalView"
-  }; 
+  };
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
     DecimalFormat percent = new DecimalFormat("0.0");
 
     %>
-    table_data = { 
+    table_data = {
         rows:<%
              // KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
                   AdultTestIntervalViewDTO[] rows = kda.getTestIntervals();
@@ -213,9 +213,9 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
                    buff.add("IntervalTime:'" + row.getIntervalTime() + "'");
                    buff.add("KnockedDown:'" + row.getKnockedDown() + "'");
                    buff.add("Percent:'" + percent.format((row.getKnockedDown()*100.0)/kda.getQuantityTested())+"%'");
-                   arr.add("{" +Halp.join(buff,",")+ "}");    
+                   arr.add("{" +Halp.join(buff,",")+ "}");
                  }
-                 out.println("[" +Halp.join(arr,",\n")+ "]");%>        
+                 out.println("[" +Halp.join(arr,",\n")+ "]");%>
              ,columnDefs:[
                   {key:"IntervalId",label:"ID",hidden:true},
                   {key:"Period",label:'<%=rows[0].getPeriodMd().getDisplayLabel()%>'},
@@ -226,8 +226,8 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
               div_id: "intervals",
               collection_setter: "setAssay('${item.id}')",
               data_type: "Mojo.$.dss.vector.solutions.entomology.assay.AdultTestIntervalView",
-              after_row_edit:function(record){record.setData('Percent',((parseInt(record.getData('KnockedDown'))*100.0)/<%=kda.getQuantityTested()%>).toFixed(1)+"%");},
+              after_row_load:function(record){record.setData('Percent',((parseInt(record.getData('KnockedDown'))*100.0)/<%=kda.getQuantityTested()%>).toFixed(1)+"%");},
               after_save:function(){location.href="./dss.vector.solutions.entomology.assay.KnockDownAssayController.view.mojo?id=${item.id}";}
-          };   
+          };
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script>

@@ -85,7 +85,7 @@
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick" id="collectionDate"/></dd>
     <dt> <label> ${item.collectionMethodMd.displayLabel}</label> </dt>
 
-    <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod.componentId" >
+    <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod.componentId" includeBlank="true" >
        <mjl:option>
           ${current.displayLabel}
        </mjl:option>
