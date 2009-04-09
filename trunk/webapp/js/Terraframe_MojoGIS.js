@@ -88,21 +88,21 @@ Mojo.dto.AttributePolygonMdDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeG
 
 
 // multiLine
-Mojo.dto.AttributeMultiLineDTO = Mojo.Class.create();
-Mojo.dto.AttributeMultiLineDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryDTO, {
+Mojo.dto.AttributeMultiLineStringDTO = Mojo.Class.create();
+Mojo.dto.AttributeMultiLineStringDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryDTO, {
   initialize : function(obj)
   {
     Mojo.dto.AttributeGeometryDTO.prototype.initialize.call(this,obj);    
     
     if(obj)
     {
-      this.attributeMdDTO = new Mojo.dto.AttributeMultiLineMdDTO(obj.attributeMdDTO);
+      this.attributeMdDTO = new Mojo.dto.AttributeMultiLineStringMdDTO(obj.attributeMdDTO);
     }
   }
 });
 
-Mojo.dto.AttributeMultiLineMdDTO = Mojo.Class.create();
-Mojo.dto.AttributeMultiLineMdDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryMdDTO, {
+Mojo.dto.AttributeMultiLineStringMdDTO = Mojo.Class.create();
+Mojo.dto.AttributeMultiLineStringMdDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeGeometryMdDTO, {
   initialize : function(obj)
   {
     Mojo.dto.AttributeGeometryMdDTO.prototype.initialize.call(this,obj);

@@ -21,9 +21,10 @@ MDSS.Localized = {
     No: '<f:message key="Choice_No"/>'
   },
   
-  // Delete GeoEntity choices
+  // Delete GeoEntity/GeoHierarchy choices
   Delete: {
     Entity: '<f:message key="Delete_Entity" />',
+    Universal: '<f:message key="Delete_Universal" />',
     Relationship: '<f:message key="Delete_Relationship" />'
   }
 };

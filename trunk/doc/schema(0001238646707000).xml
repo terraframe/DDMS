@@ -96,7 +96,7 @@
             type="java.lang.Boolean" />
         </mdMethod>
       </mdBusiness>
-
+      
       <mdBusiness
         name="dss.vector.solutions.geo.GeoHierarchy"
         generateController="false"
@@ -107,6 +107,11 @@
             name="political"
             label="political"
             description="Denotes if this object is political (e.g., a Country)"
+            required="true" />
+          <boolean
+            name="sprayTargetAllowed"
+            label="Spray Target Allowed"
+            description="Spray Target Allowed"
             required="true" />
           <reference
             name="geoEntityClass"
@@ -273,6 +278,12 @@
             description="GeoHierarchy Id"
             required="true" />
           <virtual
+            name="isADisplayLabel"
+            required="true"
+            concrete="displayLabel"
+            type="com.terraframe.mojo.system.metadata.MdType"
+            label="The parent type of this universal." />
+          <virtual
             name="typeName"
             required="true"
             concrete="typeName"
@@ -281,7 +292,8 @@
             name="displayLabel"
             required="true"
             concrete="displayLabel"
-            type="com.terraframe.mojo.system.metadata.MdType" />
+            type="com.terraframe.mojo.system.metadata.MdType"
+            label="The universal this is located in." />
           <virtual
             name="description"
             required="true"
@@ -291,6 +303,11 @@
             name="political"
             required="true"
             concrete="political"
+            type="dss.vector.solutions.geo.GeoHierarchy" />
+          <virtual
+            name="sprayTargetAllowed"
+            required="true"
+            concrete="sprayTargetAllowed"
             type="dss.vector.solutions.geo.GeoHierarchy" />
         </attributes>
       </mdView>
@@ -328,22 +345,33 @@
         label="GeoEntityDefinition"
         description="View to define a new GeoEntity">
         <attributes>
-          <boolean
+          <virtual
             name="political"
-            label="political"
-            description="Denotes if this object is political (e.g., a Country)"
-            required="true" />
+            required="true"
+            concrete="political"
+            type="dss.vector.solutions.geo.GeoHierarchy" />
+          <virtual
+            name="sprayTargetAllowed"
+            required="true"
+            concrete="sprayTargetAllowed"
+            type="dss.vector.solutions.geo.GeoHierarchy" />
           <char
             name="parentGeoHierarchyId"
-            label="Parent GeoHierarchy Id"
-            description="Parent GeoHierarchy Id"
+            label="The universal located in parent."
+            description="The located in parent of this universal."
             required="true"
             size="64" />
+          <char
+            name="parentTypeGeoHierarchyId"
+            label="The universal parent type."
+            description="The parent type of this universal."
+            required="false"
+            size="64"  />
           <enumeration
             name="spatialType"
             label="Spatial Type"
             description="Spatial Type of GeoEntity attribute."
-            required="true"
+            required="false"
             selectMultiple="false"
             type="dss.vector.solutions.geo.SpatialTypes" />
           <virtual
@@ -1275,6 +1303,30 @@
             size="100"
             required="true"
             description="Name of Earth" />
+        </attributes>
+      </mdException>
+      
+      <mdException
+        name="dss.vector.solutions.geo.SpatialTypeRequiredException"
+        label="Spatial Type Required Exception"
+        description="Thrown when a new universal is defined without a geometry that extends GeoEntity">
+      </mdException>
+      
+      <mdException
+        name="dss.vector.solutions.geo.SpatialTypeDefinedException"
+        label="Spatial Type Defined Exception"
+        description="Thrown when a new universal tries to overwrite its parents geometry.">
+        <attributes>
+          <char
+            name="isAParentLabel"
+            label="Is A Parent Display Label"
+            size="100"
+            required="true" />
+          <char
+            name="spatialLabel"
+            label="Spatial Label"
+            size="100"
+            required="true" />
         </attributes>
       </mdException>
 
@@ -5017,6 +5069,10 @@
 
     <existing>
       <object
+        key="dss.vector.solutions.geo.generated.GeoEntity"
+        id="GeoEntityMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
         key="dss.vector.solutions.geo.generated.Earth"
         id="EarthMd"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
@@ -5111,11 +5167,29 @@
     </existing>
 
     <create>
+    
+      <object
+        id="geoEntityH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="GeoEntityMd" />
+      </object>
+    
       <object
         id="earthH"
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
+          value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
           value="true" />
         <referenceAttribute
           name="geoEntityClass"
@@ -5127,6 +5201,9 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
+          value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
           value="true" />
         <referenceAttribute
           name="geoEntityClass"
@@ -5146,6 +5223,9 @@
         <valueAttribute
           name="political"
           value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="ProvinceMd" />
@@ -5163,6 +5243,9 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
+          value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
           value="true" />
         <referenceAttribute
           name="geoEntityClass"
@@ -5182,6 +5265,9 @@
         <valueAttribute
           name="political"
           value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="AdminPostMd" />
@@ -5199,6 +5285,9 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
+          value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
           value="true" />
         <referenceAttribute
           name="geoEntityClass"
@@ -5218,6 +5307,9 @@
         <valueAttribute
           name="political"
           value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="PopulatedAreaMd" />
@@ -5228,6 +5320,9 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
+          value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
           value="true" />
         <referenceAttribute
           name="geoEntityClass"
@@ -5240,6 +5335,9 @@
         <valueAttribute
           name="political"
           value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="TownMd" />
@@ -5250,6 +5348,9 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
+          value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
           value="true" />
         <referenceAttribute
           name="geoEntityClass"
@@ -5262,6 +5363,9 @@
         <valueAttribute
           name="political"
           value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="FacilityMd" />
@@ -5273,6 +5377,9 @@
         <valueAttribute
           name="political"
           value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="RiverMd" />
@@ -5284,6 +5391,9 @@
         <valueAttribute
           name="political"
           value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="RoadMd" />
@@ -5295,6 +5405,9 @@
         <valueAttribute
           name="political"
           value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="NationalRoadMd" />
@@ -5306,6 +5419,9 @@
         <valueAttribute
           name="political"
           value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="ReserveMd" />
@@ -5317,6 +5433,9 @@
         <valueAttribute
           name="political"
           value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="RailwayMd" />
@@ -5398,6 +5517,9 @@
         <valueAttribute
           name="political"
           value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="AbstractSiteMd" />
@@ -5408,6 +5530,9 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
+          value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
           value="true" />
         <referenceAttribute
           name="geoEntityClass"
@@ -5427,6 +5552,9 @@
         <valueAttribute
           name="political"
           value="true" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="NonSentinalSiteMd" />
@@ -5445,6 +5573,9 @@
         <valueAttribute
           name="political"
           value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="TrapMd" />
@@ -5456,6 +5587,9 @@
         <valueAttribute
           name="political"
           value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="SprayZoneMd" />
@@ -5481,6 +5615,9 @@
         <valueAttribute
           name="political"
           value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="BreedingSiteMd" />
@@ -5499,6 +5636,9 @@
         <valueAttribute
           name="political"
           value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
         <referenceAttribute
           name="geoEntityClass"
           id="PermanentWaterBodyMd" />

@@ -1,7 +1,6 @@
 package dss.vector.solutions.geo;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -41,15 +40,33 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
   @Override
   public void newDefinition(String parentGeoHierarchyId) throws IOException, ServletException
   {
-    GeoEntityDefinitionDTO def = new GeoEntityDefinitionDTO(this.getClientRequest());
-    def.setParentGeoHierarchyId(parentGeoHierarchyId);
+    try
+    {
+      GeoEntityDefinitionDTO def = new GeoEntityDefinitionDTO(this.getClientRequest());
+      def.setParentGeoHierarchyId(parentGeoHierarchyId);
 
-    List<SpatialMasterDTO> types = SpatialTypesDTO.allItems(this.getClientRequest());
+      GeoHierarchyViewQueryDTO query = GeoHierarchyDTO.getGeoEntityHierarchyViews(this
+          .getClientRequest(), MdBusinessInfo.DISPLAY_LABEL, true, null, null);
+      List<SpatialMasterDTO> types = SpatialTypesDTO.allItems(this.getClientRequest());
 
-    req.setAttribute("types", types);
-    req.setAttribute("definition", def);
+      req.setAttribute("availableParents", query.getResultSet());
+      req.setAttribute("types", types);
+      req.setAttribute("definition", def);
 
-    req.getRequestDispatcher(NEW_DEFINITION_JSP).forward(req, resp);
+      req.getRequestDispatcher(NEW_DEFINITION_JSP).forward(req, resp);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
 
   @Override
@@ -85,32 +102,77 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
   @Override
   public void editDefinition(String geoHierarchyId) throws IOException, ServletException
   {
-    GeoHierarchyDTO.lock(this.getClientRequest(), geoHierarchyId);
-    GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(this.getClientRequest(),
-        geoHierarchyId);
+    try
+    {
+      GeoHierarchyDTO.lock(this.getClientRequest(), geoHierarchyId);
+      GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(this.getClientRequest(),
+          geoHierarchyId);
 
-    req.setAttribute("geoHierarchyId", view.getGeoHierarchyId());
-    req.setAttribute("view", view);
+      req.setAttribute("geoHierarchyId", view.getGeoHierarchyId());
+      req.setAttribute("view", view);
 
-    req.getRequestDispatcher(EDIT_DEFINITION_JSP).forward(req, resp);
+      req.getRequestDispatcher(EDIT_DEFINITION_JSP).forward(req, resp);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
 
   @Override
   public void updateDefinition(GeoHierarchyViewDTO view) throws IOException, ServletException
   {
-    GeoHierarchyDTO.updateFromView(this.getClientRequest(), view);
+    try
+    {
+      GeoHierarchyDTO.updateFromView(this.getClientRequest(), view);
 
-    // return the id to the calling Ajax process
-    resp.getWriter().write(view.getGeoHierarchyId());
+      // return the id to the calling Ajax process
+      resp.getWriter().write(view.getGeoHierarchyId());
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
 
   @Override
   public void cancelUpdateDefinition(String geoHierarchyId) throws IOException, ServletException
   {
-    GeoHierarchyDTO.unlock(this.getClientRequest(), geoHierarchyId);
+    try
+    {
+      GeoHierarchyDTO.unlock(this.getClientRequest(), geoHierarchyId);
 
-    // return the id to the calling Ajax process
-    resp.getWriter().write(geoHierarchyId);
+      // return the id to the calling Ajax process
+      resp.getWriter().write(geoHierarchyId);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
 
   @Override

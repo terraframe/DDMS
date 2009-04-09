@@ -67,7 +67,12 @@ public class Earth extends EarthBase implements com.terraframe.mojo.generation.l
     OIterator<? extends Earth> iter = q.getIterator();
     try
     {
-      return iter.next(); // There will always be one.
+      while(iter.hasNext())
+      {
+        return iter.next(); // There will always be one.
+      }
+      
+      return null;
     }
     finally
     {

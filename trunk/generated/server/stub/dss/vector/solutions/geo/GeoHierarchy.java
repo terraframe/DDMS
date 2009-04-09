@@ -30,9 +30,9 @@ import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPoint;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPolygon;
 import com.terraframe.mojo.system.gis.metadata.MdAttributePoint;
 import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
+import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
-import com.terraframe.mojo.web.view.content.ChildGroovy;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.generated.Earth;
@@ -235,7 +235,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     OIterator<? extends GeoHierarchy> iter = geoQuery.getIterator();
     try
     {
-      return iter.next();
+      while(iter.hasNext())
+      {
+        return iter.next();
+      }
+      
+      return null;
     }
     finally
     {
@@ -265,10 +270,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       MdBusiness md = g.getGeoEntityClass();
       String type = md.getPackageName() + "." + md.getTypeName();
 
-      JSONObject typeAndLabel = new JSONObject();
-      typeAndLabel.put("type", type);
-      typeAndLabel.put("label", md.getDisplayLabel());
-      allowed.put(typeAndLabel);
+      allowed.put(type);
 
       treeRecurse(types, imports, g);
     }
@@ -276,7 +278,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     MdBusiness md = geo.getGeoEntityClass();
 
     String type = md.getPackageName() + "." + md.getTypeName();
-    types.put(type, allowed);
+    
+    JSONObject labelAndChildren = new JSONObject();
+    labelAndChildren.put("label", md.getDisplayLabel());
+    labelAndChildren.put("children", allowed);
+    types.put(type, labelAndChildren);
 
     imports.add(type);
     imports.add(type + "Controller");
@@ -344,6 +350,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   @AbortIfProblem
   private static String defineGeoEntityInternal(GeoEntityDefinition definition)
   {
+    boolean definesGeometry = false;
+    List<SpatialTypes> spatialTypes = definition.getSpatialType();
+    if(spatialTypes != null && spatialTypes.size() > 0)
+    {
+      definesGeometry = true;
+    }
+    
     // define the new MdBusiness
     String typeName = definition.getTypeName();
     String label = definition.getDisplayLabel();
@@ -358,17 +371,75 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     mdGeoEntity.setExtendable(true);
     mdGeoEntity.setPublish(true);
 
-    MdBusiness parent = MdBusiness.getMdBusiness(GeoEntity.CLASS);
+    GeoHierarchy geoEntityH = GeoHierarchy.getGeoHierarchyFromType(GeoEntity.CLASS);
+    
+    String parentTypeGeoHierarchyId = definition.getParentTypeGeoHierarchyId();
+    MdBusiness parent;
+    if(parentTypeGeoHierarchyId != null
+        && parentTypeGeoHierarchyId.trim().length() > 0
+        && !parentTypeGeoHierarchyId.equals(geoEntityH.getId()))
+    {
+      GeoHierarchy parentTypeH = GeoHierarchy.get(parentTypeGeoHierarchyId);
+      parent = parentTypeH.getGeoEntityClass();
+
+      // make sure the user isn't trying to override the parent geometry.
+      if(definesGeometry)
+      {
+        MdAttributeGeometry geoAttrMd = null;
+        
+        OIterator<? extends MdAttribute> iter = parent.getAllAttribute();
+        try
+        {
+          while(iter.hasNext())
+          {
+            MdAttribute tempGeoMd = iter.next();
+            
+            if(tempGeoMd instanceof MdAttributeGeometry)
+            {
+              geoAttrMd = (MdAttributeGeometry) tempGeoMd;
+              break;
+            }
+          }
+        }
+        finally
+        {
+          iter.close();
+        }
+        
+        String geoLabel = geoAttrMd.getDisplayLabel();
+        
+        String error = "Cannot define the geometry ["+geoLabel+"] because the parent ["+parent.getDisplayLabel()+"] already defines a geometry.";
+        SpatialTypeDefinedException ex = new SpatialTypeDefinedException(error);
+        ex.setIsAParentLabel(parent.getDisplayLabel());
+        ex.setSpatialLabel(geoLabel);
+        throw ex;
+      }
+    }
+    else
+    {
+      if(!definesGeometry)
+      {
+        String error = "The universal ["+definition.getDisplayLabel()+"] must define a geometry attribute";
+        SpatialTypeRequiredException ex = new SpatialTypeRequiredException(error);
+        throw ex;
+      }
+      
+      parent = geoEntityH.getGeoEntityClass();
+    }
+    
     mdGeoEntity.setSuperMdBusiness(parent);
     mdGeoEntity.apply();
 
     // add the spatial attribute to the MdBusiness
-    SpatialTypes spatialType = definition.getSpatialType().get(0);
-    addGeometryAttribute(mdGeoEntity, spatialType);
+    if(definesGeometry)
+    {
+      addGeometryAttribute(mdGeoEntity, spatialTypes.get(0));
+    }
     
     // create the GeoHeirachy and relationship
     GeoHierarchy geoHierarchy = new GeoHierarchy();
     geoHierarchy.setPolitical(definition.getPolitical());
+    geoHierarchy.setSprayTargetAllowed(definition.getPolitical());
     geoHierarchy.setGeoEntityClass(mdGeoEntity);
     geoHierarchy.apply();
 
@@ -376,6 +447,61 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     geoHierarchy.addAllowedInGeoEntity(allowedIn).apply();
 
     return geoHierarchy.getId();
+  }
+  
+  @Override
+  public void confirmChangeParent(String parentId)
+  {
+    GeoHierarchy view = GeoHierarchy.get(parentId);
+    String label = view.getGeoEntityClass().getDisplayLabel();
+    
+    String error = "Delete the old relationship with ["+label+"] or the Hierarchy?";
+    ConfirmHierarchyParentChangeException ex = new ConfirmHierarchyParentChangeException(error);
+    ex.setParentDisplayLabel(label);
+    throw ex;
+  }
+  
+  @Override
+  public void confirmDeleteHierarchy(String parentId)
+  {
+    List<GeoHierarchy> parents = this.getImmediateParents();
+    if(parents.size() > 1)
+    {
+      GeoHierarchy parent = GeoHierarchy.get(parentId);
+      String label = parent.getGeoEntityClass().getDisplayLabel();
+      
+      String error = "Delete the old relationship with ["+label+"] or the Hierarchy?";
+      ConfirmDeleteHierarchyException ex = new ConfirmDeleteHierarchyException(error);
+      ex.setParentDisplayLabel(label);
+      throw ex;
+    }
+    else
+    {
+      this.delete();
+    }
+  }
+  
+  @Override
+  @Transaction
+  public void deleteRelationship(String parentId)
+  {
+    QueryFactory f = new QueryFactory();
+    AllowedInQuery query = new AllowedInQuery(f);
+    query.WHERE(query.childId().EQ(this.getId()));
+    query.WHERE(query.parentId().EQ(parentId));
+    
+    OIterator<? extends AllowedIn> iter = query.getIterator();
+    try
+    {
+      while(iter.hasNext())
+      {
+        iter.next().delete();
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
   }
   
   /**
@@ -468,6 +594,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     // GeoHierarchy should already be locked
     GeoHierarchy geoHierarchy = GeoHierarchy.get(view.getGeoHierarchyId());
     geoHierarchy.setPolitical(view.getPolitical());
+    geoHierarchy.setSprayTargetAllowed(view.getSprayTargetAllowed());
     geoHierarchy.apply();
 
     MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
@@ -522,13 +649,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    */
   private static void validateModifyGeoHierarchy(GeoHierarchy toValidate)
   {
-    Earth earth = Earth.getEarthInstance();
-
     QueryFactory f = new QueryFactory();
     GeoEntityQuery q = new GeoEntityQuery(f);
-
-    // exclude earth
-    q.WHERE(q.getId().NE(earth.getId()));
     
     // the GeoHierarchy to modify cannot have any children (recursively)
     List<GeoHierarchy> included = toValidate.getAllChildren();
@@ -586,11 +708,16 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     GeoHierarchyView view = new GeoHierarchyView();
     view.setPolitical(this.getPolitical());
+    view.setSprayTargetAllowed(this.getSprayTargetAllowed());
     view.setDescription(md.getDescription());
     view.setTypeName(md.getTypeName());
     view.setDisplayLabel(md.getDisplayLabel());
     view.setReferenceId(md.getId());
     view.setGeoHierarchyId(this.getId());
+    
+    MdBusiness superMd = this.getGeoEntityClass().getSuperMdBusiness();
+    String isADisplayLabel = (superMd != null) ? superMd.getDisplayLabel() : "";
+    view.setIsADisplayLabel(isADisplayLabel);
     return view;
   }
 
@@ -785,6 +912,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     private AllowedInQuery    allowedInQuery;
 
     private MdBusinessQuery   mdBusinessQuery;
+    
+    private MdBusinessQuery parentMdBusinessQuery;
 
     protected OrderedGeoHiearchyQueryBuilder(QueryFactory queryFactory, GeoHierarchy geoHierarchy)
     {
@@ -793,6 +922,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       geoHierarchyQuery = new GeoHierarchyQuery(queryFactory);
       allowedInQuery = new AllowedInQuery(queryFactory);
       mdBusinessQuery = new MdBusinessQuery(queryFactory);
+      parentMdBusinessQuery = new MdBusinessQuery(queryFactory);
 
       this.geoHierarchy = geoHierarchy;
     }
@@ -804,11 +934,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
       vQuery.map(GeoHierarchyView.GEOHIERARCHYID, geoHierarchyQuery.getId());
       vQuery.map(GeoHierarchyView.POLITICAL, geoHierarchyQuery.getPolitical());
+      vQuery.map(GeoHierarchy.SPRAYTARGETALLOWED, geoHierarchyQuery.getSprayTargetAllowed());
 
       vQuery.map(GeoHierarchyView.REFERENCEID, mdBusinessQuery.getId());
       vQuery.map(GeoHierarchyView.TYPENAME, mdBusinessQuery.getTypeName());
       vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel());
       vQuery.map(GeoHierarchyView.DESCRIPTION, mdBusinessQuery.getDescription());
+      vQuery.map(GeoHierarchyView.ISADISPLAYLABEL, parentMdBusinessQuery.getDisplayLabel());
     }
 
     @Override
@@ -821,6 +953,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
       vQuery.WHERE(mdBusinessQuery.getIsAbstract().EQ(false));
       vQuery.WHERE(geoHierarchyQuery.getGeoEntityClass().EQ(mdBusinessQuery));
+      
+      vQuery.WHERE(mdBusinessQuery.getSuperMdBusiness().EQ(parentMdBusinessQuery));
 
       vQuery.ORDER_BY_ASC(mdBusinessQuery.getDisplayLabel());
     }

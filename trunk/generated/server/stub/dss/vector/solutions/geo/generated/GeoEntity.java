@@ -159,11 +159,11 @@ public abstract class GeoEntity extends GeoEntityBase implements
   @Override
   public void confirmDeleteEntity(String parentId)
   {
-    GeoEntity parent = GeoEntity.get(parentId);
 
     List<GeoEntity> parents = this.getImmediateParents();
     if(parents.size() > 1)
     {
+      GeoEntity parent = GeoEntity.get(parentId);
       ConfirmDeleteEntityException ex = new ConfirmDeleteEntityException();
       ex.setEntityName(parent.getEntityName());
 

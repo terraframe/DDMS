@@ -19,6 +19,8 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.ModifyHierarchyWithInstancesException;
+import dss.vector.solutions.geo.SpatialTypeDefinedException;
+import dss.vector.solutions.geo.SpatialTypeRequiredException;
 import dss.vector.solutions.geo.SpatialTypes;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.Earth;
@@ -30,8 +32,8 @@ public class GeoHierarchyTest extends GeoTest
 
   private static final String NEW_TYPE      = MDSSInfo.GENERATED_GEO_PACKAGE + "." + NEW_TYPE_NAME;
 
-  private static final Earth earth = Earth.getEarthInstance();
-  
+  private static Earth        earth         = Earth.getEarthInstance();
+
   public static Test suite()
   {
 
@@ -57,16 +59,20 @@ public class GeoHierarchyTest extends GeoTest
 
   public static void classSetUp()
   {
+    GeoHierarchy geoEntityH = GeoHierarchy.getGeoHierarchyFromType(GeoEntity.CLASS);
+
     // Add a new GeoEntity type as a child of Country
     GeoHierarchy countryH = GeoHierarchy.getGeoHierarchyFromType(Country.CLASS);
 
     GeoEntityDefinition def = new GeoEntityDefinition();
     def.setTypeName(NEW_TYPE_NAME);
     def.setPolitical(true);
+    def.setSprayTargetAllowed(true);
     def.setDisplayLabel("New Geo Entity Type");
     def.setDescription("New Geo Entity Type Description");
     def.addSpatialType(SpatialTypes.POLYGON);
     def.setParentGeoHierarchyId(countryH.getId());
+    def.setParentTypeGeoHierarchyId(geoEntityH.getId());
 
     GeoHierarchy.defineGeoEntity(def);
   }
@@ -152,6 +158,142 @@ public class GeoHierarchyTest extends GeoTest
   }
 
   /**
+   * Tests that a new universal that extends GeoEntity must define a geometry.
+   */
+  public void testSpatialTypeRequiredException()
+  {
+    String geoHierarchyId = null;
+
+    try
+    {
+      GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS);
+
+      GeoEntityDefinition def = new GeoEntityDefinition();
+      def.setTypeName("TempTypeInvalid");
+      def.setPolitical(true);
+      def.setSprayTargetAllowed(true);
+      def.setDisplayLabel("New Geo Entity Type");
+      def.setDescription("New Geo Entity Type Description");
+      def.setParentGeoHierarchyId(earthH.getId());
+      def.setParentTypeGeoHierarchyId(null); // will extend GeoEntity
+
+      geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
+
+      fail("Able to create a new universal without a geometry that extends GeoEntity.");
+    }
+    catch (SpatialTypeRequiredException e)
+    {
+      // success
+    }
+    finally
+    {
+      if (geoHierarchyId != null)
+      {
+        GeoHierarchy.deleteGeoHierarchy(geoHierarchyId);
+      }
+    }
+  }
+
+  /**
+   * Tests that a new universal that extends a non-GeoEntity class must not
+   * define a geometry.
+   */
+  public void testSpatialTypeDefinedException()
+  {
+    String geoHierarchyId = null;
+
+    try
+    {
+      GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS);
+      GeoHierarchy newType = GeoHierarchy.getGeoHierarchyFromType(NEW_TYPE);
+
+      GeoEntityDefinition def = new GeoEntityDefinition();
+      def.setTypeName("TempTypeInvalid");
+      def.setPolitical(true);
+      def.setSprayTargetAllowed(true);
+      def.setDisplayLabel("New Geo Entity Type");
+      def.setDescription("New Geo Entity Type Description");
+      def.addSpatialType(SpatialTypes.LINE); // this will cause an error
+      def.setParentGeoHierarchyId(earthH.getId());
+      def.setParentTypeGeoHierarchyId(newType.getId());
+
+      geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
+      
+      fail("Able to create a new universal that overwrote its parent geometry.");
+    }
+    catch (SpatialTypeDefinedException e)
+    {
+      // success
+    }
+    finally
+    {
+      if (geoHierarchyId != null)
+      {
+        GeoHierarchy.deleteGeoHierarchy(geoHierarchyId);
+      }
+    }
+  }
+
+  /**
+   * Tests a universal class that is AllowedIn Earth and is_a NewType.
+   * 
+   * @throws IllegalAccessException
+   * @throws InstantiationException
+   */
+  public void testExtendsNewType() throws InstantiationException, IllegalAccessException
+  {
+    List<GeoEntity> testEntities = new LinkedList<GeoEntity>();
+
+    GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS);
+    GeoHierarchy newType = GeoHierarchy.getGeoHierarchyFromType(NEW_TYPE);
+
+    String tempTypeName = "TempTypeExt";
+    String tempType = MDSSInfo.GENERATED_GEO_PACKAGE + "." + tempTypeName;
+    String newTypeId = null;
+
+    try
+    {
+      GeoEntityDefinition def = new GeoEntityDefinition();
+      def.setTypeName(tempTypeName);
+      def.setPolitical(true);
+      def.setSprayTargetAllowed(true);
+      def.setDisplayLabel("New Geo Entity Type");
+      def.setDescription("New Geo Entity Type Description");
+      def.setParentGeoHierarchyId(earthH.getId());
+      def.setParentTypeGeoHierarchyId(newType.getId());
+
+      String geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
+
+      GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
+      newTypeId = view.getGeoHierarchyId();
+
+      // create an instance of the new type and check the is_a relationships.
+      Class<?> tempClass = LoaderDecorator.load(tempType);
+      GeoEntity geo = (GeoEntity) tempClass.newInstance();
+      geo.setEntityName("Temp Type Ext 1");
+      geo.setActivated(true);
+      geo.setGeoId(genGeoId());
+      geo.apply();
+      testEntities.add(geo);
+
+      Class<?> newTypeClass = LoaderDecorator.load(NEW_TYPE);
+
+      assertTrue(tempClass.isInstance(geo));
+      assertTrue(newTypeClass.isInstance(geo));
+    }
+    finally
+    {
+      deleteAll(testEntities);
+
+      if (newTypeId != null)
+      {
+        GeoHierarchy newTypeH = GeoHierarchy.get(newTypeId);
+        newTypeH.delete();
+      }
+    }
+  }
+
+  /**
    * Attempts to set an instance of a country as a child of the new GeoEntity
    * type, which is invalid.
    * 
@@ -199,6 +341,8 @@ public class GeoHierarchyTest extends GeoTest
     String tempType = MDSSInfo.GENERATED_GEO_PACKAGE + "." + tempTypeName;
     String newTypeId = null;
 
+    GeoHierarchy geoEntityH = GeoHierarchy.getGeoHierarchyFromType(GeoEntity.CLASS);
+
     try
     {
       // Add a new GeoEntity type as a child of Country
@@ -207,10 +351,12 @@ public class GeoHierarchyTest extends GeoTest
       GeoEntityDefinition def = new GeoEntityDefinition();
       def.setTypeName(tempTypeName);
       def.setPolitical(true);
+      def.setSprayTargetAllowed(true);
       def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.addSpatialType(SpatialTypes.POLYGON);
       def.setParentGeoHierarchyId(countryH.getId());
+      def.setParentTypeGeoHierarchyId(geoEntityH.getId());
 
       String geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
       GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
@@ -243,8 +389,9 @@ public class GeoHierarchyTest extends GeoTest
   /**
    * Tests that a GeoHierarchy cannot change parents if pre-existing (non-earth)
    * if geoentities of the new type.
-   * @throws IllegalAccessException 
-   * @throws InstantiationException 
+   * 
+   * @throws IllegalAccessException
+   * @throws InstantiationException
    */
   public void testChangeParentInvalid() throws InstantiationException, IllegalAccessException
   {
@@ -262,17 +409,19 @@ public class GeoHierarchyTest extends GeoTest
       GeoEntityDefinition def = new GeoEntityDefinition();
       def.setTypeName(tempTypeName);
       def.setPolitical(true);
+      def.setSprayTargetAllowed(true);
       def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.addSpatialType(SpatialTypes.POLYGON);
       def.setParentGeoHierarchyId(countryH.getId());
+      def.setParentTypeGeoHierarchyId(null);
 
       String geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
       GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
       newTypeId = view.getGeoHierarchyId();
 
       // create a geo entity which should make the parent change fail
-      Class<?> newTypeClass = LoaderDecorator.load(MDSSInfo.GENERATED_GEO_PACKAGE+"."+tempTypeName);
+      Class<?> newTypeClass = LoaderDecorator.load(MDSSInfo.GENERATED_GEO_PACKAGE + "." + tempTypeName);
       GeoEntity geo = (GeoEntity) newTypeClass.newInstance();
       geo.setEntityName("New Type 1");
       geo.setActivated(true);
@@ -311,6 +460,8 @@ public class GeoHierarchyTest extends GeoTest
    */
   public void testDeleteHierarchy() throws InstantiationException, IllegalAccessException
   {
+    GeoHierarchy geoEntityH = GeoHierarchy.getGeoHierarchyFromType(GeoEntity.CLASS);
+
     String tempTypeName1 = "TempType1";
     String tempType1 = MDSSInfo.GENERATED_GEO_PACKAGE + "." + tempTypeName1;
 
@@ -325,10 +476,12 @@ public class GeoHierarchyTest extends GeoTest
       GeoEntityDefinition def1 = new GeoEntityDefinition();
       def1.setTypeName(tempTypeName1);
       def1.setPolitical(true);
+      def1.setSprayTargetAllowed(true);
       def1.setDisplayLabel("New Geo Entity Type 1");
       def1.setDescription("New Geo Entity Type Description 1");
       def1.addSpatialType(SpatialTypes.POLYGON);
       def1.setParentGeoHierarchyId(countryH.getId());
+      def1.setParentTypeGeoHierarchyId(geoEntityH.getId());
 
       String geoHierarchyId = GeoHierarchy.defineGeoEntity(def1);
       GeoHierarchyView view = GeoHierarchy.getViewForGeoHierarchy(geoHierarchyId);
@@ -337,10 +490,12 @@ public class GeoHierarchyTest extends GeoTest
       GeoEntityDefinition def2 = new GeoEntityDefinition();
       def2.setTypeName(tempTypeName2);
       def2.setPolitical(true);
+      def2.setSprayTargetAllowed(true);
       def2.setDisplayLabel("New Geo Entity Type 2");
       def2.setDescription("New Geo Entity Type Description 2");
       def2.addSpatialType(SpatialTypes.POLYGON);
       def2.setParentGeoHierarchyId(view.getGeoHierarchyId());
+      def2.setParentTypeGeoHierarchyId(geoEntityH.getId());
 
       GeoHierarchy.defineGeoEntity(def2);
 
@@ -362,43 +517,45 @@ public class GeoHierarchyTest extends GeoTest
 
       // make sure neither parent nor child exist after deletion
       GeoHierarchy toDelete = GeoHierarchy.getGeoHierarchyFromType(tempType1);
-      
-      // we could use delete(), but we want to use the deleteGeoHierarchy MdMethod
+
+      // we could use delete(), but we want to use the deleteGeoHierarchy
+      // MdMethod
       // which is what the UI will call
       GeoHierarchy.deleteGeoHierarchy(toDelete.getId());
-      
+
       // see if the GeoHierarchies exist and the MdBusinesses they wrap
       try
       {
         GeoHierarchy.getGeoHierarchyFromType(tempType1);
-        fail("Able to retrieve ["+tempType1+"] even though it was deleted.");
+        fail("Able to retrieve [" + tempType1 + "] even though it was deleted.");
       }
-      catch(DataNotFoundException e)
+      catch (DataNotFoundException e)
       {
         // this okay
       }
       try
       {
         GeoHierarchy.getGeoHierarchyFromType(tempType2);
-        fail("Able to retrieve ["+tempType2+"] even though it was deleted.");
+        fail("Able to retrieve [" + tempType2 + "] even though it was deleted.");
       }
-      catch(DataNotFoundException e)
+      catch (DataNotFoundException e)
       {
         // this okay
       }
-      
+
       QueryFactory f = new QueryFactory();
       MdBusinessQuery q = new MdBusinessQuery(f);
-      q.WHERE(q.getTypeName().IN(new String[]{tempTypeName1, tempTypeName2}));
-      
-      if(q.getCount() > 0)
+      q.WHERE(q.getTypeName().IN(new String[] { tempTypeName1, tempTypeName2 }));
+
+      if (q.getCount() > 0)
       {
         fail("MdBusinesses associated with GeoHierarchies were deleted.");
       }
     }
     finally
     {
-      // now delete the types if they still exist (they shouldn't, but just to be safe ...)
+      // now delete the types if they still exist (they shouldn't, but just to
+      // be safe ...)
       try
       {
         GeoHierarchy type2 = GeoHierarchy.getGeoHierarchyFromType(tempType2);
@@ -426,4 +583,5 @@ public class GeoHierarchyTest extends GeoTest
       }
     }
   }
+
 }
