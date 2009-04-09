@@ -26,5 +26,9 @@ MDSS.Localized = {
     Entity: '<f:message key="Delete_Entity" />',
     Universal: '<f:message key="Delete_Universal" />',
     Relationship: '<f:message key="Delete_Relationship" />'
-  }
+  },
+  
+  Select_Universal_Type: '<f:message key="Select_Universal_Type" />',
+  
+  New_Universal_Located_In: '<f:message key="New_Universal_Located_In" />'
 };

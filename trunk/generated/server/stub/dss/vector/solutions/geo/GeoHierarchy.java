@@ -618,6 +618,18 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     GeoHierarchy childGeoHierarchy = GeoHierarchy.get(childGeoHierarchyId);
     GeoHierarchy parentGeoHierarchy = GeoHierarchy.get(parentGeoHierarchyId);
 
+    // make sure a child cannot be applied to itself
+    if (childGeoHierarchy.getId().equals(parentGeoHierarchy.getId()))
+    {
+      String childLabel = childGeoHierarchy.getGeoEntityClass().getDisplayLabel();
+      
+      String error = "The child [" + childLabel + "] cannot be its own parent.";
+
+      AllowedInSelfException e = new AllowedInSelfException(error);
+      e.setDisplayLabel(childLabel);
+      throw e;
+    }
+    
     validateModifyGeoHierarchy(childGeoHierarchy);
 
     if (!cloneOperation)
@@ -634,6 +646,29 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       finally
       {
         iter.close();
+      }
+    }
+    else
+    {
+      // confirm this entity can't be applied to the same
+      // parent more than once.
+      QueryFactory f = new QueryFactory();
+      AllowedInQuery q = new AllowedInQuery(f);
+      q.WHERE(q.childId().EQ(childGeoHierarchyId));
+      q.WHERE(q.parentId().EQ(parentGeoHierarchyId));
+
+      if (q.getCount() > 0)
+      {
+        String childDL = childGeoHierarchy.getGeoEntityClass().getDisplayLabel();
+        String parentDL = parentGeoHierarchy.getGeoEntityClass().getDisplayLabel();
+
+        String error = "The child [" + childDL + "] is already located in the parent [" + parentDL
+            + "].";
+        DuplicateHierarchyParentException e = new DuplicateHierarchyParentException(error);
+        e.setChildDisplayLabel(childDL);
+        e.setChildDisplayLabel(parentDL);
+
+        throw e;
       }
     }
 

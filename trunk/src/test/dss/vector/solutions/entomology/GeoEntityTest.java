@@ -7,6 +7,7 @@ import com.terraframe.mojo.query.OIterator;
 
 import dss.vector.solutions.geo.DeleteEarthException;
 import dss.vector.solutions.geo.DuplicateEarthException;
+import dss.vector.solutions.geo.DuplicateParentException;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoEntityViewQuery;
 import dss.vector.solutions.geo.LocatedInException;
@@ -15,7 +16,6 @@ import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.District;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.geo.generated.Province;
 
 public class GeoEntityTest extends GeoTest
@@ -195,6 +195,88 @@ public class GeoEntityTest extends GeoTest
     {
       deleteAll(testEntities);
     }
+  }
+  
+  /**
+   * Tests that a GeoEntity cannot be located in itself.
+   */
+  public void testEntityNotLocatedInSelf()
+  {
+    List<GeoEntity> testEntities = new LinkedList<GeoEntity>();
+    
+    Country country = null;
+    Province province = null;
+    
+    try
+    {
+      country = new Country();
+      country.setActivated(true);
+      country.setEntityName("Country 1");
+      country.setGeoId(genGeoId());
+      country.apply();
+      testEntities.add(country);
+
+      province = new Province();
+      province.setActivated(true);
+      province.setEntityName("Province 1");
+      province.setGeoId(genGeoId());
+      province.applyWithParent(country.getId(), false);
+      testEntities.add(province);
+      
+      province.applyWithParent(province.getId(), false);
+      
+      fail("Able to add the same province as its own parent.");
+    }
+    catch(LocatedInException e)
+    {
+      // Success
+    }
+    finally
+    {
+      deleteAll(testEntities);
+    }
+  }
+  
+  /**
+   * Tests that a parent cannot have the same child twice as immediate
+   * children. Immediate children are the first level of the AllowedIn
+   * relationship.
+   */
+  public void testNoDuplicateImmediateChildren()
+  {
+    List<GeoEntity> testEntities = new LinkedList<GeoEntity>();
+
+    Country country = null;
+    Province province = null;
+
+    try
+    {
+      country = new Country();
+      country.setActivated(true);
+      country.setEntityName("Country 1");
+      country.setGeoId(genGeoId());
+      country.apply();
+      testEntities.add(country);
+
+      province = new Province();
+      province.setActivated(true);
+      province.setEntityName("Province 1");
+      province.setGeoId(genGeoId());
+      province.applyWithParent(country.getId(), false);
+      testEntities.add(province);
+      
+      province.applyWithParent(country.getId(), true);
+      
+      fail("A parent was able to have two immediate children.");
+    }
+    catch(DuplicateParentException e)
+    {
+      // Success
+    }
+    finally
+    {
+      deleteAll(testEntities);
+    }    
   }
 
   /**

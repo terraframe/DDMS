@@ -14,6 +14,7 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.geo.AllowedInSelfException;
 import dss.vector.solutions.geo.GeoEntityDefinition;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyView;
@@ -291,6 +292,82 @@ public class GeoHierarchyTest extends GeoTest
         newTypeH.delete();
       }
     }
+  }
+  
+  /**
+   * Tests that an exception is thrown when a universal is added as its
+   * own parent.
+   */
+  public void testAllowedInSelfException()
+  {
+    String geoHierarchyId = null;
+    
+    try
+    {
+      GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS);
+      GeoHierarchy newType = GeoHierarchy.getGeoHierarchyFromType(NEW_TYPE);
+      
+      GeoEntityDefinition def = new GeoEntityDefinition();
+      def.setTypeName("TempTypeInvalid");
+      def.setPolitical(true);
+      def.setSprayTargetAllowed(true);
+      def.setDisplayLabel("New Geo Entity Type");
+      def.setDescription("New Geo Entity Type Description");
+      def.setParentGeoHierarchyId(earthH.getId());
+      def.setParentTypeGeoHierarchyId(newType.getId());
+      geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
+
+      GeoHierarchy.applyExistingWithParent(geoHierarchyId, geoHierarchyId, false);
+    }
+    catch(AllowedInSelfException e)
+    {
+      // success
+    }
+    finally
+    {
+      if(geoHierarchyId != null)
+      {
+        GeoHierarchy.deleteGeoHierarchy(geoHierarchyId);
+      }
+    }
+  }
+  
+  /**
+   * Tests that a child cannot have the same immediate parent.
+   */
+  public void testDuplicateParentException()
+  {
+    String geoHierarchyId = null;
+    
+    try
+    {
+      GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS);
+      GeoHierarchy newType = GeoHierarchy.getGeoHierarchyFromType(NEW_TYPE);
+      
+      GeoEntityDefinition def = new GeoEntityDefinition();
+      def.setTypeName("TempTypeInvalid");
+      def.setPolitical(true);
+      def.setSprayTargetAllowed(true);
+      def.setDisplayLabel("New Geo Entity Type");
+      def.setDescription("New Geo Entity Type Description");
+      def.setParentGeoHierarchyId(earthH.getId());
+      def.setParentTypeGeoHierarchyId(newType.getId());
+      geoHierarchyId = GeoHierarchy.defineGeoEntity(def);
+      
+      GeoHierarchy.applyExistingWithParent(geoHierarchyId, earthH.getId(), false);
+    }
+    catch(AllowedInSelfException e)
+    {
+      // success
+    }
+    finally
+    {
+      if(geoHierarchyId != null)
+      {
+        GeoHierarchy.deleteGeoHierarchy(geoHierarchyId);
+      }
+    }
+    
   }
 
   /**

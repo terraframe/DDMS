@@ -25,9 +25,6 @@ MDSS.GeoHierarchyTree = (function(){
   // reference to modal for node create/edit
   var _modal = null;
   
-  // callback function for selecting a node in the tree
-  var _selectCallback = null;
-  
   /**
    * Removes everything from the current Tree
    */
@@ -40,8 +37,6 @@ MDSS.GeoHierarchyTree = (function(){
   	_selectedNode = null;
   	
   	_modal = null;
-  	
-  	_selectCallback = null;
   	
   	// this.cfg of the ContextMenu is null which throws an error.
   	// TODO find official fix for this
@@ -230,7 +225,7 @@ MDSS.GeoHierarchyTree = (function(){
   {
     _modal = new YAHOO.widget.Panel("select",  
       { width:"400px", 
-        height: "400px",
+        height: "450px",
         fixedcenter:true, 
         close: arguments.length > 1 ? closeWin : true, 
         draggable:false, 
@@ -249,18 +244,25 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _addNodeHandler()
   {
+    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
+
     var request = new MDSS.Request({
+      parentLabel:geoHierarchyView.getDisplayLabel(),
       onSuccess : function(html){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
         
-        _createModal(html);
+        var header = MDSS.Localized.New_Universal_Located_In;
+        header = header.replace(/\[parent\]/, this.parentLabel);
+        
+        var labelEl = "<h3>"+header+"</h3><hr />";
+        html = labelEl + html;      
+       _createModal(html);
         
         eval(executable);
       }
     });
     
-    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
 
     var controller = Mojo.$.dss.vector.solutions.geo.GeoEntityTypeController;
     controller.setCreateDefinitionListener(_createNode);
@@ -458,18 +460,22 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _editNodeHandler()
   {
+    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
+
     var request = new MDSS.Request({
+      displayLabel: geoHierarchyView.getDisplayLabel(),
       onSuccess: function(html){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
         
+        var labelEl = "<h3>"+this.displayLabel+"</h3><hr />";
+        html = labelEl + html;         
         _createModal(html, false);
         
         eval(executable);
       }
     });
     
-    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
 
     var controller = Mojo.$.dss.vector.solutions.geo.GeoEntityTypeController;
     controller.setUpdateDefinitionListener(_updateNode);
@@ -484,17 +490,6 @@ MDSS.GeoHierarchyTree = (function(){
   {
     var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
     _performDelete(false, geoHierarchyView);
-  }
-  
-  /**
-   * Invokes _selectedCallback with the id of the GeoEntity
-   * represented by the currently selected node.
-   */
-  function _customSelectHandler()
-  {
-    var geoEntity = _getGeoHierarchyView(_selectedNode);
-    
-    _selectCallback(geoEntity, _selectedNode);
   }
   
   /**
@@ -689,7 +684,7 @@ MDSS.GeoHierarchyTree = (function(){
   /**
    * Renders the actual tree with the given root GeoEntity
    */
-  function _renderTree(treeId, geoHierarchyView, selectCallback)
+  function _renderTree(treeId, geoHierarchyView)
   {
     var node = {type:"HTML", html:geoHierarchyView.getDisplayLabel()};
 
@@ -699,24 +694,15 @@ MDSS.GeoHierarchyTree = (function(){
 
     var itemData = [];
 
-    // the select callback is optional
-    if(Mojo.util.isFunction(selectCallback))
-    {
-      _selectCallback = selectCallback;
-      var selectMenuItem = new YAHOO.widget.ContextMenuItem("Select");
-      selectMenuItem.subscribe("click", _customSelectHandler);
-      itemData.push(selectMenuItem);
-    }
-
-    var createMenuItem = new YAHOO.widget.ContextMenuItem("Create");
+    var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Create);
     createMenuItem.subscribe("click", _addNodeHandler);
     itemData.push(createMenuItem);
     
-    var editMenuItem = new YAHOO.widget.ContextMenuItem("Edit");
+    var editMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Edit);
     editMenuItem.subscribe("click", _editNodeHandler);
     itemData.push(editMenuItem);
     
-    var deleteMenuItem = new YAHOO.widget.ContextMenuItem("Delete");
+    var deleteMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Delete);
     deleteMenuItem.subscribe("click", _deleteNodeHandler);
     itemData.push(deleteMenuItem);
 
@@ -736,11 +722,11 @@ MDSS.GeoHierarchyTree = (function(){
    * Initializes the tree by setting the GeoEntity with the
    * given id as first node under the root.
    */
-  function _initializeTree(treeId, selectCallback) {
+  function _initializeTree(treeId) {
     var request = new MDSS.Request({
       onSuccess : function(geoHierarchyView){
         // build tree
-        _renderTree(treeId, geoHierarchyView, selectCallback);
+        _renderTree(treeId, geoHierarchyView);
       }
     });
     

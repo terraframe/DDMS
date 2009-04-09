@@ -320,10 +320,20 @@ MDSS.GeoEntityTree = (function(){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
 
-        var labelEl = "<h3>"+this.label+"</h3><hr />";
-        html = labelEl + html;      
-        _modal.setBody(html);
-        
+        // wrap content in divs
+        var outer = document.createElement('div');
+    
+        var header = document.createElement('div');
+        header.innerHTML = '<h3>'+this.label+'</h3><hr />';
+        outer.appendChild(header);
+    
+        var contentDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+        contentDiv.innerHTML = html;
+        outer.appendChild(contentDiv);
+
+        _modal.setBody(outer);
+
         eval(executable);
       }
     });
@@ -336,13 +346,13 @@ MDSS.GeoEntityTree = (function(){
   /**
    * Creates a modal to contain GeoEntity create/edit operations.
    */
-  function _createModal(html)
+  function _createModal(html, closeWin)
   {
     _modal = new YAHOO.widget.Panel("select",  
       { width:"400px", 
         height: "400px",
         fixedcenter:true, 
-        close:true, 
+        close: arguments.length > 1 ? closeWin : true,
         draggable:false, 
         zindex:4,
         modal:true,
@@ -401,7 +411,19 @@ MDSS.GeoEntityTree = (function(){
       ul.appendChild(liRaw);
     }
     
-    _createModal(ulRaw);
+    // wrap content in divs
+    var outer = document.createElement('div');
+    
+    var header = document.createElement('div');
+    header.innerHTML = '<h3>'+MDSS.Localized.Select_Universal_Type+'</h3><hr />';
+    outer.appendChild(header);
+    
+    var listDiv = document.createElement('div');
+    YAHOO.util.Dom.addClass(listDiv, 'innerContentModal');
+    listDiv.appendChild(ulRaw);
+    outer.appendChild(listDiv);
+    
+    _createModal(outer);
   }
   
   /**
@@ -609,9 +631,19 @@ MDSS.GeoEntityTree = (function(){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
 
-        var labelEl = "<h3>"+MDSS.GeoTreeSelectables.types[this.typeToEdit].label+"</h3><hr />";
-        html = labelEl + html;      
-       _createModal(html);
+        // wrap content in divs
+        var outer = document.createElement('div');
+    
+        var header = document.createElement('div');
+        header.innerHTML = '<h3>'+MDSS.GeoTreeSelectables.types[this.typeToEdit].label+'</h3><hr />';
+        outer.appendChild(header);
+    
+        var contentDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+        contentDiv.innerHTML = html;
+        outer.appendChild(contentDiv);
+
+        _createModal(outer, false);
         
         eval(executable);
       }
