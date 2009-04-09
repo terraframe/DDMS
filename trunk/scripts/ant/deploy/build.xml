@@ -5,6 +5,7 @@
 	<!-- =================================================================== -->
 	<!-- These are defualt properties.                                       -->
 	<!-- You can overide them in your external tools configueration.         -->
+	<!-- Example: -Droot.user=postgres                                       -->
 	<!-- =================================================================== -->
 
 	<property file="../../../profiles/default/common/terraframe.properties" />
