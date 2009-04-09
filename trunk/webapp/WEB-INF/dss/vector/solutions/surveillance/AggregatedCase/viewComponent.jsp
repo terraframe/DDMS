@@ -4,7 +4,7 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.surveillance.AggregatedCase.form.name" id="dss.vector.solutions.surveillance.AggregatedCase.form.id" method="POST">
-  <mjl:input value="${item.id}" type="hidden" param="id" />
+  <mjl:input value="${item.caseId}" type="hidden" param="id" />
   <dl>
     <dt>
       <label>
@@ -109,14 +109,6 @@
     </dt>
     <dd>
       ${item.definitivelyDiagnosedDeath}
-    </dd>
-    <dt>
-      <label>
-        ${item.endDateMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.endDate}
     </dd>
     <dt>
       <label>
@@ -306,14 +298,6 @@
     </dd>
     <dt>
       <label>
-        ${item.startDateMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.startDate}
-    </dd>
-    <dt>
-      <label>
         ${item.stillBirthsMd.displayLabel}
       </label>
     </dt>
@@ -336,7 +320,10 @@
               ${current.child.displayLabel}
             </td>
             <td>
-              ${current.outOfStock}
+              <c:choose>
+                <c:when test="${current.outOfStock}">Yes</c:when>
+                <c:otherwise>No</c:otherwise>
+              </c:choose>
               <mjl:messages attribute="outOfStock">
                 <mjl:message />
               </mjl:messages>
@@ -450,6 +437,3 @@
   <mjl:command value="Edit" action="dss.vector.solutions.surveillance.AggregatedCaseController.edit.mojo" name="dss.vector.solutions.surveillance.AggregatedCase.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.surveillance.AggregatedCaseController.viewAll.mojo" name="dss.vector.solutions.surveillance.AggregatedCase.viewAll.link" />

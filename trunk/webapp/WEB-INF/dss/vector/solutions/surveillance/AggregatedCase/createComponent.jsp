@@ -5,11 +5,13 @@
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.surveillance.AggregatedCase.form.name" id="dss.vector.solutions.surveillance.AggregatedCase.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
+    <input type="hidden" name="#dto.actualType" value="${item.type}DTO" />
+    <mjl:input type="hidden" param="caseId" value="${item.caseId}" />
     <mjl:input type="hidden" param="geoEntity" value="${item.geoEntity.id}" />
-    <mjl:input type="hidden" param="endAge" value="${item.endAge}" />
-    <mjl:input type="hidden" param="startAge" value="${item.startAge}"/>
-    <mjl:input type="hidden" param="endDate" value="${item.formattedEndDate}" />
-    <mjl:input type="hidden" param="startDate" value="${item.formattedStartDate}"/>
+    <mjl:input type="hidden" param="ageGroup" value="${item.ageGroup.id}" />
+    <mjl:input type="hidden" param="period" value="${period}" />
+    <mjl:input type="hidden" param="periodType" value="${periodType.name}"/>
+    <mjl:input type="hidden" param="periodYear" value="${periodYear}"/>
     <dl>
       <dt>
         <label>

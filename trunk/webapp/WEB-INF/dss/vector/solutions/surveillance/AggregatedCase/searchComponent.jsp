@@ -62,10 +62,18 @@
   <dl>
     <dt> Geo Id </dt>
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>
-    <dt> Start Date </dt>
-    <dd> <mjl:input param="startDate" type="text" classes="DatePick" id="startDate"/></dd>
-    <dt> End Date </dt>
-    <dd> <mjl:input param="endDate" type="text" classes="DatePick" id="endDate"/></dd>
+    <dt> Period Type </dt>
+    <dd>
+      <mjl:radioGroup var="current" varStatus="status" valueAttribute="enumName" items="${periodType}" param="periodType">
+        <mjl:radioOption>
+            ${current.displayLabel}
+        </mjl:radioOption>
+      </mjl:radioGroup>
+    </dd>
+    <dt> Period </dt>
+    <dd> <mjl:input param="period" type="text" size="2"/></dd>
+    <dt> Year </dt>
+    <dd> <mjl:input param="year" type="text" size="4"/></dd>
     <dt> Age Group </dt>
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${ageGroup}" param="ageGroup.componentId">
@@ -76,7 +84,7 @@
     </dd>
   </dl>
   <br>
-  <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.searchByGeoIdAndDate.mojo" name="search.button" value="Search" />
+  <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.searchByGeoIdAndEpiWeek.mojo" name="search.button" value="Search" />
 </mjl:form>
 
 <div id="cal1Container" class="yui-skin-sam"></div>
