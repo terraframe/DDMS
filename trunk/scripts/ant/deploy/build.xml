@@ -22,13 +22,14 @@
 
 
 	<!-- =================================================================== -->
-	<!--         CAUTION: THIS WILL OVERWRITE EXISTING DATA                  -->
-	<!--This is the main task to run if you want to completely rebuild mdss. -->
+	<!--         CAUTION: THIS WILL OVERWRITE EXISTING DATABASES             -->
+	<!-- This the main task to run if you want to completely rebuild mdss.   -->
 	<!-- =================================================================== -->
-	<target name="rebuild_all" depends="alert_status,develop_rebuild_import,deploy_all,deploy_rebuild_import,update_db,push_source">
-		<echo message="The build is complete" />
-	</target>
-
+    <!-- PRECONDITIONS:                                                      -->
+    <!-- you must set the auth method for 127.0.0.1/32 to "trust" in pg_hba.conf -->
+    <!-- so that posgres does not require a password from localhost          -->
+	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
+	<!-- =================================================================== -->
 	<target name="fast_build" depends="alert_status,kill_tomcat,develop_rebuild_import,deploy_all" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<!--dump the develop db to a sql file -->
 		<shellscript shell="bash" os="Mac OS X,Linux" dir="./" searchpath="true"
@@ -58,7 +59,9 @@
 
 	</target>
 
-
+	<target name="rebuild_all" depends="alert_status,develop_rebuild_import,deploy_all,deploy_rebuild_import,update_db,push_source">
+		<echo message="The build is complete" />
+	</target>
 
 
 	<!-- =================================================================== -->
