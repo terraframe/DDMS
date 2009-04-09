@@ -30,7 +30,6 @@
 	</target>
 
 	<target name="fast_build" depends="alert_status,kill_tomcat,develop_rebuild_import,deploy_all" description="Rebuild Develop from scratch and then copy everything to deploy.">
-		<antcall target="kill_tomcat"/>
 		<!--dump the develop db to a sql file -->
 		<shellscript shell="bash" os="Mac OS X,Linux" dir="./" searchpath="true"
 			inputstring="${postgres.bin}/pg_dump --blobs -h 127.0.0.1 -U mdssdevelop mdssdevelop > dump.sql" />
@@ -55,7 +54,10 @@
 		<!--make tomcat reload-->
 		<antcall target="start_tomcat"/>
 		<echo message="The build is complete" />
+		<echo message="WARNING: Please RESTART TOMCAT MANUALY IF YOU ARE GETTING ERRORS OR CANT CONNECT DEBUGGER" />
+
 	</target>
+
 
 
 
@@ -143,14 +145,11 @@
 	<!-- =================================================================== -->
 
 	<target name="kill_tomcat" unless="dont_kill_tomcat">
-		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
-	   	ps -x  | grep Tomcat | egrep -o ^\ ?[0-9]+ | xargs kill -9
-		</shellscript>
-		<shellscript shell="bash" dir="../../../" os="Linux" searchpath="true">
-	   	ps ax  | grep tomcat | egrep -o ^\ ?[0-9]+ | xargs kill -9
+		<shellscript shell="bash" dir="../../../" os="Mac OS X,Linux" searchpath="true">
+	   	ps ax  | grep [Tt]omcat | egrep -o ^\ ?[0-9]+ | xargs kill -9
 		</shellscript>
 		<shellscript  shell="cmd" dir="${deploy.root}\bin" os="Windows" searchpath="true">
-			./shutdown.bat
+			net stop tomcat6
 	    </shellscript>
 		<sleep seconds="5" />
 	</target>
@@ -160,7 +159,7 @@
 		    ./startup.sh
 		</shellscript>
 		<shellscript shell="cmd" dir="${deploy.root}\bin" os="Windows" searchpath="true">
-			./startup.bat
+			net start tomcat6
 	    </shellscript>
 		<sleep seconds="10" />
 	</target>
@@ -238,9 +237,10 @@
 	<!-- Import the geo data into the deploy db                              -->
 	<!-- =================================================================== -->
 
-	<target name="import_geodata" depends="" description="imports a db of geodata into the deploy db">
+	<target name="import_geodata" depends="kill_tomcat" description="imports a db of geodata into the deploy db">
 		<!--<diagnostics/>-->
-
+		<echo message="NOTICE: your develop/server/database.properties  is backed up as database.properties.bak, if this script does not complete sucessfully you will need to restore it manualy" />
+		<sleep seconds="3"/>
 		<!-- backup deploy properties -->
 		<copy file="../../../profiles/develop/server/database.properties" tofile="../../../profiles/develop/server/database.properties.bak" />
 		<!-- change develop to temporaly point to deploy -->
@@ -267,7 +267,7 @@
 		</java>
 		<!-- change develop back to develop -->
 		<move file="../../../profiles/develop/server/database.properties.bak" tofile="../../../profiles/develop/server/database.properties" />
-
+		<antcall target="start_tomcat"/>
 	</target>
 
 
