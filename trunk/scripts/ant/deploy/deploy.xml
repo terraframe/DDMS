@@ -37,7 +37,7 @@
 
 	<taskdef name="start" classname="org.apache.catalina.ant.StartTask" classpath="${server.lib}/catalina-ant.jar" />
 
-	<taskdef name="stop" classname="org.apache.catalina.ant.StartTask" classpath="${server.lib}/catalina-ant.jar" />
+	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask" classpath="${server.lib}/catalina-ant.jar" />
 
 	<target name="reload_tomcat_webapp" description="Calls tomcat's manager to reload the webapp">
 		<reload url="${deploy.manager.url}" username="${deploy.username}" password="${deploy.password}" path="/${deploy.appname}" />
