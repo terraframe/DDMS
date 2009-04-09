@@ -24,7 +24,7 @@ public class MOTest extends TestCase
 {
   private static ClientSession clientSession;
   private static ClientRequestIF clientRequest;
-  
+
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -58,37 +58,37 @@ public class MOTest extends TestCase
     clientRequest = clientSession.getRequest();
   }
 
-  
+
   public void testSpecieGetAllTermNames()
   {
     Specie[] names = Specie.getAll();
     SpecieDTO[] dto = SpecieDTO.getAll(clientRequest);
-    int expected = 16;
-    
-    assertNotNull(names);
-    assertNotNull(dto);
-    assertEquals(expected, names.length);
-    assertEquals(expected, dto.length);
-  }  
-  
-  public void testIdentificationMethodGetAllTermNames()
-  {
-    IdentificationMethod[] names = IdentificationMethod.getAll();
-    IdentificationMethodDTO[] dto = IdentificationMethodDTO.getAll(clientRequest);
-    int expected = 7;
-    
+    int expected = 19;
+
     assertNotNull(names);
     assertNotNull(dto);
     assertEquals(expected, names.length);
     assertEquals(expected, dto.length);
   }
-  
+
+  public void testIdentificationMethodGetAllTermNames()
+  {
+    IdentificationMethod[] names = IdentificationMethod.getAll();
+    IdentificationMethodDTO[] dto = IdentificationMethodDTO.getAll(clientRequest);
+    int expected = 7;
+
+    assertNotNull(names);
+    assertNotNull(dto);
+    assertEquals(expected, names.length);
+    assertEquals(expected, dto.length);
+  }
+
   public void testCollectionMethodGetAllTermNames()
   {
     CollectionMethod[] names = CollectionMethod.getAll();
     CollectionMethodDTO[] dto = CollectionMethodDTO.getAll(clientRequest);
     int expected = 11;
-    
+
     assertNotNull(names);
     assertNotNull(dto);
     assertEquals(expected, names.length);

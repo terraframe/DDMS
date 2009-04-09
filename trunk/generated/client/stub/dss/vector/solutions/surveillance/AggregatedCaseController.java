@@ -1,10 +1,11 @@
 package dss.vector.solutions.surveillance;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
@@ -14,7 +15,6 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.util.DateConverter;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class AggregatedCaseController extends AggregatedCaseControllerBase implements
@@ -33,7 +33,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   }
 
   @Override
-  public void create(AggregatedCaseDTO dto, CaseTreatmentDTO[] treatments,
+  public void create(AggregatedCaseViewDTO dto, CaseTreatmentDTO[] treatments,
       CaseTreatmentMethodDTO[] treatmentMethods, CaseTreatmentStockDTO[] stock,
       CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException,
       ServletException
@@ -41,15 +41,15 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     try
     {
       dto.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
-      this.view(dto.getId());
+      this.view(dto);
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
 
       this.failCreate(dto, treatments, treatmentMethods, stock, diagnosticMethods, referrals);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
 
@@ -58,23 +58,22 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   }
 
   @Override
-  public void failCreate(AggregatedCaseDTO dto, CaseTreatmentDTO[] treatments,
+  public void failCreate(AggregatedCaseViewDTO dto, CaseTreatmentDTO[] treatments,
       CaseTreatmentMethodDTO[] treatmentMethods, CaseTreatmentStockDTO[] stock,
       CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException,
       ServletException
   {
-    req.setAttribute("diagnostics", diagnosticMethods);
-    req.setAttribute("referrals", referrals);
-    req.setAttribute("treatments", treatments);
-    req.setAttribute("treatmentMethods", treatmentMethods);
-    req.setAttribute("stock", stock);
+    req.setAttribute("diagnostics", Arrays.asList(diagnosticMethods));
+    req.setAttribute("referrals", Arrays.asList(referrals));
+    req.setAttribute("treatments", Arrays.asList(treatments));
+    req.setAttribute("treatmentMethods", Arrays.asList(treatmentMethods));
+    req.setAttribute("stock", Arrays.asList(stock));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Error Creating Aggregated Case");
     render("createComponent.jsp");
   }
 
-  @Override
-  public void update(AggregatedCaseDTO dto, CaseTreatmentDTO[] treatments,
+  public void update(AggregatedCaseViewDTO dto, CaseTreatmentDTO[] treatments,
       CaseTreatmentMethodDTO[] treatmentMethods, CaseTreatmentStockDTO[] stock,
       CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException,
       ServletException
@@ -82,15 +81,15 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     try
     {
       dto.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
-      this.view(dto.getId());
+      this.view(dto);
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
 
       this.failUpdate(dto, treatments, treatmentMethods, stock, diagnosticMethods, referrals);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
 
@@ -98,126 +97,80 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     }
   }
 
-  @Override
-  public void failUpdate(AggregatedCaseDTO dto, CaseTreatmentDTO[] treatments,
+  public void failUpdate(AggregatedCaseViewDTO dto, CaseTreatmentDTO[] treatments,
       CaseTreatmentMethodDTO[] treatmentMethods, CaseTreatmentStockDTO[] stock,
       CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException,
       ServletException
   {
-    req.setAttribute("diagnostics", diagnosticMethods);
-    req.setAttribute("referrals", referrals);
-    req.setAttribute("treatments", treatments);
-    req.setAttribute("treatmentMethods", treatmentMethods);
-    req.setAttribute("stock", stock);
+    req.setAttribute("diagnostics", Arrays.asList(diagnosticMethods));
+    req.setAttribute("referrals", Arrays.asList(referrals));
+    req.setAttribute("treatments", Arrays.asList(treatments));
+    req.setAttribute("treatmentMethods", Arrays.asList(treatmentMethods));
+    req.setAttribute("stock", Arrays.asList(stock));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Error Updating Aggregated Case Controller");
     render("editComponent.jsp");
   }
 
-  @Override
-  public void newInstance(AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
+  public void cancel(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    AggregatedCaseDTO dto = new AggregatedCaseDTO(clientRequest);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create a new Aggregated Case");
-    render("createComponent.jsp");
-  }
-
-  public void failNewInstance(AggregatedAgeGroupDTO ageGroup) throws java.io.IOException,
-      javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending,
-      java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.surveillance.AggregatedAgeGroupQueryDTO query = dss.vector.solutions.surveillance.AggregatedAgeGroupDTO
-        .getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All AggregatedAgeGroupController Objects");
-    render("viewAllComponent.jsp");
-  }
-
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending,
-      java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-
-  public void cancel(AggregatedCaseDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dto.unlock();
+    dto.unlockCase();
     this.view(dto);
   }
 
-  public void failCancel(AggregatedCaseDTO dto) throws java.io.IOException,
+  public void failCancel(AggregatedCaseViewDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
     resp.sendError(500);
   }
 
-  public void delete(AggregatedCaseDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
       dto.delete();
       this.search();
     }
-    catch(ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
 
       this.failDelete(dto);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
 
       this.failDelete(dto);
     }
   }
-  public void failDelete(AggregatedCaseDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failDelete(AggregatedCaseViewDTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
-    req.setAttribute("diagnostics", this.getDiagnosticRelationships(dto));
-    req.setAttribute("referrals", this.getReferralRelationships(dto));
-    req.setAttribute("treatments", this.getTreatmentRelationships(dto));
-    req.setAttribute("treatmentMethods", this.getTreatmentMethodRelationships(dto));
-    req.setAttribute("stock", this.getTreatmentStockRelationships(dto));
+    String caseId = dto.getCaseId();
+
+    req.setAttribute("diagnostics", this.getDiagnosticMethods(caseId));
+    req.setAttribute("referrals", this.getReferrals(caseId));
+    req.setAttribute("treatments", this.getTreatments(caseId));
+    req.setAttribute("treatmentMethods", this.getTreatmentMethods(caseId));
+    req.setAttribute("stock", this.getTreatmentStocks(caseId));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Aggregated Case");
     render("editComponent.jsp");
   }
 
-
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    AggregatedCaseQueryDTO query = AggregatedCaseDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Aggregated Cases");
-    render("viewAllComponent.jsp");
-  }
-
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    AggregatedCaseDTO c = AggregatedCaseDTO.lock(this.getClientRequest(), id);
+    AggregatedCaseViewDTO c = AggregatedCaseDTO.lockView(this.getClientRequest(), id);
 
     // Load all of the corresponding grid values
-    req.setAttribute("diagnostics", this.getDiagnosticRelationships(c));
-    req.setAttribute("referrals", this.getReferralRelationships(c));
-    req.setAttribute("treatments", this.getTreatmentRelationships(c));
-    req.setAttribute("treatmentMethods", this.getTreatmentMethodRelationships(c));
-    req.setAttribute("stock", this.getTreatmentStockRelationships(c));
+    String caseId = c.getCaseId();
+    req.setAttribute("diagnostics", this.getDiagnosticMethods(caseId));
+    req.setAttribute("referrals", this.getReferrals(caseId));
+    req.setAttribute("treatments", this.getTreatments(caseId));
+    req.setAttribute("treatmentMethods", this.getTreatmentMethods(caseId));
+    req.setAttribute("stock", this.getTreatmentStocks(caseId));
     req.setAttribute("item", c);
     req.setAttribute("page_title", "Edit Aggregated Case Controller");
     render("editComponent.jsp");
@@ -231,17 +184,18 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    this.view(AggregatedCaseDTO.get(clientRequest, id));
+    this.view(AggregatedCaseDTO.getView(clientRequest, id));
   }
 
-  public void view(AggregatedCaseDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void view(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     // Load all of the corresponding grid values
-    req.setAttribute("diagnostics", this.getDiagnosticRelationships(dto));
-    req.setAttribute("referrals", this.getReferralRelationships(dto));
-    req.setAttribute("treatments", this.getTreatmentRelationships(dto));
-    req.setAttribute("treatmentMethods", this.getTreatmentMethodRelationships(dto));
-    req.setAttribute("stock", this.getTreatmentStockRelationships(dto));
+    String caseId = dto.getCaseId();
+    req.setAttribute("diagnostics", this.getDiagnosticMethods(caseId));
+    req.setAttribute("referrals", this.getReferrals(caseId));
+    req.setAttribute("treatments", this.getTreatments(caseId));
+    req.setAttribute("treatmentMethods", this.getTreatmentMethods(caseId));
+    req.setAttribute("stock", this.getTreatmentStocks(caseId));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "View an Aggregated Case");
     render("viewComponent.jsp");
@@ -255,88 +209,94 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   @Override
   public void search() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
     EarthDTO earth = EarthDTO.getEarthInstance(clientRequest);
 
-    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest,
-        AggregatedAgeGroupDTO.STARTAGE, true, 0, 0);
+    List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
+
     req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-    req.setAttribute("ageGroup", query.getResultSet());
+    req.setAttribute("periodType", allItems);
+
+    req.setAttribute("ageGroup", Arrays.asList(AggregatedAgeGroupDTO.getAll(clientRequest)));
     req.setAttribute("page_title", "Search for an Aggregated Case");
+
     render("searchComponent.jsp");
   }
 
-  @Override
-  public void searchByGeoIdAndDate(String geoId, Date startDate, Date endDate,
-      AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
+  public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, EpiDateDTO date, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
   {
-    GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(super.getClientRequest(), geoId);
+    String label = date.getDisplayLabel(this.getClientSession().getRequest());
 
-    if (geoEntity == null)
+    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(), geoEntity, date.getPeriodType(), date.getPeriod(), date.getYear(), ageGroup);
+
+    String jsp = "createComponent.jsp";
+    req.setAttribute("page_title", "New Aggregated Case " + label);
+
+    if (c.hasCaseId())
     {
-      this.viewAll();
-    }
-    else
-    {
-      this.searchByGeoEntityAndDate(geoEntity, startDate, endDate, ageGroup);
-    }
-  }
-
-  public void failSearchByGeoIdAndDate(String geoId, String startDate, String endDate,
-      AggregatedAgeGroupDTO ageGroup) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      Date start = (Date) new DateConverter("Start Date")
-          .parse(startDate, this.getRequest().getLocale());
-      Date end = (Date) new DateConverter("End Date").parse(endDate, this.getRequest().getLocale());
-      this.searchByGeoIdAndDate(geoId, start, end, ageGroup);
-    }
-    catch (Exception e)
-    {
-      this.search();
-    }
-  }
-
-  public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, Date startDate, Date endDate, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
-  {
-    AggregatedCaseDTO c = AggregatedCaseDTO.searchByGeoEntityAndDate(super.getClientRequest(),
-        geoEntity, startDate, endDate, ageGroup);
-
-    String jsp = "viewComponent.jsp";
-    req.setAttribute("page_title", "View Aggregated Case");
-
-    if (c == null)
-    {
-      c = new AggregatedCaseDTO(this.getClientRequest());
-      c.setStartDate(startDate);
-      c.setEndDate(endDate);
-      c.setStartAge(ageGroup.getStartAge());
-      c.setEndAge(ageGroup.getEndAge());
-      c.setGeoEntity(geoEntity);
-
-      req.setAttribute("page_title", "Aggregated Case Not Found - Creating New");
-      jsp = "createComponent.jsp";
+      jsp = "viewComponent.jsp";
+      req.setAttribute("page_title", "Aggregated Case " + label);
     }
 
     // Load all of the corresponding grid values
-    req.setAttribute("diagnostics", this.getDiagnosticRelationships(c));
-    req.setAttribute("referrals", this.getReferralRelationships(c));
-    req.setAttribute("treatments", this.getTreatmentRelationships(c));
-    req.setAttribute("treatmentMethods", this.getTreatmentMethodRelationships(c));
-    req.setAttribute("stock", this.getTreatmentStockRelationships(c));
+    String caseId = c.getCaseId();
+    req.setAttribute("period", date.getPeriod());
+    req.setAttribute("periodType", date.getPeriodType());
+    req.setAttribute("periodYear", date.getYear());
+    req.setAttribute("diagnostics", this.getDiagnosticMethods(caseId));
+    req.setAttribute("referrals", this.getReferrals(caseId));
+    req.setAttribute("treatments", this.getTreatments(caseId));
+    req.setAttribute("treatmentMethods", this.getTreatmentMethods(caseId));
+    req.setAttribute("stock", this.getTreatmentStocks(caseId));
     req.setAttribute("item", c);
     render(jsp);
   }
 
-  private Collection<CaseDiagnosticDTO> getDiagnosticRelationships(AggregatedCaseDTO c)
+  public void searchByGeoIdAndEpiWeek(String geoId, String periodType, Integer period,
+      String year, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
+  {
+    try
+    {
+      PeriodTypeDTO type = PeriodTypeDTO.valueOf(periodType);
+      EpiDateDTO converter = new EpiDateDTO(type, period, year);
+      GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(this.getClientRequest(), geoId);
+
+      this.searchByGeoEntityAndDate(geoEntity, converter, ageGroup);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failSearchByGeoIdAndEpiWeek(geoId, periodType, period.toString(), year, ageGroup);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failSearchByGeoIdAndEpiWeek(geoId, periodType, period.toString(), year, ageGroup);
+    }
+  }
+
+  public void failSearchByGeoIdAndEpiWeek(String geoId, String periodType, String period,
+      String year, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
+  {
+    this.search();
+  }
+
+  @Override
+  public void failSearch() throws IOException, ServletException
+  {
+    // TODO Auto-generated method stub
+    super.failSearch();
+  }
+
+  private Collection<CaseDiagnosticDTO> getDiagnosticMethods(String id)
   {
     LinkedHashMap<String, CaseDiagnosticDTO> map = new LinkedHashMap<String, CaseDiagnosticDTO>();
 
-    if (!c.isNewInstance())
+    if (id != null && !id.equals(""))
     {
-      for (CaseDiagnosticDTO d : c.getAllDiagnosticMethodRelationships())
+      for (CaseDiagnosticDTO d : AggregatedCaseDTO.getDiagnosticMethods(this.getClientSession().getRequest(), id))
       {
         map.put(d.getChildId(), d);
       }
@@ -346,20 +306,20 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     {
       if (!map.containsKey(d.getId()))
       {
-        map.put(d.getId(), new CaseDiagnosticDTO(this.getClientRequest(), c.getId(), d.getId()));
+        map.put(d.getId(), new CaseDiagnosticDTO(this.getClientRequest(), id, d.getId()));
       }
     }
 
     return new LinkedList<CaseDiagnosticDTO>(map.values());
   }
 
-  private Collection<CaseReferralDTO> getReferralRelationships(AggregatedCaseDTO c)
+  private Collection<CaseReferralDTO> getReferrals(String id)
   {
     LinkedHashMap<String, CaseReferralDTO> map = new LinkedHashMap<String, CaseReferralDTO>();
 
-    if (!c.isNewInstance())
+    if (id != null && !id.equals(""))
     {
-      for (CaseReferralDTO d : c.getAllReferralRelationships())
+      for (CaseReferralDTO d : AggregatedCaseDTO.getReferrals(this.getClientRequest(), id))
       {
         map.put(d.getChildId(), d);
       }
@@ -369,20 +329,20 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     {
       if (!map.containsKey(d.getId()))
       {
-        map.put(d.getId(), new CaseReferralDTO(this.getClientRequest(), c.getId(), d.getId()));
+        map.put(d.getId(), new CaseReferralDTO(this.getClientRequest(), id, d.getId()));
       }
     }
 
     return new LinkedList<CaseReferralDTO>(map.values());
   }
 
-  private Collection<CaseTreatmentDTO> getTreatmentRelationships(AggregatedCaseDTO c)
+  private Collection<CaseTreatmentDTO> getTreatments(String id)
   {
     LinkedHashMap<String, CaseTreatmentDTO> map = new LinkedHashMap<String, CaseTreatmentDTO>();
 
-    if (!c.isNewInstance())
+    if (id != null && !id.equals(""))
     {
-      for (CaseTreatmentDTO d : c.getAllTreatmentRelationships())
+      for (CaseTreatmentDTO d : AggregatedCaseDTO.getTreatments(this.getClientRequest(), id))
       {
         map.put(d.getChildId(), d);
       }
@@ -392,20 +352,20 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     {
       if (!map.containsKey(d.getId()))
       {
-        map.put(d.getId(), new CaseTreatmentDTO(this.getClientRequest(), c.getId(), d.getId()));
+        map.put(d.getId(), new CaseTreatmentDTO(this.getClientRequest(), id, d.getId()));
       }
     }
 
     return new LinkedList<CaseTreatmentDTO>(map.values());
   }
 
-  private Collection<CaseTreatmentMethodDTO> getTreatmentMethodRelationships(AggregatedCaseDTO c)
+  private Collection<CaseTreatmentMethodDTO> getTreatmentMethods(String id)
   {
     LinkedHashMap<String, CaseTreatmentMethodDTO> map = new LinkedHashMap<String, CaseTreatmentMethodDTO>();
 
-    if (!c.isNewInstance())
+    if (id != null && !id.equals(""))
     {
-      for (CaseTreatmentMethodDTO d : c.getAllTreatmentMethodRelationships())
+      for (CaseTreatmentMethodDTO d : AggregatedCaseDTO.getTreatmentMethods(this.getClientRequest(), id))
       {
         map.put(d.getChildId(), d);
       }
@@ -415,20 +375,21 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     {
       if (!map.containsKey(d.getId()))
       {
-        map.put(d.getId(), new CaseTreatmentMethodDTO(this.getClientRequest(), c.getId(), d.getId()));
+        map.put(d.getId(), new CaseTreatmentMethodDTO(this.getClientRequest(), id, d.getId()));
       }
     }
 
     return new LinkedList<CaseTreatmentMethodDTO>(map.values());
   }
 
-  private Collection<CaseTreatmentStockDTO> getTreatmentStockRelationships(AggregatedCaseDTO c)
+  private Collection<CaseTreatmentStockDTO> getTreatmentStocks(String id)
   {
     LinkedHashMap<String, CaseTreatmentStockDTO> map = new LinkedHashMap<String, CaseTreatmentStockDTO>();
 
-    if (!c.isNewInstance())
+    //TODO fix this such that you only add active treatments
+    if (id != null && !id.equals(""))
     {
-      for (CaseTreatmentStockDTO d : c.getAllTreatmentStockRelationships())
+      for (CaseTreatmentStockDTO d : AggregatedCaseDTO.getTreatmentStocks(this.getClientRequest(), id))
       {
         map.put(d.getChildId(), d);
       }
@@ -438,7 +399,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     {
       if (!map.containsKey(d.getId()))
       {
-        map.put(d.getId(), new CaseTreatmentStockDTO(this.getClientRequest(), c.getId(), d.getId()));
+        map.put(d.getId(), new CaseTreatmentStockDTO(this.getClientRequest(), id, d.getId()));
       }
     }
 
