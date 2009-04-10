@@ -7,6 +7,10 @@ import java.util.Date;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.PeriodMonthProblem;
+import dss.vector.solutions.PeriodQuarterProblem;
+import dss.vector.solutions.PeriodWeekProblem;
+
 public class EpiDate implements Reloadable
 {
   private PeriodType type;
@@ -29,14 +33,38 @@ public class EpiDate implements Reloadable
     {
       if (periodType.equals(PeriodType.QUARTER))
       {
+        if(period > periodType.getMaximumPeriod())
+        {
+          PeriodQuarterProblem p = new PeriodQuarterProblem();
+          p.setPeriod(period);
+          p.setMaxPeriod(periodType.getMaximumPeriod());
+          p.throwIt();
+        }
+
         initializeQuarter(period, year);
       }
       else if(periodType.equals(PeriodType.MONTH))
       {
+        if(period > periodType.getMaximumPeriod())
+        {
+          PeriodMonthProblem p = new PeriodMonthProblem();
+          p.setPeriod(period);
+          p.setMaxPeriod(periodType.getMaximumPeriod());
+          p.throwIt();
+        }
+
         initializeMonth(period, year);
       }
       else if(periodType.equals(PeriodType.WEEK))
       {
+        if(period > periodType.getMaximumPeriod())
+        {
+          PeriodWeekProblem p = new PeriodWeekProblem();
+          p.setPeriod(period);
+          p.setMaxPeriod(periodType.getMaximumPeriod());
+          p.throwIt();
+        }
+
         initalizeWeek(period, year);
       }
     }

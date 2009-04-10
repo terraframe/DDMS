@@ -11,9 +11,12 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ClientSession;
+import com.terraframe.mojo.ProblemException;
+import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.web.WebClientSession;
 
+import dss.vector.solutions.PeriodWeekProblem;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
@@ -81,17 +84,53 @@ public class AggregatedCaseTest extends TestCase
 
   public void testInvalidEpiWeek()
   {
+    try
+    {
+      new EpiDate(PeriodType.WEEK, 70, "1999");
 
+      fail("Able to set an invalid epi week");
+    }
+    catch(ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof PeriodWeekProblem);
+    }
   }
 
   public void testInvalidEpiMonth()
   {
+    try
+    {
+      new EpiDate(PeriodType.MONTH, 13, "1999");
 
+      fail("Able to set an invalid epi week");
+    }
+    catch(ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof PeriodWeekProblem);
+    }
   }
 
   public void testInvalidEpiQuarter()
   {
+    try
+    {
+      new EpiDate(PeriodType.QUARTER, 5, "1999");
 
+      fail("Able to set an invalid epi week");
+    }
+    catch(ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof PeriodWeekProblem);
+    }
   }
 
   public void testCreateAggregatedCase()
@@ -674,20 +713,106 @@ public class AggregatedCaseTest extends TestCase
     }
   }
 
-
-
   public void testSearchAggregatedCase()
   {
+    Integer cases = new Integer(50);
+    Integer casesFemale = new Integer(23);
+    Integer casesMale = new Integer(50);
+    Integer casesPregnant = new Integer(2);
+    Integer clinicallyDiagnosed = new Integer(50);
+    Integer deaths = new Integer(50);
 
-  }
+    AggregatedCaseView c = ageGroup.getView();
+    c.setGeoEntity(geoEntity);
+    c.setPeriod(1);
+    c.addPeriodType(PeriodType.QUARTER);
+    c.setPeriodYear("2009");
+    c.setCases(cases);
+    c.setCasesFemale(casesFemale);
+    c.setCasesMale(casesMale);
+    c.setCasesPregnant(casesPregnant);
+    c.setClinicallyDiagnosed(clinicallyDiagnosed);
+    c.setDeaths(deaths);
 
-  public void testSearchInactiveAggregatedAgeCase()
-  {
+    List<CaseDiagnostic> diagnostics = new LinkedList<CaseDiagnostic>();
+    for (DiagnosticGrid g : DiagnosticGrid.getAll())
+    {
+      CaseDiagnostic method = new CaseDiagnostic(c.getId(), g.getId());
+      method.setAmount(new Integer(50));
+      method.setAmountPositive(new Integer(30));
+      diagnostics.add(method);
+    }
 
+    List<CaseTreatment> treatments = new LinkedList<CaseTreatment>();
+    List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
+    for (TreatmentGrid g : TreatmentGrid.getAll())
+    {
+      CaseTreatment t = new CaseTreatment(c.getId(), g.getId());
+      t.setAmount(new Integer(30));
+      treatments.add(t);
+
+      CaseTreatmentStock s = new CaseTreatmentStock(c.getId(), g.getId());
+      s.setOutOfStock(true);
+      stocks.add(s);
+    }
+
+    List<CaseTreatmentMethod> methods = new LinkedList<CaseTreatmentMethod>();
+    for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
+    {
+      CaseTreatmentMethod t = new CaseTreatmentMethod(c.getId(), g.getId());
+      t.setAmount(new Integer(40));
+      methods.add(t);
+    }
+
+    List<CaseReferral> referrals = new LinkedList<CaseReferral>();
+    for (ReferralGrid g : ReferralGrid.getAll())
+    {
+      CaseReferral r = new CaseReferral(c.getId(), g.getId());
+      r.setAmount(new Integer(70));
+      referrals.add(r);
+    }
+
+    CaseTreatment[] treatArray = treatments.toArray(new CaseTreatment[treatments.size()]);
+    CaseTreatmentMethod[] methodArray = methods.toArray(new CaseTreatmentMethod[methods.size()]);
+    CaseTreatmentStock[] stockArray = stocks.toArray(new CaseTreatmentStock[stocks.size()]);
+    CaseDiagnostic[] diagnosticArray = diagnostics.toArray(new CaseDiagnostic[diagnostics.size()]);
+    CaseReferral[] referralArray = referrals.toArray(new CaseReferral[referrals.size()]);
+
+    c.applyAll(treatArray, methodArray, stockArray, diagnosticArray, referralArray);
+
+    try
+    {
+      AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, "2009", ageGroup);
+
+      assertNotNull(test);
+      assertEquals(c.getCases(), test.getCases());
+      assertEquals(c.getCasesFemale(), test.getCasesFemale());
+      assertEquals(c.getCasesMale(), test.getCasesMale());
+      assertEquals(c.getCasesPregnant(), test.getCasesPregnant());
+      assertEquals(c.getClinicallyDiagnosed(), test.getClinicallyDiagnosed());
+      assertEquals(c.getDeaths(), test.getDeaths());
+
+      for (CaseTreatmentStock s : AggregatedCase.getTreatmentStocks(test.getCaseId()))
+        assertEquals(new Boolean(true), s.getOutOfStock());
+      for (CaseTreatmentMethod m : AggregatedCase.getTreatmentMethods(test.getCaseId()))
+        assertEquals(new Integer(40), m.getAmount());
+      for (CaseTreatment t : AggregatedCase.getTreatments(test.getCaseId()))
+        assertEquals(new Integer(30), t.getAmount());
+      for (CaseReferral r : AggregatedCase.getReferrals(test.getCaseId()))
+        assertEquals(new Integer(70), r.getAmount());
+      for (CaseDiagnostic d : AggregatedCase.getDiagnosticMethods(test.getCaseId()))
+        assertEquals(new Integer(50), d.getAmount());
+    }
+    finally
+    {
+      c.delete();
+    }
   }
 
   public void testUnknownCase()
   {
+    AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, "2009", ageGroup);
 
+    assertEquals("", test.getCaseId());
   }
 }
