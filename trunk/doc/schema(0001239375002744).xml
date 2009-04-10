@@ -1,0 +1,401 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem
+        name="dss.vector.solutions.PeriodQuarterProblem"
+        label="Period Quarter Problem">
+        <attributes>
+          <integer
+            name="period"
+            label="Period"
+            required="true" />
+          <integer
+            name="maxPeriod"
+            label="Max Period"
+            required="true" />
+        </attributes>
+      </mdProblem>
+      <mdProblem
+        name="dss.vector.solutions.PeriodWeekProblem"
+        label="Period Week Problem">
+        <attributes>
+          <integer
+            name="period"
+            label="Period"
+            required="true" />
+          <integer
+            name="maxPeriod"
+            label="Max Period"
+            required="true" />
+        </attributes>
+      </mdProblem>
+      <mdProblem
+        name="dss.vector.solutions.PeriodMonthProblem"
+        label="Period Month Problem">
+        <attributes>
+          <integer
+            name="period"
+            label="Period"
+            required="true" />
+          <integer
+            name="maxPeriod"
+            label="Max Period"
+            required="true" />
+        </attributes>
+      </mdProblem>
+      <mdException
+        name="dss.vector.solutions.InvalidSearchCriteria"
+        label="Invalid Search Criteria" />
+    </create>
+    <create>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.ElderCaseView"
+        extends="dss.vector.solutions.surveillance.AggregatedCaseView"
+        label="Elder Case View">
+        <attributes>
+          <integer
+            name="cases"
+            label="Cases"
+            rejectNegative="true" />
+          <integer
+            name="casesMale"
+            label="Male Cases"
+            rejectNegative="true" />
+          <integer
+            name="casesFemale"
+            label="Female Cases"
+            rejectNegative="true" />
+          <integer
+            name="casesPregnant"
+            label="Pregnant Cases"
+            rejectNegative="true" />
+          <integer
+            name="deaths"
+            label="Deaths"
+            rejectNegative="true" />
+          <integer
+            name="deathsMale"
+            label="Male Deaths"
+            rejectNegative="true" />
+          <integer
+            name="deathsFemale"
+            label="Female Deaths"
+            rejectNegative="true" />
+          <integer
+            name="deathsPregnant"
+            label="Pregnant Deaths"
+            rejectNegative="true" />
+          <integer
+            name="inPatients"
+            label="In-Patients"
+            rejectNegative="true" />
+          <integer
+            name="outPatients"
+            label="Out-Patients"
+            rejectNegative="true" />
+          <integer
+            name="referralsReceived"
+            label="Referrals received from other facilities"
+            rejectNegative="true" />
+          <integer
+            name="referralsSent"
+            label="Referrals to other facilities"
+            rejectNegative="true" />
+          <integer
+            name="pregnantReferralsReceived"
+            label="Pregnant referrals received from other facilities, definitively diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="pregnantDiagnosis"
+            label="Patients who were pregnant with definitive diagnosis"
+            rejectNegative="true" />
+          <integer
+            name="pregnantDiagnosisDeath"
+            label="Patients who were pregnant with definitive diagnosis who died"
+            rejectNegative="true" />
+          <integer
+            name="clinicallyDiagnosed"
+            label="Cases clinically diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="definitivelyDiagnosed"
+            label="Cases definitively diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="clinicallyDiagnosedDeath"
+            label="Cases clinically diagnosed, deaths"
+            rejectNegative="true" />
+          <integer
+            name="definitivelyDiagnosedDeath"
+            label="Cases definitively diagnosed, deaths"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsTotal"
+            label="In-patients total (not limited to malaria)"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsAnemia"
+            label="In-patients with anaemia"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsPregnantAnemia"
+            label="In-patients, pregnant, with anaemia"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsPregnantDianosis"
+            label="In-patients who were pregnant with definitive diagnosis"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsFemale"
+            label="In-patient female cases"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsMale"
+            label="In-patient male cases"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsDefinitive"
+            label="In-patients, definitively diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsClinically"
+            label="In-patients, clinically diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsDischarged"
+            label="In-patient discharges"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsNotTreated"
+            label="Patients who did not receive treatment in-patient"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsTotal"
+            label="Out-patients total (not limited to malaria)"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsFemale"
+            label="Out-patient female cases"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsMale"
+            label="Out-patient male cases"
+            rejectNegative="true" />
+          <integer
+            name="patientsNotTreated"
+            label="Patients who did not receive treatment"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsNotTreated"
+            label="Patients who did not receive treatment out-patient"
+            rejectNegative="true" />
+          <integer
+            name="stillBirths"
+            label="Still births"
+            rejectNegative="true" />
+          <integer
+            name="daysOutOfStock"
+            label="Days that the facility/s were out of stock of malaria medication"
+            rejectNegative="true" />
+        </attributes>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.AncientCaseView"
+        extends="dss.vector.solutions.surveillance.AggregatedCaseView"
+        label="Ancient Case View">
+        <attributes>
+          <integer
+            name="cases"
+            label="Cases"
+            rejectNegative="true" />
+          <integer
+            name="casesMale"
+            label="Male Cases"
+            rejectNegative="true" />
+          <integer
+            name="casesFemale"
+            label="Female Cases"
+            rejectNegative="true" />
+          <integer
+            name="casesPregnant"
+            label="Pregnant Cases"
+            rejectNegative="true" />
+          <integer
+            name="deaths"
+            label="Deaths"
+            rejectNegative="true" />
+          <integer
+            name="deathsMale"
+            label="Male Deaths"
+            rejectNegative="true" />
+          <integer
+            name="deathsFemale"
+            label="Female Deaths"
+            rejectNegative="true" />
+          <integer
+            name="deathsPregnant"
+            label="Pregnant Deaths"
+            rejectNegative="true" />
+          <integer
+            name="inPatients"
+            label="In-Patients"
+            rejectNegative="true" />
+          <integer
+            name="outPatients"
+            label="Out-Patients"
+            rejectNegative="true" />
+          <integer
+            name="referralsReceived"
+            label="Referrals received from other facilities"
+            rejectNegative="true" />
+          <integer
+            name="referralsSent"
+            label="Referrals to other facilities"
+            rejectNegative="true" />
+          <integer
+            name="pregnantReferralsReceived"
+            label="Pregnant referrals received from other facilities, definitively diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="pregnantDiagnosis"
+            label="Patients who were pregnant with definitive diagnosis"
+            rejectNegative="true" />
+          <integer
+            name="pregnantDiagnosisDeath"
+            label="Patients who were pregnant with definitive diagnosis who died"
+            rejectNegative="true" />
+          <integer
+            name="clinicallyDiagnosed"
+            label="Cases clinically diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="definitivelyDiagnosed"
+            label="Cases definitively diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="clinicallyDiagnosedDeath"
+            label="Cases clinically diagnosed, deaths"
+            rejectNegative="true" />
+          <integer
+            name="definitivelyDiagnosedDeath"
+            label="Cases definitively diagnosed, deaths"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsTotal"
+            label="In-patients total (not limited to malaria)"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsAnemia"
+            label="In-patients with anaemia"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsPregnantAnemia"
+            label="In-patients, pregnant, with anaemia"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsPregnantDianosis"
+            label="In-patients who were pregnant with definitive diagnosis"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsFemale"
+            label="In-patient female cases"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsMale"
+            label="In-patient male cases"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsDefinitive"
+            label="In-patients, definitively diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsClinically"
+            label="In-patients, clinically diagnosed"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsDischarged"
+            label="In-patient discharges"
+            rejectNegative="true" />
+          <integer
+            name="inPatientsNotTreated"
+            label="Patients who did not receive treatment in-patient"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsTotal"
+            label="Out-patients total (not limited to malaria)"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsFemale"
+            label="Out-patient female cases"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsMale"
+            label="Out-patient male cases"
+            rejectNegative="true" />
+          <integer
+            name="patientsNotTreated"
+            label="Patients who did not receive treatment"
+            rejectNegative="true" />
+          <integer
+            name="outPatientsNotTreated"
+            label="Patients who did not receive treatment out-patient"
+            rejectNegative="true" />
+          <integer
+            name="stillBirths"
+            label="Still births"
+            rejectNegative="true" />
+          <integer
+            name="daysOutOfStock"
+            label="Days that the facility/s were out of stock of malaria medication"
+            rejectNegative="true" />
+        </attributes>
+      </mdView>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        id="NA1">
+        <valueAttribute
+          name="startAge"
+          value="200" />
+        <valueAttribute
+          name="endAge"
+          value="201" />
+        <valueAttribute
+          name="displayLabel"
+          value="[200,201)" />
+        <valueAttribute
+          name="active"
+          value="false" />
+        <referenceAttribute
+          name="mdView"
+          id="dss.vector.solutions.surveillance.ElderCaseView" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+        id="NA2">
+        <valueAttribute
+          name="startAge"
+          value="201" />
+        <valueAttribute
+          name="endAge"
+          value="202" />
+        <valueAttribute
+          name="displayLabel"
+          value="[201,202)" />
+        <valueAttribute
+          name="active"
+          value="false" />
+        <referenceAttribute
+          name="mdView"
+          id="dss.vector.solutions.surveillance.AncientCaseView" />
+      </object>
+    </create>
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>
