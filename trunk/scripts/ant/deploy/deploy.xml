@@ -134,25 +134,25 @@
 	</target>
 
 	<target name="compile_generated">
-		<javac destdir="${local.bin}" srcdir="${local.src}" debug="true">
+		<javac destdir="${local.bin}" srcdir="${local.src}" debug="true" source="1.5" target="1.5">
 			<classpath refid="framework.classpath" />
 		</javac>
-		<javac destdir="${common.bin}" srcdir="${common.src}" debug="true">
+		<javac destdir="${common.bin}" srcdir="${common.src}" debug="true" source="1.5" target="1.5">
 			<classpath refid="framework.classpath" />
 		</javac>
-		<javac destdir="${client.bin}" srcdir="${client.src}" debug="true">
+		<javac destdir="${client.bin}" srcdir="${client.src}" debug="true" source="1.5" target="1.5">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
 			</classpath>
 		</javac>
-		<javac destdir="${server.bin}" srcdir="${server.src}" debug="true">
+		<javac destdir="${server.bin}" srcdir="${server.src}" debug="true" source="1.5" target="1.5">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
 			</classpath>
 		</javac>
-		<javac destdir="${client.bin}" srcdir="${client.src}" debug="true">
+		<javac destdir="${client.bin}" srcdir="${client.src}" debug="true" source="1.5" target="1.5">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
