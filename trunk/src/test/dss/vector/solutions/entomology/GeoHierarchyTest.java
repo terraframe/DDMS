@@ -69,7 +69,7 @@ public class GeoHierarchyTest extends GeoTest
     def.setTypeName(NEW_TYPE_NAME);
     def.setPolitical(true);
     def.setSprayTargetAllowed(true);
-    def.getDisplayLabel().setEn("New Geo Entity Type");
+    def.setDisplayLabel("New Geo Entity Type");
     def.setDescription("New Geo Entity Type Description");
     def.addSpatialType(SpatialTypes.POLYGON);
     def.setParentGeoHierarchyId(countryH.getId());
@@ -173,7 +173,7 @@ public class GeoHierarchyTest extends GeoTest
       def.setTypeName("TempTypeInvalid");
       def.setPolitical(true);
       def.setSprayTargetAllowed(true);
-      def.getDisplayLabel().setEn("New Geo Entity Type");
+      def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.setParentGeoHierarchyId(earthH.getId());
       def.setParentTypeGeoHierarchyId(null); // will extend GeoEntity
@@ -212,7 +212,7 @@ public class GeoHierarchyTest extends GeoTest
       def.setTypeName("TempTypeInvalid");
       def.setPolitical(true);
       def.setSprayTargetAllowed(true);
-      def.getDisplayLabel().setEn("New Geo Entity Type");
+      def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.addSpatialType(SpatialTypes.LINE); // this will cause an error
       def.setParentGeoHierarchyId(earthH.getId());
@@ -258,7 +258,7 @@ public class GeoHierarchyTest extends GeoTest
       def.setTypeName(tempTypeName);
       def.setPolitical(true);
       def.setSprayTargetAllowed(true);
-      def.getDisplayLabel().setEn("New Geo Entity Type");
+      def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.setParentGeoHierarchyId(earthH.getId());
       def.setParentTypeGeoHierarchyId(newType.getId());
@@ -311,7 +311,7 @@ public class GeoHierarchyTest extends GeoTest
       def.setTypeName("TempTypeInvalid");
       def.setPolitical(true);
       def.setSprayTargetAllowed(true);
-      def.getDisplayLabel().setEn("New Geo Entity Type");
+      def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.setParentGeoHierarchyId(earthH.getId());
       def.setParentTypeGeoHierarchyId(newType.getId());
@@ -348,7 +348,7 @@ public class GeoHierarchyTest extends GeoTest
       def.setTypeName("TempTypeInvalid");
       def.setPolitical(true);
       def.setSprayTargetAllowed(true);
-      def.getDisplayLabel().setEn("New Geo Entity Type");
+      def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.setParentGeoHierarchyId(earthH.getId());
       def.setParentTypeGeoHierarchyId(newType.getId());
@@ -429,7 +429,7 @@ public class GeoHierarchyTest extends GeoTest
       def.setTypeName(tempTypeName);
       def.setPolitical(true);
       def.setSprayTargetAllowed(true);
-      def.getDisplayLabel().setEn("New Geo Entity Type");
+      def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.addSpatialType(SpatialTypes.POLYGON);
       def.setParentGeoHierarchyId(countryH.getId());
@@ -487,7 +487,7 @@ public class GeoHierarchyTest extends GeoTest
       def.setTypeName(tempTypeName);
       def.setPolitical(true);
       def.setSprayTargetAllowed(true);
-      def.getDisplayLabel().setEn("New Geo Entity Type");
+      def.setDisplayLabel("New Geo Entity Type");
       def.setDescription("New Geo Entity Type Description");
       def.addSpatialType(SpatialTypes.POLYGON);
       def.setParentGeoHierarchyId(countryH.getId());
@@ -554,7 +554,7 @@ public class GeoHierarchyTest extends GeoTest
       def1.setTypeName(tempTypeName1);
       def1.setPolitical(true);
       def1.setSprayTargetAllowed(true);
-      def1.getDisplayLabel().setEn("New Geo Entity Type 1");
+      def1.setDisplayLabel("New Geo Entity Type 1");
       def1.setDescription("New Geo Entity Type Description 1");
       def1.addSpatialType(SpatialTypes.POLYGON);
       def1.setParentGeoHierarchyId(countryH.getId());
@@ -568,7 +568,7 @@ public class GeoHierarchyTest extends GeoTest
       def2.setTypeName(tempTypeName2);
       def2.setPolitical(true);
       def2.setSprayTargetAllowed(true);
-      def2.getDisplayLabel().setEn("New Geo Entity Type 2");
+      def2.setDisplayLabel("New Geo Entity Type 2");
       def2.setDescription("New Geo Entity Type Description 2");
       def2.addSpatialType(SpatialTypes.POLYGON);
       def2.setParentGeoHierarchyId(view.getGeoHierarchyId());

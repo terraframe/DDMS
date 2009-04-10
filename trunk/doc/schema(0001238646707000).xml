@@ -287,11 +287,10 @@
             required="true"
             concrete="typeName"
             type="com.terraframe.mojo.system.metadata.MdType" />
-          <virtual
+          <char
             name="displayLabel"
             required="true"
-            concrete="displayLabel"
-            type="com.terraframe.mojo.system.metadata.MdType"
+            size="100"
             label="The universal this is located in." />
           <virtual
             name="description"
@@ -378,11 +377,11 @@
             required="true"
             concrete="typeName"
             type="com.terraframe.mojo.system.metadata.MdType" />
-          <virtual
+          <char
             name="displayLabel"
             required="true"
-            concrete="displayLabel"
-            type="com.terraframe.mojo.system.metadata.MdType" />
+            label="The Display Label"
+            size="100" />
           <virtual
             name="description"
             required="false"

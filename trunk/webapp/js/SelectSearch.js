@@ -432,7 +432,7 @@ MDSS.SelectSearch = (function(){
       }
     });
   
-    Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySelectSearch(request, MDSS.SelectSearchRootId);
+    Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySingleSelectSearch(request, MDSS.SelectSearchRootId);
   }
   
   /**

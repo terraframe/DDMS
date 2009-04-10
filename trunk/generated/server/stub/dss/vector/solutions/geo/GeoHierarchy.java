@@ -359,7 +359,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     
     // define the new MdBusiness
     String typeName = definition.getTypeName();
-    String label = definition.getDisplayLabel().getValue();
+    String label = definition.getDisplayLabel();
     String description = definition.getDescription();
 
     MdBusiness mdGeoEntity = new MdBusiness();
@@ -408,7 +408,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
         
         String geoLabel = geoAttrMd.getDisplayLabel();
         
-        String error = "Cannot define the geometry ["+geoLabel+"] because the parent ["+parent.getDisplayLabel()+"] already defines a geometry.";
+        String error = "Cannot define the geometry ["+geoLabel+"] because the parent ["+parent.getDisplayLabel().getValue()+"] already defines a geometry.";
         SpatialTypeDefinedException ex = new SpatialTypeDefinedException(error);
         ex.setIsAParentLabel(parent.getDisplayLabel().getValue());
         ex.setSpatialLabel(geoLabel);
@@ -598,7 +598,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     geoHierarchy.apply();
 
     MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
-    geoEntityClass.getDisplayLabel().setEn(view.getDisplayLabel().getValue());
+    geoEntityClass.getDisplayLabel().setEn(view.getDisplayLabel());
     geoEntityClass.setDescription(view.getDescription());
     geoEntityClass.apply();
   }
@@ -746,7 +746,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     view.setSprayTargetAllowed(this.getSprayTargetAllowed());
     view.setDescription(md.getDescription());
     view.setTypeName(md.getTypeName());
-    view.getDisplayLabel().setEn(md.getDisplayLabel().getValue());
+    view.setDisplayLabel(md.getDisplayLabel().getValue());
     view.setReferenceId(md.getId());
     view.setGeoHierarchyId(this.getId());
     

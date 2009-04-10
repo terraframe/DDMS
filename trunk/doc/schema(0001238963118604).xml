@@ -108,9 +108,14 @@
             static="true"
             returnType="dss.vector.solutions.geo.GeoEntityViewQuery">
             <mdParameter
+              name="entityType"
+              label="Entity Type"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
               name="entityName"
               label="Search Entity Name"
-              order="0"
+              order="1"
               type="java.lang.String" />
           </mdMethod>
         </create>
