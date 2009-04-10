@@ -98,6 +98,24 @@
     </create>
     
     <update>
+    
+      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <mdMethod
+            name="searchByEntityName"
+            label="Search By Entity Name"
+            description="Returns a list of GeoEntityViews that match the search criteria."
+            static="true"
+            returnType="dss.vector.solutions.geo.GeoEntityViewQuery">
+            <mdParameter
+              name="entityName"
+              label="Search Entity Name"
+              order="0"
+              type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    
       <mdBusiness name="dss.vector.solutions.geo.GeoHierarchy">
         <create>
           <mdMethod

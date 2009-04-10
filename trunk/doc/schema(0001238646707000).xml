@@ -277,12 +277,11 @@
             label="GeoHierarchy Id"
             description="GeoHierarchy Id"
             required="true" />
-          <virtual
+          <char
             name="isADisplayLabel"
             required="true"
-            concrete="displayLabel"
-            type="com.terraframe.mojo.system.metadata.MdType"
-            label="The parent type of this universal." />
+            label="The parent type of this universal."
+            size="100" />
           <virtual
             name="typeName"
             required="true"
@@ -479,7 +478,19 @@
         label="GeoEntity Tree Controller"
         description="GeoEntity Tree Controller">
         <mdAction
-          name="displaySelectSearch"
+          name="displaySingleSelectSearch"
+          label="Display Select Search"
+          description="Display Select Search"
+          isPost="false">
+          <mdParameter
+            name="rootGeoEntityId"
+            label="Root GeoEntity Id"
+            description="The id of the GeoEntity that will be the root of the select lists."
+            order="0"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
+          name="displayMultipleSelectSearch"
           label="Display Select Search"
           description="Display Select Search"
           isPost="false">
