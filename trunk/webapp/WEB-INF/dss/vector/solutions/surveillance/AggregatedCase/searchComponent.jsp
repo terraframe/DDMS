@@ -65,7 +65,7 @@
     <dt> Period Type </dt>
     <dd>
       <mjl:radioGroup var="current" varStatus="status" valueAttribute="enumName" items="${periodType}" param="periodType">
-        <mjl:radioOption>
+        <mjl:radioOption checked="${status.index == 0 ? 'checked' : 'false'}">
             ${current.displayLabel}
         </mjl:radioOption>
       </mjl:radioGroup>
