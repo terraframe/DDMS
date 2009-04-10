@@ -36,7 +36,7 @@
   <xs:sequence>
     <xs:element ref="inheritance"/>
     <xs:choice maxOccurs="unbounded">
-      <xs:element ref="object"/>
+      <xs:element name="object" type="object"/>
       <xs:element name="relationship" type="relationship"/>
       <xs:element name="entityIndex" type="entityIndex"/>      
       <xs:element ref="enumeration"/>
@@ -65,16 +65,14 @@
   </xs:complexType>
 </xs:element>
 
-<xs:element name="object">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="type" type="xs:string"/>
-      <xs:element name="id" type="xs:string"/>
-      <xs:element ref="definitions" minOccurs="0"/>
-      <xs:element ref="attributes"/>
-    </xs:sequence>
-  </xs:complexType>
-</xs:element>
+<xs:complexType name="object">
+  <xs:sequence>
+    <xs:element name="type" type="xs:string"/>
+    <xs:element name="id" type="xs:string"/>
+    <xs:element ref="definitions" minOccurs="0"/>
+    <xs:element ref="attributes"/>
+  </xs:sequence>
+</xs:complexType>
 
 <xs:complexType name="relationship">
   <xs:sequence>
@@ -172,6 +170,7 @@
 	  <xs:element name="mdattributereference" type="mdattributereference"/>
 	  <xs:element name="mdattributeenumeration" type="mdattributeenumeration"/>
 	  <xs:element name="mdattributestruct" type="mdattributestruct"/>
+	  <xs:element name="mdattributelocalcharacter" type="mdattributelocalcharacter"/>	  
 	</xs:choice>
   </xs:complexType>
 </xs:element>
@@ -501,10 +500,27 @@
   </xs:complexContent>
 </xs:complexType>
 
+<xs:complexType name="mdattributelocal">
+  <xs:complexContent>
+    <xs:extension base="mdattributeconcrete">
+	  <xs:sequence>
+	    <xs:element name="mdStruct" type="xs:string"/>
+	  </xs:sequence>
+	</xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="mdattributelocalcharacter">
+  <xs:complexContent>
+    <xs:extension base="mdattributelocal"/>
+  </xs:complexContent>
+</xs:complexType>
+
 <xs:element name="attributes">
   <xs:complexType>
     <xs:choice maxOccurs="unbounded">
       <xs:element name="attribute" type="attribute"/>
+      <xs:element name="attributeStruct" type="attributeStruct"/>
       <xs:element name="reference" type="reference"/>
     </xs:choice>
   </xs:complexType>
@@ -530,6 +546,15 @@
     <xs:element name="value" type="xs:string"/>
     <xs:element name="definingComponent" type="xs:string"/>
     <xs:element ref="enumeration" minOccurs="0"/>
+  </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="attributeStruct">
+  <xs:sequence>
+    <xs:element name="name" type="xs:string"/>
+    <xs:element name="value" type="xs:string"/>
+    <xs:element name="definingComponent" type="xs:string"/>
+    <xs:element name="struct" type="object"/>
   </xs:sequence>
 </xs:complexType>
 

@@ -199,11 +199,37 @@
         <value/>
         <definingComponent>com.terraframe.mojo.system.metadata.MdEntity</definingComponent>
       </attribute>
-      <attribute>
+     <attributeStruct>
         <name>displayLabel</name>
-        <value>MdAttributePoint</value>
+        <value>NM2009040800000000000000000000018p742tgoidyi4fljcvgtde5ha1h7225z</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
+          <id>NM2009040800000000000000000000018p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM2009040800000000000000000000018p742tgoidyi4fljcvgtde5ha1h7225z</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>en</name>
+              <value>MdAttributePoint</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>description</name>
         <value>Point Geometry Attribute Type</value>
@@ -557,11 +583,37 @@
         <value/>
         <definingComponent>com.terraframe.mojo.system.metadata.MdEntity</definingComponent>
       </attribute>
-      <attribute>
+     <attributeStruct>
         <name>displayLabel</name>
-        <value>MdAttributeGeometry</value>
+        <value>NM2009040800000000000000000000028p742tgoidyi4fljcvgtde5ha1h7225z</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
+          <id>NM2009040800000000000000000000028p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM2009040800000000000000000000028p742tgoidyi4fljcvgtde5ha1h7225z</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>en</name>
+              <value>MdAttributeGeometry</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>description</name>
         <value>Root Geometry Attribute Type</value>
@@ -951,11 +1003,37 @@
         <value/>
         <definingComponent>com.terraframe.mojo.system.metadata.MdEntity</definingComponent>
       </attribute>
-      <attribute>
+     <attributeStruct>
         <name>displayLabel</name>
-        <value>MdAttributeLineString</value>
+        <value>NM2009040800000000000000000000038p742tgoidyi4fljcvgtde5ha1h7225z</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
+          <id>NM2009040800000000000000000000038p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM2009040800000000000000000000038p742tgoidyi4fljcvgtde5ha1h7225z</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>en</name>
+              <value>MdAttributeLineString</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>description</name>
         <value>Line String Geometry Attribute Type</value>
@@ -1211,11 +1289,37 @@
         <value/>
         <definingComponent>com.terraframe.mojo.system.metadata.MdEntity</definingComponent>
       </attribute>
-      <attribute>
+     <attributeStruct>
         <name>displayLabel</name>
-        <value>MdAttributePolygon</value>
+        <value>NM2009040800000000000000000000048p742tgoidyi4fljcvgtde5ha1h7225z</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
+          <id>NM2009040800000000000000000000048p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM2009040800000000000000000000048p742tgoidyi4fljcvgtde5ha1h7225z</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>en</name>
+              <value>MdAttributePolygon</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>description</name>
         <value>Polygon Geometry Attribute Type</value>
@@ -1471,11 +1575,37 @@
         <value/>
         <definingComponent>com.terraframe.mojo.system.metadata.MdEntity</definingComponent>
       </attribute>
-      <attribute>
+     <attributeStruct>
         <name>displayLabel</name>
-        <value>MdAttributeMultiPoint</value>
+        <value>NM2009040800000000000000000000058p742tgoidyi4fljcvgtde5ha1h7225z</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
+          <id>NM2009040800000000000000000000058p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM2009040800000000000000000000058p742tgoidyi4fljcvgtde5ha1h7225z</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>en</name>
+              <value>MdAttributeMultiPoint</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>description</name>
         <value>MultiPoint Geometry Attribute Type</value>
@@ -1731,11 +1861,37 @@
         <value/>
         <definingComponent>com.terraframe.mojo.system.metadata.MdEntity</definingComponent>
       </attribute>
-      <attribute>
+     <attributeStruct>
         <name>displayLabel</name>
-        <value>MdAttributeMultiLineString</value>
+        <value>NM2009040800000000000000000000068p742tgoidyi4fljcvgtde5ha1h7225z</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
+          <id>NM2009040800000000000000000000068p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM2009040800000000000000000000068p742tgoidyi4fljcvgtde5ha1h7225z</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>en</name>
+              <value>MdAttributeMultiLineString</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>description</name>
         <value>MultiLineString Geometry Attribute Type</value>
@@ -1991,11 +2147,37 @@
         <value/>
         <definingComponent>com.terraframe.mojo.system.metadata.MdEntity</definingComponent>
       </attribute>
-      <attribute>
+     <attributeStruct>
         <name>displayLabel</name>
-        <value>MdAttributeMultiPolygon</value>
+        <value>NM2009040800000000000000000000078p742tgoidyi4fljcvgtde5ha1h7225z</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
+          <id>NM2009040800000000000000000000078p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM2009040800000000000000000000078p742tgoidyi4fljcvgtde5ha1h7225z</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>en</name>
+              <value>MdAttributeMultiPolygon</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>description</name>
         <value>MultiPolygon Geometry Attribute Type</value>

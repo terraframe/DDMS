@@ -199,7 +199,7 @@ public class GeoEntityImporter
 
   private void createLocatedInRelationships() throws Exception
   {
-    System.out.println("Creating GeoEntity LocatedIn Relatoinships ");
+    System.out.println("Creating GeoEntity LocatedIn Relationships ");
 
     int applyCount = 0;
     
@@ -489,7 +489,7 @@ public class GeoEntityImporter
     GeoHierarchyQuery q = new GeoHierarchyQuery(f);
 
     q.WHERE(F.UPPER(F.TRIM(q.getGeoEntityClass().getTypeName())).EQ(universalName.trim().toUpperCase())
-        .OR(F.UPPER(F.TRIM(q.getGeoEntityClass().getDisplayLabel())).EQ(universalName.trim().toUpperCase())));
+        .OR(F.UPPER(F.TRIM(q.getGeoEntityClass().getDisplayLabel().getEn())).EQ(universalName.trim().toUpperCase())));
 
     OIterator<? extends GeoHierarchy> i = q.getIterator();
 

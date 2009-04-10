@@ -15,6 +15,7 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
+import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.ConfirmDeleteEntityException;
@@ -24,8 +25,8 @@ import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoEntityViewQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedIn;
-import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
+import dss.vector.solutions.geo.LocatedInException;
 
 public abstract class GeoEntity extends GeoEntityBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -468,7 +469,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
       String error = "The universal type [" + childType + "] cannot be located in [" + parentType + "].";
       LocatedInException e = new LocatedInException(error);
       e.setEntityName(this.getEntityName());
-      e.setParentDisplayLabel(parentMd.getDisplayLabel());
+      e.setParentDisplayLabel(parentMd.getDisplayLabel().getValue(Session.getCurrentLocale()));
       throw e;
     }
   }
