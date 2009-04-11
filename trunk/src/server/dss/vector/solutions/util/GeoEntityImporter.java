@@ -100,7 +100,7 @@ public class GeoEntityImporter
     }
     else
     {
-      importGeoEntities(args[0], args[1], args[2]);
+      importGeoEntities(args);
       // deleteGeoEntityies();
     }
   }
@@ -135,13 +135,14 @@ public class GeoEntityImporter
     System.out.println("\nFINISHED\n");
   }
 
-  public static void importGeoEntities(String dbUser, String dbPassword, String dbName) throws Exception
+  @StartSession
+  public static void importGeoEntities(String[] args) throws Exception
   {
     GeoEntityImporter geoEntityImporter = null;
 
     try
     {
-      geoEntityImporter = new GeoEntityImporter(dbUser, dbPassword, dbName);
+      geoEntityImporter = new GeoEntityImporter(args[0], args[1], args[2]);
       geoEntityImporter.importGeoEntities();
     }
     finally
