@@ -973,9 +973,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
       vQuery.map(GeoHierarchyView.REFERENCEID, mdBusinessQuery.getId());
       vQuery.map(GeoHierarchyView.TYPENAME, mdBusinessQuery.getTypeName());
-      vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel());
+      vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel().currentLocale());
       vQuery.map(GeoHierarchyView.DESCRIPTION, mdBusinessQuery.getDescription());
-      vQuery.map(GeoHierarchyView.ISADISPLAYLABEL, parentMdBusinessQuery.getDisplayLabel());
+      vQuery.map(GeoHierarchyView.ISADISPLAYLABEL, parentMdBusinessQuery.getDisplayLabel().currentLocale());
     }
 
     @Override
