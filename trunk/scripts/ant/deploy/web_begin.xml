@@ -209,6 +209,10 @@
     <filter-class>
       com.terraframe.mojo.web.javascript.JavascriptFilter
     </filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
   </filter>
 
   <filter-mapping>
@@ -216,7 +220,7 @@
       JavascriptFilter
     </filter-name>
     <url-pattern>
-      *.js
+      /*
     </url-pattern>
   </filter-mapping>  
   
