@@ -52,7 +52,7 @@
 		<shellscript shell="bash" os="Mac OS X,Linux" dir="./" searchpath="true"
 					inputstring="${postgres.bin}/psql -h 127.0.0.1 -U mdssdeploy mdssdeploy -f dump.sql" />
 		<shellscript shell="cmd" os="Windows" dir="./" searchpath="true"
-							inputstring="${postgres.bin}/psql -U mdssdeploy mdssdeploy -f dump.sql" />
+							inputstring="${postgres.bin}/psql -U postgres mdssdeploy -f dump.sql" />
 		<!--make tomcat reload-->
 		<antcall target="start_tomcat"/>
 		<echo message="The build is complete" />
@@ -150,7 +150,7 @@
 
 	<target name="kill_tomcat" unless="dont_kill_tomcat">
 		<shellscript shell="bash" dir="../../../" os="Mac OS X,Linux" searchpath="true">
-	   	ps ax  | grep [Tt]omcat | egrep -o ^\ ?[0-9]+ | xargs kill -9
+	   	ps ax  | egrep [Tt]omcat | egrep -o ^\ ?[0-9]+ | xargs kill -9
 		</shellscript>
 		<shellscript  shell="cmd" dir="${deploy.root}\bin" os="Windows" searchpath="true">
 			net stop tomcat6
@@ -258,7 +258,6 @@
 		<!-- run the importer -->
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
 			<jvmarg value="-Xmx${max_memory_use}" />
-			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
