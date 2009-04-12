@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public  class PermanentWaterBodyQuery extends dss.vector.solutions.geo.generated.BreedingSiteQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517572713L;
+private static final long serialVersionUID = 1239572508281L;
 
   public PermanentWaterBodyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -86,7 +86,7 @@ private static final long serialVersionUID = 1239517572713L;
  implements PermanentWaterBodyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239517573005L;
+private static final long serialVersionUID = 1239572508566L;
 
   public PermanentWaterBodyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

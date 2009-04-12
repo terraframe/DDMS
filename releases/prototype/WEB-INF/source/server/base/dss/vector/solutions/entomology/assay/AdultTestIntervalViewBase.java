@@ -16,7 +16,7 @@ public abstract class AdultTestIntervalViewBase extends com.terraframe.mojo.busi
   public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String KNOCKEDDOWN = "knockedDown";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = 1239517556668L;
+  private static final long serialVersionUID = 1239572494323L;
   
   public AdultTestIntervalViewBase()
   {

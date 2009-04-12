@@ -11,7 +11,7 @@ public abstract class InvalidGravidQuantityProblemBase extends dss.vector.soluti
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem";
   public static java.lang.String GRAVID = "gravid";
-  private static final long serialVersionUID = 1239517516651L;
+  private static final long serialVersionUID = 1239572459201L;
   
   public InvalidGravidQuantityProblemBase()
   {

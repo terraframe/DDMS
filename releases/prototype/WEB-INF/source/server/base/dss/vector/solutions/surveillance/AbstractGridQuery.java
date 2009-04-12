@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public  class AbstractGridQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517576354L;
+private static final long serialVersionUID = 1239572511297L;
 
   public AbstractGridQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -314,7 +314,7 @@ private static final long serialVersionUID = 1239517576354L;
  implements AbstractGridQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239517576671L;
+private static final long serialVersionUID = 1239572511599L;
 
   public AbstractGridQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

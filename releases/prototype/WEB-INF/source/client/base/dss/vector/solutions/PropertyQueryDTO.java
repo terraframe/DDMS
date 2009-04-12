@@ -10,7 +10,7 @@ package dss.vector.solutions;
 public class PropertyQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517584474L;
+private static final long serialVersionUID = 1239572519016L;
 
   protected PropertyQueryDTO(String type)
   {

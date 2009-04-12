@@ -11,7 +11,7 @@ public abstract class RailwayBase extends dss.vector.solutions.geo.generated.Geo
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Railway";
   public static java.lang.String LINESTRING = "lineString";
-  private static final long serialVersionUID = 1239517579157L;
+  private static final long serialVersionUID = 1239572513781L;
   
   public RailwayBase()
   {

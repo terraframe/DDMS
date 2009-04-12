@@ -46,7 +46,7 @@ public abstract class AdultCaseViewBase extends dss.vector.solutions.surveillanc
   public static java.lang.String REFERRALSRECEIVED = "referralsReceived";
   public static java.lang.String REFERRALSSENT = "referralsSent";
   public static java.lang.String STILLBIRTHS = "stillBirths";
-  private static final long serialVersionUID = 1239517545797L;
+  private static final long serialVersionUID = 1239572486540L;
   
   public AdultCaseViewBase()
   {

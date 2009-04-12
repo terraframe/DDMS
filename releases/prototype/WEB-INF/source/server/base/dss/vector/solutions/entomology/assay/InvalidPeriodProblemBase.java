@@ -11,7 +11,7 @@ public abstract class InvalidPeriodProblemBase extends dss.vector.solutions.Noti
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidPeriodProblem";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = 1239517582023L;
+  private static final long serialVersionUID = 1239572516696L;
   
   public InvalidPeriodProblemBase()
   {

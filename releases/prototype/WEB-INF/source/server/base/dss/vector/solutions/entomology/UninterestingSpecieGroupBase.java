@@ -11,7 +11,7 @@ public abstract class UninterestingSpecieGroupBase extends dss.vector.solutions.
 {
   public final static String CLASS = "dss.vector.solutions.entomology.UninterestingSpecieGroup";
   public static java.lang.String QUANTITY = "quantity";
-  private static final long serialVersionUID = 1239517525856L;
+  private static final long serialVersionUID = 1239572467601L;
   
   public UninterestingSpecieGroupBase()
   {

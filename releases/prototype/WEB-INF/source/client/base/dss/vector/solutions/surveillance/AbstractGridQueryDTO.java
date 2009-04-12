@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public class AbstractGridQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517576890L;
+private static final long serialVersionUID = 1239572511805L;
 
   protected AbstractGridQueryDTO(String type)
   {

@@ -12,7 +12,7 @@ public abstract class InvalidIntervalTimeProblemBase extends dss.vector.solution
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidIntervalTimeProblem";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String INTERVALTIME = "intervalTime";
-  private static final long serialVersionUID = 1239517524111L;
+  private static final long serialVersionUID = 1239572466274L;
   
   public InvalidIntervalTimeProblemBase()
   {

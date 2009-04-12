@@ -23,7 +23,7 @@ public abstract class CaseTreatmentStockBase extends com.terraframe.mojo.busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239517525654L;
+  private static final long serialVersionUID = 1239572467494L;
   
   public CaseTreatmentStockBase(String parentId, String childId)
   {

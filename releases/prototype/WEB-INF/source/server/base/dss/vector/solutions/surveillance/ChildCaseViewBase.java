@@ -46,7 +46,7 @@ public abstract class ChildCaseViewBase extends dss.vector.solutions.surveillanc
   public static java.lang.String REFERRALSRECEIVED = "referralsReceived";
   public static java.lang.String REFERRALSSENT = "referralsSent";
   public static java.lang.String STILLBIRTHS = "stillBirths";
-  private static final long serialVersionUID = 1239517529483L;
+  private static final long serialVersionUID = 1239572470965L;
   
   public ChildCaseViewBase()
   {

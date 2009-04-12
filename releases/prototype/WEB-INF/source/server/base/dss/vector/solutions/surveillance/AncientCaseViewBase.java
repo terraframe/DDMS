@@ -46,7 +46,7 @@ public abstract class AncientCaseViewBase extends dss.vector.solutions.surveilla
   public static java.lang.String REFERRALSRECEIVED = "referralsReceived";
   public static java.lang.String REFERRALSSENT = "referralsSent";
   public static java.lang.String STILLBIRTHS = "stillBirths";
-  private static final long serialVersionUID = 1239517501422L;
+  private static final long serialVersionUID = 1239572443598L;
   
   public AncientCaseViewBase()
   {

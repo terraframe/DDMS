@@ -12,7 +12,7 @@ public abstract class LarvaeAssayBase extends dss.vector.solutions.entomology.as
   public final static String CLASS = "dss.vector.solutions.entomology.assay.LarvaeAssay";
   public static java.lang.String ENDPOINT = "endPoint";
   public static java.lang.String STARTPOINT = "startPoint";
-  private static final long serialVersionUID = 1239517516841L;
+  private static final long serialVersionUID = 1239572459401L;
   
   public LarvaeAssayBase()
   {

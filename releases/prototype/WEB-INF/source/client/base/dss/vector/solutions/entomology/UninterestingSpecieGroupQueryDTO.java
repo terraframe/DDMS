@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public class UninterestingSpecieGroupQueryDTO extends dss.vector.solutions.entomology.TrueSpecieEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517526619L;
+private static final long serialVersionUID = 1239572468276L;
 
   protected UninterestingSpecieGroupQueryDTO(String type)
   {

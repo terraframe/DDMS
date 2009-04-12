@@ -46,7 +46,7 @@ public abstract class TeenCaseViewBase extends dss.vector.solutions.surveillance
   public static java.lang.String REFERRALSRECEIVED = "referralsReceived";
   public static java.lang.String REFERRALSSENT = "referralsSent";
   public static java.lang.String STILLBIRTHS = "stillBirths";
-  private static final long serialVersionUID = 1239517503812L;
+  private static final long serialVersionUID = 1239572446019L;
   
   public TeenCaseViewBase()
   {

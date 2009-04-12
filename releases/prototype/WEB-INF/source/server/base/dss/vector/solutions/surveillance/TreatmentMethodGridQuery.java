@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public  class TreatmentMethodGridQuery extends dss.vector.solutions.surveillance.AbstractGridQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517565298L;
+private static final long serialVersionUID = 1239572501531L;
 
   public TreatmentMethodGridQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -143,7 +143,7 @@ private static final long serialVersionUID = 1239517565298L;
  implements TreatmentMethodGridQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239517565585L;
+private static final long serialVersionUID = 1239572501810L;
 
   public TreatmentMethodGridQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

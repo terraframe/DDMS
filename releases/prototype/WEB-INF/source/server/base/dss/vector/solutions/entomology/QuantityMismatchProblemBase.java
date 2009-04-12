@@ -13,7 +13,7 @@ public abstract class QuantityMismatchProblemBase extends dss.vector.solutions.N
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String QUANTITYFEMALE = "quantityFemale";
   public static java.lang.String QUANTITYMALE = "quantityMale";
-  private static final long serialVersionUID = 1239517499716L;
+  private static final long serialVersionUID = 1239572441967L;
   
   public QuantityMismatchProblemBase()
   {

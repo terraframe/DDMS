@@ -29,7 +29,7 @@ public abstract class PropertyBase extends com.terraframe.mojo.business.Business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239517583693L;
+  private static final long serialVersionUID = 1239572518270L;
   
   public PropertyBase()
   {

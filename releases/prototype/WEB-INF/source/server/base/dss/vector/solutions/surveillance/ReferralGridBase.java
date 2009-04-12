@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public abstract class ReferralGridBase extends dss.vector.solutions.surveillance.AbstractGrid implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.ReferralGrid";
-  private static final long serialVersionUID = 1239517511155L;
+  private static final long serialVersionUID = 1239572454318L;
   
   public ReferralGridBase()
   {

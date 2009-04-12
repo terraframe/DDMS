@@ -11,7 +11,7 @@ public abstract class VillageBase extends dss.vector.solutions.geo.generated.Pop
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Village";
   public static java.lang.String MULTIPOINT = "multiPoint";
-  private static final long serialVersionUID = 1239517544048L;
+  private static final long serialVersionUID = 1239572485026L;
   
   public VillageBase()
   {

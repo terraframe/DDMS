@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class SexMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239517510487L;
+  private static final long serialVersionUID = 1239572453652L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.SexMaster";
   protected SexMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

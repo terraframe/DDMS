@@ -13,7 +13,7 @@ public abstract class DistinctAgeGroupExceptionBase extends com.terraframe.mojo.
   public static java.lang.String ENDAGE = "endAge";
   public static java.lang.String ID = "id";
   public static java.lang.String STARTAGE = "startAge";
-  private static final long serialVersionUID = 1239517547465L;
+  private static final long serialVersionUID = 1239572488281L;
   
   public DistinctAgeGroupExceptionBase()
   {

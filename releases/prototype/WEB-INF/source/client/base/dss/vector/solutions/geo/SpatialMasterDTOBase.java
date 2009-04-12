@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 public abstract class SpatialMasterDTOBase extends com.terraframe.mojo.system.EnumerationMasterDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239517551525L;
+  private static final long serialVersionUID = 1239572491329L;
   
   public final static String CLASS = "dss.vector.solutions.geo.SpatialMaster";
   protected SpatialMasterDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

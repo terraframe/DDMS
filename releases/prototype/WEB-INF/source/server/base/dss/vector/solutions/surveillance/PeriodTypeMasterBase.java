@@ -11,7 +11,7 @@ public abstract class PeriodTypeMasterBase extends com.terraframe.mojo.system.En
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.PeriodTypeMaster";
   public static java.lang.String MAXIMUMPERIOD = "maximumPeriod";
-  private static final long serialVersionUID = 1239517581307L;
+  private static final long serialVersionUID = 1239572515998L;
   
   public PeriodTypeMasterBase()
   {

@@ -11,7 +11,7 @@ public abstract class LocalityBase extends dss.vector.solutions.geo.generated.Ge
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Locality";
   public static java.lang.String MULTIPOLYGON = "multiPolygon";
-  private static final long serialVersionUID = 1239517535909L;
+  private static final long serialVersionUID = 1239572476913L;
   
   public LocalityBase()
   {

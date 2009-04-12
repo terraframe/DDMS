@@ -12,7 +12,7 @@ public abstract class AllowedInSelfExceptionBase extends com.terraframe.mojo.bus
   public final static String CLASS = "dss.vector.solutions.geo.AllowedInSelfException";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1239517499917L;
+  private static final long serialVersionUID = 1239572442087L;
   
   public AllowedInSelfExceptionBase()
   {

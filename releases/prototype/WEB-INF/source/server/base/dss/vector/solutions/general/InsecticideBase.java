@@ -25,7 +25,7 @@ public abstract class InsecticideBase extends com.terraframe.mojo.business.Busin
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNITS = "units";
-  private static final long serialVersionUID = 1239517560789L;
+  private static final long serialVersionUID = 1239572497170L;
   
   public InsecticideBase()
   {

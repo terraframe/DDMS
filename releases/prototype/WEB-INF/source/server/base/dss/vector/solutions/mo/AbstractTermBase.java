@@ -30,7 +30,7 @@ public abstract class AbstractTermBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TERMNAME = "termName";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239517543186L;
+  private static final long serialVersionUID = 1239572484201L;
   
   public AbstractTermBase()
   {

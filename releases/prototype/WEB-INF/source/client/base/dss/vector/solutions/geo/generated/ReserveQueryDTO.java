@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public class ReserveQueryDTO extends dss.vector.solutions.geo.generated.GeoEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517543175L;
+private static final long serialVersionUID = 1239572484183L;
 
   protected ReserveQueryDTO(String type)
   {

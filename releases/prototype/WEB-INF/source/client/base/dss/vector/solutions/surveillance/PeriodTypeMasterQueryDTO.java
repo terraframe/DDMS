@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public class PeriodTypeMasterQueryDTO extends com.terraframe.mojo.system.EnumerationMasterQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517582015L;
+private static final long serialVersionUID = 1239572516689L;
 
   protected PeriodTypeMasterQueryDTO(String type)
   {

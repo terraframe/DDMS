@@ -11,7 +11,7 @@ public abstract class InvalidAgeProblemBase extends dss.vector.solutions.Notific
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidAgeProblem";
   public static java.lang.String AGE = "age";
-  private static final long serialVersionUID = 1239517522550L;
+  private static final long serialVersionUID = 1239572465072L;
   
   public InvalidAgeProblemBase()
   {

@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class SprayZoneDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239517566947L;
+  private static final long serialVersionUID = 1239572503193L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.SprayZone";
   protected SprayZoneDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

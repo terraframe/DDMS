@@ -12,7 +12,7 @@ public abstract class ConfirmDeleteEntityExceptionBase extends com.terraframe.mo
   public final static String CLASS = "dss.vector.solutions.geo.ConfirmDeleteEntityException";
   public static java.lang.String ENTITYNAME = "entityName";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1239517499479L;
+  private static final long serialVersionUID = 1239572441634L;
   
   public ConfirmDeleteEntityExceptionBase()
   {

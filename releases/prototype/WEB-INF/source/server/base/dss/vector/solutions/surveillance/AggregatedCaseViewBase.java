@@ -17,7 +17,7 @@ public abstract class AggregatedCaseViewBase extends com.terraframe.mojo.busines
   public static java.lang.String PERIOD = "period";
   public static java.lang.String PERIODTYPE = "periodType";
   public static java.lang.String PERIODYEAR = "periodYear";
-  private static final long serialVersionUID = 1239517527645L;
+  private static final long serialVersionUID = 1239572469248L;
   
   public AggregatedCaseViewBase()
   {
@@ -236,6 +236,18 @@ public abstract class AggregatedCaseViewBase extends com.terraframe.mojo.busines
     return (AggregatedCaseView) com.terraframe.mojo.business.View.get(id);
   }
   
+  public void unlockCase()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void unlockCase(java.lang.String id)
+  {
+    AggregatedCaseView _instance = AggregatedCaseView.get(id);
+    _instance.unlockCase();
+  }
+  
   public void lockCase()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
@@ -258,18 +270,6 @@ public abstract class AggregatedCaseViewBase extends com.terraframe.mojo.busines
   {
     AggregatedCaseView _instance = AggregatedCaseView.get(id);
     _instance.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
-  }
-  
-  public void unlockCase()
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final void unlockCase(java.lang.String id)
-  {
-    AggregatedCaseView _instance = AggregatedCaseView.get(id);
-    _instance.unlockCase();
   }
   
   public String toString()

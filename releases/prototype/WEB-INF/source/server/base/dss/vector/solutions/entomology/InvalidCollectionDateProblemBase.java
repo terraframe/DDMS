@@ -12,7 +12,7 @@ public abstract class InvalidCollectionDateProblemBase extends dss.vector.soluti
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidCollectionDateProblem";
   public static java.lang.String COLLECTIONDATE = "collectionDate";
   public static java.lang.String CURRENTDATE = "currentDate";
-  private static final long serialVersionUID = 1239517512697L;
+  private static final long serialVersionUID = 1239572455842L;
   
   public InvalidCollectionDateProblemBase()
   {

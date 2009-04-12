@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public class AggregatedAgeGroupQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517541332L;
+private static final long serialVersionUID = 1239572482172L;
 
   protected AggregatedAgeGroupQueryDTO(String type)
   {

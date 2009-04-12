@@ -46,7 +46,7 @@ public abstract class ElderCaseViewBase extends dss.vector.solutions.surveillanc
   public static java.lang.String REFERRALSRECEIVED = "referralsReceived";
   public static java.lang.String REFERRALSSENT = "referralsSent";
   public static java.lang.String STILLBIRTHS = "stillBirths";
-  private static final long serialVersionUID = 1239517542346L;
+  private static final long serialVersionUID = 1239572483124L;
   
   public ElderCaseViewBase()
   {

@@ -26,7 +26,7 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239517573236L;
+  private static final long serialVersionUID = 1239572508772L;
   
   public GeoEntityBase()
   {
@@ -469,54 +469,6 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     return (GeoEntity) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public static dss.vector.solutions.geo.GeoEntityViewQuery searchByEntityName(java.lang.String entityType, java.lang.String entityName)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public void confirmDeleteEntity(java.lang.String parentId)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final void confirmDeleteEntity(java.lang.String id, java.lang.String parentId)
-  {
-    GeoEntity _instance = GeoEntity.get(id);
-    _instance.confirmDeleteEntity(parentId);
-  }
-  
-  public java.lang.String[] applyWithParent(java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final java.lang.String[] applyWithParent(java.lang.String id, java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
-  {
-    GeoEntity _instance = GeoEntity.get(id);
-    return _instance.applyWithParent(parentGeoEntityId, cloneOperation);
-  }
-  
-  public static dss.vector.solutions.geo.generated.GeoEntity searchByGeoId(java.lang.String geoId)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public void deleteRelationship(java.lang.String parentId)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final void deleteRelationship(java.lang.String id, java.lang.String parentId)
-  {
-    GeoEntity _instance = GeoEntity.get(id);
-    _instance.deleteRelationship(parentId);
-  }
-  
   public dss.vector.solutions.geo.GeoEntityViewQuery getOrderedChildren(java.lang.String typeFilter)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
@@ -541,6 +493,18 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
     _instance.confirmChangeParent(parentId);
   }
   
+  public void deleteRelationship(java.lang.String parentId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void deleteRelationship(java.lang.String id, java.lang.String parentId)
+  {
+    GeoEntity _instance = GeoEntity.get(id);
+    _instance.deleteRelationship(parentId);
+  }
+  
   public java.lang.String[] updateFromTree()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
@@ -551,6 +515,42 @@ public abstract class GeoEntityBase extends com.terraframe.mojo.business.Busines
   {
     GeoEntity _instance = GeoEntity.get(id);
     return _instance.updateFromTree();
+  }
+  
+  public static dss.vector.solutions.geo.generated.GeoEntity searchByGeoId(java.lang.String geoId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public java.lang.String[] applyWithParent(java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String[] applyWithParent(java.lang.String id, java.lang.String parentGeoEntityId, java.lang.Boolean cloneOperation)
+  {
+    GeoEntity _instance = GeoEntity.get(id);
+    return _instance.applyWithParent(parentGeoEntityId, cloneOperation);
+  }
+  
+  public void confirmDeleteEntity(java.lang.String parentId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void confirmDeleteEntity(java.lang.String id, java.lang.String parentId)
+  {
+    GeoEntity _instance = GeoEntity.get(id);
+    _instance.confirmDeleteEntity(parentId);
+  }
+  
+  public static dss.vector.solutions.geo.GeoEntityViewQuery searchByEntityName(java.lang.String entityType, java.lang.String entityName)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static GeoEntity lock(java.lang.String id)

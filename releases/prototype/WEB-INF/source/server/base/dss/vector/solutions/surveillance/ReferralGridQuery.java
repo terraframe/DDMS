@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public  class ReferralGridQuery extends dss.vector.solutions.surveillance.AbstractGridQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517511355L;
+private static final long serialVersionUID = 1239572454523L;
 
   public ReferralGridQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -143,7 +143,7 @@ private static final long serialVersionUID = 1239517511355L;
  implements ReferralGridQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239517511638L;
+private static final long serialVersionUID = 1239572454803L;
 
   public ReferralGridQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

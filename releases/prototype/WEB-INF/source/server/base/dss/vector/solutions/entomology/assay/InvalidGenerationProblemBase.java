@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public abstract class InvalidGenerationProblemBase extends dss.vector.solutions.NotificationProblem implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidGenerationProblem";
-  private static final long serialVersionUID = 1239517539774L;
+  private static final long serialVersionUID = 1239572480622L;
   
   public InvalidGenerationProblemBase()
   {

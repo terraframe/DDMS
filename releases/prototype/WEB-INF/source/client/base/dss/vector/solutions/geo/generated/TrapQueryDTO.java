@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public class TrapQueryDTO extends dss.vector.solutions.geo.generated.GeoEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517525387L;
+private static final long serialVersionUID = 1239572467155L;
 
   protected TrapQueryDTO(String type)
   {

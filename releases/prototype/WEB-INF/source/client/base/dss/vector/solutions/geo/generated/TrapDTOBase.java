@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class TrapDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239517524632L;
+  private static final long serialVersionUID = 1239572466579L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.Trap";
   protected TrapDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

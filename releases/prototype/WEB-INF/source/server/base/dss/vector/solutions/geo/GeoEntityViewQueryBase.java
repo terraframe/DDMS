@@ -10,7 +10,7 @@ package dss.vector.solutions.geo;
 public  abstract  class GeoEntityViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517558542L;
+private static final long serialVersionUID = 1239572495354L;
 
   public GeoEntityViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

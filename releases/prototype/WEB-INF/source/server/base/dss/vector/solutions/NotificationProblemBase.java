@@ -16,7 +16,7 @@ public abstract class NotificationProblemBase extends com.terraframe.mojo.busine
   public static java.lang.String DEFININGTYPE = "definingType";
   public static java.lang.String DEFININGTYPEDISPLAYLABEL = "definingTypeDisplayLabel";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1239517579018L;
+  private static final long serialVersionUID = 1239572514464L;
   
   public NotificationProblemBase()
   {

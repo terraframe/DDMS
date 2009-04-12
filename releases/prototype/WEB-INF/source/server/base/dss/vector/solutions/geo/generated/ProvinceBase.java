@@ -11,7 +11,7 @@ public abstract class ProvinceBase extends dss.vector.solutions.geo.generated.Ge
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Province";
   public static java.lang.String MULTIPOLYGON = "multiPolygon";
-  private static final long serialVersionUID = 1239517537580L;
+  private static final long serialVersionUID = 1239572478510L;
   
   public ProvinceBase()
   {

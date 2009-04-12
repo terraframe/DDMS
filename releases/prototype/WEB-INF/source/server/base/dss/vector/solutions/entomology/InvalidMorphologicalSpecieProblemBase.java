@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public abstract class InvalidMorphologicalSpecieProblemBase extends dss.vector.solutions.NotificationProblem implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMorphologicalSpecieProblem";
-  private static final long serialVersionUID = 1239517533884L;
+  private static final long serialVersionUID = 1239572475151L;
   
   public InvalidMorphologicalSpecieProblemBase()
   {

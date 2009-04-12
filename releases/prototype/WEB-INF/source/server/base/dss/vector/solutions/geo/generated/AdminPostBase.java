@@ -11,7 +11,7 @@ public abstract class AdminPostBase extends dss.vector.solutions.geo.generated.G
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.AdminPost";
   public static java.lang.String MULTIPOLYGON = "multiPolygon";
-  private static final long serialVersionUID = 1239517512876L;
+  private static final long serialVersionUID = 1239572455948L;
   
   public AdminPostBase()
   {

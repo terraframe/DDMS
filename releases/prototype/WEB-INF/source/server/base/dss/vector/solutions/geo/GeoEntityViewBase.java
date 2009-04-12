@@ -16,7 +16,7 @@ public abstract class GeoEntityViewBase extends com.terraframe.mojo.business.Vie
   public static java.lang.String GEOENTITYID = "geoEntityId";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1239517558515L;
+  private static final long serialVersionUID = 1239572495323L;
   
   public GeoEntityViewBase()
   {

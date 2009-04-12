@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public class FacilityQueryDTO extends dss.vector.solutions.geo.generated.GeoEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517547401L;
+private static final long serialVersionUID = 1239572488186L;
 
   protected FacilityQueryDTO(String type)
   {

@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public class CaseDiagnosticQueryDTO extends com.terraframe.mojo.business.RelationshipQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517577244L;
+private static final long serialVersionUID = 1239572512217L;
 
   protected CaseDiagnosticQueryDTO(String type)
   {

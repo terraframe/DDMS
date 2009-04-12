@@ -12,7 +12,7 @@ public abstract class UndefinedKnockDownPropertyExceptionBase extends com.terraf
   public final static String CLASS = "dss.vector.solutions.general.UndefinedKnockDownPropertyException";
   public static java.lang.String ID = "id";
   public static java.lang.String INSECTICIDE = "insecticide";
-  private static final long serialVersionUID = 1239517525488L;
+  private static final long serialVersionUID = 1239572467247L;
   
   public UndefinedKnockDownPropertyExceptionBase()
   {

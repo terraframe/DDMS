@@ -10,7 +10,7 @@ package dss.vector.solutions.geo;
 public  class GeoHierarchyQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239517519913L;
+private static final long serialVersionUID = 1239572462383L;
 
   public GeoHierarchyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -463,7 +463,7 @@ private static final long serialVersionUID = 1239517519913L;
  implements GeoHierarchyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239517520244L;
+private static final long serialVersionUID = 1239572462697L;
 
   public GeoHierarchyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
