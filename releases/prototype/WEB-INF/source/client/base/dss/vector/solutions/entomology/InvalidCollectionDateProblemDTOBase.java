@@ -54,7 +54,7 @@ public abstract class InvalidCollectionDateProblemDTOBase extends dss.vector.sol
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getCollectionDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("collectionDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(COLLECTIONDATE).getAttributeMdDTO();
   }
   
   public java.util.Date getCurrentDate()
@@ -91,7 +91,7 @@ public abstract class InvalidCollectionDateProblemDTOBase extends dss.vector.sol
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getCurrentDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("currentDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CURRENTDATE).getAttributeMdDTO();
   }
   
   /**

@@ -11,7 +11,7 @@ public abstract class FacilityBase extends dss.vector.solutions.geo.generated.Ge
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Facility";
   public static java.lang.String POINT = "point";
-  private static final long serialVersionUID = 1239075022435L;
+  private static final long serialVersionUID = 1239517546705L;
   
   public FacilityBase()
   {

@@ -46,6 +46,11 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     LarvaeDiscriminatingDoseAssayDTO dto = new LarvaeDiscriminatingDoseAssayDTO(clientRequest);
+    if(req.getParameter("collection_id") != null)
+    {
+      dto.setCollection(MosquitoCollectionDTO.get(clientRequest, req.getParameter("collection_id")));
+    }
+
     req.setAttribute("ageRange", LarvaeAgeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());

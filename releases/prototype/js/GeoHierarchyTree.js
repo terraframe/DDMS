@@ -9,21 +9,21 @@ MDSS.GeoHierarchyTree = (function(){
 
   // key/value is GeoEntity id/GeoHierarchy
   var _geoHierarchyCache = {};
+  
+  // key/value is geo hierarchy id/[node ids]
+  var _geoHierarchyIdToNodeIdMap = {};
 
   // The selected node in tree
   var _selectedNode = null;
   
   // The tree for GeoEntities
-  var _geoTree = null;
+  var _hierarchyTree = null;
   
   // The menu for CRUD operations
   var _menu = null;
   
   // reference to modal for node create/edit
   var _modal = null;
-  
-  // callback function for selecting a node in the tree
-  var _selectCallback = null;
   
   /**
    * Removes everything from the current Tree
@@ -38,8 +38,6 @@ MDSS.GeoHierarchyTree = (function(){
   	
   	_modal = null;
   	
-  	_selectCallback = null;
-  	
   	// this.cfg of the ContextMenu is null which throws an error.
   	// TODO find official fix for this
     try
@@ -51,8 +49,8 @@ MDSS.GeoHierarchyTree = (function(){
       _menu = null;
     }
   	
-  	_geoTree.destroy();
-  	_geoTree = null;
+  	_hierarchyTree.destroy();
+  	_hierarchyTree = null;
   }
   
   /**
@@ -67,13 +65,39 @@ MDSS.GeoHierarchyTree = (function(){
     // overwrite any existing entries
     _nodeToGeoHierarchyMap[nodeId] = geId;
     _geoHierarchyCache[geId] = geoEntity;
+    
+    // map the entity id to the node id
+    var nodeIds = _geoHierarchyIdToNodeIdMap[geId];
+    if(Mojo.util.isArray(nodeIds))
+    {
+      var match = false;
+      for(var i=0; i<nodeIds.length; i++)
+      {
+        if(nodeIds[i] === nodeId)
+        {
+          match = true;
+          break;
+        }
+      }
+      
+      if(!match)
+      {
+        nodeIds.push(nodeId);
+      }
+    }
+    else
+    {
+      nodeIds = [];
+      nodeIds.push(nodeId);
+      _geoHierarchyIdToNodeIdMap[geId] = nodeIds;
+    }
   }
   
   /**
    * Gets the GeoEntity that maps to the given
    * node.
    */
-  function _getGeoEntity(node)
+  function _getGeoHierarchyView(node)
   {
     var nodeId = node instanceof YAHOO.widget.HTMLNode ? node.contentElId : node;
     var geId = _nodeToGeoHierarchyMap[nodeId];
@@ -86,10 +110,25 @@ MDSS.GeoHierarchyTree = (function(){
   function _removeMapping(node)
   {
     var nodeId = node instanceof YAHOO.widget.HTMLNode ? node.contentElId : node;
-    var geId = _getGeoEntity(nodeId).getGeoHierarchyId();
+    var geId = _getGeoHierarchyView(nodeId).getGeoHierarchyId();
     
     delete _nodeToGeoHierarchyMap[nodeId];
-    delete _geoHierarchyCache[geId];
+    
+    var nodeIds = _geoHierarchyIdToNodeIdMap[geId];
+    for(var i=0; i<nodeIds.length; i++)
+    {
+      if(nodeIds[i] === nodeId)
+      {
+      	nodeIds.splice(i, 1);
+        break;
+      }
+    }
+    
+    if(nodeIds.length === 0)
+    {
+      // no more nodes pointing to the GeoEntity
+      delete _geoHierarchyCache[geId];
+    }
   }
   
   /**
@@ -102,20 +141,36 @@ MDSS.GeoHierarchyTree = (function(){
         
         var request = new MDSS.Request({
           onSuccess : function(geoHierarchyView){
+              
             // add the node directly if the children have already been dynamically loaded
             if(_selectedNode.dynamicLoadComplete)
             {
-              var node = new YAHOO.widget.HTMLNode(geoHierarchyView.getDisplayLabel(), _selectedNode);
-          
-              _selectedNode.expanded = false // force a re-expansions
-              _selectedNode.refresh();
-          
-              // must reset mapping with new id
-              _setMapping(node, geoHierarchyView);
+              // add the node to all parent nodes
+              var parentGeoHierarchy = _getGeoHierarchyView(_selectedNode);
+              var nodeIds = _geoHierarchyIdToNodeIdMap[parentGeoHierarchy.getGeoHierarchyId()];
+              for(var i=0; i<nodeIds.length; i++)
+              {
+                var parentEl = document.getElementById(nodeIds[i]);
+                var parent = _hierarchyTree.getNodeByElement(parentEl);
+                
+                // don't expand the node if the parent's children haven't been loaded (it's wasteful)
+                if(parent.dynamicLoadComplete)
+                {
+                  var node = new YAHOO.widget.HTMLNode(geoHierarchyView.getDisplayLabel(), parent);
+                  _setMapping(node, geoHierarchyView);
+    
+                  // only re-expand the selected node or the parent if its already expanded
+                  if(parent.getElId() === _selectedNode.getElId() || parent.expanded === true)
+                  {              
+                    parent.expanded = false; // force a re-expansions
+                    parent.refresh();
+                  }
+                }
+              }
             }
-
+    
             _selectedNode.expand();
-        
+            
             _modal.destroy();
           }
         });
@@ -139,8 +194,18 @@ MDSS.GeoHierarchyTree = (function(){
       	var request = new MDSS.Request({
       	  onSuccess : function(geoHierarchy)
       	  {
+            // update selected node and all copies
+            //_selectedNode.setHtml(div);
+            var nodeIds = _geoHierarchyIdToNodeIdMap[geoHierarchy.getGeoHierarchyId()];
+            for(var i=0; i<nodeIds.length; i++)
+            {
+              var id = nodeIds[i];
+              var el = document.getElementById(id);
+              el.innerHTML = geoHierarchy.getDisplayLabel();
+            }
+            
+            // update mapping FIXME (needed?)
             _setMapping(_selectedNode, geoHierarchy);
-            _selectedNode.setHtml(geoHierarchy.getDisplayLabel());
             
             _modal.destroy();
       	  }
@@ -160,7 +225,7 @@ MDSS.GeoHierarchyTree = (function(){
   {
     _modal = new YAHOO.widget.Panel("select",  
       { width:"400px", 
-        height: "400px",
+        height: "450px",
         fixedcenter:true, 
         close: arguments.length > 1 ? closeWin : true, 
         draggable:false, 
@@ -179,18 +244,25 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _addNodeHandler()
   {
+    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
+
     var request = new MDSS.Request({
+      parentLabel:geoHierarchyView.getDisplayLabel(),
       onSuccess : function(html){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
         
-        _createModal(html);
+        var header = MDSS.Localized.New_Universal_Located_In;
+        header = header.replace(/\[parent\]/, this.parentLabel);
+        
+        var labelEl = "<h3>"+header+"</h3><hr />";
+        html = labelEl + html;      
+       _createModal(html);
         
         eval(executable);
       }
     });
     
-    var geoHierarchyView = _getGeoEntity(_selectedNode);
 
     var controller = Mojo.$.dss.vector.solutions.geo.GeoEntityTypeController;
     controller.setCreateDefinitionListener(_createNode);
@@ -215,25 +287,172 @@ MDSS.GeoHierarchyTree = (function(){
   }
   
   /**
+   * Performs the DOM level cleanup after a hierarchy
+   * has been deleted. The deleteAll
+   * param denotes if the deleted entity should
+   * be removed from all parent nodes (as opposed
+   * to the current parent).
+   */
+  function _postDeleteCleanup(deleteAll)
+  {
+  	if(deleteAll)
+  	{
+  	   var geoEntityView = _getGeoEntityView(_selectedNode);
+  	   var nodeIds = _geoHierarchyIdToNodeIdMap[geoEntityView.getGeoEntityId()];
+  	   for(var i=nodeIds.length-1; i>=0; i--)
+  	   {
+  	     var nodeId = nodeIds[i];
+  	     var nodeEl = document.getElementById(nodeId);
+         var node = _hierarchyTree.getNodeByElement(nodeEl);
+         
+         _removeMapping(node);
+
+         var parent = node.parent;
+         _hierarchyTree.removeNode(node);
+         
+         parent.refresh();
+  	   }
+  	}
+  	else
+  	{
+      _removeMapping(_selectedNode);
+
+      var parent = _selectedNode.parent;
+      _hierarchyTree.removeNode(_selectedNode);
+      parent.refresh();
+  	}
+  }
+  
+  /**
+   * Callback for when a user has chosen to delete a GeoHierarchy
+   * and had to confirm whether to delete the object itself or
+   * its relationship with the current parent.
+   */
+  function _deleteAfterConfirmation(e, obj)
+  {
+  	var geoHierarchyView = obj.childHierarchy;
+  	
+  	var request = new MDSS.Request({
+  	  // deleting the GeoEntity means all parent nodes containing
+  	  // the child must delete the child node.
+  	  deleteAll: obj.deleteHierarchy,
+  	  modal:obj.modal,
+  	  onSuccess: function()
+  	  {
+  	  	this.modal.destroy();
+  	  	
+  	  	_postDeleteCleanup(this.deleteAll);
+  	  }
+  	});
+  	
+  	var geoHierarchyId = geoHierarchyView.getGeoHierarchyId();
+  	if(obj.deleteHierarchy)
+  	{
+  	  Mojo.$.dss.vector.solutions.geo.GeoHierarchy.deleteGeoHierarchy(request, geoHierarchyId); 
+  	}
+  	else
+  	{
+  	  Mojo.$.dss.vector.solutions.geo.GeoHierarchy.deleteRelationship(request, geoHierarchyId, obj.parentId);
+  	}
+  }
+  
+  /**
+   * Performs the delete operation.
+   */
+  function _performDelete(destroyModal, geoHierarchyView)
+  {
+    // get its immediate parent
+    var parent = _selectedNode.parent;
+    var parentGeoHierarchyView = _getGeoHierarchyView(parent);
+
+    var request = new MDSS.Request({
+      destroyModal:destroyModal,
+      childHierarchy : geoHierarchyView,
+      parentId : parentGeoHierarchyView.getGeoHierarchyId(),
+      onSuccess: function(){
+        
+        if(this.destroyModal)
+        {
+          _modal.destroy();
+        }
+        
+        _postDeleteCleanup();
+      },
+      onConfirmDeleteHierarchyException: function(e){
+      	
+  	  	var modal = new YAHOO.widget.Panel("confirmDelete", {
+  	  	  fixedcenter: true,
+  	  	  width: '300px',
+  	  	  visible: true,
+  	  	  draggable: false,
+  	  	  zindex: 8000,
+  	  	  modal:true
+  	  	});
+  	  	
+  	  	var upperDiv = document.createElement('div');
+  	  	YAHOO.util.Dom.addClass(upperDiv, 'modalAlertBox');
+  	  	
+  	  	var message = document.createElement('span');
+  	  	message.innerHTML = e.getLocalizedMessage();
+  	  	upperDiv.appendChild(message);
+  	  	
+  	  	// yes/no buttons
+  	  	var lowerDiv = document.createElement('div');
+  	  	YAHOO.util.Dom.addClass(lowerDiv, 'modalAlertBox');
+
+        var delEntityObj = {
+          deleteHierarchy:true,
+          childHierarchy:this.childHierarchy,
+          parentId:this.parentId,
+          modal:modal
+        }
+  	  	var delEntity = document.createElement('input');
+  	  	YAHOO.util.Dom.setAttribute(delEntity, 'type', 'button');
+  	  	YAHOO.util.Dom.setAttribute(delEntity, 'value', MDSS.Localized.Delete.Universal);
+  	  	YAHOO.util.Event.on(delEntity, 'click', _deleteAfterConfirmation, delEntityObj);
+        lowerDiv.appendChild(delEntity);
+
+        var delRelObj = {
+          deleteHierarchy:false,
+          childHierarchy:this.childHierarchy,
+          parentId:this.parentId,
+          modal:modal
+        }
+  	  	var delRel = document.createElement('input');
+  	  	YAHOO.util.Dom.setAttribute(delRel, 'type', 'button');
+  	  	YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.Localized.Delete.Relationship);
+  	  	YAHOO.util.Event.on(delRel, 'click', _deleteAfterConfirmation, delRelObj);
+  	  	lowerDiv.appendChild(delRel);
+  	  	
+  	  	var wrapperDiv = document.createElement('div');
+  	  	wrapperDiv.appendChild(upperDiv);
+  	  	wrapperDiv.appendChild(lowerDiv);
+  	  	
+  	  	modal.bringToTop();
+  	  	modal.setBody(wrapperDiv);
+        modal.render(document.body);
+      }
+    });
+
+    var geoHierarchyId = geoHierarchyView.getGeoHierarchyId();
+    if(parent == null)
+    {
+      Mojo.$.dss.vector.solutions.geo.GeoHierarchy.deleteGeoHierarchy(request, geoHierarchyId);
+    }
+    else
+    {
+      var parentGeoHierarchyId = parentGeoHierarchyView.getGeoHierarchyId();
+      Mojo.$.dss.vector.solutions.geo.GeoHierarchy.confirmDeleteHierarchy(request, geoHierarchyId, parentGeoHierarchyId);
+    } 
+  }
+  
+  /**
    * Deletes the current node from the tree.
    */
   function _deleteNode()
   {
-    var request = new MDSS.Request({
-      onSuccess: function(){
-        
-        _modal.destroy();
-        
-        _removeMapping(_selectedNode);
-
-        var parent = _selectedNode.parent;
-        _geoTree.removeNode(_selectedNode);
-        parent.refresh();
-      }
-    });
-
-    var geoHierarchyView = _getGeoEntity(_selectedNode);
-    Mojo.$.dss.vector.solutions.geo.GeoHierarchy.deleteGeoHierarchy(request, geoHierarchyView.getGeoHierarchyId());
+    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
+    _performDelete(true, geoHierarchyView);
   }
   
   /**
@@ -241,18 +460,22 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _editNodeHandler()
   {
+    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
+
     var request = new MDSS.Request({
+      displayLabel: geoHierarchyView.getDisplayLabel(),
       onSuccess: function(html){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
         
+        var labelEl = "<h3>"+this.displayLabel+"</h3><hr />";
+        html = labelEl + html;         
         _createModal(html, false);
         
         eval(executable);
       }
     });
     
-    var geoHierarchyView = _getGeoEntity(_selectedNode);
 
     var controller = Mojo.$.dss.vector.solutions.geo.GeoEntityTypeController;
     controller.setUpdateDefinitionListener(_updateNode);
@@ -265,30 +488,8 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _deleteNodeHandler()
   {
-    var request = new MDSS.Request({
-      onSuccess : function(){
-        
-        _removeMapping(_selectedNode);
-
-        var parent = _selectedNode.parent;
-        _geoTree.removeNode(_selectedNode);
-        parent.refresh();
-      }
-    });
-    
-    var geoHierarchyView = _getGeoEntity(_selectedNode);
-    Mojo.$.dss.vector.solutions.geo.GeoHierarchy.deleteGeoHierarchy(request, geoHierarchyView.getGeoHierarchyId());
-  }
-  
-  /**
-   * Invokes _selectedCallback with the id of the GeoEntity
-   * represented by the currently selected node.
-   */
-  function _customSelectHandler()
-  {
-    var geoEntity = _getGeoEntity(_selectedNode);
-    
-    _selectCallback(geoEntity, _selectedNode);
+    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
+    _performDelete(false, geoHierarchyView);
   }
   
   /**
@@ -301,7 +502,7 @@ MDSS.GeoHierarchyTree = (function(){
 
     var htmlNode = YAHOO.util.Dom.hasClass(oTarget, "ygtvhtml") ? oTarget : YAHOO.util.Dom.getAncestorByClassName(oTarget, "ygtvhtml");
     if (htmlNode) {
-      _selectedNode = _geoTree.getNodeByElement(htmlNode);
+      _selectedNode = _hierarchyTree.getNodeByElement(htmlNode);
     }
     else {
       this.cancel();
@@ -333,8 +534,83 @@ MDSS.GeoHierarchyTree = (function(){
       }
     });
 
-    var geoHierarchyView = _getGeoEntity(parentNode); // DIFF Call
+    var geoHierarchyView = _getGeoHierarchyView(parentNode); // DIFF Call
     Mojo.$.dss.vector.solutions.geo.GeoHierarchy.getOrderedChildren(request, geoHierarchyView.getGeoHierarchyId());
+  }
+  
+  function _addChildToParent(e, obj)
+  {
+    var clone = obj.clone;
+
+    var ddThis = this;
+    var request = new MDSS.Request({
+      onSuccess : function(){
+        
+        var ddThis = obj.references.ddThis;
+        var parentId = obj.references.parentId;
+        
+        // remove drag-hint class
+        ddThis.getElDom(parentId).className = ddThis.getElDom(parentId).classNameBeforeDrag;
+    
+        var destNode = YAHOO.util.DDM.getDDById(parentId).node;
+        
+        var childNode = null;
+        if(obj.clone)
+        {
+          // clone the node (do not clone its children)
+          var div = ddThis.node.getContentEl().innerHTML;
+          childNode = new YAHOO.widget.HTMLNode(div);
+        }
+        else
+        {
+          // not cloning, so remove the old node
+          thisParent = ddThis.node.parent;
+          ddThis.node.tree.popNode(ddThis.node);
+    
+          // fixes bug where a parent with 1 item is still marked
+          // expanded, so when a new node is dragged to it, it doesn't
+          // draw the new node (thinks it's already expanded)
+          if (thisParent.children.length == 0) {
+            thisParent.expanded = false;
+          }
+    
+          // make removal changes visible
+          thisParent.refresh();
+          
+          childNode = ddThis.node;
+        }
+  
+        // Only add the node if the children have loaded via Ajax.
+        // Otherwise, the node will appear twice (i.e., once from
+        // the drag and drop and once from the Ajax load).
+        if(destNode.dynamicLoadComplete)
+        {
+          childNode.appendTo(destNode);
+          destNode.refresh();  
+        }
+
+        destNode.expanded = false; // force re-expansion
+        destNode.expand();
+        
+        if(obj.clone)
+        {
+          // copy the mapping from the old node to the new one
+          var geoHierarchyView = _getGeoHierarchyView(ddThis.node);
+          _setMapping(childNode, geoHierarchyView);
+        }
+      }
+    });
+    
+    
+    var childGeoHierarchyView = _getGeoHierarchyView(obj.references.childId);
+    var parentGeoHierarchyView = _getGeoHierarchyView(obj.references.parentId);
+    
+    var childId = childGeoHierarchyView.getGeoHierarchyId();
+    var parentId = parentGeoHierarchyView.getGeoHierarchyId();
+    
+    Mojo.$.dss.vector.solutions.geo.GeoHierarchy.applyExistingWithParent(request, childId, parentId, obj.clone);
+
+    obj.references.modal.destroy();    
   }
   
   /**
@@ -343,81 +619,90 @@ MDSS.GeoHierarchyTree = (function(){
    */
   function _dragDropHandler(id)
   {
-      /* JN change: create new relationship between parent and child */
-      var ddThis = this;
-      var request = new MDSS.Request({
-        ddThis : ddThis,
-        onSuccess : function(){
-          
-          // remove drag-hint class
-          this.ddThis.getElDom(id).className = this.ddThis.getElDom(id).classNameBeforeDrag;
-      
-          var destNode = YAHOO.util.DDM.getDDById(id).node;
-          
-          // remove
-          thisParent = this.ddThis.node.parent;
-          this.ddThis.node.tree.popNode(this.ddThis.node);
-      
-          // fixes bug where a parent with 1 item is still marked
-          // expanded, so when a new node is dragged to it, it doesn't
-          // draw the new node (thinks it's already expanded)
-          if (thisParent.children.length == 0) {
-            thisParent.expanded = false;
-          }
-      
-          // make removal changes visible
-          thisParent.refresh();
-          
-          // Only add the node if the children have loaded via Ajax.
-          // Otherwise, the node will appear twice (i.e., once from
-          // the drag and drop and once from the Ajax load).
-          if(destNode.dynamicLoadComplete)
-          {
-            this.ddThis.node.appendTo(destNode);
-            destNode.refresh();  
-          }
+  	// create popup asking if this is for a copy operation
+  	var request = new MDSS.Request({
+  	  references: {childId:this.id, parentId:id, ddThis:this},
+  	  onConfirmHierarchyParentChangeException : function(e)
+  	  {
+  	  	var modal = new YAHOO.widget.Panel("confirmParentChange", {
+  	  	  fixedcenter: true,
+  	  	  width: '300px',
+  	  	  visible: true,
+  	  	  draggable: false,
+  	  	  zindex: 8000,
+  	  	  modal:true
+  	  	});
+  	  	
+  	  	var upperDiv = document.createElement('div');
+  	  	YAHOO.util.Dom.addClass(upperDiv, 'modalAlertBox');
+  	  	
+  	  	var message = document.createElement('span');
+  	  	message.innerHTML = e.getLocalizedMessage();
+  	  	upperDiv.appendChild(message);
+  	  	
+  	  	// yes/no buttons
+  	  	var lowerDiv = document.createElement('div');
+  	  	YAHOO.util.Dom.addClass(lowerDiv, 'modalAlertBox');
 
-          destNode.expanded = false; // force re-expansion
-          destNode.expand();
-        }
-      });
-      
-      var childGeoEntity = MDSS.GeoHierarchyTree.getGeoEntity(this.id);
-      var parentGeoEntity = MDSS.GeoHierarchyTree.getGeoEntity(id);
-      Mojo.$.dss.vector.solutions.geo.GeoHierarchy.applyExistingWithParent(request, childGeoEntity.getGeoHierarchyId(), parentGeoEntity.getGeoHierarchyId(), false); // DIFF Call
+        this.references.modal = modal;
+
+  	  	var yes = document.createElement('input');
+  	  	YAHOO.util.Dom.setAttribute(yes, 'type', 'button');
+  	  	YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.Localized.Choice.Yes);
+  	  	YAHOO.util.Event.on(yes, 'click', _addChildToParent, {clone:false, references:this.references}); // this == tree
+        lowerDiv.appendChild(yes);
+
+  	  	var no = document.createElement('input');
+  	  	YAHOO.util.Dom.setAttribute(no, 'type', 'button');
+  	  	YAHOO.util.Dom.setAttribute(no, 'value', MDSS.Localized.Choice.No);
+  	  	YAHOO.util.Event.on(no, 'click', _addChildToParent, {clone:true, references:this.references}); // this == tree
+  	  	lowerDiv.appendChild(no);
+  	  	
+  	  	var wrapperDiv = document.createElement('div');
+  	  	wrapperDiv.appendChild(upperDiv);
+  	  	wrapperDiv.appendChild(lowerDiv);
+  	  	
+  	  	modal.bringToTop();
+  	  	modal.setBody(wrapperDiv);
+        modal.render(document.body);
+  	  }
+  	});
+  	
+  	
+    var childGeoHierarchyView = _getGeoHierarchyView(this.id);
+    
+    var childEl = document.getElementById(this.id);
+    var childNode = _hierarchyTree.getNodeByElement(childEl);
+    var parentGeoHierarchyView = _getGeoHierarchyView(childNode.parent);
+    
+    var childId = childGeoHierarchyView.getGeoHierarchyId();
+    var parentId = parentGeoHierarchyView.getGeoHierarchyId();
+    
+    Mojo.$.dss.vector.solutions.geo.GeoHierarchy.confirmChangeParent(request, childId, parentId); 
   }
   
   /**
    * Renders the actual tree with the given root GeoEntity
    */
-  function _renderTree(treeId, geoHierarchyView, selectCallback)
+  function _renderTree(treeId, geoHierarchyView)
   {
     var node = {type:"HTML", html:geoHierarchyView.getDisplayLabel()};
 
-    _geoTree = new YAHOO.widget.TreeViewDD(treeId, [node], _dragDropHandler);
-    _geoTree.setDynamicLoad(_dynamicLoad);
-    _geoTree.render();
+    _hierarchyTree = new YAHOO.widget.TreeViewDD(treeId, [node], _dragDropHandler);
+    _hierarchyTree.setDynamicLoad(_dynamicLoad);
+    _hierarchyTree.render();
 
     var itemData = [];
 
-    // the select callback is optional
-    if(Mojo.util.isFunction(selectCallback))
-    {
-      _selectCallback = selectCallback;
-      var selectMenuItem = new YAHOO.widget.ContextMenuItem("Select");
-      selectMenuItem.subscribe("click", _customSelectHandler);
-      itemData.push(selectMenuItem);
-    }
-
-    var createMenuItem = new YAHOO.widget.ContextMenuItem("Create");
+    var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Create);
     createMenuItem.subscribe("click", _addNodeHandler);
     itemData.push(createMenuItem);
     
-    var editMenuItem = new YAHOO.widget.ContextMenuItem("Edit");
+    var editMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Edit);
     editMenuItem.subscribe("click", _editNodeHandler);
     itemData.push(editMenuItem);
     
-    var deleteMenuItem = new YAHOO.widget.ContextMenuItem("Delete");
+    var deleteMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Delete);
     deleteMenuItem.subscribe("click", _deleteNodeHandler);
     itemData.push(deleteMenuItem);
 
@@ -430,18 +715,18 @@ MDSS.GeoHierarchyTree = (function(){
     _menu.subscribe("triggerContextMenu", _nodeMenuSelect);
     
     // map node to GeoEntity
-    _setMapping(_geoTree.getRoot().children[0], geoHierarchyView);
+    _setMapping(_hierarchyTree.getRoot().children[0], geoHierarchyView);
   }
   
   /**
    * Initializes the tree by setting the GeoEntity with the
    * given id as first node under the root.
    */
-  function _initializeTree(treeId, selectCallback) {
+  function _initializeTree(treeId) {
     var request = new MDSS.Request({
       onSuccess : function(geoHierarchyView){
         // build tree
-        _renderTree(treeId, geoHierarchyView, selectCallback);
+        _renderTree(treeId, geoHierarchyView);
       }
     });
     
@@ -452,7 +737,7 @@ MDSS.GeoHierarchyTree = (function(){
   // return all public methods/properties
   return {
     initializeTree : _initializeTree,
-    getGeoEntity : _getGeoEntity,
+    getGeoEntity : _getGeoHierarchyView,
     destroyAll : _destroyAll
   };
 })();

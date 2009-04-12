@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {collectionDate} Collection Date
     - {currentDate} Current Date
     -->
-  <locale language="en">Replace this with your customized error message.</locale>
+  <locale language="en">The collection date [{collectionDate}] is not allowed to be after the current date [{currentDate}]</locale>
 </exception>

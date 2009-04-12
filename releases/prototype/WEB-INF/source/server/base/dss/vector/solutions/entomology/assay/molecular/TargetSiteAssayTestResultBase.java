@@ -11,7 +11,7 @@ public abstract class TargetSiteAssayTestResultBase extends dss.vector.solutions
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1239075040416L;
+  private static final long serialVersionUID = 1239517580606L;
   
   public TargetSiteAssayTestResultBase()
   {

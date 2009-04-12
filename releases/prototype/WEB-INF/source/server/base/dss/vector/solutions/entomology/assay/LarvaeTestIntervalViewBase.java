@@ -16,7 +16,7 @@ public abstract class LarvaeTestIntervalViewBase extends com.terraframe.mojo.bus
   public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String PERIOD = "period";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
-  private static final long serialVersionUID = 1239074993689L;
+  private static final long serialVersionUID = 1239517499392L;
   
   public LarvaeTestIntervalViewBase()
   {
@@ -206,7 +206,7 @@ public abstract class LarvaeTestIntervalViewBase extends com.terraframe.mojo.bus
   {
     if (this.isNew())
     {
-      return "New: Test Interval View";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

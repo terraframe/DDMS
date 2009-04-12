@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class AdminPostDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075001937L;
+  private static final long serialVersionUID = 1239517512976L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.AdminPost";
   protected AdminPostDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class AdminPostDTOBase extends dss.vector.solutions.geo.generate
   
   public final com.terraframe.mojo.gis.transport.metadata.AttributeMultiPolygonMdDTO getMultiPolygonMd()
   {
-    return (com.terraframe.mojo.gis.transport.metadata.AttributeMultiPolygonMdDTO) getAttributeDTO("multiPolygon").getAttributeMdDTO();
+    return (com.terraframe.mojo.gis.transport.metadata.AttributeMultiPolygonMdDTO) getAttributeDTO(MULTIPOLYGON).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.geo.generated.AdminPostDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

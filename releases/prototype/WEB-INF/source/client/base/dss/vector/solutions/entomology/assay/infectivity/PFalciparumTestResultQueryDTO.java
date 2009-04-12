@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.infectivity;
 public class PFalciparumTestResultQueryDTO extends dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075005033L;
+private static final long serialVersionUID = 1239517519175L;
 
   protected PFalciparumTestResultQueryDTO(String type)
   {

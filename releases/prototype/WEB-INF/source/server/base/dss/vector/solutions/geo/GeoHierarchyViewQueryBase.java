@@ -10,7 +10,7 @@ package dss.vector.solutions.geo;
 public  abstract  class GeoHierarchyViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075002368L;
+private static final long serialVersionUID = 1239517514936L;
 
   public GeoHierarchyViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -73,6 +73,18 @@ private static final long serialVersionUID = 1239075002368L;
 
   }
  
+  public com.terraframe.mojo.query.AttributeCharIF getIsADisplayLabel()
+  {
+    return getIsADisplayLabel(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeCharIF getIsADisplayLabel(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(dss.vector.solutions.geo.GeoHierarchyView.ISADISPLAYLABEL, alias);
+
+  }
+ 
   public com.terraframe.mojo.query.AttributeBooleanIF getPolitical()
   {
     return getPolitical(null);
@@ -94,6 +106,18 @@ private static final long serialVersionUID = 1239075002368L;
   public com.terraframe.mojo.query.AttributeCharIF getReferenceId(String alias)
   {
     return (com.terraframe.mojo.query.AttributeCharIF)this.getSelectable(dss.vector.solutions.geo.GeoHierarchyView.REFERENCEID, alias);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getSprayTargetAllowed()
+  {
+    return getSprayTargetAllowed(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getSprayTargetAllowed(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBooleanIF)this.getSelectable(dss.vector.solutions.geo.GeoHierarchyView.SPRAYTARGETALLOWED, alias);
 
   }
  

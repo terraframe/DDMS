@@ -84,7 +84,7 @@ public abstract class ModifyHierarchyWithInstancesExceptionDTOBase extends com.t
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("displayLabel").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   /**

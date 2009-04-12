@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.molecular;
 public  class WKDRTestResultQuery extends dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075003000L;
+private static final long serialVersionUID = 1239517515148L;
 
   public WKDRTestResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -103,7 +103,7 @@ private static final long serialVersionUID = 1239075003000L;
  implements WKDRTestResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239075003176L;
+private static final long serialVersionUID = 1239517515437L;
 
   public WKDRTestResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

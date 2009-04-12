@@ -84,7 +84,7 @@ public abstract class InvalidMosquitoCollectionPointGeoEntityExceptionDTOBase ex
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("geoId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
   }
   
   /**

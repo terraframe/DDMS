@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.infectivity;
 
 public abstract class InfectivityAssayTestResultDTOBase extends dss.vector.solutions.entomology.assay.AssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075032829L;
+  private static final long serialVersionUID = 1239517568765L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult";
   protected InfectivityAssayTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class InfectivityAssayTestResultDTOBase extends dss.vector.solut
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("testMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultDTO getInfectivityAssays(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

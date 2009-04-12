@@ -11,7 +11,7 @@ public abstract class CountryBase extends dss.vector.solutions.geo.generated.Geo
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Country";
   public static java.lang.String POLYGON = "polygon";
-  private static final long serialVersionUID = 1239075012248L;
+  private static final long serialVersionUID = 1239517528696L;
   
   public CountryBase()
   {

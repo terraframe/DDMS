@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
 public  class KnockDownTimePropertyQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239074997021L;
+private static final long serialVersionUID = 1239517504122L;
 
   public KnockDownTimePropertyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -347,7 +347,7 @@ private static final long serialVersionUID = 1239074997021L;
  implements KnockDownTimePropertyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239074997216L;
+private static final long serialVersionUID = 1239517504438L;
 
   public KnockDownTimePropertyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

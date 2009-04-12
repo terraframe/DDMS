@@ -44,11 +44,31 @@
       </dd>
       <dt>
         <label>
+          ${definition.parentTypeGeoHierarchyIdMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:select var="current" valueAttribute="geoHierarchyId" param="parentTypeGeoHierarchyId" items="${availableParents}">
+          <mjl:option>
+            ${current.displayLabel}
+          </mjl:option>
+        </mjl:select>
+      </dd>
+      <dt>
+        <label>
           ${definition.politicalMd.displayLabel}
         </label>
       </dt>
       <dd>
         <mjl:boolean param="political" />
+      </dd>
+      <dt>
+        <label>
+          ${definition.sprayTargetAllowedMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:boolean param="sprayTargetAllowed" />
       </dd>
       <dt>
         <label>

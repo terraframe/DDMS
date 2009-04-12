@@ -58,7 +58,7 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAttributeDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("attributeDisplayLabel").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTEDISPLAYLABEL).getAttributeMdDTO();
   }
   
   public String getAttributeName()
@@ -95,7 +95,7 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getAttributeNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("attributeName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTENAME).getAttributeMdDTO();
   }
   
   public String getComponentId()
@@ -132,7 +132,7 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getComponentIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("componentId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COMPONENTID).getAttributeMdDTO();
   }
   
   public String getDefiningType()
@@ -169,7 +169,7 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDefiningTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("definingType").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DEFININGTYPE).getAttributeMdDTO();
   }
   
   public String getDefiningTypeDisplayLabel()
@@ -206,7 +206,7 @@ public abstract class NotificationProblemDTOBase extends com.terraframe.mojo.bus
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDefiningTypeDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("definingTypeDisplayLabel").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DEFININGTYPEDISPLAYLABEL).getAttributeMdDTO();
   }
   
   /**

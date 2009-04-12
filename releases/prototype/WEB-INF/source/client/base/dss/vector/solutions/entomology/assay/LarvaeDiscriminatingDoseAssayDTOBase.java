@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.solutions.entomology.assay.LarvaeAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075014080L;
+  private static final long serialVersionUID = 1239517532398L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay";
   protected LarvaeDiscriminatingDoseAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -65,7 +65,7 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
   
   public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getControlTestMortalityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO("controlTestMortality").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONTROLTESTMORTALITY).getAttributeMdDTO();
   }
   
   public Integer getHoldingTime()
@@ -102,7 +102,7 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("holdingTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOLDINGTIME).getAttributeMdDTO();
   }
   
   public Float getMortality()
@@ -139,7 +139,7 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
   
   public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getMortalityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO("mortality").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(MORTALITY).getAttributeMdDTO();
   }
   
   public Integer getQuantityDead()
@@ -176,7 +176,7 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityDead").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYDEAD).getAttributeMdDTO();
   }
   
   public Integer getQuantityLive()
@@ -213,7 +213,7 @@ public abstract class LarvaeDiscriminatingDoseAssayDTOBase extends dss.vector.so
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityLive").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYLIVE).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

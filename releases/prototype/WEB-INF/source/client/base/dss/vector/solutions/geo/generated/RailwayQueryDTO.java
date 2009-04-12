@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public class RailwayQueryDTO extends dss.vector.solutions.geo.generated.GeoEntityQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075039849L;
+private static final long serialVersionUID = 1239517579850L;
 
   protected RailwayQueryDTO(String type)
   {

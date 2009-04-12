@@ -35,7 +35,7 @@ public abstract class Facade extends FacadeBase implements com.terraframe.mojo.g
     Condition or = OR.get(classQuery.getType().EQ(MdBusinessInfo.CLASS), classQuery.getType().EQ(MdViewInfo.CLASS));
     classQuery.WHERE(or);
     classQuery.WHERE(classQuery.NOT_IN(classQuery.getId(), valueQuery));
-    classQuery.ORDER_BY_ASC(classQuery.getDisplayLabel());
+    classQuery.ORDER_BY_ASC(classQuery.getDisplayLabel().currentLocale());
     
     return classQuery;
   }

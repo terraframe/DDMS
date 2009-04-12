@@ -10,7 +10,7 @@ package dss.vector.solutions.geo;
 public class GeoEntityViewQueryDTO extends com.terraframe.mojo.business.ViewQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075027616L;
+private static final long serialVersionUID = 1239517558548L;
 
   protected GeoEntityViewQueryDTO(String type)
   {

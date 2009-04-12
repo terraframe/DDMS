@@ -12,7 +12,7 @@ public abstract class InvalidDeadQuantityProblemBase extends dss.vector.solution
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidDeadQuantityProblem";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
-  private static final long serialVersionUID = 1239075010382L;
+  private static final long serialVersionUID = 1239517525543L;
   
   public InvalidDeadQuantityProblemBase()
   {
@@ -118,7 +118,7 @@ public abstract class InvalidDeadQuantityProblemBase extends dss.vector.solution
   {
     if (this.isNew())
     {
-      return "New: Invalid Dead Quantity";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

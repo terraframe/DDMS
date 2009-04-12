@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class GenerationBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.Generation";
-  private static final long serialVersionUID = 1239075024351L;
+  private static final long serialVersionUID = 1239517550308L;
   
   public GenerationBase()
   {

@@ -196,7 +196,7 @@ MDSS.GeoEntityTree = (function(){
     var geConstructor = Mojo.util.getType(type);
     var geoEntity = new geConstructor();
 
-   _setGeoEntityAttributes(params, geoEntity);
+    _setGeoEntityAttributes(params, geoEntity);
 
     var request = new MDSS.Request({
       onSuccess : function(ids, geoEntity){
@@ -268,7 +268,6 @@ MDSS.GeoEntityTree = (function(){
       	div = div.replace(/(<div class=["']\w*["']>).*?(<\/div>)/, '$1'+span+'$2');
       	
       	// update selected node and all copies
-        //_selectedNode.setHtml(div);
         var nodeIds = _geoEntityIdToNodeIdMap[geoEntity.getId()];
         for(var i=0; i<nodeIds.length; i++)
         {
@@ -277,7 +276,7 @@ MDSS.GeoEntityTree = (function(){
           el.innerHTML = div;
         }
         
-        // update mapping
+        // update mapping FIXME (needed?)
         var view = _copyEntityToView(geoEntity);
         _setMapping(_selectedNode, view);
         
@@ -321,10 +320,20 @@ MDSS.GeoEntityTree = (function(){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
 
-        var labelEl = "<h3>"+this.label+"</h3><hr />";
-        html = labelEl + html;      
-        _modal.setBody(html);
-        
+        // wrap content in divs
+        var outer = document.createElement('div');
+    
+        var header = document.createElement('div');
+        header.innerHTML = '<h3>'+this.label+'</h3><hr />';
+        outer.appendChild(header);
+    
+        var contentDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+        contentDiv.innerHTML = html;
+        outer.appendChild(contentDiv);
+
+        _modal.setBody(outer);
+
         eval(executable);
       }
     });
@@ -337,13 +346,13 @@ MDSS.GeoEntityTree = (function(){
   /**
    * Creates a modal to contain GeoEntity create/edit operations.
    */
-  function _createModal(html)
+  function _createModal(html, closeWin)
   {
     _modal = new YAHOO.widget.Panel("select",  
       { width:"400px", 
         height: "400px",
         fixedcenter:true, 
-        close:true, 
+        close: arguments.length > 1 ? closeWin : true,
         draggable:false, 
         zindex:4,
         modal:true,
@@ -368,40 +377,53 @@ MDSS.GeoEntityTree = (function(){
     var geoEntityView = _getGeoEntityView(_selectedNode);
     var type = geoEntityView.getEntityType();
     
-    var allowedMap = {};
-    function collectSubtypes(map, parent)
+    var allowedTypes = [];
+    function collectSubtypes(types, parent)
     {
-      var selectable = MDSS.GeoTreeSelectables.types[parent];
-      for(var i=0; i<selectable.length; i++)
+      var allowedChildren = MDSS.GeoTreeSelectables.types[parent].children;
+      for(var i=0; i<allowedChildren.length; i++)
       {
-      	var entry = selectable[i];
-      	map[entry.type] = entry;
+      	var childType = allowedChildren[i];
+      	types.push(childType);
       	
-      	collectSubtypes(map, entry.type);
+      	collectSubtypes(types, childType);
       }
     }
     
-    collectSubtypes(allowedMap, type);
+    collectSubtypes(allowedTypes, type);
     
-    var allowedTypes = Mojo.util.getValues(allowedMap);
     for(var i=0; i<allowedTypes.length; i++)
     {
-      var entry = allowedTypes[i];
+      var allowedType = allowedTypes[i];
     	
       var liRaw = document.createElement('li');
       var li = new YAHOO.util.Element(liRaw);
       
+      var displayLabel = MDSS.GeoTreeSelectables.types[allowedType].label;
+      
       li.on('click', _createTypeSelected, {
-        type : entry.type,
-        label : entry.label
+        type : allowedType,
+        label : displayLabel
       });
       
-      liRaw.innerHTML = entry.label;
+      liRaw.innerHTML = displayLabel;
       
       ul.appendChild(liRaw);
     }
     
-    _createModal(ulRaw);
+    // wrap content in divs
+    var outer = document.createElement('div');
+    
+    var header = document.createElement('div');
+    header.innerHTML = '<h3>'+MDSS.Localized.Select_Universal_Type+'</h3><hr />';
+    outer.appendChild(header);
+    
+    var listDiv = document.createElement('div');
+    YAHOO.util.Dom.addClass(listDiv, 'innerContentModal');
+    listDiv.appendChild(ulRaw);
+    outer.appendChild(listDiv);
+    
+    _createModal(outer);
   }
   
   /**
@@ -490,7 +512,7 @@ MDSS.GeoEntityTree = (function(){
   
   /**
    * Performs a delete request, and handles the
-   * case where a child has multiple are
+   * case where a child has multiple parents.
    */
   function _performDelete(destroyModal, geoEntity)
   {
@@ -600,20 +622,34 @@ MDSS.GeoEntityTree = (function(){
    */
   function _editNodeHandler()
   {
+    var geoEntityView = _getGeoEntityView(_selectedNode);
+    var typeToEdit = geoEntityView.getEntityType();
+
     var request = new MDSS.Request({
+      typeToEdit: typeToEdit,
       onSuccess: function(html){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
-        
-        _createModal(html);
+
+        // wrap content in divs
+        var outer = document.createElement('div');
+    
+        var header = document.createElement('div');
+        header.innerHTML = '<h3>'+MDSS.GeoTreeSelectables.types[this.typeToEdit].label+'</h3><hr />';
+        outer.appendChild(header);
+    
+        var contentDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+        contentDiv.innerHTML = html;
+        outer.appendChild(contentDiv);
+
+        _createModal(outer, false);
         
         eval(executable);
       }
     });
-    
-    var geoEntityView = _getGeoEntityView(_selectedNode);
 
-    var controller = Mojo.util.getType(geoEntityView.getEntityType()+"Controller");
+    var controller = Mojo.util.getType(typeToEdit+"Controller");
     controller.setDeleteListener(_deleteNode);
     controller.setUpdateListener(_updateNode);
     controller.setCancelListener(_cancelNode);

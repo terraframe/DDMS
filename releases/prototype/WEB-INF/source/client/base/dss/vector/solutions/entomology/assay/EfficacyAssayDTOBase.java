@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075025916L;
+  private static final long serialVersionUID = 1239517553819L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.EfficacyAssay";
   protected EfficacyAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -62,7 +62,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeStructMdDTO getAgeRangeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeStructMdDTO) getAttributeDTO("ageRange").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeStructMdDTO) getAttributeDTO(AGERANGE).getAttributeMdDTO();
   }
   
   public String getColonyName()
@@ -99,7 +99,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getColonyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("colonyName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLONYNAME).getAttributeMdDTO();
   }
   
   public Integer getExposureTime()
@@ -136,7 +136,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getExposureTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("exposureTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EXPOSURETIME).getAttributeMdDTO();
   }
   
   public Integer getFed()
@@ -173,7 +173,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("fed").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -210,7 +210,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("geoEntity").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public Integer getGravid()
@@ -247,7 +247,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getGravidMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("gravid").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(GRAVID).getAttributeMdDTO();
   }
   
   public Integer getHoldingTime()
@@ -284,7 +284,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("holdingTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOLDINGTIME).getAttributeMdDTO();
   }
   
   public Float getMortality()
@@ -321,7 +321,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeDecMdDTO getMortalityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO("mortality").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDecMdDTO) getAttributeDTO(MORTALITY).getAttributeMdDTO();
   }
   
   public Integer getQuantityDead()
@@ -358,7 +358,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityDead").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYDEAD).getAttributeMdDTO();
   }
   
   public Integer getQuantityLive()
@@ -395,7 +395,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityLiveMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityLive").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYLIVE).getAttributeMdDTO();
   }
   
   public Integer getQuantityTested()
@@ -432,7 +432,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityTestedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityTested").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYTESTED).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
@@ -478,7 +478,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("sex").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
@@ -524,7 +524,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSurfacePostionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("surfacePostion").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SURFACEPOSTION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.ResistanceMethodologyDTO getTestMethod()
@@ -561,7 +561,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("testMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
   }
   
   public final java.lang.Float getOverallMortalityRate()

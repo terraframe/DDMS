@@ -85,7 +85,7 @@ public abstract class DuplicateParentExceptionDTOBase extends com.terraframe.moj
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getChildEntityNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("childEntityName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CHILDENTITYNAME).getAttributeMdDTO();
   }
   
   public String getParentEntityName()
@@ -122,7 +122,7 @@ public abstract class DuplicateParentExceptionDTOBase extends com.terraframe.moj
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getParentEntityNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("parentEntityName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARENTENTITYNAME).getAttributeMdDTO();
   }
   
   /**

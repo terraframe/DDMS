@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.StructDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075028296L;
+  private static final long serialVersionUID = 1239517559422L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AdultAgeRange";
   protected AdultAgeRangeDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -65,7 +65,7 @@ public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getEndPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("endPoint").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ENDPOINT).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -90,7 +90,7 @@ public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("keyName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -115,7 +115,7 @@ public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("siteMaster").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public Integer getStartPoint()
@@ -152,7 +152,7 @@ public abstract class AdultAgeRangeDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getStartPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("startPoint").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
   }
   
   public static AdultAgeRangeDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

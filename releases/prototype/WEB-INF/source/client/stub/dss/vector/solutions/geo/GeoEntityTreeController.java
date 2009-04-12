@@ -19,7 +19,9 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
 
   private static final String CONFIRM_PARENT_CHANGE_JSP = "/WEB-INF/confirmParentChange.jsp";
   
-  private static final String SELECT_SEARCH_COMPONENT_JSP = "/WEB-INF/selectSearchComponent.jsp";
+  private static final String SINGLE_SELECT_SEARCH_COMPONENT_JSP = "/WEB-INF/singleSelectSearchComponent.jsp";
+  
+  private static final String MULTIPLE_SELECT_SEARCH_COMPONENT_JS = "/WEB-INF/multipleSelectSearchComponent.jsp";
   
   public static final String ROOT_GEO_ENTITY_ID = "rootGeoEntityId";
   
@@ -29,14 +31,25 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
   }
   
   @Override
-  public void displaySelectSearch(String rootGeoEntityId) throws IOException, ServletException
+  public void displaySingleSelectSearch(String rootGeoEntityId) throws IOException, ServletException
   {
     req.setAttribute(ROOT_GEO_ENTITY_ID, rootGeoEntityId);
     
     GeoHierarchyViewDTO[] views = GeoHierarchyDTO.getPoliticalGeoHierarchies(this.getClientRequest(), rootGeoEntityId);
     req.setAttribute("views", views);
     
-    req.getRequestDispatcher(SELECT_SEARCH_COMPONENT_JSP).forward(req, resp);
+    req.getRequestDispatcher(SINGLE_SELECT_SEARCH_COMPONENT_JSP).forward(req, resp);
+  }
+  
+  @Override
+  public void displayMultipleSelectSearch(String rootGeoEntityId) throws IOException, ServletException
+  {
+    req.setAttribute(ROOT_GEO_ENTITY_ID, rootGeoEntityId);
+    
+    GeoHierarchyViewDTO[] views = GeoHierarchyDTO.getPoliticalGeoHierarchies(this.getClientRequest(), rootGeoEntityId);
+    req.setAttribute("views", views);
+    
+    req.getRequestDispatcher(MULTIPLE_SELECT_SEARCH_COMPONENT_JS).forward(req, resp);
   }
   
   @Override

@@ -11,7 +11,7 @@ public abstract class SusceptibleCollectionBase extends com.terraframe.mojo.busi
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.SusceptibleCollection";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1239075012697L;
+  private static final long serialVersionUID = 1239517529430L;
   
   public SusceptibleCollectionBase()
   {
@@ -71,7 +71,7 @@ public abstract class SusceptibleCollectionBase extends com.terraframe.mojo.busi
   {
     if (this.isNew())
     {
-      return "New: Susceptible Collection";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

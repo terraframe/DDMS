@@ -54,7 +54,7 @@ public abstract class InvalidIntervalTimeProblemDTOBase extends dss.vector.solut
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getExposureTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("exposureTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EXPOSURETIME).getAttributeMdDTO();
   }
   
   public Integer getIntervalTime()
@@ -91,7 +91,7 @@ public abstract class InvalidIntervalTimeProblemDTOBase extends dss.vector.solut
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getIntervalTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("intervalTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVALTIME).getAttributeMdDTO();
   }
   
   /**

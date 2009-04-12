@@ -53,7 +53,7 @@ public abstract class InvalidPercentageProblemDTOBase extends dss.vector.solutio
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getInvalidPercentMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("invalidPercent").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INVALIDPERCENT).getAttributeMdDTO();
   }
   
   /**

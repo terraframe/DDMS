@@ -10,7 +10,7 @@ package dss.vector.solutions;
 public  class SurfacePositionMasterQuery extends com.terraframe.mojo.system.EnumerationMasterQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075015782L;
+private static final long serialVersionUID = 1239517535106L;
 
   public SurfacePositionMasterQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -111,7 +111,7 @@ private static final long serialVersionUID = 1239075015782L;
  implements SurfacePositionMasterQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239075015949L;
+private static final long serialVersionUID = 1239517535411L;
 
   public SurfacePositionMasterQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -149,7 +149,7 @@ private static final long serialVersionUID = 1239075015949L;
   public static class SurfacePositionMasterQueryEnumeration extends com.terraframe.mojo.system.EnumerationMasterQuery.EnumerationMasterQueryEnumeration
  implements SurfacePositionMasterQueryEnumerationIF, com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239075016057L;
+private static final long serialVersionUID = 1239517535616L;
 
   public SurfacePositionMasterQueryEnumeration(com.terraframe.mojo.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, String mdEnumerationTableName,com.terraframe.mojo.dataaccess.MdBusinessDAOIF masterMdBusinessIF, String masterTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

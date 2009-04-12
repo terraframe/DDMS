@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class AbstractSiteDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075005104L;
+  private static final long serialVersionUID = 1239517517721L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.AbstractSite";
   protected AbstractSiteDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class AbstractSiteDTOBase extends dss.vector.solutions.geo.gener
   
   public final com.terraframe.mojo.gis.transport.metadata.AttributeMultiPointMdDTO getMultiPointMd()
   {
-    return (com.terraframe.mojo.gis.transport.metadata.AttributeMultiPointMdDTO) getAttributeDTO("multiPoint").getAttributeMdDTO();
+    return (com.terraframe.mojo.gis.transport.metadata.AttributeMultiPointMdDTO) getAttributeDTO(MULTIPOINT).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.geo.generated.AbstractSiteDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

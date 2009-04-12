@@ -12,7 +12,7 @@ public abstract class InvalidTestDateProblemBase extends dss.vector.solutions.No
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidTestDateProblem";
   public static java.lang.String COLLECTIONDATE = "collectionDate";
   public static java.lang.String TESTDATE = "testDate";
-  private static final long serialVersionUID = 1239075019663L;
+  private static final long serialVersionUID = 1239517542426L;
   
   public InvalidTestDateProblemBase()
   {
@@ -118,7 +118,7 @@ public abstract class InvalidTestDateProblemBase extends dss.vector.solutions.No
   {
     if (this.isNew())
     {
-      return "New: Invalid Test Date";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class LocalityDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075016351L;
+  private static final long serialVersionUID = 1239517536008L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.Locality";
   protected LocalityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class LocalityDTOBase extends dss.vector.solutions.geo.generated
   
   public final com.terraframe.mojo.gis.transport.metadata.AttributeMultiPolygonMdDTO getMultiPolygonMd()
   {
-    return (com.terraframe.mojo.gis.transport.metadata.AttributeMultiPolygonMdDTO) getAttributeDTO("multiPolygon").getAttributeMdDTO();
+    return (com.terraframe.mojo.gis.transport.metadata.AttributeMultiPolygonMdDTO) getAttributeDTO(MULTIPOLYGON).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.geo.generated.LocalityDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

@@ -11,7 +11,7 @@ public abstract class ResistantCollectionBase extends com.terraframe.mojo.busine
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.ResistantCollection";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1239075019102L;
+  private static final long serialVersionUID = 1239517541339L;
   
   public ResistantCollectionBase()
   {
@@ -71,7 +71,7 @@ public abstract class ResistantCollectionBase extends com.terraframe.mojo.busine
   {
     if (this.isNew())
     {
-      return "New: Collection Resistant Information";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

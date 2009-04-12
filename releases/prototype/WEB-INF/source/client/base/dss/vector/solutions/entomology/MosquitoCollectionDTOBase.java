@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class MosquitoCollectionDTOBase extends dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075019293L;
+  private static final long serialVersionUID = 1239517541563L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollection";
   protected MosquitoCollectionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,15 +61,7 @@ public abstract class MosquitoCollectionDTOBase extends dss.vector.solutions.ent
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("collectionMethod").getAttributeMdDTO();
-  }
-  
-  public static final dss.vector.solutions.entomology.MosquitoCollectionDTO searchByGeoEntityAndDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.util.Date collectionDate)
-  {
-    String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.generated.GeoEntity", "java.util.Date"};
-    Object[] _parameters = new Object[]{geoEntity, collectionDate};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionDTO.CLASS, "searchByGeoEntityAndDate", _declaredTypes);
-    return (dss.vector.solutions.entomology.MosquitoCollectionDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.entomology.MosquitoCollectionDTO searchByGeoEntityAndDateAndCollectionMethod(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.util.Date collectionDate, dss.vector.solutions.mo.CollectionMethodDTO collectionMethod)
@@ -77,6 +69,14 @@ public abstract class MosquitoCollectionDTOBase extends dss.vector.solutions.ent
     String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.generated.GeoEntity", "java.util.Date", "dss.vector.solutions.mo.CollectionMethod"};
     Object[] _parameters = new Object[]{geoEntity, collectionDate, collectionMethod};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionDTO.CLASS, "searchByGeoEntityAndDateAndCollectionMethod", _declaredTypes);
+    return (dss.vector.solutions.entomology.MosquitoCollectionDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.entomology.MosquitoCollectionDTO searchByGeoEntityAndDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.util.Date collectionDate)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.generated.GeoEntity", "java.util.Date"};
+    Object[] _parameters = new Object[]{geoEntity, collectionDate};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionDTO.CLASS, "searchByGeoEntityAndDate", _declaredTypes);
     return (dss.vector.solutions.entomology.MosquitoCollectionDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

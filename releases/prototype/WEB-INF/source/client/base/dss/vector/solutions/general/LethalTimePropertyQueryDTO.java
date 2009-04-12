@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
 public class LethalTimePropertyQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075013274L;
+private static final long serialVersionUID = 1239517531307L;
 
   protected LethalTimePropertyQueryDTO(String type)
   {

@@ -11,7 +11,7 @@ public abstract class TrapBase extends dss.vector.solutions.geo.generated.GeoEnt
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.Trap";
   public static java.lang.String POINT = "point";
-  private static final long serialVersionUID = 1239075009754L;
+  private static final long serialVersionUID = 1239517524516L;
   
   public TrapBase()
   {

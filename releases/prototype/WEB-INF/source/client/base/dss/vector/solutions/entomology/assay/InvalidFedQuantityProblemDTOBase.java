@@ -53,7 +53,7 @@ public abstract class InvalidFedQuantityProblemDTOBase extends dss.vector.soluti
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("fed").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FED).getAttributeMdDTO();
   }
   
   /**

@@ -53,7 +53,7 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getActivatedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("activated").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ACTIVATED).getAttributeMdDTO();
   }
   
   public String getEntityName()
@@ -90,7 +90,7 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("entityName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
   }
   
   public String getEntityType()
@@ -127,7 +127,7 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("entityType").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYTYPE).getAttributeMdDTO();
   }
   
   public String getGeoEntityId()
@@ -164,7 +164,7 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoEntityIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("geoEntityId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOENTITYID).getAttributeMdDTO();
   }
   
   public String getGeoId()
@@ -201,7 +201,7 @@ public abstract class GeoEntityViewDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("geoId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOID).getAttributeMdDTO();
   }
   
   public static GeoEntityViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

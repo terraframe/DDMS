@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology.assay.CollectionAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075004226L;
+  private static final long serialVersionUID = 1239517516946L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.LarvaeAssay";
   protected LarvaeAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -62,7 +62,7 @@ public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEndPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("endPoint").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENDPOINT).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.LarvaeAgeDTO getStartPoint()
@@ -99,7 +99,7 @@ public abstract class LarvaeAssayDTOBase extends dss.vector.solutions.entomology
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getStartPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("startPoint").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.entomology.assay.LarvaeTestIntervalViewDTO[] getTestIntervals()

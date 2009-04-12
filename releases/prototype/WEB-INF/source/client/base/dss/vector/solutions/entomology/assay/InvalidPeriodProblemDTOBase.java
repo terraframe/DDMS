@@ -53,7 +53,7 @@ public abstract class InvalidPeriodProblemDTOBase extends dss.vector.solutions.N
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("period").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
   }
   
   /**

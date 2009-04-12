@@ -15,7 +15,7 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
-  private static final long serialVersionUID = 1239074999131L;
+  private static final long serialVersionUID = 1239517507329L;
   
   public AdultDiscriminatingDoseAssayBase()
   {

@@ -9,7 +9,7 @@ public class LocatedInControllerBase implements com.terraframe.mojo.generation.l
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1239075009454L;
+  private static final long serialVersionUID = 1239517524171L;
   
   public LocatedInControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -63,6 +63,20 @@ public class LocatedInControllerBase implements com.terraframe.mojo.generation.l
     return (com.terraframe.mojo.ClientSession) req.getSession().getAttribute(com.terraframe.mojo.constants.ClientConstants.CLIENTSESSION);
   }
   
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:childId", post=false)
+  public void childQuery(java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.childQuery");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:childId", post=false)
+  public void failChildQuery(java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failChildQuery");
+  }
+  
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.LocatedInDTO:dto", post=true)
   public void cancel(dss.vector.solutions.geo.LocatedInDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -77,32 +91,18 @@ public class LocatedInControllerBase implements com.terraframe.mojo.generation.l
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failCancel");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:parentId", post=false)
-  public void parentQuery(java.lang.String parentId) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.parentQuery");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.viewAll");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:parentId", post=false)
-  public void failParentQuery(java.lang.String parentId) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failParentQuery");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:parentId, java.lang.String:childId", post=true)
-  public void newInstance(java.lang.String parentId, java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.newInstance");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:parentId, java.lang.String:childId", post=true)
-  public void failNewInstance(java.lang.String parentId, java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failNewInstance");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failViewAll");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
@@ -133,48 +133,6 @@ public class LocatedInControllerBase implements com.terraframe.mojo.generation.l
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failView");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.viewAll");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failViewAll");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void newRelationship() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.newRelationship");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failNewRelationship() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failNewRelationship");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.LocatedInDTO:dto", post=true)
-  public void create(dss.vector.solutions.geo.LocatedInDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.create");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.LocatedInDTO:dto", post=true)
-  public void failCreate(dss.vector.solutions.geo.LocatedInDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failCreate");
-  }
-  
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.LocatedInDTO:dto", post=true)
   public void delete(dss.vector.solutions.geo.LocatedInDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -189,18 +147,60 @@ public class LocatedInControllerBase implements com.terraframe.mojo.generation.l
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failDelete");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:childId", post=false)
-  public void childQuery(java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.LocatedInDTO:dto", post=true)
+  public void update(dss.vector.solutions.geo.LocatedInDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.childQuery");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.update");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:childId", post=false)
-  public void failChildQuery(java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.LocatedInDTO:dto", post=true)
+  public void failUpdate(dss.vector.solutions.geo.LocatedInDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failChildQuery");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failUpdate");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:parentId, java.lang.String:childId", post=true)
+  public void newInstance(java.lang.String parentId, java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.newInstance");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:parentId, java.lang.String:childId", post=true)
+  public void failNewInstance(java.lang.String parentId, java.lang.String childId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failNewInstance");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:parentId", post=false)
+  public void parentQuery(java.lang.String parentId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.parentQuery");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:parentId", post=false)
+  public void failParentQuery(java.lang.String parentId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failParentQuery");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void newRelationship() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.newRelationship");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failNewRelationship() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failNewRelationship");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
@@ -218,17 +218,17 @@ public class LocatedInControllerBase implements com.terraframe.mojo.generation.l
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.LocatedInDTO:dto", post=true)
-  public void update(dss.vector.solutions.geo.LocatedInDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(dss.vector.solutions.geo.LocatedInDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.update");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.create");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.geo.LocatedInDTO:dto", post=true)
-  public void failUpdate(dss.vector.solutions.geo.LocatedInDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(dss.vector.solutions.geo.LocatedInDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.LocatedInController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failUpdate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.LocatedInController.failCreate");
   }
   
 }

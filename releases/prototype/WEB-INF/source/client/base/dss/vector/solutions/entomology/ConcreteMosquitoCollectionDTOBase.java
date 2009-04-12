@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class ConcreteMosquitoCollectionDTOBase extends dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075036333L;
+  private static final long serialVersionUID = 1239517574233L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.ConcreteMosquitoCollection";
   protected ConcreteMosquitoCollectionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -62,7 +62,7 @@ public abstract class ConcreteMosquitoCollectionDTOBase extends dss.vector.solut
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDateCollectedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("dateCollected").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATECOLLECTED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -99,7 +99,7 @@ public abstract class ConcreteMosquitoCollectionDTOBase extends dss.vector.solut
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("geoEntity").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.entomology.MorphologicalSpecieGroupViewDTO[] getMorphologicalSpecieGroups()

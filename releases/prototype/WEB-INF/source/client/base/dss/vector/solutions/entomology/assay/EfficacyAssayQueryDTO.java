@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public class EfficacyAssayQueryDTO extends dss.vector.solutions.entomology.assay.AbstractAssayQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075026311L;
+private static final long serialVersionUID = 1239517554701L;
 
   protected EfficacyAssayQueryDTO(String type)
   {

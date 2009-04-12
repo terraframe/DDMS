@@ -84,7 +84,7 @@ public abstract class UndefinedKnockDownPropertyExceptionDTOBase extends com.ter
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getInsecticideMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("insecticide").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INSECTICIDE).getAttributeMdDTO();
   }
   
   /**

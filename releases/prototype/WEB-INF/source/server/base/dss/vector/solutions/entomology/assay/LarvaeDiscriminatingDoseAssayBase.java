@@ -15,7 +15,7 @@ public abstract class LarvaeDiscriminatingDoseAssayBase extends dss.vector.solut
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
-  private static final long serialVersionUID = 1239075014017L;
+  private static final long serialVersionUID = 1239517532291L;
   
   public LarvaeDiscriminatingDoseAssayBase()
   {

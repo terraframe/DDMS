@@ -85,7 +85,7 @@ public abstract class LocatedInExceptionDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("entityName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
   }
   
   public String getParentDisplayLabel()
@@ -122,7 +122,7 @@ public abstract class LocatedInExceptionDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getParentDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("parentDisplayLabel").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARENTDISPLAYLABEL).getAttributeMdDTO();
   }
   
   /**

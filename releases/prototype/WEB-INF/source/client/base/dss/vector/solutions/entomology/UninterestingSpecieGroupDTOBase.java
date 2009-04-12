@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class UninterestingSpecieGroupDTOBase extends dss.vector.solutions.entomology.TrueSpecieEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075010580L;
+  private static final long serialVersionUID = 1239517525963L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.UninterestingSpecieGroup";
   protected UninterestingSpecieGroupDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class UninterestingSpecieGroupDTOBase extends dss.vector.solutio
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantity").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.entomology.UninterestingSpecieGroupDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

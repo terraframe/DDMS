@@ -10,7 +10,7 @@ package dss.vector.solutions.geo;
 public  class GeoHierarchyQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075006089L;
+private static final long serialVersionUID = 1239517519913L;
 
   public GeoHierarchyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -186,6 +186,17 @@ private static final long serialVersionUID = 1239075006089L;
   public com.terraframe.mojo.query.AttributeCharIF getSiteMaster(String alias)
   {
     return (com.terraframe.mojo.query.AttributeCharIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.SITEMASTER, "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
+
+  }
+  public com.terraframe.mojo.query.AttributeBooleanIF getSprayTargetAllowed()
+  {
+    return getSprayTargetAllowed(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getSprayTargetAllowed(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBooleanIF)this.getComponentQuery().attributeFactory(dss.vector.solutions.geo.GeoHierarchy.SPRAYTARGETALLOWED, "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getType()
@@ -407,6 +418,8 @@ private static final long serialVersionUID = 1239075006089L;
     public com.terraframe.mojo.query.AttributeLongIF getSeq(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getSiteMaster();
     public com.terraframe.mojo.query.AttributeCharIF getSiteMaster(String alias);
+    public com.terraframe.mojo.query.AttributeBooleanIF getSprayTargetAllowed();
+    public com.terraframe.mojo.query.AttributeBooleanIF getSprayTargetAllowed(String alias);
     public com.terraframe.mojo.query.AttributeCharIF getType();
     public com.terraframe.mojo.query.AttributeCharIF getType(String alias);
 
@@ -450,7 +463,7 @@ private static final long serialVersionUID = 1239075006089L;
  implements GeoHierarchyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239075006296L;
+private static final long serialVersionUID = 1239517520244L;
 
   public GeoHierarchyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -610,6 +623,17 @@ private static final long serialVersionUID = 1239075006296L;
   public com.terraframe.mojo.query.AttributeCharIF getSiteMaster(String alias)
   {
     return (com.terraframe.mojo.query.AttributeCharIF)this.attributeFactory("siteMaster", "com.terraframe.mojo.system.metadata.MdAttributeCharacter", alias);
+
+  }
+  public com.terraframe.mojo.query.AttributeBooleanIF getSprayTargetAllowed()
+  {
+    return getSprayTargetAllowed(null);
+
+  }
+ 
+  public com.terraframe.mojo.query.AttributeBooleanIF getSprayTargetAllowed(String alias)
+  {
+    return (com.terraframe.mojo.query.AttributeBooleanIF)this.attributeFactory("sprayTargetAllowed", "com.terraframe.mojo.system.metadata.MdAttributeBoolean", alias);
 
   }
   public com.terraframe.mojo.query.AttributeCharIF getType()

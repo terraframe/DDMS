@@ -54,7 +54,7 @@ public abstract class InvalidAgeRangeProblemDTOBase extends dss.vector.solutions
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getEndPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("endPoint").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ENDPOINT).getAttributeMdDTO();
   }
   
   public Integer getStartPoint()
@@ -91,7 +91,7 @@ public abstract class InvalidAgeRangeProblemDTOBase extends dss.vector.solutions
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getStartPointMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("startPoint").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STARTPOINT).getAttributeMdDTO();
   }
   
   /**

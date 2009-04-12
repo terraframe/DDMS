@@ -55,7 +55,7 @@ public abstract class QuantityMismatchProblemDTOBase extends dss.vector.solution
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantity").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
   }
   
   public Integer getQuantityFemale()
@@ -92,7 +92,7 @@ public abstract class QuantityMismatchProblemDTOBase extends dss.vector.solution
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityFemale").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYFEMALE).getAttributeMdDTO();
   }
   
   public Integer getQuantityMale()
@@ -129,7 +129,7 @@ public abstract class QuantityMismatchProblemDTOBase extends dss.vector.solution
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityMale").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYMALE).getAttributeMdDTO();
   }
   
   /**

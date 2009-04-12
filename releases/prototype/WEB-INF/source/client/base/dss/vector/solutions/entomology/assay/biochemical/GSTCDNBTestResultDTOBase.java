@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 
 public abstract class GSTCDNBTestResultDTOBase extends dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075013522L;
+  private static final long serialVersionUID = 1239517531515L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.GSTCDNBTestResult";
   protected GSTCDNBTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class GSTCDNBTestResultDTOBase extends dss.vector.solutions.ento
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getTestResultMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("testResult").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(TESTRESULT).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.entomology.assay.biochemical.GSTCDNBTestResultDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

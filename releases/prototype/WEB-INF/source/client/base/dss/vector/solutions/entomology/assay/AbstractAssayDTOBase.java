@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075006699L;
+  private static final long serialVersionUID = 1239517520913L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AbstractAssay";
   protected AbstractAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -63,7 +63,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO("createDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
@@ -95,7 +95,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("createdBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
@@ -132,7 +132,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("entityDomain").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.InsecticideDTO getInsecticide()
@@ -169,7 +169,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getInsecticideMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("insecticide").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INSECTICIDE).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -194,7 +194,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("keyName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
@@ -219,7 +219,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO("lastUpdateDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
@@ -251,7 +251,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("lastUpdatedBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.UsersDTO getLockedBy()
@@ -283,7 +283,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("lockedBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.ActorDTO getOwner()
@@ -320,7 +320,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("owner").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Long getSeq()
@@ -345,7 +345,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("seq").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -370,7 +370,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("siteMaster").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.SpecieDTO getSpecie()
@@ -407,7 +407,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSpecieMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("specie").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPECIE).getAttributeMdDTO();
   }
   
   public java.util.Date getTestDate()
@@ -444,7 +444,7 @@ public abstract class AbstractAssayDTOBase extends com.terraframe.mojo.business.
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTestDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("testDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TESTDATE).getAttributeMdDTO();
   }
   
   public static final java.lang.String getAssayTree(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

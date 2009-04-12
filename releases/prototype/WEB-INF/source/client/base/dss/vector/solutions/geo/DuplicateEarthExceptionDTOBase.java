@@ -84,7 +84,7 @@ public abstract class DuplicateEarthExceptionDTOBase extends com.terraframe.mojo
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEarthNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("earthName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(EARTHNAME).getAttributeMdDTO();
   }
   
   /**

@@ -13,7 +13,7 @@ public abstract class DuplicateParentExceptionBase extends com.terraframe.mojo.b
   public static java.lang.String CHILDENTITYNAME = "childEntityName";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTENTITYNAME = "parentEntityName";
-  private static final long serialVersionUID = 1239075001818L;
+  private static final long serialVersionUID = 1239517512775L;
   
   public DuplicateParentExceptionBase()
   {

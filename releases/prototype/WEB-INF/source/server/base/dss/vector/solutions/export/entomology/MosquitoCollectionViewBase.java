@@ -14,7 +14,7 @@ public abstract class MosquitoCollectionViewBase extends com.terraframe.mojo.bus
   public static java.lang.String DATECOLLECTED = "dateCollected";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1239075013408L;
+  private static final long serialVersionUID = 1239517531376L;
   
   public MosquitoCollectionViewBase()
   {
@@ -135,7 +135,7 @@ public abstract class MosquitoCollectionViewBase extends com.terraframe.mojo.bus
   {
     if (this.isNew())
     {
-      return "New: Mosquito Collection View";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

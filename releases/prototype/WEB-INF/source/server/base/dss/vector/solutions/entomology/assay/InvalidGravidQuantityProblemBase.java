@@ -11,7 +11,7 @@ public abstract class InvalidGravidQuantityProblemBase extends dss.vector.soluti
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem";
   public static java.lang.String GRAVID = "gravid";
-  private static final long serialVersionUID = 1239075003951L;
+  private static final long serialVersionUID = 1239517516651L;
   
   public InvalidGravidQuantityProblemBase()
   {
@@ -88,7 +88,7 @@ public abstract class InvalidGravidQuantityProblemBase extends dss.vector.soluti
   {
     if (this.isNew())
     {
-      return "New: Invalid Gravid Value";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

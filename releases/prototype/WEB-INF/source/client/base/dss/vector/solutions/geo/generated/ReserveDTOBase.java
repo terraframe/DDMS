@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class ReserveDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075019791L;
+  private static final long serialVersionUID = 1239517542574L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.Reserve";
   protected ReserveDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class ReserveDTOBase extends dss.vector.solutions.geo.generated.
   
   public final com.terraframe.mojo.gis.transport.metadata.AttributePolygonMdDTO getPolygonMd()
   {
-    return (com.terraframe.mojo.gis.transport.metadata.AttributePolygonMdDTO) getAttributeDTO("polygon").getAttributeMdDTO();
+    return (com.terraframe.mojo.gis.transport.metadata.AttributePolygonMdDTO) getAttributeDTO(POLYGON).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.geo.generated.ReserveDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

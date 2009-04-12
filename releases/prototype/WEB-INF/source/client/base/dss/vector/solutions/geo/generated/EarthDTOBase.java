@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class EarthDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075021319L;
+  private static final long serialVersionUID = 1239517545072L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.Earth";
   protected EarthDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

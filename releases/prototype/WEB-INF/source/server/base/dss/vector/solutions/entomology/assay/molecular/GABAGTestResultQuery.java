@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.molecular;
 public  class GABAGTestResultQuery extends dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075027940L;
+private static final long serialVersionUID = 1239517558866L;
 
   public GABAGTestResultQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -103,7 +103,7 @@ private static final long serialVersionUID = 1239075027940L;
  implements GABAGTestResultQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239075028117L;
+private static final long serialVersionUID = 1239517559178L;
 
   public GABAGTestResultQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

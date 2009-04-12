@@ -1,9 +1,6 @@
 package dss.vector.solutions.geo;
 
-import com.terraframe.mojo.query.SelectablePrimitive;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
-
-import dss.vector.solutions.geo.GeoHierarchyQuery;
 
 /**
  *
@@ -17,9 +14,11 @@ private static final long serialVersionUID = 1236279045055L;
 
   private MdBusinessQuery mdBusinessQuery;
   
-  private String sortAttribute;
+  private MdBusinessQuery parentMdBusinessQuery;
   
-  private Boolean ascending;
+//  private String sortAttribute;
+  
+//  private Boolean ascending;
   
   private Integer pageSize;
   
@@ -29,13 +28,14 @@ private static final long serialVersionUID = 1236279045055L;
   {
     super(queryFactory);
     
-    this.sortAttribute = sortAttribute;
-    this.ascending = ascending;
+//    this.sortAttribute = sortAttribute;
+//    this.ascending = ascending;
     this.pageSize = pageSize;
     this.pageNumber = pageNumber;
     
     geoHierarchyQuery = new GeoHierarchyQuery(queryFactory);
     mdBusinessQuery = new MdBusinessQuery(queryFactory);
+    parentMdBusinessQuery = new MdBusinessQuery(queryFactory);
     
     this.buildQuery(new DefaultGeoHierarchyViewBuilder(queryFactory));
   }
@@ -66,11 +66,13 @@ private static final long serialVersionUID = 1236279045055L;
 
       vQuery.map(GeoHierarchyView.GEOHIERARCHYID, geoHierarchyQuery.getId());
       vQuery.map(GeoHierarchyView.POLITICAL, geoHierarchyQuery.getPolitical());
+      vQuery.map(GeoHierarchy.SPRAYTARGETALLOWED, geoHierarchyQuery.getSprayTargetAllowed());
 
       vQuery.map(GeoHierarchyView.REFERENCEID, mdBusinessQuery.getId());
       vQuery.map(GeoHierarchyView.TYPENAME, mdBusinessQuery.getTypeName());
-      vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel());
+      vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel().currentLocale());
       vQuery.map(GeoHierarchyView.DESCRIPTION, mdBusinessQuery.getDescription());
+      vQuery.map(GeoHierarchyView.ISADISPLAYLABEL, parentMdBusinessQuery.getDisplayLabel().currentLocale());
     }
 
     /**
@@ -82,17 +84,9 @@ private static final long serialVersionUID = 1236279045055L;
       
       vQuery.WHERE(mdBusinessQuery.getIsAbstract().EQ(false));
       vQuery.WHERE(geoHierarchyQuery.getGeoEntityClass().EQ(mdBusinessQuery));
+      vQuery.WHERE(mdBusinessQuery.getSuperMdBusiness().EQ(parentMdBusinessQuery));
 
-      SelectablePrimitive selectable = (SelectablePrimitive) mdBusinessQuery.aAttributePrimitive(sortAttribute);
-      
-      if(ascending)
-      {
-        vQuery.ORDER_BY_ASC(selectable);
-      }
-      else
-      {
-        vQuery.ORDER_BY_DESC(selectable);
-      }
+      vQuery.ORDER_BY_ASC(mdBusinessQuery.getDisplayLabel().currentLocale());
       
       if(pageSize != null && pageNumber != null)
       {

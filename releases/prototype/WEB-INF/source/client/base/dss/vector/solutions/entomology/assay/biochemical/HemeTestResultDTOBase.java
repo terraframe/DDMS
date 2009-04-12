@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 
 public abstract class HemeTestResultDTOBase extends dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075042519L;
+  private static final long serialVersionUID = 1239517584580L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.HemeTestResult";
   protected HemeTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class HemeTestResultDTOBase extends dss.vector.solutions.entomol
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getTestResultMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("testResult").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(TESTRESULT).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.entomology.assay.biochemical.HemeTestResultDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

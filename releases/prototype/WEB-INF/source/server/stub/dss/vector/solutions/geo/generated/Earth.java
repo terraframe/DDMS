@@ -33,7 +33,7 @@ public class Earth extends EarthBase implements com.terraframe.mojo.generation.l
       
       String error = "Cannot define more than one instance of Earth.";
       DuplicateEarthException ex = new DuplicateEarthException(error);
-      ex.setEarthName(earthMd.getDisplayLabel());
+      ex.setEarthName(earthMd.getDisplayLabel().getValue());
       throw ex;
     }
     
@@ -50,7 +50,7 @@ public class Earth extends EarthBase implements com.terraframe.mojo.generation.l
 
     String error = "Cannot delete the Earth instance.";
     DeleteEarthException ex = new DeleteEarthException(error);
-    ex.setEarthName(earthMd.getDisplayLabel());
+    ex.setEarthName(earthMd.getDisplayLabel().getValue());
     throw ex;
   }
   
@@ -67,7 +67,12 @@ public class Earth extends EarthBase implements com.terraframe.mojo.generation.l
     OIterator<? extends Earth> iter = q.getIterator();
     try
     {
-      return iter.next(); // There will always be one.
+      while(iter.hasNext())
+      {
+        return iter.next(); // There will always be one.
+      }
+      
+      return null;
     }
     finally
     {

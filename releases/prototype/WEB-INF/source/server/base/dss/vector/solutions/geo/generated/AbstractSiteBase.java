@@ -11,7 +11,7 @@ public abstract class AbstractSiteBase extends dss.vector.solutions.geo.generate
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.AbstractSite";
   public static java.lang.String MULTIPOINT = "multiPoint";
-  private static final long serialVersionUID = 1239075005040L;
+  private static final long serialVersionUID = 1239517517617L;
   
   public AbstractSiteBase()
   {

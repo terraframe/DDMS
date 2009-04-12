@@ -2,7 +2,7 @@ package dss.vector.solutions.general;
 
 public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075012875L;
+  private static final long serialVersionUID = 1239517530634L;
   
   public final static String CLASS = "dss.vector.solutions.general.LethalTimeProperty";
   protected LethalTimePropertyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -65,7 +65,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO("createDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
@@ -97,7 +97,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("createdBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
@@ -134,7 +134,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("entityDomain").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.InsecticideDTO getInsecticide()
@@ -171,7 +171,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getInsecticideMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("insecticide").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INSECTICIDE).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -196,7 +196,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("keyName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
@@ -221,7 +221,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO("lastUpdateDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
@@ -253,7 +253,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("lastUpdatedBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.UsersDTO getLockedBy()
@@ -285,7 +285,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("lockedBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
   public Integer getLowerPercent()
@@ -322,7 +322,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLowerPercentMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("lowerPercent").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LOWERPERCENT).getAttributeMdDTO();
   }
   
   public Integer getLowerTime()
@@ -359,7 +359,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getLowerTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("lowerTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LOWERTIME).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.ActorDTO getOwner()
@@ -396,7 +396,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("owner").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Long getSeq()
@@ -421,7 +421,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("seq").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -446,7 +446,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("siteMaster").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public Integer getUpperPercent()
@@ -483,7 +483,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUpperPercentMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("upperPercent").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UPPERPERCENT).getAttributeMdDTO();
   }
   
   public Integer getUpperTime()
@@ -520,7 +520,7 @@ public abstract class LethalTimePropertyDTOBase extends com.terraframe.mojo.busi
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getUpperTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("upperTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UPPERTIME).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.general.LethalTimePropertyDTO searchByInsecticide(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.general.InsecticideDTO insecticide)

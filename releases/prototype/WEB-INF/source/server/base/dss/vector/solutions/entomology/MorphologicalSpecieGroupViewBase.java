@@ -20,7 +20,7 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
   public static java.lang.String QUANTITYFEMALE = "quantityFemale";
   public static java.lang.String QUANTITYMALE = "quantityMale";
   public static java.lang.String SPECIE = "specie";
-  private static final long serialVersionUID = 1239075022870L;
+  private static final long serialVersionUID = 1239517547413L;
   
   public MorphologicalSpecieGroupViewBase()
   {
@@ -343,7 +343,7 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
   {
     if (this.isNew())
     {
-      return "New: Morphological Specie Group View";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

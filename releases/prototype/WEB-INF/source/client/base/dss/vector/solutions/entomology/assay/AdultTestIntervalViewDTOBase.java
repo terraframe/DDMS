@@ -53,7 +53,7 @@ public abstract class AdultTestIntervalViewDTOBase extends com.terraframe.mojo.b
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAssayMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("assay").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ASSAY).getAttributeMdDTO();
   }
   
   public String getIntervalId()
@@ -90,7 +90,7 @@ public abstract class AdultTestIntervalViewDTOBase extends com.terraframe.mojo.b
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIntervalIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("intervalId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INTERVALID).getAttributeMdDTO();
   }
   
   public Integer getIntervalTime()
@@ -127,7 +127,7 @@ public abstract class AdultTestIntervalViewDTOBase extends com.terraframe.mojo.b
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getIntervalTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("intervalTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVALTIME).getAttributeMdDTO();
   }
   
   public Integer getKnockedDown()
@@ -164,7 +164,7 @@ public abstract class AdultTestIntervalViewDTOBase extends com.terraframe.mojo.b
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getKnockedDownMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("knockedDown").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(KNOCKEDDOWN).getAttributeMdDTO();
   }
   
   public Integer getPeriod()
@@ -201,7 +201,7 @@ public abstract class AdultTestIntervalViewDTOBase extends com.terraframe.mojo.b
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("period").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.entomology.assay.AdultTestIntervalViewDTO[] saveAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.assay.AdultTestIntervalViewDTO[] array)

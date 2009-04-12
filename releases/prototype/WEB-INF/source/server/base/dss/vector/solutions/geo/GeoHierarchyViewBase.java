@@ -14,10 +14,12 @@ public abstract class GeoHierarchyViewBase extends com.terraframe.mojo.business.
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String GEOHIERARCHYID = "geoHierarchyId";
   public static java.lang.String ID = "id";
+  public static java.lang.String ISADISPLAYLABEL = "isADisplayLabel";
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String REFERENCEID = "referenceId";
+  public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = 1239075002342L;
+  private static final long serialVersionUID = 1239517514907L;
   
   public GeoHierarchyViewBase()
   {
@@ -124,6 +126,34 @@ public abstract class GeoHierarchyViewBase extends com.terraframe.mojo.business.
     return mdClassIF.definesAttribute(ID);
   }
   
+  public String getIsADisplayLabel()
+  {
+    return getValue(ISADISPLAYLABEL);
+  }
+  
+  public void validateIsADisplayLabel()
+  {
+    this.validateAttribute(ISADISPLAYLABEL);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getIsADisplayLabelMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoHierarchyView.CLASS);
+    return mdClassIF.definesAttribute(ISADISPLAYLABEL);
+  }
+  
+  public void setIsADisplayLabel(String value)
+  {
+    if(value == null)
+    {
+      setValue(ISADISPLAYLABEL, "");
+    }
+    else
+    {
+      setValue(ISADISPLAYLABEL, value);
+    }
+  }
+  
   public Boolean getPolitical()
   {
     return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POLITICAL));
@@ -180,6 +210,34 @@ public abstract class GeoHierarchyViewBase extends com.terraframe.mojo.business.
     }
   }
   
+  public Boolean getSprayTargetAllowed()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SPRAYTARGETALLOWED));
+  }
+  
+  public void validateSprayTargetAllowed()
+  {
+    this.validateAttribute(SPRAYTARGETALLOWED);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSprayTargetAllowedMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoHierarchyView.CLASS);
+    return mdClassIF.definesAttribute(SPRAYTARGETALLOWED);
+  }
+  
+  public void setSprayTargetAllowed(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SPRAYTARGETALLOWED, "");
+    }
+    else
+    {
+      setValue(SPRAYTARGETALLOWED, java.lang.Boolean.toString(value));
+    }
+  }
+  
   public String getTypeName()
   {
     return getValue(TYPENAME);
@@ -222,7 +280,7 @@ public abstract class GeoHierarchyViewBase extends com.terraframe.mojo.business.
   {
     if (this.isNew())
     {
-      return "New: Geo Hierarchy View";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

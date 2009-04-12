@@ -54,7 +54,7 @@ public abstract class InvalidMaleQuantityProblemDTOBase extends dss.vector.solut
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantity").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
   }
   
   public Integer getQuantityMale()
@@ -91,7 +91,7 @@ public abstract class InvalidMaleQuantityProblemDTOBase extends dss.vector.solut
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityMale").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYMALE).getAttributeMdDTO();
   }
   
   /**

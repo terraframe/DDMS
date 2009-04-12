@@ -54,7 +54,7 @@ public abstract class UninterestingSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("collection").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTION).getAttributeMdDTO();
   }
   
   public String getGroupId()
@@ -91,7 +91,7 @@ public abstract class UninterestingSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGroupIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("groupId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GROUPID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.IdentificationMethodDTO getIdentificationMethod()
@@ -128,7 +128,7 @@ public abstract class UninterestingSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIdentificationMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("identificationMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
   }
   
   public Integer getQuantity()
@@ -165,7 +165,7 @@ public abstract class UninterestingSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantity").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
   }
   
   public String getSampleId()
@@ -202,7 +202,7 @@ public abstract class UninterestingSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSampleIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("sampleId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SAMPLEID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.SpecieDTO getSpecie()
@@ -239,7 +239,7 @@ public abstract class UninterestingSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSpecieMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("specie").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPECIE).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.entomology.UninterestingSpecieGroupViewDTO[] saveAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.UninterestingSpecieGroupViewDTO[] array)

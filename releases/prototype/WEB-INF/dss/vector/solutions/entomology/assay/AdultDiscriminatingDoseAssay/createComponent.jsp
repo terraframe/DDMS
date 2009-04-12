@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
+
+<%@page import="com.terraframe.mojo.transport.metadata.AttributeMdDTO"%>
 <c:set var="true_label" value='<%=Halp.translateBool(((AdultDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),true)%>'/>
 <c:set var="false_label" value='<%=Halp.translateBool(((AdultDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),false)%>'/>
 
@@ -19,36 +21,17 @@
     <dl>
     <dt>
         <label>
-          ${item.collectionMd.displayLabel} ${item.collection.displayLabel}
+          ${item.collectionMd.displayLabel}
         </label>
       </dt>
       <dd>
         <mjl:select var="current" valueAttribute="id" items="${collection}" param="collection">
-          <c:choose>
-            <c:when test="${current.id == item.collection.id}">
-             <mjl:option selected="selected">
-               ${current.displayLabel}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
               <mjl:option>
                 ${current.displayLabel}
               </mjl:option>
-            </c:otherwise>
-          </c:choose>
         </mjl:select>
       </dd>
-      <dt>
-        <label>
-          ${item.testDateMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="testDate" id="testDate" classes="DatePick"/>
-        <mjl:messages attribute="testDate">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+     <mjl:dt attribute="testDate" type="text" classes="DatePick"/>
       <dt>
         <label>
           ${item.testMethodMd.displayLabel}
@@ -267,8 +250,6 @@
 
     </dl>
   </mjl:component>
-
-
-
   <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.create.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.create.button" classes="submitButton" />
 </mjl:form>
+

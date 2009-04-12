@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public class VillageQueryDTO extends dss.vector.solutions.geo.generated.PopulatedAreaQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075021255L;
+private static final long serialVersionUID = 1239517544918L;
 
   protected VillageQueryDTO(String type)
   {

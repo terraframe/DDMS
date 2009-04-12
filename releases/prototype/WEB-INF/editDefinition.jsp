@@ -13,6 +13,14 @@
     <dl>
       <dt>
         <label>
+          ${view.isADisplayLabelMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+          ${view.isADisplayLabel}
+      </dd>
+      <dt>
+        <label>
           ${view.displayLabelMd.displayLabel}
         </label>
       </dt>
@@ -40,6 +48,20 @@
       </dt>
       <dd>
         <mjl:boolean param="political" />
+        <mjl:messages attribute="political">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
+          ${view.sprayTargetAllowedMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:boolean param="sprayTargetAllowed" />
+        <mjl:messages attribute="sprayTargetAllowed">
+          <mjl:message />
+        </mjl:messages>
       </dd>
   </mjl:component>
     </dl>

@@ -11,7 +11,7 @@ public abstract class InvalidPercentageProblemBase extends dss.vector.solutions.
 {
   public final static String CLASS = "dss.vector.solutions.general.InvalidPercentageProblem";
   public static java.lang.String INVALIDPERCENT = "invalidPercent";
-  private static final long serialVersionUID = 1239075022965L;
+  private static final long serialVersionUID = 1239517547801L;
   
   public InvalidPercentageProblemBase()
   {
@@ -88,7 +88,7 @@ public abstract class InvalidPercentageProblemBase extends dss.vector.solutions.
   {
     if (this.isNew())
     {
-      return "New: Invalid Percentage";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

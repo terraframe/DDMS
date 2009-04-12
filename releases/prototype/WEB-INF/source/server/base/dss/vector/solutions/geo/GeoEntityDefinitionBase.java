@@ -14,10 +14,12 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTGEOHIERARCHYID = "parentGeoHierarchyId";
+  public static java.lang.String PARENTTYPEGEOHIERARCHYID = "parentTypeGeoHierarchyId";
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String SPATIALTYPE = "spatialType";
+  public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = 1239075001197L;
+  private static final long serialVersionUID = 1239517511112L;
   
   public GeoEntityDefinitionBase()
   {
@@ -124,6 +126,34 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
     }
   }
   
+  public String getParentTypeGeoHierarchyId()
+  {
+    return getValue(PARENTTYPEGEOHIERARCHYID);
+  }
+  
+  public void validateParentTypeGeoHierarchyId()
+  {
+    this.validateAttribute(PARENTTYPEGEOHIERARCHYID);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getParentTypeGeoHierarchyIdMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
+    return mdClassIF.definesAttribute(PARENTTYPEGEOHIERARCHYID);
+  }
+  
+  public void setParentTypeGeoHierarchyId(String value)
+  {
+    if(value == null)
+    {
+      setValue(PARENTTYPEGEOHIERARCHYID, "");
+    }
+    else
+    {
+      setValue(PARENTTYPEGEOHIERARCHYID, value);
+    }
+  }
+  
   public Boolean getPolitical()
   {
     return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(POLITICAL));
@@ -184,6 +214,34 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
     return mdClassIF.definesAttribute(SPATIALTYPE);
   }
   
+  public Boolean getSprayTargetAllowed()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SPRAYTARGETALLOWED));
+  }
+  
+  public void validateSprayTargetAllowed()
+  {
+    this.validateAttribute(SPRAYTARGETALLOWED);
+  }
+  
+  public static com.terraframe.mojo.dataaccess.MdAttributeDAOIF getSprayTargetAllowedMd()
+  {
+    com.terraframe.mojo.dataaccess.MdClassDAOIF mdClassIF = com.terraframe.mojo.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityDefinition.CLASS);
+    return mdClassIF.definesAttribute(SPRAYTARGETALLOWED);
+  }
+  
+  public void setSprayTargetAllowed(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SPRAYTARGETALLOWED, "");
+    }
+    else
+    {
+      setValue(SPRAYTARGETALLOWED, java.lang.Boolean.toString(value));
+    }
+  }
+  
   public String getTypeName()
   {
     return getValue(TYPENAME);
@@ -226,7 +284,7 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
   {
     if (this.isNew())
     {
-      return "New: GeoEntityDefinition";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

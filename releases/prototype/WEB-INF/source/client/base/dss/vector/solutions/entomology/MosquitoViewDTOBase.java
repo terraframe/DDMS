@@ -88,7 +88,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getAAcetateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("aAcetate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(AACETATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.MolecularAssayResultDTO getAcHES()
@@ -125,7 +125,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHESMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHES").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ACHES).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InsecticideMethodologyDTO getAcHESMethod()
@@ -162,7 +162,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHESMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHESMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ACHESMETHOD).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.MolecularAssayResultDTO getAcHEV()
@@ -199,7 +199,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEVMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEV").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ACHEV).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InsecticideMethodologyDTO getAcHEVMethod()
@@ -236,7 +236,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEVMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEVMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ACHEVMETHOD).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.MolecularAssayResultDTO getAcHEW()
@@ -273,7 +273,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEWMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEW").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ACHEW).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InsecticideMethodologyDTO getAcHEWMethod()
@@ -310,7 +310,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAcHEWMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("acHEWMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ACHEWMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getBAcetate()
@@ -347,7 +347,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getBAcetateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("bAcetate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(BACETATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO getCollection()
@@ -384,7 +384,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("collection").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.MolecularAssayResultDTO getEKDR()
@@ -421,7 +421,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEKDRMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("eKDR").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(EKDR).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InsecticideMethodologyDTO getEKDRMethod()
@@ -458,7 +458,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEKDRMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("eKDRMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(EKDRMETHOD).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.MolecularAssayResultDTO getGABAG()
@@ -495,7 +495,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGABAGMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("gABAG").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GABAG).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InsecticideMethodologyDTO getGABAGMethod()
@@ -532,7 +532,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGABAGMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("gABAGMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GABAGMETHOD).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.MolecularAssayResultDTO getGABAS()
@@ -569,7 +569,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGABASMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("gABAS").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GABAS).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InsecticideMethodologyDTO getGABASMethod()
@@ -606,7 +606,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGABASMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("gABASMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GABASMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getGSTCDNB()
@@ -643,7 +643,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getGSTCDNBMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("gSTCDNB").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(GSTCDNB).getAttributeMdDTO();
   }
   
   public Boolean getGSTDCNB()
@@ -680,7 +680,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getGSTDCNBMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("gSTDCNB").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(GSTDCNB).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.GenerationDTO getGeneration()
@@ -717,7 +717,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGenerationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("generation").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GENERATION).getAttributeMdDTO();
   }
   
   public Boolean getHeme()
@@ -754,7 +754,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getHemeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("heme").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(HEME).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.MolecularAssayResultDTO getIAcHE()
@@ -791,7 +791,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIAcHEMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("iAcHE").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IACHE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InsecticideMethodologyDTO getIAcHEMethod()
@@ -828,7 +828,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIAcHEMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("iAcHEMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IACHEMETHOD).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.IdentificationMethodDTO getIdentificationMethod()
@@ -865,7 +865,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIdentificationMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("identificationMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getIsofemale()
@@ -902,7 +902,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("isofemale").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISOFEMALE).getAttributeMdDTO();
   }
   
   public String getMosquitoId()
@@ -939,7 +939,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getMosquitoIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("mosquitoId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MOSQUITOID).getAttributeMdDTO();
   }
   
   public Boolean getP450()
@@ -976,7 +976,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getP450Md()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("p450").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(P450).getAttributeMdDTO();
   }
   
   public Boolean getPFalciparum()
@@ -1013,7 +1013,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPFalciparumMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("pFalciparum").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(PFALCIPARUM).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InfectivityMethodologyDTO getPFalciparumMethod()
@@ -1050,7 +1050,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPFalciparumMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("pFalciparumMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PFALCIPARUMMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getPMalariae()
@@ -1087,7 +1087,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPMalariaeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("pMalariae").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(PMALARIAE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InfectivityMethodologyDTO getPMalariaeMethod()
@@ -1124,7 +1124,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPMalariaeMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("pMalariaeMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PMALARIAEMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getPNPA()
@@ -1161,7 +1161,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPNPAMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("pNPA").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(PNPA).getAttributeMdDTO();
   }
   
   public Boolean getPOvale()
@@ -1198,7 +1198,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPOvaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("pOvale").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POVALE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InfectivityMethodologyDTO getPOvaleMethod()
@@ -1235,7 +1235,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPOvaleMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("pOvaleMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(POVALEMETHOD).getAttributeMdDTO();
   }
   
   public Boolean getPVivax()
@@ -1272,7 +1272,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPVivaxMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("pVivax").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(PVIVAX).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InfectivityMethodologyDTO getPVivaxMethod()
@@ -1309,7 +1309,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getPVivaxMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("pVivaxMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PVIVAXMETHOD).getAttributeMdDTO();
   }
   
   public String getSampleId()
@@ -1346,7 +1346,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSampleIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("sampleId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SAMPLEID).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
@@ -1392,7 +1392,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("sex").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.SpecieDTO getSpecie()
@@ -1429,7 +1429,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSpecieMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("specie").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPECIE).getAttributeMdDTO();
   }
   
   public java.util.Date getTestDate()
@@ -1466,7 +1466,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTestDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("testDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TESTDATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.MolecularAssayResultDTO getWKDR()
@@ -1503,7 +1503,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getWKDRMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("wKDR").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WKDR).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.InsecticideMethodologyDTO getWKDRMethod()
@@ -1540,7 +1540,7 @@ public abstract class MosquitoViewDTOBase extends com.terraframe.mojo.business.V
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getWKDRMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("wKDRMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WKDRMETHOD).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.entomology.MosquitoViewDTO[] saveAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.MosquitoViewDTO[] array)

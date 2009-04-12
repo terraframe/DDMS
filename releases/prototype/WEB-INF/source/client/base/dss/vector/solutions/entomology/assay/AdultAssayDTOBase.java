@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.assay.CollectionAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075000156L;
+  private static final long serialVersionUID = 1239517508902L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AdultAssay";
   protected AdultAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -52,7 +52,7 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
   
   public final com.terraframe.mojo.transport.metadata.AttributeStructMdDTO getAgeRangeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeStructMdDTO) getAttributeDTO("ageRange").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeStructMdDTO) getAttributeDTO(AGERANGE).getAttributeMdDTO();
   }
   
   public Integer getFed()
@@ -89,7 +89,7 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getFedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("fed").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FED).getAttributeMdDTO();
   }
   
   public Integer getGravid()
@@ -126,7 +126,7 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getGravidMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("gravid").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(GRAVID).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
@@ -172,7 +172,7 @@ public abstract class AdultAssayDTOBase extends dss.vector.solutions.entomology.
   
   public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("sex").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.entomology.assay.AdultTestIntervalViewDTO[] getTestIntervals()

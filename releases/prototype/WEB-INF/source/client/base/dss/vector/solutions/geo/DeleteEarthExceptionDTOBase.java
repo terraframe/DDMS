@@ -84,7 +84,7 @@ public abstract class DeleteEarthExceptionDTOBase extends com.terraframe.mojo.bu
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getEarthNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("earthName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(EARTHNAME).getAttributeMdDTO();
   }
   
   /**

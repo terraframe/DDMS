@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.molecular;
 
 public abstract class AcHEVTestResultDTOBase extends dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075011697L;
+  private static final long serialVersionUID = 1239517527825L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.AcHEVTestResult";
   protected AcHEVTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class AcHEVTestResultDTOBase extends dss.vector.solutions.entomo
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTestResultMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("testResult").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTRESULT).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.entomology.assay.molecular.AcHEVTestResultDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

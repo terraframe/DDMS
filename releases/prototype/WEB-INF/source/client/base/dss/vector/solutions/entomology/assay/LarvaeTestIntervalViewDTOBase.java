@@ -53,7 +53,7 @@ public abstract class LarvaeTestIntervalViewDTOBase extends com.terraframe.mojo.
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getAssayMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("assay").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ASSAY).getAttributeMdDTO();
   }
   
   public String getIntervalId()
@@ -90,7 +90,7 @@ public abstract class LarvaeTestIntervalViewDTOBase extends com.terraframe.mojo.
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIntervalIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("intervalId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INTERVALID).getAttributeMdDTO();
   }
   
   public Integer getIntervalTime()
@@ -127,7 +127,7 @@ public abstract class LarvaeTestIntervalViewDTOBase extends com.terraframe.mojo.
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getIntervalTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("intervalTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVALTIME).getAttributeMdDTO();
   }
   
   public Integer getPeriod()
@@ -164,7 +164,7 @@ public abstract class LarvaeTestIntervalViewDTOBase extends com.terraframe.mojo.
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getPeriodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("period").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PERIOD).getAttributeMdDTO();
   }
   
   public Integer getQuantityDead()
@@ -201,7 +201,7 @@ public abstract class LarvaeTestIntervalViewDTOBase extends com.terraframe.mojo.
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityDeadMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityDead").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYDEAD).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.entomology.assay.LarvaeTestIntervalViewDTO[] saveAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.assay.LarvaeTestIntervalViewDTO[] array)

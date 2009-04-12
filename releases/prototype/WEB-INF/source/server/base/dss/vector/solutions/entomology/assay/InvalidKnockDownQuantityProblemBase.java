@@ -12,7 +12,7 @@ public abstract class InvalidKnockDownQuantityProblemBase extends dss.vector.sol
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidKnockDownQuantityProblem";
   public static java.lang.String QUANTITYKNOCKDOWN = "quantityKnockDown";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
-  private static final long serialVersionUID = 1239075003403L;
+  private static final long serialVersionUID = 1239517515689L;
   
   public InvalidKnockDownQuantityProblemBase()
   {
@@ -118,7 +118,7 @@ public abstract class InvalidKnockDownQuantityProblemBase extends dss.vector.sol
   {
     if (this.isNew())
     {
-      return "New: Invalid Knock Down Quantity";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

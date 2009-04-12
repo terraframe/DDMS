@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class MosquitoDTOBase extends dss.vector.solutions.entomology.TrueSpecieEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075025421L;
+  private static final long serialVersionUID = 1239517552519L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.Mosquito";
   protected MosquitoDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -64,7 +64,7 @@ public abstract class MosquitoDTOBase extends dss.vector.solutions.entomology.Tr
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGenerationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("generation").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GENERATION).getAttributeMdDTO();
   }
   
   public Boolean getIsofemale()
@@ -101,7 +101,7 @@ public abstract class MosquitoDTOBase extends dss.vector.solutions.entomology.Tr
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("isofemale").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISOFEMALE).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
@@ -147,7 +147,7 @@ public abstract class MosquitoDTOBase extends dss.vector.solutions.entomology.Tr
   
   public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSexMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("sex").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SEX).getAttributeMdDTO();
   }
   
   public java.util.Date getTestDate()
@@ -184,7 +184,7 @@ public abstract class MosquitoDTOBase extends dss.vector.solutions.entomology.Tr
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTestDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("testDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TESTDATE).getAttributeMdDTO();
   }
   
   public static final java.lang.String mapQuery(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String queryXML)

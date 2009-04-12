@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239074995844L;
+  private static final long serialVersionUID = 1239517502407L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.CollectionAssay";
   protected CollectionAssayDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -68,7 +68,7 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("collection").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTION).getAttributeMdDTO();
   }
   
   public Integer getExposureTime()
@@ -105,7 +105,7 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getExposureTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("exposureTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(EXPOSURETIME).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.GenerationDTO getGeneration()
@@ -142,7 +142,7 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGenerationMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("generation").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GENERATION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.IdentificationMethodDTO getIdentificationMethod()
@@ -179,7 +179,7 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIdentificationMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("identificationMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
   }
   
   public Integer getIntervalTime()
@@ -216,7 +216,7 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getIntervalTimeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("intervalTime").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVALTIME).getAttributeMdDTO();
   }
   
   public Boolean getIsofemale()
@@ -253,7 +253,7 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getIsofemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("isofemale").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISOFEMALE).getAttributeMdDTO();
   }
   
   public Integer getQuantityTested()
@@ -290,7 +290,7 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityTestedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityTested").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYTESTED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.ResistanceMethodologyDTO getTestMethod()
@@ -327,7 +327,7 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("testMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
   }
   
   public final java.lang.Double getKD95()

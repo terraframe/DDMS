@@ -29,7 +29,7 @@ public abstract class PropertyBase extends com.terraframe.mojo.business.Business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239075041893L;
+  private static final long serialVersionUID = 1239517583693L;
   
   public PropertyBase()
   {
@@ -506,6 +506,12 @@ public abstract class PropertyBase extends com.terraframe.mojo.business.Business
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
+  public static java.lang.Integer getInt(java.lang.String pkg, java.lang.String name)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.Property.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
   public static dss.vector.solutions.Property getByPackageAndName(java.lang.String pkg, java.lang.String name)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.Property.java";
@@ -513,12 +519,6 @@ public abstract class PropertyBase extends com.terraframe.mojo.business.Business
   }
   
   public static dss.vector.solutions.Property getAllByPackage(java.lang.String pkg)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.Property.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static java.lang.Integer getInt(java.lang.String pkg, java.lang.String name)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.Property.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

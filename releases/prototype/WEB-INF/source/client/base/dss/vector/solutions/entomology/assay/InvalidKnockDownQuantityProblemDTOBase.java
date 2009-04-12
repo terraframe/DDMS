@@ -54,7 +54,7 @@ public abstract class InvalidKnockDownQuantityProblemDTOBase extends dss.vector.
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityKnockDownMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityKnockDown").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYKNOCKDOWN).getAttributeMdDTO();
   }
   
   public Integer getQuantityTested()
@@ -91,7 +91,7 @@ public abstract class InvalidKnockDownQuantityProblemDTOBase extends dss.vector.
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityTestedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityTested").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYTESTED).getAttributeMdDTO();
   }
   
   /**

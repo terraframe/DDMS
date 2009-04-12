@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public abstract class InvalidMorphologicalQuantityProblemBase extends dss.vector.solutions.NotificationProblem implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.InvalidMorphologicalQuantityProblem";
-  private static final long serialVersionUID = 1239075010208L;
+  private static final long serialVersionUID = 1239517525391L;
   
   public InvalidMorphologicalQuantityProblemBase()
   {
@@ -58,7 +58,7 @@ public abstract class InvalidMorphologicalQuantityProblemBase extends dss.vector
   {
     if (this.isNew())
     {
-      return "New: Invalid Quantity";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

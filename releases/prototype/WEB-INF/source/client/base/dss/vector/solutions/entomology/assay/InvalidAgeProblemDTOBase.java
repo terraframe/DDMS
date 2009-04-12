@@ -53,7 +53,7 @@ public abstract class InvalidAgeProblemDTOBase extends dss.vector.solutions.Noti
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getAgeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("age").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AGE).getAttributeMdDTO();
   }
   
   /**

@@ -11,7 +11,7 @@ public abstract class AAcetateTestResultBase extends dss.vector.solutions.entomo
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1239075023502L;
+  private static final long serialVersionUID = 1239517548688L;
   
   public AAcetateTestResultBase()
   {

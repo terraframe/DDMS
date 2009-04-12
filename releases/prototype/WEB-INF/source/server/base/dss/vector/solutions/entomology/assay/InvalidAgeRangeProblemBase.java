@@ -12,7 +12,7 @@ public abstract class InvalidAgeRangeProblemBase extends dss.vector.solutions.No
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem";
   public static java.lang.String ENDPOINT = "endPoint";
   public static java.lang.String STARTPOINT = "startPoint";
-  private static final long serialVersionUID = 1239075012755L;
+  private static final long serialVersionUID = 1239517529556L;
   
   public InvalidAgeRangeProblemBase()
   {
@@ -118,7 +118,7 @@ public abstract class InvalidAgeRangeProblemBase extends dss.vector.solutions.No
   {
     if (this.isNew())
     {
-      return "New: Invalid Age Range Exception";
+      return "New: "+ this.getClassDisplayLabel();
     }
     else
     {

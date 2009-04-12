@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class FacilityDTOBase extends dss.vector.solutions.geo.generated.GeoEntityDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075022497L;
+  private static final long serialVersionUID = 1239517546806L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.Facility";
   protected FacilityDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class FacilityDTOBase extends dss.vector.solutions.geo.generated
   
   public final com.terraframe.mojo.gis.transport.metadata.AttributePointMdDTO getPointMd()
   {
-    return (com.terraframe.mojo.gis.transport.metadata.AttributePointMdDTO) getAttributeDTO("point").getAttributeMdDTO();
+    return (com.terraframe.mojo.gis.transport.metadata.AttributePointMdDTO) getAttributeDTO(POINT).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.geo.generated.FacilityDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

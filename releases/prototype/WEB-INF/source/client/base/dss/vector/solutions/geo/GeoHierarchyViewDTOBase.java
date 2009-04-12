@@ -17,8 +17,10 @@ public abstract class GeoHierarchyViewDTOBase extends com.terraframe.mojo.busine
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String GEOHIERARCHYID = "geoHierarchyId";
   public static java.lang.String ID = "id";
+  public static java.lang.String ISADISPLAYLABEL = "isADisplayLabel";
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String REFERENCEID = "referenceId";
+  public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TYPENAME = "typeName";
   public String getDescription()
   {
@@ -54,7 +56,7 @@ public abstract class GeoHierarchyViewDTOBase extends com.terraframe.mojo.busine
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDescriptionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("description").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
   }
   
   public String getDisplayLabel()
@@ -91,7 +93,7 @@ public abstract class GeoHierarchyViewDTOBase extends com.terraframe.mojo.busine
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("displayLabel").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public String getGeoHierarchyId()
@@ -128,7 +130,44 @@ public abstract class GeoHierarchyViewDTOBase extends com.terraframe.mojo.busine
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoHierarchyIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("geoHierarchyId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOHIERARCHYID).getAttributeMdDTO();
+  }
+  
+  public String getIsADisplayLabel()
+  {
+    return getValue(ISADISPLAYLABEL);
+  }
+  
+  public void setIsADisplayLabel(String value)
+  {
+    if(value == null)
+    {
+      setValue(ISADISPLAYLABEL, "");
+    }
+    else
+    {
+      setValue(ISADISPLAYLABEL, value);
+    }
+  }
+  
+  public boolean isIsADisplayLabelWritable()
+  {
+    return isWritable(ISADISPLAYLABEL);
+  }
+  
+  public boolean isIsADisplayLabelReadable()
+  {
+    return isReadable(ISADISPLAYLABEL);
+  }
+  
+  public boolean isIsADisplayLabelModified()
+  {
+    return isModified(ISADISPLAYLABEL);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getIsADisplayLabelMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ISADISPLAYLABEL).getAttributeMdDTO();
   }
   
   public Boolean getPolitical()
@@ -165,7 +204,7 @@ public abstract class GeoHierarchyViewDTOBase extends com.terraframe.mojo.busine
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPoliticalMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("political").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POLITICAL).getAttributeMdDTO();
   }
   
   public String getReferenceId()
@@ -202,7 +241,44 @@ public abstract class GeoHierarchyViewDTOBase extends com.terraframe.mojo.busine
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getReferenceIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("referenceId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(REFERENCEID).getAttributeMdDTO();
+  }
+  
+  public Boolean getSprayTargetAllowed()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SPRAYTARGETALLOWED));
+  }
+  
+  public void setSprayTargetAllowed(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SPRAYTARGETALLOWED, "");
+    }
+    else
+    {
+      setValue(SPRAYTARGETALLOWED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isSprayTargetAllowedWritable()
+  {
+    return isWritable(SPRAYTARGETALLOWED);
+  }
+  
+  public boolean isSprayTargetAllowedReadable()
+  {
+    return isReadable(SPRAYTARGETALLOWED);
+  }
+  
+  public boolean isSprayTargetAllowedModified()
+  {
+    return isModified(SPRAYTARGETALLOWED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSprayTargetAllowedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SPRAYTARGETALLOWED).getAttributeMdDTO();
   }
   
   public String getTypeName()
@@ -239,7 +315,7 @@ public abstract class GeoHierarchyViewDTOBase extends com.terraframe.mojo.busine
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTypeNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("typeName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TYPENAME).getAttributeMdDTO();
   }
   
   public static GeoHierarchyViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

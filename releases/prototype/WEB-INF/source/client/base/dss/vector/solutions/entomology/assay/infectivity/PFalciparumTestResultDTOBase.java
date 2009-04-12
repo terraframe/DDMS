@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.infectivity;
 
 public abstract class PFalciparumTestResultDTOBase extends dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075004668L;
+  private static final long serialVersionUID = 1239517518546L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult";
   protected PFalciparumTestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class PFalciparumTestResultDTOBase extends dss.vector.solutions.
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getTestResultMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("testResult").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(TESTRESULT).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResultDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

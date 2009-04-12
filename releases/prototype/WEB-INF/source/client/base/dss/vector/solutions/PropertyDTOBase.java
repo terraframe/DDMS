@@ -2,7 +2,7 @@ package dss.vector.solutions;
 
 public abstract class PropertyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075041974L;
+  private static final long serialVersionUID = 1239517583812L;
   
   public final static String CLASS = "dss.vector.solutions.Property";
   protected PropertyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -67,7 +67,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO("createDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
@@ -99,7 +99,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("createdBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
   public String getDescription()
@@ -136,7 +136,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDescriptionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("description").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
   }
   
   public String getDisplayLabel()
@@ -173,7 +173,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("displayLabel").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
@@ -210,7 +210,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("entityDomain").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -235,7 +235,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("keyName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
@@ -260,7 +260,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO("lastUpdateDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
@@ -292,7 +292,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("lastUpdatedBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.UsersDTO getLockedBy()
@@ -324,7 +324,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("lockedBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.ActorDTO getOwner()
@@ -361,7 +361,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("owner").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public String getPropertyName()
@@ -398,7 +398,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPropertyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("propertyName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PROPERTYNAME).getAttributeMdDTO();
   }
   
   public String getPropertyPackage()
@@ -435,7 +435,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPropertyPackageMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("propertyPackage").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PROPERTYPACKAGE).getAttributeMdDTO();
   }
   
   public String getPropertyType()
@@ -472,7 +472,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPropertyTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("propertyType").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PROPERTYTYPE).getAttributeMdDTO();
   }
   
   public String getPropertyValidator()
@@ -509,7 +509,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPropertyValidatorMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("propertyValidator").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PROPERTYVALIDATOR).getAttributeMdDTO();
   }
   
   public String getPropertyValue()
@@ -546,7 +546,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getPropertyValueMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("propertyValue").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PROPERTYVALUE).getAttributeMdDTO();
   }
   
   public Long getSeq()
@@ -571,7 +571,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("seq").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -596,7 +596,7 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("siteMaster").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public static final java.lang.String getStr(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
@@ -605,6 +605,14 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
     Object[] _parameters = new Object[]{pkg, name};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getStr", _declaredTypes);
     return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.Integer getInt(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{pkg, name};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getInt", _declaredTypes);
+    return (java.lang.Integer) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.PropertyDTO getByPackageAndName(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
@@ -621,14 +629,6 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
     Object[] _parameters = new Object[]{pkg};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getAllByPackage", _declaredTypes);
     return (dss.vector.solutions.PropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public static final java.lang.Integer getInt(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{pkg, name};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getInt", _declaredTypes);
-    return (java.lang.Integer) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.PropertyDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

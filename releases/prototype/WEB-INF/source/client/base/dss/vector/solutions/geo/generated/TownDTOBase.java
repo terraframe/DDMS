@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class TownDTOBase extends dss.vector.solutions.geo.generated.PopulatedAreaDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075014521L;
+  private static final long serialVersionUID = 1239517533222L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.Town";
   protected TownDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -61,7 +61,7 @@ public abstract class TownDTOBase extends dss.vector.solutions.geo.generated.Pop
   
   public final com.terraframe.mojo.gis.transport.metadata.AttributePointMdDTO getPointMd()
   {
-    return (com.terraframe.mojo.gis.transport.metadata.AttributePointMdDTO) getAttributeDTO("point").getAttributeMdDTO();
+    return (com.terraframe.mojo.gis.transport.metadata.AttributePointMdDTO) getAttributeDTO(POINT).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.geo.generated.TownDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

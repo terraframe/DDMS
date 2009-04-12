@@ -57,7 +57,7 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCollectionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("collection").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTION).getAttributeMdDTO();
   }
   
   public java.util.Date getDateCollected()
@@ -94,7 +94,7 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDateCollectedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("dateCollected").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATECOLLECTED).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -131,7 +131,7 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("geoEntity").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public String getGroupId()
@@ -168,7 +168,7 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGroupIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("groupId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GROUPID).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.IdentificationMethodDTO getIdentificationMethod()
@@ -205,7 +205,7 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getIdentificationMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("identificationMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
   }
   
   public Integer getQuantity()
@@ -242,7 +242,7 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantity").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITY).getAttributeMdDTO();
   }
   
   public Integer getQuantityFemale()
@@ -279,7 +279,7 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityFemaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityFemale").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYFEMALE).getAttributeMdDTO();
   }
   
   public Integer getQuantityMale()
@@ -316,7 +316,7 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getQuantityMaleMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("quantityMale").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYMALE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.mo.SpecieDTO getSpecie()
@@ -353,7 +353,7 @@ public abstract class MorphologicalSpecieGroupViewDTOBase extends com.terraframe
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getSpecieMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("specie").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPECIE).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.entomology.MorphologicalSpecieGroupViewDTO[] saveAll(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.MorphologicalSpecieGroupViewDTO[] array)

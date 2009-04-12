@@ -17,8 +17,10 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTGEOHIERARCHYID = "parentGeoHierarchyId";
+  public static java.lang.String PARENTTYPEGEOHIERARCHYID = "parentTypeGeoHierarchyId";
   public static java.lang.String POLITICAL = "political";
   public static java.lang.String SPATIALTYPE = "spatialType";
+  public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TYPENAME = "typeName";
   public String getDescription()
   {
@@ -54,7 +56,7 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDescriptionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("description").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
   }
   
   public String getDisplayLabel()
@@ -91,7 +93,7 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("displayLabel").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public String getParentGeoHierarchyId()
@@ -128,7 +130,44 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getParentGeoHierarchyIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("parentGeoHierarchyId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARENTGEOHIERARCHYID).getAttributeMdDTO();
+  }
+  
+  public String getParentTypeGeoHierarchyId()
+  {
+    return getValue(PARENTTYPEGEOHIERARCHYID);
+  }
+  
+  public void setParentTypeGeoHierarchyId(String value)
+  {
+    if(value == null)
+    {
+      setValue(PARENTTYPEGEOHIERARCHYID, "");
+    }
+    else
+    {
+      setValue(PARENTTYPEGEOHIERARCHYID, value);
+    }
+  }
+  
+  public boolean isParentTypeGeoHierarchyIdWritable()
+  {
+    return isWritable(PARENTTYPEGEOHIERARCHYID);
+  }
+  
+  public boolean isParentTypeGeoHierarchyIdReadable()
+  {
+    return isReadable(PARENTTYPEGEOHIERARCHYID);
+  }
+  
+  public boolean isParentTypeGeoHierarchyIdModified()
+  {
+    return isModified(PARENTTYPEGEOHIERARCHYID);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getParentTypeGeoHierarchyIdMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARENTTYPEGEOHIERARCHYID).getAttributeMdDTO();
   }
   
   public Boolean getPolitical()
@@ -165,7 +204,7 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getPoliticalMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("political").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(POLITICAL).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
@@ -211,7 +250,44 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   
   public final com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO getSpatialTypeMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO("spatialType").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(SPATIALTYPE).getAttributeMdDTO();
+  }
+  
+  public Boolean getSprayTargetAllowed()
+  {
+    return com.terraframe.mojo.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(SPRAYTARGETALLOWED));
+  }
+  
+  public void setSprayTargetAllowed(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(SPRAYTARGETALLOWED, "");
+    }
+    else
+    {
+      setValue(SPRAYTARGETALLOWED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isSprayTargetAllowedWritable()
+  {
+    return isWritable(SPRAYTARGETALLOWED);
+  }
+  
+  public boolean isSprayTargetAllowedReadable()
+  {
+    return isReadable(SPRAYTARGETALLOWED);
+  }
+  
+  public boolean isSprayTargetAllowedModified()
+  {
+    return isModified(SPRAYTARGETALLOWED);
+  }
+  
+  public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getSprayTargetAllowedMd()
+  {
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SPRAYTARGETALLOWED).getAttributeMdDTO();
   }
   
   public String getTypeName()
@@ -248,7 +324,7 @@ public abstract class GeoEntityDefinitionDTOBase extends com.terraframe.mojo.bus
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTypeNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("typeName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TYPENAME).getAttributeMdDTO();
   }
   
   public static GeoEntityDefinitionDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

@@ -30,7 +30,7 @@ public abstract class AbstractTermBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TERMNAME = "termName";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239075020300L;
+  private static final long serialVersionUID = 1239517543186L;
   
   public AbstractTermBase()
   {
@@ -529,13 +529,13 @@ public abstract class AbstractTermBase extends com.terraframe.mojo.business.Busi
     return (AbstractTerm) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public static dss.vector.solutions.mo.AbstractTerm searchByTermId(java.lang.String moId)
+  public static dss.vector.solutions.mo.AbstractTerm searchByTermName(java.lang.String termName)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.AbstractTerm.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static dss.vector.solutions.mo.AbstractTerm searchByTermName(java.lang.String termName)
+  public static dss.vector.solutions.mo.AbstractTerm searchByTermId(java.lang.String moId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.AbstractTerm.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

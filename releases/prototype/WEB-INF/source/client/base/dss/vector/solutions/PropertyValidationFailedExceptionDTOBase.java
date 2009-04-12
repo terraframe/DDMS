@@ -84,7 +84,7 @@ public abstract class PropertyValidationFailedExceptionDTOBase extends com.terra
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getValidValuesMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("validValues").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(VALIDVALUES).getAttributeMdDTO();
   }
   
   /**

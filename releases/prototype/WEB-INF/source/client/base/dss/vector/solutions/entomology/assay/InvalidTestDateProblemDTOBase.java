@@ -54,7 +54,7 @@ public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getCollectionDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("collectionDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(COLLECTIONDATE).getAttributeMdDTO();
   }
   
   public java.util.Date getTestDate()
@@ -91,7 +91,7 @@ public abstract class InvalidTestDateProblemDTOBase extends dss.vector.solutions
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getTestDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("testDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(TESTDATE).getAttributeMdDTO();
   }
   
   /**

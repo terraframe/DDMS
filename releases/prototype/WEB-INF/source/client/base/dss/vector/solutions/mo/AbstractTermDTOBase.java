@@ -2,7 +2,7 @@ package dss.vector.solutions.mo;
 
 public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239075020378L;
+  private static final long serialVersionUID = 1239517543303L;
   
   public final static String CLASS = "dss.vector.solutions.mo.AbstractTerm";
   protected AbstractTermDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -68,7 +68,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getCreateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO("createDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(CREATEDATE).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.SingleActorDTO getCreatedBy()
@@ -100,7 +100,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("createdBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
   public String getDefinition()
@@ -137,7 +137,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDefinitionMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("definition").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DEFINITION).getAttributeMdDTO();
   }
   
   public String getDisplayLabel()
@@ -174,7 +174,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("displayLabel").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public Boolean getEnabled()
@@ -211,7 +211,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO getEnabledMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO("enabled").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLED).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.metadata.MdDomainDTO getEntityDomain()
@@ -248,7 +248,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("entityDomain").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
   public String getInheritsTerm()
@@ -285,7 +285,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getInheritsTermMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("inheritsTerm").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INHERITSTERM).getAttributeMdDTO();
   }
   
   public String getInheritsTermName()
@@ -322,7 +322,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getInheritsTermNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("inheritsTermName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INHERITSTERMNAME).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -347,7 +347,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getKeyNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("keyName").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(KEYNAME).getAttributeMdDTO();
   }
   
   public java.util.Date getLastUpdateDate()
@@ -372,7 +372,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO getLastUpdateDateMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO("lastUpdateDate").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTUPDATEDATE).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.SingleActorDTO getLastUpdatedBy()
@@ -404,7 +404,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLastUpdatedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("lastUpdatedBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.UsersDTO getLockedBy()
@@ -436,7 +436,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getLockedByMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("lockedBy").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
   public String getOboNamespace()
@@ -473,7 +473,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getOboNamespaceMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("oboNamespace").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OBONAMESPACE).getAttributeMdDTO();
   }
   
   public com.terraframe.mojo.system.ActorDTO getOwner()
@@ -510,7 +510,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO("owner").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
   public Long getSeq()
@@ -535,7 +535,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getSeqMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("seq").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SEQ).getAttributeMdDTO();
   }
   
   public String getSiteMaster()
@@ -560,7 +560,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("siteMaster").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
   public String getTermId()
@@ -597,7 +597,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTermIdMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("termId").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMID).getAttributeMdDTO();
   }
   
   public String getTermName()
@@ -634,15 +634,7 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getTermNameMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("termName").getAttributeMdDTO();
-  }
-  
-  public static final dss.vector.solutions.mo.AbstractTermDTO searchByTermId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String moId)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{moId};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.mo.AbstractTermDTO.CLASS, "searchByTermId", _declaredTypes);
-    return (dss.vector.solutions.mo.AbstractTermDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMNAME).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.mo.AbstractTermDTO searchByTermName(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String termName)
@@ -650,6 +642,14 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{termName};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.mo.AbstractTermDTO.CLASS, "searchByTermName", _declaredTypes);
+    return (dss.vector.solutions.mo.AbstractTermDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.mo.AbstractTermDTO searchByTermId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String moId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{moId};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.mo.AbstractTermDTO.CLASS, "searchByTermId", _declaredTypes);
     return (dss.vector.solutions.mo.AbstractTermDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

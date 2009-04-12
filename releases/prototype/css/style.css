@@ -387,3 +387,13 @@ div.thematicVariable
 	padding-left: 10px;
 	color: #808080;
 }
+
+div.innerContentModal {
+	height: 350px;
+	overflow-y: scroll;
+	padding-right: 5px;
+}
+
+div.yui-module div.bd form dl {
+	margin-bottom: 5px;
+}

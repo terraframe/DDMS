@@ -22,20 +22,16 @@
 </mjl:messages>
 <h2>Collection</h2>
 <dl>
-<mjl:form name="mdss.entomology.MosquitoCollection.form.name" id="mdss.entomology.MosquitoCollection.form.id" method="POST" style="display:inline;">
+<mjl:form name="dss.entomology.MosquitoCollection.form.name" id="dss.entomology.MosquitoCollection.form.id" method="POST" style="display:inline;">
 
   <mjl:input value="${item.id}" type="hidden" param="id" />
 
     <dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
-    <dd><mjl:commandLink display="${item.collectionMethod.termName}" action="mdss.entomology.CollectionMethodController.view.mojo" name="mdss.entomology.CollectionMethod.form.view.link">
-      <mjl:property value="${item.collectionMethod.id}" name="id" />
-    </mjl:commandLink></dd>
+    <dd>${item.collectionMethod.displayLabel}</dd>
     <dt><label > ${item.dateCollectedMd.displayLabel} </label></dt>
     <dd class="formatDate">${item.dateCollected}</dd>
     <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
-    <dd><mjl:commandLink display="${item.geoEntity.geoId}" action="mdss.test.GeoEntityController.view.mojo" name="mdss.test.GeoEntity.form.view.link">
-      <mjl:property value="${item.geoEntity.id}" name="id" />
-    </mjl:commandLink></dd>
+    <dd>${item.geoEntity.geoId}</dd>
 
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.MosquitoCollectionController.edit.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.edit.button" classes="submitButton" />
 </mjl:form>

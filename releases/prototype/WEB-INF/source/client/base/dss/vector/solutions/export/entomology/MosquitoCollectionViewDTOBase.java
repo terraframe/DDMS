@@ -51,7 +51,7 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getCollectionMethodMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("collectionMethod").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
   }
   
   public java.util.Date getDateCollected()
@@ -88,7 +88,7 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   
   public final com.terraframe.mojo.transport.metadata.AttributeDateMdDTO getDateCollectedMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO("dateCollected").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATECOLLECTED).getAttributeMdDTO();
   }
   
   public String getGeoEntity()
@@ -125,7 +125,7 @@ public abstract class MosquitoCollectionViewDTOBase extends com.terraframe.mojo.
   
   public final com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO getGeoEntityMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO("geoEntity").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public static MosquitoCollectionViewDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public  class EfficacyAssayQuery extends dss.vector.solutions.entomology.assay.AbstractAssayQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239075025991L;
+private static final long serialVersionUID = 1239517553935L;
 
   public EfficacyAssayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -218,7 +218,7 @@ private static final long serialVersionUID = 1239075025991L;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("ageRange")) 
+    if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.AGERANGE)) 
     {
        return new dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStruct((com.terraframe.mojo.dataaccess.MdAttributeStructDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }
@@ -320,7 +320,7 @@ private static final long serialVersionUID = 1239075025991L;
  implements EfficacyAssayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239075026181L;
+private static final long serialVersionUID = 1239517554385L;
 
   public EfficacyAssayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {
@@ -515,7 +515,7 @@ private static final long serialVersionUID = 1239075026181L;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("ageRange")) 
+    if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.AGERANGE)) 
     {
        return new dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStruct((com.terraframe.mojo.dataaccess.MdAttributeStructDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias);
     }

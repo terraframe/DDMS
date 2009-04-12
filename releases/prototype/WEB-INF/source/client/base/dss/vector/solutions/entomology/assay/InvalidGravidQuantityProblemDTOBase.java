@@ -53,7 +53,7 @@ public abstract class InvalidGravidQuantityProblemDTOBase extends dss.vector.sol
   
   public final com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO getGravidMd()
   {
-    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO("gravid").getAttributeMdDTO();
+    return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(GRAVID).getAttributeMdDTO();
   }
   
   /**
