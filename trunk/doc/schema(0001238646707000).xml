@@ -96,7 +96,7 @@
             type="java.lang.Boolean" />
         </mdMethod>
       </mdBusiness>
-      
+
       <mdBusiness
         name="dss.vector.solutions.geo.GeoHierarchy"
         generateController="false"
@@ -1302,13 +1302,13 @@
             description="Name of Earth" />
         </attributes>
       </mdException>
-      
+
       <mdException
         name="dss.vector.solutions.geo.SpatialTypeRequiredException"
         label="Spatial Type Required Exception"
         description="Thrown when a new universal is defined without a geometry that extends GeoEntity">
       </mdException>
-      
+
       <mdException
         name="dss.vector.solutions.geo.SpatialTypeDefinedException"
         label="Spatial Type Defined Exception"
@@ -1567,7 +1567,7 @@
         <attributes>
           <reference
             name="specie"
-            label="Specie"
+            label="Species"
             type="dss.vector.solutions.mo.Specie"
             required="false"
             description="The true specie of the collection" />
@@ -1733,7 +1733,8 @@
 
       <object
         id="MALE"
-        type="dss.vector.solutions.entomology.SexMaster">
+        type="dss.vector.solutions.entomology.SexMaster"
+        key="dss.vector.solutions.entomology.SexMaster.MALE">
         <valueAttribute
           name="enumName"
           value="MALE" />
@@ -1744,7 +1745,8 @@
 
       <object
         id="FEMALE"
-        type="dss.vector.solutions.entomology.SexMaster">
+        type="dss.vector.solutions.entomology.SexMaster"
+        key="dss.vector.solutions.entomology.SexMaster.FEMALE">
         <valueAttribute
           name="enumName"
           value="FEMALE" />
@@ -1755,7 +1757,8 @@
 
       <object
         id="MIXED"
-        type="dss.vector.solutions.entomology.SexMaster">
+        type="dss.vector.solutions.entomology.SexMaster"
+        key="dss.vector.solutions.entomology.SexMaster.MIXED">
         <valueAttribute
           name="enumName"
           value="MIXED" />
@@ -1766,7 +1769,8 @@
 
       <object
         id="UNKNOWN"
-        type="dss.vector.solutions.entomology.SexMaster">
+        type="dss.vector.solutions.entomology.SexMaster"
+        key="dss.vector.solutions.entomology.SexMaster.UNKNOWN">
         <valueAttribute
           name="enumName"
           value="UNKNOWN" />
@@ -2271,7 +2275,7 @@
             required="true" />
           <integer
             name="amount"
-            label="Amount"
+            label="Concentration"
             rejectZero="true"
             rejectNegative="true"
             required="true" />
@@ -2298,7 +2302,7 @@
             description="The date the test was performed" />
           <reference
             name="specie"
-            label="Specie"
+            label="Species"
             type="dss.vector.solutions.mo.Specie"
             required="false" />
           <reference
@@ -5164,7 +5168,7 @@
     </existing>
 
     <create>
-    
+
       <object
         id="geoEntityH"
         type="dss.vector.solutions.geo.GeoHierarchy">
@@ -5178,7 +5182,7 @@
           name="geoEntityClass"
           id="GeoEntityMd" />
       </object>
-    
+
       <object
         id="earthH"
         type="dss.vector.solutions.geo.GeoHierarchy">
@@ -5524,7 +5528,8 @@
 
       <object
         id="sentinalSiteH"
-        type="dss.vector.solutions.geo.GeoHierarchy">
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="GeoHierarchy_SentinalSite">
         <valueAttribute
           name="political"
           value="true" />
@@ -5545,7 +5550,8 @@
 
       <object
         id="nonSentinalSiteH"
-        type="dss.vector.solutions.geo.GeoHierarchy">
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="GeoHierarchy_NonSentinalSite">
         <valueAttribute
           name="political"
           value="true" />
