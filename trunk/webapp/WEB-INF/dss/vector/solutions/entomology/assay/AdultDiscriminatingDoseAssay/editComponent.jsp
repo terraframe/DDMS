@@ -60,6 +60,9 @@
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
+        <mjl:messages attribute="generation">
+          <mjl:message />
+        </mjl:messages>
       </dd>
             <dt>
         <label>
@@ -68,6 +71,10 @@
       </dt>
       <dd>
         <mjl:boolean param="isofemale" trueLabel="${true_label}" falseLabel="${false_label}" />
+        <mjl:messages attribute="generation">
+          <mjl:message />
+        </mjl:messages>
+
       </dd>
       <dt>
         <label>
