@@ -45,7 +45,7 @@
           // Get the result
           MdAttributeVirtualDAOIF mdAttribute = assayMap.get(c);
           String attributeName = GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
-          String displayLabel = GenerationUtil.upperFirstCharacter(mdAttribute.getDisplayLabel());
+          String displayLabel = mdAttribute.getDisplayLabel();
     		try
     		{
 
@@ -107,12 +107,9 @@
 <h2>Mosquitos</h2>
 <div class="fldContainer"><br>
 <div id="checkBoxContanier" style="height: 12em;">
-<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,
-									MetabolicAssayTestResult.class)%></div>
-<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,
-							InfectivityAssayTestResult.class)%></div>
-<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,
-									TargetSiteAssayTestResult.class)%></div>
+<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,MetabolicAssayTestResult.class)%></div>
+<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,InfectivityAssayTestResult.class)%></div>
+<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,TargetSiteAssayTestResult.class)%></div>
 </div>
 <div id="Mosquitos"></div>
 <div id="buttons" class="noprint"><span id="MosquitosAddrow" class="yui-button yui-push-button"> <span class="first-child">
@@ -162,13 +159,13 @@ function showCol(key,checked)
 
 	//JSONArray labels = new JSONArray();
 	//labels.put("β-napthyl");
-	//out.println(labels.toString());
+//	out.println(labels.toString());
 	//String test = "β-napthyl acetate assay";
 	//out.println(test);
 	//out.println(test.length());
 
-	//String roundTrip = (mdView.getBAcetateMd().getDisplayLabel());
-	//out.println(roundTrip);
+	String roundTrip = (mdView.getBAcetateMd().getDisplayLabel());
+	out.println(roundTrip);
 	//out.println(roundTrip.length());
 
 	//PrintStream utfOut = new PrintStream(out, true, "UTF-8");
