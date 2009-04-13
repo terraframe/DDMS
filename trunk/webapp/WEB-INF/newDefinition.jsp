@@ -48,7 +48,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="geoHierarchyId" param="parentTypeGeoHierarchyId" items="${availableParents}">
+        <mjl:select var="current" valueAttribute="geoHierarchyId" param="parentTypeGeoHierarchyId" includeBlank="true" items="${availableParents}">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
@@ -76,7 +76,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="enumName" param="spatialType" items="${types}">
+        <mjl:select var="current" valueAttribute="enumName" param="spatialType" items="${types}" includeBlank="true">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>

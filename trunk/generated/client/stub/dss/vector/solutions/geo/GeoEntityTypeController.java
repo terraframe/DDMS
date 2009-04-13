@@ -9,6 +9,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.MdBusinessInfo;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
+import com.terraframe.mojo.web.json.JSONSmartExceptionDTO;
 
 public class GeoEntityTypeController extends GeoEntityTypeControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -22,8 +23,6 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
   private static final String VIEW_DEFINITION_JSP           = "/WEB-INF/viewDefinition.jsp";
 
   private static final String VIEW_DEFINITION_COMPONENT_JSP = "/WEB-INF/viewDefinitionComponent.jsp";
-
-  private static final String VIEW_ALL_DEFINITIONS_JSP      = "/WEB-INF/viewAllDefinitions.jsp";
 
   private static final String TREE_JSP                      = "/WEB-INF/geoHierarchyTree.jsp";
 
@@ -84,6 +83,18 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
       JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
+    }
+    catch (SpatialTypeDefinedExceptionDTO e)
+    {
+      JSONSmartExceptionDTO ex = new JSONSmartExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(ex.getJSON());
+    }
+    catch (SpatialTypeRequiredExceptionDTO e)
+    {
+      JSONSmartExceptionDTO ex = new JSONSmartExceptionDTO(e);
+      resp.setStatus(500);
+      resp.getWriter().print(ex.getJSON());
     }
     catch (Throwable t)
     {
@@ -176,68 +187,59 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
   }
 
   @Override
-  public void viewAllDefinitions() throws IOException, ServletException
-  {
-    GeoHierarchyViewQueryDTO query = GeoHierarchyDTO.getGeoEntityHierarchyViews(this.getClientRequest(),
-        MdBusinessInfo.DISPLAY_LABEL, true, 20, 1);
-
-    // set default page number/size
-    query.setPageNumber(1);
-    query.setPageSize(20);
-
-    req.setAttribute("query", query);
-
-    req.getRequestDispatcher(VIEW_ALL_DEFINITIONS_JSP).forward(req, resp);
-  }
-
-  @Override
-  public void viewPageDefinitions(String sortAttribute, Boolean isAscending, Integer pageSize,
-      Integer pageNumber) throws IOException, ServletException
-  {
-    GeoHierarchyViewQueryDTO query = GeoHierarchyDTO.getGeoEntityHierarchyViews(this.getClientRequest(),
-        sortAttribute, isAscending, pageSize, pageNumber);
-
-    req.setAttribute("query", query);
-
-    req.getRequestDispatcher(VIEW_ALL_DEFINITIONS_JSP).forward(req, resp);
-  }
-
-  @Override
   public void viewDefinition(String geoHierarchyId) throws IOException, ServletException
   {
-    GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(this.getClientRequest(),
-        geoHierarchyId);
-
-    req.setAttribute("view", view);
-
-    if (this.isAsynchronous())
+    try
     {
-      req.getRequestDispatcher(VIEW_DEFINITION_COMPONENT_JSP).forward(req, resp);
+      GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(this.getClientRequest(),
+          geoHierarchyId);
+
+      req.setAttribute("view", view);
+
+      if (this.isAsynchronous())
+      {
+        req.getRequestDispatcher(VIEW_DEFINITION_COMPONENT_JSP).forward(req, resp);
+      }
+      else
+      {
+        req.getRequestDispatcher(VIEW_DEFINITION_JSP).forward(req, resp);
+      }
     }
-    else
+    catch (Throwable t)
     {
-      req.getRequestDispatcher(VIEW_DEFINITION_JSP).forward(req, resp);
+      JSONMojoExceptionDTO ex = new JSONMojoExceptionDTO(t);
+      this.resp.setStatus(500);
+      this.resp.getWriter().write(ex.getJSON());
     }
   }
 
   @Override
   public void viewHierarchyTree(String rootGeoHierarchyId) throws ServletException, IOException
   {
-    if (rootGeoHierarchyId == null || rootGeoHierarchyId.trim().length() == 0)
+    try
     {
-      GeoHierarchyViewDTO view = GeoHierarchyDTO.getEarthGeoHierarchy(this.getClientRequest());
-      rootGeoHierarchyId = view.getGeoHierarchyId();
-    }
+      if (rootGeoHierarchyId == null || rootGeoHierarchyId.trim().length() == 0)
+      {
+        GeoHierarchyViewDTO view = GeoHierarchyDTO.getEarthGeoHierarchy(this.getClientRequest());
+        rootGeoHierarchyId = view.getGeoHierarchyId();
+      }
 
-    req.setAttribute(ROOT_GEO_HIERARCHY_ID, rootGeoHierarchyId);
+      req.setAttribute(ROOT_GEO_HIERARCHY_ID, rootGeoHierarchyId);
 
-    if (this.isAsynchronous())
-    {
-      req.getRequestDispatcher(TREE_COMPONENT_JSP).forward(req, resp);
+      if (this.isAsynchronous())
+      {
+        req.getRequestDispatcher(TREE_COMPONENT_JSP).forward(req, resp);
+      }
+      else
+      {
+        req.getRequestDispatcher(TREE_JSP).forward(req, resp);
+      }
     }
-    else
+    catch (Throwable t)
     {
-      req.getRequestDispatcher(TREE_JSP).forward(req, resp);
+      JSONMojoExceptionDTO ex = new JSONMojoExceptionDTO(t);
+      this.resp.setStatus(500);
+      this.resp.getWriter().write(ex.getJSON());
     }
   }
 

@@ -408,7 +408,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
         
         String geoLabel = geoAttrMd.getDisplayLabel();
         
-        String error = "Cannot define the geometry ["+geoLabel+"] because the parent ["+parent.getDisplayLabel().getValue()+"] already defines a geometry.";
+        String error = "Cannot define a geometry type because the parent ["+parent.getDisplayLabel().getValue()+"] already " +
+        		"defines the geometry ["+geoLabel+"].";
         SpatialTypeDefinedException ex = new SpatialTypeDefinedException(error);
         ex.setIsAParentLabel(parent.getDisplayLabel().getValue());
         ex.setSpatialLabel(geoLabel);

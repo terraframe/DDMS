@@ -25,8 +25,8 @@ import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoEntityViewQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedIn;
-import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.LocatedInException;
+import dss.vector.solutions.geo.LocatedInQuery;
 
 public abstract class GeoEntity extends GeoEntityBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -135,6 +135,21 @@ public abstract class GeoEntity extends GeoEntityBase implements
     // {
     // iterator.close();
     // }
+  }
+
+  /**
+   * Searches for a GeoEntity based on the entity name and type.
+   * 
+   * @param type
+   * @param name
+   * @return
+   */
+  public static GeoEntityViewQuery searchByEntityName(String type, String name)
+  {
+    QueryFactory f = new QueryFactory();
+    SearchGeoEntityViewQueryBuilder builder = new SearchGeoEntityViewQueryBuilder(f, type, name);
+    GeoEntityViewQuery query = new GeoEntityViewQuery(f, builder);
+    return query;
   }
 
   /**
@@ -595,6 +610,49 @@ public abstract class GeoEntity extends GeoEntityBase implements
       // FIXME restrict by filter
       
       vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
+    }
+  }
+  
+  private static class SearchGeoEntityViewQueryBuilder extends ViewQueryBuilder implements Reloadable
+  {
+    private String type;
+    
+    private String entityName;
+    
+    private GeoEntityQuery geoEntityQuery;
+    
+    protected SearchGeoEntityViewQueryBuilder(QueryFactory queryFactory, String type, String entityName)
+    {
+      super(queryFactory);
+
+      this.type = type;
+      this.entityName = entityName;
+      this.geoEntityQuery = new GeoEntityQuery(queryFactory);
+    }
+
+    @Override
+    protected void buildSelectClause()
+    {
+      GeneratedViewQuery viewQuery = this.getViewQuery();
+
+      viewQuery.map(GeoEntityView.ENTITYNAME, geoEntityQuery.getEntityName());
+      viewQuery.map(GeoEntityView.ACTIVATED, geoEntityQuery.getActivated());
+      viewQuery.map(GeoEntityView.GEOENTITYID, geoEntityQuery.getId());
+      viewQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
+      viewQuery.map(GeoEntityView.GEOID, geoEntityQuery.getGeoId());
+    }
+
+    @Override
+    protected void buildWhereClause()
+    {
+      GeneratedViewQuery viewQuery = this.getViewQuery();
+
+      String searchable = "%"+this.entityName+"%";
+      
+      viewQuery.WHERE(geoEntityQuery.getType().EQ(this.type));
+      viewQuery.WHERE(geoEntityQuery.getEntityName().LIKEi(searchable));
+      
+      viewQuery.restrictRows(20, 1);
     }
     
   }

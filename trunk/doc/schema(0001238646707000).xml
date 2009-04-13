@@ -291,7 +291,7 @@
             name="displayLabel"
             required="true"
             size="100"
-            label="The universal this is located in." />
+            label="Display Label" />
           <virtual
             name="description"
             required="true"
@@ -519,6 +519,18 @@
         label="GeoEntity Type Controller"
         description="Controller to define new GeoEntity types.">
         <mdAction
+          name="viewHierarchyTree"
+          label="View Hierarchy Tree"
+          description="Views the Geo Hierarchy as a tree with an abitrary root."
+          isPost="false">
+          <mdParameter
+            name="rootGeoHierarchyId"
+            label="Root GeoHierarchy Id"
+            description="The id of the GeoHierarchy that will be the root of the tree"
+            order="0"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
           name="newDefinition"
           label="New GeoEntity Type"
           isPost="false">
@@ -582,19 +594,6 @@
             type="java.lang.String" />
         </mdAction>
         <mdAction
-          name="viewAllDefinitions"
-          label="View Hierarchy List"
-          description="Views the Geo Hierarchy as a table."
-          isPost="false">
-        </mdAction>
-        <mdAction
-          name="viewPageDefinitions"
-          label="View Hierarchy List"
-          description="Views the Geo Hierarchy as a table."
-          isPost="false"
-          isQuery="true">
-        </mdAction>
-        <mdAction
           name="viewDefinition"
           label="View Definition"
           description="Views a Geo Hierarchy."
@@ -603,18 +602,6 @@
             name="geoHierarchyId"
             label="Geo Hierarchy Id"
             description="Geo Hierarchy Id"
-            order="0"
-            type="java.lang.String" />
-        </mdAction>
-        <mdAction
-          name="viewHierarchyTree"
-          label="View Hierarchy Tree"
-          description="Views the Geo Hierarchy as a tree with an abitrary root."
-          isPost="false">
-          <mdParameter
-            name="rootGeoHierarchyId"
-            label="Root GeoHierarchy Id"
-            description="The id of the GeoHierarchy that will be the root of the tree"
             order="0"
             type="java.lang.String" />
         </mdAction>

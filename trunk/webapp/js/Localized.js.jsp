@@ -30,5 +30,5 @@ MDSS.Localized = {
   
   Select_Universal_Type: '<f:message key="Select_Universal_Type" />',
   
-  New_Universal_Located_In: '<f:message key="New_Universal_Located_In" />'
+  New_Universal_Located_In: '<f:message key="New_Universal_Located_In" />',
 };
