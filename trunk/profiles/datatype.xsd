@@ -45,13 +45,13 @@
           <xs:element name="mdFacade" type="mdFacade" />
           <xs:element name="mdException" type="mdException" />
           <xs:element name="mdProblem" type="mdException" />
-          <xs:element name="mdInformation" type="mdException" />          
+          <xs:element name="mdInformation" type="mdException" />
           <xs:element name="mdView" type="mdView" />
           <xs:element name="mdUtil" type="mdSession" />
           <xs:element name="mdController" type="mdController" />
         </xs:choice>
-        <xs:element name="object" type="entityUpdate" minOccurs="0" maxOccurs="unbounded" />
-        <xs:element name="relationship" type="entityUpdate" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="object" type="entity" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="relationship" type="entity" minOccurs="0" maxOccurs="unbounded" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -72,7 +72,7 @@
         <xs:element name="mdFacade" type="mdFacade" />
         <xs:element name="mdException" type="mdException" />
         <xs:element name="mdProblem" type="mdException" />
-        <xs:element name="mdInformation" type="mdException" />                  
+        <xs:element name="mdInformation" type="mdException" />
         <xs:element name="mdView" type="mdView" />
         <xs:element name="mdUtil" type="mdSession" />
         <xs:element name="mdController" type="mdController" />
@@ -627,6 +627,7 @@
     <xs:attribute name="type" type="xs:string" use="required" />
     <!--A unqiue id for the object-->
     <xs:attribute name="id" type="xs:string" use="required" />
+    <xs:attribute name="key" type="xs:string" use="optional" />
   </xs:complexType>
 
   <!--A new instance of a mdRelationship DAO-->
@@ -637,16 +638,6 @@
         <xs:attribute name="parentId" type="xs:string" use="required" />
         <!--childId: The xml id of the object of the child-->
         <xs:attribute name="childId" type="xs:string" use="required" />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <!--An existing instance of an entity -->
-  <xs:complexType name="entityUpdate">
-    <xs:complexContent>
-      <xs:extension base="entity">
-        <!--The key for the object-->
-        <xs:attribute name="key" type="xs:string" use="required" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -1207,5 +1198,5 @@
       <xs:enumeration value="WRITE_CHILD" />
     </xs:restriction>
   </xs:simpleType>
-  
+
 </xs:schema>
