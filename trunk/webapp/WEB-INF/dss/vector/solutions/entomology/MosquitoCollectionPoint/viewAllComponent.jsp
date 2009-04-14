@@ -13,7 +13,7 @@
 <%@page import="java.lang.reflect.InvocationTargetException"%>
 <%@page import="com.terraframe.mojo.transport.metadata.*"%>
 <%@page import="com.terraframe.mojo.business.ViewDTO"%>
-
+<fmt:setLocale value="<%=request.getLocale()%>" />
 <div id="cal1Container" class="yui-skin-sam"></div>
 <mjl:messages>
   <mjl:message />
@@ -65,13 +65,13 @@
 
 <span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button">
 <span class="first-child">
-<button type="button">New Row</button>
+<button type="button"><fmt:message key="New_Row"/></button>
  </span>
  </span>
 
 <span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button">
 <span class="first-child">
-<button type="button">Save Rows To DB</button>
+<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
 </span> </span>
 
 <form method="get" action="excelimport" style="display:inline;">
@@ -114,16 +114,28 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
     %>
     <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
     table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,
-       columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false,2)%>,
-              defaults: {GroupId:"",GeoEntity:"${geoEntity.id}",Specie:"",DateCollected:"<fmt:formatDate value="${startDate}" dateStyle="SHORT" />",IdentificationMethod:"",QuantityMale:"",QuantityFemale:"",Quantity:""},
+       columnDefs: <%//=Halp.getColumnSetup(mdView,attribs,delete_row,false,2)%>
+       [{key:'GroupId',label:'Morphological Group Id',hidden:true},
+       {key:'GeoEntity',label:'Geo Entity',hidden:true},
+       {key:'DateCollected',label:'Collection Date',formatter:YAHOO.widget.DataTable.formatDate,editor:new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})},
+       {key:'Specie',label:'Species',save_as_id:true,editor:new YAHOO.widget.DropdownCellEditor({dropdownOptions:SpecieLabels,disableBtns:true})},
+       {key:'IdentificationMethod',label:'Identification Method',save_as_id:true,editor:new YAHOO.widget.DropdownCellEditor({dropdownOptions:IdentificationMethodLabels,disableBtns:true})},
+       {key:'QuantityMale',label:'Number Male',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})},
+       {key:'QuantityFemale',label:'Number Female',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})},
+       {key:'Quantity',label:'Total Number',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})},
+       {key:'Collection',label:''},
+       {key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}],
+              defaults: {GroupId:"",GeoEntity:"${geoEntity.id}",Specie:"",DateCollected:"<fmt:formatDate value="${startDate}" pattern="MM/dd/yyyy"/>",IdentificationMethod:"",QuantityMale:"",QuantityFemale:"",Quantity:""},
               div_id: "MorphologicalSpecieGroups",
               copy_from_above: ["DateCollected","IdentificationMethod"],
               data_type: "Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroupView",
-              after_row_load:function(record,dt){dt.getColumn('Collection').editor=null;
-              dt.getColumn('Collection').getThLinerEl().innerHTML="";
-              record.setData('Collection',('<a href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo?id='+record.getData('Collection')+'">Assays</a>'));},
+              after_row_load:function(record,dt){
+                record.setData('Collection',('<a href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo?id='+record.getData('Collection')+'">Assays</a>'));
+              },
               after_save:function(){window.location.reload( false );}
           };
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
-</script>
 
+    //dt.getColumn('Collection').editor=null;
+    //dt.getColumn('Collection').getThLinerEl().innerHTML="";
+</script>
