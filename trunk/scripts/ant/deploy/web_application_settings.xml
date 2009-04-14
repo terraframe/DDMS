@@ -65,7 +65,7 @@
 <servlet>
   <servlet-name>ExcelImportServlet</servlet-name>
   <display-name>ExcelImportServlet</display-name>
-  <servlet-class>csu.mrc.ivcc.mdss.util.ExcelImportServlet</servlet-class>
+  <servlet-class>dss.vector.solutions.util.ExcelImportServlet</servlet-class>
 </servlet>
 
 <servlet-mapping>
@@ -76,7 +76,7 @@
 <servlet>
   <servlet-name>ExcelExportServlet</servlet-name>
   <display-name>ExcelExportServlet</display-name>
-  <servlet-class>csu.mrc.ivcc.mdss.util.ExcelExportServlet</servlet-class>
+  <servlet-class>dss.vector.solutions.util.ExcelExportServlet</servlet-class>
 </servlet>
 
 <servlet-mapping>
