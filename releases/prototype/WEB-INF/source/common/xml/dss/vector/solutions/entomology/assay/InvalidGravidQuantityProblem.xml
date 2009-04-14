@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
+  name="dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem">
+  <!--
+    - {gravid} Number Gravid
+    -->
+  <locale language="en">The quantity of gravid [{gravid}] cannot exceed the total quantity of mosquitos tested.</locale>
+</exception>
