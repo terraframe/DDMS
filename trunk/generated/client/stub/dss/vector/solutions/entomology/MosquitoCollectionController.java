@@ -118,7 +118,6 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     //req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     //req.setAttribute("AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.entomology.MosquitoCollectionDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View a Mosquito Collection");
     render("viewComponent.jsp");
   }
   public void viewAssays(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -126,8 +125,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     //req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     //req.setAttribute("AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dss.vector.solutions.entomology.MosquitoCollectionDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View a Mosquito Collection");
+    req.setAttribute("item", dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO.get(clientRequest, id));
     render("viewAssaysComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -171,7 +169,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     dss.vector.solutions.entomology.MosquitoCollectionDTO dto = dss.vector.solutions.entomology.MosquitoCollectionDTO.lock(super.getClientRequest(), id);
     req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    //req.setAttribute("AbstractMosquitoCollection_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Mosquito Collection");
     render("editComponent.jsp");
@@ -237,7 +235,10 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 	  }
 	  catch(Exception e)
 	  {
-	    render("searchComponent.jsp");
+	      com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+	      dss.vector.solutions.entomology.MosquitoCollectionQueryDTO query = dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(clientRequest, "createDate", false, 10, 1);
+	      req.setAttribute("query", query);
+	      render("searchComponent.jsp");
 	  }
   }
 
@@ -246,6 +247,9 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     req.setAttribute("page_title", "Search For Mosquito Collections");
     req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.entomology.MosquitoCollectionQueryDTO query = dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(clientRequest, "createDate", false, 10, 1);
+    req.setAttribute("query", query);
     render("searchComponent.jsp");
   }
 
@@ -260,7 +264,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       collection.setDateCollected(collectionDate);
       collection.setGeoEntity(geoEntity);
       collection.setCollectionMethod(collectionMethod);
-      req.setAttribute("page_title", "Mosquito Collection Not Found - Creating New");
+      req.setAttribute("page_title", "Mosquito_Collection_Not_Found_Creating_New");
       jsp = "createComponent.jsp";
     }
     req.setAttribute("MosquitoCollection_collectionMethod", dss.vector.solutions.mo.CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
