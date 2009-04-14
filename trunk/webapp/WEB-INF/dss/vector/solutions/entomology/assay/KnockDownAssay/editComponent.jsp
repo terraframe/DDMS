@@ -1,6 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.entomology.assay.KnockDownAssayDTO"%>
 
@@ -187,7 +187,7 @@
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
-         <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><f:message key="Manage_Insecticides"/></a>
+         <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides"/></a>
       </dd>
        <dt>
         <label>

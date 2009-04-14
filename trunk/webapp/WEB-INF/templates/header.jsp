@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -12,10 +12,10 @@
 
 <c:choose>
   <c:when test='${window_title != null}'>
-    <title><f:message key="${window_title}"/></title>
+    <title><fmt:message key="${window_title}"/></title>
   </c:when>
   <c:otherwise>
-    <title><f:message key="${page_title}"/></title>
+    <title><fmt:message key="${page_title}"/></title>
   </c:otherwise>
 </c:choose>
 </head>

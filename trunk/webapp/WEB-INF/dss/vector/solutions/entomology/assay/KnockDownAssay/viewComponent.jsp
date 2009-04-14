@@ -1,6 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@page import="java.util.*"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
@@ -181,7 +181,7 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
 <div id="buttons" class="noprint">
  <span id="intervalsSaverows" class="yui-button yui-push-button">
  <span class="first-child">
-<button type="button">Save Rows To DB</button>
+<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
 </span>
 </span>
 

@@ -5,7 +5,7 @@
     1.0
   </tlib-version>
   <jsp-version>
-    1.2
+    2.1
   </jsp-version>
   <short-name>
     mojo lib
@@ -62,7 +62,7 @@
         true
       </rtexprvalue>
       <description>
-        Flage denoting if an empty option should be generated.
+        Flag denoting if an empty option should be generated.
       </description>
     </attribute>
     <attribute>
@@ -4557,6 +4557,370 @@
       </rtexprvalue>
       <description>
         Action to take when form is submitted
+      </description>
+    </attribute>
+  </tag>
+  <tag>
+    <name>
+      dt
+    </name>
+    <tag-class>
+      com.terraframe.mojo.controller.tag.DTTagSupport
+    </tag-class>
+    <body-content>
+      scriptless
+    </body-content>
+    <description>
+      a DT DL pair with inner tags going in to the DL
+    </description>
+    <attribute>
+      <name>
+        displayLabel
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        The display label for this attribute
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        includeMessages
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Flag denoting if an empty option should be generated.
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        type
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        The type of the input field
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        attribute
+      </name>
+      <required>
+        true
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        The name of the controller parameter or attribute
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        accesskey
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        Accessibility key character
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        tabindex
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        Position in tabbing order
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onblur
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        The element lost the focus
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onchange
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        The element value was changed
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onfocus
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        The element got the focus
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onclick
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        What to do on a mouse click
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        ondblclick
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        What to do on a mouse doubleclick
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onmousedown
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        What to do when mouse button is pressed
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onmouseup
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        What to do when mouse button is released
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onmouseover
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        What to do when mouse pointer moves over an element
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onmousemove
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        What to do when mouse pointer moves
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onmouseout
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        What to do when mouse pointer moves out of an element
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onkeypress
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        What to do when key is pressed and released
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onkeydown
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        What to do when key is pressed
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        onkeyup
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        What to do when key is released
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        lang
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        Sets the language code
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        dir
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        Sets the text direction
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        classes
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        The class of the element
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        id
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        A unique id for the element
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        title
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        A text to display in a tool tip
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        style
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+      <description>
+        An inline style definition
       </description>
     </attribute>
   </tag>

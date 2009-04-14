@@ -1,6 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO"%>
 
@@ -66,7 +66,7 @@
         <mjl:option>
             ${current.displayLabel}
           </mjl:option>
-      </mjl:select> <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><f:message key="Manage_Insecticides"/></a></dd>
+      </mjl:select> <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides"/></a></dd>
       <dt><label> ${item.exposureTimeMd.displayLabel} </label></dt>
       <dd><mjl:input type="text" param="exposureTime" /> <mjl:messages attribute="exposureTime">
         <mjl:message />

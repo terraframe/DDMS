@@ -11,9 +11,7 @@
       <label> ${item.geoEntityMd.displayLabel} </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.geoEntity.entityName}" action="mdss.test.GeoEntityController.view.mojo" name="mdss.test.GeoEntity.form.view.link">
-        <mjl:property value="${item.geoEntity.id}" name="id" />
-      </mjl:commandLink>
+      ${item.geoEntity.geoId}
     </dd>
     <dt>
       <label>
@@ -177,7 +175,7 @@
     </dt>
     <dd>
       ${item.mortality}
-    </dd>  
+    </dd>
     <dt>
       <label>
         Overall Mortality for surface: ${item.geoEntity.entityName}
@@ -185,7 +183,7 @@
     </dt>
     <dd>
       ${item.overallMortalityRate}
-    </dd>      
+    </dd>
   </dl>
 
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.edit.button" />
