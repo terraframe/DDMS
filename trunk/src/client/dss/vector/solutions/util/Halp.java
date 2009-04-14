@@ -133,11 +133,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
                     // System.out.println("Setting "+attrib);
                     String value = (String) c.getMethod("get" + attrib).invoke(row).toString();
                     // System.out.println("Setting "+attrib+" to "+value);
-
+                    //FIXME:Date format?
                     if (attrib.contains("Date")) {
                         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                        DateFormat df_full = DateFormat.getDateInstance(DateFormat.FULL);
-                        element.put(attrib, df.format(df_full.parse(value)));
+                        //DateFormat df_full = DateFormat.getDateInstance(DateFormat.FULL);
+                        element.put(attrib, df.format(new Date(value)));
                     } else {
                         // FIXME: this is a hack for enums
                         String clean_value = value.replaceAll("\\[", "").replaceAll("\\]", "");
@@ -154,9 +154,9 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
                     System.out.println("No such method get" + attrib);
                 } catch (NullPointerException x) {
                     System.out.println("Null Pointer Exception get" + attrib);
-                } catch (ParseException x) {
-                    System.out.println("Could not parse date" + attrib);
-                }
+                } //catch (ParseException x) {
+                  //  System.out.println("Could not parse date" + attrib);
+                //}
 
             }
             map.put(element);
