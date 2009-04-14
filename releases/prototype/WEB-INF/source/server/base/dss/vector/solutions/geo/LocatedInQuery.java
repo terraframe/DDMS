@@ -9,7 +9,7 @@ package dss.vector.solutions.geo;
  */
 public  class LocatedInQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572441804L;
+private static final long serialVersionUID = 1239658570926L;
 
   public LocatedInQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

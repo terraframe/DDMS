@@ -11,7 +11,7 @@ public abstract class InfectivityAssayTestResultBase extends dss.vector.solution
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1239572503931L;
+  private static final long serialVersionUID = 1239658634178L;
   
   public InfectivityAssayTestResultBase()
   {

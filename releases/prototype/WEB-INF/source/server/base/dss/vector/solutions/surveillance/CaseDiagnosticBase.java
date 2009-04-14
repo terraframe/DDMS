@@ -24,7 +24,7 @@ public abstract class CaseDiagnosticBase extends com.terraframe.mojo.business.Re
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239572512163L;
+  private static final long serialVersionUID = 1239658641951L;
   
   public CaseDiagnosticBase(String parentId, String childId)
   {

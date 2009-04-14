@@ -13,7 +13,7 @@ public abstract class SpatialTypeDefinedExceptionBase extends com.terraframe.moj
   public static java.lang.String ID = "id";
   public static java.lang.String ISAPARENTLABEL = "isAParentLabel";
   public static java.lang.String SPATIALLABEL = "spatialLabel";
-  private static final long serialVersionUID = 1239572460105L;
+  private static final long serialVersionUID = 1239658589241L;
   
   public SpatialTypeDefinedExceptionBase()
   {

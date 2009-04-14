@@ -193,6 +193,11 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 				  }
 				  myDataTable.render();
 			  }
+			 // if(editor instanceof YAHOO.widget.DateCellEditor )
+			 // {
+				 //oArgs.newData = MojoCal.getLocalizedString(oArgs.newData);
+				 //save_now = 'table_data.rows[' + index + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newData + '"';
+			 // }
 
 		  }
 	      eval(save_now);

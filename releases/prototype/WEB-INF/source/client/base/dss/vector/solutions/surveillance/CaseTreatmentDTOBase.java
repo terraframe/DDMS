@@ -2,7 +2,7 @@ package dss.vector.solutions.surveillance;
 
 public abstract class CaseTreatmentDTOBase extends com.terraframe.mojo.business.RelationshipDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239572477720L;
+  private static final long serialVersionUID = 1239658606708L;
   
   public final static String CLASS = "dss.vector.solutions.surveillance.CaseTreatment";
   public CaseTreatmentDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)

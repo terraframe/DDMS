@@ -20,7 +20,7 @@ public abstract class MorphologicalSpecieGroupViewBase extends com.terraframe.mo
   public static java.lang.String QUANTITYFEMALE = "quantityFemale";
   public static java.lang.String QUANTITYMALE = "quantityMale";
   public static java.lang.String SPECIE = "specie";
-  private static final long serialVersionUID = 1239572488333L;
+  private static final long serialVersionUID = 1239658617237L;
   
   public MorphologicalSpecieGroupViewBase()
   {

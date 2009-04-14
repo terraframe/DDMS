@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology;
 public abstract class MosquitoCollectionPointBase extends dss.vector.solutions.entomology.ConcreteMosquitoCollection implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionPoint";
-  private static final long serialVersionUID = 1239572504616L;
+  private static final long serialVersionUID = 1239658633502L;
   
   public MosquitoCollectionPointBase()
   {
@@ -34,13 +34,13 @@ public abstract class MosquitoCollectionPointBase extends dss.vector.solutions.e
     return (MosquitoCollectionPoint) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public static dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date startDate, java.util.Date endDate)
+  public static dss.vector.solutions.entomology.MosquitoCollectionPoint searchByGeoEntityAndDateAndCollectionMethod(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate, dss.vector.solutions.mo.CollectionMethod collectionMethod)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionPoint.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static dss.vector.solutions.entomology.MosquitoCollectionPoint searchByGeoEntityAndDateAndCollectionMethod(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate, dss.vector.solutions.mo.CollectionMethod collectionMethod)
+  public static dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date startDate, java.util.Date endDate)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionPoint.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);

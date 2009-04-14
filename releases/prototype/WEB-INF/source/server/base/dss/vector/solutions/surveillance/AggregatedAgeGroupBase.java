@@ -27,7 +27,7 @@ public abstract class AggregatedAgeGroupBase extends com.terraframe.mojo.busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String STARTAGE = "startAge";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239572481435L;
+  private static final long serialVersionUID = 1239658610453L;
   
   public AggregatedAgeGroupBase()
   {

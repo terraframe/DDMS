@@ -37,20 +37,8 @@
         </label>
       </dt>
       <dd>
-         <mjl:select var="current" valueAttribute="id" items="${AbstractMosquitoCollection_geoEntity}" param="geoEntity" >
-          <c:choose>
-            <c:when test="${current.geoId == item.geoEntity.geoId}">
-             <mjl:option selected="selected">
-               ${current.geoId}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
-              <mjl:option>
-                ${current.geoId}
-              </mjl:option>
-            </c:otherwise>
-          </c:choose>
-        </mjl:select>
+                   ${item.geoEntity.geoId}
+          <mjl:input type="hidden" param="geoEntity" id="dto.geoEntity.id" />
       </dd>
     </dl>
   </mjl:component>

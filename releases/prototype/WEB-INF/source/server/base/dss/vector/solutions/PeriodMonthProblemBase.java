@@ -13,7 +13,7 @@ public abstract class PeriodMonthProblemBase extends com.terraframe.mojo.busines
   public static java.lang.String ID = "id";
   public static java.lang.String MAXPERIOD = "maxPeriod";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = 1239572512224L;
+  private static final long serialVersionUID = 1239658642786L;
   
   public PeriodMonthProblemBase()
   {

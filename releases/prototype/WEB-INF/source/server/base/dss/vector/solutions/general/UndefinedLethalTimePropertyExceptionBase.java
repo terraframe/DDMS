@@ -12,7 +12,7 @@ public abstract class UndefinedLethalTimePropertyExceptionBase extends com.terra
   public final static String CLASS = "dss.vector.solutions.general.UndefinedLethalTimePropertyException";
   public static java.lang.String ID = "id";
   public static java.lang.String INSECTICIDE = "insecticide";
-  private static final long serialVersionUID = 1239572475825L;
+  private static final long serialVersionUID = 1239658604833L;
   
   public UndefinedLethalTimePropertyExceptionBase()
   {

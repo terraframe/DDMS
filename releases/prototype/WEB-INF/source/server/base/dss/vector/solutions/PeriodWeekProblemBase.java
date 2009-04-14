@@ -13,7 +13,7 @@ public abstract class PeriodWeekProblemBase extends com.terraframe.mojo.business
   public static java.lang.String ID = "id";
   public static java.lang.String MAXPERIOD = "maxPeriod";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = 1239572462988L;
+  private static final long serialVersionUID = 1239658591975L;
   
   public PeriodWeekProblemBase()
   {

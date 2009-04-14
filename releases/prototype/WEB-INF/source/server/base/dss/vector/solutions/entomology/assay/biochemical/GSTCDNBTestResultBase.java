@@ -11,7 +11,7 @@ public abstract class GSTCDNBTestResultBase extends dss.vector.solutions.entomol
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.GSTCDNBTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1239572472834L;
+  private static final long serialVersionUID = 1239658601811L;
   
   public GSTCDNBTestResultBase()
   {

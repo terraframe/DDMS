@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
 public class InsecticideQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572498098L;
+private static final long serialVersionUID = 1239658627746L;
 
   protected InsecticideQueryDTO(String type)
   {

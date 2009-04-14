@@ -25,7 +25,7 @@ public abstract class AbstractGridBase extends com.terraframe.mojo.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239572511092L;
+  private static final long serialVersionUID = 1239658640922L;
   
   public AbstractGridBase()
   {

@@ -194,7 +194,7 @@ LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) reque
 <div id="buttons" class="noprint">
  <span id="intervalsSaverows" class="yui-button yui-push-button"> 
  <span class="first-child">
-<button type="button">Save Rows To DB</button>
+<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
 </span> 
 </span>
 

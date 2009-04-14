@@ -10,7 +10,7 @@ package dss.vector.solutions.geo.generated;
 public class SentinalSiteQueryDTO extends dss.vector.solutions.geo.generated.AbstractSiteQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572479894L;
+private static final long serialVersionUID = 1239658608885L;
 
   protected SentinalSiteQueryDTO(String type)
   {

@@ -11,7 +11,7 @@ public abstract class IAcHETestResultBase extends dss.vector.solutions.entomolog
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.IAcHETestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1239572498802L;
+  private static final long serialVersionUID = 1239658628473L;
   
   public IAcHETestResultBase()
   {

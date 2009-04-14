@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public abstract class KnockDownAssayBase extends dss.vector.solutions.entomology.assay.AdultAssay implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.KnockDownAssay";
-  private static final long serialVersionUID = 1239572454995L;
+  private static final long serialVersionUID = 1239658583168L;
   
   public KnockDownAssayBase()
   {

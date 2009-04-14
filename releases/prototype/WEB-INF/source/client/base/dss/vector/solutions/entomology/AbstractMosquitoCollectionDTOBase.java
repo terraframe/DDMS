@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public abstract class AbstractMosquitoCollectionDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239572458560L;
+  private static final long serialVersionUID = 1239658586689L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.AbstractMosquitoCollection";
   protected AbstractMosquitoCollectionDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -333,22 +333,6 @@ public abstract class AbstractMosquitoCollectionDTOBase extends com.terraframe.m
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public final dss.vector.solutions.entomology.UninterestingSpecieGroupViewDTO[] getUninterestingSpecieGroups()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO.CLASS, "getUninterestingSpecieGroups", _declaredTypes);
-    return (dss.vector.solutions.entomology.UninterestingSpecieGroupViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final dss.vector.solutions.entomology.UninterestingSpecieGroupViewDTO[] getUninterestingSpecieGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO.CLASS, "getUninterestingSpecieGroups", _declaredTypes);
-    return (dss.vector.solutions.entomology.UninterestingSpecieGroupViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
   public final dss.vector.solutions.entomology.MosquitoViewDTO[] getMosquitos()
   {
     String[] _declaredTypes = new String[]{};
@@ -363,6 +347,22 @@ public abstract class AbstractMosquitoCollectionDTOBase extends com.terraframe.m
     Object[] _parameters = new Object[]{id};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO.CLASS, "getMosquitos", _declaredTypes);
     return (dss.vector.solutions.entomology.MosquitoViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.entomology.UninterestingSpecieGroupViewDTO[] getUninterestingSpecieGroups()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO.CLASS, "getUninterestingSpecieGroups", _declaredTypes);
+    return (dss.vector.solutions.entomology.UninterestingSpecieGroupViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.entomology.UninterestingSpecieGroupViewDTO[] getUninterestingSpecieGroups(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO.CLASS, "getUninterestingSpecieGroups", _declaredTypes);
+    return (dss.vector.solutions.entomology.UninterestingSpecieGroupViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

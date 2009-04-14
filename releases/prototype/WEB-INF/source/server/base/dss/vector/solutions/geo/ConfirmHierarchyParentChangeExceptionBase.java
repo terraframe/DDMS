@@ -12,7 +12,7 @@ public abstract class ConfirmHierarchyParentChangeExceptionBase extends com.terr
   public final static String CLASS = "dss.vector.solutions.geo.ConfirmHierarchyParentChangeException";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTDISPLAYLABEL = "parentDisplayLabel";
-  private static final long serialVersionUID = 1239572510396L;
+  private static final long serialVersionUID = 1239658640870L;
   
   public ConfirmHierarchyParentChangeExceptionBase()
   {

@@ -271,6 +271,7 @@ h2
 	width:450px;
 	overflow-y:scroll;
 	margin-top: 15px;
+	padding-right: 5px;
 }
 
 #queryPanel {

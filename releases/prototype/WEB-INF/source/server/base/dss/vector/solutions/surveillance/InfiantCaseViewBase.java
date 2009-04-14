@@ -46,7 +46,7 @@ public abstract class InfiantCaseViewBase extends dss.vector.solutions.surveilla
   public static java.lang.String REFERRALSRECEIVED = "referralsReceived";
   public static java.lang.String REFERRALSSENT = "referralsSent";
   public static java.lang.String STILLBIRTHS = "stillBirths";
-  private static final long serialVersionUID = 1239572484958L;
+  private static final long serialVersionUID = 1239658613891L;
   
   public InfiantCaseViewBase()
   {

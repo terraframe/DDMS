@@ -65,13 +65,13 @@
 
 <span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button">
 <span class="first-child">
-<button type="button">New Row</button>
+<button type="button"><fmt:message key="New_Row"/></button>
  </span>
  </span>
 
 <span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button">
 <span class="first-child">
-<button type="button">Save Rows To DB</button>
+<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
 </span> </span>
 
 <form method="get" action="excelimport" style="display:inline;">

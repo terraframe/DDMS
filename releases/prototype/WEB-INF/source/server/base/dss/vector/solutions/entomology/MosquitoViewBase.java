@@ -51,7 +51,7 @@ public abstract class MosquitoViewBase extends com.terraframe.mojo.business.View
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String WKDR = "wKDR";
   public static java.lang.String WKDRMETHOD = "wKDRMethod";
-  private static final long serialVersionUID = 1239572476817L;
+  private static final long serialVersionUID = 1239658605768L;
   
   public MosquitoViewBase()
   {

@@ -64,7 +64,7 @@ public abstract class AggregatedCaseBase extends com.terraframe.mojo.business.Bu
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String STILLBIRTHS = "stillBirths";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239572502136L;
+  private static final long serialVersionUID = 1239658631678L;
   
   public AggregatedCaseBase()
   {
@@ -1744,52 +1744,10 @@ public abstract class AggregatedCaseBase extends com.terraframe.mojo.business.Bu
     return (AggregatedCase) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public static dss.vector.solutions.surveillance.AggregatedCaseView getView(java.lang.String id)
+  public static dss.vector.solutions.surveillance.AggregatedCase searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date startDate, java.util.Date endDate, dss.vector.solutions.surveillance.AggregatedAgeGroup ageGroup)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public dss.vector.solutions.surveillance.CaseTreatmentStock[] getTreatmentStocks()
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final dss.vector.solutions.surveillance.CaseTreatmentStock[] getTreatmentStocks(java.lang.String id)
-  {
-    AggregatedCase _instance = AggregatedCase.get(id);
-    return _instance.getTreatmentStocks();
-  }
-  
-  public dss.vector.solutions.surveillance.CaseReferral[] getReferrals()
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final dss.vector.solutions.surveillance.CaseReferral[] getReferrals(java.lang.String id)
-  {
-    AggregatedCase _instance = AggregatedCase.get(id);
-    return _instance.getReferrals();
-  }
-  
-  public static dss.vector.solutions.surveillance.AggregatedCaseView unlockView(java.lang.String id)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public dss.vector.solutions.surveillance.CaseTreatmentMethod[] getTreatmentMethods()
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final dss.vector.solutions.surveillance.CaseTreatmentMethod[] getTreatmentMethods(java.lang.String id)
-  {
-    AggregatedCase _instance = AggregatedCase.get(id);
-    return _instance.getTreatmentMethods();
   }
   
   public static dss.vector.solutions.surveillance.AggregatedCaseView lockView(java.lang.String id)
@@ -1810,16 +1768,16 @@ public abstract class AggregatedCaseBase extends com.terraframe.mojo.business.Bu
     return _instance.getTreatments();
   }
   
-  public dss.vector.solutions.surveillance.CaseDiagnostic[] getDiagnosticMethods()
+  public static dss.vector.solutions.surveillance.AggregatedCaseView unlockView(java.lang.String id)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final dss.vector.solutions.surveillance.CaseDiagnostic[] getDiagnosticMethods(java.lang.String id)
+  public static dss.vector.solutions.surveillance.AggregatedCaseView searchByGeoEntityAndEpiDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, dss.vector.solutions.surveillance.PeriodType periodType, java.lang.Integer period, java.lang.String year, dss.vector.solutions.surveillance.AggregatedAgeGroup ageGroup)
   {
-    AggregatedCase _instance = AggregatedCase.get(id);
-    return _instance.getDiagnosticMethods();
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public void applyAll(dss.vector.solutions.surveillance.CaseTreatment[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethod[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStock[] stock, dss.vector.solutions.surveillance.CaseDiagnostic[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferral[] referrals)
@@ -1834,16 +1792,58 @@ public abstract class AggregatedCaseBase extends com.terraframe.mojo.business.Bu
     _instance.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
   }
   
-  public static dss.vector.solutions.surveillance.AggregatedCase searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date startDate, java.util.Date endDate, dss.vector.solutions.surveillance.AggregatedAgeGroup ageGroup)
+  public dss.vector.solutions.surveillance.CaseDiagnostic[] getDiagnosticMethods()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static dss.vector.solutions.surveillance.AggregatedCaseView searchByGeoEntityAndEpiDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, dss.vector.solutions.surveillance.PeriodType periodType, java.lang.Integer period, java.lang.String year, dss.vector.solutions.surveillance.AggregatedAgeGroup ageGroup)
+  public static final dss.vector.solutions.surveillance.CaseDiagnostic[] getDiagnosticMethods(java.lang.String id)
+  {
+    AggregatedCase _instance = AggregatedCase.get(id);
+    return _instance.getDiagnosticMethods();
+  }
+  
+  public dss.vector.solutions.surveillance.CaseTreatmentStock[] getTreatmentStocks()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
     throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseTreatmentStock[] getTreatmentStocks(java.lang.String id)
+  {
+    AggregatedCase _instance = AggregatedCase.get(id);
+    return _instance.getTreatmentStocks();
+  }
+  
+  public dss.vector.solutions.surveillance.CaseTreatmentMethod[] getTreatmentMethods()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseTreatmentMethod[] getTreatmentMethods(java.lang.String id)
+  {
+    AggregatedCase _instance = AggregatedCase.get(id);
+    return _instance.getTreatmentMethods();
+  }
+  
+  public static dss.vector.solutions.surveillance.AggregatedCaseView getView(java.lang.String id)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public dss.vector.solutions.surveillance.CaseReferral[] getReferrals()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseReferral[] getReferrals(java.lang.String id)
+  {
+    AggregatedCase _instance = AggregatedCase.get(id);
+    return _instance.getReferrals();
   }
   
   public static AggregatedCase lock(java.lang.String id)

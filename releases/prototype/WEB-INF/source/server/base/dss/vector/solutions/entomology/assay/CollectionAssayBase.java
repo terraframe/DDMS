@@ -18,7 +18,7 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1239572445133L;
+  private static final long serialVersionUID = 1239658573538L;
   
   public CollectionAssayBase()
   {
@@ -294,18 +294,6 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     return (CollectionAssay) com.terraframe.mojo.business.Business.get(id);
   }
   
-  public java.lang.Double getKD95()
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.CollectionAssay.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final java.lang.Double getKD95(java.lang.String id)
-  {
-    CollectionAssay _instance = CollectionAssay.get(id);
-    return _instance.getKD95();
-  }
-  
   public java.lang.Double getKD50()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.CollectionAssay.java";
@@ -316,6 +304,18 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
   {
     CollectionAssay _instance = CollectionAssay.get(id);
     return _instance.getKD50();
+  }
+  
+  public java.lang.Double getKD95()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.CollectionAssay.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.Double getKD95(java.lang.String id)
+  {
+    CollectionAssay _instance = CollectionAssay.get(id);
+    return _instance.getKD95();
   }
   
   public static CollectionAssay lock(java.lang.String id)

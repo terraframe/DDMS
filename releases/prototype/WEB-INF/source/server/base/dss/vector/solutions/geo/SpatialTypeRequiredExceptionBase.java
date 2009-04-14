@@ -11,7 +11,7 @@ public abstract class SpatialTypeRequiredExceptionBase extends com.terraframe.mo
 {
   public final static String CLASS = "dss.vector.solutions.geo.SpatialTypeRequiredException";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1239572483073L;
+  private static final long serialVersionUID = 1239658612136L;
   
   public SpatialTypeRequiredExceptionBase()
   {

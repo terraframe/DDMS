@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
 public class KnockDownTimePropertyQueryDTO extends com.terraframe.mojo.business.BusinessQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572446855L;
+private static final long serialVersionUID = 1239658575888L;
 
   protected KnockDownTimePropertyQueryDTO(String type)
   {

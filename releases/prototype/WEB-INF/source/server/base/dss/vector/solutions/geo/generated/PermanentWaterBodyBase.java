@@ -11,7 +11,7 @@ public abstract class PermanentWaterBodyBase extends dss.vector.solutions.geo.ge
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.PermanentWaterBody";
   public static java.lang.String POLYGON = "polygon";
-  private static final long serialVersionUID = 1239572508083L;
+  private static final long serialVersionUID = 1239658637767L;
   
   public PermanentWaterBodyBase()
   {

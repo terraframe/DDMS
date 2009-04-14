@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public class TreatmentMethodGridQueryDTO extends dss.vector.solutions.surveillance.AbstractGridQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572501998L;
+private static final long serialVersionUID = 1239658631589L;
 
   protected TreatmentMethodGridQueryDTO(String type)
   {

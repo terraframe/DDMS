@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class TownDTOBase extends dss.vector.solutions.geo.generated.PopulatedAreaDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239572474565L;
+  private static final long serialVersionUID = 1239658603466L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.Town";
   protected TownDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

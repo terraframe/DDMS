@@ -9,7 +9,7 @@ public class ActiveIngredientControllerBase implements com.terraframe.mojo.gener
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1239572459320L;
+  private static final long serialVersionUID = 1239658587520L;
   
   public ActiveIngredientControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -77,20 +77,6 @@ public class ActiveIngredientControllerBase implements com.terraframe.mojo.gener
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failViewPage");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.mo.ActiveIngredientDTO:dto", post=true)
-  public void update(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.update");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.mo.ActiveIngredientDTO:dto", post=true)
-  public void failUpdate(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failUpdate");
-  }
-  
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -105,32 +91,18 @@ public class ActiveIngredientControllerBase implements com.terraframe.mojo.gener
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failView");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.mo.ActiveIngredientDTO:dto", post=true)
+  public void update(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.edit");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.update");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.mo.ActiveIngredientDTO:dto", post=true)
+  public void failUpdate(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failEdit");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.viewAll");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failViewAll");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failUpdate");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.mo.ActiveIngredientDTO:dto", post=true)
@@ -148,17 +120,31 @@ public class ActiveIngredientControllerBase implements com.terraframe.mojo.gener
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.mo.ActiveIngredientDTO:dto", post=true)
-  public void create(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.create");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.delete");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.mo.ActiveIngredientDTO:dto", post=true)
-  public void failCreate(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failCreate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failDelete");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.edit");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failEdit");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
@@ -175,18 +161,32 @@ public class ActiveIngredientControllerBase implements com.terraframe.mojo.gener
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failNewInstance");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.mo.ActiveIngredientDTO:dto", post=true)
-  public void delete(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.delete");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.viewAll");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="", post=false)
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failViewAll");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.mo.ActiveIngredientDTO:dto", post=true)
-  public void failDelete(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failDelete");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.create");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.mo.ActiveIngredientDTO:dto", post=true)
+  public void failCreate(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mo.ActiveIngredientController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.mo.ActiveIngredientController.failCreate");
   }
   
 }

@@ -12,7 +12,7 @@ public abstract class ConfirmParentChangeExceptionBase extends com.terraframe.mo
   public final static String CLASS = "dss.vector.solutions.geo.ConfirmParentChangeException";
   public static java.lang.String ENTITYNAME = "entityName";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1239572467443L;
+  private static final long serialVersionUID = 1239658596469L;
   
   public ConfirmParentChangeExceptionBase()
   {

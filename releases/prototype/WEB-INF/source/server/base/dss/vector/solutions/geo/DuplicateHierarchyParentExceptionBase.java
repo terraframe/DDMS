@@ -13,7 +13,7 @@ public abstract class DuplicateHierarchyParentExceptionBase extends com.terrafra
   public static java.lang.String CHILDDISPLAYLABEL = "childDisplayLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTDISPLAYLABEL = "parentDisplayLabel";
-  private static final long serialVersionUID = 1239572454217L;
+  private static final long serialVersionUID = 1239658582354L;
   
   public DuplicateHierarchyParentExceptionBase()
   {

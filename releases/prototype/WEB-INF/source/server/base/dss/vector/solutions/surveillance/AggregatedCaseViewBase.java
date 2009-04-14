@@ -17,7 +17,7 @@ public abstract class AggregatedCaseViewBase extends com.terraframe.mojo.busines
   public static java.lang.String PERIOD = "period";
   public static java.lang.String PERIODTYPE = "periodType";
   public static java.lang.String PERIODYEAR = "periodYear";
-  private static final long serialVersionUID = 1239572469248L;
+  private static final long serialVersionUID = 1239658598307L;
   
   public AggregatedCaseViewBase()
   {
@@ -236,6 +236,18 @@ public abstract class AggregatedCaseViewBase extends com.terraframe.mojo.busines
     return (AggregatedCaseView) com.terraframe.mojo.business.View.get(id);
   }
   
+  public void applyAll(dss.vector.solutions.surveillance.CaseTreatment[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethod[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStock[] stock, dss.vector.solutions.surveillance.CaseDiagnostic[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferral[] referrals)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
+    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void applyAll(java.lang.String id, dss.vector.solutions.surveillance.CaseTreatment[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethod[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStock[] stock, dss.vector.solutions.surveillance.CaseDiagnostic[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferral[] referrals)
+  {
+    AggregatedCaseView _instance = AggregatedCaseView.get(id);
+    _instance.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
+  }
+  
   public void unlockCase()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
@@ -258,18 +270,6 @@ public abstract class AggregatedCaseViewBase extends com.terraframe.mojo.busines
   {
     AggregatedCaseView _instance = AggregatedCaseView.get(id);
     _instance.lockCase();
-  }
-  
-  public void applyAll(dss.vector.solutions.surveillance.CaseTreatment[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethod[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStock[] stock, dss.vector.solutions.surveillance.CaseDiagnostic[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferral[] referrals)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
-    throw new com.terraframe.mojo.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final void applyAll(java.lang.String id, dss.vector.solutions.surveillance.CaseTreatment[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethod[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStock[] stock, dss.vector.solutions.surveillance.CaseDiagnostic[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferral[] referrals)
-  {
-    AggregatedCaseView _instance = AggregatedCaseView.get(id);
-    _instance.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
   }
   
   public String toString()

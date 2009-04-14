@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public class SpecieQueryDTO extends dss.vector.solutions.mo.AbstractTermQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572489113L;
+private static final long serialVersionUID = 1239658618181L;
 
   protected SpecieQueryDTO(String type)
   {

@@ -11,7 +11,7 @@ public abstract class AcHEWTestResultBase extends dss.vector.solutions.entomolog
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.molecular.AcHEWTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1239572498106L;
+  private static final long serialVersionUID = 1239658627755L;
   
   public AcHEWTestResultBase()
   {

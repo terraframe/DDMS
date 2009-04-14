@@ -9,7 +9,7 @@ package dss.vector.solutions.surveillance;
  */
 public  class CaseReferralQuery extends com.terraframe.mojo.query.GeneratedRelationshipQuery implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572463222L;
+private static final long serialVersionUID = 1239658592057L;
 
   public CaseReferralQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

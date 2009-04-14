@@ -11,7 +11,7 @@ public abstract class NationalRoadBase extends dss.vector.solutions.geo.generate
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.NationalRoad";
   public static java.lang.String LINESTRING = "lineString";
-  private static final long serialVersionUID = 1239572516941L;
+  private static final long serialVersionUID = 1239658646943L;
   
   public NationalRoadBase()
   {

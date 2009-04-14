@@ -11,7 +11,7 @@ public abstract class HemeTestResultBase extends dss.vector.solutions.entomology
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.HemeTestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1239572519026L;
+  private static final long serialVersionUID = 1239658649167L;
   
   public HemeTestResultBase()
   {

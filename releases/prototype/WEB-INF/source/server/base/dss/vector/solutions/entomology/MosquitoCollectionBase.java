@@ -11,7 +11,7 @@ public abstract class MosquitoCollectionBase extends dss.vector.solutions.entomo
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollection";
   public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
-  private static final long serialVersionUID = 1239572482383L;
+  private static final long serialVersionUID = 1239658611424L;
   
   public MosquitoCollectionBase()
   {

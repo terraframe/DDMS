@@ -2,7 +2,7 @@ package dss.vector.solutions.mo;
 
 public abstract class InfectivityMethodologyDTOBase extends dss.vector.solutions.mo.AbstractTermDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239572494463L;
+  private static final long serialVersionUID = 1239658624300L;
   
   public final static String CLASS = "dss.vector.solutions.mo.InfectivityMethodology";
   protected InfectivityMethodologyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

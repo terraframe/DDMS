@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public  abstract  class AdultTestIntervalViewQueryBase extends com.terraframe.mojo.query.GeneratedViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572494356L;
+private static final long serialVersionUID = 1239658624192L;
 
   public AdultTestIntervalViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

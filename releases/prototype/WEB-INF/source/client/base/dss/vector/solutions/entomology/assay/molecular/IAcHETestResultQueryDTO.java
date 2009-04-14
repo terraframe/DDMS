@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay.molecular;
 public class IAcHETestResultQueryDTO extends dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572499501L;
+private static final long serialVersionUID = 1239658629171L;
 
   protected IAcHETestResultQueryDTO(String type)
   {

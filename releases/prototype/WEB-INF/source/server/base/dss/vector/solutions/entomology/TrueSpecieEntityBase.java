@@ -26,7 +26,7 @@ public abstract class TrueSpecieEntityBase extends com.terraframe.mojo.business.
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239572493463L;
+  private static final long serialVersionUID = 1239658623168L;
   
   public TrueSpecieEntityBase()
   {

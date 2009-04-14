@@ -10,7 +10,7 @@ package dss.vector.solutions;
 public  class PropertyQuery extends com.terraframe.mojo.query.GeneratedBusinessQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572518500L;
+private static final long serialVersionUID = 1239658648564L;
 
   public PropertyQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -366,7 +366,7 @@ private static final long serialVersionUID = 1239572518500L;
  implements PropertyQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239572518803L;
+private static final long serialVersionUID = 1239658648873L;
 
   public PropertyQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

@@ -27,7 +27,7 @@ public abstract class KnockDownTimePropertyBase extends com.terraframe.mojo.busi
   public static java.lang.String TYPE = "type";
   public static java.lang.String UPPERPERCENT = "upperPercent";
   public static java.lang.String UPPERTIME = "upperTime";
-  private static final long serialVersionUID = 1239572446100L;
+  private static final long serialVersionUID = 1239658575136L;
   
   public KnockDownTimePropertyBase()
   {

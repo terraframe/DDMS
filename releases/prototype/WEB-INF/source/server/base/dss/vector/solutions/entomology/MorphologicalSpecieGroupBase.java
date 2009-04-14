@@ -28,7 +28,7 @@ public abstract class MorphologicalSpecieGroupBase extends com.terraframe.mojo.b
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239572496231L;
+  private static final long serialVersionUID = 1239658626106L;
   
   public MorphologicalSpecieGroupBase()
   {

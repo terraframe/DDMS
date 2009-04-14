@@ -11,7 +11,7 @@ public abstract class InvalidFedQuantityProblemBase extends dss.vector.solutions
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.InvalidFedQuantityProblem";
   public static java.lang.String FED = "fed";
-  private static final long serialVersionUID = 1239572458214L;
+  private static final long serialVersionUID = 1239658586399L;
   
   public InvalidFedQuantityProblemBase()
   {

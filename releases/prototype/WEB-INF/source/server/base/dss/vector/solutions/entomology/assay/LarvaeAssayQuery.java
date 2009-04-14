@@ -10,7 +10,7 @@ package dss.vector.solutions.entomology.assay;
 public  class LarvaeAssayQuery extends dss.vector.solutions.entomology.assay.CollectionAssayQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572459613L;
+private static final long serialVersionUID = 1239658588741L;
 
   public LarvaeAssayQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -123,7 +123,7 @@ private static final long serialVersionUID = 1239572459613L;
  implements LarvaeAssayQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239572459903L;
+private static final long serialVersionUID = 1239658589035L;
 
   public LarvaeAssayQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

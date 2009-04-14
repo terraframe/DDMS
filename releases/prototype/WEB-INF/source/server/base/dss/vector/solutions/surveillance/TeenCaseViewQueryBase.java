@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public  abstract  class TeenCaseViewQueryBase extends dss.vector.solutions.surveillance.AggregatedCaseViewQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572446078L;
+private static final long serialVersionUID = 1239658575112L;
 
   public TeenCaseViewQueryBase(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {

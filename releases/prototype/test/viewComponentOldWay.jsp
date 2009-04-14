@@ -148,10 +148,10 @@ dt {
 MorphologicalSpecieGroups via Ajax</button>
 </span> </span> <span id="addrow" class="yui-button yui-push-button"> <span
 	class="first-child">
-<button type="button">New Row</button>
+<button type="button"><fmt:message key="New_Row"/></button>
 </span> </span> <span id="saverows" class="yui-button yui-push-button"> <span
 	class="first-child">
-<button type="button">Save Rows To DB</button>
+<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
 </span> </span></div>
 <script type="text/javascript" src="js/dataTableWidget.js"></script>
 <script type="text/javascript">      

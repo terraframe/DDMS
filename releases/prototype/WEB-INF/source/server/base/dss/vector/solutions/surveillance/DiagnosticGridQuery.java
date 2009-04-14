@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public  class DiagnosticGridQuery extends dss.vector.solutions.surveillance.AbstractGridQuery
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572451978L;
+private static final long serialVersionUID = 1239658581099L;
 
   public DiagnosticGridQuery(com.terraframe.mojo.query.QueryFactory componentQueryFactory)
   {
@@ -143,7 +143,7 @@ private static final long serialVersionUID = 1239572451978L;
  implements DiagnosticGridQueryReferenceIF
 , com.terraframe.mojo.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1239572452258L;
+private static final long serialVersionUID = 1239658581378L;
 
   public DiagnosticGridQueryReference(com.terraframe.mojo.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.terraframe.mojo.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.terraframe.mojo.query.ComponentQuery rootQuery, java.util.Set<com.terraframe.mojo.query.Join> tableJoinSet, String alias)
   {

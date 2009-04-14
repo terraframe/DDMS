@@ -10,7 +10,7 @@ package dss.vector.solutions.geo;
 public class AllowedInQueryDTO extends com.terraframe.mojo.business.RelationshipQueryDTO
  implements com.terraframe.mojo.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1239572467241L;
+private static final long serialVersionUID = 1239658596235L;
 
   protected AllowedInQueryDTO(String type)
   {

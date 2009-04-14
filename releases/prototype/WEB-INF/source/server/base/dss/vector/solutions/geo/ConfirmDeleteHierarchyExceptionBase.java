@@ -12,7 +12,7 @@ public abstract class ConfirmDeleteHierarchyExceptionBase extends com.terraframe
   public final static String CLASS = "dss.vector.solutions.geo.ConfirmDeleteHierarchyException";
   public static java.lang.String ID = "id";
   public static java.lang.String PARENTDISPLAYLABEL = "parentDisplayLabel";
-  private static final long serialVersionUID = 1239572458305L;
+  private static final long serialVersionUID = 1239658586508L;
   
   public ConfirmDeleteHierarchyExceptionBase()
   {

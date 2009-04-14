@@ -23,7 +23,7 @@ public abstract class CaseTreatmentBase extends com.terraframe.mojo.business.Rel
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1239572477704L;
+  private static final long serialVersionUID = 1239658606695L;
   
   public CaseTreatmentBase(String parentId, String childId)
   {

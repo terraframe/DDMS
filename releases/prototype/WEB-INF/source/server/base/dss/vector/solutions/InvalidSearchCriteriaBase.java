@@ -11,7 +11,7 @@ public abstract class InvalidSearchCriteriaBase extends com.terraframe.mojo.busi
 {
   public final static String CLASS = "dss.vector.solutions.InvalidSearchCriteria";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1239572462040L;
+  private static final long serialVersionUID = 1239658591873L;
   
   public InvalidSearchCriteriaBase()
   {

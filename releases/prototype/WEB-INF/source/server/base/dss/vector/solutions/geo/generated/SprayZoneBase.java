@@ -11,7 +11,7 @@ public abstract class SprayZoneBase extends dss.vector.solutions.geo.generated.G
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.SprayZone";
   public static java.lang.String POLYGON = "polygon";
-  private static final long serialVersionUID = 1239572503095L;
+  private static final long serialVersionUID = 1239658632688L;
   
   public SprayZoneBase()
   {

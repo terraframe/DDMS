@@ -1,34 +1,36 @@
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
 /**
  * Constants used for localization.
  */
 MDSS.Localized = {
 
-  Ajax_Loading: '<f:message key="Ajax_Loading"/>',
+  Ajax_Loading: '<fmt:message key="Ajax_Loading"/>',
 
   // tree widget options (per node)
   Tree: {
-    Create: '<f:message key="Tree_Create"/>',
-    Edit: '<f:message key="Tree_Edit"/>',
-    Delete: '<f:message key="Tree_Delete"/>',
-    Select: '<f:message key="Tree_Select"/>'
+    Create: '<fmt:message key="Tree_Create"/>',
+    Edit: '<fmt:message key="Tree_Edit"/>',
+    Delete: '<fmt:message key="Tree_Delete"/>',
+    Select: '<fmt:message key="Tree_Select"/>'
   },
-  
+
   // Basic choices
   Choice: {
-    Yes: '<f:message key="Choice_Yes"/>',
-    No: '<f:message key="Choice_No"/>'
+    Yes: '<fmt:message key="Choice_Yes"/>',
+    No: '<fmt:message key="Choice_No"/>'
   },
-  
+
   // Delete GeoEntity/GeoHierarchy choices
   Delete: {
-    Entity: '<f:message key="Delete_Entity" />',
-    Universal: '<f:message key="Delete_Universal" />',
-    Relationship: '<f:message key="Delete_Relationship" />'
+    Entity: '<fmt:message key="Delete_Entity" />',
+    Universal: '<fmt:message key="Delete_Universal" />',
+    Relationship: '<fmt:message key="Delete_Relationship" />'
   },
-  
-  Select_Universal_Type: '<f:message key="Select_Universal_Type" />',
-  
-  New_Universal_Located_In: '<f:message key="New_Universal_Located_In" />'
+
+  Select_Universal_Type: '<fmt:message key="Select_Universal_Type" />',
+
+
+  New_Universal_Located_In: '<fmt:message key="New_Universal_Located_In" />'
+
 };

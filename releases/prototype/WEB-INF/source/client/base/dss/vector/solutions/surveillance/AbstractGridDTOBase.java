@@ -2,7 +2,7 @@ package dss.vector.solutions.surveillance;
 
 public abstract class AbstractGridDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239572511193L;
+  private static final long serialVersionUID = 1239658641029L;
   
   public final static String CLASS = "dss.vector.solutions.surveillance.AbstractGrid";
   protected AbstractGridDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

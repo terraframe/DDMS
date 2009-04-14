@@ -2,7 +2,7 @@ package dss.vector.solutions;
 
 public abstract class PropertyDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239572518385L;
+  private static final long serialVersionUID = 1239658648447L;
   
   public final static String CLASS = "dss.vector.solutions.Property";
   protected PropertyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -599,22 +599,6 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public static final java.lang.String getStr(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{pkg, name};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getStr", _declaredTypes);
-    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public static final java.lang.Integer getInt(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{pkg, name};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getInt", _declaredTypes);
-    return (java.lang.Integer) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
   public static final dss.vector.solutions.PropertyDTO getByPackageAndName(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
@@ -623,12 +607,28 @@ public abstract class PropertyDTOBase extends com.terraframe.mojo.business.Busin
     return (dss.vector.solutions.PropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public static final java.lang.String getStr(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{pkg, name};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getStr", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final dss.vector.solutions.PropertyDTO getAllByPackage(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{pkg};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getAllByPackage", _declaredTypes);
     return (dss.vector.solutions.PropertyDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.Integer getInt(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String pkg, java.lang.String name)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{pkg, name};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.PropertyDTO.CLASS, "getInt", _declaredTypes);
+    return (java.lang.Integer) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.PropertyDTO get(com.terraframe.mojo.constants.ClientRequestIF clientRequest, String id)

@@ -13,7 +13,7 @@ public abstract class PeriodQuarterProblemBase extends com.terraframe.mojo.busin
   public static java.lang.String ID = "id";
   public static java.lang.String MAXPERIOD = "maxPeriod";
   public static java.lang.String PERIOD = "period";
-  private static final long serialVersionUID = 1239572516737L;
+  private static final long serialVersionUID = 1239658646803L;
   
   public PeriodQuarterProblemBase()
   {

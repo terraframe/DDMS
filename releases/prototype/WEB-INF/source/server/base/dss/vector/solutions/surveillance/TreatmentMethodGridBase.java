@@ -10,7 +10,7 @@ package dss.vector.solutions.surveillance;
 public abstract class TreatmentMethodGridBase extends dss.vector.solutions.surveillance.AbstractGrid implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.TreatmentMethodGrid";
-  private static final long serialVersionUID = 1239572501335L;
+  private static final long serialVersionUID = 1239658630910L;
   
   public TreatmentMethodGridBase()
   {

@@ -5,7 +5,7 @@
     1.0
   </tlib-version>
   <jsp-version>
-    1.2
+    2.1
   </jsp-version>
   <short-name>
     mojo lib
@@ -4571,7 +4571,7 @@
       scriptless
     </body-content>
     <description>
-      a DT DL pair with inner tags going in to the DL 
+      a DT DL pair with inner tags going in to the DL
     </description>
     <attribute>
       <name>

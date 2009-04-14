@@ -9,7 +9,7 @@ public class TreatmentMethodGridControllerBase implements com.terraframe.mojo.ge
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1239572463250L;
+  private static final long serialVersionUID = 1239658592089L;
   
   public TreatmentMethodGridControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -64,17 +64,17 @@ public class TreatmentMethodGridControllerBase implements com.terraframe.mojo.ge
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.TreatmentMethodGridDTO:dto", post=true)
-  public void cancel(dss.vector.solutions.surveillance.TreatmentMethodGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(dss.vector.solutions.surveillance.TreatmentMethodGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.TreatmentMethodGridController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.cancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.create");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.TreatmentMethodGridDTO:dto", post=true)
-  public void failCancel(dss.vector.solutions.surveillance.TreatmentMethodGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(dss.vector.solutions.surveillance.TreatmentMethodGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.TreatmentMethodGridController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.failCancel");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.failCreate");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:sortAttribute, java.lang.Boolean:isAscending, java.lang.Integer:pageSize, java.lang.Integer:pageNumber", post=false)
@@ -105,18 +105,18 @@ public class TreatmentMethodGridControllerBase implements com.terraframe.mojo.ge
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.failViewAll");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.TreatmentMethodGridDTO:dto", post=true)
-  public void create(dss.vector.solutions.surveillance.TreatmentMethodGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.TreatmentMethodGridController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.create");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.view");
   }
   
-  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.TreatmentMethodGridDTO:dto", post=true)
-  public void failCreate(dss.vector.solutions.surveillance.TreatmentMethodGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.TreatmentMethodGridController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.failCreate");
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.failView");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.TreatmentMethodGridDTO:dto", post=true)
@@ -147,6 +147,20 @@ public class TreatmentMethodGridControllerBase implements com.terraframe.mojo.ge
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.failNewInstance");
   }
   
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.TreatmentMethodGridDTO:dto", post=true)
+  public void cancel(dss.vector.solutions.surveillance.TreatmentMethodGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.TreatmentMethodGridController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.cancel");
+  }
+  
+  @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.TreatmentMethodGridDTO:dto", post=true)
+  public void failCancel(dss.vector.solutions.surveillance.TreatmentMethodGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.TreatmentMethodGridController.java";
+    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.failCancel");
+  }
+  
   @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -159,20 +173,6 @@ public class TreatmentMethodGridControllerBase implements com.terraframe.mojo.ge
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.TreatmentMethodGridController.java";
     throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.failEdit");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.TreatmentMethodGridController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.view");
-  }
-  
-  @com.terraframe.mojo.controller.ActionParameters(parameters="java.lang.String:id", post=false)
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.TreatmentMethodGridController.java";
-    throw new com.terraframe.mojo.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.TreatmentMethodGridController.failView");
   }
   
   @com.terraframe.mojo.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.TreatmentMethodGridDTO:dto", post=true)

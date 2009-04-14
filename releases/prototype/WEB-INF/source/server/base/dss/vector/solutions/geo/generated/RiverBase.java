@@ -11,7 +11,7 @@ public abstract class RiverBase extends dss.vector.solutions.geo.generated.GeoEn
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.River";
   public static java.lang.String LINESTRING = "lineString";
-  private static final long serialVersionUID = 1239572443766L;
+  private static final long serialVersionUID = 1239658572749L;
   
   public RiverBase()
   {

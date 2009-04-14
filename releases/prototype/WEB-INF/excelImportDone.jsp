@@ -1,18 +1,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 <c:choose>
   <c:when test="${empty problems}">
-    <div class="pageTitle"><f:message key="Excel_Import_Success" /></div>
+    <div class="pageTitle"><fmt:message key="Excel_Import_Success" /></div>
   </c:when>
   <c:otherwise>
-    <div class="pageTitle"><f:message key="Excel_Import_Fail" /></div>
+    <div class="pageTitle"><fmt:message key="Excel_Import_Fail" /></div>
     <table class="displayTable">
       <tr>
-        <th><f:message key="Excel_Row" /></th>
-        <th><f:message key="Excel_Column" /></th>
-        <th><f:message key="Excel_Error" /></th>
+        <th><fmt:message key="Excel_Row" /></th>
+        <th><fmt:message key="Excel_Column" /></th>
+        <th><fmt:message key="Excel_Error" /></th>
       </tr>
       <% boolean altRow = true; %>
       <c:forEach var="problem" items="${problems}">

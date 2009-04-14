@@ -11,7 +11,7 @@ public abstract class PNPATestResultBase extends dss.vector.solutions.entomology
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.PNPATestResult";
   public static java.lang.String TESTRESULT = "testResult";
-  private static final long serialVersionUID = 1239572468435L;
+  private static final long serialVersionUID = 1239658597479L;
   
   public PNPATestResultBase()
   {

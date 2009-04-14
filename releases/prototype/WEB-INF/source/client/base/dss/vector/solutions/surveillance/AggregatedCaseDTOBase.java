@@ -2,7 +2,7 @@ package dss.vector.solutions.surveillance;
 
 public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239572502300L;
+  private static final long serialVersionUID = 1239658631843L;
   
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedCase";
   protected AggregatedCaseDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -1929,68 +1929,12 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return (com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STILLBIRTHS).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO getView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.surveillance.AggregatedCaseDTO searchByGeoEntityAndDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.util.Date startDate, java.util.Date endDate, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getView", _declaredTypes);
-    return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public final dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] getTreatmentStocks()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getTreatmentStocks", _declaredTypes);
-    return (dss.vector.solutions.surveillance.CaseTreatmentStockDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] getTreatmentStocks(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getTreatmentStocks", _declaredTypes);
-    return (dss.vector.solutions.surveillance.CaseTreatmentStockDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public final dss.vector.solutions.surveillance.CaseReferralDTO[] getReferrals()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getReferrals", _declaredTypes);
-    return (dss.vector.solutions.surveillance.CaseReferralDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final dss.vector.solutions.surveillance.CaseReferralDTO[] getReferrals(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getReferrals", _declaredTypes);
-    return (dss.vector.solutions.surveillance.CaseReferralDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO unlockView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "unlockView", _declaredTypes);
-    return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public final dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] getTreatmentMethods()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getTreatmentMethods", _declaredTypes);
-    return (dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] getTreatmentMethods(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getTreatmentMethods", _declaredTypes);
-    return (dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.generated.GeoEntity", "java.util.Date", "java.util.Date", "dss.vector.solutions.surveillance.AggregatedAgeGroup"};
+    Object[] _parameters = new Object[]{geoEntity, startDate, endDate, ageGroup};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "searchByGeoEntityAndDate", _declaredTypes);
+    return (dss.vector.solutions.surveillance.AggregatedCaseDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO lockView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
@@ -2017,20 +1961,20 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     return (dss.vector.solutions.surveillance.CaseTreatmentDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final dss.vector.solutions.surveillance.CaseDiagnosticDTO[] getDiagnosticMethods()
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getDiagnosticMethods", _declaredTypes);
-    return (dss.vector.solutions.surveillance.CaseDiagnosticDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
-  }
-  
-  public static final dss.vector.solutions.surveillance.CaseDiagnosticDTO[] getDiagnosticMethods(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO unlockView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getDiagnosticMethods", _declaredTypes);
-    return (dss.vector.solutions.surveillance.CaseDiagnosticDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "unlockView", _declaredTypes);
+    return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO searchByGeoEntityAndEpiDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, dss.vector.solutions.surveillance.PeriodTypeDTO periodType, java.lang.Integer period, java.lang.String year, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.generated.GeoEntity", "dss.vector.solutions.surveillance.PeriodType", "java.lang.Integer", "java.lang.String", "dss.vector.solutions.surveillance.AggregatedAgeGroup"};
+    Object[] _parameters = new Object[]{geoEntity, periodType, period, year, ageGroup};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "searchByGeoEntityAndEpiDate", _declaredTypes);
+    return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final void applyAll(dss.vector.solutions.surveillance.CaseTreatmentDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralDTO[] referrals)
@@ -2049,20 +1993,76 @@ public abstract class AggregatedCaseDTOBase extends com.terraframe.mojo.business
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.surveillance.AggregatedCaseDTO searchByGeoEntityAndDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, java.util.Date startDate, java.util.Date endDate, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup)
+  public final dss.vector.solutions.surveillance.CaseDiagnosticDTO[] getDiagnosticMethods()
   {
-    String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.generated.GeoEntity", "java.util.Date", "java.util.Date", "dss.vector.solutions.surveillance.AggregatedAgeGroup"};
-    Object[] _parameters = new Object[]{geoEntity, startDate, endDate, ageGroup};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "searchByGeoEntityAndDate", _declaredTypes);
-    return (dss.vector.solutions.surveillance.AggregatedCaseDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getDiagnosticMethods", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseDiagnosticDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO searchByGeoEntityAndEpiDate(com.terraframe.mojo.constants.ClientRequestIF clientRequest, dss.vector.solutions.geo.generated.GeoEntityDTO geoEntity, dss.vector.solutions.surveillance.PeriodTypeDTO periodType, java.lang.Integer period, java.lang.String year, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup)
+  public static final dss.vector.solutions.surveillance.CaseDiagnosticDTO[] getDiagnosticMethods(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
-    String[] _declaredTypes = new String[]{"dss.vector.solutions.geo.generated.GeoEntity", "dss.vector.solutions.surveillance.PeriodType", "java.lang.Integer", "java.lang.String", "dss.vector.solutions.surveillance.AggregatedAgeGroup"};
-    Object[] _parameters = new Object[]{geoEntity, periodType, period, year, ageGroup};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "searchByGeoEntityAndEpiDate", _declaredTypes);
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getDiagnosticMethods", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseDiagnosticDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] getTreatmentStocks()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getTreatmentStocks", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseTreatmentStockDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] getTreatmentStocks(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getTreatmentStocks", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseTreatmentStockDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] getTreatmentMethods()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getTreatmentMethods", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] getTreatmentMethods(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getTreatmentMethods", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.surveillance.AggregatedCaseViewDTO getView(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getView", _declaredTypes);
     return (dss.vector.solutions.surveillance.AggregatedCaseViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.surveillance.CaseReferralDTO[] getReferrals()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getReferrals", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseReferralDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseReferralDTO[] getReferrals(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseDTO.CLASS, "getReferrals", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseReferralDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   @SuppressWarnings("unchecked")

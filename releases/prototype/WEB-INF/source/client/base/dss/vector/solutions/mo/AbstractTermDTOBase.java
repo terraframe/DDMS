@@ -2,7 +2,7 @@ package dss.vector.solutions.mo;
 
 public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.BusinessDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239572484313L;
+  private static final long serialVersionUID = 1239658613219L;
   
   public final static String CLASS = "dss.vector.solutions.mo.AbstractTerm";
   protected AbstractTermDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
@@ -637,19 +637,19 @@ public abstract class AbstractTermDTOBase extends com.terraframe.mojo.business.B
     return (com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TERMNAME).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.mo.AbstractTermDTO searchByTermName(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String termName)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String"};
-    Object[] _parameters = new Object[]{termName};
-    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.mo.AbstractTermDTO.CLASS, "searchByTermName", _declaredTypes);
-    return (dss.vector.solutions.mo.AbstractTermDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
   public static final dss.vector.solutions.mo.AbstractTermDTO searchByTermId(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String moId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{moId};
     com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.mo.AbstractTermDTO.CLASS, "searchByTermId", _declaredTypes);
+    return (dss.vector.solutions.mo.AbstractTermDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.mo.AbstractTermDTO searchByTermName(com.terraframe.mojo.constants.ClientRequestIF clientRequest, java.lang.String termName)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{termName};
+    com.terraframe.mojo.business.MethodMetaData _metadata = new com.terraframe.mojo.business.MethodMetaData(dss.vector.solutions.mo.AbstractTermDTO.CLASS, "searchByTermName", _declaredTypes);
     return (dss.vector.solutions.mo.AbstractTermDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

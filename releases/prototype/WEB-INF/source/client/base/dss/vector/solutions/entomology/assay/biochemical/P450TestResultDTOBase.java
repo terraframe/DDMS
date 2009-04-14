@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology.assay.biochemical;
 
 public abstract class P450TestResultDTOBase extends dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResultDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239572440849L;
+  private static final long serialVersionUID = 1239658569952L;
   
   public final static String CLASS = "dss.vector.solutions.entomology.assay.biochemical.P450TestResult";
   protected P450TestResultDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)

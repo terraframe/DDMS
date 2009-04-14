@@ -10,7 +10,7 @@ package dss.vector.solutions.mo;
 public abstract class SpecieBase extends dss.vector.solutions.mo.AbstractTerm implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.mo.Specie";
-  private static final long serialVersionUID = 1239572488471L;
+  private static final long serialVersionUID = 1239658617513L;
   
   public SpecieBase()
   {

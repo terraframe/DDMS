@@ -19,7 +19,7 @@ public abstract class GeoEntityDefinitionBase extends com.terraframe.mojo.busine
   public static java.lang.String SPATIALTYPE = "spatialType";
   public static java.lang.String SPRAYTARGETALLOWED = "sprayTargetAllowed";
   public static java.lang.String TYPENAME = "typeName";
-  private static final long serialVersionUID = 1239572454270L;
+  private static final long serialVersionUID = 1239658582410L;
   
   public GeoEntityDefinitionBase()
   {

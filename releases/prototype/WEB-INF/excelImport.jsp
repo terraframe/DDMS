@@ -1,9 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <div class="pageContent">
-<div class="pageTitle"><f:message key="Excel_Import_Header" /></div>
+<div class="pageTitle"><fmt:message key="Excel_Import_Header" /></div>
 <div class="fldContainer">
     <div class="fcTop">
     

@@ -2,7 +2,7 @@ package dss.vector.solutions.geo.generated;
 
 public abstract class PermanentWaterBodyDTOBase extends dss.vector.solutions.geo.generated.BreedingSiteDTO implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239572508179L;
+  private static final long serialVersionUID = 1239658637876L;
   
   public final static String CLASS = "dss.vector.solutions.geo.generated.PermanentWaterBody";
   protected PermanentWaterBodyDTOBase(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
