@@ -1184,7 +1184,7 @@
             name="geoEntity"
             required="true"
             label="Geo Entity"
-            size="6" />
+            size="16" />
         </attributes>
       </mdView>
 
@@ -1196,7 +1196,7 @@
           <char
             name="geoId"
             label="Geo Id"
-            size="6"
+            size="16"
             required="true"
             description="Id of the GeoEntity" />
         </attributes>
@@ -1363,7 +1363,7 @@
           <char
             name="geoId"
             label="Geo Id"
-            size="6"
+            size="16"
             required="true"
             description="Id of the GeoEntity" />
         </attributes>
@@ -1833,8 +1833,8 @@
           <char
             name="definition"
             label="Definition"
-            size="255"
-            required="true"
+            size="1024"
+            required="false"
             description="Description of the MO term" />
           <char
             name="oboNamespace"
@@ -3405,7 +3405,7 @@
           <char
             name="validValues"
             label="validValues"
-            size="6"
+            size="128"
             required="true"
             description="List of valid Values to display in error message." />
         </attributes>
@@ -3801,7 +3801,7 @@
             name="testResult"
             label="α-napthyl acetate assay"
             required="true"
-            description="assay result|Positive|Negative" />
+            description="assay result|Elevated|Not Elevated" />
         </attributes>
       </mdBusiness>
 
@@ -3816,7 +3816,7 @@
             name="testResult"
             label="β-napthyl acetate assay"
             required="true"
-            description="assay result|Positive|Negative" />
+            description="assay result|Elevated|Not Elevated" />
         </attributes>
       </mdBusiness>
 
@@ -3831,7 +3831,7 @@
             name="testResult"
             label="pNPA assay"
             required="true"
-            description="assay result|Positive|Negative" />
+            description="assay result|Elevated|Not Elevated" />
         </attributes>
       </mdBusiness>
 
@@ -3846,7 +3846,7 @@
             name="testResult"
             label="GST CDNB rate reaction assay"
             required="true"
-            description="assay result|Positive|Negative" />
+            description="assay result|Elevated|Not Elevated" />
         </attributes>
       </mdBusiness>
 
@@ -3861,7 +3861,7 @@
             name="testResult"
             label="GST DCNB rate reaction assay"
             required="true"
-            description="assay result|Positive|Negative" />
+            description="assay result|Elevated|Not Elevated" />
         </attributes>
       </mdBusiness>
 
@@ -3869,14 +3869,14 @@
         name="dss.vector.solutions.entomology.assay.biochemical.HemeTestResult"
         label="heme content"
         extends="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"
-        description="Monooxygenase test result."
+        description="Heme test result."
         generateController="false">
         <attributes>
           <boolean
             name="testResult"
             label="heme content"
             required="true"
-            description="assay result|Positive|Negative" />
+            description="assay result|Elevated|Not Elevated" />
         </attributes>
       </mdBusiness>
 
@@ -3891,7 +3891,7 @@
             name="testResult"
             label="p450 activity assay"
             required="true"
-            description="p450 activity assay result" />
+            description="p450 activity assay result|Elevated|Not Elevated" />
         </attributes>
       </mdBusiness>
 
@@ -3935,14 +3935,14 @@
 
       <mdBusiness
         name="dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult"
-        label="P. Ovale Test Result"
+        label="P. Ovale"
         extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
         description="P. Ovale test result."
         generateController="false">
         <attributes>
           <boolean
             name="testResult"
-            label="P. Ovale Test Result"
+            label="P. Ovale"
             required="true"
             description="assay result|Positive|Negative" />
         </attributes>
@@ -3950,14 +3950,14 @@
 
       <mdBusiness
         name="dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult"
-        label="P. Malariae Test Result"
+        label="P. Malariae"
         extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
         description="P. Malariae test result."
         generateController="false">
         <attributes>
           <boolean
             name="testResult"
-            label="P. Malariae Test Result"
+            label="P. Malariae"
             required="true"
             description="assay result|Positive|Negative" />
         </attributes>
@@ -3965,14 +3965,14 @@
 
       <mdBusiness
         name="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult"
-        label="P. Vivax Test Result"
+        label="P. Vivax"
         extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
         description="P. Vivax test result."
         generateController="false">
         <attributes>
           <boolean
             name="testResult"
-            label="P. Vivax Test Result"
+            label="P. Vivax"
             required="true"
             description="assay result|Positive|Negative" />
         </attributes>
@@ -5024,26 +5024,6 @@
         <valueAttribute
           name="inheritsTermName"
           value="MIRO_20000075" />
-      </object>
-
-      <object
-        type="dss.vector.solutions.mo.InfectivityMethodology"
-        id="MIRO_99803572">
-        <valueAttribute
-          name="termId"
-          value="MIRO_99803572" />
-        <valueAttribute
-          name="termName"
-          value="Test Infectivity Method" />
-        <valueAttribute
-          name="displayLabel"
-          value="Test Infectivity Method" />
-        <valueAttribute
-          name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
-        <valueAttribute
-          name="definition"
-          value="A member species of the species complex Anopheles gambiae sensu lato. [Walter_Reed:taxonomy http://www.mosquitocatalog.org/]" />
       </object>
 
       <object
