@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@page import="java.util.*"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
@@ -20,48 +20,44 @@
 
 	<mjl:message />
 </mjl:messages>
-<h2>Collection</h2>
+<h2><fmt:message key="Collection"/></h2>
 <dl>
-<mjl:form name="mdss.entomology.MosquitoCollection.form.name" id="mdss.entomology.MosquitoCollection.form.id" method="POST" style="display:inline;">
+<mjl:form name="dss.entomology.MosquitoCollection.form.name" id="dss.entomology.MosquitoCollection.form.id" method="POST" style="display:inline;">
 
   <mjl:input value="${item.id}" type="hidden" param="id" />
 
     <dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
-    <dd><mjl:commandLink display="${item.collectionMethod.termName}" action="mdss.entomology.CollectionMethodController.view.mojo" name="mdss.entomology.CollectionMethod.form.view.link">
-      <mjl:property value="${item.collectionMethod.id}" name="id" />
-    </mjl:commandLink></dd>
+    <dd>${item.collectionMethod.displayLabel}</dd>
     <dt><label > ${item.dateCollectedMd.displayLabel} </label></dt>
     <dd class="formatDate">${item.dateCollected}</dd>
     <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
-    <dd><mjl:commandLink display="${item.geoEntity.geoId}" action="mdss.test.GeoEntityController.view.mojo" name="mdss.test.GeoEntity.form.view.link">
-      <mjl:property value="${item.geoEntity.id}" name="id" />
-    </mjl:commandLink></dd>
+    <dd>${item.geoEntity.geoId}</dd>
 
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.MosquitoCollectionController.edit.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.edit.button" classes="submitButton" />
 </mjl:form>
 
 <form method="get" action="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo"" style="display:inline;">
         <input value="${item.id}" name="id" type="hidden"/>
-        <button type="submit"><f:message key="View_Assays" /></button>
+        <button type="submit"><fmt:message key="View_Assays" /></button>
 </form>
 
 <form method="get" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" style="display:inline;">
         <input value="${item.id}" name="collection_id" type="hidden"/>
-        <button type="submit"><f:message key="Adult_DDA" /></button>
+        <button type="submit"><fmt:message key="Adult_DDA" /></button>
 </form>
 
 <form method="get" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" style="display:inline;">
         <input value="${item.id}" name="collection_id" type="hidden"/>
-        <button type="submit"><f:message key="Larvae_DDA" /></button>
+        <button type="submit"><fmt:message key="Larvae_DDA" /></button>
 </form>
 
 <form method="get" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" style="display:inline;">
         <input value="${item.id}" name="collection_id" type="hidden"/>
-        <button type="submit"><f:message key="Knock_Down_Assay" /></button>
+        <button type="submit"><fmt:message key="Knock_Down_Assay" /></button>
 </form>
 </dl>
 <br/>
-<h2>Specimens</h2>
+<h2><fmt:message key="Specimens"/></h2>
 <dl>
 <div id="MorphologicalSpecieGroups"></div>
 <br/>
@@ -79,19 +75,18 @@
 
 <span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button">
 <span class="first-child">
-<button type="button">New Row</button>
+<button type="button"><fmt:message key="New_Row"/></button>
  </span>
  </span>
-
 <span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button">
 <span class="first-child">
-<button type="button">Save Rows To DB</button>
+<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
 </span> </span>
 
 <form method="get" action="excelimport" style="display:inline;">
        <span class="yui-button yui-push-button">
        <span class="first-child">
-        <button type="submit"><f:message key="Excel_Import_Header" /></button>
+        <button type="submit"><fmt:message key="Excel_Import_Header" /></button>
         </span>
         </span>
 </form>
@@ -99,7 +94,7 @@
         <input type="hidden" name="type" value="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"/>
         <span class="yui-button yui-push-button">
         <span class="first-child">
-        <button type="submit"><f:message key="Excel_Export_Header" /></button>
+        <button type="submit"><fmt:message key="Excel_Export_Header" /></button>
         </span>
         </span>
 </form>

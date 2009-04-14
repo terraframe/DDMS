@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -14,7 +15,9 @@
 <%@page import="dss.vector.solutions.geo.generated.NonSentinalSiteDTO"%>
 
 
-<%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%><c:set var="page_title" value="Search_Mosquito_Collections"  scope="request"/>
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
+
+<c:set var="page_title" value="Search_Mosquito_Collections"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
@@ -73,11 +76,11 @@
 
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.search" method="POST" id ="searchMosquitoCollections">
   <dl>
-    <dt> Filter </dt>
+    <dt><fmt:message key="Filter"/></dt>
     <dd>
-      <input type="radio" name="filterType" value="" checked="checked" />All  &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${SentinalSiteClass}" />Sentinal Site &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${NonSentinalSiteClass}" />(Non) Sentinal Site
+      <input type="radio" name="filterType" value="" checked="checked" /><fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" value="${SentinalSiteClass}" /><fmt:message key="Sentinal Site"/> &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" value="${NonSentinalSiteClass}" /><fmt:message key="(Non) Sentinal Site"/>
     </dd>
     <dt> <label> ${item.geoEntityMd.displayLabel}</label></dt>
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>
@@ -85,7 +88,7 @@
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick" id="collectionDate"/></dd>
     <dt> <label> ${item.collectionMethodMd.displayLabel}</label> </dt>
 
-    <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod.componentId" includeBlank="true" >
+    <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod.componentId" >
        <mjl:option>
           ${current.displayLabel}
        </mjl:option>
@@ -105,22 +108,22 @@
 <br />
 <br />
 <br />
+<fmt:message key="Recently Created Collections"/>
 
-Recently Created Collections
 <mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="collectionMethod">
       <mjl:header>
-        Collection Method
+         ${item.collectionMethodMd.displayLabel}
       </mjl:header>
       <mjl:row>
-        ${item.collectionMethod.termName}
+        ${item.collectionMethod.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="dateCollected">
       <mjl:header>
-        Date Collected
+        ${item.dateCollectedMd.displayLabel}
       </mjl:header>
       <mjl:row>
         <fmt:formatDate value="${item.dateCollected}" dateStyle="SHORT" />
@@ -128,7 +131,7 @@ Recently Created Collections
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoEntity">
       <mjl:header>
-        Geo Entity
+         ${item.geoEntityMd.displayLabel}
       </mjl:header>
       <mjl:row>
         ${item.geoEntity.entityName}
