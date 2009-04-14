@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../../../../../exceptions.xsd"
-  name="csu.mrc.ivcc.mdss.entomology.assay.InvalidTestDateProblem">
+xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
+  name="dss.vector.solutions.entomology.assay.InvalidTestDateProblem">
   <!--
-    - {assayId} Assay Id
     - {collectionDate} Period
-    - {id} ID
     - {testDate} Period
     -->
   <locale language="en">The assay test date [{testDate}] may not occur before the collection date [{collectionDate}] </locale>
