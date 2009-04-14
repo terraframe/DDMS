@@ -15,18 +15,9 @@
       </dt>
       <dd>
          <mjl:select var="current" valueAttribute="id" items="${geoEntintys}" param="geoEntity" >
-          <c:choose>
-            <c:when test="${current.geoId == item.geoEntity.geoId}">
-             <mjl:option selected="selected">
-               ${current.geoId}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
               <mjl:option>
                 ${current.geoId}
               </mjl:option>
-            </c:otherwise>
-          </c:choose>
         </mjl:select>
       </dd>
           <dt>
@@ -115,18 +106,9 @@
       </dt>
       <dd>
         <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
-          <c:choose>
-            <c:when test="${mjl:contains(item.sexEnumNames, current.enumName)}">
-              <mjl:option selected="selected">
-                ${item.sexMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
               <mjl:option>
                 ${item.sexMd.enumItems[current.enumName]}
               </mjl:option>
-            </c:otherwise>
-          </c:choose>
         </mjl:select>
       </dd>
       <dt>
@@ -162,6 +144,7 @@
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
+        <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides"/></a>
       </dd>
       <dt>
         <label>
