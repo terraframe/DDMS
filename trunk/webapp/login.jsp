@@ -4,7 +4,7 @@
   uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib
   uri="http://java.sun.com/jstl/fmt"
-  prefix="f"%>
+  prefix="fmt"%>
 <%@ taglib
   uri="/WEB-INF/tlds/mojoLib.tld"
   prefix="mjl"%>
@@ -21,7 +21,7 @@
   type="text/javascript"
   src="js/check_for_firefox.js"
   charset="utf-8"></script>
-<title><f:message key="login" /></title>
+<title><fmt:message key="login" /></title>
 
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >
 <link rel="stylesheet" type="text/css" href="js/yui/build/reset-fonts-grids/reset-fonts-grids.css">
@@ -105,7 +105,7 @@ input[type="button"]:active {
 <div class="hTitle"></div>
 </div>
 <div class="pageContent">
-<div class="pageTitle"><f:message key="login" /></div>
+<div class="pageTitle"><fmt:message key="login" /></div>
 <mjl:form
   method="post"
   id="mform"
@@ -114,19 +114,19 @@ input[type="button"]:active {
   <c:if test="${bad_password}">
     <div class="alert alertbox">
     <p>
-    <f:message key="bad_username_or_password" />
+    <fmt:message key="bad_username_or_password" />
     </p>
     </div>
   </c:if>
 
 
   <dl>
-    <dt><label> <f:message key="username" />: </label></dt>
+    <dt><label> <fmt:message key="username" />: </label></dt>
     <dd><mjl:input
       param="username"
       type="text"
       value="SYSTEM" /></dd>
-    <dt><label> <f:message key="password" />: </label></dt>
+    <dt><label> <fmt:message key="password" />: </label></dt>
     <dd><mjl:input
       param="password"
       type="password"
