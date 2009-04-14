@@ -11975,3 +11975,5 @@ java.lang.OutOfMemoryError: Java heap space
 	at com.terraframe.mojo.session.SessionFacade.logIn(SessionFacade.java:91)
 	at com.terraframe.mojo.facade.Facade.login_aroundBody32(Facade.java:432)
 2009-04-13 15:53:56  Error creating the directory for storing serialized sessions
+2009-04-13 19:08:57  Error creating the directory for storing serialized sessions
+2009-04-13 20:12:02  Error creating the directory for storing serialized sessions
