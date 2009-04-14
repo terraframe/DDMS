@@ -1,17 +1,19 @@
 package dss.vector.solutions.entomology.assay;
 
+import dss.vector.solutions.entomology.MosquitoCollectionDTO;
+
 public class KnockDownAssayController extends KnockDownAssayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/entomology/assay/KnockDownAssay/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
-  
+
   private static final long serialVersionUID = 1237230661615L;
-  
+
   public KnockDownAssayController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   public void create(dss.vector.solutions.entomology.assay.KnockDownAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -120,6 +122,11 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.KnockDownAssayDTO dto = new dss.vector.solutions.entomology.assay.KnockDownAssayDTO(clientRequest);
+    if(req.getParameter("collection_id") != null)
+    {
+      dto.setCollection(MosquitoCollectionDTO.get(clientRequest, req.getParameter("collection_id")));
+    }
+
     req.setAttribute("sex", dss.vector.solutions.entomology.AssaySexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("collection", dss.vector.solutions.entomology.MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("generation", dss.vector.solutions.mo.GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
