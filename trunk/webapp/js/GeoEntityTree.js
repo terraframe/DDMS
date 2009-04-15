@@ -372,6 +372,25 @@ MDSS.GeoEntityTree = (function(){
     // create ul to hold labels
     var ulRaw = document.createElement('ul');
     ul = new YAHOO.util.Element(ulRaw);
+    ul.addClass('selectableTypes');
+    ul.on('mouseover', function(e, obj){
+
+      var li = e.target;
+      var ul = e.currentTarget;
+      if(li.nodeName !== 'LI')
+      {
+        return;
+      }
+
+      // clear all lis of their current class
+      var lis = YAHOO.util.Selector.query('li.currentSelection', ul);
+      for(var i=0; i<lis.length; i++)
+      {
+        YAHOO.util.Dom.removeClass(lis[i], 'currentSelection');
+      }
+
+      YAHOO.util.Dom.addClass(e.target, 'currentSelection');
+    });
 
     // add all labels
     var geoEntityView = _getGeoEntityView(_selectedNode);

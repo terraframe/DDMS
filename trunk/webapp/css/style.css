@@ -398,3 +398,11 @@ div.innerContentModal {
 div.yui-module div.bd form dl {
 	margin-bottom: 5px;
 }
+
+ul.selectableTypes {
+	cursor: pointer;
+}
+
+li.currentSelection {
+	background-color: white;
+}
