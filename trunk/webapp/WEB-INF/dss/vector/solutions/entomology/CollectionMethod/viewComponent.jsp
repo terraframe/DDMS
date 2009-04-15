@@ -6,14 +6,9 @@
 <mjl:form name="dss.vector.solutions.entomology.CollectionMethod.form.name" id="dss.vector.solutions.entomology.CollectionMethod.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.termNameMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="termName">
       ${item.termName}
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.CollectionMethodController.edit.mojo" name="dss.vector.solutions.entomology.CollectionMethod.form.edit.button" />
   <br />

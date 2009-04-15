@@ -6,24 +6,14 @@
 <mjl:form name="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult.form.name" id="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.testResultMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="testResult">
       ${item.testResult}
-    </dd>
-    <dt>
-      <label>
-        ${item.mosquitoMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.mosquito.keyName}" action="dss.vector.solutions.entomology.MosquitoController.view.mojo" name="dss.vector.solutions.entomology.Mosquito.form.view.link">
+</mjl:dt>
+    <mjl:dt attribute="mosquito">
+<mjl:commandLink display="${item.mosquito.keyName}" action="dss.vector.solutions.entomology.MosquitoController.view.mojo" name="dss.vector.solutions.entomology.Mosquito.form.view.link">
         <mjl:property value="${item.mosquito.id}" name="id" />
       </mjl:commandLink>
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResultController.edit.mojo" name="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult.form.edit.button" />
   <br />

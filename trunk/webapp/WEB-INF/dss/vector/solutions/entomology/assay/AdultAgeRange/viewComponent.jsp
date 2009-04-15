@@ -6,22 +6,12 @@
 <mjl:form name="dss.vector.solutions.entomology.assay.AdultAgeRange.form.name" id="dss.vector.solutions.entomology.assay.AdultAgeRange.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.endPointMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="endPoint">
       ${item.endPoint}
-    </dd>
-    <dt>
-      <label>
-        ${item.startPointMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="startPoint">
       ${item.startPoint}
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.AdultAgeRangeController.edit.mojo" name="dss.vector.solutions.entomology.assay.AdultAgeRange.form.edit.button" />
   <br />

@@ -6,26 +6,16 @@
 <mjl:form name="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult.form.name" id="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.mosquitoMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.mosquito.keyName}" action="dss.vector.solutions.entomology.MosquitoController.view.mojo" name="dss.vector.solutions.entomology.Mosquito.form.view.link">
+    <mjl:dt attribute="mosquito">
+<mjl:commandLink display="${item.mosquito.keyName}" action="dss.vector.solutions.entomology.MosquitoController.view.mojo" name="dss.vector.solutions.entomology.Mosquito.form.view.link">
         <mjl:property value="${item.mosquito.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.testResultMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.testResult.keyName}" action="dss.vector.solutions.mo.MolecularAssayResultController.view.mojo" name="dss.vector.solutions.mo.MolecularAssayResult.form.view.link">
+</mjl:dt>
+    <mjl:dt attribute="testResult">
+<mjl:commandLink display="${item.testResult.keyName}" action="dss.vector.solutions.mo.MolecularAssayResultController.view.mojo" name="dss.vector.solutions.mo.MolecularAssayResult.form.view.link">
         <mjl:property value="${item.testResult.id}" name="id" />
       </mjl:commandLink>
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.molecular.EKDRTestResultController.edit.mojo" name="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult.form.edit.button" />
   <br />

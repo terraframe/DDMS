@@ -6,42 +6,27 @@
 <mjl:form name="dss.vector.solutions.entomology.assay.molecular.GABASTestResult.form.name" id="dss.vector.solutions.entomology.assay.molecular.GABASTestResult.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
-      <dt>
-        <label>
-          ${item.testResultMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_molecular_GABASTestResult_testResult}" param="testResult">
+      <mjl:dt attribute="testResult">
+<mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_molecular_GABASTestResult_testResult}" param="testResult">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.testMethodMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_molecular_TargetSiteAssayTestResult_testMethod}" param="testMethod">
+</mjl:dt>
+      <mjl:dt attribute="testMethod">
+<mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_molecular_TargetSiteAssayTestResult_testMethod}" param="testMethod">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.mosquitoMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_AssayTestResult_mosquito}" param="mosquito">
+</mjl:dt>
+      <mjl:dt attribute="mosquito">
+<mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_assay_AssayTestResult_mosquito}" param="mosquito">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
         </mjl:select>
-      </dd>
+</mjl:dt>
     </dl>
   </mjl:component>
   <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.molecular.GABASTestResultController.create.mojo" name="dss.vector.solutions.entomology.assay.molecular.GABASTestResult.form.create.button" />

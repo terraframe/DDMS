@@ -6,26 +6,16 @@
 <mjl:form name="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult.form.name" id="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
-      <dt>
-        <label>
-          ${item.mosquitoMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_infectivity_PVivaxTestResult_mosquito}" param="mosquito">
+      <mjl:dt attribute="mosquito">
+<mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_assay_infectivity_PVivaxTestResult_mosquito}" param="mosquito">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.testResultMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:boolean param="testResult" />
-      </dd>
+</mjl:dt>
+      <mjl:dt attribute="testResult">
+<mjl:boolean param="testResult" />
+</mjl:dt>
     </dl>
   </mjl:component>
   <mjl:command value="Update" action="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResultController.update.mojo" name="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult.form.update.button" />

@@ -6,24 +6,14 @@
 <mjl:form name="dss.vector.solutions.entomology.Mosquito.form.name" id="dss.vector.solutions.entomology.Mosquito.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.generationMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.generation.keyName}" action="dss.vector.solutions.entomology.GenerationController.view.mojo" name="dss.vector.solutions.entomology.Generation.form.view.link">
+    <mjl:dt attribute="generation">
+<mjl:commandLink display="${item.generation.keyName}" action="dss.vector.solutions.entomology.GenerationController.view.mojo" name="dss.vector.solutions.entomology.Generation.form.view.link">
         <mjl:property value="${item.generation.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.isofemaleMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="isofemale">
       ${item.isofemale}
-    </dd>
+</mjl:dt>
     <dt>
       <label>
         ${item.sexMd.displayLabel}
@@ -38,52 +28,27 @@
         </c:forEach>
       </ul>
     </dd>
-    <dt>
-      <label>
-        ${item.testDateMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="testDate">
       ${item.testDate}
-    </dd>
-    <dt>
-      <label>
-        ${item.collectionMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.collection.keyName}" action="dss.vector.solutions.entomology.AbstractMosquitoCollectionController.view.mojo" name="dss.vector.solutions.entomology.AbstractMosquitoCollection.form.view.link">
+</mjl:dt>
+    <mjl:dt attribute="collection">
+<mjl:commandLink display="${item.collection.keyName}" action="dss.vector.solutions.entomology.AbstractMosquitoCollectionController.view.mojo" name="dss.vector.solutions.entomology.AbstractMosquitoCollection.form.view.link">
         <mjl:property value="${item.collection.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.collectionIdMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="collectionId">
       ${item.collectionId}
-    </dd>
-    <dt>
-      <label>
-        ${item.identificationMethodMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.identificationMethod.keyName}" action="dss.vector.solutions.entomology.IdentificationMethodController.view.mojo" name="dss.vector.solutions.entomology.IdentificationMethod.form.view.link">
+</mjl:dt>
+    <mjl:dt attribute="identificationMethod">
+<mjl:commandLink display="${item.identificationMethod.keyName}" action="dss.vector.solutions.entomology.IdentificationMethodController.view.mojo" name="dss.vector.solutions.entomology.IdentificationMethod.form.view.link">
         <mjl:property value="${item.identificationMethod.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.specieMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.specie.keyName}" action="dss.vector.solutions.entomology.SpecieController.view.mojo" name="dss.vector.solutions.entomology.Specie.form.view.link">
+</mjl:dt>
+    <mjl:dt attribute="specie">
+<mjl:commandLink display="${item.specie.keyName}" action="dss.vector.solutions.entomology.SpecieController.view.mojo" name="dss.vector.solutions.entomology.Specie.form.view.link">
         <mjl:property value="${item.specie.id}" name="id" />
       </mjl:commandLink>
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.MosquitoController.edit.mojo" name="dss.vector.solutions.entomology.Mosquito.form.edit.button" />
   <br />

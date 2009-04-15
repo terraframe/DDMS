@@ -6,32 +6,17 @@
 <mjl:form name="dss.vector.solutions.entomology.assay.LarvaeTestInterval.form.name" id="dss.vector.solutions.entomology.assay.LarvaeTestInterval.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.assayMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.assay.keyName}" action="dss.vector.solutions.entomology.assay.LarvaeAssayController.view.mojo" name="dss.vector.solutions.entomology.assay.LarvaeAssay.form.view.link">
+    <mjl:dt attribute="assay">
+<mjl:commandLink display="${item.assay.keyName}" action="dss.vector.solutions.entomology.assay.LarvaeAssayController.view.mojo" name="dss.vector.solutions.entomology.assay.LarvaeAssay.form.view.link">
         <mjl:property value="${item.assay.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.periodMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="period">
       ${item.period}
-    </dd>
-    <dt>
-      <label>
-        ${item.quantityDeadMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="quantityDead">
       ${item.quantityDead}
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.edit.mojo" name="dss.vector.solutions.entomology.assay.LarvaeTestInterval.form.edit.button" />
   <br />

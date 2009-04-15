@@ -6,94 +6,30 @@
 <mjl:form name="dss.vector.solutions.entomology.ResistantCutOff.form.name" id="dss.vector.solutions.entomology.ResistantCutOff.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
-      <dt>
-        <label>
-          ${item.aAKnockDownPRMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="aAKnockDownPR" />
-        <mjl:messages attribute="aAKnockDownPR">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.aAKnockDownRMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="aAKnockDownR" />
-        <mjl:messages attribute="aAKnockDownR">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.aDDARMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="aDDAR" />
-        <mjl:messages attribute="aDDAR">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.aDDASMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="aDDAS" />
-        <mjl:messages attribute="aDDAS">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.lAKnockDownPRMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="lAKnockDownPR" />
-        <mjl:messages attribute="lAKnockDownPR">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.lAKnockDownRMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="lAKnockDownR" />
-        <mjl:messages attribute="lAKnockDownR">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.lDDARMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="lDDAR" />
-        <mjl:messages attribute="lDDAR">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.lDDASMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="lDDAS" />
-        <mjl:messages attribute="lDDAS">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+      <mjl:dt attribute="aAKnockDownPR">
+<mjl:input type="text" param="aAKnockDownPR" />
+</mjl:dt>
+      <mjl:dt attribute="aAKnockDownR">
+<mjl:input type="text" param="aAKnockDownR" />
+</mjl:dt>
+      <mjl:dt attribute="aDDAR">
+<mjl:input type="text" param="aDDAR" />
+</mjl:dt>
+      <mjl:dt attribute="aDDAS">
+<mjl:input type="text" param="aDDAS" />
+</mjl:dt>
+      <mjl:dt attribute="lAKnockDownPR">
+<mjl:input type="text" param="lAKnockDownPR" />
+</mjl:dt>
+      <mjl:dt attribute="lAKnockDownR">
+<mjl:input type="text" param="lAKnockDownR" />
+</mjl:dt>
+      <mjl:dt attribute="lDDAR">
+<mjl:input type="text" param="lDDAR" />
+</mjl:dt>
+      <mjl:dt attribute="lDDAS">
+<mjl:input type="text" param="lDDAS" />
+</mjl:dt>
     </dl>
   </mjl:component>
   <mjl:command value="Create" action="dss.vector.solutions.entomology.ResistantCutOffController.create.mojo" name="dss.vector.solutions.entomology.ResistantCutOff.form.create.button" />

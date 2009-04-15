@@ -6,28 +6,12 @@
 <mjl:form name="dss.vector.solutions.entomology.SexMaster.form.name" id="dss.vector.solutions.entomology.SexMaster.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
-      <dt>
-        <label>
-          ${item.displayLabelMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="displayLabel" />
-        <mjl:messages attribute="displayLabel">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.enumNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="enumName" />
-        <mjl:messages attribute="enumName">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+      <mjl:dt attribute="displayLabel">
+<mjl:input type="text" param="displayLabel" />
+</mjl:dt>
+      <mjl:dt attribute="enumName">
+<mjl:input type="text" param="enumName" />
+</mjl:dt>
     </dl>
   </mjl:component>
   <mjl:command value="Update" action="dss.vector.solutions.entomology.SexMasterController.update.mojo" name="dss.vector.solutions.entomology.SexMaster.form.update.button" />

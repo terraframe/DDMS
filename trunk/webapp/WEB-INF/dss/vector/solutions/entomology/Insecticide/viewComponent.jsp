@@ -6,14 +6,9 @@
 <mjl:form name="dss.vector.solutions.entomology.Insecticide.form.name" id="dss.vector.solutions.entomology.Insecticide.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.termNameMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="termName">
       ${item.termName}
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.InsecticideController.edit.mojo" name="dss.vector.solutions.entomology.Insecticide.form.edit.button" />
   <br />

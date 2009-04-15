@@ -6,24 +6,14 @@
 <mjl:form name="dss.vector.solutions.entomology.AbstractMosquitoCollection.form.name" id="dss.vector.solutions.entomology.AbstractMosquitoCollection.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.dateCollectedMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="dateCollected">
       ${item.dateCollected}
-    </dd>
-    <dt>
-      <label>
-        ${item.geoEntityMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.geoEntity.keyName}" action="dss.vector.solutions.geo.GeoEntityController.view.mojo" name="dss.vector.solutions.geo.generated.GeoEntity.form.view.link">
+</mjl:dt>
+    <mjl:dt attribute="geoEntity">
+<mjl:commandLink display="${item.geoEntity.keyName}" action="dss.vector.solutions.geo.GeoEntityController.view.mojo" name="dss.vector.solutions.geo.generated.GeoEntity.form.view.link">
         <mjl:property value="${item.geoEntity.id}" name="id" />
       </mjl:commandLink>
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.AbstractMosquitoCollectionController.edit.mojo" name="dss.vector.solutions.entomology.AbstractMosquitoCollection.form.edit.button" />
   <br />

@@ -6,64 +6,33 @@
 <mjl:form name="dss.vector.solutions.entomology.UninterestingSpecieGroup.form.name" id="dss.vector.solutions.entomology.UninterestingSpecieGroup.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
-      <dt>
-        <label>
-          ${item.quanityMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="quanity" />
-        <mjl:messages attribute="quanity">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.collectionMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection}" param="collection">
+      <mjl:dt attribute="quanity">
+<mjl:input type="text" param="quanity" />
+</mjl:dt>
+      <mjl:dt attribute="collection">
+<mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_collection}" param="collection">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.collectionIdMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="collectionId" />
-        <mjl:messages attribute="collectionId">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.identificationMethodMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod}" param="identificationMethod">
+</mjl:dt>
+      <mjl:dt attribute="collectionId">
+<mjl:input type="text" param="collectionId" />
+</mjl:dt>
+      <mjl:dt attribute="identificationMethod">
+<mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_identificationMethod}" param="identificationMethod">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.specieMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie}" param="specie">
+</mjl:dt>
+      <mjl:dt attribute="specie">
+<mjl:select var="current" valueAttribute="id" items="${mdss_ivcc_mrc_csu_entomology_TrueSpecieEntity_specie}" param="specie">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
         </mjl:select>
-      </dd>
+</mjl:dt>
     </dl>
   </mjl:component>
   <mjl:command value="Create" action="dss.vector.solutions.entomology.UninterestingSpecieGroupController.create.mojo" name="dss.vector.solutions.entomology.UninterestingSpecieGroup.form.create.button" />

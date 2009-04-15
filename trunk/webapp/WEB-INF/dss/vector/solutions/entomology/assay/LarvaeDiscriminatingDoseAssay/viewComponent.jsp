@@ -15,16 +15,11 @@ LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) reque
   <mjl:message />
 </mjl:messages>
   <dl>
-    <dt>
-      <label>
-        ${item.collectionMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.collection.displayLabel}" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.view.link">
+    <mjl:dt attribute="collection">
+<mjl:commandLink display="${item.collection.displayLabel}" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.view.link">
         <mjl:property value="${item.collection.id}" name="id" />
       </mjl:commandLink>
-    </dd>
+</mjl:dt>
   <dt>
       <label>
         ${item.testDateMd.displayLabel}
@@ -33,34 +28,19 @@ LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) reque
     <dd class="formatDate">
       ${item.testDate}
     </dd>
-    <dt>
-      <label>
-        ${item.controlTestMortalityMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="controlTestMortality">
       ${item.controlTestMortality}
-    </dd>
-    <dt>
-      <label>
-        ${item.testMethodMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.testMethod.displayLabel}" action="dss.vector.solutions.mo.ResistanceMethodologyController.view.mojo" name="dss.vector.solutions.mo.ResistanceMethodology.form.view.link">
+</mjl:dt>
+    <mjl:dt attribute="testMethod">
+<mjl:commandLink display="${item.testMethod.displayLabel}" action="dss.vector.solutions.mo.ResistanceMethodologyController.view.mojo" name="dss.vector.solutions.mo.ResistanceMethodology.form.view.link">
         <mjl:property value="${item.testMethod.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.generationMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.generation.displayLabel}" action="dss.vector.solutions.mo.GenerationController.view.mojo" name="dss.vector.solutions.mo.Generation.form.view.link">
+</mjl:dt>
+    <mjl:dt attribute="generation">
+<mjl:commandLink display="${item.generation.displayLabel}" action="dss.vector.solutions.mo.GenerationController.view.mojo" name="dss.vector.solutions.mo.Generation.form.view.link">
         <mjl:property value="${item.generation.id}" name="id" />
       </mjl:commandLink>
-    </dd>
+</mjl:dt>
     <dt>
       <label>
         ${item.isofemaleMd.displayLabel}
@@ -69,113 +49,53 @@ LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) reque
     <dd>
     <%= Halp.translateBool(((LarvaeDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),(((LarvaeDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemale()))%>    
     </dd>
-    <dt>
-      <label>
-        ${item.specieMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.specie.displayLabel}" action="dss.vector.solutions.mo.SpecieController.view.mojo" name="dss.vector.solutions.mo.Specie.form.view.link">
+    <mjl:dt attribute="specie">
+<mjl:commandLink display="${item.specie.displayLabel}" action="dss.vector.solutions.mo.SpecieController.view.mojo" name="dss.vector.solutions.mo.Specie.form.view.link">
         <mjl:property value="${item.specie.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-     <dt>
-      <label>
-        ${item.identificationMethodMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.identificationMethod.displayLabel}" action="dss.vector.solutions.mo.IdentificationMethodController.view.mojo" name="dss.vector.solutions.mo.IdentificationMethod.form.view.link">
+</mjl:dt>
+     <mjl:dt attribute="identificationMethod">
+<mjl:commandLink display="${item.identificationMethod.displayLabel}" action="dss.vector.solutions.mo.IdentificationMethodController.view.mojo" name="dss.vector.solutions.mo.IdentificationMethod.form.view.link">
         <mjl:property value="${item.identificationMethod.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.startPointMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.startPoint.displayLabel}" action="dss.vector.solutions.mo.LarvaeAgeController.view.mojo" name="dss.vector.solutions.mo.LarvaeAge.form.view.link">
+</mjl:dt>
+    <mjl:dt attribute="startPoint">
+<mjl:commandLink display="${item.startPoint.displayLabel}" action="dss.vector.solutions.mo.LarvaeAgeController.view.mojo" name="dss.vector.solutions.mo.LarvaeAge.form.view.link">
         <mjl:property value="${item.startPoint.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.endPointMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.endPoint.displayLabel}" action="dss.vector.solutions.mo.LarvaeAgeController.view.mojo" name="dss.vector.solutions.mo.LarvaeAge.form.view.link">
+</mjl:dt>
+    <mjl:dt attribute="endPoint">
+<mjl:commandLink display="${item.endPoint.displayLabel}" action="dss.vector.solutions.mo.LarvaeAgeController.view.mojo" name="dss.vector.solutions.mo.LarvaeAge.form.view.link">
         <mjl:property value="${item.endPoint.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.exposureTimeMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="exposureTime">
       ${item.exposureTime}
-    </dd>
-     <dt>
-      <label>
-        ${item.holdingTimeMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+     <mjl:dt attribute="holdingTime">
       ${item.holdingTime}
-    </dd>
-    <dt>
-      <label>
-        ${item.insecticideMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="insecticide.form.link">
+</mjl:dt>
+    <mjl:dt attribute="insecticide">
+<mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="insecticide.form.link">
         <mjl:property value="${item.insecticide.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.quantityTestedMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="quantityTested">
       ${item.quantityTested}
-    </dd>
-     <dt>
-      <label>
-        ${item.quantityLiveMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+     <mjl:dt attribute="quantityLive">
       ${item.quantityLive}
-    </dd>
-     <dt>
-      <label>
-        ${item.quantityDeadMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+     <mjl:dt attribute="quantityDead">
       ${item.quantityDead}
-    </dd>
-     <dt>  
-      <label>
-        ${item.mortalityMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+     <mjl:dt attribute="mortality">
         ${item.mortality}
-    </dd>
+</mjl:dt>
      
-    <dt>
-      <label>
-        ${item.intervalTimeMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="intervalTime">
       ${item.intervalTime}
-    </dd>
+</mjl:dt>
      
 
   </dl>

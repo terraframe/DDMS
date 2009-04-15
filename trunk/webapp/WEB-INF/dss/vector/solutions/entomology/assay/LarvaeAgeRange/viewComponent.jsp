@@ -6,26 +6,16 @@
 <mjl:form name="dss.vector.solutions.entomology.assay.LarvaeAgeRange.form.name" id="dss.vector.solutions.entomology.assay.LarvaeAgeRange.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.endPointMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.endPoint.keyName}" action="dss.vector.solutions.mo.LarvaeAgeController.view.mojo" name="dss.vector.solutions.mo.LarvaeAge.form.view.link">
+    <mjl:dt attribute="endPoint">
+<mjl:commandLink display="${item.endPoint.keyName}" action="dss.vector.solutions.mo.LarvaeAgeController.view.mojo" name="dss.vector.solutions.mo.LarvaeAge.form.view.link">
         <mjl:property value="${item.endPoint.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.startPointMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.startPoint.keyName}" action="dss.vector.solutions.mo.LarvaeAgeController.view.mojo" name="dss.vector.solutions.mo.LarvaeAge.form.view.link">
+</mjl:dt>
+    <mjl:dt attribute="startPoint">
+<mjl:commandLink display="${item.startPoint.keyName}" action="dss.vector.solutions.mo.LarvaeAgeController.view.mojo" name="dss.vector.solutions.mo.LarvaeAge.form.view.link">
         <mjl:property value="${item.startPoint.id}" name="id" />
       </mjl:commandLink>
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.LarvaeAgeRangeController.edit.mojo" name="dss.vector.solutions.entomology.assay.LarvaeAgeRange.form.edit.button" />
   <br />

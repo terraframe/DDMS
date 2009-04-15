@@ -8,73 +8,33 @@
 <mjl:form name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.name" id="dss.vector.solutions.entomology.assay.EfficacyAssay.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
-    <dt>
-        <label>
-          ${item.geoEntityMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-         <mjl:select var="current" valueAttribute="id" items="${geoEntintys}" param="geoEntity" >
-          <c:choose>
-            <c:when test="${current.geoId == item.geoEntity.geoId}">
-             <mjl:option selected="selected">
-               ${current.geoId}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
+    <mjl:dt attribute="geoEntity">
+<mjl:select var="current" valueAttribute="id" items="${geoEntintys}" param="geoEntity" >
               <mjl:option>
                 ${current.geoId}
               </mjl:option>
-            </c:otherwise>
-          </c:choose>
         </mjl:select>
-      </dd>
-          <dt>
-        <label>
-          ${item.testDateMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="testDate" classes="DatePick" id="testDate"/>
-        <mjl:messages attribute="testDate">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-          <dt>
-        <label>
-          ${item.testMethodMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
+</mjl:dt>
+          <mjl:dt attribute="testDate">
+<mjl:input type="text" param="testDate" classes="DatePick" id="testDate"/>
+</mjl:dt>
+          <mjl:dt attribute="testMethod">
+<mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
           <mjl:option>
             ${current.termName}
           </mjl:option>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.specieMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${specie}" param="specie">
+</mjl:dt>
+      <mjl:dt attribute="specie">
+<mjl:select var="current" valueAttribute="id" items="${specie}" param="specie">
           <mjl:option>
             ${current.termName}
           </mjl:option>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.colonyNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="colonyName" />
-        <mjl:messages attribute="colonyName">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+</mjl:dt>
+      <mjl:dt attribute="colonyName">
+<mjl:input type="text" param="colonyName" />
+</mjl:dt>
       <dt>
         <label>
           ${item.ageRangeMd.displayLabel}
@@ -108,79 +68,32 @@
           </mjl:struct>
         </dl>
       </dd>
-       <dt>
-        <label>
-          ${item.sexMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
-          <c:choose>
-            <c:when test="${mjl:contains(item.sexEnumNames, current.enumName)}">
-              <mjl:option selected="selected">
-                ${item.sexMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
+       <mjl:dt attribute="sex">
+<mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
               <mjl:option>
                 ${item.sexMd.enumItems[current.enumName]}
               </mjl:option>
-            </c:otherwise>
-          </c:choose>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.gravidMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="gravid" />
-        <mjl:messages attribute="gravid">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-       <dt>
-        <label>
-          ${item.fedMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="fed" />
-        <mjl:messages attribute="fed">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.insecticideMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
+</mjl:dt>
+      <mjl:dt attribute="gravid">
+<mjl:input type="text" param="gravid" />
+</mjl:dt>
+       <mjl:dt attribute="fed">
+<mjl:input type="text" param="fed" />
+</mjl:dt>
+      <mjl:dt attribute="insecticide">
+<mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.exposureTimeMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="exposureTime" />
-        <mjl:messages attribute="exposureTime">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.surfacePostionMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="enumName" items="${surfacePostion}" param="surfacePostion">
+        <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides"/></a>
+</mjl:dt>
+      <mjl:dt attribute="exposureTime">
+<mjl:input type="text" param="exposureTime" />
+</mjl:dt>
+      <mjl:dt attribute="surfacePostion">
+<mjl:select var="current" valueAttribute="enumName" items="${surfacePostion}" param="surfacePostion">
           <c:choose>
             <c:when test="${mjl:contains(item.surfacePostionEnumNames, current.enumName)}">
               <mjl:option selected="selected">
@@ -194,51 +107,19 @@
             </c:otherwise>
           </c:choose>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.holdingTimeMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="holdingTime" />
-        <mjl:messages attribute="holdingTime">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.exposureTimeMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="exposureTime" />
-        <mjl:messages attribute="exposureTime">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-       <dt>
-        <label>
-          ${item.quantityTestedMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="quantityTested" />
-        <mjl:messages attribute="quantityTested">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-       <dt>
-        <label>
-          ${item.quantityDeadMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="quantityDead" />
-        <mjl:messages attribute="quantityDead">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+</mjl:dt>
+      <mjl:dt attribute="holdingTime">
+<mjl:input type="text" param="holdingTime" />
+</mjl:dt>
+      <mjl:dt attribute="exposureTime">
+<mjl:input type="text" param="exposureTime" />
+</mjl:dt>
+       <mjl:dt attribute="quantityTested">
+<mjl:input type="text" param="quantityTested" />
+</mjl:dt>
+       <mjl:dt attribute="quantityDead">
+<mjl:input type="text" param="quantityDead" />
+</mjl:dt>
     </dl>
   </mjl:component>
   <mjl:command value="Create" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.create.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.create.button" />

@@ -6,40 +6,19 @@
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollectionPoint.form.name" id="dss.vector.solutions.entomology.MosquitoCollectionPoint.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
-      <dt>
-        <label>
-          ${item.geoEntityMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_ConcreteMosquitoCollection_geoEntity}" param="geoEntity">
+      <mjl:dt attribute="geoEntity">
+<mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_entomology_ConcreteMosquitoCollection_geoEntity}" param="geoEntity">
           <mjl:option>
             ${current.keyName}
           </mjl:option>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.startDateMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="startDate" classes="DatePick" id="dto.startDate.id"/>
-        <mjl:messages attribute="startDate">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.endDateMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="endDate" classes="DatePick" id="dto.endDate.id"/>
-        <mjl:messages attribute="endDate">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+</mjl:dt>
+      <mjl:dt attribute="startDate">
+<mjl:input type="text" param="startDate" classes="DatePick" id="dto.startDate.id"/>
+</mjl:dt>
+      <mjl:dt attribute="endDate">
+<mjl:input type="text" param="endDate" classes="DatePick" id="dto.endDate.id"/>
+</mjl:dt>
     </dl>
   </mjl:component>
   <mjl:command value="Create" action="dss.vector.solutions.entomology.MosquitoCollectionPointController.create.mojo" name="dss.vector.solutions.entomology.MosquitoCollectionPoint.form.create.button" />

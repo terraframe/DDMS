@@ -8,29 +8,16 @@
 
   <mjl:component item="${item}" param="dto">
     <dl>
-      <dt>
-        <label>
-          ${item.collectionMethodMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod">
+      <mjl:dt attribute="collectionMethod">
+<mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod">
           <mjl:option>
             ${current.termName}
           </mjl:option>
         </mjl:select>
-      </dd>
-      <dt>
-        <label>
-          ${item.dateCollectedMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="dateCollected" classes="DatePick" id="dto.dateCollected.id"/>
-        <mjl:messages attribute="dateCollected">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+</mjl:dt>
+      <mjl:dt attribute="dateCollected">
+<mjl:input type="text" param="dateCollected" classes="DatePick" id="dto.dateCollected.id"/>
+</mjl:dt>
       <dt>
         <label>
           ${item.geoEntityMd.displayLabel}

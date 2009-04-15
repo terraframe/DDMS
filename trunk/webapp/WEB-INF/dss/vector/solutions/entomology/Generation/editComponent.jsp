@@ -6,17 +6,9 @@
 <mjl:form name="dss.vector.solutions.entomology.Generation.form.name" id="dss.vector.solutions.entomology.Generation.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
-      <dt>
-        <label>
-          ${item.termNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="termName" />
-        <mjl:messages attribute="termName">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+      <mjl:dt attribute="termName">
+<mjl:input type="text" param="termName" />
+</mjl:dt>
     </dl>
   </mjl:component>
   <mjl:command value="Update" action="dss.vector.solutions.entomology.GenerationController.update.mojo" name="dss.vector.solutions.entomology.Generation.form.update.button" />

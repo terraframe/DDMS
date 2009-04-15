@@ -4,75 +4,38 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.ResistantCutOff.form.name" id="dss.vector.solutions.entomology.ResistantCutOff.form.id" method="POST">
+
+ <mjl:component item="${item}" param="dto">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.aAKnockDownPRMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="aAKnockDownPR">
       ${item.aAKnockDownPR}
-    </dd>
-    <dt>
-      <label>
-        ${item.aAKnockDownRMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="aAKnockDownR">
       ${item.aAKnockDownR}
-    </dd>
-    <dt>
-      <label>
-        ${item.aDDARMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="aDDAR">
       ${item.aDDAR}
-    </dd>
-    <dt>
-      <label>
-        ${item.aDDASMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="aDDAS">
       ${item.aDDAS}
-    </dd>
-    <dt>
-      <label>
-        ${item.lAKnockDownPRMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="lAKnockDownPR">
       ${item.lAKnockDownPR}
-    </dd>
-    <dt>
-      <label>
-        ${item.lAKnockDownRMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="lAKnockDownR">
       ${item.lAKnockDownR}
-    </dd>
-    <dt>
-      <label>
-        ${item.lDDARMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="lDDAR">
       ${item.lDDAR}
-    </dd>
-    <dt>
-      <label>
-        ${item.lDDASMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="lDDAS">
       ${item.lDDAS}
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.ResistantCutOffController.edit.mojo" name="dss.vector.solutions.entomology.ResistantCutOff.form.edit.button" />
   <br />
+  </mjl:component>
 </mjl:form>
 <dl>
 </dl>
