@@ -3,10 +3,13 @@ package dss.vector.solutions.entomology;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
@@ -54,11 +57,9 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failDelete(MosquitoCollectionDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    req.setAttribute("MosquitoCollection_collectionMethod", CollectionMethodDTO.getAllInstances(
-        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    // req.setAttribute("AbstractMosquitoCollection_geoEntity",
-    // dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(),
-    // "keyName", true, 0, 0).getResultSet());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+
+    req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Mosquito Collections");
     render("editComponent.jsp");
@@ -67,12 +68,11 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
+
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(clientRequest);
-    req.setAttribute("MosquitoCollection_collectionMethod", CollectionMethodDTO.getAllInstances(
-        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    // req.setAttribute("AbstractMosquitoCollection_geoEntity",
-    // dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(),
-    // "keyName", true, 0, 0).getResultSet());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+
+    req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Mosquito Collections");
     render("createComponent.jsp");
@@ -108,11 +108,9 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failUpdate(MosquitoCollectionDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    req.setAttribute("MosquitoCollection_collectionMethod", CollectionMethodDTO.getAllInstances(
-        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    // req.setAttribute("AbstractMosquitoCollection_geoEntity",
-    // dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(),
-    // "keyName", true, 0, 0).getResultSet());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+
+    req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Error - Update a Mosquito Collection");
     render("editComponent.jsp");
@@ -136,28 +134,15 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       return;
     }
 
-    ClientRequestIF clientRequest = super.getClientRequest();
-    // req.setAttribute("MosquitoCollection_collectionMethod",
-    // CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(),
-    // "keyName", true, 0, 0).getResultSet());
-    // req.setAttribute("AbstractMosquitoCollection_geoEntity",
-    // dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(),
-    // "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", MosquitoCollectionDTO.get(clientRequest, id));
+    req.setAttribute("item", MosquitoCollectionDTO.get(super.getClientRequest(), id));
     render("viewComponent.jsp");
   }
 
   public void viewAssays(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    // req.setAttribute("MosquitoCollection_collectionMethod",
-    // CollectionMethodDTO.getAllInstances(super.getClientSession().getRequest(),
-    // "keyName", true, 0, 0).getResultSet());
-    // req.setAttribute("AbstractMosquitoCollection_geoEntity",
-    // dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(),
-    // "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO.get(
-        clientRequest, id));
+    req.setAttribute("item", ConcreteMosquitoCollectionDTO.get(clientRequest, id));
+
     render("viewAssaysComponent.jsp");
   }
 
@@ -182,8 +167,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, null, true,
-        20, 1);
+    MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All Mosquito Collections");
     render("viewAllComponent.jsp");
@@ -199,8 +183,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest,
-        sortAttribute, isAscending, pageSize, pageNumber);
+    MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All Mosquito Collections");
     render("viewAllComponent.jsp");
@@ -216,11 +199,9 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     MosquitoCollectionDTO dto = MosquitoCollectionDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("MosquitoCollection_collectionMethod", CollectionMethodDTO.getAllInstances(
-        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    // req.setAttribute("AbstractMosquitoCollection_geoEntity",
-    // dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(),
-    // "keyName", true, 0, 0).getResultSet());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+
+    req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Mosquito Collection");
     render("editComponent.jsp");
@@ -256,11 +237,9 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failCreate(MosquitoCollectionDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    req.setAttribute("MosquitoCollection_collectionMethod", CollectionMethodDTO.getAllInstances(
-        super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    // req.setAttribute("AbstractMosquitoCollection_geoEntity",
-    // dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(),
-    // "keyName", true, 0, 0).getResultSet());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+
+    req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "ERROR - Create Mosquito Collection");
     render("createComponent.jsp");
@@ -316,11 +295,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     }
     catch (Exception e)
     {
-      ClientRequestIF clientRequest = super.getClientSession().getRequest();
-      MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, "createDate", false, 10, 1);
-      req.setAttribute("query", query);
-
-      render("searchComponent.jsp");
+      this.search();
     }
   }
 
@@ -364,37 +339,48 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     }
     catch (ProblemExceptionDTO e)
     {
+      String failDate = collectionDate == null ? null : collectionDate.toString();
+
       ErrorUtility.prepareProblems(e, req);
 
-      this.failSearchByGeoEntityAndDate(geoEntity, collectionDate.toString(), collectionMethod);
+      this.failSearchByGeoEntityAndDate(geoEntity, failDate, collectionMethod);
     }
     catch (Throwable t)
     {
+      String failDate = collectionDate == null ? null : collectionDate.toString();
+
       ErrorUtility.prepareThrowable(t, req);
 
-      this.failSearchByGeoEntityAndDate(geoEntity, collectionDate.toString(), collectionMethod);
+      this.failSearchByGeoEntityAndDate(geoEntity, failDate, collectionMethod);
     }
 
   }
 
   private void validateParameters(String geoId, Date collectionDate, CollectionMethodDTO collectionMethod)
   {
+    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+
     if (geoId == null)
     {
-      String msg = "Geo Id requires a value";
-      throw new RuntimeException(msg);
+      ClientRequestIF request = this.getClientSession().getRequest();
+      problems.add(new RequiredGeoIdProblemDTO(request, req.getLocale()));
     }
 
     if (collectionDate == null)
     {
-      String msg = "Collection Date requires a value";
-      throw new RuntimeException(msg);
+      ClientRequestIF request = this.getClientSession().getRequest();
+      problems.add(new RequiredCollectionDateProblemDTO(request, req.getLocale()));
     }
 
     if (collectionMethod == null)
     {
-      String msg = "Collection Method requires a value";
-      throw new RuntimeException(msg);
+      ClientRequestIF request = this.getClientSession().getRequest();
+      problems.add(new RequiredCollectionMethodProblemDTO(request, req.getLocale()));
+    }
+
+    if(problems.size() > 0)
+    {
+      throw new ProblemExceptionDTO("", problems);
     }
   }
 }
