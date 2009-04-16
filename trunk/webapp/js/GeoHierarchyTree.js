@@ -297,8 +297,8 @@ MDSS.GeoHierarchyTree = (function(){
   {
   	if(deleteAll)
   	{
-  	   var geoEntityView = _getGeoEntityView(_selectedNode);
-  	   var nodeIds = _geoHierarchyIdToNodeIdMap[geoEntityView.getGeoEntityId()];
+  	   var getHierarchyView = _getGeoHierarchyView(_selectedNode);
+  	   var nodeIds = _geoHierarchyIdToNodeIdMap[getHierarchyView.getGeoHierarchyId()];
   	   for(var i=nodeIds.length-1; i>=0; i--)
   	   {
   	     var nodeId = nodeIds[i];
