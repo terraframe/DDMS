@@ -1,11 +1,11 @@
 package dss.vector.solutions.entomology;
 
-
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.MorphologicalSpecieGroupViewBase;
 
-public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234793969635L;
 
@@ -18,21 +18,23 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
   @Transaction
   public void apply()
   {
-    if(this.getCollection() == null)
+    if (this.getCollection() == null)
     {
       this.setCollection(MosquitoCollectionPoint.findOrCreate(this.getGeoEntity(), this.getDateCollected()));
     }
-    else
+    else if( this.getCollection() instanceof MosquitoCollectionPoint)
     {
-        ConcreteMosquitoCollection collection = this.getCollection();
+      ConcreteMosquitoCollection collection = this.getCollection();
 
+      if (!collection.getDateCollected().equals(this.getDateCollected()))
+      {
         collection.lock();
         collection.setDateCollected(this.getDateCollected());
         collection.apply();
+      }
     }
 
-
-    if(this.getGroupId() == null || this.getGroupId().equals(""))
+    if (this.getGroupId() == null || this.getGroupId().equals(""))
     {
       MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
       group.setCollection(this.getCollection());
@@ -65,9 +67,10 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
   }
 
   @Transaction
-  public static dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] saveAll(dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] array)
+  public static dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] saveAll(
+      dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] array)
   {
-    for(MorphologicalSpecieGroupView view : array)
+    for (MorphologicalSpecieGroupView view : array)
     {
       view.apply();
     }
