@@ -2,10 +2,13 @@ package dss.vector.solutions.entomology;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
@@ -223,22 +226,29 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
 
   private void validateParameters(String geoId, Date startDate, Date endDate)
   {
+    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+
     if (geoId == null)
     {
-      String msg = "Geo Id requires a value";
-      throw new RuntimeException(msg);
+      ClientRequestIF request = this.getClientSession().getRequest();
+      problems.add(new RequiredGeoIdProblemDTO(request, req.getLocale()));
     }
 
     if (startDate == null)
     {
-      String msg = "Start date requires a value";
-      throw new RuntimeException(msg);
+      ClientRequestIF request = this.getClientSession().getRequest();
+      problems.add(new RequiredStartDateProblemDTO(request, req.getLocale()));
     }
 
     if (endDate == null)
     {
-      String msg = "End date requires a value";
-      throw new RuntimeException(msg);
+      ClientRequestIF request = this.getClientSession().getRequest();
+      problems.add(new RequiredEndDateProblemDTO(request, req.getLocale()));
+    }
+
+    if(problems.size() > 0)
+    {
+      throw new ProblemExceptionDTO("", problems);
     }
   }
 
