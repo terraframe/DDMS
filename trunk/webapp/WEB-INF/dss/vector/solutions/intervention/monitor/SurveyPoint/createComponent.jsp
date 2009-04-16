@@ -1,0 +1,105 @@
+<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%@page import="dss.vector.solutions.geo.GeoHierarchyDTO"%>
+<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
+<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<%@page import="org.json.JSONObject"%>
+<%@page import="org.json.JSONArray"%>
+<%@page import="com.terraframe.mojo.web.json.JSONController"%>
+
+<%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
+<%@page import="dss.vector.solutions.geo.generated.SentinalSiteDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.NonSentinalSiteDTO"%>
+<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
+
+<script type="text/javascript">
+
+  YAHOO.util.Event.onDOMReady(function(){
+
+    var opener = new YAHOO.util.Element("searchOpener");
+    opener.on("click", function(){
+
+      if(MDSS.SelectSearch.isInitialized())
+      {
+        MDSS.SelectSearch.show();
+      }
+      else
+      {
+        var radios = YAHOO.util.Selector.query('input[type="radio"]', 'SurveyPoint.form.id');
+        var filterType = '';
+        for(var i=0; i<radios.length; i++)
+        {
+          var radio = radios[i];
+          if(radio.checked)
+          {
+            filterType = radio.value;
+          }
+        }
+
+       function selectHandler(selected)
+       {
+         var geoId = document.getElementById('geoIdEl');
+         var geoEntityId = document.getElementById('geoEntityId');
+
+         if(selected != null)
+         {
+           geoId.value = selected.getGeoId();
+           geoEntityId.value = selected.getGeoEntityId();
+         }
+         else
+         {
+           geoId.value = '';
+           geoEntityId.value = '';
+         }
+       }
+
+       MDSS.SelectSearch.initialize(selectHandler, selectHandler, filterType);
+      }
+    });
+  }, null, true);
+
+</script>
+
+
+<mjl:messages>
+  <mjl:message />
+</mjl:messages>
+<mjl:form name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.name" id="SurveyPoint.form.id" method="POST">
+  <mjl:component item="${item}" param="dto">
+    <dl>
+      <dt> Filter </dt>
+      <dd>
+        <input type="radio" name="filterType" value="" checked="checked" />All  &nbsp;&nbsp;&nbsp;
+        <input type="radio" name="filterType" value="${SentinalSiteClass}" />Sentinal Site &nbsp;&nbsp;&nbsp;
+      </dd>
+      <dt>
+        <label>
+          ${item.geoEntityMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input id="geoIdEl" param="none" type="text" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a>
+        <mjl:input id="geoEntityId" param="geoEntity" type="hidden" />
+        <mjl:messages attribute="geoEntity">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
+          ${item.surveyDateMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input param="surveyDate" type="text" classes="DatePick" id="surveyDate"/>
+        <mjl:messages attribute="surveyDate">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+    </dl>
+  </mjl:component>
+  <mjl:command value="Create" action="dss.vector.solutions.intervention.monitor.SurveyPointController.create.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.create.button" />
+</mjl:form>
+
+<div id="cal1Container" class="yui-skin-sam"></div>
+<%//out.flush();%>
