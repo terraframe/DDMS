@@ -2481,7 +2481,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Specifies that the option should appear selected (will be displayed first in the list)
@@ -3489,7 +3489,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Flag denoting if the option is checked.  Value must be empty or equal to "checked"
