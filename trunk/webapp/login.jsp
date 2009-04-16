@@ -114,7 +114,7 @@ input[type="button"]:active {
   <c:if test="${bad_password}">
     <div class="alert alertbox">
     <p>
-    <fmt:message key="bad_username_or_password" />
+    ${exception.localizedMessage}
     </p>
     </div>
   </c:if>
@@ -139,7 +139,7 @@ input[type="button"]:active {
     name="LoginController"
     value="Login"
     classes="submitButton" />
-    
+
 
 </mjl:form></div>
 </body>
