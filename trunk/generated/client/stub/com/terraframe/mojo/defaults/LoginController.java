@@ -1,10 +1,12 @@
 package com.terraframe.mojo.defaults;
 
 import com.terraframe.mojo.ClientSession;
+import com.terraframe.mojo.business.LoginExceptionDTO;
 import com.terraframe.mojo.constants.ClientConstants;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.CommonProperties;
 import com.terraframe.mojo.constants.MdActionInfo;
+import com.terraframe.mojo.session.InvalidLoginExceptionDTO;
 import com.terraframe.mojo.session.LoginException;
 import com.terraframe.mojo.web.WebClientSession;
 
@@ -38,11 +40,19 @@ public class LoginController extends LoginControllerBase implements com.terrafra
 			req.getSession().setAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER, globalSessionListener);
 
 			req.getRequestDispatcher("index.jsp").forward(req, resp);
-		} catch (LoginException e) {
+		} catch (LoginExceptionDTO e) {
 			req.setAttribute("bad_password", true);
+			req.setAttribute("exception", e);
 			req.getRequestDispatcher("login.jsp").forward(req, resp);
 
 		}
+		//catch (Exception e) {
+		//    e.printStackTrace();
+		//    req.setAttribute("bad_password", true);
+		//    req.setAttribute("exception", e);
+       //     req.getRequestDispatcher("login.jsp").forward(req, resp);
+
+       // }
 
 	}
 
