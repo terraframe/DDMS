@@ -5,8 +5,6 @@
 <%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO"%>
 
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeMdDTO"%>
-<c:set var="true_label" value='<%=Halp.translateBool(((AdultDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),true)%>' />
-<c:set var="false_label" value='<%=Halp.translateBool(((AdultDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),false)%>' />
 
 
 <c:set var="window_title" value="Enter new adult diagnostic assay data" scope="request" />
@@ -42,7 +40,7 @@
         </mjl:select>
       </mjl:dt>
       <mjl:dt attribute="isofemale">
-        <mjl:boolean param="isofemale" trueLabel="${true_label}" falseLabel="${false_label}" />
+        <mjl:boolean param="isofemale"  />
       </mjl:dt>
       <mjl:dt attribute="sex">
         <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">

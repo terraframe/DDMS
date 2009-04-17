@@ -4,8 +4,7 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.entomology.assay.KnockDownAssayDTO"%>
 
-<c:set var="true_label" value='<%=Halp.translateBool(((KnockDownAssayDTO)request.getAttribute("item")).getIsofemaleMd(),true)%>'/>
-<c:set var="false_label" value='<%=Halp.translateBool(((KnockDownAssayDTO)request.getAttribute("item")).getIsofemaleMd(),false)%>'/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -37,7 +36,7 @@
         </mjl:select>
 </mjl:dt>
             <mjl:dt attribute="isofemale">
-<mjl:boolean param="isofemale" trueLabel="${true_label}" falseLabel="${false_label}" />
+<mjl:boolean param="isofemale"  />
 </mjl:dt>
       <mjl:dt attribute="sex">
 <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">

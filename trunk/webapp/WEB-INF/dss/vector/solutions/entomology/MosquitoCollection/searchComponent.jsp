@@ -79,8 +79,8 @@
     <dt><fmt:message key="Filter"/></dt>
     <dd>
       <input type="radio" name="filterType" value="" checked="checked" /><fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${SentinalSiteClass}" /><fmt:message key="Sentinal Site"/> &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${NonSentinalSiteClass}" /><fmt:message key="(Non) Sentinal Site"/>
+      <input type="radio" name="filterType" value="${SentinalSiteClass}" /><fmt:message key="Sentinal_Site"/> &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" value="${NonSentinalSiteClass}" /><fmt:message key="Non_Sentinal_Site"/>
     </dd>
     <dt> <label> ${item.geoEntityMd.displayLabel}</label></dt>
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>
@@ -108,7 +108,7 @@
 <br />
 <br />
 <br />
-<fmt:message key="Recently Created Collections"/>
+<fmt:message key="Recently_Created_Collections"/>
 
 <mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.viewPage.mojo" />
