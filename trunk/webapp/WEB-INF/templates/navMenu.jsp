@@ -94,7 +94,7 @@
                  <div id="Intervention_Monitoring" class="yuimenu">
                      <div class="bd">
                          <ul>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#">Test</a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo"><fmt:message key="View_Surveys"/></a></li>
                          </ul>
                      </div>
 

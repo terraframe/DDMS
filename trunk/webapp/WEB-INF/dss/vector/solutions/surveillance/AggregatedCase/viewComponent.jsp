@@ -3,6 +3,21 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
+
+<mjl:form name="search.form.name" id="search.form" method="POST">
+  <mjl:input type="hidden" param="geoId" value="${item.geoEntity.geoId}" />
+  <mjl:input type="hidden" param="period" value="${item.period}" />
+  <mjl:input type="hidden" param="periodType" value="${item.periodTypeEnumNames[0]}"/>
+  <mjl:input type="hidden" param="year" value="${item.periodYear}"/>
+  ${item.ageGroupMd.displayLabel}
+  <mjl:select var="current" valueAttribute="id" items="${ageGroups}" param="ageGroup.componentId">
+    <mjl:option selected="${current.id == item.ageGroup.id ? 'selected' : 'false'}">
+      ${current.displayLabel}
+    </mjl:option>
+  </mjl:select>
+  <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.searchByGeoIdAndEpiWeek.mojo" name="search.button" value="Change age group" />
+</mjl:form>
+
 <mjl:form name="dss.vector.solutions.surveillance.AggregatedCase.form.name" id="dss.vector.solutions.surveillance.AggregatedCase.form.id" method="POST">
   <mjl:input value="${item.caseId}" type="hidden" param="id" />
   <dl>
@@ -304,9 +319,6 @@
     <dd>
       ${item.stillBirths}
     </dd>
-  </dl>
-
-    <dl>
     <dt>
       <label>
         Treatment out of Stock
