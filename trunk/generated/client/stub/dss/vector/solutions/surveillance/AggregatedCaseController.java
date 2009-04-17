@@ -10,10 +10,9 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
-import dss.vector.solutions.geo.GeoEntityTreeController;
-import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
@@ -63,11 +62,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException,
       ServletException
   {
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
+
     req.setAttribute("diagnostics", Arrays.asList(diagnosticMethods));
     req.setAttribute("referrals", Arrays.asList(referrals));
     req.setAttribute("treatments", Arrays.asList(treatments));
     req.setAttribute("treatmentMethods", Arrays.asList(treatmentMethods));
     req.setAttribute("stock", Arrays.asList(stock));
+    req.setAttribute("ageGroups", Arrays.asList(ageGroups));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Error Creating Aggregated Case");
     render("createComponent.jsp");
@@ -108,7 +110,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     req.setAttribute("treatmentMethods", Arrays.asList(treatmentMethods));
     req.setAttribute("stock", Arrays.asList(stock));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Error Updating Aggregated Case Controller");
+    req.setAttribute("page_title", "Error Updating Aggregated Case");
     render("editComponent.jsp");
   }
 
@@ -164,15 +166,21 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   {
     AggregatedCaseViewDTO c = AggregatedCaseDTO.lockView(this.getClientRequest(), id);
 
+    EpiDateDTO epiDate = new EpiDateDTO(c.getPeriodType().get(0), c.getPeriod(), c.getPeriodYear());
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
+
+
+
     // Load all of the corresponding grid values
     String caseId = c.getCaseId();
+    req.setAttribute("ageGroups", Arrays.asList(ageGroups));
     req.setAttribute("diagnostics", this.getDiagnosticMethods(caseId));
     req.setAttribute("referrals", this.getReferrals(caseId));
     req.setAttribute("treatments", this.getTreatments(caseId));
     req.setAttribute("treatmentMethods", this.getTreatmentMethods(caseId));
     req.setAttribute("stock", this.getTreatmentStocks(caseId));
     req.setAttribute("item", c);
-    req.setAttribute("page_title", "Edit Aggregated Case Controller");
+    req.setAttribute("page_title", "Edit Aggregated Case " + epiDate.getDisplayLabel(this.getClientRequest()));
     render("editComponent.jsp");
   }
 
@@ -190,7 +198,10 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   public void view(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     // Load all of the corresponding grid values
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
     String caseId = dto.getCaseId();
+
+    req.setAttribute("ageGroups", Arrays.asList(ageGroups));
     req.setAttribute("diagnostics", this.getDiagnosticMethods(caseId));
     req.setAttribute("referrals", this.getReferrals(caseId));
     req.setAttribute("treatments", this.getTreatments(caseId));
@@ -210,14 +221,13 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   public void search() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    EarthDTO earth = EarthDTO.getEarthInstance(clientRequest);
 
     List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(clientRequest);
 
-    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
     req.setAttribute("periodType", allItems);
-
-    req.setAttribute("ageGroup", Arrays.asList(AggregatedAgeGroupDTO.getAll(clientRequest)));
+    req.setAttribute("checkedType", PeriodTypeDTO.MONTH.getName());
+    req.setAttribute("ageGroup", ageGroups[0]);
     req.setAttribute("page_title", "Search for an Aggregated Case");
 
     render("searchComponent.jsp");
@@ -228,6 +238,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     String label = date.getDisplayLabel(this.getClientSession().getRequest());
 
     AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(), geoEntity, date.getPeriodType(), date.getPeriod(), date.getYear(), ageGroup);
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
 
     String jsp = "createComponent.jsp";
     req.setAttribute("page_title", "New Aggregated Case " + label);
@@ -240,53 +251,110 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 
     // Load all of the corresponding grid values
     String caseId = c.getCaseId();
-    req.setAttribute("period", date.getPeriod());
-    req.setAttribute("periodType", date.getPeriodType());
-    req.setAttribute("periodYear", date.getYear());
     req.setAttribute("diagnostics", this.getDiagnosticMethods(caseId));
     req.setAttribute("referrals", this.getReferrals(caseId));
     req.setAttribute("treatments", this.getTreatments(caseId));
     req.setAttribute("treatmentMethods", this.getTreatmentMethods(caseId));
     req.setAttribute("stock", this.getTreatmentStocks(caseId));
+    req.setAttribute("ageGroups", Arrays.asList(ageGroups));
     req.setAttribute("item", c);
     render(jsp);
   }
 
   public void searchByGeoIdAndEpiWeek(String geoId, String periodType, Integer period,
-      String year, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
+      Integer year, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
   {
     try
     {
+      validateParameters(geoId, periodType, period, year, ageGroup);
+
       PeriodTypeDTO type = PeriodTypeDTO.valueOf(periodType);
-      EpiDateDTO converter = new EpiDateDTO(type, period, year);
+      EpiDateDTO date = new EpiDateDTO(type, period, year);
       GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(this.getClientRequest(), geoId);
 
-      this.searchByGeoEntityAndDate(geoEntity, converter, ageGroup);
+      this.searchByGeoEntityAndDate(geoEntity, date, ageGroup);
     }
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
 
-      this.failSearchByGeoIdAndEpiWeek(geoId, periodType, period.toString(), year, ageGroup);
+      String failPeriod = period == null ? null : period.toString();
+      String failYear = year == null ? null : year.toString();
+
+      this.failSearchByGeoIdAndEpiWeek(geoId, periodType, failPeriod, failYear, ageGroup);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req);
 
-      this.failSearchByGeoIdAndEpiWeek(geoId, periodType, period.toString(), year, ageGroup);
+      String failPeriod = period == null ? null : period.toString();
+      String failYear = year == null ? null : year.toString();
+
+      this.failSearchByGeoIdAndEpiWeek(geoId, periodType, failPeriod, failYear, ageGroup);
     }
   }
 
-  public void failSearchByGeoIdAndEpiWeek(String geoId, String periodType, String period,
-      String year, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
+  private void validateParameters(String geoId, String periodType, Integer period, Integer year,
+      AggregatedAgeGroupDTO ageGroup)
   {
-    this.search();
+    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+
+    if(geoId == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredGeoIdProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if(periodType == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredPeriodTypeProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if(period == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredPeriodProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if(year == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredYearProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if(ageGroup == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredAgeGroupProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if(problems.size() > 0)
+    {
+      throw new ProblemExceptionDTO("", problems);
+    }
+  }
+
+  public void failSearchByGeoIdAndEpiWeek(String geoId, String periodType, String period, String year, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
+  {
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
+    List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
+
+    req.setAttribute("periodType", allItems);
+    req.setAttribute("period", period);
+    req.setAttribute("year", year);
+    req.setAttribute("geoId", geoId);
+    req.setAttribute("checkedType", periodType);
+    req.setAttribute("ageGroup", ageGroup);
+    req.setAttribute("page_title", "Search for an Aggregated Case");
+
+    render("searchComponent.jsp");
   }
 
   @Override
   public void failSearch() throws IOException, ServletException
   {
-    // TODO Auto-generated method stub
+    //This should never occur
     super.failSearch();
   }
 

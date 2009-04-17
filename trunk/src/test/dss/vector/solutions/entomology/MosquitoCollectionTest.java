@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -168,16 +167,16 @@ public class MosquitoCollectionTest extends TestCase
       }
     }
   }
-  
+
   public void testMosquitoCollectionView()
   {
     MosquitoCollectionView view = new MosquitoCollectionView();
-    
+
     view.setCollectionMethod(collectionMethod.getTermName());
     view.setDateCollected(new Date());
     view.setGeoEntity(nonSentinelSite.getGeoId());
     view.apply();
-    
+
     try
     {
       MosquitoCollection collection = MosquitoCollection.get(view.getCollectionId());
@@ -238,7 +237,7 @@ public class MosquitoCollectionTest extends TestCase
       collection.delete();
     }
   }
-  
+
   public void testApplyMorphologicalSpecieGroupView()
   {
     MosquitoCollection collection = new MosquitoCollection();
@@ -247,22 +246,22 @@ public class MosquitoCollectionTest extends TestCase
     collection.setCollectionMethod(collectionMethod);
     collection.apply();
 
-    MorphologicalSpecieGroupView group = new MorphologicalSpecieGroupView();
-    group.setQuantity(20);
-    group.setSpecie(specie);
-    group.setIdentificationMethod(identificationMethod);
-    group.setCollection(collection);
-    group.apply();
-
-    MorphologicalSpecieGroupView group2 = new MorphologicalSpecieGroupView();
-    group2.setQuantity(10);
-    group2.setSpecie(specie);
-    group2.setIdentificationMethod(identificationMethod);
-    group2.setCollection(collection);
-    group2.apply();
-
     try
     {
+      MorphologicalSpecieGroupView group = new MorphologicalSpecieGroupView();
+      group.setQuantity(20);
+      group.setSpecie(specie);
+      group.setIdentificationMethod(identificationMethod);
+      group.setCollection(collection);
+      group.apply();
+
+      MorphologicalSpecieGroupView group2 = new MorphologicalSpecieGroupView();
+      group2.setQuantity(10);
+      group2.setSpecie(specie);
+      group2.setIdentificationMethod(identificationMethod);
+      group2.setCollection(collection);
+      group2.apply();
+
       MosquitoCollection collection2 = MosquitoCollection.get(collection.getId());
       MorphologicalSpecieGroupView[] list = collection2.getMorphologicalSpecieGroups();
 
@@ -418,7 +417,6 @@ public class MosquitoCollectionTest extends TestCase
       collection.delete();
     }
   }
-  
 
   public void testEmptyMorphologicalSpeicie()
   {
@@ -584,8 +582,8 @@ public class MosquitoCollectionTest extends TestCase
       collection.delete();
     }
   }
-  
-  public void testDeleteReferencedGeoEntity()  throws ParseException
+
+  public void testDeleteReferencedGeoEntity() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
 
@@ -602,36 +600,36 @@ public class MosquitoCollectionTest extends TestCase
 
     String entityId = entity.getId();
     String collectionId = collection.getId();
-    
+
     try
     {
       entity.delete();
-      
+
       fail("Able to delete Geo Entity which is referenced in a mosquito collection");
     }
-    catch(CannotDeleteReferencedObject e)
+    catch (CannotDeleteReferencedObject e)
     {
-      //This is expected
+      // This is expected
     }
     finally
     {
       MosquitoCollection m = MosquitoCollection.get(collectionId);
-      
-      if(m != null && m.isAppliedToDB())
+
+      if (m != null && m.isAppliedToDB())
       {
         m.delete();
       }
 
       SentinalSite s = SentinalSite.get(entityId);
 
-      if(s != null && s.isAppliedToDB())
+      if (s != null && s.isAppliedToDB())
       {
         s.delete();
       }
-      
+
     }
   }
-  
+
   public void testInvalidMaleAndFemale()
   {
     MosquitoCollection collection = new MosquitoCollection();
@@ -642,30 +640,30 @@ public class MosquitoCollectionTest extends TestCase
 
     try
     {
-        MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
-        group.setQuantity(20);
-        group.setQuantityFemale(12);
-        group.setQuantityMale(10);
-        group.setSpecie(specie);
-        group.setIdentificationMethod(identificationMethod);
-        group.setCollection(collection);
-        group.apply();
+      MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
+      group.setQuantity(20);
+      group.setQuantityFemale(12);
+      group.setQuantityMale(10);
+      group.setSpecie(specie);
+      group.setIdentificationMethod(identificationMethod);
+      group.setCollection(collection);
+      group.apply();
 
-        fail("Able to create a morphological specie group with an quantity mismatch");
+      fail("Able to create a morphological specie group with an quantity mismatch");
     }
-    catch(ProblemException e)
+    catch (ProblemException e)
     {
-    	List<ProblemIF> problems = e.getProblems();
-    	
-    	assertEquals(1, problems.size());
-    	assertTrue(problems.get(0) instanceof QuantityMismatchProblem);
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof QuantityMismatchProblem);
     }
     finally
     {
       collection.delete();
     }
   }
-  
+
   public void testInvalidMale()
   {
     MosquitoCollection collection = new MosquitoCollection();
@@ -676,22 +674,22 @@ public class MosquitoCollectionTest extends TestCase
 
     try
     {
-        MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
-        group.setQuantity(20);
-        group.setQuantityMale(30);
-        group.setSpecie(specie);
-        group.setIdentificationMethod(identificationMethod);
-        group.setCollection(collection);
-        group.apply();
-        
-        fail("Able to create a morphological specie group with an invalid male quantity");
+      MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
+      group.setQuantity(20);
+      group.setQuantityMale(30);
+      group.setSpecie(specie);
+      group.setIdentificationMethod(identificationMethod);
+      group.setCollection(collection);
+      group.apply();
+
+      fail("Able to create a morphological specie group with an invalid male quantity");
     }
-    catch(ProblemException e)
+    catch (ProblemException e)
     {
-    	List<ProblemIF> problems = e.getProblems();
-    	
-    	assertEquals(1, problems.size());
-    	assertTrue(problems.get(0) instanceof InvalidMaleQuantityProblem);
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidMaleQuantityProblem);
     }
     finally
     {
@@ -709,22 +707,22 @@ public class MosquitoCollectionTest extends TestCase
 
     try
     {
-        MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
-        group.setQuantity(20);
-        group.setQuantityFemale(30);
-        group.setSpecie(specie);
-        group.setIdentificationMethod(identificationMethod);
-        group.setCollection(collection);
-        group.apply();
-        
-        fail("Able to create a morphological specie group with an invalid female quantity");
+      MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
+      group.setQuantity(20);
+      group.setQuantityFemale(30);
+      group.setSpecie(specie);
+      group.setIdentificationMethod(identificationMethod);
+      group.setCollection(collection);
+      group.apply();
+
+      fail("Able to create a morphological specie group with an invalid female quantity");
     }
-    catch(ProblemException e)
+    catch (ProblemException e)
     {
-    	List<ProblemIF> problems = e.getProblems();
-    	
-    	assertEquals(1, problems.size());
-    	assertTrue(problems.get(0) instanceof InvalidFemaleQuantityProblem);
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof InvalidFemaleQuantityProblem);
     }
     finally
     {

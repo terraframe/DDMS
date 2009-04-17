@@ -427,6 +427,8 @@ public class MosquitoTest extends TestCase
     {
       MosquitoView[] mosquitos = collection.getMosquitos();
 
+      InsecticideMethodology acHEMethod = mosquitos[0].getIAcHEMethod();
+
       assertEquals(1, mosquitos.length);
       assertEquals(specie.getId(), mosquitos[0].getSpecie().getId());
       assertEquals(F0.getId(), mosquitos[0].getGeneration().getId());
@@ -437,7 +439,7 @@ public class MosquitoTest extends TestCase
       assertEquals(new Boolean(false), mosquitos[0].getIsofemale());
       assertEquals(new Boolean(true), mosquitos[0].getP450());
       assertEquals(result.getId(), mosquitos[0].getIAcHE().getId());
-      assertEquals(insecticideMethodology.getId(), mosquitos[0].getIAcHEMethod().getId());
+      assertEquals(insecticideMethodology.getId(), acHEMethod.getId());
       assertEquals(null, mosquitos[0].getGABAG());
       assertEquals(new Boolean(false), mosquitos[0].getAAcetate());
       assertEquals(new Boolean(true), mosquitos[0].getPMalariae());

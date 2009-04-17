@@ -1,6 +1,8 @@
 package dss.vector.solutions.surveillance;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -86,7 +88,7 @@ public class AggregatedCaseTest extends TestCase
   {
     try
     {
-      new EpiDate(PeriodType.WEEK, 70, "1999");
+      new EpiDateDTO(PeriodTypeDTO.WEEK, 70, 1999);
 
       fail("Able to set an invalid epi week");
     }
@@ -103,7 +105,7 @@ public class AggregatedCaseTest extends TestCase
   {
     try
     {
-      new EpiDate(PeriodType.MONTH, 13, "1999");
+      new EpiDateDTO(PeriodTypeDTO.MONTH, 13, 1999);
 
       fail("Able to set an invalid epi week");
     }
@@ -120,7 +122,7 @@ public class AggregatedCaseTest extends TestCase
   {
     try
     {
-      new EpiDate(PeriodType.QUARTER, 5, "1999");
+      new EpiDateDTO(PeriodTypeDTO.QUARTER, 5, 1999);
 
       fail("Able to set an invalid epi week");
     }
@@ -131,6 +133,18 @@ public class AggregatedCaseTest extends TestCase
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof PeriodWeekProblem);
     }
+  }
+
+  public void testEpiDateEquals()
+  {
+    EpiDate epiDate = new EpiDate(PeriodType.QUARTER, 2, 1999);
+    Date startDate = epiDate.getStartDate();
+    Date endDate = epiDate.getEndDate();
+    EpiDate epiDate2 = new EpiDate(startDate, endDate);
+
+    assertEquals(epiDate.getType(), epiDate2.getType());
+    assertEquals(epiDate.getPeriod(), epiDate2.getPeriod());
+    assertEquals(epiDate.getYear(), epiDate2.getYear());
   }
 
   public void testCreateAggregatedCase()
@@ -426,7 +440,7 @@ public class AggregatedCaseTest extends TestCase
 
   public void testCreateAggregatedView()
   {
-    EpiDate date = new EpiDate(PeriodType.QUARTER, 1, "2009");
+    EpiDate date = new EpiDate(PeriodType.QUARTER, 1, 2009);
 
     Integer cases = new Integer(50);
     Integer casesFemale = new Integer(23);
@@ -439,7 +453,7 @@ public class AggregatedCaseTest extends TestCase
     c.setGeoEntity(geoEntity);
     c.setPeriod(1);
     c.addPeriodType(PeriodType.QUARTER);
-    c.setPeriodYear("2009");
+    c.setPeriodYear(2009);
     c.setCases(cases);
     c.setCasesFemale(casesFemale);
     c.setCasesMale(casesMale);
@@ -495,14 +509,28 @@ public class AggregatedCaseTest extends TestCase
 
     try
     {
+      Calendar c1 = new GregorianCalendar();
+      Calendar c2 = new GregorianCalendar();
+
       AggregatedCase test = AggregatedCase.get(c.getCaseId());
 
       assertEquals(c.getGeoEntity().getId(), test.getGeoEntity().getId());
       assertEquals(ageGroup.getStartAge(), test.getStartAge());
       assertEquals(ageGroup.getEndAge(), test.getEndAge());
 
-      assertEquals(date.getStartDate(), test.getStartDate());
-      assertEquals(date.getEndDate(), test.getEndDate());
+      c1.setTime(date.getStartDate());
+      c2.setTime(test.getStartDate());
+
+      assertEquals(c1.get(Calendar.DATE), c2.get(Calendar.DATE));
+      assertEquals(c1.get(Calendar.MONTH), c2.get(Calendar.MONTH));
+      assertEquals(c1.get(Calendar.YEAR), c2.get(Calendar.YEAR));
+
+      c1.setTime(date.getEndDate());
+      c2.setTime(test.getEndDate());
+
+      assertEquals(c1.get(Calendar.DATE), c2.get(Calendar.DATE));
+      assertEquals(c1.get(Calendar.MONTH), c2.get(Calendar.MONTH));
+      assertEquals(c1.get(Calendar.YEAR), c2.get(Calendar.YEAR));
 
       assertEquals(c.getCases(), test.getCases());
       assertEquals(c.getCasesFemale(), test.getCasesFemale());
@@ -541,7 +569,7 @@ public class AggregatedCaseTest extends TestCase
     c.setGeoEntity(geoEntity);
     c.setPeriod(1);
     c.addPeriodType(PeriodType.QUARTER);
-    c.setPeriodYear("2009");
+    c.setPeriodYear(2009);
     c.setCases(cases);
     c.setCasesFemale(casesFemale);
     c.setCasesMale(casesMale);
@@ -629,7 +657,7 @@ public class AggregatedCaseTest extends TestCase
     c.setGeoEntity(GeoEntityDTO.get(clientRequest, geoEntity.getId()));
     c.setPeriod(1);
     c.addPeriodType(PeriodTypeDTO.QUARTER);
-    c.setPeriodYear("2009");
+    c.setPeriodYear(2009);
     c.setAgeGroup(ageGroupDTO);
     c.setCases(cases);
     c.setCasesFemale(casesFemale);
@@ -726,7 +754,7 @@ public class AggregatedCaseTest extends TestCase
     c.setGeoEntity(geoEntity);
     c.setPeriod(1);
     c.addPeriodType(PeriodType.QUARTER);
-    c.setPeriodYear("2009");
+    c.setPeriodYear(2009);
     c.setCases(cases);
     c.setCasesFemale(casesFemale);
     c.setCasesMale(casesMale);
@@ -782,7 +810,7 @@ public class AggregatedCaseTest extends TestCase
 
     try
     {
-      AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, "2009", ageGroup);
+      AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, 2009, ageGroup);
 
       assertNotNull(test);
       assertEquals(c.getCases(), test.getCases());
@@ -791,6 +819,10 @@ public class AggregatedCaseTest extends TestCase
       assertEquals(c.getCasesPregnant(), test.getCasesPregnant());
       assertEquals(c.getClinicallyDiagnosed(), test.getClinicallyDiagnosed());
       assertEquals(c.getDeaths(), test.getDeaths());
+      assertEquals(c.getPeriod(), test.getPeriod());
+      assertEquals(c.getPeriodType().size(), test.getPeriodType().size());
+      assertEquals(c.getPeriodType().get(0), test.getPeriodType().get(0));
+      assertEquals(c.getPeriodYear(), test.getPeriodYear());
 
       for (CaseTreatmentStock s : AggregatedCase.getTreatmentStocks(test.getCaseId()))
         assertEquals(new Boolean(true), s.getOutOfStock());
@@ -811,7 +843,7 @@ public class AggregatedCaseTest extends TestCase
 
   public void testUnknownCase()
   {
-    AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, "2009", ageGroup);
+    AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, 2009, ageGroup);
 
     assertEquals("", test.getCaseId());
   }

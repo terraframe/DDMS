@@ -8,6 +8,9 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.PeriodMonthProblem;
+import dss.vector.solutions.PeriodQuarterProblem;
+import dss.vector.solutions.PeriodWeekProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class AggregatedCase extends AggregatedCaseBase implements
@@ -193,7 +196,12 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   public AggregatedCaseView updateView(AggregatedCaseView view)
   {
+    EpiDate epiDate = new EpiDate(this.getStartDate(), this.getEndDate());
+
     view.setGeoEntity(this.getGeoEntity());
+    view.setPeriod(epiDate.getPeriod());
+    view.addPeriodType(epiDate.getType());
+    view.setPeriodYear(epiDate.getYear());
     view.setAgeGroup(this.getAgeGroup());
     view.setCaseId(this.getId());
     view.setCases(this.getCases());
@@ -236,21 +244,21 @@ public class AggregatedCase extends AggregatedCaseBase implements
     return view;
   }
 
+  @Transaction
   public static AggregatedCaseView searchByGeoEntityAndEpiDate(GeoEntity geoEntity,
-      PeriodType periodType, Integer period, String year, AggregatedAgeGroup ageGroup)
+      PeriodType periodType, Integer period, Integer year, AggregatedAgeGroup ageGroup)
   {
+    validate(periodType, period, year);
+
     EpiDate date = new EpiDate(periodType, period, year);
-    AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date
-        .getEndDate(), ageGroup);
+    AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date.getEndDate(), ageGroup);
 
     if (c != null)
     {
       AggregatedCaseView view = c.getView();
-      view.setGeoEntity(geoEntity);
-      view.setPeriod(period);
-      view.setPeriodYear(year);
       view.setAgeGroup(ageGroup);
       view.setCaseId(c.getId());
+      view.applyNoPersist();
 
       return view;
     }
@@ -258,10 +266,36 @@ public class AggregatedCase extends AggregatedCaseBase implements
     AggregatedCaseView view = ageGroup.getView();
     view.setGeoEntity(geoEntity);
     view.setPeriod(period);
+    view.addPeriodType(periodType);
     view.setPeriodYear(year);
     view.setAgeGroup(ageGroup);
 
     return view;
+  }
+
+  private static void validate(PeriodType periodType, Integer period, Integer year)
+  {
+    if (period > periodType.getMaximumPeriod() && periodType.equals(PeriodType.QUARTER))
+    {
+      PeriodQuarterProblem p = new PeriodQuarterProblem();
+      p.setPeriod(period);
+      p.setMaxPeriod(periodType.getMaximumPeriod());
+      p.throwIt();
+    }
+    else if (period > periodType.getMaximumPeriod() && periodType.equals(PeriodType.MONTH))
+    {
+      PeriodMonthProblem p = new PeriodMonthProblem();
+      p.setPeriod(period);
+      p.setMaxPeriod(periodType.getMaximumPeriod());
+      p.throwIt();
+    }
+    else if (period > periodType.getMaximumPeriod() && periodType.equals(PeriodType.WEEK))
+    {
+      PeriodWeekProblem p = new PeriodWeekProblem();
+      p.setPeriod(period);
+      p.setMaxPeriod(periodType.getMaximumPeriod());
+      p.throwIt();
+    }
   }
 
   public static AggregatedCaseView getView(String id)

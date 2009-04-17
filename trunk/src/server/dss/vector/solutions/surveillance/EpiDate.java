@@ -1,87 +1,114 @@
 package dss.vector.solutions.surveillance;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.PeriodMonthProblem;
-import dss.vector.solutions.PeriodQuarterProblem;
-import dss.vector.solutions.PeriodWeekProblem;
-
 public class EpiDate implements Reloadable
 {
   private PeriodType type;
 
-  private Integer period;
+  private Integer    period;
 
-  private String year;
+  private Integer    year;
 
-  private Date startDate;
+  private Date       startDate;
 
-  private Date endDate;
+  private Date       endDate;
 
-  public EpiDate(PeriodType periodType, int period, String year)
+  public EpiDate(PeriodType periodType, int period, Integer year)
   {
     this.type = periodType;
     this.period = period;
     this.year = year;
 
-    try
+    if (periodType.equals(PeriodType.QUARTER))
     {
-      if (periodType.equals(PeriodType.QUARTER))
-      {
-        if(period > periodType.getMaximumPeriod())
-        {
-          PeriodQuarterProblem p = new PeriodQuarterProblem();
-          p.setPeriod(period);
-          p.setMaxPeriod(periodType.getMaximumPeriod());
-          p.throwIt();
-        }
-
-        initializeQuarter(period, year);
-      }
-      else if(periodType.equals(PeriodType.MONTH))
-      {
-        if(period > periodType.getMaximumPeriod())
-        {
-          PeriodMonthProblem p = new PeriodMonthProblem();
-          p.setPeriod(period);
-          p.setMaxPeriod(periodType.getMaximumPeriod());
-          p.throwIt();
-        }
-
-        initializeMonth(period, year);
-      }
-      else if(periodType.equals(PeriodType.WEEK))
-      {
-        if(period > periodType.getMaximumPeriod())
-        {
-          PeriodWeekProblem p = new PeriodWeekProblem();
-          p.setPeriod(period);
-          p.setMaxPeriod(periodType.getMaximumPeriod());
-          p.throwIt();
-        }
-
-        initalizeWeek(period, year);
-      }
+      initializeQuarter(period, year);
     }
-    catch (ParseException e)
+    else if (periodType.equals(PeriodType.MONTH))
     {
-      //TODO change this runtime exception
-      throw new RuntimeException(e);
+      initializeMonth(period, year);
+    }
+    else if (periodType.equals(PeriodType.WEEK))
+    {
+      initalizeWeek(period, year);
     }
   }
 
-  private void initalizeWeek(Integer period, String year) throws ParseException
+  public EpiDate(Date startDate, Date endDate)
   {
-    SimpleDateFormat format = new SimpleDateFormat("yyyy");
+    if (this.getWeek(startDate).equals(endDate))
+    {
+      Calendar c1 = Calendar.getInstance();
+      c1.setTime(startDate);
 
+      this.type = PeriodType.WEEK;
+      this.period = c1.get(Calendar.WEEK_OF_YEAR);
+      this.year = c1.get(Calendar.YEAR);
+    }
+    else if (this.getMonth(startDate).equals(endDate))
+    {
+      Calendar c1 = Calendar.getInstance();
+      c1.setTime(startDate);
+
+      this.type = PeriodType.MONTH;
+      this.period = c1.get(Calendar.MONTH);
+      this.year = c1.get(Calendar.YEAR);
+    }
+    else
+    {
+      Calendar c1 = Calendar.getInstance();
+      c1.setTime(startDate);
+      int month = c1.get(Calendar.MONTH);
+
+      this.type = PeriodType.QUARTER;
+      this.year = c1.get(Calendar.YEAR);
+
+      if (month < 4)
+      {
+        this.period = 1;
+      }
+      else if (month < 7)
+      {
+        this.period = 2;
+      }
+      else if (month < 10)
+      {
+        this.period = 3;
+      }
+      else
+      {
+        this.period = 4;
+      }
+    }
+  }
+
+  private Date getMonth(Date startDate)
+  {
     Calendar c1 = Calendar.getInstance();
-    c1.setTime(format.parse(year));
+    c1.setTime(startDate);
+    c1.add(Calendar.MONTH, 1);
+    c1.add(Calendar.DAY_OF_MONTH, -1);
 
+    return c1.getTime();
+  }
+
+  private Date getWeek(Date startDate)
+  {
+    Calendar c1 = Calendar.getInstance();
+    c1.setTime(startDate);
+    c1.add(Calendar.DAY_OF_MONTH, 6);
+
+    return c1.getTime();
+  }
+
+  private void initalizeWeek(Integer period, Integer year)
+  {
+    Calendar c1 = Calendar.getInstance();
+    c1.clear();
+    c1.set(year, 1, 1, 0, 0, 0);
     c1.set(Calendar.DATE, 1);
     c1.add(Calendar.WEEK_OF_YEAR, period);
 
@@ -91,12 +118,11 @@ public class EpiDate implements Reloadable
     endDate = c1.getTime();
   }
 
-  private void initializeMonth(Integer period, String year) throws ParseException
+  private void initializeMonth(Integer period, Integer year)
   {
-    SimpleDateFormat format = new SimpleDateFormat("yyyy");
-
     Calendar c1 = Calendar.getInstance();
-    c1.setTime(format.parse(year));
+    c1.clear();
+    c1.set(year, 1, 1, 0, 0, 0);
     c1.set(Calendar.DATE, 1);
     c1.set(Calendar.MONTH, period);
 
@@ -107,12 +133,11 @@ public class EpiDate implements Reloadable
     endDate = c1.getTime();
   }
 
-  private void initializeQuarter(Integer period, String year) throws ParseException
+  private void initializeQuarter(Integer period, Integer year)
   {
-    SimpleDateFormat format = new SimpleDateFormat("yyyy");
-
     Calendar c1 = Calendar.getInstance();
-    c1.setTime(format.parse(year));
+    c1.clear();
+    c1.set(year, 1, 1, 0, 0, 0);
     c1.set(Calendar.DATE, 1);
 
     switch (period)
@@ -158,7 +183,7 @@ public class EpiDate implements Reloadable
     return period;
   }
 
-  public String getYear()
+  public Integer getYear()
   {
     return year;
   }
