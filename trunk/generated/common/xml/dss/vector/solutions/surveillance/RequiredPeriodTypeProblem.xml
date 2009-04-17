@@ -5,5 +5,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   <!--
     - {id} ID
     -->
-  <locale language="en">Period Type requies a value</locale>
+  <locale language="en">Replace this with your customized error message.</locale>
 </exception>
