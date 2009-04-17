@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public class RequiredCollectionDateProblem extends RequiredCollectionDateProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1239839913135L;
+  private static final long serialVersionUID = 1239909958908L;
   
   public RequiredCollectionDateProblem()
   {
