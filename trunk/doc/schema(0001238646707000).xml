@@ -2600,8 +2600,8 @@
             description="The name of the colony" />
           <integer
             name="exposureTime"
-            label="Exposure Time (minuites)"
-            description="The exposure time in months"
+            label="Time Exposed (minutes)"
+            description="The exposure time in minutes"
             rejectNegative="true"
             rejectZero="true"
             default_value="60"
@@ -2619,6 +2619,12 @@
             type="dss.vector.solutions.SurfacePosition"
             selectMultiple="false"
             description="The surface position of the insecticide" />
+          <integer
+            name="timeOnSurface"
+            label="Time on Surface (weeks)"
+            description="The length of time the Insecticide has been on the surface in weeks"
+            rejectNegative="true"
+            />
           <reference
             name="geoEntity"
             required="true"
