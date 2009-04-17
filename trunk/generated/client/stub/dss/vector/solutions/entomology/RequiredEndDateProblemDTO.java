@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public class RequiredEndDateProblemDTO extends RequiredEndDateProblemDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1239839909366L;
+  private static final long serialVersionUID = 1239909953483L;
   
   public RequiredEndDateProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

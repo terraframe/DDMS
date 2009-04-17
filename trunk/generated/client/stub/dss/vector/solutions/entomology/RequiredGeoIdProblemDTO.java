@@ -2,7 +2,7 @@ package dss.vector.solutions.entomology;
 
 public class RequiredGeoIdProblemDTO extends RequiredGeoIdProblemDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1239839935662L;
+  private static final long serialVersionUID = 1239909991135L;
   
   public RequiredGeoIdProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {
