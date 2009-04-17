@@ -357,7 +357,8 @@
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="NA1">
+        id="NA1"
+        key="ElderCaseView">
         <valueAttribute
           name="startAge"
           value="200" />
@@ -377,7 +378,8 @@
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="NA2">
+        id="NA2"
+        key="AncientCaseView">
         <valueAttribute
           name="startAge"
           value="201" />
@@ -397,5 +399,6 @@
     </create>
   </doIt>
   <undoIt>
+    <!-- It is impossible to undo it because I have no idea what the key of the new aggregated age group objects are -->
   </undoIt>
 </version>

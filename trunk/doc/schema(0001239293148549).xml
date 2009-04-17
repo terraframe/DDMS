@@ -13,31 +13,31 @@
               required="true"
               label="Age Group" />
           </attributes>
-        <mdMethod
-          name="getDiagnosticMethods"
-          label="getDiagnosticMethods"
-          static="false"
-          returnType="dss.vector.solutions.surveillance.CaseDiagnostic[]" />
-        <mdMethod
-          name="getReferrals"
-          label="getReferrals"
-          static="false"
-          returnType="dss.vector.solutions.surveillance.CaseReferral[]" />
-        <mdMethod
-          name="getTreatments"
-          label="getTreatments"
-          static="false"
-          returnType="dss.vector.solutions.surveillance.CaseTreatment[]" />
-        <mdMethod
-          name="getTreatmentMethods"
-          label="getTreatmentMethods"
-          static="false"
-          returnType="dss.vector.solutions.surveillance.CaseTreatmentMethod[]" />
-        <mdMethod
-          name="getTreatmentStocks"
-          label="getTreatmentStocks"
-          static="false"
-          returnType="dss.vector.solutions.surveillance.CaseTreatmentStock[]" />
+          <mdMethod
+            name="getDiagnosticMethods"
+            label="getDiagnosticMethods"
+            static="false"
+            returnType="dss.vector.solutions.surveillance.CaseDiagnostic[]" />
+          <mdMethod
+            name="getReferrals"
+            label="getReferrals"
+            static="false"
+            returnType="dss.vector.solutions.surveillance.CaseReferral[]" />
+          <mdMethod
+            name="getTreatments"
+            label="getTreatments"
+            static="false"
+            returnType="dss.vector.solutions.surveillance.CaseTreatment[]" />
+          <mdMethod
+            name="getTreatmentMethods"
+            label="getTreatmentMethods"
+            static="false"
+            returnType="dss.vector.solutions.surveillance.CaseTreatmentMethod[]" />
+          <mdMethod
+            name="getTreatmentStocks"
+            label="getTreatmentStocks"
+            static="false"
+            returnType="dss.vector.solutions.surveillance.CaseTreatmentStock[]" />
         </create>
       </mdBusiness>
     </update>
@@ -61,11 +61,10 @@
             required="false"
             rejectZero="true"
             rejectNegative="true" />
-          <char
+          <integer
             name="periodYear"
             label="Year"
-            required="false"
-            size="4" />
+            required="true" />
           <reference
             name="geoEntity"
             required="true"
@@ -146,6 +145,13 @@
             returnType="dss.vector.solutions.surveillance.AggregatedAgeGroup[]"
             static="true"
             description="Returns an array of all active aggregated age groups" />
+          <mdMethod
+            name="getDefault"
+            label="Get Default"
+            returnType="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+            static="true"
+            description="Returns the first age group">
+          </mdMethod>
         </create>
       </mdBusiness>
       <mdBusiness
@@ -175,21 +181,45 @@
               name="year"
               label="Year"
               order="3"
-              type="java.lang.String" />
+              type="java.lang.Integer" />
             <mdParameter
               name="ageGroup"
               label="Age Group"
               order="4"
               type="dss.vector.solutions.surveillance.AggregatedAgeGroup" />
           </mdMethod>
-          <mdMethod name="getView" label="Get View" returnType="dss.vector.solutions.surveillance.AggregatedCaseView" static="true" >
-            <mdParameter name="id" label="id" order="0" type="java.lang.String" />
+          <mdMethod
+            name="getView"
+            label="Get View"
+            returnType="dss.vector.solutions.surveillance.AggregatedCaseView"
+            static="true">
+            <mdParameter
+              name="id"
+              label="id"
+              order="0"
+              type="java.lang.String" />
           </mdMethod>
-          <mdMethod name="lockView" label="lock View" returnType="dss.vector.solutions.surveillance.AggregatedCaseView" static="true" >
-            <mdParameter name="id" label="id" order="0" type="java.lang.String" />
+          <mdMethod
+            name="lockView"
+            label="lock View"
+            returnType="dss.vector.solutions.surveillance.AggregatedCaseView"
+            static="true">
+            <mdParameter
+              name="id"
+              label="id"
+              order="0"
+              type="java.lang.String" />
           </mdMethod>
-          <mdMethod name="unlockView" label="unlock View" returnType="dss.vector.solutions.surveillance.AggregatedCaseView" static="true" >
-            <mdParameter name="id" label="id" order="0" type="java.lang.String" />
+          <mdMethod
+            name="unlockView"
+            label="unlock View"
+            returnType="dss.vector.solutions.surveillance.AggregatedCaseView"
+            static="true">
+            <mdParameter
+              name="id"
+              label="id"
+              order="0"
+              type="java.lang.String" />
           </mdMethod>
         </create>
       </mdBusiness>
@@ -254,12 +284,7 @@
               name="year"
               label="Year"
               order="3"
-              type="java.lang.String" />
-            <mdParameter
-              name="ageGroup"
-              label="Age Group"
-              order="4"
-              type="dss.vector.solutions.surveillance.AggregatedAgeGroup" />
+              type="java.lang.Integer" />
           </mdAction>
         </create>
       </mdController>
@@ -882,7 +907,8 @@
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="LT1">
+        id="LT1"
+        key="InfiantCaseView">
         <valueAttribute
           name="startAge"
           value="0" />
@@ -902,7 +928,8 @@
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="GTE1">
+        id="GTE1"
+        key="ChildCaseView">
         <valueAttribute
           name="startAge"
           value="1" />
@@ -922,7 +949,8 @@
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="GET5">
+        id="GET5"
+        key="TeenCaseView">
         <valueAttribute
           name="startAge"
           value="5" />
@@ -942,7 +970,8 @@
 
       <object
         type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
-        id="GTE14">
+        id="GTE14"
+        key="AdultCaseView">
         <valueAttribute
           name="startAge"
           value="14" />

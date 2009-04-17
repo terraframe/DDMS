@@ -1,0 +1,1135 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <existing>
+      <object
+        key="dss.vector.solutions.entomology.SexMaster.FEMALE"
+        type="dss.vector.solutions.entomology.SexMaster"
+        id="FEMALE" />
+      <object
+        key="dss.vector.solutions.entomology.SexMaster.MALE"
+        type="dss.vector.solutions.entomology.SexMaster"
+        id="MALE" />
+      <object
+        key="GeoHierarchy_NonSentinalSite"
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        id="NON_SENTINAL_SITE" />
+    </existing>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.SurveyPoint"
+        label="Survey Point"
+        generateController="true">
+        <attributes>
+          <reference
+            name="geoEntity"
+            label="geoEntity"
+            description="The geoEntity of the survey"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <date
+            name="surveyDate"
+            label="Date"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="searchByGeoEntityAndDate"
+          label="Search By GeoEntity and Date"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.SurveyPoint">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            order="0"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <mdParameter
+            name="date"
+            label="Date"
+            order="1"
+            type="java.util.Date" />
+        </mdMethod>
+      </mdBusiness>
+
+      <mdIndex
+        type="dss.vector.solutions.intervention.monitor.SurveyPoint"
+        active="true"
+        unique="true"
+        label="Survey Point Index">
+        <attribute
+          name="geoEntity" />
+        <attribute
+          name="surveyDate" />
+      </mdIndex>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.Net"
+        label="Net"
+        generateController="true">
+        <attributes>
+          <char
+            name="netName"
+            label="name"
+            indexType="unique index"
+            required="true"
+            size="255" />
+          <char
+            name="displayLabel"
+            label="displayLabel"
+            required="true"
+            size="255" />
+          <reference
+            name="parentNet"
+            type="dss.vector.solutions.intervention.monitor.Net"
+            required="false"
+            label="Parent"
+            description="The parent net type"
+            immutable="true" />
+          <boolean
+            name="isAbstract"
+            label="Abstract"
+            required="true"
+            default_value="false" />
+          <boolean
+            name="enabled"
+            label="Enabled"
+            required="true"
+            default_value="true" />
+        </attributes>
+        <mdMethod
+          name="getAll"
+          label="Get All"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.Net[]"
+          description="Returns a list of all nets" />
+        <mdMethod
+          name="getAllLeafs"
+          label="Get All Leaf Nodes"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.Net[]"
+          description="Returns a list of all net leaf nodes" />
+      </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        label="Net Heiarchy"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Net"
+          method="ParentNets" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Net"
+          method="ChildNets" />
+      </mdTree>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_Net"
+        key="Net_Net">
+        <valueAttribute
+          name="netName"
+          value="Net" />
+        <valueAttribute
+          name="displayLabel"
+          value="Net" />
+        <valueAttribute
+          name="isAbstract"
+          value="true" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_Permanent_Net"
+        key="Net_Permanent_Net">
+        <valueAttribute
+          name="netName"
+          value="Permanent_Net" />
+        <valueAttribute
+          name="displayLabel"
+          value="PERMANENT NET" />
+        <valueAttribute
+          name="isAbstract"
+          value="true" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        childId="Net_Permanent_Net"
+        parentId="Net_Net"
+        id="Net_Net-Net_Permanent_Net"
+        key="Net_Net-Net_Permanent_Net">
+      </relationship>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_Permanent"
+        key="Net_Permanent">
+        <valueAttribute
+          name="netName"
+          value="Permanent" />
+        <valueAttribute
+          name="displayLabel"
+          value="Permanent" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        parentId="Net_Permanent_Net"
+        childId="Net_Permanent"
+        id="Net_Permanent_Net-Net_Permanent"
+        key="Net_Permanent_Net-Net_Permanent">
+      </relationship>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_Olyset"
+        key="Net_Olyset">
+        <valueAttribute
+          name="netName"
+          value="Olyset" />
+        <valueAttribute
+          name="displayLabel"
+          value="Olyset" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        parentId="Net_Permanent_Net"
+        childId="Net_Olyset"
+        id="Net_Permanent_Net-Net_Olyset"
+        key="Net_Permanent_Net-Net_Olyset">
+      </relationship>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_Permanent_Other"
+        key="Net_Permanent_Other">
+        <valueAttribute
+          name="netName"
+          value="Permanent_Other" />
+        <valueAttribute
+          name="displayLabel"
+          value="Other/Don't Know brand" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        parentId="Net_Permanent_Net"
+        childId="Net_Permanent_Other"
+        id="Net_Permanent_Net-Net_Permanent_Other"
+        key="Net_Permanent_Net-Net_Permanent_Other">
+      </relationship>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_Pretreated_Net"
+        key="Net_Pretreated_Net">
+        <valueAttribute
+          name="netName"
+          value="Pretreated_Net" />
+        <valueAttribute
+          name="displayLabel"
+          value="PRETREATED NET" />
+        <valueAttribute
+          name="isAbstract"
+          value="true" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        childId="Net_Pretreated_Net"
+        parentId="Net_Net"
+        id="Net_Net-Net_Pretreated_Net"
+        key="Net_Net-Net_Pretreated_Net">
+      </relationship>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_Salam_Enkilfe"
+        key="Net_Salam_Enkilfe">
+        <valueAttribute
+          name="netName"
+          value="Salam_Enkilfe" />
+        <valueAttribute
+          name="displayLabel"
+          value="Salam Enkilfe" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        parentId="Net_Pretreated_Net"
+        childId="Net_Salam_Enkilfe"
+        id="Net_Pretreated_Net-Net_Salam_Enkilfe"
+        key="Net_Pretreated_Net-Net_Salam_Enkilfe">
+      </relationship>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_Fennet"
+        key="Net_Fennet">
+        <valueAttribute
+          name="netName"
+          value="Fennet" />
+        <valueAttribute
+          name="displayLabel"
+          value="Fennet" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        parentId="Net_Pretreated_Net"
+        childId="Net_Fennet"
+        id="Net_Pretreated_Net-Net_Fennet"
+        key="Net_Pretreated_Net-Net_Fennet">
+      </relationship>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_KO_Net"
+        key="Net_KO_Net">
+        <valueAttribute
+          name="netName"
+          value="KO_Net" />
+        <valueAttribute
+          name="displayLabel"
+          value="KO Net" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        parentId="Net_Pretreated_Net"
+        childId="Net_KO_Net"
+        id="Net_Pretreated_Net-Net_KO_Net"
+        key="Net_Pretreated_Net-Net_KO_Net">
+      </relationship>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_ICONET"
+        key="Net_ICONET">
+        <valueAttribute
+          name="netName"
+          value="ICONET" />
+        <valueAttribute
+          name="displayLabel"
+          value="ICONET" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        parentId="Net_Pretreated_Net"
+        childId="Net_ICONET"
+        id="Net_Pretreated_Net-Net_ICONET"
+        key="Net_Pretreated_Net-Net_ICONET">
+      </relationship>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_SAFINET"
+        key="Net_SAFINET">
+        <valueAttribute
+          name="netName"
+          value="SAFINET" />
+        <valueAttribute
+          name="displayLabel"
+          value="SAFINET" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        parentId="Net_Pretreated_Net"
+        childId="Net_SAFINET"
+        id="Net_Pretreated_Net-Net_SAFINET"
+        key="Net_Pretreated_Net-Net_SAFINET">
+      </relationship>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_Pretreated_Other"
+        key="Net_Pretreated_Other">
+        <valueAttribute
+          name="netName"
+          value="Pretreated_Other" />
+        <valueAttribute
+          name="displayLabel"
+          value="Other - Don’t Know" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        parentId="Net_Pretreated_Net"
+        childId="Net_Pretreated_Other"
+        id="Net_Pretreated_Net-Net_Pretreated_Other"
+        key="Net_Pretreated_Net-Net_Pretreated_Other">
+      </relationship>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Net"
+        id="Net_Other"
+        key="Net_Other">
+        <valueAttribute
+          name="netName"
+          value="Other" />
+        <valueAttribute
+          name="displayLabel"
+          value="OTHER- DON’T KNOW BRAND" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        childId="Net_Other"
+        parentId="Net_Net"
+        id="Net_Net-Net_Other"
+        key="Net_Net-Net_Other">
+      </relationship>
+
+      <enumerationMaster
+        name="dss.vector.solutions.intervention.monitor.WindowMaster"
+        label="WindowType Master"
+        generateController="false" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.WindowMaster"
+        id="ANY_WINDOW">
+        <valueAttribute
+          name="enumName"
+          value="ANY_WINDOW" />
+        <valueAttribute
+          name="displayLabel"
+          value="Any WindowType" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.WindowMaster"
+        id="WINDOW_WITH_GLASS">
+        <valueAttribute
+          name="enumName"
+          value="WINDOW_WITH_GLASS" />
+        <valueAttribute
+          name="displayLabel"
+          value="WindowType with Glass" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.WindowMaster"
+        id="WINDOW_WITH_SCREENS">
+        <valueAttribute
+          name="enumName"
+          value="WINDOW_WITH_SCREENS" />
+        <valueAttribute
+          name="displayLabel"
+          value="WindowType with Screens" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.WindowMaster"
+        id="WINDOW_WITH_CURTAINS">
+        <valueAttribute
+          name="enumName"
+          value="WINDOW_WITH_CURTAINS" />
+        <valueAttribute
+          name="displayLabel"
+          value="WindowType with Curtains" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.WindowMaster"
+        id="SHUTTERS">
+        <valueAttribute
+          name="enumName"
+          value="SHUTTERS" />
+        <valueAttribute
+          name="displayLabel"
+          value="Shutters" />
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.intervention.monitor.WindowType"
+        type="dss.vector.solutions.intervention.monitor.WindowMaster"
+        label="WindowType">
+        <includeAll />
+      </mdEnumeration>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.Household"
+        label="Household"
+        generateController="true"
+        description="A surveyed household">
+        <attributes>
+          <reference
+            name="surveyPoint"
+            label="Survey Point"
+            required="true"
+            immutable="true"
+            type="dss.vector.solutions.intervention.monitor.SurveyPoint" />
+          <char
+            name="householdName"
+            label="Name"
+            size="255"
+            description="The name of the household" />
+          <boolean
+            name="urban"
+            label="Household Type"
+            description="Flag indicating if the household is urban or rural" />
+          <integer
+            name="people"
+            label="Number of people"
+            description="The number of people in the household"
+            rejectNegative="true" />
+          <reference
+            name="wall"
+            label="Wall Surface"
+            description="The wall surface"
+            type="dss.vector.solutions.geo.generated.Wall" />
+          <char
+            name="wallInfo"
+            label="Wall Information"
+            size="255"
+            description="Extra information about the wall surface" />
+          <reference
+            name="roof"
+            label="Roof Surface"
+            description="The roof surface"
+            type="dss.vector.solutions.geo.generated.Roof" />
+          <char
+            name="roofInfo"
+            label="Roof Information"
+            size="255"
+            description="Extra information about the roof surface" />
+          <boolean
+            name="hasWindows"
+            label="Has Windows" />
+          <enumeration
+            name="windowType"
+            label="WindowType"
+            selectMultiple="false"
+            type="dss.vector.solutions.intervention.monitor.WindowType" />
+          <integer
+            name="rooms"
+            label="Rooms"
+            rejectNegative="true" />
+          <integer
+            name="lastSprayed"
+            label="Months since last sprayed"
+            rejectNegative="true" />
+          <integer
+            name="nets"
+            label="Nets"
+            description="Number of nets in household"
+            rejectNegative="true"
+            default_value="0" />
+          <integer
+            name="sleptUnderNets"
+            label="Slept Under Nets"
+            description="The number of people who slept under nets last night"
+            rejectNegative="true"
+            default_value="0" />
+          <integer
+            name="netsUsed"
+            label="Nets Used"
+            description="The number of nets which were used to sleep under last night"
+            rejectNegative="true"
+            default_value="0" />
+        </attributes>
+        <mdMethod
+          name="applyAll"
+          label="Apply All"
+          returnType="void"
+          static="false">
+          <mdParameter
+            name="nets"
+            order="0"
+            label="Nets"
+            type="dss.vector.solutions.intervention.monitor.HouseholdNet[]" />
+        </mdMethod>
+        <mdMethod
+          name="getHouseholdNets"
+          label="Get HouseholdNets"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.HouseholdNet[]" />
+      </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.SurveyHousehold"
+        label="Survey Household"
+        generateController="false">
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.intervention.monitor.SurveyPoint"
+          method="SurveyPoints" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Household"
+          method="Households" />
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.HouseholdNet"
+        label="Househodl Net"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Household"
+          method="Households" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Net"
+          method="Nets" />
+        <attributes>
+          <integer
+            name="amount"
+            label="amount"
+            required="true"
+            rejectNegative="true"
+            default_value="0" />
+        </attributes>
+      </mdTree>
+
+      <mdEnumeration
+        name="dss.vector.solutions.intervention.HumanSex"
+        type="dss.vector.solutions.entomology.SexMaster"
+        label="Sex"
+        description="List of person sex options">
+        <addEnumItem
+          id="MALE" />
+        <addEnumItem
+          id="FEMALE" />
+      </mdEnumeration>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.Drug"
+        label="Drug"
+        generateController="true">
+        <attributes>
+          <char
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255" />
+        </attributes>
+      </mdBusiness>
+
+      <enumerationMaster
+        name="dss.vector.solutions.intervention.ResponseMaster"
+        generateController="false"
+        label="RDTResponse Master" />
+
+      <object
+        type="dss.vector.solutions.intervention.ResponseMaster"
+        id="YES">
+        <valueAttribute
+          name="enumName"
+          value="YES" />
+        <valueAttribute
+          name="displayLabel"
+          value="YES" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.ResponseMaster"
+        id="NO">
+        <valueAttribute
+          name="enumName"
+          value="NO" />
+        <valueAttribute
+          name="displayLabel"
+          value="No" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.ResponseMaster"
+        id="REFUSED">
+        <valueAttribute
+          name="enumName"
+          value="REFUSED" />
+        <valueAttribute
+          name="displayLabel"
+          value="Refused" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.ResponseMaster"
+        id="NOT_PRESENT">
+        <valueAttribute
+          name="enumName"
+          value="NOT_PRESENT" />
+        <valueAttribute
+          name="displayLabel"
+          value="Not Present" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.ResponseMaster"
+        id="DONT_KNOW">
+        <valueAttribute
+          name="enumName"
+          value="DONT_KNOW" />
+        <valueAttribute
+          name="displayLabel"
+          value="Don't Know" />
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.intervention.RDTResponse"
+        type="dss.vector.solutions.intervention.ResponseMaster"
+        label="RDTResponse">
+        <addEnumItem
+          id="YES" />
+        <addEnumItem
+          id="NO" />
+        <addEnumItem
+          id="REFUSED" />
+      </mdEnumeration>
+
+      <enumerationMaster
+        name="dss.vector.solutions.intervention.RDTResultMaster"
+        label="RDT Result Master"
+        generateController="false" />
+
+      <object
+        type="dss.vector.solutions.intervention.RDTResultMaster"
+        id="Pf positive">
+        <valueAttribute
+          name="enumName"
+          value="PF_POSITIVE" />
+        <valueAttribute
+          name="displayLabel"
+          value="Pf positive" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.RDTResultMaster"
+        id="Mixed positive">
+        <valueAttribute
+          name="enumName"
+          value="MIXED_POSITIVE" />
+        <valueAttribute
+          name="displayLabel"
+          value="Mixed positive" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.RDTResultMaster"
+        id="Vivax positive">
+        <valueAttribute
+          name="enumName"
+          value="VIVAX_POSITIVE" />
+        <valueAttribute
+          name="displayLabel"
+          value="Vivax positive" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.RDTResultMaster"
+        id="Malariae positive">
+        <valueAttribute
+          name="enumName"
+          value="MALARIAE_POSITIVE" />
+        <valueAttribute
+          name="displayLabel"
+          value="Malariae positive" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.RDTResultMaster"
+        id="Ovale positive">
+        <valueAttribute
+          name="enumName"
+          value="OVALE_POSITIVE" />
+        <valueAttribute
+          name="displayLabel"
+          value="Ovale positive" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.RDTResultMaster"
+        id="NEGATIVE">
+        <valueAttribute
+          name="enumName"
+          value="NEGATIVE" />
+        <valueAttribute
+          name="displayLabel"
+          value="NEGATIVE" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.RDTResultMaster"
+        id="NOT VALID">
+        <valueAttribute
+          name="enumName"
+          value="NOT_VALID" />
+        <valueAttribute
+          name="displayLabel"
+          value="NOT VALID" />
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.intervention.RDTResult"
+        type="dss.vector.solutions.intervention.RDTResultMaster"
+        label="RDT Result">
+        <includeAll />
+      </mdEnumeration>
+
+      <mdEnumeration
+        name="dss.vector.solutions.intervention.BloodslideResponse"
+        type="dss.vector.solutions.intervention.ResponseMaster"
+        label="Bloodslide Response">
+        <addEnumItem
+          id="YES" />
+        <addEnumItem
+          id="NO" />
+        <addEnumItem
+          id="NOT_PRESENT" />
+      </mdEnumeration>
+
+      <mdEnumeration
+        name="dss.vector.solutions.intervention.FeverResponse"
+        type="dss.vector.solutions.intervention.ResponseMaster"
+        label="Fever Response">
+        <addEnumItem
+          id="YES" />
+        <addEnumItem
+          id="NO" />
+        <addEnumItem
+          id="DONT_KNOW" />
+      </mdEnumeration>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.Person"
+        label="Person"
+        generateController="true"
+        description="Surveyed Person">
+        <attributes>
+          <reference
+            name="household"
+            label="Household"
+            required="true"
+            type="dss.vector.solutions.intervention.monitor.Household"
+            immutable="true" />
+          <char
+            name="personId"
+            label="Person Id"
+            indexType="unique index"
+            size="255"
+            required="true" />
+          <date
+            name="dob"
+            label="Date of Birth"
+            description="Persons date of birth" />
+          <enumeration
+            name="sex"
+            label="Sex"
+            selectMultiple="false"
+            type="dss.vector.solutions.intervention.HumanSex" />
+          <boolean
+            name="pregnant"
+            label="Pregnant"
+            description="Flag indicating if the person is pregnant" />
+          <boolean
+            name="sleptUnderNet"
+            label="Slept Under Net"
+            description="Flag indicating if the person slept under a net last night" />
+          <boolean
+            name="haemoglobinMeasured"
+            label="Haemoglobin Measured"
+            description="Flag indicating if the person had their haemoglobin measured" />
+          <decimal
+            name="haemoglobin"
+            label="haemoglobin"
+            length="3"
+            decimal="1"
+            description="Haemoglobin value" />
+          <reference
+            name="anaemiaTreatment"
+            label="Anaemia Treatment"
+            type="dss.vector.solutions.intervention.Drug" />
+          <boolean
+            name="iron"
+            label="Iron Given"
+            description="Flag indicating if iron was given" />
+          <enumeration
+            name="performedRDT"
+            label="RDT"
+            selectMultiple="false"
+            type="dss.vector.solutions.intervention.RDTResponse" />
+          <enumeration
+            name="rDTResult"
+            label="RDT Result"
+            selectMultiple="true"
+            type="dss.vector.solutions.intervention.RDTResult" />
+          <reference
+            name="rdtTreatment"
+            label="RDT Treatment"
+            type="dss.vector.solutions.intervention.Drug" />
+          <enumeration
+            name="bloodslide"
+            label="Bloodslide"
+            selectMultiple="false"
+            type="dss.vector.solutions.intervention.BloodslideResponse" />
+          <enumeration
+            name="fever"
+            label="fever"
+            selectMultiple="false"
+            type="dss.vector.solutions.intervention.FeverResponse" />
+          <reference
+            name="feverTreatment"
+            label="Fever Treatment"
+            type="dss.vector.solutions.intervention.Drug" />
+          <enumeration
+            name="malaria"
+            label="Malaria"
+            selectMultiple="false"
+            type="dss.vector.solutions.intervention.FeverResponse" />
+          <reference
+            name="malariaTreatment"
+            label="Malaria Treatment"
+            type="dss.vector.solutions.intervention.Drug" />
+          <enumeration
+            name="payment"
+            label="Payment"
+            selectMultiple="false"
+            type="dss.vector.solutions.intervention.FeverResponse" />
+        </attributes>
+      </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.HouseholdPerson"
+        label="Household Person"
+        generateController="false">
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.intervention.monitor.Household"
+          method="Households" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Person"
+          method="Persons" />
+      </mdTree>
+
+
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.Surface"
+        label="Surface"
+        description="Surface"
+        isAbstract="true"
+        extends="dss.vector.solutions.geo.generated.GeoEntity">
+      </mdBusiness>
+
+      <object
+        id="surfaceH"
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="GeoHierarchy_Surface">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="dss.vector.solutions.geo.generated.Surface" />
+      </object>
+
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.Wall"
+        label="Wall"
+        description="Wall"
+        extends="dss.vector.solutions.geo.generated.Surface">
+      </mdBusiness>
+
+      <object
+        id="wallH"
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="GeoHierarchy_Wall">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="dss.vector.solutions.geo.generated.Wall" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="wallH"
+        parentId="NON_SENTINAL_SITE"
+        id="wallInLocality">
+      </relationship>
+
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.Roof"
+        label="Roof"
+        description="Roof"
+        extends="dss.vector.solutions.geo.generated.Surface">
+      </mdBusiness>
+
+      <object
+        id="roofH"
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="GeoHierarchy_Roof">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="dss.vector.solutions.geo.generated.Roof" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="roofH"
+        parentId="NON_SENTINAL_SITE"
+        id="roofInLocality">
+      </relationship>
+
+      <mdProblem
+        name="dss.vector.solutions.intervention.monitor.SprayProblem"
+        label="Spray Problem"
+        extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <integer
+            name="months"
+            label="Months"
+            required="true" />
+        </attributes>
+      </mdProblem>
+
+      <mdProblem
+        name="dss.vector.solutions.intervention.monitor.PregnantProblem"
+        label="PregnantProblem"
+        extends="dss.vector.solutions.NotificationProblem" />
+
+      <mdProblem
+        name="dss.vector.solutions.surveillance.RequiredGeoIdProblem"
+        label="Required GeoId Problem" />
+
+      <mdProblem
+        name="dss.vector.solutions.surveillance.RequiredPeriodTypeProblem"
+        label="Required Period Type Problem" />
+
+      <mdProblem
+        name="dss.vector.solutions.surveillance.RequiredPeriodProblem"
+        label="Required Period Problem" />
+
+      <mdProblem
+        name="dss.vector.solutions.surveillance.RequiredYearProblem"
+        label="Required Year Problem" />
+
+      <mdProblem
+        name="dss.vector.solutions.surveillance.RequiredAgeGroupProblem"
+        label="Required Age Group Problem" />
+    </create>
+
+    <update>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.HouseholdController">
+        <mdAction
+          name="create"
+          isPost="true">
+          <create>
+            <mdParameter
+              name="nets"
+              label="Nets"
+              order="1"
+              type="dss.vector.solutions.intervention.monitor.HouseholdNet[]" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true">
+          <create>
+            <mdParameter
+              name="nets"
+              label="Nets"
+              order="1"
+              type="dss.vector.solutions.intervention.monitor.HouseholdNet[]" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="newInstance"
+          isPost="false">
+          <create>
+            <mdParameter
+              name="surveyId"
+              label="Survey Id"
+              order="0"
+              type="java.lang.String" />
+          </create>
+        </mdAction>
+      </mdController>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.PersonController">
+        <mdAction
+          name="newInstance">
+          <create>
+            <mdParameter
+              name="householdId"
+              label="Household Id"
+              order="0"
+              type="java.lang.String" />
+          </create>
+        </mdAction>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.Person"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.intervention.FeverResponse"
+        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.intervention.BloodslideResponse"
+        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.intervention.RDTResult"
+        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.intervention.RDTResult"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.intervention.RDTResponse"
+        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.intervention.ResponseMaster"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.intervention.Drug"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.intervention.HumanSex"
+        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.HouseholdNet"
+        type="com.terraframe.mojo.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.Household"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.WindowType"
+        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.WindowMaster"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.NetHeiarchy"
+        type="com.terraframe.mojo.system.metadata.MdTree" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.Net"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.SurveyPoint"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>
