@@ -27,7 +27,7 @@
 	<property name="xsd.location" value="${local.root}/profiles/datatype_gis.xsd" />
 	<property name="version.dir" value="${local.root}/doc/" />
 	<property name="version.xsd" value="/version_gis.xsd" />
-	<property name="geo_data_db" value="mozambique" />
+	<property name="geodata.db" value="mozambique" />
 
 	<!-- =================================================================== -->
 	<!-- Define tomcat tasks                                                 -->
@@ -393,14 +393,17 @@
 	<!-- Import the geo data into the db                             -->
 	<!-- =================================================================== -->
 	<target name="import_geodata" depends="" description="imports a db of geodata into the db">
+		<diagnostics/>
+		<echoproperties></echoproperties>
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
+			<jvmarg value="-javaagent:${local.lib}/server/aspectjweaver.jar" />
 			<classpath>
-				<path refid="framework.classpath" />
+							<path refid="framework.classpath" />
 			</classpath>
 			<arg value="${root.user}" />
 			<arg value="${root.pass}" />
-			<arg value="${geo_data_db}" />
+			<arg value="${geodata.db}" />
 		</java>
 	</target>
 

@@ -22,7 +22,8 @@
 	<property name="testserver.username" value="administrator" />
 
 	<property name="deploy.db" value="mdssdeploy" />
-    <property name="develop.db" value="mdssdevelop" />
+	<property name="develop.db" value="mdssdevelop" />
+	<property name="geodata.db" value="mozambique" />
 
 
 	<!-- =================================================================== -->
@@ -34,36 +35,33 @@
 	<!-- so that posgres does not require a password from localhost         -->
 	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
 	<!-- =================================================================== -->
-	<target name="fast_build" depends="alert_status,kill_tomcat,develop_rebuild_import,write_revision,deploy_all"
-		description="Rebuild Develop from scratch and then copy everything to deploy.">
+	<target name="fast_build" depends="alert_status,kill_tomcat,develop_rebuild_import,write_revision,deploy_all,import_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="The build is complete, please start tomcat" />
-
 	</target>
 
 	<target name="copy_dev_to_deploy" depends="kill_tomcat" description="Rebuild Develop from scratch and then copy everything to deploy.">
-		<echo message="dumping the develop db to a sql file "/>
-		<exec executable="${postgres.bin}/pg_dump" dir="./"  failonerror="true" searchpath="true" logError="true">
+		<echo message="dumping the develop db to a sql file " />
+		<exec executable="${postgres.bin}/pg_dump" dir="./" failonerror="true" searchpath="true" logError="true">
 			<arg line="--blobs -h 127.0.0.1 -U ${root.user} ${develop.db}" />
 			<redirector output="dump.sql">
-			<outputfilterchain>
-				<!--make sql dump stop on errors -->
-				<concatfilter prepend="drop_deploy.sql"/>
-				<!--change 'mdssdevelop' to 'mdssdeploy' -->
-				<tokenfilter>
-				    <replacestring from="${develop.db}" to="${develop.db}"/>
-				</tokenfilter>
-			</outputfilterchain>
+				<outputfilterchain>
+					<!--make sql dump stop on errors -->
+					<concatfilter prepend="drop_deploy.sql" />
+					<!--change 'mdssdevelop' to 'mdssdeploy' -->
+					<tokenfilter>
+						<replacestring from="${develop.db}" to="${deploy.db}" />
+					</tokenfilter>
+				</outputfilterchain>
 			</redirector>
 		</exec>
 
-		<echo message="drop and recreate the deploy db"/>
-		<exec executable="${postgres.bin}/psql" dir="./" failonerror="true" searchpath="true" logError="true"
-			inputstring="DROP DATABASE ${deploy.db};
+		<echo message="drop and recreate the deploy db" />
+		<exec executable="${postgres.bin}/psql" dir="./" failonerror="true" searchpath="true" logError="true" inputstring="DROP DATABASE ${deploy.db};
 			  CREATE DATABASE ${deploy.db} WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=${deploy.db};">
 			<arg line="-h 127.0.0.1 -U ${root.user} -d postgres" />
 		</exec>
 
-	    <echo message="import the sql dump into the develop db"/>
+		<echo message="import the sql dump into the develop db" />
 		<exec executable="${postgres.bin}/psql" dir="./" input="dump.sql" failonerror="true" searchpath="true" logError="true">
 			<arg line="-h 127.0.0.1 -U ${root.user} -d ${deploy.db}" />
 		</exec>
@@ -248,26 +246,11 @@
 	</target>
 
 	<!-- =================================================================== -->
-	<!-- Import the geo data into the deploy db                              -->
+	<!-- Import the geo data into the develop db                              -->
 	<!-- =================================================================== -->
 
-	<target name="import_geodata" depends="kill_tomcat" description="imports a db of geodata into the deploy db">
-		<!--<diagnostics/>-->
-		<echo message="NOTICE: your develop/server/database.properties  is backed up as database.properties.bak, if this script does not complete sucessfully you will need to restore it manualy" />
-		<sleep seconds="3" />
-		<!-- backup deploy properties -->
-		<copy file="../../../profiles/develop/server/database.properties" tofile="../../../profiles/develop/server/database.properties.bak" />
-		<!-- change develop to temporaly point to deploy -->
-		<propertyfile file="../../../profiles/develop/server/database.properties">
-			<entry key="user" value="mdssdeploy" />
-			<entry key="password" value="mdssdeploy" />
-			<entry key="databaseName" value="mdssdeploy" />
-			<entry key="db.connection.initial" value="20" />
-			<entry key="db.connection.max" value="30" />
-		</propertyfile>
-		<!-- run the importer -->
+	<target name="import_geodata" depends="kill_tomcat" description="imports geodata.db of geodata into the develop db">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
-			<jvmarg value="-Xmx${max_memory_use}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -276,19 +259,42 @@
 
 			<arg value="-Droot.user=${root.user}" />
 			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="-Dgeodata.db=${geodata.db}" />
 			<arg value="import_geodata" />
 		</java>
-		<!-- change develop back to develop -->
-		<move file="../../../profiles/develop/server/database.properties.bak" tofile="../../../profiles/develop/server/database.properties" />
-		<antcall target="start_tomcat" />
 	</target>
 
-	<target name="import_geodata2" depends="" description="imports a db of geodata into the deploy db">
-		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="false" failonerror="true" dir="." timeout="3000000" taskname="ImportGeodata">
-			<arg value="${root.user}" />
-			<arg value="${root.pass}" />
-			<arg value="${geo_data_db}" />
-		</java>
+	<target name="import_geodata_deploy" depends="" description="imports geodata.db of geodata into the deploy db">
+		<!--<diagnostics/>-->
+				<echo message="NOTICE: your develop/server/database.properties  is backed up as database.properties.bak, if this script does not complete sucessfully you will need to restore it manualy" />
+				<sleep seconds="3" />
+				<!-- backup deploy properties -->
+				<copy file="../../../profiles/develop/server/database.properties" tofile="../../../profiles/develop/server/database.properties.bak" />
+				<!-- change develop to temporaly point to deploy -->
+				<propertyfile file="../../../profiles/develop/server/database.properties">
+					<entry key="user" value="mdssdeploy" />
+					<entry key="password" value="mdssdeploy" />
+					<entry key="databaseName" value="mdssdeploy" />
+					<entry key="db.connection.initial" value="20" />
+					<entry key="db.connection.max" value="30" />
+				</propertyfile>
+				<!-- run the importer -->
+				<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
+					<jvmarg value="-Xmx${max_memory_use}" />
+					<classpath>
+						<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+					</classpath>
+					<arg value="-buildfile" />
+					<arg file="deploy.xml" />
+
+					<arg value="-Droot.user=${root.user}" />
+					<arg value="-Droot.pass=${root.pass}" />
+					<arg value="-Dgeodata.db=${geodata.db}" />
+					<arg value="import_geodata" />
+				</java>
+				<!-- change develop back to develop -->
+				<move file="../../../profiles/develop/server/database.properties.bak" tofile="../../../profiles/develop/server/database.properties" />
+				<antcall target="start_tomcat" />
 	</target>
 
 
