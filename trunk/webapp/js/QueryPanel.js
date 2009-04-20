@@ -9,7 +9,7 @@ MDSS.QueryXML = {
     GE: 'GE',
     LT: 'LT',
     LE: 'LE'
-    
+
   }
 };
 
@@ -22,7 +22,7 @@ MDSS.QueryXML.objectToXML = function(obj)
   {
     return '<'+name+'>'+content+'</'+name+'>' + (MDSS.QueryXML.DEBUG ? '\n' : '');
   }
-	
+
   var xml = '';
   for(var key in obj)
   {
@@ -41,7 +41,7 @@ MDSS.QueryXML.objectToXML = function(obj)
         var entry = value[i];
         subXML += MDSS.QueryXML.objectToXML(entry);
       }
-      
+
       xml += toXML(key, subXML);
     }
     else
@@ -49,7 +49,7 @@ MDSS.QueryXML.objectToXML = function(obj)
       xml += toXML(key, obj[key]);
     }
   }
-  
+
   return xml;
 }
 
@@ -65,7 +65,7 @@ MDSS.QueryXML.Query = function()
   this._orderBy = new MDSS.QueryXML.OrderBy();
 }
 MDSS.QueryXML.Query.prototype = {
-  
+
   /**
    * Adds an Entity to the query.
    */
@@ -73,7 +73,7 @@ MDSS.QueryXML.Query.prototype = {
   {
     this._entities.addEntity(key, entity);
   },
-  
+
   /**
    * Returns the Entity with the given
    * key or null if it does not exist.
@@ -82,7 +82,7 @@ MDSS.QueryXML.Query.prototype = {
   {
   	return this._entities.getEntity(key);
   },
-  
+
   /**
    * Adds a selectable to the query.
    */
@@ -90,7 +90,7 @@ MDSS.QueryXML.Query.prototype = {
   {
     this._select.addSelectable(key, selectable);
   },
-  
+
   /**
    * Removes the Selectable with the given key.
    */
@@ -98,7 +98,7 @@ MDSS.QueryXML.Query.prototype = {
   {
     this._select.removeSelectable(key);
   },
-  
+
   /**
    * Returns the XML for this query.
    */
@@ -109,13 +109,55 @@ MDSS.QueryXML.Query.prototype = {
     var groupByArray = this._groupBy.build();
     var havingArray = this._having.build();
     var orderByArray = this._orderBy.build();
-    
+
     var obj = {
       'query': [entitiesArray, selectArray, groupByArray, havingArray, orderByArray]
     };
-    
+
     var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>';
-    xml += MDSS.QueryXML.objectToXML(obj);    
+    xml += MDSS.QueryXML.objectToXML(obj);
+    return xml;
+  },
+
+  /**
+   * Returns the XML to display a map, which is a
+   * subset of the original XML as restricted by the
+   * given parameter.
+   */
+  getXMLForMap : function(entityAliases, selectableAliases)
+  {
+    // include only the entity of the given alias
+    // and its selectable attributes
+    var entities = new MDSS.QueryXML.Entities();
+    for(var i=0; i<entityAliases.length; i++)
+    {
+      var entityAlias = entityAliases[i];
+      var entity = this.getEntity(entityAlias);
+      entities.addEntity(entityAlias, entity);
+    }
+
+
+    // TODO filter out by entityAlias instead of selectable aliases
+    var select = new MDSS.QueryXML.Select();
+    for(var i=0; i<selectableAliases.length; i++)
+    {
+      var key = selectableAliases[i];
+      var selectable = this._select.getSelectable(key);
+      select.addSelectable(key, selectable);
+    }
+
+    var entitiesArray = entities.build();
+    var selectArray = select.build();
+    var groupByArray = this._groupBy.build();
+    var havingArray = this._having.build();
+    var orderByArray = this._orderBy.build();
+
+    var obj = {
+      'query' : [entitiesArray, selectArray, groupByArray, havingArray, orderByArray]
+    };
+
+    var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>';
+    xml += MDSS.QueryXML.objectToXML(obj);
     return xml;
   }
 };
@@ -128,7 +170,7 @@ MDSS.QueryXML.Entities = function()
   this._entityMap = {};
 }
 MDSS.QueryXML.Entities.prototype = {
-  
+
   /**
    * Adds a new Entity to the query.
    */
@@ -136,12 +178,12 @@ MDSS.QueryXML.Entities.prototype = {
   {
     this._entityMap[key] = entity;
   },
-  
+
   getEntity : function(key, entity)
   {
   	return this._entityMap[key];
   },
-  
+
   /**
    * Removes an entity from the query.
    */
@@ -149,7 +191,7 @@ MDSS.QueryXML.Entities.prototype = {
   {
     delete this._entityMap[key];
   },
-  
+
   build : function()
   {
     var entities = Mojo.util.getValues(this._entityMap);
@@ -158,11 +200,11 @@ MDSS.QueryXML.Entities.prototype = {
     {
       entitiesArray.push(entities[i].build());
     }
-    
+
     var obj = {
       'entities' : entitiesArray
     };
-    
+
     return obj;
   }
 };
@@ -177,19 +219,19 @@ MDSS.QueryXML.Entity = function(type, alias)
   this._condition = null; // optional
 }
 MDSS.QueryXML.Entity.prototype = {
-  
+
   getType : function() { return this._type; },
-  
+
   getAlias : function() { return this._alias; },
-  
+
   setCondition : function(condition) { this._condition = condition; },
-  
+
   clearCondition : function() { this._condition = null; },
-  
+
   build : function()
   {
   	var conditionObj = this._condition != null ? this._condition.build() : '';
-  	
+
   	var obj = {
   	  'entity': {
   	    'type': this._type,
@@ -197,7 +239,7 @@ MDSS.QueryXML.Entity.prototype = {
   	    'criteria': conditionObj
   	  }
   	};
-  	
+
   	return obj;
   }
 };
@@ -211,15 +253,15 @@ MDSS.QueryXML.CompositeCondition = function(component)
   this._component = component;
 }
 MDSS.QueryXML.CompositeCondition.prototype = {
-  
+
   build : function()
   {
   	var componentObj = this._component.build();
-  	
+
   	var obj = {
   	  'compositeCondition' : componentObj
   	};
-  	
+
   	return obj;
   }
 }
@@ -235,11 +277,11 @@ MDSS.QueryXML.BasicCondition = function(selectable, operator, value)
   this._value = value;
 }
 MDSS.QueryXML.BasicCondition.prototype = {
-  
+
   build : function()
   {
   	var selectableObj = this._selectable.build();
-  	
+
   	var obj = {
   	  'basicCondition' : [
   	  	selectableObj,
@@ -247,7 +289,7 @@ MDSS.QueryXML.BasicCondition.prototype = {
   	  	{'value': this._value}
   	  ]
   	};
-  
+
     return obj;
   }
 }
@@ -260,17 +302,17 @@ MDSS.QueryXML.Or = function()
   this._conditions = {};
 }
 MDSS.QueryXML.Or.prototype = {
-  
+
   addCondition : function(key, condition)
   {
     this._conditions[key] = condition;
   },
-  
+
   removeCondition : function(key)
   {
   	delete this._conditions[key];
   },
-  
+
   build : function()
   {
   	var conditions = Mojo.util.getValues(this._conditions);
@@ -279,11 +321,11 @@ MDSS.QueryXML.Or.prototype = {
   	{
   	  conditionsArray.push(conditions[i].build());
   	}
-  	
+
   	var obj = {
   	  'or' : conditionsArray
   	};
-  	
+
   	return obj;
   }
 }
@@ -296,17 +338,17 @@ MDSS.QueryXML.And = function()
   this._conditions = {};
 }
 MDSS.QueryXML.And.prototype = {
-  
+
   addCondition : function(key, condition)
   {
     this._conditions[key] = condition;
   },
-  
+
   removeCondition : function(key)
   {
   	delete this._conditions[key];
   },
-  
+
   build : function()
   {
   	var conditions = Mojo.util.getValues(this._conditions);
@@ -315,11 +357,11 @@ MDSS.QueryXML.And.prototype = {
   	{
   	  conditionsArray.push(conditions[i].build());
   	}
-  	
+
   	var obj = {
   	  'and' : conditionsArray
   	};
-  	
+
   	return obj;
   }
 }
@@ -338,12 +380,17 @@ MDSS.QueryXML.Select.prototype = {
   {
     this._selectableMap[key] = selectable;
   },
-  
+
   removeSelectable : function(key)
   {
     delete this._selectableMap[key];
   },
-  
+
+  getSelectable : function(key)
+  {
+    return this._selectableMap[key];
+  },
+
   getSelectableMap : function()
   {
   	return this._selectableMap();
@@ -353,16 +400,16 @@ MDSS.QueryXML.Select.prototype = {
   {
   	var selectables = Mojo.util.getValues(this._selectableMap);
   	var selectablesArray = [];
-  	
+
   	for(var i=0; i<selectables.length; i++)
   	{
   	  selectablesArray.push(selectables[i].build());
   	}
-  	
+
   	var obj = {
   	  'select': selectablesArray
   	};
-  	
+
     return obj;
   }
 }
@@ -375,15 +422,15 @@ MDSS.QueryXML.SimpleSelectable = function(component)
   this._component = component;
 }
 MDSS.QueryXML.SimpleSelectable.prototype = {
-  
+
   build : function()
   {
   	var componentObj = this._component.build();
-  	
+
   	var obj = {
   	  'selectable': componentObj
   	};
-  	
+
     return obj;
   }
 }
@@ -395,9 +442,9 @@ MDSS.QueryXML.Attribute = function(entityAlias, name, userAlias)
   this._userAlias = arguments.length == 3 ? userAlias : '';
 }
 MDSS.QueryXML.Attribute.prototype = {
-  
+
   getName : function() { return this._name; },
-  
+
   getEntityAlias : function() { return this._entityAlias; },
 
   getUserAlias : function() { return this._userAlias; },
@@ -411,55 +458,55 @@ MDSS.QueryXML.Attribute.prototype = {
         'userAlias': this._userAlias,
   	  }
   	};
-  	
+
     return obj;
   }
 }
 
 MDSS.QueryXML.GroupBy = function()
 {
-  
+
 }
 MDSS.QueryXML.GroupBy.prototype = {
-  
+
   build : function()
   {
     var obj = {
       'groupby': ''
     };
-    
-    return obj;    
+
+    return obj;
   }
 };
 
 MDSS.QueryXML.Having = function()
 {
-  
+
 }
 MDSS.QueryXML.Having.prototype = {
-  
+
   build : function()
   {
     var obj = {
       'having': ''
     };
-    
+
     return obj;
   }
 }
 
 MDSS.QueryXML.OrderBy = function()
 {
-  
+
 }
 MDSS.QueryXML.OrderBy.prototype = {
-  
+
   build : function()
   {
     var obj = {
       'orderby': ''
     };
-    
+
     return obj;
   }
 }
@@ -480,30 +527,30 @@ MDSS.QueryPanel = function(panelId, config)
         { position: 'right', width: 150, body: '', resize: false, scroll: true, gutter: '0 5 0 2'}
     ]
   });
-  
+
   this._config = config;
-  
+
   this._queryItems = [];
-  
+
   this._dataTable = null;
-  
+
   this._query = new MDSS.QueryXML.Query();
-  
+
   // references to date range DOM elements
   this._startDate = null;
   this._endDate = null;
-  
+
   // references to the panel units
   this._topUnit = null;
   this._leftUnit = null;
   this._bottomUnit = null;
   this._centerUnit = null;
   this._rightUnit = null;
-  
-    
+
+
   // map between header ids (TH tags) and context menu builder functions
   this._headerMenuBuilders = {};
-  
+
   // map between query list entries (LI tags) and context menu builder functions
   this._queryMenuBuilders = {};
 };
@@ -515,15 +562,15 @@ MDSS.QueryPanel.prototype = {
   QUERY_DATA_TABLE : "queryDataTable",
 
   DATE_RANGE_DIV : "dateRange",
-  
+
   START_DATE_RANGE : "startDateRange",
-  
+
   END_DATE_RANGE : "endDateRange",
-  
+
   MAP_QUERY_BUTTON : "mapQueryButton",
-  
+
   RUN_QUERY_BUTTON : "runQueryButton",
-  
+
   /**
    * Returns the start date element wrapped
    * in a YUI Element object.
@@ -532,7 +579,7 @@ MDSS.QueryPanel.prototype = {
   {
     return this._startDate;
   },
-  
+
   /**
    * Returns the end date element wrapped
    * in a YUI Element object.
@@ -541,7 +588,7 @@ MDSS.QueryPanel.prototype = {
   {
     return this._endDate;
   },
-  
+
   /**
    * Returns the MDSS.QueryXML.Query object.
    */
@@ -559,7 +606,7 @@ MDSS.QueryPanel.prototype = {
     dateRange.set('id', this.DATE_RANGE_DIV);
 
     var startLabel = document.createElement('span');
-    startLabel.innerHTML = this._config.startDateLabel;
+    startLabel.innerHTML = MDSS.Localized.Query.Start_Date;
 
     this._startDate = new YAHOO.util.Element(document.createElement('input'));
     this._startDate.set('type', 'text');
@@ -567,23 +614,23 @@ MDSS.QueryPanel.prototype = {
     this._startDate.addClass('DatePick');
 
     var endLabel = document.createElement('span');
-    endLabel.innerHTML = this._config.endDateLabel;
+    endLabel.innerHTML = MDSS.Localized.Query.End_Date;
 
     this._endDate = new YAHOO.util.Element(document.createElement('input'));
     this._endDate.set('type', 'text');
     this._endDate.set('id', this.END_DATE_RANGE);
     this._endDate.addClass('DatePick');
-    
+
     // add the date fields
     dateRange.appendChild(startLabel);
     dateRange.appendChild(this._startDate);
     dateRange.appendChild(endLabel);
     dateRange.appendChild(this._endDate);
-    
+
     var body = new YAHOO.util.Element(this._topUnit.body);
     body.appendChild(dateRange);
   },
-  
+
   /**
    * Builds the query items/attributes and adds them
    * to the left panel.
@@ -592,11 +639,11 @@ MDSS.QueryPanel.prototype = {
   {
     var ul = new YAHOO.util.Element(document.createElement('ul'));
     ul.set('id', this.QUERY_ITEMS);
-    
+
     for(var i=0; i<this._queryItems.length; i++)
     {
       var queryItem = this._queryItems[i];
-    
+
       // create the item
       var li = document.createElement('li');
       var liE = new YAHOO.util.Element(li);
@@ -609,9 +656,9 @@ MDSS.QueryPanel.prototype = {
       }
 
       liE.set('id', queryItem.id);
-      
+
       ul.appendChild(li);
-      
+
       // add the builder function to create an entry
       // specific context menu
       if(Mojo.util.isFunction(queryItem.menuBuilder))
@@ -619,10 +666,10 @@ MDSS.QueryPanel.prototype = {
         this._queryMenuBuilders[queryItem.id] = queryItem.menuBuilder;
       }
     }
-    
+
     var body = new YAHOO.util.Element(this._leftUnit.body);
     body.appendChild(ul);
-    
+
     // add context menu for the query item list
     var menu = new YAHOO.widget.ContextMenu(this.QUERY_ITEMS+"_menu", {
       trigger:this.QUERY_ITEMS,
@@ -633,17 +680,17 @@ MDSS.QueryPanel.prototype = {
     menu.subscribe("beforeShow", this._queryMenuBeforeShow, {thisRef:this});
     menu.subscribe("triggerContextMenu", this._queryMenuTrigger, {thisRef:this});
   },
-  
+
   getTopUnit : function() { return this._topUnit; },
-  
+
   getLeftUnit : function() { return this._leftUnit; },
-  
+
   getBottomUnit : function() { return this._bottomUnit; },
-  
+
   getCenterUnit : function() { return this._centerUnit; },
-  
+
   getRightUnit : function() { return this._rightUnit; },
-  
+
   /**
    * Should be called after QueryPanel has been rendered.
    */
@@ -654,20 +701,20 @@ MDSS.QueryPanel.prototype = {
     this._bottomUnit = this._layout.getUnitByPosition('bottom');
     this._centerUnit = this._layout.getUnitByPosition('center');
     this._rightUnit = this._layout.getUnitByPosition('right');
-    
+
     // action buttons
     this._buildButtons();
-    
+
     // date range
     this._buildDateRange();
-    
+
     // query items
     this._buildQueryItems();
-    
+
     // content grid
     this._buildContentGrid();
   },
-  
+
   /**
    * Builds the buttons to perform actions in the QueryPanel.
    */
@@ -675,7 +722,7 @@ MDSS.QueryPanel.prototype = {
   {
   	this._mapButton = new YAHOO.util.Element(document.createElement('input'));
   	this._mapButton.set('type', 'button');
-  	this._mapButton.set('value', this._config.mapButtonLabel);
+  	this._mapButton.set('value', MDSS.Localized.Query.Map_Query);
   	this._mapButton.set('id', this.MAP_QUERY_BUTTON);
   	this._mapButton.addClass('queryButton');
   	this._mapButton.set('disabled', 'disabled');
@@ -683,16 +730,16 @@ MDSS.QueryPanel.prototype = {
 
   	runButton = new YAHOO.util.Element(document.createElement('input'));
   	runButton.set('type', 'button');
-  	runButton.set('value', this._config.runButtonLabel);
+  	runButton.set('value', MDSS.Localized.Query.Run_Query);
   	runButton.set('id', this.RUN_QUERY_BUTTON);
   	runButton.addClass('queryButton');
   	runButton.on('click', this._executeQuery, {}, this);
-  	
+
     var body = new YAHOO.util.Element(this._bottomUnit.body);
     body.appendChild(runButton);
     body.appendChild(this._mapButton);
   },
-  
+
   /**
    * Checks if the context menu has been triggered for
    * a TH tag.
@@ -706,7 +753,7 @@ MDSS.QueryPanel.prototype = {
       this.cancel();
     }
   },
-  
+
   /**
    * Checks if the context menu has been trigged for
    * an LI tag.
@@ -720,7 +767,7 @@ MDSS.QueryPanel.prototype = {
       this.cancel();
     }
   },
-  
+
   /**
    * Gets the header element from the given event target.
    * Null is returned if the header element is not found.
@@ -728,7 +775,7 @@ MDSS.QueryPanel.prototype = {
   _getHeader : function(oTarget)
   {
     var nodeName = oTarget.nodeName.toUpperCase();
-    
+
     if(nodeName === 'TH')
     {
       return oTarget;
@@ -742,7 +789,7 @@ MDSS.QueryPanel.prototype = {
       	return parent;
       }
     }
-    
+
     return null; // nothing found
   },
 
@@ -753,7 +800,7 @@ MDSS.QueryPanel.prototype = {
   _getListEntry : function(oTarget)
   {
     var nodeName = oTarget.nodeName.toUpperCase();
-    
+
     if(nodeName === 'LI')
     {
       return oTarget;
@@ -767,10 +814,10 @@ MDSS.QueryPanel.prototype = {
       	return parent;
       }
     }
-    
+
     return null; // nothing found
   },
-  
+
   /**
    * Modifies the table context menu
    * depending on the state of the QueryPanel.
@@ -778,15 +825,15 @@ MDSS.QueryPanel.prototype = {
   _tableMenuBeforeShow : function(a, b, c)
   {
     this.clearContent();
-    
+
     // get the header id
     var header = c.thisRef._getHeader(this.contextEventTarget);
 
-    // add items specific to the header    
+    // add items specific to the header
     if(header != null)
     {
       var column = c.thisRef._dataTable.getColumn(header);
-      var builder = c.thisRef._headerMenuBuilders[column != null ? column.getKey() : ''];        
+      var builder = c.thisRef._headerMenuBuilders[column != null ? column.getKey() : ''];
       var menuItems = builder != null ? builder(column) : [];
       this.addItems(menuItems);
     }
@@ -794,7 +841,7 @@ MDSS.QueryPanel.prototype = {
     {
       this.addItems([]);
     }
-    
+
     this.render();
   },
 
@@ -804,7 +851,7 @@ MDSS.QueryPanel.prototype = {
    */
   _queryMenuBeforeShow : function(a, b, c)
   {
-  	// this.contextEventTarget will be null for menu 
+  	// this.contextEventTarget will be null for menu
   	// dimensions > 1. Let render as normal.
     var cet = this.contextEventTarget
     if(cet != null)
@@ -813,11 +860,11 @@ MDSS.QueryPanel.prototype = {
       var liEntry = c.thisRef._getListEntry(cet);
 
       this.clearContent();
-      // add items specific to the list entry    
+      // add items specific to the list entry
 
       if(liEntry != null)
       {
-        var builder = c.thisRef._queryMenuBuilders[liEntry.id];        
+        var builder = c.thisRef._queryMenuBuilders[liEntry.id];
         var menuItems = builder != null ? builder(liEntry) : [];
         this.addItems(menuItems);
       }
@@ -825,11 +872,11 @@ MDSS.QueryPanel.prototype = {
       {
         this.addItems([]);
       }
-    
+
       this.render();
     }
   },
-  
+
   /**
    * Builds the content grid to contain the query criteria.
    */
@@ -838,7 +885,7 @@ MDSS.QueryPanel.prototype = {
   	// build the DataSource (required)
     var dataSource = new YAHOO.util.DataSource([]);
     dataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
-    
+
     dataSource.responseSchema = {
       fields: []
     };
@@ -846,7 +893,7 @@ MDSS.QueryPanel.prototype = {
   	this._dataTable = new YAHOO.widget.DataTable(this.QUERY_DATA_TABLE, [], dataSource);
 
   	this._dataTable.render();
-  	
+
   	// add context menu to table
     var menu = new YAHOO.widget.ContextMenu(this.QUERY_DATA_TABLE+"_menu", {
       trigger:this.QUERY_DATA_TABLE,
@@ -857,7 +904,7 @@ MDSS.QueryPanel.prototype = {
     menu.subscribe("beforeShow", this._tableMenuBeforeShow, {thisRef:this});
     menu.subscribe("triggerContextMenu", this._tableMenuTrigger, {thisRef:this});
   },
-  
+
   /**
    * Adds a new Query Item to the left column of the panel.
    */
@@ -865,7 +912,7 @@ MDSS.QueryPanel.prototype = {
   {
     this._queryItems.push(menuObj);
   },
-  
+
   /**
    * Inserts a new column into the query pane.
    * Returns an updated column object (the column
@@ -874,16 +921,16 @@ MDSS.QueryPanel.prototype = {
   insertColumn : function(column, menuBuilder)
   {
     column = this._dataTable.insertColumn(column);
-    
+
     if(Mojo.util.isFunction(menuBuilder))
     {
       // add mapping between column and menuItems
       this._headerMenuBuilders[column.getKey()] = menuBuilder;
     }
-    
+
     return column;
   },
-  
+
   /**
    * Removes the specified column from the table.
    */
@@ -891,7 +938,7 @@ MDSS.QueryPanel.prototype = {
   {
     this._dataTable.removeColumn(column);
   },
-  
+
   /**
    * Gets the column with given column reference or key or id.
    * Returns null if the column doesn't exist.
@@ -900,15 +947,15 @@ MDSS.QueryPanel.prototype = {
   {
     return this._dataTable.getColumn(column);
   },
-  
+
   /**
-   * 
+   *
    */
   getColumnSet : function()
   {
     return this._dataTable.getColumnSet();
   },
-  
+
   /**
    * Sets the row data on the data table.
    */
@@ -916,7 +963,7 @@ MDSS.QueryPanel.prototype = {
   {
   	this._dataTable.addRows(rowData);
   },
-  
+
   /**
    * Clears all records in the table.
    */
@@ -924,43 +971,46 @@ MDSS.QueryPanel.prototype = {
   {
   	this._dataTable.deleteRows(0, this._dataTable.getRecordSet().getLength());
   },
-  
+
   enableMapping : function()
   {
   	var mapButton = new YAHOO.util.Element(this.MAP_QUERY_BUTTON);
   	mapButton.set('disabled', '');
   },
-  
+
   isMappingEnabled : function()
   {
   	var mapButton = new YAHOO.util.Element(this.MAP_QUERY_BUTTON);
   	var disabled = mapButton.get('disabled');
     return disabled != true && disabled !== 'disabled';
   },
-  
+
   _mapQuery : function()
   {
-    
+    if(Mojo.util.isFunction(this._config.mapQuery))
+    {
+      this._config.mapQuery.call(this);
+    }
   },
-  
+
   /**
-   * Executes the Query as 
+   * Executes the Query as
    */
   _executeQuery : function()
   {
     if(Mojo.util.isFunction(this._config.executeQuery))
     {
       this._config.executeQuery.call(this);
-    }  	
+    }
   },
-  
+
   /**
    * Renders the QueryPanel and its sub-components.
    */
   render : function()
   {
   	this._layout.render();
-  	
+
   	this._postRender(); // FIXME have this be delayed or executed upon element load
   }
 };

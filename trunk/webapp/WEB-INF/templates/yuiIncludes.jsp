@@ -84,7 +84,9 @@ var locale = "<%=request.getLocale().toString()%>";
 <script type="text/javascript" src="js/AbstractTree.js"></script>
 <script type="text/javascript" src="js/GeoEntityTree.js"></script>
 <script type="text/javascript" src="js/GeoHierarchyTree.js"></script>
-<script type="text/javascript" src="js/SelectSearch.js"></script>
+<script type="text/javascript" src="js/AbstractSelectSearch.js"></script>
+<script type="text/javascript" src="js/SingleSelectSearch.js"></script>
+<script type="text/javascript" src="js/MultipleSelectSearch.js"></script>
 <script type="text/javascript" src="js/QueryPanel.js"></script>
 
 <!--  Stuff from the web designer  -->

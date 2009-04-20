@@ -1,6 +1,5 @@
 package dss.vector.solutions.geoserver;
 
-
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dss.vector.solutions.global.CredentialsSingleton;
-
 
 /**
  * Filter for the GeoServer webapp to check for a valid session in the MDSS
@@ -34,19 +32,27 @@ public class GeoServerRequestFilter implements Filter
     HttpServletRequest httpReq = (HttpServletRequest) req;
     HttpServletResponse httpRes = (HttpServletResponse) res;
 
-    Cookie[] cookies = httpReq.getCookies();
     boolean loggedIn = false;
-    if (cookies != null)
+
+    // First check if the session id has been passed into URL
+    String gSessionId = httpReq.getParameter(CredentialsSingleton.GLOBAL_SESSION_ID);
+    if (gSessionId == null)
     {
-      for (Cookie cookie : cookies)
+      Cookie[] cookies = httpReq.getCookies();
+      if (cookies != null)
       {
-        if (cookie.getName().equals(CredentialsSingleton.GLOBAL_SESSION_ID))
+        for (Cookie cookie : cookies)
         {
-          String sessionId = cookie.getValue();
-          loggedIn = CredentialsSingleton.getInstance().sessionIdExists(sessionId);
+          if (cookie.getName().equals(CredentialsSingleton.GLOBAL_SESSION_ID))
+          {
+            gSessionId = cookie.getValue();
+            break;
+          }
         }
       }
     }
+
+    loggedIn = CredentialsSingleton.getInstance().sessionIdExists(gSessionId);
 
     if (loggedIn)
     {

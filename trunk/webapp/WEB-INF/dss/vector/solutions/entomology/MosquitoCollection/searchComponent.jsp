@@ -25,41 +25,51 @@
 
   YAHOO.util.Event.onDOMReady(function(){
 
-    var opener = new YAHOO.util.Element("searchOpener");
-    opener.on("click", function(){
+    function selectHandler(selected)
+    {
+      var geoId = document.getElementById('geoIdEl');
 
-      if(MDSS.SelectSearch.isInitialized())
+      if(selected != null)
       {
-        MDSS.SelectSearch.show();
+        geoId.value = selected.getGeoId();
       }
       else
       {
-        var radios = YAHOO.util.Selector.query('input[type="radio"]', 'searchMosquitoCollections');
-        var filterType = '';
-        for(var i=0; i<radios.length; i++)
+        geoId.value = '';
+      }
+    }
+
+    var selectSearch = new MDSS.SingleSelectSearch();
+    selectSearch.setSelectHandler(selectHandler);
+    selectSearch.setTreeSelectHandler(selectHandler);
+    selectSearch.setFilter('');
+
+    var radios = YAHOO.util.Selector.query('input[type="radio"]', 'searchMosquitoCollections');
+    for(var i=0; i<radios.length; i++)
+    {
+      var radio = radios[i];
+      YAHOO.util.Event.on(radio, 'click', function(e, obj){
+
+        var radio = e.target;
+        if(radio.checked)
         {
-          var radio = radios[i];
-          if(radio.checked)
-          {
-            filterType = radio.value;
-          }
+          var filter = e.target.value;
+          this.setFilter(filter);
         }
 
-       function selectHandler(selected)
-       {
-         var geoId = document.getElementById('geoIdEl');
+      }, null, selectSearch);
+    }
 
-         if(selected != null)
-         {
-           geoId.value = selected.getGeoId();
-         }
-         else
-         {
-           geoId.value = '';
-         }
-       }
+    var opener = new YAHOO.util.Element("searchOpener");
+    opener.on("click", function(){
 
-       MDSS.SelectSearch.initialize(selectHandler, selectHandler, filterType);
+      if(selectSearch.isInitialized())
+      {
+        selectSearch.show();
+      }
+      else
+      {
+        selectSearch.render();
       }
     });
   }, null, true);
@@ -78,9 +88,9 @@
   <dl>
     <dt><fmt:message key="Filter"/></dt>
     <dd>
-      <input type="radio" name="filterType" value="" checked="checked" /><fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${SentinalSiteClass}" /><fmt:message key="Sentinal_Site"/> &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${NonSentinalSiteClass}" /><fmt:message key="Non_Sentinal_Site"/>
+      <input type="radio" name="filterType" value="" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" value="${SentinalSiteClass}" />&nbsp;<fmt:message key="Sentinal_Site"/> &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" value="${NonSentinalSiteClass}" />&nbsp;<fmt:message key="Non_Sentinal_Site"/>
     </dd>
     <dt> <label> ${item.geoEntityMd.displayLabel}</label></dt>
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>

@@ -15,30 +15,30 @@ private static final long serialVersionUID = 1236279045055L;
   private GeoHierarchyQuery geoHierarchyQuery;
 
   private MdBusinessQuery mdBusinessQuery;
-  
+
   private MdBusinessQuery parentMdBusinessQuery;
-  
+
 //  private String sortAttribute;
-  
+
 //  private Boolean ascending;
-  
+
   private Integer pageSize;
-  
+
   private Integer pageNumber;
 
   public GeoHierarchyViewQuery(com.terraframe.mojo.query.QueryFactory queryFactory, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
     super(queryFactory);
-    
+
 //    this.sortAttribute = sortAttribute;
 //    this.ascending = ascending;
     this.pageSize = pageSize;
     this.pageNumber = pageNumber;
-    
+
     geoHierarchyQuery = new GeoHierarchyQuery(queryFactory);
     mdBusinessQuery = new MdBusinessQuery(queryFactory);
     parentMdBusinessQuery = new MdBusinessQuery(queryFactory);
-    
+
     this.buildQuery(new DefaultGeoHierarchyViewBuilder(queryFactory));
   }
 
@@ -83,16 +83,16 @@ private static final long serialVersionUID = 1236279045055L;
     protected void buildWhereClause()
     {
       GeoHierarchyViewQuery vQuery = this.getViewQuery();
-      
+
       String earthName = Earth.CLASS.substring(Earth.CLASS.lastIndexOf(".")+1);
-      
+
       vQuery.WHERE(mdBusinessQuery.getIsAbstract().EQ(false));
       vQuery.WHERE(mdBusinessQuery.getTypeName().NE(earthName));
       vQuery.WHERE(geoHierarchyQuery.getGeoEntityClass().EQ(mdBusinessQuery));
       vQuery.WHERE(mdBusinessQuery.getSuperMdBusiness().EQ(parentMdBusinessQuery));
 
       vQuery.ORDER_BY_ASC(mdBusinessQuery.getDisplayLabel().currentLocale());
-      
+
       if(pageSize != null && pageNumber != null)
       {
         vQuery.restrictRows(pageSize, pageNumber);

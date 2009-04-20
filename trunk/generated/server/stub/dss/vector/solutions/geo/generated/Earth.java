@@ -12,16 +12,16 @@ import dss.vector.solutions.geo.DuplicateEarthException;
 public class Earth extends EarthBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236717064787L;
-  
+
   public Earth()
   {
     super();
   }
-  
+
   /**
    * Applies the Earth instance, but throws an exception
    * if the instance is new.
-   * 
+   *
    * @throws DuplicateEarthException if the instance is new.
    */
   @Override
@@ -30,16 +30,16 @@ public class Earth extends EarthBase implements com.terraframe.mojo.generation.l
     if(isNew())
     {
       MdBusiness earthMd = MdBusiness.getMdBusiness(Earth.CLASS);
-      
+
       String error = "Cannot define more than one instance of Earth.";
       DuplicateEarthException ex = new DuplicateEarthException(error);
       ex.setEarthName(earthMd.getDisplayLabel().getValue());
       throw ex;
     }
-    
+
     super.apply();
   }
-  
+
   /**
    * Delete method that always throws an exception. Earth cannot be deleted.
    */
@@ -53,17 +53,17 @@ public class Earth extends EarthBase implements com.terraframe.mojo.generation.l
     ex.setEarthName(earthMd.getDisplayLabel().getValue());
     throw ex;
   }
-  
+
   /**
    * Returns the one and only instance of Earth.
-   * 
+   *
    * @return
    */
   public static Earth getEarthInstance()
   {
     QueryFactory f = new QueryFactory();
     EarthQuery q = new EarthQuery(f);
-    
+
     OIterator<? extends Earth> iter = q.getIterator();
     try
     {
@@ -71,7 +71,7 @@ public class Earth extends EarthBase implements com.terraframe.mojo.generation.l
       {
         return iter.next(); // There will always be one.
       }
-      
+
       return null;
     }
     finally

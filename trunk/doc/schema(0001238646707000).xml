@@ -310,7 +310,7 @@
         </attributes>
       </mdView>
 
-      <mdRelationship
+      <mdTree
         name="dss.vector.solutions.geo.AllowedIn"
         label="Allowed In"
         description="Relates which GeoEntity classes are allowed within one another.">
@@ -322,9 +322,9 @@
           cardinality="*"
           name="dss.vector.solutions.geo.GeoHierarchy"
           method="AcceptsGeoEntity" />
-      </mdRelationship>
+      </mdTree>
 
-      <mdRelationship
+      <mdTree
         name="dss.vector.solutions.geo.LocatedIn"
         label="Located In"
         description="Relates how GeoEntities are located within one another.">
@@ -336,7 +336,7 @@
           cardinality="*"
           name="dss.vector.solutions.geo.generated.GeoEntity"
           method="ContainsGeoEntity" />
-      </mdRelationship>
+      </mdTree>
 
       <mdView
         name="dss.vector.solutions.geo.GeoEntityDefinition"
@@ -1710,6 +1710,12 @@
             description="Query XML"
             order="0"
             type="java.lang.String" />
+          <mdParameter
+            name="geoEntityType"
+            label="GeoEntity type"
+            description="The type on which to gather spatial data"
+            order="1"
+            type="java.lang.String" />
         </mdMethod>
         <mdMethod
           name="mapQuery"
@@ -1722,6 +1728,12 @@
             label="Query XML"
             description="Query XML"
             order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="geoEntityType"
+            label="GeoEntity type"
+            description="The type on which to gather spatial data"
+            order="1"
             type="java.lang.String" />
         </mdMethod>
       </mdBusiness>

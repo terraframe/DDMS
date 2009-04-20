@@ -11,7 +11,7 @@ MDSS.SingleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearch,
   {
     MDSS.AbstractSelectSearch.prototype.initialize.call(this);
   },
-  
+
   /**
    * Notifies the select handler that a GeoEntity
    * has been selected. The GeoEntityView is passed
@@ -19,18 +19,20 @@ MDSS.SingleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearch,
    */
   _notifySelectHandler : function(geoEntityView)
   {
+  	this._updateSelection(geoEntityView);
+
   	if(Mojo.util.isFunction(this._selectHandler))
   	{
   	  this._selectHandler(geoEntityView);
   	}
   },
-  
+
   /**
    * Invokes the appropriate controller action to
    * render the select search component.
    */
   _invokeControllerAction : function(request, rootId)
   {
-    Mojo.$.dss.vector.solutions.geo.GeoEntityTree.displaySingleSelectSearch(request, rootId);
+    Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySingleSelectSearch(request, rootId);
   },
 });

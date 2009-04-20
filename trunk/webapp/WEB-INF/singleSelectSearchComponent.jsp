@@ -2,18 +2,25 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="dss.vector.solutions.MDSSInfo"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
 
 <div id="selectSearchComponent">
   <dl>
   <c:forEach items="${views}" var="view" varStatus="status">
-  <dt>
+  <dt id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_dt">
+    <c:if test="${!status.first}">
+      <input type="checkbox" checked="checked" class="searchToggle" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_toggle" />&nbsp;
+    </c:if>
     ${view.displayLabel}
   </dt>
-  <dd>
-    <select disabled="disabled" style="width: 250px" size="2" multiple="multiple" name="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}">
+  <dd id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_dd">
+    <div class="typeContainer" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_container">
       <c:if test="${!status.first}">
-        <option value="DEFAULT">All</option>
-      </c:if>
+      <input type="text" class="ajaxSearch" value="" style="width: 225px" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_search" /><br />
+      <div id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_results" class="ajaxResults"></div>
+    </c:if>
+    <select disabled="disabled" style="width: 250px" name="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}">
+      <option value="DEFAULT"><f:message key="Select_One"/></option>
     </select>
       <c:choose>
         <c:when test="${status.first}">
@@ -23,13 +30,13 @@
             </div>
         </c:when>
         <c:otherwise>
-          <input type="text" class="manualEntry" id="${view.typeName}_manualEntry" size="6" maxlength="6" /><input type="button" class="manualSearch" id="${view.typeName}_manualSearch" value="Search" />
+          <input type="text" class="manualEntry" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_manualEntry" size="6" /><input type="button" class="manualSearch" id="${view.typeName}_manualSearch" value="Search" />
         </c:otherwise>
       </c:choose>
+    </div>
   </dd>
   </c:forEach>
   </dl>
-  Best Fit:
   <dl style="height: 100px;">
     <dt id="bestFitName">
     </dt>

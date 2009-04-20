@@ -1,20 +1,26 @@
 package dss.vector.solutions.entomology;
 
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.terraframe.mojo.business.BusinessFacade;
+import com.terraframe.mojo.constants.DatabaseProperties;
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.database.Database;
+import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
+import com.terraframe.mojo.gis.dataaccess.MdAttributeGeometryDAOIF;
+import com.terraframe.mojo.query.GeneratedBusinessQuery;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryParser;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.SentinalSite;
 import dss.vector.solutions.geo.generated.SentinalSiteQuery;
 
 public class Mosquito extends MosquitoBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -34,7 +40,6 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     query.WHERE(query.getMosquito().EQ(this));
 
     OIterator<? extends AssayTestResult> iterator = query.getIterator();
-
     while(iterator.hasNext())
     {
       list.add(iterator.next());
@@ -48,8 +53,8 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   @Override
   public void delete()
   {
-    //DELETE all of the mosquito test results first
-    for(AssayTestResult result : this.getTestResults())
+    // DELETE all of the mosquito test results first
+    for (AssayTestResult result : this.getTestResults())
     {
       result.delete();
     }
@@ -70,7 +75,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     view.setMosquitoId(this.getId());
     view.setSampleId(this.getSampleId());
 
-    if(this.getSex().size() > 0)
+    if (this.getSex().size() > 0)
     {
       view.addSex(this.getSex().get(0));
     }
@@ -79,7 +84,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     {
       view.setAssays(this.getTestResults());
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       throw new RuntimeException(e);
     }
@@ -91,9 +96,9 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
   public AssayTestResult getTestResult(Class<AssayTestResult> c)
   {
-    for(AssayTestResult result : this.getTestResults())
+    for (AssayTestResult result : this.getTestResults())
     {
-      if(c.isInstance(result))
+      if (c.isInstance(result))
       {
         return result;
       }
@@ -103,17 +108,40 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   }
 
   /**
-   * Queries for Mosquitos.
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
    *
    * @param xml
+   * @return
    */
-  public static com.terraframe.mojo.query.ValueQuery queryEntomology(String xml)
+  private static ValueQuery xmlToValueQuery(String xml, String geoEntityType, boolean includeGeometry)
   {
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     ValueQueryParser valueQueryParser = new ValueQueryParser(xml, valueQuery);
+
+    // include the geometry of the GeoEntity
+    if (includeGeometry)
+    {
+      MdBusiness geoEntityMd = MdBusiness.getMdBusiness(geoEntityType);
+
+      MdBusinessDAO geoEntityMdDAO = (MdBusinessDAO) BusinessFacade.getEntityDAO(geoEntityMd);
+      List<? extends MdAttributeDAOIF> attributeDAOs = geoEntityMdDAO.getAllDefinedMdAttributes();
+
+      String attributeName = null;
+      for(MdAttributeDAOIF attributeDAO : attributeDAOs)
+      {
+        if (attributeDAO instanceof MdAttributeGeometryDAOIF)
+        {
+          attributeName = attributeDAO.definesAttribute();
+          break;
+        }
+      }
+
+      valueQueryParser.addAttributeSelectable(geoEntityType, attributeName, "");
+    }
 
     Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
 
@@ -125,8 +153,13 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     MosquitoCollectionQuery collectionQuery = new MosquitoCollectionQuery(queryFactory);
     valueQuery.WHERE(mosquitoQuery.getCollection().EQ(collectionQuery));
 
+    // join collection with geo entity and select that entity type's geometry
+    GeneratedBusinessQuery businessQuery = (SentinalSiteQuery) queryMap.get(geoEntityType);
+
+    valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(businessQuery));
+
     // join collection with geo entity
-    SentinalSiteQuery ssQuery = (SentinalSiteQuery) queryMap.get(SentinalSite.CLASS);
+    SentinalSiteQuery ssQuery = (SentinalSiteQuery) queryMap.get(geoEntityType);
     valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(ssQuery));
 
     String sql = valueQuery.getSQL();
@@ -135,8 +168,43 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     return valueQuery;
   }
 
-  public static String mapQuery(String xml)
+  /**
+   * Queries for Mosquitos.
+   *
+   * @param xml
+   */
+  public static com.terraframe.mojo.query.ValueQuery queryEntomology(String xml, String geoEntityType)
   {
-    return null; // return DB::View
+    return xmlToValueQuery(xml, geoEntityType, false);
+  }
+
+  /**
+   * Creates a
+   *
+   * @param xml
+   * @return
+   */
+  public static String mapQuery(String xml, String geoEntityType)
+  {
+    ValueQuery query = xmlToValueQuery(xml, geoEntityType, true);
+    String sql = query.getSQL();
+
+    String viewName = "MDSSTest";
+
+    try
+    {
+      Database.dropView(viewName);
+    }
+    catch (Exception e)
+    {
+      // FIXME ignore for testing
+    }
+
+    Database.createView(viewName, sql);
+
+    String db = DatabaseProperties.getDatabaseName();
+    String dbView = db + "::" + viewName;
+
+    return dbView;
   }
 }

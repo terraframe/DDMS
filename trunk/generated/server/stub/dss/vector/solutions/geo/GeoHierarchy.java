@@ -45,15 +45,15 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   private static final long serialVersionUID = 1236133816255L;
 
   private static final Integer SRID = 4326;
-  
+
   public GeoHierarchy()
   {
     super();
   }
-  
+
   /**
    * Returns the {@link GeoHierarchyView} that represents Earth.
-   * 
+   *
    * @return
    */
   public static GeoHierarchyView getEarthGeoHierarchy()
@@ -64,7 +64,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Returns a JSON object representing the allowed GeoEntity types within the
    * GeoEntity of the given id.
-   * 
+   *
    * @param geoEntityId
    * @return
    */
@@ -81,7 +81,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       JSONObject types = new JSONObject();
       HashSet<String> imports = new HashSet<String>();
 
-      treeRecurse(types, imports, geo);
+      treeRecurse(types, imports, geo, null);
 
       map.put("types", types);
       map.put("imports", new JSONArray(imports));
@@ -97,7 +97,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Returns the GeoHiearachy representative of the given type (a GeoEntity
    * subtype).
-   * 
+   *
    * @param mdType
    * @return
    */
@@ -106,24 +106,24 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     MdBusiness md = MdBusiness.getMdBusiness(mdType);
     return getGeoHierarchyFromType(md);
   }
-  
+
   /**
    * Recursively collects all parents of the AllowedIn relationship.
-   * 
+   *
    * @return
    */
   public List<GeoHierarchy> getAllParents()
   {
     List<GeoHierarchy> allParents = new LinkedList<GeoHierarchy>();
-    
+
     getAllParents(allParents, this);
-    
+
     return allParents;
   }
-  
+
   /**
    * Recursive method that collects all parents for the given parent.
-   * 
+   *
    * @param allChildren
    * @param parent
    * @return
@@ -140,7 +140,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Returns all parents of the first level of the AllowedIn relationship.
-   * 
+   *
    * @return
    */
   public List<GeoHierarchy> getImmediateParents()
@@ -165,21 +165,21 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Recursively collects all children of the AllowedIn relationship.
-   * 
+   *
    * @return
    */
   public List<GeoHierarchy> getAllChildren()
   {
     List<GeoHierarchy> allChildren = new LinkedList<GeoHierarchy>();
-    
+
     getAllChildren(allChildren, this);
-    
+
     return allChildren;
   }
-  
+
   /**
    * Recursive method that collects all children for the given parent.
-   * 
+   *
    * @param allChildren
    * @param parent
    * @return
@@ -193,10 +193,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       getAllChildren(allChildren, child);
     }
   }
-  
+
   /**
    * Returns all children of the first level of the AllowedIn relationship.
-   * 
+   *
    * @return
    */
   public List<GeoHierarchy> getImmediateChildren()
@@ -218,11 +218,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     return children;
   }
-  
+
   /**
    * Returns the GeoHierarchy representative of the given MdBusiness (a
    * GeoEntity subtype).
-   * 
+   *
    * @param md
    * @return
    */
@@ -239,7 +239,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       {
         return iter.next();
       }
-      
+
       return null;
     }
     finally
@@ -251,36 +251,48 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Recursive function to build a tree structure denoting what GeoHierarchy
    * types are allowed in one another.
-   * 
+   *
    * @param types
    * @param imports
-   * @param geo
+   * @param parent
    * @throws JSONException
    */
-  private static void treeRecurse(JSONObject types, HashSet<String> imports, GeoHierarchy geo)
+  private static void treeRecurse(JSONObject types, HashSet<String> imports, GeoHierarchy parent, GeoHierarchy grandParent)
       throws JSONException
   {
-    List<GeoHierarchy> geos = geo.getImmediateChildren();
+    List<GeoHierarchy> children = parent.getImmediateChildren();
 
     JSONArray allowed = new JSONArray();
-    for (int i = 0; i < geos.size(); i++)
+    for (int i = 0; i < children.size(); i++)
     {
-      GeoHierarchy g = geos.get(i);
+      GeoHierarchy child = children.get(i);
 
-      MdBusiness md = g.getGeoEntityClass();
+      MdBusiness md = child.getGeoEntityClass();
       String type = md.getPackageName() + "." + md.getTypeName();
 
       allowed.put(type);
 
-      treeRecurse(types, imports, g);
+      treeRecurse(types, imports, child, parent);
     }
 
-    MdBusiness md = geo.getGeoEntityClass();
+    MdBusiness md = parent.getGeoEntityClass();
 
     String type = md.getPackageName() + "." + md.getTypeName();
-    
+
+    Object grandParentType;
+    if(grandParent != null)
+    {
+      MdBusiness gMd = grandParent.getGeoEntityClass();
+      grandParentType = (String) gMd.getPackageName() + "." + gMd.getTypeName();
+    }
+    else
+    {
+      grandParentType = JSONObject.NULL;
+    }
+
     JSONObject labelAndChildren = new JSONObject();
     labelAndChildren.put("label", md.getDisplayLabel());
+    labelAndChildren.put("parent", grandParentType);
     labelAndChildren.put("children", allowed);
     types.put(type, labelAndChildren);
 
@@ -290,7 +302,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Static accessor to delete the given GeoHierarchy.
-   * 
+   *
    * @param geoHierarchyId
    */
   public static void deleteGeoHierarchy(String geoHierarchyId)
@@ -304,7 +316,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   {
     return this.getMdClass().getTypeName()+"_"+this.getGeoEntityClass().getTypeName();
   }
-  
+
   /**
    * Deletes this GeoHierarchy and it's associated MdBusiness that defines a
    * GeoEntity subtype. All children are deleted recursively.
@@ -342,7 +354,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Defines a new GeoEntity type. This method will error out if there are any
    * problems.
-   * 
+   *
    * @param definition
    * @param allowedInIds
    * @return
@@ -356,7 +368,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     {
       definesGeometry = true;
     }
-    
+
     // define the new MdBusiness
     String typeName = definition.getTypeName();
     String label = definition.getDisplayLabel();
@@ -372,7 +384,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     mdGeoEntity.setPublish(true);
 
     GeoHierarchy geoEntityH = GeoHierarchy.getGeoHierarchyFromType(GeoEntity.CLASS);
-    
+
     String parentTypeGeoHierarchyId = definition.getParentTypeGeoHierarchyId();
     MdBusiness parent;
     if(parentTypeGeoHierarchyId != null
@@ -386,14 +398,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       if(definesGeometry)
       {
         MdAttributeGeometry geoAttrMd = null;
-        
+
         OIterator<? extends MdAttribute> iter = parent.getAllAttribute();
         try
         {
           while(iter.hasNext())
           {
             MdAttribute tempGeoMd = iter.next();
-            
+
             if(tempGeoMd instanceof MdAttributeGeometry)
             {
               geoAttrMd = (MdAttributeGeometry) tempGeoMd;
@@ -405,9 +417,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
         {
           iter.close();
         }
-        
+
         String geoLabel = geoAttrMd.getDisplayLabel();
-        
+
         String error = "Cannot define a geometry type because the parent ["+parent.getDisplayLabel().getValue()+"] already " +
         		"defines the geometry ["+geoLabel+"].";
         SpatialTypeDefinedException ex = new SpatialTypeDefinedException(error);
@@ -424,10 +436,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements
         SpatialTypeRequiredException ex = new SpatialTypeRequiredException(error);
         throw ex;
       }
-      
+
       parent = geoEntityH.getGeoEntityClass();
     }
-    
+
     mdGeoEntity.setSuperMdBusiness(parent);
     mdGeoEntity.apply();
 
@@ -436,7 +448,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     {
       addGeometryAttribute(mdGeoEntity, spatialTypes.get(0));
     }
-    
+
     // create the GeoHeirachy and relationship
     GeoHierarchy geoHierarchy = new GeoHierarchy();
     geoHierarchy.setPolitical(definition.getPolitical());
@@ -449,19 +461,19 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     return geoHierarchy.getId();
   }
-  
+
   @Override
   public void confirmChangeParent(String parentId)
   {
     GeoHierarchy view = GeoHierarchy.get(parentId);
     String label = view.getGeoEntityClass().getDisplayLabel().getValue();
-    
+
     String error = "Delete the old relationship with ["+label+"] or the Hierarchy?";
     ConfirmHierarchyParentChangeException ex = new ConfirmHierarchyParentChangeException(error);
     ex.setParentDisplayLabel(label);
     throw ex;
   }
-  
+
   @Override
   public void confirmDeleteHierarchy(String parentId)
   {
@@ -470,7 +482,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     {
       GeoHierarchy parent = GeoHierarchy.get(parentId);
       String label = parent.getGeoEntityClass().getDisplayLabel().getValue();
-      
+
       String error = "Delete the old relationship with ["+label+"] or the Hierarchy?";
       ConfirmDeleteHierarchyException ex = new ConfirmDeleteHierarchyException(error);
       ex.setParentDisplayLabel(label);
@@ -481,7 +493,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       this.delete();
     }
   }
-  
+
   @Override
   @Transaction
   public void deleteRelationship(String parentId)
@@ -490,7 +502,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     AllowedInQuery query = new AllowedInQuery(f);
     query.WHERE(query.childId().EQ(this.getId()));
     query.WHERE(query.parentId().EQ(parentId));
-    
+
     OIterator<? extends AllowedIn> iter = query.getIterator();
     try
     {
@@ -504,16 +516,16 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       iter.close();
     }
   }
-  
+
   /**
    * Adds a Geometric attribute to the given MdBusiness.
-   * 
+   *
    * @param mdGeoEntity
    * @param spatialType
    */
   private static void addGeometryAttribute(MdBusiness mdGeoEntity, SpatialTypes spatialType)
   {
-    
+
     MdAttributeGeometry attr;
     if(spatialType == SpatialTypes.POINT)
     {
@@ -550,10 +562,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       String error = "The geometry type ["+spatialType.getDisplayLabel()+"] is not supported.";
       throw new ProgrammingErrorException(error);
     }
-    
+
     String attrDisplayLabel = spatialType.getDisplayLabel();
-    
-    attr.setDisplayLabel(attrDisplayLabel);  
+
+    attr.setDisplayLabel(attrDisplayLabel);
     attr.setDefiningMdClass(mdGeoEntity);
     attr.setSrid(SRID);
     attr.apply();
@@ -586,7 +598,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Updates a GeoHierarchy and its enclosed MdBusiness
-   * 
+   *
    * @param view
    */
   @Transaction
@@ -607,7 +619,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Adds the given childGeoHierarchyId as a child of the given
    * parentGeoHierarchyId in the {@link AllowedIn} relationship.
-   * 
+   *
    * @param childId
    * @param parentId
    * @param cloneOperation
@@ -623,14 +635,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     if (childGeoHierarchy.getId().equals(parentGeoHierarchy.getId()))
     {
       String childLabel = childGeoHierarchy.getGeoEntityClass().getDisplayLabel().getValue();
-      
+
       String error = "The child [" + childLabel + "] cannot be its own parent.";
 
       AllowedInSelfException e = new AllowedInSelfException(error);
       e.setDisplayLabel(childLabel);
       throw e;
     }
-    
+
     validateModifyGeoHierarchy(childGeoHierarchy);
 
     if (!cloneOperation)
@@ -680,18 +692,18 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * Checks that the GeoHierarchy can be modified, which is only possible if no
    * GeoEntity instances have been created for any types except the single Earth
    * instance.
-   * 
+   *
    * @throws ModifyHierarchyWithInstancesException
    */
   private static void validateModifyGeoHierarchy(GeoHierarchy toValidate)
   {
     QueryFactory f = new QueryFactory();
     GeoEntityQuery q = new GeoEntityQuery(f);
-    
+
     // the GeoHierarchy to modify cannot have any children (recursively)
     List<GeoHierarchy> included = toValidate.getAllChildren();
     included.add(toValidate);
-    
+
     String[] typeNames = new String[included.size()];
 
     int count = 0;
@@ -701,7 +713,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       typeNames[count] = md.getPackageName()+"."+md.getTypeName();
       count++;
     }
-    
+
     q.WHERE(q.getType().IN(typeNames));
 
     if (q.getCount() > 0)
@@ -717,7 +729,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * Returns all GeoHierarchy views that fit the following critiera. Note that a
    * GeoHierarchy that maps to an abstract GeoEntity subtype will not be
    * included, for those are used internally only.
-   * 
+   *
    * @param sortAttribute
    * @param ascending
    * @param pageSize
@@ -750,7 +762,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     view.setDisplayLabel(md.getDisplayLabel().getValue());
     view.setReferenceId(md.getId());
     view.setGeoHierarchyId(this.getId());
-    
+
     MdBusiness superMd = this.getGeoEntityClass().getSuperMdBusiness();
     String isADisplayLabel = (superMd != null) ? superMd.getDisplayLabel().getValue() : "";
     view.setIsADisplayLabel(isADisplayLabel);
@@ -774,7 +786,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Returns all political GeoHierarchy views starting with the GeoHierarchy
    * that represents the given GeoEntity.
-   * 
+   *
    * @param geoEntityId
    * @return
    */
@@ -787,7 +799,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   /**
    * Returns all political GeoHierarchies under and including the given type.
-   * 
+   *
    * @param type
    * @return
    */
@@ -820,38 +832,38 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   public static void addGeoHierarchyJoinConditions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryParserMap)
   {
     QueryFactory queryFactory = valueQuery.getQueryFactory();
-    
+
     Map<String, GeneratedEntityQuery> geoEntityQueryMap = new HashMap<String, GeneratedEntityQuery>();
     HashMap<String, GeoHierarchy> geoHierarchyMap = new HashMap<String, GeoHierarchy>();
-    
+
     // Identify the entities in the query that are GeoEntities
     for (GeneratedEntityQuery entityQuery : queryParserMap.values())
     {
       if (GeoEntityQuery.class.isAssignableFrom(entityQuery.getClass()))
       {
         String type = entityQuery.getClassType();
-        
+
         geoEntityQueryMap.put(type, entityQuery);
-        
+
         geoHierarchyMap.put(type, getGeoHierarchyFromType(type));
       }
     }
-  
-    
+
+
     // Get all children of Earth
     GeoHierarchy earthGeoHierarchy = getGeoHierarchyFromType(Earth.CLASS);
-    List<GeoHierarchy> allEarthChildren = new LinkedList<GeoHierarchy>();  
+    List<GeoHierarchy> allEarthChildren = new LinkedList<GeoHierarchy>();
     getAllChildren(allEarthChildren, earthGeoHierarchy);
 
-    
+
     List<GeoHierarchy> pathFromParentToChild = new LinkedList<GeoHierarchy>();
-    
+
 //    for (GeoHierarchy childOfEarthGeoHierarchy : allEarthChildren)
 //    {
 //      System.out.println( childOfEarthGeoHierarchy.getGeoEntityClass().definesType());
 //    }
-    
-    GeoHierarchy parentMostGeoHierarchy = null;    
+
+    GeoHierarchy parentMostGeoHierarchy = null;
     HashMap<String, GeoHierarchy> cloneGeoHierarchyMap = (HashMap<String, GeoHierarchy>)geoHierarchyMap.clone();
     // locate the bottom of the hierarchy in this query
     // locate the top of the hierarchy in this query
@@ -859,23 +871,23 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     for (GeoHierarchy childOfEarthGeoHierarchy : allEarthChildren)
     {
       String childOfEarthType = childOfEarthGeoHierarchy.getGeoEntityClass().definesType();
-      
-      if (parentMostGeoHierarchy == null && 
+
+      if (parentMostGeoHierarchy == null &&
           cloneGeoHierarchyMap.containsKey(childOfEarthType))
       {
         parentMostGeoHierarchy = cloneGeoHierarchyMap.get(childOfEarthType);
       }
-      
+
       if (parentMostGeoHierarchy != null && cloneGeoHierarchyMap.containsKey(childOfEarthType))
       {
         pathFromParentToChild.add(childOfEarthGeoHierarchy);
       }
-      
+
       if (cloneGeoHierarchyMap.size() <= 0)
       {
         break;
       }
-        
+
       cloneGeoHierarchyMap.remove(childOfEarthType);
     }
 
@@ -884,17 +896,17 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     for (GeoHierarchy geoHierarchy : pathFromParentToChild)
     {
       String type = geoHierarchy.getGeoEntityClass().definesType();
-      
+
       // No criteria was specified for this entity universal in the path from parent to child.  We need
       // to add it to the map.
       if (!queryParserMap.containsKey(type))
-      {       
+      {
         String queryType = EntityQueryAPIGenerator.getQueryClass(type);
-        
+
         Class<?> queryClass = LoaderDecorator.load(queryType);
-        
+
         GeneratedEntityQuery generatedEntityQuery = null;
-        
+
         try
         {
           generatedEntityQuery = (GeneratedEntityQuery)queryClass.getConstructor(QueryFactory.class).newInstance(queryFactory);
@@ -904,7 +916,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
         {
           throw new ProgrammingErrorException(e);
         }
-        
+
         QueryFacade.setUsedInSelectClause(valueQuery, generatedEntityQuery);
       }
     }
@@ -918,13 +930,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements
        {
          GeoHierarchy childGeoHierarchy =  pathFromParentToChild.get(i);
          GeoHierarchy parentGeoHierarchy =  pathFromParentToChild.get(i - 1);
-         
+
          String childType = childGeoHierarchy.getGeoEntityClass().definesType();
          String parentType = parentGeoHierarchy.getGeoEntityClass().definesType();
-         
+
          GeoEntityQuery childQuery = (GeoEntityQuery)queryParserMap.get(childType);
          GeoEntityQuery parentQuery = (GeoEntityQuery)queryParserMap.get(parentType);
-         
+
          valueQuery.AND(childQuery.locatedInGeoEntity(parentQuery));
        }
        else
@@ -932,9 +944,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
          break;
        }
     }
-    
+
   }
-  
+
   /**
    * Gets GeoHierarchy views that are immediate children of the given
    * GeoHierarchy.
@@ -948,7 +960,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     private AllowedInQuery    allowedInQuery;
 
     private MdBusinessQuery   mdBusinessQuery;
-    
+
     private MdBusinessQuery parentMdBusinessQuery;
 
     protected OrderedGeoHiearchyQueryBuilder(QueryFactory queryFactory, GeoHierarchy geoHierarchy)
@@ -989,7 +1001,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
       vQuery.WHERE(mdBusinessQuery.getIsAbstract().EQ(false));
       vQuery.WHERE(geoHierarchyQuery.getGeoEntityClass().EQ(mdBusinessQuery));
-      
+
       vQuery.WHERE(mdBusinessQuery.getSuperMdBusiness().EQ(parentMdBusinessQuery));
 
       vQuery.ORDER_BY_ASC(mdBusinessQuery.getDisplayLabel().currentLocale());

@@ -399,10 +399,20 @@ div.yui-module div.bd form dl {
 	margin-bottom: 5px;
 }
 
-ul.selectableTypes {
+ul.selectableList {
 	cursor: pointer;
 }
 
 li.currentSelection {
 	background-color: white;
+}
+
+div.entitySearchResults {
+	overflow-y: scroll;
+	height: 150px;
+	width: 100%;
+}
+
+span.searchMatch {
+	color: green;
 }

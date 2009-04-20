@@ -14,6 +14,11 @@
             size="64"
             label="The GeoEntity id" />
           <char
+            name="typeDisplayLabel"
+            required="true"
+            size="100"
+            label="The GeoEntity type's display label" />
+          <char
             name="entityType"
             required="true"
             size="255"
@@ -35,7 +40,7 @@
             concrete="activated" />
         </attributes>
       </mdView>
-      
+
       <mdException
         name="dss.vector.solutions.geo.AllowedInSelfException"
         label="Allowed In Self Exception"
@@ -49,7 +54,7 @@
             description="GeoHierarchy Display Label" />
         </attributes>
       </mdException>
-      
+
       <mdException
         name="dss.vector.solutions.geo.ConfirmDeleteHierarchyException"
         label="Confirm delete hierarchy exception"
@@ -63,7 +68,7 @@
             description="Parent GeoHierarchy Display Label" />
         </attributes>
       </mdException>
-      
+
       <mdException
         name="dss.vector.solutions.geo.ConfirmHierarchyParentChangeException"
         label="Confirmation Hierarhcy Parent Change Exception"
@@ -77,7 +82,7 @@
             description="Parent Display Label" />
         </attributes>
       </mdException>
-      
+
       <mdException
         name="dss.vector.solutions.geo.DuplicateHierarchyParentException"
         label="Duplicate Hierarchy Parent Exception"
@@ -96,9 +101,9 @@
         </attributes>
       </mdException>
     </create>
-    
+
     <update>
-    
+
       <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
         <create>
           <mdMethod
@@ -106,7 +111,7 @@
             label="Search By Entity Name"
             description="Returns a list of GeoEntityViews that match the search criteria."
             static="true"
-            returnType="dss.vector.solutions.geo.GeoEntityViewQuery">
+            returnType="com.terraframe.mojo.query.ValueQuery">
             <mdParameter
               name="entityType"
               label="Entity Type"
@@ -120,7 +125,7 @@
           </mdMethod>
         </create>
       </mdBusiness>
-    
+
       <mdBusiness name="dss.vector.solutions.geo.GeoHierarchy">
         <create>
           <mdMethod
@@ -182,7 +187,7 @@
       </mdBusiness>
 
       <!-- Possible Bug when this is included as a create in the above MdBusiness tag.
-           The MdMethod was never created (verify this with Smethie). -->      
+           The MdMethod was never created (verify this with Smethie). -->
       <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
         <create>
           <mdMethod
@@ -197,12 +202,29 @@
               order="0"
               type="java.lang.String" />
           </mdMethod>
+          <mdMethod
+            name="collectAllLocatedIn"
+            label="Collect All Located In"
+            description="Recursively collects all located in relationships."
+            returnType="dss.vector.solutions.geo.GeoEntityView[]"
+            static="false">
+            <mdParameter
+              name="includeParents"
+              label="Include Parents"
+              order="0"
+              type="java.lang.Boolean"/>
+            <mdParameter
+              name="filter"
+              label="Type Filter"
+              order="1"
+              type="java.lang.String" />
+          </mdMethod>
         </create>
       </mdBusiness>
 
     </update>
-    
-    
+
+
   </doIt>
   <undoIt>
   </undoIt>

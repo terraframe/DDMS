@@ -1,5 +1,8 @@
 package dss.vector.solutions.geo.generated;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,14 +13,19 @@ import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdBusiness;
+import com.terraframe.mojo.system.metadata.MdBusinessQuery;
+import com.terraframe.mojo.system.metadata.MdClass;
 
+import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.ConfirmDeleteEntityException;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
 import dss.vector.solutions.geo.DuplicateParentException;
@@ -47,7 +55,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
   /**
    * Applies this GeoEntity and recursively sets the activated status of all
    * children if the status has changed on the parent.
-   * 
+   *
    * @return
    */
   @Transaction
@@ -70,7 +78,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
   /**
    * Updates this GeoEntity and its children if its activated attribute has been
    * modified.
-   * 
+   *
    * @return
    */
   @Override
@@ -139,17 +147,30 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Searches for a GeoEntity based on the entity name and type.
-   * 
+   *
    * @param type
    * @param name
    * @return
    */
-  public static GeoEntityViewQuery searchByEntityName(String type, String name)
+  public static ValueQuery searchByEntityName(String type, String name)
   {
     QueryFactory f = new QueryFactory();
-    SearchGeoEntityViewQueryBuilder builder = new SearchGeoEntityViewQueryBuilder(f, type, name);
-    GeoEntityViewQuery query = new GeoEntityViewQuery(f, builder);
-    return query;
+    GeoEntityQuery q = new GeoEntityQuery(f);
+    ValueQuery valueQuery = new ValueQuery(f);
+
+    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID),
+        q.getEntityName(GeoEntity.ENTITYNAME) };
+    valueQuery.SELECT(selectables);
+
+    valueQuery.WHERE(q.getType().EQ(type));
+
+    String searchable = "%" + name + "%";
+    valueQuery.WHERE(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable));
+
+    // FIXME apply a filter
+    // FIXME how to limit result set?
+
+    return valueQuery;
   }
 
   /**
@@ -166,18 +187,18 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     throw ex;
   }
-  
+
   /**
    * Throws an exception to alert the user before they try to delete an entity
-   * with more than on parent. If the entity only has one parent, then entity
-   * is deleted as normal.
+   * with more than on parent. If the entity only has one parent, then entity is
+   * deleted as normal.
    */
   @Override
   public void confirmDeleteEntity(String parentId)
   {
 
     List<GeoEntity> parents = this.getImmediateParents();
-    if(parents.size() > 1)
+    if (parents.size() > 1)
     {
       GeoEntity parent = GeoEntity.get(parentId);
       ConfirmDeleteEntityException ex = new ConfirmDeleteEntityException();
@@ -190,7 +211,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
       this.delete();
     }
   }
-  
+
   @Override
   @Transaction
   public void deleteRelationship(String parentId)
@@ -199,11 +220,11 @@ public abstract class GeoEntity extends GeoEntityBase implements
     LocatedInQuery query = new LocatedInQuery(f);
     query.WHERE(query.childId().EQ(this.getId()));
     query.WHERE(query.parentId().EQ(parentId));
-    
+
     OIterator<? extends LocatedIn> iter = query.getIterator();
     try
     {
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         iter.next().delete();
       }
@@ -232,8 +253,106 @@ public abstract class GeoEntity extends GeoEntityBase implements
   }
 
   /**
+   * This GeoEntity is equal to the given object if the object is the same
+   * object reference or if the ids match.
+   */
+  @Override
+  public boolean equals(Object obj)
+  {
+    boolean equals = super.equals(obj);
+
+    if (!equals && obj instanceof GeoEntity)
+    {
+      equals = this.getId().equals( ( (GeoEntity) obj ).getId());
+    }
+
+    return equals;
+  }
+
+  /**
+   * Searches for the GeoEntity with the given geoId and returns itself and its
+   * children and parents.
+   *
+   * @param geoId
+   * @param filter
+   * @return
+   */
+  public static GeoEntityView[] searchAndCollectByGeoId(String geoId, String filter)
+  {
+    GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
+
+    return geoEntity.collectAllLocatedIn(true, filter);
+  }
+
+  /**
+   * Collects all children and parents (optional) for the located in
+   * relationship.
+   */
+  @Override
+  public GeoEntityView[] collectAllLocatedIn(Boolean includeParents, String filter)
+  {
+    Set<GeoEntity> collected = new HashSet<GeoEntity>();
+
+    collected.add(this);
+
+    if (includeParents)
+    {
+      collected.addAll(this.getAllParents());
+    }
+
+    // include this GeoEntity and its children
+    collected.addAll(this.getImmediateChildren());
+
+    // translate the GeoEntities into their views
+    // and filter out all unallowed types.
+    List<GeoEntityView> finalList = new LinkedList<GeoEntityView>();
+
+    Set<String> filteredTypes = null;
+    if(filter != null && filter.trim().length() > 0)
+    {
+      String types[] = filteredTypes(filter);
+      filteredTypes = new HashSet<String>(Arrays.asList(types));
+    }
+
+    for (GeoEntity geoEntity : collected)
+    {
+      if(filteredTypes != null && !filteredTypes.contains(geoEntity.getType()))
+      {
+        continue;
+      }
+
+      finalList.add(geoEntity.getViewFromGeoEntity());
+    }
+
+    Collections.sort(finalList, new GeoEntityViewSorter());
+
+    return finalList.toArray(new GeoEntityView[finalList.size()]);
+  }
+
+  /**
+   * Converts this GeoEntity into a view representation.
+   *
+   * @return
+   */
+  private GeoEntityView getViewFromGeoEntity()
+  {
+    GeoEntityView view = new GeoEntityView();
+
+    view.setActivated(this.getActivated());
+    view.setEntityName(this.getEntityName());
+    view.setEntityType(this.getType());
+    view.setGeoEntityId(this.getId());
+    view.setGeoId(this.getGeoId());
+
+    MdClass mdClass = MdClass.getMdClass(this.getType());
+    view.setTypeDisplayLabel(mdClass.getDisplayLabel().getValue());
+
+    return view;
+  }
+
+  /**
    * Returns all parents of this GeoEntity up to one level.
-   * 
+   *
    * @return
    */
   public List<GeoEntity> getImmediateParents()
@@ -256,8 +375,67 @@ public abstract class GeoEntity extends GeoEntityBase implements
   }
 
   /**
+   * Recursively collects all children with the {@link LocatedIn} relationship.
+   *
+   * @return
+   */
+  public List<GeoEntity> getAllChildren()
+  {
+    List<GeoEntity> children = new LinkedList<GeoEntity>();
+    getAllChildren(children, this);
+    return children;
+  }
+
+  /**
+   * Recursive function to collect {@link LocatedIn} children.
+   *
+   * @param children
+   * @param parent
+   */
+  private static void getAllChildren(List<GeoEntity> allChildren, GeoEntity parent)
+  {
+    List<GeoEntity> children = parent.getImmediateChildren();
+    for (GeoEntity child : children)
+    {
+      allChildren.add(child);
+      getAllChildren(allChildren, child);
+    }
+  }
+
+  /**
+   * Recursively collects all parents of the LocatedIn relationship.
+   *
+   * @return
+   */
+  public List<GeoEntity> getAllParents()
+  {
+    List<GeoEntity> allParents = new LinkedList<GeoEntity>();
+
+    getAllParents(allParents, this);
+
+    return allParents;
+  }
+
+  /**
+   * Recursive method that collects all parents for the given parent.
+   *
+   * @param allChildren
+   * @param parent
+   * @return
+   */
+  private static void getAllParents(List<GeoEntity> allParents, GeoEntity child)
+  {
+    List<GeoEntity> parents = child.getImmediateParents();
+    for (GeoEntity parent : parents)
+    {
+      allParents.add(parent);
+      getAllParents(allParents, parent);
+    }
+  }
+
+  /**
    * Returns all the children of this GeoEntity up to one level.
-   * 
+   *
    * @return
    */
   public List<GeoEntity> getImmediateChildren()
@@ -282,7 +460,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
   /**
    * Sets all children of the parent GeoEntity to the given activated status. If
    * a child has more than one parent then nothing is changed for that child.
-   * 
+   *
    * @param activated
    * @param parent
    * @return A list of ids for each updated child.
@@ -314,7 +492,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
    * Checks if this GoeEntity is eligible to have its active status changed. The
    * general rule is as follows: A child with more than one parent set to active
    * cannot be deactivated. All other cases are allowed.
-   * 
+   *
    * @param activated
    *            The active status of the parent.
    * @return
@@ -345,7 +523,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
    * Adds this GeoEntity as a child of the given parent for the
    * {@link LocatedIn} relationship. If this is not for a clone operation then
    * all prior parent relationships will be removed.
-   * 
+   *
    */
   @Override
   @Transaction
@@ -413,11 +591,11 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     this.addLocatedInGeoEntity(parent).apply();
 
-    // update this GeoEntity and all its 
+    // update this GeoEntity and all its
     // children with the parent's active status.
     boolean parentActivated = parent.getActivated();
     boolean childActivated = this.getActivated();
-    
+
     if (parentActivated != childActivated && this.eligibleForActiveChange(parentActivated))
     {
       this.appLock();
@@ -427,7 +605,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
     }
     else
     {
-      return new String[]{};
+      return new String[] {};
     }
   }
 
@@ -447,7 +625,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Validates that this GeoEntity is allowed in the given parent GeoEntity.
-   * 
+   *
    * @param parentGeoEntityId
    * @return
    */
@@ -491,7 +669,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Recursively checks if the child GeoHierarcy is allowed in the parent.
-   * 
+   *
    * @param parent
    * @param child
    * @return
@@ -532,128 +710,104 @@ public abstract class GeoEntity extends GeoEntityBase implements
   public GeoEntityViewQuery getOrderedChildren(String filter)
   {
     QueryFactory f = new QueryFactory();
-    OrderedGeoEntityQueryBuilder builder = new OrderedGeoEntityQueryBuilder(f, this);
+    OrderedGeoEntityQueryBuilder builder = new OrderedGeoEntityQueryBuilder(f, this, filter);
     GeoEntityViewQuery query = new GeoEntityViewQuery(f, builder);
-    
+
     return query;
-    
-//    QueryFactory f = new QueryFactory();
-//    GeoEntityQuery geoQuery = new GeoEntityQuery(f);
-//    LocatedInQuery locQuery = new LocatedInQuery(f);
-//
-//    locQuery.WHERE(locQuery.parentId().EQ(this.getId()));
-//    geoQuery.WHERE(geoQuery.locatedInGeoEntity(locQuery));
-//
-//    // filter by type if possible (and all of type's child subclasses)
-//    if (filter != null && filter.trim().length() > 0)
-//    {
-//      // get allowed types by filter, which includes all parents and children
-//      // of the filter type and the filter type itself.
-//      List<GeoHierarchy> allowedTypes = new LinkedList<GeoHierarchy>();
-//      GeoHierarchy filterType = GeoHierarchy.getGeoHierarchyFromType(filter);
-//
-//      allowedTypes.addAll(filterType.getAllChildren());
-//      allowedTypes.add(filterType);
-//      allowedTypes.addAll(filterType.getAllParents());
-//
-//      String[] types = new String[allowedTypes.size()];
-//      for (int i = 0; i < allowedTypes.size(); i++)
-//      {
-//        GeoHierarchy allowedType = allowedTypes.get(i);
-//        types[i] = MDSSInfo.GENERATED_GEO_PACKAGE + "." + allowedType.getGeoEntityClass().getTypeName();
-//      }
-//
-//      geoQuery.WHERE(geoQuery.getType().IN(types));
-//    }
-//
-//    geoQuery.ORDER_BY_ASC(geoQuery.getEntityName());
-//
-//    return geoQuery;
   }
-  
+
   private class OrderedGeoEntityQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
 
-    private GeoEntity geoEntity;
-    private GeoEntityQuery geoEntityQuery;
-    private LocatedInQuery locatedInQuery;
-    
-    protected OrderedGeoEntityQueryBuilder(QueryFactory queryFactory, GeoEntity geoEntity)
+    private GeoEntity       geoEntity;
+
+    private GeoEntityQuery  geoEntityQuery;
+
+    private LocatedInQuery  locatedInQuery;
+
+    private MdBusinessQuery mdBusinessQuery;
+
+    private String          filter;
+
+    protected OrderedGeoEntityQueryBuilder(QueryFactory queryFactory, GeoEntity geoEntity, String filter)
     {
       super(queryFactory);
 
+      this.filter = filter;
       this.geoEntity = geoEntity;
       this.geoEntityQuery = new GeoEntityQuery(queryFactory);
       this.locatedInQuery = new LocatedInQuery(queryFactory);
+      this.mdBusinessQuery = new MdBusinessQuery(queryFactory);
     }
 
     @Override
     protected void buildSelectClause()
     {
       GeneratedViewQuery vQuery = this.getViewQuery();
-      
+
       vQuery.map(GeoEntityView.GEOENTITYID, geoEntityQuery.getId());
       vQuery.map(GeoEntityView.GEOID, geoEntityQuery.getGeoId());
       vQuery.map(GeoEntityView.ACTIVATED, geoEntityQuery.getActivated());
       vQuery.map(GeoEntityView.ENTITYNAME, geoEntityQuery.getEntityName());
       vQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
+      vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().currentLocale());
     }
 
     @Override
     protected void buildWhereClause()
     {
       GeneratedViewQuery vQuery = this.getViewQuery();
-      
+
       vQuery.WHERE(this.locatedInQuery.parentId().EQ(geoEntity.getId()));
       vQuery.WHERE(this.geoEntityQuery.locatedInGeoEntity(this.locatedInQuery));
-      
-      // FIXME restrict by filter
-      
+
+      vQuery.WHERE(F.CONCAT(mdBusinessQuery.getPackageName(),
+          F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
+
+      // filter by type if possible (and all of type's child subclasses)
+      if (filter != null && filter.trim().length() > 0)
+      {
+        String types[] = filteredTypes(filter);
+        vQuery.WHERE(geoEntityQuery.getType().IN(types));
+      }
+
       vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
     }
   }
-  
-  private static class SearchGeoEntityViewQueryBuilder extends ViewQueryBuilder implements Reloadable
+
+  /**
+   * Given a filter (a GeoEntity class), this method returns all parents and
+   * children and the filter type itself that's allowed in the hierarchy.
+   *
+   * @param type
+   * @return
+   */
+  private static String[] filteredTypes(String filter)
   {
-    private String type;
-    
-    private String entityName;
-    
-    private GeoEntityQuery geoEntityQuery;
-    
-    protected SearchGeoEntityViewQueryBuilder(QueryFactory queryFactory, String type, String entityName)
-    {
-      super(queryFactory);
+    // get allowed types by filter, which includes all parents and children
+    // of the filter type and the filter type itself.
+    List<GeoHierarchy> allowedTypes = new LinkedList<GeoHierarchy>();
+    GeoHierarchy filterType = GeoHierarchy.getGeoHierarchyFromType(filter);
 
-      this.type = type;
-      this.entityName = entityName;
-      this.geoEntityQuery = new GeoEntityQuery(queryFactory);
+    allowedTypes.addAll(filterType.getAllChildren());
+    allowedTypes.add(filterType);
+    allowedTypes.addAll(filterType.getAllParents());
+
+    String[] types = new String[allowedTypes.size()];
+    for (int i = 0; i < allowedTypes.size(); i++)
+    {
+      GeoHierarchy allowedType = allowedTypes.get(i);
+      types[i] = MDSSInfo.GENERATED_GEO_PACKAGE + "." + allowedType.getGeoEntityClass().getTypeName();
     }
 
-    @Override
-    protected void buildSelectClause()
+    return types;
+  }
+
+  private class GeoEntityViewSorter implements Comparator<GeoEntityView>, Reloadable
+  {
+    public int compare(GeoEntityView geo1, GeoEntityView geo2)
     {
-      GeneratedViewQuery viewQuery = this.getViewQuery();
-
-      viewQuery.map(GeoEntityView.ENTITYNAME, geoEntityQuery.getEntityName());
-      viewQuery.map(GeoEntityView.ACTIVATED, geoEntityQuery.getActivated());
-      viewQuery.map(GeoEntityView.GEOENTITYID, geoEntityQuery.getId());
-      viewQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
-      viewQuery.map(GeoEntityView.GEOID, geoEntityQuery.getGeoId());
+      return geo1.getEntityName().compareTo(geo2.getEntityName());
     }
-
-    @Override
-    protected void buildWhereClause()
-    {
-      GeneratedViewQuery viewQuery = this.getViewQuery();
-
-      String searchable = "%"+this.entityName+"%";
-      
-      viewQuery.WHERE(geoEntityQuery.getType().EQ(this.type));
-      viewQuery.WHERE(geoEntityQuery.getEntityName().LIKEi(searchable));
-      
-      viewQuery.restrictRows(20, 1);
-    }
-    
   }
 }

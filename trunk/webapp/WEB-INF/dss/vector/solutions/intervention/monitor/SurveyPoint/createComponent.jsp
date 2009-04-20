@@ -1,5 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@page import="dss.vector.solutions.geo.GeoHierarchyDTO"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
@@ -17,61 +18,75 @@
 
   YAHOO.util.Event.onDOMReady(function(){
 
-    var opener = new YAHOO.util.Element("searchOpener");
-    opener.on("click", function(){
+    function selectHandler(selected)
+    {
+      var geoId = document.getElementById('geoIdEl');
+      var geoEntityId = document.getElementById('geoEntityId');
 
-      if(MDSS.SelectSearch.isInitialized())
+      if(selected != null)
       {
-        MDSS.SelectSearch.show();
+        geoId.value = selected.getGeoId();
+        geoEntityId.value = selected.getGeoEntityId();
       }
       else
       {
-        var radios = YAHOO.util.Selector.query('input[type="radio"]', 'SurveyPoint.form.id');
-        var filterType = '';
-        for(var i=0; i<radios.length; i++)
+        geoId.value = '';
+        geoEntityId.value = '';
+      }
+    }
+
+    var selectSearch = new MDSS.SingleSelectSearch();
+    selectSearch.setSelectHandler(selectHandler);
+    selectSearch.setTreeSelectHandler(selectHandler);
+    selectSearch.setFilter('');
+
+    var radios = YAHOO.util.Selector.query('input[type="radio"]', 'surveyPointForm');
+    for(var i=0; i<radios.length; i++)
+    {
+      var radio = radios[i];
+      YAHOO.util.Event.on(radio, 'click', function(e, obj){
+
+        var radio = e.target;
+        if(radio.checked)
         {
-          var radio = radios[i];
-          if(radio.checked)
-          {
-            filterType = radio.value;
-          }
+          var filter = e.target.value;
+          this.setFilter(filter);
         }
 
-       function selectHandler(selected)
-       {
-         var geoId = document.getElementById('geoIdEl');
-         var geoEntityId = document.getElementById('geoEntityId');
+      }, null, selectSearch);
+    }
 
-         if(selected != null)
-         {
-           geoId.value = selected.getGeoId();
-           geoEntityId.value = selected.getGeoEntityId();
-         }
-         else
-         {
-           geoId.value = '';
-           geoEntityId.value = '';
-         }
-       }
+    var opener = new YAHOO.util.Element("searchOpener");
+    opener.on("click", function(){
 
-       MDSS.SelectSearch.initialize(selectHandler, selectHandler, filterType);
+      if(selectSearch.isInitialized())
+      {
+        selectSearch.show();
+      }
+      else
+      {
+        selectSearch.render();
       }
     });
   }, null, true);
 
 </script>
 
+<%
+  request.setAttribute("SentinalSiteClass", SentinalSiteDTO.CLASS);
+  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+%>
 
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:form name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.name" id="SurveyPoint.form.id" method="POST">
+<mjl:form name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.name" id="surveyPointForm" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
-      <dt> Filter </dt>
+      <dt><fmt:message key="Filter"/></dt>
       <dd>
-        <input type="radio" name="filterType" value="" checked="checked" />All  &nbsp;&nbsp;&nbsp;
-        <input type="radio" name="filterType" value="${SentinalSiteClass}" />Sentinal Site &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" value="" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" value="${SentinalSiteClass}" />&nbsp;<fmt:message key="Sentinal_Site"/> &nbsp;&nbsp;&nbsp;
       </dd>
       <dt>
         <label>

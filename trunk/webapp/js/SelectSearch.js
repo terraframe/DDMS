@@ -2,22 +2,22 @@
  * Encapsulates functionality for the GeoEntity select search.
  */
 MDSS.SelectSearch = (function(){
-  
+
   // cache of GeoEntities with key/value = geoEntity.getId()/geoEntity
   var _geoEntityViewCache = {};
 
   // container id that holds the select id
   var _containerId = "selectSearchComponent";
-  
+
   // handler for when a new geo entity is selected
   var _selectHandler = null;
-  
+
   // handler for when a geo entity is selected via the tree
   var _treeSelectHandler = null;
-  
+
   // mapping between parent and children
   var _parentMap = {};
-  
+
   // mapping between child and parents
   var _childMap = {};
 
@@ -26,10 +26,10 @@ MDSS.SelectSearch = (function(){
 
   // reference to the Yahoo Panel that contains the search tree.
   var _geoTreePanel = null;
-  
+
   // the GeoEntity subtype class by which to filter results
   var _filterType = null;
-  
+
   _setParentChildMapping = function(parent, child)
   {
     // check if entry already exists for child
@@ -45,7 +45,7 @@ MDSS.SelectSearch = (function(){
       // add a second parent
       cEntry[parent.getGeoEntityId()] = parent.getEntityName();
     }
-    
+
     // set the parent/child mapping
     var pEntry = _parentMap[parent.getGeoEntityId()];
     if(pEntry == null)
@@ -59,7 +59,7 @@ MDSS.SelectSearch = (function(){
       pEntry[child.getGeoEntityId()] = child.getEntityName();
     }
   }
-  
+
   /**
    * Returns all currently selected GeoEntities.
    */
@@ -77,15 +77,15 @@ MDSS.SelectSearch = (function(){
         if(option.selected)
         {
           var geo = _geoEntityViewCache[option.id];
-        
+
           geos.push(geo);
         }
       }
     }
-    
+
     return geos;
   }
-  
+
   /**
    * Removes the given option from the DOM and
    * clears the GeoEntity cache of the object
@@ -96,16 +96,16 @@ MDSS.SelectSearch = (function(){
     var optionEl = Mojo.util.isString(option) ? document.getElementById(option) : option;
     var select = optionEl.parentNode;
     select.removeChild(optionEl);
-      
+
     delete _geoEntityViewCache[optionEl.id];
-      
+
     if(select.options.length == 1)
     {
       select.selectedIndex = -1;
       select.disabled = true;
-    }       
+    }
   }
-  
+
   /**
    * Removes all children of the given parent (recursively).
    */
@@ -118,10 +118,10 @@ MDSS.SelectSearch = (function(){
       for(var i=0; i<childrenIds.length; i++)
       {
         var childId = childrenIds[i];
-        
+
         // recurse first to delete all children of child
         _clearOptionChildren(childId);
-        
+
         var cEntry = _childMap[childId];
         if(Mojo.util.getKeys(cEntry) > 1)
         {
@@ -132,16 +132,16 @@ MDSS.SelectSearch = (function(){
         {
           // only one parent, so delete child map entry
           delete _childMap[childId];
-          
+
           _removeOptionNode(childId);
         }
-        
+
         // always delete this parent/child mapping
         delete pEntry[childId];
       }
     }
   }
-  
+
   /**
    * Creates the mapping between the given GeoEntity
    * and an option for the give select element that represents
@@ -159,16 +159,16 @@ MDSS.SelectSearch = (function(){
       optionRaw.value = geoEntityView.getGeoEntityId();
       optionRaw.id = geoEntityView.getGeoEntityId();
       optionRaw.innerHTML = geoEntityView.getEntityName();
-        
+
       select.appendChild(optionRaw);
-      
+
       var option = new YAHOO.util.Element(optionRaw);
       option.on('click', _getChildren);
 
       _geoEntityViewCache[geoEntityView.getGeoEntityId()] = geoEntityView;
     }
   }
-  
+
   /**
    * Event handler to clear options.
    */
@@ -176,10 +176,10 @@ MDSS.SelectSearch = (function(){
   {
     var defaultOption = e.target;
     var select = defaultOption.parentNode;
-    
+
     _clearOptionsOnSelect(select);
   }
-  
+
   /**
    * Clears options on the given select list.
    */
@@ -191,7 +191,7 @@ MDSS.SelectSearch = (function(){
     {
       var option = options[i];
       _clearOptionChildren(option.id);
-      
+
       // unhook parents explicitely, otherwise
       // they'll never know their children are gone
       var cEntry = _childMap[option.id];
@@ -204,10 +204,10 @@ MDSS.SelectSearch = (function(){
 
       _removeOptionNode(option);
     }
-    
+
     _notifySelectHandler(null);
   }
-  
+
   _updateBestFit = function(geoEntity)
   {
     document.getElementById('bestFitName').innerHTML = geoEntity != null ? geoEntity.getEntityNameMd().getDisplayLabel() : '';
@@ -215,7 +215,7 @@ MDSS.SelectSearch = (function(){
     document.getElementById('bestFitId').innerHTML = geoEntity != null ? geoEntity.getGeoIdMd().getDisplayLabel() : '';
     document.getElementById('bestFitIdValue').innerHTML = geoEntity != null ? geoEntity.getGeoId() : '';
   }
-  
+
   /**
    * Notifies the select handler that a new select list
    * option has been chosen.
@@ -232,13 +232,13 @@ MDSS.SelectSearch = (function(){
     }
 
     _updateBestFit(lastEntity);
-    
+
     if(Mojo.util.isFunction(_selectHandler))
     {
       _selectHandler(geoEntityView, allSelected);
     }
   }
-  
+
   /**
    * Gets the children for a given GeoEntity or
    * does nothing if the event was triggered by
@@ -250,7 +250,7 @@ MDSS.SelectSearch = (function(){
     var currentOption = e.target;
     var select = currentOption.parentNode;
     var parentEntityView = _geoEntityViewCache[currentOption.id];
-    
+
     // clear all unchecked options
     var options = select.options;
     for(var i=0; i<options.length; i++)
@@ -261,7 +261,7 @@ MDSS.SelectSearch = (function(){
         _clearOptionChildren(option.id);
       }
     }
-    
+
     if(!currentOption.selected)
     {
       // do nothign. Options already cleared before reaching
@@ -275,39 +275,39 @@ MDSS.SelectSearch = (function(){
       var request = new MDSS.Request({
       parentEntityView: parentEntityView,
       onSuccess : function(query){
-        
+
         // these are GeoEntityView objects
         var geoEntities = query.getResultSet();
-        
+
         for(var i=0; i<geoEntities.length; i++)
         {
           var childView = geoEntities[i];
           _setEntityOption(childView);
-          
+
           _setParentChildMapping(this.parentEntityView, childView);
         }
-        
+
         _notifySelectHandler(this.parentEntityView);
       }
       });
-    
+
       Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getOrderedChildren(request, parentEntityView.getGeoEntityId(), _filterType);
     }
   }
-  
+
   function _copyEntityToView(geoEntity)
   {
     var view = new Mojo.$.dss.vector.solutions.geo.GeoEntityView();
-    
+
     view.setGeoEntityId(geoEntity.getId());
     view.setGeoId(geoEntity.getGeoId());
     view.setActivated(geoEntity.getActivated());
     view.setEntityName(geoEntity.getEntityName());
     view.setEntityType(geoEntity.getType());
-    
+
     return view;
   }
-  
+
   /**
    * Searches for a specific GeoEntity.
    */
@@ -315,34 +315,34 @@ MDSS.SelectSearch = (function(){
   {
     var select = e.target;
     var input = select.previousSibling;
-    
+
     var geoId = input.value;
-    
+
     var request = new MDSS.Request({
       onSuccess : function(geoEntity)
       {
         var select = document.getElementById(geoEntity.getType());
         _clearOptionsOnSelect(select);
-        
+
         var view = _copyEntityToView(geoEntity);
         _setEntityOption(view);
       }
     });
-    
+
     Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByGeoId(request, geoId);
   }
-  
+
   /**
    * Opens the tree for extra search functionality.
    */
   _openTree = function()
   {
   	var containerId = "treeViewContainer";
-  	
+
     if(_geoTreePanel == null)
     {
       _geoTreePanel = new YAHOO.widget.Panel(containerId, {width:'400px', height:'400px', zindex:9});
-      
+
       // Bug Workaround: The Yahoo ContextMenu loses its event handlers in
       // the tree, so destroy the tree every time the panel is closed, then
       // use a new tree per request.
@@ -357,26 +357,26 @@ MDSS.SelectSearch = (function(){
     {
       _geoTreePanel.show();
     }
-    
+
     // always create a new tree per request
     MDSS.GeoEntityTree.initializeTree("treeView", function(geoEntity){
       _updateBestFit(geoEntity);
       _treeSelectHandler(geoEntity);
     }, _filterType);
-    
-    
+
+
     YAHOO.util.Dom.setStyle(containerId, 'overflow', 'scroll');
   }
-  
+
   /**
    * Changes the GeoEntity subtype filter and clears
    * the select search and tree.
    */
   _changeFilter = function(filter)
   {
-    
+
   }
-  
+
   /**
    * Creates the root entity and adds it to the select search.
    */
@@ -389,10 +389,10 @@ MDSS.SelectSearch = (function(){
         _setEntityOption(view);
       }
     });
-    
+
     Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, MDSS.SelectSearchRootId);
   }
-  
+
   /**
    * Renders the modal with the default select search.
    */
@@ -400,19 +400,19 @@ MDSS.SelectSearch = (function(){
   {
     var request = new MDSS.Request({
       onSuccess : function(html){
-        
+
         // use modal to contain MDSS101
         _searchModal = new YAHOO.widget.Panel("searchSelectModal",  {
-          width:"100%", 
+          width:"100%",
           height: "100%",
-          fixedcenter:true, 
-          close:true, 
-          draggable:false, 
+          fixedcenter:true,
+          close:true,
+          draggable:false,
           zindex:4,
           modal:true,
           visible:true
         });
-  
+
         // must hide the tree if search model is hidden
         _searchModal.subscribe('beforeHide', function(){
           if(_geoTreePanel != null)
@@ -420,21 +420,21 @@ MDSS.SelectSearch = (function(){
             _geoTreePanel.hide();
           }
         });
-  
+
         _searchModal.setBody(html);
         _searchModal.render(document.body);
-        
+
         // hook event to open tree
         var treeOpener = new YAHOO.util.Element("treeOpener");
         treeOpener.on('click', _openTree);
-        
+
         _createRoot();
       }
     });
-  
+
     Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySingleSelectSearch(request, MDSS.SelectSearchRootId);
   }
-  
+
   /**
    * Checks if the searching has been enabled (i.e., the modal has
    * been initialized).
@@ -443,7 +443,7 @@ MDSS.SelectSearch = (function(){
   {
   	return _searchModal != null;
   }
-  
+
   /**
    * Shows the select modal if it is hidden.
    */
@@ -451,7 +451,7 @@ MDSS.SelectSearch = (function(){
   {
     _searchModal.show();
   }
-  
+
   /**
    * Hides the modal if it visibile.
    */
@@ -459,7 +459,7 @@ MDSS.SelectSearch = (function(){
   {
   	_selectModal.hide();
   }
-  
+
   /**
    * Initializes the select search.
    */
@@ -467,12 +467,12 @@ MDSS.SelectSearch = (function(){
   {
     _selectHandler = selectHandler;
     _treeSelectHandler = treeSelectHandler;
-    
+
     var selects = YAHOO.util.Selector.query('select', _containerId);
     for(var i=0; i<selects.length; i++)
     {
       var select = selects[i];
-      
+
       // add handler to clear nodes (except for the root)
       if(i != 0)
       {
@@ -480,7 +480,7 @@ MDSS.SelectSearch = (function(){
         defaultOption.on('click', _clearOptions);
       }
     }
-    
+
     // hook all search events for manual entry
     var searches = YAHOO.util.Selector.query('input.manualSearch', _containerId);
     for(var i=0; i<searches.length; i++)
@@ -488,12 +488,12 @@ MDSS.SelectSearch = (function(){
       var search = new YAHOO.util.Element(searches[i]);
       search.on('click', _manualSearch);
     }
-    
+
     _filterType = arguments.length === 3 ? filterType : '';
 
     _renderModal();
   }
-  
+
   // public methods/properties
   return {
     initialize : _initialize,
@@ -502,5 +502,5 @@ MDSS.SelectSearch = (function(){
     hide : _hide,
     changeFilter : _changeFilter
   };
-  
+
 })();

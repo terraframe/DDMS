@@ -35,32 +35,42 @@
       }
     }
 
+    var selectSearch = new MDSS.SingleSelectSearch();
+    selectSearch.setFilter('');
+
     var roofSearch = new YAHOO.util.Element("roofSearch");
     var wallSearch = new YAHOO.util.Element("wallSearch");
 
+
     roofSearch.on("click", function()
     {
-      if(MDSS.SelectSearch.isInitialized())
+      var curried = MDSS.util.curry(selectHandler, "roofGeoId", "roofId");
+      selectSearch.setSelectHandler(curried);
+      selectSearch.setTreeSelectHandler(curried);
+
+      if(selectSearch.isInitialized())
       {
-        MDSS.SelectSearch.show();
+        selectSearch.show();
       }
       else
       {
-        var curried = MDSS.util.curry(selectHandler, "roofGeoId", "roofId");
-        MDSS.SelectSearch.initialize(curried, curried, "");
+        selectSearch.render();
       }
     });
 
     wallSearch.on("click", function()
     {
-      if(MDSS.SelectSearch.isInitialized())
+      var curried = MDSS.util.curry(selectHandler, "wallGeoId", "wallId");
+      selectSearch.setSelectHandler(curried);
+      selectSearch.setTreeSelectHandler(curried);
+
+      if(selectSearch.isInitialized())
       {
-        MDSS.SelectSearch.show();
+        selectSearch.show();
       }
       else
       {
-        var curried = MDSS.util.curry(selectHandler, "wallGeoId", "wallId");
-        MDSS.SelectSearch.initialize(curried, curried, "");
+        selectSearch.render();
       }
     });
   }, null, true);

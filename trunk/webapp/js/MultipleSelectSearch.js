@@ -10,56 +10,15 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
   initialize : function()
   {
     MDSS.AbstractSelectSearch.prototype.initialize.call(this);
-    
-    // mapping between parents and their children.
-    this._parentMap = {};
-    
-    // mapping between children and their parents.
-    this._childMap = {};
   },
-  
-  /**
-   * Sets the parent/child mapping so that each parent
-   * knows of its children and each child knows of its
-   * parent.
-   */
-  _setParentChildMapping : function(parent, child)
-  {
-    // check if entry already exists for child
-    var cEntry = this._childMap[child.getGeoEntityId()];
-    if(cEntry == null)
-    {
-      cEntry = {};
-      cEntry[parent.getGeoEntityId()] = parent.getEntityName();
-      this._childMap[child.getGeoEntityId()] = cEntry;
-    }
-    else
-    {
-      // add a second parent
-      cEntry[parent.getGeoEntityId()] = parent.getEntityName();
-    }
-    
-    // set the parent/child mapping
-    var pEntry = this._parentMap[parent.getGeoEntityId()];
-    if(pEntry == null)
-    {
-      pEntry = {};
-      pEntry[child.getGeoEntityId()] = child.getEntityName();
-      this._parentMap[parent.getGeoEntityId()] = pEntry;
-    }
-    else
-    {
-      pEntry[child.getGeoEntityId()] = child.getEntityName();
-    }
-  },
-  
+
   /**
    * Returns all currently selected GeoEntities.
    */
   _getAllSelected : function()
   {
     var geos = [];
-    var selects = YAHOO.util.Selector.query('select', _SELECT_CONTAINER_ID);
+    var selects = this._selectLists;
     for(var i=0; i<selects.length; i++)
     {
       var select = selects[i];
@@ -67,18 +26,18 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
       for(var j=0; j<options.length; j++)
       {
         var option = options[j];
-        if(option.selected)
+        if(option.selected && option.value !== 'DEFAULT')
         {
           var geo = this._geoEntityViewCache[option.id];
-        
+
           geos.push(geo);
         }
       }
     }
-    
+
     return geos;
   },
-  
+
   /**
    * Notifies the select handler that a new select list
    * option has been chosen. Because this class is for
@@ -98,10 +57,19 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     }
 
     this._updateBestFit(lastEntity);
-    
+
     if(Mojo.util.isFunction(this._selectHandler))
     {
       this._selectHandler(geoEntityView, allSelected);
     }
-  }  
+  },
+
+  /**
+   * Invokes the appropriate controller action to
+   * render the select search component.
+   */
+  _invokeControllerAction : function(request, rootId)
+  {
+    Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displayMultipleSelectSearch(request, rootId);
+  }
 });
