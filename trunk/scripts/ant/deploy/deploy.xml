@@ -134,30 +134,24 @@
 	</target>
 
 	<target name="compile_generated">
-		<javac destdir="${local.bin}" srcdir="${local.src}" debug="true" source="1.5" target="1.5">
+		<iajc destdir="${local.bin}" sourceroots="${local.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
 			<classpath refid="framework.classpath" />
-		</javac>
-		<javac destdir="${common.bin}" srcdir="${common.src}" debug="true" source="1.5" target="1.5">
+		</iajc>
+		<iajc destdir="${common.bin}" sourceroots="${common.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
 			<classpath refid="framework.classpath" />
-		</javac>
-		<javac destdir="${client.bin}" srcdir="${client.src}" debug="true" source="1.5" target="1.5">
+		</iajc>
+		<iajc destdir="${client.bin}" sourceroots="${client.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
 			</classpath>
-		</javac>
-		<javac destdir="${server.bin}" srcdir="${server.src}" debug="true" source="1.5" target="1.5">
+		</iajc>
+		<iajc destdir="${server.bin}" sourceroots="${server.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
 			</classpath>
-		</javac>
-		<javac destdir="${client.bin}" srcdir="${client.src}" debug="true" source="1.5" target="1.5">
-			<classpath>
-				<path refid="framework.classpath" />
-				<pathelement location="${common.bin}" />
-			</classpath>
-		</javac>
+		</iajc>
 	</target>
 
 	<target name="update_domain_model" depends="delete_generated_base">
@@ -299,15 +293,14 @@
 		</copy>
 
 		<!-- compile and jar the application library (e.g., servlet filters) -->
-		<javac srcdir="${local.src}" destDir="${deploy.bin}" debug="true" source="1.5" target="1.5">
-			<compilerarg value="-Xlint"/>
+		<iajc sourceroots="${local.src}" destDir="${deploy.bin}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/terraframe.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${client.bin}" />
 				<pathelement location="${common.bin}" />
 				<pathelement location="${server.bin}" />
 			</classpath>
-		</javac>
+		</iajc>
 
 		<!-- These files are needed for compilation, but should not exist in the deploy -->
 		<delete file="${deploy.bin}/dss/vector/solutions/global/CredentialsSingleton.class" />
