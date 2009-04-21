@@ -204,11 +204,11 @@
 	</shellscript>
 		<echo message="SVN updated with image for test server" />
 	</target>
-
+    <!-- FIXME: upgrad jars to svn 1.6 when they come out-->
 	<target name="write_revision" depends="get_svn_user,get_svn_password"
 		description="Writes the current svn revision info to an html file">
 	    <svn username="${svn.user}" password="${svn.password}">
-		<info target="../../../" verbose="false"/>
+		<info target="https://my-svn.assembla.com/svn/mdss/trunk" verbose="true"/>
 	    </svn>
 		<echo  file="../../../webapp/revision.html" append="false" >
 		Last Changed Author: ${svn.info.author}
