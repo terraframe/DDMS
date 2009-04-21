@@ -37,6 +37,9 @@ MDSS.AbstractSelectSearch.prototype = {
 
     // map between ajax search input id and Yahoo Panel
     this._resultPanels = {};
+
+    // the current type of GeoEntity for ajax searching
+    this._currentSearchType = null;
   },
 
   /**
@@ -133,7 +136,25 @@ MDSS.AbstractSelectSearch.prototype = {
     }
   },
 
- /**
+  /**
+   * Closes all the result panels.
+   */
+  _closeAllResultPanels : function()
+  {
+    var panels = Mojo.util.getValues(this._resultPanels);
+    for(var i=0; i<panels.length; i++)
+    {
+      var panel = panels[i];
+      //if(Mojo.util.isNumber(excludeIndex) && i !== excludeIndex)
+      var visible = panel.cfg.getProperty('visible');
+      if(visible === true)
+      {
+        panel.hide();
+      }
+    }
+  },
+
+  /**
    * Renders the select search component.
    */
   render : function()
@@ -157,11 +178,7 @@ MDSS.AbstractSelectSearch.prototype = {
         // hide all panels spawned by the search modal
         this.searchRef._searchModal.subscribe('beforeHide', function(){
 
-          var panels = Mojo.util.getValues(this._resultPanels);
-          for(var i=0; i<panels.length; i++)
-          {
-            panels[i].hide();
-          }
+          this._closeAllResultPanels();
 
           if(this._geoTreePanel != null)
           {
@@ -439,6 +456,14 @@ MDSS.AbstractSelectSearch.prototype = {
       return;
     }
 
+    // close all other search panels
+    if(this._currentSearchType !== type)
+    {
+      this._closeAllResultPanels();
+    }
+
+    this._currentSearchType = type;
+
     var request = new MDSS.Request({
       resultPanel: resultPanel,
       searchValue: value,
@@ -483,7 +508,7 @@ MDSS.AbstractSelectSearch.prototype = {
           YAHOO.util.Dom.addClass(e.target, 'currentSelection');
         });
 
-        YAHOO.util.Event.on(ul, 'click', function(e, resultPanel){
+        YAHOO.util.Event.on(ul, 'click', function(e, obj){
 
           var li = e.target;
           var ul = e.currentTarget;
@@ -494,9 +519,10 @@ MDSS.AbstractSelectSearch.prototype = {
 
           var geoEntityId = li.id;
 
-          this._resetWithSelection(type, resultPanel, geoEntityId);
+          obj.input.value = '';
+          this._resetWithSelection(type, obj.panel, geoEntityId);
 
-        }, this.resultPanel, this.searchRef);
+        }, {input: input, panel: this.resultPanel}, this.searchRef);
 
         var idAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ID;
         var entityNameAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME;
