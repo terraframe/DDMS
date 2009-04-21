@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="MDSS" default="rebuild_all">
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../../../lib/common/ant-contrib-1.0b3.jar" />
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../../../lib/ant/ant-contrib-1.0b3.jar" />
+	<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="../../../lib/ant/svnant.jar;../../../lib/ant/svnClientAdapter.jar;../../../lib/ant/svnkit.jar;../../../lib/ant/svnjavahl.jar;../../../lib/ant/ganymed.jar;" />
 
 	<!-- =================================================================== -->
 	<!-- These are defualt properties.                                       -->
@@ -204,14 +205,29 @@
 		<echo message="SVN updated with image for test server" />
 	</target>
 
-	<target name="write_revision" description="Writes the current svn revision info to an html file">
-		<shellscript shell="bash" dir="../../../" os="Mac OS X" searchpath="true">
-   	svn info|grep "Last Changed" > webapp/revision.html
-	</shellscript>
+	<target name="write_revision" depends="get_svn_user,get_svn_password"
+		description="Writes the current svn revision info to an html file">
+	    <svn username="${svn.user}" password="${svn.password}">
+		<info target="../../../" verbose="false"/>
+	    </svn>
+		<echo  file="../../../webapp/revision.html" append="false" >
+		Last Changed Author: ${svn.info.author}
+		Last Changed Revision: ${svn.info.lastRev}
+		Last Changed Date: ${svn.info.lastDate}
+	    </echo>
+		<echo message="Last Changed Revision: ${svn.info.lastRev}"  ></echo>
 	</target>
 
 	<target name="get_root_password" description="Checks for root password and prompts for it if not found." unless="testserver.password">
 		<input message="Test Server Password:" addproperty="testserver.password" />
+	</target>
+
+	<target name="get_svn_user" description="Checks for root password and prompts for it if not found." unless="svn.user">
+		<input message="Svn User:" addproperty="svn.user" />
+	</target>
+
+	<target name="get_svn_password" description="Checks for root password and prompts for it if not found." unless="svn.password">
+		<input message="Svn Password:" addproperty="svn.password" />
 	</target>
 
 	<!-- lib/common/jsch-0.1.31.jar must be added to your ant classpath-->
