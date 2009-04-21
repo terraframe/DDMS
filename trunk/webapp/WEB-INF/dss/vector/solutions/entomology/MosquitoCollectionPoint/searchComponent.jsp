@@ -13,50 +13,58 @@
 <%@page import="dss.vector.solutions.geo.generated.PermanentWaterBodyDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.TrapDTO"%>
 
-
+<c:set var="page_title" value="Mosquito_Collection_Points"  scope="request"/>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
 
-MDSS.currentSearchModal = null;
-
   YAHOO.util.Event.onDOMReady(function(){
+
+    function selectHandler(selected)
+    {
+      var geoId = document.getElementById('geoIdEl');
+
+      if(selected != null)
+      {
+        geoId.value = selected.getGeoId();
+      }
+      else
+      {
+        geoId.value = '';
+      }
+    }
+
+    var selectSearch = new MDSS.SingleSelectSearch();
+    selectSearch.setSelectHandler(selectHandler);
+    selectSearch.setTreeSelectHandler(selectHandler);
+    selectSearch.setFilter('');
+
+    var radios = YAHOO.util.Selector.query('input[type="radio"]', 'searchMosquitoCollections');
+    for(var i=0; i<radios.length; i++)
+    {
+      var radio = radios[i];
+      YAHOO.util.Event.on(radio, 'click', function(e, obj){
+
+        var radio = e.target;
+        if(radio.checked)
+        {
+          var filter = e.target.value;
+          this.setFilter(filter);
+        }
+
+      }, null, selectSearch);
+    }
 
     var opener = new YAHOO.util.Element("searchOpener");
     opener.on("click", function(){
 
-      if(MDSS.SelectSearch.isInitialized())
+      if(selectSearch.isInitialized())
       {
-        MDSS.SelectSearch.show();
+        selectSearch.show();
       }
       else
       {
-        var radios = YAHOO.util.Selector.query('input[type="radio"]', 'searchMosquitoCollections');
-        var filterType = '';
-        for(var i=0; i<radios.length; i++)
-        {
-          var radio = radios[i];
-          if(radio.checked)
-          {
-            filterType = radio.value;
-          }
-        }
-
-       function selectHandler(selected)
-       {
-         var geoId = document.getElementById('geoIdEl');
-
-         if(selected != null)
-         {
-           geoId.value = selected.getGeoId();
-         }
-         else
-         {
-           geoId.value = '';
-         }
-       }
-
-       MDSS.SelectSearch.initialize(selectHandler, selectHandler, filterType);
+        selectSearch.render();
       }
     });
   }, null, true);
