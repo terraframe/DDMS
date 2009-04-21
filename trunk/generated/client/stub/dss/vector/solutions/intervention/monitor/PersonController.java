@@ -1,5 +1,7 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.util.Arrays;
+
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
@@ -23,13 +25,14 @@ public class PersonController extends PersonControllerBase implements com.terraf
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void cancel(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    dto.unlock();
+    dto = PersonDTO.unlockView(super.getClientRequest(), dto.getConcreteId());
+
     this.view(dto);
   }
 
-  public void failCancel(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
@@ -38,22 +41,22 @@ public class PersonController extends PersonControllerBase implements com.terraf
   {
     ClientRequestIF clientRequest = super.getClientRequest();
 
-    this.view(PersonDTO.get(clientRequest, id));
+    this.view(PersonDTO.getView(clientRequest, id));
   }
 
-  public void view(PersonDTO person) throws java.io.IOException, javax.servlet.ServletException
+  public void view(PersonViewDTO person) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("anaemiaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("anaemiaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("bloodslide", BloodslideResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("fever", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("feverTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("feverTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("household", HouseholdDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("malaria", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("malariaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("malariaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("payment", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("performedRDT", RDTResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("rDTResult", RDTResultDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("rdtTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("rdtTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("sex", HumanSexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", person);
     req.setAttribute("page_title", "View Person");
@@ -69,18 +72,18 @@ public class PersonController extends PersonControllerBase implements com.terraf
 
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    PersonDTO dto = PersonDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("anaemiaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    PersonViewDTO dto = PersonDTO.lockView(super.getClientRequest(), id);
+
+    req.setAttribute("anaemiaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("bloodslide", BloodslideResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("fever", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("feverTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("household", HouseholdDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("feverTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("malaria", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("malariaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("malariaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("payment", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("performedRDT", RDTResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("rDTResult", RDTResultDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("rdtTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("rdtTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("sex", HumanSexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Person");
@@ -92,7 +95,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     this.view(id);
   }
 
-  public void update(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -101,7 +104,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     }
     catch (ProblemExceptionDTO e)
     {
-      ErrorUtility.prepareProblems(e, req);
+      ErrorUtility.forceProblems(e, req);
 
       this.failUpdate(dto);
     }
@@ -113,26 +116,25 @@ public class PersonController extends PersonControllerBase implements com.terraf
     }
   }
 
-  public void failUpdate(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("anaemiaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("anaemiaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("bloodslide", BloodslideResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("fever", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("feverTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("household", HouseholdDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("feverTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("malaria", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("malariaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("malariaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("payment", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("performedRDT", RDTResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("rDTResult", RDTResultDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("rdtTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("rdtTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("sex", HumanSexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update Person");
     render("editComponent.jsp");
   }
 
-  public void delete(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -144,7 +146,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     }
     catch (ProblemExceptionDTO e)
     {
-      ErrorUtility.prepareProblems(e, req);
+      ErrorUtility.forceProblems(e, req);
 
       this.failDelete(dto);
     }
@@ -156,19 +158,18 @@ public class PersonController extends PersonControllerBase implements com.terraf
     }
   }
 
-  public void failDelete(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("anaemiaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("anaemiaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("bloodslide", BloodslideResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("fever", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("feverTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("household", HouseholdDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("feverTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("malaria", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("malariaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("malariaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("payment", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("performedRDT", RDTResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("rDTResult", RDTResultDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("rdtTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("rdtTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("sex", HumanSexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Person");
@@ -176,7 +177,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     render("editComponent.jsp");
   }
 
-  public void create(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -185,7 +186,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     }
     catch (ProblemExceptionDTO e)
     {
-      ErrorUtility.prepareProblems(e, req);
+      ErrorUtility.forceProblems(e, req);
 
       this.failCreate(dto);
     }
@@ -197,19 +198,18 @@ public class PersonController extends PersonControllerBase implements com.terraf
     }
   }
 
-  public void failCreate(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(PersonViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("anaemiaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("anaemiaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("bloodslide", BloodslideResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("fever", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("feverTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("household", HouseholdDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("feverTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("malaria", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("malariaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("malariaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("payment", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("performedRDT", RDTResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("rDTResult", RDTResultDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("rdtTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("rdtTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("sex", HumanSexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Person");
@@ -219,19 +219,19 @@ public class PersonController extends PersonControllerBase implements com.terraf
   public void newInstance(String householdId) throws java.io.IOException, javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    PersonDTO dto = new PersonDTO(clientRequest);
+    PersonViewDTO dto = new PersonViewDTO(clientRequest);
     dto.setHousehold(HouseholdDTO.get(clientRequest, householdId));
 
-    req.setAttribute("anaemiaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("anaemiaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("bloodslide", BloodslideResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("fever", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("feverTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("feverTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("malaria", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("malariaTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("malariaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("payment", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("performedRDT", RDTResponseDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("rDTResult", RDTResultDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("rdtTreatment", DrugDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("rdtTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
     req.setAttribute("sex", HumanSexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Person");

@@ -22,9 +22,10 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
   {
     if(this.getLastSprayed() != null && this.getLastSprayed() > 12)
     {
-      //TODO Change this runtime type
-      String msg = "Last house spray date may not be larger than 12";
-      throw new RuntimeException(msg);
+      SprayProblem p = new SprayProblem();
+      p.setMonths(this.getLastSprayed());
+      p.apply();
+      p.throwIt();
     }
   }
 
