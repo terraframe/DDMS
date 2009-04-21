@@ -105,7 +105,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.wall.keyName}" action="dss.vector.solutions.geo.generated.WallController.view.mojo" name="dss.vector.solutions.geo.generated.Wall.form.view.link">
+      <mjl:commandLink display="${item.wall.geoId}" action="dss.vector.solutions.geo.generated.WallController.view.mojo" name="dss.vector.solutions.geo.generated.Wall.form.view.link">
         <mjl:property value="${item.wall.id}" name="id" />
       </mjl:commandLink>
     </dd>

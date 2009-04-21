@@ -4,7 +4,7 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.intervention.monitor.Person.form.name" id="dss.vector.solutions.intervention.monitor.Person.form.id" method="POST">
-  <mjl:input value="${item.id}" type="hidden" param="id" />
+  <mjl:input value="${item.concreteId}" type="hidden" param="id" />
   <dl>
     <dt>
       <label>

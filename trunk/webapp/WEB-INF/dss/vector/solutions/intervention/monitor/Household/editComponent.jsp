@@ -227,7 +227,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="enumName" items="${windowType}" param="windowType">
+        <mjl:select var="current" valueAttribute="enumName" items="${windowType}" param="windowType" includeBlank="true">
           <mjl:option selected="${mjl:contains(item.windowTypeEnumNames, current.enumName) ? 'selected' : 'false'}">
             ${item.windowTypeMd.enumItems[current.enumName]}
           </mjl:option>

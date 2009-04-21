@@ -5,6 +5,7 @@
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.intervention.monitor.Person.form.name" id="dss.vector.solutions.intervention.monitor.Person.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
+    <mjl:input param="concreteId" type="hidden" value="${item.concreteId}" />
     <mjl:input param="household" type="hidden" value="${item.household.id}" />
     <dl>
       <dt>
@@ -43,7 +44,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="dob" />
+        <mjl:input type="text" param="dob" id="dob" classes="DatePick"/>
         <mjl:messages attribute="dob">
           <mjl:message />
         </mjl:messages>
