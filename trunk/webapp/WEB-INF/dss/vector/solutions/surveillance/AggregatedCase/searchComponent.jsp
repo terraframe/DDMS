@@ -37,21 +37,7 @@ YAHOO.util.Event.onDOMReady(function(){
     selectSearch.setTreeSelectHandler(selectHandler);
     selectSearch.setFilter('');
 
-    var radios = YAHOO.util.Selector.query('input[type="radio"]', 'searchMosquitoCollections');
-    for(var i=0; i<radios.length; i++)
-    {
-      var radio = radios[i];
-      YAHOO.util.Event.on(radio, 'click', function(e, obj){
 
-        var radio = e.target;
-        if(radio.checked)
-        {
-          var filter = e.target.value;
-          this.setFilter(filter);
-        }
-
-      }, null, selectSearch);
-    }
 
     var opener = new YAHOO.util.Element("searchOpener");
     opener.on("click", function(){
