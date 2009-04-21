@@ -2,41 +2,44 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
 
+<%@page import="dss.vector.solutions.geo.generated.SurfaceDTO"%>
+
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 <script type="text/javascript">
 
-  YAHOO.util.Event.onDOMReady(function(){
+YAHOO.util.Event.onDOMReady(function(){
+
+    function selectHandler(selected)
+    {
+      var geoId = document.getElementById('geoIdEl');
+
+      if(selected != null)
+      {
+        geoId.value = selected.getGeoId();
+      }
+      else
+      {
+        geoId.value = '';
+      }
+    }
+
+    var selectSearch = new MDSS.SingleSelectSearch();
+    selectSearch.setSelectHandler(selectHandler);
+    selectSearch.setTreeSelectHandler(selectHandler);
+    var searchFilter = '<%=SurfaceDTO.CLASS%>';
+    selectSearch.setFilter(searchFilter);
+
 
     var opener = new YAHOO.util.Element("searchOpener");
     opener.on("click", function(){
 
-      if(MDSS.SelectSearch.isInitialized())
+      if(selectSearch.isInitialized())
       {
-        MDSS.SelectSearch.show();
+        selectSearch.show();
       }
       else
       {
-
-        var filterType = 'Surface';
-
-       function selectHandler(selected)
-       {
-         var geoId = document.getElementById('geoIdEl');
-         var geoEntityId = document.getElementById('geoEntityId');
-
-         if(selected != null)
-         {
-           geoId.value = selected.getGeoId();
-           geoEntityId.value = selected.getGeoEntityId();
-         }
-         else
-         {
-           geoId.value = '';
-           geoEntityId.value = '';
-         }
-       }
-
-       MDSS.SelectSearch.initialize(selectHandler, selectHandler, filterType);
+        selectSearch.render();
       }
     });
   }, null, true);
