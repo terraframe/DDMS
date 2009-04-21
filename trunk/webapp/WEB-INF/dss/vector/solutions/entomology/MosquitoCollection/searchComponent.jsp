@@ -121,7 +121,7 @@
 <fmt:message key="Recently_Created_Collections"/>
 
 <mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
-  <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.viewPage.mojo" />
+  <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="collectionMethod">
       <mjl:header>
