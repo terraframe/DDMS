@@ -376,11 +376,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
         request.setAttribute("jsp_to_render", path + jsp_to_render);
 
         // get a request dispatcher for the jsp template
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/templates/force_flush.jsp");
+       // RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/templates/force_flush.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher(jsp_to_render);
 
         // execute the jsp inside another jsp that will force the flush
         rd.include(request, dummyResponse);
-
+        dummyResponse.flushBuffer();
         return out;
 
     }
