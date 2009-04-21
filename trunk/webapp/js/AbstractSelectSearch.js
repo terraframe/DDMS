@@ -467,6 +467,7 @@ MDSS.AbstractSelectSearch.prototype = {
     var request = new MDSS.Request({
       resultPanel: resultPanel,
       searchValue: value,
+      input: input,
       searchRef: this,
       type: type,
       // don't paint a loading bar. It's too slow for this
@@ -493,6 +494,11 @@ MDSS.AbstractSelectSearch.prototype = {
 
           var li = e.target;
           var ul = e.currentTarget;
+          if(li.nodeName === 'SPAN')
+          {
+            li = li.parentNode;
+          }
+
           if(li.nodeName !== 'LI')
           {
             return;
@@ -505,13 +511,18 @@ MDSS.AbstractSelectSearch.prototype = {
             YAHOO.util.Dom.removeClass(lis[i], 'currentSelection');
           }
 
-          YAHOO.util.Dom.addClass(e.target, 'currentSelection');
+          YAHOO.util.Dom.addClass(li, 'currentSelection');
         });
 
         YAHOO.util.Event.on(ul, 'click', function(e, obj){
 
           var li = e.target;
           var ul = e.currentTarget;
+          if(li.nodeName === 'SPAN')
+          {
+            li = li.parentNode;
+          }
+
           if(li.nodeName !== 'LI')
           {
             return;
@@ -522,7 +533,7 @@ MDSS.AbstractSelectSearch.prototype = {
           obj.input.value = '';
           this._resetWithSelection(type, obj.panel, geoEntityId);
 
-        }, {input: input, panel: this.resultPanel}, this.searchRef);
+        }, {input: this.input, panel: this.resultPanel}, this.searchRef);
 
         var idAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ID;
         var entityNameAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME;
@@ -546,6 +557,9 @@ MDSS.AbstractSelectSearch.prototype = {
         this.resultPanel.render();
         this.resultPanel.show();
         this.resultPanel.bringToTop();
+
+        // refocus the input field
+        this.input.focus();
       }
     });
 
