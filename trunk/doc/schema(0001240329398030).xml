@@ -1,0 +1,26 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdController
+        name="dss.vector.solutions.surveillance.AggregatedCaseController">
+        <mdAction
+          name="searchByGeoIdAndEpiWeek"
+          isPost="true"
+          isQuery="false">
+          <create>
+            <mdParameter
+              name="ageGroup"
+              label="Age Group"
+              type="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+              order="4" />
+          </create>
+        </mdAction>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
