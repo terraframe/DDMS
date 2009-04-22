@@ -154,6 +154,41 @@ public abstract class AggregatedCaseViewDTO extends AggregatedCaseViewDTOBase
 
   public abstract Integer getDaysOutOfStock();
 
+  public abstract boolean isCaseStocksReadable();
+
+  public abstract boolean isCaseDiagnosticReadable();
+
+  public abstract boolean isCaseReferralsReadable();
+
+  public abstract boolean isCaseTreatmentMethodReadable();
+
+  public abstract boolean isCaseTreatmentsReadable();
+
+  public boolean getIsCaseStocksReadable()
+  {
+    return isCaseDiagnosticReadable();
+  }
+
+  public boolean getIsCaseDiagnosticReadable()
+  {
+    return isCaseDiagnosticReadable();
+  }
+
+  public boolean getIsCaseReferralsReadable()
+  {
+    return isCaseReferralsReadable();
+  }
+
+  public boolean getIsCaseTreatmentMethodReadable()
+  {
+    return isCaseTreatmentMethodReadable();
+  }
+
+  public boolean getIsCaseTreatmentsReadable()
+  {
+    return isCaseTreatmentsReadable();
+  }
+
   public boolean hasCaseId()
   {
     return this.getCaseId() != null && !this.getCaseId().equals("");
