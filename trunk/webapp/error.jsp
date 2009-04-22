@@ -12,7 +12,7 @@
 
 
 <%
-    if (exception.getLocalizedMessage().contains("com.terraframe.mojo.session.ReadTypePermissionExceptionDTO")) {
+    if (exception.getLocalizedMessage().contains("PermissionExceptionDTO")) {
 %>
 <div class="pageContent">
 <div class="pageTitle"><fmt:message key="Not_Authorized" /></div>
