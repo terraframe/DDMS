@@ -1,0 +1,209 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.surveillance.InfiantCaseView">
+        <create>
+          <attributes>
+            <boolean
+              name="caseStocks"
+              label="Treatment Stock"
+              default_value="false"
+              description="Marker indicating if the treatment stocks should be displayed" />
+            <boolean
+              name="caseTreatments"
+              label="Treatments"
+              default_value="false"
+              description="Marker indicating if the treatments should be displayed" />
+            <boolean
+              name="caseTreatmentMethod"
+              label="Treatment Methods"
+              default_value="false"
+              description="Marker indicating if the treatment methods should be displayed" />
+            <boolean
+              name="caseReferrals"
+              label="Referral Reasons"
+              default_value="false"
+              description="Marker indicating if the referral reasons should be displayed" />
+            <boolean
+              name="caseDiagnostic"
+              label="Diagnostic Methods"
+              default_value="false"
+              description="Marker indicating if the diagnostic methods should be displayed" />
+          </attributes>
+        </create>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.ChildCaseView">
+        <create>
+          <attributes>
+            <boolean
+              name="caseStocks"
+              label="Treatment Stock"
+              default_value="false"
+              description="Marker indicating if the treatment stocks should be displayed" />
+            <boolean
+              name="caseTreatments"
+              label="Treatments"
+              default_value="false"
+              description="Marker indicating if the treatments should be displayed" />
+            <boolean
+              name="caseTreatmentMethod"
+              label="Treatment Methods"
+              default_value="false"
+              description="Marker indicating if the treatment methods should be displayed" />
+            <boolean
+              name="caseReferrals"
+              label="Referral Reasons"
+              default_value="false"
+              description="Marker indicating if the referral reasons should be displayed" />
+            <boolean
+              name="caseDiagnostic"
+              label="Diagnostic Methods"
+              default_value="false"
+              description="Marker indicating if the diagnostic methods should be displayed" />
+          </attributes>
+        </create>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.TeenCaseView">
+        <create>
+          <attributes>
+            <boolean
+              name="caseStocks"
+              label="Treatment Stock"
+              default_value="false"
+              description="Marker indicating if the treatment stocks should be displayed" />
+            <boolean
+              name="caseTreatments"
+              label="Treatments"
+              default_value="false"
+              description="Marker indicating if the treatments should be displayed" />
+            <boolean
+              name="caseTreatmentMethod"
+              label="Treatment Methods"
+              default_value="false"
+              description="Marker indicating if the treatment methods should be displayed" />
+            <boolean
+              name="caseReferrals"
+              label="Referral Reasons"
+              default_value="false"
+              description="Marker indicating if the referral reasons should be displayed" />
+            <boolean
+              name="caseDiagnostic"
+              label="Diagnostic Methods"
+              default_value="false"
+              description="Marker indicating if the diagnostic methods should be displayed" />
+          </attributes>
+        </create>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.AdultCaseView">
+        <create>
+          <attributes>
+            <boolean
+              name="caseStocks"
+              label="Treatment Stock"
+              default_value="false"
+              description="Marker indicating if the treatment stocks should be displayed" />
+            <boolean
+              name="caseTreatments"
+              label="Treatments"
+              default_value="false"
+              description="Marker indicating if the treatments should be displayed" />
+            <boolean
+              name="caseTreatmentMethod"
+              label="Treatment Methods"
+              default_value="false"
+              description="Marker indicating if the treatment methods should be displayed" />
+            <boolean
+              name="caseReferrals"
+              label="Referral Reasons"
+              default_value="false"
+              description="Marker indicating if the referral reasons should be displayed" />
+            <boolean
+              name="caseDiagnostic"
+              label="Diagnostic Methods"
+              default_value="false"
+              description="Marker indicating if the diagnostic methods should be displayed" />
+          </attributes>
+        </create>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.ElderCaseView">
+        <create>
+          <attributes>
+            <boolean
+              name="caseStocks"
+              label="Treatment Stock"
+              default_value="false"
+              description="Marker indicating if the treatment stocks should be displayed" />
+            <boolean
+              name="caseTreatments"
+              label="Treatments"
+              default_value="false"
+              description="Marker indicating if the treatments should be displayed" />
+            <boolean
+              name="caseTreatmentMethod"
+              label="Treatment Methods"
+              default_value="false"
+              description="Marker indicating if the treatment methods should be displayed" />
+            <boolean
+              name="caseReferrals"
+              label="Referral Reasons"
+              default_value="false"
+              description="Marker indicating if the referral reasons should be displayed" />
+            <boolean
+              name="caseDiagnostic"
+              label="Diagnostic Methods"
+              default_value="false"
+              description="Marker indicating if the diagnostic methods should be displayed" />
+          </attributes>
+        </create>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.surveillance.AncientCaseView">
+        <create>
+          <attributes>
+            <boolean
+              name="caseStocks"
+              label="Treatment Stock"
+              default_value="false"
+              description="Marker indicating if the treatment stocks should be displayed" />
+            <boolean
+              name="caseTreatments"
+              label="Treatments"
+              default_value="false"
+              description="Marker indicating if the treatments should be displayed" />
+            <boolean
+              name="caseTreatmentMethod"
+              label="Treatment Methods"
+              default_value="false"
+              description="Marker indicating if the treatment methods should be displayed" />
+            <boolean
+              name="caseReferrals"
+              label="Referral Reasons"
+              default_value="false"
+              description="Marker indicating if the referral reasons should be displayed" />
+            <boolean
+              name="caseDiagnostic"
+              label="Diagnostic Methods"
+              default_value="false"
+              description="Marker indicating if the diagnostic methods should be displayed" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+    </delete>
+  </undoIt>
+</version>
