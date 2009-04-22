@@ -401,20 +401,10 @@ MDSS.QueryEntomology = (function(){
   }
 
   /**
-   * Initializes the configuration for the QueryPanel to
-   * Query on Entomology.
+   * Builds the query items for the left column.
    */
-  function _initialize(assayTree, config)
+  function _buildQueryItems(assayTree)
   {
-  	_config = config;
-
-    _queryPanel = new MDSS.QueryPanel('queryPanel', 'mapPanel', {
-      executeQuery: _executeQuery,
-      mapQuery: _mapQuery
-    });
-
-    _queryXML = new MDSS.QueryXML.Query();
-
     // area (geo entity search)
     _queryPanel.addQueryItem({
       displayLabel: 'Area <img src="./imgs/icons/world.png"/>',
@@ -503,7 +493,14 @@ MDSS.QueryEntomology = (function(){
         };
       })(assayMenuData)
     });
+  }
 
+  /**
+   * Builds the column information (pre-render) for the table
+   * in the the QueryPanel.
+   */
+  function _buildColumns()
+  {
     // Define the columns for the mosquito attributes
     // (uses a new instance of Mosquito as a template)
     var mosquito = new Mojo.$.dss.vector.solutions.entomology.Mosquito();
@@ -536,6 +533,26 @@ MDSS.QueryEntomology = (function(){
       key: mosquito.getTestDateMd().getName(),
       label: mosquito.getTestDateMd().getDisplayLabel()
     });
+  }
+
+  /**
+   * Initializes the configuration for the QueryPanel to
+   * Query on Entomology.
+   */
+  function _initialize(assayTree, config)
+  {
+  	_config = config;
+
+    _queryPanel = new MDSS.QueryPanel('queryPanel', 'mapPanel', {
+      executeQuery: _executeQuery,
+      mapQuery: _mapQuery
+    });
+
+    _queryXML = new MDSS.QueryXML.Query();
+
+    _buildQueryItems(assayTree);
+
+    _buildColumns();
   }
 
   /**
