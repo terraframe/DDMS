@@ -25,6 +25,7 @@
 	<property name="deploy.db" value="mdssdeploy" />
 	<property name="develop.db" value="mdssdevelop" />
 	<property name="geodata.db" value="mozambique" />
+	<!--<property name="write_rev" value="false" />-->
 
 
 	<!-- =================================================================== -->
@@ -36,7 +37,7 @@
 	<!-- so that posgres does not require a password from localhost         -->
 	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
 	<!-- =================================================================== -->
-	<target name="fast_build" depends="alert_status,kill_tomcat,develop_rebuild_import,write_revision,deploy_all,import_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
+	<target name="fast_build" depends="alert_status,kill_tomcat,write_revision,deploy_all,import_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="The build is complete, please start tomcat" />
 	</target>
 
@@ -205,8 +206,10 @@
 		<echo message="SVN updated with image for test server" />
 	</target>
     <!-- FIXME: upgrad jars to svn 1.6 when they come out-->
-	<target name="write_revision" depends="get_svn_user,get_svn_password"
-		description="Writes the current svn revision info to an html file">
+	<target name="write_revision"  if="write_rev" description="Writes the current svn revision info to an html file" >
+		<antcall target="get_svn_user"/>
+	    <antcall target="get_svn_password"/>
+
 	    <svn username="${svn.user}" password="${svn.password}">
 		<info target="https://my-svn.assembla.com/svn/mdss/trunk" verbose="true"/>
 	    </svn>
