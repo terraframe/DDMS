@@ -8,6 +8,8 @@ MDSS.QueryEntomology = (function(){
 
   var _queryPanel = null;
 
+  var _queryXML = null;
+
   var _config = null;
 
   /**
@@ -17,10 +19,8 @@ MDSS.QueryEntomology = (function(){
    */
   function _executeQuery()
   {
-  	var query = _queryPanel.getQuery();
-
   	var mosquito = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
-    var mosquitoEntity = query.getEntity(mosquito);
+    var mosquitoEntity = _queryXML.getEntity(mosquito);
 
     // always clear any prior conditions
     mosquitoEntity.clearCondition();
@@ -71,7 +71,7 @@ MDSS.QueryEntomology = (function(){
     }
 
     // execute the query
-    var xml = this.getQuery().getXML();
+    var xml = _queryXML.getXML();
 
     var request = new MDSS.Request({
       onSuccess : function(query)
@@ -127,7 +127,7 @@ MDSS.QueryEntomology = (function(){
     selectables.push(types[0]+'_entityName');
     selectables.push(types[0]+'_geoId');
     selectables.push(types[1]+'_isofemale');
-    var xml = this.getQuery().getXMLForMap(types, selectables);
+    var xml = _queryXML.getXMLForMap(types, selectables);
 
     var request = new MDSS.Request({
       queryPanelRef: this,
@@ -204,23 +204,22 @@ MDSS.QueryEntomology = (function(){
 
     // add the GeoEntity as restricting criteria
     // FIXME not compatible w/ two entities of the same type
-    var query = _queryPanel.getQuery();
-    var geoEntityQuery = query.getEntity(type);
+    var geoEntityQuery = _queryXML.getEntity(type);
     if(geoEntityQuery == null)
     {
       var geoEntityQuery = new MDSS.QueryXML.Entity(type, type);
-      query.addEntity(geoEntityQuery);
+      _queryXML.addEntity(geoEntityQuery);
 
       // selectables (entityName, geoId and spatial attribute)
       var entityNameAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getEntityNameMd().getName(), entityNameColumn);
       var entityNameSel = new MDSS.QueryXML.SimpleSelectable(entityNameAttr);
 
-      query.addSelectable(type+'_'+entityNameAttr.getName(), entityNameSel);
+      _queryXML.addSelectable(type+'_'+entityNameAttr.getName(), entityNameSel);
 
       var geoIdAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getGeoIdMd().getName(), geoIdColumn);
       var geoIdSel = new MDSS.QueryXML.SimpleSelectable(geoIdAttr);
 
-      query.addSelectable(type+'_'+geoIdAttr.getName(), geoIdSel, geoIdAttr.getName());
+      _queryXML.addSelectable(type+'_'+geoIdAttr.getName(), geoIdSel, geoIdAttr.getName());
     }
 
     // add restriction based on geoId
@@ -294,17 +293,16 @@ MDSS.QueryEntomology = (function(){
 
     var column = new YAHOO.widget.Column(obj);
     _queryPanel.insertColumn(column);
-    var query = _queryPanel.getQuery();
 
     // add Specie entity to the query
     var specie = Mojo.$.dss.vector.solutions.mo.Specie.CLASS;
     var specieEntity = new MDSS.QueryXML.Entity(specie, specie);
-    query.addEntity(specieEntity);
+    _queryXML.addEntity(specieEntity);
 
     var displayLabel = Mojo.$.dss.vector.solutions.mo.Specie.DISPLAYLABEL;
     var dlAttribute = new MDSS.QueryXML.Attribute(specieEntity.getAlias(), displayLabel);
     var dlSelectable = new MDSS.QueryXML.SimpleSelectable(dlAttribute);
-    query.addSelectable(specieEntity.getAlias()+'_'+displayLabel, dlSelectable);
+    _queryXML.addSelectable(specieEntity.getAlias()+'_'+displayLabel, dlSelectable);
   }
 
   function _clickSpeciesRatio(e, obj)
@@ -360,11 +358,10 @@ MDSS.QueryEntomology = (function(){
   {
     var column = obj.column;
 
-    var query = _queryPanel.getQuery();
     var mosquito = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
-    var mosquitoEntity = query.getEntity(mosquito);
+    var mosquitoEntity = _queryXML.getEntity(mosquito);
 
-    query.removeSelectable(mosquitoEntity.getAlias()+'_'+column.getKey());
+    _queryXML.removeSelectable(mosquitoEntity.getAlias()+'_'+column.getKey());
 
     _queryPanel.removeColumn(column);
   }
@@ -394,14 +391,13 @@ MDSS.QueryEntomology = (function(){
   {
     var column = new YAHOO.widget.Column(attributeObj);
     column = _queryPanel.insertColumn(column, _buildMenuForAttributes);
-    var query = _queryPanel.getQuery();
 
     var mosquito = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
-    var mosquitoEntity = query.getEntity(mosquito);
+    var mosquitoEntity = _queryXML.getEntity(mosquito);
 
     var attribute = new MDSS.QueryXML.Attribute(mosquitoEntity.getAlias(), attributeObj.key, attributeObj.key);
     var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
-    query.addSelectable(mosquitoEntity.getAlias()+'_'+column.getKey(), selectable);
+    _queryXML.addSelectable(mosquitoEntity.getAlias()+'_'+column.getKey(), selectable);
   }
 
   /**
@@ -416,6 +412,8 @@ MDSS.QueryEntomology = (function(){
       executeQuery: _executeQuery,
       mapQuery: _mapQuery
     });
+
+    _queryXML = new MDSS.QueryXML.Query();
 
     // area (geo entity search)
     _queryPanel.addQueryItem({
@@ -511,11 +509,9 @@ MDSS.QueryEntomology = (function(){
     var mosquito = new Mojo.$.dss.vector.solutions.entomology.Mosquito();
 
     // entity definition
-    var query = _queryPanel.getQuery();
-
     var mosquitoType = mosquito.getType();
     var mosquitoEntity = new MDSS.QueryXML.Entity(mosquitoType, mosquitoType);
-    query.addEntity(mosquitoEntity);
+    _queryXML.addEntity(mosquitoEntity);
 
     // generation
     _mosquitoColumns.push({

@@ -544,8 +544,6 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
 
   this._dataTable = null;
 
-  this._query = new MDSS.QueryXML.Query();
-
   // references to date range DOM elements
   this._startDate = null;
   this._endDate = null;
@@ -600,14 +598,6 @@ MDSS.QueryPanel.prototype = {
   getEndDate : function()
   {
     return this._endDate;
-  },
-
-  /**
-   * Returns the MDSS.QueryXML.Query object.
-   */
-  getQuery : function()
-  {
-    return this._query;
   },
 
   /**
