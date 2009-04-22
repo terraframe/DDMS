@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+
 import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
@@ -16,11 +18,14 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryParser;
+import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoServer;
+import dss.vector.solutions.geo.GeoServerReloader;
 import dss.vector.solutions.geo.generated.SentinalSiteQuery;
 
 public class Mosquito extends MosquitoBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -191,6 +196,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     String viewName = "MDSSTest";
 
+
     try
     {
       Database.dropView(viewName);
@@ -202,9 +208,14 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     Database.createView(viewName, sql);
 
-    String db = DatabaseProperties.getDatabaseName();
-    String dbView = db + "::" + viewName;
+    String sessionId = Session.getCurrentSession().getId();
+    GeoServerReloader.reload(sessionId, viewName);
 
-    return dbView;
+    String dbView = GeoServer.MDSS_NAMESPACE + ":" + viewName;
+
+    JSONArray layers = new JSONArray();
+    layers.put(dbView.toLowerCase()); // GeoServer expects lowercase names
+
+    return layers.toString();
   }
 }

@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.NameValuePair;
@@ -18,25 +21,37 @@ import dss.vector.solutions.global.CredentialsSingleton;
  */
 public class GeoServerReloader
 {
-  public static void main(String[] args)
-  {
-    reload();
-  }
+  private static final Pattern JSESSIONID_PATTERN = Pattern.compile("(?:.*?)JSESSIONID=(\\w*);.*");
 
-  private static String getId()
-  {
-    return "xpi4k4phj8hc8grv6p23od4bv5ee6t4z";
-  }
-
-  public static void reload()
+  public static void reload(String sessionId, String viewName)
   {
     try
     {
+      // poke the server to get a valid JSESSIONID in the cookie
+      GetMethod pokeGet = new GetMethod("http://127.0.0.1:8080/geoserver/welcome.do");
+      NameValuePair[] pokeQueryString = new NameValuePair[]{new NameValuePair(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId)};
+      pokeGet.setQueryString(pokeQueryString);
+
+      HttpClient pokeClient = new HttpClient();
+      int pokeCode = pokeClient.executeMethod(pokeGet);
+      printResponse("Poke", pokeCode, pokeGet, false);
+      Header cookies = pokeGet.getResponseHeader("Set-Cookie");
+      String value = cookies.getValue();
+
+      // A valid jSessionId is required for the next two calls (this is just the way GeoServer does it).
+      Matcher matcher = JSESSIONID_PATTERN.matcher(value);
+      matcher.matches();
+
+      String jSessionId = matcher.group(1);
+
+      System.out
+      .println("---------------------------------------------------------------------------------");
+
       // request a new feature
       PostMethod newPost = new PostMethod("http://127.0.0.1:8080/geoserver/config/data/typeNewSubmit.do");
-      newPost.addRequestHeader("Cookie", "JSESSIONID=C361B247973432E278D24286D06CD90C");
-      newPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, getId());
-      newPost.addParameter("selectedNewFeatureType", "MDSS_maps:::mdsstest"); // Why is :::[lowercase] ?
+      newPost.addRequestHeader("Cookie", "JSESSIONID="+jSessionId);
+      newPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
+      newPost.addParameter("selectedNewFeatureType", "MDSS_maps:::"+viewName.toLowerCase());
 
       HttpClient newClient = new HttpClient();
       int newCode = newClient.executeMethod(newPost);
@@ -49,10 +64,8 @@ public class GeoServerReloader
       // create the feature
       PostMethod createPost = new PostMethod(
           "http://127.0.0.1:8080/geoserver/config/data/typeEditorSubmit.do");
-      createPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, getId());
-      createPost.addRequestHeader("Cookie", "JSESSIONID=C361B247973432E278D24286D06CD90C");
-
-//      createPost.addParameter("JSESSIONID","C361B247973432E278D24286D06CD90C");
+      createPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
+      createPost.addRequestHeader("Cookie", "JSESSIONID="+jSessionId);
 
       createPost.addParameter("SRS", "4326");
       createPost.addParameter("abstract", "Generated from MDSS_maps");
@@ -100,39 +113,28 @@ public class GeoServerReloader
       printResponse("Create", createCode, createPost, false);
       createPost.releaseConnection();
 
-      System.out
-          .println("---------------------------------------------------------------------------------");
-
       // Apply
        PostMethod applyPost = new PostMethod("http://127.0.0.1:8080/geoserver/admin/saveToGeoServer.do");
-       applyPost.addRequestHeader("Cookie", "JSESSIONID=C361B247973432E278D24286D06CD90C");
-       applyPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, getId());
+       applyPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
        applyPost.addParameter("submit", "Apply");
 
        HttpClient applyClient = new HttpClient();
        int applyResponse = applyClient.executeMethod(applyPost);
        printResponse("Apply", applyResponse, applyPost, false);
 
-       System.out
-       .println("---------------------------------------------------------------------------------");
-
       // Save
       PostMethod savePost = new PostMethod("http://127.0.0.1:8080/geoserver/admin/saveToXML.do");
-      savePost.addRequestHeader("Cookie", "JSESSIONID=C361B247973432E278D24286D06CD90C");
-      savePost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, getId());
+      savePost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
       savePost.addParameter("submit", "Save");
 
       HttpClient saveClient = new HttpClient();
       int saveResponse = saveClient.executeMethod(savePost);
       printResponse("Save", saveResponse, savePost, false);
 
-      System.out
-      .println("---------------------------------------------------------------------------------");
-
       // reload the catalog
       GetMethod get1 = new GetMethod("http://127.0.0.1:8080/geoserver/admin/loadFromXML.do");
       NameValuePair[] params = new NameValuePair[] { new NameValuePair(
-          CredentialsSingleton.GLOBAL_SESSION_ID, getId()) };
+          CredentialsSingleton.GLOBAL_SESSION_ID, sessionId) };
       get1.setQueryString(params);
 
       HttpClient client3 = new HttpClient();
@@ -140,20 +142,12 @@ public class GeoServerReloader
       printResponse("Reload", responseCode3, get1, false);
       get1.releaseConnection();
 
-      System.out
-          .println("---------------------------------------------------------------------------------");
-
-      // URL url3 = new
-      // URL("http://127.0.0.1:8080/geoserver/admin/loadFromXML.do?"+getId());
-      // URLConnection conn3 = url3.openConnection();
-      // conn3.connect();
-      // InputStream inStream2 = conn3.getInputStream();
-      // printDebug(inStream2);
-
     }
     catch (Exception e)
     {
-      e.printStackTrace();
+      String error = "Could not reload GeoServer.";
+      GeoServerReloadException ex = new GeoServerReloadException(error, e);
+      throw ex;
     }
   }
 

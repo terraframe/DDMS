@@ -10,10 +10,6 @@ MDSS.QueryEntomology = (function(){
 
   var _config = null;
 
-  // Reference to the MDSS.QueryXML.Entity that represents
-  // the Mosquito Entity.
-  var _mosquitoEntity = null;
-
   /**
    * Final function called before query is executed.
    * Any last minute cleanup is done here. The this
@@ -21,8 +17,13 @@ MDSS.QueryEntomology = (function(){
    */
   function _executeQuery()
   {
+  	var query = _queryPanel.getQuery();
+
+  	var mosquito = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
+    var mosquitoEntity = query.getEntity(mosquito);
+
     // always clear any prior conditions
-    _mosquitoEntity.clearCondition();
+    mosquitoEntity.clearCondition();
 
     var conditions = [];
 
@@ -30,11 +31,12 @@ MDSS.QueryEntomology = (function(){
     // if values exist
     var startDateEl = this.getStartDate();
     var startDate = MDSS.util.stripWhitespace(startDateEl.get('value'));
+    var testDate = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
     if(startDate.length > 0)
     {
       var formatted = MojoCal.getMojoDateString(startDate);
 
-      var attribute = new MDSS.QueryXML.Attribute(_mosquitoEntity.getAlias(), '<%= MosquitoDTO.TESTDATE %>');
+      var attribute = new MDSS.QueryXML.Attribute(mosquitoEntity.getAlias(), testDate);
       var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
       var startDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.GE, formatted);
       conditions.push(startDateCondition);
@@ -46,7 +48,7 @@ MDSS.QueryEntomology = (function(){
     {
       var formatted = MojoCal.getMojoDateString(endDate);
 
-      var attribute = new MDSS.QueryXML.Attribute(_mosquitoEntity.getAlias(), '<%= MosquitoDTO.TESTDATE %>');
+      var attribute = new MDSS.QueryXML.Attribute(mosquitoEntity.getAlias(), testDate);
       var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
       var endDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, formatted);
       conditions.push(endDateCondition);
@@ -58,16 +60,15 @@ MDSS.QueryEntomology = (function(){
       and.addCondition('date1', conditions[0]);
       and.addCondition('date2', conditions[1]);
       var compositeCondition = new MDSS.QueryXML.CompositeCondition(and);
-      _mosquitoEntity.setCondition(compositeCondition);
+      mosquitoEntity.setCondition(compositeCondition);
     }
     else if(conditions.length == 1)
     {
       var or = new MDSS.QueryXML.Or();
       or.addCondition('date1', conditions[0]);
       var compositeCondition = new MDSS.QueryXML.CompositeCondition(or);
-      _mosquitoEntity.setCondition(compositeCondition);
+      mosquitoEntity.setCondition(compositeCondition);
     }
-
 
     // execute the query
     var xml = this.getQuery().getXML();
@@ -129,8 +130,10 @@ MDSS.QueryEntomology = (function(){
     var xml = this.getQuery().getXMLForMap(types, selectables);
 
     var request = new MDSS.Request({
-      onSuccess : function(dbView){
-        alert('view: '+dbView);
+      queryPanelRef: this,
+      onSuccess : function(layers){
+      	var layersObj = Mojo.util.getObject(layers);
+        this.queryPanelRef.createMap(layersObj);
       }
     });
 
@@ -142,11 +145,11 @@ MDSS.QueryEntomology = (function(){
     * is added as restricting criteria and the type is added
     * as a column for the query output.
     */
-   function _selectHandler(selected, allSelected)
+   function _selectHandler(selected)
    {
      var listIdSuffix = '_entry';
 
-     var bestFit = allSelected[allSelected.length-1];
+     bestFit = selected;
 
      // Earth is not allowed in the Select
      var earth = Mojo.$.dss.vector.solutions.geo.generated.Earth.CLASS;
@@ -206,7 +209,7 @@ MDSS.QueryEntomology = (function(){
     if(geoEntityQuery == null)
     {
       var geoEntityQuery = new MDSS.QueryXML.Entity(type, type);
-      query.addEntity(type, geoEntityQuery);
+      query.addEntity(geoEntityQuery);
 
       // selectables (entityName, geoId and spatial attribute)
       var entityNameAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getEntityNameMd().getName(), entityNameColumn);
@@ -253,7 +256,7 @@ MDSS.QueryEntomology = (function(){
         }
       }
 
-      _selectSearch = new MDSS.MultipleSelectSearch();
+      _selectSearch = new MDSS.SingleSelectSearch();
       _selectSearch.setSelectHandler(_selectHandler);
       _selectSearch.setTreeSelectHandler(_selectHandler);
       _selectSearch.setFilter(filterType);
@@ -295,8 +298,8 @@ MDSS.QueryEntomology = (function(){
 
     // add Specie entity to the query
     var specie = Mojo.$.dss.vector.solutions.mo.Specie.CLASS;
-    var specieEntity = new MDSS.QueryXML.Entity(specie, 'specie');
-    query.addEntity(specie, specieEntity);
+    var specieEntity = new MDSS.QueryXML.Entity(specie, specie);
+    query.addEntity(specieEntity);
 
     var displayLabel = Mojo.$.dss.vector.solutions.mo.Specie.DISPLAYLABEL;
     var dlAttribute = new MDSS.QueryXML.Attribute(specieEntity.getAlias(), displayLabel);
@@ -358,7 +361,10 @@ MDSS.QueryEntomology = (function(){
     var column = obj.column;
 
     var query = _queryPanel.getQuery();
-    query.removeSelectable(_mosquitoEntity.getAlias()+'_'+column.getKey());
+    var mosquito = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
+    var mosquitoEntity = query.getEntity(mosquito);
+
+    query.removeSelectable(mosquitoEntity.getAlias()+'_'+column.getKey());
 
     _queryPanel.removeColumn(column);
   }
@@ -390,9 +396,12 @@ MDSS.QueryEntomology = (function(){
     column = _queryPanel.insertColumn(column, _buildMenuForAttributes);
     var query = _queryPanel.getQuery();
 
-    var attribute = new MDSS.QueryXML.Attribute(_mosquitoEntity.getAlias(), attributeObj.key, attributeObj.key);
+    var mosquito = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
+    var mosquitoEntity = query.getEntity(mosquito);
+
+    var attribute = new MDSS.QueryXML.Attribute(mosquitoEntity.getAlias(), attributeObj.key, attributeObj.key);
     var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
-    query.addSelectable(_mosquitoEntity.getAlias()+'_'+column.getKey(), selectable);
+    query.addSelectable(mosquitoEntity.getAlias()+'_'+column.getKey(), selectable);
   }
 
   /**
@@ -403,7 +412,7 @@ MDSS.QueryEntomology = (function(){
   {
   	_config = config;
 
-    _queryPanel = new MDSS.QueryPanel('queryPanel', {
+    _queryPanel = new MDSS.QueryPanel('queryPanel', 'mapPanel', {
       executeQuery: _executeQuery,
       mapQuery: _mapQuery
     });
@@ -505,8 +514,8 @@ MDSS.QueryEntomology = (function(){
     var query = _queryPanel.getQuery();
 
     var mosquitoType = mosquito.getType();
-    _mosquitoEntity = new MDSS.QueryXML.Entity(mosquitoType, mosquitoType);
-    query.addEntity(mosquitoType, _mosquitoEntity);
+    var mosquitoEntity = new MDSS.QueryXML.Entity(mosquitoType, mosquitoType);
+    query.addEntity(mosquitoEntity);
 
     // generation
     _mosquitoColumns.push({

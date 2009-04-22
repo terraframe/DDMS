@@ -1,7 +1,9 @@
         <!-- Import OpenLayers, reduced, wms read only version -->
         <script type="text/javascript">
             var map;
+            var untiled;
             var tiled;
+            var pureCoverage = false;
             // pink tile avoidance
             OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
             // make OL compute scale according to WMS spec
@@ -28,7 +30,7 @@
                     {
                         width: '400',
                         srs: 'EPSG:4326',
-                        layers: 'mdss:mdsstest',
+                        layers: baseLayer,
                         height: '400',
                         styles: '',
                         format: 'image/png',
@@ -38,6 +40,7 @@
                     {buffer: 0}
                 );
 
+                //map.addLayers([untiled, tiled]);
                 map.addLayers([tiled]);
 
                 // build up all controls

@@ -2,7 +2,34 @@
   xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
+
+    <update>
+      <mdController name="dss.vector.solutions.entomology.QueryController">
+        <create>
+        <mdAction
+          name="mapQuery"
+          label="Map Query"
+          description="Map Query"
+          isPost="true">
+          <mdParameter
+            name="queryXML"
+            label="Query XML"
+            description="Query XML"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="geoEntityType"
+            label="GeoEntity type"
+            description="The type on which to gather spatial data"
+            order="1"
+            type="java.lang.String" />
+        </mdAction>
+        </create>
+      </mdController>
+    </update>
+
     <create>
+
       <mdBusiness
         name="dss.vector.solutions.irs.Targeter"
         label="Targeter"
@@ -1002,6 +1029,7 @@
           label="Delete Concrete" />
       </mdView>
     </create>
+
   </doIt>
   <undoIt>
     <delete>
