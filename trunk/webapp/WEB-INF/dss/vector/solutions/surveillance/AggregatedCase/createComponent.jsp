@@ -64,6 +64,7 @@
       <mjl:dt attribute="stillBirths" type="text"/>
     </mjl:component>
 
+    <c:if test="${item.isCaseStocksReadable}">
     <dt>
       <label>
         Treatment out of Stock
@@ -86,7 +87,9 @@
         </mjl:components>
       </table>
     </dd>
+    </c:if>
 
+    <c:if test="${item.isCaseReferralsReadable}">
     <dt>
       <label>
         Reasons why facility referred the patient to another facility
@@ -109,7 +112,9 @@
         </mjl:components>
       </table>
     </dd>
+    </c:if>
 
+    <c:if test="${item.isCaseDiagnosticReadable}">
     <dt>
       <label>
         Diagnostic methods
@@ -138,7 +143,9 @@
         </mjl:components>
       </table>
     </dd>
+    </c:if>
 
+    <c:if test="${item.isCaseTreatmentMethodReadable}">
     <dt>
       <label>
         Treatment methods
@@ -161,7 +168,9 @@
         </mjl:components>
       </table>
     </dd>
+    </c:if>
 
+    <c:if test="${item.isCaseTreatmentsReadable}">
     <dt>
       <label>
         Treatments
@@ -184,6 +193,7 @@
         </mjl:components>
       </table>
     </dd>
+    </c:if>
 
   </dl>
 
