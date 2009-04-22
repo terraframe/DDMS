@@ -452,7 +452,7 @@
       <mdView
         name="dss.vector.solutions.surveillance.ChildCaseView"
         extends="dss.vector.solutions.surveillance.AggregatedCaseView"
-        label="Infiant Case View">
+        label="Child Case View">
         <attributes>
           <integer
             name="cases"
@@ -604,7 +604,7 @@
       <mdView
         name="dss.vector.solutions.surveillance.TeenCaseView"
         extends="dss.vector.solutions.surveillance.AggregatedCaseView"
-        label="Infiant Case View">
+        label="Teen Case View">
         <attributes>
           <integer
             name="cases"
