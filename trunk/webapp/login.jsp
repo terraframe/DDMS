@@ -106,11 +106,9 @@ input[type="button"]:active {
 </div>
 <div class="pageContent">
 <div class="pageTitle"><fmt:message key="login" /></div>
-<mjl:form
-  method="post"
-  id="mform"
-  name="mform">
-  <div class="fcTop">
+<form method="post" action="com.terraframe.mojo.defaults.LoginController.login.mojo" name="mform" id="mform" >
+
+
   <c:if test="${bad_password}">
     <div class="alert alertbox">
     <p>
@@ -134,14 +132,15 @@ input[type="button"]:active {
   </dl>
 
   <div class="submitButton_bl"></div>
-  <mjl:command
-    action="com.terraframe.mojo.defaults.LoginController.login.mojo"
-    name="LoginController"
-    value="Login"
-    classes="submitButton" />
+  <input type="submit" value="Login" name="LoginController" id="submitLogin" class="submitButton"/>
 
 
-</mjl:form></div>
+
+</form>
+<script type="text/javascript">
+
+</script>
+</div>
 </body>
 </html>
 
