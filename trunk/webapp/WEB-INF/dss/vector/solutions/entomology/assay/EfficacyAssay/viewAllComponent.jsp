@@ -79,7 +79,7 @@
     <mjl:attributeColumn attributeName="surfacePostion">
     </mjl:attributeColumn>
 
-   <mjl:attributeColumn attributeName="exposureTime">
+   <mjl:attributeColumn attributeName="timeOnSurface">
     </mjl:attributeColumn>
 
     <mjl:attributeColumn attributeName="holdingTime">

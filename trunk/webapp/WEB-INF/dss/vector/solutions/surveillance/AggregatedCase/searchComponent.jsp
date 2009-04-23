@@ -59,7 +59,7 @@ YAHOO.util.Event.onDOMReady(function(){
   <mjl:input type="hidden" param="ageGroup.componentId" value="${ageGroup.id}"/>
   <dl>
     <dt> Geo Id </dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" value="${geoId}"/><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>
+    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" value="${geoId}" maxlength="16"/><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>
     <dt> Period Type </dt>
     <dd>
       <mjl:radioGroup var="current" varStatus="status" valueAttribute="enumName" items="${periodType}" param="periodType">

@@ -93,7 +93,7 @@
       <input type="radio" name="filterType" value="${NonSentinalSiteClass}" />&nbsp;<fmt:message key="Non_Sentinal_Site"/>
     </dd>
     <dt> <label> ${item.geoEntityMd.displayLabel}</label></dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>
+    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16"/><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>
     <dt> <label> ${item.dateCollectedMd.displayLabel}</label></dt>
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick" id="collectionDate"/></dd>
     <dt> <label> ${item.collectionMethodMd.displayLabel}</label> </dt>

@@ -12,14 +12,17 @@ YAHOO.util.Event.onDOMReady(function(){
     function selectHandler(selected)
     {
       var geoId = document.getElementById('geoIdEl');
+      var geoEntityId = document.getElementById('geoEntityId');
 
       if(selected != null)
       {
         geoId.value = selected.getGeoId();
+        geoEntityId.value = selected.getGeoEntityId();
       }
       else
       {
         geoId.value = '';
+        geoEntityId.value = '';
       }
     }
 
@@ -27,7 +30,7 @@ YAHOO.util.Event.onDOMReady(function(){
     selectSearch.setSelectHandler(selectHandler);
     selectSearch.setTreeSelectHandler(selectHandler);
     var searchFilter = '<%=SurfaceDTO.CLASS%>';
-    selectSearch.setFilter(searchFilter);
+    selectSearch.setFilter('');
 
 
     var opener = new YAHOO.util.Element("searchOpener");
@@ -55,7 +58,7 @@ YAHOO.util.Event.onDOMReady(function(){
   <mjl:component item="${item}" param="dto">
     <dl>
       <mjl:dt attribute="geoEntity">
-        <mjl:input id="geoIdEl" param="none" type="text" />
+        <mjl:input id="geoIdEl" param="none" type="text" value="${item.geoEntity.geoId}" maxlength="16"/>
         <a href="#" id="searchOpener"><img src="./imgs/icons/world.png" /></a>
         <mjl:input id="geoEntityId" param="geoEntity" type="hidden" />
         <mjl:messages attribute="geoEntity">
@@ -82,21 +85,14 @@ YAHOO.util.Event.onDOMReady(function(){
       <mjl:dt attribute="colonyName">
         <mjl:input type="text" param="colonyName" />
       </mjl:dt>
-      <dt><label> ${item.ageRangeMd.displayLabel} </label></dt>
-      <dd>
+      <mjl:dt attribute="ageRange">
       <dl>
         <mjl:struct param="ageRange">
-          <dt><label> ${item.ageRange.startPointMd.displayLabel} </label></dt>
-          <dd><mjl:input type="text" param="startPoint" /> <mjl:messages attribute="startPoint">
-            <mjl:message />
-          </mjl:messages></dd>
-          <dt><label> ${item.ageRange.endPointMd.displayLabel} </label></dt>
-          <dd><mjl:input type="text" param="endPoint" /> <mjl:messages attribute="endPoint">
-            <mjl:message />
-          </mjl:messages></dd>
+          <mjl:dt attribute="startPoint" type="text"  />
+          <mjl:dt attribute="endPoint" type="text"  />
         </mjl:struct>
       </dl>
-      </dd>
+      </mjl:dt>
       <mjl:dt attribute="sex">
         <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
           <mjl:option>
@@ -120,24 +116,13 @@ YAHOO.util.Event.onDOMReady(function(){
         <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides" /></a>
       </mjl:dt>
 
-      <mjl:dt attribute="timeOnSurface">
-        <mjl:input type="text" param="holdingTime" />
-      </mjl:dt>
+      <mjl:dt attribute="timeOnSurface" type="text"/>
 
       <mjl:dt attribute="surfacePostion">
         <mjl:select var="current" valueAttribute="enumName" items="${surfacePostion}" param="surfacePostion">
-          <c:choose>
-            <c:when test="${mjl:contains(item.surfacePostionEnumNames, current.enumName)}">
-              <mjl:option selected="selected">
-                ${item.surfacePostionMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
               <mjl:option>
                 ${item.surfacePostionMd.enumItems[current.enumName]}
               </mjl:option>
-            </c:otherwise>
-          </c:choose>
         </mjl:select>
       </mjl:dt>
       <mjl:dt attribute="exposureTime">

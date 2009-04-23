@@ -85,7 +85,7 @@
         <input type="radio" name="filterType" value="${PermanentWaterBodyClass}" />Permanent Water Body
     </dd>
     <dt> Geo Id </dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" /><a id="searchOpener" href="#"><img src="./imgs/icons/world.png"/></a></dd>
+    <dd> <mjl:input id="geoIdEl" param="geoId" type="text"  maxlength="16"/><a id="searchOpener" href="#"><img src="./imgs/icons/world.png"/></a></dd>
     <dt>Start Date </dt>
     <dd> <mjl:input param="startDate" type="text" classes="DatePick" id="startDate"/></dd>
     <dt>End Date </dt>

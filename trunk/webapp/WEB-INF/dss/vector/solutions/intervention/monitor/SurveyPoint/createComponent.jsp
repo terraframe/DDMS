@@ -94,7 +94,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:input id="geoIdEl" param="none" type="text" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a>
+        <mjl:input id="geoIdEl" param="none" type="text" maxlength="16"/><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a>
         <mjl:input id="geoEntityId" param="geoEntity" type="hidden" />
         <mjl:messages attribute="geoEntity">
           <mjl:message />
