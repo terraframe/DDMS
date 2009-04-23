@@ -37,7 +37,7 @@
 	<!-- so that posgres does not require a password from localhost         -->
 	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
 	<!-- =================================================================== -->
-	<target name="fast_build" depends="alert_status,kill_tomcat,write_revision,deploy_all,import_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
+	<target name="fast_build" depends="alert_status,kill_tomcat,develop_rebuild_import,write_revision,deploy_all,import_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="The build is complete, please start tomcat" />
 	</target>
 
