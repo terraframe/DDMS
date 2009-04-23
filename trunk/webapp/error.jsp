@@ -9,9 +9,15 @@
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 
-
-
 <%
+//if someone has bookmarked something they should not have, we will redirect them to the index
+if (exception.getClass().getName().contains("IllegalURIMethodException")) {
+%>
+<script type="text/javascript">
+window.location = "index.jsp ";
+</script>
+<%
+    }
     if (exception.getLocalizedMessage().contains("PermissionExceptionDTO")) {
 %>
 <div class="pageContent">
