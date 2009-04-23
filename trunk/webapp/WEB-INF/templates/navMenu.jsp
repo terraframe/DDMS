@@ -65,7 +65,7 @@
                                          <h6 class=""><fmt:message key="Efficacy_Assays"/></h6>
                                          <ul class="first-of-type">
                                               <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo"><fmt:message key="View_All_EfficacyAssay"/></a></li>
-                                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo"><fmt:message key="Knock_Down_Assay"/></a></li>
+                                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo"><fmt:message key="Knock_Down_Assay"/></a></li>
                                           </ul>
                                      </div>
                                  </div>
