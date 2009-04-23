@@ -11,15 +11,18 @@
   <mjl:component item="${item}" param="dto">
     <dl>
       <mjl:dt attribute="collectionMethod">
-<mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod">
+        <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod">
           <mjl:option>
             ${current.termName}
           </mjl:option>
         </mjl:select>
-</mjl:dt>
+      </mjl:dt>
       <mjl:dt attribute="dateCollected">
-<mjl:input type="text" param="dateCollected" classes="DatePick" id="dto.dateCollected.id"/>
-</mjl:dt>
+        <mjl:input type="text" param="dateCollected" classes="DatePick" id="dto.dateCollected.id"/>
+         <mjl:messages attribute="dateCollected">
+          <mjl:message />
+         </mjl:messages>
+      </mjl:dt>
       <dt>
         <label>
           ${item.geoEntityMd.displayLabel}
