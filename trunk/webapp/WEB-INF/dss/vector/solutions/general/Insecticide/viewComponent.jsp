@@ -42,6 +42,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.general.InsecticideController.edit.mojo" name="dss.vector.solutions.general.Insecticide.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.general.InsecticideController.viewAll.mojo" name="dss.vector.solutions.general.Insecticide.viewAll.link" />
