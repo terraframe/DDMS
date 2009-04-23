@@ -24,14 +24,6 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
   public static final String LARVAE_DDA_SUSCEPTIBILE                = "lDDAS";
 
-  public static final String ADULT_KNOCK_DOWN_RESISTANCE            = "aAKnockDownR";
-
-  public static final String ADULT_KNOCK_DOWN_POTENTIAL_RESISTANCE  = "aAKnockDownPR";
-
-  public static final String LARVAE_KNOCK_DOWN_RESISTANCE           = "lAKnockDownR";
-
-  public static final String LARVAE_KNOCK_DOWN_POTENTIAL_RESISTANCE = "lAKnockDownPR";
-
   public Property()
   {
     super();
@@ -79,11 +71,11 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
       throw e;
     }
   }
-  
+
   public Integer getPropertyInteger()
   {
     String value = this.getPropertyValue();
-    
+
     if (value == null)
     {
       return null;

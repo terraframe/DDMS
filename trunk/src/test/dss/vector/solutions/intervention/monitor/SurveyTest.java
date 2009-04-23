@@ -22,7 +22,6 @@ import junit.framework.TestSuite;
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.web.WebClientSession;
@@ -50,8 +49,6 @@ public class SurveyTest extends TestCase
   private static Drug            drug      = null;
 
   private static ClientSession   clientSession;
-
-  private static ClientRequestIF clientRequest;
 
   public static Test suite()
   {
@@ -88,7 +85,6 @@ public class SurveyTest extends TestCase
   protected static void classSetUp()
   {
     clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
-    clientRequest = clientSession.getRequest();
 
     geoEntity = new SentinalSite();
     geoEntity.setGeoId("0");
@@ -107,6 +103,7 @@ public class SurveyTest extends TestCase
 
     drug = new Drug();
     drug.setDisplayLabel("Test Drug");
+    drug.setDrugName("testDrug");
     drug.apply();
   }
 

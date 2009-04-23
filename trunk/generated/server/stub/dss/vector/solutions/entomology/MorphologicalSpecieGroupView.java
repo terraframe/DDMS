@@ -1,5 +1,7 @@
 package dss.vector.solutions.entomology;
 
+import java.util.Date;
+
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.MorphologicalSpecieGroupViewBase;
@@ -18,18 +20,20 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
   @Transaction
   public void apply()
   {
+    Date collectionDate = this.getDateCollected();
+
     if (this.getCollection() == null)
     {
-      this.setCollection(MosquitoCollectionPoint.findOrCreate(this.getGeoEntity(), this.getDateCollected()));
+      this.setCollection(MosquitoCollectionPoint.findOrCreate(this.getGeoEntity(), collectionDate));
     }
     else if( this.getCollection() instanceof MosquitoCollectionPoint)
     {
       ConcreteMosquitoCollection collection = this.getCollection();
 
-      if (!collection.getDateCollected().equals(this.getDateCollected()))
+      if (collectionDate != null && !collection.getDateCollected().equals(collectionDate))
       {
         collection.lock();
-        collection.setDateCollected(this.getDateCollected());
+        collection.setDateCollected(collectionDate);
         collection.apply();
       }
     }

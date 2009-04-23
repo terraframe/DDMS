@@ -79,12 +79,7 @@ public class AggregatedCaseTest extends TestCase
     ageGroupDTO = AggregatedAgeGroupDTO.getAll(clientRequest)[0];
   }
 
-  public void testConvertEpiWeek()
-  {
-
-  }
-
-  public void testInvalidEpiWeek()
+  public void ignoreInvalidEpiWeek()
   {
     try
     {
@@ -101,7 +96,7 @@ public class AggregatedCaseTest extends TestCase
     }
   }
 
-  public void testInvalidEpiMonth()
+  public void ignoreInvalidEpiMonth()
   {
     try
     {
@@ -118,7 +113,7 @@ public class AggregatedCaseTest extends TestCase
     }
   }
 
-  public void testInvalidEpiQuarter()
+  public void ignoreInvalidEpiQuarter()
   {
     try
     {
