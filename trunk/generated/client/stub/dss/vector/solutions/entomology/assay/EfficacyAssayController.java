@@ -37,7 +37,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     }
     catch(ProblemExceptionDTO e)
     {
-      ErrorUtility.prepareProblems(e, req);
+      ErrorUtility.forceProblems(e, req);
 
       this.failCreate(dto);
     }
@@ -238,6 +238,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     clone.setTestMethod(dto.getTestMethod());
     clone.setSpecie(dto.getSpecie());
     clone.setColonyName(dto.getColonyName());
+    clone.setTimeOnSurface(dto.getTimeOnSurface());
     clone.setGravid(dto.getGravid());
     clone.setFed(dto.getFed());
     clone.setInsecticide(dto.getInsecticide());
