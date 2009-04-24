@@ -33,7 +33,14 @@ MDSS.Localized = {
     Start_Date: '<fmt:message key="Query_Start_Date" />',
     End_Date: '<fmt:message key="Query_End_Date" />',
     Map_Query: '<fmt:message key="Query_Map_Query" />',
-    Run_Query: '<fmt:message key="Query_Run_Query" />'
+    Run_Query: '<fmt:message key="Query_Run_Query" />',
+    Refresh_Map: '<fmt:message key="Refresh_Map" />'
+  },
+
+  Toggle:
+  {
+    Show: '<fmt:message key="Toggle_Show" />',
+    Hide: '<fmt:message key="Toggle_Hide" />'
   },
 
   Select_Universal_Type: '<fmt:message key="Select_Universal_Type" />',
