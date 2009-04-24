@@ -149,4 +149,17 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
     return newView;
   }
 
+  @Transaction
+  public static GeoTargetView[] getGeoTargets(GeoEntity[] geoEntities)
+  {
+    GeoTargetView[] views = new GeoTargetView[geoEntities.length];
+
+    for(int i = 0; i < geoEntities.length; i++)
+    {
+      views[i] = GeoTarget.find(geoEntities[i]);
+    }
+
+    return views;
+  }
+
 }

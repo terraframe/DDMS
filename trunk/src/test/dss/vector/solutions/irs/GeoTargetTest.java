@@ -1,7 +1,10 @@
 package dss.vector.solutions.irs;
 
+import dss.vector.solutions.geo.generated.District;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.Province;
 import dss.vector.solutions.geo.generated.SentinalSite;
+import dss.vector.solutions.geo.generated.SprayZone;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -10,6 +13,20 @@ import junit.framework.TestSuite;
 public class GeoTargetTest extends TestCase
 {
   public static GeoEntity geoEntity;
+
+  public static SprayZone sprayZone;
+
+  public static Province  province1;
+
+  public static Province  province2;
+
+  public static District  district1;
+
+  public static District  district2;
+
+  public static District  district3;
+
+  public static District  district4;
 
   public static Test suite()
   {
@@ -35,6 +52,13 @@ public class GeoTargetTest extends TestCase
 
   protected static void classTearDown()
   {
+    sprayZone.delete();
+    district4.delete();
+    district3.delete();
+    district2.delete();
+    district1.delete();
+    province2.delete();
+    province1.delete();
     geoEntity.delete();
   }
 
@@ -45,6 +69,48 @@ public class GeoTargetTest extends TestCase
     geoEntity.setGeoId("0");
     geoEntity.setEntityName("testName");
     geoEntity.apply();
+
+    province1 = new Province();
+    province1.setEntityName("test Province 1");
+    province1.setGeoId("2");
+    province1.setActivated(true);
+    province1.apply();
+
+    province2 = new Province();
+    province2.setEntityName("test Province 2");
+    province2.setGeoId("3");
+    province2.setActivated(true);
+    province2.apply();
+
+    district1 = new District();
+    district1.setEntityName("test District 1");
+    district1.setGeoId("4");
+    district1.setActivated(true);
+    district1.applyWithParent(province1.getId(), false);
+
+    district2 = new District();
+    district2.setEntityName("test District 2");
+    district2.setGeoId("5");
+    district2.setActivated(true);
+    district2.applyWithParent(province1.getId(), false);
+
+    district3 = new District();
+    district3.setEntityName("test District 3");
+    district3.setGeoId("6");
+    district3.setActivated(true);
+    district3.applyWithParent(province1.getId(), false);
+
+    district4 = new District();
+    district4.setEntityName("test District 4");
+    district4.setGeoId("7");
+    district4.setActivated(true);
+    district4.applyWithParent(province2.getId(), false);
+
+    sprayZone = new SprayZone();
+    sprayZone.setEntityName("test Province 1");
+    sprayZone.setGeoId("1");
+    sprayZone.setActivated(true);
+    sprayZone.applyWithParent(district1.getId(), false);
   }
 
   public void testCreate() throws Exception
@@ -144,9 +210,9 @@ public class GeoTargetTest extends TestCase
 
       fail("Able in get a deleted resource");
     }
-    catch(Exception e)
+    catch (Exception e)
     {
-      //This is expected
+      // This is expected
     }
   }
 
@@ -309,7 +375,8 @@ public class GeoTargetTest extends TestCase
       for (int i = 0; i < 53; i++)
       {
         assertEquals(new Integer(i), GeoTargetView.class.getMethod("getTarget_" + i).invoke(tests[0]));
-        assertEquals(new Integer(i * 2), GeoTargetView.class.getMethod("getTarget_" + i).invoke(tests[1]));
+        assertEquals(new Integer(i * 2), GeoTargetView.class.getMethod("getTarget_" + i)
+            .invoke(tests[1]));
       }
     }
     finally
@@ -368,8 +435,10 @@ public class GeoTargetTest extends TestCase
 
       for (int i = 0; i < 53; i++)
       {
-        assertEquals(new Integer(i * 2), GeoTargetView.class.getMethod("getTarget_" + i).invoke(tests[0]));
-        assertEquals(new Integer(i * 4), GeoTargetView.class.getMethod("getTarget_" + i).invoke(tests[1]));
+        assertEquals(new Integer(i * 2), GeoTargetView.class.getMethod("getTarget_" + i)
+            .invoke(tests[0]));
+        assertEquals(new Integer(i * 4), GeoTargetView.class.getMethod("getTarget_" + i)
+            .invoke(tests[1]));
       }
     }
     finally
@@ -415,6 +484,66 @@ public class GeoTargetTest extends TestCase
     {
       views[0].deleteConcrete();
       views[1].deleteConcrete();
+    }
+  }
+
+  public void testGeoGeoTargets()
+  {
+    GeoEntity[] geoEntities = new GeoEntity[] { geoEntity, province1, province2, district1, district2,
+        district3, district4, sprayZone };
+
+    GeoTargetView[] views = GeoTargetView.getGeoTargets(geoEntities);
+
+    assertEquals(geoEntities.length, views.length);
+
+    for (int i = 0; i < geoEntities.length; i++)
+    {
+      assertEquals(geoEntities[i].getId(), views[i].getGeoEntity().getId());
+      assertEquals("", views[i].getTargetId());
+    }
+  }
+
+  public void testGetExistingGeoTargets() throws Exception
+  {
+    int year = 200;
+    GeoTargetView view = new GeoTargetView();
+    view.setGeoEntity(geoEntity);
+    view.setTargetYear(year);
+
+    for (int i = 0; i < 53; i++)
+    {
+      GeoTargetView.class.getMethod("setTarget_" + i, Integer.class).invoke(view, i);
+    }
+
+    view.apply();
+
+    try
+    {
+
+      GeoEntity[] geoEntities = new GeoEntity[] { geoEntity, province1, province2, district1, district2,
+          district3, district4, sprayZone };
+
+      GeoTargetView[] views = GeoTargetView.getGeoTargets(geoEntities);
+
+      assertEquals(geoEntities.length, views.length);
+
+      for (int i = 0; i < geoEntities.length; i++)
+      {
+        assertEquals(geoEntities[i].getId(), views[i].getGeoEntity().getId());
+
+        if(i == 0)
+        {
+          assertEquals(view.getTargetId(), views[i].getTargetId());
+        }
+        else
+        {
+          assertEquals("", views[i].getTargetId());
+        }
+      }
+    }
+    finally
+    {
+      view.deleteConcrete();
     }
   }
 }
