@@ -1,12 +1,13 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="page_title" value="View_all_efficacy_bioassay"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:table var="item" query="${query}"  classes="displayTable" even ="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewPage.mojo" />
   <mjl:columns>
-  
+
   <mjl:attributeColumn attributeName="collection">
       <mjl:header>
         Mosquito Collection
@@ -15,22 +16,22 @@
         ${item.collection.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
-  
+
       <mjl:attributeColumn attributeName="testDate">
       <mjl:header>
         Test Date
       </mjl:header>
     </mjl:attributeColumn>
-    
+
      <mjl:attributeColumn attributeName="testMethod">
       <mjl:header>
         Test Method
       </mjl:header>
       <mjl:row>
         ${item.testMethod.displayLabel}
-      </mjl:row>      
+      </mjl:row>
     </mjl:attributeColumn>
-     
+
     <mjl:attributeColumn attributeName="insecticide">
       <mjl:header>
         Insecticide
@@ -39,13 +40,13 @@
         ${item.insecticide.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
-           
+
     <mjl:attributeColumn attributeName="exposureTime">
       <mjl:header>
         Exposure Time
       </mjl:header>
     </mjl:attributeColumn>
-    
+
      <mjl:attributeColumn attributeName="specie">
       <mjl:header>
         Specie
@@ -54,7 +55,7 @@
         ${item.specie.termName}
       </mjl:row>
     </mjl:attributeColumn>
-    
+
      <mjl:attributeColumn attributeName="identificationMethod">
       <mjl:header>
         Identification Method
@@ -63,13 +64,13 @@
         ${item.identificationMethod.termName}
       </mjl:row>
     </mjl:attributeColumn>
-    
+
     <mjl:attributeColumn attributeName="sex">
       <mjl:header>
         Sex
       </mjl:header>
     </mjl:attributeColumn>
-    
+
     <mjl:attributeColumn attributeName="quantityTested">
       <mjl:header>
         Quantity Tested
