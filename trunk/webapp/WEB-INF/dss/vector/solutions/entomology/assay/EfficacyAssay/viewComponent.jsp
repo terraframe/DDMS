@@ -1,6 +1,8 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="page_title" value="Efficacy_Bioassay" scope="request" />
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -26,7 +28,7 @@
       </mjl:dt>
       <mjl:dt attribute="colonyName">
       ${item.colonyName}
-</mjl:dt>
+      </mjl:dt>
       <dt><label> ${item.ageRangeMd.displayLabel} </label></dt>
       <dd>
       <dl>
@@ -46,10 +48,10 @@
       </dd>
       <mjl:dt attribute="gravid">
       ${item.gravid}
-</mjl:dt>
+      </mjl:dt>
       <mjl:dt attribute="fed">
       ${item.fed}
-</mjl:dt>
+      </mjl:dt>
       <mjl:dt attribute="insecticide">
         <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="dss.vector.solutions.mo.ActiveIngredient.form.view.link">
           <mjl:property value="${item.insecticide.id}" name="id" />
@@ -57,7 +59,7 @@
       </mjl:dt>
       <mjl:dt attribute="timeOnSurface">
       ${item.timeOnSurface}
-</mjl:dt>
+      </mjl:dt>
       <dt><label> ${item.surfacePostionMd.displayLabel} </label></dt>
       <dd>
       <ul>
@@ -66,30 +68,30 @@
         </c:forEach>
       </ul>
       </dd>
-            <mjl:dt attribute="exposureTime">
+      <mjl:dt attribute="exposureTime">
       ${item.exposureTime}
-</mjl:dt>
+      </mjl:dt>
       <mjl:dt attribute="holdingTime">
       ${item.holdingTime}
-</mjl:dt>
+       </mjl:dt>
       <mjl:dt attribute="quantityTested">
       ${item.quantityTested}
-</mjl:dt>
+      </mjl:dt>
       <mjl:dt attribute="quantityLive">
       ${item.quantityLive}
-</mjl:dt>
+      </mjl:dt>
       <mjl:dt attribute="quantityDead">
       ${item.quantityDead}
-</mjl:dt>
+        </mjl:dt>
       <mjl:dt attribute="mortality">
       ${item.mortality}
-</mjl:dt>
-      <dt><label> <fmt:message key="Overall_Mortality_for_surface"/>: ${item.geoEntity.entityName} </label></dt>
-      <dd>${item.overallMortalityRate}</dd>
+      </mjl:dt>
+      <dt><label> <fmt:message key="Overall_Mortality_for_surface" />: ${item.geoEntity.entityName} </label></dt>
+      <dd><fmt:formatNumber type="number" maxFractionDigits="2" value="${item.overallMortalityRate}" /></dd>
     </dl>
   </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.edit.button" />
-    <mjl:command value="Copy_Assay" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.cloneAssay.mojo" name="form.cloneAssay.button" />
+  <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.edit.button" />
+  <mjl:command value="Copy_Assay" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.cloneAssay.mojo" name="form.cloneAssay.button" />
 </mjl:form>
 
 
