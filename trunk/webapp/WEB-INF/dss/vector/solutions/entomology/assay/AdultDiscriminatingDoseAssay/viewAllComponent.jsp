@@ -2,7 +2,9 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<fmt:setLocale value="<%=request.getLocale()%>" />
+
+<c:set var="page_title" value="Adult_DDA"  scope="request"/>
+
 
 <mjl:messages>
   <mjl:message />
@@ -101,5 +103,5 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Adult Discriminating Dose Assay" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo"
+<mjl:commandLink display="Enter New Data" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo"
   name="AdultDiscriminatingDoseAssayController.newInstance" />
