@@ -60,7 +60,7 @@
                                          <h6 class="first-of-type"><fmt:message key="Bioassays"/></h6>
                                          <ul class="first-of-type">
                                               <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"><fmt:message key="Adult_DDA"/></a></li>
-                                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo"><fmt:message key="Larvae_DDA"/></a></li>
+                                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo"><fmt:message key="Larvae_DDA"/></a></li>
                                          </ul>
                                          <h6 class=""><fmt:message key="Efficacy_Assays"/></h6>
                                          <ul class="first-of-type">
