@@ -2316,11 +2316,13 @@
             name="specie"
             label="Species"
             type="dss.vector.solutions.mo.Specie"
+            description="The Specie of mosqito being tested."
             required="false" />
           <reference
             name="insecticide"
             label="Insecticide"
             type="dss.vector.solutions.general.Insecticide"
+            description="The Insecticide being tested."
             required="true" />
         </attributes>
         <mdMethod
@@ -2468,7 +2470,7 @@
             required="true"
             rejectNegative="true"
             description="The amount of time the mosquitos were held before exposure in hours"
-            default_value="23" />
+            default_value="24" />
           <integer
             name="quantityDead"
             label="Number Dead"
