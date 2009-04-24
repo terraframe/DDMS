@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <fmt:setLocale value="<%=request.getLocale()%>" />
-
+<c:set var="page_title" value="Larvae_DDA"  scope="request"/>
 
 <mjl:messages>
   <mjl:message />
@@ -10,7 +10,7 @@
 <mjl:table var="item" query="${query}"  classes="displayTable" even ="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewPage.mojo" />
   <mjl:columns>
-  
+
   <mjl:attributeColumn attributeName="collection">
       <mjl:header>
         Mosquito Collection
@@ -19,7 +19,7 @@
         ${item.collection.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
-  
+
       <mjl:attributeColumn attributeName="testDate">
       <mjl:header>
         Test Date
@@ -28,16 +28,16 @@
         <fmt:formatDate value="${item.testDate}" dateStyle="SHORT" />
       </mjl:row>
     </mjl:attributeColumn>
-    
+
      <mjl:attributeColumn attributeName="testMethod">
       <mjl:header>
         Test Method
       </mjl:header>
       <mjl:row>
         ${item.testMethod.displayLabel}
-      </mjl:row>      
+      </mjl:row>
     </mjl:attributeColumn>
-     
+
     <mjl:attributeColumn attributeName="insecticide">
       <mjl:header>
         Insecticide
@@ -46,13 +46,13 @@
         ${item.insecticide.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
-           
+
     <mjl:attributeColumn attributeName="exposureTime">
       <mjl:header>
         Exposure Time
       </mjl:header>
     </mjl:attributeColumn>
-    
+
      <mjl:attributeColumn attributeName="specie">
       <mjl:header>
         Specie
@@ -61,7 +61,7 @@
         ${item.specie.termName}
       </mjl:row>
     </mjl:attributeColumn>
-    
+
      <mjl:attributeColumn attributeName="identificationMethod">
       <mjl:header>
         Identification Method
@@ -70,8 +70,8 @@
         ${item.identificationMethod.termName}
       </mjl:row>
     </mjl:attributeColumn>
-    
-    
+
+
     <mjl:attributeColumn attributeName="quantityTested">
       <mjl:header>
         Quantity Tested
