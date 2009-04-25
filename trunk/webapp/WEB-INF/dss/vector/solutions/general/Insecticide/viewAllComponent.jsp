@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<c:set var="page_title" value="View_All_Insecticides"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -7,22 +9,19 @@
   <mjl:context action="dss.vector.solutions.general.InsecticideController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="activeIngredient">
-      <mjl:header>
-        Insecticide
-      </mjl:header>
       <mjl:row>
         ${item.displayLabel}
-      </mjl:row>      
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
-      <mjl:header>        
+      <mjl:header>
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="view.link">
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
-      <mjl:footer>        
+      <mjl:footer>
       </mjl:footer>
     </mjl:freeColumn>
   </mjl:columns>
