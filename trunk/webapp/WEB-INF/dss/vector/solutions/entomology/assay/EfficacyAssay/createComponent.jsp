@@ -13,16 +13,19 @@ YAHOO.util.Event.onDOMReady(function(){
     {
       var geoId = document.getElementById('geoIdEl');
       var geoEntityId = document.getElementById('geoEntityId');
+      var geoEntityName = document.getElementById('located_in');
 
       if(selected != null)
       {
         geoId.value = selected.getGeoId();
         geoEntityId.value = selected.getGeoEntityId();
+        geoEntityName.innerHTML = selected.getEntityName();
       }
       else
       {
         geoId.value = '';
         geoEntityId.value = '';
+        geoEntityName.innerHTML = '';
       }
     }
 
@@ -60,10 +63,8 @@ YAHOO.util.Event.onDOMReady(function(){
       <mjl:dt attribute="geoEntity">
         <mjl:input id="geoIdEl" param="none" type="text" value="${item.geoEntity.geoId}" maxlength="16"/>
         <a href="#" id="searchOpener"><img src="./imgs/icons/world.png" /></a>
-        <mjl:input id="geoEntityId" param="geoEntity" type="hidden" />
-        <mjl:messages attribute="geoEntity">
-          <mjl:message />
-        </mjl:messages>
+        <mjl:input id="geoEntityId" param="geoEntity" type="hidden" /><br/>
+        (<span id ="located_in">${item.geoEntity.entityName}</span>)
       </mjl:dt>
       <mjl:dt attribute="testDate">
         <mjl:input type="text" param="testDate" classes="DatePick" id="testDate" />
