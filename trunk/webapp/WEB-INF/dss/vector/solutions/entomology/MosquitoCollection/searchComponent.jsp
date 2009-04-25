@@ -28,14 +28,17 @@
     function selectHandler(selected)
     {
       var geoId = document.getElementById('geoIdEl');
+      var geoEntityName = document.getElementById('entityName');
 
       if(selected != null)
       {
         geoId.value = selected.getGeoId();
+        geoEntityName.innerHTML = selected.getEntityName();
       }
       else
       {
         geoId.value = '';
+        geoEntityName.innerHTML = '';
       }
     }
 
@@ -89,11 +92,13 @@
     <dt><fmt:message key="Filter"/></dt>
     <dd>
       <input type="radio" name="filterType" value="" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${SentinalSiteClass}" />&nbsp;<fmt:message key="Sentinal_Site"/> &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${NonSentinalSiteClass}" />&nbsp;<fmt:message key="Non_Sentinal_Site"/>
+      <input type="radio" name="filterType" value="${SentinalSiteClass}" />&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" value="${NonSentinalSiteClass}" />&nbsp;<fmt:message key="Non_Sentinel_Site"/>
     </dd>
     <dt> <label> ${item.geoEntityMd.displayLabel}</label></dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16"/><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>
+    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16"/>
+    <a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a>
+    <br/>(<span id ="entityName"></span>)</dd>
     <dt> <label> ${item.dateCollectedMd.displayLabel}</label></dt>
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick" id="collectionDate"/></dd>
     <dt> <label> ${item.collectionMethodMd.displayLabel}</label> </dt>
