@@ -12,7 +12,7 @@
                          <ul>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="Alerts"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="User_Administration"/></a>
-                                 <div id="pim" class="yuimenu">
+                                 <div id="pim1" class="yuimenu">
                                      <div class="bd">
                                          <ul class="first-of-type">
                                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="View_Users"/></a></li>
@@ -21,13 +21,21 @@
                                          </ul>
                                      </div>
                                  </div>
-
+                             </li>
+                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="Entomology"/></a>
+                                 <div id="pim2" class="yuimenu">
+                                     <div class="bd">
+                                         <ul class="first-of-type">
+                                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides"/></a></li>
+                                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo"><fmt:message key="Manage_Knock_Down_Properties"/></a></li>
+                                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.general.LethalTimePropertyController.search.mojo"><fmt:message key="Manage_Lethal_Properties"/></a></li>
+                                         </ul>
+                                     </div>
+                                 </div>
                              </li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="Backup_Data"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.PropertyController.viewAll.mojo"><fmt:message key="Change_Settings"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo"><fmt:message key="Manage_Knock_Down_Properties"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.general.LethalTimePropertyController.search.mojo"><fmt:message key="Manage_Lethal_Properties"/></a></li>
+
                          </ul>
                      </div>
                  </div>
@@ -55,7 +63,7 @@
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.QueryController.queryEntomology.mojo"><fmt:message key="Query_Entomology"/></a></li><!--
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAll.mojo"><fmt:message key="View_All_Mosquito_Collections"/></a></li>
                               --><li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="Resistance_Monitoring"/></a>
-                                 <div id="pim" class="yuimenu">
+                                 <div id="pim3" class="yuimenu">
                                      <div class="bd">
                                          <h6 class="first-of-type"><fmt:message key="Bioassays"/></h6>
                                          <ul class="first-of-type">
