@@ -21,14 +21,17 @@ YAHOO.util.Event.onDOMReady(function(){
     function selectHandler(selected)
     {
       var geoId = document.getElementById('geoIdEl');
+      var geoEntityName = document.getElementById('entityName');
 
       if(selected != null)
       {
         geoId.value = selected.getGeoId();
+        geoEntityName.innerHTML = selected.getEntityName();
       }
       else
       {
         geoId.value = '';
+        geoEntityName.innerHTML = '';
       }
     }
 
@@ -59,7 +62,9 @@ YAHOO.util.Event.onDOMReady(function(){
   <mjl:input type="hidden" param="ageGroup.componentId" value="${ageGroup.id}"/>
   <dl>
     <dt> Geo Id </dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" value="${geoId}" maxlength="16"/><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a></dd>
+    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" value="${geoId}" maxlength="16"/><a href="#" id="searchOpener">
+    <img src="./imgs/icons/world.png"/></a>
+    <br/>(<span id ="entityName"></span>)</dd>
     <dt> Period Type </dt>
     <dd>
       <mjl:radioGroup var="current" varStatus="status" valueAttribute="enumName" items="${periodType}" param="periodType">
