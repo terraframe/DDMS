@@ -52,6 +52,4 @@
   <mjl:command value="Edit" action="dss.vector.solutions.general.LethalTimePropertyController.edit.mojo" name="dss.vector.solutions.general.LethalTimeProperty.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
 <mjl:commandLink display="View All" action="dss.vector.solutions.general.LethalTimePropertyController.viewAll.mojo" name="dss.vector.solutions.general.LethalTimeProperty.viewAll.link" />
