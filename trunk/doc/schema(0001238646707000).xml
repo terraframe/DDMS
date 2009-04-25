@@ -2425,13 +2425,13 @@
             label="Fed"
             description="Fed value (Only applicable when females are present)."
             rejectNegative="true"
-            required="true"/>
+            required="false"/>
           <integer
             name="gravid"
             label="Number Gravid"
             description="Gravid value (Only applicable when females are present)"
             rejectNegative="true"
-            required="true" />
+            required="false" />
           <enumeration
             name="sex"
             label="Sex"
@@ -2653,15 +2653,13 @@
             label="Fed"
             description="Fed value (Only applicable when females are present)."
             rejectNegative="true"
-            required="true"
-            default_value="0" />
+            required="false" />
           <integer
             name="gravid"
             label="Number Gravid"
             description="Gravid value (Only applicable when females are present)"
             rejectNegative="true"
-            required="true"
-            default_value="0" />
+            required="false"/>
           <enumeration
             name="sex"
             label="Sex"
