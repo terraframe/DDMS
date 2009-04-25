@@ -26,7 +26,7 @@ public class AdultTestIntervalController extends AdultTestIntervalControllerBase
     dss.vector.solutions.entomology.assay.AdultTestIntervalDTO dto = dss.vector.solutions.entomology.assay.AdultTestIntervalDTO.lock(super.getClientRequest(), id);
     req.setAttribute("dss_vector_solutions_entomology_assay_AdultTestInterval_assay", dss.vector.solutions.entomology.assay.AdultAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit AdultTestIntervalController");
+    
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -39,7 +39,7 @@ public class AdultTestIntervalController extends AdultTestIntervalControllerBase
     dss.vector.solutions.entomology.assay.AdultTestIntervalDTO dto = new dss.vector.solutions.entomology.assay.AdultTestIntervalDTO(clientRequest);
     req.setAttribute("dss_vector_solutions_entomology_assay_AdultTestInterval_assay", dss.vector.solutions.entomology.assay.AdultAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create AdultTestIntervalController");
+    
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -51,7 +51,7 @@ public class AdultTestIntervalController extends AdultTestIntervalControllerBase
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.AdultTestIntervalQueryDTO query = dss.vector.solutions.entomology.assay.AdultTestIntervalDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All AdultTestIntervalController Objects");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -63,7 +63,7 @@ public class AdultTestIntervalController extends AdultTestIntervalControllerBase
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.AdultTestIntervalQueryDTO query = dss.vector.solutions.entomology.assay.AdultTestIntervalDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All AdultTestIntervalController Objects");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -86,7 +86,7 @@ public class AdultTestIntervalController extends AdultTestIntervalControllerBase
   {
     req.setAttribute("dss_vector_solutions_entomology_assay_AdultTestInterval_assay", dss.vector.solutions.entomology.assay.AdultAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create AdultTestIntervalController");
+    
     render("createComponent.jsp");
   }
   public void delete(dss.vector.solutions.entomology.assay.AdultTestIntervalDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -105,7 +105,7 @@ public class AdultTestIntervalController extends AdultTestIntervalControllerBase
   {
     req.setAttribute("dss_vector_solutions_entomology_assay_AdultTestInterval_assay", dss.vector.solutions.entomology.assay.AdultAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit AdultTestIntervalController");
+    
     render("editComponent.jsp");
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -113,7 +113,7 @@ public class AdultTestIntervalController extends AdultTestIntervalControllerBase
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("dss_vector_solutions_entomology_assay_AdultTestInterval_assay", dss.vector.solutions.entomology.assay.AdultAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.entomology.assay.AdultTestIntervalDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View AdultTestIntervalController");
+    
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -136,7 +136,7 @@ public class AdultTestIntervalController extends AdultTestIntervalControllerBase
   {
     req.setAttribute("dss_vector_solutions_entomology_assay_AdultTestInterval_assay", dss.vector.solutions.entomology.assay.AdultAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update AdultTestIntervalController");
+    
     render("updateComponent.jsp");
   }
 }

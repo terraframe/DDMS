@@ -37,7 +37,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create KnockDownAssayController");
+    
     render("createComponent.jsp");
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -45,7 +45,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO query = dss.vector.solutions.entomology.assay.KnockDownAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All KnockDownAssayController Objects");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -73,7 +73,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit KnockDownAssayController");
+    
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -103,7 +103,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit KnockDownAssayController");
+    
     render("editComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -111,7 +111,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO query = dss.vector.solutions.entomology.assay.KnockDownAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All KnockDownAssayController Objects");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -136,7 +136,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create KnockDownAssayController");
+    
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -155,7 +155,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.entomology.assay.KnockDownAssayDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View KnockDownAssayController");
+    
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -185,7 +185,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", dss.vector.solutions.mo.SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update KnockDownAssayController");
+    
     render("updateComponent.jsp");
   }
 }

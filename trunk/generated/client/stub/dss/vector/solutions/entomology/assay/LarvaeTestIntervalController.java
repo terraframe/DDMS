@@ -28,7 +28,7 @@ public class LarvaeTestIntervalController extends LarvaeTestIntervalControllerBa
   {
     req.setAttribute("dss_vector_solutions_entomology_assay_LarvaeTestInterval_assay", dss.vector.solutions.entomology.assay.LarvaeAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit LarvaeTestIntervalController");
+    
     render("editComponent.jsp");
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -37,7 +37,7 @@ public class LarvaeTestIntervalController extends LarvaeTestIntervalControllerBa
     dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto = new dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO(clientRequest);
     req.setAttribute("dss_vector_solutions_entomology_assay_LarvaeTestInterval_assay", dss.vector.solutions.entomology.assay.LarvaeAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create LarvaeTestIntervalController");
+    
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -69,7 +69,7 @@ public class LarvaeTestIntervalController extends LarvaeTestIntervalControllerBa
   {
     req.setAttribute("dss_vector_solutions_entomology_assay_LarvaeTestInterval_assay", dss.vector.solutions.entomology.assay.LarvaeAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create LarvaeTestIntervalController");
+    
     render("createComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -77,7 +77,7 @@ public class LarvaeTestIntervalController extends LarvaeTestIntervalControllerBa
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.LarvaeTestIntervalQueryDTO query = dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All LarvaeTestIntervalController Objects");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -100,7 +100,7 @@ public class LarvaeTestIntervalController extends LarvaeTestIntervalControllerBa
   {
     req.setAttribute("dss_vector_solutions_entomology_assay_LarvaeTestInterval_assay", dss.vector.solutions.entomology.assay.LarvaeAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update LarvaeTestIntervalController");
+    
     render("updateComponent.jsp");
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -108,7 +108,7 @@ public class LarvaeTestIntervalController extends LarvaeTestIntervalControllerBa
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.LarvaeTestIntervalQueryDTO query = dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All LarvaeTestIntervalController Objects");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -120,7 +120,7 @@ public class LarvaeTestIntervalController extends LarvaeTestIntervalControllerBa
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("dss_vector_solutions_entomology_assay_LarvaeTestInterval_assay", dss.vector.solutions.entomology.assay.LarvaeAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View LarvaeTestIntervalController");
+    
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -132,7 +132,7 @@ public class LarvaeTestIntervalController extends LarvaeTestIntervalControllerBa
     dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO dto = dss.vector.solutions.entomology.assay.LarvaeTestIntervalDTO.lock(super.getClientRequest(), id);
     req.setAttribute("dss_vector_solutions_entomology_assay_LarvaeTestInterval_assay", dss.vector.solutions.entomology.assay.LarvaeAssayDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit LarvaeTestIntervalController");
+    
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException

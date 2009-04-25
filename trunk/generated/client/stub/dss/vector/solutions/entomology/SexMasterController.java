@@ -18,7 +18,7 @@ public class SexMasterController extends SexMasterControllerBase implements com.
   {
     dss.vector.solutions.entomology.SexMasterDTO dto = dss.vector.solutions.entomology.SexMasterDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit SexMasterController");
+    
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -40,7 +40,7 @@ public class SexMasterController extends SexMasterControllerBase implements com.
   public void failDelete(dss.vector.solutions.entomology.SexMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit SexMasterController");
+    
     render("editComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -48,7 +48,7 @@ public class SexMasterController extends SexMasterControllerBase implements com.
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.SexMasterQueryDTO query = dss.vector.solutions.entomology.SexMasterDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All SexMasterController Objects");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -60,7 +60,7 @@ public class SexMasterController extends SexMasterControllerBase implements com.
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.SexMasterQueryDTO query = dss.vector.solutions.entomology.SexMasterDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All SexMasterController Objects");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -82,7 +82,7 @@ public class SexMasterController extends SexMasterControllerBase implements com.
   public void failCreate(dss.vector.solutions.entomology.SexMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create SexMasterController");
+    
     render("createComponent.jsp");
   }
   public void cancel(dss.vector.solutions.entomology.SexMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -109,7 +109,7 @@ public class SexMasterController extends SexMasterControllerBase implements com.
   public void failUpdate(dss.vector.solutions.entomology.SexMasterDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update SexMasterController");
+    
     render("editComponent.jsp");
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -117,7 +117,7 @@ public class SexMasterController extends SexMasterControllerBase implements com.
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.SexMasterDTO dto = new dss.vector.solutions.entomology.SexMasterDTO(clientRequest);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create SexMasterController");
+    
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -128,7 +128,7 @@ public class SexMasterController extends SexMasterControllerBase implements com.
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", dss.vector.solutions.entomology.SexMasterDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View SexMasterController");
+    
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException

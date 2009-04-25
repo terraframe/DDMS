@@ -34,7 +34,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   {
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Knock Down Time Property");
+    
     render("editComponent.jsp");
   }
   public void update(KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -53,7 +53,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   {
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update Knock Down Time Property");
+    
     render("updateComponent.jsp");
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -61,7 +61,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
     KnockDownTimePropertyDTO dto = KnockDownTimePropertyDTO.lock(super.getClientRequest(), id);
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Knock Down Time Property");
+    
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -74,7 +74,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
     KnockDownTimePropertyDTO dto = new KnockDownTimePropertyDTO(clientRequest);
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Knock Down Time Property");
+    
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -97,7 +97,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   {
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Knock Down Time Property");
+    
     render("createComponent.jsp");
   }
   public void cancel(KnockDownTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -119,7 +119,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   {
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "View Knock Down Time Property");
+    
 
     render("viewComponent.jsp");    
   }
@@ -134,7 +134,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.KnockDownTimePropertyQueryDTO query = dss.vector.solutions.general.KnockDownTimePropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Knock Down Time Property");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -146,7 +146,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
     ClientRequestIF clientRequest = super.getClientRequest();
     KnockDownTimePropertyQueryDTO query = KnockDownTimePropertyDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);    
-    req.setAttribute("page_title", "View All Knock Down Time Property");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -158,7 +158,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   public void search() throws IOException, ServletException
   {
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("page_title", "Search for a Knock Down Time Property");
+    
     render("searchComponent.jsp");
   }
 
@@ -170,7 +170,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
     try
     {
       KnockDownTimePropertyDTO property = KnockDownTimePropertyDTO.searchByInsecticide(super.getClientRequest(), insecticide);
-      req.setAttribute("page_title", "Found Knock Down Time Property");
+      
       req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
       req.setAttribute("item", property);
       
@@ -181,7 +181,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
       KnockDownTimePropertyDTO property = new KnockDownTimePropertyDTO(super.getClientRequest());
       property.setInsecticide(insecticide);
       
-      req.setAttribute("page_title", "Knock Down Time Property Not Found - Creating New");
+      
       req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
       req.setAttribute("item", property);
       

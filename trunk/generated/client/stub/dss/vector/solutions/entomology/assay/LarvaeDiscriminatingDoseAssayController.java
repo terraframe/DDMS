@@ -35,7 +35,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Larvae Discriminating Dose Assay");
+    
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -60,7 +60,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Larvae Discriminating Dose Assay");
+    
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -72,7 +72,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     LarvaeDiscriminatingDoseAssayQueryDTO query = LarvaeDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Larvae Discriminating Dose Assay");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -84,7 +84,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     LarvaeDiscriminatingDoseAssayQueryDTO query = LarvaeDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Larvae Discriminating Dose Assay Objects");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -122,7 +122,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update Larvae Discriminating Dose Assay");
+    
     render("updateComponent.jsp");
   }
   public void create(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -156,7 +156,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Larvae Discriminating Dose Assay");
+    
     render("createComponent.jsp");
   }
   public void delete(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -182,7 +182,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Larvae Discriminating Dose Assay");
+    
     render("editComponent.jsp");
   }
 
@@ -202,7 +202,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "View Larvae Discriminating Dose Assay");
+    
 
     render("viewComponent.jsp");
   }

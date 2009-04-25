@@ -29,7 +29,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Insecticide");
+    
     render("createComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -37,7 +37,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.InsecticideQueryDTO query = dss.vector.solutions.general.InsecticideDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Insecticides");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -49,7 +49,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.InsecticideQueryDTO query = dss.vector.solutions.general.InsecticideDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Insecticides");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -63,7 +63,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Insecticide");
+    
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -87,7 +87,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update Insecticide");
+    
     render("updateComponent.jsp");
   }
   public void cancel(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -116,7 +116,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Insecticide");
+    
     render("editComponent.jsp");
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -125,7 +125,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dss.vector.solutions.general.InsecticideDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View Insecticide");
+    
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -138,7 +138,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Insecticide");
+    
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException

@@ -19,7 +19,7 @@ public class AdultAgeRangeController extends AdultAgeRangeControllerBase impleme
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.AdultAgeRangeDTO dto = new dss.vector.solutions.entomology.assay.AdultAgeRangeDTO(clientRequest);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create AdultAgeRangeController");
+    
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -41,7 +41,7 @@ public class AdultAgeRangeController extends AdultAgeRangeControllerBase impleme
   public void failUpdate(dss.vector.solutions.entomology.assay.AdultAgeRangeDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update AdultAgeRangeController");
+    
     render("editComponent.jsp");
   }
   public void delete(dss.vector.solutions.entomology.assay.AdultAgeRangeDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -59,7 +59,7 @@ public class AdultAgeRangeController extends AdultAgeRangeControllerBase impleme
   public void failDelete(dss.vector.solutions.entomology.assay.AdultAgeRangeDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit AdultAgeRangeController");
+    
     render("editComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -67,7 +67,7 @@ public class AdultAgeRangeController extends AdultAgeRangeControllerBase impleme
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.AdultAgeRangeQueryDTO query = dss.vector.solutions.entomology.assay.AdultAgeRangeDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All AdultAgeRangeController Objects");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -78,7 +78,7 @@ public class AdultAgeRangeController extends AdultAgeRangeControllerBase impleme
   {
     dss.vector.solutions.entomology.assay.AdultAgeRangeDTO dto = dss.vector.solutions.entomology.assay.AdultAgeRangeDTO.get(super.getClientRequest(), id);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit AdultAgeRangeController");
+    
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -89,7 +89,7 @@ public class AdultAgeRangeController extends AdultAgeRangeControllerBase impleme
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", dss.vector.solutions.entomology.assay.AdultAgeRangeDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View AdultAgeRangeController");
+    
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -111,7 +111,7 @@ public class AdultAgeRangeController extends AdultAgeRangeControllerBase impleme
   public void failCreate(dss.vector.solutions.entomology.assay.AdultAgeRangeDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create AdultAgeRangeController");
+    
     render("createComponent.jsp");
   }
   public void cancel(dss.vector.solutions.entomology.assay.AdultAgeRangeDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -127,7 +127,7 @@ public class AdultAgeRangeController extends AdultAgeRangeControllerBase impleme
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.entomology.assay.AdultAgeRangeQueryDTO query = dss.vector.solutions.entomology.assay.AdultAgeRangeDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All AdultAgeRangeController Objects");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException

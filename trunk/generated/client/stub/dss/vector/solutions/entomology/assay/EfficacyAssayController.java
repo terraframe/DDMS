@@ -59,7 +59,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Efficacy Assay");
+    
     render("createComponent.jsp");
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -67,7 +67,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     EfficacyAssayQueryDTO query = EfficacyAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Efficacy Assays");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -95,7 +95,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Efficacy Assay");
+    
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -133,7 +133,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update Efficacy Assay");
+    
     render("editComponent.jsp");
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -148,7 +148,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", EfficacyAssayDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View Efficacy Assay");
+    
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -186,7 +186,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Efficacy Assay");
+    
     render("editComponent.jsp");
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -194,7 +194,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     EfficacyAssayQueryDTO query = EfficacyAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Efficacy Assays");
+    
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -214,7 +214,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Efficacy Assay");
+    
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -259,7 +259,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", clone);
-    req.setAttribute("page_title", "Create Efficacy Assay");
+    
 
     render("createComponent.jsp");
   }

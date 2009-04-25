@@ -61,7 +61,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Mosquito Collections");
+    
     render("editComponent.jsp");
   }
 
@@ -74,7 +74,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Mosquito Collections");
+    
     render("createComponent.jsp");
   }
 
@@ -112,7 +112,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Error - Update a Mosquito Collection");
+    
     render("editComponent.jsp");
   }
 
@@ -169,7 +169,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     ClientRequestIF clientRequest = super.getClientRequest();
     MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Mosquito Collections");
+    
     render("viewAllComponent.jsp");
   }
 
@@ -185,7 +185,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     ClientRequestIF clientRequest = super.getClientRequest();
     MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Mosquito Collections");
+    
     render("viewAllComponent.jsp");
   }
 
@@ -203,7 +203,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Mosquito Collection");
+    
     render("editComponent.jsp");
   }
 
@@ -241,7 +241,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "ERROR - Create Mosquito Collection");
+    
     render("createComponent.jsp");
   }
 
@@ -308,7 +308,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("query", query);
 
-    req.setAttribute("page_title", "Search For Mosquito Collections");
+    
 
     render("searchComponent.jsp");
   }
@@ -327,7 +327,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
         collection.setDateCollected(collectionDate);
         collection.setGeoEntity(geoEntity);
         collection.setCollectionMethod(collectionMethod);
-        req.setAttribute("page_title", "Mosquito_Collection_Not_Found_Creating_New");
+        
         jsp = "createComponent.jsp";
       }
 

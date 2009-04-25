@@ -48,7 +48,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
       javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Mosquito Collection Points");
+    
     render("createComponent.jsp");
   }
 
@@ -57,7 +57,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
     ClientRequestIF clientRequest = super.getClientRequest();
     MosquitoCollectionPointDTO dto = new MosquitoCollectionPointDTO(clientRequest);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Mosquito Collection Points");
+    
     render("createComponent.jsp");
   }
 
@@ -87,7 +87,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
     MosquitoCollectionPointQueryDTO query = MosquitoCollectionPointDTO.getAllInstances(clientRequest,
         sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Mosquito Collection Points");
+    
     render("viewAllComponent.jsp");
   }
 
@@ -102,7 +102,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", MosquitoCollectionPointDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View Mosquito Collection Points");
+    
     render("viewComponent.jsp");
   }
 
@@ -115,7 +115,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
   {
     MosquitoCollectionPointDTO dto = MosquitoCollectionPointDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Mosquito Collection Points");
+    
     render("editComponent.jsp");
   }
 
@@ -142,7 +142,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
       javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update Mosquito Collection Points");
+    
     render("editComponent.jsp");
   }
 
@@ -164,7 +164,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
       javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Mosquito Collection Points");
+    
     render("editComponent.jsp");
   }
 
@@ -174,7 +174,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
     MosquitoCollectionPointQueryDTO query = MosquitoCollectionPointDTO.getAllInstances(clientRequest,
         null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All Mosquito Collection Points");
+    
     render("viewAllComponent.jsp");
   }
 
@@ -275,7 +275,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
 
   public void search() throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("page_title", "Search For Mosquito Collection Points");
+    
     render("searchComponent.jsp");
   }
 
@@ -285,7 +285,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
     MorphologicalSpecieGroupViewDTO[] collection = MosquitoCollectionPointDTO.searchByGeoEntityAndDate(
         super.getClientRequest(), geoEntity, startDate, endDate);
     String jsp = "viewAllComponent.jsp";
-    req.setAttribute("page_title", "Mosquito Collection Points");
+    
     req.setAttribute("geoEntity", geoEntity);
     req.setAttribute("startDate", startDate);
     req.setAttribute("endDate", endDate);
