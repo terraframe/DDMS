@@ -2370,7 +2370,7 @@
             type="dss.vector.solutions.mo.Generation" />
           <integer
             name="exposureTime"
-            label="Exposure Time (m)"
+            label="Exposure Time (minutes)"
             description="The exposure time in minutes"
             rejectNegative="true"
             rejectZero="true"
@@ -2385,7 +2385,7 @@
             description="The total number mosquitos tested" />
           <integer
             name="intervalTime"
-            label="Interval Time (m)"
+            label="Interval Time (minutes)"
             rejectNegative="true"
             immutable="true"
             rejectZero="true"
@@ -2425,15 +2425,13 @@
             label="Fed"
             description="Fed value (Only applicable when females are present)."
             rejectNegative="true"
-            required="true"
-            default_value="0" />
+            required="true"/>
           <integer
             name="gravid"
             label="Number Gravid"
             description="Gravid value (Only applicable when females are present)"
             rejectNegative="true"
-            required="true"
-            default_value="0" />
+            required="true" />
           <enumeration
             name="sex"
             label="Sex"
