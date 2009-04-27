@@ -179,7 +179,10 @@ dd {
 	margin-bottom: .75em;
 }
 
-
+.clickable {
+	cursor: pointer;
+	color: blue;
+}
 
 .evenRow {
 	background-color: #f6f5ed;
@@ -424,9 +427,17 @@ span.searchMatch {
 }
 
 #mapContainer {
-  clear: both;
-  position: relative;
-  width: 400px;
-  height: 400px;
-  border: 1px solid black;
+	clear: both;
+	position: relative;
+	width: 400px;
+	height: 400px;
+	border: 1px solid black;
+}
+
+ul.availableLayers {
+	margin-left: 5px;
+}
+
+ul.availableLayers li input {
+	margin-right: 5px;
 }
