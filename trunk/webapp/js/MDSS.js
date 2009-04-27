@@ -56,24 +56,27 @@ var MDSS = {
   	 * Toggles the visibility of an element by clicking
   	 * on the given toggle element.
   	 */
-  	toggleVisibility : function(elementId, toggleId)
+  	toggleVisibility : function(elementId, toggleId, hiddenId)
   	{
       YAHOO.util.Event.on(toggleId, 'click', function(e, obj){
 
         var el = new YAHOO.util.Element(obj.element);
         var toggle = document.getElementById(obj.toggle);
+        var hidden = document.getElementById(obj.hidden);
         if(el.getStyle('display') === 'block')
         {
           el.setStyle('display', 'none');
           toggle.innerHTML = MDSS.Localized.Toggle.Show;
+          hidden.value = 'false';
         }
         else
         {
           el.setStyle('display', 'block');
           toggle.innerHTML = MDSS.Localized.Toggle.Hide;
+          hidden.value = 'true';
         }
 
-      }, {toggle: toggleId, element: elementId}, this);
+      }, {toggle: toggleId, element: elementId, hidden: hiddenId}, this);
   	}
 
   },
