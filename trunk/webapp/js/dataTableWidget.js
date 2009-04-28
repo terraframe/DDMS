@@ -19,6 +19,11 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
     	table_data.fields = table_data.columnDefs.map(function(c){return c.key}).filter(function(c){return c != 'delete'});
     }
 
+    if(typeof table_data.saveFunction === 'undefined'  )
+    {
+    	table_data.saveFunction = "saveAll";
+    }
+
     table_data.dirty = false;
 
 	// load the data
@@ -50,6 +55,10 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			  label = getLabelFromId(feild.key,record.getData(feild.key));
 			  // alert(label);
 			  record.setData(feild.key, label);
+			}
+			if (feild.title)
+			{
+			  myDataTable.getThEl(myDataTable.getColumn(feild.key)).title = feild.title;
 			}
 			//now we set the labels for bools
 			editor = myDataTable.getColumn(feild.key).editor
@@ -287,20 +296,6 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 				    	table_data.after_save();
 				    }
 		        }
-			//},
-
-			// alert the exception message
-			//onFailure : function(e) {
-			//	if(e instanceof Mojo.dto.ProblemExceptionDTO )
-			//	{
-			//		 for each (problem in e.getProblems())
-			//		{
-			//		   alert(problem.getLocalizedMessage());
-			//		}
-			//	}
-			//	else{
-			//		alert(e.getLocalizedMessage());
-			//	}
 			}
 		});
 
@@ -343,8 +338,8 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    	}
 			v_arr.push(v);
 	    }
-	    str = table_data.data_type + '.saveAll(request,v_arr)';
-	    // alert(v_arr);
+	    str = table_data.data_type +"." +table_data.saveFunction + '(request,v_arr)';
+	    //alert(str);
     	eval(str);
 
 	});
