@@ -47,7 +47,16 @@
                  <div id="intervention_planning" class="yuimenu">
                      <div class="bd">
                          <ul>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#">Test</a></li>
+                               <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="Targets"/></a>
+                                 <div id="pim4" class="yuimenu">
+                                     <div class="bd">
+                                         <ul class="first-of-type">
+                                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo"><fmt:message key="GeoTarget"/></a></li>
+                                         </ul>
+                                     </div>
+                                 </div>
+                             </li>
+
                          </ul>
                      </div>
                  </div>
