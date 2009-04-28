@@ -36,6 +36,17 @@ window.location = "index.jsp ";
 <%
     if (Pattern.matches("http[s]?://(localhost|127\\.0\\.0\\.1).*", request.getRequestURL().toString())) {
             out.print(exception.getClass().getName() + "<br/>");
+
+            if (exception.getClass().getName().contains("RuntimeException"))
+            {
+                out.println("<h2>Cause:</h2>");
+                out.print(exception.getCause().getMessage() + "<br/>");
+                out.println("<pre>");
+                PrintWriter pw = new PrintWriter(out);
+                exception.getCause().printStackTrace(pw);
+                out.println("</pre><br/><br/><br/>");
+            }
+
             out.println("<pre>");
             out.print(exception.getLocalizedMessage());
             out.println("</pre>");
