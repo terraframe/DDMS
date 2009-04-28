@@ -1,5 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -384,6 +385,30 @@ public abstract class GeoEntity extends GeoEntityBase implements
     List<GeoEntity> children = new LinkedList<GeoEntity>();
     getAllChildren(children, this);
     return children;
+  }
+
+  /**
+   * Recursively collects all child ids with the {@link LocatedIn} relationship.
+   * @param filter
+   *    Return only children with this class
+   * @return
+   */
+  public String[] getAllChildIds(String filter)
+  {
+    List<String> geoEntityIdList = new ArrayList<String>();
+    List<GeoEntity> children = new LinkedList<GeoEntity>();
+    getAllChildren(children, this);
+
+    for (GeoEntity child : children)
+    {
+        //if the filter is null we will just add all children
+        if(filter == null || child.getClass().getName().equals(filter))
+        {
+            geoEntityIdList.add(child.getId());
+        }
+    }
+
+    return geoEntityIdList.toArray(new String[geoEntityIdList.size()]);
   }
 
   /**

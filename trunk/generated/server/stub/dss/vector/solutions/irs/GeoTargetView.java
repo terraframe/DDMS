@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.entomology.UninterestingSpecieGroupView;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -22,7 +23,8 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
 
     if (this.getTargetId() != null && !this.getTargetId().equals(""))
     {
-      target = GeoTarget.get(this.getTargetId());
+      //FIXME: find  a better place to lock this
+      target = GeoTarget.lock(this.getTargetId());
     }
 
     target.setGeoEntity(this.getGeoEntity());
@@ -120,6 +122,16 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
   }
 
   @Transaction
+  public static GeoTargetView[] saveAll(GeoTargetView[] array)
+  {
+      GeoTargetView.lockAll(array);
+      GeoTargetView.applyAll(array);
+
+    return array;
+  }
+
+
+  @Transaction
   public static GeoTargetView sum(GeoEntity resource, GeoTargetView[] views)
   {
     GeoTargetView newView = new GeoTargetView();
@@ -150,13 +162,26 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
   }
 
   @Transaction
-  public static GeoTargetView[] getGeoTargets(GeoEntity[] geoEntities)
+  public static GeoTargetView[] getGeoTargets(GeoEntity[] geoEntities,Integer year)
   {
     GeoTargetView[] views = new GeoTargetView[geoEntities.length];
 
     for(int i = 0; i < geoEntities.length; i++)
     {
-      views[i] = GeoTarget.find(geoEntities[i]);
+      views[i] = GeoTarget.findByGeoEntityAndYear(geoEntities[i],year);
+    }
+
+    return views;
+  }
+
+  @Transaction
+  public static GeoTargetView[] getGeoTargets(String[] geoEntityIds,Integer year)
+  {
+    GeoTargetView[] views = new GeoTargetView[geoEntityIds.length];
+
+    for(int i = 0; i < geoEntityIds.length; i++)
+    {
+      views[i] = GeoTarget.findByGeoEntityIdAndYear(geoEntityIds[i],year);
     }
 
     return views;

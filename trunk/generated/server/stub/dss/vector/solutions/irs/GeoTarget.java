@@ -20,6 +20,7 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
   {
     GeoTargetView view = new GeoTargetView();
     view.setGeoEntity(this.getGeoEntity());
+    view.setEntityName(this.getGeoEntity().getEntityName());
     view.setTargetYear(this.getTargetYear());
     view.setTargetId(this.getId());
 
@@ -67,6 +68,64 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
         GeoTargetView view = new GeoTargetView();
         view.setGeoEntity(resource);
 
+        return view;
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+  public static GeoTargetView findByGeoEntityAndYear(GeoEntity resource, Integer year)
+  {
+    GeoTargetQuery query = new GeoTargetQuery(new QueryFactory());
+    query.WHERE(query.getGeoEntity().EQ(resource));
+    query.AND(query.getTargetYear().EQ(year));
+
+    OIterator<? extends GeoTarget> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next().getView();
+      }
+      else
+      {
+        GeoTargetView view = new GeoTargetView();
+        view.setGeoEntity(resource);
+        view.setEntityName(resource.getEntityName());
+        view.setTargetYear(year);
+
+        return view;
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+  public static GeoTargetView findByGeoEntityIdAndYear(String resource, Integer year)
+  {
+    GeoTargetQuery query = new GeoTargetQuery(new QueryFactory());
+    query.WHERE(query.getGeoEntity().getId().EQ(resource));
+    query.AND(query.getTargetYear().EQ(year));
+
+    OIterator<? extends GeoTarget> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next().getView();
+      }
+      else
+      {
+        GeoTargetView view = new GeoTargetView();
+        GeoEntity ge = GeoEntity.get(resource);
+        view.setGeoEntity(ge);
+        view.setEntityName(ge.getEntityName());
+        view.setTargetYear(year);
         return view;
       }
     }

@@ -10,12 +10,12 @@ import com.terraframe.mojo.query.OrderBy.SortOrder;
 public abstract class AdultAssay extends AdultAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1237579415849L;
-  
+
   public AdultAssay()
   {
     super();
   }
-  
+
   @Override
   public void validateAgeRange()
   {
@@ -27,7 +27,7 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
   @Override
   public void validateGravid()
   {
-    super.validateGravid();
+    //super.validateGravid();
 
     new GravidValidator(this).validate();
   }
@@ -35,23 +35,24 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
   @Override
   public void validateFed()
   {
-    super.validateFed();
+    //FIXME: this "super" function is not super at all and does not work!
+    //super.validateFed();
 
     new FedValidator(this).validate();
   }
 
-  
+
   @Override
   public void apply()
   {
     validateAgeRange();
     validateFed();
     validateGravid();
-    
+
     boolean firstApply = this.isNew() && !this.isAppliedToDB();
-    
+
     super.apply();
-    
+
     // CREATE Test Intervals
     if (firstApply)
     {
@@ -67,7 +68,7 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
       }
     }
   }
-  
+
   @Override
   public void delete()
   {
@@ -75,7 +76,7 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
 
     super.delete();
   }
-  
+
   private void deleteIntevals()
   {
     for (AdultTestIntervalView view : this.getTestIntervals())
@@ -83,7 +84,7 @@ public abstract class AdultAssay extends AdultAssayBase implements com.terrafram
       AdultTestInterval.get(view.getIntervalId()).delete();
     }
   }
-  
+
   public AdultTestIntervalView[] getTestIntervals()
   {
     List<AdultTestIntervalView> list = new LinkedList<AdultTestIntervalView>();

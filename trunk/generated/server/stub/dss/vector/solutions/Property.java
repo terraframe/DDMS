@@ -24,6 +24,22 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
   public static final String LARVAE_DDA_SUSCEPTIBILE                = "lDDAS";
 
+  public static final String SHORT_ID_SEGMENTS                      = "SHORT_ID_SEGMENTS";
+
+  public static final String SHORT_ID_OFFSET                        = "SHORT_ID_OFFSET";
+
+  public static final String SHORT_ID_COUNTER                       = "SHORT_ID_COUNTER";
+
+  public static final String DATE_FORMAT                            = "dateFormat";
+
+  public static final String DATE_FORMAT_SHORT                      = "dateFormatShort";
+
+  public static final String EPI_START                              = "epiStart";
+
+  public static final String COUNTRY_GEO_ID                         = "countryGeoId";
+
+
+
   public Property()
   {
     super();
