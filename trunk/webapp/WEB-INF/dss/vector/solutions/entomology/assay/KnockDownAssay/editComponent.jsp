@@ -43,18 +43,9 @@
       </mjl:dt>
       <mjl:dt attribute="sex">
         <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
-          <c:choose>
-            <c:when test="${mjl:contains(item.sexEnumNames, current.enumName)}">
-              <mjl:option selected="selected">
-                ${item.sexMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
               <mjl:option>
                 ${item.sexMd.enumItems[current.enumName]}
               </mjl:option>
-            </c:otherwise>
-          </c:choose>
         </mjl:select>
       </mjl:dt>
       <mjl:dt attribute="specie">
@@ -71,16 +62,14 @@
           </mjl:option>
         </mjl:select>
       </mjl:dt>
-      <mjl:struct param="ageRange">
-        <dt><label> ${item.ageRange.startPointMd.displayLabel} </label></dt>
-        <dd><mjl:input type="text" param="startPoint" /> <mjl:messages attribute="startPoint">
-          <mjl:message />
-        </mjl:messages></dd>
-        <dt><label> ${item.ageRange.endPointMd.displayLabel} </label></dt>
-        <dd><mjl:input type="text" param="endPoint" /> <mjl:messages attribute="endPoint">
-          <mjl:message />
-        </mjl:messages></dd>
-      </mjl:struct>
+      <mjl:dt attribute="ageRange">
+      <dl>
+        <mjl:struct param="ageRange">
+          <mjl:dt attribute="startPoint" type="text"  />
+          <mjl:dt attribute="endPoint" type="text"  />
+        </mjl:struct>
+      </dl>
+      </mjl:dt>
       <mjl:dt attribute="fed">
         <mjl:input type="text" param="fed" />
       </mjl:dt>

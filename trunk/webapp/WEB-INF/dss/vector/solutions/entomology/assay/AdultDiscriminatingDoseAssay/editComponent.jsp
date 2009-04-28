@@ -7,7 +7,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<c:set var="page_title" value="Edit ADDA data" scope="request" />
+<c:set var="page_title" value="Edit_ADDA" scope="request" />
 <mjl:form name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
 
 

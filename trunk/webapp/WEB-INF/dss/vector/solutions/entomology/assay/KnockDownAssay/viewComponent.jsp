@@ -12,7 +12,7 @@
 <%
 KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
 %>
-
+<c:set var="page_title" value="View_Knockdown_Assay"  scope="request"/>
 
 <mjl:messages>
   <mjl:message />

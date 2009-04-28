@@ -14,6 +14,8 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
 %>
 
 
+<c:set var="page_title" value="View_ADDA"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>

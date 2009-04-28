@@ -7,8 +7,8 @@
 <%@page import="com.terraframe.mojo.transport.metadata.AttributeMdDTO"%>
 
 
-<c:set var="window_title" value="Enter new adult diagnostic assay data" scope="request" />
-<c:set var="page_title" value="Enter new data" scope="request" />
+<c:set var="window_title" value="Enter_new_adult_diagnostic_assay_data" scope="request" />
+<c:set var="page_title" value="Enter_new_data" scope="request" />
 
 <mjl:messages>
   <mjl:message />
