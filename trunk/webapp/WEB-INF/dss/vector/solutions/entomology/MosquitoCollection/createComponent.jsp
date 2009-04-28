@@ -2,6 +2,8 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+
+<c:set var="page_title" value="Create_Mosquito_Collection"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -19,7 +21,8 @@
       </mjl:dt>
       <mjl:dt attribute="dateCollected" type="text" classes="DatePick" />
       <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
-      <dd>${item.geoEntity.geoId} <mjl:input type="hidden" param="geoEntity" id="dto.geoEntity.id" /> <mjl:messages attribute="geoEntity">
+      <dd>${item.geoEntity.geoId} (${item.geoEntity.entityName})
+       <mjl:input type="hidden" param="geoEntity" id="dto.geoEntity.id" /> <mjl:messages attribute="geoEntity">
         <mjl:message />
       </mjl:messages></dd>
     </dl>
