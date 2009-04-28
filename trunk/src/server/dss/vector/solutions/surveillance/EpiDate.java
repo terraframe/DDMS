@@ -99,7 +99,7 @@ public class EpiDate implements Reloadable
   {
     Calendar c1 = Calendar.getInstance();
     c1.setTime(startDate);
-    c1.add(Calendar.DAY_OF_MONTH, 6);
+    c1.add(Calendar.DAY_OF_YEAR, 6);
 
     return c1.getTime();
   }
@@ -114,7 +114,7 @@ public class EpiDate implements Reloadable
 
     startDate = c1.getTime();
 
-    c1.add(Calendar.DAY_OF_MONTH, 6);
+    c1.add(Calendar.DAY_OF_YEAR, 6);
     endDate = c1.getTime();
   }
 
