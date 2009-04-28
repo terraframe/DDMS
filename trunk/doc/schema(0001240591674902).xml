@@ -16,7 +16,13 @@
               label="Geo Entities"
               description="List of GeoEntites to return the Geo Target"
               order="0"
-              type="dss.vector.solutions.geo.generated.GeoEntity[]" />
+              type="java.lang.String[]" />
+            <mdParameter
+              name="targetYear"
+              label="targetYear"
+              description="The year to get targets for"
+              order="1"
+              type="java.lang.Integer" />
           </mdMethod>
         </create>
       </mdView>

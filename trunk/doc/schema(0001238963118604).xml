@@ -12,32 +12,32 @@
             name="geoEntityId"
             required="true"
             size="64"
-            label="The GeoEntity id" />
+            label="The GeoEntity id"/>
           <char
             name="typeDisplayLabel"
             required="true"
             size="100"
-            label="The GeoEntity type's display label" />
+            label="The GeoEntity type's display label"/>
           <char
             name="entityType"
             required="true"
             size="255"
-            label="The GeoEntity type" />
+            label="The GeoEntity type"/>
           <virtual
             name="entityName"
             required="true"
             type="dss.vector.solutions.geo.generated.GeoEntity"
-            concrete="entityName" />
+            concrete="entityName"/>
           <virtual
             name="geoId"
             required="true"
             type="dss.vector.solutions.geo.generated.GeoEntity"
-            concrete="geoId" />
+            concrete="geoId"/>
           <virtual
             name="activated"
             required="true"
             type="dss.vector.solutions.geo.generated.GeoEntity"
-            concrete="activated" />
+            concrete="activated"/>
         </attributes>
       </mdView>
 
@@ -51,7 +51,7 @@
             label="Display Label"
             size="100"
             required="true"
-            description="GeoHierarchy Display Label" />
+            description="GeoHierarchy Display Label"/>
         </attributes>
       </mdException>
 
@@ -65,7 +65,7 @@
             label="Parent Display Name"
             size="100"
             required="true"
-            description="Parent GeoHierarchy Display Label" />
+            description="Parent GeoHierarchy Display Label"/>
         </attributes>
       </mdException>
 
@@ -79,7 +79,7 @@
             label="Parent Display Label"
             size="100"
             required="true"
-            description="Parent Display Label" />
+            description="Parent Display Label"/>
         </attributes>
       </mdException>
 
@@ -92,19 +92,20 @@
             name="childDisplayLabel"
             label="Child Display Label"
             size="100"
-            required="true" />
+            required="true"/>
           <char
             name="parentDisplayLabel"
             label="Parent Display Label"
             size="100"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdException>
     </create>
 
     <update>
 
-      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
         <create>
           <mdMethod
             name="searchByEntityName"
@@ -116,17 +117,18 @@
               name="entityType"
               label="Entity Type"
               order="0"
-              type="java.lang.String" />
+              type="java.lang.String"/>
             <mdParameter
               name="entityName"
               label="Search Entity Name"
               order="1"
-              type="java.lang.String" />
+              type="java.lang.String"/>
           </mdMethod>
         </create>
       </mdBusiness>
 
-      <mdBusiness name="dss.vector.solutions.geo.GeoHierarchy">
+      <mdBusiness
+        name="dss.vector.solutions.geo.GeoHierarchy">
         <create>
           <mdMethod
             name="confirmChangeParent"
@@ -139,7 +141,7 @@
               label="Parent Id"
               description="The id of the current GeoHierarchy parent."
               order="0"
-              type="java.lang.String" />
+              type="java.lang.String"/>
           </mdMethod>
           <mdMethod
             name="confirmDeleteHierarchy"
@@ -147,13 +149,13 @@
             description="Throws exception with confirmation information to delete a GeoHierarchy with more than one parent."
             static="false"
             returnType="void">
-          <mdParameter
-            name="parentId"
-            label="Parent Id"
-            description="The id of the current GeoHierarchy parent."
-            order="0"
-            type="java.lang.String" />
-         </mdMethod>
+            <mdParameter
+              name="parentId"
+              label="Parent Id"
+              description="The id of the current GeoHierarchy parent."
+              order="0"
+              type="java.lang.String"/>
+          </mdMethod>
           <mdMethod
             name="deleteRelationship"
             label="Delete Relationship"
@@ -164,13 +166,14 @@
               name="parentId"
               label="parent id"
               order="0"
-              type="java.lang.String" />
+              type="java.lang.String"/>
           </mdMethod>
         </create>
       </mdBusiness>
 
 
-      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
         <mdMethod
           name="getOrderedChildren"
           label="Get Ordered Child Entities"
@@ -182,13 +185,14 @@
             label="Type Filter"
             description="Name of GeoEntity subclass to filter."
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
       </mdBusiness>
 
       <!-- Possible Bug when this is included as a create in the above MdBusiness tag.
            The MdMethod was never created (verify this with Smethie). -->
-      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.GeoEntity">
         <create>
           <mdMethod
             name="deleteRelationship"
@@ -200,7 +204,7 @@
               name="parentId"
               label="parent id"
               order="0"
-              type="java.lang.String" />
+              type="java.lang.String"/>
           </mdMethod>
           <mdMethod
             name="collectAllLocatedIn"
@@ -217,7 +221,20 @@
               name="filter"
               label="Type Filter"
               order="1"
-              type="java.lang.String" />
+              type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod
+            name="getAllChildIds"
+            label="Recursive Get Child Entity Ids"
+            description="Gets LocatedIn children."
+            static="false"
+            returnType="java.lang.String[]">
+            <mdParameter
+              name="typeFilter"
+              label="Type Filter"
+              description="Name of GeoEntity subclass to filter."
+              order="0"
+              type="java.lang.String"/>
           </mdMethod>
         </create>
       </mdBusiness>
