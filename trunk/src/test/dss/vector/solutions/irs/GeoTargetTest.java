@@ -492,7 +492,7 @@ public class GeoTargetTest extends TestCase
     GeoEntity[] geoEntities = new GeoEntity[] { geoEntity, province1, province2, district1, district2,
         district3, district4, sprayZone };
 
-    GeoTargetView[] views = GeoTargetView.getGeoTargets(geoEntities);
+    GeoTargetView[] views = GeoTargetView.getGeoTargets(geoEntities,2009);
 
     assertEquals(geoEntities.length, views.length);
 
@@ -523,7 +523,7 @@ public class GeoTargetTest extends TestCase
       GeoEntity[] geoEntities = new GeoEntity[] { geoEntity, province1, province2, district1, district2,
           district3, district4, sprayZone };
 
-      GeoTargetView[] views = GeoTargetView.getGeoTargets(geoEntities);
+      GeoTargetView[] views = GeoTargetView.getGeoTargets(geoEntities ,2009);
 
       assertEquals(geoEntities.length, views.length);
 
