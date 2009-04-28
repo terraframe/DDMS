@@ -358,6 +358,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable {
         return formatter.toPattern();
     }
 
+    public static String getFormatedDate(HttpServletRequest request,Date date)
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat(getDateFormatString(request));
+        return formatter.format(date);
+    }
+    
     public static ByteArrayOutputStream renderJspToByteArray(HttpServletRequest request, HttpServletResponse response, String jsp_to_render) throws ServletException, IOException {
 
         // create an output stream - to file, to memory...
