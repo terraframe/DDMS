@@ -18,7 +18,7 @@ window.location = "index.jsp ";
 </script>
 <%
     }
-    if (exception.getLocalizedMessage().contains("PermissionExceptionDTO")) {
+    if (exception.getClass().getName().contains("PermissionExceptionDTO")) {
 %>
 <div class="pageContent">
 <div class="pageTitle"><fmt:message key="Not_Authorized" /></div>
