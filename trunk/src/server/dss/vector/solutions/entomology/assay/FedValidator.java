@@ -9,23 +9,23 @@ import dss.vector.solutions.entomology.AssaySex;
 public class FedValidator implements Reloadable
 {
   private List<AssaySex> sex;
-  
+
   private Integer fed;
-  
+
   private Integer quantityTested;
-  
+
   private AbstractAssay assay;
-    
+
   public FedValidator(AdultAssay assay)
   {
     this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay);
   }
-  
+
   public FedValidator(EfficacyAssay assay)
   {
-    this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay);    
-  }  
-  
+    this(assay.getSex(), assay.getFed(), assay.getQuantityTested(), assay);
+  }
+
   public FedValidator(List<AssaySex> sex, Integer fed, Integer quantityTested, AbstractAssay assay)
   {
     super();
@@ -37,7 +37,9 @@ public class FedValidator implements Reloadable
 
   public void validate()
   {
-    
+    //null is allowed
+    if(fed == null)return;
+
     if (fed != 0 && sex.size() > 0 && ( sex.get(0).equals(AssaySex.MALE) || sex.get(0).equals(AssaySex.UNKNOWN) ))
     {
       String msg = "It is impossible to have fed values on male or unknown sex assays";
@@ -57,6 +59,6 @@ public class FedValidator implements Reloadable
       p.setNotification(assay, AdultDiscriminatingDoseAssay.FED);
       p.apply();
       p.throwIt();
-    } 
+    }
   }
 }

@@ -9,23 +9,23 @@ import dss.vector.solutions.entomology.AssaySex;
 public class GravidValidator implements Reloadable
 {
   private List<AssaySex> sex;
-  
+
   private Integer gravid;
-  
+
   private Integer quantityTested;
-  
+
   private AbstractAssay assay;
-  
+
   public GravidValidator(AdultAssay assay)
   {
     this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay);
   }
-  
+
   public GravidValidator(EfficacyAssay assay)
   {
-    this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay);    
+    this(assay.getSex(), assay.getGravid(), assay.getQuantityTested(), assay);
   }
-  
+
   public GravidValidator(List<AssaySex> sex, Integer gravid, Integer quantityTested, AbstractAssay assay)
   {
     this.sex = sex;
@@ -36,6 +36,10 @@ public class GravidValidator implements Reloadable
 
   public void validate()
   {
+
+    //null is allowed
+    if(gravid == null)return;
+
     if (gravid != 0 && sex.size() > 0 && ( sex.get(0).equals(AssaySex.MALE) || sex.get(0).equals(AssaySex.UNKNOWN)))
     {
       String msg = "It is impossible to have gravid values on male or unknown sex assays";
