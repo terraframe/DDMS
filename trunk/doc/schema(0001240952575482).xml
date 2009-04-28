@@ -1,0 +1,1304 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <existing>
+      <object
+        key="dss.vector.solutions.irs.Team"
+        type="com.terraframe.mojo.system.metadata.MdBusiness"
+        id="dss.vector.solutions.irs.Team" />
+    </existing>
+    <create>
+      <!-- Spray Operator Stub: Delete when intergrate with Erics -->
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.SprayOperator"
+        label="Spary Operator">
+        <attributes>
+          <char
+            name="operatorId"
+            label="Operator Id"
+            size="255" />
+        </attributes>
+      </mdBusiness>
+
+      <!-- Spray Operator Stub: Delete when intergrate with Erics -->
+
+
+      <enumerationMaster
+        name="dss.vector.solutions.irs.SprayMethodMaster"
+        label="Spray Method Master"
+        generateController="false" />
+
+      <object
+        type="dss.vector.solutions.irs.SprayMethodMaster"
+        id="Main_Spray">
+        <valueAttribute
+          name="enumName"
+          value="MAIN_SPRAY" />
+        <valueAttribute
+          name="displayLabel"
+          value="Main Spray" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.irs.SprayMethodMaster"
+        id="Mop_Up">
+        <valueAttribute
+          name="enumName"
+          value="MOP_UP" />
+        <valueAttribute
+          name="displayLabel"
+          value="Mop Up" />
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.irs.SprayMethod"
+        label="Spray Method"
+        type="dss.vector.solutions.irs.SprayMethodMaster">
+        <includeAll />
+      </mdEnumeration>
+
+      <enumerationMaster
+        name="dss.vector.solutions.irs.SurfaceTypeMaster"
+        label="Surface Type Master"
+        generateController="false" />
+
+      <object
+        type="dss.vector.solutions.irs.SurfaceTypeMaster"
+        id="Porous">
+        <valueAttribute
+          name="enumName"
+          value="POROUS" />
+        <valueAttribute
+          name="displayLabel"
+          value="Porous" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.irs.SurfaceTypeMaster"
+        id="Non-Porous">
+        <valueAttribute
+          name="enumName"
+          value="NON_POROUS" />
+        <valueAttribute
+          name="displayLabel"
+          value="Non Porous" />
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.irs.SurfaceType"
+        label="Surface Type"
+        type="dss.vector.solutions.irs.SurfaceTypeMaster">
+        <includeAll />
+      </mdEnumeration>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.InsecticideBrand"
+        label="InsecticideBrand"
+        generateController="false">
+        <attributes>
+          <reference
+            name="activeIngredient"
+            label="Active Ingredient"
+            type="dss.vector.solutions.mo.ActiveIngredient"
+            required="true" />
+          <integer
+            name="amount"
+            label="Concentration"
+            rejectZero="true"
+            rejectNegative="true"
+            required="true" />
+          <enumeration
+            name="units"
+            label="Units"
+            required="true"
+            type="dss.vector.solutions.entomology.assay.Unit"
+            selectMultiple="false" />
+          <decimal
+            name="weight"
+            label="Weight (g)"
+            length="6"
+            decimal="2"
+            rejectNegative="true"
+            rejectZero="true" />
+          <integer
+            name="sachetsPerRefill"
+            label="Sachets per Refill"
+            rejectNegative="true"
+            rejectZero="true" />
+          <boolean
+            name="enabled"
+            label="Enabled"
+            required="true"
+            default_value="true"
+            description="If the insecticide brand is enabled" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideBrandView"
+          label="Get View"
+          description="Returns a view representing the insecticide brand">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideBrandView"
+          label="Lock View"
+          description="Locks the represented insecticide brand">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+        <mdMethod
+          name="unlockView"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideBrandView"
+          label="Unlock View"
+          description="Unlocks the represented insecticide brand">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.InsecticideBrandView"
+        label="Insecticide Brand View">
+        <attributes>
+          <char
+            name="insecticdeId"
+            label="Insecticide Id"
+            size="255" />
+          <virtual
+            name="activeIngredient"
+            type="dss.vector.solutions.irs.InsecticideBrand"
+            concrete="activeIngredient" />
+          <virtual
+            name="amount"
+            type="dss.vector.solutions.irs.InsecticideBrand"
+            concrete="amount" />
+          <virtual
+            name="units"
+            type="dss.vector.solutions.irs.InsecticideBrand"
+            concrete="units" />
+          <virtual
+            name="weight"
+            type="dss.vector.solutions.irs.InsecticideBrand"
+            concrete="weight" />
+          <virtual
+            name="sachetsPerRefill"
+            type="dss.vector.solutions.irs.InsecticideBrand"
+            concrete="sachetsPerRefill" />
+          <virtual
+            name="enabled"
+            type="dss.vector.solutions.irs.InsecticideBrand"
+            concrete="enabled" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="getAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideBrandView[]"
+          label="Get All"
+          description="Returns all enabled Insecticide Brands">
+        </mdMethod>
+        <mdMethod
+          name="applyAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideBrandView[]"
+          label="Apply All">
+          <mdParameter
+            name="insecticides"
+            label="Insecticides"
+            order="0"
+            type="dss.vector.solutions.irs.InsecticideBrandView[]" />
+        </mdMethod>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.Nozzle"
+        label="Nozzle"
+        generateController="false">
+        <attributes>
+          <decimal
+            name="ratio"
+            label="Ratio"
+            length="2"
+            decimal="2"
+            rejectNegative="true" />
+          <char
+            name="displayLabel"
+            label="Display Label"
+            size="255"
+            required="true" />
+          <boolean
+            name="enabled"
+            label="Enabled"
+            required="true"
+            default_value="true"
+            description="If the nozzle is enabled" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          static="true"
+          returnType="dss.vector.solutions.irs.NozzleView"
+          label="Get View"
+          description="Returns a view representing the nozzle">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          static="true"
+          returnType="dss.vector.solutions.irs.NozzleView"
+          label="Lock View"
+          description="Locks the represented nozzle">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+        <mdMethod
+          name="unlockView"
+          static="true"
+          returnType="dss.vector.solutions.irs.NozzleView"
+          label="Unlock View"
+          description="Unlocks the represented nozzle">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.NozzleView"
+        label="Nozzle View">
+        <attributes>
+          <char
+            name="nozzleId"
+            label="Nozzle Id"
+            size="255" />
+          <virtual
+            name="ratio"
+            concrete="ratio"
+            type="dss.vector.solutions.irs.Nozzle" />
+          <virtual
+            name="displayLabel"
+            concrete="displayLabel"
+            type="dss.vector.solutions.irs.Nozzle" />
+          <virtual
+            name="enabled"
+            concrete="enabled"
+            type="dss.vector.solutions.irs.Nozzle" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="getAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.NozzleView[]"
+          label="Get All"
+          description="Returns all enabled Nozzles">
+        </mdMethod>
+        <mdMethod
+          name="applyAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.NozzleView[]"
+          label="Apply All">
+          <mdParameter
+            name="nozzles"
+            label="Nozzles"
+            order="0"
+            type="dss.vector.solutions.irs.NozzleView[]" />
+        </mdMethod>
+      </mdView>
+
+      <mdRelationship
+        name="dss.vector.solutions.irs.InsecticideNozzle"
+        label="Insecticide Nozzle"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.irs.InsecticideBrand"
+          method="Insecticides" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.irs.Nozzle"
+          method="Nozzles" />
+        <attributes>
+          <boolean
+            name="enabled"
+            label="Enabled"
+            required="true"
+            default_value="true"
+            description="If the nozzle is enabled" />
+          <integer
+            name="coverage"
+            label="Coverage"
+            description="Average amount of square meters that can typically be covered by a full can" />
+        </attributes>
+        <mdMethod
+          name="getAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideNozzle[]"
+          label="Get All"
+          description="Returns all enabled Insecticide Nozzle">
+        </mdMethod>
+        <mdMethod
+          name="applyAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideNozzle[]"
+          label="Apply All">
+          <mdParameter
+            name="insecticideNozzles"
+            label="Insecticide Nozzles"
+            order="0"
+            type="dss.vector.solutions.irs.InsecticideNozzle[]" />
+        </mdMethod>
+      </mdRelationship>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.AreaStandards"
+        label="Area Standards"
+        generateController="false"
+        description="Surface area standards">
+        <attributes>
+          <float
+            name="room"
+            label="Room"
+            length="12"
+            decimal="2"
+            rejectNegative="true"
+            rejectZero="true"
+            description="Average surface area of a room" />
+          <float
+            name="house"
+            label="House"
+            length="12"
+            decimal="2"
+            rejectNegative="true"
+            rejectZero="true"
+            description="Average surface area of a house" />
+          <float
+            name="household"
+            label="Household"
+            length="12"
+            decimal="2"
+            rejectNegative="true"
+            rejectZero="true"
+            description="Average surface area of a household" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          static="true"
+          returnType="dss.vector.solutions.irs.AreaStandardsView"
+          label="Get View"
+          description="Returns a view representing the area standard">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          static="true"
+          returnType="dss.vector.solutions.irs.AreaStandardsView"
+          label="Lock View"
+          description="Locks the represented area standard">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+        <mdMethod
+          name="unlockView"
+          static="true"
+          returnType="dss.vector.solutions.irs.AreaStandardsView"
+          label="Unlock View"
+          description="Unlocks the represented area standard">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.AreaStandardsView">
+        <attributes>
+          <char
+            name="areaStandardsId"
+            label="Area Standards Id"
+            size="255" />
+          <virtual
+            name="room"
+            concrete="room"
+            type="dss.vector.solutions.irs.AreaStandards" />
+          <virtual
+            name="house"
+            concrete="house"
+            type="dss.vector.solutions.irs.AreaStandards" />
+          <virtual
+            name="household"
+            concrete="household"
+            type="dss.vector.solutions.irs.AreaStandards" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.SprayData"
+        label="Spray Data"
+        generateController="false">
+        <attributes>
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="true" />
+          <date
+            name="sprayDate"
+            label="Spray Date"
+            required="true" />
+          <enumeration
+            name="sprayMethod"
+            label="Spray Method"
+            required="true"
+            type="dss.vector.solutions.irs.SprayMethod"
+            selectMultiple="false"
+            default_value="Main_Spray" />
+          <reference
+            name="brand"
+            label="Insecticide Brand"
+            required="true"
+            type="dss.vector.solutions.irs.InsecticideBrand" />
+          <enumeration
+            name="surfaceType"
+            label="surfaceType"
+            required="true"
+            type="dss.vector.solutions.irs.SurfaceType"
+            default_value="Porous" />
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.AbstractSpray"
+        label="AbstractSpray"
+        generateController="false"
+        isAbstract="true"
+        extendable="true">
+        <attributes>
+          <reference
+            name="sprayData"
+            label="Spray Data"
+            type="dss.vector.solutions.irs.SprayData"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getStatusViews"
+          label="Get Status Views"
+          returnType="dss.vector.solutions.irs.SprayStatusView[]"
+          static="false">
+        </mdMethod>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.AbstractSprayView"
+        label="Abstract Spray View"
+        isAbstract="true"
+        extendable="true">
+        <attributes>
+          <char
+            name="sprayId"
+            label="Spray Id"
+            size="255" />
+          <char
+            name="dataId"
+            label="Data Id"
+            size="255" />
+          <virtual
+            name="geoEntity"
+            concrete="geoEntity"
+            type="dss.vector.solutions.irs.SprayData" />
+          <virtual
+            name="sprayDate"
+            concrete="sprayDate"
+            type="dss.vector.solutions.irs.SprayData" />
+          <virtual
+            name="sprayMethod"
+            concrete="sprayMethod"
+            type="dss.vector.solutions.irs.SprayData" />
+          <virtual
+            name="brand"
+            concrete="brand"
+            type="dss.vector.solutions.irs.SprayData" />
+          <virtual
+            name="surfaceType"
+            concrete="surfaceType"
+            type="dss.vector.solutions.irs.SprayData" />
+        </attributes>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.ActorSpray"
+        label="Actor Spray"
+        generateController="false"
+        isAbstract="true"
+        extendable="true"
+        extends="dss.vector.solutions.irs.AbstractSpray">
+        <attributes>
+          <integer
+            name="teamSprayWeek"
+            label="Team Spray Week"
+            rejectZero="true"
+            rejectNegative="true" />
+          <integer
+            name="target"
+            label="Target"
+            rejectNegative="true" />
+        </attributes>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.ActorSprayView"
+        label="Actor Spray View"
+        isAbstract="true"
+        extendable="true"
+        extends="dss.vector.solutions.irs.AbstractSprayView">
+        <attributes>
+          <virtual
+            name="teamSprayWeek"
+            concrete="teamSprayWeek"
+            type="dss.vector.solutions.irs.ActorSpray" />
+          <virtual
+            name="target"
+            concrete="target"
+            type="dss.vector.solutions.irs.ActorSpray" />
+        </attributes>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.OperatorSpray"
+        label="Operator Spray"
+        extends="dss.vector.solutions.irs.ActorSpray"
+        generateController="true">
+        <attributes>
+          <reference
+            name="sprayOperator"
+            label="Operator"
+            required="true"
+            type="dss.vector.solutions.irs.SprayOperator" />
+          <integer
+            name="operatorSprayWeek"
+            label="Operator Spray Week"
+            rejectZero="true"
+            rejectNegative="true" />
+          <integer
+            name="received"
+            label="Number of sachets received"
+            rejectNegative="true" />
+          <integer
+            name="returned"
+            label="Number of sachets returned"
+            rejectNegative="true" />
+          <integer
+            name="used"
+            label="Number of sachets used"
+            rejectNegative="true" />
+          <integer
+            name="refills"
+            label="Number of pump/can refills"
+            rejectNegative="true" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          static="true"
+          returnType="dss.vector.solutions.irs.OperatorSprayView"
+          label="Get View"
+          description="Returns a view representing the operator spray">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          static="false"
+          returnType="dss.vector.solutions.irs.OperatorSprayView"
+          label="Lock View"
+          description="Locks the represented the operator spray">
+        </mdMethod>
+        <mdMethod
+          name="unlockView"
+          static="false"
+          returnType="dss.vector.solutions.irs.OperatorSprayView"
+          label="Unlock View"
+          description="Unlocks the represented operator spray">
+        </mdMethod>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.OperatorSprayView"
+        label="Operator Spray View"
+        extends="dss.vector.solutions.irs.ActorSprayView">
+        <attributes>
+          <virtual
+            name="sprayOperator"
+            concrete="sprayOperator"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+          <virtual
+            name="operatorSprayWeek"
+            concrete="operatorSprayWeek"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+          <virtual
+            name="received"
+            concrete="received"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+          <virtual
+            name="returned"
+            concrete="returned"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+          <virtual
+            name="used"
+            concrete="used"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+          <virtual
+            name="refills"
+            concrete="refills"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="searchBySprayData"
+          label="Search by Spray Data"
+          static="true"
+          returnType="dss.vector.solutions.irs.OperatorSprayView">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="sprayDate"
+            label="Spray Date"
+            order="1"
+            type="java.util.Date" />
+          <mdParameter
+            name="sprayMethod"
+            label="Spray Method"
+            order="2"
+            type="dss.vector.solutions.irs.SprayMethod" />
+          <mdParameter
+            name="brand"
+            label="Insecticide Brand"
+            order="3"
+            type="dss.vector.solutions.irs.InsecticideBrand" />
+          <mdParameter
+            name="operatorId"
+            label="Operator Id"
+            order="4"
+            type="java.lang.String" />
+        </mdMethod>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.TeamSpray"
+        label="Operator Spray"
+        extends="dss.vector.solutions.irs.ActorSpray"
+        generateController="true">
+        <attributes>
+          <reference
+            name="sprayTeam"
+            label="Team"
+            required="true"
+            type="dss.vector.solutions.irs.Team" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          static="true"
+          returnType="dss.vector.solutions.irs.TeamSprayView"
+          label="Get View"
+          description="Returns a view representing the operator spray">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          static="false"
+          returnType="dss.vector.solutions.irs.TeamSprayView"
+          label="Lock View"
+          description="Locks the represented the operator spray">
+        </mdMethod>
+        <mdMethod
+          name="unlockView"
+          static="false"
+          returnType="dss.vector.solutions.irs.TeamSprayView"
+          label="Unlock View"
+          description="Unlocks the represented operator spray">
+        </mdMethod>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.TeamSprayView"
+        label="Team Spray View"
+        extends="dss.vector.solutions.irs.ActorSprayView">
+        <attributes>
+          <virtual
+            name="sprayTeam"
+            concrete="sprayTeam"
+            type="dss.vector.solutions.irs.TeamSpray" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="searchBySprayData"
+          label="Search by Spray Data"
+          static="true"
+          returnType="dss.vector.solutions.irs.TeamSprayView">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="sprayDate"
+            label="Spray Date"
+            order="1"
+            type="java.util.Date" />
+          <mdParameter
+            name="sprayMethod"
+            label="Spray Method"
+            order="2"
+            type="dss.vector.solutions.irs.SprayMethod" />
+          <mdParameter
+            name="brand"
+            label="Insecticide Brand"
+            order="3"
+            type="dss.vector.solutions.irs.InsecticideBrand" />
+          <mdParameter
+            name="teamId"
+            label="Team Id"
+            order="4"
+            type="java.lang.String" />
+        </mdMethod>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.ZoneSpray"
+        label="Operator Spray"
+        extends="dss.vector.solutions.irs.AbstractSpray"
+        generateController="true">
+        <mdMethod
+          name="getView"
+          static="true"
+          returnType="dss.vector.solutions.irs.ZoneSprayView"
+          label="Get View"
+          description="Returns a view representing the operator spray">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          static="false"
+          returnType="dss.vector.solutions.irs.ZoneSprayView"
+          label="Lock View"
+          description="Locks the represented the operator spray">
+        </mdMethod>
+        <mdMethod
+          name="unlockView"
+          static="false"
+          returnType="dss.vector.solutions.irs.ZoneSprayView"
+          label="Unlock View"
+          description="Unlocks the represented operator spray">
+        </mdMethod>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.ZoneSprayView"
+        label="Zone Spray View"
+        extends="dss.vector.solutions.irs.AbstractSprayView">
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="searchBySprayData"
+          label="Search by Spray Data"
+          static="true"
+          returnType="dss.vector.solutions.irs.ZoneSprayView">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="sprayDate"
+            label="Spray Date"
+            order="1"
+            type="java.util.Date" />
+          <mdParameter
+            name="sprayMethod"
+            label="Spray Method"
+            order="2"
+            type="dss.vector.solutions.irs.SprayMethod" />
+          <mdParameter
+            name="brand"
+            label="Insecticide Brand"
+            order="3"
+            type="dss.vector.solutions.irs.InsecticideBrand" />
+        </mdMethod>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.SprayStatus"
+        label="Spray Status"
+        generateController="false"
+        extendable="true">
+        <attributes>
+          <reference
+            name="spray"
+            label="Spray"
+            required="true"
+            type="dss.vector.solutions.irs.AbstractSpray" />
+          <integer
+            name="households"
+            label="Total # of households"
+            rejectNegative="true" />
+          <integer
+            name="structures"
+            label="Total # of structures"
+            rejectNegative="true" />
+          <integer
+            name="sprayedHouseholds"
+            label="Total # of households sprayed"
+            rejectNegative="true" />
+          <integer
+            name="sprayedStructures"
+            label="Total # of structures sprayed"
+            rejectNegative="true" />
+          <integer
+            name="prevSprayedHouseholds"
+            label="Households sprayed last year"
+            rejectNegative="true" />
+          <integer
+            name="prevSprayedStructures"
+            label="Structures sprayed last year"
+            rejectNegative="true" />
+          <integer
+            name="rooms"
+            label="Total # of rooms"
+            rejectNegative="true" />
+          <integer
+            name="sprayedRooms"
+            label="Total # of rooms sprayed"
+            rejectNegative="true" />
+          <integer
+            name="people"
+            label="Number of people protected"
+            rejectNegative="true" />
+          <integer
+            name="roomsWithBedNets"
+            label="Total number of rooms with bed nets"
+            rejectNegative="true" />
+          <integer
+            name="bedNets"
+            label="Total number of bed nets"
+            rejectNegative="true" />
+          <integer
+            name="locked"
+            label="Totals for reasons for not spraying (locked)"
+            rejectNegative="true" />
+          <integer
+            name="refused"
+            label="Totals for reasons for not spraying (refused)"
+            rejectNegative="true" />
+          <integer
+            name="other"
+            label="Totals for reasons for not spraying (other)"
+            rejectNegative="true" />
+        </attributes>
+        <mdMethod
+          name="getView"
+          static="true"
+          returnType="dss.vector.solutions.irs.SprayStatusView"
+          label="Get View"
+          description="Returns a view representing the operator spray">
+          <mdParameter
+            name="id"
+            label="Id"
+            type="java.lang.String"
+            order="0" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          static="false"
+          returnType="dss.vector.solutions.irs.SprayStatusView"
+          label="Lock View"
+          description="Locks the represented the operator spray">
+        </mdMethod>
+        <mdMethod
+          name="unlockView"
+          static="false"
+          returnType="dss.vector.solutions.irs.SprayStatusView"
+          label="Unlock View"
+          description="Unlocks the represented operator spray">
+        </mdMethod>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.HouseholdSprayStatus"
+        label="Household Spray Status"
+        generateController="false"
+        extends="dss.vector.solutions.irs.SprayStatus">
+        <attributes>
+          <char
+            name="householdId"
+            label="Household Id"
+            size="255" />
+          <char
+            name="structureId"
+            label="Structure Id"
+            size="255" />
+        </attributes>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.irs.SprayStatusView"
+        label="Spray Status View"
+        isAbstract="true"
+        extendable="true">
+        <attributes>
+          <char
+            name="statusId"
+            label="Status Id"
+            size="255" />
+          <virtual
+            name="spray"
+            concrete="spray"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="households"
+            concrete="households"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="structures"
+            concrete="structures"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="sprayedHouseholds"
+            concrete="sprayedHouseholds"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="sprayedStructures"
+            concrete="sprayedStructures"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="prevSprayedHouseholds"
+            concrete="prevSprayedHouseholds"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="prevSprayedStructures"
+            concrete="prevSprayedStructures"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="rooms"
+            concrete="rooms"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="sprayedRooms"
+            concrete="sprayedRooms"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="people"
+            concrete="people"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="roomsWithBedNets"
+            concrete="roomsWithBedNets"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="bedNets"
+            concrete="bedNets"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="locked"
+            concrete="locked"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="refused"
+            concrete="refused"
+            type="dss.vector.solutions.irs.SprayStatus" />
+          <virtual
+            name="other"
+            concrete="other"
+            type="dss.vector.solutions.irs.SprayStatus" />
+        </attributes>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.irs.ActorSprayStatusView"
+        label="Actor Spray Status View"
+        isAbstract="true"
+        extendable="true"
+        extends="dss.vector.solutions.irs.SprayStatusView">
+        <attributes>
+          <reference
+            name="sprayData"
+            label="Spray Data"
+            type="dss.vector.solutions.irs.SprayData"
+            required="true" />
+        </attributes>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.irs.TeamSprayStatusView"
+        label="Team Spray Status View"
+        extends="dss.vector.solutions.irs.ActorSprayStatusView">
+        <attributes>
+          <virtual
+            name="sprayTeam"
+            concrete="sprayTeam"
+            type="dss.vector.solutions.irs.TeamSpray" />
+          <virtual
+            name="teamSprayWeek"
+            concrete="teamSprayWeek"
+            type="dss.vector.solutions.irs.ActorSpray" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="applyAll"
+          label="Apply with parent"
+          returnType="dss.vector.solutions.irs.TeamSprayStatusView[]"
+          static="true">
+          <mdParameter
+            name="views"
+            label="Views"
+            order="1"
+            type="dss.vector.solutions.irs.TeamSprayStatusView[]" />
+        </mdMethod>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.irs.OperatorSprayStatusView"
+        label="Operator Spray Status View"
+        extends="dss.vector.solutions.irs.ActorSprayStatusView">
+        <attributes>
+          <virtual
+            name="sprayOperator"
+            concrete="sprayOperator"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+          <virtual
+            name="operatorSprayWeek"
+            concrete="operatorSprayWeek"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+          <virtual
+            name="received"
+            concrete="received"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+          <virtual
+            name="returned"
+            concrete="returned"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+          <virtual
+            name="used"
+            concrete="used"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+          <virtual
+            name="refills"
+            concrete="refills"
+            type="dss.vector.solutions.irs.OperatorSpray" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="applyAll"
+          label="Apply with parent"
+          returnType="dss.vector.solutions.irs.OperatorSprayStatusView[]"
+          static="true">
+          <mdParameter
+            name="views"
+            label="Views"
+            order="1"
+            type="dss.vector.solutions.irs.OperatorSprayStatusView[]" />
+        </mdMethod>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.irs.HouseholdSprayStatusView"
+        label="Household Spray View"
+        extends="dss.vector.solutions.irs.SprayStatusView">
+        <attributes>
+          <virtual
+            name="householdId"
+            concrete="householdId"
+            type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+          <virtual
+            name="structureId"
+            concrete="structureId"
+            type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="applyAll"
+          label="Apply with parent"
+          returnType="dss.vector.solutions.irs.HouseholdSprayStatusView[]"
+          static="true">
+          <mdParameter
+            name="views"
+            label="Views"
+            order="1"
+            type="dss.vector.solutions.irs.HouseholdSprayStatusView[]" />
+        </mdMethod>
+      </mdView>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.HouseholdSprayStatusView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.OperatorSprayStatusView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.TeamSprayStatusView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.ActorSprayStatusView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.SprayStatusView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.HouseholdSprayStatus"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.SprayStatus"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.ZoneSprayView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.ZoneSpray"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.TeamSprayView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.TeamSpray"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.OperatorSprayView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.OperatorSpray"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.ActorSprayView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.ActorSpray"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.AbstractSprayView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.AbstractSpray"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.SprayData"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.AreaStandardsView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.AreaStandards"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideNozzle"
+        type="com.terraframe.mojo.system.metadata.MdRelationship" />
+      <object
+        key="dss.vector.solutions.irs.NozzleView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.Nozzle"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrandView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.irs.InsecticideBrand"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.SprayMethod"
+        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.irs.SprayMethodMaster"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.irs.SurfaceType"
+        type="com.terraframe.mojo.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.irs.SurfaceTypeMaster"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>
