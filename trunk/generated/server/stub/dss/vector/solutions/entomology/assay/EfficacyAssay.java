@@ -36,7 +36,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
   @Override
   public void validateGravid()
   {
-    super.validateGravid();
+    //super.validateGravid();
 
     new GravidValidator(this).validate();
   }
@@ -44,7 +44,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
   @Override
   public void validateFed()
   {
-    super.validateFed();
+    //super.validateFed();
 
     new FedValidator(this).validate();
   }
