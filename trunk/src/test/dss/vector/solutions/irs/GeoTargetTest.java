@@ -505,7 +505,7 @@ public class GeoTargetTest extends TestCase
 
   public void testGetExistingGeoTargets() throws Exception
   {
-    int year = 200;
+    int year = 2009;
     GeoTargetView view = new GeoTargetView();
     view.setGeoEntity(geoEntity);
     view.setTargetYear(year);
