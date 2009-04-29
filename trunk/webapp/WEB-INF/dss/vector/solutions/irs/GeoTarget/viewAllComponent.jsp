@@ -21,15 +21,18 @@
 <%@page import="dss.vector.solutions.geo.generated.ProvinceDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
-<c:set var="page_title" value="Search_Geo_Targets"  scope="request"/>
+
+<%@page import="dss.vector.solutions.PropertyDTO"%><c:set var="page_title" value="Search_Geo_Targets"  scope="request"/>
 
 <%
   request.setAttribute("DistrictClass", DistrictDTO.CLASS);
   request.setAttribute("ProvinceClass", ProvinceDTO.CLASS);
   request.setAttribute("SprayZoneClass", SprayZoneDTO.CLASS);
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-//set the root to mozambique
-  GeoEntityDTO country = GeoEntityDTO.searchByGeoId(clientRequest,"1100");
+//set the root to this install's country
+  String geoRootId = PropertyDTO.getStr(clientRequest,"dss.vector.solutions.install","countryGeoId");
+
+  GeoEntityDTO country = GeoEntityDTO.searchByGeoId(clientRequest,geoRootId);
   request.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, country.getId());
 %>
 
@@ -100,6 +103,8 @@
   <mjl:message />
 </mjl:messages>
 
+<c:set var="now" value="<%=new java.util.Date()%>" scope="request"/>
+
 
 <mjl:form name="dss.vector.solutions.irs.GeoTargetController.view.mojo" method="POST" id ="searchMosquitoCollections">
   <dl>
@@ -120,7 +125,9 @@
     </dd>
 
     <dt> <label> <fmt:message key="Season"/></label></dt>
-    <dd> <mjl:input param="targetYear" type="text"  id="year"/></dd>
+    <dd>
+    <input id="year" type="text" name="targetYear" value="<fmt:formatDate pattern="yyyy" value="${now}"/>" maxlength="4" />
+    </dd>
   </dl>
   <br>
   <br>

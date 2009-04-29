@@ -10,7 +10,9 @@
 <%@page import="dss.vector.solutions.surveillance.EpiDateDTO"%>
 <%@page import="dss.vector.solutions.EpiWeek"%>
 
-<%@page import="dss.vector.solutions.irs.GeoTargetDTO"%><c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
+<%@page import="dss.vector.solutions.irs.GeoTargetDTO"%>
+
+<c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -81,7 +83,7 @@ String[] types_to_load ={"dss.vector.solutions.irs.GeoTargetView"};
 
 String colConfig = "{key:'TargetId',label:'TargetId',hidden:true}";
 colConfig += "\n,{key:'GeoEntity',label:'" + item.getGeoEntityMd().getDisplayLabel() + "',hidden:true}";
-colConfig += "\n,{key:'EntityName',label:'Entity Name'}";
+colConfig += "\n,{key:'EntityName',label:'" + item.getGeoEntityMd().getDisplayLabel() + "'}";
 colConfig += "\n,{key:'TargetYear',label:'Year',hidden:true}";
 
 
@@ -90,8 +92,9 @@ for(int i = 0;i<=52;i++)
 {
     EpiWeek  epiWeek = new EpiWeek(i,item.getTargetYear());
     String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
+    String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
 
-    colConfig += ",\n{key:'Target_" + i + "',label:'" + (i+1) + "',title:'" + startDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
+    colConfig += ",\n{key:'Target_" + i + "',label:'" + (i+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
 }
 
 %>
@@ -110,4 +113,4 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
           };
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(GeoTargetData));
 </script>
-<mjl:commandLink display="Change Root" action="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" name="dss.vector.solutions.irs.GeoTarget.viewAll.link" />
+<mjl:commandLink display="Back_To_Search" action="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" name="dss.vector.solutions.irs.GeoTarget.viewAll.link" />
