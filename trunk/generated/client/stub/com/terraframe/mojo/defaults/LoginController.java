@@ -35,7 +35,7 @@ public class LoginController extends LoginControllerBase implements com.terrafra
 			req.getSession().setMaxInactiveInterval(CommonProperties.getSessionTime());
 			req.getSession().setAttribute(ClientConstants.CLIENTSESSION, clientSession);
 			req.setAttribute(ClientConstants.CLIENTREQUEST, clientRequest);
-			req.getSession().setAttribute(ClientConstants.CURRENTUSER, clientRequest.getSessionUser());
+
 
 			// create a global cookie for geoserver to read
 			GlobalSessionListener globalSessionListener = new GlobalSessionListener(clientSession.getSessionId());
