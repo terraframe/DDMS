@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="page_title" value="View_All_SurveyPoints" scope="request" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -7,17 +9,16 @@
   <mjl:context action="dss.vector.solutions.intervention.monitor.SurveyPointController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="geoEntity">
-      <mjl:header>
-        Geo Entity
-      </mjl:header>
+      <mjl:header />
       <mjl:row>
         ${item.geoEntity.geoId}
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="surveyDate">
-      <mjl:header>
-        Date
-      </mjl:header>
+      <mjl:header />
+      <mjl:row>
+        <fmt:formatDate value="${item.surveyDate}" dateStyle="SHORT" />
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>

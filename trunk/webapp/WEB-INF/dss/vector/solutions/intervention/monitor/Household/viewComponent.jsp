@@ -4,133 +4,60 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
+
 <mjl:form name="dss.vector.solutions.intervention.monitor.Household.form.name" id="dss.vector.solutions.intervention.monitor.Household.form.id" method="POST">
+  <mjl:component item="${item}" param="dto">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.householdNameMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="householdName">
       ${item.householdName}
-    </dd>
-    <dt>
-      <label>
-        ${item.lastSprayedMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="lastSprayed">
       ${item.lastSprayed}
-    </dd>
-    <dt>
-      <label>
-        ${item.netsMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="nets">
       ${item.nets}
-    </dd>
-    <dt>
-      <label>
-        ${item.netsUsedMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="netsUsed">
       ${item.netsUsed}
-    </dd>
-    <dt>
-      <label>
-        ${item.peopleMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="people">
       ${item.people}
-    </dd>
-    <dt>
-      <label>
-        ${item.roofMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="roof">
       <mjl:commandLink display="${item.roof.geoId}" action="dss.vector.solutions.geo.generated.RoofController.view.mojo" name="dss.vector.solutions.geo.generated.Roof.form.view.link">
         <mjl:property value="${item.roof.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.roofInfoMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="roofInfo">
       ${item.roofInfo}
-    </dd>
-    <dt>
-      <label>
-        ${item.roomsMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="rooms">
       ${item.rooms}
-    </dd>
-    <dt>
-      <label>
-        ${item.sleptUnderNetsMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="sleptUnderNets">
       ${item.sleptUnderNets}
-    </dd>
-    <dt>
-      <label>
-        ${item.surveyPointMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="surveyPoint">
       <mjl:commandLink display="${item.surveyPoint.displayLabel}" action="dss.vector.solutions.intervention.monitor.SurveyPointController.view.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.view.link">
         <mjl:property value="${item.surveyPoint.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.urbanMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="urban">
       ${item.urban}
-    </dd>
-    <dt>
-      <label>
-        ${item.wallMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="wall">
       <mjl:commandLink display="${item.wall.geoId}" action="dss.vector.solutions.geo.generated.WallController.view.mojo" name="dss.vector.solutions.geo.generated.Wall.form.view.link">
         <mjl:property value="${item.wall.id}" name="id" />
       </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.wallInfoMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="wallInfo">
       ${item.wallInfo}
-    </dd>
-    <dt>
-      <label>
-        ${item.hasWindowsMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="hasWindows">
       ${item.hasWindows}
-    </dd>
-    <dt>
-      <label>
-        ${item.windowTypeMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="windowType">
       <ul>
         <c:forEach var="enumName" items="${item.windowTypeEnumNames}">
           <li>
@@ -138,7 +65,7 @@
           </li>
         </c:forEach>
       </ul>
-    </dd>
+</mjl:dt>
     <dt>
       <label><fmt:message key="Nets"/>  </label>
     </dt>
@@ -167,6 +94,7 @@
     </dd>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.HouseholdController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Household.form.edit.button" />
+</mjl:component>
 </mjl:form>
 <dl>
   <dt><fmt:message key="People" /> </dt>
@@ -190,3 +118,6 @@
     <mjl:property name="householdId" value="${item.id}"/>
   </mjl:commandLink>
 </dl>
+<mjl:commandLink display="Back_To_Survey_Point" action="dss.vector.solutions.intervention.monitor.SurveyPointController.view.mojo" name="Household.view.link">
+  <mjl:property name="id" value="${item.surveyPoint.id}" />
+</mjl:commandLink>

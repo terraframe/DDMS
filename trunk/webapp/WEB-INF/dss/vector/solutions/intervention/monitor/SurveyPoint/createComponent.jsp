@@ -13,7 +13,7 @@
 <%@page import="dss.vector.solutions.geo.generated.SentinalSiteDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.NonSentinalSiteDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
-
+<c:set var="page_title" value="Create_Survey_Point"  scope="request"/>
 <script type="text/javascript">
 
   YAHOO.util.Event.onDOMReady(function(){
@@ -22,16 +22,19 @@
     {
       var geoId = document.getElementById('geoIdEl');
       var geoEntityId = document.getElementById('geoEntityId');
+      var geoEntityName = document.getElementById('entityName');
 
       if(selected != null)
       {
         geoId.value = selected.getGeoId();
         geoEntityId.value = selected.getGeoEntityId();
+        geoEntityName.innerHTML = selected.getEntityName();// +':'+ selected.getType() ;
       }
       else
       {
         geoId.value = '';
         geoEntityId.value = '';
+        geoEntityName.innerHTML = '';
       }
     }
 
@@ -86,31 +89,18 @@
       <dt><fmt:message key="Filter"/></dt>
       <dd>
       <input type="radio" name="filterType" value="" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${SentinalSiteClass}" />&nbsp;<fmt:message key="Sentinal_Site"/> &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" value="${SentinalSiteClass}" />&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp;
       </dd>
-      <dt>
-        <label>
-          ${item.geoEntityMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+      <mjl:dt attribute="geoEntity">
         <mjl:input id="geoIdEl" param="none" type="text" maxlength="16"/><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a>
         <mjl:input id="geoEntityId" param="geoEntity" type="hidden" />
-        <mjl:messages attribute="geoEntity">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.surveyDateMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        <br/>(<span id ="entityName"></span>)
+        
+</mjl:dt>
+      <mjl:dt attribute="surveyDate">
         <mjl:input param="surveyDate" type="text" classes="DatePick" id="surveyDate"/>
-        <mjl:messages attribute="surveyDate">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+        
+</mjl:dt>
     </dl>
   </mjl:component>
   <mjl:command value="Create" action="dss.vector.solutions.intervention.monitor.SurveyPointController.create.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.create.button" />

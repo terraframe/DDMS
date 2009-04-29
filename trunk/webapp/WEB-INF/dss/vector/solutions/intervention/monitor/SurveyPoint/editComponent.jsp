@@ -73,29 +73,15 @@
         <input type="radio" name="filterType" value="" checked="checked" />All  &nbsp;&nbsp;&nbsp;
         <input type="radio" name="filterType" value="${SentinalSiteClass}" />Sentinal Site &nbsp;&nbsp;&nbsp;
       </dd>
-      <dt>
-        <label>
-          ${item.geoEntityMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+      <mjl:dt attribute="geoEntity">
         <mjl:input id="geoIdEl" param="none" type="text" maxlength="16" value="${item.geoEntity.geoId}" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a>
         <mjl:input id="geoEntityId" param="geoEntity" type="hidden" value="${item.geoEntity.id}" />
-        <mjl:messages attribute="geoEntity">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.surveyDateMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="surveyDate">
         <mjl:input param="surveyDate" type="text" classes="DatePick" id="surveyDate" />
-        <mjl:messages attribute="surveyDate">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+        
+</mjl:dt>
     </dl>
   </mjl:component>
   <mjl:command value="Update" action="dss.vector.solutions.intervention.monitor.SurveyPointController.update.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.update.button" />

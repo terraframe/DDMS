@@ -6,17 +6,10 @@
 <mjl:form name="dss.vector.solutions.intervention.monitor.HouseholdNet.form.name" id="dss.vector.solutions.intervention.monitor.HouseholdNet.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
     <dl>
-      <dt>
-        <label>
-          ${item.amountMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+      <mjl:dt attribute="amount">
         <mjl:input type="text" param="amount" />
-        <mjl:messages attribute="amount">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+        
+</mjl:dt>
     </dl>
   </mjl:component>
   <mjl:command value="Update" action="dss.vector.solutions.intervention.monitor.HouseholdNetController.update.mojo" name="dss.vector.solutions.intervention.monitor.HouseholdNet.form.update.button" />

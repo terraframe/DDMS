@@ -7,248 +7,122 @@
   <dl>
     <mjl:component item="${item}" param="dto">
       <mjl:input param="household" type="hidden" value="${item.household.id}" />
-      <dt>
-        <label>
-          ${item.anaemiaTreatmentMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+      <mjl:dt attribute="anaemiaTreatment">
         <mjl:select var="current" includeBlank="true" valueAttribute="id" items="${anaemiaTreatment}" param="anaemiaTreatment">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
-        <mjl:messages attribute="anaemiaTreatment">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.bloodslideMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="bloodslide">
         <mjl:select var="current" includeBlank="true" valueAttribute="enumName" items="${bloodslide}" param="bloodslide">
           <mjl:option selected="${mjl:contains(item.bloodslideEnumNames, current.enumName) ? 'selected' : 'false'}">
             ${item.bloodslideMd.enumItems[current.enumName]}
           </mjl:option>
         </mjl:select>
-        <mjl:messages attribute="bloodslide">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.dobMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="dob">
         <mjl:input type="text" param="dob" id="dob" classes="DatePick" />
-        <mjl:messages attribute="dob">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.feverMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="fever">
         <mjl:select var="current" includeBlank="true" valueAttribute="enumName" items="${fever}" param="fever">
           <mjl:option selected="${mjl:contains(item.feverEnumNames, current.enumName) ? 'selected' : 'false'}">
             ${item.feverMd.enumItems[current.enumName]}
           </mjl:option>
         </mjl:select>
-        <mjl:messages attribute="fever">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.feverTreatmentMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="feverTreatment">
         <mjl:select var="current" includeBlank="true" valueAttribute="id" items="${feverTreatment}" param="feverTreatment">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
-        <mjl:messages attribute="feverTreatment">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.haemoglobinMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="haemoglobin">
         <mjl:input type="text" param="haemoglobin" />
-        <mjl:messages attribute="haemoglobin">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.haemoglobinMeasuredMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="haemoglobinMeasured">
         <mjl:boolean param="haemoglobinMeasured" />
-        <mjl:messages attribute="haemoglobinMeasured">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.ironMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="iron">
         <mjl:boolean param="iron" />
-        <mjl:messages attribute="iron">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.malariaMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="malaria">
         <mjl:select var="current" includeBlank="true" valueAttribute="enumName" items="${malaria}" param="malaria">
           <mjl:option selected="${mjl:contains(item.malariaEnumNames, current.enumName) ? 'selected' : 'false'}">
             ${item.malariaMd.enumItems[current.enumName]}
           </mjl:option>
         </mjl:select>
-        <mjl:messages attribute="malaria">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.malariaTreatmentMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="malariaTreatment">
         <mjl:select var="current" includeBlank="true" valueAttribute="id" items="${malariaTreatment}" param="malariaTreatment">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
-        <mjl:messages attribute="malariaTreatment">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.paymentMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="payment">
         <mjl:select var="current" includeBlank="true" valueAttribute="enumName" items="${payment}" param="payment">
           <mjl:option selected="${mjl:contains(item.paymentEnumNames, current.enumName) ? 'selected' : 'false'}">
             ${item.paymentMd.enumItems[current.enumName]}
           </mjl:option>
         </mjl:select>
-        <mjl:messages attribute="payment">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.performedRDTMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="performedRDT">
         <mjl:select var="current" includeBlank="true" valueAttribute="enumName" items="${performedRDT}" param="performedRDT">
           <mjl:option selected="${mjl:contains(item.performedRDTEnumNames, current.enumName) ? 'selected' : 'false'}">
             ${item.performedRDTMd.enumItems[current.enumName]}
           </mjl:option>
         </mjl:select>
-        <mjl:messages attribute="performedRDT">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.personIdMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="personId">
         <mjl:input type="text" param="personId" />
-        <mjl:messages attribute="personId">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.pregnantMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="pregnant">
         <mjl:boolean param="pregnant" />
-        <mjl:messages attribute="pregnant">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.RDTResultMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="RDTResult">
         <mjl:checkboxGroup var="current" valueAttribute="enumName" items="${rDTResult}" param="rDTResult">
           <mjl:checkboxOption checked="${mjl:contains(item.RDTResultEnumNames, current.enumName) ? 'checked' : 'false'}">
             ${item.RDTResultMd.enumItems[current.enumName]}
           </mjl:checkboxOption>
         </mjl:checkboxGroup>
-        <mjl:messages attribute="rDTResult">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.rdtTreatmentMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="rdtTreatment">
         <mjl:select var="current" includeBlank="true" valueAttribute="id" items="${rdtTreatment}" param="rdtTreatment">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
-        <mjl:messages attribute="rdtTreatment">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.sexMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="sex">
         <mjl:select var="current" includeBlank="true" valueAttribute="enumName" items="${sex}" param="sex">
           <mjl:option selected="${mjl:contains(item.sexEnumNames, current.enumName) ? 'selected' : 'false'}">
             ${item.sexMd.enumItems[current.enumName]}
           </mjl:option>
         </mjl:select>
-        <mjl:messages attribute="sex">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.sleptUnderNetMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
+        
+</mjl:dt>
+      <mjl:dt attribute="sleptUnderNet">
         <mjl:boolean param="sleptUnderNet" />
-        <mjl:messages attribute="sleptUnderNet">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
+        
+</mjl:dt>
     </mjl:component>
   </dl>
   <mjl:command value="Create" action="dss.vector.solutions.intervention.monitor.PersonController.create.mojo" name="dss.vector.solutions.intervention.monitor.Person.form.create.button" />

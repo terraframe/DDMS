@@ -6,22 +6,12 @@
 <mjl:form name="dss.vector.solutions.intervention.ResponseMaster.form.name" id="dss.vector.solutions.intervention.ResponseMaster.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.displayLabelMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="displayLabel">
       ${item.displayLabel}
-    </dd>
-    <dt>
-      <label>
-        ${item.enumNameMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+</mjl:dt>
+    <mjl:dt attribute="enumName">
       ${item.enumName}
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.intervention.ResponseMasterController.edit.mojo" name="dss.vector.solutions.intervention.ResponseMaster.form.edit.button" />
   <br />

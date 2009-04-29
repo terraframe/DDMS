@@ -26,14 +26,9 @@
         <mjl:property value="${item.childId}" name="id" />
       </mjl:commandLink>
     </dd>
-    <dt>
-      <label>
-        ${item.amountMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+    <mjl:dt attribute="amount">
       ${item.amount}
-    </dd>
+</mjl:dt>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.HouseholdNetController.edit.mojo" name="dss.vector.solutions.intervention.monitor.HouseholdNet.form.edit.button" />
   <br />
