@@ -7,5 +7,5 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
     - {quantityFemale} Quantity Female
     - {quantityMale} Quantity Male
     -->
-  <locale language="en">Replace this with your customized error message.</locale>
+  <locale language="en">Total Quantity({quantity}) must equal sum of Quantity Male({quantityMale}) and Quantity Female({quantityFemale}).</locale>
 </exception>
