@@ -2,6 +2,8 @@
 <%@page import="com.terraframe.mojo.system.UsersDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 
 <div class="pageFooter">
 <!--  <a href="#">Administration</a>
@@ -13,13 +15,15 @@
 | <a href="#">GIS</a> -->
 
 <%
-UsersDTO user =(UsersDTO) session.getAttribute("MOJO_CurrentUser");
-if(user!=null)
+//UsersDTO user =(UsersDTO) session.getAttribute("MOJO_CurrentUser");
+ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+if(clientRequest.isLoggedIn())
 {
     %>
     <fmt:message key="logged_in_as"/>:
     <%
-    out.print(user.getUsername());
+    //out.print(user.getUsername());
+    out.print(clientRequest.getSessionUser());
 }
 else
 {
@@ -28,6 +32,7 @@ else
 %>
 </div>
 </body>
+
 
 
 </html>
