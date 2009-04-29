@@ -97,6 +97,14 @@ public class HouseholdController extends HouseholdControllerBase implements
 
   public void view(HouseholdDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
+    // go back to household view after entering person
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      resp.sendRedirect(path.replaceFirst("/.*?$", "/dss.vector.solutions.intervention.monitor.HouseholdController.view.mojo") + "?id=" + dto.getId());
+      return;
+    }
+
     req.setAttribute("item", dto);
     req.setAttribute("people", dto.getAllPersons());
     req.setAttribute("nets", Arrays.asList(dto.getHouseholdNets()));

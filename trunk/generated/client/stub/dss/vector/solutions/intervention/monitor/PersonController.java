@@ -182,7 +182,13 @@ public class PersonController extends PersonControllerBase implements com.terraf
     try
     {
       dto.apply();
-      this.view(dto);
+
+      if (!req.getRequestURI().contains(".view.mojo"))
+      {
+        String path = req.getRequestURL().toString();
+        resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getHousehold().getId());
+        return;
+      }
     }
     catch (ProblemExceptionDTO e)
     {
