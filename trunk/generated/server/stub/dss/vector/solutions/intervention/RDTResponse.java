@@ -43,7 +43,7 @@ public enum RDTResponse implements com.terraframe.mojo.business.BusinessEnumerat
   public java.lang.String getDisplayLabel()
   {
     loadEnumeration();
-    return enumeration.getDisplayLabel();
+    return enumeration.getDisplayLabel().getValue(com.terraframe.mojo.session.Session.getCurrentLocale());
   }
   
   public static RDTResponse get(String id)

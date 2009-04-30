@@ -62,53 +62,53 @@ public class PermissionsTest extends TestCase
     mdssAdmin = new Roles();
     mdssAdmin.setRoleName("MdssAdmin");
     mdssAdmin.apply();
-    
+
     mdssUser = new Roles();
     mdssUser.setRoleName("MdssUser");
     mdssUser.apply();
-    
+
     mdssType = new MdBusiness();
     mdssType.setTypeName("MdssType");
     mdssType.setPackageName("dss.test");
-    mdssType.getDisplayLabel().setEn("MDSS Test Type");
+    mdssType.getDisplayLabel().setValue("MDSS Test Type");
     mdssType.apply();
-    
+
     visibleChar = new MdAttributeCharacter();
     visibleChar.setAttributeName("visibleChar");
     visibleChar.setDatabaseSize(32);
-    visibleChar.setDisplayLabel("Visible Character");
+    visibleChar.getDisplayLabel().setValue("Visible Character");
     visibleChar.setDefiningMdClass(mdssType);
     visibleChar.apply();
-    
+
     hiddenInt = new MdAttributeInteger();
     hiddenInt.setAttributeName("hiddenInt");
-    hiddenInt.setDisplayLabel("Hidden Integer");
+    hiddenInt.getDisplayLabel().setValue("Hidden Integer");
     hiddenInt.setDefiningMdClass(mdssType);
     hiddenInt.apply();
-    
+
     userBoolean = new MdAttributeBoolean();
     userBoolean.setAttributeName("userBoolean");
-    userBoolean.setDisplayLabel("User Boolean");
+    userBoolean.getDisplayLabel().getValue("User Boolean");
     userBoolean.setDefiningMdClass(mdssType);
     userBoolean.apply();
-    
+
     TypePermission readVisible = mdssAdmin.addMetadata(visibleChar);
     readVisible.addOperations(AllOperations.READ);
     readVisible.apply();
-    
+
     adminUser = new Users();
     adminUser.setUsername("admin@mt2009.com");
     adminUser.setPassword("admin@mt2009.com");
     adminUser.apply();
     adminUser.addAssignedRole(mdssAdmin).apply();
-    
+
     publicUser = new Users();
     publicUser.setUsername("public@mt2009.com");
     publicUser.setPassword("public@mt2009.com");
     publicUser.addAssignedRole(mdssUser);
     publicUser.apply();
   }
-  
+
   protected static void classTearDown()
   {
     UserDAO.findUser(adminUser.getUsername()).getBusinessDAO().delete();
@@ -117,13 +117,13 @@ public class PermissionsTest extends TestCase
     RoleDAO.findRole(mdssUser.getRoleName()).getBusinessDAO().delete();
     MdTypeDAO.getMdTypeDAO(mdssType.definesType()).getBusinessDAO().delete();
   }
-  
+
   public void testReadVisible() throws Exception
   {
     if (!checkAttributeAccess(adminUser, visibleChar))
       fail("Admin user cannot read visibleChar");
   }
-  
+
   public void testGetRoleAttributes() throws Exception
   {
     ReadableAttributeView[] views = ReadableAttributeView.getActorAttributes(mdssType.definesType(), mdssAdmin.getRoleName());
@@ -134,39 +134,39 @@ public class PermissionsTest extends TestCase
     assertEquals(visibleChar.getAttributeName(), views[2].getAttributeName());
     assertEquals(Boolean.TRUE, views[2].getReadPermission());
   }
-  
+
   public void testSetRoleAttributes() throws Exception
   {
     assertEquals(false, checkAttributeAccess(adminUser, hiddenInt));
     assertEquals(false, checkAttributeAccess(adminUser, userBoolean));
     assertEquals(true, checkAttributeAccess(adminUser, visibleChar));
-    
+
     ReadableAttributeView[] views = new ReadableAttributeView[3];
     views[0] = new ReadableAttributeView();
     views[0].setAttributeName(hiddenInt.getAttributeName());
-    views[0].setDisplayLabel(hiddenInt.getDisplayLabel());
+    views[0].setDisplayLabel(hiddenInt.getDisplayLabel().getValue());
     views[0].setReadPermission(true);
     views[0].apply();
-    
+
     views[1] = new ReadableAttributeView();
     views[1].setAttributeName(userBoolean.getAttributeName());
-    views[1].setDisplayLabel(userBoolean.getDisplayLabel());
+    views[1].setDisplayLabel(userBoolean.getDisplayLabel().getValue());
     views[1].setReadPermission(false);
     views[1].apply();
-    
+
     views[2] = new ReadableAttributeView();
     views[2].setAttributeName(visibleChar.getAttributeName());
-    views[2].setDisplayLabel(visibleChar.getDisplayLabel());
+    views[2].setDisplayLabel(visibleChar.getDisplayLabel().getValue());
     views[2].setReadPermission(false);
     views[2].apply();
-    
+
     ReadableAttributeView.setActorAttributes(mdssType.definesType(), mdssAdmin.getRoleName(), views);
-    
+
     assertEquals(true, checkAttributeAccess(adminUser, hiddenInt));
     assertEquals(false, checkAttributeAccess(adminUser, userBoolean));
     assertEquals(false, checkAttributeAccess(adminUser, visibleChar));
   }
-  
+
   private boolean checkAttributeAccess(Users user, MdAttribute attribute)
   {
     ClientSession adminSession = ClientSession.createUserSession(user.getUsername(), user.getUsername());
@@ -174,6 +174,6 @@ public class PermissionsTest extends TestCase
     boolean checkAttributeAccess = SessionFacade.checkAttributeAccess(adminSession.getSessionId(), Operation.READ, mdAttributeDAO);
     adminSession.logout();
     return checkAttributeAccess;
-    
+
   }
 }

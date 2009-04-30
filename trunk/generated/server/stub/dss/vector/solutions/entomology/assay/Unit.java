@@ -51,7 +51,7 @@ public enum Unit implements com.terraframe.mojo.business.BusinessEnumeration, co
   public java.lang.String getDisplayLabel()
   {
     loadEnumeration();
-    return enumeration.getDisplayLabel();
+    return enumeration.getDisplayLabel().getValue(com.terraframe.mojo.session.Session.getCurrentLocale());
   }
   
   public static Unit get(String id)

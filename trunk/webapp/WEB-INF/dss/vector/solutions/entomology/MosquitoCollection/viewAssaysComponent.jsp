@@ -48,7 +48,7 @@
           // Get the result
           MdAttributeVirtualDAOIF mdAttribute = assayMap.get(c);
           String attributeName = GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
-          String displayLabel = mdAttribute.getDisplayLabel();
+          String displayLabel = mdAttribute.getDisplayLabel(java.util.Locale.ENGLISH);
     		try
     		{
 

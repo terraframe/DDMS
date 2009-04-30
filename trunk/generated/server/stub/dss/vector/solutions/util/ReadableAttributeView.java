@@ -18,32 +18,33 @@ import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.session.Session;
 
 public class ReadableAttributeView extends ReadableAttributeViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239221651119L;
-  
+
   public ReadableAttributeView()
   {
     super();
   }
-  
+
   public static ReadableAttributeView[] getActorAttributes(String universal, String actorName)
   {
     ActorDAOIF actor = getActor(actorName);
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(universal);
-    
+
     List<ReadableAttributeView> list = new LinkedList<ReadableAttributeView>();
     for (MdAttributeDAOIF mdAttribute : mdClass.getAllDefinedMdAttributes())
     {
       // Don't show 'em system attributes, Owner, or Domain
       if (ignore(mdAttribute))
         continue;
-      
+
       ReadableAttributeView view = new ReadableAttributeView();
       view.setAttributeName(mdAttribute.definesAttribute());
-      view.setDisplayLabel(mdAttribute.getDisplayLabel());
-      
+      view.setDisplayLabel(mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
+
       Set<Operation> permissions = actor.getPermissions(mdAttribute);
       if (permissions.contains(Operation.READ))
         view.setReadPermission(true);
@@ -52,10 +53,10 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       view.apply();
       list.add(view);
     }
-    
+
     // Sort alphabetically by attribute name
     Collections.sort(list, new Sorter());
-    
+
     return list.toArray(new ReadableAttributeView[list.size()]);
   }
 
@@ -64,14 +65,14 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
     ActorDAO actor = (ActorDAO)getActor(actorName).getBusinessDAO();
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(universal);
     Map<String, ? extends MdAttributeDAOIF> attributeMap = mdClass.getAllDefinedMdAttributeMap();
-    
+
     for (ReadableAttributeView view : attributeViews)
     {
       MdAttributeDAOIF mdAttribute = attributeMap.get(view.getAttributeName().toLowerCase());
 //      MdAttributeDAOIF mdAttribute = mdClass.definesAttribute(view.getAttributeName());
       if (ignore(mdAttribute))
         continue;
-      
+
       if (view.getReadPermission())
         actor.grantPermission(Operation.READ, mdAttribute.getId());
       else
@@ -79,7 +80,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
     }
     actor.apply();
   }
-  
+
   private static ActorDAOIF getActor(String actorName)
   {
     ActorDAOIF actor;
@@ -93,7 +94,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
     }
     return actor;
   }
-  
+
   private static class Sorter implements Comparator<ReadableAttributeView>, Reloadable
   {
     public int compare(ReadableAttributeView o1, ReadableAttributeView o2)
@@ -101,11 +102,11 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       return o1.getAttributeName().compareTo(o2.getAttributeName());
     }
   }
-  
+
   /**
    * We ignore certain special attributes that don't make sense for this view.
    * This checks to see if the given attribute should be ignored.
-   * 
+   *
    * @param mdAttribute
    * @return
    */
@@ -113,12 +114,12 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
   {
     if (mdAttribute==null)
       return true;
-    
+
     return mdAttribute.isSystem() ||
            mdAttribute.definesAttribute().equals(MdAttributeInfo.OWNER) ||
            mdAttribute.definesAttribute().equals(MdAttributeInfo.DOMAIN);
   }
-  
+
   @Override
   public String toString()
   {

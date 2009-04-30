@@ -49,7 +49,7 @@ public enum SpatialTypes implements com.terraframe.mojo.business.BusinessEnumera
   public java.lang.String getDisplayLabel()
   {
     loadEnumeration();
-    return enumeration.getDisplayLabel();
+    return enumeration.getDisplayLabel().getValue(com.terraframe.mojo.session.Session.getCurrentLocale());
   }
   
   public static SpatialTypes get(String id)

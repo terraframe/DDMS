@@ -43,7 +43,7 @@ public enum BloodslideResponse implements com.terraframe.mojo.business.BusinessE
   public java.lang.String getDisplayLabel()
   {
     loadEnumeration();
-    return enumeration.getDisplayLabel();
+    return enumeration.getDisplayLabel().getValue(com.terraframe.mojo.session.Session.getCurrentLocale());
   }
   
   public static BloodslideResponse get(String id)

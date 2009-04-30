@@ -49,7 +49,7 @@ public enum PeriodType implements com.terraframe.mojo.business.BusinessEnumerati
   public java.lang.String getDisplayLabel()
   {
     loadEnumeration();
-    return enumeration.getDisplayLabel();
+    return enumeration.getDisplayLabel().getValue(com.terraframe.mojo.session.Session.getCurrentLocale());
   }
   
   public static PeriodType get(String id)

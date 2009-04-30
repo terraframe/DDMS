@@ -51,7 +51,7 @@ public enum RDTResult implements com.terraframe.mojo.business.BusinessEnumeratio
   public java.lang.String getDisplayLabel()
   {
     loadEnumeration();
-    return enumeration.getDisplayLabel();
+    return enumeration.getDisplayLabel().getValue(com.terraframe.mojo.session.Session.getCurrentLocale());
   }
   
   public static RDTResult get(String id)

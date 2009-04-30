@@ -23,6 +23,7 @@ import com.terraframe.mojo.query.QueryFacade;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
+import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeLineString;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiLineString;
@@ -34,10 +35,11 @@ import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
+
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 public class GeoHierarchy extends GeoHierarchyBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -377,8 +379,19 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     MdBusiness mdGeoEntity = new MdBusiness();
     mdGeoEntity.setPackageName(MDSSInfo.GENERATED_GEO_PACKAGE);
     mdGeoEntity.setTypeName(typeName);
-    mdGeoEntity.getDisplayLabel().setEn(label);
-    mdGeoEntity.setDescription(description);
+    mdGeoEntity.getDisplayLabel().setValue(label);
+    if (mdGeoEntity.getDisplayLabel().getDefaultValue().trim().equals(""))
+    {
+      mdGeoEntity.getDisplayLabel().setDefaultValue(label);
+    }
+
+
+    mdGeoEntity.getDescription().setValue(description);
+    if (mdGeoEntity.getDescription().getDefaultValue().trim().equals(""))
+    {
+      mdGeoEntity.getDescription().setDefaultValue(description);
+    }
+
     mdGeoEntity.setIsAbstract(false); // User defined types must be concrete
     mdGeoEntity.setExtendable(true);
     mdGeoEntity.setPublish(true);
@@ -418,7 +431,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
           iter.close();
         }
 
-        String geoLabel = geoAttrMd.getDisplayLabel();
+        String geoLabel = geoAttrMd.getDisplayLabel().getValue();
 
         String error = "Cannot define a geometry type because the parent ["+parent.getDisplayLabel().getValue()+"] already " +
         		"defines the geometry ["+geoLabel+"].";
@@ -565,7 +578,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     String attrDisplayLabel = spatialType.getDisplayLabel();
 
-    attr.setDisplayLabel(attrDisplayLabel);
+    if (attr.getDisplayLabel().getDefaultValue().trim().equals(""))
+    {
+      attr.getDisplayLabel().setDefaultValue(attrDisplayLabel);
+    }
+
     attr.setDefiningMdClass(mdGeoEntity);
     attr.setSrid(SRID);
     attr.apply();
@@ -611,8 +628,19 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     geoHierarchy.apply();
 
     MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
-    geoEntityClass.getDisplayLabel().setEn(view.getDisplayLabel());
-    geoEntityClass.setDescription(view.getDescription());
+    geoEntityClass.getDisplayLabel().setValue(view.getDisplayLabel());
+    if (geoEntityClass.getDisplayLabel().getDefaultValue().trim().equals(""))
+    {
+      geoEntityClass.getDisplayLabel().setDefaultValue(view.getDisplayLabel());
+    }
+
+    geoEntityClass.getDescription().setValue(view.getDescription());
+
+    if (geoEntityClass.getDescription().getDefaultValue().trim().equals(""))
+    {
+      geoEntityClass.getDescription().setDefaultValue(view.getDescription());
+    }
+
     geoEntityClass.apply();
   }
 
@@ -757,7 +785,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     GeoHierarchyView view = new GeoHierarchyView();
     view.setPolitical(this.getPolitical());
     view.setSprayTargetAllowed(this.getSprayTargetAllowed());
-    view.setDescription(md.getDescription());
+    view.setDescription(md.getDescription().getValue());
     view.setTypeName(md.getTypeName());
     view.setDisplayLabel(md.getDisplayLabel().getValue());
     view.setReferenceId(md.getId());
@@ -987,7 +1015,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       vQuery.map(GeoHierarchyView.REFERENCEID, mdBusinessQuery.getId());
       vQuery.map(GeoHierarchyView.TYPENAME, mdBusinessQuery.getTypeName());
       vQuery.map(GeoHierarchyView.DISPLAYLABEL, mdBusinessQuery.getDisplayLabel().currentLocale());
-      vQuery.map(GeoHierarchyView.DESCRIPTION, mdBusinessQuery.getDescription());
+      vQuery.map(GeoHierarchyView.DESCRIPTION, mdBusinessQuery.getDescription().currentLocale());
       vQuery.map(GeoHierarchyView.ISADISPLAYLABEL, parentMdBusinessQuery.getDisplayLabel().currentLocale());
     }
 

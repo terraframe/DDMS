@@ -186,7 +186,7 @@ public class GeoEntityImporter
     }
 
     this.conn = (Connection)PostGIS.mapColumnTypes((PGConnection)this.conn);
-    
+
     this.geoHierarchyMap = new HashMap<Integer, GeoHierarchy>();
   }
 
@@ -203,8 +203,8 @@ public class GeoEntityImporter
     System.out.println("Creating GeoEntity LocatedIn Relationships ");
 
     int applyCount = 0;
-    
-    String sql = 
+
+    String sql =
     " SELECT rel."+LOCATED_IN+", rel."+GEO_ID+",\n"+
     "        ent."+ENTITY_ID+"\n"+
     "   FROM "+GEOGRAPHIC_ENTITIES_RELATIONS+" rel, "+GEOGRAPHIC_ENTITIES+" ent\n"+
@@ -236,18 +236,18 @@ public class GeoEntityImporter
         {
           parentGeoEntity = Earth.getEarthInstance();
         }
-        
+
         GeoEntity childGeoEntity = GeoEntity.searchByGeoId(geoId);
-        
+
         System.out.print(".");
-        
+
         applyCount++;
-        
+
         if (applyCount % feedbackMod == 0)
         {
           System.out.println();
         }
-        
+
         childGeoEntity.addLocatedInGeoEntity(parentGeoEntity).apply();
       }
     }
@@ -272,10 +272,10 @@ public class GeoEntityImporter
     "    AND rel."+INSTANCE_OF+" != 14 \n"+
     "    AND rel."+INSTANCE_OF+" != 16 \n"+
     "    AND rel."+INSTANCE_OF+" != 17 \n"+
-    "    AND rel."+INSTANCE_OF+" != 18 \n"+      
+    "    AND rel."+INSTANCE_OF+" != 18 \n"+
     "    AND rel."+INSTANCE_OF+" != 19";
   }
-  
+
   /*
    * SELECT geom.geom_centriod, rel.instance_of, rel.geo_id, ent.geo_name FROM
    * geographic_entities_geometry geom, geographic_entities_relations rel,
@@ -288,17 +288,17 @@ public class GeoEntityImporter
    * "+GEOGRAPHIC_ENTITIES_GEOMETRY+" geom, "+GEOGRAPHIC_ENTITIES_RELATIONS+"
    * rel, "+GEOGRAPHIC_ENTITIES+" ent\n"+ " WHERE rel."+GEO_ID+" =
    * geom."+GEO_ID+"\n"+ " AND rel."+GEO_ID+" = ent."+GEO_ID;
-   * 
+   *
    * GEOGRAPHIC_ENTITIES_GEOMETRY+" geom, "
-   * 
+   *
    */
   private void createGeoEntities() throws Exception
   {
     System.out.println("Creating GeoEntities ");
 
     int applyCount = 0;
-    
-    String sql = 
+
+    String sql =
       " SELECT geom."+GEOM_CENTRIOD+", geom."+GEOM_LINESTRING+", geom."+GEOM_POLYGON+", geom."+GEOM_MULTIPOINT+", geom."+GEOM_MULTIPOLYGON+",\n" +
       "        rel."+INSTANCE_OF+", rel."+GEO_ID+",\n"+
       "        ent."+GEO_NAME+", ent."+ENTITY_ID+",\n"+
@@ -329,12 +329,12 @@ public class GeoEntityImporter
         // {
         // // Heads up:
         // System.out.println("--------------------------------------------------------");
-        //          
+        //
         // org.postgis.PGgeometry pgGeometry =
         // (org.postgis.PGgeometry)resultSet.getObject(GEOM_CENTRIOD);
-        //            
+        //
         // org.postgis.Geometry geometry = pgGeometry.getGeometry();
-        //          
+        //
         // System.out.println(geometry.getClass().getName());
         // System.out.println(geometry.toString());
         //
@@ -346,7 +346,7 @@ public class GeoEntityImporter
         // WKTReader().read( geometry.getTypeString()+geometry.getValue());
         // // com.vividsolutions.jts.geom.Geometry jtsGeometry2 = new
         // WKTReader().read( geometry.toString());
-        //          
+        //
         // System.out.println(jtsGeometry2.getClass().getName());
         // System.out.println(jtsGeometry2.toString());
         // }
@@ -490,7 +490,7 @@ public class GeoEntityImporter
     GeoHierarchyQuery q = new GeoHierarchyQuery(f);
 
     q.WHERE(F.UPPER(F.TRIM(q.getGeoEntityClass().getTypeName())).EQ(universalName.trim().toUpperCase())
-        .OR(F.UPPER(F.TRIM(q.getGeoEntityClass().getDisplayLabel().getEn())).EQ(universalName.trim().toUpperCase())));
+        .OR(F.UPPER(F.TRIM(q.getGeoEntityClass().getDisplayLabel().getDefaultLocale())).EQ(universalName.trim().toUpperCase())));
 
     OIterator<? extends GeoHierarchy> i = q.getIterator();
 

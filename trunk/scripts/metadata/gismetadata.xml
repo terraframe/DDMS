@@ -201,40 +201,66 @@
       </attribute>
      <attributeStruct>
         <name>displayLabel</name>
-        <value>NM2009040800000000000000000000018p742tgoidyi4fljcvgtde5ha1h7225z</value>
+        <value>NM200904080000000000000000000001NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
         <struct>
-          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
-          <id>NM2009040800000000000000000000018p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904080000000000000000000001NM200904120000000000000000000030</id>
           <attributes>
             <attribute>
               <name>id</name>
-              <value>NM2009040800000000000000000000018p742tgoidyi4fljcvgtde5ha1h7225z</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <value>NM200904080000000000000000000001NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>keyName</name>
               <value/>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>siteMaster</name>
               <value>www.terraframe.com</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
-              <name>en</name>
+              <name>defaultLocale</name>
               <value>MdAttributePoint</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
           </attributes>
         </struct>
       </attributeStruct>
-      <attribute>
+     <attributeStruct>
         <name>description</name>
-        <value>Point Geometry Attribute Type</value>
+        <value>NM200904220000000000000000000001NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904220000000000000000000001NM200904120000000000000000000030</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM200904220000000000000000000001NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>defaultLocale</name>
+              <value>Point Geometry Attribute Type</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>cacheSize</name>
         <value/>
@@ -339,8 +365,12 @@
         <lockedBy/>
         <seq>1687</seq>
         <remove>0</remove>
-        <description>Projection ID</description>
-        <displayLabel>SRID Projection</displayLabel>
+        <description>
+          <defaultLocale>Projection ID</defaultLocale>
+        </description>
+        <displayLabel>
+          <defaultLocale>SRID Projection</defaultLocale>
+        </displayLabel>
         <definingMdClass>NM20090219000000000000000000000100000000000000000000000000000001</definingMdClass>
         <attributeName>srid</attributeName>
         <required>1</required>
@@ -388,8 +418,12 @@
         <lockedBy/>
         <seq>1687</seq>
         <remove>0</remove>
-        <description>Dimension</description>
-        <displayLabel>Dimension</displayLabel>
+        <description>
+          <defaultLocale>Dimension</defaultLocale>
+        </description>
+        <displayLabel>
+          <defaultLocale>Dimension</defaultLocale>
+        </displayLabel>
         <definingMdClass>NM20090219000000000000000000000100000000000000000000000000000001</definingMdClass>
         <attributeName>dimension</attributeName>
         <required>1</required>
@@ -585,40 +619,66 @@
       </attribute>
      <attributeStruct>
         <name>displayLabel</name>
-        <value>NM2009040800000000000000000000028p742tgoidyi4fljcvgtde5ha1h7225z</value>
+        <value>NM200904080000000000000000000002NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
         <struct>
-          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
-          <id>NM2009040800000000000000000000028p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904080000000000000000000002NM200904120000000000000000000030</id>
           <attributes>
             <attribute>
               <name>id</name>
-              <value>NM2009040800000000000000000000028p742tgoidyi4fljcvgtde5ha1h7225z</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <value>NM200904080000000000000000000002NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>keyName</name>
               <value/>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>siteMaster</name>
               <value>www.terraframe.com</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
-              <name>en</name>
+              <name>defaultLocale</name>
               <value>MdAttributeGeometry</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
           </attributes>
         </struct>
       </attributeStruct>
-      <attribute>
+     <attributeStruct>
         <name>description</name>
-        <value>Root Geometry Attribute Type</value>
+        <value>NM200904220000000000000000000002NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904220000000000000000000002NM200904120000000000000000000030</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM200904220000000000000000000002NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>defaultLocale</name>
+              <value>Root Geometry Attribute Type</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>cacheSize</name>
         <value/>
@@ -1005,40 +1065,66 @@
       </attribute>
      <attributeStruct>
         <name>displayLabel</name>
-        <value>NM2009040800000000000000000000038p742tgoidyi4fljcvgtde5ha1h7225z</value>
+        <value>NM200904080000000000000000000003NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
         <struct>
-          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
-          <id>NM2009040800000000000000000000038p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904080000000000000000000003NM200904120000000000000000000030</id>
           <attributes>
             <attribute>
               <name>id</name>
-              <value>NM2009040800000000000000000000038p742tgoidyi4fljcvgtde5ha1h7225z</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <value>NM200904080000000000000000000003NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>keyName</name>
               <value/>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>siteMaster</name>
               <value>www.terraframe.com</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
-              <name>en</name>
+              <name>defaultLocale</name>
               <value>MdAttributeLineString</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
           </attributes>
         </struct>
       </attributeStruct>
-      <attribute>
+     <attributeStruct>
         <name>description</name>
-        <value>Line String Geometry Attribute Type</value>
+        <value>NM200904220000000000000000000003NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904220000000000000000000003NM200904120000000000000000000030</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM200904220000000000000000000003NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>defaultLocale</name>
+              <value>Line String Geometry Attribute Type</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>cacheSize</name>
         <value/>
@@ -1291,40 +1377,66 @@
       </attribute>
      <attributeStruct>
         <name>displayLabel</name>
-        <value>NM2009040800000000000000000000048p742tgoidyi4fljcvgtde5ha1h7225z</value>
+        <value>NM200904080000000000000000000004NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
         <struct>
-          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
-          <id>NM2009040800000000000000000000048p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904080000000000000000000004NM200904120000000000000000000030</id>
           <attributes>
             <attribute>
               <name>id</name>
-              <value>NM2009040800000000000000000000048p742tgoidyi4fljcvgtde5ha1h7225z</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <value>NM200904080000000000000000000004NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>keyName</name>
               <value/>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>siteMaster</name>
               <value>www.terraframe.com</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
-              <name>en</name>
+              <name>defaultLocale</name>
               <value>MdAttributePolygon</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
           </attributes>
         </struct>
       </attributeStruct>
-      <attribute>
+     <attributeStruct>
         <name>description</name>
-        <value>Polygon Geometry Attribute Type</value>
+        <value>NM200904220000000000000000000004NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904220000000000000000000004NM200904120000000000000000000030</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM200904220000000000000000000004NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>defaultLocale</name>
+              <value>Polygon Geometry Attribute Type</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>cacheSize</name>
         <value/>
@@ -1577,40 +1689,66 @@
       </attribute>
      <attributeStruct>
         <name>displayLabel</name>
-        <value>NM2009040800000000000000000000058p742tgoidyi4fljcvgtde5ha1h7225z</value>
+        <value>NM200904080000000000000000000005NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
         <struct>
-          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
-          <id>NM2009040800000000000000000000058p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904080000000000000000000005NM200904120000000000000000000030</id>
           <attributes>
             <attribute>
               <name>id</name>
-              <value>NM2009040800000000000000000000058p742tgoidyi4fljcvgtde5ha1h7225z</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <value>NM200904080000000000000000000005NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>keyName</name>
               <value/>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>siteMaster</name>
               <value>www.terraframe.com</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
-              <name>en</name>
+              <name>defaultLocale</name>
               <value>MdAttributeMultiPoint</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
           </attributes>
         </struct>
       </attributeStruct>
-      <attribute>
+     <attributeStruct>
         <name>description</name>
-        <value>MultiPoint Geometry Attribute Type</value>
+        <value>NM200904220000000000000000000005NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904220000000000000000000005NM200904120000000000000000000030</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM200904220000000000000000000005NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>defaultLocale</name>
+              <value>MultiPoint Geometry Attribute Type</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>cacheSize</name>
         <value/>
@@ -1863,40 +2001,66 @@
       </attribute>
      <attributeStruct>
         <name>displayLabel</name>
-        <value>NM2009040800000000000000000000068p742tgoidyi4fljcvgtde5ha1h7225z</value>
+        <value>NM200904080000000000000000000006NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
         <struct>
-          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
-          <id>NM2009040800000000000000000000068p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904080000000000000000000006NM200904120000000000000000000030</id>
           <attributes>
             <attribute>
               <name>id</name>
-              <value>NM2009040800000000000000000000068p742tgoidyi4fljcvgtde5ha1h7225z</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <value>NM200904080000000000000000000006NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>keyName</name>
               <value/>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>siteMaster</name>
               <value>www.terraframe.com</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
-              <name>en</name>
+              <name>defaultLocale</name>
               <value>MdAttributeMultiLineString</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
           </attributes>
         </struct>
       </attributeStruct>
-      <attribute>
+     <attributeStruct>
         <name>description</name>
-        <value>MultiLineString Geometry Attribute Type</value>
+        <value>NM200904220000000000000000000006NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904220000000000000000000006NM200904120000000000000000000030</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM200904220000000000000000000006NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>defaultLocale</name>
+              <value>MultiLineString Geometry Attribute Type</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>cacheSize</name>
         <value/>
@@ -2149,40 +2313,66 @@
       </attribute>
      <attributeStruct>
         <name>displayLabel</name>
-        <value>NM2009040800000000000000000000078p742tgoidyi4fljcvgtde5ha1h7225z</value>
+        <value>NM200904080000000000000000000007NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MdType</definingComponent>
         <struct>
-          <type>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</type>
-          <id>NM2009040800000000000000000000078p742tgoidyi4fljcvgtde5ha1h7225z</id>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904080000000000000000000007NM200904120000000000000000000030</id>
           <attributes>
             <attribute>
               <name>id</name>
-              <value>NM2009040800000000000000000000078p742tgoidyi4fljcvgtde5ha1h7225z</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <value>NM200904080000000000000000000007NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>keyName</name>
               <value/>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
               <name>siteMaster</name>
               <value>www.terraframe.com</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
             <attribute>
-              <name>en</name>
+              <name>defaultLocale</name>
               <value>MdAttributeMultiPolygon</value>
-              <definingComponent>com.terraframe.mojo.system.metadata.MdTypeDisplayLabel</definingComponent>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
             </attribute>
           </attributes>
         </struct>
       </attributeStruct>
-      <attribute>
+     <attributeStruct>
         <name>description</name>
-        <value>MultiPolygon Geometry Attribute Type</value>
+        <value>NM200904220000000000000000000007NM200904120000000000000000000030</value>
         <definingComponent>com.terraframe.mojo.system.metadata.MetaData</definingComponent>
-      </attribute>
+        <struct>
+          <type>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</type>
+          <id>NM200904220000000000000000000007NM200904120000000000000000000030</id>
+          <attributes>
+            <attribute>
+              <name>id</name>
+              <value>NM200904220000000000000000000007NM200904120000000000000000000030</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>keyName</name>
+              <value/>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>siteMaster</name>
+              <value>www.terraframe.com</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+            <attribute>
+              <name>defaultLocale</name>
+              <value>MultiPolygon Geometry Attribute Type</value>
+              <definingComponent>com.terraframe.mojo.system.metadata.MetaDataDisplayLabel</definingComponent>
+            </attribute>
+          </attributes>
+        </struct>
+      </attributeStruct>
       <attribute>
         <name>cacheSize</name>
         <value/>

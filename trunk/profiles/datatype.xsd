@@ -509,6 +509,7 @@
     <xs:attribute name="cardinality" use="required" type="xs:string" />
     <!--method: The name of the call method -->
     <xs:attribute name="method" use="required" type="xs:string" />
+    <xs:anyAttribute processContents="skip"/>
   </xs:complexType>
 
   <xs:complexType name="states">
@@ -552,6 +553,7 @@
     <xs:attribute name="source" type="xs:string" />
     <!--sink: The name of the sink state-->
     <xs:attribute name="sink" type="xs:string" />
+    <xs:anyAttribute processContents="skip"/>
   </xs:complexType>
 
   <!--
@@ -769,6 +771,7 @@
 			immutable: If the attribute is allowed to be changed after creation
 		-->
     <xs:attribute name="immutable" type="xs:boolean" />
+    <xs:anyAttribute processContents="skip"/>
   </xs:attributeGroup>
 
   <xs:simpleType name="visibilityOptions">
@@ -852,6 +855,8 @@
   <!--Represents a Boolean object in the database-->
   <xs:complexType name="boolean">
     <xs:attributeGroup ref="attributePrimitive" />
+    <xs:attribute name="positiveLabel" type="xs:string" />
+    <xs:attribute name="negativeLabel" type="xs:string" />
   </xs:complexType>
 
   <!--Represents a Double object in the database-->
@@ -963,6 +968,7 @@
     <xs:attribute name="type" type="xs:string" />
     <!--accessor: The name of the concrete attribute-->
     <xs:attribute name="concrete" type="xs:string" />
+    <xs:anyAttribute processContents="skip"/>
   </xs:complexType>
 
 

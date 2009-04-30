@@ -30,12 +30,12 @@ public class BirtEngine
     if (engine == null)
     {
       EngineConfig config = new EngineConfig();
-      
+
       if (properties != null)
       {
         String logLevel = properties.getProperty("logLevel");
         Level level = Level.OFF;
-        
+
         if ("SEVERE".equalsIgnoreCase(logLevel))
         {
           level = Level.SEVERE;
@@ -99,7 +99,7 @@ public class BirtEngine
     {
       return;
     }
-    
+
     engine.destroy();
     Platform.shutdown();
 

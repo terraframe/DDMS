@@ -43,7 +43,7 @@ public enum FeverResponse implements com.terraframe.mojo.business.BusinessEnumer
   public java.lang.String getDisplayLabel()
   {
     loadEnumeration();
-    return enumeration.getDisplayLabel();
+    return enumeration.getDisplayLabel().getValue(com.terraframe.mojo.session.Session.getCurrentLocale());
   }
   
   public static FeverResponse get(String id)

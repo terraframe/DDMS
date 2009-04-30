@@ -47,7 +47,7 @@ public enum SurfacePosition implements com.terraframe.mojo.business.BusinessEnum
   public java.lang.String getDisplayLabel()
   {
     loadEnumeration();
-    return enumeration.getDisplayLabel();
+    return enumeration.getDisplayLabel().getValue(com.terraframe.mojo.session.Session.getCurrentLocale());
   }
   
   public static SurfacePosition get(String id)

@@ -1,4 +1,4 @@
-<?xml version="1.0"?> 
+<?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
 <xs:element name="TerraFrame" type="root">
@@ -29,7 +29,7 @@
     <xs:selector xpath="./relationship"/>
     <xs:field xpath="id"/>
   </xs:keyref>
-   
+
 </xs:element>
 
 <xs:complexType name="root">
@@ -38,7 +38,7 @@
     <xs:choice maxOccurs="unbounded">
       <xs:element name="object" type="object"/>
       <xs:element name="relationship" type="relationship"/>
-      <xs:element name="entityIndex" type="entityIndex"/>      
+      <xs:element name="entityIndex" type="entityIndex"/>
       <xs:element ref="enumeration"/>
     </xs:choice>
   </xs:sequence>
@@ -170,7 +170,8 @@
 	  <xs:element name="mdattributereference" type="mdattributereference"/>
 	  <xs:element name="mdattributeenumeration" type="mdattributeenumeration"/>
 	  <xs:element name="mdattributestruct" type="mdattributestruct"/>
-	  <xs:element name="mdattributelocalcharacter" type="mdattributelocalcharacter"/>	  
+	  <xs:element name="mdattributelocalcharacter" type="mdattributelocalcharacter"/>
+	  <xs:element name="mdattributelocaltext" type="mdattributelocaltext"/>
 	</xs:choice>
   </xs:complexType>
 </xs:element>
@@ -194,7 +195,14 @@
     <xs:extension base="component">
 	  <xs:sequence>
 	    <xs:element name="remove" type="xs:integer"/>
-  	    <xs:element name="description" type="xs:string"/>
+	    <xs:element name="description">
+ 	      <xs:complexType>
+            <xs:sequence>
+              <xs:element name="defaultLocale"        type="xs:string"/>
+              <xs:any processContents="skip"    minOccurs="0"   maxOccurs="unbounded"/>
+            </xs:sequence>
+ 	      </xs:complexType>
+	    </xs:element>
 	  </xs:sequence>
 	</xs:extension>
   </xs:complexContent>
@@ -212,7 +220,14 @@
   <xs:complexContent>
     <xs:extension base="mdattribute">
 	  <xs:sequence>
-	    <xs:element name="displayLabel" type="xs:string"/>
+	    <xs:element name="displayLabel">
+ 	      <xs:complexType>
+            <xs:sequence>
+              <xs:element name="defaultLocale"        type="xs:string"/>
+              <xs:any processContents="skip"    minOccurs="0"   maxOccurs="unbounded"/>
+            </xs:sequence>
+ 	      </xs:complexType>
+	    </xs:element>
  	    <xs:element name="definingMdView"      type="xs:string"/>
 	    <xs:element name="mdAttributeConcrete" type="xs:string"/>
 	  </xs:sequence>
@@ -224,10 +239,17 @@
   <xs:complexContent>
     <xs:extension base="mdattribute">
 	  <xs:sequence>
- 	    <xs:element name="displayLabel" type="xs:string"/>
+ 	    <xs:element name="displayLabel">
+ 	      <xs:complexType>
+            <xs:sequence>
+              <xs:element name="defaultLocale"        type="xs:string"/>
+              <xs:any processContents="skip"    minOccurs="0"    maxOccurs="unbounded"/>
+            </xs:sequence>
+ 	      </xs:complexType>
+ 	    </xs:element>
 	    <xs:element name="definingMdClass" type="xs:string"/>
 	    <xs:element name="attributeName" type="xs:string"/>
-	    <!-- 
+	    <!--
 	    <xs:element name="defaultValue" type="xs:string" minOccurs="0"/>
 	    -->
 	    <xs:element name="required" type="xs:integer"/>
@@ -260,6 +282,22 @@
   <xs:complexContent>
     <xs:extension base="mdattributeconcrete">
 	  <xs:sequence>
+   	    <xs:element name="positiveDisplayLabel"  minOccurs="1">
+   	      <xs:complexType>
+            <xs:sequence>
+              <xs:element name="defaultLocale"        type="xs:string"/>
+              <xs:any processContents="skip"    minOccurs="0"   maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+   	    </xs:element>
+   	    <xs:element name="negativeDisplayLabel" minOccurs="1">
+   	      <xs:complexType>
+            <xs:sequence>
+              <xs:element name="defaultLocale"        type="xs:string"/>
+              <xs:any processContents="skip"    minOccurs="0"   maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+   	    </xs:element>
 	    <xs:element name="defaultValue" type="xs:string" minOccurs="0"/>
 	  </xs:sequence>
 	</xs:extension>
@@ -511,6 +549,12 @@
 </xs:complexType>
 
 <xs:complexType name="mdattributelocalcharacter">
+  <xs:complexContent>
+    <xs:extension base="mdattributelocal"/>
+  </xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="mdattributelocaltext">
   <xs:complexContent>
     <xs:extension base="mdattributelocal"/>
   </xs:complexContent>
