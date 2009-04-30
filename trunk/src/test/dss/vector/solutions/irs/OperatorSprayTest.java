@@ -7,7 +7,7 @@ import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SentinalSite;
+import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.ActiveIngredient;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
@@ -69,7 +69,7 @@ public class OperatorSprayTest extends TestCase
     brand.setSachetsPerRefill(refill);
     brand.apply();
 
-    geoEntity = new SentinalSite();
+    geoEntity = new SentinelSite();
     geoEntity.setGeoId("0");
     geoEntity.setEntityName("Sentinel Site");
     geoEntity.apply();

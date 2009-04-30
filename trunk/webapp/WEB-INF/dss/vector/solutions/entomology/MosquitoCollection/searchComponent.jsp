@@ -11,8 +11,8 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinalSiteDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.NonSentinalSiteDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 
 
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
@@ -80,8 +80,8 @@
 </script>
 
 <%
-  request.setAttribute("SentinalSiteClass", SentinalSiteDTO.CLASS);
-  request.setAttribute("NonSentinalSiteClass", NonSentinalSiteDTO.CLASS);
+	request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
+  request.setAttribute("NonSentinelSiteClass", NonSentinelSiteDTO.CLASS);
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
   MosquitoCollectionDTO item = new MosquitoCollectionDTO(clientRequest);
   request.setAttribute("item",item);
@@ -92,8 +92,8 @@
     <dt><fmt:message key="Filter"/></dt>
     <dd>
       <input type="radio" name="filterType" value="" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${SentinalSiteClass}" />&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${NonSentinalSiteClass}" />&nbsp;<fmt:message key="Non_Sentinel_Site"/>
+      <input type="radio" name="filterType" value="${SentinelSiteClass}" />&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" value="${NonSentinelSiteClass}" />&nbsp;<fmt:message key="Non_Sentinel_Site"/>
     </dd>
     <dt> <label> ${item.geoEntityMd.displayLabel}</label></dt>
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16"/>

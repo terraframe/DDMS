@@ -165,10 +165,9 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     valueQuery.WHERE(q.getType().EQ(type));
 
-    String searchable = "%" + name + "%";
+    String searchable = name+"%";
     valueQuery.WHERE(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable));
 
-    // FIXME apply a filter
     // FIXME how to limit result set?
 
     return valueQuery;

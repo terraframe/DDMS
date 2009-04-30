@@ -1,0 +1,503 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+
+      <mdBusiness
+        name="dss.vector.solutions.MDSSUser"
+        label="MDSS User"
+        description="Generic MDSS User"
+        extends="com.terraframe.mojo.system.Users"
+        generateController="false">
+      </mdBusiness>
+
+      <enumerationMaster
+        name="dss.vector.solutions.query.WellKnownNamesMaster"
+        label="Well Known Name"
+        description="The well known name value used for Point Symbolizers">
+      </enumerationMaster>
+
+      <object
+        id="SQUARE"
+        type="dss.vector.solutions.query.WellKnownNamesMaster">
+        <valueAttribute
+          name="enumName"
+          value="SQUARE" />
+        <valueAttribute
+          name="displayLabel"
+          value="Square" />
+      </object>
+
+      <object
+        id="CIRCLE"
+        type="dss.vector.solutions.query.WellKnownNamesMaster">
+        <valueAttribute
+          name="enumName"
+          value="CIRCLE" />
+        <valueAttribute
+          name="displayLabel"
+          value="Circle" />
+      </object>
+
+      <object
+        id="TRIANGLE"
+        type="dss.vector.solutions.query.WellKnownNamesMaster">
+        <valueAttribute
+          name="enumName"
+          value="TRIANGLE" />
+        <valueAttribute
+          name="displayLabel"
+          value="Triangle" />
+      </object>
+
+      <object
+        id="STAR"
+        type="dss.vector.solutions.query.WellKnownNamesMaster">
+        <valueAttribute
+          name="enumName"
+          value="STAR" />
+        <valueAttribute
+          name="displayLabel"
+          value="Star" />
+      </object>
+
+      <object
+        id="CROSS"
+        type="dss.vector.solutions.query.WellKnownNamesMaster">
+        <valueAttribute
+          name="enumName"
+          value="CROSS" />
+        <valueAttribute
+          name="displayLabel"
+          value="Cross" />
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.query.WellKnownNames"
+        type="dss.vector.solutions.query.WellKnownNamesMaster">
+        <includeAll />
+      </mdEnumeration>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.SavedSearch"
+        isAbstract="true"
+        label="Saved Query"
+        description="Representation of a saved query.">
+        <attributes>
+          <char
+            name="queryName"
+            label="Query Name"
+            size="50"
+            required="true" />
+          <text
+            name="queryXml"
+            label="Query XML"
+            description="The query in XML format."
+            required="true" />
+          <reference
+            name="thematicLayer"
+            type="dss.vector.solutions.geo.GeoHierarchy"
+            required="true"
+            label="Thematic Layer" />
+        </attributes>
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.query.SavedSearchView"
+        label="Saved Query View">
+        <attributes>
+          <char
+            name="savedQueryId"
+            label="Saved Query Id"
+            size="64"
+            required="false"/>
+          <virtual
+            name="queryName"
+            concrete="queryName"
+            type="dss.vector.solutions.query.SavedSearch"
+            required="true" />
+          <virtual
+            name="queryXml"
+            concrete="queryXml"
+            type="dss.vector.solutions.query.SavedSearch"
+            required="false" />
+          <char
+            name="thematicLayer"
+            required="false"
+            label="Thematic Layer"
+            size="255" />
+        </attributes>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.EntomologySearch"
+        label="Entomology Query"
+        description="A saved entomology query"
+        extends="dss.vector.solutions.query.SavedSearch">
+        <mdMethod
+          name="getEntomologyQueries"
+          label="Get Entomology Queries"
+          description="Returns all Entomology Queries for the current user."
+          static="true"
+          returnType="dss.vector.solutions.query.SavedSearchViewQuery">
+        </mdMethod>
+        <mdMethod
+          name="saveSearch"
+          label="Save Query"
+          description="Saves a query."
+          static="true"
+          returnType="dss.vector.solutions.query.EntomologySearch">
+          <mdParameter
+            name="savedQueryView"
+            label="Saved Query View"
+            order="0"
+            type="dss.vector.solutions.query.SavedSearchView" />
+        </mdMethod>
+      </mdBusiness>
+
+      <mdRelationship
+        name="dss.vector.solutions.query.PersistsSearch"
+        composition="true"
+        label="Persists Query"
+        description="A user persists a query.">
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.MDSSUser"
+          method="PersistedBy"/>
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.query.SavedSearch"
+          method="PersistedQueries"/>
+      </mdRelationship>
+
+      <mdRelationship
+        name="dss.vector.solutions.query.DefinesLayers"
+        composition="true"
+        label="Defines Layers"
+        description="Relationship between a saved query and the layers it defines.">
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.query.SavedSearch"
+          method="FromSavedSearch"/>
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.query.Layer"
+          method="DefinesLayers"/>
+      </mdRelationship>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.Layer"
+        label="Layer"
+        description="A layer in a map.">
+        <attributes>
+          <reference
+            name="geoHierarchy"
+            label="GeoHierarchy Reference"
+            description="A reference to the GeoHierarchy this layer represents."
+            required="true"
+            type="dss.vector.solutions.geo.GeoHierarchy"/>
+          <reference
+            name="geometryStyle"
+            label="Geometry Style"
+            required="true"
+            type="dss.vector.solutions.query.GeometryStyle" />
+          <reference
+            name="textStyle"
+            label="Text Style"
+            required="true"
+            type="dss.vector.solutions.query.TextStyle" />
+          <char
+            name="sldFile"
+            label="SLD File"
+            size="64"
+            description="Id of SLD WebFile"
+            required="false" />
+        </attributes>
+        <mdMethod
+          name="createLayer"
+          label="Create Layer"
+          static="true"
+          returnType="dss.vector.solutions.query.Layer">
+          <mdParameter
+            name="savedSearchId"
+            label="SavedSearch Id"
+            description="The id of the SavedSearch that will be the layer's parent."
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="layerClass"
+            label="Layer Class"
+            description="The GeoEntity class for which this layer is being created."
+            order="1"
+            type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+          name="updateLayer"
+          label="Update Layer"
+          static="true"
+          returnType="dss.vector.solutions.query.Layer">
+          <mdParameter
+            name="geometryStyle"
+            label="Geometry Style"
+            description="Geometry Style"
+            order="0"
+            type="dss.vector.solutions.query.GeometryStyle" />
+          <mdParameter
+            name="textStyle"
+            label="Text Style"
+            description="Text Style"
+            order="1"
+            type="dss.vector.solutions.query.TextStyle" />
+          <mdParameter
+            name="layerId"
+            label="Layer Id"
+            description="Layer Id"
+            order="2"
+            type="java.lang.String" />
+        </mdMethod>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.StyleRule"
+        isAbstract="true"
+        label="Style Rule"
+        description="A specific style rule for a feature on a map.">
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.GeometryStyle"
+        isAbstract="true"
+        label="Geometry Style"
+        extends="dss.vector.solutions.query.StyleRule"
+        description="Parent class of point, line,and polygon styles.">
+        <attributes>
+          <char
+            name="stroke"
+            label="Stroke"
+            description="The stroke color"
+            required="true"
+            default_value="#7F7F7F"
+            size="7" />
+          <integer
+            name="strokeWidth"
+            label="Stroke Width"
+            description="The width of the stroke."
+            required="true"
+            default_value="1" />
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.PointStyle"
+        label="Point Style"
+        description="Styling for a point."
+        extends="dss.vector.solutions.query.GeometryStyle">
+        <attributes>
+          <enumeration
+            name="wellKnownName"
+            label="Well Known Name"
+            description="Name of a predefined graphic."
+            required="true"
+            type="dss.vector.solutions.query.WellKnownNames"
+            default_value="CIRCLE" />
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.LineStyle"
+        label="Line Style"
+        description="Styling for a line."
+        extends="dss.vector.solutions.query.GeometryStyle">
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.PolygonStyle"
+        label="Polygon Style"
+        description="Styling for a polygon."
+        extends="dss.vector.solutions.query.GeometryStyle">
+        <attributes>
+          <char
+            name="fill"
+            label="Fill"
+            description="The fill color"
+            required="true"
+            default_value="#FFFFFF"
+            size="7" />
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.TextStyle"
+        label="Text Style"
+        description="Styling for text."
+        extends="dss.vector.solutions.query.StyleRule">
+        <attributes>
+          <char
+            name="fontFamily"
+            label="Font Family"
+            description="Font Family"
+            required="true"
+            default_value="Times New Roman"
+            size="50" />
+          <char
+            name="fontStyle"
+            label="Font Style"
+            description="Font Style"
+            required="true"
+            default_value="Normal"
+            size="50" />
+          <integer
+            name="fontSize"
+            label="Font Size"
+            description="The font size"
+            required="true"
+            rejectNegative="true"
+            rejectZero="true"
+            default_value="14" />
+          <char
+            name="fill"
+            label="Fill"
+            description="The fill color"
+            required="true"
+            default_value="#000000"
+            size="7" />
+        </attributes>
+      </mdBusiness>
+
+    </create>
+    <update>
+
+      <mdController
+        name="dss.vector.solutions.entomology.QueryController">
+        <create>
+        <mdAction
+          name="newQuery"
+          label="New Query"
+          isPost="false">
+        </mdAction>
+        <mdAction
+          name="saveQuery"
+          label="Save Query"
+          isPost="true">
+          <mdParameter
+            name="savedQueryView"
+            label="Saved Query View"
+            order="0"
+            type="dss.vector.solutions.query.SavedSearchView" />
+        </mdAction>
+        <mdAction
+          name="cancelQuery"
+          label="Cancel Query"
+          isPost="true">
+          <mdParameter
+            name="savedQueryView"
+            label="Saved Query View"
+            order="0"
+            type="dss.vector.solutions.query.SavedSearchView" />
+        </mdAction>
+        <mdAction
+          name="deleteQuery"
+          label="Delete Query"
+          isPost="true">
+          <mdParameter
+            name="savedQueryView"
+            label="Saved Query View"
+            order="0"
+            type="dss.vector.solutions.query.SavedSearchView" />
+        </mdAction>
+        </create>
+      </mdController>
+
+      <mdController
+        name="dss.vector.solutions.query.LayerController">
+        <create>
+        <mdAction
+          name="createSummary"
+          label="Create Summary"
+          description="Creates a layer with default values"
+          isPost="true">
+          <mdParameter
+            name="savedSearchId"
+            label="SavedSearch Id"
+            description="The id of the SavedSearch that will be the layer's parent."
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="layerClass"
+            label="Layer Class"
+            description="The GeoEntity class for which this layer is being created."
+            order="1"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
+          name="viewSummary"
+          label="View Summary"
+          description="Views a layer's summary."
+          isPost="false">
+          <mdParameter
+            name="layerId"
+            order="0"
+            label="Layer Id"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
+          name="editSummary"
+          label="Edit Summary"
+          description="Edits a layer's components."
+          isPost="true">
+          <mdParameter
+            name="layerId"
+            order="0"
+            label="Layer Id"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
+          name="updateSummary"
+          label="Update Summary"
+          description="Update's the layer's components."
+          isPost="true">
+          <mdParameter
+            name="geometryStyle"
+            label="Geometry Style"
+            description="Geometry Style"
+            order="0"
+            type="dss.vector.solutions.query.GeometryStyle" />
+          <mdParameter
+            name="textStyle"
+            label="Text Style"
+            description="Text Style"
+            order="1"
+            type="dss.vector.solutions.query.TextStyle" />
+          <mdParameter
+            name="layerId"
+            label="Layer Id"
+            description="Layer Id"
+            order="2"
+            type="java.lang.String" />
+        </mdAction>
+        </create>
+      </mdController>
+
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.query.SavedSearch"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.query.SavedSearchView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.query.Layer"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.query.StyleRule"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.query.WellKnownNamesMaster"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

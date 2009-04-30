@@ -7,21 +7,24 @@
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.EarthDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinalSiteDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.entomology.QueryController"%>
+<%@page import="dss.vector.solutions.query.EntomologySearch"%>
+<%@page import="dss.vector.solutions.query.EntomologySearchDTO"%>
+<%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
+<%@page import="dss.vector.solutions.query.LayerController"%>
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
-<script src="http://127.0.0.1:8080/geoserver/openlayers/OpenLayers.js" type="text/javascript"></script>
+<script src="/geoserver/openlayers/OpenLayers.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/QueryEntomology.js"></script>
 <script type="text/javascript">
 
-// mosquito definition
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-    String[] types = new String[]{MosquitoDTO.CLASS, SpecieDTO.CLASS, QueryController.CLASS};
+    String[] types = new String[]{LayerController.CLASS, SavedSearchViewDTO.CLASS, MosquitoDTO.CLASS, SpecieDTO.CLASS, QueryController.CLASS, EntomologySearchDTO.CLASS};
     String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
     out.print(js);
   %>
@@ -30,11 +33,13 @@
 
   YAHOO.util.Event.onDOMReady(function(){
 
+    // TODO move into QueryPanel, and pass el ids as params
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
     var assayTree = <%= (String) request.getAttribute("assayTree") %>;
+    var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-    MDSS.QueryEntomology.initialize(assayTree);
+    MDSS.QueryEntomology.initialize(assayTree, queryList);
 
     MDSS.QueryEntomology.render();
 
@@ -58,6 +63,5 @@
 
 
 </div>
-<div id="report"></div>
 <div id="cal1Container" class="yui-skin-sam"></div>
 <jsp:include page="../templates/footer.jsp"></jsp:include>

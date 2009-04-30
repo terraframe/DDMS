@@ -37,7 +37,7 @@ var MDSS = {
     {
       var args = [].splice.call(arguments, 1);
       return function(){
-        func.apply(this, args.concat([].splice.call(arguments, 0)))
+        return func.apply(this, args.concat([].splice.call(arguments, 0)))
       }
     },
 

@@ -12,9 +12,9 @@
         type="dss.vector.solutions.entomology.SexMaster"
         id="MALE" />
       <object
-        key="GeoHierarchy_NonSentinalSite"
+        key="GeoHierarchy_NonSentinelSite"
         type="dss.vector.solutions.geo.GeoHierarchy"
-        id="NON_SENTINAL_SITE" />
+        id="NON_SENTINEL_SITE" />
     </existing>
     <create>
       <mdBusiness
@@ -957,7 +957,7 @@
       <relationship
         type="dss.vector.solutions.geo.AllowedIn"
         childId="wallH"
-        parentId="NON_SENTINAL_SITE"
+        parentId="NON_SENTINEL_SITE"
         id="wallInLocality">
       </relationship>
 
@@ -986,7 +986,7 @@
       <relationship
         type="dss.vector.solutions.geo.AllowedIn"
         childId="roofH"
-        parentId="NON_SENTINAL_SITE"
+        parentId="NON_SENTINEL_SITE"
         id="roofInLocality">
       </relationship>
 

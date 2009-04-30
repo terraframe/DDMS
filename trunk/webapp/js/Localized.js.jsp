@@ -34,9 +34,11 @@ MDSS.Localized = {
   {
     Start_Date: '<fmt:message key="Query_Start_Date" />',
     End_Date: '<fmt:message key="Query_End_Date" />',
-    Map_Query: '<fmt:message key="Query_Map_Query" />',
-    Run_Query: '<fmt:message key="Query_Run_Query" />',
-    Refresh_Map: '<fmt:message key="Refresh_Map" />'
+    Map: '<fmt:message key="Query_Map" />',
+    Run: '<fmt:message key="Query_Run" />',
+    Save: '<fmt:message key="Query_Save" />',
+    Load: '<fmt:message key="Query_Load" />',
+    Refresh: '<fmt:message key="Query_Refresh" />'
   },
 
   Toggle:
@@ -49,5 +51,13 @@ MDSS.Localized = {
 
   New_Universal_Located_In: '<fmt:message key="New_Universal_Located_In" />',
 
-  Search_Results: '<fmt:message key="Search_Results" />'
+  Search_Results: '<fmt:message key="Search_Results" />',
+
+  Add: '<fmt:message key="Add" />',
+
+  Update: '<fmt:message key="Update" />',
+
+  Available_Layers : '<fmt:message key="Available_Layers" />',
+
+  Defined_Layers: '<fmt:message key="Defined_Layers" />'
 };

@@ -38,7 +38,7 @@ import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SentinalSite;
+import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.ActiveIngredient;
 import dss.vector.solutions.mo.CollectionMethod;
 import dss.vector.solutions.mo.Generation;
@@ -120,7 +120,7 @@ public class LDDATest extends TestCase
       SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
       Date date = dateTime.parse("2006-01-01");
 
-      geoEntity = new SentinalSite();
+      geoEntity = new SentinelSite();
       geoEntity.setGeoId("0");
       geoEntity.setEntityName("GeoEntity");
       geoEntity.apply();

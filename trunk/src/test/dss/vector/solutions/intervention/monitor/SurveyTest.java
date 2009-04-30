@@ -29,7 +29,7 @@ import com.terraframe.mojo.web.WebClientSession;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Roof;
-import dss.vector.solutions.geo.generated.SentinalSite;
+import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.geo.generated.Wall;
 import dss.vector.solutions.intervention.BloodslideResponse;
 import dss.vector.solutions.intervention.Drug;
@@ -86,7 +86,7 @@ public class SurveyTest extends TestCase
   {
     clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
 
-    geoEntity = new SentinalSite();
+    geoEntity = new SentinelSite();
     geoEntity.setGeoId("0");
     geoEntity.setEntityName("Sentinel Site");
     geoEntity.apply();

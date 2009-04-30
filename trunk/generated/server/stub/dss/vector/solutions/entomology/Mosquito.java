@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.terraframe.mojo.business.BusinessFacade;
-import com.terraframe.mojo.constants.DatabaseProperties;
+import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.gis.dataaccess.MdAttributeGeometryDAOIF;
@@ -19,14 +22,17 @@ import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.session.Session;
+import com.terraframe.mojo.system.WebFile;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.GeoServer;
 import dss.vector.solutions.geo.GeoServerReloader;
-import dss.vector.solutions.geo.generated.SentinalSiteQuery;
+import dss.vector.solutions.geo.generated.SentinelSiteQuery;
+import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.QueryConstants;
 
 public class Mosquito extends MosquitoBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -45,7 +51,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     query.WHERE(query.getMosquito().EQ(this));
 
     OIterator<? extends AssayTestResult> iterator = query.getIterator();
-    while(iterator.hasNext())
+    while (iterator.hasNext())
     {
       list.add(iterator.next());
     }
@@ -136,7 +142,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       List<? extends MdAttributeDAOIF> attributeDAOs = geoEntityMdDAO.getAllDefinedMdAttributes();
 
       String attributeName = null;
-      for(MdAttributeDAOIF attributeDAO : attributeDAOs)
+      for (MdAttributeDAOIF attributeDAO : attributeDAOs)
       {
         if (attributeDAO instanceof MdAttributeGeometryDAOIF)
         {
@@ -159,12 +165,12 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     valueQuery.WHERE(mosquitoQuery.getCollection().EQ(collectionQuery));
 
     // join collection with geo entity and select that entity type's geometry
-    GeneratedBusinessQuery businessQuery = (SentinalSiteQuery) queryMap.get(geoEntityType);
+    GeneratedBusinessQuery businessQuery = (SentinelSiteQuery) queryMap.get(geoEntityType);
 
     valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(businessQuery));
 
     // join collection with geo entity
-    SentinalSiteQuery ssQuery = (SentinalSiteQuery) queryMap.get(geoEntityType);
+    SentinelSiteQuery ssQuery = (SentinelSiteQuery) queryMap.get(geoEntityType);
     valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(ssQuery));
 
     String sql = valueQuery.getSQL();
@@ -189,13 +195,12 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    * @param xml
    * @return
    */
-  public static String mapQuery(String xml, String geoEntityType)
+  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers)
   {
-    ValueQuery query = xmlToValueQuery(xml, geoEntityType, true);
+    ValueQuery query = xmlToValueQuery(xml, thematicLayerType, true);
     String sql = query.getSQL();
 
     String viewName = "MDSSTest";
-
 
     try
     {
@@ -209,12 +214,77 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     Database.createView(viewName, sql);
 
     String sessionId = Session.getCurrentSession().getId();
-    GeoServerReloader.reload(sessionId, viewName);
 
-    String dbView = GeoServer.MDSS_NAMESPACE + ":" + viewName;
+    String baseView = QueryConstants.MDSS_NAMESPACE + ":" + viewName.toLowerCase();
 
     JSONArray layers = new JSONArray();
-    layers.put(dbView.toLowerCase()); // GeoServer expects lowercase names
+
+    try
+    {
+      JSONObject baseLayer = new JSONObject();
+      baseLayer.put("view", baseView);
+      baseLayer.put("sld", "");
+      layers.put(baseLayer);
+    }
+    catch (JSONException e)
+    {
+      String error = "Unable to define the base layer [" + baseView + "].";
+      throw new ProgrammingErrorException(error, e);
+    }
+
+
+    // create views (if needed) for all other layers
+    for (String layerId : universalLayers)
+    {
+      // TODO return null if count(*) == 0 and don't add
+      // to layers (do inside createViewTable())
+      Layer layer = Layer.get(layerId);
+      GeoHierarchy geoH = layer.getGeoHierarchy();
+
+      boolean includeLayer = geoH.createViewTable(sessionId);
+      if (includeLayer)
+      {
+        MdBusiness md = geoH.getGeoEntityClass();
+        String layerView = md.getTypeName().toLowerCase() + QueryConstants.VIEW_NAME_SUFFIX;
+        String namespacedView = QueryConstants.MDSS_NAMESPACE + ":" + layerView;
+
+        JSONObject layerObj = new JSONObject();
+
+        try
+        {
+          WebFile file = WebFile.get(layer.getSldFile());
+          String fullWebDir = LocalProperties.getWebDirectory();
+          if(fullWebDir.endsWith("/"))
+          {
+            fullWebDir = fullWebDir.substring(0, fullWebDir.length()-1);
+          }
+          String webDir = fullWebDir.substring(fullWebDir.lastIndexOf("/"));
+          if(webDir.startsWith("/"))
+          {
+            webDir = webDir.substring(1);
+          }
+          String filePath = webDir+ "/" + file.getFilePath() + file.getFileName() + "." + file.getFileExtension();
+
+          layerObj.put("view", namespacedView);
+
+          // Generated a random query string to force GeoServer to not cache the SLD
+          String r = String.valueOf(Math.random());
+          r = r.substring(r.length()-6);
+
+          layerObj.put("sld", filePath+ "?a="+r);
+        }
+        catch (JSONException e)
+        {
+          String error = "Unable to define the layer for [" + md.getDisplayLabel().getValue() + "].";
+          throw new ProgrammingErrorException(error, e);
+        }
+
+        layers.put(layerObj);
+      }
+    }
+
+    MdAttributeGeometry geoAttr = GeoHierarchy.getGeometry(thematicLayerType);
+    GeoServerReloader.reload(sessionId, viewName, geoAttr);
 
     return layers.toString();
   }

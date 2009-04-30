@@ -20,7 +20,7 @@ import com.terraframe.mojo.query.OIterator;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.PermanentWaterBody;
-import dss.vector.solutions.geo.generated.SentinalSite;
+import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.geo.generated.Trap;
 import dss.vector.solutions.mo.IdentificationMethod;
 import dss.vector.solutions.mo.Specie;
@@ -64,7 +64,7 @@ public class MosquitoCollectionPointTest extends TestCase
     specie = Specie.getAll()[0];
     identificationMethod = IdentificationMethod.getAll()[0];
 
-    sentinelSite = new SentinalSite();
+    sentinelSite = new SentinelSite();
     sentinelSite.setGeoId("0");
     sentinelSite.setEntityName("Sentinel Site");
     sentinelSite.apply();

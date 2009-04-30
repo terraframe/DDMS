@@ -2,8 +2,8 @@ package dss.vector.solutions.irs;
 
 import dss.vector.solutions.geo.generated.District;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.geo.generated.Province;
-import dss.vector.solutions.geo.generated.SentinalSite;
 import dss.vector.solutions.geo.generated.SprayZone;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
@@ -64,7 +64,7 @@ public class GeoTargetTest extends TestCase
 
   protected static void classSetUp()
   {
-    geoEntity = new SentinalSite();
+    geoEntity = new SentinelSite();
     geoEntity.setActivated(true);
     geoEntity.setGeoId("0");
     geoEntity.setEntityName("testName");

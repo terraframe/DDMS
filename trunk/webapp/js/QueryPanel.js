@@ -532,7 +532,7 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
     height: 480,
     width: 800,
     units: [
-        { position: 'left', width: 150, resize: false, body: '', gutter: '0 5 0 2', scroll: true },
+        { position: 'left', width: 300, resize: false, body: '', gutter: '0 5 0 2', scroll: true },
         { position: 'bottom', height: 40, body: '', gutter: '2' },
         { position: 'center', body: '<div id="'+this.MAP_CONTAINER+'"></div>', gutter: '0 2 0 0', scroll: true }
     ]
@@ -549,11 +549,28 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
   this._endDate = null;
 
   // references to the panel units
-  this._topUnit = null;
-  this._leftUnit = null;
-  this._bottomUnit = null;
-  this._centerUnit = null;
-  this._rightUnit = null;
+  this._qTopUnit = null;
+  this._qLeftUnit = null;
+  this._qBottomUnit = null;
+  this._qCenterUnit = null;
+  this._qRightUnit = null;
+
+  this._mLeftUnit = null;
+  this._mBottomUnit = null;
+  this._mCenterUnit = null;
+
+  // array of objects with each element representing a
+  // key/value pair of SavedSearch.ID/SavedSearch.QUERYNAME
+  this._availableQueries = [];
+  this._queryList = null;
+
+  // reference to the SavedSearch (if available) that
+  // is responsible for rendering the query.
+  this._currentSavedSearch = null;
+
+  // the current layers in the map. If this._currentSavedSearch
+  // is not null, then these layers belong to that SavedSearch.
+  this._layers = [];
 
   this._map = null;
 
@@ -562,6 +579,15 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
 
   // map between query list entries (LI tags) and context menu builder functions
   this._queryMenuBuilders = {};
+
+  this._mapButton = null;
+  this._runButton = null;
+  this._loadButton = null;
+  this._saveButton = null;
+  this._refreshMapButton = null;
+
+  // The button that adds a new layer when clicked
+  this._addLayerButton = null;
 };
 
 MDSS.QueryPanel.prototype = {
@@ -569,6 +595,12 @@ MDSS.QueryPanel.prototype = {
   MAP_CONTAINER : "mapContainer",
 
   QUERY_ITEMS : "queryItemsList",
+
+  DEFINED_LAYERS_LIST : "definedLayersList",
+
+  AVAILABLE_QUERY_LIST : "availableQueryList",
+
+  AVAILABLE_LAYERS_LIST : "availableLayersList",
 
   QUERY_DATA_TABLE : "queryDataTable",
 
@@ -580,7 +612,44 @@ MDSS.QueryPanel.prototype = {
 
   MAP_QUERY_BUTTON : "mapQueryButton",
 
+  REFRESH_MAP_BUTTON : "refreshMapButton",
+
   RUN_QUERY_BUTTON : "runQueryButton",
+
+  LOAD_QUERY_BUTTON : "loadQueryButton",
+
+  SAVE_QUERY_BUTTON : "saveQueryButton",
+
+  /**
+   *
+   */
+  setCurrentSavedSearch : function(savedSearch)
+  {
+    this._currentSavedSearch = savedSearch;
+  },
+
+  /**
+   * Adds an available query id and name
+   * as an option to the select list.
+   */
+  addAvailableQuery : function(obj)
+  {
+    this._availableQueries.push(obj);
+
+    // update the live list
+    if(this._queryList != null)
+    {
+      var option = document.createElement('option');
+      YAHOO.util.Dom.setAttribute(option, 'value', obj.id);
+      option.innerHTML = obj.name;
+
+      this._queryList.appendChild(option);
+
+      var el = document.getElementById(this._queryList.get('id'));
+
+      el.selectedIndex = el.options.length-1;
+    }
+  },
 
   /**
    * Returns the start date element wrapped
@@ -630,7 +699,7 @@ MDSS.QueryPanel.prototype = {
     dateRange.appendChild(endLabel);
     dateRange.appendChild(this._endDate);
 
-    var body = new YAHOO.util.Element(this._topUnit.body);
+    var body = new YAHOO.util.Element(this._qTopUnit.body);
     body.appendChild(dateRange);
   },
 
@@ -670,7 +739,7 @@ MDSS.QueryPanel.prototype = {
       }
     }
 
-    var body = new YAHOO.util.Element(this._leftUnit.body);
+    var body = new YAHOO.util.Element(this._qLeftUnit.body);
     body.appendChild(ul);
 
     // add context menu for the query item list
@@ -684,26 +753,36 @@ MDSS.QueryPanel.prototype = {
     menu.subscribe("triggerContextMenu", this._queryMenuTrigger, {thisRef:this});
   },
 
-  getTopUnit : function() { return this._topUnit; },
+  getQueryTopUnit : function() { return this._qTopUnit; },
 
-  getLeftUnit : function() { return this._leftUnit; },
+  getQueryLeftUnit : function() { return this._qLeftUnit; },
 
-  getBottomUnit : function() { return this._bottomUnit; },
+  getQueryBottomUnit : function() { return this._qBottomUnit; },
 
-  getCenterUnit : function() { return this._centerUnit; },
+  getQueryCenterUnit : function() { return this._qCenterUnit; },
 
-  getRightUnit : function() { return this._rightUnit; },
+  getQueryRightUnit : function() { return this._qRightUnit; },
+
+  getMapLeftUnit : function() { return this._mLeftUnit; },
+
+  getMapBottomUnit : function() { return this._mBottomUnit; },
+
+  getMapCenterUnit : function() { return this._mCenterUnit; },
 
   /**
    * Should be called after QueryPanel has been rendered.
    */
   _postRender : function()
   {
-    this._topUnit = this._queryLayout.getUnitByPosition('top');
-    this._leftUnit = this._queryLayout.getUnitByPosition('left');
-    this._bottomUnit = this._queryLayout.getUnitByPosition('bottom');
-    this._centerUnit = this._queryLayout.getUnitByPosition('center');
-    this._rightUnit = this._queryLayout.getUnitByPosition('right');
+    this._qTopUnit = this._queryLayout.getUnitByPosition('top');
+    this._qLeftUnit = this._queryLayout.getUnitByPosition('left');
+    this._qBottomUnit = this._queryLayout.getUnitByPosition('bottom');
+    this._qCenterUnit = this._queryLayout.getUnitByPosition('center');
+    this._qRightUnit = this._queryLayout.getUnitByPosition('right');
+
+    this._mLeftUnit = this._mapLayout.getUnitByPosition('left');
+    this._mBottomUnit = this._mapLayout.getUnitByPosition('bottom');
+    this._mCenterUnit = this._mapLayout.getUnitByPosition('center');
 
     // action buttons
     this._buildButtons();
@@ -716,6 +795,180 @@ MDSS.QueryPanel.prototype = {
 
     // content grid
     this._buildContentGrid();
+
+    // universal list
+    this._buildUniversalList();
+  },
+
+  /**
+   * Builds a list of possible universal layers
+   * that can be selected.
+   */
+  _buildUniversalList : function()
+  {
+  	// add container for user defined layers
+    var layersListDiv = document.createElement('div');
+    YAHOO.util.Dom.addClass(layersListDiv, 'definedLayers');
+
+    var definedSpan = document.createElement('span');
+    definedSpan.innerHTML = MDSS.Localized.Defined_Layers;
+
+    var ul = document.createElement('ul');
+    YAHOO.util.Dom.setAttribute(ul, 'id', this.DEFINED_LAYERS_LIST);
+
+    var ulDiv = document.createElement('div');
+    ulDiv.appendChild(ul);
+
+    layersListDiv.appendChild(definedSpan);
+    layersListDiv.appendChild(ulDiv);
+
+  	// this data structure is defined by
+  	// the GeoEntity tree for use case 111.
+  	// (We're just stealing it for our own use here.)
+  	var availableSpan = document.createElement('span');
+  	YAHOO.util.Dom.setStyle(availableSpan, 'display', 'block');
+    availableSpan.innerHTML = MDSS.Localized.Available_Layers;
+
+  	var types = MDSS.GeoTreeSelectables.types;
+    var typeNames = Mojo.util.getKeys(types);
+    typeNames.sort();
+
+    var universalListDiv = new YAHOO.util.Element(document.createElement('div'));
+    var layers = document.createElement('select');
+    YAHOO.util.Dom.setAttribute(layers, 'id', this.AVAILABLE_LAYERS_LIST);
+
+    for(var i=0; i<typeNames.length; i++)
+    {
+      var type = typeNames[i];
+      var displayLabel = types[type].label;
+
+      var option = document.createElement('option');
+      YAHOO.util.Dom.setAttribute(option, 'value', type);
+      YAHOO.util.Dom.setAttribute(option, 'id', type+"_available");
+      option.innerHTML = displayLabel;
+
+      layers.appendChild(option);
+    }
+
+    universalListDiv.appendChild(availableSpan);
+    universalListDiv.appendChild(layers);
+
+    // add button for new layer
+    this._addLayerButton = new YAHOO.util.Element(document.createElement('input'));
+    this._addLayerButton.set('type', 'button');
+    this._addLayerButton.set('value', MDSS.Localized.Add);
+    this._addLayerButton.on('click', this._addLayer, null, this);
+
+    universalListDiv.appendChild(this._addLayerButton);
+
+    var wrapper = new YAHOO.util.Element(document.createElement('div'));
+    YAHOO.util.Dom.addClass(wrapper, 'layersWrapper');
+    wrapper.appendChild(universalListDiv);
+    wrapper.appendChild(layersListDiv);
+
+    var body = new YAHOO.util.Element(this._mLeftUnit.body);
+    body.appendChild(wrapper);
+  },
+
+  /**
+   *
+   */
+  _editDefinedLayer : function(e, obj)
+  {
+    if(Mojo.util.isFunction(this._config.editLayer))
+    {
+      this._config.editLayer.call(this, obj.layerId, obj.type);
+    }
+  },
+
+  _deleteDefinedLayer : function(e, obj)
+  {
+
+  },
+
+  /**
+   * Adds a user defined layer to the right panel
+   * of the map screen. The entry for the universal
+   * with the given type is removed as an "available"
+   * layer to add.
+   */
+  addDefinedLayer : function(layerId, type)
+  {
+    var li = document.createElement('li');
+    YAHOO.util.Dom.setAttribute(li, 'id', layerId+"_defined")
+
+    var actionObj = {
+      layerId: layerId,
+      type: type
+    }
+
+    var del = document.createElement('img');
+    YAHOO.util.Dom.setAttribute(del, 'src', 'imgs/icons/delete.png');
+    YAHOO.util.Event.on(del, 'click', this._deleteDefinedLayer, actionObj, this);
+
+    var edit = document.createElement('img');
+    YAHOO.util.Dom.setAttribute(edit, 'src', 'imgs/icons/wand.png');
+    YAHOO.util.Event.on(edit, 'click', this._editDefinedLayer, actionObj, this);
+
+    var check = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+    YAHOO.util.Dom.setAttribute(check, 'value', layerId);
+
+    var span = document.createElement('span');
+  	var types = MDSS.GeoTreeSelectables.types; // defined by 111
+    span.innerHTML = types[type].label;
+
+    li.appendChild(del);
+    li.appendChild(edit);
+    li.appendChild(check);
+    li.appendChild(span);
+
+    var ul = document.getElementById(this.DEFINED_LAYERS_LIST);
+    ul.appendChild(li);
+
+    // disable the option in the available list (can't have duplicate layers)
+    var option = document.getElementById(type+"_available");
+    YAHOO.util.Dom.setAttribute(option, 'disabled', true);
+  },
+
+  /**
+   * Returns all selected layers to include in the map.
+   */
+  getSelectedLayers : function()
+  {
+    var layers = [];
+
+    var ul = document.getElementById(this.DEFINED_LAYERS_LIST);
+    var checks = YAHOO.util.Selector.query('input', ul);
+    for(var i=0; i<checks.length; i++)
+    {
+      var check = checks[i];
+      if(check.checked)
+      {
+        layers.push(check.value);
+      }
+    }
+
+    return layers;
+  },
+
+  /**
+   * Handler for when a new layer is added.
+   */
+  _addLayer : function()
+  {
+    if(Mojo.util.isFunction(this._config.addLayer))
+    {
+      var layersList = document.getElementById(this.AVAILABLE_LAYERS_LIST);
+      var options = layersList.options;
+      var selected = options[layersList.selectedIndex];
+
+      if(selected && selected.value)
+      {
+      	var type = selected.value;
+        this._config.addLayer.call(this, this._currentSavedSearch, type);
+      }
+    }
   },
 
   /**
@@ -723,24 +976,71 @@ MDSS.QueryPanel.prototype = {
    */
   _buildButtons : function()
   {
+  	// query panel buttons
     this._mapButton = new YAHOO.util.Element(document.createElement('input'));
     this._mapButton.set('type', 'button');
-    this._mapButton.set('value', MDSS.Localized.Query.Map_Query);
+    this._mapButton.set('value', MDSS.Localized.Query.Map);
     this._mapButton.set('id', this.MAP_QUERY_BUTTON);
     this._mapButton.addClass('queryButton');
     this._mapButton.set('disabled', 'disabled');
     this._mapButton.on('click', this._mapQuery, {}, this);
 
-    runButton = new YAHOO.util.Element(document.createElement('input'));
-    runButton.set('type', 'button');
-    runButton.set('value', MDSS.Localized.Query.Run_Query);
-    runButton.set('id', this.RUN_QUERY_BUTTON);
-    runButton.addClass('queryButton');
-    runButton.on('click', this._executeQuery, {}, this);
+    this._runButton = new YAHOO.util.Element(document.createElement('input'));
+    this._runButton.set('type', 'button');
+    this._runButton.set('value', MDSS.Localized.Query.Run);
+    this._runButton.set('id', this.RUN_QUERY_BUTTON);
+    this._runButton.addClass('queryButton');
+    this._runButton.on('click', this._executeQuery, {}, this);
 
-    var body = new YAHOO.util.Element(this._bottomUnit.body);
-    body.appendChild(runButton);
-    body.appendChild(this._mapButton);
+    this._saveButton = new YAHOO.util.Element(document.createElement('input'));
+    this._saveButton.set('type', 'button');
+    this._saveButton.set('value', MDSS.Localized.Query.Save);
+    this._saveButton.set('id', this.SAVE_QUERY_BUTTON);
+    this._saveButton.addClass('queryButton');
+    this._saveButton.on('click', this._saveQuery, {}, this);
+
+    this._loadButton = new YAHOO.util.Element(document.createElement('input'));
+    this._loadButton.set('type', 'button');
+    this._loadButton.set('value', MDSS.Localized.Query.Load);
+    this._loadButton.set('id', this.LOAD_QUERY_BUTTON);
+    this._loadButton.addClass('queryButton');
+    this._loadButton.on('click', this._loadQuery, {}, this);
+
+    this._queryList = new YAHOO.util.Element(document.createElement('select'));
+    this._queryList.set('id', this.AVAILABLE_QUERY_LIST);
+    this._queryList.addClass('queryList');
+    var defaultOption = document.createElement('option');
+    this._queryList.appendChild(defaultOption);
+    for(var i=0; i<this._availableQueries.length; i++)
+    {
+      var obj = this._availableQueries[i];
+
+      var option = document.createElement('option');
+      YAHOO.util.Dom.setAttribute(option, 'value', obj.id);
+      option.innerHTML = obj.name;
+
+      this._queryList.appendChild(option);
+    }
+
+    var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
+    qBottom.appendChild(this._runButton);
+    qBottom.appendChild(this._mapButton);
+
+    var qRight = new YAHOO.util.Element(this._qRightUnit.body);
+    qRight.appendChild(this._queryList);
+    qRight.appendChild(this._loadButton);
+    qRight.appendChild(this._saveButton);
+
+    // map panel buttons
+    this._refreshMapButton = new YAHOO.util.Element(document.createElement('input'));
+    this._refreshMapButton.set('type', 'button');
+    this._refreshMapButton.set('value', MDSS.Localized.Query.Refresh);
+    this._refreshMapButton.set('id', this.REFRESH_MAP_BUTTON);
+    this._refreshMapButton.addClass('queryButton');
+    this._refreshMapButton.on('click', this._mapQuery, {}, this);
+
+    var mBottom = new YAHOO.util.Element(this._mBottomUnit.body);
+    mBottom.appendChild(this._refreshMapButton);
   },
 
   /**
@@ -1013,8 +1313,8 @@ MDSS.QueryPanel.prototype = {
     );
     var options = {
         controls: [],
-        maxExtent: bounds,
-        maxResolution: 0.000859375,
+        //maxExtent: bounds,
+        //maxResolution: 0.000859375,
         projection: "EPSG:4326",
         units: 'degrees'
     };
@@ -1023,22 +1323,55 @@ MDSS.QueryPanel.prototype = {
     this._map = new OpenLayers.Map(this.MAP_CONTAINER, options);
 
     // setup base tiled layer
+    var mapLayers = [];
     var tiled = new OpenLayers.Layer.WMS(
         "", "http://127.0.0.1:8080/geoserver/wms",
         {
-            width: '400',
+            width: '430',
             srs: 'EPSG:4326',
-            layers: baseLayer,
-            height: '400',
+            layers: baseLayer.view,
+            height: '430',
             styles: '',
             format: 'image/png',
             tiled: 'true',
-            tilesOrigin : "36.718452,-17.700377000000003"
+            //sld: Mojo.ClientSession.getBaseEndpoint(),
+            //tilesOrigin : "36.718452,-17.700377000000003"
         },
-        {buffer: 0}
+        {
+        	buffer: 0,
+        	isBaseLayer: true
+        }
+    );
+    mapLayers.push(tiled);
+
+    for(var i=1; i<layers.length; i++)
+    {
+    	var layerName = layers[i];
+        var extraLayer = new OpenLayers.Layer.WMS(
+        "", "http://127.0.0.1:8080/geoserver/wms",
+        {
+            width: '430',
+            srs: 'EPSG:4326',
+            layers: layerName.view,
+            height: '430',
+            styles: '',
+            format: 'image/png',
+            tiled: 'true',
+            sld: Mojo.ClientSession.getBaseEndpoint()+layerName.sld,
+            //tilesOrigin : "36.718452,-17.700377000000003",
+            transparent: true
+        },
+        {
+        	buffer: 0,
+        	opacity: 0.3
+        }
     );
 
-    this._map.addLayers([tiled]);
+         mapLayers.push(extraLayer);
+    }
+
+
+    this._map.addLayers(mapLayers);
 
     // build up all controls
     this._map.addControl(new OpenLayers.Control.PanZoomBar({
@@ -1050,6 +1383,39 @@ MDSS.QueryPanel.prototype = {
     this._map.zoomToExtent(bounds);
   },
 
+  /**
+   * Loads all saved queries for this QueryPanel.
+   */
+  _loadQuery : function()
+  {
+    if(Mojo.util.isFunction(this._config.loadQuery))
+    {
+      var queries = document.getElementById(this.AVAILABLE_QUERY_LIST);
+
+      // ignore the default, empty option
+      var index = queries.selectedIndex;
+      if(index > 0)
+      {
+        var savedSearchId = queries.options[index].value;
+        this._config.loadQuery.call(this, savedSearchId);
+      }
+    }
+  },
+
+  /**
+   * Saves a query.
+   */
+  _saveQuery : function()
+  {
+    if(Mojo.util.isFunction(this._config.saveQuery))
+    {
+      this._config.saveQuery.call(this);
+    }
+  },
+
+  /**
+   * Creates the map
+   */
   _mapQuery : function()
   {
     if(Mojo.util.isFunction(this._config.mapQuery))
@@ -1059,7 +1425,8 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Executes the Query as
+   * Executes the Query by calling the user-defined
+   * handler.
    */
   _executeQuery : function()
   {

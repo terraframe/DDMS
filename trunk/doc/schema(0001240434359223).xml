@@ -2,6 +2,7 @@
   xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
+
     <create>
       <object
         type="com.terraframe.mojo.system.Roles"
@@ -312,6 +313,9 @@
   </doIt>
   <undoIt>
     <delete>
+      <object
+        key="dss.vector.solutions.geo.GeoHierarchy.viewName"
+        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter" />
       <object
         key="com.terraframe.mojo.system.Roles.dataCapturer"
         type="com.terraframe.mojo.system.Roles" />

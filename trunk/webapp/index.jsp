@@ -20,4 +20,5 @@
 <jsp:include page="/revision.html" />
 </pre>
 </div>
+
 <jsp:include page="/WEB-INF/templates/footer.jsp" />

@@ -10,7 +10,108 @@ MDSS.QueryEntomology = (function(){
 
   var _queryXML = null;
 
-  var _config = null;
+  /**
+   * Loads available queries.
+   */
+  function _loadQuery(savedSearchId)
+  {
+    var request = new MDSS.Request({
+      onSuccess: function(savedSearch){
+        _queryPanel.setCurrentSavedSearch(savedSearch);
+
+        // set the XML
+
+        // set the layers
+      }
+    });
+
+    Mojo.$.dss.vector.solutions.query.EntomologySearch.get(request, savedSearchId);
+  }
+
+  /**
+   * Saves the query.
+   */
+  function _saveQueryListener(modal, params, action)
+  {
+  	// FIXME hardcoded for testing
+    var sentinelSite = Mojo.$.dss.vector.solutions.geo.generated.SentinelSite.CLASS;
+
+  	var xml = _queryXML.getXML();
+
+  	var view = new Mojo.$.dss.vector.solutions.query.SavedSearchView();
+    view.setQueryName(params['savedQueryView.queryName']);
+    view.setQueryXml(xml);
+    view.setThematicLayer(sentinelSite);
+
+    var request = new MDSS.Request({
+      modal:modal,
+      onSuccess: function(savedSearch){
+
+        var obj = {id: savedSearch.getId(), name: savedSearch.getQueryName() };
+        _queryPanel.addAvailableQuery(obj);
+        _queryPanel.setCurrentSavedSearch(savedSearch);
+        this.modal.destroy();
+      }
+    });
+
+    Mojo.$.dss.vector.solutions.query.EntomologySearch.saveSearch(request, view);
+  }
+
+  function _cancelQueryListener(modal, params, action)
+  {
+    modal.destroy();
+  }
+
+  /**
+   * Saves the current state of the QueryXML.
+   */
+  function _saveQuery()
+  {
+    var controller = Mojo.$.dss.vector.solutions.entomology.QueryController;
+    var request = new MDSS.Request({
+      controller: controller,
+      onSuccess: function(html)
+      {
+        var executable = MDSS.util.extractScripts(html);
+        var html = MDSS.util.removeScripts(html);
+
+        var modal = new YAHOO.widget.Panel("saveQuery", {
+          width:"400px",
+          height: "400px",
+          fixedcenter:true,
+          close: true,
+          draggable:false,
+          zindex:4,
+          modal:true,
+          visible:true
+        });
+
+        // wrap content in divs
+        var outer = document.createElement('div');
+
+        var header = document.createElement('div');
+        header.innerHTML = '<h3>'+MDSS.Localized.Query.Save+'</h3><hr />';
+        outer.appendChild(header);
+
+        var contentDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+        contentDiv.innerHTML = html;
+        outer.appendChild(contentDiv);
+
+        modal.setBody(outer);
+        modal.render(document.body);
+
+        eval(executable);
+
+        var saved = MDSS.util.curry(_saveQueryListener, modal);
+        var canceled = MDSS.util.curry(_cancelQueryListener, modal);
+        this.controller.setSaveQueryListener(saved);
+        this.controller.setCancelQueryListener(canceled);
+      }
+    });
+
+    controller.newQuery(request);
+  }
 
   /**
    * Final function called before query is executed.
@@ -106,8 +207,8 @@ MDSS.QueryEntomology = (function(){
       }
     });
 
-    var sentinalSite = Mojo.$.dss.vector.solutions.geo.generated.SentinalSite.CLASS;
-    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, sentinalSite);
+    var sentinelSite = Mojo.$.dss.vector.solutions.geo.generated.SentinelSite.CLASS;
+    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, sentinelSite);
   }
 
   /**
@@ -115,12 +216,13 @@ MDSS.QueryEntomology = (function(){
    */
   function _mapQuery()
   {
+
     // FIXME hardcoded for testing
-    var sentinalSite = Mojo.$.dss.vector.solutions.geo.generated.SentinalSite.CLASS;
+    var sentinelSite = Mojo.$.dss.vector.solutions.geo.generated.SentinelSite.CLASS;
     var mosquito = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
 
     var types = [];
-    types.push(sentinalSite);
+    types.push(sentinelSite);
     types.push(mosquito);
 
     var selectables = [];
@@ -137,7 +239,8 @@ MDSS.QueryEntomology = (function(){
       }
     });
 
-    Mojo.$.dss.vector.solutions.entomology.Mosquito.mapQuery(request, xml, sentinalSite);
+  	var layerIds = _queryPanel.getSelectedLayers();
+    Mojo.$.dss.vector.solutions.entomology.Mosquito.mapQuery(request, xml, sentinelSite, layerIds);
   }
 
    /**
@@ -170,14 +273,6 @@ MDSS.QueryEntomology = (function(){
      var entityNameColumn = typeName+'_'+bestFit.getEntityNameMd().getName();
      var geoIdColumn = typeName+'_'+bestFit.getGeoIdMd().getName();
 
-     // Add entity as restricting criteria to right column
-     var li = document.createElement('li');
-     YAHOO.util.Dom.setAttribute(li, 'id', bestFit.getId()+listIdSuffix);
-     li.innerHTML = bestFit.getEntityName() + " " + bestFit.getGeoId();
-
-     var rightUnit = _queryPanel.getRightUnit();
-     var ul = rightUnit.body.firstChild;
-     ul.appendChild(li);
 
      // only add the column if it does not exist
      if(_queryPanel.getColumn(entityNameColumn) == null)
@@ -536,17 +631,121 @@ MDSS.QueryEntomology = (function(){
   }
 
   /**
+   * Adds a layer of the given type to the map.
+   * The map is not refreshed.
+   */
+  function _addLayer(savedSearch, type)
+  {
+    var request = new MDSS.Request({
+      type: type,
+      onSuccess: function(layerId){
+
+        layerId = MDSS.util.stripWhitespace(layerId);
+        _queryPanel.addDefinedLayer(layerId, this.type);
+      }
+    });
+
+    var selectSearchId = savedSearch.getId();
+    Mojo.$.dss.vector.solutions.query.LayerController.createSummary(request, selectSearchId, type);
+  }
+
+  /**
+   * Locks a layer and its components to put them
+   * in edit mode.
+   */
+  function _editLayer(layerId, type)
+  {
+    var controller = Mojo.$.dss.vector.solutions.query.LayerController;
+
+    var request = new MDSS.Request({
+      layerId: layerId,
+      controller: controller,
+      onSuccess: function(html){
+
+        var executable = MDSS.util.extractScripts(html);
+        var html = MDSS.util.removeScripts(html);
+
+        var modal = new YAHOO.widget.Panel("editQuery", {
+          width:"400px",
+          height: "400px",
+          fixedcenter:true,
+          close: false,
+          draggable:false,
+          zindex:4,
+          modal:true,
+          visible:true
+        });
+
+        // wrap content in divs
+        var outer = document.createElement('div');
+
+        var header = document.createElement('div');
+        header.innerHTML = '<h3>'+MDSS.Localized.Update+'</h3><hr />';
+        outer.appendChild(header);
+
+        var contentDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+        contentDiv.innerHTML = html;
+        outer.appendChild(contentDiv);
+
+        modal.setBody(outer);
+        modal.render(document.body);
+
+        eval(executable);
+
+        var update = MDSS.util.curry(_updateSummaryListener, modal);
+        var canceled = MDSS.util.curry(_cancelSummaryListener, modal);
+        this.controller.setUpdateSummaryListener(update);
+        //this.controller.setCancelSummaryListener(canceled);
+      }
+    });
+
+    controller.editSummary(request, layerId);
+  }
+
+  function _updateSummaryListener(modal, params, action)
+  {
+    var request = new MDSS.Request({
+      modal: modal,
+      onSuccess: function(){
+
+        this.modal.destroy();
+      }
+    });
+
+    return request;
+  }
+
+  function _cancelSummaryListener(modal)
+  {
+  	modal.destroy();
+  }
+
+  function _deleteLayer()
+  {
+
+  }
+
+  /**
    * Initializes the configuration for the QueryPanel to
    * Query on Entomology.
    */
-  function _initialize(assayTree, config)
+  function _initialize(assayTree, queryList)
   {
-  	_config = config;
-
     _queryPanel = new MDSS.QueryPanel('queryPanel', 'mapPanel', {
       executeQuery: _executeQuery,
-      mapQuery: _mapQuery
+      mapQuery: _mapQuery,
+      saveQuery: _saveQuery,
+      loadQuery: _loadQuery,
+      addLayer: _addLayer,
+      editLayer: _editLayer,
+      deleteLayer: _deleteLayer
     });
+
+    for(var i=0; i<queryList.length; i++)
+    {
+      _queryPanel.addAvailableQuery(queryList[i]);
+    }
 
     _queryXML = new MDSS.QueryXML.Query();
 
@@ -564,7 +763,7 @@ MDSS.QueryEntomology = (function(){
     _queryPanel.render();
 
     // modify the right panel to accept GeoEntity data as a list
-    var rightUnit = _queryPanel.getRightUnit();
+    var rightUnit = _queryPanel.getQueryRightUnit();
     var body = rightUnit.body;
     var ul = document.createElement('ul');
     YAHOO.util.Dom.addClass(ul, 'geoEntityPanelList');

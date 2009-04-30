@@ -317,7 +317,7 @@ dl
 	margin-left: 12px;
 }
 
-input.queryButton {
+input.queryButton, select.queryList {
 	float: right;
 	margin-top: 5px;
 	margin-right: 10px;
@@ -429,15 +429,28 @@ span.searchMatch {
 #mapContainer {
 	clear: both;
 	position: relative;
-	width: 400px;
-	height: 400px;
+	width: 430px;
+	height: 430px;
 	border: 1px solid black;
 }
 
-ul.availableLayers {
+div.layersWrapper {
+	padding: 5px;
+}
+
+div.definedLayers {
+	margin-top: 10px;
+}
+
+div.definedLayers div {
+	overflow-y: scroll;
+	height: 350px;
+}
+
+div.definedLayers div ul {
 	margin-left: 5px;
 }
 
-ul.availableLayers li input {
+div.definedLayers div ul li input {
 	margin-right: 5px;
 }

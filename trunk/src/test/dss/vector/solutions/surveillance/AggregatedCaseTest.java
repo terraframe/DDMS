@@ -22,7 +22,7 @@ import dss.vector.solutions.PeriodWeekProblem;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.geo.generated.SentinalSite;
+import dss.vector.solutions.geo.generated.SentinelSite;
 
 public class AggregatedCaseTest extends TestCase
 {
@@ -70,7 +70,7 @@ public class AggregatedCaseTest extends TestCase
     clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
     clientRequest = clientSession.getRequest();
 
-    geoEntity = new SentinalSite();
+    geoEntity = new SentinelSite();
     geoEntity.setGeoId("0");
     geoEntity.setEntityName("Sentinel Site");
     geoEntity.apply();

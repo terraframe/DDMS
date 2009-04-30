@@ -9,8 +9,8 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
-<%@page import="dss.vector.solutions.geo.generated.SentinalSiteDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.NonSentinalSiteDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
@@ -71,7 +71,7 @@
       <dt> Filter </dt>
       <dd>
         <input type="radio" name="filterType" value="" checked="checked" />All  &nbsp;&nbsp;&nbsp;
-        <input type="radio" name="filterType" value="${SentinalSiteClass}" />Sentinal Site &nbsp;&nbsp;&nbsp;
+        <input type="radio" name="filterType" value="${SentinelSiteClass}" />Sentinel Site &nbsp;&nbsp;&nbsp;
       </dd>
       <mjl:dt attribute="geoEntity">
         <mjl:input id="geoIdEl" param="none" type="text" maxlength="16" value="${item.geoEntity.geoId}" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a>

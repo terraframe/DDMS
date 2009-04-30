@@ -104,6 +104,12 @@
         description="Manages which GeoEntity types are allowed to be located in one another">
         <attributes>
           <boolean
+            name="viewCreated"
+            label="View Created"
+            description="Denotes if the view table has been created"
+            required="true"
+            default_value="false" />
+          <boolean
             name="political"
             label="political"
             description="Denotes if this object is political (e.g., a Country)"
@@ -775,15 +781,15 @@
         </attributes>
       </mdBusiness>
       <mdBusiness
-        name="dss.vector.solutions.geo.generated.SentinalSite"
-        label="Sentinal Site"
-        description="Sentinal Site"
+        name="dss.vector.solutions.geo.generated.SentinelSite"
+        label="Sentinel Site"
+        description="Sentinel Site"
         extends="dss.vector.solutions.geo.generated.AbstractSite">
       </mdBusiness>
       <mdBusiness
-        name="dss.vector.solutions.geo.generated.NonSentinalSite"
-        label="Non Sentinal Site"
-        description="Non Sentinal Site"
+        name="dss.vector.solutions.geo.generated.NonSentinelSite"
+        label="Non Sentinel Site"
+        description="Non Sentinel Site"
         extends="dss.vector.solutions.geo.generated.AbstractSite">
       </mdBusiness>
       <mdBusiness
@@ -1113,7 +1119,7 @@
 
       <mdBusiness
         name="dss.vector.solutions.entomology.MosquitoCollection"
-        description="A mosqitio collection from a sentinal or non sental site, these are usualy collected only once from a given point, this is not for permenant traps"
+        description="A mosqitio collection from a Sentinel or non sental site, these are usualy collected only once from a given point, this is not for permenant traps"
         label="Mosquito Collection"
         extends="dss.vector.solutions.entomology.ConcreteMosquitoCollection">
         <attributes>
@@ -1730,11 +1736,17 @@
             order="0"
             type="java.lang.String"/>
           <mdParameter
-            name="geoEntityType"
-            label="GeoEntity type"
-            description="The type on which to gather spatial data"
+            name="thematicLayerType"
+            label="Thematic Layer Type"
+            description="The GeoEntity type for the base layer with thematic variables."
             order="1"
             type="java.lang.String"/>
+          <mdParameter
+            name="universalLayers"
+            label="Universal Layers"
+            description="The universal types that will act as additional layers"
+            order="2"
+            type="java.lang.String[]" />
         </mdMethod>
       </mdBusiness>
 
@@ -5266,12 +5278,12 @@
         id="AbstractSiteMd"
         type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
-        key="dss.vector.solutions.geo.generated.SentinalSite"
-        id="SentinalSiteMd"
+        key="dss.vector.solutions.geo.generated.SentinelSite"
+        id="SentinelSiteMd"
         type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
-        key="dss.vector.solutions.geo.generated.NonSentinalSite"
-        id="NonSentinalSiteMd"
+        key="dss.vector.solutions.geo.generated.NonSentinelSite"
+        id="NonSentinelSiteMd"
         type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Facility"
@@ -5675,9 +5687,9 @@
       </object>
 
       <object
-        id="sentinalSiteH"
+        id="SentinelSiteH"
         type="dss.vector.solutions.geo.GeoHierarchy"
-        key="GeoHierarchy_SentinalSite">
+        key="GeoHierarchy_SentinelSite">
         <valueAttribute
           name="political"
           value="true"/>
@@ -5686,20 +5698,20 @@
           value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="SentinalSiteMd"/>
+          id="SentinelSiteMd" />
       </object>
 
       <relationship
         type="dss.vector.solutions.geo.AllowedIn"
-        childId="sentinalSiteH"
+        childId="SentinelSiteH"
         parentId="localityH"
-        id="sentinalSiteInLocality">
+        id="SentinelSiteInLocality">
       </relationship>
 
       <object
-        id="nonSentinalSiteH"
+        id="nonSentinelSiteH"
         type="dss.vector.solutions.geo.GeoHierarchy"
-        key="GeoHierarchy_NonSentinalSite">
+        key="GeoHierarchy_NonSentinelSite">
         <valueAttribute
           name="political"
           value="true"/>
@@ -5708,14 +5720,14 @@
           value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="NonSentinalSiteMd"/>
+          id="NonSentinelSiteMd" />
       </object>
 
       <relationship
         type="dss.vector.solutions.geo.AllowedIn"
-        childId="nonSentinalSiteH"
+        childId="nonSentinelSiteH"
         parentId="localityH"
-        id="nonSentinalSiteInLocality">
+        id="nonSentinelSiteInLocality">
       </relationship>
 
       <object
@@ -5756,8 +5768,8 @@
       <relationship
         type="dss.vector.solutions.geo.AllowedIn"
         childId="trapH"
-        parentId="nonSentinalSiteH"
-        id="trapInNonSentinalSite">
+        parentId="nonSentinelSiteH"
+        id="trapInNonSentinelSite">
       </relationship>
 
       <object

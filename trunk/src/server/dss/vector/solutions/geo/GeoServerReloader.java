@@ -14,6 +14,14 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 
+import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeLineString;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiLineString;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPoint;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPolygon;
+import com.terraframe.mojo.system.gis.metadata.MdAttributePoint;
+import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
+
 import dss.vector.solutions.global.CredentialsSingleton;
 
 /**
@@ -23,10 +31,11 @@ public class GeoServerReloader
 {
   private static final Pattern JSESSIONID_PATTERN = Pattern.compile("(?:.*?)JSESSIONID=(\\w*);.*");
 
-  public static void reload(String sessionId, String viewName)
+  public static void reload(String sessionId, String viewName, MdAttributeGeometry geoAttr)
   {
     try
     {
+
       // poke the server to get a valid JSESSIONID in the cookie
       GetMethod pokeGet = new GetMethod("http://127.0.0.1:8080/geoserver/welcome.do");
       NameValuePair[] pokeQueryString = new NameValuePair[]{new NameValuePair(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId)};
@@ -67,19 +76,30 @@ public class GeoServerReloader
       createPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
       createPost.addRequestHeader("Cookie", "JSESSIONID="+jSessionId);
 
+      String defaultStyle = "";
+      if(geoAttr instanceof MdAttributePoint || geoAttr instanceof MdAttributeMultiPoint)
+      {
+        defaultStyle = "point";
+      }
+      else if(geoAttr instanceof MdAttributeLineString || geoAttr instanceof MdAttributeMultiLineString)
+      {
+        defaultStyle = "line";
+      }
+      else if(geoAttr instanceof MdAttributePolygon || geoAttr instanceof MdAttributeMultiPolygon)
+      {
+        defaultStyle = "polygon";
+      }
+
+      createPost.addParameter("panelStyleIds", defaultStyle);
+      createPost.addParameter("styleId", defaultStyle);
+
       createPost.addParameter("SRS", "4326");
       createPost.addParameter("abstract", "Generated from MDSS_maps");
       createPost.addParameter("alias", "");
       createPost.addParameter("autoGenerateExtent", "true");
       createPost.addParameter("cacheMaxAge", "");
-//      createPost.addParameter("dataMaxX", "36.828452");
-//      createPost.addParameter("dataMaxY", "-17.590377");
-//      createPost.addParameter("dataMinX", "36.828452");
-//      createPost.addParameter("dataMinY", "-17.590377");
       createPost.addParameter("keywords", "MDSS_maps mdsstest");
       createPost.addParameter("maxFeatures", "0");
-//      createPost.addParameter("maxX", "36.828452");
-//      createPost.addParameter("maxY", "-17.590377");
 
       createPost.addParameter("metadataLink[0].content", "");
       createPost.addParameter("metadataLink[0].metadataType", "FGDC");
@@ -88,20 +108,12 @@ public class GeoServerReloader
       createPost.addParameter("metadataLink[1].metadataType", "FGDC");
       createPost.addParameter("metadataLink[1].type", "text/plain");
 
-//      createPost.addParameter("minX", "36.828452");
-//      createPost.addParameter("minY", "-17.590377");
       createPost.addParameter("nameTemplate", "null");
-//      createPost.addParameter("nativeMaxX", "36.828452");
-//      createPost.addParameter("nativeMaxY", "-17.590377");
-//      createPost.addParameter("nativeMinX", "36.828452");
-//      createPost.addParameter("nativeMinY", "-17.590377");
-      createPost.addParameter("panelStyleIds", "point");
       createPost.addParameter("regionateAttribute", "null");
       createPost.addParameter("regionateFeatureLimit", "15");
       createPost.addParameter("regionateStrategy", "best_guess");
       createPost.addParameter("schemaBase", "--");
       createPost.addParameter("srsHandling", "Force declared SRS (native will be ignored)");
-      createPost.addParameter("styleId", "point");
       createPost.addParameter("title", "mdsstest_Type");
       createPost.addParameter("keywords", "");
       createPost.addParameter("wmsPath", "/");
@@ -110,7 +122,7 @@ public class GeoServerReloader
 
       HttpClient createClient = new HttpClient();
       int createCode = createClient.executeMethod(createPost);
-      printResponse("Create", createCode, createPost, false);
+      printResponse("Create", createCode, createPost, true);
       createPost.releaseConnection();
 
       // Apply

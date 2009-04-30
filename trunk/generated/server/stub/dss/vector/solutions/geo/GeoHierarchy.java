@@ -10,12 +10,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.terraframe.mojo.business.BusinessFacade;
+import com.terraframe.mojo.business.BusinessQuery;
 import com.terraframe.mojo.business.generation.EntityQueryAPIGenerator;
+import com.terraframe.mojo.constants.ComponentInfo;
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.dataaccess.database.Database;
+import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.AbortIfProblem;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.gis.dataaccess.MdAttributeGeometryDAOIF;
+import com.terraframe.mojo.query.Attribute;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
@@ -31,7 +39,6 @@ import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPoint;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPolygon;
 import com.terraframe.mojo.system.gis.metadata.MdAttributePoint;
 import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
-import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 
@@ -40,6 +47,7 @@ import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.query.QueryConstants;
 
 public class GeoHierarchy extends GeoHierarchyBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -354,6 +362,44 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   }
 
   /**
+   * Checks the given MdBusiness and its parents for an
+   * MdAttributeGeometry and returns it. If no MdAttributeGeometry is
+   * defined this method returns null.
+   *
+   * @param mdBusiness
+   * @return
+   */
+  public static MdAttributeGeometry getGeometry(String type)
+  {
+    MdBusiness md = MdBusiness.getMdBusiness(type);
+    return getGeometry(md);
+  }
+
+  /**
+   * Checks the given MdBusiness and its parents for an
+   * MdAttributeGeometry and returns it. If no MdAttributeGeometry is
+   * defined this method returns null.
+   *
+   * @param mdBusiness
+   * @return
+   */
+  public static MdAttributeGeometry getGeometry(MdBusiness mdBusiness)
+  {
+    MdBusinessDAO mdBusinessDAO = (MdBusinessDAO) BusinessFacade.getEntityDAO(mdBusiness);
+    List<? extends MdAttributeDAOIF> attributeDAOs = mdBusinessDAO.getAllDefinedMdAttributes();
+
+    for(MdAttributeDAOIF attributeDAO : attributeDAOs)
+    {
+      if (attributeDAO instanceof MdAttributeGeometryDAOIF)
+      {
+        return MdAttributeGeometry.get(attributeDAO.getId());
+      }
+    }
+
+    return null;
+  }
+
+  /**
    * Defines a new GeoEntity type. This method will error out if there are any
    * problems.
    *
@@ -410,26 +456,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       // make sure the user isn't trying to override the parent geometry.
       if(definesGeometry)
       {
-        MdAttributeGeometry geoAttrMd = null;
-
-        OIterator<? extends MdAttribute> iter = parent.getAllAttribute();
-        try
-        {
-          while(iter.hasNext())
-          {
-            MdAttribute tempGeoMd = iter.next();
-
-            if(tempGeoMd instanceof MdAttributeGeometry)
-            {
-              geoAttrMd = (MdAttributeGeometry) tempGeoMd;
-              break;
-            }
-          }
-        }
-        finally
-        {
-          iter.close();
-        }
+        // A parent in this case, which is not GeoEntity, MUST define an MdAttributeGeometry
+        // either itself or via one of its parents. If not, we have some problems ...
+        MdAttributeGeometry geoAttrMd = getGeometry(parent);
 
         String geoLabel = geoAttrMd.getDisplayLabel().getValue();
 
@@ -854,6 +883,66 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       treeRecurse(hierarchy, childH);
     }
 
+  }
+
+  /**
+   * Creates a database view that represents this GeoHierarchy (i.e., the underlying
+   * GeoEntity MdBusiness and its spatial attribute). If the view already exists
+   * this method does nothing but return the view name.
+   *
+   * @return The name of the database view
+   */
+  public boolean createViewTable(String sessionId)
+  {
+    Boolean viewCreated = this.getViewCreated();
+    MdBusiness md = this.getGeoEntityClass();
+    String viewName = md.getTypeName().toLowerCase()+QueryConstants.VIEW_NAME_SUFFIX;
+    if(!viewCreated.booleanValue())
+    {
+      MdAttributeGeometry mdAttrGeo = getGeometry(md);
+      MdBusiness definingMd = (MdBusiness) mdAttrGeo.getDefiningMdClass();
+
+      String attrName = mdAttrGeo.getAttributeName();
+
+      // create the ValueQuery whose SELECT will become a database view
+      QueryFactory f = new QueryFactory();
+      ValueQuery vQuery = new ValueQuery(f);
+
+      GeoEntityQuery geoQuery = new GeoEntityQuery(f);
+      Attribute entityNameAttr = (Attribute) geoQuery.getEntityName();
+      entityNameAttr.setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
+
+      // if the MdBusiness that defines the geometry is the MdBusiness this
+      // GeoHierarchy wraps, then just join with GeoEntity to get the entityName
+      if(md.getId().equals(definingMd.getId()))
+      {
+        BusinessQuery q = f.businessQuery(md.definesType());
+        vQuery.SELECT(q.aAttribute(attrName),entityNameAttr);
+        vQuery.WHERE(q.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
+      }
+      else
+      {
+        // perform a join between *this* GeoEntity table and the one
+        // that defines the geometry attribute.
+        BusinessQuery q1 = f.businessQuery(md.definesType());
+        BusinessQuery q2 = f.businessQuery(definingMd.definesType());
+        vQuery.SELECT(q2.aAttribute(attrName),entityNameAttr);
+        vQuery.WHERE(q1.aCharacter(ComponentInfo.ID).EQ(q2.aCharacter(ComponentInfo.ID)));
+        vQuery.WHERE(q2.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
+      }
+
+      String sql = vQuery.getSQL();
+
+      Database.createView(viewName, sql);
+
+      GeoServerReloader.reload(sessionId, viewName, mdAttrGeo);
+
+      this.appLock();
+      this.setViewCreated(true);
+      this.apply();
+    }
+
+    return true;
   }
 
   @SuppressWarnings("unchecked")

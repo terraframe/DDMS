@@ -23,7 +23,7 @@ import dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult;
 import dss.vector.solutions.entomology.assay.biochemical.P450TestResult;
 import dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SentinalSite;
+import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.CollectionMethod;
 import dss.vector.solutions.mo.Generation;
 import dss.vector.solutions.mo.GenerationDTO;
@@ -111,7 +111,7 @@ public class MosquitoTest extends TestCase
       SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
       Date date = dateTime.parse("2006-01-01");
 
-      geoEntity = new SentinalSite();
+      geoEntity = new SentinelSite();
       geoEntity.setGeoId("0");
       geoEntity.setEntityName("GeoEntity");
       geoEntity.apply();

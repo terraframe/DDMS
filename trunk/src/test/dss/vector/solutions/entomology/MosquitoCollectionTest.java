@@ -20,8 +20,8 @@ import com.terraframe.mojo.session.StartSession;
 
 import dss.vector.solutions.export.entomology.MosquitoCollectionView;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.NonSentinalSite;
-import dss.vector.solutions.geo.generated.SentinalSite;
+import dss.vector.solutions.geo.generated.NonSentinelSite;
+import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.geo.generated.Trap;
 import dss.vector.solutions.mo.CollectionMethod;
 import dss.vector.solutions.mo.IdentificationMethod;
@@ -69,12 +69,12 @@ public class MosquitoCollectionTest extends TestCase
     specie = Specie.getAll()[0];
     identificationMethod = IdentificationMethod.getAll()[0];
 
-    sentinelSite = new SentinalSite();
+    sentinelSite = new SentinelSite();
     sentinelSite.setGeoId("0");
     sentinelSite.setEntityName("Sentinel Site");
     sentinelSite.apply();
 
-    nonSentinelSite = new NonSentinalSite();
+    nonSentinelSite = new NonSentinelSite();
     nonSentinelSite.setGeoId("1");
     nonSentinelSite.setEntityName("Non Sentinel Site");
     nonSentinelSite.apply();
@@ -587,7 +587,7 @@ public class MosquitoCollectionTest extends TestCase
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
 
-    SentinalSite entity = new SentinalSite();
+    SentinelSite entity = new SentinelSite();
     entity.setGeoId("490");
     entity.setEntityName("Sentinel Site");
     entity.apply();
@@ -620,7 +620,7 @@ public class MosquitoCollectionTest extends TestCase
         m.delete();
       }
 
-      SentinalSite s = SentinalSite.get(entityId);
+      SentinelSite s = SentinelSite.get(entityId);
 
       if (s != null && s.isAppliedToDB())
       {

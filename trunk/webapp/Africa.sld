@@ -3,7 +3,7 @@
   xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
   <NamedLayer>
-    <Name>terraframe:country</Name>
+    <Name>mdss:district_view</Name>
     <UserStyle>
       <Title>Default polygon style</Title>
       <Abstract>A sample style that just draws out a solid gray interior with a black 1px outline</Abstract>
@@ -23,7 +23,7 @@
         <Rule>
           <TextSymbolizer>
             <Label>
-              <ogc:PropertyName>CNTRY_NAME</ogc:PropertyName>
+              <ogc:PropertyName>entityname_v</ogc:PropertyName>
             </Label>
             <Font>
               <CssParameter name="font-family">Times New Roman</CssParameter>
@@ -62,25 +62,30 @@
       </FeatureTypeStyle>
     </UserStyle>
   </NamedLayer>
-  <NamedLayer>
-    <Name>terraframe:African_Coastline_4326</Name>
-    <UserStyle>
-      <Title>Default polygon style</Title>
-      <Abstract>A sample style that just draws out a solid gray interior with a black 1px outline</Abstract>
-      <FeatureTypeStyle>
-        <Rule>
-          <Title>Polygon</Title>
-          <PolygonSymbolizer>
-            <Fill>
-              <CssParameter name="fill">#AAAAAA</CssParameter>
-            </Fill>
-            <Stroke>
-              <CssParameter name="stroke">#9900CC</CssParameter>
-              <CssParameter name="stroke-width">1</CssParameter>
-            </Stroke>
-          </PolygonSymbolizer>
-        </Rule>
-      </FeatureTypeStyle>
-    </UserStyle>
-  </NamedLayer>
+    <NamedLayer>
+
+        <Name>mdss:mdsstest</Name>
+        <UserStyle>
+
+            <Title>MastenStyle</Title>
+            <FeatureTypeStyle>
+
+                <Rule>
+                  <PointSymbolizer>
+                        <Graphic>
+                            <Mark>
+                                <WellKnownName>circle</WellKnownName> <Stroke>
+                                    <CssParameter name="stroke">#ff0000</CssParameter> <CssParameter name="width">4</CssParameter>
+                                </Stroke>
+                            </Mark> <Size>12</Size> <Rotation>0</Rotation>
+                        </Graphic>
+                    </PointSymbolizer>
+                </Rule>
+
+            </FeatureTypeStyle>
+
+        </UserStyle>
+
+    </NamedLayer>
+
 </StyledLayerDescriptor>
