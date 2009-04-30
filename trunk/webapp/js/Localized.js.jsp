@@ -7,6 +7,8 @@ MDSS.Localized = {
 
   Ajax_Loading: '<fmt:message key="Ajax_Loading"/>',
 
+  Confirm_Delete_Row:'<fmt:message key="Confirm_Delete_Row"/>',
+
   // tree widget options (per node)
   Tree: {
     Create: '<fmt:message key="Tree_Create"/>',
