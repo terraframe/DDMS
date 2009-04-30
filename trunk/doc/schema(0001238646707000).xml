@@ -290,13 +290,13 @@
           <char
             name="displayLabel"
             required="true"
-            size="100"
+            size="64"
             label="Display Label"/>
-          <virtual
+          <char
             name="description"
             required="true"
-            concrete="description"
-            type="com.terraframe.mojo.system.metadata.MetaData"/>
+            size="255"
+            label="Description"/>
           <virtual
             name="political"
             required="true"
@@ -381,12 +381,12 @@
             name="displayLabel"
             required="true"
             label="The Display Label"
-            size="100"/>
-          <virtual
+            size="64"/>
+          <char
             name="description"
             required="false"
-            concrete="description"
-            type="com.terraframe.mojo.system.metadata.MetaData"/>
+            label="Description"
+            size="255"/>
         </attributes>
       </mdView>
 

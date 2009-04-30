@@ -43,11 +43,11 @@
             required="true"
             concrete="attributeName"
             type="com.terraframe.mojo.system.metadata.MdAttributeConcrete" />
-          <virtual
+          <char
             name="displayLabel"
             required="true"
-            concrete="displayLabel"
-            type="com.terraframe.mojo.system.metadata.MdAttributeConcrete" />
+            label="The Display Label"
+            size="64"/>
         </attributes>
         <mdMethod
           name="setActorAttributes"
