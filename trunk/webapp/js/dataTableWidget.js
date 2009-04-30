@@ -64,13 +64,10 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			editor = myDataTable.getColumn(feild.key).editor
 			 if(editor && editor instanceof YAHOO.widget.RadioCellEditor )
 			  {
-				  if(record.getData(feild.key)== editor.radioOptions[0].value)
+			  	  for each(radioOpt in editor.radioOptions)
+				  if(record.getData(feild.key)== radioOpt.value)
 				  {
-					  record.setData(feild.key, editor.radioOptions[0].label);
-				  }
-				  if(record.getData(feild.key) == editor.radioOptions[1].value)
-				  {
-					  record.setData(feild.key, editor.radioOptions[1].label);
+					  record.setData(feild.key, radioOpt.label);
 				  }
 				  myDataTable.render();
 			  }
@@ -192,13 +189,11 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			  var save_now = 'table_data.rows[' + index + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newData + '"';
 			  if(editor instanceof YAHOO.widget.RadioCellEditor )
 			  {
-				  if(oArgs.newData == editor.radioOptions[0].value)
+			  	//When an item is selected YUI displays the value instead of the label, so we fix this.
+			  	for each(radioOpt in editor.radioOptions)
+				  if(oArgs.newData == radioOpt.value)
 				  {
-					  record.setData(editor.getColumn().key, editor.radioOptions[0].label);
-				  }
-				  if(oArgs.newData == editor.radioOptions[1].value)
-				  {
-					  record.setData(editor.getColumn().key, editor.radioOptions[1].label);
+					  record.setData(editor.getColumn().key, radioOpt.label);
 				  }
 				  myDataTable.render();
 			  }
@@ -231,7 +226,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			record = myDataTable.getRecord(target);
 			row_id = record.getData(table_data.fields[0].key);
 			row_index = myDataTable.getRecordIndex(record);
-			if (confirm('Are you sure you want to delete row ' + (row_index+1) + '?')) {
+			if (confirm(MDSS.Localized.Confirm_Delete_Row + (row_index+1) + '?')) {
 				if(typeof row_id !== 'undefined' && row_id.length > 1){
 				var request = new MDSS.Request( {
 					dataTable :myDataTable,
@@ -239,10 +234,6 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 					onSuccess : function(deletedRow) {
 					table_data.rows.splice(request.row_index,1);
 					request.dataTable.deleteRow(target);
-					// alert('row deleted on server');
-				//},
-				//onFailure : function(e) {
-				//	alert(e.getLocalizedMessage());
 				}
 				});
 				Mojo.deleteEntity(request, row_id);
@@ -383,7 +374,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		btnAddRow.on("click", addRow);
 
 	}
-
+	/*
 	// stuff to turn cols on and off
 	// Shows dialog, creating one when necessary
 	var newCols = true;
@@ -483,6 +474,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 	// Hook up the SimpleDialog to the link
 	YAHOO.util.Event.addListener("dt-options-link", "click", showDlg, this, true);
+	*/
 	table_data.myDataTable = myDataTable;
 	return {
         oDS: myDataSource,
