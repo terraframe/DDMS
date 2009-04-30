@@ -4,14 +4,6 @@
   <doIt>
     <create>
 
-      <mdBusiness
-        name="dss.vector.solutions.MDSSUser"
-        label="MDSS User"
-        description="Generic MDSS User"
-        extends="com.terraframe.mojo.system.Users"
-        generateController="false">
-      </mdBusiness>
-
       <enumerationMaster
         name="dss.vector.solutions.query.WellKnownNamesMaster"
         label="Well Known Name"

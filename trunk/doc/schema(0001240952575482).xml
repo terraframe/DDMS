@@ -9,21 +9,6 @@
         id="dss.vector.solutions.irs.Team" />
     </existing>
     <create>
-      <!-- Spray Operator Stub: Delete when intergrate with Erics -->
-
-      <mdBusiness
-        name="dss.vector.solutions.irs.SprayOperator"
-        label="Spary Operator">
-        <attributes>
-          <char
-            name="operatorId"
-            label="Operator Id"
-            size="255" />
-        </attributes>
-      </mdBusiness>
-
-      <!-- Spray Operator Stub: Delete when intergrate with Erics -->
-
 
       <enumerationMaster
         name="dss.vector.solutions.irs.SprayMethodMaster"

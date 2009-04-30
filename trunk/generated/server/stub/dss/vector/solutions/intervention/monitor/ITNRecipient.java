@@ -1,0 +1,12 @@
+package dss.vector.solutions.intervention.monitor;
+
+public class ITNRecipient extends ITNRecipientBase implements com.terraframe.mojo.generation.loader.Reloadable
+{
+  private static final long serialVersionUID = 1240792903115L;
+  
+  public ITNRecipient()
+  {
+    super();
+  }
+  
+}
