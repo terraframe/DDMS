@@ -13,6 +13,7 @@
 <%@page import="java.lang.reflect.InvocationTargetException"%>
 <%@page import="com.terraframe.mojo.transport.metadata.*"%>
 <%@page import="com.terraframe.mojo.business.ViewDTO"%>
+<c:set var="page_title" value="View_Mosquito_Collection_Points"  scope="request"/>
 <fmt:setLocale value="<%=request.getLocale()%>" />
 <div id="cal1Container" class="yui-skin-sam"></div>
 <mjl:messages>
@@ -51,15 +52,10 @@
 <br/>
 <div id="MorphologicalSpecieGroups"></div>
 <br/>
-<div id="columnshowhide"></div>
 
-<div id="dt-dlg" class="inprogress"><span class="corner_tr"></span>
-<span class="corner_tl"></span> <span class="corner_br"></span> <span
-  class="corner_bl"></span>
-<div class="hd">Choose which columns you would like to see:</div>
-<div id="dt-dlg-picker" class="bd"></div>
 
-</div>
+
+
 
 <div id="buttons" class="noprint">
 

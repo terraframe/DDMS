@@ -61,15 +61,7 @@
 <dl>
 <div id="MorphologicalSpecieGroups"></div>
 <br/>
-<div id="columnshowhide"></div>
 
-<div id="dt-dlg" class="inprogress"><span class="corner_tr"></span>
-<span class="corner_tl"></span> <span class="corner_br"></span> <span
-	class="corner_bl"></span>
-<div class="hd">Choose which columns you would like to see:</div>
-<div id="dt-dlg-picker" class="bd"></div>
-
-</div>
 
 <div id="buttons" class="noprint">
 
