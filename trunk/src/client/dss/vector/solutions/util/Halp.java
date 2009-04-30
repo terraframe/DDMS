@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
@@ -324,12 +325,17 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
             // editor =
             // "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
           }
-          if (md instanceof AttributeEnumerationMdDTO)
-          {
-            editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['";
-            editor += Halp.join( ( (AttributeEnumerationMdDTO) md ).getEnumNames(), "','");
-            editor += "'],disableBtns:true})";
-          }
+          if (md instanceof AttributeEnumerationMdDTO) {
+            AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
+            editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[";
+            String comma = "";
+            for(Map.Entry<String, String> e: enumMd.getEnumItems().entrySet())
+            {
+                editor += comma + "{label:'" +e.getValue() + "', value:'"+e.getKey()+"'}";
+                comma = ",";
+            }
+            editor += "],disableBtns:true})";
+        }
           if (md instanceof AttributeReferenceMdDTO)
           {
             Class<?> refrenced_class = md.getJavaType();
