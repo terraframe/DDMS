@@ -202,7 +202,7 @@ MDSS.GeoEntityTree = (function(){
         if(_selectedNode.dynamicLoadComplete)
         {
           var view = _copyEntityToView(geoEntity);
-          var div = _createNodeDiv(geoEntity);
+          var div = _createNodeDiv(view);
 
           // add the node to all parent nodes
           var parentGeoEntityView = _getGeoEntityView(_selectedNode);
@@ -261,7 +261,8 @@ MDSS.GeoEntityTree = (function(){
       	// replace the contents (active status will be modified in
       	// another operation).
       	var div = _selectedNode.getContentEl().innerHTML;
-      	var span = _createContentSpan(geoEntity);
+        var view = _copyEntityToView(geoEntity);
+      	var span = _createContentSpan(view);
       	div = div.replace(/(<div class=["']\w*["']>).*?(<\/div>)/, '$1'+span+'$2');
 
       	// update selected node and all copies
@@ -274,7 +275,6 @@ MDSS.GeoEntityTree = (function(){
         }
 
         // update mapping FIXME (needed?)
-        var view = _copyEntityToView(geoEntity);
         _setMapping(_selectedNode, view);
 
         _updateActivatedOnNodes(ids, geoEntity.getActivated());
@@ -911,7 +911,10 @@ MDSS.GeoEntityTree = (function(){
 
   function _createContentSpan(geoEntityView)
   {
-    return "<span title='"+geoEntityView.getGeoId()+"'>"+geoEntityView.getEntityName()+"</span>";
+  	var entityType = geoEntityView.getEntityType();
+  	var type = MDSS.GeoTreeSelectables.types[entityType];
+  	var label = type != null ? type.label : '';
+    return "<span title='"+geoEntityView.getGeoId()+"'>"+geoEntityView.getEntityName()+" ("+label+")</span>";
   }
 
   /**
