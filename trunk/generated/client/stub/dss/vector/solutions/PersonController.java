@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.SexDTO;
@@ -11,6 +12,7 @@ import dss.vector.solutions.intervention.monitor.IPTRecipientDTO;
 import dss.vector.solutions.intervention.monitor.ITNRecipientDTO;
 import dss.vector.solutions.irs.SprayLeaderDTO;
 import dss.vector.solutions.irs.SprayOperatorDTO;
+import dss.vector.solutions.util.ErrorUtility;
 
 public class PersonController extends PersonControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -24,11 +26,15 @@ public class PersonController extends PersonControllerBase implements com.terraf
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void search(PersonDTO dto) throws IOException, ServletException
+  @Override
+  public void search(PersonViewDTO person) throws IOException, ServletException
   {
-    PersonQueryDTO query = dto.searchForDuplicates();
+    PersonQueryDTO query = person.searchForDuplicates();
     req.setAttribute("query", query);
-    render("viewAllComponent.jsp");
+    req.setAttribute("newPerson", person);
+    // Saving the sex is a pain.  This is a shortcut.
+    req.setAttribute("sexEnumName", person.getSex().get(0).getName());
+    render("searchResults.jsp");
   }
   
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -36,6 +42,12 @@ public class PersonController extends PersonControllerBase implements com.terraf
     ClientRequestIF clientRequest = super.getClientRequest();
     PersonViewDTO view = new PersonViewDTO(clientRequest);
     renderCreate(view);
+  }
+  
+  @Override
+  public void continueNewInstance(PersonViewDTO person) throws IOException, ServletException
+  {
+    renderCreate(person);
   }
   
   @Override
@@ -62,13 +74,13 @@ public class PersonController extends PersonControllerBase implements com.terraf
   {
     req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", view);
-    req.setAttribute("page_title", "Create PersonController");
+    req.setAttribute("page_title", "Create_Person");
     render("createComponent.jsp");
   }
   
   public void edit(String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    PersonViewDTO dto = PersonDTO.getView(super.getClientRequest(), id);
+    PersonViewDTO dto = PersonDTO.lockView(super.getClientRequest(), id);
     
     renderEdit(dto);
   }
@@ -83,6 +95,8 @@ public class PersonController extends PersonControllerBase implements com.terraf
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+      
       renderEdit(person);
     }
   }
@@ -97,8 +111,30 @@ public class PersonController extends PersonControllerBase implements com.terraf
   {
     req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit PersonController");
+    req.setAttribute("page_title", "Edit_Person");
     render("editComponent.jsp");
+  }
+  
+  @Override
+  public void deleteFromView(PersonViewDTO person) throws IOException, ServletException
+  {
+    try
+    {
+      PersonDTO.lock(super.getClientRequest(), person.getPersonId()).delete();
+      viewAll();
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      renderView(person);
+    }
+  }
+
+  private void renderView(PersonViewDTO view) throws IOException, ServletException
+  {
+    req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("item", view);
+    req.setAttribute("page_title", "View_Person");
+    render("viewComponent.jsp");
   }
   
   public void viewPage(String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -118,7 +154,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.PersonQueryDTO query = PersonDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All PersonController Objects");
+    req.setAttribute("page_title", "View_All_People");
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -128,11 +164,9 @@ public class PersonController extends PersonControllerBase implements com.terraf
   public void view(String id) throws java.io.IOException, javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
+    PersonViewDTO view = PersonDTO.getView(clientRequest, id);
     
-    req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("item", PersonDTO.getView(clientRequest, id));
-    req.setAttribute("page_title", "View PersonController");
-    render("viewComponent.jsp");
+    renderView(view);
   }
   public void failView(String id) throws java.io.IOException, javax.servlet.ServletException
   {

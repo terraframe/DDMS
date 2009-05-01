@@ -1,7 +1,11 @@
 package dss.vector.solutions;
 
-import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import java.util.Date;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.QueryFactory;
+
+import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.ITNRecipient;
 import dss.vector.solutions.irs.SprayLeader;
@@ -44,12 +48,13 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       user.setPassword(this.getPassword());
       user.apply();
       person.setUserDelegate(user);
+      person.apply();
     }
     else
     {
       if (user!=null)
         user.delete();
-      person.setUserDelegate(null);
+      person.lock();
     }
     
     Patient patient = person.getPatientDelegate();
@@ -60,12 +65,13 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       patient.setPerson(person);
       patient.apply();
       person.setPatientDelegate(patient);
+      person.apply();
     }
     else
     {
       if (patient!=null)
         patient.delete();
-      person.setPatientDelegate(null);
+      person.lock();
     }
     
     ITNRecipient itnRecipient = person.getItnRecipientDelegate();
@@ -76,12 +82,13 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       itnRecipient.setPerson(person);
       itnRecipient.apply();
       person.setItnRecipientDelegate(itnRecipient);
+      person.apply();
     }
     else
     {
       if (itnRecipient!=null)
         itnRecipient.delete();
-      person.setItnRecipientDelegate(null);
+      person.lock();
     }
     
     IPTRecipient iptRecipient = person.getIptRecipientDelegate();
@@ -92,12 +99,13 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       iptRecipient.setPerson(person);
       iptRecipient.apply();
       person.setIptRecipientDelegate(iptRecipient);
+      person.apply();
     }
     else
     {
       if (iptRecipient!=null)
         iptRecipient.delete();
-      person.setIptRecipientDelegate(null);
+      person.lock();
     }
     
     SprayOperator sprayOperator = person.getSprayOperatorDelegate();
@@ -108,12 +116,13 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       sprayOperator.setPerson(person);
       sprayOperator.apply();
       person.setSprayOperatorDelegate(sprayOperator);
+      person.apply();
     }
     else
     {
       if (sprayOperator!=null)
         sprayOperator.delete();
-      person.setSprayOperatorDelegate(null);
+      person.lock();
     }
     
     SprayLeader sprayLeader = person.getSprayLeaderDelegate();
@@ -124,14 +133,45 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       sprayLeader.setPerson(person);
       sprayLeader.apply();
       person.setSprayLeaderDelegate(sprayLeader);
+      person.apply();
     }
     else
     {
       if (sprayLeader!=null)
         sprayLeader.delete();
-      person.setSprayLeaderDelegate(null);
+      person.lock();
     }
-    person.apply();
     super.apply();
+  }
+  
+  @Override
+  public PersonQuery searchForDuplicates()
+  {
+    PersonQuery query = new PersonQuery(new QueryFactory());
+    
+    String firstName = this.getFirstName();
+    if (firstName.length()>0)
+      query.WHERE(query.getFirstName().EQ(firstName));
+    
+    String lastName = this.getLastName();
+    if (lastName.length()>0)
+      query.WHERE(query.getLastName().EQ(lastName));
+    
+    Date dob = this.getDateOfBirth();
+    if (dob!=null)
+      query.WHERE(query.getDateOfBirth().EQ(dob));
+    
+    // We have a default value set, so there is always a value
+    Sex sex = this.getSex().get(0);
+    if (!sex.equals(Sex.UNKNOWN))
+      query.WHERE(query.getSex().containsExactly(sex));
+    
+//    SprayOperator sprayDelegate = this.getSprayOperatorDelegate();
+//    if (sprayDelegate==null)
+//      query.WHERE(query.getSprayOperatorDelegate().EQ(""));
+//    else
+//      query.WHERE(query.getSprayOperatorDelegate().NE(""));
+    
+    return query;
   }
 }

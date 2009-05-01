@@ -317,6 +317,16 @@ dl
 	margin-left: 12px;
 }
 
+fieldset
+{
+	border: 1px solid #CCC;
+	-moz-border-radius: 10px;
+	padding-top: .5em;
+	padding-bottom: .5em;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
 input.queryButton, select.queryList {
 	float: right;
 	margin-top: 5px;

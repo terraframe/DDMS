@@ -181,6 +181,11 @@
             description="Is this Person a Spray Team Leader?"
             default_value="false" />
         </attributes>
+        <mdMethod
+          name="searchForDuplicates"
+          label="Search For Duplicates"
+          description="Searches for existing People with matching parameters"
+          returnType="dss.vector.solutions.PersonQuery"/>
       </mdView>
 
       <mdBusiness
@@ -278,7 +283,7 @@
           method="SprayTeam" />
         <child
           cardinality="*"
-          name="dss.vector.solutions.MDSSUser"
+          name="dss.vector.solutions.irs.SprayOperator"
           method="SprayTeamMembers" />
       </mdRelationship>
     </create>
@@ -297,7 +302,19 @@
               label="Person"
               description="Search for duplicates of this Person"
               order="0"
-              type="dss.vector.solutions.Person" />
+              type="dss.vector.solutions.PersonView" />
+          </mdAction>
+          <mdAction
+            name="continueNewInstance"
+            label="Continue a New Instance"
+            description="Continues creating a new instance with values already filled out"
+            isPost="true">
+            <mdParameter
+              name="person"
+              label="Person"
+              description="The new instance of person"
+              order="0"
+              type="dss.vector.solutions.PersonView" />
           </mdAction>
           <mdAction
             name="createFromView"
@@ -322,6 +339,18 @@
               description="Updates a Person from a view"
               order="0"
               type="dss.vector.solutions.PersonView" />
+          </mdAction>
+          <mdAction
+            name="deleteFromView"
+            label="Update From View"
+            description="Updates a Person from a view"
+            isPost="true">
+            <mdParameter
+              name="person"
+              label="Person"
+              description="Updates a Person from a view"
+              order="0"
+              type="dss.vector.solutions.PersonView"/>
           </mdAction>
         </create>
       </mdController>

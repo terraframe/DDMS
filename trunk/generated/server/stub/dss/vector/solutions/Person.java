@@ -2,6 +2,7 @@ package dss.vector.solutions;
 
 import java.util.Date;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.entomology.Sex;
@@ -17,6 +18,55 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   public Person()
   {
     super();
+  }
+  
+  @Override
+  @Transaction
+  public void delete()
+  {
+    MDSSUser user = this.getUserDelegate();
+    if (user!=null)
+    {
+      this.setUserDelegate(null);
+      user.delete();
+    }
+    
+    Patient patient = this.getPatientDelegate();
+    if (patient!=null)
+    {
+      this.setPatientDelegate(null);
+      patient.delete();
+    }
+    
+    ITNRecipient itnRecipient = this.getItnRecipientDelegate();
+    if (itnRecipient!=null)
+    {
+      this.setItnRecipientDelegate(null);
+      itnRecipient.delete();
+    }
+    
+    IPTRecipient iptRecipient = this.getIptRecipientDelegate();
+    if (iptRecipient!=null)
+    {
+      this.setIptRecipientDelegate(null);
+      iptRecipient.delete();
+    }
+    
+    SprayOperator sprayOperator = this.getSprayOperatorDelegate();
+    if (sprayOperator!=null)
+    {
+      this.setSprayOperatorDelegate(null);
+      sprayOperator.delete();
+    }
+    
+    SprayLeader sprayLeader = this.getSprayLeaderDelegate();
+    if (sprayLeader!=null)
+    {
+      this.setSprayLeaderDelegate(null);
+      sprayLeader.delete();
+    }
+    
+    super.delete();
   }
   
   @Override
@@ -143,7 +193,6 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     return view;
   }
   
-  @Override
   public PersonQuery searchForDuplicates()
   {
     PersonQuery query = new PersonQuery(new QueryFactory());
