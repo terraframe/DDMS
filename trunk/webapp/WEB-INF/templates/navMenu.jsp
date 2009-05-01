@@ -15,7 +15,7 @@
                                  <div id="pim1" class="yuimenu">
                                      <div class="bd">
                                          <ul class="first-of-type">
-                                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="View_Users"/></a></li>
+                                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.PersonController.viewAll.mojo"><fmt:message key="View_Users"/></a></li>
                                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo?actor=entomologist"><fmt:message key="Edit_Roles"/></a></li>
                                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="Edit_Users"/></a></li>
                                          </ul>
