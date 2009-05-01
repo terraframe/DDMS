@@ -47,16 +47,16 @@
                  <div id="intervention_planning" class="yuimenu">
                      <div class="bd">
                          <ul>
-                               <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="Targets"/></a>
+                               <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="IRS"/></a>
                                  <div id="pim4" class="yuimenu">
                                      <div class="bd">
                                          <ul class="first-of-type">
-                                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo"><fmt:message key="GeoTarget"/></a></li>
+                                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo"><fmt:message key="Geographic_Targets"/></a></li>
+                                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo"><fmt:message key="Operator_Team_Target"/></a></li>
                                          </ul>
                                      </div>
                                  </div>
                              </li>
-
                          </ul>
                      </div>
                  </div>
@@ -112,6 +112,18 @@
                      <div class="bd">
                          <ul>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo"><fmt:message key="View_Surveys"/></a></li>
+                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="IRS"/></a>
+                                 <div id="pim6" class="yuimenu">
+                                     <div class="bd">
+                                         <ul class="first-of-type">
+                                         <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.irs.OperatorSprayController.viewAll.mojo"><fmt:message key="Operator_Spray_Level_1"/></a></li>
+                                         <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.irs.TeamSprayController.viewAll.mojo"><fmt:message key="Team_Spray_Level_2"/></a></li>
+                                         <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.irs.ZoneSprayController.viewAll.mojo"><fmt:message key="Sprayed_Area_Level_3"/></a></li>
+                                         </ul>
+                                     </div>
+                                 </div>
+                             </li>
+
                          </ul>
                      </div>
 
