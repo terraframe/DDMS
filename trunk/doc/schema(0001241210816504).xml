@@ -10,7 +10,7 @@
             name="getResourceTargets"
             label="Get Resource Targets"
             static="true"
-            returnType="ResourceTargetView[]">
+            returnType="dss.vector.solutions.irs.ResourceTargetView[]">
             <mdParameter
               name="targeterIds"
               label="Targeter Ids"
