@@ -408,9 +408,11 @@
         <valueAttribute
           name="enumName"
           value="LINE"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Line"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Line"/>
+        </structAttribute>
       </object>
 
       <object
@@ -419,9 +421,11 @@
         <valueAttribute
           name="enumName"
           value="MULTI_LINE"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Multi-Line"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Multi-Line"/>
+        </structAttribute>
       </object>
 
       <object
@@ -430,9 +434,11 @@
         <valueAttribute
           name="enumName"
           value="POINT"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Point"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Point"/>
+        </structAttribute>
       </object>
 
       <object
@@ -441,9 +447,11 @@
         <valueAttribute
           name="enumName"
           value="MULTI_POINT"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Multi-Point"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Multi-Point"/>
+        </structAttribute>
       </object>
 
       <object
@@ -452,9 +460,11 @@
         <valueAttribute
           name="enumName"
           value="POLYGON"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Polygon"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Polygon"/>
+        </structAttribute>
       </object>
 
       <object
@@ -463,9 +473,11 @@
         <valueAttribute
           name="enumName"
           value="MULTI_POLYGON"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Multi-Polygon"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Multi-Polygon"/>
+        </structAttribute>
       </object>
 
       <mdEnumeration
@@ -1762,8 +1774,7 @@
         <valueAttribute
           name="enumName"
           value="MALE"/>
-        <structAttribute
-          name="displayLabel">
+        <structAttribute name="displayLabel">
           <valueAttribute
             name="defaultLocale"
             value="Male"/>
@@ -1777,8 +1788,7 @@
         <valueAttribute
           name="enumName"
           value="FEMALE"/>
-        <structAttribute
-          name="displayLabel">
+        <structAttribute name="displayLabel">
           <valueAttribute
             name="defaultLocale"
             value="Female"/>
@@ -1792,8 +1802,7 @@
         <valueAttribute
           name="enumName"
           value="MIXED"/>
-        <structAttribute
-          name="displayLabel">
+        <structAttribute name="displayLabel">
           <valueAttribute
             name="defaultLocale"
             value="Mixed"/>
@@ -1807,8 +1816,7 @@
         <valueAttribute
           name="enumName"
           value="UNKNOWN"/>
-        <structAttribute
-          name="displayLabel">
+        <structAttribute name="displayLabel">
           <valueAttribute
             name="defaultLocale"
             value="Unknown"/>
@@ -2158,9 +2166,11 @@
         <valueAttribute
           name="enumName"
           value="MICROGRAM_PER_MILLILITER"/>
-        <valueAttribute
-          name="displayLabel"
-          value="µg/ml"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="µg/ml"/>
+        </structAttribute>
       </object>
 
       <object
@@ -2169,9 +2179,11 @@
         <valueAttribute
           name="enumName"
           value="PERCENT"/>
-        <valueAttribute
-          name="displayLabel"
-          value="%"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="%"/>
+        </structAttribute>
       </object>
 
       <object
@@ -2180,9 +2192,11 @@
         <valueAttribute
           name="enumName"
           value="PICOGRAM_PER_MILLILITER"/>
-        <valueAttribute
-          name="displayLabel"
-          value="pg/ml"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="pg/ml"/>
+        </structAttribute>
       </object>
 
       <object
@@ -2191,9 +2205,11 @@
         <valueAttribute
           name="enumName"
           value="MILLIGRAM_PER_MILLILITER"/>
-        <valueAttribute
-          name="displayLabel"
-          value="mg/ml"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="mg/ml"/>
+        </structAttribute>
       </object>
 
       <object
@@ -2202,9 +2218,11 @@
         <valueAttribute
           name="enumName"
           value="PICOGRAM_PER_LITER"/>
-        <valueAttribute
-          name="displayLabel"
-          value="pg/l"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="pg/l"/>
+        </structAttribute>
       </object>
 
       <object
@@ -2213,9 +2231,11 @@
         <valueAttribute
           name="enumName"
           value="MILLIGRAM_PER_LITER"/>
-        <valueAttribute
-          name="displayLabel"
-          value="mg/l"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="mg/l"/>
+        </structAttribute>
       </object>
 
       <object
@@ -2224,9 +2244,11 @@
         <valueAttribute
           name="enumName"
           value="MICROGRAM_PER_LITER"/>
-        <valueAttribute
-          name="displayLabel"
-          value="µg/l"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="µg/l"/>
+        </structAttribute>
       </object>
 
       <mdEnumeration
@@ -2729,9 +2751,11 @@
         <valueAttribute
           name="enumName"
           value="TOP"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Top"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Top"/>
+        </structAttribute>
       </object>
 
       <object
@@ -2740,9 +2764,11 @@
         <valueAttribute
           name="enumName"
           value="MIDDLE"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Middle"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Middle"/>
+        </structAttribute>
       </object>
 
       <object
@@ -2751,9 +2777,11 @@
         <valueAttribute
           name="enumName"
           value="BOTTOM"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Bottom"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Bottom"/>
+        </structAttribute>
       </object>
 
       <object
@@ -2762,9 +2790,11 @@
         <valueAttribute
           name="enumName"
           value="RANDOM"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Random"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Random"/>
+        </structAttribute>
       </object>
 
       <object
@@ -2773,9 +2803,11 @@
         <valueAttribute
           name="enumName"
           value="NOT_APPLICABLE"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Not Applicable"/>
+        <structAttribute name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Not Applicable"/>
+        </structAttribute>
       </object>
 
       <mdEnumeration
