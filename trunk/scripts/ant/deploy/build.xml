@@ -186,6 +186,8 @@
 		<property name="alert_status.done" value="true" />
 	</target>
 
+
+
 	<!-- =================================================================== -->
 	<!-- Commands to restart postgres -->
 	<!-- sudo su postgres -c "./pg_ctl stop -m i -D ../data" -->
@@ -205,20 +207,21 @@
 	</shellscript>
 		<echo message="SVN updated with image for test server" />
 	</target>
-    <!-- FIXME: upgrad jars to svn 1.6 when they come out-->
-	<target name="write_revision"  if="write_rev" description="Writes the current svn revision info to an html file" >
-		<antcall target="get_svn_user"/>
-	    <antcall target="get_svn_password"/>
+	<!-- FIXME: upgrad jars to svn 1.6 when they come out-->
+	<target name="write_revision" if="write_rev" description="Writes the current svn revision info to an html file">
+		<antcall target="get_svn_user" />
+		<antcall target="get_svn_password" />
 
-	    <svn username="${svn.user}" password="${svn.password}">
-		<info target="https://my-svn.assembla.com/svn/mdss/trunk" verbose="true"/>
-	    </svn>
-		<echo  file="../../../webapp/revision.html" append="false" >
+		<svn username="${svn.user}" password="${svn.password}">
+			<info target="https://my-svn.assembla.com/svn/mdss/trunk" verbose="true" />
+		</svn>
+		<echo file="../../../webapp/revision.html" append="false">
 		Last Changed Author: ${svn.info.author}
 		Last Changed Revision: ${svn.info.lastRev}
 		Last Changed Date: ${svn.info.lastDate}
 	    </echo>
-		<echo message="Last Changed Revision: ${svn.info.lastRev}"  ></echo>
+		<echo message="Last Changed Revision: ${svn.info.lastRev}">
+		</echo>
 	</target>
 
 	<target name="get_root_password" description="Checks for root password and prompts for it if not found." unless="testserver.password">
@@ -285,35 +288,93 @@
 
 	<target name="import_geodata_deploy" depends="" description="imports geodata.db of geodata into the deploy db">
 		<!--<diagnostics/>-->
-				<echo message="NOTICE: your develop/server/database.properties  is backed up as database.properties.bak, if this script does not complete sucessfully you will need to restore it manualy" />
-				<sleep seconds="3" />
-				<!-- backup deploy properties -->
-				<copy file="../../../profiles/develop/server/database.properties" tofile="../../../profiles/develop/server/database.properties.bak" />
-				<!-- change develop to temporaly point to deploy -->
-				<propertyfile file="../../../profiles/develop/server/database.properties">
-					<entry key="user" value="mdssdeploy" />
-					<entry key="password" value="mdssdeploy" />
-					<entry key="databaseName" value="mdssdeploy" />
-					<entry key="db.connection.initial" value="20" />
-					<entry key="db.connection.max" value="30" />
-				</propertyfile>
-				<!-- run the importer -->
-				<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
-					<jvmarg value="-Xmx${max_memory_use}" />
-					<classpath>
-						<pathelement location="${ant.home}/lib/ant-launcher.jar" />
-					</classpath>
-					<arg value="-buildfile" />
-					<arg file="deploy.xml" />
+		<echo message="NOTICE: your develop/server/database.properties  is backed up as database.properties.bak, if this script does not complete sucessfully you will need to restore it manualy" />
+		<sleep seconds="3" />
+		<!-- backup deploy properties -->
+		<copy file="../../../profiles/develop/server/database.properties" tofile="../../../profiles/develop/server/database.properties.bak" />
+		<!-- change develop to temporaly point to deploy -->
+		<propertyfile file="../../../profiles/develop/server/database.properties">
+			<entry key="user" value="mdssdeploy" />
+			<entry key="password" value="mdssdeploy" />
+			<entry key="databaseName" value="mdssdeploy" />
+			<entry key="db.connection.initial" value="20" />
+			<entry key="db.connection.max" value="30" />
+		</propertyfile>
+		<!-- run the importer -->
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
 
-					<arg value="-Droot.user=${root.user}" />
-					<arg value="-Droot.pass=${root.pass}" />
-					<arg value="-Dgeodata.db=${geodata.db}" />
-					<arg value="import_geodata" />
-				</java>
-				<!-- change develop back to develop -->
-				<move file="../../../profiles/develop/server/database.properties.bak" tofile="../../../profiles/develop/server/database.properties" />
-				<antcall target="start_tomcat" />
+			<arg value="-Droot.user=${root.user}" />
+			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="-Dgeodata.db=${geodata.db}" />
+			<arg value="import_geodata" />
+		</java>
+		<!-- change develop back to develop<replaceregexp byline="true" 		<retry retrycount="3">-->
+		<move file="../../../profiles/develop/server/database.properties.bak" tofile="../../../profiles/develop/server/database.properties" />
+		<antcall target="start_tomcat" />
+	</target>
+
+
+	<target name="auto_localize" description="Finds all the places a localization is used">
+
+		<!-- Collect all the keys -->
+		<concat force="yes" destfile="MDSS.properties">
+			<filterchain>
+				<containsregex pattern='fmt:message *key="[^"$]+"'/>
+				</filterchain>
+			<fileset dir="../../../webapp" includes="**/*.jsp" />
+		</concat>
+
+		<!--mark these keys as new-->
+		<replaceregexp byline="true" file="MDSS.properties" match='^(.*fmt:message *key=")([^"]+)(".*)$' replace="\2=\2  FOUND-A-NEW-KEY" />
+
+
+		<!-- replace undercores after the equals sign with spaces		<retry retrycount="3">-->
+		<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 "/>
+		<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 "/>
+		<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 "/>
+		<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 "/>
+		<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 "/>
+		<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 "/>
+		<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 "/>
+		<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 "/>
+		<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 "/>
+		<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 "/>
+		<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 "/>
+
+		<!-- import exiting properties -->
+		<property file="../../../profiles/MDSS.properties" prefix="localized" />
+
+		<!-- import any new properties-->
+		<property file="MDSS.properties" prefix="localized" />
+
+		<!-- write out the new properties list-->
+		<echoproperties prefix="localized" destfile="MDSS.properties" />
+
+		<!-- remove the prefix-->
+		<replaceregexp byline="true" file="MDSS.properties" match='^(localized\.)(.*)$' replace="\2" />
+
+		<!-- print out any new properties so we know it worked-->
+		<concat>
+			<fileset dir="." includes="MDSS.properties" />
+			<filterchain>
+				<containsregex pattern='  FOUND-A-NEW-KEY' replace=""/>
+			</filterchain>
+		</concat>
+
+		<!-- update the master properties file-->
+		<move file="MDSS.properties" tofile="../../../profiles/MDSS.properties" >
+			<filterchain>
+				<replaceregex pattern='  FOUND-A-NEW-KEY' />
+			</filterchain>
+		</move>
+
+
 	</target>
 
 
