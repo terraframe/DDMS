@@ -94,7 +94,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
 
   public void validateSprayedHouseholds(SprayMethod method)
   {
-    if(this.getSprayedHouseholds() != null)
+    Integer value = this.getSprayedHouseholds();
+    if(value != null)
     {
       if(method.equals(SprayMethod.MOP_UP))
       {
@@ -105,7 +106,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
         p.throwIt();
       }
 
-      if(this.getSprayedHouseholds() != 1 && this.getSprayedHouseholds() != 0)
+      if(value != 1 && value != 0)
       {
         String msg = "Sprayed Household value may only be 0 or 1";
         ValueProblem p = new ValueProblem(msg);
@@ -114,7 +115,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
         p.throwIt();
       }
       
-      if(this.getHouseholds() == 1)
+      if(value == 1)
       {
         HouseholdSprayStatus status = HouseholdSprayStatus.serachBySprayedHousehold(this.getHouseholdId(), 1);
 
@@ -150,7 +151,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
 
   public void validatePrevSprayedHouseholds(SprayMethod method)
   {
-    if(this.getPrevSprayedHouseholds() != null)
+    Integer value = this.getPrevSprayedHouseholds();
+    if(value != null)
     {
       if(method.equals(SprayMethod.MOP_UP))
       {
@@ -161,7 +163,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
         p.throwIt();
       }
 
-      if(this.getPrevSprayedHouseholds() != 1 && this.getPrevSprayedHouseholds() != 0)
+      if(value != 1 && value != 0)
       {
         String msg = "Previously Sprayed Household value may only be 0 or 1";
         ValueProblem p = new ValueProblem(msg);
@@ -170,7 +172,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
         p.throwIt();
       }
       
-      if(this.getHouseholds() == 1)
+      if(value == 1)
       {
         HouseholdSprayStatus status = HouseholdSprayStatus.searchByPrevSprayed(this.getHouseholdId(), 1);
 
@@ -205,7 +207,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
 
   public void validateRooms(SprayMethod method)
   {
-    if(this.getPrevSprayedHouseholds() != null)
+    if(this.getRooms() != null)
     {
       if(method.equals(SprayMethod.MOP_UP))
       {

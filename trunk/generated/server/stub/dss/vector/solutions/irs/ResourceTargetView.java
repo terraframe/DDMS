@@ -117,19 +117,20 @@ public class ResourceTargetView extends ResourceTargetViewBase implements Reload
 
     return views;
   }
-  
+
   @Transaction
   public static ResourceTargetView[] getResourceTargets(String[] targeterIds, Integer year)
   {
     ResourceTargetView[] views = new ResourceTargetView[targeterIds.length];
 
-    for(int i = 0; i < targeterIds.length; i++)
+    for (int i = 0; i < targeterIds.length; i++)
     {
-      views[i] = ResourceTarget.searchByTargeterIdAndYear(targeterIds[i],year);
+      views[i] = ResourceTarget.searchByTargeterIdAndYear(targeterIds[i], year);
     }
 
     return views;
   }
+
   @Transaction
   public static ResourceTargetView sum(Targeter resource, ResourceTargetView[] views)
   {

@@ -501,6 +501,101 @@ public class HouseholdSprayStatusTest extends TestCase
       HouseholdSprayStatus status = new HouseholdSprayStatus();
       status.setSpray(mopupSpray);
       status.setHouseholds(1);
+      status.setSprayedRooms(2);
+      status.setPeople(3);
+      status.setBedNets(3);
+      status.setRoomsWithBedNets(5);
+      status.setLocked(2);
+      status.setOther(3);
+      status.setRefused(3);
+      status.setHouseholdId("householdId");
+      status.setStructureId("structureId");
+      status.apply();
+
+      status.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof ValueNotApplicableProblem);
+    }
+  }
+
+  public void testMopUpSprayedHouseholdValue()
+  {
+    try
+    {
+
+      HouseholdSprayStatus status = new HouseholdSprayStatus();
+      status.setSpray(mopupSpray);
+      status.setSprayedHouseholds(1);
+      status.setSprayedRooms(2);
+      status.setPeople(3);
+      status.setBedNets(3);
+      status.setRoomsWithBedNets(5);
+      status.setLocked(2);
+      status.setOther(3);
+      status.setRefused(3);
+      status.setHouseholdId("householdId");
+      status.setStructureId("structureId");
+      status.apply();
+
+      status.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof ValueNotApplicableProblem);
+    }
+  }
+
+  public void testPrevMopUpSprayedHouseholdValue()
+  {
+    try
+    {
+
+      HouseholdSprayStatus status = new HouseholdSprayStatus();
+      status.setSpray(mopupSpray);
+      status.setPrevSprayedHouseholds(1);
+      status.setSprayedRooms(2);
+      status.setPeople(3);
+      status.setBedNets(3);
+      status.setRoomsWithBedNets(5);
+      status.setLocked(2);
+      status.setOther(3);
+      status.setRefused(3);
+      status.setHouseholdId("householdId");
+      status.setStructureId("structureId");
+      status.apply();
+
+      status.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof ValueNotApplicableProblem);
+    }
+  }
+
+  public void testMopUpRoomValue()
+  {
+    try
+    {
+
+      HouseholdSprayStatus status = new HouseholdSprayStatus();
+      status.setSpray(mopupSpray);
       status.setRooms(1);
       status.setSprayedRooms(2);
       status.setPeople(3);
@@ -512,18 +607,372 @@ public class HouseholdSprayStatusTest extends TestCase
       status.setHouseholdId("householdId");
       status.setStructureId("structureId");
       status.apply();
-      
+
       status.delete();
-      
+
       fail("Able to set a households value on a mop up spray ");
     }
-    catch(ProblemException e)
+    catch (ProblemException e)
     {
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof ValueNotApplicableProblem);
     }
+  }
 
+  public void testBadHouseholdValue()
+  {
+    try
+    {
+
+      HouseholdSprayStatus status = new HouseholdSprayStatus();
+      status.setSpray(spray);
+      status.setHouseholds(2);
+      status.setRooms(1);
+      status.setSprayedRooms(2);
+      status.setPeople(3);
+      status.setBedNets(3);
+      status.setRoomsWithBedNets(5);
+      status.setLocked(2);
+      status.setOther(3);
+      status.setRefused(3);
+      status.setHouseholdId("householdId");
+      status.setStructureId("structureId");
+      status.apply();
+
+      status.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof ValueProblem);
+    }
+  }
+
+  public void testBadStructuresValue()
+  {
+    try
+    {
+
+      HouseholdSprayStatus status = new HouseholdSprayStatus();
+      status.setSpray(spray);
+      status.setStructures(2);
+      status.setRooms(1);
+      status.setSprayedRooms(2);
+      status.setPeople(3);
+      status.setBedNets(3);
+      status.setRoomsWithBedNets(5);
+      status.setLocked(2);
+      status.setOther(3);
+      status.setRefused(3);
+      status.setHouseholdId("householdId");
+      status.setStructureId("structureId");
+      status.apply();
+
+      status.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof ValueProblem);
+    }
+  }
+
+  public void testBadSprayedHouseholdValue()
+  {
+    try
+    {
+
+      HouseholdSprayStatus status = new HouseholdSprayStatus();
+      status.setSpray(spray);
+      status.setSprayedHouseholds(2);
+      status.setRooms(1);
+      status.setSprayedRooms(2);
+      status.setPeople(3);
+      status.setBedNets(3);
+      status.setRoomsWithBedNets(5);
+      status.setLocked(2);
+      status.setOther(3);
+      status.setRefused(3);
+      status.setHouseholdId("householdId");
+      status.setStructureId("structureId");
+      status.apply();
+
+      status.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof ValueProblem);
+    }
+  }
+
+  public void testBadSprayedStructuresValue()
+  {
+    try
+    {
+
+      HouseholdSprayStatus status = new HouseholdSprayStatus();
+      status.setSpray(spray);
+      status.setSprayedStructures(2);
+      status.setRooms(1);
+      status.setSprayedRooms(2);
+      status.setPeople(3);
+      status.setBedNets(3);
+      status.setRoomsWithBedNets(5);
+      status.setLocked(2);
+      status.setOther(3);
+      status.setRefused(3);
+      status.setHouseholdId("householdId");
+      status.setStructureId("structureId");
+      status.apply();
+
+      status.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof ValueProblem);
+    }
+  }
+
+  public void testBadPrevSprayedHouseholdValue()
+  {
+    try
+    {
+
+      HouseholdSprayStatus status = new HouseholdSprayStatus();
+      status.setSpray(spray);
+      status.setPrevSprayedHouseholds(2);
+      status.setRooms(1);
+      status.setSprayedRooms(2);
+      status.setPeople(3);
+      status.setBedNets(3);
+      status.setRoomsWithBedNets(5);
+      status.setLocked(2);
+      status.setOther(3);
+      status.setRefused(3);
+      status.setHouseholdId("householdId");
+      status.setStructureId("structureId");
+      status.apply();
+
+      status.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof ValueProblem);
+    }
+  }
+
+  public void testBadPrevSprayedStructureValue()
+  {
+    try
+    {
+
+      HouseholdSprayStatus status = new HouseholdSprayStatus();
+      status.setSpray(spray);
+      status.setPrevSprayedStructures(2);
+      status.setRooms(1);
+      status.setSprayedRooms(2);
+      status.setPeople(3);
+      status.setBedNets(3);
+      status.setRoomsWithBedNets(5);
+      status.setLocked(2);
+      status.setOther(3);
+      status.setRefused(3);
+      status.setHouseholdId("householdId");
+      status.setStructureId("structureId");
+      status.apply();
+
+      status.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof ValueProblem);
+    }
+  }
+
+  public void testSetHousehold()
+  {
+    HouseholdSprayStatus status = new HouseholdSprayStatus();
+    status.setSpray(spray);
+    status.setHouseholds(1);
+    status.setRooms(1);
+    status.setSprayedRooms(2);
+    status.setPeople(3);
+    status.setBedNets(3);
+    status.setRoomsWithBedNets(5);
+    status.setLocked(2);
+    status.setOther(3);
+    status.setRefused(3);
+    status.setHouseholdId("householdId");
+    status.setStructureId("structureId");
+    status.apply();
+
+    try
+    {
+
+      HouseholdSprayStatus invalid = new HouseholdSprayStatus();
+      invalid.setSpray(spray);
+      invalid.setHouseholds(1);
+      invalid.setRooms(1);
+      invalid.setSprayedRooms(2);
+      invalid.setPeople(3);
+      invalid.setBedNets(3);
+      invalid.setRoomsWithBedNets(5);
+      invalid.setLocked(2);
+      invalid.setOther(3);
+      invalid.setRefused(3);
+      invalid.setHouseholdId("householdId");
+      invalid.setStructureId("structureId 2");
+      invalid.apply();
+
+      invalid.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof CountProblem);
+    }
+    finally
+    {
+      status.delete();
+    }
+
+  }
+
+  public void testSetSprayedHousehold()
+  {
+    HouseholdSprayStatus status = new HouseholdSprayStatus();
+    status.setSpray(spray);
+    status.setSprayedHouseholds(1);
+    status.setRooms(1);
+    status.setSprayedRooms(2);
+    status.setPeople(3);
+    status.setBedNets(3);
+    status.setRoomsWithBedNets(5);
+    status.setLocked(2);
+    status.setOther(3);
+    status.setRefused(3);
+    status.setHouseholdId("householdId");
+    status.setStructureId("structureId");
+    status.apply();
+
+    try
+    {
+
+      HouseholdSprayStatus invalid = new HouseholdSprayStatus();
+      invalid.setSpray(spray);
+      invalid.setSprayedHouseholds(1);
+      invalid.setRooms(1);
+      invalid.setSprayedRooms(2);
+      invalid.setPeople(3);
+      invalid.setBedNets(3);
+      invalid.setRoomsWithBedNets(5);
+      invalid.setLocked(2);
+      invalid.setOther(3);
+      invalid.setRefused(3);
+      invalid.setHouseholdId("householdId");
+      invalid.setStructureId("structureId 2");
+      invalid.apply();
+
+      invalid.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof SprayedCountProblem);
+    }
+    finally
+    {
+      status.delete();
+    }
+  }
+
+  public void testSetPrevSprayedHousehold()
+  {
+    HouseholdSprayStatus status = new HouseholdSprayStatus();
+    status.setSpray(spray);
+    status.setPrevSprayedHouseholds(1);
+    status.setRooms(1);
+    status.setSprayedRooms(2);
+    status.setPeople(3);
+    status.setBedNets(3);
+    status.setRoomsWithBedNets(5);
+    status.setLocked(2);
+    status.setOther(3);
+    status.setRefused(3);
+    status.setHouseholdId("householdId");
+    status.setStructureId("structureId");
+    status.apply();
+
+    try
+    {
+
+      HouseholdSprayStatus invalid = new HouseholdSprayStatus();
+      invalid.setSpray(spray);
+      invalid.setPrevSprayedHouseholds(1);
+      invalid.setRooms(1);
+      invalid.setSprayedRooms(2);
+      invalid.setPeople(3);
+      invalid.setBedNets(3);
+      invalid.setRoomsWithBedNets(5);
+      invalid.setLocked(2);
+      invalid.setOther(3);
+      invalid.setRefused(3);
+      invalid.setHouseholdId("householdId");
+      invalid.setStructureId("structureId 2");
+      invalid.apply();
+
+      invalid.delete();
+
+      fail("Able to set a households value on a mop up spray ");
+    }
+    catch (ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof PrevSprayedCountProblem);
+    }
+    finally
+    {
+      status.delete();
+    }
   }
 }
