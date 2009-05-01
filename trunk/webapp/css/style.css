@@ -454,3 +454,7 @@ div.definedLayers div ul {
 div.definedLayers div ul li input {
 	margin-right: 5px;
 }
+.dataTableSumError
+{
+	background-color: #EEFF39;
+}
