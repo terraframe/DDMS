@@ -1,6 +1,8 @@
 package dss.vector.solutions.irs;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
 
 public class AreaStandardsView extends AreaStandardsViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -31,7 +33,7 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
 
     if(this.hasConcrete())
     {
-      concrete = AreaStandards.get(this.getAreaStandardsId());
+      concrete = AreaStandards.lock(this.getAreaStandardsId());
     }
 
     this.populateConcrete(concrete);
@@ -47,6 +49,41 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
     if(this.hasConcrete())
     {
       AreaStandards.get(this.getAreaStandardsId()).delete();
+    }
+  }
+
+  @Override
+  public void applyClone()
+  {
+    AreaStandards concrete = new AreaStandards();
+
+    this.populateConcrete(concrete);
+
+    concrete.apply();
+
+    concrete.populateView(this);
+  }
+
+  @Transaction
+  public static AreaStandardsView getMostRecent()
+  {
+    AreaStandardsQuery query = new AreaStandardsQuery(new QueryFactory());
+    query.ORDER_BY_DESC(query.getCreateDate());
+
+    OIterator<? extends AreaStandards> it = query.getIterator();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        return it.next().getView();
+      }
+
+      return null;
+    }
+    finally
+    {
+      it.close();
     }
   }
 }

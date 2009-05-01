@@ -1,6 +1,8 @@
 package dss.vector.solutions.irs;
 
-public class SprayStatus extends SprayStatusBase implements com.terraframe.mojo.generation.loader.Reloadable
+
+public class SprayStatus extends SprayStatusBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240860690116L;
 
@@ -35,7 +37,6 @@ public class SprayStatus extends SprayStatusBase implements com.terraframe.mojo.
 
   public static SprayStatusView getView(String id)
   {
-    SprayStatus status = SprayStatus.get(id);
-    return status.getView();
+    return SprayStatus.get(id).getView();
   }
 }

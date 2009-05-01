@@ -107,6 +107,7 @@ public class ADDATest extends TestCase
   {
     clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
     clientRequest = clientSession.getRequest();
+    clientRequest.setKeepMessages(false);
 
     collectionMethod = CollectionMethod.getAll()[0];
     specie = Specie.getAll()[0];

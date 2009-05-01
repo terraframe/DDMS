@@ -1,6 +1,7 @@
 package dss.vector.solutions.irs;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -48,6 +49,35 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
     {
       ZoneSpray.get(this.getSprayId()).delete();
     }
+  }
+
+  public TeamSprayStatusView[] getStatus()
+  {
+    if (!this.hasConcrete())
+    {
+      return new TeamSprayStatusView[0];
+    }
+
+    List<TeamSprayStatusView> list = new LinkedList<TeamSprayStatusView>();
+
+    SprayData data = ZoneSpray.get(this.getSprayId()).getSprayData();
+    SprayTeam[] teams = SprayTeam.search(data.getGeoEntity());
+
+    for (SprayTeam team : teams)
+    {
+      TeamSprayStatusView view = TeamSprayStatusView.search(data, team);
+
+      if (view == null)
+      {
+        view = new TeamSprayStatusView();
+        view.setSprayData(data);
+        view.setSprayTeam(team);
+      }
+
+      list.add(view);
+    }
+
+    return list.toArray(new TeamSprayStatusView[list.size()]);
   }
 
 

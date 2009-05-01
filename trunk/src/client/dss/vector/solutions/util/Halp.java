@@ -46,6 +46,7 @@ import com.terraframe.mojo.transport.metadata.AttributeMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO;
 
+import dss.vector.solutions.LabeledDTO;
 import dss.vector.solutions.entomology.assay.AssayTestResultDTO;
 import dss.vector.solutions.mo.AbstractTermDTO;
 
@@ -116,15 +117,17 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return null;
   }
 
-  public static String getDisplayLabels(AbstractTermDTO[] terms, String name) throws JSONException
+  public static String getDisplayLabels(LabeledDTO[] terms, String name) throws JSONException
   {
     JSONArray ids = new JSONArray();
     JSONArray labels = new JSONArray();
-    for (AbstractTermDTO term : terms)
+
+    for (LabeledDTO term : terms)
     {
       ids.put(term.getId());
       labels.put(term.getDisplayLabel());
     }
+
     return name + "Ids = " + ids.toString() + "; \n " + name + "Labels = " + labels.toString() + ";";
   }
 
@@ -220,10 +223,10 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
         if (md instanceof AttributeReferenceMdDTO)
         {
-          Class<?> mo_term = md.getJavaType();
-          if (AbstractTermDTO.class.isAssignableFrom(mo_term))
+          Class<?> clazz = md.getJavaType();
+          if (LabeledDTO.class.isAssignableFrom(clazz))
           {
-            AbstractTermDTO[] terms = (AbstractTermDTO[]) mo_term.getMethod("getAll", new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
+            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAll", new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
             dropdownbuff.add(getDisplayLabels(terms, attrib));
           }
         }
@@ -256,6 +259,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     Class<?> v = view.getClass();
     // List<String> v_attribs = view.getAttributeNames();
     ArrayList<String> ordered_attribs = new ArrayList<String>(Arrays.asList(attribs));
+
     for (String a : view.getAccessorNames())
     {
       String upcased_attrib = a.substring(0, 1).toUpperCase() + a.substring(1);
@@ -276,8 +280,10 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         AttributeMdDTO md = (AttributeMdDTO) v.getMethod("get" + attrib + "Md").invoke(view);
         Class<?> mdClass = md.getClass();
         // buff.add("class:"+mdClass.toString());
+
         String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();
         buff.add("label:'" + label + "'");
+
         if (colnum < num_to_hide)
         {
           buff.add("hidden:true");
@@ -345,7 +351,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
               editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
             }
 
-            if (AbstractTermDTO.class.isAssignableFrom(refrenced_class))
+            if (LabeledDTO.class.isAssignableFrom(refrenced_class))
             {
               editor = "new YAHOO.widget.DropdownCellEditor({dropdownOptions:" + attrib
                   + "Labels,disableBtns:true})";

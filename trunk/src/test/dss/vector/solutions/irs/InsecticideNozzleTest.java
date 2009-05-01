@@ -83,7 +83,6 @@ public class InsecticideNozzleTest extends TestCase
   {
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-    insecticideNozzle.setCoverage(30);
     insecticideNozzle.apply();
 
     try
@@ -93,7 +92,6 @@ public class InsecticideNozzleTest extends TestCase
       assertNotNull(test);
       assertEquals(brand.getId(), test.getParentId());
       assertEquals(nozzle.getId(), test.getChildId());
-      assertEquals(insecticideNozzle.getCoverage(), test.getCoverage());
       assertEquals(insecticideNozzle.getEnabled(), test.getEnabled());
     }
     finally
@@ -106,12 +104,10 @@ public class InsecticideNozzleTest extends TestCase
   {
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-    insecticideNozzle.setCoverage(30);
     insecticideNozzle.apply();
 
     InsecticideNozzle edit = InsecticideNozzle.lock(insecticideNozzle.getId());
     edit.setEnabled(false);
-    edit.setCoverage(50);
     edit.apply();
 
     try
@@ -121,7 +117,6 @@ public class InsecticideNozzleTest extends TestCase
       assertNotNull(test);
       assertEquals(brand.getId(), test.getParentId());
       assertEquals(nozzle.getId(), test.getChildId());
-      assertEquals(edit.getCoverage(), test.getCoverage());
       assertEquals(edit.getEnabled(), test.getEnabled());
     }
     finally
@@ -134,12 +129,12 @@ public class InsecticideNozzleTest extends TestCase
   {
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-    insecticideNozzle.setCoverage(30);
+
     insecticideNozzle.apply();
 
     InsecticideNozzle insecticideNozzle2 = new InsecticideNozzle(brand2, nozzle);
     insecticideNozzle2.setEnabled(true);
-    insecticideNozzle2.setCoverage(10);
+
     insecticideNozzle2.apply();
 
     try
@@ -159,12 +154,12 @@ public class InsecticideNozzleTest extends TestCase
   {
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-    insecticideNozzle.setCoverage(30);
+
     insecticideNozzle.apply();
 
     InsecticideNozzle insecticideNozzle2 = new InsecticideNozzle(brand2, nozzle);
     insecticideNozzle2.setEnabled(false);
-    insecticideNozzle2.setCoverage(10);
+
     insecticideNozzle2.apply();
 
     try
@@ -196,12 +191,12 @@ public class InsecticideNozzleTest extends TestCase
 
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-    insecticideNozzle.setCoverage(30);
+
     insecticideNozzle.apply();
 
     InsecticideNozzle insecticideNozzle2 = new InsecticideNozzle(testBrand, nozzle);
     insecticideNozzle2.setEnabled(true);
-    insecticideNozzle2.setCoverage(10);
+
     insecticideNozzle2.apply();
 
     try
@@ -230,12 +225,12 @@ public class InsecticideNozzleTest extends TestCase
 
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-    insecticideNozzle.setCoverage(30);
+
     insecticideNozzle.apply();
 
     InsecticideNozzle insecticideNozzle2 = new InsecticideNozzle(brand2, testNozzle);
     insecticideNozzle2.setEnabled(false);
-    insecticideNozzle2.setCoverage(10);
+
     insecticideNozzle2.apply();
 
     try
@@ -255,11 +250,11 @@ public class InsecticideNozzleTest extends TestCase
   {
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-    insecticideNozzle.setCoverage(30);
+
 
     InsecticideNozzle insecticideNozzle2 = new InsecticideNozzle(brand2, nozzle);
     insecticideNozzle2.setEnabled(true);
-    insecticideNozzle2.setCoverage(10);
+
 
     InsecticideNozzle[] array = new InsecticideNozzle[] { insecticideNozzle, insecticideNozzle2 };
     InsecticideNozzle[] applied = InsecticideNozzle.applyAll(array);
@@ -275,7 +270,6 @@ public class InsecticideNozzleTest extends TestCase
         assertNotNull(test);
         assertEquals(applied[i].getParentId(), test.getParentId());
         assertEquals(applied[i].getChildId(), test.getChildId());
-        assertEquals(applied[i].getCoverage(), test.getCoverage());
         assertEquals(applied[i].getEnabled(), test.getEnabled());
       }
     }

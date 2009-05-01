@@ -1,6 +1,11 @@
 package dss.vector.solutions.irs;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
 
 public class Nozzle extends NozzleBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -45,4 +50,29 @@ public class Nozzle extends NozzleBase implements com.terraframe.mojo.generation
   {
     return Nozzle.lock(id).getView();
   }
+
+  @Transaction
+  public static Nozzle[] getAll()
+  {
+    List<Nozzle> list = new LinkedList<Nozzle>();
+    NozzleQuery query = new NozzleQuery(new QueryFactory());
+    query.WHERE(query.getEnabled().EQ(true));
+    query.ORDER_BY_ASC(query.getCreateDate());
+
+    OIterator<? extends Nozzle> it = query.getIterator();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        list.add(it.next());
+      }
+      return list.toArray(new Nozzle[list.size()]);
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
 }

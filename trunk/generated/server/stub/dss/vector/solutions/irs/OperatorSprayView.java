@@ -1,6 +1,7 @@
 package dss.vector.solutions.irs;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -63,6 +64,29 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.terr
     }
   }
 
+  public HouseholdSprayStatusView[] getStatus()
+  {
+    List<HouseholdSprayStatusView> list = new LinkedList<HouseholdSprayStatusView>();
+    HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
+    query.WHERE(query.getSpray().EQ(this));
+    query.ORDER_BY_ASC(query.getCreateDate());
+
+    OIterator<? extends HouseholdSprayStatus> it = query.getIterator();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        list.add((HouseholdSprayStatusView) it.next().getView());
+      }
+
+      return list.toArray(new HouseholdSprayStatusView[list.size()]);
+    }
+    finally
+    {
+      it.close();
+    }
+  }
 
   public static OperatorSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand, String operatorId)
   {
@@ -91,5 +115,4 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.terr
       it.close();
     }
   }
-
 }

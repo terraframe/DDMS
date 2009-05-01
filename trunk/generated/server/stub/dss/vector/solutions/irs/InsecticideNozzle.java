@@ -16,7 +16,7 @@ public class InsecticideNozzle extends InsecticideNozzleBase implements com.terr
     super(parentId, childId);
   }
 
-  public InsecticideNozzle(dss.vector.solutions.irs.InsecticideBrand parent, dss.vector.solutions.irs.Nozzle child)
+  public InsecticideNozzle(InsecticideBrand parent, Nozzle child)
   {
     this(parent.getId(), child.getId());
   }
@@ -60,4 +60,31 @@ public class InsecticideNozzle extends InsecticideNozzleBase implements com.terr
     return insecticideNozzles;
   }
 
+  public InsecticideNozzleView getView()
+  {
+    InsecticideNozzleView view = new InsecticideNozzleView();
+
+    view.populateView(this);
+
+    return view;
+  }
+
+  public InsecticideNozzleView lockView()
+  {
+    this.lock();
+
+    return this.getView();
+  }
+
+  public InsecticideNozzleView unlockView()
+  {
+    this.unlock();
+
+    return this.getView();
+  }
+
+  public static InsecticideNozzleView getView(String id)
+  {
+    return InsecticideNozzle.get(id).getView();
+  }
 }

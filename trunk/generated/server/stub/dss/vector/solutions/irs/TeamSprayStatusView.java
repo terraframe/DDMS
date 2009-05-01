@@ -1,6 +1,8 @@
 package dss.vector.solutions.irs;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
 
 public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -37,7 +39,7 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
 
     if(abstractSpray == null)
     {
-      abstractSpray = TeamSpray.find(this.getSprayData(), this.getSprayTeam());
+      abstractSpray = TeamSpray.findOrCreate(this.getSprayData(), this.getSprayTeam());
 
       this.populateSpray((TeamSpray) abstractSpray);
 
@@ -77,4 +79,37 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     return views;
   }
 
+
+  public static TeamSprayStatusView search(SprayData data, SprayTeam op)
+  {
+    TeamSpray spray = TeamSpray.findOrCreate(data, op);
+
+    if (spray != null)
+    {
+      SprayStatusQuery query = new SprayStatusQuery(new QueryFactory());
+      query.WHERE(query.getSpray().EQ(spray));
+      query.ORDER_BY_ASC(query.getCreateDate());
+
+      OIterator<? extends SprayStatus> it = query.getIterator();
+
+      try
+      {
+        while (it.hasNext())
+        {
+          SprayStatus status = it.next();
+
+          if (! ( status instanceof HouseholdSprayStatus ))
+          {
+            return (TeamSprayStatusView) status.getView();
+          }
+        }
+      }
+      finally
+      {
+        it.close();
+      }
+    }
+
+    return null;
+  }
 }

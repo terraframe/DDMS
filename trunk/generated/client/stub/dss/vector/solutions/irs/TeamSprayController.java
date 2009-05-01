@@ -4,14 +4,14 @@ public class TeamSprayController extends TeamSprayControllerBase implements com.
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/irs/TeamSpray/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
-  
+
   private static final long serialVersionUID = 1240860635607L;
-  
+
   public TeamSprayController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -28,7 +28,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements com.
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.irs.TeamSprayDTO dto = new dss.vector.solutions.irs.TeamSprayDTO(clientRequest);
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.TeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create TeamSprayController");
@@ -41,7 +41,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements com.
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.TeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.irs.TeamSprayDTO.get(clientRequest, id));
     req.setAttribute("page_title", "View TeamSprayController");
@@ -66,7 +66,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements com.
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     dss.vector.solutions.irs.TeamSprayDTO dto = dss.vector.solutions.irs.TeamSprayDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.TeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit TeamSprayController");
@@ -90,7 +90,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements com.
   }
   public void failUpdate(dss.vector.solutions.irs.TeamSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.TeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update TeamSprayController");
@@ -119,7 +119,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements com.
   }
   public void failCreate(dss.vector.solutions.irs.TeamSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.TeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create TeamSprayController");
@@ -139,7 +139,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements com.
   }
   public void failDelete(dss.vector.solutions.irs.TeamSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.TeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit TeamSprayController");

@@ -46,12 +46,12 @@ public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.gene
     view.clearSprayMethod();
     view.clearSurfaceType();
 
-    for(SprayMethod method : data.getSprayMethod())
+    for (SprayMethod method : data.getSprayMethod())
     {
       view.addSprayMethod(method);
     }
 
-    for(SurfaceType type : data.getSurfaceType())
+    for (SurfaceType type : data.getSurfaceType())
     {
       view.addSurfaceType(type);
     }
@@ -76,7 +76,7 @@ public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.gene
     return TeamSpray.get(id).getView();
   }
 
-  public static AbstractSpray find(SprayData data, Team team)
+  public static TeamSpray find(SprayData data, SprayTeam team)
   {
     TeamSprayQuery query = new TeamSprayQuery(new QueryFactory());
     query.WHERE(query.getSprayData().EQ(data));
@@ -91,11 +91,24 @@ public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.gene
         return it.next();
       }
 
-      return new TeamSpray();
+      return null;
     }
     finally
     {
       it.close();
-    }  }
+    }
+  }
+
+  public static TeamSpray findOrCreate(SprayData data, SprayTeam team)
+  {
+    TeamSpray spray = TeamSpray.find(data, team);
+
+    if(spray == null)
+    {
+      spray = new TeamSpray();
+    }
+
+    return spray;
+  }
 
 }

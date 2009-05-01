@@ -1,11 +1,6 @@
 package dss.vector.solutions.irs;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.entomology.assay.Unit;
 
@@ -46,7 +41,7 @@ public class InsecticideBrandView extends InsecticideBrandViewBase implements
 
     if (this.hasInsecticideBrand())
     {
-      brand = InsecticideBrand.get(this.getInsecticdeId());
+      brand = InsecticideBrand.lock(this.getInsecticdeId());
     }
 
     this.populateConcrete(brand);
@@ -67,25 +62,15 @@ public class InsecticideBrandView extends InsecticideBrandViewBase implements
   @Transaction
   public static InsecticideBrandView[] getAll()
   {
-    List<InsecticideBrandView> list = new LinkedList<InsecticideBrandView>();
-    InsecticideBrandQuery query = new InsecticideBrandQuery(new QueryFactory());
-    query.WHERE(query.getEnabled().EQ(true));
-    query.ORDER_BY_ASC(query.getCreateDate());
+    InsecticideBrand[] brands = InsecticideBrand.getAll();
+    InsecticideBrandView[] views = new InsecticideBrandView[brands.length];
 
-    OIterator<? extends InsecticideBrand> it = query.getIterator();
+    for(int i = 0; i < brands.length; i++)
+    {
+      views[i] = brands[i].getView();
+    }
 
-    try
-    {
-      while (it.hasNext())
-      {
-        list.add(it.next().getView());
-      }
-      return list.toArray(new InsecticideBrandView[list.size()]);
-    }
-    finally
-    {
-      it.close();
-    }
+    return views;
   }
 
   @Transaction

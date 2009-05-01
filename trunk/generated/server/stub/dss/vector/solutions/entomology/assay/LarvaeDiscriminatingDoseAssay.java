@@ -1,6 +1,7 @@
 package dss.vector.solutions.entomology.assay;
 
 import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 
 public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -56,22 +57,22 @@ public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssay
     
   protected boolean isResistant()
   {
-    Integer resistant = Property.getInt(Property.RESISTANCE_PACKAGE, Property.LARVAE_DDA_RESISTANCE);
+    Integer resistant = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.LARVAE_DDA_RESISTANCE);
 
     return ( this.getMortality() < resistant );
   }
 
   protected boolean isPotentiallyResistant()
   {
-    Integer susceptible = Property.getInt(Property.RESISTANCE_PACKAGE, Property.LARVAE_DDA_SUSCEPTIBILE);
-    Integer resistant = Property.getInt(Property.RESISTANCE_PACKAGE, Property.LARVAE_DDA_RESISTANCE);
+    Integer susceptible = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.LARVAE_DDA_SUSCEPTIBILE);
+    Integer resistant = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.LARVAE_DDA_RESISTANCE);
 
     return ( resistant < this.getMortality() && this.getMortality() <= susceptible );
   }
 
   protected boolean isSusceptible()
   {
-    Integer susceptible = Property.getInt(Property.RESISTANCE_PACKAGE, Property.LARVAE_DDA_SUSCEPTIBILE);
+    Integer susceptible = Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, PropertyInfo.LARVAE_DDA_SUSCEPTIBILE);
 
     return ( this.getMortality() > susceptible );
   }

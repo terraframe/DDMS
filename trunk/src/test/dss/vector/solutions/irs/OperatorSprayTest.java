@@ -5,6 +5,8 @@ import java.util.Date;
 
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
+import dss.vector.solutions.Person;
+import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -24,6 +26,7 @@ public class OperatorSprayTest extends TestCase
 
   private static SprayOperator operator = null;
 
+  private static Person person = null;
 
   public static Test suite()
   {
@@ -49,10 +52,11 @@ public class OperatorSprayTest extends TestCase
 
   protected static void classTearDown()
   {
-    SprayData.get(brand, geoEntity, new Date(), SprayMethod.MAIN_SPRAY).delete();
+    SprayData.get(data.getId()).delete();
     geoEntity.delete();
     brand.delete();
     operator.delete();
+    person.delete();
   }
 
   protected static void classSetUp()
@@ -82,8 +86,16 @@ public class OperatorSprayTest extends TestCase
     data.addSurfaceType(SurfaceType.POROUS);
     data.apply();
 
+    person = new Person();
+    person.addSex(Sex.MALE);
+    person.setDateOfBirth(new Date());
+    person.setFirstName("Justin");
+    person.setLastName("Smethie");
+    person.apply();
+
     operator = new SprayOperator();
     operator.setOperatorId("3");
+    operator.setPerson(person);
     operator.apply();
   }
 

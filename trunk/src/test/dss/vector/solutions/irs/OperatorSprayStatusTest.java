@@ -9,6 +9,8 @@ import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import dss.vector.solutions.Person;
+import dss.vector.solutions.entomology.Sex;
 import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -26,6 +28,7 @@ public class OperatorSprayStatusTest extends TestCase
 
   private static OperatorSpray spray = null;
 
+  private static Person person = null;
 
   public static Test suite()
   {
@@ -53,7 +56,8 @@ public class OperatorSprayStatusTest extends TestCase
   {
     spray.delete();
     operator.delete();
-    SprayData.get(brand, geoEntity, new Date(), SprayMethod.MAIN_SPRAY).delete();
+    person.delete();
+    SprayData.get(data.getId()).delete();
     geoEntity.delete();
     brand.delete();
   }
@@ -85,8 +89,16 @@ public class OperatorSprayStatusTest extends TestCase
     data.addSurfaceType(SurfaceType.POROUS);
     data.apply();
 
+    person = new Person();
+    person.addSex(Sex.MALE);
+    person.setDateOfBirth(new Date());
+    person.setFirstName("Justin");
+    person.setLastName("Smethie");
+    person.apply();
+
     operator = new SprayOperator();
     operator.setOperatorId("3");
+    operator.setPerson(person);
     operator.apply();
 
     spray = new OperatorSpray();
@@ -492,5 +504,71 @@ public class OperatorSprayStatusTest extends TestCase
         view.deleteConcrete();
       }
     }
+  }
+
+  public void testSearch()
+  {
+    OperatorSprayStatusView status = new OperatorSprayStatusView();
+    status.setSpray(spray);
+    status.setSprayData(data);
+    status.setHouseholds(2);
+    status.setStructures(3);
+    status.setSprayedHouseholds(5);
+    status.setSprayedStructures(2);
+    status.setPrevSprayedHouseholds(1);
+    status.setPrevSprayedStructures(3);
+    status.setRooms(2);
+    status.setSprayedRooms(3);
+    status.setPeople(3);
+    status.setBedNets(1);
+    status.setRoomsWithBedNets(4);
+    status.setLocked(4);
+    status.setOther(1);
+    status.setRefused(3);
+    status.setSprayOperator(operator);
+    status.setOperatorSprayWeek(2);
+    status.setReceived(2);
+    status.setRefills(3);
+    status.setReturned(2);
+    status.setUsed(3);
+    status.apply();
+
+    try
+    {
+      OperatorSprayStatusView test = OperatorSprayStatusView.search(data, operator);
+
+      assertNotNull(test);
+      assertEquals(spray.getId(), test.getSpray().getId());
+      assertEquals(data.getId(), test.getSprayData().getId());
+      assertEquals(status.getHouseholds(), test.getHouseholds());
+      assertEquals(status.getStructures(), test.getStructures());
+      assertEquals(status.getSprayedHouseholds(), test.getSprayedHouseholds());
+      assertEquals(status.getSprayedStructures(), test.getSprayedStructures());
+      assertEquals(status.getPrevSprayedHouseholds(), test.getPrevSprayedHouseholds());
+      assertEquals(status.getPrevSprayedStructures(), test.getPrevSprayedStructures());
+      assertEquals(status.getRooms(), test.getRooms());
+      assertEquals(status.getSprayedRooms(), test.getSprayedRooms());
+      assertEquals(status.getPeople(), test.getPeople());
+      assertEquals(status.getBedNets(), test.getBedNets());
+      assertEquals(status.getRoomsWithBedNets(), test.getRoomsWithBedNets());
+      assertEquals(status.getLocked(), test.getLocked());
+      assertEquals(status.getOther(), test.getOther());
+      assertEquals(status.getRefused(), test.getRefused());
+      assertEquals(operator.getId(), test.getSprayOperator().getId());
+      assertEquals(status.getOperatorSprayWeek(), test.getOperatorSprayWeek());
+      assertEquals(status.getReceived(), test.getReceived());
+      assertEquals(status.getRefills(), test.getRefills());
+      assertEquals(status.getReturned(), test.getReturned());
+      assertEquals(status.getUsed(), test.getUsed());
+    }
+    finally
+    {
+      status.deleteConcrete();
+    }
+  }
+
+  public void testEmptySearch()
+  {
+    assertNull(OperatorSprayStatusView.search(data, operator));
   }
 }

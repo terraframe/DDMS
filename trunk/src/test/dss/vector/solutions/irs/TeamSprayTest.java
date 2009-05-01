@@ -23,7 +23,7 @@ public class TeamSprayTest extends TestCase
 
   private static SprayData data = null;
 
-  private static Team team = null;
+  private static SprayTeam team = null;
 
 
   public static Test suite()
@@ -50,7 +50,7 @@ public class TeamSprayTest extends TestCase
 
   protected static void classTearDown()
   {
-    SprayData.get(brand, geoEntity, new Date(), SprayMethod.MAIN_SPRAY).delete();
+    SprayData.get(data.getId()).delete();
     geoEntity.delete();
     brand.delete();
     team.delete();
@@ -83,7 +83,7 @@ public class TeamSprayTest extends TestCase
     data.addSurfaceType(SurfaceType.POROUS);
     data.apply();
 
-    team = new Team();
+    team = new SprayTeam();
     team.apply();
   }
 

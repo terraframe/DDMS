@@ -1,15 +1,18 @@
 package dss.vector.solutions.irs;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class TeamSprayView extends TeamSprayViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class TeamSprayView extends TeamSprayViewBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240860676032L;
 
@@ -25,13 +28,14 @@ public class TeamSprayView extends TeamSprayViewBase implements com.terraframe.m
     List<SprayMethod> method = this.getSprayMethod();
     TeamSpray spray = new TeamSpray();
 
-    SprayData data = SprayData.get(this.getBrand(), this.getGeoEntity(), this.getSprayDate(), method.toArray(new SprayMethod[method.size()]));
+    SprayData data = SprayData.get(this.getBrand(), this.getGeoEntity(), this.getSprayDate(), method
+        .toArray(new SprayMethod[method.size()]));
 
     this.populateSprayData(data);
 
     data.apply();
 
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       spray = TeamSpray.get(this.getSprayId());
     }
@@ -51,10 +55,40 @@ public class TeamSprayView extends TeamSprayViewBase implements com.terraframe.m
 
   public void deleteConcrete()
   {
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       TeamSpray.get(this.getSprayId()).delete();
     }
+  }
+
+  public OperatorSprayStatusView[] getStatus()
+  {
+    if (!this.hasConcrete())
+    {
+      return new OperatorSprayStatusView[0];
+    }
+
+    List<SprayStatusView> list = new LinkedList<SprayStatusView>();
+
+    SprayData data = TeamSpray.get(this.getSprayId()).getSprayData();
+    OIterator<? extends MDSSUser> members = this.getSprayTeam().getAllSprayTeamMembers();
+
+    for (MDSSUser user : members)
+    {
+      SprayOperator operator = user.getPerson().getSprayOperatorDelegate();
+      OperatorSprayStatusView view = OperatorSprayStatusView.search(data, operator);
+
+      if (view == null)
+      {
+        view = new OperatorSprayStatusView();
+        view.setSprayData(data);
+        view.setSprayOperator(operator);
+      }
+
+      list.add(view);
+    }
+
+    return list.toArray(new OperatorSprayStatusView[list.size()]);
   }
 
 
@@ -73,7 +107,7 @@ public class TeamSprayView extends TeamSprayViewBase implements com.terraframe.m
 
     try
     {
-      if(it.hasNext())
+      if (it.hasNext())
       {
         return it.next().getView();
       }
@@ -85,5 +119,4 @@ public class TeamSprayView extends TeamSprayViewBase implements com.terraframe.m
       it.close();
     }
   }
-
 }

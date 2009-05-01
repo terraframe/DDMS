@@ -46,7 +46,7 @@ public class ZoneSprayTest extends TestCase
 
   protected static void classTearDown()
   {
-    SprayData.get(brand, geoEntity, new Date(), SprayMethod.MAIN_SPRAY).delete();
+    SprayData.get(data.getId()).delete();
     geoEntity.delete();
     brand.delete();
   }

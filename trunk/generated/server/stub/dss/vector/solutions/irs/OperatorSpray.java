@@ -97,11 +97,23 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
         return it.next();
       }
 
-      return new OperatorSpray();
+      return null;
     }
     finally
     {
       it.close();
     }
+  }
+
+  public static OperatorSpray findOrCreate(SprayData data, SprayOperator operator)
+  {
+    OperatorSpray spray = OperatorSpray.find(data, operator);
+
+    if(spray == null)
+    {
+      spray = new OperatorSpray();
+    }
+
+    return spray;
   }
 }

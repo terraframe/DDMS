@@ -23,7 +23,7 @@ public class TeamSprayStatusTest extends TestCase
 
   private static SprayData data = null;
 
-  private static Team team = null;
+  private static SprayTeam team = null;
 
   private static TeamSpray spray = null;
 
@@ -54,7 +54,7 @@ public class TeamSprayStatusTest extends TestCase
   {
     spray.delete();
     team.delete();
-    SprayData.get(brand, geoEntity, new Date(), SprayMethod.MAIN_SPRAY).delete();
+    SprayData.get(data.getId()).delete();
     geoEntity.delete();
     brand.delete();
   }
@@ -86,7 +86,7 @@ public class TeamSprayStatusTest extends TestCase
     data.addSurfaceType(SurfaceType.POROUS);
     data.apply();
 
-    team = new Team();
+    team = new SprayTeam();
     team.apply();
 
     spray = new TeamSpray();
@@ -117,6 +117,7 @@ public class TeamSprayStatusTest extends TestCase
     status.setOther(1);
     status.setRefused(3);
     status.setTeamSprayWeek(2);
+    status.setSprayTeam(team);
     status.apply();
 
     try
@@ -340,4 +341,61 @@ public class TeamSprayStatusTest extends TestCase
     }
   }
 
+  public void testSearch()
+  {
+    TeamSprayStatusView status = new TeamSprayStatusView();
+    status.setSpray(spray);
+    status.setSprayData(data);
+    status.setHouseholds(2);
+    status.setStructures(3);
+    status.setSprayedHouseholds(5);
+    status.setSprayedStructures(2);
+    status.setPrevSprayedHouseholds(1);
+    status.setPrevSprayedStructures(3);
+    status.setRooms(2);
+    status.setSprayedRooms(3);
+    status.setPeople(3);
+    status.setBedNets(1);
+    status.setRoomsWithBedNets(4);
+    status.setLocked(4);
+    status.setOther(1);
+    status.setRefused(3);
+    status.setTeamSprayWeek(2);
+    status.setSprayTeam(team);
+    status.apply();
+
+    try
+    {
+      TeamSprayStatusView test = TeamSprayStatusView.search(data, team);
+
+      assertNotNull(test);
+      assertEquals(spray.getId(), test.getSpray().getId());
+      assertEquals(data.getId(), test.getSprayData().getId());
+      assertEquals(status.getHouseholds(), test.getHouseholds());
+      assertEquals(status.getStructures(), test.getStructures());
+      assertEquals(status.getSprayedHouseholds(), test.getSprayedHouseholds());
+      assertEquals(status.getSprayedStructures(), test.getSprayedStructures());
+      assertEquals(status.getPrevSprayedHouseholds(), test.getPrevSprayedHouseholds());
+      assertEquals(status.getPrevSprayedStructures(), test.getPrevSprayedStructures());
+      assertEquals(status.getRooms(), test.getRooms());
+      assertEquals(status.getSprayedRooms(), test.getSprayedRooms());
+      assertEquals(status.getPeople(), test.getPeople());
+      assertEquals(status.getBedNets(), test.getBedNets());
+      assertEquals(status.getRoomsWithBedNets(), test.getRoomsWithBedNets());
+      assertEquals(status.getLocked(), test.getLocked());
+      assertEquals(status.getOther(), test.getOther());
+      assertEquals(status.getRefused(), test.getRefused());
+      assertEquals(team.getId(), test.getSprayTeam().getId());
+      assertEquals(status.getTeamSprayWeek(), test.getTeamSprayWeek());
+    }
+    finally
+    {
+      status.deleteConcrete();
+    }
+  }
+
+  public void testEmptySearch()
+  {
+    assertNull(TeamSprayStatusView.search(data, team));
+  }
 }

@@ -1,11 +1,6 @@
 package dss.vector.solutions.irs;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
 
 public class NozzleView extends NozzleViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -31,7 +26,7 @@ public class NozzleView extends NozzleViewBase implements com.terraframe.mojo.ge
 
     if(this.hasConcrete())
     {
-      nozzle = Nozzle.get(this.getNozzleId());
+      nozzle = Nozzle.lock(this.getNozzleId());
     }
 
     this.populateConcrete(nozzle);
@@ -55,27 +50,18 @@ public class NozzleView extends NozzleViewBase implements com.terraframe.mojo.ge
     return this.getNozzleId() != null && !this.getNozzleId().equals("");
   }
 
+  @Transaction
   public static NozzleView[] getAll()
   {
-    List<NozzleView> list = new LinkedList<NozzleView>();
-    NozzleQuery query = new NozzleQuery(new QueryFactory());
-    query.WHERE(query.getEnabled().EQ(true));
-    query.ORDER_BY_ASC(query.getCreateDate());
+    Nozzle[] nozzels = Nozzle.getAll();
+    NozzleView[] views = new NozzleView[nozzels.length];
 
-    OIterator<? extends Nozzle> it = query.getIterator();
+    for(int i = 0; i < nozzels.length; i++)
+    {
+      views[i] = nozzels[i].getView();
+    }
 
-    try
-    {
-      while (it.hasNext())
-      {
-        list.add(it.next().getView());
-      }
-      return list.toArray(new NozzleView[list.size()]);
-    }
-    finally
-    {
-      it.close();
-    }
+    return views;
   }
 
   @Transaction

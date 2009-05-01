@@ -1,6 +1,5 @@
 package dss.vector.solutions;
 
-import java.util.Locale;
 
 public class TestConstants
 {

@@ -1,12 +1,23 @@
 package dss.vector.solutions.irs;
 
-public class InsecticideBrandViewDTO extends InsecticideBrandViewDTOBase
- implements com.terraframe.mojo.generation.loader.Reloadable{
+import com.terraframe.mojo.generation.loader.Reloadable;
+
+import dss.vector.solutions.LabeledDTO;
+
+public class InsecticideBrandViewDTO extends InsecticideBrandViewDTOBase implements Reloadable, LabeledDTO
+{
   private static final long serialVersionUID = 1240597920724L;
-  
+
   public InsecticideBrandViewDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
-  
+
+  public String getDisplayLabel()
+  {
+    String ingredientLabel = this.getActiveIngredient().getDisplayLabel();
+    String unitLabel = this.getUnits().get(0).item(this.getRequest()).getDisplayLabel().getDefaultLocale();
+
+    return ingredientLabel + " " + this.getAmount() + " " + unitLabel;
+  }
 }

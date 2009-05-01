@@ -2,7 +2,8 @@ package dss.vector.solutions.irs;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
-public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240860697955L;
 
@@ -27,14 +28,13 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     status.setStructureId(this.getStructureId());
   }
 
-
   @Override
   @Transaction
   public void apply()
   {
     HouseholdSprayStatus status = new HouseholdSprayStatus();
 
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       status = HouseholdSprayStatus.get(this.getStatusId());
     }
@@ -48,7 +48,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
 
   public void deleteConcrete()
   {
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       SprayStatus.get(this.getStatusId()).delete();
     }
@@ -57,12 +57,11 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
   @Transaction
   public static HouseholdSprayStatusView[] applyAll(HouseholdSprayStatusView[] views)
   {
-    for(HouseholdSprayStatusView view : views)
+    for (HouseholdSprayStatusView view : views)
     {
       view.apply();
     }
 
     return views;
   }
-
 }

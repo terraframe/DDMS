@@ -88,7 +88,7 @@ public class PermissionsTest extends TestCase
 
     userBoolean = new MdAttributeBoolean();
     userBoolean.setAttributeName("userBoolean");
-    userBoolean.getDisplayLabel().getValue("User Boolean");
+    userBoolean.getDisplayLabel().setValue("User Boolean");
     userBoolean.setDefiningMdClass(mdssType);
     userBoolean.apply();
 
