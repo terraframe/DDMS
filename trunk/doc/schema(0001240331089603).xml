@@ -14,12 +14,6 @@
       </mdBusiness>
 
       <mdBusiness
-        name="dss.vector.solutions.irs.Team"
-        label="Team"
-        generateController="false"
-        extends="dss.vector.solutions.irs.Targeter" />
-
-      <mdBusiness
         name="dss.vector.solutions.irs.ResourceTarget"
         label="Resource Target"
         generateController="true"

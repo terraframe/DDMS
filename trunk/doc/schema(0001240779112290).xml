@@ -10,7 +10,7 @@
     </existing>
     <update>
     </update>
-    
+
     <create>
       <mdBusiness
         name="dss.vector.solutions.irs.SprayOperator"
@@ -27,7 +27,7 @@
             label="Person"
             description="Gets the person this delegate is associated with"
             type="dss.vector.solutions.Person"
-            required="true"/>
+            required="true" />
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -39,53 +39,53 @@
             name="firstName"
             label="First Name"
             description="User's given names.  If more than one, names are separated by a space."
-            size="64"/>
+            size="64" />
           <char
             name="lastName"
             label="Last Name / Surname"
             description="User's surname.  If more than one, names are separated by a space."
-            size="64"/>
+            size="64" />
           <date
             name="dateOfBirth"
             label="Date of Birth"
-            description="Date of Birth"/>
+            description="Date of Birth" />
           <enumeration
             name="sex"
             label="Sex"
             description="User's sex / gender"
             type="dss.vector.solutions.entomology.Sex"
             selectMultiple="false"
-            default_value="UNKNOWN"/>
+            default_value="UNKNOWN" />
           <reference
             name="userDelegate"
             label="MDSS User Delegate"
             description="Associates this person with the MDSS User Delegate"
-            type="dss.vector.solutions.MDSSUser"/>
+            type="dss.vector.solutions.MDSSUser" />
           <reference
             name="patientDelegate"
             label="Patient Delegate"
             description="Associates this person with the Patient Delegate"
-            type="dss.vector.solutions.Patient"/>
+            type="dss.vector.solutions.Patient" />
           <reference
             name="itnRecipientDelegate"
             label="ITN Recipient Delegate"
             description="Associates this person with the ITN Recipient Delegate"
-            type="dss.vector.solutions.intervention.monitor.ITNRecipient"/>
+            type="dss.vector.solutions.intervention.monitor.ITNRecipient" />
           <reference
             name="iptRecipientDelegate"
             label="IPT Recipient Delegate"
             description="Associates this person with the IPT Recipient Delegate"
-            type="dss.vector.solutions.intervention.monitor.IPTRecipient"/>
+            type="dss.vector.solutions.intervention.monitor.IPTRecipient" />
           <reference
             name="sprayOperatorDelegate"
             label="Spray Operator Delegate"
             description="Associates this person with the Spray Operator Delegate"
-            type="dss.vector.solutions.irs.SprayOperator"/>
+            type="dss.vector.solutions.irs.SprayOperator" />
           <reference
             name="sprayLeaderDelegate"
             label="Spray Leader Delegate"
             description="Associates this person with the Spray Leader Delegate"
-            type="dss.vector.solutions.irs.SprayLeader"/>
+            type="dss.vector.solutions.irs.SprayLeader" />
         </attributes>
         <mdMethod
           name="searchForDuplicates"
@@ -121,68 +121,68 @@
             name="personId"
             label="Person ID"
             description="ID of the Person theis view represents"
-            size="64"/>
+            size="64" />
           <virtual
             name="firstName"
             concrete="firstName"
-            type="dss.vector.solutions.Person"/>
+            type="dss.vector.solutions.Person" />
           <virtual
             name="lastName"
             concrete="lastName"
-            type="dss.vector.solutions.Person"/>
+            type="dss.vector.solutions.Person" />
           <virtual
             name="dateOfBirth"
             concrete="dateOfBirth"
-            type="dss.vector.solutions.Person"/>
+            type="dss.vector.solutions.Person" />
           <virtual
             name="sex"
             concrete="sex"
-            type="dss.vector.solutions.Person"/>
+            type="dss.vector.solutions.Person" />
           <boolean
             name="isMDSSUser"
             label="Is MDSS User"
             description="Is this Person an MDSS User?"
-            default_value="false"/>
+            default_value="false" />
           <char
             name="uzername"
             accessor="username"
             label="Username"
             description="Username"
-            size="64"/>
+            size="64" />
           <char
             name="pazzword"
             accessor="password"
             label="Password"
             description="Password"
-            size="32"/>
+            size="32" />
           <boolean
             name="isPatient"
             label="Is Malaria Patient"
             description="Is this Person a Malaria Patient?"
-            default_value="false"/>
+            default_value="false" />
           <boolean
             name="isITNRecipient"
             label="Is ITN Recipient"
             description="Is this Person an ITN Recipient?"
-            default_value="false"/>
+            default_value="false" />
           <boolean
             name="isIPTRecipient"
             label="Is IPT Recipient"
             description="Is this Person an IPT Recipient?"
-            default_value="false"/>
+            default_value="false" />
           <boolean
             name="isSprayOperator"
             label="Is Spray Operator"
             description="Is this Person a Spray Operator?"
-            default_value="false"/>
+            default_value="false" />
           <boolean
             name="isSprayLeader"
             label="Is Spray Leader"
             description="Is this Person a Spray Team Leader?"
-            default_value="false"/>
+            default_value="false" />
         </attributes>
       </mdView>
-      
+
       <mdBusiness
         name="dss.vector.solutions.MDSSUser"
         label="MDSS User"
@@ -195,7 +195,7 @@
             label="Person"
             description="Gets the person this delegate is associated with"
             type="dss.vector.solutions.Person"
-            required="true"/>
+            required="true" />
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -209,7 +209,7 @@
             label="Person"
             description="Gets the person this delegate is associated with"
             type="dss.vector.solutions.Person"
-            required="true"/>
+            required="true" />
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -223,7 +223,7 @@
             label="Person"
             description="Gets the person this delegate is associated with"
             type="dss.vector.solutions.Person"
-            required="true"/>
+            required="true" />
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -237,7 +237,7 @@
             label="Person"
             description="Gets the person this delegate is associated with"
             type="dss.vector.solutions.Person"
-            required="true"/>
+            required="true" />
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -251,20 +251,21 @@
             label="Person"
             description="Gets the person this delegate is associated with"
             type="dss.vector.solutions.Person"
-            required="true"/>
+            required="true" />
         </attributes>
       </mdBusiness>
       <mdBusiness
         name="dss.vector.solutions.irs.SprayTeam"
         label="Spray Operator"
         description="Person who is also a Spray Operator"
-        generateController="false">
+        generateController="false"
+        extends="dss.vector.solutions.irs.Targeter">
         <attributes>
           <char
             name="teamCode"
             label="Team Code"
             description="Identifying team code"
-            size="16"/>
+            size="16" />
         </attributes>
       </mdBusiness>
       <mdRelationship
@@ -274,16 +275,17 @@
         <parent
           cardinality="1"
           name="dss.vector.solutions.irs.SprayTeam"
-          method="SprayTeam"/>
+          method="SprayTeam" />
         <child
           cardinality="*"
           name="dss.vector.solutions.MDSSUser"
-          method="SprayTeamMembers"/>
+          method="SprayTeamMembers" />
       </mdRelationship>
     </create>
-    
+
     <update>
-      <mdController name="dss.vector.solutions.PersonController">
+      <mdController
+        name="dss.vector.solutions.PersonController">
         <create>
           <mdAction
             name="search"
@@ -295,7 +297,7 @@
               label="Person"
               description="Search for duplicates of this Person"
               order="0"
-              type="dss.vector.solutions.Person"/>
+              type="dss.vector.solutions.Person" />
           </mdAction>
           <mdAction
             name="createFromView"
@@ -307,7 +309,7 @@
               label="Person"
               description="Creates a new Person from a view"
               order="0"
-              type="dss.vector.solutions.PersonView"/>
+              type="dss.vector.solutions.PersonView" />
           </mdAction>
           <mdAction
             name="updateFromView"
@@ -319,7 +321,7 @@
               label="Person"
               description="Updates a Person from a view"
               order="0"
-              type="dss.vector.solutions.PersonView"/>
+              type="dss.vector.solutions.PersonView" />
           </mdAction>
         </create>
       </mdController>

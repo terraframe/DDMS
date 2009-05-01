@@ -2,12 +2,6 @@
   xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <existing>
-      <object
-        key="dss.vector.solutions.irs.Team"
-        type="com.terraframe.mojo.system.metadata.MdBusiness"
-        id="dss.vector.solutions.irs.Team" />
-    </existing>
     <create>
 
       <enumerationMaster
@@ -341,10 +335,6 @@
             required="true"
             default_value="true"
             description="If the nozzle is enabled" />
-          <integer
-            name="coverage"
-            label="Coverage"
-            description="Average amount of square meters that can typically be covered by a full can" />
         </attributes>
         <mdMethod
           name="getAll"
@@ -733,7 +723,7 @@
             name="sprayTeam"
             label="Team"
             required="true"
-            type="dss.vector.solutions.irs.Team" />
+            type="dss.vector.solutions.irs.SprayTeam" />
         </attributes>
         <mdMethod
           name="getView"

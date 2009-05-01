@@ -1175,7 +1175,7 @@
             name="collectionDate"
             label="Colllection Date"
             type="java.util.Date"
-            order="1"/>
+            order="1" />
           <mdParameter
             name="collectionMethod"
             label="Colllection Method"
@@ -2096,7 +2096,7 @@
               label="Colllection Method"
               type="dss.vector.solutions.mo.CollectionMethod"
               description="The method used to collect these mosquitos"
-              order="2"/>
+              order="2" />
           </mdAction>
           <mdAction
             name="search"
@@ -2471,7 +2471,7 @@
             label="Fed"
             description="Fed value (Only applicable when females are present)."
             rejectNegative="true"
-            required="false"/>
+            required="false" />
           <integer
             name="gravid"
             label="Number Gravid"
@@ -2704,7 +2704,7 @@
             label="Number Gravid"
             description="Gravid value (Only applicable when females are present)"
             rejectNegative="true"
-            required="false"/>
+            required="false" />
           <enumeration
             name="sex"
             label="Sex"
