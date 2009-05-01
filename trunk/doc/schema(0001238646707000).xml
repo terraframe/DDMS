@@ -1762,9 +1762,12 @@
         <valueAttribute
           name="enumName"
           value="MALE"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Male"/>
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Male"/>
+        </structAttribute>
       </object>
 
       <object
@@ -1774,9 +1777,12 @@
         <valueAttribute
           name="enumName"
           value="FEMALE"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Female"/>
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Female"/>
+        </structAttribute>
       </object>
 
       <object
@@ -1786,9 +1792,12 @@
         <valueAttribute
           name="enumName"
           value="MIXED"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Mixed"/>
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Mixed"/>
+        </structAttribute>
       </object>
 
       <object
@@ -1798,9 +1807,12 @@
         <valueAttribute
           name="enumName"
           value="UNKNOWN"/>
-        <valueAttribute
-          name="displayLabel"
-          value="Unknown"/>
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Unknown"/>
+        </structAttribute>
       </object>
 
       <mdEnumeration
