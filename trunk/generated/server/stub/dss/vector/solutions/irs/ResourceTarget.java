@@ -48,10 +48,11 @@ public class ResourceTarget extends ResourceTargetBase implements
     return ResourceTarget.get(id).getView();
   }
 
-  public static ResourceTargetView find(Targeter resource)
+  public static ResourceTargetView searchByTargeterAndYear(Targeter resource, Integer year)
   {
     ResourceTargetQuery query = new ResourceTargetQuery(new QueryFactory());
     query.WHERE(query.getTargeter().EQ(resource));
+    query.AND(query.getTargetYear().EQ(year));
 
     OIterator<? extends ResourceTarget> it = query.getIterator();
 
@@ -65,6 +66,7 @@ public class ResourceTarget extends ResourceTargetBase implements
       {
         ResourceTargetView view = new ResourceTargetView();
         view.setTargeter(resource);
+        view.setTargetYear(year);
 
         return view;
       }
@@ -73,6 +75,11 @@ public class ResourceTarget extends ResourceTargetBase implements
     {
       it.close();
     }
+  }
+
+  public static ResourceTargetView searchByTargeterIdAndYear(String id, Integer year)
+  {
+    return searchByTargeterAndYear(Targeter.get(id), year);
   }
 
 }

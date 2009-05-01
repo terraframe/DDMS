@@ -240,7 +240,7 @@ public class ResourceTargetTest extends TestCase
 
     try
     {
-      ResourceTargetView test = ResourceTarget.find(targeter);
+      ResourceTargetView test = ResourceTarget.searchByTargeterAndYear(targeter, year);
 
       assertEquals(test.getTargetId(), view.getTargetId());
       assertEquals(test.getTargeter().getId(), view.getTargeter().getId());
@@ -259,7 +259,9 @@ public class ResourceTargetTest extends TestCase
 
   public void testEmptySearch() throws Exception
   {
-    ResourceTargetView test = ResourceTarget.find(targeter);
+    Integer year = 2009;
+
+    ResourceTargetView test = ResourceTarget.searchByTargeterAndYear(targeter, year);
 
     assertEquals(test.getTargetId(), "");
     assertEquals(test.getTargeter().getId(), targeter.getId());
