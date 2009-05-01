@@ -391,13 +391,14 @@ public abstract class GeoEntity extends GeoEntityBase implements
    * @param filter
    *    Return only children with this class
    * @return
+   *    Array of child Ids sorted by name
    */
   public String[] getAllChildIds(String filter)
   {
     List<String> geoEntityIdList = new ArrayList<String>();
     List<GeoEntity> children = new LinkedList<GeoEntity>();
     getAllChildren(children, this);
-
+    Collections.sort(children, new GeoEntitySorter());
     for (GeoEntity child : children)
     {
         //if the filter is null we will just add all children
@@ -830,6 +831,14 @@ public abstract class GeoEntity extends GeoEntityBase implements
   private class GeoEntityViewSorter implements Comparator<GeoEntityView>, Reloadable
   {
     public int compare(GeoEntityView geo1, GeoEntityView geo2)
+    {
+      return geo1.getEntityName().compareTo(geo2.getEntityName());
+    }
+  }
+
+  public class GeoEntitySorter implements Comparator<GeoEntity>, Reloadable
+  {
+    public int compare(GeoEntity geo1, GeoEntity geo2)
     {
       return geo1.getEntityName().compareTo(geo2.getEntityName());
     }
