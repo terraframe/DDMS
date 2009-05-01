@@ -1,0 +1,36 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.irs.ResourceTargetView">
+        <create>
+          <mdMethod
+            name="getResourceTargets"
+            label="Get Resource Targets"
+            static="true"
+            returnType="ResourceTargetView[]">
+            <mdParameter
+              name="targeterIds"
+              label="Targeter Ids"
+              order="0"
+              type="java.lang.String[]" />
+            <mdParameter
+              name="year"
+              label="Year"
+              order="1"
+              type="java.lang.Integer" />
+          </mdMethod>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.Resource.TargetView.getResourceTargets"
+        type="com.terraframe.mojo.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>
