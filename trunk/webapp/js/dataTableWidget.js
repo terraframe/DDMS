@@ -143,29 +143,10 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
             }
 
         }
-        //not sure we want to do this for enter
-        /*
-        if ( e.keyCode == 13 ) {
 
-            var cell        = myDataTable.getCellEditor().getTdEl();
-            var nextCell    = myDataTable.getBelowTdEl( cell );
-            myDataTable.saveCellEditor();
-            if ( nextCell ) {
-            	myDataTable.showCellEditor( nextCell );
-                e.returnValue   = false;
-                e.preventDefault();
-                e=null;
-                return false;
-            }
-            else {
-                // No next cell, make a new row and open the editor for that one
-            	addRow();
-            }
-            // BUG: If pressing Enter, editor gets hidden right away due to YUI
-			// default event
-            // putting e.preventDefault() and return false here makes no
-			// difference
-        }*/
+        // not sure what we want to do this for enter
+        if ( e.keyCode == 13 ) {
+        }
     };
     myDataTable.subscribe("editorKeydownEvent", editorKeyEvent);
 
@@ -173,7 +154,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	var saveSomeData = function(oArgs) {
 		  var record = oArgs.editor.getRecord();
 		  var editor = oArgs.editor;
-		  index = myDataTable.getRecordIndex(record);
+		  var index = myDataTable.getRecordIndex(record);
 		  if(editor instanceof YAHOO.widget.DropdownCellEditor )
 		  {
 			  //look get the index for this label
@@ -193,11 +174,14 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			  	for each(radioOpt in editor.radioOptions)
 				  if(oArgs.newData == radioOpt.value)
 				  {
-					  record.setData(editor.getColumn().key, radioOpt.label);
+
+					  myDataTable.updateCell(record,editor.getColumn(), radioOpt.label);
+					  //record.setData(editor.getColumn().key, radioOpt.label);
 				  }
-				  myDataTable.render();
+
 			  }
-			 // if(editor instanceof YAHOO.widget.DateCellEditor )
+
+			 /// if(editor instanceof YAHOO.widget.DateCellEditor )
 			 // {
 				 //oArgs.newData = MojoCal.getLocalizedString(oArgs.newData);
 				 //save_now = 'table_data.rows[' + index + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newData + '"';
@@ -205,6 +189,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 		  }
 	      eval(save_now);
+
 	      table_data.dirty = true;
 	      btnSaveRows.set("disabled", false);
 	      if(table_data.after_row_edit)
@@ -212,6 +197,48 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    	  table_data.after_row_edit(record);
 	    	  myDataTable.render();
 	      }
+
+
+	      if(oArgs.editor.getColumn().sum && oArgs.newData)
+		  {
+			  var lastIndex  = table_data.rows.length - 1;
+	    	  var lastRecord = myDataTable.getRecord(lastIndex);
+			  var lastTd = myDataTable.getTdEl({record:lastRecord, column:editor.getColumn()});
+
+			  var oldData = parseInt(oArgs.oldData);
+			  if(!oldData)oldData=0;
+
+			  var oldTotal = parseInt(lastRecord.getData(editor.getColumn().key));
+			  if(!oldTotal)oldTotal=0;
+
+			  var newTotal = oldTotal + parseInt(oArgs.newData) - oldData;
+
+			  if(index != lastIndex )
+			  {
+				  myDataTable.updateCell(lastRecord,editor.getColumn(),newTotal);
+				 //lastRecord.setData(editor.getColumn().key, newTotal);
+				  var save_now = 'table_data.rows[' + lastIndex + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newTotal+ '"';
+				  eval(save_now);
+			  }
+
+			  var sum = 0;
+			  for each(row in myDataTable.getRecordSet().getRecords())
+			  {
+				  var x = parseInt(row.getData(editor.getColumn().key));
+				 // if(x && row != lastRecord)sum += x;
+				  if(x && myDataTable.getRecordIndex(row) != lastIndex)sum += x;
+			  }
+			  if(parseInt(lastRecord.getData(editor.getColumn().key)) != sum)
+			  {
+				  YAHOO.util.Dom.addClass(lastTd, "dataTableSumError");
+			  }
+			  else
+			  {
+				  YAHOO.util.Dom.removeClass(lastTd, "dataTableSumError");
+			  }
+
+		  }
+
 	};
 	myDataTable.subscribe("editorSaveEvent", saveSomeData);
 
@@ -338,7 +365,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	}
 
 
-	// function Add one row to the bottom
+	// Add one row to the bottom
 	var addRow = function() {
 		// Clear sort when necessary
 		if (bReverseSorted) {
@@ -374,107 +401,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		btnAddRow.on("click", addRow);
 
 	}
-	/*
-	// stuff to turn cols on and off
-	// Shows dialog, creating one when necessary
-	var newCols = true;
-	var showDlg = function(e) {
-		YAHOO.util.Event.stopEvent(e);
 
-		if (newCols) {
-			// Populate Dialog
-			// Using a template to create elements for the SimpleDialog
-			var allColumns = myDataTable.getColumnSet().keys;
-			var elPicker = YAHOO.util.Dom.get("dt-dlg-picker");
-			var elTemplateCol = document.createElement("div");
-			YAHOO.util.Dom.addClass(elTemplateCol, "dt-dlg-pickercol");
-			var elTemplateKey = elTemplateCol.appendChild(document
-					.createElement("span"));
-			YAHOO.util.Dom.addClass(elTemplateKey, "dt-dlg-pickerkey");
-			var elTemplateBtns = elTemplateCol.appendChild(document
-					.createElement("span"));
-			YAHOO.util.Dom.addClass(elTemplateBtns, "dt-dlg-pickerbtns");
-			var onclickObj = {
-				fn :handleButtonClick,
-				obj :this,
-				scope :false
-			};
-
-			// Create one section in the SimpleDialog for each Column
-			var elColumn, elKey, elButton, oButtonGrp;
-			for ( var i = 0, l = allColumns.length; i < l; i++) {
-				var oColumn = allColumns[i];
-
-				// Use the template
-				elColumn = elTemplateCol.cloneNode(true);
-
-				// Write the Column key
-				elKey = elColumn.firstChild;
-				elKey.innerHTML = oColumn.getKey();
-
-				// Create a ButtonGroup
-				oButtonGrp = new YAHOO.widget.ButtonGroup( {
-					id :"buttongrp" + i,
-					name :oColumn.getKey(),
-					container :elKey.nextSibling
-				});
-				oButtonGrp.addButtons( [ {
-					label :"Show",
-					value :"Show",
-					checked :((!oColumn.hidden)),
-					onclick :onclickObj
-				}, {
-					label :"Hide",
-					value :"Hide",
-					checked :((oColumn.hidden)),
-					onclick :onclickObj
-				} ]);
-
-				elPicker.appendChild(elColumn);
-			}
-			newCols = false;
-		}
-		myDlg.show();
-	};
-	var hideDlg = function(e) {
-		this.hide();
-	};
-	var handleButtonClick = function(e, oSelf) {
-		var sKey = this.get("name");
-		if (this.get("value") === "Hide") {
-			// Hides a Column
-			myDataTable.hideColumn(sKey);
-		} else {
-			// Shows a Column
-			myDataTable.showColumn(sKey);
-		}
-	};
-
-	// Create the SimpleDialog
-	YAHOO.util.Dom.removeClass("dt-dlg", "inprogress");
-	var myDlg = new YAHOO.widget.SimpleDialog("dt-dlg", {
-		width :"30em",
-		visible :false,
-		modal :true,
-		buttons : [ {
-			text :"Close",
-			handler :hideDlg
-		} ],
-		fixedcenter :true,
-		constrainToViewport :true
-	});
-	myDlg.render();
-
-	// Nulls out myDlg to force a new one to be created
-	myDataTable.subscribe("columnReorderEvent", function() {
-		newCols = true;
-		YAHOO.util.Event.purgeElement("dt-dlg-picker", true);
-		YAHOO.util.Dom.get("dt-dlg-picker").innerHTML = "";
-	}, this, true);
-
-	// Hook up the SimpleDialog to the link
-	YAHOO.util.Event.addListener("dt-options-link", "click", showDlg, this, true);
-	*/
 	table_data.myDataTable = myDataTable;
 	return {
         oDS: myDataSource,
