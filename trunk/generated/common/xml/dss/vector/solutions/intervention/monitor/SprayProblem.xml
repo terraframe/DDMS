@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.intervention.monitor.SprayProblem">
   <!--
-    - {months} Months
+    - {months} months
     -->
   <locale language="en">Replace this with your customized error message.</locale>
 </exception>

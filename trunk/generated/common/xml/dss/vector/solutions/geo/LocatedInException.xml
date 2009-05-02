@@ -3,9 +3,9 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.geo.LocatedInException">
   <!--
-    - {entityName} Entity Name
-    - {id} ID
-    - {parentDisplayLabel} Parent Display Label
+    - {entityName} entityName
+    - {id} id
+    - {parentDisplayLabel} parentDisplayLabel
     -->
   <locale language="en">The Geo Entity [{entityName}] cannot be located in [{parentDisplayLabel}].</locale>
 </exception>

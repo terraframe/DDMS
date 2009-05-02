@@ -3,8 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.geo.ConfirmHierarchyParentChangeException">
   <!--
-    - {id} ID
-    - {parentDisplayLabel} Parent Display Label
+    - {id} id
+    - {parentDisplayLabel} parentDisplayLabel
     -->
   <locale language="en">Do you want to delete the old relationship with [{parentDisplayLabel}].</locale>
 </exception>

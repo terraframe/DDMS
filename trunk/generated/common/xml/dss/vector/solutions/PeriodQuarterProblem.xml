@@ -3,9 +3,9 @@
 xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   name="dss.vector.solutions.PeriodQuarterProblem">
   <!--
-    - {id} ID
-    - {maxPeriod} Max Period
-    - {period} Period
+    - {id} id
+    - {maxPeriod} maxPeriod
+    - {period} period
     -->
   <locale language="en">The epi quarter value [{period}] cannot be greater than [{maxPeriod}]</locale>
 </exception>

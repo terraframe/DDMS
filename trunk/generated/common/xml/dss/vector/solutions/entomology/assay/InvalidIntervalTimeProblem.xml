@@ -3,8 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.assay.InvalidIntervalTimeProblem">
   <!--
-    - {exposureTime} Exposure Time
-    - {intervalTime} Interval Time
+    - {exposureTime} exposureTime
+    - {intervalTime} intervalTime
     -->
   <locale language="en">The interval time [{intervalTime}] cannot exceed the exposure time [{exposureTime}]</locale>
 </exception>

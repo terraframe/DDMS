@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.RequiredStartDateProblem">
   <!--
-    - {id} ID
+    - {id} id
     -->
   <locale language="en">Start date requires a value</locale>
 </exception>

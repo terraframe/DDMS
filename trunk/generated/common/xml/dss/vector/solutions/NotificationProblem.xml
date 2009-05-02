@@ -3,12 +3,12 @@
 xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   name="dss.vector.solutions.NotificationProblem">
   <!--
-    - {attributeDisplayLabel} Attribute Display Label
-    - {attributeName} Attribute Name
-    - {componentId} ComponentId
-    - {definingType} Defining Type
-    - {definingTypeDisplayLabel} Defining Type Display Label
-    - {id} ID
+    - {attributeDisplayLabel} attributeDisplayLabel
+    - {attributeName} attributeName
+    - {componentId} componentId
+    - {definingType} definingType
+    - {definingTypeDisplayLabel} definingTypeDisplayLabel
+    - {id} id
     -->
   <locale language="en">Replace this with your customized error message.</locale>
 </exception>

@@ -4,7 +4,7 @@ xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.geo.ModifyHierarchyWithInstancesException">
   <!--
     - {displayLabel} displayLabel
-    - {id} ID
+    - {id} id
     -->
   <locale language="en">The universal [{displayLabel}] cannot be modified because Geo Entities exist.</locale>
 </exception>

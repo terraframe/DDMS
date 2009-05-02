@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.surveillance.RequiredPeriodProblem">
   <!--
-    - {id} ID
+    - {id} id
     -->
   <locale language="en">Period requires a value</locale>
 </exception>

@@ -3,9 +3,9 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.QuantityMismatchProblem">
   <!--
-    - {quantity} Quantity
-    - {quantityFemale} Quantity Female
-    - {quantityMale} Quantity Male
+    - {quantity} quantity
+    - {quantityFemale} quantityFemale
+    - {quantityMale} quantityMale
     -->
   <locale language="en">Total Quantity({quantity}) must equal sum of Quantity Male({quantityMale}) and Quantity Female({quantityFemale}).</locale>
 </exception>

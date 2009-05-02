@@ -3,8 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.geo.DeleteEarthException">
   <!--
-    - {earthName} Earth Name
-    - {id} ID
+    - {earthName} earthName
+    - {id} id
     -->
   <locale language="en">[{earthName}] cannot be deleted.</locale>
 </exception>

@@ -71,7 +71,7 @@ public class TeamSprayView extends TeamSprayViewBase implements
     List<SprayStatusView> list = new LinkedList<SprayStatusView>();
 
     SprayData data = TeamSpray.get(this.getSprayId()).getSprayData();
-    OIterator<? extends MDSSUser> members = this.getSprayTeam().getAllSprayTeamMembers();
+    OIterator<? extends MDSSUser> members = (OIterator<? extends MDSSUser>) this.getSprayTeam().getAllSprayTeamMembers();
 
     for (MDSSUser user : members)
     {

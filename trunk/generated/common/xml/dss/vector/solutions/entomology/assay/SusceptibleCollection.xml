@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.assay.SusceptibleCollection">
   <!--
-    - {id} ID
+    - {id} id
     -->
   <locale language="en">The collection is susceptible to this assay.</locale>
 </exception>

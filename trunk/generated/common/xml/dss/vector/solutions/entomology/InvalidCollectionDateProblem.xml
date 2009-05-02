@@ -3,8 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.InvalidCollectionDateProblem">
   <!--
-    - {collectionDate} Collection Date
-    - {currentDate} Current Date
+    - {collectionDate} collectionDate
+    - {currentDate} currentDate
     -->
   <locale language="en">The collection date [{collectionDate}] is not allowed to be after the current date [{currentDate}]</locale>
 </exception>

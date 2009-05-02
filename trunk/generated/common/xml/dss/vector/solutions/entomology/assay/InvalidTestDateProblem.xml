@@ -3,8 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.assay.InvalidTestDateProblem">
   <!--
-    - {collectionDate} Period
-    - {testDate} Period
+    - {collectionDate} collectionDate
+    - {testDate} testDate
     -->
   <locale language="en">The assay test date [{testDate}] may not occur before the collection date [{collectionDate}] </locale>
 </exception>

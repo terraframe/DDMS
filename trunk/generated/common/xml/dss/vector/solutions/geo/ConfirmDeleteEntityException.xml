@@ -3,8 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.geo.ConfirmDeleteEntityException">
   <!--
-    - {entityName} Entity Name
-    - {id} ID
+    - {entityName} entityName
+    - {id} id
     -->
   <locale language="en">Do you want to delete the entity or its relationship with [{entityName}]?</locale>
 </exception>

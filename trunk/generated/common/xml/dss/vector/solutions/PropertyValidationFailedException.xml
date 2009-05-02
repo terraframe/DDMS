@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   name="dss.vector.solutions.PropertyValidationFailedException">
   <!--
-    - {id} ID
+    - {id} id
     - {validValues} validValues
     -->
   <locale language="en">The Property [{id}] failed to validate.  Valid values are: [{validValues}]</locale>

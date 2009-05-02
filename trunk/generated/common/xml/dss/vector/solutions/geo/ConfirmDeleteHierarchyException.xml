@@ -3,8 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.geo.ConfirmDeleteHierarchyException">
   <!--
-    - {id} ID
-    - {parentDisplayLabel} Parent Display Name
+    - {id} id
+    - {parentDisplayLabel} parentDisplayLabel
     -->
   <locale language="en">Do you want to delete the universal or its relationship with [{parentDisplayLabel}]?</locale>
 </exception>

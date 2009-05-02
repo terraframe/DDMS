@@ -63,6 +63,21 @@ public class GeoTargetController extends GeoTargetControllerBase implements com.
     this.viewAll();
   }
 
+
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    render("viewAllComponent.jsp");
+  }
+
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
+  }
+
+
+
+  /*
+
   public void create(dss.vector.solutions.irs.GeoTargetDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -145,19 +160,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements com.
     this.viewAll();
   }
 
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.irs.GeoTargetQueryDTO query = dss.vector.solutions.irs.GeoTargetDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All GeoTargetController Objects");
-    render("viewAllComponent.jsp");
-  }
 
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
 
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -193,4 +196,5 @@ public class GeoTargetController extends GeoTargetControllerBase implements com.
     req.setAttribute("page_title", "Update GeoTargetController");
     render("editComponent.jsp");
   }
+  */
 }

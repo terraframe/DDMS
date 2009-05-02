@@ -3,8 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.assay.InvalidDeadQuantityProblem">
   <!--
-    - {quantityDead} Number Dead
-    - {quantityTested} Number Exposed
+    - {quantityDead} quantityDead
+    - {quantityTested} quantityTested
     -->
   <locale language="en">The quantity of dead mosquitos [{quantityDead}] cannot exceed the total quantity of mosquitos tested [{quantityTested}].</locale>
 </exception>

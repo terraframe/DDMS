@@ -3,9 +3,9 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.surveillance.DistinctAgeGroupException">
   <!--
-    - {endAge} to
-    - {id} ID
-    - {startAge} from
+    - {endAge} endAge
+    - {id} id
+    - {startAge} startAge
     -->
   <locale language="en">Replace this with your customized error message.</locale>
 </exception>

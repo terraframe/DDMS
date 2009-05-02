@@ -3,9 +3,9 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.geo.DuplicateHierarchyParentException">
   <!--
-    - {childDisplayLabel} Child Display Label
-    - {id} ID
-    - {parentDisplayLabel} Parent Display Label
+    - {childDisplayLabel} childDisplayLabel
+    - {id} id
+    - {parentDisplayLabel} parentDisplayLabel
     -->
   <locale language="en">The child [{childDisplayLabel}] is already located in the parent [{parentDisplayLabel}].</locale>
 </exception>

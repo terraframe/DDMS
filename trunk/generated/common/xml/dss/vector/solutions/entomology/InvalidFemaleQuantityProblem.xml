@@ -3,8 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.InvalidFemaleQuantityProblem">
   <!--
-    - {quantity} Quantity
-    - {quantityFemale} Quantity Female
+    - {quantity} quantity
+    - {quantityFemale} quantityFemale
     -->
   <locale language="en">Replace this with your customized error message.</locale>
 </exception>

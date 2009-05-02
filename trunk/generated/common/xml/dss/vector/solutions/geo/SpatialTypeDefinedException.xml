@@ -3,9 +3,9 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.geo.SpatialTypeDefinedException">
   <!--
-    - {id} ID
-    - {isAParentLabel} Is A Parent Display Label
-    - {spatialLabel} Spatial Label
+    - {id} id
+    - {isAParentLabel} isAParentLabel
+    - {spatialLabel} spatialLabel
     -->
   <locale language="en">The parent [{isAParentLabel}] already defines the geometry type [{spatialLabel}], which cannot be overwritten.</locale>
 </exception>

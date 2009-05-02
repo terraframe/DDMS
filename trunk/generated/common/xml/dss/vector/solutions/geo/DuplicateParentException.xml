@@ -3,9 +3,9 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.geo.DuplicateParentException">
   <!--
-    - {childEntityName} Child Entity Name
-    - {id} ID
-    - {parentEntityName} Parent Entity Name
+    - {childEntityName} childEntityName
+    - {id} id
+    - {parentEntityName} parentEntityName
     -->
   <locale language="en">The child [{childEntityName}] is already located in the parent [{parentEntityName}].</locale>
 </exception>

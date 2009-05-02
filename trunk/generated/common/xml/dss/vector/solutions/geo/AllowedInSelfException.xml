@@ -3,8 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.geo.AllowedInSelfException">
   <!--
-    - {displayLabel} Display Label
-    - {id} ID
+    - {displayLabel} displayLabel
+    - {id} id
     -->
   <locale language="en">The universal [{displayLabel}] cannot be located in itself.</locale>
 </exception>

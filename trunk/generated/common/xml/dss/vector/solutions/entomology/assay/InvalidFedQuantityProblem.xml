@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.assay.InvalidFedQuantityProblem">
   <!--
-    - {fed} Fed
+    - {fed} fed
     -->
   <locale language="en">The quantity of fed [{fed}] cannot exceed the total quantity of mosquitos tested.</locale>
 </exception>

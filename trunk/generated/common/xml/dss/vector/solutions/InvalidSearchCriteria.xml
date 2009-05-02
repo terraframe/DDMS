@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
   name="dss.vector.solutions.InvalidSearchCriteria">
   <!--
-    - {id} ID
+    - {id} id
     -->
   <locale language="en">Replace this with your customized error message.</locale>
 </exception>

@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.assay.InvalidPeriodProblem">
   <!--
-    - {period} Period
+    - {period} period
     -->
   <locale language="en">The test period [{period}] is invalid</locale>
 </exception>

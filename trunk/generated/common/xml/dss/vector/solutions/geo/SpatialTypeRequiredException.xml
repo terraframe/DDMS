@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.geo.SpatialTypeRequiredException">
   <!--
-    - {id} ID
+    - {id} id
     -->
   <locale language="en">A geometry type is required.</locale>
 </exception>

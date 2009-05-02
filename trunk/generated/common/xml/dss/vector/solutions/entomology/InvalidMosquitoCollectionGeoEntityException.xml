@@ -3,8 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException">
   <!--
-    - {geoId} Geo Id
-    - {id} ID
+    - {geoId} geoId
+    - {id} id
     -->
   <locale language="en">The GeoEntity [{geoId}] is not a (non)sentinel-site. A mosquito collection can only have a GeoEntity which is a (non)sentinel-site</locale>
 </exception>

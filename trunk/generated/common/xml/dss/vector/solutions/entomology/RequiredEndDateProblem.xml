@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.RequiredEndDateProblem">
   <!--
-    - {id} ID
+    - {id} id
     -->
   <locale language="en">End date requires a value</locale>
 </exception>

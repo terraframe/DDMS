@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.entomology.RequiredGeoIdProblem">
   <!--
-    - {id} ID
+    - {id} id
     -->
   <locale language="en">Geo Id requires a value</locale>
 </exception>
