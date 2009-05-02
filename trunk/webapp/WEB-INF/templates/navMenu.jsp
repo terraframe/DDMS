@@ -47,7 +47,8 @@
                  <div id="intervention_planning" class="yuimenu">
                      <div class="bd">
                          <ul>
-                               <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="IRS"/></a>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.irs.ApplicationRateController.view.mojo"><fmt:message key="Configure_Application_Rate"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="IRS"/></a>
                                  <div id="pim4" class="yuimenu">
                                      <div class="bd">
                                          <ul class="first-of-type">
