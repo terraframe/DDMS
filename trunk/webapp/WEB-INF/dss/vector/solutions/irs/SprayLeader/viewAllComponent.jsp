@@ -4,14 +4,19 @@
   <mjl:message />
 </mjl:messages>
 <mjl:table var="item" query="${query}">
-  <mjl:context action="dss.vector.solutions.irs.TeamController.viewPage.mojo" />
+  <mjl:context action="dss.vector.solutions.irs.SprayLeaderController.viewPage.mojo" />
   <mjl:columns>
+    <mjl:attributeColumn attributeName="person">
+      <mjl:header>
+        Person
+      </mjl:header>
+    </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.irs.TeamController.view.mojo" name="view.link">
+        <mjl:commandLink display="View" action="dss.vector.solutions.irs.SprayLeaderController.view.mojo" name="view.link">
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -25,4 +30,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Team" action="dss.vector.solutions.irs.TeamController.newInstance.mojo" name="TeamController.newInstance" />
+<mjl:commandLink display="Create a new Spray Leader" action="dss.vector.solutions.irs.SprayLeaderController.newInstance.mojo" name="SprayLeaderController.newInstance" />

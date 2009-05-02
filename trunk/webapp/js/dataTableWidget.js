@@ -213,7 +213,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 			  var newTotal = oldTotal + parseInt(oArgs.newData) - oldData;
 
-			  if(index != lastIndex )
+			  if(index != lastIndex && newTotal)
 			  {
 				  myDataTable.updateCell(lastRecord,editor.getColumn(),newTotal);
 				 //lastRecord.setData(editor.getColumn().key, newTotal);
@@ -335,7 +335,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    		if(setter_exists)
 	    		{
 	    			val = eval('row.'+ attrib.key);
-	    			if(typeof val !== 'undefined')
+	    			if(typeof val !== 'undefined' && val != 'undefined')
 	    			{
 	    				eval_str = 'v.set'+attrib.key+'(val)';
 		    			// alert (eval_str);
