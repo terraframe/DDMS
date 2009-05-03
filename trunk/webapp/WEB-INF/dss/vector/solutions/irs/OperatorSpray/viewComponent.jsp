@@ -86,8 +86,7 @@
               defaults: {"Spray":'<%=spray.getSprayId()%>'},
               div_id: "Status",
               data_type: "Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatusView",
-              saveFunction:"applyAll",
-              width:"65em"
+              saveFunction:"applyAll"
           };
     document.addEventListener('load', MojoGrid.createDataTable(data), false);
 
