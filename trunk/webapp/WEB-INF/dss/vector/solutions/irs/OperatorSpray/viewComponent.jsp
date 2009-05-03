@@ -5,14 +5,14 @@
 <%
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-  HouseholdSprayStatusViewDTO view = new HouseholdSprayStatusViewDTO(clientRequest);      
+  HouseholdSprayStatusViewDTO view = new HouseholdSprayStatusViewDTO(clientRequest);
 
   OperatorSprayViewDTO spray = ((OperatorSprayViewDTO) request.getAttribute("item"));
   spray.setModified(true);
   spray.setModified(OperatorSprayViewDTO.SPRAYID, true);
-  
+
   HouseholdSprayStatusViewDTO[] rows = spray.getStatus();
-  
+
   String[] attributes = {"StatusId", "Spray", "HouseholdId", "StructureId", "Households", "Structures",
        "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
        "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
@@ -30,25 +30,25 @@
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.irs.OperatorSpray.form.name" id="dss.vector.solutions.irs.OperatorSpray.form.id" method="POST">
   <dl>
-    <mjl:input value="${item.sprayId}" type="hidden" param="id" />      
-    
+    <mjl:input value="${item.sprayId}" type="hidden" param="id" />
+
     <mjl:component item="${item}" param="dto">
-      <mjl:dt attribute="surfaceType" >          
+      <mjl:dt attribute="surfaceType" >
         <ul>
           <c:forEach var="enumName" items="${item.surfaceTypeEnumNames}">
             <li>${item.surfaceTypeMd.enumItems[enumName]}</li>
           </c:forEach>
         </ul>
-      </mjl:dt>        
-      <mjl:dt attribute="teamSprayWeek"> ${item.teamSprayWeek} </mjl:dt>      
-      <mjl:dt attribute="target"> ${item.target} </mjl:dt>     
+      </mjl:dt>
+      <mjl:dt attribute="teamSprayWeek"> ${item.teamSprayWeek} </mjl:dt>
+      <mjl:dt attribute="target"> ${item.target} </mjl:dt>
       <mjl:dt attribute="operatorSprayWeek"> ${item.operatorSprayWeek} </mjl:dt>
       <mjl:dt attribute="received"> ${item.received} </mjl:dt>
       <mjl:dt attribute="refills"> ${item.refills} </mjl:dt>
       <mjl:dt attribute="returned"> ${item.returned} </mjl:dt>
       <mjl:dt attribute="used"> ${item.used} </mjl:dt>
     </mjl:component>
-  </dl>  
+  </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.irs.OperatorSprayController.edit.mojo" name="dss.vector.solutions.irs.OperatorSpray.form.edit.button" />
 </mjl:form>
 
@@ -65,14 +65,20 @@
     <%
       String[] types_to_load =
         {
-          "dss.vector.solutions.irs.SprayStatusView",
-          "dss.vector.solutions.irs.HouseholdSprayStatusView"
+
+
+          "dss.vector.solutions.irs.SprayStatusView"
         };
       out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), types_to_load, true));
+
+      String[] types_to_load2 =
+      {
+        "dss.vector.solutions.irs.HouseholdSprayStatusView"
+      };
+    out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), types_to_load2, true));
     %>
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 
-    MojoCal.init();
 
     data = {
               rows:<%=Halp.getDataMap(rows, attributes, view)%>,
@@ -83,8 +89,7 @@
               saveFunction:"applyAll",
               width:"65em"
           };
+    document.addEventListener('load', MojoGrid.createDataTable(data), false);
 
-    YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(data));
-      
 </script>
 
