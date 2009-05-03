@@ -79,7 +79,6 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	}
 	myDataTable.render();
 
-	var i = (table_data.rows.length + 1);
 	var bReverseSorted = false;
 
 	// Track when Column is reverse-sorted, since new data will come in out of
@@ -88,6 +87,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		bReverseSorted = (oArg.dir === YAHOO.widget.DataTable.CLASS_DESC);
 	};
 	myDataTable.subscribe("columnSortEvent", trackReverseSorts);
+
 
 	// Set up editing flow
 	var highlightEditableCell = function(oArgs) {
