@@ -101,7 +101,7 @@
 <br />
 <mjl:form name="dss.vector.solutions.Person.form.name" id="dss.vector.solutions.Person.form.id" method="POST">
   <mjl:component item="${newPerson}" param="person">
-    <mjl:input type="hidden" param="personId" value="${item.personId}" />
+    <mjl:input type="hidden" param="personId" value="${newPerson.personId}" />
     <mjl:input type="hidden" param="firstName" value="${newPerson.firstName}"/>
     <mjl:input type="hidden" param="lastName" value="${newPerson.lastName}"/>
     <mjl:input type="hidden" param="dateOfBirth" value="${newPerson.dateOfBirth}"/>
@@ -117,18 +117,3 @@
   </mjl:component>
   <mjl:command value="No Matches, continue with new Person" action="dss.vector.solutions.PersonController.continueNewInstance.mojo" name="dss.vector.solutions.PersonController.continueNewInstance.button" />
 </mjl:form>
-
-<mjl:commandLink display="No Matches, continue with new Person" action="dss.vector.solutions.PersonController.continueNewInstance.mojo" name="PersonController.continueNewInstance">
-  <mjl:property name="firstName" value="${person.firstName}"/>
-  <mjl:property name="lastName" value="${person.lastName}"/>
-  <mjl:property name="dateOfBirth" value="${person.dateOfBirth}"/>
-  <mjl:property name="sex" value="${sexEnumName}"/>
-  <mjl:property name="isMDSSUser" value="${person.isMDSSUser}"/>
-  <mjl:property name="username" value="${person.username}"/>
-  <mjl:property name="password" value="${person.password}"/>
-  <mjl:property name="isIPTRecipient" value="${person.isIPTRecipient}"/>
-  <mjl:property name="isITNRecipient" value="${person.isITNRecipient}"/>
-  <mjl:property name="isPatient" value="${person.isPatient}"/>
-  <mjl:property name="isSprayLeader" value="${person.isSprayLeader}"/>
-  <mjl:property name="isSprayOperator" value="${person.isSprayOperator}"/>
-</mjl:commandLink>
