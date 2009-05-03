@@ -82,10 +82,9 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
   public static ZoneSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand)
   {
     ZoneSprayQuery query = new ZoneSprayQuery(new QueryFactory());
-    GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
 
     query.WHERE(query.getSprayData().getBrand().EQ(brand));
-    query.AND(query.getSprayData().getGeoEntity().EQ(geoEntity));
+    query.AND(query.getSprayData().getGeoEntity().getGeoId().EQ(geoId));
     query.AND(query.getSprayData().getSprayDate().EQ(sprayDate));
     query.AND(query.getSprayData().getSprayMethod().containsAny(sprayMethod));
 
@@ -98,7 +97,15 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
         return it.next().getView();
       }
 
-      return null;
+      GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
+      
+      ZoneSprayView view = new ZoneSprayView();
+      view.setGeoEntity(geoEntity);
+      view.setSprayDate(sprayDate);
+      view.addSprayMethod(sprayMethod);
+      view.setBrand(brand);
+
+      return view;
     }
     finally
     {
