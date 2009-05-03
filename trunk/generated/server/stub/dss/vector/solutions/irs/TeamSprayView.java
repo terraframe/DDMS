@@ -8,7 +8,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class TeamSprayView extends TeamSprayViewBase implements
@@ -28,12 +27,9 @@ public class TeamSprayView extends TeamSprayViewBase implements
     List<SprayMethod> method = this.getSprayMethod();
     TeamSpray spray = new TeamSpray();
 
-    SprayData data = SprayData.get(this.getBrand(), this.getGeoEntity(), this.getSprayDate(), method
-        .toArray(new SprayMethod[method.size()]));
+    SprayData data = SprayData.get(this.getBrand(), this.getGeoEntity(), this.getSprayDate(), method.toArray(new SprayMethod[method.size()]));
 
-    this.populateSprayData(data);
-
-    data.apply();
+    this.applySprayData(data);
 
     if (this.hasConcrete())
     {
@@ -71,11 +67,10 @@ public class TeamSprayView extends TeamSprayViewBase implements
     List<SprayStatusView> list = new LinkedList<SprayStatusView>();
 
     SprayData data = TeamSpray.get(this.getSprayId()).getSprayData();
-    OIterator<? extends MDSSUser> members = (OIterator<? extends MDSSUser>) this.getSprayTeam().getAllSprayTeamMembers();
+    OIterator<? extends SprayOperator> members = this.getSprayTeam().getAllSprayTeamMembers();
 
-    for (MDSSUser user : members)
+    for (SprayOperator operator : members)
     {
-      SprayOperator operator = user.getPerson().getSprayOperatorDelegate();
       OperatorSprayStatusView view = OperatorSprayStatusView.search(data, operator);
 
       if (view == null)
@@ -95,10 +90,9 @@ public class TeamSprayView extends TeamSprayViewBase implements
   public static TeamSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand, String teamId)
   {
     TeamSprayQuery query = new TeamSprayQuery(new QueryFactory());
-    GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
 
     query.WHERE(query.getSprayData().getBrand().EQ(brand));
-    query.AND(query.getSprayData().getGeoEntity().EQ(geoEntity));
+    query.AND(query.getSprayData().getGeoEntity().getGeoId().EQ(geoId));
     query.AND(query.getSprayData().getSprayDate().EQ(sprayDate));
     query.AND(query.getSprayData().getSprayMethod().containsAny(sprayMethod));
     query.AND(query.getSprayTeam().getId().EQ(teamId));
@@ -111,8 +105,17 @@ public class TeamSprayView extends TeamSprayViewBase implements
       {
         return it.next().getView();
       }
+      
+      GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
+      
+      TeamSprayView view = new TeamSprayView();
+      view.setGeoEntity(geoEntity);
+      view.setSprayDate(sprayDate);
+      view.addSprayMethod(sprayMethod);
+      view.setBrand(brand);
+      view.setSprayTeam(SprayTeam.get(teamId));
 
-      return null;
+      return view;
     }
     finally
     {

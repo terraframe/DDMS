@@ -21,7 +21,7 @@ public class InvalidSearchCriteria extends InvalidSearchCriteriaBase implements 
   
   public InvalidSearchCriteria(java.lang.Throwable cause)
   {
-    super(cause);
+    super(cause); 
   }
   
 }

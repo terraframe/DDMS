@@ -3,11 +3,13 @@ package dss.vector.solutions.irs;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.DateConverter;
@@ -179,11 +181,11 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
   public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date,
       String sprayMethod, SprayOperatorDTO operator) throws IOException, ServletException
-  {
-    validateParameters(brand, geoId, date, sprayMethod, operator);
-    
+  {    
     try
     {
+      validateParameters(brand, geoId, date, sprayMethod, operator);
+
       SprayMethodDTO method = SprayMethodDTO.valueOf(sprayMethod);
       
       OperatorSprayViewDTO dto = OperatorSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId, date, method, brand, operator.getId());
@@ -222,36 +224,42 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
   private void validateParameters(InsecticideBrandDTO brand, String geoId, Date date,
       String sprayMethod, SprayOperatorDTO operator)
   {
+    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+    
     if(brand == null)
     {
-      String msg = "Insecticide Brand requires a value";
-      throw new RuntimeException(msg);
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredInsecticideBrandProblemDTO(clientRequest, req.getLocale() ));
     }
     
     if(geoId == null)
     {
-      String msg = "Geo Id requires a value";
-      throw new RuntimeException(msg);
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredGeoIdProblemDTO(clientRequest, req.getLocale() ));
     }
     
     if(date == null)
     {
-      String msg = "Spray date requires a value";
-      throw new RuntimeException(msg);
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredSprayDateProblemDTO(clientRequest, req.getLocale() ));
     }
     
     if(sprayMethod == null)
     {
-      String msg = "Spray method requires a value";
-      throw new RuntimeException(msg);
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredSprayMethodProblemDTO(clientRequest, req.getLocale() ));
     }
     
     if(operator == null)
     {
-      String msg = "Operator requires a value";
-      throw new RuntimeException(msg);
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredSprayOperatorProblemDTO(clientRequest, req.getLocale() ));
     }
 
+    if(problems.size() > 0)
+    {
+      throw new ProblemExceptionDTO("", problems);
+    }
   }
 
   public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date,

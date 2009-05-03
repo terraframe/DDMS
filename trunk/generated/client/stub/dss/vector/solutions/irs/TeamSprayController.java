@@ -1,148 +1,293 @@
 package dss.vector.solutions.irs;
 
-public class TeamSprayController extends TeamSprayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
+import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
+
+import dss.vector.solutions.util.DateConverter;
+import dss.vector.solutions.util.ErrorUtility;
+
+public class TeamSprayController extends TeamSprayControllerBase implements Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/irs/TeamSpray/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/TeamSpray/";
 
-  private static final long serialVersionUID = 1240860635607L;
+  public static final String LAYOUT           = JSP_DIR + "layout.jsp";
 
-  public TeamSprayController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  private static final long  serialVersionUID = 1240860635607L;
+
+  public TeamSprayController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.irs.TeamSprayQueryDTO query = dss.vector.solutions.irs.TeamSprayDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All TeamSprayController Objects");
-    render("viewAllComponent.jsp");
-  }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.irs.TeamSprayDTO dto = new dss.vector.solutions.irs.TeamSprayDTO(clientRequest);
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create TeamSprayController");
-    render("createComponent.jsp");
-  }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dss.vector.solutions.irs.TeamSprayDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View TeamSprayController");
-    render("viewComponent.jsp");
-  }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.irs.TeamSprayQueryDTO query = dss.vector.solutions.irs.TeamSprayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All TeamSprayController Objects");
-    render("viewAllComponent.jsp");
-  }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dss.vector.solutions.irs.TeamSprayDTO dto = dss.vector.solutions.irs.TeamSprayDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit TeamSprayController");
-    render("editComponent.jsp");
-  }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.view(id);
-  }
-  public void update(dss.vector.solutions.irs.TeamSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(TeamSprayViewDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
+
+      this.view(dto);
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
-      this.failUpdate(dto);
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failCreate(dto);
     }
-  }
-  public void failUpdate(dss.vector.solutions.irs.TeamSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update TeamSprayController");
-    render("editComponent.jsp");
-  }
-  public void cancel(dss.vector.solutions.irs.TeamSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dto.unlock();
-    this.view(dto.getId());
-  }
-  public void failCancel(dss.vector.solutions.irs.TeamSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-  public void create(dss.vector.solutions.irs.TeamSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
+    catch (Throwable t)
     {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failCreate(dto);
     }
   }
-  public void failCreate(dss.vector.solutions.irs.TeamSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCreate(TeamSprayViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create TeamSprayController");
+    req.setAttribute("page_title", "Create Team Sprays");
+
     render("createComponent.jsp");
   }
-  public void delete(dss.vector.solutions.irs.TeamSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void update(TeamSprayViewDTO dto) throws IOException, ServletException
   {
     try
     {
-      dto.delete();
-      this.viewAll();
+      dto.apply();
+      this.view(dto);
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failUpdate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failUpdate(dto);
+    }
+  }
+
+  public void failUpdate(TeamSprayViewDTO dto) throws IOException, ServletException
+  {
+    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Update Team Sprays");
+    render("editComponent.jsp");
+  }
+
+  public void view(String id) throws IOException, ServletException
+  {
+    this.view(TeamSprayViewDTO.get(this.getClientRequest(), id));
+  }
+
+  public void view(TeamSprayViewDTO dto) throws IOException, ServletException
+  {
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "View Team Sprays");
+    render("viewComponent.jsp");
+  }
+
+  public void failView(String id) throws IOException, ServletException
+  {
+    this.viewAll();
+  }
+
+  public void edit(String id) throws IOException, ServletException
+  {
+    TeamSprayViewDTO dto = TeamSprayDTO.lockView(super.getClientRequest(), id);
+
+    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit Team Sprays");
+    render("editComponent.jsp");
+  }
+
+  public void failEdit(String id) throws IOException, ServletException
+  {
+    this.view(id);
+  }
+
+  public void cancel(TeamSprayViewDTO dto) throws IOException, ServletException
+  {
+    this.view(TeamSprayDTO.unlockView(getClientRequest(), dto.getSprayId()));
+  }
+
+  public void failCancel(TeamSprayViewDTO dto) throws IOException, ServletException
+  {
+    resp.sendError(500);
+  }
+
+  public void delete(TeamSprayViewDTO dto) throws IOException, ServletException
+  {
+    try
+    {
+      dto.deleteConcrete();
+      this.search();
+    }
+    catch (com.terraframe.mojo.ProblemExceptionDTO e)
     {
       this.failDelete(dto);
     }
   }
-  public void failDelete(dss.vector.solutions.irs.TeamSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failDelete(TeamSprayViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("dss_vector_solutions_irs_TeamSpray_sprayTeam", dss.vector.solutions.irs.SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit TeamSprayController");
+    req.setAttribute("page_title", "Edit Team Sprays");
     render("editComponent.jsp");
+  }
+
+  public void search() throws IOException, ServletException
+  {
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
+
+    InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+    List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
+    List<? extends SprayTeamDTO> teams = SprayTeamDTO.getAllInstances(clientRequest,
+        SprayTeamDTO.TEAMCODE, true, 0, 0).getResultSet();
+
+    req.setAttribute("methods", methods);
+    req.setAttribute("method", SprayMethodDTO.MAIN_SPRAY.getName());
+    req.setAttribute("brands", Arrays.asList(brands));
+    req.setAttribute("teams", teams);
+    req.setAttribute("page_title", "Search for an Team Spray");
+
+    render("searchComponent.jsp");
+  }
+
+  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod,
+      SprayTeamDTO team) throws IOException, ServletException
+  {
+
+    try
+    {
+      validateParameters(brand, geoId, date, sprayMethod, team);
+      
+      SprayMethodDTO method = SprayMethodDTO.valueOf(sprayMethod);
+
+      TeamSprayViewDTO dto = TeamSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId,
+          date, method, brand, team.getId());
+
+      String jsp = "createComponent.jsp";
+      req.setAttribute("page_title", "New Team Spray ");
+
+      if (dto.hasConcrete())
+      {
+        jsp = "viewComponent.jsp";
+        req.setAttribute("page_title", "Team Spray");
+      }
+
+      req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+      req.setAttribute("item", dto);
+      render(jsp);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      String failDate = ( date == null ? null : date.toString() );
+
+      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, team);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      String failDate = ( date == null ? null : date.toString() );
+
+      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, team);
+    }
+  }
+
+  private void validateParameters(InsecticideBrandDTO brand, String geoId, Date date,
+      String sprayMethod, SprayTeamDTO team)
+  {
+    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+
+    if (brand == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredInsecticideBrandProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (geoId == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredGeoIdProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (date == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredSprayDateProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (sprayMethod == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredSprayMethodProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (team == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredSprayTeamProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (problems.size() > 0)
+    {
+      throw new ProblemExceptionDTO("", problems);
+    }
+  }
+
+  public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date,
+      String method, SprayTeamDTO operator) throws IOException, ServletException
+  {
+    try
+    {
+      Date d = (Date) new DateConverter("Spray Date").parse(date, this.getRequest().getLocale());
+
+      this.searchByParameters(brand, geoId, d, method, operator);
+    }
+    catch (Exception e)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+
+      InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+      List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
+      List<? extends SprayTeamDTO> teams = SprayTeamDTO.getAllInstances(clientRequest,
+          SprayTeamDTO.TEAMCODE, true, 0, 0).getResultSet();
+
+      req.setAttribute("methods", methods);
+      req.setAttribute("brands", Arrays.asList(brands));
+      req.setAttribute("teams", teams);
+      req.setAttribute("page_title", "Search for an Team Spray");
+
+      req.setAttribute("brand", brand);
+      req.setAttribute("date", date);
+      req.setAttribute("geoId", geoId);
+      req.setAttribute("method", method);
+      req.setAttribute("team", operator);
+      req.setAttribute("page_title", "Search for an Team Spray");
+
+      render("searchComponent.jsp");
+    }
   }
 }

@@ -28,9 +28,7 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
 
     SprayData data = SprayData.get(this.getBrand(), this.getGeoEntity(), this.getSprayDate(), method.toArray(new SprayMethod[method.size()]));
 
-    this.populateSprayData(data);
-
-    data.apply();
+    this.applySprayData(data);
 
     if(this.hasConcrete())
     {

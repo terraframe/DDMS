@@ -28,5 +28,23 @@ public abstract class AbstractSprayView extends AbstractSprayViewBase implements
   {
     return this.getSprayId() != null && !this.getSprayId().equals("");
   }
+  
+  protected void applySprayData(SprayData data)
+  {
+    if(data.isNew())
+    {
+      this.populateSprayData(data);
+
+      data.apply();
+    }
+    else if(!data.getSurfaceType().containsAll(this.getSurfaceType()))
+    {
+      data.lock();
+      
+      this.populateSprayData(data);
+      
+      data.apply();
+    }
+  }
 
 }

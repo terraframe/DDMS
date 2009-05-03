@@ -19,4 +19,9 @@ public abstract class AbstractSprayViewDTO extends AbstractSprayViewDTOBase
     
     return new DateConverter(label);
   }  
+  
+  public boolean hasConcrete()
+  {
+    return (this.getSprayId() != null && !this.getSprayId().equals(""));
+  }
 }

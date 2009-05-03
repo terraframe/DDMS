@@ -7,12 +7,5 @@ public class OperatorSprayViewDTO extends OperatorSprayViewDTOBase
   public OperatorSprayViewDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
-  }
-
-  public boolean hasConcrete()
-  {
-    String id = this.getSprayId();
-    return (id != null && !id.equals(""));
-  }
-  
+  }  
 }

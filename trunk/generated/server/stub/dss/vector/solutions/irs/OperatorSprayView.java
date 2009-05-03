@@ -42,25 +42,6 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.terr
     spray.populateView(this);
   }
 
-
-  private void applySprayData(SprayData data)
-  {
-    if(data.isNew())
-    {
-      this.populateSprayData(data);
-
-      data.apply();
-    }
-    else if(!data.getSurfaceType().containsAll(this.getSurfaceType()))
-    {
-      data.lock();
-      
-      this.populateSprayData(data);
-      
-      data.apply();
-    }
-  }
-
   protected void populateConcrete(OperatorSpray spray, SprayData data)
   {
     super.populateConcrete(spray, data);
