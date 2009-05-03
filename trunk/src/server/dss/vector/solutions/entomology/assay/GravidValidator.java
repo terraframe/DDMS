@@ -50,6 +50,8 @@ public class GravidValidator implements Reloadable
       p.throwIt();
     }
 
+    if(quantityTested == null)return;
+
     if (gravid > quantityTested)
     {
       String msg = "It is impossible to have gravid values larger than the quantity of mosquitos tested";

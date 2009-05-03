@@ -50,6 +50,8 @@ public class FedValidator implements Reloadable
       p.throwIt();
     }
 
+    if(quantityTested == null)return;
+
     if (fed > quantityTested)
     {
       String msg = "It is impossible to have red values larger than the quantity of mosquitos tested";
