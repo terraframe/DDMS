@@ -1,148 +1,290 @@
 package dss.vector.solutions.irs;
 
-public class OperatorSprayController extends OperatorSprayControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.ServletException;
+
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
+
+import dss.vector.solutions.util.DateConverter;
+import dss.vector.solutions.util.ErrorUtility;
+
+public class OperatorSprayController extends OperatorSprayControllerBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/irs/OperatorSpray/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
-  
-  private static final long serialVersionUID = 1240853382362L;
-  
-  public OperatorSprayController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/OperatorSpray/";
+
+  public static final String LAYOUT           = JSP_DIR + "layout.jsp";
+
+  private static final long  serialVersionUID = 1240853382362L;
+
+  public OperatorSprayController(javax.servlet.http.HttpServletRequest req,
+      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.irs.OperatorSprayDTO dto = new dss.vector.solutions.irs.OperatorSprayDTO(clientRequest);
-    req.setAttribute("dss_vector_solutions_irs_OperatorSpray_sprayOperator", dss.vector.solutions.irs.SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create OperatorSprayController");
-    render("createComponent.jsp");
-  }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void create(dss.vector.solutions.irs.OperatorSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void create(OperatorSprayViewDTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
+
+      this.view(dto);
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failCreate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failCreate(dto);
     }
   }
-  public void failCreate(dss.vector.solutions.irs.OperatorSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCreate(OperatorSprayViewDTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_irs_OperatorSpray_sprayOperator", dss.vector.solutions.irs.SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create OperatorSprayController");
+    req.setAttribute("page_title", "Create Operator Sprays");
+    
     render("createComponent.jsp");
   }
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.irs.OperatorSprayQueryDTO query = dss.vector.solutions.irs.OperatorSprayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All OperatorSprayController Objects");
-    render("viewAllComponent.jsp");
-  }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-  public void update(dss.vector.solutions.irs.OperatorSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void update(OperatorSprayViewDTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failUpdate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(dss.vector.solutions.irs.OperatorSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failUpdate(OperatorSprayViewDTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_irs_OperatorSpray_sprayOperator", dss.vector.solutions.irs.SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update OperatorSprayController");
+    req.setAttribute("page_title", "Update Operator Sprays");
     render("editComponent.jsp");
   }
+
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("dss_vector_solutions_irs_OperatorSpray_sprayOperator", dss.vector.solutions.irs.SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dss.vector.solutions.irs.OperatorSprayDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View OperatorSprayController");
+    this.view(OperatorSprayViewDTO.get(this.getClientRequest(), id));
+  }
+
+  public void view(OperatorSprayViewDTO dto) throws IOException, ServletException
+  {
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "View Operator Sprays");
     render("viewComponent.jsp");
   }
+
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
   }
+
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.irs.OperatorSprayDTO dto = dss.vector.solutions.irs.OperatorSprayDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("dss_vector_solutions_irs_OperatorSpray_sprayOperator", dss.vector.solutions.irs.SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    OperatorSprayViewDTO dto = OperatorSprayDTO.lockView(super.getClientRequest(), id);
+
+    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit OperatorSprayController");
+    req.setAttribute("page_title", "Edit Operator Sprays");
     render("editComponent.jsp");
   }
+
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.view(id);
   }
-  public void cancel(dss.vector.solutions.irs.OperatorSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void cancel(OperatorSprayViewDTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    this.view(OperatorSprayDTO.unlockView(getClientRequest(), dto.getSprayId()));
   }
-  public void failCancel(dss.vector.solutions.irs.OperatorSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.irs.OperatorSprayQueryDTO query = dss.vector.solutions.irs.OperatorSprayDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All OperatorSprayController Objects");
-    render("viewAllComponent.jsp");
-  }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCancel(OperatorSprayViewDTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     resp.sendError(500);
   }
-  public void delete(dss.vector.solutions.irs.OperatorSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void delete(OperatorSprayViewDTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     try
     {
-      dto.delete();
-      this.viewAll();
+      dto.deleteConcrete();
+      this.search();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.terraframe.mojo.ProblemExceptionDTO e)
     {
       this.failDelete(dto);
     }
   }
-  public void failDelete(dss.vector.solutions.irs.OperatorSprayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failDelete(OperatorSprayViewDTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
-    req.setAttribute("dss_vector_solutions_irs_OperatorSpray_sprayOperator", dss.vector.solutions.irs.SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_irs_AbstractSpray_sprayData", dss.vector.solutions.irs.SprayDataDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit OperatorSprayController");
-    render("editComponent.jsp");
+    req.setAttribute("page_title", "Edit Operator Sprays");
+    render("editComponent.jsp"); 
   }
+
+  public void search() throws IOException, ServletException
+  {
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
+
+    InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+    List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
+    List<? extends SprayOperatorDTO> operators = SprayOperatorDTO.getAllInstances(clientRequest,
+        SprayOperatorDTO.PERSON, true, 0, 0).getResultSet();
+
+    req.setAttribute("methods", methods);
+    req.setAttribute("method", SprayMethodDTO.MAIN_SPRAY.getName());
+    req.setAttribute("brands", Arrays.asList(brands));
+    req.setAttribute("operators", operators);
+    req.setAttribute("page_title", "Search for an Operator Spray");
+
+    render("searchComponent.jsp");
+  }
+
+  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date,
+      String sprayMethod, SprayOperatorDTO operator) throws IOException, ServletException
+  {
+    validateParameters(brand, geoId, date, sprayMethod, operator);
+    
+    try
+    {
+      SprayMethodDTO method = SprayMethodDTO.valueOf(sprayMethod);
+      
+      OperatorSprayViewDTO dto = OperatorSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId, date, method, brand, operator.getId());
+      
+      String jsp = "createComponent.jsp";
+      req.setAttribute("page_title", "New Operator Spray ");
+
+      if (dto.hasConcrete())
+      {
+        jsp = "viewComponent.jsp";
+        req.setAttribute("page_title", "Operator Spray");
+      }
+
+      req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+      req.setAttribute("item", dto);
+      render(jsp);
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      String failDate = (date == null ? null : date.toString());
+
+      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, operator);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      String failDate = (date == null ? null : date.toString());
+
+      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, operator);
+    }    
+  }
+
+  private void validateParameters(InsecticideBrandDTO brand, String geoId, Date date,
+      String sprayMethod, SprayOperatorDTO operator)
+  {
+    if(brand == null)
+    {
+      String msg = "Insecticide Brand requires a value";
+      throw new RuntimeException(msg);
+    }
+    
+    if(geoId == null)
+    {
+      String msg = "Geo Id requires a value";
+      throw new RuntimeException(msg);
+    }
+    
+    if(date == null)
+    {
+      String msg = "Spray date requires a value";
+      throw new RuntimeException(msg);
+    }
+    
+    if(sprayMethod == null)
+    {
+      String msg = "Spray method requires a value";
+      throw new RuntimeException(msg);
+    }
+    
+    if(operator == null)
+    {
+      String msg = "Operator requires a value";
+      throw new RuntimeException(msg);
+    }
+
+  }
+
+  public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date,
+      String method, SprayOperatorDTO operator) throws IOException, ServletException
+  {
+    try
+    {
+      Date d = (Date) new DateConverter("Spray Date").parse(date, this.getRequest().getLocale());
+
+      this.searchByParameters(brand, geoId, d, method, operator);
+    }
+    catch (Exception e)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      
+      InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+      List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
+      List<? extends SprayOperatorDTO> operators = SprayOperatorDTO.getAllInstances(clientRequest, SprayOperatorDTO.PERSON, true, 0, 0).getResultSet();
+      
+      req.setAttribute("methods", methods);
+      req.setAttribute("brands", Arrays.asList(brands));
+      req.setAttribute("operators", operators);
+      req.setAttribute("page_title", "Search for an Operator Spray");
+      
+      req.setAttribute("brand", brand);
+      req.setAttribute("date", date);
+      req.setAttribute("geoId", geoId);    
+      req.setAttribute("method", method);
+      req.setAttribute("operator", operator);    
+      req.setAttribute("page_title", "Search for an Operator Spray");
+      
+      render("searchComponent.jsp");
+    }    
+  }
+
 }

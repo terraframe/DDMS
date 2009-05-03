@@ -81,7 +81,7 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
   {
     return OperatorSpray.get(id).getView();
   }
-
+  
   public static OperatorSpray find(SprayData data, SprayOperator operator)
   {
     OperatorSprayQuery query = new OperatorSprayQuery(new QueryFactory());

@@ -338,7 +338,7 @@ public class OperatorSprayTest extends TestCase
     try
     {
       String geoId = geoEntity.getGeoId();
-      OperatorSprayView test = OperatorSprayView.searchBySprayData(geoId, date, method, brand, "3");
+      OperatorSprayView test = OperatorSprayView.searchBySprayData(geoId, date, method, brand, operator.getId());
 
       assertNotNull(test);
       assertEquals(data.getBrand().getId(), test.getBrand().getId());
@@ -370,6 +370,6 @@ public class OperatorSprayTest extends TestCase
     SprayMethod method = SprayMethod.MAIN_SPRAY;
     String geoId = geoEntity.getGeoId();
 
-    assertNull(OperatorSprayView.searchBySprayData(geoId, date, method, brand, "3"));
+    assertNull(OperatorSprayView.searchBySprayData(geoId, date, method, brand, operator.getId()).getSprayId());
   }
 }

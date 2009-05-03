@@ -338,8 +338,7 @@ public class HouseholdSprayStatusTest extends TestCase
     status.setStructureId("structureId");
     status.apply();
 
-    HouseholdSprayStatusView edit = (HouseholdSprayStatusView) HouseholdSprayStatus.lockView(status
-        .getStatusId());
+    HouseholdSprayStatusView edit = (HouseholdSprayStatusView) HouseholdSprayStatus.lockView(status.getStatusId());
     edit.setHouseholds(0);
     edit.setStructures(1);
     edit.setSprayedHouseholds(1);
