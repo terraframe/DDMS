@@ -36,7 +36,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
   @Override
   public void validateGravid()
   {
-    //super.validateGravid();
+    super.validateGravid();
 
     new GravidValidator(this).validate();
   }
@@ -44,7 +44,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
   @Override
   public void validateFed()
   {
-    //super.validateFed();
+    super.validateFed();
 
     new FedValidator(this).validate();
   }
@@ -65,7 +65,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
     validateFed();
     validateGravid();
 
-    if (this.getQuantityDead() <= this.getQuantityTested())
+    if (this.getQuantityDead() != null && this.getQuantityTested() != null && this.getQuantityDead() <= this.getQuantityTested())
     {
       float mortality = calculateMortality(this.getQuantityDead(), this.getQuantityTested());
 
