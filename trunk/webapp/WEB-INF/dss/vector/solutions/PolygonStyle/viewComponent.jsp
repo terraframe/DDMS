@@ -34,6 +34,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.PolygonStyleController.edit.mojo" name="dss.vector.solutions.PolygonStyle.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.PolygonStyleController.viewAll.mojo" name="dss.vector.solutions.PolygonStyle.viewAll.link" />

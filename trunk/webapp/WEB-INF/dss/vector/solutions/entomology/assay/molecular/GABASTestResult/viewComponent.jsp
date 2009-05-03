@@ -25,6 +25,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.molecular.GABASTestResultController.edit.mojo" name="dss.vector.solutions.entomology.assay.molecular.GABASTestResult.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.molecular.GABASTestResultController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.molecular.GABASTestResult.viewAll.link" />

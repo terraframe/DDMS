@@ -66,6 +66,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.irs.SprayDataController.edit.mojo" name="dss.vector.solutions.irs.SprayData.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.irs.SprayDataController.viewAll.mojo" name="dss.vector.solutions.irs.SprayData.viewAll.link" />

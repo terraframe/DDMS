@@ -67,6 +67,5 @@
   <br />
   </mjl:component>
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.LarvaeAssayController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.LarvaeAssay.viewAll.link" />

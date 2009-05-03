@@ -20,6 +20,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.ITNRecipientController.edit.mojo" name="dss.vector.solutions.intervention.monitor.ITNRecipient.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.intervention.monitor.ITNRecipientController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.ITNRecipient.viewAll.link" />

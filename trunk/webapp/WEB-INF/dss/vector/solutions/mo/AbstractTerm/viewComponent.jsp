@@ -18,6 +18,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.mo.AbstractTermController.edit.mojo" name="dss.vector.solutions.mo.AbstractTerm.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.mo.AbstractTermController.viewAll.mojo" name="dss.vector.solutions.mo.AbstractTerm.viewAll.link" />

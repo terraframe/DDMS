@@ -26,6 +26,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.surveillance.AbstractGridController.edit.mojo" name="dss.vector.solutions.surveillance.AbstractGrid.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.surveillance.AbstractGridController.viewAll.mojo" name="dss.vector.solutions.surveillance.AbstractGrid.viewAll.link" />

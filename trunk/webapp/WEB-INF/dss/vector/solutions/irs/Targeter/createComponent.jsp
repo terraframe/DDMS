@@ -5,8 +5,7 @@
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.irs.Targeter.form.name" id="dss.vector.solutions.irs.Targeter.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
-    <dl>
-    </dl>
+    
   </mjl:component>
   <mjl:command value="Create" action="dss.vector.solutions.irs.TargeterController.create.mojo" name="dss.vector.solutions.irs.Targeter.form.create.button" />
 </mjl:form>

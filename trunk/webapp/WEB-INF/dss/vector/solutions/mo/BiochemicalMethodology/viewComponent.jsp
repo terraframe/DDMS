@@ -74,6 +74,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.mo.BiochemicalMethodologyController.edit.mojo" name="dss.vector.solutions.mo.BiochemicalMethodology.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.mo.BiochemicalMethodologyController.viewAll.mojo" name="dss.vector.solutions.mo.BiochemicalMethodology.viewAll.link" />

@@ -37,6 +37,5 @@
   <br />
   </mjl:component>
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.ResistantCutOffController.viewAll.mojo" name="dss.vector.solutions.entomology.ResistantCutOff.viewAll.link" />

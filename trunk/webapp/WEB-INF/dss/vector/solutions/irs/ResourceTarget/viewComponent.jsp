@@ -4,6 +4,5 @@
   <mjl:message />
 </mjl:messages>
 
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" name="dss.vector.solutions.irs.ResourceTarget.viewAll.link" />

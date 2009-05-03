@@ -102,6 +102,4 @@
   <mjl:command value="Edit" action="dss.vector.solutions.PersonController.edit.mojo" name="dss.vector.solutions.Person.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
 <mjl:commandLink display="View All" action="dss.vector.solutions.PersonController.viewAll.mojo" name="dss.vector.solutions.Person.viewAll.link" />

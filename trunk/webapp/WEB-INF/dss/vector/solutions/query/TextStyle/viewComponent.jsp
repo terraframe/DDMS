@@ -42,6 +42,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.query.TextStyleController.edit.mojo" name="dss.vector.solutions.query.TextStyle.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.query.TextStyleController.viewAll.mojo" name="dss.vector.solutions.query.TextStyle.viewAll.link" />

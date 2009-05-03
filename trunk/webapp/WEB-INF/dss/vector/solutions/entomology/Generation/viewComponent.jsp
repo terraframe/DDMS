@@ -13,6 +13,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.GenerationController.edit.mojo" name="dss.vector.solutions.entomology.Generation.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.GenerationController.viewAll.mojo" name="dss.vector.solutions.entomology.Generation.viewAll.link" />

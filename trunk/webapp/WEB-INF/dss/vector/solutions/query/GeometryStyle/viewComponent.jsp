@@ -26,6 +26,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.query.GeometryStyleController.edit.mojo" name="dss.vector.solutions.query.GeometryStyle.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.query.GeometryStyleController.viewAll.mojo" name="dss.vector.solutions.query.GeometryStyle.viewAll.link" />

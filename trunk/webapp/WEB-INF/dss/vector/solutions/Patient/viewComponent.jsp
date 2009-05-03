@@ -20,6 +20,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.PatientController.edit.mojo" name="dss.vector.solutions.Patient.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.PatientController.viewAll.mojo" name="dss.vector.solutions.Patient.viewAll.link" />

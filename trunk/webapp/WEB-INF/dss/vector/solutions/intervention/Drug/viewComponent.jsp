@@ -13,6 +13,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.intervention.DrugController.edit.mojo" name="dss.vector.solutions.intervention.Drug.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.intervention.DrugController.viewAll.mojo" name="dss.vector.solutions.intervention.Drug.viewAll.link" />

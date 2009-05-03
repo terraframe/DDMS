@@ -40,6 +40,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.PointStyleController.edit.mojo" name="dss.vector.solutions.PointStyle.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.PointStyleController.viewAll.mojo" name="dss.vector.solutions.PointStyle.viewAll.link" />

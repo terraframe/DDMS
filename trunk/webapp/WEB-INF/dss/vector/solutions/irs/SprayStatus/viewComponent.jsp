@@ -132,6 +132,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.irs.SprayStatusController.edit.mojo" name="dss.vector.solutions.irs.SprayStatus.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.irs.SprayStatusController.viewAll.mojo" name="dss.vector.solutions.irs.SprayStatus.viewAll.link" />

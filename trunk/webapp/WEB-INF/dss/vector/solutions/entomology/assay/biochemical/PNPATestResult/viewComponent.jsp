@@ -18,6 +18,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.biochemical.PNPATestResultController.edit.mojo" name="dss.vector.solutions.entomology.assay.biochemical.PNPATestResult.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.biochemical.PNPATestResultController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.biochemical.PNPATestResult.viewAll.link" />

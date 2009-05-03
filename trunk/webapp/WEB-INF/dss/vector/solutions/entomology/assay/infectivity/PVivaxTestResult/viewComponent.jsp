@@ -18,6 +18,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResultController.edit.mojo" name="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResultController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult.viewAll.link" />

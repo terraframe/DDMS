@@ -21,6 +21,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.edit.mojo" name="dss.vector.solutions.entomology.assay.LarvaeTestInterval.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.LarvaeTestIntervalController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.LarvaeTestInterval.viewAll.link" />

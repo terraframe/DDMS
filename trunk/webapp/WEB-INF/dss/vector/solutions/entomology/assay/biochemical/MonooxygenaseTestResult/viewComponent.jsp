@@ -18,6 +18,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.biochemical.MonooxygenaseTestResultController.edit.mojo" name="dss.vector.solutions.entomology.assay.biochemical.MonooxygenaseTestResult.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.biochemical.MonooxygenaseTestResultController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.biochemical.MonooxygenaseTestResult.viewAll.link" />

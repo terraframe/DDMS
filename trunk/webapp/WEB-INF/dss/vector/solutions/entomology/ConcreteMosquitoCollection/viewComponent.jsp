@@ -18,6 +18,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.ConcreteMosquitoCollectionController.edit.mojo" name="dss.vector.solutions.entomology.ConcreteMosquitoCollection.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.ConcreteMosquitoCollectionController.viewAll.mojo" name="dss.vector.solutions.entomology.ConcreteMosquitoCollection.viewAll.link" />

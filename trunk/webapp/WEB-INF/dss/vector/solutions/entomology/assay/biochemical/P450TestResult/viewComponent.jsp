@@ -18,6 +18,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.biochemical.P450TestResultController.edit.mojo" name="dss.vector.solutions.entomology.assay.biochemical.P450TestResult.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.biochemical.P450TestResultController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.biochemical.P450TestResult.viewAll.link" />

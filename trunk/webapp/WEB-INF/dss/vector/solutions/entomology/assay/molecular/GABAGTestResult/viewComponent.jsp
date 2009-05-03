@@ -25,6 +25,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.molecular.GABAGTestResultController.edit.mojo" name="dss.vector.solutions.entomology.assay.molecular.GABAGTestResult.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.molecular.GABAGTestResultController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.molecular.GABAGTestResult.viewAll.link" />

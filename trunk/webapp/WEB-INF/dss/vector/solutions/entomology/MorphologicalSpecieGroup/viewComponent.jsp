@@ -28,6 +28,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.MorphologicalSpecieGroupController.edit.mojo" name="dss.vector.solutions.entomology.MorphologicalSpecieGroup.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.MorphologicalSpecieGroupController.viewAll.mojo" name="dss.vector.solutions.entomology.MorphologicalSpecieGroup.viewAll.link" />

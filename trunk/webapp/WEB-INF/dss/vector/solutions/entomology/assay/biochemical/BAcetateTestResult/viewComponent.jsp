@@ -18,6 +18,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResultController.edit.mojo" name="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResult.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResultController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResult.viewAll.link" />

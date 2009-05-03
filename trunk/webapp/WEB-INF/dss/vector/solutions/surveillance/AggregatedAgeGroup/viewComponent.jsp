@@ -34,6 +34,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.edit.mojo" name="dss.vector.solutions.surveillance.AggregatedAgeGroup.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.viewAll.mojo" name="dss.vector.solutions.surveillance.AggregatedAgeGroup.viewAll.link" />

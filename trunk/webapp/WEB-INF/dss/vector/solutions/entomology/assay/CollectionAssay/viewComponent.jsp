@@ -75,6 +75,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.CollectionAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.CollectionAssay.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.CollectionAssayController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.CollectionAssay.viewAll.link" />

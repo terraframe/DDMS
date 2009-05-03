@@ -25,6 +25,5 @@
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResultController.edit.mojo" name="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResult.form.edit.button" />
   <br />
 </mjl:form>
-<dl>
-</dl>
+
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResultController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResult.viewAll.link" />
