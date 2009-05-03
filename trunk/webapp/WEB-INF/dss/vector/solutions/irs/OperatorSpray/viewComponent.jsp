@@ -1,91 +1,90 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<mjl:messages>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+
+<%
+  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+
+  HouseholdSprayStatusViewDTO view = new HouseholdSprayStatusViewDTO(clientRequest);      
+
+  OperatorSprayViewDTO spray = ((OperatorSprayViewDTO) request.getAttribute("item"));
+  spray.setModified(true);
+  spray.setModified(OperatorSprayViewDTO.SPRAYID, true);
+  
+  HouseholdSprayStatusViewDTO[] rows = spray.getStatus();
+  
+  String[] attributes = {"StatusId", "Spray", "HouseholdId", "StructureId", "Households", "Structures",
+       "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
+       "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
+
+  String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
+%>
+
+
+<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
+<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
+<%@page import="dss.vector.solutions.irs.HouseholdSprayStatusViewDTO"%>
+<%@page import="dss.vector.solutions.irs.OperatorSprayViewDTO"%>
+<%@page import="dss.vector.solutions.util.Halp"%><mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.irs.OperatorSpray.form.name" id="dss.vector.solutions.irs.OperatorSpray.form.id" method="POST">
-  <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <dt>
-      <label>
-        ${item.operatorSprayWeekMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.operatorSprayWeek}
-    </dd>
-    <dt>
-      <label>
-        ${item.receivedMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.received}
-    </dd>
-    <dt>
-      <label>
-        ${item.refillsMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.refills}
-    </dd>
-    <dt>
-      <label>
-        ${item.returnedMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.returned}
-    </dd>
-    <dt>
-      <label>
-        ${item.sprayOperatorMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.sprayOperator.keyName}" action="dss.vector.solutions.irs.SprayOperatorController.view.mojo" name="dss.vector.solutions.irs.SprayOperator.form.view.link">
-        <mjl:property value="${item.sprayOperator.id}" name="id" />
-      </mjl:commandLink>
-    </dd>
-    <dt>
-      <label>
-        ${item.usedMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.used}
-    </dd>
-    <dt>
-      <label>
-        ${item.targetMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.target}
-    </dd>
-    <dt>
-      <label>
-        ${item.teamSprayWeekMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      ${item.teamSprayWeek}
-    </dd>
-    <dt>
-      <label>
-        ${item.sprayDataMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
-      <mjl:commandLink display="${item.sprayData.keyName}" action="dss.vector.solutions.irs.SprayDataController.view.mojo" name="dss.vector.solutions.irs.SprayData.form.view.link">
-        <mjl:property value="${item.sprayData.id}" name="id" />
-      </mjl:commandLink>
-    </dd>
-  </dl>
+    <mjl:input value="${item.sprayId}" type="hidden" param="id" />      
+    
+    <mjl:component item="${item}" param="dto">
+      <mjl:dt attribute="surfaceType" >          
+        <ul>
+          <c:forEach var="enumName" items="${item.surfaceTypeEnumNames}">
+            <li>${item.surfaceTypeMd.enumItems[enumName]}</li>
+          </c:forEach>
+        </ul>
+      </mjl:dt>        
+      <mjl:dt attribute="teamSprayWeek"> ${item.teamSprayWeek} </mjl:dt>      
+      <mjl:dt attribute="target"> ${item.target} </mjl:dt>     
+      <mjl:dt attribute="operatorSprayWeek"> ${item.operatorSprayWeek} </mjl:dt>
+      <mjl:dt attribute="received"> ${item.received} </mjl:dt>
+      <mjl:dt attribute="refills"> ${item.refills} </mjl:dt>
+      <mjl:dt attribute="returned"> ${item.returned} </mjl:dt>
+      <mjl:dt attribute="used"> ${item.used} </mjl:dt>
+    </mjl:component>
+  </dl>  
   <mjl:command value="Edit" action="dss.vector.solutions.irs.OperatorSprayController.edit.mojo" name="dss.vector.solutions.irs.OperatorSpray.form.edit.button" />
-  <br />
 </mjl:form>
-<dl>
-</dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.irs.OperatorSprayController.viewAll.mojo" name="dss.vector.solutions.irs.OperatorSpray.viewAll.link" />
+
+<h2><fmt:message key="Households_Sprayed"/></h2>
+<div id="Status"></div>
+<div id="buttons" class="noprint"><span id="StatusAddrow" class="yui-button yui-push-button"> <span class="first-child">
+<button type="button"><fmt:message key="New_Row"/></button>
+</span> </span> <span id="StatusSaverows" class="yui-button yui-push-button"> <span class="first-child">
+<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
+</span> </span> <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a></div>
+
+<script type="text/javascript">
+
+    <%
+      String[] types_to_load =
+        {
+          "dss.vector.solutions.irs.SprayStatusView",
+          "dss.vector.solutions.irs.HouseholdSprayStatusView"
+        };
+      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), types_to_load, true));
+    %>
+    <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
+
+    MojoCal.init();
+
+    data = {
+              rows:<%=Halp.getDataMap(rows, attributes, view)%>,
+              columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 2)%>,
+              defaults: {"Spray":'<%=spray.getSprayId()%>'},
+              div_id: "Status",
+              data_type: "Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatusView",
+              saveFunction:"applyAll",
+              width:"65em"
+          };
+
+    YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(data));
+      
+</script>
+
