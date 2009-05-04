@@ -1,0 +1,62 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.irs.SprayOperatorView"
+        label="Spray Operator View"
+        description="View used to display an operator's code, first name, and last name in a select box">
+        <attributes>
+          <char
+            name="actorId"
+            label="Actor Id"
+            size="255"
+            required="true" />
+          <virtual
+            name="operatorId"
+            concrete="operatorId"
+            type="dss.vector.solutions.irs.SprayOperator"
+            required="true" />
+          <virtual
+            name="firstName"
+            concrete="firstName"
+            type="dss.vector.solutions.Person"
+            required="true" />
+          <virtual
+            name="lastName"
+            concrete="lastName"
+            type="dss.vector.solutions.Person"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.SprayOperatorView[]"
+          label="Get All"/>
+      </mdView>
+    </create>
+    <update>
+      <mdView
+        name="dss.vector.solutions.irs.OperatorSprayStatusView">
+        <create>
+          <attributes>
+            <char name="operatorLabel" label="Operator" size="255" description="The operator's id, first name and last name"/>
+          </attributes>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.irs.TeamSprayStatusView">
+        <create>
+          <attributes>
+            <char name="teamLabel" label="Spray Team" size="255" description="The team's code"/>
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+    </delete>
+  </undoIt>
+</version>
