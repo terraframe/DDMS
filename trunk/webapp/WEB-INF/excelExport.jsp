@@ -13,7 +13,7 @@
   <% boolean altRow = true; %>
   <c:forEach var="class" items="${classes}">
     <% altRow = !altRow; %>
-    <tr <% if (altRow) out.print("class=\"altRow\""); %>>
+    <tr <% if (altRow) out.print("class=\"evenRow\""); else out.print("class=\"oddRow\""); %>>
     <td>${class.displayLabel}</td>
     <td>${class.packageName}.${class.typeName}</td>
     <td>
