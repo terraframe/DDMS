@@ -4,7 +4,8 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class TeamSprayStatusView extends TeamSprayStatusViewBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240860692429L;
 
@@ -18,11 +19,35 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     super.populate(status);
 
     TeamSpray s = (TeamSpray) status.getSpray();
-    SprayTeam team = s.getSprayTeam();
+
+    this.populate(s.getSprayTeam());
+    this.setTeamSprayWeek(s.getTeamSprayWeek());        
+  }
+  
+  public void populate(SprayTeam team)
+  {
+    OIterator<? extends SprayLeader> it = team.getAllTeamLeader();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        SprayLeader leader = it.next();
+        String leaderName = leader.getPerson().getFirstName() + " " + leader.getPerson().getLastName();
+        this.setTeamLabel(team.getTeamCode() + " - " + leaderName);
+      }
+      else
+      {
+        this.setTeamLabel(team.getTeamCode());
+      }
+
+    }
+    finally
+    {
+      it.close();
+    }
 
     this.setSprayTeam(team);
-    this.setTeamSprayWeek(s.getTeamSprayWeek());
-    this.setTeamLabel(team.getTeamCode());
   }
 
   protected void populateSpray(TeamSpray spray)
@@ -36,14 +61,14 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
   @Transaction
   public void apply()
   {
-    //Create spray
+    // Create spray
     AbstractSpray abstractSpray = this.getSpray();
 
-    if(abstractSpray == null)
+    if (abstractSpray == null)
     {
       abstractSpray = TeamSpray.findOrCreate(this.getSprayData(), this.getSprayTeam());
-      
-      if(!abstractSpray.isNew())
+
+      if (!abstractSpray.isNew())
       {
         abstractSpray.lock();
       }
@@ -55,7 +80,7 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
 
     SprayStatus status = new SprayStatus();
 
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       status = SprayStatus.lock(this.getStatusId());
     }
@@ -69,7 +94,7 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
 
   public void deleteConcrete()
   {
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       SprayStatus.get(this.getStatusId()).delete();
     }
@@ -78,14 +103,13 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
   @Transaction
   public static TeamSprayStatusView[] applyAll(TeamSprayStatusView[] views)
   {
-    for(TeamSprayStatusView view : views)
+    for (TeamSprayStatusView view : views)
     {
       view.apply();
     }
 
     return views;
   }
-
 
   public static TeamSprayStatusView search(SprayData data, SprayTeam op)
   {

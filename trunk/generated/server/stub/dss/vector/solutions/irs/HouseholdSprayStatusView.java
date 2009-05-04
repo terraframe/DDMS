@@ -36,7 +36,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
 
     if (this.hasConcrete())
     {
-      status = HouseholdSprayStatus.get(this.getStatusId());
+      status = HouseholdSprayStatus.lock(this.getStatusId());
     }
 
     this.populateConcrete(status, this.getSpray());

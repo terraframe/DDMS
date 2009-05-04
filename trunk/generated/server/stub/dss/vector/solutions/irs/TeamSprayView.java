@@ -80,7 +80,7 @@ public class TeamSprayView extends TeamSprayViewBase implements
       {
         view = new OperatorSprayStatusView();
         view.setSprayData(data);
-        view.setSprayOperator(operator);
+        view.populate(operator);
       }
 
       list.add(view);

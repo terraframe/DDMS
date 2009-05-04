@@ -21,14 +21,18 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     OperatorSpray s = (OperatorSpray) status.getSpray();
     SprayOperator operator = s.getSprayOperator();
 
-    this.setSprayOperator(operator);
+    this.populate(operator);
     this.setOperatorSprayWeek(s.getOperatorSprayWeek());
     this.setReceived(s.getReceived());
     this.setRefills(s.getRefills());
     this.setReturned(s.getReturned());
     this.setUsed(s.getUsed());
-    this.setOperatorLabel(operator.getOperatorId() + "-" + operator.getPerson().getLastName() + ", "
-        + operator.getPerson().getFirstName());
+  }
+  
+  public void populate(SprayOperator operator)
+  {
+    this.setSprayOperator(operator);
+    this.setOperatorLabel(operator.getOperatorId() + "-" + operator.getPerson().getFirstName() + " " + operator.getPerson().getLastName());    
   }
 
   protected void populateSpray(OperatorSpray spray)

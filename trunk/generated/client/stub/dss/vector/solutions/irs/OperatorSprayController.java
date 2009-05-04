@@ -170,13 +170,12 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
     InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
-    List<? extends SprayOperatorDTO> operators = SprayOperatorDTO.getAllInstances(clientRequest,
-        SprayOperatorDTO.PERSON, true, 0, 0).getResultSet();
+    SprayOperatorViewDTO[] operators = SprayOperatorViewDTO.getAll(clientRequest);
 
     req.setAttribute("methods", methods);
     req.setAttribute("method", SprayMethodDTO.MAIN_SPRAY.getName());
     req.setAttribute("brands", Arrays.asList(brands));
-    req.setAttribute("operators", operators);
+    req.setAttribute("operators", Arrays.asList(operators));
     req.setAttribute("page_title", "Search for an Operator Spray");
 
     render("searchComponent.jsp");
@@ -280,12 +279,11 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
       InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
       List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
-      List<? extends SprayOperatorDTO> operators = SprayOperatorDTO.getAllInstances(clientRequest,
-          SprayOperatorDTO.PERSON, true, 0, 0).getResultSet();
+      SprayOperatorViewDTO[] operators = SprayOperatorViewDTO.getAll(clientRequest);
 
       req.setAttribute("methods", methods);
       req.setAttribute("brands", Arrays.asList(brands));
-      req.setAttribute("operators", operators);
+      req.setAttribute("operators", Arrays.asList(operators));
       req.setAttribute("page_title", "Search for an Operator Spray");
 
       req.setAttribute("brand", brand);
