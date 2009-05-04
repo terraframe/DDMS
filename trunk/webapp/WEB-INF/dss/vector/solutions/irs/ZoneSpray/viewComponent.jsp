@@ -68,7 +68,7 @@ out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientReques
 
 data = {
          rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-         columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 3)%>,
+         columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 4)%>,
          defaults: {"Spray":'<%=spray.getSprayId()%>'},
          div_id: "Status",
          data_type: "Mojo.$.dss.vector.solutions.irs.TeamSprayStatusView",

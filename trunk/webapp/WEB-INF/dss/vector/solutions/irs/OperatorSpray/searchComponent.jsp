@@ -84,9 +84,9 @@ YAHOO.util.Event.onDOMReady(function(){
     </dd>
     <dt> Spray Operator </dt>
     <dd>
-      <mjl:select var="current" valueAttribute="id" items="${operators}" param="operator.componentId" >
-       <mjl:option selected="${operator != null && current.id == operator.id ? 'selected' : 'false'}">
-          ${current.operatorId} - ${current.person.lastName}, ${current.person.firstName}
+      <mjl:select var="current" valueAttribute="actorId" items="${operators}" param="operator.componentId" >
+       <mjl:option selected="${operator != null && actorId == operator.id ? 'selected' : 'false'}">
+          ${current.operatorId} - ${current.lastName}, ${current.firstName}
        </mjl:option>
       </mjl:select>
     </dd>

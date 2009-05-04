@@ -10,7 +10,7 @@
   TeamSprayViewDTO spray = ((TeamSprayViewDTO) request.getAttribute("item"));  
   OperatorSprayStatusViewDTO[] rows = (OperatorSprayStatusViewDTO[]) request.getAttribute("status");
   
-  String[] attributes = {"StatusId", "Spray", "SprayData", "SprayOperator", "OperatorSprayWeek", "Received",
+  String[] attributes = {"StatusId", "Spray", "SprayData", "SprayOperator", "OperatorLabel", "OperatorSprayWeek", "Received",
        "Refills", "Returned", "Used",   "Households", "Structures",
        "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
        "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
@@ -69,7 +69,7 @@
 
     data = {
               rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-              columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 3)%>,
+              columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 4)%>,
               defaults: {"Spray":'<%=spray.getSprayId()%>'},
               div_id: "Status",
               data_type: "Mojo.$.dss.vector.solutions.irs.OperatorSprayStatusView",
