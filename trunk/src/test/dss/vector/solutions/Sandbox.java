@@ -9,7 +9,6 @@ import com.terraframe.mojo.business.rbac.RoleDAOIF;
 import com.terraframe.mojo.business.rbac.SingleActorDAOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.ServerConstants;
-import com.terraframe.mojo.dataaccess.EntityDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;

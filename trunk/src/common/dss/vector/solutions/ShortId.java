@@ -1,7 +1,5 @@
 package dss.vector.solutions;
 
-import java.util.Calendar;
-import java.util.Date;
 
 public class ShortId {
     private static  short BASE_30_RADIX = 30;

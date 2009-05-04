@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
-import dss.vector.solutions.entomology.UninterestingSpecieGroupView;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.mojo.generation.loader.Reloadable

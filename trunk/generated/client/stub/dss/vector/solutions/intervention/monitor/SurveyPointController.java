@@ -2,7 +2,6 @@ package dss.vector.solutions.intervention.monitor;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;

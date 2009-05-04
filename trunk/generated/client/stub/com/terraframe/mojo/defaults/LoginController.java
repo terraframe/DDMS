@@ -1,15 +1,11 @@
 package com.terraframe.mojo.defaults;
 
-import javax.servlet.ServletRequest;
-
 import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.business.LoginExceptionDTO;
 import com.terraframe.mojo.constants.ClientConstants;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.CommonProperties;
 import com.terraframe.mojo.constants.MdActionInfo;
-import com.terraframe.mojo.session.InvalidLoginExceptionDTO;
-import com.terraframe.mojo.session.LoginException;
 import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.util.GlobalSessionListener;

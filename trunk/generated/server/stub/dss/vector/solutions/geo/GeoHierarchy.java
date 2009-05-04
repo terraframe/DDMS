@@ -31,7 +31,6 @@ import com.terraframe.mojo.query.QueryFacade;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ViewQueryBuilder;
-import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeLineString;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiLineString;
@@ -42,11 +41,10 @@ import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 
-import dss.vector.solutions.geo.generated.GeoEntityQuery;
-
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.query.QueryConstants;
 
 public class GeoHierarchy extends GeoHierarchyBase implements
@@ -426,17 +424,17 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     mdGeoEntity.setPackageName(MDSSInfo.GENERATED_GEO_PACKAGE);
     mdGeoEntity.setTypeName(typeName);
     mdGeoEntity.getDisplayLabel().setValue(label);
-    if (mdGeoEntity.getDisplayLabel().getDefaultValue().trim().equals(""))
-    {
+//    if (!label.trim().equals(""))
+//    {
       mdGeoEntity.getDisplayLabel().setDefaultValue(label);
-    }
+//    }
 
 
     mdGeoEntity.getDescription().setValue(description);
-    if (mdGeoEntity.getDescription().getDefaultValue().trim().equals(""))
-    {
+//    if (!description.trim().equals(""))
+//    {
       mdGeoEntity.getDescription().setDefaultValue(description);
-    }
+//    }
 
     mdGeoEntity.setIsAbstract(false); // User defined types must be concrete
     mdGeoEntity.setExtendable(true);
@@ -607,10 +605,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     String attrDisplayLabel = spatialType.getDisplayLabel();
 
-    if (attr.getDisplayLabel().getDefaultValue().trim().equals(""))
-    {
+//    if (!attrDisplayLabel.trim().equals(""))
+//    {
       attr.getDisplayLabel().setDefaultValue(attrDisplayLabel);
-    }
+//    }
 
     attr.setDefiningMdClass(mdGeoEntity);
     attr.setSrid(SRID);
@@ -658,17 +656,17 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     MdBusiness geoEntityClass = geoHierarchy.getGeoEntityClass();
     geoEntityClass.getDisplayLabel().setValue(view.getDisplayLabel());
-    if (geoEntityClass.getDisplayLabel().getDefaultValue().trim().equals(""))
-    {
+//    if (!view.getDisplayLabel().trim().equals(""))
+//    {
       geoEntityClass.getDisplayLabel().setDefaultValue(view.getDisplayLabel());
-    }
+//    }
 
     geoEntityClass.getDescription().setValue(view.getDescription());
 
-    if (geoEntityClass.getDescription().getDefaultValue().trim().equals(""))
-    {
+//    if (!view.getDescription().trim().equals(""))
+//    {
       geoEntityClass.getDescription().setDefaultValue(view.getDescription());
-    }
+//    }
 
     geoEntityClass.apply();
   }

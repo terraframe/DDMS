@@ -16,7 +16,9 @@
           name="enumName"
           value="MAIN_SPRAY" />
         <structAttribute name="displayLabel">
-          <valueAttribute name="defaultLocale" value="Main Spray"/>
+           <valueAttribute
+             name="defaultLocale"
+             value="Main Spray"/>
         </structAttribute>
       </object>
 
@@ -27,7 +29,9 @@
           name="enumName"
           value="MOP_UP" />
         <structAttribute name="displayLabel">
-          <valueAttribute name="defaultLocale" value="Mop Up"/>
+          <valueAttribute
+            name="defaultLocale"
+            value="Mop Up"/>
         </structAttribute>
       </object>
 
@@ -50,7 +54,9 @@
           name="enumName"
           value="POROUS" />
         <structAttribute name="displayLabel">
-          <valueAttribute name="defaultLocale" value="Porous"/>
+          <valueAttribute
+            name="defaultLocale"
+            value="Porous"/>
         </structAttribute>
       </object>
 
@@ -61,7 +67,9 @@
           name="enumName"
           value="NON_POROUS" />
         <structAttribute name="displayLabel">
-          <valueAttribute name="defaultLocale" value="Non Porous"/>
+          <valueAttribute
+            name="defaultLocale"
+            value="Non Porous"/>
         </structAttribute>
       </object>
 
