@@ -263,7 +263,6 @@
         name="dss.vector.solutions.irs.SprayTeam"
         label="Spray Operator"
         description="Person who is also a Spray Operator"
-        generateController="false"
         extends="dss.vector.solutions.irs.Targeter">
         <attributes>
           <char

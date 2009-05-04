@@ -1,0 +1,78 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <existing>
+    </existing>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.irs.SprayTeam">
+        <create>
+          <attributes>
+            <char
+              name="sprayZone"
+              label="Spray Zone"
+              description="GeoId of the Spray Zone"
+              size="16" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdController name="dss.vector.solutions.irs.SprayTeamController">
+        <create>
+          <mdAction
+            name="createAndAssign"
+            label="Create and Assign"
+            description="Creates a new Spray Team and assigns the leader and operators"
+            isPost="true">
+            <mdParameter
+              name="team"
+              label="Spray Team"
+              description="The new Spray Team"
+              type="dss.vector.solutions.irs.SprayTeam"
+              order="1"/>
+            <mdParameter
+              name="leaderId"
+              label="Spray Leader Id"
+              description="Id of the assigned Spray Leader"
+              type="java.lang.String"
+              order="2"/>
+            <mdParameter
+              name="operatorId"
+              label="Spray Operator Id"
+              description="Id of the assigned Spray Operator"
+              type="java.lang.String"
+              order="3"/>
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+    <create>
+      <mdRelationship
+        name="dss.vector.solutions.irs.LeadTeam"
+        label="Lead Team"
+        description="Connects a Spray Leader to a Spray Team">
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.irs.SprayTeam"
+          method="LeadsTeam" />
+        <child
+          cardinality="1"
+          name="dss.vector.solutions.irs.SprayLeader"
+          method="TeamLeader" />
+      </mdRelationship>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.irs.SprayTeam.sprayZone"
+        type="com.terraframe.mojo.system.metadata.MdAttributeCharacter" />
+      <object
+        key="dss.vector.solutions.irs.SprayTeamController.createAndAssign"
+        type="com.terraframe.mojo.system.metadata.MdAction" />
+      <object
+        key="dss.vector.solutions.irs.LeadTeam"
+        type="com.terraframe.mojo.system.metadata.MdRelationship" />
+    </delete>
+  </undoIt>
+</version>

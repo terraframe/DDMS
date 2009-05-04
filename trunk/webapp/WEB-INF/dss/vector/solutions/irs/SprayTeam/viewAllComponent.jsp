@@ -3,14 +3,52 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}">
+<mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.irs.SprayTeamController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:attributeColumn attributeName="teamCode">
+    <mjl:attributeColumn attributeName="sprayZone">
       <mjl:header>
-        Team Code
+        !! Spray Zone
       </mjl:header>
     </mjl:attributeColumn>
+    <mjl:freeColumn>
+      <mjl:header>
+        !! Leader
+      </mjl:header>
+      <mjl:row>
+        <c:choose>
+          <c:when test="${item.allTeamLeader[0] != null}">
+            ${item.allTeamLeader[0].person.firstName}
+            ${item.allTeamLeader[0].person.lastName}
+          </c:when>
+          <c:otherwise>
+            None Assigned
+          </c:otherwise>
+        </c:choose>
+      </mjl:row>
+      <mjl:footer>
+      
+      </mjl:footer>
+    </mjl:freeColumn>
+    <mjl:freeColumn>
+      <mjl:header>
+        !! Operator
+      </mjl:header>
+      <mjl:row>
+        <c:choose>
+          <c:when test="${item.allSprayTeamMembers[0] != null}">
+            ${item.allSprayTeamMembers[0].person.firstName}
+            ${item.allSprayTeamMembers[0].person.lastName}
+          </c:when>
+          <c:otherwise>
+            None Assigned
+          </c:otherwise>
+        </c:choose>
+      </mjl:row>
+      <mjl:footer>
+      
+      </mjl:footer>
+    </mjl:freeColumn>
     <mjl:freeColumn>
       <mjl:header>
         

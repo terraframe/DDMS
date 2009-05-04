@@ -27,7 +27,12 @@
   <dd>
     <ul>
       <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.irs.InTeamController.parentQuery.mojo" name="dss.vector.solutions.irs.InTeam.parentQuery.link">
+        <mjl:commandLink display="Leader" action="dss.vector.solutions.irs.LeadTeamController.parentQuery.mojo" name="dss.vector.solutions.irs.LeadTeam.parentQuery.link">
+          <mjl:property value="${item.id}" name="parentId" />
+        </mjl:commandLink>
+      </li>
+      <li>
+        <mjl:commandLink display="Operators" action="dss.vector.solutions.irs.InTeamController.parentQuery.mojo" name="dss.vector.solutions.irs.InTeam.parentQuery.link">
           <mjl:property value="${item.id}" name="parentId" />
         </mjl:commandLink>
       </li>
