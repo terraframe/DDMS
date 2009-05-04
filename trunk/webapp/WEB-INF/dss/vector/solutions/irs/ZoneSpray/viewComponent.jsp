@@ -10,7 +10,7 @@
   ZoneSprayViewDTO spray = ((ZoneSprayViewDTO) request.getAttribute("item"));  
   TeamSprayStatusViewDTO[] rows = (TeamSprayStatusViewDTO[]) request.getAttribute("status");
   
-  String[] attributes = {"StatusId", "Spray", "SprayData", "SprayTeam", "TeamSprayWeek", "Households", "Structures",
+  String[] attributes = {"StatusId", "Spray", "SprayData", "SprayTeam", "TeamLabel", "TeamSprayWeek", "Households", "Structures",
        "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
        "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
 
