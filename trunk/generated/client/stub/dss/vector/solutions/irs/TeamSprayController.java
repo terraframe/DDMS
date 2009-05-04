@@ -98,7 +98,13 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
   public void view(TeamSprayViewDTO dto) throws IOException, ServletException
   {
+    // FIXME: This is a hack to ensure the dto is dirty when its sent back to
+    // the server. Remove when nathan has submitted his fix.    
+    dto.setModified(true);
+    dto.setModified(TeamSprayViewDTO.SPRAYID, true);
+    
     req.setAttribute("item", dto);
+    req.setAttribute("status", dto.getStatus());
     req.setAttribute("page_title", "View Team Sprays");
     render("viewComponent.jsp");
   }
@@ -179,24 +185,24 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     try
     {
       validateParameters(brand, geoId, date, sprayMethod, team);
-      
+
       SprayMethodDTO method = SprayMethodDTO.valueOf(sprayMethod);
 
-      TeamSprayViewDTO dto = TeamSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId,
-          date, method, brand, team.getId());
+      TeamSprayViewDTO dto = TeamSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId, date,
+          method, brand, team.getId());
 
-      String jsp = "createComponent.jsp";
-      req.setAttribute("page_title", "New Team Spray ");
 
       if (dto.hasConcrete())
       {
-        jsp = "viewComponent.jsp";
-        req.setAttribute("page_title", "Team Spray");
+        view(dto);
       }
-
-      req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
-      req.setAttribute("item", dto);
-      render(jsp);
+      else
+      {
+        req.setAttribute("page_title", "New Team Spray ");
+        req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+        req.setAttribute("item", dto);
+        render("createComponent.jsp");
+      }
     }
     catch (ProblemExceptionDTO e)
     {

@@ -59,7 +59,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Operator Sprays");
-    
+
     render("createComponent.jsp");
   }
 
@@ -101,6 +101,9 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
   public void view(OperatorSprayViewDTO dto) throws IOException, ServletException
   {
+    dto.setModified(true);
+    dto.setModified(TeamSprayViewDTO.SPRAYID, true);
+    req.setAttribute("status", dto.getStatus());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "View Operator Sprays");
     render("viewComponent.jsp");
@@ -158,7 +161,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Operator Sprays");
-    render("editComponent.jsp"); 
+    render("editComponent.jsp");
   }
 
   public void search() throws IOException, ServletException
@@ -179,35 +182,35 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     render("searchComponent.jsp");
   }
 
-  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date,
-      String sprayMethod, SprayOperatorDTO operator) throws IOException, ServletException
-  {    
+  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod,
+      SprayOperatorDTO operator) throws IOException, ServletException
+  {
     try
     {
       validateParameters(brand, geoId, date, sprayMethod, operator);
 
       SprayMethodDTO method = SprayMethodDTO.valueOf(sprayMethod);
-      
-      OperatorSprayViewDTO dto = OperatorSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId, date, method, brand, operator.getId());
-      
-      String jsp = "createComponent.jsp";
-      req.setAttribute("page_title", "New Operator Spray ");
+
+      OperatorSprayViewDTO dto = OperatorSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId,
+          date, method, brand, operator.getId());
 
       if (dto.hasConcrete())
       {
-        jsp = "viewComponent.jsp";
-        req.setAttribute("page_title", "Operator Spray");
+        this.view(dto);
       }
-
-      req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
-      req.setAttribute("item", dto);
-      render(jsp);
+      else
+      {
+        req.setAttribute("page_title", "New Operator Spray ");
+        req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+        req.setAttribute("item", dto);
+        render("createComponent.jsp");
+      }
     }
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
 
-      String failDate = (date == null ? null : date.toString());
+      String failDate = ( date == null ? null : date.toString() );
 
       this.failSearchByParameters(brand, geoId, failDate, sprayMethod, operator);
     }
@@ -215,48 +218,48 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     {
       ErrorUtility.prepareThrowable(t, req);
 
-      String failDate = (date == null ? null : date.toString());
+      String failDate = ( date == null ? null : date.toString() );
 
       this.failSearchByParameters(brand, geoId, failDate, sprayMethod, operator);
-    }    
+    }
   }
 
   private void validateParameters(InsecticideBrandDTO brand, String geoId, Date date,
       String sprayMethod, SprayOperatorDTO operator)
   {
     List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
-    
-    if(brand == null)
+
+    if (brand == null)
     {
       ClientRequestIF clientRequest = super.getClientSession().getRequest();
-      problems.add(new RequiredInsecticideBrandProblemDTO(clientRequest, req.getLocale() ));
-    }
-    
-    if(geoId == null)
-    {
-      ClientRequestIF clientRequest = super.getClientSession().getRequest();
-      problems.add(new RequiredGeoIdProblemDTO(clientRequest, req.getLocale() ));
-    }
-    
-    if(date == null)
-    {
-      ClientRequestIF clientRequest = super.getClientSession().getRequest();
-      problems.add(new RequiredSprayDateProblemDTO(clientRequest, req.getLocale() ));
-    }
-    
-    if(sprayMethod == null)
-    {
-      ClientRequestIF clientRequest = super.getClientSession().getRequest();
-      problems.add(new RequiredSprayMethodProblemDTO(clientRequest, req.getLocale() ));
-    }
-    
-    if(operator == null)
-    {
-      ClientRequestIF clientRequest = super.getClientSession().getRequest();
-      problems.add(new RequiredSprayOperatorProblemDTO(clientRequest, req.getLocale() ));
+      problems.add(new RequiredInsecticideBrandProblemDTO(clientRequest, req.getLocale()));
     }
 
-    if(problems.size() > 0)
+    if (geoId == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredGeoIdProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (date == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredSprayDateProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (sprayMethod == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredSprayMethodProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (operator == null)
+    {
+      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+      problems.add(new RequiredSprayOperatorProblemDTO(clientRequest, req.getLocale()));
+    }
+
+    if (problems.size() > 0)
     {
       throw new ProblemExceptionDTO("", problems);
     }
@@ -274,25 +277,26 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     catch (Exception e)
     {
       ClientRequestIF clientRequest = super.getClientSession().getRequest();
-      
+
       InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
       List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
-      List<? extends SprayOperatorDTO> operators = SprayOperatorDTO.getAllInstances(clientRequest, SprayOperatorDTO.PERSON, true, 0, 0).getResultSet();
-      
+      List<? extends SprayOperatorDTO> operators = SprayOperatorDTO.getAllInstances(clientRequest,
+          SprayOperatorDTO.PERSON, true, 0, 0).getResultSet();
+
       req.setAttribute("methods", methods);
       req.setAttribute("brands", Arrays.asList(brands));
       req.setAttribute("operators", operators);
       req.setAttribute("page_title", "Search for an Operator Spray");
-      
+
       req.setAttribute("brand", brand);
       req.setAttribute("date", date);
-      req.setAttribute("geoId", geoId);    
+      req.setAttribute("geoId", geoId);
       req.setAttribute("method", method);
-      req.setAttribute("operator", operator);    
+      req.setAttribute("operator", operator);
       req.setAttribute("page_title", "Search for an Operator Spray");
-      
+
       render("searchComponent.jsp");
-    }    
+    }
   }
 
 }

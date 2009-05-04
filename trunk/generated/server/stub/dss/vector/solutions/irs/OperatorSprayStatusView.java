@@ -48,6 +48,11 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     if(abstractSpray == null)
     {
       abstractSpray = OperatorSpray.findOrCreate(this.getSprayData(), this.getSprayOperator());
+      
+      if(!abstractSpray.isNew())
+      {
+        abstractSpray.lock();
+      }
 
       this.populateSpray((OperatorSpray) abstractSpray);
 
@@ -58,7 +63,7 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
 
     if(this.hasConcrete())
     {
-      status = SprayStatus.get(this.getStatusId());
+      status = SprayStatus.lock(this.getStatusId());
     }
 
     this.populateConcrete(status, abstractSpray);

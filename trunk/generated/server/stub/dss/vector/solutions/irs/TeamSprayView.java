@@ -59,15 +59,18 @@ public class TeamSprayView extends TeamSprayViewBase implements
 
   public OperatorSprayStatusView[] getStatus()
   {
+
     if (!this.hasConcrete())
     {
       return new OperatorSprayStatusView[0];
     }
-
+    
     List<SprayStatusView> list = new LinkedList<SprayStatusView>();
 
-    SprayData data = TeamSpray.get(this.getSprayId()).getSprayData();
-    OIterator<? extends SprayOperator> members = this.getSprayTeam().getAllSprayTeamMembers();
+    TeamSpray spray = TeamSpray.get(this.getSprayId());
+    SprayData data = spray.getSprayData();
+    SprayTeam team = spray.getSprayTeam();
+    OIterator<? extends SprayOperator> members = team.getAllSprayTeamMembers();
 
     for (SprayOperator operator : members)
     {
@@ -82,6 +85,8 @@ public class TeamSprayView extends TeamSprayViewBase implements
 
       list.add(view);
     }
+    
+    spray.populateView(this);
 
     return list.toArray(new OperatorSprayStatusView[list.size()]);
   }

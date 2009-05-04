@@ -58,7 +58,8 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
 
     List<TeamSprayStatusView> list = new LinkedList<TeamSprayStatusView>();
 
-    SprayData data = ZoneSpray.get(this.getSprayId()).getSprayData();
+    ZoneSpray spray = ZoneSpray.get(this.getSprayId());
+    SprayData data = spray.getSprayData();
     SprayTeam[] teams = SprayTeam.search(data.getGeoEntity());
 
     for (SprayTeam team : teams)
@@ -74,6 +75,8 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
 
       list.add(view);
     }
+    
+    spray.populateView(this);
 
     return list.toArray(new TeamSprayStatusView[list.size()]);
   }

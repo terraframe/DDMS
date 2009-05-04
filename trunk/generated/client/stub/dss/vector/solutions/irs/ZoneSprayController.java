@@ -97,6 +97,12 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
   public void view(ZoneSprayViewDTO dto) throws IOException, ServletException
   {
+    // FIXME: This is a hack to ensure the dto is dirty when its sent back to
+    // the server. Remove when nathan has submitted his fix.
+    dto.setModified(true);
+    dto.setModified(ZoneSprayViewDTO.SPRAYID, true);
+
+    req.setAttribute("status", dto.getStatus());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "View Zone Sprays");
     render("viewComponent.jsp");
@@ -168,7 +174,8 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
     render("searchComponent.jsp");
   }
 
-  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod) throws IOException, ServletException
+  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod)
+      throws IOException, ServletException
   {
 
     try
@@ -180,18 +187,17 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
       ZoneSprayViewDTO dto = ZoneSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId, date,
           method, brand);
 
-      String jsp = "createComponent.jsp";
-      req.setAttribute("page_title", "New Zone Spray ");
-
       if (dto.hasConcrete())
       {
-        jsp = "viewComponent.jsp";
-        req.setAttribute("page_title", "Zone Spray");
+        this.view(dto);
       }
-
-      req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
-      req.setAttribute("item", dto);
-      render(jsp);
+      else
+      {
+        req.setAttribute("page_title", "New Zone Spray ");
+        req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+        req.setAttribute("item", dto);
+        render("createComponent.jsp");
+      }
     }
     catch (ProblemExceptionDTO e)
     {

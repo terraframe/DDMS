@@ -40,6 +40,11 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     if(abstractSpray == null)
     {
       abstractSpray = TeamSpray.findOrCreate(this.getSprayData(), this.getSprayTeam());
+      
+      if(!abstractSpray.isNew())
+      {
+        abstractSpray.lock();
+      }
 
       this.populateSpray((TeamSpray) abstractSpray);
 
@@ -50,7 +55,7 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
 
     if(this.hasConcrete())
     {
-      status = SprayStatus.get(this.getStatusId());
+      status = SprayStatus.lock(this.getStatusId());
     }
 
     this.populateConcrete(status, abstractSpray);
