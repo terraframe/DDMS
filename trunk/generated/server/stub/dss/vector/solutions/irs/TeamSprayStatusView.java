@@ -18,9 +18,11 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     super.populate(status);
 
     TeamSpray s = (TeamSpray) status.getSpray();
+    SprayTeam team = s.getSprayTeam();
 
-    this.setSprayTeam(s.getSprayTeam());
+    this.setSprayTeam(team);
     this.setTeamSprayWeek(s.getTeamSprayWeek());
+    this.setTeamLabel(team.getTeamCode());
   }
 
   protected void populateSpray(TeamSpray spray)

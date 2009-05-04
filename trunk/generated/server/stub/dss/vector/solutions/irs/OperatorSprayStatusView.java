@@ -4,7 +4,8 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-public class OperatorSprayStatusView extends OperatorSprayStatusViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class OperatorSprayStatusView extends OperatorSprayStatusViewBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240860663695L;
 
@@ -18,13 +19,16 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     super.populate(status);
 
     OperatorSpray s = (OperatorSpray) status.getSpray();
+    SprayOperator operator = s.getSprayOperator();
 
-    this.setSprayOperator(s.getSprayOperator());
+    this.setSprayOperator(operator);
     this.setOperatorSprayWeek(s.getOperatorSprayWeek());
     this.setReceived(s.getReceived());
     this.setRefills(s.getRefills());
     this.setReturned(s.getReturned());
     this.setUsed(s.getUsed());
+    this.setOperatorLabel(operator.getOperatorId() + "-" + operator.getPerson().getLastName() + ", "
+        + operator.getPerson().getFirstName());
   }
 
   protected void populateSpray(OperatorSpray spray)
@@ -42,14 +46,14 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
   @Transaction
   public void apply()
   {
-    //Create spray
+    // Create spray
     AbstractSpray abstractSpray = this.getSpray();
 
-    if(abstractSpray == null)
+    if (abstractSpray == null)
     {
       abstractSpray = OperatorSpray.findOrCreate(this.getSprayData(), this.getSprayOperator());
-      
-      if(!abstractSpray.isNew())
+
+      if (!abstractSpray.isNew())
       {
         abstractSpray.lock();
       }
@@ -61,7 +65,7 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
 
     SprayStatus status = new SprayStatus();
 
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       status = SprayStatus.lock(this.getStatusId());
     }
@@ -75,7 +79,7 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
 
   public void deleteConcrete()
   {
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       SprayStatus.get(this.getStatusId()).delete();
     }
@@ -84,7 +88,7 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
   @Transaction
   public static OperatorSprayStatusView[] applyAll(OperatorSprayStatusView[] views)
   {
-    for(OperatorSprayStatusView view : views)
+    for (OperatorSprayStatusView view : views)
     {
       view.apply();
     }
