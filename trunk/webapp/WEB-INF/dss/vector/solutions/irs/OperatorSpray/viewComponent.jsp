@@ -8,10 +8,7 @@
   HouseholdSprayStatusViewDTO view = new HouseholdSprayStatusViewDTO(clientRequest);
 
   OperatorSprayViewDTO spray = ((OperatorSprayViewDTO) request.getAttribute("item"));
-  spray.setModified(true);
-  spray.setModified(OperatorSprayViewDTO.SPRAYID, true);
-
-  HouseholdSprayStatusViewDTO[] rows = spray.getStatus();
+  HouseholdSprayStatusViewDTO[] rows = (HouseholdSprayStatusViewDTO[]) request.getAttribute("status");
 
   String[] attributes = {"StatusId", "Spray", "HouseholdId", "StructureId", "Households", "Structures",
        "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
@@ -63,19 +60,8 @@
 <script type="text/javascript">
 
     <%
-      String[] types_to_load =
-        {
-
-
-          "dss.vector.solutions.irs.SprayStatusView"
-        };
-      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), types_to_load, true));
-
-      String[] types_to_load2 =
-      {
-        "dss.vector.solutions.irs.HouseholdSprayStatusView"
-      };
-    out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), types_to_load2, true));
+      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{"dss.vector.solutions.irs.SprayStatusView"}, true));
+      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{"dss.vector.solutions.irs.HouseholdSprayStatusView"}, true));
     %>
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 
@@ -86,7 +72,8 @@
               defaults: {"Spray":'<%=spray.getSprayId()%>'},
               div_id: "Status",
               data_type: "Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatusView",
-              saveFunction:"applyAll"
+              saveFunction:"applyAll",
+              width:"65em"              
           };
     document.addEventListener('load', MojoGrid.createDataTable(data), false);
 
