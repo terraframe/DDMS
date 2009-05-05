@@ -3,7 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.intervention.monitor.SprayProblem">
   <!--
-    - {months} months
+    - {months} Months
     -->
-  <locale language="en">Replace this with your customized error message.</locale>
+  <locale language="en">The value of last sprayed date in months [{months}] cannot be greater than 13 </locale>
 </exception>
