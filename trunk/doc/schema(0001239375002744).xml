@@ -51,9 +51,6 @@
             required="true" />
         </attributes>
       </mdProblem>
-      <mdException
-        name="dss.vector.solutions.InvalidSearchCriteria"
-        label="Invalid Search Criteria" />
     </create>
     <create>
 
