@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.Person;
+
 public class ResourceTarget extends ResourceTargetBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -15,12 +17,44 @@ public class ResourceTarget extends ResourceTargetBase implements
     super();
   }
 
+  public static String getTargeterName(Targeter targeter)
+  {
+    if(targeter instanceof SprayOperator)
+    {
+      SprayOperator so = (SprayOperator) targeter;
+     return (so.getOperatorId() + " - " + so.getPerson().getLastName() +", "+ so.getPerson().getFirstName() );
+    }
+
+    if(targeter instanceof SprayTeam)
+    {
+      SprayTeam st = (SprayTeam) targeter;
+
+      String leader_name = "";
+      if(! st.getAllTeamLeader().getAll().isEmpty())
+      {
+        Person leader = st.getAllTeamLeader().getAll().get(0).getPerson();
+        leader_name = leader.getLastName() + ", " + leader.getFirstName();
+      }
+
+      return (st.getTeamCode() + " - " + leader_name );
+    }
+    return null;
+  }
+
+  public String getTargeterName()
+  {
+    return ResourceTarget.getTargeterName(this.getTargeter());
+  }
+
   public ResourceTargetView getView()
   {
     ResourceTargetView view = new ResourceTargetView();
     view.setTargeter(this.getTargeter());
     view.setTargetYear(this.getTargetYear());
     view.setTargetId(this.getId());
+    view.setTargeterName(this.getTargeterName());
+
+
 
     for (int i = 0; i < 53; i++)
     {
@@ -67,6 +101,7 @@ public class ResourceTarget extends ResourceTargetBase implements
         ResourceTargetView view = new ResourceTargetView();
         view.setTargeter(resource);
         view.setTargetYear(year);
+        view.setTargeterName(ResourceTarget.getTargeterName(resource));
 
         return view;
       }
