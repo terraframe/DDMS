@@ -10,5 +10,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
     - {definingTypeDisplayLabel} definingTypeDisplayLabel
     - {id} id
     -->
-  <locale language="en">Replace this with your customized error message.</locale>
+  <locale language="en">This is abstract and will never be displayed</locale>
 </exception>
