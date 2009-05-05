@@ -75,12 +75,9 @@
     <%
       String[] types_to_load =
         {
-          "dss.vector.solutions.irs.InsecticideBrand",
-          "dss.vector.solutions.irs.InsecticideBrandView",
-          "dss.vector.solutions.irs.Nozzle",
-          "dss.vector.solutions.irs.NozzleView",
-          "dss.vector.solutions.irs.InsecticideNozzle",
-          "dss.vector.solutions.irs.InsecticideNozzleView"
+          InsecticideBrandViewDTO.CLASS,
+          NozzleViewDTO.CLASS,
+          InsecticideNozzleViewDTO.CLASS
         };
       out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), types_to_load, true));
     %>
@@ -94,7 +91,7 @@
               defaults: {"Units":"PERCENT"},
               copy_from_above: [],
               div_id: "InsecticideBrand",
-              data_type: "Mojo.$.dss.vector.solutions.irs.InsecticideBrandView",
+              data_type: "Mojo.$." + InsecticideBrandViewDTO.CLASS,
               saveFunction:"applyAll",
               after_save:function(){window.location.reload( false );}
           };
@@ -109,7 +106,7 @@
               defaults: {"Enabled":"true"},
               copy_from_above: [],
               div_id: "Nozzle",
-              data_type: "Mojo.$.dss.vector.solutions.irs.NozzleView",
+              data_type: "Mojo.$." + NozzleViewDTO.CLASS,
               saveFunction:"applyAll",
               after_save:function(){window.location.reload( false );}
           };
@@ -124,7 +121,7 @@
               defaults: {"Enabled":"true"},
               copy_from_above: [],
               div_id: "InsecticideNozzle",
-              data_type: "Mojo.$.dss.vector.solutions.irs.InsecticideNozzleView",
+              data_type: "Mojo.$." + InsecticideNozzleViewDTO.CLASS,
               saveFunction:"applyAll"
           };
 
