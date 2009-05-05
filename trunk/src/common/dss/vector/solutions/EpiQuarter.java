@@ -2,13 +2,16 @@ package dss.vector.solutions;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class EpiQuarter extends EpiConverter
 {
-
-  public EpiQuarter(int period, Integer year)
+  public EpiQuarter(int period, Integer year, Date offset)
   {
     super(period, year);
+
+    GregorianCalendar c2 = new GregorianCalendar();
+    c2.setTime(offset);
 
     Calendar c1 = Calendar.getInstance();
     c1.clear();
@@ -31,21 +34,32 @@ public class EpiQuarter extends EpiConverter
         break;
     }
 
+    int dayOfYear = c2.get(Calendar.DAY_OF_YEAR);
+    int offsetAmount = c1.before(c2) ? dayOfYear:-dayOfYear;
+    c1.add(Calendar.DAY_OF_YEAR, offsetAmount);
+    
     startDate = c1.getTime();
-
+   
     c1.add(Calendar.MONTH, 3);
     c1.add(Calendar.DAY_OF_MONTH, -1);
     endDate = c1.getTime();
   }
 
-  public EpiQuarter(Date startDate, Date endDate)
+  public EpiQuarter(Date startDate, Date endDate, Date offset)
   {
     super(startDate, endDate);
 
+    GregorianCalendar c2 = new GregorianCalendar();
+    c2.setTime(offset);
+
     Calendar c1 = Calendar.getInstance();
     c1.setTime(startDate);
-    int month = c1.get(Calendar.MONTH);
 
+    int dayOfYear = c2.get(Calendar.DAY_OF_YEAR);
+    int offsetAmount = c1.before(c2) ? -dayOfYear:dayOfYear;
+    c1.add(Calendar.DAY_OF_YEAR, offsetAmount);
+
+    int month = c1.get(Calendar.MONTH);    
     this.year = c1.get(Calendar.YEAR);
 
     if (month < 4)

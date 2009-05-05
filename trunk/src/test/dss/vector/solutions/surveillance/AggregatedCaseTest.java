@@ -129,10 +129,22 @@ public class AggregatedCaseTest extends TestCase
       assertTrue(problems.get(0) instanceof PeriodWeekProblem);
     }
   }
-
-  public void testEpiDateEquals()
+  
+  public void testEpiDateBeforeOffsetEquals()
   {
     EpiDate epiDate = new EpiDate(PeriodType.QUARTER, 2, 1999);
+    Date startDate = epiDate.getStartDate();
+    Date endDate = epiDate.getEndDate();
+    EpiDate epiDate2 = new EpiDate(startDate, endDate);
+    
+    assertEquals(epiDate.getType(), epiDate2.getType());
+    assertEquals(epiDate.getPeriod(), epiDate2.getPeriod());
+    assertEquals(epiDate.getYear(), epiDate2.getYear());
+  }
+
+  public void testEpiDateAfterOffsetEquals()
+  {
+    EpiDate epiDate = new EpiDate(PeriodType.QUARTER, 2, 2008);
     Date startDate = epiDate.getStartDate();
     Date endDate = epiDate.getEndDate();
     EpiDate epiDate2 = new EpiDate(startDate, endDate);

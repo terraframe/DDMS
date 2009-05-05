@@ -1,26 +1,16 @@
 package dss.vector.solutions;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.PropertyBase;
-import dss.vector.solutions.PropertyQuery;
-
 public class Property extends PropertyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long  serialVersionUID        = 1235777070211L;
-
-  public static final String SHORT_ID_SEGMENTS       = "SHORT_ID_SEGMENTS";
-
-  public static final String SHORT_ID_OFFSET         = "SHORT_ID_OFFSET";
-
-  public static final String SHORT_ID_COUNTER        = "SHORT_ID_COUNTER";
-
-  public static final String DATE_FORMAT             = "dateFormat";
-
-  public static final String DATE_FORMAT_SHORT       = "dateFormatShort";
+  private static final long serialVersionUID = 1235777070211L;
 
   public Property()
   {
@@ -84,6 +74,24 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     }
   }
 
+  public Date getPropertyDate(String format)
+  {
+    SimpleDateFormat formatter = new SimpleDateFormat(format);
+
+    try
+    {
+      return formatter.parse(this.getPropertyValue());
+    }
+    catch (ParseException e)
+    {
+      String msg = "Property [" + this.getPropertyName() + "] does not conform to the date format.";
+      InvalidEpiStartFormat ex = new InvalidEpiStartFormat(msg);
+      ex.apply();
+      
+      throw ex;
+    }
+  }
+
   public static java.lang.String getStr(java.lang.String pkg, java.lang.String name)
   {
     Property prop = getByPackageAndName(pkg, name);
@@ -109,6 +117,23 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     else
     {
       return prop.getPropertyInteger();
+    }
+  }
+
+  public static Date getDate(String packageName, String propertyName)
+  {
+    Property prop = getByPackageAndName(packageName, propertyName);
+
+    if (prop == null)
+    {
+      return null;
+    }
+    else
+    {
+      Property format = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE,
+          PropertyInfo.DATE_FORMAT);
+
+      return prop.getPropertyDate(format.getPropertyValue());
     }
   }
 

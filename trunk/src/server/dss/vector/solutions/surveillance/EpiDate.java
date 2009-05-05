@@ -9,6 +9,8 @@ import dss.vector.solutions.EpiConverter;
 import dss.vector.solutions.EpiMonth;
 import dss.vector.solutions.EpiQuarter;
 import dss.vector.solutions.EpiWeek;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 
 public class EpiDate implements Reloadable
 {
@@ -19,37 +21,41 @@ public class EpiDate implements Reloadable
   public EpiDate(PeriodType periodType, int period, Integer year)
   {
     this.type = periodType;
+    
+    Date offset = Property.getDate(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START);
 
     if (periodType.equals(PeriodType.QUARTER))
     {
-      this.converter = new EpiQuarter(period, year);
+      this.converter = new EpiQuarter(period, year, offset);
     }
     else if (periodType.equals(PeriodType.MONTH))
     {
-      this.converter = new EpiMonth(period, year);
+      this.converter = new EpiMonth(period, year, offset);
     }
     else if (periodType.equals(PeriodType.WEEK))
     {
-      this.converter = new EpiWeek(period, year);
+      this.converter = new EpiWeek(period, year, offset);
     }
   }
 
   public EpiDate(Date startDate, Date endDate)
   {
+    Date offset = Property.getDate(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START);
+
     if (this.getWeek(startDate).equals(endDate))
     {
       this.type = PeriodType.WEEK;
-      this.converter = new EpiWeek(startDate, endDate);
+      this.converter = new EpiWeek(startDate, endDate, offset);
     }
     else if (this.getMonth(startDate).equals(endDate))
     {
       this.type = PeriodType.MONTH;
-      this.converter = new EpiMonth(startDate, endDate);
+      this.converter = new EpiMonth(startDate, endDate, offset);
     }
     else
     {
       this.type = PeriodType.QUARTER;
-      this.converter = new EpiQuarter(startDate, endDate);
+      this.converter = new EpiQuarter(startDate, endDate, offset);
     }
   }
 
