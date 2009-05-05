@@ -90,7 +90,7 @@
           value="dss.vector.solutions.surveillance.EpiWeek" />
         <valueAttribute
           name="propertyValue"
-          value="01-01" />
+          value="01/05/2008" />
         <valueAttribute
           name="propertyType"
           value="String" />
