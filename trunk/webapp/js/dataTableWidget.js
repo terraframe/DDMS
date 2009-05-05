@@ -199,7 +199,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	      }
 
 
-	      if(oArgs.editor.getColumn().sum && oArgs.newData)
+	      if(oArgs.editor.getColumn().sum && oArgs.newData && table_data.rows.length > 1)
 		  {
 			  var lastIndex  = table_data.rows.length - 1;
 	    	  var lastRecord = myDataTable.getRecord(lastIndex);
@@ -317,48 +317,46 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			}
 		});
 
-	    var v_arr = new Array();
+	    var view_arr = new Array();
 
 	    for each (row in table_data.rows)
         {
-	    	var v;
-	    	str = 'v = new ' + table_data.data_type + '()';
-	    	eval(str);
+	    	var view_contructor = Mojo.util.getType(table_data.data_type);
+	    	var view = new view_contructor();
+
 	    	if(table_data.collection_setter)
 	    	{
-	    		str = "v."+table_data.collection_setter;
+	    		str = "view."+table_data.collection_setter;
 	    		eval(str);
 	    	}
 	    	for each (attrib in table_data.fields)
 	    	{
-	    		setter_exists = eval("typeof (v.set"+attrib.key+") == 'function'")
+	    		var setter_exists = Mojo.util.isFunction(view['set'+attrib.key]);
+	    		var val = row[attrib.key];
 	    		if(setter_exists)
 	    		{
-	    			val = eval('row.'+ attrib.key);
 	    			if(typeof val !== 'undefined' && val != 'undefined')
 	    			{
-	    				eval_str = 'v.set'+attrib.key+'(val)';
-		    			// alert (eval_str);
-		    			eval(eval_str);
+	    				view['set'+attrib.key](val);
 	    			}
-
+	    			else
+	    			{
+	    				//FIXME: this is a workaround for a bug in mojo
+	    				view['set'+attrib.key]("");
+	    			}
 	    		}
-	    		else
+	    		else //enum setters start with "add" instead of "set"
 	    		{
-	    			setter_exists = eval("typeof (v.add"+attrib.key+") == 'function'")
+	    			var setter_exists = Mojo.util.isFunction(view['add'+attrib.key]);
 		    		if(setter_exists)
 		    		{
-		    			eval_str = 'v.add'+attrib.key+'(row.'+attrib.key+')';
-		    			// alert (eval_str);
-		    			eval(eval_str);
+		    			view['add'+attrib.key](val);
 		    		}
 	    		}
 	    	}
-			v_arr.push(v);
+			view_arr.push(view);
 	    }
-	    str = table_data.data_type +"." +table_data.saveFunction + '(request,v_arr)';
-	    //alert(str);
-    	eval(str);
+	    eval(table_data.data_type +"." +table_data.saveFunction + '(request,view_arr)');
 
 	});
 	btnSaveRows.set("disabled", true);
