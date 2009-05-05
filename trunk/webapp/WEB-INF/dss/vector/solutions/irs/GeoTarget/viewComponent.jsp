@@ -7,12 +7,14 @@
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 
-<%@page import="dss.vector.solutions.surveillance.EpiDateDTO"%>
 <%@page import="dss.vector.solutions.EpiWeek"%>
-
+<%@page import="dss.vector.solutions.PropertyDTO"%>
+<%@page import="dss.vector.solutions.PropertyInfo"%>
 <%@page import="dss.vector.solutions.irs.GeoTargetDTO"%>
 
-<c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
+
+<%@page import="dss.vector.solutions.PropertyInfo"%>
+<%@page import="java.util.Date"%><c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -86,11 +88,13 @@ colConfig += "\n,{key:'GeoEntity',label:'" + item.getGeoEntityMd().getDisplayLab
 colConfig += "\n,{key:'EntityName',label:'" + item.getGeoEntityMd().getDisplayLabel() + "',resizeable:true}";
 colConfig += "\n,{key:'TargetYear',label:'Year',hidden:true}";
 
-
+Date epiStart = PropertyDTO.getDate(clientRequest,PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START);
 
 for(int i = 0;i<=52;i++)
 {
-    EpiWeek  epiWeek = new EpiWeek(i,item.getTargetYear());
+
+
+    EpiWeek  epiWeek = new EpiWeek(i,item.getTargetYear(),epiStart);
     String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
     String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
 
