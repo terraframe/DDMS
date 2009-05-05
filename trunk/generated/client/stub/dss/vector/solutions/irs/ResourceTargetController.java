@@ -5,17 +5,16 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import dss.vector.solutions.MDSSUserDTO;
+import dss.vector.solutions.irs.SprayOperatorDTO;
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.irs.ResourceTargetViewDTO;
 
-;
 
 public class ResourceTargetController extends ResourceTargetControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/ResourceTarget/";
 
-  public static final String LAYOUT           = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT           =  "/layout.jsp";
 
   private static final long  serialVersionUID = 1240257007714L;
 
@@ -27,22 +26,18 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    // dss.vector.solutions.irs.ResourceTargetQueryDTO query =
-    // dss.vector.solutions.irs.ResourceTargetDTO.getAllInstances(clientRequest,
-    // null, true, 20, 1);
-    // req.setAttribute("query", query);
 
-    // MDSSUserDTO teamMember = new MDSSUserDTO(clientRequest);
-    // teamMember.setPerson(PersonDTO.lock(clientRequest,
-    // "6puntn78b7wz9xa04940iokdkz46yoq68t2041h1jskpl9mq0iawu5qighg9got7"));
-    // teamMember.apply();
 
-    // SprayTeamDTO newTeam = new SprayTeamDTO(clientRequest);
+    SprayTeamDTO newTeam = new SprayTeamDTO(clientRequest);
     // newTeam.getAllSprayTeam
 
-    // newTeam.addSprayTeamMembers(teamMember);
+    //newTeam.addSprayTeamMembers(SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet().get(0));
+    newTeam.setTeamCode("1234");
+    newTeam.apply();
 
-    // newTeam.lock(clientRequest, newTeam.getId()).apply();
+    newTeam = SprayTeamDTO.lock(clientRequest, newTeam.getId());
+
+    newTeam.addSprayTeamMembers(SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet().get(0));
 
     List<SprayTeamDTO> sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet();
 
@@ -57,6 +52,11 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
     req.setAttribute("sprayTeams", sprayTeams);
     req.setAttribute("page_title", "View All ResourceTargetController Objects");
+
+
+   // req.setAttribute("jsp", "viewAllComponent.jsp");
+    //req.getRequestDispatcher("/layout.jsp").forward(req, resp);
+
     render("viewAllComponent.jsp");
   }
 
@@ -68,9 +68,16 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    List<SprayTeamDTO> sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet();
 
-    Integer year = new Integer(req.getParameter("year"));
+    Integer year = new Integer(req.getParameter("targetYear"));
+
+
+    List<SprayTeamDTO> sprayTeams = null;
+    if(true || id.equals("ALL"))
+    {
+       sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet();
+    }
+
 
     List<String> targetIds = new ArrayList<String>();
     // Collections.sort(children, new GeoEntitySorter());
@@ -78,9 +85,9 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
     {
       targetIds.add(teamMember.getId());
     }
-    ResourceTargetViewDTO[] geoTargetViews = ResourceTargetViewDTO.getResourceTargets(clientRequest, (String[]) targetIds.toArray(new String[targetIds.size()]), year);
+    ResourceTargetViewDTO[] resourceTargetViews = ResourceTargetViewDTO.getResourceTargets(clientRequest, (String[]) targetIds.toArray(new String[targetIds.size()]), year);
 
-    req.setAttribute("sprayTeams", sprayTeams);
+    req.setAttribute("resourceTargetViews", resourceTargetViews);
     render("viewComponent.jsp");
   }
 
