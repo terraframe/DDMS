@@ -3402,6 +3402,25 @@
             type="java.lang.String"/>
         </mdMethod>
         <mdMethod
+          name="getDate"
+          label="Get Property As Date"
+          description="Returns a global Property"
+          static="true"
+          returnType="java.util.Date">
+          <mdParameter
+            name="pkg"
+            description="Package to search for"
+            label="key"
+            order="0"
+            type="java.lang.String"/>
+          <mdParameter
+            name="name"
+            description="Name to search for"
+            label="key"
+            order="1"
+            type="java.lang.String"/>
+        </mdMethod>
+        <mdMethod
           name="getByPackageAndName"
           label="Get Property As String"
           description="Returns a global Property"
