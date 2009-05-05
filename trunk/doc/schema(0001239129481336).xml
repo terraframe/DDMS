@@ -812,9 +812,12 @@
         <valueAttribute
           name="enumName"
           value="WEEK" />
-        <valueAttribute
-          name="displayLabel"
-          value="Week" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Week" />
+        </structAttribute>
         <valueAttribute
           name="maximumPeriod"
           value="53" />
@@ -826,9 +829,12 @@
         <valueAttribute
           name="enumName"
           value="MONTH" />
-        <valueAttribute
-          name="displayLabel"
-          value="Month" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Month" />
+        </structAttribute>
         <valueAttribute
           name="maximumPeriod"
           value="12" />
@@ -840,9 +846,12 @@
         <valueAttribute
           name="enumName"
           value="QUARTER" />
-        <valueAttribute
-          name="displayLabel"
-          value="Quarter" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Quarter" />
+        </structAttribute>
         <valueAttribute
           name="maximumPeriod"
           value="4" />
