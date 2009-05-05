@@ -1,7 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -69,9 +69,7 @@
 
     <c:if test="${item.isCaseStocksReadable}">
     <dt>
-      <label>
-        Treatment out of Stock
-      </label>
+      <fmt:message key="Treatment_out_of_Stock"/>
     </dt>
     <dd>
       <table class="displayTable">
@@ -94,9 +92,7 @@
 
     <c:if test="${item.isCaseReferralsReadable}">
     <dt>
-      <label>
-        Reasons why facility referred the patient to another facility
-      </label>
+      <fmt:message key="Facility_referred"/>
     </dt>
     <dd>
       <table class="displayTable">
@@ -119,9 +115,7 @@
 
     <c:if test="${item.isCaseDiagnosticReadable}">
     <dt>
-      <label>
-        Diagnostic methods
-      </label>
+      <fmt:message key="Diagnostic_methods"/>
     </dt>
     <dd>
       <table class="displayTable">
@@ -151,9 +145,7 @@
 
     <c:if test="${item.isCaseTreatmentMethodReadable}">
     <dt>
-      <label>
-        Treatment methods
-      </label>
+      <fmt:message key="Treatment_methods"/>
     </dt>
     <dd>
       <table class="displayTable">
@@ -176,9 +168,7 @@
 
     <c:if test="${item.isCaseTreatmentsReadable}">
     <dt>
-      <label>
-        Treatments
-      </label>
+      <fmt:message key="Treatments"/>
     </dt>
     <dd>
       <table class="displayTable">
