@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+
 
 <%@page import="dss.vector.solutions.geo.GeoHierarchyDTO"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
@@ -61,11 +63,11 @@ YAHOO.util.Event.onDOMReady(function(){
 <mjl:form name="search" method="POST" id ="searchAggregatedCase">
   <mjl:input type="hidden" param="ageGroup.componentId" value="${ageGroup.id}"/>
   <dl>
-    <dt> Geo Id </dt>
+    <dt> <fmt:message key="Geo_Id"/> </dt>
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" value="${geoId}" maxlength="16"/><a href="#" id="searchOpener">
     <img src="./imgs/icons/world.png"/></a>
     <br/>(<span id ="entityName"></span>)</dd>
-    <dt> Period Type </dt>
+    <dt> <fmt:message key="Period_Type"/> </dt>
     <dd>
       <mjl:radioGroup var="current" varStatus="status" valueAttribute="enumName" items="${periodType}" param="periodType">
         <mjl:radioOption checked="${current.enumName == checkedType ? 'checked' : 'false'}">
@@ -73,9 +75,9 @@ YAHOO.util.Event.onDOMReady(function(){
         </mjl:radioOption>
       </mjl:radioGroup>
     </dd>
-    <dt> Period </dt>
+    <dt> <fmt:message key="Period"/> </dt>
     <dd> <mjl:input param="period" type="text" size="2" value="${period}"/></dd>
-    <dt> Year </dt>
+    <dt> <fmt:message key="Year"/> </dt>
     <dd> <mjl:input param="year" type="text" size="4" value="${year}"/></dd>
   </dl>
   <br>
