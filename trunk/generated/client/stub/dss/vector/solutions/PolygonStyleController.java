@@ -5,22 +5,55 @@ public class PolygonStyleController extends PolygonStyleControllerBase implement
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/PolygonStyle/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1240850985443L;
+  private static final long serialVersionUID = 1241158099733L;
   
   public PolygonStyleController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.PolygonStyleQueryDTO query = dss.vector.solutions.PolygonStyleDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All PolygonStyleController Objects");
-    render("viewAllComponent.jsp");
+    try
+    {
+      dto.delete();
+      this.viewAll();
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failDelete(dto);
+    }
   }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit PolygonStyleController");
+    render("editComponent.jsp");
+  }
+  public void update(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failUpdate(dto);
+    }
+  }
+  public void failUpdate(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Update PolygonStyleController");
+    render("editComponent.jsp");
+  }
+  public void cancel(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    dto.unlock();
+    this.view(dto.getId());
+  }
+  public void failCancel(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
@@ -42,16 +75,17 @@ public class PolygonStyleController extends PolygonStyleControllerBase implement
     req.setAttribute("page_title", "Create PolygonStyleController");
     render("createComponent.jsp");
   }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.PolygonStyleDTO dto = dss.vector.solutions.PolygonStyleDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit PolygonStyleController");
-    render("editComponent.jsp");
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.PolygonStyleQueryDTO query = dss.vector.solutions.PolygonStyleDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    req.setAttribute("query", query);
+    req.setAttribute("page_title", "View All PolygonStyleController Objects");
+    render("viewAllComponent.jsp");
   }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.view(id);
+    resp.sendError(500);
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
@@ -65,12 +99,26 @@ public class PolygonStyleController extends PolygonStyleControllerBase implement
   {
     this.viewAll();
   }
-  public void cancel(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dto.unlock();
-    this.view(dto.getId());
+    dss.vector.solutions.PolygonStyleDTO dto = dss.vector.solutions.PolygonStyleDTO.lock(super.getClientRequest(), id);
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Edit PolygonStyleController");
+    render("editComponent.jsp");
   }
-  public void failCancel(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.view(id);
+  }
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.PolygonStyleQueryDTO query = dss.vector.solutions.PolygonStyleDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    req.setAttribute("query", query);
+    req.setAttribute("page_title", "View All PolygonStyleController Objects");
+    render("viewAllComponent.jsp");
+  }
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
@@ -84,53 +132,5 @@ public class PolygonStyleController extends PolygonStyleControllerBase implement
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
-  }
-  public void update(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failUpdate(dto);
-    }
-  }
-  public void failUpdate(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update PolygonStyleController");
-    render("editComponent.jsp");
-  }
-  public void delete(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.delete();
-      this.viewAll();
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failDelete(dto);
-    }
-  }
-  public void failDelete(dss.vector.solutions.PolygonStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit PolygonStyleController");
-    render("editComponent.jsp");
-  }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.PolygonStyleQueryDTO query = dss.vector.solutions.PolygonStyleDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All PolygonStyleController Objects");
-    render("viewAllComponent.jsp");
-  }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
   }
 }

@@ -23,6 +23,7 @@ import com.terraframe.mojo.system.gis.metadata.MdAttributePoint;
 import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
 
 import dss.vector.solutions.global.CredentialsSingleton;
+import dss.vector.solutions.query.QueryConstants;
 
 /**
  * Reloads GeoServer to make it aware of new database map views.
@@ -60,7 +61,7 @@ public class GeoServerReloader
       PostMethod newPost = new PostMethod("http://127.0.0.1:8080/geoserver/config/data/typeNewSubmit.do");
       newPost.addRequestHeader("Cookie", "JSESSIONID="+jSessionId);
       newPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
-      newPost.addParameter("selectedNewFeatureType", "MDSS_maps:::"+viewName.toLowerCase());
+      newPost.addParameter("selectedNewFeatureType", QueryConstants.FEATURE_NAMESPACE+":::"+viewName.toLowerCase());
 
       HttpClient newClient = new HttpClient();
       int newCode = newClient.executeMethod(newPost);
@@ -98,7 +99,7 @@ public class GeoServerReloader
       createPost.addParameter("alias", "");
       createPost.addParameter("autoGenerateExtent", "true");
       createPost.addParameter("cacheMaxAge", "");
-      createPost.addParameter("keywords", "MDSS_maps mdsstest");
+      createPost.addParameter("keywords", viewName);
       createPost.addParameter("maxFeatures", "0");
 
       createPost.addParameter("metadataLink[0].content", "");
@@ -114,8 +115,7 @@ public class GeoServerReloader
       createPost.addParameter("regionateStrategy", "best_guess");
       createPost.addParameter("schemaBase", "--");
       createPost.addParameter("srsHandling", "Force declared SRS (native will be ignored)");
-      createPost.addParameter("title", "mdsstest_Type");
-      createPost.addParameter("keywords", "");
+      createPost.addParameter("title", viewName);
       createPost.addParameter("wmsPath", "/");
 
       createPost.addParameter("action", "Submit");
@@ -181,11 +181,15 @@ public class GeoServerReloader
 
       try
       {
+        String all = "";
         String line = null;
         while ( ( line = reader.readLine() ) != null)
         {
-          System.out.println(line);
+
+all += line;
         }
+
+        System.out.println(all);
       }
       finally
       {

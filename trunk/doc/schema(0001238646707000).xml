@@ -959,7 +959,7 @@
       <!-- END: GeoEntity Types -->
 
       <mdController
-        name="dss.vector.solutions.entomology.QueryController"
+        name="dss.vector.solutions.query.QueryController"
         label="Query Controller"
         description="Query Controller">
         <mdAction
@@ -1759,6 +1759,12 @@
             description="The universal types that will act as additional layers"
             order="2"
             type="java.lang.String[]" />
+          <mdParameter
+            name="savedSearchId"
+            label="SavedSearch Id"
+            description="The id of the SavedSearch for which the map will be generated."
+            order="3"
+            type="java.lang.String"/>
         </mdMethod>
       </mdBusiness>
 

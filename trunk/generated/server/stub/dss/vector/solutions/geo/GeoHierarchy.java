@@ -373,6 +373,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     return getGeometry(md);
   }
 
+  public MdAttributeGeometry getGeometry()
+  {
+    return getGeometry(this.getGeoEntityClass());
+  }
+
   /**
    * Checks the given MdBusiness and its parents for an
    * MdAttributeGeometry and returns it. If no MdAttributeGeometry is

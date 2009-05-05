@@ -3,7 +3,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:form name="dss.vector.solutions.query.LayerController.form.name" id="dss.vector.solutions.query.LayerController.form.id" method="POST">
+<mjl:form name="dss.vector.solutions.query.MappingController.form.name" id="dss.vector.solutions.query.MappingController.form.id" method="POST">
   <mjl:input type="hidden" param="layerId" value="${layerId}" />
   <mjl:component item="${geoStyle}" param="geometryStyle">
     <dl>
@@ -79,6 +79,6 @@
       </dd>
     </dl>
   </mjl:component>
-  <mjl:command value="Update" action="dss.vector.solutions.query.LayerController.updateSummary.mojo" name="dss.vector.solutions.query.LayerController.updateSummary.button" />
-  <mjl:command value="Cancel" action="dss.vector.solutions.query.LayerController.cancelSummary.mojo" name="dss.vector.solutions.query.LayerController.cancelSummary.button" />
+  <mjl:command value="Update" action="dss.vector.solutions.query.MappingController.updateLayer.mojo" name="dss.vector.solutions.query.MappingController.updateLayer.button" />
+  <mjl:command value="Cancel" action="dss.vector.solutions.query.MappingController.cancelLayer.mojo" name="dss.vector.solutions.query.MappingController.cancelLayer.button" />
 </mjl:form>

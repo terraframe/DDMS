@@ -89,11 +89,94 @@
             required="true" />
           <reference
             name="thematicLayer"
-            type="dss.vector.solutions.geo.GeoHierarchy"
+            type="dss.vector.solutions.query.ThematicLayer"
             required="true"
             label="Thematic Layer" />
+          <char
+            name="queryViewName"
+            size="64"
+            label="Query View Name"
+            required="true"
+            description="The name of the DB view that is the result of an N-Query." />
+          <boolean
+            name="viewCreated"
+            label="View Created"
+            description="Denotes if a database view has been created for the search results."
+            required="true"
+            default_value="false"
+            type="java.lang.Boolean" />
         </attributes>
       </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.AggregatedCasesSearch"
+        label="Aggregated Cases Query"
+        description="A saved Aggregated Cases query"
+        extends="dss.vector.solutions.query.SavedSearch">
+        <mdMethod
+          name="getAggregatedCasesQueries"
+          label="Get Aggregated Cases Queries"
+          description="Returns all Aggregated Cases Queries for the current user."
+          static="true"
+          returnType="dss.vector.solutions.query.SavedSearchViewQuery">
+        </mdMethod>
+        <mdMethod
+          name="saveSearch"
+          label="Save Query"
+          description="Saves a query."
+          static="true"
+          returnType="dss.vector.solutions.query.AggregatedCasesSearch">
+          <mdParameter
+            name="savedQueryView"
+            label="Saved Query View"
+            order="0"
+            type="dss.vector.solutions.query.SavedSearchView" />
+        </mdMethod>
+      </mdBusiness>
+
+      <mdException
+        name="dss.vector.solutions.query.SavedSearchRequiredException"
+        label="Saved Search Required Exception"
+        description="Thrown when a user tries to map layers without a saved query.">
+      </mdException>
+
+      <mdView
+        name="dss.vector.solutions.query.ThematicVariableView"
+        label="Thematic Variable View"
+        description="View that represents a thematic variable.">
+        <attributes>
+          <char
+            name="displayLabel"
+            size="255"
+            label="Display Label"
+            required="true"
+            description="The variable's MdAttribute display label."/>
+          <char
+            name="attributeMdId"
+            label="Attribute Md Id"
+            description="The id of the MdAttribute that defines the thematic variable"
+            size="64"
+            required="true" />
+          <char
+            name="attributeName"
+            label="Attribute Name"
+            description="The attribute name of the thematic variable."
+            size="50"
+            required="true"/>
+          <char
+            name="attributeType"
+            label="Attribute Type"
+            description="The MdAttribute type of the thematic variable"
+            size="255"
+            required="true" />
+          <char
+            name="definingMdType"
+            label="Defining MdType"
+            description="The type name of the class that defines the attribute."
+            size="255"
+            required="true"/>
+        </attributes>
+      </mdView>
 
       <mdView
         name="dss.vector.solutions.query.SavedSearchView"
@@ -174,14 +257,15 @@
           method="FromSavedSearch"/>
         <child
           cardinality="*"
-          name="dss.vector.solutions.query.Layer"
+          name="dss.vector.solutions.query.UniversalLayer"
           method="DefinesLayers"/>
       </mdRelationship>
 
       <mdBusiness
         name="dss.vector.solutions.query.Layer"
         label="Layer"
-        description="A layer in a map.">
+        description="A layer in a map."
+        isAbstract="true">
         <attributes>
           <reference
             name="geoHierarchy"
@@ -205,25 +289,13 @@
             size="64"
             description="Id of SLD WebFile"
             required="false" />
+          <char
+            name="viewName"
+            size="64"
+            label="View Name"
+            description="The name of the DB view this layer maps to."
+            required="true" />
         </attributes>
-        <mdMethod
-          name="createLayer"
-          label="Create Layer"
-          static="true"
-          returnType="dss.vector.solutions.query.Layer">
-          <mdParameter
-            name="savedSearchId"
-            label="SavedSearch Id"
-            description="The id of the SavedSearch that will be the layer's parent."
-            order="0"
-            type="java.lang.String" />
-          <mdParameter
-            name="layerClass"
-            label="Layer Class"
-            description="The GeoEntity class for which this layer is being created."
-            order="1"
-            type="java.lang.String" />
-        </mdMethod>
         <mdMethod
           name="updateLayer"
           label="Update Layer"
@@ -249,6 +321,137 @@
             type="java.lang.String" />
         </mdMethod>
       </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.UniversalLayer"
+        extends="dss.vector.solutions.query.Layer"
+        label="Universal Layer"
+        description="Layer that maps to a GeoEntity universal type.">
+        <mdMethod
+          name="createLayer"
+          label="Create Layer"
+          static="true"
+          returnType="dss.vector.solutions.query.Layer">
+          <mdParameter
+            name="savedSearchId"
+            label="SavedSearch Id"
+            description="The id of the SavedSearch that will be the layer's parent."
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="layerClass"
+            label="Layer Class"
+            description="The GeoEntity class for which this layer is being created."
+            order="1"
+            type="java.lang.String" />
+        </mdMethod>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.ThematicLayer"
+        extends="dss.vector.solutions.query.Layer"
+        label="Thematic Layer"
+        description="Base layer for thematic mapping.">
+        <attributes>
+          <char
+            name="thematicVariable"
+            label="Thematic Variable"
+            description="Variable in format of qualified.type.Name[attributeName]"
+            size="255"
+            required="false" />
+        </attributes>
+        <mdMethod
+          name="updateThematicVariable"
+          label="Update Thematic Layer"
+          returnType="dss.vector.solutions.query.ThematicLayer"
+          static="true">
+            <mdParameter
+              name="layerId"
+              label="Layer Id"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="thematicVariable"
+              label="Thematic Variable"
+              order="1"
+              type="java.lang.String" />
+            <mdParameter
+              name="categories"
+              label="Categories"
+              order="2"
+              type="dss.vector.solutions.query.AbstractCategory[]"/>
+        </mdMethod>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.AbstractCategory"
+        label="Abstract Category"
+        isAbstract="true"
+        description="Category used to define color for (non)ranges.">
+        <attributes>
+          <char
+            name="thematicColor"
+            size="7"
+            label="Thematic Color"
+            description="Thematic Color"
+            required="true"
+            default_value="#7F7F7F"  />
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.NonRangeCategory"
+        label="Non Range Category"
+        description="Non Range value to map a color to an exact value."
+        extends="dss.vector.solutions.query.AbstractCategory">
+        <attributes>
+          <double
+            name="exactValue"
+            length="12"
+            decimal="4"
+            label="Exact Value"
+            description="Exact Value that maps to a color."
+            required="true" />
+        </attributes>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.RangeCategory"
+        label="Range Category"
+        description="Range that maps an upper and lower bound to a color."
+        extends="dss.vector.solutions.query.AbstractCategory">
+        <attributes>
+          <double
+            name="lowerBound"
+            length="12"
+            decimal="4"
+            label="Lower Bound Value"
+            description="The lower bound of the range."
+            required="true" />
+          <double
+            name="upperBound"
+            length="12"
+            decimal="4"
+            label="Upper Bound Value"
+            description="The upper bound of the range"
+            required="false" />
+        </attributes>
+      </mdBusiness>
+
+      <mdRelationship
+        name="dss.vector.solutions.query.DefinesCategories"
+        composition="true"
+        label="Defines Categories"
+        description="Relationship between a ThematicLayer and the Categories (for coloring) it defines.">
+        <parent
+          cardinality="1"
+          name="dss.vector.solutions.query.ThematicLayer"
+          method="FromThematicLayer"/>
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.query.AbstractCategory"
+          method="DefinesCategory"/>
+      </mdRelationship>
 
       <mdBusiness
         name="dss.vector.solutions.query.StyleRule"
@@ -292,7 +495,7 @@
             description="Name of a predefined graphic."
             required="true"
             type="dss.vector.solutions.query.WellKnownNames"
-            default_value="CIRCLE" />
+            default_value="SQUARE" />
         </attributes>
       </mdBusiness>
 
@@ -357,12 +560,193 @@
         </attributes>
       </mdBusiness>
 
+      <mdController
+        name="dss.vector.solutions.query.MappingController"
+        label="Mapping Controller"
+        description="Controller used for Mapping functionality.">
+        <mdAction
+          name="addCategoryToLayer"
+          label="Adds a category to a layer"
+          description="Provides a form to create a NonRangeCategory"
+          isPost="true">
+          <mdParameter
+            name="layerId"
+            label="Layer Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="category"
+            label="Category"
+            order="1"
+            type="dss.vector.solutions.query.AbstractCategory" />
+        </mdAction>
+        <mdAction
+          name="createLayer"
+          label="Create Summary"
+          description="Creates a layer with default values"
+          isPost="true">
+          <mdParameter
+            name="savedSearchId"
+            label="SavedSearch Id"
+            description="The id of the SavedSearch that will be the layer's parent."
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="layerClass"
+            label="Layer Class"
+            description="The GeoEntity class for which this layer is being created."
+            order="1"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
+          name="viewLayer"
+          label="View Summary"
+          description="Views a layer's summary."
+          isPost="false">
+          <mdParameter
+            name="layerId"
+            order="0"
+            label="Layer Id"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
+          name="editLayer"
+          label="Edit Summary"
+          description="Edits a layer's components."
+          isPost="true">
+          <mdParameter
+            name="layerId"
+            order="0"
+            label="Layer Id"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
+          name="editThematicLayer"
+          label="Edit Thematic Layer"
+          description="Edits a thematic layer and its categories"
+          isPost="true">
+          <mdParameter
+            name="thematicLayerId"
+            label="Thematic Layer Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="thematicVariables"
+            label="Thematic Variables"
+            order="1"
+            type="java.lang.String[]"/>
+        </mdAction>
+        <mdAction
+          name="updateThematicVariable"
+          label="Update Thematic Variable"
+          description="Updates just the variable aspect of a Thematic Layer"
+          isPost="true">
+            <mdParameter
+              name="layerId"
+              label="Layer Id"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="thematicVariable"
+              label="Thematic Variable"
+              order="1"
+              type="java.lang.String" />
+            <mdParameter
+              name="categories"
+              label="Categories"
+              order="2"
+              type="dss.vector.solutions.query.AbstractCategory[]"/>
+        </mdAction>
+        <mdAction
+          name="cancelLayer"
+          label="Cancel Layer"
+          description="Cancels a create/edit operation on a Layer."
+          isPost="true">
+          <mdParameter
+            name="layerId"
+            label="Layer Id"
+            description="Layer Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="doUnlock"
+            label="Do Unlock"
+            description="Unlocks the layer if set to true"
+            order="1"
+            type="java.lang.Boolean" />
+        </mdAction>
+        <mdAction
+          name="deleteLayer"
+          label="Delete Layer"
+          description="Delete's a given layer and its subcomponents."
+          isPost="true">
+          <mdParameter
+            name="layerId"
+            label="Layer Id"
+            description="Layer Id"
+            order="0"
+            type="java.lang.String" />
+        </mdAction>
+        <mdAction
+          name="updateLayer"
+          label="Update Summary"
+          description="Update's the layer's components."
+          isPost="true">
+          <mdParameter
+            name="geometryStyle"
+            label="Geometry Style"
+            description="Geometry Style"
+            order="0"
+            type="dss.vector.solutions.query.GeometryStyle" />
+          <mdParameter
+            name="textStyle"
+            label="Text Style"
+            description="Text Style"
+            order="1"
+            type="dss.vector.solutions.query.TextStyle" />
+          <mdParameter
+            name="layerId"
+            label="Layer Id"
+            description="Layer Id"
+            order="2"
+            type="java.lang.String" />
+        </mdAction>
+      </mdController>
+
     </create>
     <update>
 
-      <mdController
-        name="dss.vector.solutions.entomology.QueryController">
+      <mdBusiness name="dss.vector.solutions.surveillance.AggregatedCase">
         <create>
+          <mdMethod
+            name="queryAggregatedCases"
+            label="Query Aggregated Cases"
+            returnType="com.terraframe.mojo.query.ValueQuery"
+            static="true">
+            <mdParameter
+              name="queryXML"
+              label="Query XML"
+              description="Query XML"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
+              name="geoEntityType"
+              label="GeoEntity type"
+              description="The type on which to gather spatial data"
+              order="1"
+              type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+
+      <mdController
+        name="dss.vector.solutions.query.QueryController">
+        <create>
+        <mdAction
+          name="queryAggregatedCases"
+          label="Query Aggregated Cases"
+          isPost="false">
+        </mdAction>
         <mdAction
           name="newQuery"
           label="New Query"
@@ -401,83 +785,20 @@
         </create>
       </mdController>
 
-      <mdController
-        name="dss.vector.solutions.query.LayerController">
-        <create>
-        <mdAction
-          name="createSummary"
-          label="Create Summary"
-          description="Creates a layer with default values"
-          isPost="true">
-          <mdParameter
-            name="savedSearchId"
-            label="SavedSearch Id"
-            description="The id of the SavedSearch that will be the layer's parent."
-            order="0"
-            type="java.lang.String" />
-          <mdParameter
-            name="layerClass"
-            label="Layer Class"
-            description="The GeoEntity class for which this layer is being created."
-            order="1"
-            type="java.lang.String" />
-        </mdAction>
-        <mdAction
-          name="viewSummary"
-          label="View Summary"
-          description="Views a layer's summary."
-          isPost="false">
-          <mdParameter
-            name="layerId"
-            order="0"
-            label="Layer Id"
-            type="java.lang.String" />
-        </mdAction>
-        <mdAction
-          name="editSummary"
-          label="Edit Summary"
-          description="Edits a layer's components."
-          isPost="true">
-          <mdParameter
-            name="layerId"
-            order="0"
-            label="Layer Id"
-            type="java.lang.String" />
-        </mdAction>
-        <mdAction
-          name="updateSummary"
-          label="Update Summary"
-          description="Update's the layer's components."
-          isPost="true">
-          <mdParameter
-            name="geometryStyle"
-            label="Geometry Style"
-            description="Geometry Style"
-            order="0"
-            type="dss.vector.solutions.query.GeometryStyle" />
-          <mdParameter
-            name="textStyle"
-            label="Text Style"
-            description="Text Style"
-            order="1"
-            type="dss.vector.solutions.query.TextStyle" />
-          <mdParameter
-            name="layerId"
-            label="Layer Id"
-            description="Layer Id"
-            order="2"
-            type="java.lang.String" />
-        </mdAction>
-        </create>
-      </mdController>
-
     </update>
   </doIt>
   <undoIt>
+    <update>
+
+    </update>
+
     <delete>
       <object
         key="dss.vector.solutions.query.SavedSearch"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.query.ThematicVariableView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
       <object
         key="dss.vector.solutions.query.SavedSearchView"
         type="com.terraframe.mojo.system.metadata.MdView" />
@@ -485,11 +806,17 @@
         key="dss.vector.solutions.query.Layer"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
       <object
+        key="dss.vector.solutions.query.AbstractCategory"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
         key="dss.vector.solutions.query.StyleRule"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.query.WellKnownNamesMaster"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.query.SavedSearchRequiredException"
+        type="com.terraframe.mojo.system.metadata.MdException" />
     </delete>
   </undoIt>
 </version>

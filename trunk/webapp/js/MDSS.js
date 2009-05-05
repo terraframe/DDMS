@@ -41,6 +41,14 @@ var MDSS = {
       }
     },
 
+    bind : function(thisRef, func)
+    {
+      var args = [].splice.call(arguments, 2);
+      return function(){
+        return func.apply(thisRef, args.concat([].splice.call(arguments, 0)))
+      }
+    },
+
     /**
      * Strips the leading and trailing whitespace from the string.
      */

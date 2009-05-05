@@ -2,7 +2,7 @@ package dss.vector.solutions;
 
 public class PolygonStyleDTO extends PolygonStyleDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1240851033646L;
+  private static final long serialVersionUID = 1241158205629L;
   
   public PolygonStyleDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

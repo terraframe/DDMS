@@ -12,9 +12,10 @@
 <link rel="stylesheet" type="text/css" href="js/yui/build/datatable/assets/skins/sam/datatable.css">
 <link rel="stylesheet" type="text/css" href="js/yui/build/resize/assets/skins/sam/resize.css">
 <link rel="stylesheet" type="text/css" href="js/yui/build/treeview/assets/skins/sam/treeview.css">
+<link rel="stylesheet" type="text/css" href="js/yui/build/colorpicker/assets/skins/sam/colorpicker.css">
+<link rel="stylesheet" type="text/css" href="js/yui/build/slider/assets/skins/sam/slider.css">
 <!--
 <link rel="stylesheet" type="text/css" href="js/yui/build/carousel/assets/skins/sam/carousel.css">
-<link rel="stylesheet" type="text/css" href="js/yui/build/colorpicker/assets/skins/sam/colorpicker.css">
 <link rel="stylesheet" type="text/css" href="js/yui/build/imagecropper/assets/skins/sam/imagecropper.css">
 -->
 <link rel="stylesheet" type="text/css" href="js/yui/build/layout/assets/skins/sam/layout.css">
@@ -33,7 +34,8 @@ YUI download for details on each of the aggregate files and their contents):-->
 
 <!--Utilities (also partialy aggregated utilities.js; see readmes in the
 YUI download for details on each of the aggregate files and their contents):-->
-<script type="text/javascript" src="js/yui/build/element/element.js"></script>
+<script type="text/javascript" src="js/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="js/yui/build/element/element-min.js"></script>
 <script type="text/javascript" src="js/yui/build/animation/animation-min.js"></script>
 <script type="text/javascript" src="js/yui/build/connection/connection-min.js"></script>
 <script type="text/javascript" src="js/yui/build/datasource/datasource-min.js"></script>
@@ -59,14 +61,14 @@ YUI download for details on each of the aggregate files and their contents):-->
 <script type="text/javascript" src="js/yui/build/treeview/treeview-min.js"></script>
 <script type="text/javascript" src="js/yui/build/layout/layout-min.js"></script>
 <script type="text/javascript" src="js/yui/build/tabview/tabview-min.js"></script>
+<script type="text/javascript" src="js/yui/build/slider/slider-min.js"></script>
+<script type="text/javascript" src="js/yui/build/colorpicker/colorpicker-min.js"></script>
 <!--
 <script type="text/javascript" src="js/yui/build/paginator/paginator-min.js"></script>
-<script type="text/javascript" src="js/yui/build/slider/slider-min.js"></script>
 <script type="text/javascript" src="js/yui/build/uploader/uploader-min.js"></script>
 <script type="text/javascript" src="js/yui/build/editor/editor-min.js"></script>
 <script type="text/javascript" src="js/yui/build/imagecropper/imagecropper-min.js"></script>
 <script type="text/javascript" src="js/yui/build/charts/charts-min.js"></script>
-<script type="text/javascript" src="js/yui/build/colorpicker/colorpicker-min.js"></script>
 -->
 
 <script type="text/javascript">

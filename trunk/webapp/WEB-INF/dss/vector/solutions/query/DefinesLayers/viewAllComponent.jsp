@@ -21,10 +21,10 @@
     </mjl:freeColumn>
     <mjl:freeColumn>
       <mjl:header>
-        Layer
+        Universal Layer
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="${item.child.keyName}" action="dss.vector.solutions.query.LayerController.view.mojo" name="child.link">
+        <mjl:commandLink display="${item.child.keyName}" action="dss.vector.solutions.query.UniversalLayerController.view.mojo" name="child.link">
           <mjl:property value="${item.childId}" name="id" />
         </mjl:commandLink>
       </mjl:row>

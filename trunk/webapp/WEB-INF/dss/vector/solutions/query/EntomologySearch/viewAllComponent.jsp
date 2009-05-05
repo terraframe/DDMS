@@ -11,6 +11,11 @@
         Query Name
       </mjl:header>
     </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="queryViewName">
+      <mjl:header>
+        Query View Name
+      </mjl:header>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="queryXml">
       <mjl:header>
         Query XML

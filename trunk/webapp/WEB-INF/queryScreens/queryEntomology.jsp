@@ -8,11 +8,16 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.EarthDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
-<%@page import="dss.vector.solutions.entomology.QueryController"%>
+<%@page import="dss.vector.solutions.query.QueryController"%>
 <%@page import="dss.vector.solutions.query.EntomologySearch"%>
 <%@page import="dss.vector.solutions.query.EntomologySearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
-<%@page import="dss.vector.solutions.query.LayerController"%>
+<%@page import="dss.vector.solutions.query.MappingController"%>
+<%@page import="dss.vector.solutions.query.RangeCategoryDTO"%>
+<%@page import="dss.vector.solutions.query.NonRangeCategoryDTO"%>
+<%@page import="dss.vector.solutions.query.RangeCategoryController"%>
+<%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
+<%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
@@ -24,7 +29,7 @@
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-    String[] types = new String[]{LayerController.CLASS, SavedSearchViewDTO.CLASS, MosquitoDTO.CLASS, SpecieDTO.CLASS, QueryController.CLASS, EntomologySearchDTO.CLASS};
+    String[] types = new String[]{RangeCategoryDTO.CLASS, NonRangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchViewDTO.CLASS, MosquitoDTO.CLASS, SpecieDTO.CLASS, QueryController.CLASS, EntomologySearchDTO.CLASS};
     String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
     out.print(js);
   %>
@@ -52,8 +57,8 @@
 
 <div id="tabSet" class="yui-navset">
     <ul class="yui-nav">
-        <li class="selected"><a href="#tab1"><em>Query</em></a></li>
-        <li><a href="#tab2"><em>Map</em></a></li>
+        <li class="selected"><a href="#tab1"><em><fmt:message key="Query_Tab" /></em></a></li>
+        <li><a href="#tab2"><em><fmt:message key="Map_Tab" /></em></a></li>
     </ul>
     <div class="yui-content">
         <div><div id="queryPanel"></div></div>

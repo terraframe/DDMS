@@ -18,11 +18,11 @@
     </dd>
     <dt>
       <label>
-        Layer
+        Universal Layer
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.child.keyName}" action="dss.vector.solutions.query.LayerController.view.mojo" name="dss.vector.solutions.query.Layer.form.view.link">
+      <mjl:commandLink display="${item.child.keyName}" action="dss.vector.solutions.query.UniversalLayerController.view.mojo" name="dss.vector.solutions.query.UniversalLayer.form.view.link">
         <mjl:property value="${item.childId}" name="id" />
       </mjl:commandLink>
     </dd>

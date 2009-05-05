@@ -5,37 +5,13 @@ public class PointStyleController extends PointStyleControllerBase implements co
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/PointStyle/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
   
-  private static final long serialVersionUID = 1240850985133L;
+  private static final long serialVersionUID = 1241158092965L;
   
   public PointStyleController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
   
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.PointStyleQueryDTO query = dss.vector.solutions.PointStyleDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All PointStyleController Objects");
-    render("viewAllComponent.jsp");
-  }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("dss_vector_solutions_PointStyle_wellKnownName", dss.vector.solutions.query.WellKnownNamesDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("item", dss.vector.solutions.PointStyleDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View PointStyleController");
-    render("viewComponent.jsp");
-  }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     dss.vector.solutions.PointStyleDTO dto = dss.vector.solutions.PointStyleDTO.lock(super.getClientRequest(), id);
@@ -47,59 +23,6 @@ public class PointStyleController extends PointStyleControllerBase implements co
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.view(id);
-  }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.PointStyleDTO dto = new dss.vector.solutions.PointStyleDTO(clientRequest);
-    req.setAttribute("dss_vector_solutions_PointStyle_wellKnownName", dss.vector.solutions.query.WellKnownNamesDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create PointStyleController");
-    render("createComponent.jsp");
-  }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-  }
-  public void cancel(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dto.unlock();
-    this.view(dto.getId());
-  }
-  public void failCancel(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-  public void create(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      this.view(dto.getId());
-    }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failCreate(dto);
-    }
-  }
-  public void failCreate(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("dss_vector_solutions_PointStyle_wellKnownName", dss.vector.solutions.query.WellKnownNamesDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create PointStyleController");
-    render("createComponent.jsp");
-  }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.PointStyleQueryDTO query = dss.vector.solutions.PointStyleDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All PointStyleController Objects");
-    render("viewAllComponent.jsp");
-  }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
   }
   public void update(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -120,6 +43,27 @@ public class PointStyleController extends PointStyleControllerBase implements co
     req.setAttribute("page_title", "Update PointStyleController");
     render("editComponent.jsp");
   }
+  public void cancel(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    dto.unlock();
+    this.view(dto.getId());
+  }
+  public void failCancel(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
+  }
+  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("dss_vector_solutions_PointStyle_wellKnownName", dss.vector.solutions.query.WellKnownNamesDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("item", dss.vector.solutions.PointStyleDTO.get(clientRequest, id));
+    req.setAttribute("page_title", "View PointStyleController");
+    render("viewComponent.jsp");
+  }
+  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
   public void delete(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -138,5 +82,61 @@ public class PointStyleController extends PointStyleControllerBase implements co
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit PointStyleController");
     render("editComponent.jsp");
+  }
+  public void create(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      dto.apply();
+      this.view(dto.getId());
+    }
+    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    {
+      this.failCreate(dto);
+    }
+  }
+  public void failCreate(dss.vector.solutions.PointStyleDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.setAttribute("dss_vector_solutions_PointStyle_wellKnownName", dss.vector.solutions.query.WellKnownNamesDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create PointStyleController");
+    render("createComponent.jsp");
+  }
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.PointStyleDTO dto = new dss.vector.solutions.PointStyleDTO(clientRequest);
+    req.setAttribute("dss_vector_solutions_PointStyle_wellKnownName", dss.vector.solutions.query.WellKnownNamesDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("item", dto);
+    req.setAttribute("page_title", "Create PointStyleController");
+    render("createComponent.jsp");
+  }
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.viewAll();
+  }
+  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.PointStyleQueryDTO query = dss.vector.solutions.PointStyleDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    req.setAttribute("query", query);
+    req.setAttribute("page_title", "View All PointStyleController Objects");
+    render("viewAllComponent.jsp");
+  }
+  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
+  }
+  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    dss.vector.solutions.PointStyleQueryDTO query = dss.vector.solutions.PointStyleDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    req.setAttribute("query", query);
+    req.setAttribute("page_title", "View All PointStyleController Objects");
+    render("viewAllComponent.jsp");
+  }
+  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  {
+    resp.sendError(500);
   }
 }

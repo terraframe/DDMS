@@ -12,10 +12,21 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="displayLabel" />
-        <mjl:messages attribute="displayLabel">
-          <mjl:message />
-        </mjl:messages>
+        <dl>
+          <mjl:struct param="displayLabel">
+            <dt>
+              <label>
+                ${item.displayLabel.defaultLocaleMd.displayLabel}
+              </label>
+            </dt>
+            <dd>
+              <mjl:input type="text" param="defaultLocale" />
+              <mjl:messages attribute="defaultLocale">
+                <mjl:message />
+              </mjl:messages>
+            </dd>
+          </mjl:struct>
+        </dl>
       </dd>
       <dt>
         <label>

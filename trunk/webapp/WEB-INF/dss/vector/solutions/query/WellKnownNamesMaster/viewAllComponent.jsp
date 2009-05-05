@@ -6,14 +6,19 @@
 <mjl:table var="item" query="${query}">
   <mjl:context action="dss.vector.solutions.query.WellKnownNamesMasterController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:attributeColumn attributeName="displayLabel">
+    <mjl:structColumn attributeName="displayLabel">
       <mjl:header>
         Display Label
       </mjl:header>
-    </mjl:attributeColumn>
+      <mjl:attributeColumn attributeName="defaultLocale">
+        <mjl:header>
+          defaultLocale
+        </mjl:header>
+      </mjl:attributeColumn>
+    </mjl:structColumn>
     <mjl:attributeColumn attributeName="enumName">
       <mjl:header>
-        Enumeration Option Name
+        Enum Name
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:freeColumn>

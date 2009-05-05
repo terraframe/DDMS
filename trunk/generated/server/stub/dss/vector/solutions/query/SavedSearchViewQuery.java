@@ -1,7 +1,9 @@
 package dss.vector.solutions.query;
 
+import com.terraframe.mojo.business.rbac.UserDAOIF;
 import com.terraframe.mojo.query.CONCAT;
 import com.terraframe.mojo.query.F;
+import com.terraframe.mojo.session.Session;
 
 /**
  *
@@ -12,6 +14,7 @@ public class SavedSearchViewQuery extends dss.vector.solutions.query.SavedSearch
 private static final long serialVersionUID = 1240879208564L;
 
   private SavedSearchQuery searchQuery;
+  private PersistsSearchQuery persistQuery;
   private boolean includeXML;
 
   public SavedSearchViewQuery(com.terraframe.mojo.query.QueryFactory queryFactory)
@@ -24,6 +27,7 @@ private static final long serialVersionUID = 1240879208564L;
   {
     super(queryFactory);
     this.searchQuery = searchQuery;
+    this.persistQuery = new PersistsSearchQuery(queryFactory);
     this.includeXML = includeXML;
     this.buildQuery(new DefaultSavedSearchViewBuilder(queryFactory));
   }
@@ -60,8 +64,8 @@ private static final long serialVersionUID = 1240879208564L;
         viewQuery.map(SavedSearchView.QUERYXML, searchQuery.getQueryXml());
       }
 
-      CONCAT c = F.CONCAT(searchQuery.getThematicLayer().getGeoEntityClass().getPackageName(),
-          F.CONCAT(".", searchQuery.getThematicLayer().getGeoEntityClass().getTypeName()));
+      CONCAT c = F.CONCAT(searchQuery.getThematicLayer().getGeoHierarchy().getGeoEntityClass().getPackageName(),
+          F.CONCAT(".", searchQuery.getThematicLayer().getGeoHierarchy().getGeoEntityClass().getTypeName()));
       viewQuery.map(SavedSearchView.THEMATICLAYER, c);
     }
 
@@ -71,6 +75,11 @@ private static final long serialVersionUID = 1240879208564L;
     protected void buildWhereClause()
     {
       SavedSearchViewQuery viewQuery = this.getViewQuery();
+
+      // limit search instances to the current user.
+      UserDAOIF user = Session.getCurrentSession().getUser();
+      viewQuery.WHERE(persistQuery.parentId().EQ(user.getId()));
+      viewQuery.WHERE(searchQuery.persistedBy(persistQuery));
 
       viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
     }

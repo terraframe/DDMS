@@ -55,9 +55,27 @@ MDSS.Localized = {
 
   Add: '<fmt:message key="Add" />',
 
+  Submit: '<fmt:message key="Submit" />',
+
+  Cancel: '<fmt:message key="Cancel" />',
+
   Update: '<fmt:message key="Update" />',
 
   Available_Layers : '<fmt:message key="Available_Layers" />',
 
-  Defined_Layers: '<fmt:message key="Defined_Layers" />'
+  Defined_Layers: '<fmt:message key="Defined_Layers" />',
+
+  Thematic:
+  {
+    Layer: '<fmt:message key="Thematic_Layer" />',
+    Edit_Default_Style: '<fmt:message key="Thematic_Edit_Default_Style" />',
+    Edit_Variable_Styles: '<fmt:message key="Thematic_Edit_Variable_Styles" />'
+  },
+
+  Target_Search: '<fmt:message key="Target_Search" />',
+
+  Age_Group: '<fmt:message key="Age_Group" />',
+  All_Ages: '<fmt:message key="All_Ages" />',
+
+  Remove_Column: '<fmt:message key="Remove_Column" />'
 };

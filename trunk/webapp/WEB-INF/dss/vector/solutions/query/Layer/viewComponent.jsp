@@ -49,19 +49,5 @@
   <br />
 </mjl:form>
 <dl>
-  <dt>
-    <label>
-      Child Relationships
-    </label>
-  </dt>
-  <dd>
-    <ul>
-      <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.query.DefinesLayersController.childQuery.mojo" name="dss.vector.solutions.query.DefinesLayers.childQuery.link">
-          <mjl:property value="${item.id}" name="childId" />
-        </mjl:commandLink>
-      </li>
-    </ul>
-  </dd>
 </dl>
 <mjl:commandLink display="View All" action="dss.vector.solutions.query.LayerController.viewAll.mojo" name="dss.vector.solutions.query.Layer.viewAll.link" />

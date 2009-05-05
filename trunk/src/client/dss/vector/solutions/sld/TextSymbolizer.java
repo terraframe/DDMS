@@ -2,15 +2,16 @@ package dss.vector.solutions.sld;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.query.LayerDTO;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.TextStyleDTO;
 
 public class TextSymbolizer extends Symbolizer implements Reloadable
 {
 
-  protected TextSymbolizer(TextStyleDTO styleRule)
+  protected TextSymbolizer(LayerDTO layer, TextStyleDTO styleRule)
   {
-    super(styleRule);
+    super(layer, styleRule);
   }
 
   @Override

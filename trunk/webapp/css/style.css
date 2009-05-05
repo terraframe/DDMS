@@ -442,10 +442,16 @@ span.searchMatch {
 	width: 430px;
 	height: 430px;
 	border: 1px solid black;
+	margin-left: 30px;
+	margin-top: 3px;
 }
 
 div.layersWrapper {
 	padding: 5px;
+}
+
+div.universalList {
+	margin-top: 10px;
 }
 
 div.definedLayers {
@@ -464,7 +470,33 @@ div.definedLayers div ul {
 div.definedLayers div ul li input {
 	margin-right: 5px;
 }
+input.bounds {
+	width: 50px;
+}
+
+div.colorPickerValue {
+	display: block;
+	width:15px;
+	height:15px;
+	border: 1px solid black;
+	margin-left: 20px;
+	margin-top: 2px;
+	cursor: pointer;
+}
 .dataTableSumError
 {
 	background-color: #EEFF39;
+}
+
+#ageGroupItem {
+	margin-top: 3px;
+}
+
+#ageGroupItem li {
+	height: 13px;
+	border: none !important;
+}
+
+#ageGroupItem li input {
+	margin-right: 5px;
 }

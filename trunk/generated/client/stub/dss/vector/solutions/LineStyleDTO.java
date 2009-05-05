@@ -2,7 +2,7 @@ package dss.vector.solutions;
 
 public class LineStyleDTO extends LineStyleDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1240851038645L;
+  private static final long serialVersionUID = 1241158213433L;
   
   public LineStyleDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

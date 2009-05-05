@@ -18,14 +18,14 @@ public class PersonController extends PersonControllerBase implements com.terraf
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/Person/";
   public static final String LAYOUT = JSP_DIR + "layout.jsp";
-  
+
   private static final long serialVersionUID = 1240792904565L;
-  
+
   public PersonController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   @Override
   public void search(PersonViewDTO person) throws IOException, ServletException
   {
@@ -36,20 +36,20 @@ public class PersonController extends PersonControllerBase implements com.terraf
     req.setAttribute("sexEnumName", person.getSex().get(0).getName());
     render("searchResults.jsp");
   }
-  
+
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     PersonViewDTO view = new PersonViewDTO(clientRequest);
     renderCreate(view);
   }
-  
+
   @Override
   public void continueNewInstance(PersonViewDTO person) throws IOException, ServletException
   {
     renderCreate(person);
   }
-  
+
   @Override
   public void createFromView(PersonViewDTO person) throws IOException, ServletException
   {
@@ -60,16 +60,22 @@ public class PersonController extends PersonControllerBase implements com.terraf
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
+
+      renderCreate(person);
+    }
+    catch(Throwable t)
+    {
+      req.setAttribute(ErrorUtility.ERROR_MESSAGE, t.getLocalizedMessage());
       renderCreate(person);
     }
   }
-  
+
   @Override
   public void failCreateFromView(PersonViewDTO person) throws IOException, ServletException
   {
     renderCreate(person);
   }
-  
+
   private void renderCreate(PersonViewDTO view) throws IOException, ServletException
   {
     req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
@@ -77,14 +83,14 @@ public class PersonController extends PersonControllerBase implements com.terraf
     req.setAttribute("page_title", "Create_Person");
     render("createComponent.jsp");
   }
-  
+
   public void edit(String id) throws java.io.IOException, javax.servlet.ServletException
   {
     PersonViewDTO dto = PersonDTO.lockView(super.getClientRequest(), id);
-    
+
     renderEdit(dto);
   }
-  
+
   @Override
   public void updateFromView(PersonViewDTO person) throws IOException, ServletException
   {
@@ -96,11 +102,11 @@ public class PersonController extends PersonControllerBase implements com.terraf
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
+
       renderEdit(person);
     }
   }
-  
+
   @Override
   public void failUpdateFromView(PersonViewDTO person) throws IOException, ServletException
   {
@@ -114,7 +120,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     req.setAttribute("page_title", "Edit_Person");
     render("editComponent.jsp");
   }
-  
+
   @Override
   public void deleteFromView(PersonViewDTO person) throws IOException, ServletException
   {
@@ -136,7 +142,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     req.setAttribute("page_title", "View_Person");
     render("viewComponent.jsp");
   }
-  
+
   public void viewPage(String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
@@ -165,7 +171,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     PersonViewDTO view = PersonDTO.getView(clientRequest, id);
-    
+
     renderView(view);
   }
   public void failView(String id) throws java.io.IOException, javax.servlet.ServletException

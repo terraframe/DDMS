@@ -2,7 +2,7 @@ package dss.vector.solutions;
 
 public class PointStyleDTO extends PointStyleDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1240851010435L;
+  private static final long serialVersionUID = 1241158155264L;
   
   public PointStyleDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

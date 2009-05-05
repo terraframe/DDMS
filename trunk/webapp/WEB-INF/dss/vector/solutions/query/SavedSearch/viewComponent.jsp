@@ -16,6 +16,14 @@
     </dd>
     <dt>
       <label>
+        ${item.queryViewNameMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.queryViewName}
+    </dd>
+    <dt>
+      <label>
         ${item.queryXmlMd.displayLabel}
       </label>
     </dt>
@@ -28,7 +36,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.thematicLayer.keyName}" action="dss.vector.solutions.geo.GeoHierarchyController.view.mojo" name="dss.vector.solutions.geo.GeoHierarchy.form.view.link">
+      <mjl:commandLink display="${item.thematicLayer.keyName}" action="dss.vector.solutions.query.ThematicLayerController.view.mojo" name="dss.vector.solutions.query.ThematicLayer.form.view.link">
         <mjl:property value="${item.thematicLayer.id}" name="id" />
       </mjl:commandLink>
     </dd>

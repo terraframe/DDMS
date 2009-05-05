@@ -29,7 +29,7 @@
   <undoIt>
     <delete>
       <object
-        key="dss.vector.solutions.irs.Resource.TargetView.getResourceTargets"
+        key="dss.vector.solutions.irs.ResourceTargetView.getResourceTargets"
         type="com.terraframe.mojo.system.metadata.MdMethod" />
     </delete>
   </undoIt>

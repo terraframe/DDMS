@@ -19,6 +19,17 @@
       </dd>
       <dt>
         <label>
+          ${item.queryViewNameMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:input type="text" param="queryViewName" />
+        <mjl:messages attribute="queryViewName">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
           ${item.queryXmlMd.displayLabel}
         </label>
       </dt>

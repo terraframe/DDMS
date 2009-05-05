@@ -5,15 +5,15 @@ import java.io.ByteArrayInputStream;
 import com.terraframe.mojo.business.BusinessDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.system.metadata.MdBusinessDTO;
 
-import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.query.GeometryStyleDTO;
 import dss.vector.solutions.query.LayerDTO;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.TextStyleDTO;
+import dss.vector.solutions.query.ThematicLayerDTO;
+import dss.vector.solutions.query.UniversalLayerDTO;
 
-public class SLDWriter implements Reloadable
+public abstract class SLDWriter implements Reloadable
 {
   private LayerDTO      layer;
 
@@ -24,23 +24,24 @@ public class SLDWriter implements Reloadable
    *
    * @param layer
    */
-  public SLDWriter(LayerDTO layer)
+  protected SLDWriter(LayerDTO layer)
   {
     this.layer = layer;
     builder = new StringBuilder();
   }
 
+  protected LayerDTO getLayer()
+  {
+    return layer;
+  }
+
   public void write()
   {
-    // FIXME user view to avoid multiple trips to server
-    GeoHierarchyDTO geoH = layer.getGeoHierarchy();
-    MdBusinessDTO md = geoH.getGeoEntityClass();
     GeometryStyleDTO geoStyle = layer.getGeometryStyle();
     TextStyleDTO textStyle = layer.getTextStyle();
 
-    String layerName = QueryConstants.MDSS_NAMESPACE + ":" + md.getTypeName().toLowerCase()
-        + QueryConstants.VIEW_NAME_SUFFIX;
-    writeHeader(layerName);
+    String viewName = layer.getViewName();
+    writeHeader(viewName);
     writeGeometryStyle(geoStyle);
     writeTextStyle(textStyle);
     writeFooter();
@@ -59,29 +60,29 @@ public class SLDWriter implements Reloadable
     this.layer.apply();
   }
 
-  private void writeHeader(String layerName)
+  private void writeHeader(String viewName)
   {
     writeln("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>");
     writeln("<StyledLayerDescriptor version=\"1.0.0\" xmlns=\"http://www.opengis.net/sld\" xmlns:ogc=\"http://www.opengis.net/ogc\"");
     writeln("xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
     writeln("xsi:schemaLocation=\"http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd\">");
     writeln("<NamedLayer>");
-    writeln("<Name>" + layerName + "</Name>");
+    writeln("<Name>" + QueryConstants.MDSS_NAMESPACE + ":" + viewName + "</Name>");
     writeln("<UserStyle>");
-    writeln("<Title>Layer Style for " + layerName + "</Title>");
-    writeln("<Abstract>Layer Style for " + layerName + "</Abstract>");
+    writeln("<Title>Layer Style for " + viewName + "</Title>");
+    writeln("<Abstract>Layer Style for " + viewName + "</Abstract>");
     writeln("<FeatureTypeStyle>");
   }
 
   private void writeGeometryStyle(GeometryStyleDTO geoStyle)
   {
-    Symbolizer symbolizer = Symbolizer.getSymbolizer(geoStyle);
+    Symbolizer symbolizer = Symbolizer.getSymbolizer(layer, geoStyle);
     symbolizer.write(this);
   }
 
   private void writeTextStyle(TextStyleDTO textStyle)
   {
-    TextSymbolizer textSymbolizer = new TextSymbolizer(textStyle);
+    TextSymbolizer textSymbolizer = new TextSymbolizer(layer, textStyle);
     textSymbolizer.write(this);
   }
 
@@ -96,5 +97,17 @@ public class SLDWriter implements Reloadable
   protected void writeln(String line)
   {
     builder.append(line + "\n");
+  }
+
+  public static SLDWriter getSLDWriter(LayerDTO layer)
+  {
+    if(layer instanceof ThematicLayerDTO)
+    {
+      return new ThematicSLDWriter((ThematicLayerDTO) layer);
+    }
+    else
+    {
+      return new UniversalSLDWriter((UniversalLayerDTO) layer);
+    }
   }
 }

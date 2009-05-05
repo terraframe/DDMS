@@ -70,7 +70,7 @@
                          <ul>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo"><fmt:message key="Search_Mosquito_Collections"/></a></li>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionPointController.search.mojo"><fmt:message key="Mosquito_Collection_Points"/></a></li>
-                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.QueryController.queryEntomology.mojo"><fmt:message key="Query_Entomology"/></a></li><!--
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.query.QueryController.queryEntomology.mojo"><fmt:message key="Query_Entomology"/></a></li><!--
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAll.mojo"><fmt:message key="View_All_Mosquito_Collections"/></a></li>
                               --><li class="yuimenuitem"><a class="yuimenuitemlabel" href="#"><fmt:message key="Resistance_Monitoring"/></a>
                                  <div id="pim3" class="yuimenu">
@@ -101,6 +101,7 @@
                      <div class="bd">
                          <ul>
                              <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo"><fmt:message key="Search_Aggregated_Cases"/></a></li>
+                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.query.QueryController.queryAggregatedCases.mojo"><fmt:message key="Query_Aggregated_Cases"/></a></li>
                          </ul>
                      </div>
 
