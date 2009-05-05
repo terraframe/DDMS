@@ -16,6 +16,7 @@
         name="dss.vector.solutions.irs.SprayOperator"
         label="Spray Operator"
         description="Person who is also a Spray Operator"
+        extends="dss.vector.solutions.irs.Targeter"
         generateController="false">
         <attributes>
           <char
@@ -261,14 +262,15 @@
       </mdBusiness>
       <mdBusiness
         name="dss.vector.solutions.irs.SprayTeam"
-        label="Spray Operator"
-        description="Person who is also a Spray Operator"
+        label="Spray Team"
+        description="A team of spray Operators"
         extends="dss.vector.solutions.irs.Targeter">
         <attributes>
           <char
             name="teamCode"
             label="Team Code"
             description="Identifying team code"
+            required="true"
             size="16" />
         </attributes>
       </mdBusiness>

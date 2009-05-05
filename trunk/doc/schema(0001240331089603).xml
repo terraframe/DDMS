@@ -224,6 +224,10 @@
             name="targetId"
             label="Target Id"
             size="255" />
+          <char
+            name="targeterName"
+            label="Name"
+            size="255" />
           <virtual
             name="targeter"
             type="dss.vector.solutions.irs.ResourceTarget"
