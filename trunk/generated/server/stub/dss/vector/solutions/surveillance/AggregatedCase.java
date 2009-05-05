@@ -1,12 +1,25 @@
 package dss.vector.solutions.surveillance;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import com.terraframe.mojo.business.rbac.Operation;
+import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
+import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
+import com.terraframe.mojo.dataaccess.MdViewDAOIF;
+import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
+import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.session.Session;
+import com.terraframe.mojo.session.SessionFacade;
+import com.terraframe.mojo.session.SessionIF;
+import com.terraframe.mojo.session.StartSession;
 
 import dss.vector.solutions.PeriodMonthProblem;
 import dss.vector.solutions.PeriodQuarterProblem;
@@ -21,6 +34,76 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public AggregatedCase()
   {
     super();
+  }
+
+  @StartSession
+  public static java.lang.String[] getVisibleAttributeNames()
+  {
+    MdBusinessDAOIF aggregateCaseMdBusiness = MdBusinessDAO.getMdBusinessDAO(AggregatedCase.CLASS);
+    List<? extends MdAttributeConcreteDAOIF> aggregateCaseAttributes = aggregateCaseMdBusiness.getAllDefinedMdAttributes();
+
+
+    MdViewDAOIF aggregatedCaseMdView = MdViewDAO.getMdViewDAO(AggregatedCaseView.CLASS);
+
+    List<MdViewDAOIF> aggregatedCaseViewSubClasses = aggregatedCaseMdView.getSubClasses();
+
+    // Key is the class name, value is a map of attributes
+    Map<String, Map<String, ? extends MdAttributeDAOIF>> subClassAttrMap = new HashMap<String, Map<String, ? extends MdAttributeDAOIF>>();
+
+    for (MdViewDAOIF mdViewDAOIF : aggregatedCaseViewSubClasses)
+    {
+      subClassAttrMap.put(mdViewDAOIF.definesType(), mdViewDAOIF.getAllDefinedMdAttributeMap());
+    }
+
+    LinkedList<String> visibleAttributeNameList = new LinkedList<String>();
+
+    for (MdAttributeConcreteDAOIF mdAttribute: aggregateCaseAttributes)
+    {
+      for (MdViewDAOIF mdViewDAOIF : aggregatedCaseViewSubClasses)
+      {
+        boolean hasVisibility =
+          hasVisibility(mdAttribute.definesAttribute(), subClassAttrMap.get(mdViewDAOIF.definesType()));
+        if (hasVisibility)
+        {
+          visibleAttributeNameList.add(mdAttribute.definesAttribute());
+          break;
+        }
+      }
+    }
+
+    String[] visibleAttributeNames = new String[visibleAttributeNameList.size()];
+
+    visibleAttributeNameList.toArray(visibleAttributeNames);
+
+    return visibleAttributeNames;
+  }
+
+  /**
+   * Returns true if the given attribute is defined by a <code>MdAttributeDAOIF</code>
+   * in the given map and the current user has permission to view the attribute, false otherwise.
+   *
+   * <br>Precondition:</br> <code>Session.getCurrentSession()</code> does not return null.
+   *
+   * @param attributeName
+   * @param viewCaseAttributeMap
+   * @return true if the given attribute is defined by a <code>MdAttributeDAOIF</code>
+   * in the given map and the current user has permission to view the attribute, false otherwise.
+   */
+  private static boolean hasVisibility(String attributeName,
+      Map<String, ? extends MdAttributeDAOIF> viewCaseAttributeMap)
+  {
+    String attrNameLowerCase = attributeName.toLowerCase();
+
+    boolean hasVisibility = false;
+
+    SessionIF session = Session.getCurrentSession();
+
+    if (viewCaseAttributeMap.containsKey(attrNameLowerCase))
+    {
+      MdAttributeDAOIF mdAttributeDAOIF = viewCaseAttributeMap.get(attrNameLowerCase);
+      hasVisibility = SessionFacade.checkAttributeAccess(session.getId(), Operation.READ, mdAttributeDAOIF);
+    }
+    return hasVisibility;
   }
 
   @Override

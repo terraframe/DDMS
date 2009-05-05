@@ -1,0 +1,21 @@
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.surveillance.AggregatedCase">
+        <create>
+          <mdMethod
+            name="getVisibleAttributeNames"
+            label="Get Visible Attribute Names"
+            description="Returns a list of attribute names that are visible to the current user in either of the age categories."
+            static="true"
+            returnType="java.lang.String[]" />
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
