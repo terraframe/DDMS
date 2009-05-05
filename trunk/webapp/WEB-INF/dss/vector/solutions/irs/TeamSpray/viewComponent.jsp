@@ -24,7 +24,9 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.irs.OperatorSprayStatusViewDTO"%>
 
-<%@page import="com.terraframe.mojo.business.ViewDTO"%><mjl:messages>
+<%@page import="com.terraframe.mojo.business.ViewDTO"%>
+<%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%>
+<%@page import="dss.vector.solutions.irs.ActorSprayStatusViewDTO"%><mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.irs.TeamSpray.form.name" id="dss.vector.solutions.irs.TeamSpray.form.id" method="POST">
@@ -60,9 +62,9 @@
 <script type="text/javascript">
 
     <%
-     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{"dss.vector.solutions.irs.SprayStatusView"}, true));
-     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{"dss.vector.solutions.irs.ActorSprayStatusView"}, true));
-     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{"dss.vector.solutions.irs.OperatorSprayStatusView"}, true));
+     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{SprayStatusViewDTO.CLASS}, true));
+     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{ActorSprayStatusViewDTO.CLASS}, true));
+     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{OperatorSprayStatusViewDTO.CLASS}, true));
     %>
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 
@@ -72,7 +74,7 @@
               columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 4)%>,
               defaults: {"Spray":'<%=spray.getSprayId()%>'},
               div_id: "Status",
-              data_type: "Mojo.$.dss.vector.solutions.irs.OperatorSprayStatusView",
+              data_type: "Mojo.$." + OperatorSprayStatusViewDTO.CLASS,
               saveFunction:"applyAll",
               width:"65em"              
           };

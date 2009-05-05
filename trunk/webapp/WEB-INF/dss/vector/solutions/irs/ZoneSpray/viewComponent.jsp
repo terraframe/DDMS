@@ -25,7 +25,9 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.irs.TeamSprayStatusViewDTO"%>
 
-<mjl:messages>
+
+<%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%>
+<%@page import="dss.vector.solutions.irs.ActorSprayStatusViewDTO"%><mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.irs.ZoneSpray.form.name" id="dss.vector.solutions.irs.ZoneSpray.form.id" method="POST">
@@ -59,9 +61,9 @@
 <script type="text/javascript">
 
 <%
-out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{"dss.vector.solutions.irs.SprayStatusView"}, true));
-out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{"dss.vector.solutions.irs.ActorSprayStatusView"}, true));
-out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{"dss.vector.solutions.irs.TeamSprayStatusView"}, true));
+out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{SprayStatusViewDTO.CLASS}, true));
+out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{ActorSprayStatusViewDTO.CLASS}, true));
+out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{TeamSprayStatusViewDTO.CLASS}, true));
 %>
 <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 
@@ -71,7 +73,7 @@ data = {
          columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 4)%>,
          defaults: {"Spray":'<%=spray.getSprayId()%>'},
          div_id: "Status",
-         data_type: "Mojo.$.dss.vector.solutions.irs.TeamSprayStatusView",
+         data_type: "Mojo.$." + TeamSprayStatusViewDTO.CLASS,
          saveFunction:"applyAll",
          width:"65em"              
      };

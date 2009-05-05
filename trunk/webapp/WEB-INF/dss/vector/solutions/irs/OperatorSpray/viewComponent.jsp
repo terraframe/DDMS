@@ -22,7 +22,8 @@
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.irs.HouseholdSprayStatusViewDTO"%>
 <%@page import="dss.vector.solutions.irs.OperatorSprayViewDTO"%>
-<%@page import="dss.vector.solutions.util.Halp"%><mjl:messages>
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%><mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.irs.OperatorSpray.form.name" id="dss.vector.solutions.irs.OperatorSpray.form.id" method="POST">
@@ -60,8 +61,8 @@
 <script type="text/javascript">
 
     <%
-      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{"dss.vector.solutions.irs.SprayStatusView"}, true));
-      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{"dss.vector.solutions.irs.HouseholdSprayStatusView"}, true));
+      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{SprayStatusViewDTO.CLASS}, true));
+      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{HouseholdSprayStatusViewDTO.CLASS}, true));
     %>
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 
@@ -71,7 +72,7 @@
               columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 2)%>,
               defaults: {"Spray":'<%=spray.getSprayId()%>'},
               div_id: "Status",
-              data_type: "Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatusView",
+              data_type: "Mojo.$." + HouseholdSprayStatusViewDTO.CLASS,
               saveFunction:"applyAll",
               width:"65em"              
           };
