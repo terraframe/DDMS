@@ -22,7 +22,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/entomology/MosquitoCollection/";
 
-  public static final String LAYOUT           = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT           =  "/layout.jsp";
 
   private static final long  serialVersionUID = 1235073590401L;
 
@@ -61,7 +61,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
-    
+
     render("editComponent.jsp");
   }
 
@@ -74,7 +74,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
-    
+
     render("createComponent.jsp");
   }
 
@@ -112,7 +112,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
-    
+
     render("editComponent.jsp");
   }
 
@@ -169,7 +169,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     ClientRequestIF clientRequest = super.getClientRequest();
     MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    
+
     render("viewAllComponent.jsp");
   }
 
@@ -185,7 +185,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     ClientRequestIF clientRequest = super.getClientRequest();
     MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    
+
     render("viewAllComponent.jsp");
   }
 
@@ -203,7 +203,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
-    
+
     render("editComponent.jsp");
   }
 
@@ -241,7 +241,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
-    
+
     render("createComponent.jsp");
   }
 
@@ -308,7 +308,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("query", query);
 
-    
+
 
     render("searchComponent.jsp");
   }
@@ -327,7 +327,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
         collection.setDateCollected(collectionDate);
         collection.setGeoEntity(geoEntity);
         collection.setCollectionMethod(collectionMethod);
-        
+
         jsp = "createComponent.jsp";
       }
 
