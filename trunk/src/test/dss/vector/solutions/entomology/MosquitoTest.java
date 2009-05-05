@@ -9,6 +9,7 @@ import java.util.Locale;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ClientSession;
@@ -40,6 +41,17 @@ import dss.vector.solutions.mo.SpecieDTO;
 
 public class MosquitoTest extends TestCase
 {
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
+
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
   private static GeoEntity              geoEntity              = null;
 
@@ -59,9 +71,6 @@ public class MosquitoTest extends TestCase
 
   private static InsecticideMethodology insecticideMethodology = null;
 
-  private static ClientSession          clientSession;
-
-  private static ClientRequestIF        clientRequest;
 
   public static Test suite()
   {
@@ -89,15 +98,10 @@ public class MosquitoTest extends TestCase
   {
     collection.delete();
     geoEntity.delete();
-
-    clientSession.logout();
   }
 
   protected static void classSetUp()
   {
-    clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
-    clientRequest = clientSession.getRequest();
-
     collectionMethod = CollectionMethod.getAll()[0];
     specie = Specie.getAll()[0];
     identificationMethod = IdentificationMethod.getAll()[0];
@@ -191,76 +195,6 @@ public class MosquitoTest extends TestCase
     finally
     {
       view.delete();
-    }
-  }
-
-  public void testCreateMosquitoDTO() throws ParseException
-  {
-    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
-    Date date = dateTime.parse("2007-01-01");
-
-    MosquitoViewDTO view = new MosquitoViewDTO(clientRequest);
-    view.setSpecie(SpecieDTO.get(clientRequest, specie.getId()));
-    view.setCollection(MosquitoCollectionDTO.get(clientRequest, collection.getId()));
-    view.setGeneration(GenerationDTO.get(clientRequest, F0.getId()));
-    view.setIsofemale(false);
-    view.setSampleId("0");
-    view.setIdentificationMethod(IdentificationMethodDTO
-        .get(clientRequest, identificationMethod.getId()));
-    view.addSex(SexDTO.FEMALE);
-    view.setTestDate(date);
-    view.setP450(true);
-    view.setIAcHE(MolecularAssayResultDTO.get(clientRequest, result.getId()));
-    view.setIAcHEMethod(InsecticideMethodologyDTO.get(clientRequest, insecticideMethodology.getId()));
-    view.setAAcetate(false);
-    view.setPMalariae(true);
-    view
-        .setPMalariaeMethod(InfectivityMethodologyDTO.get(clientRequest, infectivityMethodology.getId()));
-    view.apply();
-
-    try
-    {
-      Mosquito mosquito = Mosquito.get(view.getMosquitoId());
-
-      assertEquals(specie.getId(), mosquito.getSpecie().getId());
-      assertEquals(F0.getId(), mosquito.getGeneration().getId());
-      assertEquals(view.getMosquitoId(), mosquito.getId());
-      assertEquals(identificationMethod.getId(), mosquito.getIdentificationMethod().getId());
-      assertEquals(Sex.FEMALE, mosquito.getSex().get(0));
-      assertEquals(date, mosquito.getTestDate());
-      assertEquals(new Boolean(false), mosquito.getIsofemale());
-
-      List<AssayTestResult> testResults = mosquito.getTestResults();
-
-      assertEquals(4, testResults.size());
-
-      for (AssayTestResult r : testResults)
-      {
-        if (r instanceof P450TestResult)
-        {
-          assertEquals(new Boolean(true), r.getTestResult());
-        }
-        else if (r instanceof dss.vector.solutions.entomology.assay.molecular.IAcHETestResult)
-        {
-          assertEquals(view.getIAcHE().getId(), ( (MolecularAssayResult) r.getTestResult() ).getId());
-          assertEquals(view.getIAcHEMethod().getId(), r.getTestMethod().getId());
-        }
-        else if (r instanceof AAcetateTestResult)
-        {
-          assertEquals(new Boolean(false), r.getTestResult());
-        }
-        else if (r instanceof PMalariaeTestResult)
-        {
-          assertEquals(view.getPMalariae(), (Boolean) r.getTestResult());
-          assertEquals(view.getPMalariaeMethod().getId(), r.getTestMethod().getId());
-        }
-      }
-
-      assertNull(view.getEKDR());
-    }
-    finally
-    {
-      Mosquito.get(view.getMosquitoId()).delete();
     }
   }
 
