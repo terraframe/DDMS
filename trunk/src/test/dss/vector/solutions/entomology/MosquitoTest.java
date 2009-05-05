@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
@@ -12,13 +11,9 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
-import com.terraframe.mojo.web.WebClientSession;
 
-import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult;
 import dss.vector.solutions.entomology.assay.biochemical.P450TestResult;
@@ -27,17 +22,11 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.CollectionMethod;
 import dss.vector.solutions.mo.Generation;
-import dss.vector.solutions.mo.GenerationDTO;
 import dss.vector.solutions.mo.IdentificationMethod;
-import dss.vector.solutions.mo.IdentificationMethodDTO;
 import dss.vector.solutions.mo.InfectivityMethodology;
-import dss.vector.solutions.mo.InfectivityMethodologyDTO;
 import dss.vector.solutions.mo.InsecticideMethodology;
-import dss.vector.solutions.mo.InsecticideMethodologyDTO;
 import dss.vector.solutions.mo.MolecularAssayResult;
-import dss.vector.solutions.mo.MolecularAssayResultDTO;
 import dss.vector.solutions.mo.Specie;
-import dss.vector.solutions.mo.SpecieDTO;
 
 public class MosquitoTest extends TestCase
 {
