@@ -26,12 +26,12 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
 
-    SprayTeamDTO newTeam = new SprayTeamDTO(clientRequest);
-    newTeam.setTeamCode("12345");
-    newTeam.apply();
-    newTeam = SprayTeamDTO.lock(clientRequest, newTeam.getId());
-    newTeam.addSprayTeamMembers(SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet().get(0));
-    newTeam.apply();
+    //SprayTeamDTO newTeam = new SprayTeamDTO(clientRequest);
+    //newTeam.setTeamCode("12345");
+    //newTeam.apply();
+    //newTeam = SprayTeamDTO.lock(clientRequest, newTeam.getId());
+    //newTeam.addSprayTeamMembers(SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet().get(0));
+    //newTeam.apply();
 
     List<SprayTeamDTO> sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(clientRequest, SprayTeamDTO.TEAMCODE, true, 0, 0).getResultSet();
 
