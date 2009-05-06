@@ -72,7 +72,7 @@
               columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 2)%>,
               defaults: {"Spray":'<%=spray.getSprayId()%>'},
               div_id: "Status",
-              data_type: "Mojo.$." + HouseholdSprayStatusViewDTO.CLASS,
+              data_type: "Mojo.$.<%=HouseholdSprayStatusViewDTO.CLASS%>",
               saveFunction:"applyAll",
               width:"65em"              
           };
