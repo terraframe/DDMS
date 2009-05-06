@@ -31,7 +31,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Flag indicating if selecting multiple options is allowed.
@@ -45,7 +45,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Flag denoting if the option tag is disabled. Value must be disabled
@@ -67,13 +67,27 @@
     </attribute>
     <attribute>
       <name>
+        allLabel
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Display Label for ALL option, leave null for no ALL option.
+      </description>
+    </attribute>
+    <attribute>
+      <name>
         param
       </name>
       <required>
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the servlet parameter
@@ -101,7 +115,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Name of the accessor of the desired value parameter
@@ -115,7 +129,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the scoped variable to which each entry is assigned.
@@ -129,7 +143,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the scoped variable for the status of the iteration. Object exported is of type javax.servlet.jsp.jstl.core.LoopTagStatus
@@ -143,7 +157,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Index of first element to iterate over.
@@ -157,7 +171,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Index of the last element to iterate over. The value of 'end' is limited by the size of the item list.
@@ -171,7 +185,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Integer specifying the iteration step size.
@@ -185,7 +199,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Accessibility key character
@@ -199,7 +213,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Position in tabbing order
@@ -213,7 +227,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element lost the focus
@@ -227,7 +241,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element value was changed
@@ -241,7 +255,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element got the focus
@@ -255,7 +269,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse click
@@ -269,7 +283,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse doubleclick
@@ -283,7 +297,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is pressed
@@ -297,7 +311,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is released
@@ -311,7 +325,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves over an element
@@ -325,7 +339,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves
@@ -339,7 +353,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves out of an element
@@ -353,7 +367,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed and released
@@ -367,7 +381,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed
@@ -381,7 +395,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is released
@@ -395,7 +409,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the language code
@@ -409,7 +423,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the text direction
@@ -423,7 +437,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The class of the element
@@ -437,7 +451,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A unique id for the element
@@ -451,7 +465,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A text to display in a tool tip
@@ -465,7 +479,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         An inline style definition
@@ -493,7 +507,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the command button
@@ -507,7 +521,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The value of the command button
@@ -521,7 +535,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Action to take when form is submitted
@@ -535,7 +549,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Class of the table
@@ -549,7 +563,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Unique id of the table
@@ -577,7 +591,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the servlet parameter
@@ -619,7 +633,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Script to be run when the form is reset
@@ -633,7 +647,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Script to be run when the form is submitted
@@ -647,7 +661,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Defines a unique name for the form
@@ -661,7 +675,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The HTTP method for sending data to the action URL. Default is get.
@@ -675,7 +689,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Where to open the target URL
@@ -689,7 +703,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse click
@@ -703,7 +717,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse doubleclick
@@ -717,7 +731,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is pressed
@@ -731,7 +745,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is released
@@ -745,7 +759,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves over an element
@@ -759,7 +773,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves
@@ -773,7 +787,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves out of an element
@@ -787,7 +801,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed and released
@@ -801,7 +815,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed
@@ -815,7 +829,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is released
@@ -829,7 +843,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the language code
@@ -843,7 +857,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the text direction
@@ -857,7 +871,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The class of the element
@@ -871,7 +885,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A unique id for the element
@@ -885,7 +899,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A text to display in a tool tip
@@ -899,7 +913,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         An inline style definition
@@ -927,7 +941,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the controller parameter or attribute
@@ -941,7 +955,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The type of the input field
@@ -955,10 +969,38 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Disabled input controls
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        readonly
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Flag indicating if the input is read only
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        maxlength
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Max chars for text fields
       </description>
     </attribute>
     <attribute>
@@ -969,7 +1011,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         List of MIME types for file upload
@@ -983,7 +1025,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Short alternative description
@@ -997,7 +1039,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Use server-side image map
@@ -1011,24 +1053,10 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Use client-side image map
-      </description>
-    </attribute>
-    <attribute>
-      <name>
-        maxlength
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        Max chars for text fields
       </description>
     </attribute>
     <attribute>
@@ -1039,24 +1067,10 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         For fields with images
-      </description>
-    </attribute>
-    <attribute>
-      <name>
-        readonly
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        Flag indicating if the input is read only
       </description>
     </attribute>
     <attribute>
@@ -1067,7 +1081,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Alignment
@@ -1081,7 +1095,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Some text was selected
@@ -1109,7 +1123,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Size of the input field
@@ -1123,7 +1137,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Accessibility key character
@@ -1137,7 +1151,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Position in tabbing order
@@ -1151,7 +1165,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element lost the focus
@@ -1165,7 +1179,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element value was changed
@@ -1179,7 +1193,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element got the focus
@@ -1193,7 +1207,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse click
@@ -1207,7 +1221,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse doubleclick
@@ -1221,7 +1235,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is pressed
@@ -1235,7 +1249,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is released
@@ -1249,7 +1263,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves over an element
@@ -1263,7 +1277,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves
@@ -1277,7 +1291,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves out of an element
@@ -1291,7 +1305,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed and released
@@ -1305,7 +1319,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed
@@ -1319,7 +1333,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is released
@@ -1333,7 +1347,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the language code
@@ -1347,7 +1361,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the text direction
@@ -1361,7 +1375,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The class of the element
@@ -1375,7 +1389,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A unique id for the element
@@ -1389,7 +1403,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A text to display in a tool tip
@@ -1403,7 +1417,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         An inline style definition
@@ -1431,7 +1445,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the controller parameter or attribute
@@ -1445,7 +1459,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Specifies the visible width of a text-area
@@ -1459,7 +1473,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Specifies the visible number of rows in a text-area
@@ -1473,10 +1487,38 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Disabled input controls
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        readonly
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Flag indicating if the input is read only
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        maxlength
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Max chars for text fields
       </description>
     </attribute>
     <attribute>
@@ -1487,7 +1529,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         List of MIME types for file upload
@@ -1501,7 +1543,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Short alternative description
@@ -1515,7 +1557,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Use server-side image map
@@ -1529,24 +1571,10 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Use client-side image map
-      </description>
-    </attribute>
-    <attribute>
-      <name>
-        maxlength
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        Max chars for text fields
       </description>
     </attribute>
     <attribute>
@@ -1557,24 +1585,10 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         For fields with images
-      </description>
-    </attribute>
-    <attribute>
-      <name>
-        readonly
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        Flag indicating if the input is read only
       </description>
     </attribute>
     <attribute>
@@ -1585,7 +1599,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Alignment
@@ -1599,7 +1613,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Some text was selected
@@ -1627,7 +1641,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Size of the input field
@@ -1641,7 +1655,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Accessibility key character
@@ -1655,7 +1669,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Position in tabbing order
@@ -1669,7 +1683,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element lost the focus
@@ -1683,7 +1697,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element value was changed
@@ -1697,7 +1711,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element got the focus
@@ -1711,7 +1725,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse click
@@ -1725,7 +1739,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse doubleclick
@@ -1739,7 +1753,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is pressed
@@ -1753,7 +1767,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is released
@@ -1767,7 +1781,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves over an element
@@ -1781,7 +1795,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves
@@ -1795,7 +1809,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves out of an element
@@ -1809,7 +1823,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed and released
@@ -1823,7 +1837,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed
@@ -1837,7 +1851,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is released
@@ -1851,7 +1865,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the language code
@@ -1865,7 +1879,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the text direction
@@ -1879,7 +1893,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The class of the element
@@ -1893,7 +1907,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A unique id for the element
@@ -1907,7 +1921,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A text to display in a tool tip
@@ -1921,7 +1935,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         An inline style definition
@@ -1949,7 +1963,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the controller parameter or attribute
@@ -1991,10 +2005,38 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Disabled input controls
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        readonly
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Flag indicating if the input is read only
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        maxlength
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Max chars for text fields
       </description>
     </attribute>
     <attribute>
@@ -2005,7 +2047,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         List of MIME types for file upload
@@ -2019,7 +2061,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Short alternative description
@@ -2033,7 +2075,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Use server-side image map
@@ -2047,24 +2089,10 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Use client-side image map
-      </description>
-    </attribute>
-    <attribute>
-      <name>
-        maxlength
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        Max chars for text fields
       </description>
     </attribute>
     <attribute>
@@ -2075,24 +2103,10 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         For fields with images
-      </description>
-    </attribute>
-    <attribute>
-      <name>
-        readonly
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        Flag indicating if the input is read only
       </description>
     </attribute>
     <attribute>
@@ -2103,7 +2117,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Alignment
@@ -2117,7 +2131,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Some text was selected
@@ -2145,7 +2159,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Size of the input field
@@ -2159,7 +2173,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Accessibility key character
@@ -2173,7 +2187,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Position in tabbing order
@@ -2187,7 +2201,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element lost the focus
@@ -2201,7 +2215,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element value was changed
@@ -2215,7 +2229,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element got the focus
@@ -2229,7 +2243,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse click
@@ -2243,7 +2257,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse doubleclick
@@ -2257,7 +2271,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is pressed
@@ -2271,7 +2285,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is released
@@ -2285,7 +2299,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves over an element
@@ -2299,7 +2313,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves
@@ -2313,7 +2327,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves out of an element
@@ -2327,7 +2341,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed and released
@@ -2341,7 +2355,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed
@@ -2355,7 +2369,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is released
@@ -2369,7 +2383,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the language code
@@ -2383,7 +2397,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the text direction
@@ -2397,7 +2411,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The class of the element
@@ -2411,7 +2425,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A unique id for the element
@@ -2425,7 +2439,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A text to display in a tool tip
@@ -2439,7 +2453,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         An inline style definition
@@ -2467,7 +2481,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Specifies that the option should be disabled when it first loads
@@ -2495,7 +2509,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Defines a label to use when using optgroup
@@ -2509,7 +2523,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse click
@@ -2523,7 +2537,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse doubleclick
@@ -2537,7 +2551,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is pressed
@@ -2551,7 +2565,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is released
@@ -2565,7 +2579,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves over an element
@@ -2579,7 +2593,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves
@@ -2593,7 +2607,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves out of an element
@@ -2607,7 +2621,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed and released
@@ -2621,7 +2635,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed
@@ -2635,7 +2649,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is released
@@ -2649,7 +2663,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the language code
@@ -2663,7 +2677,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the text direction
@@ -2677,7 +2691,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The class of the element
@@ -2691,7 +2705,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A unique id for the element
@@ -2705,7 +2719,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A text to display in a tool tip
@@ -2719,7 +2733,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         An inline style definition
@@ -2747,7 +2761,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Name of the accessor of the desired value parameter
@@ -2761,7 +2775,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the servlet parameter
@@ -2789,7 +2803,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the scoped variable to which each entry is assigned.
@@ -2803,7 +2817,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the scoped variable for the status of the iteration. Object exported is of type javax.servlet.jsp.jstl.core.LoopTagStatus
@@ -2817,7 +2831,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Index of first element to iterate over.
@@ -2831,7 +2845,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Index of the last element to iterate over. The value of 'end' is limited by the size of the item list.
@@ -2845,7 +2859,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Integer specifying the iteration step size.
@@ -2887,10 +2901,38 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Disabled input controls
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        readonly
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Flag indicating if the input is read only
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        maxlength
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Max chars for text fields
       </description>
     </attribute>
     <attribute>
@@ -2901,7 +2943,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         List of MIME types for file upload
@@ -2915,7 +2957,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Short alternative description
@@ -2929,7 +2971,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Use server-side image map
@@ -2943,24 +2985,10 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Use client-side image map
-      </description>
-    </attribute>
-    <attribute>
-      <name>
-        maxlength
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        Max chars for text fields
       </description>
     </attribute>
     <attribute>
@@ -2971,24 +2999,10 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         For fields with images
-      </description>
-    </attribute>
-    <attribute>
-      <name>
-        readonly
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        Flag indicating if the input is read only
       </description>
     </attribute>
     <attribute>
@@ -2999,7 +3013,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Alignment
@@ -3013,7 +3027,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Some text was selected
@@ -3041,7 +3055,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Size of the input field
@@ -3055,7 +3069,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Accessibility key character
@@ -3069,7 +3083,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Position in tabbing order
@@ -3083,7 +3097,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element lost the focus
@@ -3097,7 +3111,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element value was changed
@@ -3111,7 +3125,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element got the focus
@@ -3125,7 +3139,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse click
@@ -3139,7 +3153,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse doubleclick
@@ -3153,7 +3167,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is pressed
@@ -3167,7 +3181,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is released
@@ -3181,7 +3195,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves over an element
@@ -3195,7 +3209,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves
@@ -3209,7 +3223,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves out of an element
@@ -3223,7 +3237,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed and released
@@ -3237,7 +3251,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed
@@ -3251,7 +3265,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is released
@@ -3265,7 +3279,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the language code
@@ -3279,7 +3293,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the text direction
@@ -3293,7 +3307,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The class of the element
@@ -3307,7 +3321,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A unique id for the element
@@ -3321,7 +3335,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A text to display in a tool tip
@@ -3335,7 +3349,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         An inline style definition
@@ -3363,7 +3377,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Name of the accessor of the desired value parameter
@@ -3377,7 +3391,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the servlet parameter
@@ -3405,7 +3419,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the scoped variable to which each entry is assigned.
@@ -3419,7 +3433,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the scoped variable for the status of the iteration. Object exported is of type javax.servlet.jsp.jstl.core.LoopTagStatus
@@ -3433,7 +3447,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Index of first element to iterate over.
@@ -3447,7 +3461,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Index of the last element to iterate over. The value of 'end' is limited by the size of the item list.
@@ -3461,7 +3475,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Integer specifying the iteration step size.
@@ -3503,10 +3517,38 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Disabled input controls
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        readonly
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Flag indicating if the input is read only
+      </description>
+    </attribute>
+    <attribute>
+      <name>
+        maxlength
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+      <description>
+        Max chars for text fields
       </description>
     </attribute>
     <attribute>
@@ -3517,7 +3559,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         List of MIME types for file upload
@@ -3531,7 +3573,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Short alternative description
@@ -3545,7 +3587,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Use server-side image map
@@ -3559,24 +3601,10 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Use client-side image map
-      </description>
-    </attribute>
-    <attribute>
-      <name>
-        maxlength
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        Max chars for text fields
       </description>
     </attribute>
     <attribute>
@@ -3587,24 +3615,10 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         For fields with images
-      </description>
-    </attribute>
-    <attribute>
-      <name>
-        readonly
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        false
-      </rtexprvalue>
-      <description>
-        Flag indicating if the input is read only
       </description>
     </attribute>
     <attribute>
@@ -3615,7 +3629,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Alignment
@@ -3629,7 +3643,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Some text was selected
@@ -3657,7 +3671,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Size of the input field
@@ -3671,7 +3685,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Accessibility key character
@@ -3685,7 +3699,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Position in tabbing order
@@ -3699,7 +3713,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element lost the focus
@@ -3713,7 +3727,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element value was changed
@@ -3727,7 +3741,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element got the focus
@@ -3741,7 +3755,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse click
@@ -3755,7 +3769,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse doubleclick
@@ -3769,7 +3783,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is pressed
@@ -3783,7 +3797,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is released
@@ -3797,7 +3811,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves over an element
@@ -3811,7 +3825,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves
@@ -3825,7 +3839,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves out of an element
@@ -3839,7 +3853,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed and released
@@ -3853,7 +3867,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed
@@ -3867,7 +3881,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is released
@@ -3881,7 +3895,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the language code
@@ -3895,7 +3909,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the text direction
@@ -3909,7 +3923,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The class of the element
@@ -3923,7 +3937,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A unique id for the element
@@ -3937,7 +3951,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A text to display in a tool tip
@@ -3951,7 +3965,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         An inline style definition
@@ -3979,7 +3993,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Class of span surronding the message
@@ -3993,7 +4007,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Name of desired attribute, if a name is not supplied then a list of all messages is returned
@@ -4035,7 +4049,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the servlet parameter
@@ -4063,7 +4077,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the scoped variable to which each entry is assigned.
@@ -4077,7 +4091,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the scoped variable for the status of the iteration. Object exported is of type javax.servlet.jsp.jstl.core.LoopTagStatus
@@ -4091,7 +4105,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Index of first element to iterate over.
@@ -4105,7 +4119,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Index of the last element to iterate over. The value of 'end' is limited by the size of the item list.
@@ -4119,7 +4133,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Integer specifying the iteration step size.
@@ -4147,7 +4161,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the struct accessor
@@ -4175,7 +4189,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Name of the property
@@ -4231,7 +4245,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the command button
@@ -4245,7 +4259,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The value of the command button
@@ -4259,7 +4273,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Action to take when form is submitted
@@ -4273,7 +4287,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Class of the table
@@ -4287,7 +4301,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Unique id of the table
@@ -4315,7 +4329,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the scoped variable to which each entry is assigned.
@@ -4329,7 +4343,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The class of odd rows
@@ -4343,7 +4357,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The class of even rows
@@ -4371,7 +4385,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Class of the table
@@ -4385,7 +4399,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Unique id of the table
@@ -4427,7 +4441,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The attribute of the column
@@ -4469,7 +4483,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the scoped struct variable to which each entry is assigned.
@@ -4483,7 +4497,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The attribute of the column
@@ -4553,7 +4567,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Action to take when form is submitted
@@ -4571,7 +4585,7 @@
       scriptless
     </body-content>
     <description>
-      a DT DL pair with inner tags going in to the DL
+      a DT DL pair with inner tags going in to the DL 
     </description>
     <attribute>
       <name>
@@ -4581,7 +4595,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The display label for this attribute
@@ -4609,7 +4623,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The type of the input field
@@ -4623,7 +4637,7 @@
         true
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the controller parameter or attribute
@@ -4637,7 +4651,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Accessibility key character
@@ -4651,7 +4665,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Position in tabbing order
@@ -4665,7 +4679,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element lost the focus
@@ -4679,7 +4693,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element value was changed
@@ -4693,7 +4707,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The element got the focus
@@ -4707,7 +4721,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse click
@@ -4721,7 +4735,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do on a mouse doubleclick
@@ -4735,7 +4749,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is pressed
@@ -4749,7 +4763,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse button is released
@@ -4763,7 +4777,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves over an element
@@ -4777,7 +4791,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves
@@ -4791,7 +4805,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when mouse pointer moves out of an element
@@ -4805,7 +4819,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed and released
@@ -4819,7 +4833,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is pressed
@@ -4833,7 +4847,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         What to do when key is released
@@ -4847,7 +4861,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the language code
@@ -4861,7 +4875,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         Sets the text direction
@@ -4875,7 +4889,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The class of the element
@@ -4889,7 +4903,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A unique id for the element
@@ -4903,7 +4917,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         A text to display in a tool tip
@@ -4917,7 +4931,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         An inline style definition
@@ -4945,7 +4959,7 @@
         false
       </required>
       <rtexprvalue>
-        false
+        true
       </rtexprvalue>
       <description>
         The name of the scoped variable to assign each page object.
