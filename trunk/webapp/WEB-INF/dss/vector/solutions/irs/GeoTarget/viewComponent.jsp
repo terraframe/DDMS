@@ -14,7 +14,9 @@
 
 
 <%@page import="dss.vector.solutions.PropertyInfo"%>
-<%@page import="java.util.Date"%><c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
+<%@page import="java.util.Date"%>
+
+<c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -92,8 +94,6 @@ Date epiStart = PropertyDTO.getDate(clientRequest,PropertyInfo.EPI_WEEK_PACKAGE,
 
 for(int i = 0;i<=52;i++)
 {
-
-
     EpiWeek  epiWeek = new EpiWeek(i,item.getTargetYear(),epiStart);
     String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
     String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());

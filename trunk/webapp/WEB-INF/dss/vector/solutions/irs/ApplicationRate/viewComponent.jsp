@@ -2,6 +2,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
 
 <%
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
@@ -91,7 +92,7 @@
               defaults: {"Units":"PERCENT"},
               copy_from_above: [],
               div_id: "InsecticideBrand",
-              data_type: "Mojo.$." + <%=InsecticideBrandViewDTO.CLASS%>,
+              data_type: "Mojo.$.<%=InsecticideBrandViewDTO.CLASS%>",
               saveFunction:"applyAll",
               after_save:function(){window.location.reload( false );}
           };
@@ -106,7 +107,7 @@
               defaults: {"Enabled":"true"},
               copy_from_above: [],
               div_id: "Nozzle",
-              data_type: "Mojo.$." + <%=NozzleViewDTO.CLASS%>,
+              data_type: "Mojo.$.<%=NozzleViewDTO.CLASS%>",
               saveFunction:"applyAll",
               after_save:function(){window.location.reload( false );}
           };
@@ -121,7 +122,7 @@
               defaults: {"Enabled":"true"},
               copy_from_above: [],
               div_id: "InsecticideNozzle",
-              data_type: "Mojo.$." + <%=InsecticideNozzleViewDTO.CLASS%>,
+              data_type: "Mojo.$.<%=InsecticideNozzleViewDTO.CLASS%>",
               saveFunction:"applyAll"
           };
 
