@@ -396,9 +396,12 @@
         <valueAttribute
           name="enumName"
           value="ANY_WINDOW" />
-        <valueAttribute
-          name="displayLabel"
-          value="Any WindowType" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Any Window" />
+        </structAttribute>
       </object>
 
       <object
@@ -407,9 +410,12 @@
         <valueAttribute
           name="enumName"
           value="WINDOW_WITH_GLASS" />
-        <valueAttribute
-          name="displayLabel"
-          value="WindowType with Glass" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Window with Glass" />
+        </structAttribute>
       </object>
 
       <object
@@ -418,9 +424,12 @@
         <valueAttribute
           name="enumName"
           value="WINDOW_WITH_SCREENS" />
-        <valueAttribute
-          name="displayLabel"
-          value="WindowType with Screens" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Window with Screens" />
+        </structAttribute>
       </object>
 
       <object
@@ -429,9 +438,12 @@
         <valueAttribute
           name="enumName"
           value="WINDOW_WITH_CURTAINS" />
-        <valueAttribute
-          name="displayLabel"
-          value="WindowType with Curtains" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Window with Curtains" />
+        </structAttribute>
       </object>
 
       <object
@@ -440,9 +452,12 @@
         <valueAttribute
           name="enumName"
           value="SHUTTERS" />
-        <valueAttribute
-          name="displayLabel"
-          value="Shutters" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Shutters" />
+        </structAttribute>
       </object>
 
       <mdEnumeration
