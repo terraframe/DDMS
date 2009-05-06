@@ -1,13 +1,13 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <!--The root element of the xml schema-->
   <xs:element name="query" type="rootOptions" />
-  
+
   <xs:complexType name="rootOptions">
     <xs:sequence>
       <xs:element ref="entities" />
       <xs:element ref="select" />
       <xs:element ref="groupby" />
-      <xs:element ref="having" />      
+      <xs:element ref="having" />
       <xs:element ref="orderby" />
     </xs:sequence>
   </xs:complexType>
@@ -42,7 +42,7 @@
       <xs:element ref="basicCondition"/>
     </xs:choice>
   </xs:complexType>
-  
+
   <xs:element name="compositeCondition">
     <xs:complexType>
       <xs:choice>
@@ -72,13 +72,13 @@
   <xs:complexType name="and">
     <xs:complexContent>
       <xs:extension base="AndOr"/>
-    </xs:complexContent> 
+    </xs:complexContent>
   </xs:complexType>
-  
+
   <xs:complexType name="or">
     <xs:complexContent>
       <xs:extension base="AndOr"/>
-    </xs:complexContent> 
+    </xs:complexContent>
   </xs:complexType>
 
   <xs:element name="selectable">
@@ -99,6 +99,7 @@
   <xs:complexType name="function">
     <xs:sequence>
       <xs:element ref="selectable"/>
+      <xs:element name="userAlias" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
 
@@ -136,14 +137,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  
+
   <xs:complexType name="sum">
     <xs:complexContent>
       <xs:extension base="function">
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  
+
   <xs:complexType name="variance">
     <xs:complexContent>
       <xs:extension base="function">
@@ -174,14 +175,14 @@
       </xs:choice>
     </xs:complexType>
   </xs:element>
-  
+
   <xs:complexType name="order">
     <xs:sequence minOccurs="1" maxOccurs="1">
       <xs:element ref="selectable"/>
       <xs:element ref="direction"/>
     </xs:sequence>
   </xs:complexType>
-  
+
   <xs:element name="direction">
     <xs:complexType>
       <xs:choice minOccurs="1" maxOccurs="unbounded">
