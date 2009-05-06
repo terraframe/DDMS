@@ -41,7 +41,7 @@
         ${item.dateOfBirthMd.displayLabel}
       </label>
     </dt>
-    <dd>
+    <dd class="formatDate">
       ${item.dateOfBirth}
     </dd>
     <c:if test="${item.isMDSSUser}">

@@ -32,7 +32,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="dateOfBirth" />
+        <mjl:input type="text" param="dateOfBirth" id="dateOfBirth" classes="DatePick"/>
         <mjl:messages attribute="dateOfBirth">
           <mjl:message />
         </mjl:messages>
@@ -45,7 +45,7 @@
       <dd>
         <mjl:select var="current" valueAttribute="enumName" items="${sexes}" param="sex">
           <mjl:option selected="${mjl:contains(item.sexEnumNames, current.enumName) ? 'selected' : 'false'}">
-            ${item.sexMd.enumItems[current.enumName]} 
+            ${item.sexMd.enumItems[current.enumName]}
           </mjl:option>
         </mjl:select>
         <mjl:messages attribute="sex">
