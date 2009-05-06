@@ -53,7 +53,7 @@
                                      <div class="bd">
                                          <ul class="first-of-type">
                                             <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo"><fmt:message key="Geographic_Targets"/></a></li>
-                                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo"><fmt:message key="Operator_Team_Target"/></a></li>
+                                            <li class="yuimenuitem"><a class="yuimenuitemlabel" href="dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo"><fmt:message key="Spray_Team_Targets"/></a></li>
                                          </ul>
                                      </div>
                                  </div>
