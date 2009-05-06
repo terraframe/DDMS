@@ -8,6 +8,23 @@ MDSS.QueryAggregatedCases = (function(){
 
   var _queryXML = null;
 
+  // Ref to instance of AggregatedCase (used as template for display labels)
+  var _aggregatedCase = null;
+
+  var _geoEntityQueryType = null;
+
+
+  // START: query objects that dictate state of the query.
+  var leftDate = null;
+  var rightDate = null;
+
+  var ageGroupCriteria = [];
+  var ageGroupGroupBy = false;
+
+  var aggregatedCaseAttributes = [];
+
+  // END: query objects
+
   /**
    * Loads available queries.
    */
@@ -94,25 +111,39 @@ MDSS.QueryAggregatedCases = (function(){
    */
   function _executeQuery()
   {
-    var mosquito = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
-    var mosquitoEntity = _queryXML.getEntity(mosquito);
+    var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
+    var aggregatedCaseQuery = _queryXML.getEntity(aggregatedCase.CLASS);
 
-    // always clear any prior conditions
-    mosquitoEntity.clearCondition();
 
-    var conditions = [];
+    // append to the prior conditions with AND if they exist
+    var oldCondition = aggregatedCaseQuery.getCondition();
+    var oldComponent = null;
+    if(oldCondition != null)
+    {
+      oldComponent = oldCondition.getComponent();
+
+      // clear any previous date critera. It will be
+      // refreshed. This is incredibly ugly.
+
+      // start and end date check
+      if(oldComponent instanceof MDSS.QueryXML.And)
+      {
+      }
+      aggregatedCaseQuery.clearCondition();
+    }
 
     // Add start and end dates WHERE criteria
     // if values exist
+    var conditions = [];
+
     var startDateEl = this.getStartDate();
     var startDate = MDSS.util.stripWhitespace(startDateEl.get('value'));
-    var testDate = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
     if(startDate.length > 0)
     {
       var formatted = MojoCal.getMojoDateString(startDate);
 
-      var attribute = new MDSS.QueryXML.Attribute(mosquitoEntity.getAlias(), testDate);
-      var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
+      var attribute = new MDSS.QueryXML.Attribute(aggregatedCaseQuery.getAlias(), aggregatedCase.STARTDATE);
+      var selectable = new MDSS.QueryXML.Selectable(attribute);
       var startDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.GE, formatted);
       conditions.push(startDateCondition);
     }
@@ -123,26 +154,59 @@ MDSS.QueryAggregatedCases = (function(){
     {
       var formatted = MojoCal.getMojoDateString(endDate);
 
-      var attribute = new MDSS.QueryXML.Attribute(mosquitoEntity.getAlias(), testDate);
-      var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
+      var attribute = new MDSS.QueryXML.Attribute(aggregatedCaseQuery.getAlias(), aggregatedCase.STARTDATE);
+      var selectable = new MDSS.QueryXML.Selectable(attribute);
       var endDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, formatted);
       conditions.push(endDateCondition);
     }
 
-    if(conditions.length == 2)
+    var newCondition = null;
+    if(conditions.length > 0)
     {
-      var and = new MDSS.QueryXML.And();
-      and.addCondition('date1', conditions[0]);
-      and.addCondition('date2', conditions[1]);
-      var compositeCondition = new MDSS.QueryXML.CompositeCondition(and);
-      mosquitoEntity.setCondition(compositeCondition);
+      var dateCondition = null;
+      if(conditions.length === 2)
+      {
+        var and = new MDSS.QueryXML.And();
+        and.addCondition('date1', conditions[0]);
+        and.addCondition('date2', conditions[1]);
+        dateCondition = new MDSS.QueryXML.CompositeCondition(and);
+      }
+      else if(conditions.length === 1)
+      {
+        var or = new MDSS.QueryXML.Or();
+        or.addCondition('date1', conditions[0]);
+        dateCondition = new MDSS.QueryXML.CompositeCondition(or);
+      }
+
+      if(oldComponent != null)
+      {
+      	var wrappedComponent = new MDSS.QueryXML.CompositeCondition(oldComponent);
+
+        var wrapperAnd = new MDSS.QueryXML.And();
+        wrapperAnd.addCondition(dateCondition);
+        wrapperAnd.addCondition(wrappedComponent);
+
+        newCondition = new MDSS.QueryXML.CompositeCondition(wrapperAnd);
+      }
+      else
+      {
+      	// dates are the only criteria
+      	newCondition = dateCondition;
+      }
     }
-    else if(conditions.length == 1)
+    else
     {
-      var or = new MDSS.QueryXML.Or();
-      or.addCondition('date1', conditions[0]);
-      var compositeCondition = new MDSS.QueryXML.CompositeCondition(or);
-      mosquitoEntity.setCondition(compositeCondition);
+      // no date ranges selected. Re-add the old
+      // age criteria if it exists
+      if(oldComponent != null)
+      {
+        newCondition = new MDSS.QueryXML.CompositeCondition(oldComponent);
+      }
+    }
+
+    if(newCondition != null)
+    {
+      aggregatedCaseQuery.setCondition(newCondition);
     }
 
     // execute the query
@@ -180,8 +244,11 @@ MDSS.QueryAggregatedCases = (function(){
       }
     });
 
-    var sentinelSite = Mojo.$.dss.vector.solutions.geo.generated.SentinelSite.CLASS;
-    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, sentinelSite);
+  	alert(xml);
+  	return;
+
+    var geoEntityQueryType = _geoEntityQueryType;
+    Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, geoEntityQueryType);
   }
 
   /**
@@ -189,14 +256,12 @@ MDSS.QueryAggregatedCases = (function(){
    */
   function _mapQuery()
   {
-
-    // FIXME hardcoded for testing
-    var sentinelSite = Mojo.$.dss.vector.solutions.geo.generated.SentinelSite.CLASS;
-    var mosquito = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
+    var geoEntityQueryClass = _geoEntityQueryType;
+    var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
 
     var types = [];
-    types.push(sentinelSite);
-    types.push(mosquito);
+    types.push(geoEntityQueryClass);
+    types.push(aggregatedCase);
 
     var selectables = [];
     selectables.push(types[0]+'_geoId');
@@ -213,7 +278,7 @@ MDSS.QueryAggregatedCases = (function(){
     var layerIds = this.getSelectedLayers();
     var savedSearch = this.getCurrentSavedSearch();
     var savedSearchId = savedSearch.id;
-    Mojo.$.dss.vector.solutions.entomology.Mosquito.mapQuery(request, xml, sentinelSite, layerIds, savedSearchId);
+    Mojo.$.dss.vector.solutions.entomology.AggregatedCase.mapQuery(request, xml, geoEntityQueryClass, layerIds, savedSearchId);
   }
 
    /**
@@ -241,6 +306,7 @@ MDSS.QueryAggregatedCases = (function(){
      }
 
      var type = bestFit.getEntityType();
+     _geoEntityQueryType = type;
      var typeName = type.substring(type.lastIndexOf('.')+1);
 
      var entityNameColumn = typeName+'_'+bestFit.getEntityNameMd().getName();
@@ -280,19 +346,19 @@ MDSS.QueryAggregatedCases = (function(){
 
       // selectables (entityName, geoId and spatial attribute)
       var entityNameAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getEntityNameMd().getName(), entityNameColumn);
-      var entityNameSel = new MDSS.QueryXML.SimpleSelectable(entityNameAttr);
+      var entityNameSel = new MDSS.QueryXML.Selectable(entityNameAttr);
 
       _queryXML.addSelectable(type+'_'+entityNameAttr.getName(), entityNameSel);
 
       var geoIdAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getGeoIdMd().getName(), geoIdColumn);
-      var geoIdSel = new MDSS.QueryXML.SimpleSelectable(geoIdAttr);
+      var geoIdSel = new MDSS.QueryXML.Selectable(geoIdAttr);
 
       _queryXML.addSelectable(type+'_'+geoIdAttr.getName(), geoIdSel, geoIdAttr.getName());
     }
 
     // add restriction based on geoId
     var attribute = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getGeoIdMd().getName());
-    var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
+    var selectable = new MDSS.QueryXML.Selectable(attribute);
     var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, bestFit.getGeoId());
 
     var and = new MDSS.QueryXML.And();
@@ -332,15 +398,6 @@ MDSS.QueryAggregatedCases = (function(){
   }
 
   /**
-   * Execute when the user requests that the given
-   * column is to be removed from the table.
-   */
-  function _removeSelectableColumn(columnId)
-  {
-    var column = _queryPanel.getColumn(columnId);
-  }
-
-  /**
    * Handler to toggle grouping by startAge/endAge.
    */
   function _groupByAgeGroupHandler(e)
@@ -354,17 +411,18 @@ MDSS.QueryAggregatedCases = (function(){
     if(check.checked)
     {
       var startAge = new MDSS.QueryXML.Attribute(aggregatedCaseQuery.getAlias(), Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.STARTAGE);
-      var startAgeSel = new MDSS.QueryXML.SimpleSelectable(startAge);
+      var startAgeSel = new MDSS.QueryXML.Selectable(startAge);
 
       var endAge = new MDSS.QueryXML.Attribute(aggregatedCaseQuery.getAlias(), Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.ENDAGE);
-      var endAgeSel = new MDSS.QueryXML.SimpleSelectable(endAge);
+      var endAgeSel = new MDSS.QueryXML.Selectable(endAge);
 
       groupBy.addSelectable('startAge', startAgeSel);
       groupBy.addSelectable('endAge', endAgeSel);
     }
     else
     {
-      groupBy.clearGroupBy();
+      groupBy.removeSelectable('startAge');
+      groupBy.removeSelectable('endAge');
     }
   }
 
@@ -419,11 +477,11 @@ MDSS.QueryAggregatedCases = (function(){
       }
 
       var leftSide = new MDSS.QueryXML.Attribute(aggregatedCaseQuery.getAlias(), Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.STARTAGE);
-      var leftSelectable = new MDSS.QueryXML.SimpleSelectable(leftSide);
+      var leftSelectable = new MDSS.QueryXML.Selectable(leftSide);
       var leftCondition = new MDSS.QueryXML.BasicCondition(leftSelectable, MDSS.QueryXML.Operator.GE, ageGroup.startAge);
 
       var rightSide = new MDSS.QueryXML.Attribute(aggregatedCaseQuery.getAlias(), Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.ENDAGE);
-      var rightSelectable = new MDSS.QueryXML.SimpleSelectable(rightSide);
+      var rightSelectable = new MDSS.QueryXML.Selectable(rightSide);
       var rightCondition = new MDSS.QueryXML.BasicCondition(rightSelectable, MDSS.QueryXML.Operator.LT, ageGroup.endAge);
 
       var and = new MDSS.QueryXML.And();
@@ -448,15 +506,117 @@ MDSS.QueryAggregatedCases = (function(){
   function _addAttribute(attributeObj)
   {
     var column = new YAHOO.widget.Column(attributeObj);
-    //column = _queryPanel.insertColumn(column, _buildMenuForAttributes);
     column = _queryPanel.insertColumn(column);
 
     var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
     var aggregatedCaseQuery = _queryXML.getEntity(aggregatedCase);
 
     var attribute = new MDSS.QueryXML.Attribute(aggregatedCaseQuery.getAlias(), attributeObj.key, attributeObj.key);
-    var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
+    var selectable = new MDSS.QueryXML.Selectable(attribute);
     _queryXML.addSelectable(aggregatedCaseQuery.getAlias()+'_'+column.getKey(), selectable);
+  }
+
+  /**
+   * Removes an attribute as a selectable and column.
+   */
+  function _removeAttribute(attributeName, removeColumn)
+  {
+
+    var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
+    var aggregatedCaseQuery = _queryXML.getEntity(aggregatedCase);
+    var groupBy = _queryXML.getGroupBy();
+
+    // clear any selectables or group bys for this attribute
+    _queryXML.removeSelectable(aggregatedCaseQuery.getAlias()+'_'+attributeName);
+    groupBy.removeSelectable(attributeName); // key == attribute name
+
+    if(removeColumn === true)
+    {
+      var column = _queryPanel.getColumn(attributeName);
+      _queryPanel.removeColumn(column);
+    }
+  }
+
+  /**
+   * Handler to toggle visible attributes as selectables
+   * to the AggregatedCase query.
+   */
+  function _visibleAttributeHandler(e, attributeObj)
+  {
+  	var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
+    var aggregatedCaseQuery = _queryXML.getEntity(aggregatedCase);
+
+    var check = e.target;
+    if(check.checked)
+    {
+      _addAttribute(attributeObj);
+      check.nextSibling.disabled = false;
+    }
+    else
+    {
+      _removeAttribute(attributeObj.key, true);
+
+      var select = check.nextSibling;
+      select.selectedIndex = 0;
+      select.disabled = true;
+    }
+  }
+
+  /**
+   * Handler when someone selects an aggregate function
+   * on a visible attribute.
+   */
+  function _visibleAggregateHandler(e, obj)
+  {
+    var func = obj.func;
+    var attributeName = obj.attribute;
+
+  	// remove any previous mapping (but not the column)
+  	_removeAttribute(attributeName, false);
+
+    var option = e.target;
+
+    var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
+    var aggregatedCaseQuery = _queryXML.getEntity(aggregatedCase);
+    var groupBy = _queryXML.getGroupBy();
+
+    var attribute = new MDSS.QueryXML.Attribute(aggregatedCaseQuery.getAlias(), attributeName);
+    var selectable = new MDSS.QueryXML.Selectable(attribute);
+
+    // special cases
+    if(func === 'GB')
+    {
+      groupBy.addSelectable(attributeName, selectable);
+      return;
+    }
+    else if(func === '')
+    {
+      // Use regular selectable (this is just here for clarity).
+      _queryXML.addSelectable(aggregatedCaseQuery.getAlias()+'_'+attributeName, selectable);
+      return;
+    }
+
+    // aggregate functions
+    var aggFunc = null;
+    if(func === 'SUM')
+    {
+      aggFunc = new MDSS.QueryXML.SUM(selectable);
+    }
+    else if(func === 'MIN')
+    {
+      aggFunc = new MDSS.QueryXML.MIN(selectable);
+    }
+    else if(func === 'MAX')
+    {
+      aggFunc = new MDSS.QueryXML.MAX(selectable);
+    }
+    else if(func === 'AVG')
+    {
+      aggFunc = new MDSS.QueryXML.AVG(selectable);
+    }
+
+    var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
+    _queryXML.addSelectable(aggregatedCaseQuery.getAlias()+'_'+attributeName, aggSelectable);
   }
 
   /**
@@ -550,6 +710,67 @@ MDSS.QueryAggregatedCases = (function(){
      * Visible Attributes
      */
     var visibleDiv = document.createElement('div');
+    var visibleSpan = document.createElement('span');
+    visibleSpan.innerHTML = MDSS.Localized.Aggregated_Case;
+
+    visibleDiv.appendChild(visibleSpan);
+
+    var visibleUl = document.createElement('ul');
+    for(var i=0; i<visibleAttributes.length; i++)
+    {
+      var visible = visibleAttributes[i];
+      var md = _aggregatedCase.getAttributeDTO(visible).getAttributeMdDTO();
+      var display = md.getDisplayLabel();
+
+      var li = document.createElement('li');
+
+      var span = document.createElement('span');
+      span.innerHTML = display;
+
+      // used to build a column
+      var attributeObj = {
+      	key: visible,
+      	label: display
+      }
+
+      var check = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+      YAHOO.util.Dom.setAttribute(check, 'value', visible);
+      YAHOO.util.Event.on(check, 'click', _visibleAttributeHandler, attributeObj, this);
+
+      var select = document.createElement('select');
+      var options =  ['', 'GB', 'SUM', 'MIN', 'MAX', 'AVG'];
+      for(var j=0; j<options.length; j++)
+      {
+      	var option = options[j];
+        var optionEl = document.createElement('option');
+        optionEl.innerHTML = option;
+        YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
+
+        var obj = {
+          func: option,
+          attribute: visible
+        };
+
+        YAHOO.util.Event.on(optionEl, 'click', _visibleAggregateHandler, obj, this);
+
+        select.appendChild(optionEl);
+      }
+      select.disabled = true; // default (must be checked to enabled)
+
+      li.appendChild(check);
+      li.appendChild(select);
+      li.appendChild(span);
+
+      visibleUl.appendChild(li);
+    }
+
+    visibleDiv.appendChild(visibleUl);
+
+    _queryPanel.addQueryItem({
+      html: visibleDiv,
+      id: 'visibleAttributesItem'
+    });
   }
 
   /**
@@ -558,20 +779,16 @@ MDSS.QueryAggregatedCases = (function(){
    */
   function _buildColumns()
   {
-    // Define the columns for the AggregatedCase attributes
-    // (uses a new instance as a template)
-    var aggregatedCase = new Mojo.$.dss.vector.solutions.surveillance.AggregatedCase();
-
     // startAge
     _preconfiguredColumns.push({
-      key: aggregatedCase.getStartAgeMd().getName(),
-      label: aggregatedCase.getStartAgeMd().getDisplayLabel()
+      key: _aggregatedCase.getStartAgeMd().getName(),
+      label: _aggregatedCase.getStartAgeMd().getDisplayLabel()
     });
 
     // endAge
     _preconfiguredColumns.push({
-      key: aggregatedCase.getEndAgeMd().getName(),
-      label: aggregatedCase.getEndAgeMd().getDisplayLabel()
+      key: _aggregatedCase.getEndAgeMd().getName(),
+      label: _aggregatedCase.getEndAgeMd().getDisplayLabel()
     });
   }
 
@@ -783,6 +1000,8 @@ MDSS.QueryAggregatedCases = (function(){
     var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
     var aggregatedCaseQuery = new MDSS.QueryXML.Entity(aggregatedCase, aggregatedCase);
     _queryXML.addEntity(aggregatedCaseQuery);
+
+    _aggregatedCase = new Mojo.$.dss.vector.solutions.surveillance.AggregatedCase();
 
     _buildQueryItems(ageGroups, visibleAttributes);
 
