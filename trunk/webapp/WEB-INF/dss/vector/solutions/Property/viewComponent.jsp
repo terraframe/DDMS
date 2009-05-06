@@ -1,5 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="page_title" value="View_All_Properties"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -16,7 +17,7 @@
     <dd>
       ${item.displayLabel}
     </dd>
-  
+
     <dt>
       <label>
         ${item.descriptionMd.displayLabel}
@@ -42,7 +43,7 @@
       ${item.propertyValue}
     </dd>
   </dl>
- 
+
 <div class="fcTopLeft"></div></div>
     <div class="fcBottom"><div class="fcBottomLeft"></div></div>
 </div>
