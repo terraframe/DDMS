@@ -245,14 +245,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return ( Halp.join(dropdownbuff, "\n") );
   }
 
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload)
-      throws JSONException
+  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload) throws JSONException
   {
     return getColumnSetup(view, attribs, extra_rows, autoload, 1);
   }
 
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows,
-      boolean autoload, int num_to_hide) throws JSONException
+  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, int num_to_hide) throws JSONException
   {
     ArrayList<String> arr = new ArrayList<String>();
     int colnum = 0;
@@ -307,9 +305,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
             if (translateBool(md, true) != null)
             {
 
-              editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'"
-                  + translateBool(md, true) + "', value:'true'}, {label:'" + translateBool(md, false)
-                  + "', value:'false'}],disableBtns:true})";
+              editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'" + translateBool(md, true) + "', value:'true'}, {label:'" + translateBool(md, false) + "', value:'false'}],disableBtns:true})";
               // editor =
               // "new YAHOO.widget.RadioCellEditor({radioOptions:['"+translateBool(md,true)+"','"+translateBool(md,false)+"'],disableBtns:true})";
             }
@@ -331,17 +327,18 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
             // editor =
             // "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
           }
-          if (md instanceof AttributeEnumerationMdDTO) {
+          if (md instanceof AttributeEnumerationMdDTO)
+          {
             AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
             editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[";
             String comma = "";
-            for(Map.Entry<String, String> e: enumMd.getEnumItems().entrySet())
+            for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
             {
-                editor += comma + "{label:'" +e.getValue() + "', value:'"+e.getKey()+"'}";
-                comma = ",";
+              editor += comma + "{label:'" + e.getValue() + "', value:'" + e.getKey() + "'}";
+              comma = ",";
             }
             editor += "],disableBtns:true})";
-        }
+          }
           if (md instanceof AttributeReferenceMdDTO)
           {
             Class<?> refrenced_class = md.getJavaType();
@@ -353,8 +350,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
             if (LabeledDTO.class.isAssignableFrom(refrenced_class))
             {
-              editor = "new YAHOO.widget.DropdownCellEditor({dropdownOptions:" + attrib
-                  + "Labels,disableBtns:true})";
+              editor = "new YAHOO.widget.DropdownCellEditor({dropdownOptions:" + attrib + "Labels,disableBtns:true})";
               buff.add("save_as_id:true");
             }
             else
@@ -462,8 +458,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return formatter.format(date);
   }
 
-  public static ByteArrayOutputStream renderJspToByteArray(HttpServletRequest request,
-      HttpServletResponse response, String jsp_to_render) throws ServletException, IOException
+  public static ByteArrayOutputStream renderJspToByteArray(HttpServletRequest request, HttpServletResponse response, String jsp_to_render) throws ServletException, IOException
   {
 
     // create an output stream - to file, to memory...
@@ -475,18 +470,31 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     RedirectingServletResponse dummyResponse;
     dummyResponse = new RedirectingServletResponse(response, out);
 
-    // get the path to our jsp's folder
-    String path = request.getServletPath().substring(0, request.getServletPath().lastIndexOf("/") + 1);
+    // get the path to the calling jsp's folder
+    String current_path = request.getServletPath().substring(0, request.getServletPath().lastIndexOf("/") + 1);
 
-    // set the full path of the jsp to render
-    request.setAttribute("jsp_to_render", path + jsp_to_render);
+    // in same folder jsp_to_render.contains(current_path)
+    if (jsp_to_render.contains("/") && ! jsp_to_render.startsWith("/"))
+    {
+      jsp_to_render = "/" + jsp_to_render ;
+    }
 
+    if (jsp_to_render.contains(current_path) && current_path.length()>1)
+    {
+      jsp_to_render = jsp_to_render.substring(jsp_to_render.lastIndexOf(current_path));
+      request.setAttribute("jsp_to_render", jsp_to_render);
+    }
+    else
+    {
+      // set the full path of the jsp to render
+      request.setAttribute("jsp_to_render", current_path + jsp_to_render);
+    }
     // get a request dispatcher for the jsp template
     // RequestDispatcher rd =
     // request.getRequestDispatcher("/WEB-INF/templates/force_flush.jsp");
     RequestDispatcher rd = request.getRequestDispatcher(jsp_to_render);
 
-    // execute the jsp inside another jsp that will force the flush
+    // execute the jsp and return the output stream
     rd.include(request, dummyResponse);
     dummyResponse.flushBuffer();
     return out;
@@ -495,8 +503,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   // This renders a jsp to a string, usefull for emails and inside out
   // rendering
-  public static String renderJspToString(HttpServletRequest request, HttpServletResponse response,
-      String jsp_to_render)
+  public static String renderJspToString(HttpServletRequest request, HttpServletResponse response, String jsp_to_render)
   {
     try
     {
