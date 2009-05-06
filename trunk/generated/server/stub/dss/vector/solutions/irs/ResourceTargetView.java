@@ -21,7 +21,7 @@ public class ResourceTargetView extends ResourceTargetViewBase implements Reload
 
     if (this.getTargetId() != null && !this.getTargetId().equals(""))
     {
-      target = ResourceTarget.get(this.getTargetId());
+      target = ResourceTarget.lock(this.getTargetId());
     }
 
     target.setTargeter(this.getTargeter());

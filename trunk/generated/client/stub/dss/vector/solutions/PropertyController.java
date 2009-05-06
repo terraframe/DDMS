@@ -8,15 +8,15 @@ import dss.vector.solutions.util.ErrorUtility;
 public class PropertyController extends PropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/Property/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
-  
+  public static final String LAYOUT = "/layout.jsp";
+
   private static final long serialVersionUID = 1236023121846L;
-  
+
   public PropertyController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -38,13 +38,13 @@ public class PropertyController extends PropertyControllerBase implements com.te
     catch(ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
+
       this.failDelete(dto);
     }
     catch(Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req); 
-     
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failDelete(dto);
     }
   }
@@ -64,13 +64,13 @@ public class PropertyController extends PropertyControllerBase implements com.te
     catch(ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
+
       this.failCreate(dto);
     }
     catch(Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req); 
-     
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failCreate(dto);
     }
   }
@@ -123,13 +123,13 @@ public class PropertyController extends PropertyControllerBase implements com.te
     catch(ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
+
       this.failUpdate(dto);
     }
     catch(Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req); 
-     
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failUpdate(dto);
     }
   }

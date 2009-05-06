@@ -21,23 +21,28 @@ public class SprayTeam extends SprayTeamBase implements com.terraframe.mojo.gene
   {
     List<SprayTeam> list = new LinkedList<SprayTeam>();
     SprayTeamQuery query = new SprayTeamQuery(new QueryFactory());
-    
+
     query.WHERE(query.getSprayZone().EQ(geoEntity.getGeoId()));
     query.ORDER_BY_ASC(query.getTeamCode());
     OIterator<? extends SprayTeam> it = query.getIterator();
-    
+
     try
     {
       while(it.hasNext())
       {
         list.add(it.next());
       }
-      
+
       return list.toArray(new SprayTeam[list.size()]);
     }
     finally
     {
       it.close();
     }
+  }
+
+  public String toString()
+  {
+    return ResourceTarget.getTargeterName(this);
   }
 }

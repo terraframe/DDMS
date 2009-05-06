@@ -9,12 +9,11 @@ import dss.vector.solutions.irs.SprayOperatorDTO;
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.irs.ResourceTargetViewDTO;
 
-
 public class ResourceTargetController extends ResourceTargetControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/ResourceTarget/";
 
-  public static final String LAYOUT           =  "/layout.jsp";
+  public static final String LAYOUT           = "/layout.jsp";
 
   private static final long  serialVersionUID = 1240257007714L;
 
@@ -27,35 +26,16 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
 
-
     SprayTeamDTO newTeam = new SprayTeamDTO(clientRequest);
-    // newTeam.getAllSprayTeam
-
-    //newTeam.addSprayTeamMembers(SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet().get(0));
-    newTeam.setTeamCode("1234");
+    newTeam.setTeamCode("12345");
+    newTeam.apply();
+    newTeam = SprayTeamDTO.lock(clientRequest, newTeam.getId());
+    newTeam.addSprayTeamMembers(SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet().get(0));
     newTeam.apply();
 
-    newTeam = SprayTeamDTO.lock(clientRequest, newTeam.getId());
-
-    newTeam.addSprayTeamMembers(SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet().get(0));
-
-    List<SprayTeamDTO> sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet();
-
-    // Integer i = 0;
-    // for(SprayTeamDTO team: sprayTeams)
-    // {
-    // team.setTeamCode("TEAM"+i.toString());
-    // team = SprayTeamDTO.lock(clientRequest, team.getId());
-    // team.apply();
-    // i++;
-    // }
+    List<SprayTeamDTO> sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(clientRequest, SprayTeamDTO.TEAMCODE, true, 0, 0).getResultSet();
 
     req.setAttribute("sprayTeams", sprayTeams);
-    req.setAttribute("page_title", "View All ResourceTargetController Objects");
-
-
-   // req.setAttribute("jsp", "viewAllComponent.jsp");
-    //req.getRequestDispatcher("/layout.jsp").forward(req, resp);
 
     render("viewAllComponent.jsp");
   }
@@ -71,19 +51,31 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
     Integer year = new Integer(req.getParameter("targetYear"));
 
-
-    List<SprayTeamDTO> sprayTeams = null;
-    if(true || id.equals("ALL"))
+    List<SprayTeamDTO> sprayTeams = new ArrayList<SprayTeamDTO>();
+    List<SprayOperatorDTO> sprayOperators = new ArrayList<SprayOperatorDTO>();
+    if (id.equals("ALL"))
     {
-       sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet();
+      sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet();
+      req.setAttribute("sumLastRow", false);
+    }
+    else
+    {
+      SprayTeamDTO team = SprayTeamDTO.get(clientRequest, id);
+      sprayTeams.add(team);
+      sprayOperators = (List<SprayOperatorDTO>) team.getAllSprayTeamMembers();
+      req.setAttribute("sumLastRow", true);
     }
 
-
     List<String> targetIds = new ArrayList<String>();
-    // Collections.sort(children, new GeoEntitySorter());
-    for (SprayTeamDTO teamMember : sprayTeams)
+    // add all the team members
+    for (SprayOperatorDTO teamMember : sprayOperators)
     {
       targetIds.add(teamMember.getId());
+    }
+    // add the member's Team or All Teams
+    for (SprayTeamDTO team : sprayTeams)
+    {
+      targetIds.add(team.getId());
     }
     ResourceTargetViewDTO[] resourceTargetViews = ResourceTargetViewDTO.getResourceTargets(clientRequest, (String[]) targetIds.toArray(new String[targetIds.size()]), year);
 
