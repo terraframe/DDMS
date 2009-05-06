@@ -7,26 +7,29 @@
   <dl>
     <mjl:component item="${item}" param="dto">
       <mjl:input param="household" type="hidden" value="${item.household.id}" />
+      <mjl:dt attribute="personId">
+        <mjl:input type="text" param="personId" />        
+      </mjl:dt>     
       <mjl:dt attribute="anaemiaTreatment">
         <mjl:select var="current" includeBlank="true" valueAttribute="id" items="${anaemiaTreatment}" param="anaemiaTreatment">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
         </mjl:select>
-        
-</mjl:dt>
+      </mjl:dt>
       <mjl:dt attribute="bloodslide">
         <mjl:select var="current" includeBlank="true" valueAttribute="enumName" items="${bloodslide}" param="bloodslide">
           <mjl:option selected="${mjl:contains(item.bloodslideEnumNames, current.enumName) ? 'selected' : 'false'}">
             ${item.bloodslideMd.enumItems[current.enumName]}
           </mjl:option>
-        </mjl:select>
-        
-</mjl:dt>
+        </mjl:select>        
+      </mjl:dt>
       <mjl:dt attribute="dob">
-        <mjl:input type="text" param="dob" id="dob" classes="DatePick" />
-        
-</mjl:dt>
+        <mjl:input type="text" param="dob" id="dob" classes="DatePick" />        
+      </mjl:dt>
+      <mjl:dt attribute="age">
+        <mjl:input type="text" param="age" id="age" size="3" maxlength="3"/>        
+      </mjl:dt>
       <mjl:dt attribute="fever">
         <mjl:select var="current" includeBlank="true" valueAttribute="enumName" items="${fever}" param="fever">
           <mjl:option selected="${mjl:contains(item.feverEnumNames, current.enumName) ? 'selected' : 'false'}">
@@ -84,13 +87,8 @@
           <mjl:option selected="${mjl:contains(item.performedRDTEnumNames, current.enumName) ? 'selected' : 'false'}">
             ${item.performedRDTMd.enumItems[current.enumName]}
           </mjl:option>
-        </mjl:select>
-        
-</mjl:dt>
-      <mjl:dt attribute="personId">
-        <mjl:input type="text" param="personId" />
-        
-</mjl:dt>
+        </mjl:select>       
+      </mjl:dt>
       <mjl:dt attribute="pregnant">
         <mjl:boolean param="pregnant" />
         
@@ -129,5 +127,33 @@
 </mjl:form>
 
 <div id="cal1Container" class="yui-skin-sam"></div>
-<%//out.flush();%>
 
+<script type="text/javascript">
+  var age = document.getElementById('age');
+  var dob = document.getElementById('dob');
+
+  age.onblur=function()
+  {
+	  if(age.value.length > 0) dob.disabled=true;
+	  else
+		  dob.disabled=false;
+  };
+
+  dob.onblur=function()
+  {
+	  if(dob.value.length > 0) age.disabled=true;
+	  else
+		  age.disabled=false;
+  };
+
+  MojoCal.init();
+  
+  Event.addListener('cal1Container', 'mouseout', function(){
+	  var age = document.getElementById('age');
+	  var dob = document.getElementById('dob');
+		  
+	  if(dob.value.length > 0) age.disabled=true;
+	  else
+		  age.disabled=false;
+	  });  
+</script>

@@ -4,9 +4,13 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.intervention.monitor.Person.form.name" id="dss.vector.solutions.intervention.monitor.Person.form.id" method="POST">
-  <mjl:component item="${item}" param="dto">
-    <mjl:input value="${item.concreteId}" type="hidden" param="id" />
+  <mjl:input value="${item.concreteId}" type="hidden" param="id" />
+  <mjl:component item="${item}" param="dto">  
     <dl>
+      <mjl:dt attribute="personId">
+        ${item.personId}
+      </mjl:dt>
+    
       <mjl:dt attribute="anaemiaTreatment">
         <mjl:commandLink display="${item.anaemiaTreatment.keyName}" action="dss.vector.solutions.intervention.DrugController.view.mojo" name="dss.vector.solutions.intervention.Drug.form.view.link">
           <mjl:property value="${item.anaemiaTreatment.id}" name="id" />
@@ -20,8 +24,11 @@
         </ul>
       </mjl:dt>
       <mjl:dt attribute="dob">
-      ${item.dob}
-</mjl:dt>
+        <span id="dob" class="formatDate"> ${item.dob} </span>
+      </mjl:dt>
+      <mjl:dt attribute="age">
+        ${item.age}
+      </mjl:dt>
       <mjl:dt attribute="fever">
         <ul>
           <c:forEach var="enumName" items="${item.feverEnumNames}">
@@ -75,9 +82,6 @@
           </c:forEach>
         </ul>
       </mjl:dt>
-      <mjl:dt attribute="personId">
-      ${item.personId}
-</mjl:dt>
       <mjl:dt attribute="pregnant">
       ${item.pregnant}
 </mjl:dt>
@@ -113,6 +117,3 @@
   <mjl:property name="id" value="${item.household.id}" />
 </mjl:commandLink>
 <div id="cal1Container" class="yui-skin-sam"></div>
-<%
-    //out.flush();
-%>

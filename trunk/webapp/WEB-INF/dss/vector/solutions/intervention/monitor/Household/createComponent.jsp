@@ -108,10 +108,22 @@
 
       </mjl:dt>
       <mjl:dt attribute="roof">
-        <mjl:input id="roofGeoId" param="blank" type="text" />
-        <span id="roofSearch" class="clickable"><img src="./imgs/icons/world.png" /></span>
-        <mjl:input id="roofId" param="roof" type="hidden" />
-
+       <mjl:select var="current" varStatus="status" valueAttribute="roofId" items="${roofs}" param="roof">
+          <c:if test="${status.index!=0 && !current.hasParent && roofs[status.index-1].hasParent}">
+              </optgroup>            
+          </c:if>   
+                 
+          <c:choose>
+            <c:when test="${current.hasChildren}">
+              <optgroup label="${current.displayLabel}">
+            </c:when>
+            <c:otherwise>
+              <mjl:option>
+                ${current.displayLabel}
+              </mjl:option>            
+            </c:otherwise>
+          </c:choose>            
+        </mjl:select>     
       </mjl:dt>
       <mjl:dt attribute="roofInfo">
         <mjl:input type="text" param="roofInfo" />
@@ -130,10 +142,22 @@
 
       </mjl:dt>
       <mjl:dt attribute="wall">
-        <mjl:input id="wallGeoId" param="blank" type="text" readonly="true" />
-        <span id="wallSearch" class="clickable"><img src="./imgs/icons/world.png" /></span>
-        <mjl:input id="wallId" param="wall" type="hidden" />
-
+       <mjl:select var="current" varStatus="status" valueAttribute="wallId" items="${walls}" param="wall">
+          <c:if test="${status.index!=0 && !current.hasParent && walls[status.index-1].hasParent}">
+              </optgroup>            
+          </c:if>   
+                 
+          <c:choose>
+            <c:when test="${current.hasChildren}">
+              <optgroup label="${current.displayLabel}">
+            </c:when>
+            <c:otherwise>
+              <mjl:option>
+                ${current.displayLabel}
+              </mjl:option>            
+            </c:otherwise>
+          </c:choose>            
+        </mjl:select>         
       </mjl:dt>
       <mjl:dt attribute="wallInfo">
         <mjl:input type="text" param="wallInfo" />

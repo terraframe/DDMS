@@ -6,8 +6,8 @@
 </mjl:messages>
 
 <mjl:form name="dss.vector.solutions.intervention.monitor.Household.form.name" id="dss.vector.solutions.intervention.monitor.Household.form.id" method="POST">
-  <mjl:component item="${item}" param="dto">
   <mjl:input value="${item.id}" type="hidden" param="id" />
+  <mjl:component item="${item}" param="dto">
   <dl>
     <mjl:dt attribute="householdName">
       ${item.householdName}
@@ -25,10 +25,8 @@
       ${item.people}
 </mjl:dt>
     <mjl:dt attribute="roof">
-      <mjl:commandLink display="${item.roof.geoId}" action="dss.vector.solutions.geo.generated.RoofController.view.mojo" name="dss.vector.solutions.geo.generated.Roof.form.view.link">
-        <mjl:property value="${item.roof.id}" name="id" />
-      </mjl:commandLink>
-</mjl:dt>
+      ${item.roof.displayLabel}
+    </mjl:dt>
     <mjl:dt attribute="roofInfo">
       ${item.roofInfo}
 </mjl:dt>
@@ -47,10 +45,8 @@
       ${item.urban}
 </mjl:dt>
     <mjl:dt attribute="wall">
-      <mjl:commandLink display="${item.wall.geoId}" action="dss.vector.solutions.geo.generated.WallController.view.mojo" name="dss.vector.solutions.geo.generated.Wall.form.view.link">
-        <mjl:property value="${item.wall.id}" name="id" />
-      </mjl:commandLink>
-</mjl:dt>
+      ${item.wall.displayLabel}    
+    </mjl:dt>
     <mjl:dt attribute="wallInfo">
       ${item.wallInfo}
 </mjl:dt>
@@ -93,8 +89,8 @@
       </table>
     </dd>
   </dl>
+  </mjl:component>
   <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.HouseholdController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Household.form.edit.button" />
-</mjl:component>
 </mjl:form>
 <dl>
   <dt><fmt:message key="People" /> </dt>
