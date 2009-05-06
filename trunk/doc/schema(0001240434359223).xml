@@ -100,36 +100,43 @@
        <mdViewPermission type="dss.vector.solutions.surveillance.AggregatedCaseView">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
+          <operation name="WRITE_ALL"/>
         </mdViewPermission>
 
         <mdViewPermission type="dss.vector.solutions.surveillance.AdultCaseView">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
+          <operation name="WRITE_ALL"/>          
         </mdViewPermission>
 
         <mdViewPermission type="dss.vector.solutions.surveillance.AncientCaseView">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
+          <operation name="WRITE_ALL"/>          
         </mdViewPermission>
 
         <mdViewPermission type="dss.vector.solutions.surveillance.ChildCaseView">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
+          <operation name="WRITE_ALL"/>          
         </mdViewPermission>
 
         <mdViewPermission type="dss.vector.solutions.surveillance.ElderCaseView">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
+          <operation name="WRITE_ALL"/>          
         </mdViewPermission>
 
         <mdViewPermission type="dss.vector.solutions.surveillance.InfiantCaseView">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
+          <operation name="WRITE_ALL"/>          
         </mdViewPermission>
 
         <mdViewPermission type="dss.vector.solutions.surveillance.TeenCaseView">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
+          <operation name="WRITE_ALL"/>          
         </mdViewPermission>
 
         <mdBusinessPermission type="dss.vector.solutions.Property">
