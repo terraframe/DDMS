@@ -84,6 +84,7 @@ public class TeamSprayTest extends TestCase
     data.apply();
 
     team = new SprayTeam();
+    team.setTeamCode("322");
     team.apply();
   }
 
@@ -305,7 +306,8 @@ public class TeamSprayTest extends TestCase
     SprayMethod method = SprayMethod.MAIN_SPRAY;
     String geoId = geoEntity.getGeoId();
 
-    assertNull(TeamSprayView.searchBySprayData(geoId, date, method, brand, team.getId()));
+    TeamSprayView spray = TeamSprayView.searchBySprayData(geoId, date, method, brand, team.getId());
+    assertFalse(spray.hasConcrete());
   }
 
 }

@@ -14,7 +14,6 @@ import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.CannotDeleteReferencedObject;
-import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.session.StartSession;
 
@@ -408,9 +407,13 @@ public class MosquitoCollectionTest extends TestCase
 
       fail("Able to create a Morphological Group with an empty quantity");
     }
-    catch (AttributeValueException e)
+    catch (ProblemException e)
     {
       // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof EmptyValueProblem);      
     }
     finally
     {

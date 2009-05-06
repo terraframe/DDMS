@@ -7,7 +7,7 @@ import junit.framework.TestSuite;
 
 public class ResourceTargetTest extends TestCase
 {
-  public static Targeter targeter;
+  public static SprayTeam targeter;
 
   public static Test suite()
   {
@@ -39,6 +39,7 @@ public class ResourceTargetTest extends TestCase
   protected static void classSetUp()
   {
     targeter = new SprayTeam();
+    targeter.setTeamCode("000");
     targeter.apply();
   }
 

@@ -57,7 +57,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   {
     this.lock();
 
-    return this.populateView();
+    return this.getView();
   }
 
   @Override
@@ -66,22 +66,36 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   {
     this.unlock();
 
-    return this.populateView();
+    return this.getView();
   }
-
-  private PersonView populateView()
+  
+  public PersonView getView()
   {
     PersonView view = new PersonView();
+    
+    this.populateView(view);
+    
+    return view;
+  }
 
+  public void populateView(PersonView view)
+  {
     view.setConcreteId(this.getId());
 
     if(this.getDob() != null)
     {
-      Calendar c1 = Calendar.getInstance();
-      Calendar c2 = Calendar.getInstance();
-      c2.setTime(this.getDob());
+      Calendar today = Calendar.getInstance();
 
-      view.setAge(c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR));
+      Calendar dob = Calendar.getInstance();
+      dob.setTime(this.getDob());
+
+      int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+      if (today.get(Calendar.DAY_OF_YEAR) <= dob.get(Calendar.DAY_OF_YEAR))
+      {
+        age = age - 1;
+      }
+      
+      view.setAge(age);
     }
 
     view.setDob(this.getDob());
@@ -96,6 +110,14 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     view.setPregnant(this.getPregnant());
     view.setRdtTreatment(this.getRdtTreatment());
     view.setSleptUnderNet(this.getSleptUnderNet());
+    
+    view.clearBloodslide();
+    view.clearFever();
+    view.clearMalaria();
+    view.clearPayment();
+    view.clearPerformedRDT();
+    view.clearRDTResult();
+    view.clearSex();
 
     for(BloodslideResponse r : this.getBloodslide()) view.addBloodslide(r);
     for(FeverResponse r : this.getFever()) view.addFever(r);
@@ -104,12 +126,10 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     for(RDTResponse r : this.getPerformedRDT()) view.addPerformedRDT(r);
     for(RDTResult r : this.getRDTResult()) view.addRDTResult(r);
     for(HumanSex r : this.getSex()) view.addSex(r);
-
-    return view;
   }
 
   public static PersonView getView(String id)
   {
-    return Person.get(id).populateView();
+    return Person.get(id).getView();
   }
 }

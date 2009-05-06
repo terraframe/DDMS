@@ -50,7 +50,11 @@ public class HouseholdController extends HouseholdControllerBase implements
   public void failCreate(HouseholdDTO dto, HouseholdNetDTO[] nets) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    req.setAttribute("windowType", WindowTypeDTO.allItems(super.getClientSession().getRequest()));
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
+    
+    req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
+    req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
+    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));    
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Households");
     req.setAttribute("nets", Arrays.asList(nets));
@@ -83,7 +87,10 @@ public class HouseholdController extends HouseholdControllerBase implements
 
   public void failDelete(HouseholdDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("windowType", WindowTypeDTO.allItems(super.getClientSession().getRequest()));
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
+    req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
+    req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
+    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));    
     req.setAttribute("item", dto);
     req.setAttribute("nets", Arrays.asList(dto.getHouseholdNets()));
     req.setAttribute("page_title", "Edit Households");
@@ -98,10 +105,12 @@ public class HouseholdController extends HouseholdControllerBase implements
   public void view(HouseholdDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     // go back to household view after entering person
-    if (!req.getRequestURI().contains(".view.mojo"))
+    String uri = req.getRequestURI();
+    
+    if (!uri.contains(".view.mojo"))
     {
       String path = req.getRequestURL().toString();
-      resp.sendRedirect(path.replaceFirst("/.*?$", "/dss.vector.solutions.intervention.monitor.HouseholdController.view.mojo") + "?id=" + dto.getId());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
       return;
     }
 
@@ -156,6 +165,8 @@ public class HouseholdController extends HouseholdControllerBase implements
 
     req.setAttribute("windowType", WindowTypeDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("nets", Arrays.asList(dto.getHouseholdNets()));
+    req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
+    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Households");
     render("createComponent.jsp");
@@ -192,7 +203,10 @@ public class HouseholdController extends HouseholdControllerBase implements
   public void failUpdate(HouseholdDTO dto, HouseholdNetDTO[] nets) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    req.setAttribute("windowType", WindowTypeDTO.allItems(super.getClientSession().getRequest()));
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
+    req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
+    req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
+    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));    
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update Households");
     req.setAttribute("nets", Arrays.asList(nets));
@@ -207,10 +221,11 @@ public class HouseholdController extends HouseholdControllerBase implements
 
   private void edit(HouseholdDTO dto) throws IOException, ServletException
   {
-    ClientRequestIF request = super.getClientSession().getRequest();
-
-    req.setAttribute("nets", Arrays.asList(HouseholdDTO.getHouseholdNets(request, dto.getId())));
-    req.setAttribute("windowType", WindowTypeDTO.allItems(request));
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
+    req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
+    req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
+    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));    
+    req.setAttribute("nets", Arrays.asList(HouseholdDTO.getHouseholdNets(clientRequest, dto.getId())));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Households");
     render("editComponent.jsp");

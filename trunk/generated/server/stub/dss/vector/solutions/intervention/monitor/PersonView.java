@@ -2,6 +2,8 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.util.Calendar;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
+
 import dss.vector.solutions.intervention.BloodslideResponse;
 import dss.vector.solutions.intervention.FeverResponse;
 import dss.vector.solutions.intervention.HumanSex;
@@ -18,9 +20,14 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   }
 
   @Override
+  @Transaction
   public void apply()
   {
-    this.populatePerson().apply();
+    Person person = this.populatePerson();
+ 
+    person.apply();
+    
+    person.populateView(this);
   }
 
   @Override
@@ -34,11 +41,11 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
 
   private Person populatePerson()
   {
-    Person person = Person.get(this.getConcreteId());
+    Person person = new Person();
 
-    if(person == null)
+    if(this.hasConcrete())
     {
-      person = new Person();
+      person = Person.lock(this.getConcreteId());
     }
 
     if(this.getDob() != null)
@@ -49,7 +56,9 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     {
       //Must calculate the date of birth from the age
       Calendar c1 = Calendar.getInstance();
-      c1.add(Calendar.YEAR, -this.getAge());
+      c1.set(Calendar.DAY_OF_YEAR, 1);
+      c1.set(Calendar.MONTH, Calendar.JANUARY);
+      c1.add(Calendar.YEAR, -this.getAge() + 1);
 
       person.setDob(c1.getTime());
     }
@@ -75,5 +84,10 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     for(HumanSex r : this.getSex()) person.addSex(r);
 
     return person;
+  }
+
+  private boolean hasConcrete()
+  {
+    return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
 }

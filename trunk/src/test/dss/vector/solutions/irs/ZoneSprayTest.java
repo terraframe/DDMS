@@ -248,7 +248,8 @@ public class ZoneSprayTest extends TestCase
     SprayMethod method = SprayMethod.MAIN_SPRAY;
     String geoId = geoEntity.getGeoId();
 
-    assertNull(ZoneSprayView.searchBySprayData(geoId, date, method, brand));
+    ZoneSprayView spray = ZoneSprayView.searchBySprayData(geoId, date, method, brand);
+    assertFalse(spray.hasConcrete());
   }
 
 

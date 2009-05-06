@@ -370,6 +370,7 @@ public class OperatorSprayTest extends TestCase
     SprayMethod method = SprayMethod.MAIN_SPRAY;
     String geoId = geoEntity.getGeoId();
 
-    assertNull(OperatorSprayView.searchBySprayData(geoId, date, method, brand, operator.getId()).getSprayId());
+    OperatorSprayView spray = OperatorSprayView.searchBySprayData(geoId, date, method, brand, operator.getId());
+    assertFalse(spray.hasConcrete());
   }
 }

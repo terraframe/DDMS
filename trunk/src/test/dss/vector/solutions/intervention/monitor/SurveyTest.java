@@ -28,9 +28,7 @@ import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.Roof;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.geo.generated.Wall;
 import dss.vector.solutions.intervention.BloodslideResponse;
 import dss.vector.solutions.intervention.Drug;
 import dss.vector.solutions.intervention.FeverResponse;
@@ -92,13 +90,13 @@ public class SurveyTest extends TestCase
     geoEntity.apply();
 
     wall = new Wall();
-    wall.setGeoId("10101");
-    wall.setEntityName("Test Wall");
+    wall.setWallName("testWall");
+    wall.setDisplayLabel("Test Wall");
     wall.apply();
 
     roof = new Roof();
-    roof.setGeoId("01010");
-    roof.setEntityName("Test Roof");
+    roof.setRoofName("testRoof");
+    roof.setDisplayLabel("Test Roof");
     roof.apply();
 
     drug = new Drug();

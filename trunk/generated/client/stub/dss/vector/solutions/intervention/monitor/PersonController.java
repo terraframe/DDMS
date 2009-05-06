@@ -46,22 +46,16 @@ public class PersonController extends PersonControllerBase implements com.terraf
 
   public void view(PersonViewDTO person) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("anaemiaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("bloodslide", BloodslideResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("fever", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("feverTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("household", HouseholdDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("malaria", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("malariaTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("payment", FeverResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("performedRDT", RDTResponseDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("rDTResult", RDTResultDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("rdtTreatment", Arrays.asList(DrugDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("sex", HumanSexDTO.allItems(super.getClientSession().getRequest()));
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + person.getConcreteId());
+      return;
+    }
+
     req.setAttribute("item", person);
     req.setAttribute("page_title", "View Person");
     render("viewComponent.jsp");
-
   }
 
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -183,12 +177,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     {
       dto.apply();
 
-      if (!req.getRequestURI().contains(".view.mojo"))
-      {
-        String path = req.getRequestURL().toString();
-        resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getHousehold().getId());
-        return;
-      }
+      this.view(dto);
     }
     catch (ProblemExceptionDTO e)
     {
