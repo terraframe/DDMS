@@ -637,9 +637,12 @@
         <valueAttribute
           name="enumName"
           value="YES" />
-        <valueAttribute
-          name="displayLabel"
-          value="YES" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="YES" />
+        </structAttribute>
       </object>
 
       <object
@@ -648,9 +651,12 @@
         <valueAttribute
           name="enumName"
           value="NO" />
-        <valueAttribute
-          name="displayLabel"
-          value="No" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="No" />
+        </structAttribute>
       </object>
 
       <object
@@ -659,9 +665,12 @@
         <valueAttribute
           name="enumName"
           value="REFUSED" />
-        <valueAttribute
-          name="displayLabel"
-          value="Refused" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Refused" />
+        </structAttribute>
       </object>
 
       <object
@@ -670,9 +679,12 @@
         <valueAttribute
           name="enumName"
           value="NOT_PRESENT" />
-        <valueAttribute
-          name="displayLabel"
-          value="Not Present" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Not Present" />
+        </structAttribute>
       </object>
 
       <object
@@ -681,9 +693,12 @@
         <valueAttribute
           name="enumName"
           value="DONT_KNOW" />
-        <valueAttribute
-          name="displayLabel"
-          value="Don't Know" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Don't Know" />
+        </structAttribute>
       </object>
 
       <mdEnumeration
@@ -709,9 +724,12 @@
         <valueAttribute
           name="enumName"
           value="PF_POSITIVE" />
-        <valueAttribute
-          name="displayLabel"
-          value="Pf positive" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Pf positive" />
+        </structAttribute>
       </object>
 
       <object
@@ -720,9 +738,12 @@
         <valueAttribute
           name="enumName"
           value="MIXED_POSITIVE" />
-        <valueAttribute
-          name="displayLabel"
-          value="Mixed positive" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Mixed positive" />
+        </structAttribute>
       </object>
 
       <object
@@ -731,9 +752,12 @@
         <valueAttribute
           name="enumName"
           value="VIVAX_POSITIVE" />
-        <valueAttribute
-          name="displayLabel"
-          value="Vivax positive" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Vivax positive" />
+        </structAttribute>
       </object>
 
       <object
@@ -742,9 +766,12 @@
         <valueAttribute
           name="enumName"
           value="MALARIAE_POSITIVE" />
-        <valueAttribute
-          name="displayLabel"
-          value="Malariae positive" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Malariae positive" />
+        </structAttribute>
       </object>
 
       <object
@@ -753,9 +780,12 @@
         <valueAttribute
           name="enumName"
           value="OVALE_POSITIVE" />
-        <valueAttribute
-          name="displayLabel"
-          value="Ovale positive" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Ovale positive" />
+        </structAttribute>
       </object>
 
       <object
@@ -764,9 +794,12 @@
         <valueAttribute
           name="enumName"
           value="NEGATIVE" />
-        <valueAttribute
-          name="displayLabel"
-          value="NEGATIVE" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="NEGATIVE" />
+        </structAttribute>
       </object>
 
       <object
@@ -775,9 +808,12 @@
         <valueAttribute
           name="enumName"
           value="NOT_VALID" />
-        <valueAttribute
-          name="displayLabel"
-          value="NOT VALID" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="NOT VALID" />
+        </structAttribute>
       </object>
 
       <mdEnumeration
