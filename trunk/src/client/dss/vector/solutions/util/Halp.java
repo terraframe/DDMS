@@ -444,19 +444,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     }
   }
 
-  public static String getDateFormatString(HttpServletRequest request)
-  {
-    Locale locale = request.getLocale();
-    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-    SimpleDateFormat formatter = (SimpleDateFormat) df;
-    return formatter.toPattern();
-  }
 
-  public static String getFormatedDate(HttpServletRequest request, Date date)
-  {
-    SimpleDateFormat formatter = new SimpleDateFormat(getDateFormatString(request));
-    return formatter.format(date);
-  }
 
   public static ByteArrayOutputStream renderJspToByteArray(HttpServletRequest request, HttpServletResponse response, String jsp_to_render) throws ServletException, IOException
   {

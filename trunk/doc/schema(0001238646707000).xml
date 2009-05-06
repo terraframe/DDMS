@@ -3367,6 +3367,11 @@
             label="Value"
             size="255"/>
           <char
+            name="validValues"
+            required="false"
+            label="Valid Values"
+            size="255"/>
+          <char
             name="propertyType"
             required="true"
             label="Type"
@@ -3529,6 +3534,9 @@
           name="propertyValidator"
           value="^[0-9]+$"/>
         <valueAttribute
+          name="validValues"
+          value="0-100"/>
+        <valueAttribute
           name="description"
           value="% mortality that the population is resistant – Less Than"/>
       </object>
@@ -3554,6 +3562,9 @@
         <valueAttribute
           name="propertyValidator"
           value="^[0-9]+$"/>
+        <valueAttribute
+          name="validValues"
+          value="0-100"/>
         <valueAttribute
           name="description"
           value="% mortality that the population is susceptible – Greater than or Equal to"/>
@@ -3581,6 +3592,9 @@
           name="propertyValidator"
           value="^[0-9]+$"/>
         <valueAttribute
+          name="validValues"
+          value="0-100"/>
+        <valueAttribute
           name="description"
           value="% mortality that the population is resistant – Less Than"/>
       </object>
@@ -3603,6 +3617,9 @@
         <valueAttribute
           name="propertyType"
           value="Integer"/>
+        <valueAttribute
+          name="validValues"
+          value="0-100"/>
         <valueAttribute
           name="propertyValidator"
           value="^[0-9]+$"/>
@@ -3631,7 +3648,10 @@
           value="Integer"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[0-9]+$"/>
+          value="^[1-9][0-9]{0,3}$"/>
+        <valueAttribute
+          name="validValues"
+          value="1-9999"/>
         <valueAttribute
           name="description"
           value="Numeber of address space segments or number of installs, Must be the SAME on evey install"/>
@@ -3734,6 +3754,9 @@
           name="propertyValidator"
           value="^[MmDdYy/- ]+$"/>
         <valueAttribute
+          name="validValues"
+          value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy"/>
+        <valueAttribute
           name="description"
           value="Short Date Format"/>
       </object>
@@ -3755,10 +3778,13 @@
           value="1100"/>
         <valueAttribute
           name="propertyType"
-          value="Integer"/>
+          value="STRING"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[0-9]{16}$"/>
+          value="^[0-9A-Za-z]{1,16}$"/>
+        <valueAttribute
+          name="validValues"
+          value="12323,ABCD,23AB,ZZZ456"/>
         <valueAttribute
           name="description"
           value="The GeoID of the Country in which this server is installed"/>

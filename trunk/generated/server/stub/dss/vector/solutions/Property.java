@@ -53,7 +53,14 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
       String msg = "The proprtey value does not match the property validator regexp.";
 
       PropertyValidationFailedException e = new PropertyValidationFailedException(msg);
-      e.setValidValues("0-100");
+      if (this.getValidValues() == null)
+      {
+        e.setValidValues("");
+      }
+      else
+      {
+        e.setValidValues(this.getValidValues());
+      }
       e.apply();
 
       throw e;
@@ -87,7 +94,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
       String msg = "Property [" + this.getPropertyName() + "] does not conform to the date format.";
       InvalidEpiStartFormat ex = new InvalidEpiStartFormat(msg);
       ex.apply();
-      
+
       throw ex;
     }
   }
