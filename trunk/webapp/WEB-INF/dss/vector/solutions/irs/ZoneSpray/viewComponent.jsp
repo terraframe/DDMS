@@ -73,7 +73,7 @@ data = {
          columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 4)%>,
          defaults: {"Spray":'<%=spray.getSprayId()%>'},
          div_id: "Status",
-         data_type: "Mojo.$." + TeamSprayStatusViewDTO.CLASS,
+         data_type: "Mojo.$.<%=TeamSprayStatusViewDTO.CLASS%>",
          saveFunction:"applyAll",
          width:"65em"              
      };
