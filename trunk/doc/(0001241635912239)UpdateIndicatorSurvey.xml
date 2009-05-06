@@ -1,0 +1,660 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.Household.wall"
+        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.Household.roof"
+        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+    </delete>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.Roof"
+        label="Roof"
+        generateController="false">
+        <attributes>
+          <char
+            name="roofName"
+            label="Roof Name"
+            required="true"
+            size="255" />
+          <char
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255" />
+        </attributes>
+        <mdMethod
+          name="getAll"
+          label="Get All"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.Roof[]"
+          description="Returns a list of all roofs" />
+      </mdBusiness>
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
+        label="Roof Heiarchy"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Roof"
+          method="ParentRoofs" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Roof"
+          method="ChildRoofs" />
+      </mdTree>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.Wall"
+        label="Roof"
+        generateController="false">
+        <attributes>
+          <char
+            name="wallName"
+            label="Wall Name"
+            required="true"
+            size="255" />
+          <char
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255" />
+        </attributes>
+        <mdMethod
+          name="getAll"
+          label="Get All"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.Wall[]"
+          description="Returns a list of all walls" />
+      </mdBusiness>
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        label="Wall Heiarchy"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Wall"
+          method="ParentRoofs" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.Wall"
+          method="ChildRoofs" />
+      </mdTree>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="Natural_Roof"
+        key="Natural_Roof">
+        <valueAttribute
+          name="roofName"
+          value="Natural_Roof" />
+        <valueAttribute
+          name="displayLabel"
+          value="NATURAL ROOF" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="Thatch_Leaf"
+        key="Thatch_Leaf">
+        <valueAttribute
+          name="roofName"
+          value="Thatch_Leaf" />
+        <valueAttribute
+          name="displayLabel"
+          value="Thatch/Leaf" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
+        childId="Thatch_Leaf"
+        parentId="Natural_Roof"
+        id="P_Thatch_Leaf" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="Sticks_and_Mud"
+        key="Sticks_and_Mud">
+        <valueAttribute
+          name="roofName"
+          value="Sticks_and_Mud" />
+        <valueAttribute
+          name="displayLabel"
+          value="Sticks and mud" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
+        childId="Sticks_and_Mud"
+        parentId="Natural_Roof"
+        id="P_Stick" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="RUDIMENTARY_ROOF"
+        key="RUDIMENTARY_ROOF">
+        <valueAttribute
+          name="roofName"
+          value="RUDIMENTARY_ROOF" />
+        <valueAttribute
+          name="displayLabel"
+          value="RUDIMENTARY ROOF" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="Rustic_mat/plastic_sheet"
+        key="Rustic_mat/plastic_sheet">
+        <valueAttribute
+          name="roofName"
+          value="Rustic_mat/plastic_sheet" />
+        <valueAttribute
+          name="displayLabel"
+          value="Rustic mat/plastic sheet" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
+        childId="Rustic_mat/plastic_sheet"
+        parentId="RUDIMENTARY_ROOF"
+        id="P_Rustic" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="Reed/bamboo"
+        key="Reed/bamboo">
+        <valueAttribute
+          name="roofName"
+          value="Reed/bamboo" />
+        <valueAttribute
+          name="displayLabel"
+          value="Reed/bamboo" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
+        childId="Reed/bamboo"
+        parentId="RUDIMENTARY_ROOF"
+        id="P_Reed" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="Wood_planks"
+        key="Wood_planks">
+        <valueAttribute
+          name="roofName"
+          value="Wood_planks" />
+        <valueAttribute
+          name="displayLabel"
+          value="Wood planks" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
+        childId="Wood_planks"
+        parentId="RUDIMENTARY_ROOF"
+        id="P_wood_planks" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="FINISHED_ROOF"
+        key="FINISHED_ROOF">
+        <valueAttribute
+          name="roofName"
+          value="FINISHED ROOF" />
+        <valueAttribute
+          name="displayLabel"
+          value="FINISHED ROOF" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="Corrugated_iron"
+        key="Corrugated_iron">
+        <valueAttribute
+          name="roofName"
+          value="Corrugated_iron" />
+        <valueAttribute
+          name="displayLabel"
+          value="Corrugated iron" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
+        childId="Corrugated_iron"
+        parentId="FINISHED_ROOF"
+        id="P_Corrugated_iron" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="Wood"
+        key="Wood">
+        <valueAttribute
+          name="roofName"
+          value="Wood" />
+        <valueAttribute
+          name="displayLabel"
+          value="Wood" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
+        childId="Wood"
+        parentId="FINISHED_ROOF"
+        id="P_Wood" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="Calamine/cement_fiber"
+        key="Calamine/cement_fiber">
+        <valueAttribute
+          name="roofName"
+          value="Calamine/cement_fiber" />
+        <valueAttribute
+          name="displayLabel"
+          value="Calamine/cement fiber" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
+        childId="Calamine/cement_fiber"
+        parentId="FINISHED_ROOF"
+        id="P_Calamine/cement_fiber" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="Roofing_shingles"
+        key="Roofing_shingles">
+        <valueAttribute
+          name="roofName"
+          value="Roofing_shingles" />
+        <valueAttribute
+          name="displayLabel"
+          value="Roofing shingles" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.RoofHeiarchy"
+        childId="Roofing_shingles"
+        parentId="FINISHED_ROOF"
+        id="P_Roofing shingles" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Roof"
+        id="OTHER"
+        key="OTHER">
+        <valueAttribute
+          name="roofName"
+          value="OTHER" />
+        <valueAttribute
+          name="displayLabel"
+          value="OTHER" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="NATURAL_WALLS"
+        key="NATURAL_WALLS">
+        <valueAttribute
+          name="wallName"
+          value="NATURAL_WALLS" />
+        <valueAttribute
+          name="displayLabel"
+          value="NATURAL WALLS" />
+      </object>
+      
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="No_walls"
+        key="No_walls">
+        <valueAttribute
+          name="wallName"
+          value="No_walls" />
+        <valueAttribute
+          name="displayLabel"
+          value="No walls" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="No_walls"
+        parentId="NATURAL_WALLS"
+        id="P_No_walls" />
+      
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Cane/sticks/bamboo/reed"
+        key="Cane/sticks/bamboo/reed">
+        <valueAttribute
+          name="wallName"
+          value="Cane/sticks/bamboo/reed" />
+        <valueAttribute
+          name="displayLabel"
+          value="Cane/sticks/bamboo/reed" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Cane/sticks/bamboo/reed"
+        parentId="NATURAL_WALLS"
+        id="P_Cane/sticks/bamboo/reed" />
+      
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="RUDIMENTARY_WALLS"
+        key="RUDIMENTARY_WALLS">
+        <valueAttribute
+          name="wallName"
+          value="RUDIMENTARY_WALLS" />
+        <valueAttribute
+          name="displayLabel"
+          value="RUDIMENTARY WALLS" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Bamboo/wood_with_mud"
+        key="Bamboo/wood_with_mud">
+        <valueAttribute
+          name="wallName"
+          value="Bamboo/wood_with_mud" />
+        <valueAttribute
+          name="displayLabel"
+          value="Bamboo/wood with mud" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Bamboo/wood_with_mud"
+        parentId="RUDIMENTARY_WALLS"
+        id="P_Bamboo/wood_with_mud" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Stone_with_mud"
+        key="Stone_with_mud">
+        <valueAttribute
+          name="wallName"
+          value="Stone_with_mud" />
+        <valueAttribute
+          name="displayLabel"
+          value="Stone with mud" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Stone_with_mud"
+        parentId="RUDIMENTARY_WALLS"
+        id="P_Stone_with_mud" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Uncovered_abode"
+        key="Uncovered_abode">
+        <valueAttribute
+          name="wallName"
+          value="Uncovered_abode" />
+        <valueAttribute
+          name="displayLabel"
+          value="Uncovered abode" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Uncovered_abode"
+        parentId="RUDIMENTARY_WALLS"
+        id="P_Uncovered_abode" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Plywood"
+        key="Plywood">
+        <valueAttribute
+          name="wallName"
+          value="Plywood" />
+        <valueAttribute
+          name="displayLabel"
+          value="Plywood" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Plywood"
+        parentId="RUDIMENTARY_WALLS"
+        id="P_Plywood" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Carton"
+        key="Carton">
+        <valueAttribute
+          name="wallName"
+          value="Carton" />
+        <valueAttribute
+          name="displayLabel"
+          value="Carton" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Carton"
+        parentId="RUDIMENTARY_WALLS"
+        id="P_Carton" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="FINISHED_WALLS"
+        key="FINISHED_WALLS">
+        <valueAttribute
+          name="wallName"
+          value="FINISHED_WALLS" />
+        <valueAttribute
+          name="displayLabel"
+          value="FINISHED WALLS" />
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Cement"
+        key="Cement">
+        <valueAttribute
+          name="wallName"
+          value="Cement" />
+        <valueAttribute
+          name="displayLabel"
+          value="Cement" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Cement"
+        parentId="FINISHED_WALLS"
+        id="P_Cement" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Stone_with_lime/cement"
+        key="Stone_with_lime/cement">
+        <valueAttribute
+          name="wallName"
+          value="Stone_with_lime/cement" />
+        <valueAttribute
+          name="displayLabel"
+          value="Stone with lime/cement" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Stone_with_lime/cement"
+        parentId="FINISHED_WALLS"
+        id="P_Stone_with_lime/cement" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Bricks"
+        key="Bricks">
+        <valueAttribute
+          name="wallName"
+          value="Bricks" />
+        <valueAttribute
+          name="displayLabel"
+          value="Bricks" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Bricks"
+        parentId="FINISHED_WALLS"
+        id="P_Bricks" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Cement_blocks"
+        key="Cement_blocks">
+        <valueAttribute
+          name="wallName"
+          value="Cement_blocks" />
+        <valueAttribute
+          name="displayLabel"
+          value="Cement blocks" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Cement_blocks"
+        parentId="FINISHED_WALLS"
+        id="P_Cement_blocks" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Covered_Adobe"
+        key="Covered_Adobe">
+        <valueAttribute
+          name="wallName"
+          value="Covered_Adobe" />
+        <valueAttribute
+          name="displayLabel"
+          value="Covered Adobe" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Covered_Adobe"
+        parentId="FINISHED_WALLS"
+        id="P_Covered_Adobe" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="Wood_planks/shingles"
+        key="Wood_planks/shingles">
+        <valueAttribute
+          name="wallName"
+          value="Wood_planks/shingles" />
+        <valueAttribute
+          name="displayLabel"
+          value="Wood planks/shingles" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.intervention.monitor.WallHeiarchy"
+        childId="Wood_planks/shingles"
+        parentId="FINISHED_WALLS"
+        id="P_Wood_planks/shingles" />
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.Wall"
+        id="OTHER_WALL"
+        key="OTHER">
+        <valueAttribute
+          name="wallName"
+          value="OTHER" />
+        <valueAttribute
+          name="displayLabel"
+          value="OTHER" />
+      </object>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.WallView">
+        <attributes>
+          <virtual
+            name="displayLabel"
+            concrete="displayLabel"
+            type="dss.vector.solutions.intervention.monitor.Wall" />
+          <boolean
+            name="hasParent"
+            label="Has Parent"
+            required="true" />
+          <boolean
+            name="hasChildren"
+            label="Has Children"
+            required="true" />
+          <char
+            name="wallId"
+            label="Wall Id"
+            size="255"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getAll"
+          label="Get All"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.WallView[]"
+          description="Returns a list of all walls" />
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.RoofView">
+        <attributes>
+          <virtual
+            name="displayLabel"
+            concrete="displayLabel"
+            type="dss.vector.solutions.intervention.monitor.Roof" />
+          <boolean
+            name="hasParent"
+            label="Has Parent"
+            required="true" />
+          <boolean
+            name="hasChildren"
+            label="Has Children"
+            required="true" />
+          <char
+            name="roofId"
+            label="Roof Id"
+            size="255"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getAll"
+          label="Get All"
+          static="true"
+          returnType="dss.vector.solutions.intervention.monitor.RoofView[]"
+          description="Returns a list of all roofs" />
+      </mdView>
+      
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.Household">
+        <create>
+          <attributes>
+            <reference
+              name="roof"
+              label="Roof Surface"
+              description="The roof surface"
+              type="dss.vector.solutions.intervention.monitor.Roof" />
+            <reference
+              name="wall"
+              label="Wall Surface"
+              description="The wall surface"
+              type="dss.vector.solutions.intervention.monitor.Wall" />
+          </attributes>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
