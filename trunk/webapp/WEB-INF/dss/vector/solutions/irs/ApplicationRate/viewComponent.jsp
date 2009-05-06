@@ -91,7 +91,7 @@
               defaults: {"Units":"PERCENT"},
               copy_from_above: [],
               div_id: "InsecticideBrand",
-              data_type: "Mojo.$." + InsecticideBrandViewDTO.CLASS,
+              data_type: "Mojo.$." + <%=InsecticideBrandViewDTO.CLASS%>,
               saveFunction:"applyAll",
               after_save:function(){window.location.reload( false );}
           };
@@ -106,7 +106,7 @@
               defaults: {"Enabled":"true"},
               copy_from_above: [],
               div_id: "Nozzle",
-              data_type: "Mojo.$." + NozzleViewDTO.CLASS,
+              data_type: "Mojo.$." + <%=NozzleViewDTO.CLASS%>,
               saveFunction:"applyAll",
               after_save:function(){window.location.reload( false );}
           };
@@ -121,7 +121,7 @@
               defaults: {"Enabled":"true"},
               copy_from_above: [],
               div_id: "InsecticideNozzle",
-              data_type: "Mojo.$." + InsecticideNozzleViewDTO.CLASS,
+              data_type: "Mojo.$." + <%=InsecticideNozzleViewDTO.CLASS%>,
               saveFunction:"applyAll"
           };
 
