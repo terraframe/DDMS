@@ -5,16 +5,76 @@
     <existing>
     </existing>
     <update>
-      <mdBusiness
-        name="dss.vector.solutions.irs.SprayTeam">
+      <mdBusiness name="dss.vector.solutions.irs.SprayTeam">
         <create>
           <attributes>
-            <char
+            <reference
               name="sprayZone"
               label="Spray Zone"
-              description="GeoId of the Spray Zone"
-              size="16" />
+              description="This team's assigned Spray Zone"
+              type="dss.vector.solutions.geo.generated.SprayZone"/>
+            <char
+              name="teamId"
+              label="Team Identifier"
+              description="Human entered team identifier"
+              size="32"/>
           </attributes>
+          <mdMethod
+            name="create"
+            label="Create New Spray Team"
+            description="Creates a new Spray Team"
+            static="false"
+            returnType="void">
+            <mdParameter
+              name="geoId"
+              label="Geo Id"
+              description="Spray Zone Geo Id"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
+              name="leaderId"
+              label="Leader Id"
+              description="Spray Leader Id"
+              order="1"
+              type="java.lang.String"/>
+            <mdParameter
+              name="operatorIds"
+              label="Operator Ids"
+              description="Spray Operator Ids"
+              order="2"
+              type="java.lang.String[]"/>
+          </mdMethod>
+          <mdMethod
+            name="edit"
+            label="Create New Spray Team"
+            description="Creates a new Spray Team"
+            static="false"
+            returnType="void">
+            <mdParameter
+              name="geoId"
+              label="Geo Id"
+              description="Spray Zone Geo Id"
+              order="0"
+              type="java.lang.String"/>
+            <mdParameter
+              name="leaderId"
+              label="Leader Id"
+              description="Spray Leader Id"
+              order="1"
+              type="java.lang.String"/>
+            <mdParameter
+              name="operatorIds"
+              label="Operator Ids"
+              description="Spray Operator Ids"
+              order="2"
+              type="java.lang.String[]"/>
+            <mdParameter
+              name="removedIds"
+              label="Removed Operator Ids"
+              description="Ids of the Spray Operators being removed from this team"
+              order="3"
+              type="java.lang.String[]"/>
+          </mdMethod>
         </create>
       </mdBusiness>
       <mdController name="dss.vector.solutions.irs.SprayTeamController">
@@ -27,8 +87,14 @@
             <mdParameter
               name="team"
               label="Spray Team"
-              description="The new Spray Team"
+              description="New Spray Team"
               type="dss.vector.solutions.irs.SprayTeam"
+              order="0"/>
+            <mdParameter
+              name="geoId"
+              label="Geo Id"
+              description="Spray Zone Geo Id"
+              type="java.lang.String"
               order="1"/>
             <mdParameter
               name="leaderId"
@@ -37,11 +103,47 @@
               type="java.lang.String"
               order="2"/>
             <mdParameter
-              name="operatorId"
-              label="Spray Operator Id"
-              description="Id of the assigned Spray Operator"
-              type="java.lang.String"
+              name="operatorIds"
+              label="Spray Operator Ids"
+              description="Ids of the Spray Operators being reassigned to this team"
+              type="java.lang.String[]"
               order="3"/>
+          </mdAction>
+          <mdAction
+            name="updateAssignments"
+            label="Update Assignments"
+            description="Updates a Spray Team and changes assignments"
+            isPost="true">
+            <mdParameter
+              name="team"
+              label="Spray Team"
+              description="New Spray Team"
+              type="dss.vector.solutions.irs.SprayTeam"
+              order="0"/>
+            <mdParameter
+              name="geoId"
+              label="Geo Id"
+              description="Spray Zone Geo Id"
+              type="java.lang.String"
+              order="1"/>
+            <mdParameter
+              name="leaderId"
+              label="Spray Leader Id"
+              description="Id of the assigned Spray Leader"
+              type="java.lang.String"
+              order="2"/>
+            <mdParameter
+              name="operatorIds"
+              label="Spray Operator Ids"
+              description="Ids of the Spray Operators being assigned to this team"
+              type="java.lang.String[]"
+              order="3"/>
+            <mdParameter
+              name="removedIds"
+              label="Removed Operator Ids"
+              description="Ids of the Spray Operators being removed from this team"
+              type="java.lang.String[]"
+              order="4"/>
           </mdAction>
         </create>
       </mdController>
@@ -60,19 +162,87 @@
           name="dss.vector.solutions.irs.SprayLeader"
           method="TeamLeader" />
       </mdRelationship>
+      <mdView
+        name="dss.vector.solutions.irs.SprayOperatorView"
+        label="Spray Operator View"
+        description="View for a Spray Operator">
+        <attributes>
+          <char
+            name="actorId"
+            label="Actor Id"
+            size="255"
+            required="true" />
+          <char
+            name="operatorId"
+            label="Spray Operator ID"
+            description="Spray Operator ID"
+            size="64"/>
+          <virtual
+            name="firstName"
+            concrete="firstName"
+            type="dss.vector.solutions.Person"/>
+          <virtual
+            name="lastName"
+            concrete="lastName"
+            type="dss.vector.solutions.Person"/>
+          <boolean
+            name="isAssigned"
+            label="Is Assigned"
+            description="Is this Operator assigned to a team?"/>
+          <virtual
+            name="teamId"
+            concrete="teamId"
+            type="dss.vector.solutions.irs.SprayTeam"/>
+        </attributes>
+        <mdMethod
+          name="getAll"
+          label="Get All"
+          description="Gets all Spray Operators"
+          static="true"
+          returnType="dss.vector.solutions.irs.SprayOperatorView[]">
+        </mdMethod>
+        <mdMethod
+          name="getAllForTeam"
+          label="Get All OperatorViews For SprayTeam"
+          description="Returns views of all operators assigned to the given team"
+          static="true"
+          returnType="dss.vector.solutions.irs.SprayOperatorView[]">
+          <mdParameter
+            name="sprayTeam"
+            label="Spray Team"
+            description="Operators assigned to this team are returned"
+            type="dss.vector.solutions.irs.SprayTeam"
+            order="0"/>
+        </mdMethod>
+      </mdView>
     </create>
   </doIt>
   <undoIt>
     <delete>
       <object
-        key="dss.vector.solutions.irs.SprayTeam.sprayZone"
+        key="dss.vector.solutions.irs.SprayTeam.teamId"
         type="com.terraframe.mojo.system.metadata.MdAttributeCharacter" />
+      <object
+        key="dss.vector.solutions.irs.SprayTeam.sprayZone"
+        type="com.terraframe.mojo.system.metadata.MdAttributeReference" />
+      <object
+        key="dss.vector.solutions.irs.SprayTeam.create"
+        type="com.terraframe.mojo.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.irs.SprayTeam.edit"
+        type="com.terraframe.mojo.system.metadata.MdMethod" />
       <object
         key="dss.vector.solutions.irs.SprayTeamController.createAndAssign"
         type="com.terraframe.mojo.system.metadata.MdAction" />
       <object
+        key="dss.vector.solutions.irs.SprayTeamController.updateAssignments"
+        type="com.terraframe.mojo.system.metadata.MdAction" />
+      <object
         key="dss.vector.solutions.irs.LeadTeam"
         type="com.terraframe.mojo.system.metadata.MdRelationship" />
+      <object
+        key="dss.vector.solutions.irs.SprayOperatorView"
+        type="com.terraframe.mojo.system.metadata.MdView" />
     </delete>
   </undoIt>
 </version>

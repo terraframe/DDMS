@@ -266,12 +266,6 @@
         description="A team of spray Operators"
         extends="dss.vector.solutions.irs.Targeter">
         <attributes>
-          <char
-            name="teamCode"
-            label="Team Code"
-            description="Identifying team code"
-            required="true"
-            size="16" />
         </attributes>
       </mdBusiness>
       <mdRelationship
