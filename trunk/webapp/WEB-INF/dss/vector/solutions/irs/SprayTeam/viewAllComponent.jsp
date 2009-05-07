@@ -1,49 +1,36 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<c:set var="page_title" value="Spray_Team_View_All" scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.irs.SprayTeamController.viewPage.mojo" />
   <mjl:columns>
+    <mjl:attributeColumn attributeName="teamId">
+      <mjl:header>
+        ${item.teamIdMd.displayLabel}
+      </mjl:header>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="sprayZone">
       <mjl:header>
-        !! Spray Zone
+        ${item.sprayZoneMd.displayLabel}
       </mjl:header>
+      <mjl:row>
+        ${item.sprayZone.entityName}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
-        !! Leader
+        <fmt:message key="Spray_Team_Leader" />
       </mjl:header>
       <mjl:row>
-        <c:choose>
-          <c:when test="${item.allTeamLeader[0] != null}">
-            ${item.allTeamLeader[0].person.firstName}
-            ${item.allTeamLeader[0].person.lastName}
-          </c:when>
-          <c:otherwise>
-            None Assigned
-          </c:otherwise>
-        </c:choose>
-      </mjl:row>
-      <mjl:footer>
-      
-      </mjl:footer>
-    </mjl:freeColumn>
-    <mjl:freeColumn>
-      <mjl:header>
-        !! Operator
-      </mjl:header>
-      <mjl:row>
-        <c:choose>
-          <c:when test="${item.allSprayTeamMembers[0] != null}">
-            ${item.allSprayTeamMembers[0].person.firstName}
-            ${item.allSprayTeamMembers[0].person.lastName}
-          </c:when>
-          <c:otherwise>
-            None Assigned
-          </c:otherwise>
-        </c:choose>
+        <c:if test="${item.allTeamLeader[0] != null}">
+          ${item.allTeamLeader[0].person.firstName}
+          ${item.allTeamLeader[0].person.lastName}
+        </c:if>
       </mjl:row>
       <mjl:footer>
       
@@ -68,4 +55,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Spray Operator" action="dss.vector.solutions.irs.SprayTeamController.newInstance.mojo" name="SprayTeamController.newInstance" />
+<mjl:commandLink display="Create a new Spray Team" action="dss.vector.solutions.irs.SprayTeamController.newInstance.mojo" name="SprayTeamController.newInstance" />
