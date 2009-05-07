@@ -12,9 +12,7 @@
       </mjl:dt>
     
       <mjl:dt attribute="anaemiaTreatment">
-        <mjl:commandLink display="${item.anaemiaTreatment.keyName}" action="dss.vector.solutions.intervention.DrugController.view.mojo" name="dss.vector.solutions.intervention.Drug.form.view.link">
-          <mjl:property value="${item.anaemiaTreatment.id}" name="id" />
-        </mjl:commandLink>
+        ${item.anaemiaTreatment.displayLabel}
       </mjl:dt>
       <mjl:dt attribute="bloodslide">
         <ul>
@@ -37,25 +35,20 @@
         </ul>
       </mjl:dt>
       <mjl:dt attribute="feverTreatment">
-        <mjl:commandLink display="${item.feverTreatment.keyName}" action="dss.vector.solutions.intervention.DrugController.view.mojo" name="dss.vector.solutions.intervention.Drug.form.view.link">
-          <mjl:property value="${item.feverTreatment.id}" name="id" />
-        </mjl:commandLink>
+        ${item.feverTreatment.displayLabel}
       </mjl:dt>
       <mjl:dt attribute="haemoglobin">
-      ${item.haemoglobin}
-</mjl:dt>
+        ${item.haemoglobin}
+      </mjl:dt>
       <mjl:dt attribute="haemoglobinMeasured">
-      ${item.haemoglobinMeasured}
-</mjl:dt>
+        ${item.haemoglobinMeasured}
+      </mjl:dt>
       <mjl:dt attribute="household">
-        <mjl:commandLink display="${item.household.householdName}" action="dss.vector.solutions.intervention.monitor.HouseholdController.view.mojo"
-          name="dss.vector.solutions.intervention.monitor.Household.form.view.link">
-          <mjl:property value="${item.household.id}" name="id" />
-        </mjl:commandLink>
+        ${item.household.householdName}
       </mjl:dt>
       <mjl:dt attribute="iron">
-      ${item.iron}
-</mjl:dt>
+        ${item.iron}
+      </mjl:dt>
       <mjl:dt attribute="malaria">
         <ul>
           <c:forEach var="enumName" items="${item.malariaEnumNames}">
@@ -64,9 +57,7 @@
         </ul>
       </mjl:dt>
       <mjl:dt attribute="malariaTreatment">
-        <mjl:commandLink display="${item.malariaTreatment.keyName}" action="dss.vector.solutions.intervention.DrugController.view.mojo" name="dss.vector.solutions.intervention.Drug.form.view.link">
-          <mjl:property value="${item.malariaTreatment.id}" name="id" />
-        </mjl:commandLink>
+        ${item.malariaTreatment.displayLabel}
       </mjl:dt>
       <mjl:dt attribute="payment">
         <ul>
@@ -83,8 +74,8 @@
         </ul>
       </mjl:dt>
       <mjl:dt attribute="pregnant">
-      ${item.pregnant}
-</mjl:dt>
+        ${item.pregnant}
+      </mjl:dt>
       <mjl:dt attribute="RDTResult">
         <ul>
           <c:forEach var="enumName" items="${item.RDTResultEnumNames}">
@@ -93,9 +84,7 @@
         </ul>
       </mjl:dt>
       <mjl:dt attribute="rdtTreatment">
-        <mjl:commandLink display="${item.rdtTreatment.keyName}" action="dss.vector.solutions.intervention.DrugController.view.mojo" name="dss.vector.solutions.intervention.Drug.form.view.link">
-          <mjl:property value="${item.rdtTreatment.id}" name="id" />
-        </mjl:commandLink>
+        ${item.rdtTreatment.displayLabel}
       </mjl:dt>
       <mjl:dt attribute="sex">
         <ul>
@@ -105,8 +94,8 @@
         </ul>
       </mjl:dt>
       <mjl:dt attribute="sleptUnderNet">
-      ${item.sleptUnderNet}
-</mjl:dt>
+        ${item.sleptUnderNet}
+      </mjl:dt>
     </dl>
 
   </mjl:component>
