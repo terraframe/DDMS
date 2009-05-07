@@ -34,20 +34,21 @@ public class DefaultConverter extends StandardConverter
   @Override
   public Object parse(String value, Locale locale)
   {
-    if (c.equals(Date.class))
-    {
-      DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-
-      try
-      {
-        return format.parse(value);
-      }
-      catch (Exception e)
-      {
-        //Continue on to the Standard Parsing
-      }
-    }
-    
-    return super.parse(value, locale);
+    return null;
+//    if (c.equals(Date.class))
+//    {
+//      DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+//
+//      try
+//      {
+//        return format.parse(value);
+//      }
+//      catch (Exception e)
+//      {
+//        //Continue on to the Standard Parsing
+//      }
+//    }
+//    
+//    return super.parse(value, locale);
   }
 }
