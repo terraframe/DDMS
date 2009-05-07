@@ -225,8 +225,8 @@
           <decimal
             name="ratio"
             label="Ratio"
-            length="2"
-            decimal="2"
+            length="6"
+            decimal="3"
             rejectNegative="true" />
           <char
             name="displayLabel"
