@@ -166,7 +166,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
     List<? extends SprayTeamDTO> teams = SprayTeamDTO.getAllInstances(clientRequest,
-        SprayTeamDTO.TEAMCODE, true, 0, 0).getResultSet();
+        SprayTeamDTO.TEAMID, true, 0, 0).getResultSet();
 
     req.setAttribute("methods", methods);
     req.setAttribute("method", SprayMethodDTO.MAIN_SPRAY.getName());
@@ -269,7 +269,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
     List<? extends SprayTeamDTO> teams = SprayTeamDTO.getAllInstances(clientRequest,
-        SprayTeamDTO.TEAMCODE, true, 0, 0).getResultSet();
+        SprayTeamDTO.TEAMID, true, 0, 0).getResultSet();
 
     req.setAttribute("methods", methods);
     req.setAttribute("brands", Arrays.asList(brands));

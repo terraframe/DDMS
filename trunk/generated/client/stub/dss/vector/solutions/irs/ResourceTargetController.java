@@ -33,7 +33,7 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
     //newTeam.addSprayTeamMembers(SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet().get(0));
     //newTeam.apply();
 
-    List<SprayTeamDTO> sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(clientRequest, SprayTeamDTO.TEAMCODE, true, 0, 0).getResultSet();
+    List<SprayTeamDTO> sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(clientRequest, SprayTeamDTO.TEAMID, true, 0, 0).getResultSet();
 
     req.setAttribute("sprayTeams", sprayTeams);
 
