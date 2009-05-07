@@ -505,54 +505,62 @@ MDSS.QueryXML.SUM.prototype = {
   }
 }
 
-MDSS.QueryXML.MIN = function(selectable)
+MDSS.QueryXML.MIN = function(selectable, userAlias)
 {
   this._selectable = selectable;
+  this._userAlias = userAlias;
 }
 MDSS.QueryXML.MIN.prototype = {
 
   build : function()
   {
   	var selectableObj = this._selectable.build();
+    var alias = this._userAlias != null ? this._userAlias : '';
 
   	var obj = {
-  	  'min': selectableObj
+  	  'min': [selectableObj,
+  	  {'userAlias': alias}]
   	};
 
   	return obj;
   }
 }
 
-MDSS.QueryXML.MAX = function(selectable)
+MDSS.QueryXML.MAX = function(selectable, userAlias)
 {
   this._selectable = selectable;
+  this._userAlias = userAlias;
 }
 MDSS.QueryXML.MAX.prototype = {
 
   build : function()
   {
   	var selectableObj = this._selectable.build();
+    var alias = this._userAlias != null ? this._userAlias : '';
 
   	var obj = {
-  	  'max': selectableObj
+  	  'max': [selectableObj,
+  	  {'userAlias': alias}]
   	};
-
   	return obj;
   }
 }
 
-MDSS.QueryXML.AVG = function(selectable)
+MDSS.QueryXML.AVG = function(selectable, userAlias)
 {
   this._selectable = selectable;
+  this._userAlias = userAlias;
 }
 MDSS.QueryXML.AVG.prototype = {
 
   build : function()
   {
   	var selectableObj = this._selectable.build();
+    var alias = this._userAlias != null ? this._userAlias : '';
 
   	var obj = {
-  	  'avg': selectableObj
+  	  'avg': [selectableObj,
+  	  {'userAlias': alias}]
   	};
 
   	return obj;

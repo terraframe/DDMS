@@ -37,7 +37,7 @@ public class Mapping implements Reloadable
 
     if(savedSearch.getViewCreated().booleanValue())
     {
-      Database.dropView(viewName);
+      Database.dropView(viewName, sql);
     }
 
     Database.createView(viewName, sql);

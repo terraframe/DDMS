@@ -782,7 +782,7 @@ MDSS.QueryAggregatedCases = (function(){
 
     var option = e.target;
 
-    var attribute = new MDSS.QueryXML.Attribute(relAlias, relAttribute);
+    var attribute = new MDSS.QueryXML.Attribute(relAlias, relAttribute, optionName);
     var selectable = new MDSS.QueryXML.Selectable(attribute);
 
     // special cases
@@ -804,19 +804,19 @@ MDSS.QueryAggregatedCases = (function(){
     var aggFunc = null;
     if(func === 'SUM')
     {
-      aggFunc = new MDSS.QueryXML.SUM(selectable, relAttribute);
+      aggFunc = new MDSS.QueryXML.SUM(selectable, optionName);
     }
     else if(func === 'MIN')
     {
-      aggFunc = new MDSS.QueryXML.MIN(selectable, relAttribute);
+      aggFunc = new MDSS.QueryXML.MIN(selectable, optionName);
     }
     else if(func === 'MAX')
     {
-      aggFunc = new MDSS.QueryXML.MAX(selectable, relAttribute);
+      aggFunc = new MDSS.QueryXML.MAX(selectable, optionName);
     }
     else if(func === 'AVG')
     {
-      aggFunc = new MDSS.QueryXML.AVG(selectable, relAttribute);
+      aggFunc = new MDSS.QueryXML.AVG(selectable, optionName);
     }
 
   	_removeGridAttribute(relAlias, busAlias, optionName, false, true);
@@ -837,7 +837,7 @@ MDSS.QueryAggregatedCases = (function(){
 
     var option = e.target;
 
-    var attribute = new MDSS.QueryXML.Attribute(Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS, attributeName);
+    var attribute = new MDSS.QueryXML.Attribute(Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS, attributeName, attributeName);
     var selectable = new MDSS.QueryXML.Selectable(attribute);
 
     // special cases
