@@ -84,7 +84,7 @@ public class TeamSprayTest extends TestCase
     data.apply();
 
     team = new SprayTeam();
-    team.setTeamCode("322");
+    team.setTeamId("322");
     team.apply();
   }
 

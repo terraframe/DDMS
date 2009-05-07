@@ -39,7 +39,7 @@ public class ResourceTargetTest extends TestCase
   protected static void classSetUp()
   {
     targeter = new SprayTeam();
-    targeter.setTeamCode("000");
+    targeter.setTeamId("000");
     targeter.apply();
   }
 
