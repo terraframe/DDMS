@@ -35,6 +35,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.terraframe.mojo.business.ComponentDTO;
 import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.transport.attributes.AttributeBooleanDTO;
@@ -57,6 +58,22 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   public final static String EMAIL_ERRORS_TO = "dtaylor@terraframe.com";
 
+  static enum MdType implements com.terraframe.mojo.generation.loader.Reloadable {
+    DATE, ENUMERATION, REFERENCE, OTHER;
+    public static MdType toType(String attributeType)
+    {
+      try
+      {
+        attributeType = attributeType.substring(attributeType.lastIndexOf(".MdAttribute") + 12).toUpperCase();
+        return valueOf(attributeType);
+      }
+      catch (Exception ex)
+      {
+        return OTHER;
+      }
+    }
+  }
+
   public static String join(List<String> s, String delimiter)
   {
     StringBuilder builder = new StringBuilder();
@@ -70,6 +87,17 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         builder.append(delimiter);
       }
     }
+    return builder.toString();
+  }
+
+  public static String loadTypes(List<String> types)
+  {
+    StringBuilder builder = new StringBuilder();
+
+    builder.append("<script type=\"text/javascript\" src=\"js/getClass.js.jsp?");
+    builder.append(Halp.join(types, "&"));
+    builder.append("\"></script>");
+
     return builder.toString();
   }
 
@@ -154,20 +182,28 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         {
           // System.out.println("Setting "+attrib);
           String value = (String) c.getMethod("get" + attrib).invoke(row).toString();
-          // System.out.println("Setting "+attrib+" to "+value);
-          // FIXME:Date format?
-          if (attrib.contains("Date"))
+
+          String attributeType = view.getAttributeType(attrib.substring(0, 1).toLowerCase() + attrib.substring(1));
+
+          SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+          // DateFormat df_full =
+          // DateFormat.getDateInstance(DateFormat.FULL);
+
+          switch (Halp.MdType.toType(attributeType))
           {
-            SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-            // DateFormat df_full = DateFormat.getDateInstance(DateFormat.FULL);
-            element.put(attrib, df.format(new Date(value)));
+            case DATE:
+              // FIXME:Date format?
+              value = df.format(new Date(value));
+              break;
+            case ENUMERATION:
+              // FIXME: this is a hack for enums
+              value = value.replaceAll("\\[", "").replaceAll("\\]", "");
+              break;
+            case REFERENCE:
+              value = (String) ( (ComponentDTO) c.getMethod("get" + attrib).invoke(row) ).getId();
+              break;
           }
-          else
-          {
-            // FIXME: this is a hack for enums
-            String clean_value = value.replaceAll("\\[", "").replaceAll("\\]", "");
-            element.put(attrib, clean_value);
-          }
+          element.put(attrib, value);
 
         }
         catch (IllegalAccessException x)
@@ -196,7 +232,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       }
       map.put(element);
     }
-    return map.toString().replaceAll(",", ",\n");
+    return map.toString();// .replaceAll(",", ",\n");
   }
 
   public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows, ClientRequestIF clientRequest) throws JSONException
@@ -301,7 +337,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           if (md instanceof AttributeBooleanMdDTO)
           {
             // editor =
-            // "new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})";
+
             if (translateBool(md, true) != null)
             {
 
@@ -330,6 +366,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           if (md instanceof AttributeEnumerationMdDTO)
           {
             AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
+            // "new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})";
             editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[";
             String comma = "";
             for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
@@ -444,8 +481,6 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     }
   }
 
-
-
   public static ByteArrayOutputStream renderJspToByteArray(HttpServletRequest request, HttpServletResponse response, String jsp_to_render) throws ServletException, IOException
   {
 
@@ -462,12 +497,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     String current_path = request.getServletPath().substring(0, request.getServletPath().lastIndexOf("/") + 1);
 
     // in same folder jsp_to_render.contains(current_path)
-    if (jsp_to_render.contains("/") && ! jsp_to_render.startsWith("/"))
+    if (jsp_to_render.contains("/") && !jsp_to_render.startsWith("/"))
     {
-      jsp_to_render = "/" + jsp_to_render ;
+      jsp_to_render = "/" + jsp_to_render;
     }
 
-    if (jsp_to_render.contains(current_path) && current_path.length()>1)
+    if (jsp_to_render.contains(current_path) && current_path.length() > 1)
     {
       jsp_to_render = jsp_to_render.substring(jsp_to_render.lastIndexOf(current_path));
       request.setAttribute("jsp_to_render", jsp_to_render);
