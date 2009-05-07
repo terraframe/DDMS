@@ -4,14 +4,14 @@
   <mjl:message />
 </mjl:messages>
 <mjl:table var="item" query="${query}">
-  <mjl:context action="dss.vector.solutions.irs.LeadTeamController.viewPage.mojo" />
+  <mjl:context action="dss.vector.solutions.intervention.monitor.WallHeiarchyController.viewPage.mojo" />
   <mjl:columns>
     <mjl:freeColumn>
       <mjl:header>
-        Spray Team
+        Roof
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="${item.parent.keyName}" action="dss.vector.solutions.irs.SprayTeamController.view.mojo" name="parent.link">
+        <mjl:commandLink display="${item.parent.keyName}" action="dss.vector.solutions.intervention.monitor.WallController.view.mojo" name="parent.link">
           <mjl:property value="${item.parentId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -21,10 +21,10 @@
     </mjl:freeColumn>
     <mjl:freeColumn>
       <mjl:header>
-        Spray Leader
+        Roof
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="${item.child.keyName}" action="dss.vector.solutions.irs.SprayLeaderController.view.mojo" name="child.link">
+        <mjl:commandLink display="${item.child.keyName}" action="dss.vector.solutions.intervention.monitor.WallController.view.mojo" name="child.link">
           <mjl:property value="${item.childId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -37,7 +37,7 @@
         
       </mjl:header>
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.irs.LeadTeamController.view.mojo" name="view.link">
+        <mjl:commandLink display="View" action="dss.vector.solutions.intervention.monitor.WallHeiarchyController.view.mojo" name="view.link">
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -51,4 +51,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Lead Team" action="dss.vector.solutions.irs.LeadTeamController.newRelationship.mojo" name="LeadTeamController.newRelationship" />
+<mjl:commandLink display="Create a new Wall Heiarchy" action="dss.vector.solutions.intervention.monitor.WallHeiarchyController.newRelationship.mojo" name="WallHeiarchyController.newRelationship" />

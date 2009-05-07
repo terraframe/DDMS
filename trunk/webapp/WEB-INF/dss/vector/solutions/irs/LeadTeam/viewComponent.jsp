@@ -8,7 +8,7 @@
   <dl>
     <dt>
       <label>
-        Spray Operator
+        Spray Team
       </label>
     </dt>
     <dd>

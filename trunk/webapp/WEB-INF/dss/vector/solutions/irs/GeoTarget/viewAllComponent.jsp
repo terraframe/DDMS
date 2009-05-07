@@ -22,7 +22,8 @@
 <%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
 
-<%@page import="dss.vector.solutions.PropertyDTO"%><c:set var="page_title" value="Search_Geo_Targets"  scope="request"/>
+<%@page import="dss.vector.solutions.PropertyDTO"%>
+<c:set var="page_title" value="Search_Geo_Targets"  scope="request"/>
 
 <%
   request.setAttribute("DistrictClass", DistrictDTO.CLASS);

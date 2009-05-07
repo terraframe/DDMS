@@ -1,10 +1,10 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<mjl:form name="dss.vector.solutions.irs.LeadTeam.form.name" id="dss.vector.solutions.irs.LeadTeam.form.id" method="POST">
+<mjl:form name="dss.vector.solutions.intervention.monitor.WallHeiarchy.form.name" id="dss.vector.solutions.intervention.monitor.WallHeiarchy.form.id" method="POST">
   <dl>
     <dt>
       <label>
-        Spray Team
+        Roof
       </label>
     </dt>
     <dd>
@@ -16,7 +16,7 @@
     </dd>
     <dt>
       <label>
-        Spray Leader
+        Roof
       </label>
     </dt>
     <dd>
@@ -27,5 +27,5 @@
       </mjl:select>
     </dd>
   </dl>
-  <mjl:command value="New Instance" action="dss.vector.solutions.irs.LeadTeamController.newInstance.mojo" name="dss.vector.solutions.irs.LeadTeam.form.newInstance.button" />
+  <mjl:command value="New Instance" action="dss.vector.solutions.intervention.monitor.WallHeiarchyController.newInstance.mojo" name="dss.vector.solutions.intervention.monitor.WallHeiarchy.form.newInstance.button" />
 </mjl:form>
