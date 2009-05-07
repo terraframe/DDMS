@@ -129,11 +129,6 @@ public class Sandbox
     MdBusinessDAOIF aggregatedCaseMdBus = MdBusinessDAO.getMdBusinessDAO(AggregatedCase.CLASS);
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery)queryMap.get(aggregatedCaseMdBus.getTypeName());
 
-    List<TreatmentGridQuery> treatmentGridStockQueryList = new LinkedList<TreatmentGridQuery>();
-    List<ReferralGridQuery> referralGridQueryList = new LinkedList<ReferralGridQuery>();
-    List<DiagnosticGridQuery> diagnosticGridQueryList = new LinkedList<DiagnosticGridQuery>();
-    List<TreatmentMethodGridQuery> treatmentMethodGridQueryList = new LinkedList<TreatmentMethodGridQuery>();
-    List<TreatmentGridQuery> treatmentGridQueryList = new LinkedList<TreatmentGridQuery>();
 
     MdRelationshipDAOIF caseTreatmentStockRel = MdRelationshipDAO.getMdRelationshipDAO(CaseTreatmentStock.CLASS);
 
@@ -147,7 +142,6 @@ public class Sandbox
         //Alias startse with CaseTreatmentStock_
         if (gridAlias.startsWith(caseTreatmentStockRel.getTypeName()+"_"))
         {
-          treatmentGridStockQueryList.add(treatmentGridQuery);
           String caseTreatmentStockAlias = getRelationshipAlias(gridAlias);
           CaseTreatmentStockQuery ctsq = (CaseTreatmentStockQuery)queryMap.get(caseTreatmentStockAlias);
           valueQuery.AND(aggregatedCaseQuery.treatmentStock(ctsq));
@@ -155,7 +149,6 @@ public class Sandbox
         }
         else
         {
-          treatmentGridQueryList.add(treatmentGridQuery);
           String caseTreatmentAlias = getRelationshipAlias(gridAlias);
           CaseTreatmentQuery ctq = (CaseTreatmentQuery)queryMap.get(caseTreatmentAlias);
           valueQuery.AND(aggregatedCaseQuery.treatment(ctq));
@@ -165,7 +158,6 @@ public class Sandbox
       else if (generatedQuery instanceof ReferralGridQuery)
       {
         ReferralGridQuery referralGridQuery = (ReferralGridQuery)generatedQuery;
-        referralGridQueryList.add(referralGridQuery);
         String caseReferralAlias = getRelationshipAlias(gridAlias);
         CaseReferralQuery crq = (CaseReferralQuery)queryMap.get(caseReferralAlias);
         valueQuery.AND(aggregatedCaseQuery.referral(crq));
@@ -174,7 +166,6 @@ public class Sandbox
       else if (generatedQuery instanceof DiagnosticGridQuery)
       {
         DiagnosticGridQuery diagnosticGridQuery = (DiagnosticGridQuery)generatedQuery;
-        diagnosticGridQueryList.add(diagnosticGridQuery);
         String caseDiagnosticAlias = getRelationshipAlias(gridAlias);
         CaseDiagnosticQuery cdq = (CaseDiagnosticQuery)queryMap.get(caseDiagnosticAlias);
         valueQuery.AND(aggregatedCaseQuery.diagnosticMethod(cdq));
@@ -183,7 +174,6 @@ public class Sandbox
       else if (generatedQuery instanceof TreatmentMethodGridQuery)
       {
         TreatmentMethodGridQuery treatmentMethodGridQuery = (TreatmentMethodGridQuery)generatedQuery;
-        treatmentMethodGridQueryList.add(treatmentMethodGridQuery);
         String caseTreatmentMethodAlias = getRelationshipAlias(gridAlias);
         CaseTreatmentMethodQuery ctmq = (CaseTreatmentMethodQuery)queryMap.get(caseTreatmentMethodAlias);
         valueQuery.AND(aggregatedCaseQuery.treatmentMethod(ctmq));
@@ -192,7 +182,7 @@ public class Sandbox
     }
 
     System.out.println(valueQuery.getSQL());
-    
+
     for (ValueObject valueObject : valueQuery.getIterator())
     {
       valueObject.printAttributes();
