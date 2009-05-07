@@ -34,11 +34,11 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements
       {
         SprayLeader leader = it.next();
         String leaderName = leader.getPerson().getFirstName() + " " + leader.getPerson().getLastName();
-        this.setTeamLabel(team.getTeamCode() + " - " + leaderName);
+        this.setTeamLabel(team.getTeamId() + " - " + leaderName);
       }
       else
       {
-        this.setTeamLabel(team.getTeamCode());
+        this.setTeamLabel(team.getTeamId());
       }
 
     }

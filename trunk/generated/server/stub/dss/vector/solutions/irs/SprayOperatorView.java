@@ -1,52 +1,81 @@
 package dss.vector.solutions.irs;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.Person;
+
 public class SprayOperatorView extends SprayOperatorViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1241450710966L;
+  private static final long serialVersionUID = 1241483300982L;
   
   public SprayOperatorView()
   {
     super();
   }
   
-  private void populate(SprayOperator operator)
-  {
-    this.setActorId(operator.getId());
-    this.setOperatorId(operator.getOperatorId());
-    this.setFirstName(operator.getPerson().getFirstName());
-    this.setLastName(operator.getPerson().getLastName());
-  }
-  
   public static SprayOperatorView[] getAll()
   {
-    List<SprayOperatorView> list = new LinkedList<SprayOperatorView>();
     SprayOperatorQuery query = new SprayOperatorQuery(new QueryFactory());
-    query.ORDER_BY_ASC(query.getPerson().getLastName());
     
-    OIterator<? extends SprayOperator> it = query.getIterator();
-    
-    try
-    {
-      while(it.hasNext())
-      {
-        SprayOperatorView view = new SprayOperatorView();
-        view.populate(it.next());
-        
-        list.add(view);
-      }
-      
-      return list.toArray(new SprayOperatorView[list.size()]);
-    }
-    finally
-    {
-      it.close();
-    }
+    return getViewsFromQuery(query);
   }
   
+  public static SprayOperatorView[] getAllForTeam(SprayTeam sprayTeam)
+  {
+    QueryFactory queryFactory = new QueryFactory();
+    
+    SprayTeamQuery sprayTeamQuery = new SprayTeamQuery(queryFactory);
+    sprayTeamQuery.WHERE(sprayTeamQuery.getId().EQ(sprayTeam.getId()));
+    
+    InTeamQuery inTeamQuery = new InTeamQuery(queryFactory);
+    inTeamQuery.WHERE(inTeamQuery.hasParent(sprayTeamQuery));
+    
+    SprayOperatorQuery sprayOperatorQuery = new SprayOperatorQuery(queryFactory);
+    sprayOperatorQuery.WHERE(sprayOperatorQuery.sprayTeam(inTeamQuery));
+    
+    return getViewsFromQuery(sprayOperatorQuery);
+  }
+
+  private static SprayOperatorView[] getViewsFromQuery(SprayOperatorQuery query)
+  {
+    OIterator<? extends SprayOperator> iterator = query.getIterator();
+    int count = (int)query.getCount();
+    query.ORDER_BY_ASC(query.getPerson().getLastName());
+    SprayOperatorView[] views = new SprayOperatorView[count];
+
+    for (int i=0; i<count; i++)
+    {
+      SprayOperator next = iterator.next();
+      Person person = next.getPerson();
+
+      SprayOperatorView view = new SprayOperatorView();
+      view.setActorId(next.getId());
+      view.setOperatorId(next.getId());
+      view.setFirstName(person.getFirstName());
+      view.setLastName(person.getLastName());
+      
+      OIterator<? extends SprayTeam> sprayTeam = next.getAllSprayTeam();
+      if (sprayTeam.hasNext())
+      {
+        view.setIsAssigned(true);
+        view.setTeamId(sprayTeam.next().getTeamId());
+      }
+      else
+      {
+        view.setIsAssigned(false);
+      }
+      
+      view.apply();
+      views[i] = view;
+    }
+    
+    return views;
+  }
+  
+  @Override
+  public String toString()
+  {
+    return getFirstName() + " " + getLastName() + " " + getOperatorId();
+  }
 }

@@ -36,7 +36,7 @@ public class ResourceTarget extends ResourceTargetBase implements
         leader_name = leader.getLastName() + ", " + leader.getFirstName();
       }
 
-      return (st.getTeamCode() + " - " + leader_name );
+      return (st.getTeamId() + " - " + leader_name );
     }
     return null;
   }
