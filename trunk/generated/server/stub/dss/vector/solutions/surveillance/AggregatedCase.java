@@ -10,21 +10,35 @@ import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
+import com.terraframe.mojo.dataaccess.MdRelationshipDAOIF;
 import com.terraframe.mojo.dataaccess.MdViewDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
+import com.terraframe.mojo.dataaccess.metadata.MdRelationshipDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.GeneratedBusinessQuery;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.session.SessionFacade;
 import com.terraframe.mojo.session.SessionIF;
 import com.terraframe.mojo.session.StartSession;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.PeriodMonthProblem;
 import dss.vector.solutions.PeriodQuarterProblem;
 import dss.vector.solutions.PeriodWeekProblem;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.query.Mapping;
+import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.SavedSearch;
+import dss.vector.solutions.query.SavedSearchRequiredException;
+import dss.vector.solutions.query.ThematicLayer;
 
 public class AggregatedCase extends AggregatedCaseBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -40,8 +54,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public static java.lang.String[] getVisibleAttributeNames()
   {
     MdBusinessDAOIF aggregateCaseMdBusiness = MdBusinessDAO.getMdBusinessDAO(AggregatedCase.CLASS);
-    List<? extends MdAttributeConcreteDAOIF> aggregateCaseAttributes = aggregateCaseMdBusiness.getAllDefinedMdAttributes();
-
+    List<? extends MdAttributeConcreteDAOIF> aggregateCaseAttributes = aggregateCaseMdBusiness
+        .getAllDefinedMdAttributes();
 
     MdViewDAOIF aggregatedCaseMdView = MdViewDAO.getMdViewDAO(AggregatedCaseView.CLASS);
 
@@ -57,12 +71,12 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     LinkedList<String> visibleAttributeNameList = new LinkedList<String>();
 
-    for (MdAttributeConcreteDAOIF mdAttribute: aggregateCaseAttributes)
+    for (MdAttributeConcreteDAOIF mdAttribute : aggregateCaseAttributes)
     {
       for (MdViewDAOIF mdViewDAOIF : aggregatedCaseViewSubClasses)
       {
-        boolean hasVisibility =
-          hasVisibility(mdAttribute.definesAttribute(), subClassAttrMap.get(mdViewDAOIF.definesType()));
+        boolean hasVisibility = hasVisibility(mdAttribute.definesAttribute(), subClassAttrMap
+            .get(mdViewDAOIF.definesType()));
         if (hasVisibility)
         {
           visibleAttributeNameList.add(mdAttribute.definesAttribute());
@@ -79,15 +93,19 @@ public class AggregatedCase extends AggregatedCaseBase implements
   }
 
   /**
-   * Returns true if the given attribute is defined by a <code>MdAttributeDAOIF</code>
-   * in the given map and the current user has permission to view the attribute, false otherwise.
+   * Returns true if the given attribute is defined by a
+   * <code>MdAttributeDAOIF</code> in the given map and the current user has
+   * permission to view the attribute, false otherwise.
    *
-   * <br>Precondition:</br> <code>Session.getCurrentSession()</code> does not return null.
+   * <br>
+   * Precondition:</br> <code>Session.getCurrentSession()</code> does not
+   * return null.
    *
    * @param attributeName
    * @param viewCaseAttributeMap
-   * @return true if the given attribute is defined by a <code>MdAttributeDAOIF</code>
-   * in the given map and the current user has permission to view the attribute, false otherwise.
+   * @return true if the given attribute is defined by a
+   *         <code>MdAttributeDAOIF</code> in the given map and the current
+   *         user has permission to view the attribute, false otherwise.
    */
   private static boolean hasVisibility(String attributeName,
       Map<String, ? extends MdAttributeDAOIF> viewCaseAttributeMap)
@@ -101,7 +119,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
     if (viewCaseAttributeMap.containsKey(attrNameLowerCase))
     {
       MdAttributeDAOIF mdAttributeDAOIF = viewCaseAttributeMap.get(attrNameLowerCase);
-      hasVisibility = SessionFacade.checkAttributeAccess(session.getId(), Operation.READ, mdAttributeDAOIF);
+      hasVisibility = SessionFacade.checkAttributeAccess(session.getId(), Operation.READ,
+          mdAttributeDAOIF);
     }
     return hasVisibility;
   }
@@ -334,7 +353,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
     validate(periodType, period, year);
 
     EpiDate date = new EpiDate(periodType, period, year);
-    AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date.getEndDate(), ageGroup);
+    AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date
+        .getEndDate(), ageGroup);
 
     if (c != null)
     {
@@ -446,6 +466,162 @@ public class AggregatedCase extends AggregatedCaseBase implements
     List<? extends CaseTreatmentStock> list = convertToList(this.getAllTreatmentStockRel());
 
     return list.toArray(new CaseTreatmentStock[list.size()]);
+  }
+
+  /**
+   * Takes in an XML string and returns a ValueQuery representing the structured
+   * query in the XML.
+   *
+   * @param xml
+   * @return
+   */
+  private static ValueQuery xmlToValueQuery(String xml, String geoEntityType, boolean includeGeometry,
+      ThematicLayer thematicLayer)
+  {
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    ValueQueryParser valueQueryParser = new ValueQueryParser(xml, valueQuery);
+
+    // include the thematic layer (if applicable).
+    if (thematicLayer != null)
+    {
+      String thematicVariable = thematicLayer.getThematicVariable();
+      if (thematicVariable != null && thematicVariable.trim().length() > 0)
+      {
+        valueQueryParser.addAttributeSelectable(AggregatedCase.CLASS, thematicVariable, "",
+            QueryConstants.THEMATIC_DATA_COLUMN);
+      }
+    }
+
+    // include the geometry of the GeoEntity
+    if (includeGeometry)
+    {
+      MdBusiness geoEntityMd = MdBusiness.getMdBusiness(geoEntityType);
+
+      MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
+
+      String attributeName = mdAttrGeo.getAttributeName();
+
+      valueQueryParser.addAttributeSelectable(geoEntityType, attributeName, "", "");
+      valueQueryParser.addAttributeSelectable(geoEntityType, GeoEntity.ENTITYNAME, "",
+          QueryConstants.ENTITY_NAME_COLUMN);
+    }
+
+    Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
+
+    GeoHierarchy.addGeoHierarchyJoinConditions(valueQuery, queryMap);
+
+    AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
+
+    // join collection with geo entity and select that entity type's geometry
+    if (geoEntityType != null)
+    {
+      GeneratedBusinessQuery businessQuery = (GeneratedBusinessQuery) queryMap.get(geoEntityType);
+
+      valueQuery.WHERE(aggregatedCaseQuery.getGeoEntity().EQ(businessQuery));
+    }
+
+    MdRelationshipDAOIF caseTreatmentStockRel = MdRelationshipDAO.getMdRelationshipDAO(CaseTreatmentStock.CLASS);
+
+    for (String gridAlias : queryMap.keySet())
+    {
+      GeneratedEntityQuery generatedQuery = queryMap.get(gridAlias);
+
+      if (generatedQuery instanceof TreatmentGridQuery)
+      {
+        TreatmentGridQuery treatmentGridQuery = (TreatmentGridQuery)generatedQuery;
+        //Alias startse with CaseTreatmentStock_
+        if (gridAlias.startsWith(caseTreatmentStockRel.getTypeName()+"_"))
+        {
+          String caseTreatmentStockAlias = getRelationshipAlias(gridAlias);
+          CaseTreatmentStockQuery ctsq = (CaseTreatmentStockQuery)queryMap.get(caseTreatmentStockAlias);
+          valueQuery.AND(aggregatedCaseQuery.treatmentStock(ctsq));
+          valueQuery.AND(ctsq.hasChild(treatmentGridQuery));
+        }
+        else
+        {
+          String caseTreatmentAlias = getRelationshipAlias(gridAlias);
+          CaseTreatmentQuery ctq = (CaseTreatmentQuery)queryMap.get(caseTreatmentAlias);
+          valueQuery.AND(aggregatedCaseQuery.treatment(ctq));
+          valueQuery.AND(ctq.hasChild(treatmentGridQuery));
+        }
+      }
+      else if (generatedQuery instanceof ReferralGridQuery)
+      {
+        ReferralGridQuery referralGridQuery = (ReferralGridQuery)generatedQuery;
+        String caseReferralAlias = getRelationshipAlias(gridAlias);
+        CaseReferralQuery crq = (CaseReferralQuery)queryMap.get(caseReferralAlias);
+        valueQuery.AND(aggregatedCaseQuery.referral(crq));
+        valueQuery.AND(crq.hasChild(referralGridQuery));
+      }
+      else if (generatedQuery instanceof DiagnosticGridQuery)
+      {
+        DiagnosticGridQuery diagnosticGridQuery = (DiagnosticGridQuery)generatedQuery;
+        String caseDiagnosticAlias = getRelationshipAlias(gridAlias);
+        CaseDiagnosticQuery cdq = (CaseDiagnosticQuery)queryMap.get(caseDiagnosticAlias);
+        valueQuery.AND(aggregatedCaseQuery.diagnosticMethod(cdq));
+        valueQuery.AND(cdq.hasChild(diagnosticGridQuery));
+      }
+      else if (generatedQuery instanceof TreatmentMethodGridQuery)
+      {
+        TreatmentMethodGridQuery treatmentMethodGridQuery = (TreatmentMethodGridQuery)generatedQuery;
+        String caseTreatmentMethodAlias = getRelationshipAlias(gridAlias);
+        CaseTreatmentMethodQuery ctmq = (CaseTreatmentMethodQuery)queryMap.get(caseTreatmentMethodAlias);
+        valueQuery.AND(aggregatedCaseQuery.treatmentMethod(ctmq));
+        valueQuery.AND(ctmq.hasChild(treatmentMethodGridQuery));
+      }
+    }
+
+    return valueQuery;
+  }
+
+  /**
+   * Returns the alias for the relationship query that maps to the grid query
+   * with the given alias.
+   */
+  private static String getRelationshipAlias(String gridAlias)
+  {
+//    int firstIndex = gridAlias.indexOf("_", 0);
+    int index = gridAlias.lastIndexOf("_");
+
+    return gridAlias.substring(0, index);
+  }
+
+  /**
+   * Queries for AggregatedCases.
+   *
+   * @param xml
+   */
+  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String geoEntityType)
+  {
+    return xmlToValueQuery(xml, geoEntityType, false, null);
+  }
+
+  /**
+   * Creates a map based off the given query.
+   *
+   * @param xml
+   * @return
+   */
+  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers,
+      String savedSearchId)
+  {
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot map a query without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    SavedSearch search = SavedSearch.get(savedSearchId);
+    ThematicLayer thematicLayer = search.getThematicLayer();
+
+    ValueQuery query = xmlToValueQuery(xml, thematicLayerType, true, thematicLayer);
+
+    String layers = Mapping.generateLayers(universalLayers, query, search, thematicLayer);
+    return layers;
   }
 
 }

@@ -140,6 +140,24 @@
         description="Thrown when a user tries to map layers without a saved query.">
       </mdException>
 
+      <mdException
+        name="dss.vector.solutions.query.MapWithoutGeoEntityException"
+        label="Map Without GeoEntity Exception"
+        description="Thrown when a user tries to create a map without a selected GeoEntity type.">
+      </mdException>
+
+      <mdException
+        name="dss.vector.solutions.query.CategoriesWithoutThematicException"
+        label="Categories Without Thematic Exception"
+        description="Thrown when a user tries to create categories without selecting a thematic variable.">
+      </mdException>
+
+      <mdException
+        name="dss.vector.solutions.query.UniqueSearchNameException"
+        label="Unique Search Name Exception"
+        description="Thrown when a user tries to define a duplicate search name for the same query screen.">
+      </mdException>
+
       <mdView
         name="dss.vector.solutions.query.ThematicVariableView"
         label="Thematic Variable View"
@@ -716,29 +734,6 @@
     </create>
     <update>
 
-      <mdBusiness name="dss.vector.solutions.surveillance.AggregatedCase">
-        <create>
-          <mdMethod
-            name="queryAggregatedCases"
-            label="Query Aggregated Cases"
-            returnType="com.terraframe.mojo.query.ValueQuery"
-            static="true">
-            <mdParameter
-              name="queryXML"
-              label="Query XML"
-              description="Query XML"
-              order="0"
-              type="java.lang.String"/>
-            <mdParameter
-              name="geoEntityType"
-              label="GeoEntity type"
-              description="The type on which to gather spatial data"
-              order="1"
-              type="java.lang.String"/>
-          </mdMethod>
-        </create>
-      </mdBusiness>
-
       <mdController
         name="dss.vector.solutions.query.QueryController">
         <create>
@@ -748,12 +743,27 @@
           isPost="false">
         </mdAction>
         <mdAction
-          name="newQuery"
+          name="newEntomologyQuery"
           label="New Query"
           isPost="false">
         </mdAction>
         <mdAction
-          name="saveQuery"
+          name="newAggregatedCasesQuery"
+          label="New Query"
+          isPost="false">
+        </mdAction>
+        <mdAction
+          name="saveEntomologyQuery"
+          label="Save Query"
+          isPost="true">
+          <mdParameter
+            name="savedQueryView"
+            label="Saved Query View"
+            order="0"
+            type="dss.vector.solutions.query.SavedSearchView" />
+        </mdAction>
+        <mdAction
+          name="saveAggregatedCasesQuery"
           label="Save Query"
           isPost="true">
           <mdParameter

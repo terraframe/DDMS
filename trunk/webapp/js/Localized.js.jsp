@@ -77,5 +77,17 @@ MDSS.Localized = {
   Age_Group: '<fmt:message key="Age_Group" />',
   All_Ages: '<fmt:message key="All_Ages" />',
 
-  Remove_Column: '<fmt:message key="Remove_Column" />'
+  Remove_Column: '<fmt:message key="Remove_Column" />',
+
+  Aggregated_Case: '<fmt:message key="Aggregated_Case" />',
+
+  Treatment_out_of_Stock: '<fmt:message key="Treatment_out_of_Stock"/>',
+
+  Facility_referred: '<fmt:message key="Facility_referred"/>',
+
+  Diagnostic_methods: '<fmt:message key="Diagnostic_methods"/>',
+
+  Treatment_methods: '<fmt:message key="Treatment_methods"/>',
+
+  Treatments: '<fmt:message key="Treatments"/>'
 };

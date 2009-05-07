@@ -8,10 +8,13 @@ import dss.vector.solutions.query.TextStyleDTO;
 
 public class TextSymbolizer extends Symbolizer implements Reloadable
 {
+  private boolean includeThematic;
 
-  protected TextSymbolizer(LayerDTO layer, TextStyleDTO styleRule)
+  protected TextSymbolizer(LayerDTO layer, TextStyleDTO styleRule, boolean includeThematic)
   {
     super(layer, styleRule);
+
+    this.includeThematic = includeThematic;
   }
 
   @Override
@@ -32,7 +35,15 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
     writer.writeln("<Rule>");
     writer.writeln("<TextSymbolizer>");
     writer.writeln("<Label>");
-    writer.writeln("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
+    writer.write("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
+    if(includeThematic)
+    {
+      writer.writeln(" (<ogc:PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</ogc:PropertyName>)");
+    }
+    else
+    {
+      writer.writeln("");
+    }
     writer.writeln("</Label>");
     writer.writeln("<Font>");
     writer.writeln("<CssParameter name=\"font-family\">"+fontFamily+"</CssParameter>");

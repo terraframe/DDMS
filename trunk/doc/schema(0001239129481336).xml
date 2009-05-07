@@ -280,6 +280,56 @@
             rejectNegative="true" />
         </attributes>
         <mdMethod
+          name="queryAggregatedCase"
+          label="Query Aggregated Case"
+          description="Query Aggregated Case"
+          static="true"
+          returnType="com.terraframe.mojo.query.ValueQuery">
+          <mdParameter
+            name="queryXML"
+            label="Query XML"
+            description="Query XML"
+            order="0"
+            type="java.lang.String"/>
+          <mdParameter
+            name="geoEntityType"
+            label="GeoEntity type"
+            description="The type on which to gather spatial data"
+            order="1"
+            type="java.lang.String"/>
+        </mdMethod>
+        <mdMethod
+          name="mapQuery"
+          label="Map Query"
+          description="Map Query"
+          static="true"
+          returnType="java.lang.String">
+          <mdParameter
+            name="queryXML"
+            label="Query XML"
+            description="Query XML"
+            order="0"
+            type="java.lang.String"/>
+          <mdParameter
+            name="thematicLayerType"
+            label="Thematic Layer Type"
+            description="The GeoEntity type for the base layer with thematic variables."
+            order="1"
+            type="java.lang.String"/>
+          <mdParameter
+            name="universalLayers"
+            label="Universal Layers"
+            description="The universal types that will act as additional layers"
+            order="2"
+            type="java.lang.String[]" />
+          <mdParameter
+            name="savedSearchId"
+            label="SavedSearch Id"
+            description="The id of the SavedSearch for which the map will be generated."
+            order="3"
+            type="java.lang.String"/>
+        </mdMethod>
+        <mdMethod
           name="applyAll"
           static="false"
           returnType="void"

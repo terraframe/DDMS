@@ -76,13 +76,13 @@ public abstract class SLDWriter implements Reloadable
 
   private void writeGeometryStyle(GeometryStyleDTO geoStyle)
   {
-    Symbolizer symbolizer = Symbolizer.getSymbolizer(layer, geoStyle);
+    Symbolizer symbolizer = Symbolizer.getGeometrySymbolizer(layer, geoStyle);
     symbolizer.write(this);
   }
 
-  private void writeTextStyle(TextStyleDTO textStyle)
+  protected void writeTextStyle(TextStyleDTO textStyle)
   {
-    TextSymbolizer textSymbolizer = new TextSymbolizer(layer, textStyle);
+    TextSymbolizer textSymbolizer = new TextSymbolizer(layer, textStyle, false);
     textSymbolizer.write(this);
   }
 
@@ -92,6 +92,11 @@ public abstract class SLDWriter implements Reloadable
     writeln("</UserStyle>");
     writeln("</NamedLayer>");
     writeln("</StyledLayerDescriptor>");
+  }
+
+  protected void write(String line)
+  {
+    builder.append(line);
   }
 
   protected void writeln(String line)

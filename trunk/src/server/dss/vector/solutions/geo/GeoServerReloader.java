@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,6 +26,7 @@ import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
 import dss.vector.solutions.global.CredentialsSingleton;
 import dss.vector.solutions.query.QueryConstants;
 
+
 /**
  * Reloads GeoServer to make it aware of new database map views.
  */
@@ -32,13 +34,16 @@ public class GeoServerReloader
 {
   private static final Pattern JSESSIONID_PATTERN = Pattern.compile("(?:.*?)JSESSIONID=(\\w*);.*");
 
+  private static final ResourceBundle bundle = ResourceBundle.getBundle("GeoServer");
+
   public static void reload(String sessionId, String viewName, MdAttributeGeometry geoAttr)
   {
     try
     {
+      String geoserverPath = bundle.getString("geoserver.path");
 
       // poke the server to get a valid JSESSIONID in the cookie
-      GetMethod pokeGet = new GetMethod("http://127.0.0.1:8080/geoserver/welcome.do");
+      GetMethod pokeGet = new GetMethod(geoserverPath+"/welcome.do");
       NameValuePair[] pokeQueryString = new NameValuePair[]{new NameValuePair(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId)};
       pokeGet.setQueryString(pokeQueryString);
 
@@ -58,7 +63,7 @@ public class GeoServerReloader
       .println("---------------------------------------------------------------------------------");
 
       // request a new feature
-      PostMethod newPost = new PostMethod("http://127.0.0.1:8080/geoserver/config/data/typeNewSubmit.do");
+      PostMethod newPost = new PostMethod(geoserverPath+"/config/data/typeNewSubmit.do");
       newPost.addRequestHeader("Cookie", "JSESSIONID="+jSessionId);
       newPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
       newPost.addParameter("selectedNewFeatureType", QueryConstants.FEATURE_NAMESPACE+":::"+viewName.toLowerCase());
@@ -72,8 +77,7 @@ public class GeoServerReloader
           .println("---------------------------------------------------------------------------------");
 
       // create the feature
-      PostMethod createPost = new PostMethod(
-          "http://127.0.0.1:8080/geoserver/config/data/typeEditorSubmit.do");
+      PostMethod createPost = new PostMethod(geoserverPath+"/config/data/typeEditorSubmit.do");
       createPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
       createPost.addRequestHeader("Cookie", "JSESSIONID="+jSessionId);
 
@@ -126,7 +130,7 @@ public class GeoServerReloader
       createPost.releaseConnection();
 
       // Apply
-       PostMethod applyPost = new PostMethod("http://127.0.0.1:8080/geoserver/admin/saveToGeoServer.do");
+       PostMethod applyPost = new PostMethod(geoserverPath+"/admin/saveToGeoServer.do");
        applyPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
        applyPost.addParameter("submit", "Apply");
 
@@ -135,7 +139,7 @@ public class GeoServerReloader
        printResponse("Apply", applyResponse, applyPost, false);
 
       // Save
-      PostMethod savePost = new PostMethod("http://127.0.0.1:8080/geoserver/admin/saveToXML.do");
+      PostMethod savePost = new PostMethod(geoserverPath+"/admin/saveToXML.do");
       savePost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
       savePost.addParameter("submit", "Save");
 
@@ -144,7 +148,7 @@ public class GeoServerReloader
       printResponse("Save", saveResponse, savePost, false);
 
       // reload the catalog
-      GetMethod get1 = new GetMethod("http://127.0.0.1:8080/geoserver/admin/loadFromXML.do");
+      GetMethod get1 = new GetMethod(geoserverPath+"/admin/loadFromXML.do");
       NameValuePair[] params = new NameValuePair[] { new NameValuePair(
           CredentialsSingleton.GLOBAL_SESSION_ID, sessionId) };
       get1.setQueryString(params);

@@ -83,7 +83,6 @@ public class PolygonSymbolizer extends Symbolizer implements Reloadable
 
   private void writeSymbolizer(SLDWriter writer, String fill, String strokeWidth, String stroke)
   {
-    writer.writeln("<Rule>");
     writer.writeln("<PolygonSymbolizer>");
     writer.writeln("<Fill>");
     writer.writeln("<CssParameter name=\"fill\">"+fill+"</CssParameter>");
@@ -93,6 +92,5 @@ public class PolygonSymbolizer extends Symbolizer implements Reloadable
     writer.writeln("<CssParameter name=\"stroke-width\">"+strokeWidth+"</CssParameter>");
     writer.writeln("</Stroke>");
     writer.writeln("</PolygonSymbolizer>");
-    writer.writeln("</Rule>");
   }
 }

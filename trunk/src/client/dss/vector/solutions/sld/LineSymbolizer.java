@@ -83,13 +83,11 @@ public class LineSymbolizer extends Symbolizer implements Reloadable
   private void writeSymbolizer(SLDWriter writer, String strokeWidth, String stroke)
   {
 
-    writer.writeln("<Rule>");
     writer.writeln("<LineSymbolizer>");
     writer.writeln("<Stroke>");
     writer.writeln("<CssParameter name=\"stroke\">"+stroke+"</CssParameter>");
     writer.writeln("<CssParameter name=\"stroke-width\">"+strokeWidth+"</CssParameter>");
     writer.writeln("</Stroke>");
     writer.writeln("</LineSymbolizer>");
-    writer.writeln("</Rule>");
   }
 }

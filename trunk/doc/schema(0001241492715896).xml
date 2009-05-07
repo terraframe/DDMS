@@ -3,11 +3,53 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
+
+      <object
+        id="MDSSPersonAdmin"
+        type="dss.vector.solutions.Person"
+        key="dss.vector.solutions.MDSSPersonAdmin">
+      </object>
+
+      <object
+        id="MDSSUserAdmin"
+        type="dss.vector.solutions.MDSSUser">
+        <valueAttribute
+          name="username"
+          value="MDSS" />
+        <valueAttribute
+          name="password"
+          value="mdsstest2" />
+        <referenceAttribute
+          name="person"
+          id="MDSSPersonAdmin" />
+      </object>
+
       <mdException
         name="dss.vector.solutions.InvalidEpiStartFormat"
         label="Invalid Epi Start Format"
         description="Property does not conform to the date format." />
+
     </create>
+
+    <update>
+
+      <object
+        id="MDSSPersonAdmin"
+        type="dss.vector.solutions.Person"
+        key="dss.vector.solutions.MDSSPersonAdmin">
+        <referenceAttribute
+          name="userDelegate"
+          id="MDSSUserAdmin" />
+      </object>
+
+    </update>
+
+    <permissions>
+      <user userName="MDSS">
+        <assignedRole roleName="Administrator"/>
+      </user>
+    </permissions>
+
   </doIt>
   <undoIt>
     <delete>

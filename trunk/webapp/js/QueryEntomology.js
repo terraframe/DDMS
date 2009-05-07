@@ -112,7 +112,7 @@ MDSS.QueryEntomology = (function(){
       var formatted = MojoCal.getMojoDateString(startDate);
 
       var attribute = new MDSS.QueryXML.Attribute(mosquitoEntity.getAlias(), testDate);
-      var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
+      var selectable = new MDSS.QueryXML.Selectable(attribute);
       var startDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.GE, formatted);
       conditions.push(startDateCondition);
     }
@@ -124,7 +124,7 @@ MDSS.QueryEntomology = (function(){
       var formatted = MojoCal.getMojoDateString(endDate);
 
       var attribute = new MDSS.QueryXML.Attribute(mosquitoEntity.getAlias(), testDate);
-      var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
+      var selectable = new MDSS.QueryXML.Selectable(attribute);
       var endDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, formatted);
       conditions.push(endDateCondition);
     }
@@ -280,19 +280,19 @@ MDSS.QueryEntomology = (function(){
 
       // selectables (entityName, geoId and spatial attribute)
       var entityNameAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getEntityNameMd().getName(), entityNameColumn);
-      var entityNameSel = new MDSS.QueryXML.SimpleSelectable(entityNameAttr);
+      var entityNameSel = new MDSS.QueryXML.Selectable(entityNameAttr);
 
       _queryXML.addSelectable(type+'_'+entityNameAttr.getName(), entityNameSel);
 
       var geoIdAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getGeoIdMd().getName(), geoIdColumn);
-      var geoIdSel = new MDSS.QueryXML.SimpleSelectable(geoIdAttr);
+      var geoIdSel = new MDSS.QueryXML.Selectable(geoIdAttr);
 
       _queryXML.addSelectable(type+'_'+geoIdAttr.getName(), geoIdSel, geoIdAttr.getName());
     }
 
     // add restriction based on geoId
     var attribute = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), bestFit.getGeoIdMd().getName());
-    var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
+    var selectable = new MDSS.QueryXML.Selectable(attribute);
     var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, bestFit.getGeoId());
 
     var and = new MDSS.QueryXML.And();
@@ -369,7 +369,7 @@ MDSS.QueryEntomology = (function(){
 
     var displayLabel = Mojo.$.dss.vector.solutions.mo.Specie.DISPLAYLABEL;
     var dlAttribute = new MDSS.QueryXML.Attribute(specieEntity.getAlias(), displayLabel);
-    var dlSelectable = new MDSS.QueryXML.SimpleSelectable(dlAttribute);
+    var dlSelectable = new MDSS.QueryXML.Selectable(dlAttribute);
     _queryXML.addSelectable(specieEntity.getAlias()+'_'+displayLabel, dlSelectable);
   }
 
@@ -438,7 +438,7 @@ MDSS.QueryEntomology = (function(){
     var mosquitoEntity = _queryXML.getEntity(mosquito);
 
     var attribute = new MDSS.QueryXML.Attribute(mosquitoEntity.getAlias(), attributeObj.key, attributeObj.key);
-    var selectable = new MDSS.QueryXML.SimpleSelectable(attribute);
+    var selectable = new MDSS.QueryXML.Selectable(attribute);
     _queryXML.addSelectable(mosquitoEntity.getAlias()+'_'+column.getKey(), selectable);
   }
 

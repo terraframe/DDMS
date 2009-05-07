@@ -129,13 +129,15 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     // include the thematic layer (if applicable).
     if(thematicLayer != null)
     {
-      Matcher matcher = thematicLayer.matchOnThematicVariable();
-      if(matcher != null)
+//      Matcher matcher = thematicLayer.matchOnThematicVariable();
+//      if(matcher != null)
+      String thematicVariable = thematicLayer.getThematicVariable();
+      if(thematicVariable != null && thematicVariable.trim().length() > 0)
       {
-        String entityAlias = matcher.group(ThematicLayer.TYPE_GROUP);
-        String variable = matcher.group(ThematicLayer.VARIABLE_GROUP);
+//        String entityAlias = matcher.group(ThematicLayer.TYPE_GROUP);
+//        String variable = matcher.group(ThematicLayer.VARIABLE_GROUP);
 
-        valueQueryParser.addAttributeSelectable(entityAlias, variable, "", QueryConstants.THEMATIC_DATA_COLUMN);
+        valueQueryParser.addAttributeSelectable(Mosquito.CLASS, thematicVariable, "", QueryConstants.THEMATIC_DATA_COLUMN);
       }
     }
 

@@ -488,15 +488,20 @@ div.colorPickerValue {
 	background-color: #EEFF39;
 }
 
-#ageGroupItem {
+#ageGroupItem, #visibleAttributesItem {
 	margin-top: 3px;
 }
 
-#ageGroupItem li {
+#ageGroupItem li, #visibleAttributesItem li, .gridList li {
 	height: 13px;
+	white-space: nowrap;
 	border: none !important;
 }
 
-#ageGroupItem li input {
+#ageGroupItem li input, #visibleAttributesItem li input, .gridList li input {
+	margin-right: 5px;
+}
+
+#visibleAttributesItem li select, .gridList li select {
 	margin-right: 5px;
 }

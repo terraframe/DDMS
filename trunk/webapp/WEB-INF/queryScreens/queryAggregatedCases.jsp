@@ -46,7 +46,9 @@
     var ageGroups = <%= (String) request.getAttribute("ageGroups") %>;
     var visibleAttributes = <%= (String) request.getAttribute("visibleAttributes") %>;
 
-    MDSS.QueryAggregatedCases.initialize(ageGroups, visibleAttributes, queryList);
+    var orderedGrids = <%= (String) request.getAttribute("orderedGrids") %>;
+
+    MDSS.QueryAggregatedCases.initialize(ageGroups, visibleAttributes, orderedGrids, queryList);
 
     MDSS.QueryAggregatedCases.render();
 

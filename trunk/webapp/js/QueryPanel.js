@@ -9,7 +9,6 @@ MDSS.QueryXML = {
     GE: 'GE',
     LT: 'LT',
     LE: 'LE'
-
   }
 };
 
@@ -439,11 +438,11 @@ MDSS.QueryXML.Select.prototype = {
 /**
  * Class to represent a selectable.
  */
-MDSS.QueryXML.SimpleSelectable = function(component)
+MDSS.QueryXML.Selectable = function(component)
 {
   this._component = component;
 }
-MDSS.QueryXML.SimpleSelectable.prototype = {
+MDSS.QueryXML.Selectable.prototype = {
 
   build : function()
   {
@@ -482,6 +481,81 @@ MDSS.QueryXML.Attribute.prototype = {
     };
 
     return obj;
+  }
+}
+
+MDSS.QueryXML.SUM = function(selectable, userAlias)
+{
+  this._selectable = selectable;
+  this._userAlias = userAlias;
+}
+MDSS.QueryXML.SUM.prototype = {
+
+  build : function()
+  {
+  	var selectableObj = this._selectable.build();
+    var alias = this._userAlias != null ? this._userAlias : '';
+
+  	var obj = {
+  	  'sum': [selectableObj,
+  	  {'userAlias': alias}]
+  	};
+
+  	return obj;
+  }
+}
+
+MDSS.QueryXML.MIN = function(selectable)
+{
+  this._selectable = selectable;
+}
+MDSS.QueryXML.MIN.prototype = {
+
+  build : function()
+  {
+  	var selectableObj = this._selectable.build();
+
+  	var obj = {
+  	  'min': selectableObj
+  	};
+
+  	return obj;
+  }
+}
+
+MDSS.QueryXML.MAX = function(selectable)
+{
+  this._selectable = selectable;
+}
+MDSS.QueryXML.MAX.prototype = {
+
+  build : function()
+  {
+  	var selectableObj = this._selectable.build();
+
+  	var obj = {
+  	  'max': selectableObj
+  	};
+
+  	return obj;
+  }
+}
+
+MDSS.QueryXML.AVG = function(selectable)
+{
+  this._selectable = selectable;
+}
+MDSS.QueryXML.AVG.prototype = {
+
+  build : function()
+  {
+  	var selectableObj = this._selectable.build();
+
+  	var obj = {
+  	  'avg': selectableObj
+  	};
+
+  	return obj;
   }
 }
 
@@ -563,10 +637,10 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
     width: 800,
     units: [
         { position: 'top', height: 40, resize: false, body: '', gutter: '2' },
-        { position: 'left', width: 150, resize: false, body: '', gutter: '0 5 0 2', scroll: true },
+        { position: 'left', width: 180, resize: true, body: '', gutter: '0 5 0 2', scroll: true },
         { position: 'bottom', height: 40, body: '', gutter: '2' },
         { position: 'center', body: '<div id="'+this.QUERY_DATA_TABLE+'"></div>', gutter: '0 2 0 0', scroll: true },
-        { position: 'right', width: 150, body: '', resize: false, scroll: true, gutter: '0 5 0 2'}
+        { position: 'right', width: 120, body: '', resize: false, scroll: true, gutter: '0 5 0 2'}
     ]
   });
 
@@ -656,8 +730,6 @@ MDSS.QueryPanel.prototype = {
 
   END_DATE_RANGE : "endDateRange",
 
-  MAP_QUERY_BUTTON : "mapQueryButton",
-
   REFRESH_MAP_BUTTON : "refreshMapButton",
 
   RUN_QUERY_BUTTON : "runQueryButton",
@@ -673,8 +745,6 @@ MDSS.QueryPanel.prototype = {
   {
     this._currentSavedSearch = savedSearch;
 
-    // enable mapping
-    this._enableMapping();
     this._buildUniversalList();
   },
 
@@ -874,7 +944,7 @@ MDSS.QueryPanel.prototype = {
     // list thematic variables
     var thematicDiv = new YAHOO.util.Element(document.createElement('div'));
 
-    var thematicSpan = document.createElement('span');
+    var thematicSpan = document.createElement('div');
     thematicSpan.innerHTML = MDSS.Localized.Thematic.Layer;
 
     var thematicLayerId = this._currentSavedSearch.thematicLayerId;
@@ -1077,15 +1147,6 @@ MDSS.QueryPanel.prototype = {
    */
   _buildButtons : function()
   {
-    // query panel buttons
-    this._mapButton = new YAHOO.util.Element(document.createElement('input'));
-    this._mapButton.set('type', 'button');
-    this._mapButton.set('value', MDSS.Localized.Query.Map);
-    this._mapButton.set('id', this.MAP_QUERY_BUTTON);
-    this._mapButton.addClass('queryButton');
-    this._mapButton.set('disabled', 'disabled');
-    this._mapButton.on('click', this._mapQuery, {}, this);
-
     this._runButton = new YAHOO.util.Element(document.createElement('input'));
     this._runButton.set('type', 'button');
     this._runButton.set('value', MDSS.Localized.Query.Run);
@@ -1125,7 +1186,6 @@ MDSS.QueryPanel.prototype = {
 
     var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
     qBottom.appendChild(this._runButton);
-    qBottom.appendChild(this._mapButton);
 
     var qRight = new YAHOO.util.Element(this._qRightUnit.body);
     qRight.appendChild(this._queryList);
@@ -1428,19 +1488,6 @@ MDSS.QueryPanel.prototype = {
     this._dataTable.deleteRows(0, this._dataTable.getRecordSet().getLength());
   },
 
-  _enableMapping : function()
-  {
-    var mapButton = new YAHOO.util.Element(this.MAP_QUERY_BUTTON);
-    mapButton.set('disabled', '');
-  },
-
-  isMappingEnabled : function()
-  {
-    var mapButton = new YAHOO.util.Element(this.MAP_QUERY_BUTTON);
-    var disabled = mapButton.get('disabled');
-    return disabled != true && disabled !== 'disabled';
-  },
-
   /**
    * Adds a map with the given configuration.
    */
@@ -1674,6 +1721,7 @@ MDSS.ColorPicker.prototype = {
       //this._dialog.renderEvent.subscribe(rBound);
       this._dialog.setBody('<div class="yui-picker" id="'+this._baseId+'_picker"></div>');
       this._dialog.render(document.body);
+      this._dialog.bringToTop();
 
       this._renderPicker();
     }

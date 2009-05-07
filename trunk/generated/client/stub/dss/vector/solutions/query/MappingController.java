@@ -1,15 +1,22 @@
 package dss.vector.solutions.query;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ComponentDTOFacade;
+import com.terraframe.mojo.transport.attributes.AttributeDTO;
+import com.terraframe.mojo.transport.attributes.AttributeNumberDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.sld.SLDWriter;
+import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 
 public class MappingController extends MappingControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -38,8 +45,26 @@ public class MappingController extends MappingControllerBase implements
 
       List<? extends AbstractCategoryDTO> categories = layer.getAllDefinesCategory();
 
-      req.setAttribute("variables", thematicVariables);
       req.setAttribute("categories", categories);
+      req.setAttribute("thematicVariable", layer.getThematicVariable());
+
+      // createMap of display labels since
+      AggregatedCaseDTO caseDTO = new AggregatedCaseDTO(this.getClientRequest());
+      Map<String, String> labels = new HashMap<String, String>();
+      List<String> allowedVariables = new LinkedList<String>();
+      for(String variable : thematicVariables)
+      {
+        AttributeDTO aDTO = ComponentDTOFacade.getAttributeDTO(caseDTO, variable);
+        if(aDTO instanceof AttributeNumberDTO)
+        {
+          allowedVariables.add(variable);
+          labels.put(variable, aDTO.getAttributeMdDTO().getDisplayLabel());
+        }
+      }
+
+      req.setAttribute("variables", allowedVariables);
+      req.setAttribute("labels", labels);
+
 
       req.getRequestDispatcher(EDIT_VARIABLE_STYLES).forward(req, resp);
 
