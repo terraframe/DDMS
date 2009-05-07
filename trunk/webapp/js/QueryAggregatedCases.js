@@ -789,6 +789,7 @@ MDSS.QueryAggregatedCases = (function(){
     if(func === 'GB')
     {
   	  _removeGridAttribute(relAlias, busAlias, optionName, false, false);
+      _gridSelectables[relAlias] = selectable;
       _gridGroupBySelectables[relAlias] = selectable;
       return;
     }
@@ -844,6 +845,7 @@ MDSS.QueryAggregatedCases = (function(){
     if(func === 'GB')
     {
   	  _removeVisibleAttribute(attributeName, false, false);
+      _visibleSelectables[attributeName] = selectable;
       _visibleGroupBySelectables[attributeName] = selectable;
       return;
     }
