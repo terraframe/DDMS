@@ -1,10 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
 
-import com.terraframe.mojo.util.Converter;
-
-import dss.vector.solutions.entomology.assay.AbstractAssayDTOBase;
-import dss.vector.solutions.util.DateConverter;
 
 public abstract class AbstractAssayDTO extends AbstractAssayDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
@@ -25,11 +21,4 @@ public abstract class AbstractAssayDTO extends AbstractAssayDTOBase
   {
     super(businessDTO, clientRequest);
   }
-  
-  public Converter getTestDateConverter()
-  {
-    String label = getTestDateMd().getDisplayLabel();
-    
-    return new DateConverter(label);
-  }  
 }

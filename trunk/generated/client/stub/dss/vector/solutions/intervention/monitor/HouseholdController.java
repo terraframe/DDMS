@@ -110,6 +110,7 @@ public class HouseholdController extends HouseholdControllerBase implements
     if (!uri.contains(".view.mojo"))
     {
       String path = req.getRequestURL().toString();
+      path = path.replaceFirst("PersonController", "HouseholdController");
       resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
       return;
     }
@@ -163,8 +164,10 @@ public class HouseholdController extends HouseholdControllerBase implements
     HouseholdDTO dto = new HouseholdDTO(clientRequest);
     dto.setSurveyPoint(SurveyPointDTO.get(clientRequest, surveyId));
 
+    HouseholdNetDTO[] nets = dto.getHouseholdNets();
+
     req.setAttribute("windowType", WindowTypeDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("nets", Arrays.asList(dto.getHouseholdNets()));
+    req.setAttribute("nets", Arrays.asList(nets));
     req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
     req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
     req.setAttribute("item", dto);

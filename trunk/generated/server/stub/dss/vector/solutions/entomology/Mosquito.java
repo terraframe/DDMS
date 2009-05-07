@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedBusinessQuery;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
@@ -53,6 +54,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   }
 
   @Override
+  @Transaction
   public void delete()
   {
     // DELETE all of the mosquito test results first

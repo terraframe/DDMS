@@ -15,7 +15,6 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.mo.CollectionMethodDTO;
-import dss.vector.solutions.util.DateConverter;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class MosquitoCollectionController extends MosquitoCollectionControllerBase implements Reloadable
@@ -280,23 +279,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     CollectionMethodDTO[] methods = CollectionMethodDTO.getAll( super.getClientSession().getRequest());
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
 
-    if (geoId == null || collectionDate == null)
-    {
-      this.search();
-
-      return;
-    }
-
-    try
-    {
-      Date d = (Date) new DateConverter("Collection Date").parse(collectionDate, this.getRequest().getLocale());
-
-      this.searchByGeoIdAndDate(geoId, d, collectionMethod);
-    }
-    catch (Exception e)
-    {
-      this.search();
-    }
+    this.search();
   }
 
   public void search() throws java.io.IOException, javax.servlet.ServletException

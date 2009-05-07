@@ -13,13 +13,6 @@ public abstract class AbstractSprayViewDTO extends AbstractSprayViewDTOBase
     super(clientRequest);
   }
   
-  public Converter getSprayDateConverter()
-  {
-    String label = getSprayDateMd().getDisplayLabel();
-    
-    return new DateConverter(label);
-  }  
-  
   public boolean hasConcrete()
   {
     return (this.getSprayId() != null && !this.getSprayId().equals(""));

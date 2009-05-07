@@ -1,8 +1,5 @@
 package dss.vector.solutions.intervention.monitor;
 
-import com.terraframe.mojo.util.Converter;
-
-import dss.vector.solutions.util.DateConverter;
 
 public class PersonViewDTO extends PersonViewDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
@@ -11,13 +8,6 @@ public class PersonViewDTO extends PersonViewDTOBase
   public PersonViewDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
-  }
-
-  public Converter getDobConverter()
-  {
-    String label = getDobMd().getDisplayLabel();
-
-    return new DateConverter(label);
   }
 
   @Override

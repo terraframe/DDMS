@@ -12,7 +12,6 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.util.DateConverter;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class MosquitoCollectionPointController extends MosquitoCollectionPointControllerBase implements
@@ -254,28 +253,11 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
 
   public void failSearchByGeoIdAndDate(String geoId, String startDate, String endDate) throws java.io.IOException, javax.servlet.ServletException
   {
-    try
-    {
-      if (geoId == null || startDate == null || endDate == null)
-      {
-        this.search();
-
-        return;
-      }
-
-      Date sd = (Date) new DateConverter("Start Date").parse(startDate, this.getRequest().getLocale());
-      Date ed = (Date) new DateConverter("End Date").parse(endDate, this.getRequest().getLocale());
-      this.searchByGeoIdAndDate(geoId, sd, ed);
-    }
-    catch (Exception e)
-    {
-      this.search();
-    }
+    this.search();
   }
 
   public void search() throws java.io.IOException, javax.servlet.ServletException
-  {
-    
+  {    
     render("searchComponent.jsp");
   }
 

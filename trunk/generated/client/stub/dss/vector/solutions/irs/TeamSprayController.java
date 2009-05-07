@@ -15,7 +15,6 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.util.DateConverter;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class TeamSprayController extends TeamSprayControllerBase implements Reloadable
@@ -99,10 +98,10 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
   public void view(TeamSprayViewDTO dto) throws IOException, ServletException
   {
     // FIXME: This is a hack to ensure the dto is dirty when its sent back to
-    // the server. Remove when nathan has submitted his fix.    
+    // the server. Remove when nathan has submitted his fix.
     dto.setModified(true);
     dto.setModified(TeamSprayViewDTO.SPRAYID, true);
-    
+
     req.setAttribute("item", dto);
     req.setAttribute("status", dto.getStatus());
     req.setAttribute("page_title", "View Team Sprays");
@@ -191,7 +190,6 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
       TeamSprayViewDTO dto = TeamSprayViewDTO.searchBySprayData(this.getClientRequest(), geoId, date,
           method, brand, team.getId());
 
-
       if (dto.hasConcrete())
       {
         view(dto);
@@ -266,34 +264,25 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
   public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date,
       String method, SprayTeamDTO operator) throws IOException, ServletException
   {
-    try
-    {
-      Date d = (Date) new DateConverter("Spray Date").parse(date, this.getRequest().getLocale());
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-      this.searchByParameters(brand, geoId, d, method, operator);
-    }
-    catch (Exception e)
-    {
-      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+    InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+    List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
+    List<? extends SprayTeamDTO> teams = SprayTeamDTO.getAllInstances(clientRequest,
+        SprayTeamDTO.TEAMCODE, true, 0, 0).getResultSet();
 
-      InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
-      List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
-      List<? extends SprayTeamDTO> teams = SprayTeamDTO.getAllInstances(clientRequest,
-          SprayTeamDTO.TEAMCODE, true, 0, 0).getResultSet();
+    req.setAttribute("methods", methods);
+    req.setAttribute("brands", Arrays.asList(brands));
+    req.setAttribute("teams", teams);
+    req.setAttribute("page_title", "Search for an Team Spray");
 
-      req.setAttribute("methods", methods);
-      req.setAttribute("brands", Arrays.asList(brands));
-      req.setAttribute("teams", teams);
-      req.setAttribute("page_title", "Search for an Team Spray");
+    req.setAttribute("brand", brand);
+    req.setAttribute("date", date);
+    req.setAttribute("geoId", geoId);
+    req.setAttribute("method", method);
+    req.setAttribute("team", operator);
+    req.setAttribute("page_title", "Search for an Team Spray");
 
-      req.setAttribute("brand", brand);
-      req.setAttribute("date", date);
-      req.setAttribute("geoId", geoId);
-      req.setAttribute("method", method);
-      req.setAttribute("team", operator);
-      req.setAttribute("page_title", "Search for an Team Spray");
-
-      render("searchComponent.jsp");
-    }
+    render("searchComponent.jsp");
   }
 }

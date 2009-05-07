@@ -3,10 +3,6 @@ package dss.vector.solutions.surveillance;
 import java.text.DateFormat;
 import java.util.Locale;
 
-import com.terraframe.mojo.util.Converter;
-
-import dss.vector.solutions.util.DateConverter;
-
 public class AggregatedCaseDTO extends AggregatedCaseDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   private static final long serialVersionUID = 1238693161900L;
@@ -25,20 +21,6 @@ public class AggregatedCaseDTO extends AggregatedCaseDTOBase
   protected AggregatedCaseDTO(com.terraframe.mojo.business.BusinessDTO businessDTO, com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
-  }
-
-  public Converter getStartDateConverter()
-  {
-    String label = getStartDateMd().getDisplayLabel();
-
-    return new DateConverter(label);
-  }
-
-  public Converter getEndDateConverter()
-  {
-    String label = getEndDateMd().getDisplayLabel();
-
-    return new DateConverter(label);
   }
 
   public String getFormattedStartDate()

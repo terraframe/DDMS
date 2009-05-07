@@ -37,11 +37,4 @@ public abstract class ConcreteMosquitoCollectionDTO extends ConcreteMosquitoColl
     
     return this.getId();
   }
-  
-  public Converter getDateCollectedConverter()
-  {
-    String label = getDateCollectedMd().getDisplayLabel();
-    
-    return new DateConverter(label);
-  }
 }

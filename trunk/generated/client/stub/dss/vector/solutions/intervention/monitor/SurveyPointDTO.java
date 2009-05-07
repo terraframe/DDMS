@@ -3,10 +3,6 @@ package dss.vector.solutions.intervention.monitor;
 import java.text.DateFormat;
 import java.util.Locale;
 
-import com.terraframe.mojo.util.Converter;
-
-import dss.vector.solutions.util.DateConverter;
-
 public class SurveyPointDTO extends SurveyPointDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   private static final long serialVersionUID = 1239641306792L;
@@ -27,13 +23,6 @@ public class SurveyPointDTO extends SurveyPointDTOBase
     super(businessDTO, clientRequest);
   }
 
-  public Converter getSurveyDateConverter()
-  {
-    String label = getSurveyDateMd().getDisplayLabel();
-
-    return new DateConverter(label);
-  }
-
   public String getDisplayLabel()
   {
     //TODO localize the this display label
@@ -41,5 +30,4 @@ public class SurveyPointDTO extends SurveyPointDTOBase
 
     return this.getGeoEntity().getEntityName() + " - " + format.format(this.getSurveyDate());
   }
-
 }

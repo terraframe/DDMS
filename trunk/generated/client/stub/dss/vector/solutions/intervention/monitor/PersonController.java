@@ -136,7 +136,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
 
       dto.delete();
 
-      new HouseholdController(req, resp, isAsynchronous).view(household.getId());
+      new HouseholdController(req, resp, isAsynchronous).view(household);
     }
     catch (ProblemExceptionDTO e)
     {

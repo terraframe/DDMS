@@ -254,30 +254,21 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
   public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date, String method)
       throws IOException, ServletException
   {
-    try
-    {
-      Date d = (Date) new DateConverter("Spray Date").parse(date, this.getRequest().getLocale());
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-      this.searchByParameters(brand, geoId, d, method);
-    }
-    catch (Exception e)
-    {
-      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+    InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+    List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
 
-      InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
-      List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
+    req.setAttribute("methods", methods);
+    req.setAttribute("brands", Arrays.asList(brands));
+    req.setAttribute("page_title", "Search for an Zone Spray");
 
-      req.setAttribute("methods", methods);
-      req.setAttribute("brands", Arrays.asList(brands));
-      req.setAttribute("page_title", "Search for an Zone Spray");
+    req.setAttribute("brand", brand);
+    req.setAttribute("date", date);
+    req.setAttribute("geoId", geoId);
+    req.setAttribute("method", method);
+    req.setAttribute("page_title", "Search for an Zone Spray");
 
-      req.setAttribute("brand", brand);
-      req.setAttribute("date", date);
-      req.setAttribute("geoId", geoId);
-      req.setAttribute("method", method);
-      req.setAttribute("page_title", "Search for an Zone Spray");
-
-      render("searchComponent.jsp");
-    }
+    render("searchComponent.jsp");
   }
 }

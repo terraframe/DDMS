@@ -12,7 +12,6 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
-import dss.vector.solutions.util.DateConverter;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class OperatorSprayController extends OperatorSprayControllerBase implements
@@ -267,34 +266,25 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
   public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date,
       String method, SprayOperatorDTO operator) throws IOException, ServletException
   {
-    try
-    {
-      Date d = (Date) new DateConverter("Spray Date").parse(date, this.getRequest().getLocale());
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-      this.searchByParameters(brand, geoId, d, method, operator);
-    }
-    catch (Exception e)
-    {
-      ClientRequestIF clientRequest = super.getClientSession().getRequest();
+    InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+    List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
+    SprayOperatorViewDTO[] operators = SprayOperatorViewDTO.getAll(clientRequest);
 
-      InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
-      List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
-      SprayOperatorViewDTO[] operators = SprayOperatorViewDTO.getAll(clientRequest);
+    req.setAttribute("methods", methods);
+    req.setAttribute("brands", Arrays.asList(brands));
+    req.setAttribute("operators", Arrays.asList(operators));
+    req.setAttribute("page_title", "Search for an Operator Spray");
 
-      req.setAttribute("methods", methods);
-      req.setAttribute("brands", Arrays.asList(brands));
-      req.setAttribute("operators", Arrays.asList(operators));
-      req.setAttribute("page_title", "Search for an Operator Spray");
+    req.setAttribute("brand", brand);
+    req.setAttribute("date", date);
+    req.setAttribute("geoId", geoId);
+    req.setAttribute("method", method);
+    req.setAttribute("operator", operator);
+    req.setAttribute("page_title", "Search for an Operator Spray");
 
-      req.setAttribute("brand", brand);
-      req.setAttribute("date", date);
-      req.setAttribute("geoId", geoId);
-      req.setAttribute("method", method);
-      req.setAttribute("operator", operator);
-      req.setAttribute("page_title", "Search for an Operator Spray");
-
-      render("searchComponent.jsp");
-    }
+    render("searchComponent.jsp");
   }
 
 }
