@@ -16,6 +16,7 @@ public class InsecticideBrandView extends InsecticideBrandViewBase implements
 
   public void populateConcrete(InsecticideBrand brand)
   {
+    brand.setBrandName(this.getBrandName());
     brand.setActiveIngredient(this.getActiveIngredient());
     brand.setAmount(this.getAmount());
     brand.setWeight(this.getWeight());

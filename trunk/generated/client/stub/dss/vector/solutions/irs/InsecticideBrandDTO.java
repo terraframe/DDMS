@@ -32,9 +32,6 @@ public class InsecticideBrandDTO extends InsecticideBrandDTOBase implements Relo
 
   public String getDisplayLabel()
   {
-    String ingredientLabel = this.getActiveIngredient().getDisplayLabel();
-    String unitLabel = this.getUnits().get(0).item(this.getRequest()).getDisplayLabel().getDefaultLocale();
-
-    return ingredientLabel + " " + this.getAmount() + " " + unitLabel;
+    return this.getBrandName();
   }
 }

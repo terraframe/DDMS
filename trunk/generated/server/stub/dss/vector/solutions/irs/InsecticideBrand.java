@@ -20,6 +20,7 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
 
   public void populateView(InsecticideBrandView view)
   {
+    view.setBrandName(this.getBrandName());
     view.setActiveIngredient(this.getActiveIngredient());
     view.setAmount(this.getAmount());
     view.setWeight(this.getWeight());
