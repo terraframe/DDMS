@@ -136,3 +136,5 @@
   value="Search"
   />
 </mjl:form>
+
+<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>

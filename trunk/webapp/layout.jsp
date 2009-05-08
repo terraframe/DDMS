@@ -19,5 +19,6 @@
 
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 <%= jsp_as_string %>
+<%out.flush(); %>
 </div>
 <jsp:include page="${footer_jsp}"  flush="false" />
