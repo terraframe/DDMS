@@ -1502,6 +1502,7 @@ MDSS.QueryPanel.prototype = {
   createMap : function(layers)
   {
     var baseLayer = layers[0];
+    var geoServerPath = baseLayer.geoserverURL;
 
     // clear any previous map
     //document.getElementById(this.MAP_CONTAINER).innerHTML = '';
@@ -1533,7 +1534,7 @@ MDSS.QueryPanel.prototype = {
     // setup base tiled layer
     var mapLayers = [];
     var tiled = new OpenLayers.Layer.WMS(
-        "", "http://127.0.0.1:8080/geoserver/wms",
+        "", geoServerPath+"/wms",
         {
             width: '430',
             srs: 'EPSG:4326',
@@ -1556,7 +1557,7 @@ MDSS.QueryPanel.prototype = {
     {
       var layerName = layers[i];
         var extraLayer = new OpenLayers.Layer.WMS(
-        "", "http://127.0.0.1:8080/geoserver/wms",
+        "", geoServerPath+"/wms",
         {
             width: '430',
             srs: 'EPSG:4326',

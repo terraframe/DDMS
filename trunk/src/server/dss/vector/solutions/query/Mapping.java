@@ -60,6 +60,7 @@ public class Mapping implements Reloadable
 
     try
     {
+      String geoserverPath = GeoServerReloader.getGeoServerURL();
       String baseView = QueryConstants.MDSS_NAMESPACE + ":" + viewName.toLowerCase();
       JSONObject baseLayer = new JSONObject();
 
@@ -67,6 +68,7 @@ public class Mapping implements Reloadable
 
       baseLayer.put("view", baseView);
       baseLayer.put("sld", sldFile);
+      baseLayer.put("geoserverURL", geoserverPath);
       layers.put(baseLayer);
     }
     catch (JSONException e)
@@ -94,6 +96,7 @@ public class Mapping implements Reloadable
         try
         {
           String sldFile = formatSLD(layer);
+
 
           layerObj.put("view", namespacedView);
           layerObj.put("sld", sldFile);

@@ -36,11 +36,16 @@ public class GeoServerReloader
 
   private static final ResourceBundle bundle = ResourceBundle.getBundle("GeoServer");
 
+  public static final String getGeoServerURL()
+  {
+    return bundle.getString("geoserver.path");
+  }
+
   public static void reload(String sessionId, String viewName, MdAttributeGeometry geoAttr)
   {
     try
     {
-      String geoserverPath = bundle.getString("geoserver.path");
+      String geoserverPath = getGeoServerURL();
 
       // poke the server to get a valid JSESSIONID in the cookie
       GetMethod pokeGet = new GetMethod(geoserverPath+"/welcome.do");
