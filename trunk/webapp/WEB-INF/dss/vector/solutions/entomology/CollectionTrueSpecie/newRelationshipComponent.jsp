@@ -27,5 +27,5 @@
       </mjl:select>
     </dd>
   </dl>
-  <mjl:command value="New Instance" action="dss.vector.solutions.entomology.CollectionTrueSpecieController.newInstance.mojo" name="dss.vector.solutions.entomology.CollectionTrueSpecie.form.newInstance.button" />
+  <mjl:command value="New_Instance" action="dss.vector.solutions.entomology.CollectionTrueSpecieController.newInstance.mojo" name="dss.vector.solutions.entomology.CollectionTrueSpecie.form.newInstance.button" />
 </mjl:form>

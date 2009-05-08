@@ -27,5 +27,5 @@
       </mjl:select>
     </dd>
   </dl>
-  <mjl:command value="New Instance" action="dss.vector.solutions.intervention.monitor.HouseholdPersonController.newInstance.mojo" name="dss.vector.solutions.intervention.monitor.HouseholdPerson.form.newInstance.button" />
+  <mjl:command value="New_Instance" action="dss.vector.solutions.intervention.monitor.HouseholdPersonController.newInstance.mojo" name="dss.vector.solutions.intervention.monitor.HouseholdPerson.form.newInstance.button" />
 </mjl:form>

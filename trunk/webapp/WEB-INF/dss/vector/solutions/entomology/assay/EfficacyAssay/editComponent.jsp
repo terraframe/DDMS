@@ -50,7 +50,7 @@ YAHOO.util.Event.onDOMReady(function(){
 </script>
 
 <c:set var="window_title" value="Efficacy bioassay data entry" scope="request" />
-<c:set var="page_title" value="Enter New Data" scope="request" />
+<c:set var="page_title" value="Enter_New_Data" scope="request" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>

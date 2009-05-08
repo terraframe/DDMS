@@ -27,5 +27,5 @@
       </mjl:select>
     </dd>
   </dl>
-  <mjl:command value="New Instance" action="dss.vector.solutions.irs.LeadTeamController.newInstance.mojo" name="dss.vector.solutions.irs.LeadTeam.form.newInstance.button" />
+  <mjl:command value="New_Instance" action="dss.vector.solutions.irs.LeadTeamController.newInstance.mojo" name="dss.vector.solutions.irs.LeadTeam.form.newInstance.button" />
 </mjl:form>

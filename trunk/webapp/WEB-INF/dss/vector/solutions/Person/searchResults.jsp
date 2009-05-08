@@ -115,5 +115,5 @@
     <mjl:input type="hidden" param="isSprayLeader" value="${newPerson.isSprayLeader}"/>
     <mjl:input type="hidden" param="isSprayOperator" value="${newPerson.isSprayOperator}"/>
   </mjl:component>
-  <mjl:command value="No Matches, continue with new Person" action="dss.vector.solutions.PersonController.continueNewInstance.mojo" name="dss.vector.solutions.PersonController.continueNewInstance.button" />
+  <mjl:command value="No_Matches__continue_with_new_Person" action="dss.vector.solutions.PersonController.continueNewInstance.mojo" name="dss.vector.solutions.PersonController.continueNewInstance.button" />
 </mjl:form>

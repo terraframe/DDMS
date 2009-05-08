@@ -27,5 +27,5 @@
       </mjl:select>
     </dd>
   </dl>
-  <mjl:command value="New Instance" action="dss.vector.solutions.query.DefinesCategoriesController.newInstance.mojo" name="dss.vector.solutions.query.DefinesCategories.form.newInstance.button" />
+  <mjl:command value="New_Instance" action="dss.vector.solutions.query.DefinesCategoriesController.newInstance.mojo" name="dss.vector.solutions.query.DefinesCategories.form.newInstance.button" />
 </mjl:form>

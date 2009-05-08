@@ -27,5 +27,5 @@
       </mjl:select>
     </dd>
   </dl>
-  <mjl:command value="New Instance" action="dss.vector.solutions.geo.AllowedInController.newInstance.mojo" name="dss.vector.solutions.geo.AllowedIn.form.newInstance.button" />
+  <mjl:command value="New_Instance" action="dss.vector.solutions.geo.AllowedInController.newInstance.mojo" name="dss.vector.solutions.geo.AllowedIn.form.newInstance.button" />
 </mjl:form>

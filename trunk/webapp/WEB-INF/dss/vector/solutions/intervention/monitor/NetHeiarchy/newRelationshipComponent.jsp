@@ -27,5 +27,5 @@
       </mjl:select>
     </dd>
   </dl>
-  <mjl:command value="New Instance" action="dss.vector.solutions.intervention.monitor.NetHeiarchyController.newInstance.mojo" name="dss.vector.solutions.intervention.monitor.NetHeiarchy.form.newInstance.button" />
+  <mjl:command value="New_Instance" action="dss.vector.solutions.intervention.monitor.NetHeiarchyController.newInstance.mojo" name="dss.vector.solutions.intervention.monitor.NetHeiarchy.form.newInstance.button" />
 </mjl:form>
