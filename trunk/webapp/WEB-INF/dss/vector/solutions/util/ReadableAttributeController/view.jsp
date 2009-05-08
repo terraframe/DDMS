@@ -8,7 +8,7 @@
         <mjl:components items="${views}" param="attributeViews" var="view" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
             <td>
-              ${view.displayLabel}
+              <mjl:input type="text" param="displayLabel"/>
             </td>
             <td>
               <mjl:boolean param="readPermission" trueLabel="show" falseLabel="hide" value="${view.readPermission}"/>
