@@ -10,14 +10,8 @@
   <mjl:context action="dss.vector.solutions.irs.SprayTeamController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="teamId">
-      <mjl:header>
-        ${item.teamIdMd.displayLabel}
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="sprayZone">
-      <mjl:header>
-        ${item.sprayZoneMd.displayLabel}
-      </mjl:header>
       <mjl:row>
         ${item.sprayZone.entityName}
       </mjl:row>

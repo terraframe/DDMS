@@ -84,7 +84,7 @@
               </label>
             </dt>
             <dd>
-              <mjl:input type="text" param="password" />
+              <mjl:input type="password" param="password" />
               <mjl:messages attribute="password">
                 <mjl:message />
               </mjl:messages>

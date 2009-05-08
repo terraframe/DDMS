@@ -66,7 +66,7 @@
         </tr>
         <tr>
           <td>
-            <mjl:select var="operator" valueAttribute="operatorId" items="${current}" param="removedIds" multiple="true">
+            <mjl:select var="operator" valueAttribute="operatorId" items="${current}" param="removedIds" multiple="true" size="12">
               <mjl:option>
                 ${operator.firstName} ${operator.lastName}
               </mjl:option>
@@ -76,7 +76,7 @@
             </mjl:messages>
           </td>
           <td>
-            <mjl:select var="operator" valueAttribute="operatorId" items="${available}" param="operatorIds" multiple="true">
+            <mjl:select var="operator" valueAttribute="operatorId" items="${available}" param="operatorIds" multiple="true" size="12">
               <mjl:option>
                 ${operator.firstName} ${operator.lastName}
               </mjl:option>
@@ -86,7 +86,7 @@
             </mjl:messages>
           </td>
           <td>
-            <mjl:select var="operator" valueAttribute="operatorId" items="${assigned}" param="operatorIds" multiple="true">
+            <mjl:select var="operator" valueAttribute="operatorId" items="${assigned}" param="operatorIds" multiple="true" size="12">
               <mjl:option>
                 [${operator.teamId}] ${operator.firstName} ${operator.lastName}
               </mjl:option>
