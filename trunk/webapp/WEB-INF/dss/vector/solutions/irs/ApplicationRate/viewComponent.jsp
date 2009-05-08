@@ -9,7 +9,7 @@
 
   InsecticideBrandViewDTO brandDTO = new InsecticideBrandViewDTO(clientRequest);
   InsecticideBrandViewDTO[] brandRows = InsecticideBrandViewDTO.getAll(clientRequest);
-  String[] brandAttributes = {"InsecticdeId", "ActiveIngredient", "Amount", "Units", "Weight", "SachetsPerRefill", "Enabled"};
+  String[] brandAttributes = {"InsecticdeId", "BrandName", "ActiveIngredient", "Amount", "Units", "Weight", "SachetsPerRefill", "Enabled"};
 
   NozzleViewDTO nozzleDTO = new NozzleViewDTO(clientRequest);
   NozzleViewDTO[] nozzleRows = NozzleViewDTO.getAll(clientRequest);
