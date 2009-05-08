@@ -1,11 +1,20 @@
+********************************************************************************
+*** Make sure that any deploy task EXCLUDES                                  *** 
+*** dss.vector.solutions.global.CredentialsSingleton*.class from MDSS. Those *** 
+*** classes are shared between MDSS and Geoserver and MUST reside in tomcat  ***
+*** root, not a specific app.  Failing to remove exisiting artifacts will    ***
+*** result in ClassCastExceptions                                            ***
+********************************************************************************
+
 1) Put MDSS_GeoServer.jar into webapps/geoserver/WEB-INF/lib
 2) Put web.xml into webapps/geoserver/WEB-INF
+3) Restart the geoserver app
 
 - Namespace
 Prefix: mdss
 Url: http://mdss.terraframe.com
 
 - Datastore
-name: MDSS_maps
+Feature Data Set ID: MDSS_maps
 namespace: mdss
 db login: [deploy db login]
