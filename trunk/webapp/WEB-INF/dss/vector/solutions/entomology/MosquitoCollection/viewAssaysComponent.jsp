@@ -184,10 +184,10 @@ function showCol(key,checked)
 
 UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows, unint_attribs, mdUnIntView)%>,
        columnDefs: <%=Halp.getColumnSetup(mdUnIntView, unint_attribs, delete_row, false,2)%>,
-              defaults: {},
+              defaults: {Collection:'${item.id}'},
               div_id: "UninterestingSpecieGroups",
               copy_from_above: ["IdentificationMethod"],
-              //collection_setter: "setCollection('${item.id}')",
+              //collection_setter: "setCollection()",
               data_type: "Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroupView"
 
           };
