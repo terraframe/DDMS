@@ -151,6 +151,7 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
                  for (AdultTestIntervalViewDTO row : rows)  {
                    ArrayList<String> buff = new ArrayList<String>();
                    buff.add("IntervalId:'" + row.getIntervalId() + "'");
+                   buff.add("Assay:'" + row.getAssay().getId() + "'");
                    buff.add("Period:'" + row.getPeriod() + "'");
                    buff.add("IntervalTime:'" + row.getIntervalTime() + "'");
                    buff.add("KnockedDown:'" + row.getKnockedDown() + "'");
@@ -160,13 +161,14 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
                  out.println("[" +Halp.join(arr,",\n")+ "]");%>
              ,columnDefs:[
                   {key:"IntervalId",label:"ID",hidden:true},
+                  {key:"Assay",label:"AssayId",hidden:true},
                   {key:"Period",label:'<%=rows[0].getPeriodMd().getDisplayLabel()%>'},
                   {key:"IntervalTime",label:'<%=rows[0].getIntervalTimeMd().getDisplayLabel()%>',resizeable:true},
                   {key:"KnockedDown",label:"<%=rows[0].getKnockedDownMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})},
                   {key:"Percent",label:"%",resizeable:true} ],
               defaults: {IntervalId:"",Period:"",IntervalTime:"",KnockedDown:"",Percent:""},
               div_id: "intervals",
-              collection_setter: "setAssay('${item.id}')",
+              //collection_setter: "setAssay('${item.id}')",
               data_type: "Mojo.$.dss.vector.solutions.entomology.assay.AdultTestIntervalView",
               after_row_load:function(record){record.setData('Percent',((parseInt(record.getData('KnockedDown'))*100.0)/<%=kda.getQuantityTested()%>).toFixed(1)+"%");},
               after_save:function(){location.href="./dss.vector.solutions.entomology.assay.KnockDownAssayController.view.mojo?id=${item.id}";}

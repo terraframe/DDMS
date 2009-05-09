@@ -97,7 +97,7 @@
 	ConcreteMosquitoCollectionDTO mosquito_collection = (ConcreteMosquitoCollectionDTO) request.getAttribute("item");
 	MosquitoViewDTO[] rows = mosquito_collection.getMosquitos();
 	MosquitoViewDTO mdView = new MosquitoViewDTO(clientRequest);
-	String[] attribs = {"MosquitoId", "SampleId", "Specie",
+	String[] attribs = {"MosquitoId","Collection", "SampleId", "Specie",
 			"IdentificationMethod", "Generation", "Isofemale", "Sex",
 			"TestDate"};
 
@@ -145,11 +145,10 @@ function showCol(key,checked)
 							clientRequest)%>
     MojoCal.init()
     table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
-                columnDefs:<%=Halp.getColumnSetup(mdView, attribs, delete_row, true)%>,
-              defaults: {},
+                columnDefs:<%=Halp.getColumnSetup(mdView, attribs, delete_row, true,2)%>,
+              defaults: {Collection:'${item.id}'},
               copy_from_above: ["IdentificationMethod"],
               div_id: "Mosquitos",
-              collection_setter: "setCollection('${item.id}')",
               data_type: "Mojo.$.dss.vector.solutions.entomology.MosquitoView",
                 width:"65em"
           };
@@ -177,19 +176,18 @@ function showCol(key,checked)
 <%
 	UninterestingSpecieGroupViewDTO[] unint_rows = mosquito_collection.getUninterestingSpecieGroups();
 	UninterestingSpecieGroupViewDTO mdUnIntView = new UninterestingSpecieGroupViewDTO(clientRequest);
-	String[] unint_attribs = {"GroupId", "SampleId", "Specie",
+	String[] unint_attribs = {"GroupId","Collection", "SampleId", "Specie",
 			"IdentificationMethod", "Quantity"};
 %> <script type="text/javascript">
 <%=Halp.getDropdownSetup(mdUnIntView, unint_attribs,
 							delete_row, clientRequest)%>
 
 UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows, unint_attribs, mdUnIntView)%>,
-       columnDefs: <%=Halp.getColumnSetup(mdUnIntView, unint_attribs,
-							delete_row, false)%>,
+       columnDefs: <%=Halp.getColumnSetup(mdUnIntView, unint_attribs, delete_row, false,2)%>,
               defaults: {},
               div_id: "UninterestingSpecieGroups",
               copy_from_above: ["IdentificationMethod"],
-              collection_setter: "setCollection('${item.id}')",
+              //collection_setter: "setCollection('${item.id}')",
               data_type: "Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroupView"
 
           };

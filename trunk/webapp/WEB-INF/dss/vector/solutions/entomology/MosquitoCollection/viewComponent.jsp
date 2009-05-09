@@ -128,7 +128,7 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
               defaults: {GroupId:"",Specie:"",IdentificationMethod:"",QuantityMale:"",QuantityFemale:"",Quantity:""},
               div_id: "MorphologicalSpecieGroups",
               copy_from_above: ["IdentificationMethod"],
-              collection_setter: "setCollection('${item.id}')",
+              //collection_setter: "setCollection('${item.id}')",
               data_type: "Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
 
           };
