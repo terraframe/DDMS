@@ -63,6 +63,7 @@ public class ZoneSprayTest extends TestCase
     brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");    
     brand.apply();
 
     geoEntity = new SentinelSite();

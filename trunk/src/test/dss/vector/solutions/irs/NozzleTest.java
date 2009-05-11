@@ -43,7 +43,7 @@ public class NozzleTest extends TestCase
 
   public void testCreate()
   {
-    BigDecimal ratio = new BigDecimal("0.30");
+    BigDecimal ratio = new BigDecimal("0.300");
 
     Nozzle nozzle = new Nozzle();
     nozzle.setDisplayLabel("test Nozzle");
@@ -99,7 +99,7 @@ public class NozzleTest extends TestCase
 
   public void testCreateView()
   {
-    BigDecimal ratio = new BigDecimal("0.30");
+    BigDecimal ratio = new BigDecimal("0.300");
 
     NozzleView nozzle = new NozzleView();
     nozzle.setDisplayLabel("test NozzleView");
@@ -239,7 +239,7 @@ public class NozzleTest extends TestCase
 
   public void testApplyAll()
   {
-    BigDecimal ratio = new BigDecimal("0.30");
+    BigDecimal ratio = new BigDecimal("0.300");
 
     NozzleView nozzle = new NozzleView();
     nozzle.setDisplayLabel("test NozzleView");

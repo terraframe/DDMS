@@ -3,7 +3,6 @@ package dss.vector.solutions.entomology;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedBusinessQuery;
@@ -35,7 +34,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     super();
   }
 
-  public List<AssayTestResult> getTestResults()
+  public AssayTestResult[] getTestResults()
   {
     List<AssayTestResult> list = new LinkedList<AssayTestResult>();
     AssayTestResultQuery query = new AssayTestResultQuery(new QueryFactory());
@@ -43,14 +42,19 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     query.WHERE(query.getMosquito().EQ(this));
 
     OIterator<? extends AssayTestResult> iterator = query.getIterator();
-    while (iterator.hasNext())
+
+    try
     {
-      list.add(iterator.next());
+      while (iterator.hasNext())
+      {
+        list.add(iterator.next());
+      }
+      return list.toArray(new AssayTestResult[list.size()]);
     }
-
-    iterator.close();
-
-    return list;
+    finally
+    {
+      iterator.close();
+    }
   }
 
   @Override
@@ -114,11 +118,12 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   *
+   * 
    * @param xml
    * @return
    */
-  private static ValueQuery xmlToValueQuery(String xml, String geoEntityType, boolean includeGeometry, ThematicLayer thematicLayer)
+  private static ValueQuery xmlToValueQuery(String xml, String geoEntityType, boolean includeGeometry,
+      ThematicLayer thematicLayer)
   {
     QueryFactory queryFactory = new QueryFactory();
 
@@ -127,17 +132,18 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     ValueQueryParser valueQueryParser = new ValueQueryParser(xml, valueQuery);
 
     // include the thematic layer (if applicable).
-    if(thematicLayer != null)
+    if (thematicLayer != null)
     {
-//      Matcher matcher = thematicLayer.matchOnThematicVariable();
-//      if(matcher != null)
+      // Matcher matcher = thematicLayer.matchOnThematicVariable();
+      // if(matcher != null)
       String thematicVariable = thematicLayer.getThematicVariable();
-      if(thematicVariable != null && thematicVariable.trim().length() > 0)
+      if (thematicVariable != null && thematicVariable.trim().length() > 0)
       {
-//        String entityAlias = matcher.group(ThematicLayer.TYPE_GROUP);
-//        String variable = matcher.group(ThematicLayer.VARIABLE_GROUP);
+        // String entityAlias = matcher.group(ThematicLayer.TYPE_GROUP);
+        // String variable = matcher.group(ThematicLayer.VARIABLE_GROUP);
 
-        valueQueryParser.addAttributeSelectable(Mosquito.CLASS, thematicVariable, "", QueryConstants.THEMATIC_DATA_COLUMN);
+        valueQueryParser.addAttributeSelectable(Mosquito.CLASS, thematicVariable, "",
+            QueryConstants.THEMATIC_DATA_COLUMN);
       }
     }
 
@@ -151,7 +157,8 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       String attributeName = mdAttrGeo.getAttributeName();
 
       valueQueryParser.addAttributeSelectable(geoEntityType, attributeName, "", "");
-      valueQueryParser.addAttributeSelectable(geoEntityType, GeoEntity.ENTITYNAME, "", QueryConstants.ENTITY_NAME_COLUMN);
+      valueQueryParser.addAttributeSelectable(geoEntityType, GeoEntity.ENTITYNAME, "",
+          QueryConstants.ENTITY_NAME_COLUMN);
     }
 
     Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
@@ -178,7 +185,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
   /**
    * Queries for Mosquitos.
-   *
+   * 
    * @param xml
    */
   public static com.terraframe.mojo.query.ValueQuery queryEntomology(String xml, String geoEntityType)
@@ -188,13 +195,14 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
   /**
    * Creates a
-   *
+   * 
    * @param xml
    * @return
    */
-  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers, String savedSearchId)
+  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers,
+      String savedSearchId)
   {
-    if(savedSearchId == null || savedSearchId.trim().length() == 0)
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot map a query without a current SavedSearch instance.";
       SavedSearchRequiredException ex = new SavedSearchRequiredException(error);

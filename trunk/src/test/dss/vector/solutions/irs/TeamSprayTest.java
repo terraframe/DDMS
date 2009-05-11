@@ -10,9 +10,10 @@ import junit.framework.TestSuite;
 
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
+import dss.vector.solutions.Person;
 import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SentinelSite;
+import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.mo.ActiveIngredient;
 
 public class TeamSprayTest extends TestCase
@@ -24,6 +25,12 @@ public class TeamSprayTest extends TestCase
   private static SprayData data = null;
 
   private static SprayTeam team = null;
+  
+  private static Person person = null;
+  
+  private static SprayOperator operator = null;
+  
+  private static SprayLeader leader = null;
 
 
   public static Test suite()
@@ -51,9 +58,15 @@ public class TeamSprayTest extends TestCase
   protected static void classTearDown()
   {
     SprayData.get(data.getId()).delete();
+    
+    leader.delete();
+    operator.delete();
+    person.delete();
+    SprayTeam.get(team.getId()).delete();
+
     geoEntity.delete();
     brand.delete();
-    team.delete();
+    
   }
 
   protected static void classSetUp()
@@ -68,11 +81,12 @@ public class TeamSprayTest extends TestCase
     brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");
     brand.apply();
 
-    geoEntity = new SentinelSite();
+    geoEntity = new SprayZone();
     geoEntity.setGeoId("0");
-    geoEntity.setEntityName("Sentinel Site");
+    geoEntity.setEntityName("Spray Zone");
     geoEntity.apply();
 
     data = new SprayData();
@@ -82,10 +96,30 @@ public class TeamSprayTest extends TestCase
     data.addSprayMethod(SprayMethod.MAIN_SPRAY);
     data.addSurfaceType(SurfaceType.POROUS);
     data.apply();
+    
+    person = new Person();
+    person.setFirstName("Justin");
+    person.setLastName("Smethie");
+    person.setDateOfBirth(new Date());
+    person.apply();
+    
+    operator = new SprayOperator();
+    operator.setPerson(person);
+    operator.setOperatorId("0012");
+    operator.apply();
+    
+    leader = new SprayLeader();
+    leader.setPerson(person);
+    leader.apply();
+        
+    person.setSprayLeaderDelegate(leader);
+    person.setSprayOperatorDelegate(operator);
 
     team = new SprayTeam();
     team.setTeamId("322");
-    team.apply();
+    team.apply(); 
+    
+    team.create(geoEntity.getGeoId(), leader.getId(), new String[]{operator.getId()});
   }
 
   public void testCreate()
@@ -310,4 +344,32 @@ public class TeamSprayTest extends TestCase
     assertFalse(spray.hasConcrete());
   }
 
+  public void testGetStatus()
+  {   
+    Date date = new Date();
+    SprayMethod method = SprayMethod.MAIN_SPRAY;
+
+    TeamSprayView spray = new TeamSprayView();
+    spray.setBrand(brand);
+    spray.setGeoEntity(geoEntity);
+    spray.setSprayDate(date);
+    spray.addSprayMethod(method);
+    spray.addSurfaceType(SurfaceType.POROUS);
+    spray.setTeamSprayWeek(2);
+    spray.setTarget(232);
+    spray.setTeamSprayWeek(24);
+    spray.setSprayTeam(team);
+    spray.apply();
+    
+    try
+    {
+      OperatorSprayStatusView[] status = spray.getStatus();
+      
+      assertEquals(1, status.length);
+    }
+    finally
+    {
+      spray.deleteConcrete();
+    }
+  }
 }

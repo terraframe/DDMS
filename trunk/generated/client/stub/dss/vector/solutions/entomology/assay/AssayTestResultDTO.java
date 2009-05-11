@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.AssayTestResultDTOBase;
+import dss.vector.solutions.mo.AbstractTermDTO;
 
 public abstract class AssayTestResultDTO extends AssayTestResultDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
@@ -22,4 +22,13 @@ public abstract class AssayTestResultDTO extends AssayTestResultDTOBase
     super(businessDTO, clientRequest);
   }
   
+  /**
+   * @return The test result of the AssayTestResult
+   */
+  public abstract Object getTestResult();
+
+  public AbstractTermDTO getTestMethod()
+  {
+    return null;
+  }
 }

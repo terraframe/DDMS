@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.aspectj.org.eclipse.jdt.core.dom.ThisExpression;
-
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
 import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;

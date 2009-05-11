@@ -81,15 +81,22 @@ public class MosquitoView extends MosquitoViewBase implements
     mosquito.apply();
   }
 
-  @Override
   public void delete()
   {
-    String id = this.getMosquitoId();
-
-    if (id != null && !id.equals(""))
+    throw new RuntimeException("This method should not be invoked");
+  }
+  
+  public void deleteConcrete()
+  {
+    if (this.hasConcrete())
     {
-      Mosquito.get(id).delete();
+      Mosquito.get(this.getMosquitoId()).delete();
     }
+  }
+
+  private boolean hasConcrete()
+  {
+    return this.getMosquitoId() != null && !this.getMosquitoId().equals("");
   }
 
   /**
@@ -181,12 +188,12 @@ public class MosquitoView extends MosquitoViewBase implements
     }
   }
 
-  public void setAssays(List<AssayTestResult> list) throws IllegalArgumentException, SecurityException,
+  public void setAssays(AssayTestResult[] results) throws IllegalArgumentException, SecurityException,
       IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {
     Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = this.getAssayMap();
 
-    for (AssayTestResult result : list)
+    for (AssayTestResult result : results)
     {
       Class<? extends AssayTestResult> c = result.getClass();
       MdAttributeVirtualDAOIF mdAttribute = assayMap.get(c);

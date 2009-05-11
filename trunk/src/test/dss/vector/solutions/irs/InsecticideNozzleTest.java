@@ -62,6 +62,7 @@ public class InsecticideNozzleTest extends TestCase
     brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");
     brand.apply();
 
     brand2 = new InsecticideBrand();
@@ -70,6 +71,7 @@ public class InsecticideNozzleTest extends TestCase
     brand2.addUnits(Unit.PERCENT);
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
+    brand2.setBrandName("Test Brand");    
     brand2.apply();
 
     nozzle = new Nozzle();
@@ -187,6 +189,7 @@ public class InsecticideNozzleTest extends TestCase
     testBrand.setWeight(weight);
     testBrand.setSachetsPerRefill(refill);
     testBrand.setEnabled(false);
+    testBrand.setBrandName("Test Brand");
     testBrand.apply();
 
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);

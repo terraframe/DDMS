@@ -13,12 +13,9 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.ProblemException;
-import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.web.WebClientSession;
 
-import dss.vector.solutions.PeriodWeekProblem;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
@@ -77,57 +74,6 @@ public class AggregatedCaseTest extends TestCase
 
     ageGroup = AggregatedAgeGroup.getAll()[0];
     ageGroupDTO = AggregatedAgeGroupDTO.getAll(clientRequest)[0];
-  }
-
-  public void ignoreInvalidEpiWeek()
-  {
-    try
-    {
-      new EpiDateDTO(PeriodTypeDTO.WEEK, 70, 1999);
-
-      fail("Able to set an invalid epi week");
-    }
-    catch(ProblemException e)
-    {
-      List<ProblemIF> problems = e.getProblems();
-
-      assertEquals(1, problems.size());
-      assertTrue(problems.get(0) instanceof PeriodWeekProblem);
-    }
-  }
-
-  public void ignoreInvalidEpiMonth()
-  {
-    try
-    {
-      new EpiDateDTO(PeriodTypeDTO.MONTH, 13, 1999);
-
-      fail("Able to set an invalid epi week");
-    }
-    catch(ProblemException e)
-    {
-      List<ProblemIF> problems = e.getProblems();
-
-      assertEquals(1, problems.size());
-      assertTrue(problems.get(0) instanceof PeriodWeekProblem);
-    }
-  }
-
-  public void ignoreInvalidEpiQuarter()
-  {
-    try
-    {
-      new EpiDateDTO(PeriodTypeDTO.QUARTER, 5, 1999);
-
-      fail("Able to set an invalid epi week");
-    }
-    catch(ProblemException e)
-    {
-      List<ProblemIF> problems = e.getProblems();
-
-      assertEquals(1, problems.size());
-      assertTrue(problems.get(0) instanceof PeriodWeekProblem);
-    }
   }
   
   public void testEpiDateBeforeOffsetEquals()

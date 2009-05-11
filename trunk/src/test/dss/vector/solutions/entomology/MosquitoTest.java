@@ -3,7 +3,6 @@ package dss.vector.solutions.entomology;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
@@ -155,9 +154,9 @@ public class MosquitoTest extends TestCase
       assertEquals(date, mosquito.getTestDate());
       assertEquals(new Boolean(false), mosquito.getIsofemale());
 
-      List<AssayTestResult> testResults = mosquito.getTestResults();
+      AssayTestResult[] testResults = mosquito.getTestResults();
 
-      assertEquals(4, testResults.size());
+      assertEquals(4, testResults.length);
 
       for (AssayTestResult r : testResults)
       {
@@ -183,7 +182,7 @@ public class MosquitoTest extends TestCase
     }
     finally
     {
-      view.delete();
+      view.deleteConcrete();
     }
   }
 
@@ -222,9 +221,9 @@ public class MosquitoTest extends TestCase
       assertEquals(date, mosquito.getTestDate());
       assertEquals(new Boolean(false), mosquito.getIsofemale());
 
-      List<AssayTestResult> testResults = mosquito.getTestResults();
+      AssayTestResult[] testResults = mosquito.getTestResults();
 
-      assertEquals(4, testResults.size());
+      assertEquals(4, testResults.length);
 
       for (AssayTestResult r : testResults)
       {
@@ -250,7 +249,7 @@ public class MosquitoTest extends TestCase
     }
     finally
     {
-      view.delete();
+      view.deleteConcrete();
     }
 
   }
@@ -292,9 +291,9 @@ public class MosquitoTest extends TestCase
       assertEquals(date, mosquito.getTestDate());
       assertEquals(new Boolean(false), mosquito.getIsofemale());
 
-      List<AssayTestResult> testResults = mosquito.getTestResults();
+      AssayTestResult[] testResults = mosquito.getTestResults();
 
-      assertEquals(4, testResults.size());
+      assertEquals(4, testResults.length);
 
       for (AssayTestResult r : testResults)
       {
@@ -320,7 +319,7 @@ public class MosquitoTest extends TestCase
     }
     finally
     {
-      view.delete();
+      view.deleteConcrete();
     }
   }
 
@@ -370,7 +369,7 @@ public class MosquitoTest extends TestCase
     }
     finally
     {
-      view.delete();
+      view.deleteConcrete();
     }
   }
 
@@ -449,8 +448,8 @@ public class MosquitoTest extends TestCase
     }
     finally
     {
-      view.delete();
-      view2.delete();
+      view.deleteConcrete();
+      view2.deleteConcrete();
     }
   }
 
@@ -503,7 +502,7 @@ public class MosquitoTest extends TestCase
     }
     finally
     {
-      view.delete();
+      view.deleteConcrete();
     }
   }
 
