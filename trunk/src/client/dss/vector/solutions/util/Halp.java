@@ -444,22 +444,26 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return ( "[" + Halp.join(arr, ",\n") + "]" );
   }
 
-  public static void sendErrorMail(Throwable exception, HttpServletRequest request)
+  public static void sendErrorMail(Throwable exception, HttpServletRequest request, String text)
   {
     String from = "MDSSS-no-reply@terraframe.com";
     String to = EMAIL_ERRORS_TO;
     String subject = "MDSS has produced an uncaught exception";
-    String text = "Requested url: ";
-    text += request.getAttribute("javax.servlet.forward.request_uri") + "\n\n";
-    text += "Error in class: ";
-    text += exception.getClass().getName() + "\n\n";
-    text += exception.getLocalizedMessage() + "\n\n";
-    text += request.getQueryString() + "\n\n";
-    final Writer result = new StringWriter();
-    final PrintWriter printWriter = new PrintWriter(result);
-    exception.printStackTrace(printWriter);
-    text += result.toString() + "\n\n";
-
+    if(text == null)
+    {
+      text = "Requested url: ";
+      text += request.getAttribute("javax.servlet.forward.request_uri") + "\n\n";
+      text += "Error in class: ";
+      text += exception.getClass().getName() + "\n\n";
+      text += "Error in class: ";
+      text += exception.getClass().getName() + "\n\n";
+      text += exception.getLocalizedMessage() + "\n\n";
+      text += request.getQueryString() + "\n\n";
+      final Writer result = new StringWriter();
+      final PrintWriter printWriter = new PrintWriter(result);
+      exception.printStackTrace(printWriter);
+      text += result.toString() + "\n\n";
+    }
     //
     // A properties to store mail server smtp information such as the host
     // name and the port number. With this properties we create a Session
