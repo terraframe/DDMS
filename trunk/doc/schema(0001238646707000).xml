@@ -2474,7 +2474,7 @@
             type="dss.vector.solutions.entomology.assay.AdultAgeRange"/>
           <integer
             name="fed"
-            label="Fed"
+            label="Number Fed"
             description="Fed value (Only applicable when females are present)."
             rejectNegative="true"
             required="false" />
@@ -2701,7 +2701,7 @@
             type="dss.vector.solutions.entomology.assay.AdultAgeRange"/>
           <integer
             name="fed"
-            label="Fed"
+            label="Number Fed"
             description="Fed value (Only applicable when females are present)."
             rejectNegative="true"
             required="false"/>
@@ -3153,7 +3153,7 @@
         <attributes>
           <integer
             name="fed"
-            label="Fed"
+            label="Number Fed"
             description="The Fed value"
             required="false"/>
         </attributes>
