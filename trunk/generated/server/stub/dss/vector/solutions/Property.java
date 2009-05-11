@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -33,6 +34,21 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     {
       prop = iterator.next();
     }
+    else
+    {
+      query = new PropertyQuery(new QueryFactory());
+
+      query.WHERE(query.getPropertyPackage().LIKE(pkg+"%"));
+      query.AND(query.getPropertyName().EQ(name));
+
+      iterator = query.getIterator();
+      if (iterator.hasNext())
+      {
+        prop = iterator.next();
+      }
+
+    }
+
 
     iterator.close();
 
@@ -81,6 +97,21 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     }
   }
 
+  public Long getPropertyLong()
+  {
+    String value = this.getPropertyValue();
+
+    if (value == null)
+    {
+      return null;
+    }
+    else
+    {
+      return new Long(value);
+    }
+  }
+
+
   public Date getPropertyDate(String format)
   {
     SimpleDateFormat formatter = new SimpleDateFormat(format);
@@ -127,6 +158,21 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     }
   }
 
+
+  public static java.lang.Long getLong(java.lang.String pkg, java.lang.String name)
+  {
+    Property prop = getByPackageAndName(pkg, name);
+
+    if (prop == null)
+    {
+      return null;
+    }
+    else
+    {
+      return prop.getPropertyLong();
+    }
+  }
+
   public static Date getDate(String packageName, String propertyName)
   {
     Property prop = getByPackageAndName(packageName, propertyName);
@@ -142,6 +188,30 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
       return prop.getPropertyDate(format.getPropertyValue());
     }
+  }
+
+  public static final String SHORT_ID_COUNTER        = "SHORT_ID_COUNTER";
+
+  public static final String SHORT_ID_OFFSET         = "SHORT_ID_OFFSET";
+
+  public static final String SHORT_ID_SEGMENTS       = "SHORT_ID_SEGMENTS";
+
+  @Transaction
+  public static String getNextId()
+  {
+    Property currentValue = Property.getByPackageAndName(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_COUNTER);
+    currentValue.lock();
+    Long counter = currentValue.getPropertyLong();
+    int segments = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
+    int offset = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);
+
+    long totalOffset = (Long.MAX_VALUE/segments)*offset;
+
+    counter++;
+    currentValue.setPropertyValue(counter.toString());
+    currentValue.apply();
+
+    return Base30.toBase30String(totalOffset+counter);
   }
 
 }
