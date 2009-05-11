@@ -2,30 +2,35 @@
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 
-<mjl:form name="dss.vector.solutions.util.ReadableAttributeController.form.name">
-  <mjl:input type="hidden" param="actor" value="${actor}"/>
+<c:set var="action" value="dss.vector.solutions.util.ReadableAttributeController.getAttributes.mojo" scope="page"/>
 
-  <mjl:table query="${query}" var="row" classes="displayTable" even="evenRow" odd="oddRow">
-    <mjl:columns>
-      <mjl:freeColumn>
-        <mjl:header></mjl:header>
-        <mjl:row>
-          <mjl:input type="radio" param="universal" value="${row.packageName}.${row.typeName}"/>
-        </mjl:row>
-        <mjl:footer></mjl:footer>
-      </mjl:freeColumn>
-      <mjl:freeColumn>
-        <mjl:header>
-          <f:message key="Class_Label" />
-        </mjl:header>
-        <mjl:row>
-          ${row.displayLabel}
-        </mjl:row>
-        <mjl:footer>
-        </mjl:footer>
-      </mjl:freeColumn>
-    </mjl:columns>
-  </mjl:table>
-  
-  <mjl:command name="Submit" action="dss.vector.solutions.util.ReadableAttributeController.getAttributes.mojo" />
-</mjl:form>
+  <dl>
+    <dt><label>MDSS 114 - Person Management</label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Person"
+        display="Person"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.Person"/>
+    </dd>
+  </dl>
+  <dl>
+    <dt><label>MDSS 141 - IRS Team Management</label></dt>
+    <dd>
+      <mjl:commandLink
+        name="SprayTeam"
+        display="Spray Team"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.SprayTeam"/>
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="SprayLeader"
+        display="Spray Leader"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.SprayLeader"/>
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="SprayOperator"
+        display="Spray Operator"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.SprayOperator"/>
+    </dd>
+  </dl>
