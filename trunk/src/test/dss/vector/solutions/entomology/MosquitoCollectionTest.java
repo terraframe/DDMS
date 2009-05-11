@@ -413,7 +413,8 @@ public class MosquitoCollectionTest extends TestCase
       List<ProblemIF> problems = e.getProblems();
 
       assertEquals(1, problems.size());
-      assertTrue(problems.get(0) instanceof EmptyValueProblem);      
+     
+      assertTrue("Problem is not of type EmptyValueProblem", problems.get(0) instanceof com.terraframe.mojo.dataaccess.attributes.EmptyValueProblem);      
     }
     finally
     {

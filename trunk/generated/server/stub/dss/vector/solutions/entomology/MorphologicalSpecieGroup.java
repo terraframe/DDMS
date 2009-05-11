@@ -16,8 +16,6 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   @Override
   public void validateQuantity()
   {
-    super.validateQuantity();
-
     if (this.getCollection() != null && this.getCollection() instanceof MosquitoCollection)
     {
       if (this.getQuantity() != null && this.getQuantity() == 0)
@@ -68,8 +66,6 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   {
     if(this.getQuantityMale() != null && this.getQuantity() != null)
     {
-      super.validateQuantityMale();
-      
       if(this.getQuantityMale() > this.getQuantity())
       {
         String msg = "It is impossible to have more male mosquitos than the total number of mosquitos";
@@ -87,8 +83,6 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   @Override
   public void validateIdentificationMethod()
   {
-    super.validateIdentificationMethod();
-
     if (this.getCollection() != null)
     {
       if (this.getCollection() instanceof MosquitoCollection && this.getIdentificationMethod() == null)
@@ -118,8 +112,6 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   @Override
   public void validateSpecie()
   {
-    super.validateSpecie();
-
     if (this.getCollection() != null)
     {
       if (this.getCollection() instanceof MosquitoCollection && this.getSpecie() == null)
