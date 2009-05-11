@@ -3,6 +3,8 @@ package dss.vector.solutions.irs;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.aspectj.org.eclipse.jdt.core.dom.ThisExpression;
+
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
 import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -28,37 +30,43 @@ public class SprayTeam extends SprayTeamBase implements com.terraframe.mojo.gene
   {
     this.setSprayZone(geoId);
     this.apply();
-    
+
     if (leaderId!=null)
       this.addTeamLeader(SprayLeader.get(leaderId)).apply();
-    
+
     addOperators(operatorIds);
   }
-  
+
   @Override
   @Transaction
   public void edit(String geoId, String leaderId, String[] operatorIds, String[] removedIds)
   {
     this.setSprayZone(geoId);
     this.apply();
-    
+
     for (LeadTeam relationship : this.getAllTeamLeaderRel())
     {
       relationship.delete();
     }
-    
+
     if (leaderId!=null)
     {
       this.addTeamLeader(SprayLeader.get(leaderId)).apply();
     }
-    
+
     addOperators(operatorIds);
-    
+
     for (String id : removedIds)
     {
-      this.removeSprayTeamMembers(SprayOperator.get(id));
+      SprayOperator assignedOperator = SprayOperator.get(id);
+      for (InTeam oldTeam : assignedOperator.getAllSprayTeamRel())
+      {
+        oldTeam.delete();
+      }
     }
   }
+
+
 
   private void addOperators(String[] operatorIds)
   {
@@ -90,7 +98,7 @@ public class SprayTeam extends SprayTeamBase implements com.terraframe.mojo.gene
       throw new InvalidReferenceException("[" + geoId + "] is not a valid Spray Zone GeoId", (MdAttributeReferenceDAOIF)SprayTeam.getSprayZoneMd());
     }
   }
-  
+
   public static SprayTeam[] search(GeoEntity geoEntity)
   {
     List<SprayTeam> list = new LinkedList<SprayTeam>();
@@ -119,12 +127,12 @@ public class SprayTeam extends SprayTeamBase implements com.terraframe.mojo.gene
   {
     return ResourceTarget.getTargeterName(this);
   }
-  
+
   @Transaction
   public static SprayTeam newTeam(String geoId, String leaderId, String[] availableIds, String[] assignedIds)
   {
     SprayTeam sprayTeam = new SprayTeam();
-    
+
     QueryFactory queryFactory = new QueryFactory();
     SprayZoneQuery sprayZoneQuery = new SprayZoneQuery(queryFactory);
     sprayZoneQuery.WHERE(sprayZoneQuery.getGeoId().EQ(geoId));
@@ -140,14 +148,14 @@ public class SprayTeam extends SprayTeamBase implements com.terraframe.mojo.gene
       throw new InvalidReferenceException("[" + geoId + "] is not a valid Spray Zone GeoId", (MdAttributeReferenceDAOIF)SprayTeam.getSprayZoneMd());
     }
     sprayTeam.apply();
-    
+
     sprayTeam.addTeamLeader(SprayLeader.get(leaderId)).apply();
-    
+
     for (String id : availableIds)
     {
       sprayTeam.addSprayTeamMembers(SprayOperator.get(id)).apply();
     }
-    
+
     for (String id : assignedIds)
     {
       SprayOperator assignedOperator = SprayOperator.get(id);
@@ -157,7 +165,7 @@ public class SprayTeam extends SprayTeamBase implements com.terraframe.mojo.gene
       }
       sprayTeam.addSprayTeamMembers(assignedOperator).apply();
     }
-    
+
     return sprayTeam;
   }
 }
