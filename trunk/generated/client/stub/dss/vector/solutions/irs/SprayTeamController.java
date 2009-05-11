@@ -13,21 +13,22 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 public class SprayTeamController extends SprayTeamControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/irs/SprayTeam/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
-  
+  public static final String LAYOUT = "/layout.jsp";
+
   private static final long serialVersionUID = 1241327457793L;
-  
+
   public SprayTeamController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   public void newInstance() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("leaders", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", new SprayTeamDTO(clientRequest));
-    
+
+    List<SprayOperatorViewDTO> currentOperators = new LinkedList<SprayOperatorViewDTO>();
     List<SprayOperatorViewDTO> assignedOperators = new LinkedList<SprayOperatorViewDTO>();
     List<SprayOperatorViewDTO> availableOperators = new LinkedList<SprayOperatorViewDTO>();
     for (SprayOperatorViewDTO operator : SprayOperatorViewDTO.getAll(clientRequest))
@@ -41,20 +42,20 @@ public class SprayTeamController extends SprayTeamControllerBase implements com.
         availableOperators.add(operator);
       }
     }
-    
+    req.setAttribute("current", currentOperators);
     req.setAttribute("available", availableOperators);
     req.setAttribute("assigned", assignedOperators);
-    
+
     render("createComponent.jsp");
   }
-  
+
   public void edit(String id) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     SprayTeamDTO team = SprayTeamDTO.lock(clientRequest, id);
     req.setAttribute("item", team);
     req.setAttribute("leaders", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    
+
     List<SprayOperatorViewDTO> currentOperators = new LinkedList<SprayOperatorViewDTO>();
     List<SprayOperatorViewDTO> assignedOperators = new LinkedList<SprayOperatorViewDTO>();
     List<SprayOperatorViewDTO> availableOperators = new LinkedList<SprayOperatorViewDTO>();
@@ -72,21 +73,21 @@ public class SprayTeamController extends SprayTeamControllerBase implements com.
         availableOperators.add(operator);
       }
     }
-    
+
     req.setAttribute("current", currentOperators);
     req.setAttribute("available", availableOperators);
     req.setAttribute("assigned", assignedOperators);
-    
+
     render("editComponent.jsp");
   }
-  
+
   @Override
   public void createAndAssign(SprayTeamDTO team, String geoId, String leaderId, String[] operatorIDs) throws IOException, ServletException
   {
     team.create(geoId, leaderId, operatorIDs);
     renderView(team);
   }
-  
+
   @Override
   public void updateAssignments(SprayTeamDTO team, String geoId, String leaderId, String[] operatorIds, String[] removedIds) throws IOException, ServletException
   {
@@ -105,7 +106,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements com.
     req.setAttribute("item", sprayTeamDTO);
     render("viewComponent.jsp");
   }
-  
+
   public void create(SprayTeamDTO dto) throws IOException, ServletException
   {
     try
@@ -204,6 +205,6 @@ public class SprayTeamController extends SprayTeamControllerBase implements com.
   public void failDelete(SprayTeamDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    this.edit(dto.getId());
   }
 }
