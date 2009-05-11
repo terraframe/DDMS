@@ -14,7 +14,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements com.
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/GeoTarget/";
 
-  public static final String LAYOUT           = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT           = "/layout.jsp";
 
   private static final long  serialVersionUID = 1240267414799L;
 
