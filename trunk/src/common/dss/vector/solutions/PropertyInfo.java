@@ -3,7 +3,11 @@ package dss.vector.solutions;
 public interface PropertyInfo
 {
   public static final String GENERAL_PACKAGE         = "dss.vector.solutions";
-  
+
+  public static final String SYSTEM_PACKAGE         = "dss.vector.solutions.system";
+
+  public static final String INSTALL_PACKAGE         = "dss.vector.solutions.system.install";
+
   public static final String EPI_WEEK_PACKAGE       = "dss.vector.solutions.surveillance.EpiWeek";
 
   public static final String STANDARDS_PACKAGE       = "dss.vector.solutions.irs.Standards";

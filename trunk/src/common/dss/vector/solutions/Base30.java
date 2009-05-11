@@ -1,7 +1,7 @@
 package dss.vector.solutions;
 
 
-public class ShortId {
+public class Base30 {
     private static  short BASE_30_RADIX = 30;
     private static  String BASE_30_ZERO = "0";
     private static  String SYMBOLS = "0123456789BCDFGHJKLMNPQRSTVWXYZ";
