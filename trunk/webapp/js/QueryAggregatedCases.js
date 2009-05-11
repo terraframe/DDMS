@@ -209,7 +209,7 @@ MDSS.QueryAggregatedCases = (function(){
     types.push(aggregatedCase);
 
     var selectables = [];
-    selectables.push(types[0]+'_geoId');
+    //selectables.push(types[0]+'_geoId');
 
     var queryXML = _constructQuery();
     var xml = queryXML.getXMLForMap(types, selectables);
@@ -387,11 +387,11 @@ MDSS.QueryAggregatedCases = (function(){
       groupBy.addSelectable(alias, selectable);
     }
 
-    var gridAggNames = Mojo.util.getKeys(_gridAggregateSelectables);
-    for(var i=0; i<gridAggNames.length; i++)
+    var gridAggAliases = Mojo.util.getKeys(_gridAggregateSelectables);
+    for(var i=0; i<gridAggAliases.length; i++)
     {
-      var name = gridAggNames[i];
-      var selectable = _gridAggregateSelectables[name];
+      var alias = gridAggAliases[i];
+      var selectable = _gridAggregateSelectables[alias];
 
       queryXML.addSelectable(alias, selectable);
     }

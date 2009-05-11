@@ -1653,7 +1653,7 @@ MDSS.QueryPanel.prototype = {
     this._queryLayout.render();
     this._mapLayout.render();
 
-    this._postRender(); // FIXME have this be delayed or executed upon element load
+    this._postRender();
   }
 };
 
