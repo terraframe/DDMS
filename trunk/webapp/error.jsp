@@ -6,9 +6,11 @@
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
 
 
+<%
+try
+{
+%>
 <jsp:include page="/WEB-INF/templates/header.jsp" />
-
-
 <%
 //if someone has bookmarked something they should not have, we will redirect them to the index
 if (exception.getClass().getName().contains("IllegalURIMethodException")) {
@@ -74,3 +76,19 @@ window.location = "index.jsp ";
 </div>
 
 <jsp:include page="/WEB-INF/templates/footer.jsp" />
+
+
+<%
+}
+catch(Exception e)
+{
+
+out.println("<pre>");
+out.print(exception.getLocalizedMessage());
+out.println("</pre>");
+out.println("<pre>");
+PrintWriter pw = new PrintWriter(out);
+exception.printStackTrace(pw);
+out.println("</pre>");
+}
+%>
