@@ -48,7 +48,7 @@ else
 </c:choose>
 
 
-
+ ${add_to_footer}
 </body>
 
 
