@@ -87,7 +87,7 @@ YAHOO.util.Event.onDOMReady(function(){
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${teams}" param="team.componentId" >
        <mjl:option selected="${team != null && current.id == team.id ? 'selected' : 'false'}">
-          ${current.teamCode}
+          ${current.teamId}
        </mjl:option>
       </mjl:select>
     </dd>
