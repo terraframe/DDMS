@@ -70,7 +70,7 @@ public class TeamSprayView extends TeamSprayViewBase implements
     TeamSpray spray = TeamSpray.get(this.getSprayId());
     SprayData data = spray.getSprayData();
     SprayTeam team = spray.getSprayTeam();
-    OIterator<? extends SprayOperator> members = team.getAllSprayTeamMembers();
+    List<SprayOperator> members = team.getTeamMembers();
 
     for (SprayOperator operator : members)
     {

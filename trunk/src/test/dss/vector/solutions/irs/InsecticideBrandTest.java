@@ -57,6 +57,7 @@ public class InsecticideBrandTest extends TestCase
     brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");
     brand.apply();
 
     try
@@ -69,6 +70,7 @@ public class InsecticideBrandTest extends TestCase
       assertEquals(Unit.PERCENT, test.getUnits().get(0));
       assertEquals(weight, test.getWeight());
       assertEquals(refill, test.getSachetsPerRefill());
+      assertEquals(brand.getBrandName(), test.getBrandName());
     }
     finally
     {
@@ -87,6 +89,7 @@ public class InsecticideBrandTest extends TestCase
     brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");
     brand.apply();
 
     InsecticideBrand edit = InsecticideBrand.lock(brand.getId());
@@ -103,6 +106,7 @@ public class InsecticideBrandTest extends TestCase
       assertEquals(Unit.PERCENT, test.getUnits().get(0));
       assertEquals(weight, test.getWeight());
       assertEquals(refill, test.getSachetsPerRefill());
+      assertEquals(brand.getBrandName(), test.getBrandName());
     }
     finally
     {
@@ -121,6 +125,7 @@ public class InsecticideBrandTest extends TestCase
     brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");    
     brand.apply();
 
     try
@@ -133,6 +138,7 @@ public class InsecticideBrandTest extends TestCase
       assertEquals(Unit.PERCENT, test.getUnits().get(0));
       assertEquals(weight, test.getWeight());
       assertEquals(refill, test.getSachetsPerRefill());
+      assertEquals(brand.getBrandName(), test.getBrandName());
     }
     finally
     {
@@ -151,6 +157,7 @@ public class InsecticideBrandTest extends TestCase
     brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");
     brand.apply();
 
     InsecticideBrandView edit = InsecticideBrand.lockView(brand.getInsecticdeId());
@@ -169,6 +176,7 @@ public class InsecticideBrandTest extends TestCase
       assertEquals(Unit.PERCENT, test.getUnits().get(0));
       assertEquals(weight, test.getWeight());
       assertEquals(refill, test.getSachetsPerRefill());
+      assertEquals(edit.getBrandName(), test.getBrandName());      
     }
     finally
     {
@@ -187,6 +195,7 @@ public class InsecticideBrandTest extends TestCase
     brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");
     brand.apply();
 
     String id = brand.getInsecticdeId();
@@ -216,6 +225,7 @@ public class InsecticideBrandTest extends TestCase
     brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");    
     brand.apply();
 
     InsecticideBrandView brand2 = new InsecticideBrandView();
@@ -224,6 +234,8 @@ public class InsecticideBrandTest extends TestCase
     brand2.addUnits(Unit.PERCENT);
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
+    brand2.setBrandName("Test Brand 2");
+    
     brand2.apply();
 
     try
@@ -250,6 +262,7 @@ public class InsecticideBrandTest extends TestCase
     brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");    
     brand.apply();
 
     InsecticideBrandView brand2 = new InsecticideBrandView();
@@ -259,6 +272,7 @@ public class InsecticideBrandTest extends TestCase
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
     brand2.setEnabled(false);
+    brand2.setBrandName("Test Brand 2");    
     brand2.apply();
 
     try
@@ -285,6 +299,7 @@ public class InsecticideBrandTest extends TestCase
     brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");
 
     InsecticideBrandView brand2 = new InsecticideBrandView();
     brand2.setActiveIngredient(activeIngredient);
@@ -292,6 +307,7 @@ public class InsecticideBrandTest extends TestCase
     brand2.addUnits(Unit.PERCENT);
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
+    brand2.setBrandName("Test Brand 2");
 
     InsecticideBrandView[] array = new InsecticideBrandView[] { brand, brand2 };
     InsecticideBrandView[] applied = InsecticideBrandView.applyAll(array);
@@ -310,6 +326,7 @@ public class InsecticideBrandTest extends TestCase
         assertEquals(Unit.PERCENT, test.getUnits().get(0));
         assertEquals(weight, test.getWeight());
         assertEquals(refill, test.getSachetsPerRefill());
+        assertEquals(applied[i].getBrandName(), test.getBrandName());        
       }
     }
     finally

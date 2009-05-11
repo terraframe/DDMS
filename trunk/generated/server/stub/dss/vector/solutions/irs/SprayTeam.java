@@ -1,7 +1,10 @@
 package dss.vector.solutions.irs;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.aspectj.org.eclipse.jdt.core.dom.ThisExpression;
 
@@ -11,6 +14,7 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.Person;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.geo.generated.SprayZoneQuery;
@@ -37,6 +41,48 @@ public class SprayTeam extends SprayTeamBase implements com.terraframe.mojo.gene
     addOperators(operatorIds);
   }
 
+  public List<SprayOperator> getTeamMembers()
+  {
+    Set<SprayOperator> set = new TreeSet<SprayOperator>(new Comparator<SprayOperator>()
+        {
+          public int compare(SprayOperator o1, SprayOperator o2)
+          {
+            return o1.getId().compareTo(o2.getId());
+          }
+      
+        });
+    
+    OIterator<? extends SprayOperator> teamMembers = this.getAllSprayTeamMembers();
+    OIterator<? extends SprayLeader> sprayLeaders = this.getAllTeamLeader();
+    
+    try
+    {
+      while(teamMembers.hasNext())
+      {
+        set.add(teamMembers.next());
+      }
+      
+      while(sprayLeaders.hasNext())
+      {
+        SprayLeader leader = sprayLeaders.next();
+        Person person = leader.getPerson();
+        SprayOperator operator = person.getSprayOperatorDelegate();
+
+        if(operator != null)
+        {
+          set.add(operator);
+        }
+      }
+      
+      return new LinkedList<SprayOperator>(set);
+    }
+    finally
+    {
+      teamMembers.close();
+      sprayLeaders.close();
+    }
+  }
+  
   @Override
   @Transaction
   public void edit(String geoId, String leaderId, String[] operatorIds, String[] removedIds)
@@ -104,7 +150,7 @@ public class SprayTeam extends SprayTeamBase implements com.terraframe.mojo.gene
     List<SprayTeam> list = new LinkedList<SprayTeam>();
     SprayTeamQuery query = new SprayTeamQuery(new QueryFactory());
 
-    query.WHERE(query.getSprayZone().EQ(geoEntity.getGeoId()));
+    query.WHERE(query.getSprayZone().EQ(geoEntity));
     query.ORDER_BY_ASC(query.getTeamId());
     OIterator<? extends SprayTeam> it = query.getIterator();
 
