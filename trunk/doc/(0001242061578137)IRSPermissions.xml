@@ -1,0 +1,350 @@
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <existing>
+      <object
+        key="com.terraframe.mojo.system.Roles.dataCapturer"
+        type="com.terraframe.mojo.system.Roles"
+        id="dataCapturer" />
+      <object
+        key="com.terraframe.mojo.system.Roles.manager"
+        type="com.terraframe.mojo.system.Roles"
+        id="manager" />
+    </existing>  
+    <permissions>
+      <role roleName="manager">
+        <mdBusinessPermission type="dss.vector.solutions.irs.Targeter">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.ResourceTarget">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.ResourceTargetView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.GeoTarget">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.GeoTargetView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayOperator">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.Person">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdViewPermission type="dss.vector.solutions.PersonView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdBusinessPermission type="dss.vector.solutions.MDSSUser">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.Patient">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.ITNRecipient">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.IPTRecipient">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayLeader">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayTeam">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdRelationshipPermission type="dss.vector.solutions.irs.InTeam">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="READ_PARENT"/>
+          <operation name="READ_CHILD"/>
+        </mdRelationshipPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayMethodMaster">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.SurfaceTypeMaster">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.InsecticideBrand">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.InsecticideBrandView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.Nozzle">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.NozzleView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdRelationshipPermission type="dss.vector.solutions.irs.InsecticideNozzle">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="READ_PARENT"/>
+          <operation name="READ_CHILD"/>
+        </mdRelationshipPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.AreaStandards">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.AreaStandardsView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayData">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.AbstractSprayView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.ActorSpray">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.OperatorSpray">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.TeamSpray">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayStatus">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>   
+        <mdBusinessPermission type="dss.vector.solutions.irs.HouseholdSprayStatus">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>   
+                     
+        <mdViewPermission type="dss.vector.solutions.irs.SprayOperatorView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.InsecticideNozzleView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.ActorSprayView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.ActorSprayView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.OperatorSprayView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.TeamSprayView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.ZoneSprayView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.SprayStatusView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.ActorSprayStatusView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.TeamSprayStatusView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.OperatorSprayStatusView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+        <mdViewPermission type="dss.vector.solutions.irs.HouseholdSprayStatusView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>
+      </role>
+      <role roleName="dataCapturer">
+        <mdBusinessPermission type="dss.vector.solutions.irs.Targeter">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.ResourceTarget">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.GeoTarget">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.InsecticideBrand">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.Nozzle">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdRelationshipPermission type="dss.vector.solutions.irs.InsecticideNozzle">
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="DELETE"/>
+        </mdRelationshipPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.AreaStandards">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayData">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.ActorSpray">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.OperatorSpray">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.TeamSpray">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.ZoneSpray">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayStatus">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.HouseholdSprayStatus">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+      </role>      
+    </permissions>    
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>
