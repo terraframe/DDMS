@@ -8,7 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+
+import dss.vector.solutions.util.ErrorUtility;
 
 public class SprayTeamController extends SprayTeamControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -25,8 +28,35 @@ public class SprayTeamController extends SprayTeamControllerBase implements com.
   public void newInstance() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
+    renderCreate(clientRequest, new SprayTeamDTO(clientRequest));
+  }
+  
+  @Override
+  public void createAndAssign(SprayTeamDTO team, String geoId, String leaderId, String[] operatorIDs) throws IOException, ServletException
+  {
+    try
+    {
+      team.create(geoId, leaderId, operatorIDs);
+      renderView(team);
+      return;
+    }
+    catch (ProblemExceptionDTO p)
+    {
+      ErrorUtility.prepareProblems(p, req);
+    }
+    catch (Exception e)
+    {
+      ErrorUtility.prepareThrowable(e, req);
+    }
+    
+    req.setAttribute("leaderId", leaderId);
+    renderCreate(super.getClientRequest(), team);
+  }
+
+  private void renderCreate(ClientRequestIF clientRequest, SprayTeamDTO team) throws IOException, ServletException
+  {
+    req.setAttribute("item", team);
     req.setAttribute("leaders", SprayLeaderDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", new SprayTeamDTO(clientRequest));
 
     List<SprayOperatorViewDTO> currentOperators = new LinkedList<SprayOperatorViewDTO>();
     List<SprayOperatorViewDTO> assignedOperators = new LinkedList<SprayOperatorViewDTO>();
@@ -82,17 +112,25 @@ public class SprayTeamController extends SprayTeamControllerBase implements com.
   }
 
   @Override
-  public void createAndAssign(SprayTeamDTO team, String geoId, String leaderId, String[] operatorIDs) throws IOException, ServletException
-  {
-    team.create(geoId, leaderId, operatorIDs);
-    renderView(team);
-  }
-
-  @Override
   public void updateAssignments(SprayTeamDTO team, String geoId, String leaderId, String[] operatorIds, String[] removedIds) throws IOException, ServletException
   {
-    team.edit(geoId, leaderId, operatorIds, removedIds);
-    renderView(team);
+    try
+    {
+      team.edit(geoId, leaderId, operatorIds, removedIds);
+      renderView(team);
+      return;
+    }
+    catch (ProblemExceptionDTO p)
+    {
+      ErrorUtility.prepareProblems(p, req);
+    }
+    catch (Exception e)
+    {
+      ErrorUtility.prepareThrowable(e, req);
+    }
+    
+    req.setAttribute("leaderId", leaderId);
+    renderCreate(super.getClientRequest(), team);
   }
 
   private void renderView(SprayTeamDTO sprayTeamDTO) throws IOException, ServletException

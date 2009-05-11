@@ -51,7 +51,7 @@ public class SprayOperatorView extends SprayOperatorViewBase implements com.terr
 
       SprayOperatorView view = new SprayOperatorView();
       view.setActorId(next.getId());
-      view.setOperatorId(next.getId());
+      view.setOperatorId(next.getOperatorId());
       view.setFirstName(person.getFirstName());
       view.setLastName(person.getLastName());
       

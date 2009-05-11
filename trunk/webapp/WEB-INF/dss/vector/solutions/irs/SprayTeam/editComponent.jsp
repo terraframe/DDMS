@@ -15,6 +15,16 @@
   <mjl:command value="Cancel" action="dss.vector.solutions.irs.SprayTeamController.cancel.mojo" name="dss.vector.solutions.irs.SprayTeam.form.cancel.button" />
 </mjl:form>
 
-
-
-
+<script type='text/javascript'>
+        onTeam = document.getElementById('onTeam');
+        notOnTeam = document.getElementById('notOnTeam');
+        onOtherTeam = document.getElementById('onOtherTeam');
+        teamRegex = '^ *[^[]';
+        teamForm = document.getElementById('dss.vector.solutions.irs.SprayTeam.form.id');
+        document.getElementById('updateTeam').onclick = function(){
+          teamForm.action = 'dss.vector.solutions.irs.SprayTeamController.updateAssignments.mojo';
+          Selectbox.selectAllOptions(onTeam);
+          Selectbox.selectAllOptions(notOnTeam);
+          teamForm.submit();
+        }
+</script>
