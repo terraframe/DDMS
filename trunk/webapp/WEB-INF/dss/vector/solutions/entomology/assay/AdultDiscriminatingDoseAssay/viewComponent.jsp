@@ -20,10 +20,9 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
-
-
-<mjl:component item="${item}" param="dto">
   <mjl:input value="${item.id}" type="hidden" param="id" />
+<mjl:component item="${item}" param="dto">
+
   <dl>
     <mjl:dt attribute="collection">
       <mjl:commandLink display="${item.collection.displayLabel}" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo"
@@ -119,14 +118,11 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
 
       ${item.intervalTime}
 </mjl:dt>
-
-
   </dl>
+  </mjl:component>
 
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.edit.mojo"
     name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
-  <br />
-  </mjl:component>
 </mjl:form>
 
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"
