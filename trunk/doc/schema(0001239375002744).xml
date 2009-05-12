@@ -364,16 +364,16 @@
         key="ElderCaseView">
         <valueAttribute
           name="startAge"
-          value="200" />
+          value="0" />
         <valueAttribute
           name="endAge"
-          value="201" />
+          value="200" />
         <valueAttribute
           name="displayLabel"
-          value="[200,201)" />
+          value="All" />
         <valueAttribute
           name="active"
-          value="false" />
+          value="true" />
         <referenceAttribute
           name="mdView"
           id="dss.vector.solutions.surveillance.ElderCaseView" />
