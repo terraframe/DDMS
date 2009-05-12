@@ -13,22 +13,22 @@
             label="Geo Id"
             required="true"
             indexType="unique index"
-            size="16" />
+            size="16"/>
           <long
             name="gazId"
             label="Gaz Id"
-            required="false" />
+            required="false"/>
           <char
             name="entityName"
             required="false"
             label="Geo Entity Name"
-            size="255" />
+            size="255"/>
           <boolean
             name="activated"
             required="true"
             default_value="true"
             label="Activated"
-            description="Determines if this entity is active or not." />
+            description="Determines if this entity is active or not."/>
         </attributes>
         <mdMethod
           name="updateFromTree"
@@ -48,7 +48,7 @@
             description="Geo Id of the Geo Entity"
             label="Geo Id"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
         <mdMethod
           name="confirmChangeParent"
@@ -61,7 +61,7 @@
             label="Parent Id"
             description="The id of the current GeoEntity parent."
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
         <mdMethod
           name="getOrderedChildren"
@@ -74,7 +74,7 @@
             label="Type Filter"
             description="Name of GeoEntity subclass to filter."
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
         <mdMethod
           name="applyWithParent"
@@ -87,13 +87,13 @@
             label="Parent GeoEntity Id"
             description="The id of the GeoEntity that will be the parent of this GeoEntity"
             type="java.lang.String"
-            order="0" />
+            order="0"/>
           <mdParameter
             name="cloneOperation"
             label="Clone Operation"
             description="Denotes if this GeoEntity is being cloned to another parent."
             order="1"
-            type="java.lang.Boolean" />
+            type="java.lang.Boolean"/>
         </mdMethod>
       </mdBusiness>
 
@@ -108,23 +108,23 @@
             label="View Created"
             description="Denotes if the view table has been created"
             required="true"
-            default_value="false" />
+            default_value="false"/>
           <boolean
             name="political"
             label="political"
             description="Denotes if this object is political (e.g., a Country)"
-            required="true" />
+            required="true"/>
           <boolean
             name="sprayTargetAllowed"
             label="Spray Target Allowed"
             description="Spray Target Allowed"
-            required="true" />
+            required="true"/>
           <reference
             name="geoEntityClass"
             label="Geo Entity Class"
             description="A reference to the GeoEntity MdClass"
             required="true"
-            type="com.terraframe.mojo.system.metadata.MdBusiness" />
+            type="com.terraframe.mojo.system.metadata.MdBusiness"/>
         </attributes>
         <mdMethod
           name="getEarthGeoHierarchy"
@@ -144,7 +144,7 @@
             label="GeoEntity id"
             description="The GeoEntity which represents the root."
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
         <mdMethod
           name="updateFromView"
@@ -157,7 +157,7 @@
             label="View"
             description="GeoHierarchyView"
             order="0"
-            type="dss.vector.solutions.geo.GeoHierarchyView" />
+            type="dss.vector.solutions.geo.GeoHierarchyView"/>
         </mdMethod>
         <mdMethod
           name="defineAllowedTree"
@@ -170,7 +170,7 @@
             label="GeoEntity Id"
             description="GeoEntity Id"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
         <mdMethod
           name="defineGeoEntity"
@@ -183,7 +183,7 @@
             label="GeoEntity Definition"
             description="The view used to define a new GeoEntity"
             order="0"
-            type="dss.vector.solutions.geo.GeoEntityDefinition" />
+            type="dss.vector.solutions.geo.GeoEntityDefinition"/>
         </mdMethod>
         <mdMethod
           name="getGeoEntityHierarchyViews"
@@ -195,22 +195,22 @@
             name="sortAttribute"
             label="Sort Attribute"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
           <mdParameter
             name="ascending"
             label="ascending"
             order="1"
-            type="java.lang.Boolean" />
+            type="java.lang.Boolean"/>
           <mdParameter
             name="pageSize"
             label="Page Size"
             order="2"
-            type="java.lang.Integer" />
+            type="java.lang.Integer"/>
           <mdParameter
             name="pageNumber"
             label="Page Number"
             order="3"
-            type="java.lang.Integer" />
+            type="java.lang.Integer"/>
         </mdMethod>
         <mdMethod
           name="deleteGeoHierarchy"
@@ -223,7 +223,7 @@
             label="GeoHierarchy Id"
             description="The id of the GeoHierarchy that will be deleted"
             type="java.lang.String"
-            order="0" />
+            order="0"/>
         </mdMethod>
         <mdMethod
           name="getViewForGeoHierarchy"
@@ -250,19 +250,19 @@
             label="Child GeoHierarchy Id"
             description="The id of the GeoHierarchy that will be the child."
             type="java.lang.String"
-            order="0" />
+            order="0"/>
           <mdParameter
             name="parentGeoHierarchyId"
             label="Parent GeoHierarchy Id"
             description="The id of the GeoHierarchy that will be the parent"
             type="java.lang.String"
-            order="1" />
+            order="1"/>
           <mdParameter
             name="cloneOperation"
             label="Clone Operation"
             description="Denotes if this GeoHierarchy is being cloned to another parent."
             order="2"
-            type="java.lang.Boolean" />
+            type="java.lang.Boolean"/>
         </mdMethod>
       </mdBusiness>
 
@@ -276,43 +276,43 @@
             size="64"
             label="Reference Id"
             description="The Id of the GeoEntity MdBusiness"
-            required="true" />
+            required="true"/>
           <char
             name="geoHierarchyId"
             size="64"
             label="GeoHierarchy Id"
             description="GeoHierarchy Id"
-            required="true" />
+            required="true"/>
           <char
             name="isADisplayLabel"
             required="true"
             label="The parent type of this universal."
-            size="100" />
+            size="100"/>
           <virtual
             name="typeName"
             required="true"
             concrete="typeName"
-            type="com.terraframe.mojo.system.metadata.MdType" />
+            type="com.terraframe.mojo.system.metadata.MdType"/>
           <char
             name="displayLabel"
             required="true"
             size="64"
-            label="Display Label" />
+            label="Display Label"/>
           <char
             name="description"
             required="true"
             size="255"
-            label="Description" />
+            label="Description"/>
           <virtual
             name="political"
             required="true"
             concrete="political"
-            type="dss.vector.solutions.geo.GeoHierarchy" />
+            type="dss.vector.solutions.geo.GeoHierarchy"/>
           <virtual
             name="sprayTargetAllowed"
             required="true"
             concrete="sprayTargetAllowed"
-            type="dss.vector.solutions.geo.GeoHierarchy" />
+            type="dss.vector.solutions.geo.GeoHierarchy"/>
         </attributes>
       </mdView>
 
@@ -323,11 +323,11 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.geo.GeoHierarchy"
-          method="AllowedInGeoEntity" />
+          method="AllowedInGeoEntity"/>
         <child
           cardinality="*"
           name="dss.vector.solutions.geo.GeoHierarchy"
-          method="AcceptsGeoEntity" />
+          method="AcceptsGeoEntity"/>
       </mdTree>
 
       <mdTree
@@ -337,11 +337,11 @@
         <parent
           cardinality="*"
           name="dss.vector.solutions.geo.generated.GeoEntity"
-          method="LocatedInGeoEntity" />
+          method="LocatedInGeoEntity"/>
         <child
           cardinality="*"
           name="dss.vector.solutions.geo.generated.GeoEntity"
-          method="ContainsGeoEntity" />
+          method="ContainsGeoEntity"/>
       </mdTree>
 
       <mdView
@@ -353,46 +353,46 @@
             name="political"
             required="true"
             concrete="political"
-            type="dss.vector.solutions.geo.GeoHierarchy" />
+            type="dss.vector.solutions.geo.GeoHierarchy"/>
           <virtual
             name="sprayTargetAllowed"
             required="true"
             concrete="sprayTargetAllowed"
-            type="dss.vector.solutions.geo.GeoHierarchy" />
+            type="dss.vector.solutions.geo.GeoHierarchy"/>
           <char
             name="parentGeoHierarchyId"
             label="The universal located in parent."
             description="The located in parent of this universal."
             required="true"
-            size="64" />
+            size="64"/>
           <char
             name="parentTypeGeoHierarchyId"
             label="The universal parent type."
             description="The parent type of this universal."
             required="false"
-            size="64" />
+            size="64"/>
           <enumeration
             name="spatialType"
             label="Spatial Type"
             description="Spatial Type of GeoEntity attribute."
             required="false"
             selectMultiple="false"
-            type="dss.vector.solutions.geo.SpatialTypes" />
+            type="dss.vector.solutions.geo.SpatialTypes"/>
           <virtual
             name="typeName"
             required="true"
             concrete="typeName"
-            type="com.terraframe.mojo.system.metadata.MdType" />
+            type="com.terraframe.mojo.system.metadata.MdType"/>
           <char
             name="displayLabel"
             required="true"
             label="The Display Label"
-            size="64" />
+            size="64"/>
           <char
             name="description"
             required="false"
             label="Description"
-            size="255" />
+            size="255"/>
         </attributes>
       </mdView>
 
@@ -407,12 +407,12 @@
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
-          value="LINE" />
+          value="LINE"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Line" />
+            value="Line"/>
         </structAttribute>
       </object>
 
@@ -421,12 +421,12 @@
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
-          value="MULTI_LINE" />
+          value="MULTI_LINE"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Multi-Line" />
+            value="Multi-Line"/>
         </structAttribute>
       </object>
 
@@ -435,12 +435,12 @@
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
-          value="POINT" />
+          value="POINT"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Point" />
+            value="Point"/>
         </structAttribute>
       </object>
 
@@ -449,12 +449,12 @@
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
-          value="MULTI_POINT" />
+          value="MULTI_POINT"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Multi-Point" />
+            value="Multi-Point"/>
         </structAttribute>
       </object>
 
@@ -463,12 +463,12 @@
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
-          value="POLYGON" />
+          value="POLYGON"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Polygon" />
+            value="Polygon"/>
         </structAttribute>
       </object>
 
@@ -477,12 +477,12 @@
         type="dss.vector.solutions.geo.SpatialMaster">
         <valueAttribute
           name="enumName"
-          value="MULTI_POLYGON" />
+          value="MULTI_POLYGON"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Multi-Polygon" />
+            value="Multi-Polygon"/>
         </structAttribute>
       </object>
 
@@ -491,7 +491,7 @@
         label="Spatial Types"
         description="Defines all spatial types"
         type="dss.vector.solutions.geo.SpatialMaster">
-        <includeAll />
+        <includeAll/>
       </mdEnumeration>
 
 
@@ -510,7 +510,7 @@
             label="Root GeoEntity Id"
             description="The id of the GeoEntity that will be the root of the select lists."
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdAction>
         <mdAction
           name="displayMultipleSelectSearch"
@@ -522,7 +522,7 @@
             label="Root GeoEntity Id"
             description="The id of the GeoEntity that will be the root of the select lists."
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdAction>
         <mdAction
           name="displayTree"
@@ -534,7 +534,7 @@
             label="Root GeoEntity Id"
             description="The id of the GeoEntity that will be the root of the tree"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdAction>
       </mdController>
 
@@ -552,7 +552,7 @@
             label="Root GeoHierarchy Id"
             description="The id of the GeoHierarchy that will be the root of the tree"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdAction>
         <mdAction
           name="newDefinition"
@@ -563,7 +563,7 @@
             type="java.lang.String"
             label="Parent GeoHierarchy Id"
             description="Parent GeoHierarchy Id"
-            order="0" />
+            order="0"/>
         </mdAction>
         <mdAction
           name="createDefinition"
@@ -574,7 +574,7 @@
             label="GeoEntityDefinition"
             description="The GeoEntityDefinition"
             order="0"
-            type="dss.vector.solutions.geo.GeoEntityDefinition" />
+            type="dss.vector.solutions.geo.GeoEntityDefinition"/>
         </mdAction>
         <mdAction
           name="cancelCreateDefinition"
@@ -592,7 +592,7 @@
             label="GeoHierarchy Id"
             description="The id of the GeoHierarchy to lock and edit."
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdAction>
         <mdAction
           name="updateDefinition"
@@ -603,7 +603,7 @@
             label="GeoHierarchyView"
             description="The GeoHierarchyView"
             order="0"
-            type="dss.vector.solutions.geo.GeoHierarchyView" />
+            type="dss.vector.solutions.geo.GeoHierarchyView"/>
         </mdAction>
         <mdAction
           name="cancelUpdateDefinition"
@@ -615,7 +615,7 @@
             label="Geo Hierarchy Id"
             description="Geo Hierarchy Id"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdAction>
         <mdAction
           name="viewDefinition"
@@ -627,7 +627,7 @@
             label="Geo Hierarchy Id"
             description="Geo Hierarchy Id"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdAction>
       </mdController>
 
@@ -663,7 +663,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -679,7 +679,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -695,7 +695,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -711,7 +711,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -727,7 +727,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -749,7 +749,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -765,7 +765,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -781,7 +781,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -798,7 +798,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -826,7 +826,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -842,7 +842,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -858,7 +858,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -880,7 +880,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -896,7 +896,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -912,7 +912,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -928,7 +928,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -944,7 +944,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -960,7 +960,7 @@
             removable="false"
             required="false"
             srid="4326"
-            dimension="2" />
+            dimension="2"/>
         </attributes>
       </mdBusiness>
 
@@ -975,7 +975,7 @@
           name="queryEntomology"
           label="Query Entomology"
           description="Query Entomology"
-          isPost="false" />
+          isPost="false"/>
       </mdController>
 
       <mdController
@@ -990,12 +990,12 @@
             name="username"
             label="username"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
           <mdParameter
             name="password"
             label="password"
             order="1"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdAction>
         <mdAction
           name="logout"
@@ -1059,12 +1059,20 @@
           <date
             name="dateCollected"
             label="Collection Date"
-            required="true" />
+            description="The date these specimans were collected in the feild."
+            required="true"/>
           <reference
             name="geoEntity"
             required="true"
             label="Geo Entity"
-            type="dss.vector.solutions.geo.generated.GeoEntity" />
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <char
+            name="collectionId"
+            required="false"
+            label="Collection ID"
+            unique="true"
+            size="8"
+            description="A globaly unique, human readable ID."/>
         </attributes>
         <mdMethod
           name="getMorphologicalSpecieGroups"
@@ -1085,27 +1093,27 @@
             name="componentId"
             label="ComponentId"
             required="true"
-            size="255" />
+            size="255"/>
           <char
             name="definingType"
             label="Defining Type"
             required="true"
-            size="255" />
+            size="255"/>
           <char
             name="definingTypeDisplayLabel"
             label="Defining Type Display Label"
             required="true"
-            size="255" />
+            size="255"/>
           <char
             name="attributeName"
             label="Attribute Name"
             required="true"
-            size="255" />
+            size="255"/>
           <char
             name="attributeDisplayLabel"
             label="Attribute Display Label"
             required="true"
-            size="255" />
+            size="255"/>
         </attributes>
       </mdProblem>
 
@@ -1118,25 +1126,13 @@
           <date
             name="collectionDate"
             label="Collection Date"
-            required="true" />
+            required="true"/>
           <date
             name="currentDate"
             label="Current Date"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
-
-      <mdIndex
-        type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
-        active="true"
-        label="Concrete Mosquito Collection"
-        unique="true"
-        description="Uniquness constraint between the date and location of a concrete mosquito collection">
-        <attribute
-          name="dateCollected" />
-        <attribute
-          name="geoEntity" />
-      </mdIndex>
 
       <mdBusiness
         name="dss.vector.solutions.entomology.MosquitoCollection"
@@ -1148,7 +1144,7 @@
             name="collectionMethod"
             label="Collection Method"
             type="dss.vector.solutions.mo.CollectionMethod"
-            required="true" />
+            required="true"/>
         </attributes>
         <mdMethod
           name="searchByGeoEntityAndDate"
@@ -1161,12 +1157,12 @@
             label="Geo Entity"
             type="dss.vector.solutions.geo.generated.GeoEntity"
             order="0"
-            description="GeoEntity" />
+            description="GeoEntity"/>
           <mdParameter
             name="collectionDate"
             label="Colllection Date"
             type="java.util.Date"
-            order="1" />
+            order="1"/>
         </mdMethod>
         <mdMethod
           name="searchByGeoEntityAndDateAndCollectionMethod"
@@ -1179,17 +1175,17 @@
             label="Geo Entity"
             type="dss.vector.solutions.geo.generated.GeoEntity"
             order="0"
-            description="GeoEntity" />
+            description="GeoEntity"/>
           <mdParameter
             name="collectionDate"
             label="Colllection Date"
             type="java.util.Date"
-            order="1" />
+            order="1"/>
           <mdParameter
             name="collectionMethod"
             label="Colllection Method"
             type="dss.vector.solutions.mo.CollectionMethod"
-            order="2" />
+            order="2"/>
         </mdMethod>
       </mdBusiness>
 
@@ -1202,16 +1198,16 @@
             name="collectionMethod"
             label="Collection Method"
             required="true"
-            size="255" />
+            size="255"/>
           <date
             name="dateCollected"
             label="Collection Date"
-            required="true" />
+            required="true"/>
           <char
             name="geoEntity"
             required="true"
             label="Geo Entity"
-            size="16" />
+            size="16"/>
         </attributes>
       </mdView>
 
@@ -1225,8 +1221,14 @@
             label="Geo Id"
             size="16"
             required="true"
-            description="Id of the GeoEntity" />
+            description="Id of the GeoEntity"/>
         </attributes>
+      </mdException>
+
+      <mdException
+        name="dss.vector.solutions.entomology.MosquitoCollectionAllreadyExistsException"
+        label="Invalid Mosquito Collection"
+        description="Exception thrown when a Mosquito Collection allready exists for its date, GeoEntinty, and optional collection method">
       </mdException>
 
       <mdBusiness
@@ -1245,17 +1247,17 @@
             label="Geo Entity"
             type="dss.vector.solutions.geo.generated.GeoEntity"
             order="0"
-            description="GeoEntity" />
+            description="GeoEntity"/>
           <mdParameter
             name="startDate"
             label="Start Date"
             type="java.util.Date"
-            order="1" />
+            order="1"/>
           <mdParameter
             name="endDate"
             label="End Date"
             type="java.util.Date"
-            order="2" />
+            order="2"/>
         </mdMethod>
         <mdMethod
           name="searchByGeoEntityAndDateAndCollectionMethod"
@@ -1268,17 +1270,17 @@
             label="Geo Entity"
             type="dss.vector.solutions.geo.generated.GeoEntity"
             order="0"
-            description="GeoEntity" />
+            description="GeoEntity"/>
           <mdParameter
             name="collectionDate"
             label="Colllection Date"
             type="java.util.Date"
-            order="1" />
+            order="1"/>
           <mdParameter
             name="collectionMethod"
             label="Colllection Method"
             type="dss.vector.solutions.mo.CollectionMethod"
-            order="2" />
+            order="2"/>
         </mdMethod>
       </mdBusiness>
 
@@ -1292,13 +1294,13 @@
             label="Entity Name"
             size="100"
             required="true"
-            description="Geo Entity name" />
+            description="Geo Entity name"/>
           <char
             name="parentDisplayLabel"
             label="Parent Display Label"
             size="100"
             required="true"
-            description="Parent Display Label" />
+            description="Parent Display Label"/>
         </attributes>
       </mdException>
 
@@ -1312,7 +1314,7 @@
             label="Entity Name"
             size="100"
             required="true"
-            description="Geo Entity Parent name" />
+            description="Geo Entity Parent name"/>
         </attributes>
       </mdException>
 
@@ -1326,7 +1328,7 @@
             label="Earth Name"
             size="100"
             required="true"
-            description="Name of Earth" />
+            description="Name of Earth"/>
         </attributes>
       </mdException>
 
@@ -1345,12 +1347,12 @@
             name="isAParentLabel"
             label="Is A Parent Display Label"
             size="100"
-            required="true" />
+            required="true"/>
           <char
             name="spatialLabel"
             label="Spatial Label"
             size="100"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdException>
 
@@ -1364,7 +1366,7 @@
             label="Earth Name"
             size="100"
             required="true"
-            description="Name of Earth" />
+            description="Name of Earth"/>
         </attributes>
       </mdException>
 
@@ -1378,7 +1380,7 @@
             label="displayLabel"
             size="100"
             required="true"
-            description="Display Label" />
+            description="Display Label"/>
         </attributes>
       </mdException>
 
@@ -1392,7 +1394,7 @@
             label="Geo Id"
             size="16"
             required="true"
-            description="Id of the GeoEntity" />
+            description="Id of the GeoEntity"/>
         </attributes>
       </mdException>
 
@@ -1405,33 +1407,33 @@
             name="quantity"
             label="Total Number"
             rejectNegative="true"
-            required="true" />
+            required="true"/>
           <integer
             name="quantityFemale"
             label="Number Female"
             rejectNegative="true"
-            required="false" />
+            required="false"/>
           <integer
             name="quantityMale"
             label="Number Male"
             rejectNegative="true"
-            required="false" />
+            required="false"/>
           <reference
             name="specie"
             label="Species"
             type="dss.vector.solutions.mo.Specie"
-            required="false" />
+            required="false"/>
           <reference
             name="identificationMethod"
             label="Identification Method"
             type="dss.vector.solutions.mo.IdentificationMethod"
-            required="false" />
+            required="false"/>
           <reference
             name="collection"
             label="MosquitoCollection"
             required="true"
             type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
-            immutable="true" />
+            immutable="true"/>
         </attributes>
       </mdBusiness>
 
@@ -1446,13 +1448,13 @@
             label="Quantity"
             rejectNegative="true"
             rejectZero="true"
-            required="true" />
+            required="true"/>
           <integer
             name="quantityFemale"
             label="Quantity Female"
             rejectNegative="true"
             rejectZero="true"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
 
@@ -1467,13 +1469,13 @@
             label="Quantity"
             rejectNegative="true"
             rejectZero="true"
-            required="true" />
+            required="true"/>
           <integer
             name="quantityMale"
             label="Quantity Male"
             rejectNegative="true"
             rejectZero="true"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
 
@@ -1488,19 +1490,19 @@
             label="Quantity"
             rejectNegative="true"
             rejectZero="true"
-            required="true" />
+            required="true"/>
           <integer
             name="quantityMale"
             label="Quantity Male"
             rejectNegative="true"
             rejectZero="true"
-            required="true" />
+            required="true"/>
           <integer
             name="quantityFemale"
             label="Quantity Female"
             rejectNegative="true"
             rejectZero="true"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
 
@@ -1515,13 +1517,13 @@
         name="dss.vector.solutions.entomology.EmptyValueProblem"
         label="Empty Value Problem"
         description="A MorphologicalSpecieGroup is missing contextual required values"
-        extends="dss.vector.solutions.NotificationProblem" />
+        extends="dss.vector.solutions.NotificationProblem"/>
 
       <mdProblem
         name="dss.vector.solutions.entomology.InvalidMorphologicalSpecieProblem"
         label="Invalid Morphological Specie Problem"
         description="A morphological specie group cannot have an identification method or specie if the quantity is zero"
-        extends="dss.vector.solutions.NotificationProblem" />
+        extends="dss.vector.solutions.NotificationProblem"/>
 
       <mdView
         name="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
@@ -1532,44 +1534,44 @@
           <virtual
             name="specie"
             type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-            concrete="specie" />
+            concrete="specie"/>
           <virtual
             name="identificationMethod"
             type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-            concrete="identificationMethod" />
+            concrete="identificationMethod"/>
           <virtual
             name="quantity"
             type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
             concrete="quantity"
-            required="true" />
+            required="true"/>
           <virtual
             name="quantityMale"
             type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-            concrete="quantityMale" />
+            concrete="quantityMale"/>
           <virtual
             name="quantityFemale"
             type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-            concrete="quantityFemale" />
+            concrete="quantityFemale"/>
           <virtual
             name="collection"
             required="false"
             type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
-            concrete="collection" />
+            concrete="collection"/>
           <virtual
             name="dateCollected"
             required="true"
             type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
-            concrete="dateCollected" />
+            concrete="dateCollected"/>
           <virtual
             name="geoEntity"
             required="true"
             type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
-            concrete="geoEntity" />
+            concrete="geoEntity"/>
           <char
             name="groupId"
             label="Morphological Group Id"
             required="true"
-            size="255" />
+            size="255"/>
         </attributes>
         <mdMethod
           name="saveAll"
@@ -1582,7 +1584,7 @@
             label="Array"
             description="Array of objects to save"
             order="0"
-            type="dss.vector.solutions.entomology.MorphologicalSpecieGroupView[]" />
+            type="dss.vector.solutions.entomology.MorphologicalSpecieGroupView[]"/>
         </mdMethod>
       </mdView>
 
@@ -1597,24 +1599,24 @@
             label="Species"
             type="dss.vector.solutions.mo.Specie"
             required="false"
-            description="The true specie of the collection" />
+            description="The true specie of the collection"/>
           <reference
             name="identificationMethod"
             label="Identification Method"
             type="dss.vector.solutions.mo.IdentificationMethod"
-            description="Method used to indentify the true specie collection" />
+            description="Method used to indentify the true specie collection"/>
           <reference
             name="collection"
             label="Mosquito Collection"
             required="true"
             type="dss.vector.solutions.entomology.AbstractMosquitoCollection"
-            description="References to the mosquito collection from which the true specie sample came." />
+            description="References to the mosquito collection from which the true specie sample came."/>
           <char
             name="sampleId"
             label="Sample Id"
             required="true"
             size="255"
-            description="The id the entomologist gives to a sample when its true specie is determined." />
+            description="The id the entomologist gives to a sample when its true specie is determined."/>
         </attributes>
       </mdBusiness>
 
@@ -1625,9 +1627,9 @@
         unique="true"
         description="Enforces a unique index between a collection and its sample id">
         <attribute
-          name="sampleId" />
+          name="sampleId"/>
         <attribute
-          name="collection" />
+          name="collection"/>
       </mdIndex>
 
       <mdBusiness
@@ -1640,7 +1642,7 @@
             label="Quanity"
             rejectNegative="true"
             rejectZero="true"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdBusiness>
 
@@ -1653,32 +1655,32 @@
             name="groupId"
             label="Group Id"
             size="255"
-            description="The id of the Uninteresting Specie Group, if this is left blank then the View represents a new UninterestingSpecieGroup" />
+            description="The id of the Uninteresting Specie Group, if this is left blank then the View represents a new UninterestingSpecieGroup"/>
           <virtual
             name="collection"
             type="dss.vector.solutions.entomology.TrueSpecieEntity"
             concrete="collection"
-            required="true" />
+            required="true"/>
           <virtual
             name="specie"
             type="dss.vector.solutions.entomology.TrueSpecieEntity"
             required="true"
-            concrete="specie" />
+            concrete="specie"/>
           <virtual
             name="identificationMethod"
             type="dss.vector.solutions.entomology.TrueSpecieEntity"
             concrete="identificationMethod"
-            required="true" />
+            required="true"/>
           <virtual
             name="quantity"
             type="dss.vector.solutions.entomology.UninterestingSpecieGroup"
             concrete="quantity"
-            required="true" />
+            required="true"/>
           <virtual
             name="sampleId"
             type="dss.vector.solutions.entomology.TrueSpecieEntity"
             concrete="sampleId"
-            required="true" />
+            required="true"/>
         </attributes>
         <mdMethod
           name="saveAll"
@@ -1691,7 +1693,7 @@
             label="Array"
             description="Array of objects to save"
             order="0"
-            type="dss.vector.solutions.entomology.UninterestingSpecieGroupView[]" />
+            type="dss.vector.solutions.entomology.UninterestingSpecieGroupView[]"/>
         </mdMethod>
       </mdView>
 
@@ -1704,26 +1706,28 @@
             name="testDate"
             label="Test Date"
             required="true"
-            description="The date the tests were performed on the misquito" />
+            description="The date the tests were performed on the misquito"/>
           <boolean
             name="isofemale"
             label="Isofemale"
             required="true"
             default_value="false"
-            description="Flag denoting if this mosquito is from the iso-female line|Yes|No" />
+            description="Flag denoting if this mosquito is from the iso-female line"
+            positiveLabel="Yes"
+            negativeLabel="No"/>
           <enumeration
             name="sex"
             label="Sex"
             required="true"
             description="The sex of the mosquito"
             selectMultiple="false"
-            type="dss.vector.solutions.entomology.Sex" />
+            type="dss.vector.solutions.entomology.Sex"/>
           <reference
             name="generation"
             label="Generation"
             required="true"
             description="The generation of the mosquito"
-            type="dss.vector.solutions.mo.Generation" />
+            type="dss.vector.solutions.mo.Generation"/>
         </attributes>
         <mdMethod
           name="queryEntomology"
@@ -1736,13 +1740,13 @@
             label="Query XML"
             description="Query XML"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
           <mdParameter
             name="geoEntityType"
             label="GeoEntity type"
             description="The type on which to gather spatial data"
             order="1"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
         <mdMethod
           name="mapQuery"
@@ -1755,32 +1759,32 @@
             label="Query XML"
             description="Query XML"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
           <mdParameter
             name="thematicLayerType"
             label="Thematic Layer Type"
             description="The GeoEntity type for the base layer with thematic variables."
             order="1"
-            type="java.lang.String" />
+            type="java.lang.String"/>
           <mdParameter
             name="universalLayers"
             label="Universal Layers"
             description="The universal types that will act as additional layers"
             order="2"
-            type="java.lang.String[]" />
+            type="java.lang.String[]"/>
           <mdParameter
             name="savedSearchId"
             label="SavedSearch Id"
             description="The id of the SavedSearch for which the map will be generated."
             order="3"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
       </mdBusiness>
 
       <enumerationMaster
         name="dss.vector.solutions.entomology.SexMaster"
         label="Sex Master"
-        description="Master list of all possible mosquito sexes" />
+        description="Master list of all possible mosquito sexes"/>
 
       <object
         id="MALE"
@@ -1788,12 +1792,12 @@
         key="dss.vector.solutions.entomology.SexMaster.MALE">
         <valueAttribute
           name="enumName"
-          value="MALE" />
+          value="MALE"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Male" />
+            value="Male"/>
         </structAttribute>
       </object>
 
@@ -1803,12 +1807,12 @@
         key="dss.vector.solutions.entomology.SexMaster.FEMALE">
         <valueAttribute
           name="enumName"
-          value="FEMALE" />
+          value="FEMALE"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Female" />
+            value="Female"/>
         </structAttribute>
       </object>
 
@@ -1818,12 +1822,12 @@
         key="dss.vector.solutions.entomology.SexMaster.MIXED">
         <valueAttribute
           name="enumName"
-          value="MIXED" />
+          value="MIXED"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Mixed" />
+            value="Mixed"/>
         </structAttribute>
       </object>
 
@@ -1833,12 +1837,12 @@
         key="dss.vector.solutions.entomology.SexMaster.UNKNOWN">
         <valueAttribute
           name="enumName"
-          value="UNKNOWN" />
+          value="UNKNOWN"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Unknown" />
+            value="Unknown"/>
         </structAttribute>
       </object>
 
@@ -1848,11 +1852,11 @@
         label="Sex"
         description="List of all possible single mosquito sex options">
         <addEnumItem
-          id="MALE" />
+          id="MALE"/>
         <addEnumItem
-          id="FEMALE" />
+          id="FEMALE"/>
         <addEnumItem
-          id="UNKNOWN" />
+          id="UNKNOWN"/>
       </mdEnumeration>
 
       <mdEnumeration
@@ -1860,16 +1864,12 @@
         type="dss.vector.solutions.entomology.SexMaster"
         label="Sex"
         description="List of all possible mosquito assay sex options">
-        <includeAll />
+        <includeAll/>
       </mdEnumeration>
 
       <!--
-        ***************************************************** Start of
-        MIRO enumerations. These enumerations will change onces the MIRO
-        ontology has been sorted out. We have outstanding questions of
-        wether or not we will use the MIRO ontology or just take the
-        terms from the ontology and create our own enumerations
-        *****************************************************
+        ***************************************************** Start of MIRO enumerations. These enumerations will change onces the MIRO ontology has been sorted out. We have outstanding questions of
+        wether or not we will use the MIRO ontology or just take the terms from the ontology and create our own enumerations *****************************************************
       -->
 
       <mdBusiness
@@ -1883,50 +1883,50 @@
             required="true"
             size="255"
             label="Term Name"
-            description="The name of the MO Collection Method Term" />
+            description="The name of the MO Collection Method Term"/>
           <char
             name="displayLabel"
             required="true"
             size="255"
             label="Display Label"
-            description="The label of the MO Term" />
+            description="The label of the MO Term"/>
           <char
             name="termId"
             required="true"
             size="50"
             label="Term Id"
             description="The MO or MIRO id"
-            indexType="unique index" />
+            indexType="unique index"/>
           <char
             name="definition"
             label="Definition"
             size="1024"
             required="false"
-            description="Description of the MO term" />
+            description="Description of the MO term"/>
           <char
             name="oboNamespace"
             label="Namespace"
             required="false"
             description="OBO namespace"
-            size="255" />
+            size="255"/>
           <char
             name="inheritsTerm"
             label="Inherits Term"
             required="false"
             description="Id of the MO term this term inherits"
-            size="50" />
+            size="50"/>
           <char
             name="inheritsTermName"
             label="Inherits Term Name"
             required="false"
             description="Name of the MO term this term inherits"
-            size="25" />
+            size="25"/>
           <boolean
             name="enabled"
             label="Enabled"
             required="true"
             default_value="true"
-            description="If the MO term is enabled" />
+            description="If the MO term is enabled"/>
         </attributes>
         <mdMethod
           name="searchByTermId"
@@ -1939,7 +1939,7 @@
             description="The MO id"
             label="MO Id"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
         <mdMethod
           name="searchByTermName"
@@ -1952,7 +1952,7 @@
             description="The Mo Term Name"
             label="MO Id"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
       </mdBusiness>
 
@@ -1966,7 +1966,7 @@
           returnType="dss.vector.solutions.mo.CollectionMethod[]"
           label="Get All Terms"
           static="true"
-          description="Returns all term of a MO subcatagory" />
+          description="Returns all term of a MO subcatagory"/>
       </mdBusiness>
 
       <mdBusiness
@@ -1979,7 +1979,7 @@
           returnType="dss.vector.solutions.mo.Generation[]"
           label="Get All Terms"
           static="true"
-          description="Returns all terms of a MO subcatagory" />
+          description="Returns all terms of a MO subcatagory"/>
       </mdBusiness>
 
       <mdBusiness
@@ -1992,7 +1992,7 @@
           returnType="dss.vector.solutions.mo.Specie[]"
           label="Get All Terms"
           static="true"
-          description="Returns all terms of a MO subcatagory" />
+          description="Returns all terms of a MO subcatagory"/>
       </mdBusiness>
 
       <mdBusiness
@@ -2005,7 +2005,7 @@
           returnType="dss.vector.solutions.mo.IdentificationMethod[]"
           label="Get All Terms"
           static="true"
-          description="Returns all terms of a MO subcatagory" />
+          description="Returns all terms of a MO subcatagory"/>
       </mdBusiness>
 
       <!--
@@ -2028,17 +2028,17 @@
               label="Geo Entity"
               order="0"
               type="dss.vector.solutions.geo.generated.GeoEntity"
-              description="GeoEntity to search" />
+              description="GeoEntity to search"/>
             <mdParameter
               name="startDate"
               label="Start Date"
               type="java.util.Date"
-              order="1" />
+              order="1"/>
             <mdParameter
               name="endDate"
               label="End Date"
               type="java.util.Date"
-              order="2" />
+              order="2"/>
           </mdAction>
           <mdAction
             name="searchByGeoIdAndDate"
@@ -2050,24 +2050,24 @@
               label="Geo Id"
               order="0"
               type="java.lang.String"
-              description="GeoId to search" />
+              description="GeoId to search"/>
             <mdParameter
               name="startDate"
               label="Start Date"
               type="java.util.Date"
-              order="1" />
+              order="1"/>
             <mdParameter
               name="endDate"
               label="End Date"
               type="java.util.Date"
-              order="2" />
+              order="2"/>
           </mdAction>
           <mdAction
             name="search"
             description="Forwards the user to the search page"
             isPost="false"
             label="Search"
-            isQuery="false" />
+            isQuery="false"/>
         </create>
       </mdController>
       <mdController
@@ -2083,19 +2083,19 @@
               label="Geo Entity"
               order="0"
               type="dss.vector.solutions.geo.generated.GeoEntity"
-              description="GeoEntity to search" />
+              description="GeoEntity to search"/>
             <mdParameter
               name="collectionDate"
               label="Collection Date"
               description="The date the mosquito collection was collected"
               order="1"
-              type="java.util.Date" />
+              type="java.util.Date"/>
             <mdParameter
               name="collectionMethod"
               label="Colllection Method"
               description="The method used to collect these mosquitos"
               type="dss.vector.solutions.mo.CollectionMethod"
-              order="2" />
+              order="2"/>
           </mdAction>
           <mdAction
             name="searchByGeoIdAndDate"
@@ -2107,26 +2107,26 @@
               label="Geo Id"
               order="0"
               type="java.lang.String"
-              description="GeoId to search" />
+              description="GeoId to search"/>
             <mdParameter
               name="collectionDate"
               label="Collection Date"
               description="The date the mosquito collection was collected"
               order="1"
-              type="java.util.Date" />
+              type="java.util.Date"/>
             <mdParameter
               name="collectionMethod"
               label="Colllection Method"
               type="dss.vector.solutions.mo.CollectionMethod"
               description="The method used to collect these mosquitos"
-              order="2" />
+              order="2"/>
           </mdAction>
           <mdAction
             name="search"
             description="Forwards the user to the search page"
             isPost="false"
             label="Search"
-            isQuery="false" />
+            isQuery="false"/>
           <mdAction
             name="viewAssays"
             description="Shows all the assays for this Mosquito collection"
@@ -2138,7 +2138,7 @@
               label="Collection Id"
               order="0"
               type="java.lang.String"
-              description="Id of Mosquito collection" />
+              description="Id of Mosquito collection"/>
           </mdAction>
         </create>
       </mdController>
@@ -2161,7 +2161,7 @@
           returnType="dss.vector.solutions.mo.ActiveIngredient[]"
           label="Get All Terms"
           static="true"
-          description="Returns all terms of a MO subcatagory" />
+          description="Returns all terms of a MO subcatagory"/>
       </mdBusiness>
 
       <mdBusiness
@@ -2174,26 +2174,26 @@
           returnType="dss.vector.solutions.mo.ResistanceMethodology[]"
           label="Get All Terms"
           static="true"
-          description="Returns all term names of a MO subcatagory" />
+          description="Returns all term names of a MO subcatagory"/>
       </mdBusiness>
 
       <enumerationMaster
         name="dss.vector.solutions.entomology.assay.UnitMaster"
         label="Unit Master"
         description="Master list of all concentration units"
-        generateController="false" />
+        generateController="false"/>
 
       <object
         type="dss.vector.solutions.entomology.assay.UnitMaster"
         id="MICROGRAM_PER_MILLILITER">
         <valueAttribute
           name="enumName"
-          value="MICROGRAM_PER_MILLILITER" />
+          value="MICROGRAM_PER_MILLILITER"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="µg/ml" />
+            value="µg/ml"/>
         </structAttribute>
       </object>
 
@@ -2202,12 +2202,12 @@
         id="PERCENT">
         <valueAttribute
           name="enumName"
-          value="PERCENT" />
+          value="PERCENT"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="%" />
+            value="%"/>
         </structAttribute>
       </object>
 
@@ -2216,12 +2216,12 @@
         id="PICOGRAM_PER_MILLILITER">
         <valueAttribute
           name="enumName"
-          value="PICOGRAM_PER_MILLILITER" />
+          value="PICOGRAM_PER_MILLILITER"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="pg/ml" />
+            value="pg/ml"/>
         </structAttribute>
       </object>
 
@@ -2230,12 +2230,12 @@
         id="MILLIGRAM_PER_MILLILITER">
         <valueAttribute
           name="enumName"
-          value="MILLIGRAM_PER_MILLILITER" />
+          value="MILLIGRAM_PER_MILLILITER"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="mg/ml" />
+            value="mg/ml"/>
         </structAttribute>
       </object>
 
@@ -2244,12 +2244,12 @@
         id="PICOGRAM_PER_LITER">
         <valueAttribute
           name="enumName"
-          value="PICOGRAM_PER_LITER" />
+          value="PICOGRAM_PER_LITER"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="pg/l" />
+            value="pg/l"/>
         </structAttribute>
       </object>
 
@@ -2258,12 +2258,12 @@
         id="MILLIGRAM_PER_LITER">
         <valueAttribute
           name="enumName"
-          value="MILLIGRAM_PER_LITER" />
+          value="MILLIGRAM_PER_LITER"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="mg/l" />
+            value="mg/l"/>
         </structAttribute>
       </object>
 
@@ -2272,12 +2272,12 @@
         id="MICROGRAM_PER_LITER">
         <valueAttribute
           name="enumName"
-          value="MICROGRAM_PER_LITER" />
+          value="MICROGRAM_PER_LITER"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="µg/l" />
+            value="µg/l"/>
         </structAttribute>
       </object>
 
@@ -2285,7 +2285,7 @@
         name="dss.vector.solutions.entomology.assay.Unit"
         type="dss.vector.solutions.entomology.assay.UnitMaster"
         label="Unit">
-        <includeAll />
+        <includeAll/>
       </mdEnumeration>
 
       <mdBusiness
@@ -2298,7 +2298,7 @@
           returnType="dss.vector.solutions.mo.LarvaeAge[]"
           label="Get All Terms"
           static="true"
-          description="Returns all term names of a MO subcatagory" />
+          description="Returns all term names of a MO subcatagory"/>
       </mdBusiness>
 
       <mdStruct
@@ -2311,13 +2311,13 @@
             label="From"
             rejectNegative="true"
             required="true"
-            description="Starting age of the age range" />
+            description="Starting age of the age range"/>
           <integer
             name="endPoint"
             label="To"
             rejectNegative="true"
             required="true"
-            description="Ending age of the age range" />
+            description="Ending age of the age range"/>
         </attributes>
       </mdStruct>
 
@@ -2330,7 +2330,7 @@
           <integer
             name="age"
             label="Age"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
 
@@ -2343,11 +2343,11 @@
           <integer
             name="startPoint"
             label="Start Point"
-            required="true" />
+            required="true"/>
           <integer
             name="endPoint"
             label="End Point"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
 
@@ -2360,19 +2360,19 @@
             name="activeIngredient"
             label="Active Ingredient"
             type="dss.vector.solutions.mo.ActiveIngredient"
-            required="true" />
+            required="true"/>
           <integer
             name="amount"
             label="Concentration"
             rejectZero="true"
             rejectNegative="true"
-            required="true" />
+            required="true"/>
           <enumeration
             name="units"
             label="Units"
             required="true"
             type="dss.vector.solutions.entomology.assay.Unit"
-            selectMultiple="false" />
+            selectMultiple="false"/>
         </attributes>
       </mdBusiness>
 
@@ -2387,19 +2387,19 @@
           <date
             name="testDate"
             label="Test Date"
-            description="The date the test was performed" />
+            description="The date the test was performed"/>
           <reference
             name="specie"
             label="Species"
             type="dss.vector.solutions.mo.Specie"
             description="The Specie of mosqito being tested."
-            required="false" />
+            required="false"/>
           <reference
             name="insecticide"
             label="Insecticide"
             type="dss.vector.solutions.general.Insecticide"
             description="The Insecticide being tested."
-            required="true" />
+            required="true"/>
         </attributes>
         <mdMethod
           name="getAssayTree"
@@ -2422,28 +2422,30 @@
             name="collection"
             label="Mosquito Collection"
             required="true"
-            type="dss.vector.solutions.entomology.MosquitoCollection" />
+            type="dss.vector.solutions.entomology.MosquitoCollection"/>
           <reference
             name="testMethod"
             label="Test Method"
-            type="dss.vector.solutions.mo.ResistanceMethodology" />
+            type="dss.vector.solutions.mo.ResistanceMethodology"/>
           <reference
             name="identificationMethod"
             label="Identification Method"
             type="dss.vector.solutions.mo.IdentificationMethod"
-            required="false" />
+            required="false"/>
           <boolean
             name="isofemale"
             label="Isofemale"
             required="true"
             default_value="false"
-            description="Flag denoting if this mosquito is from the iso-female line|Yes|No" />
+            description="Flag denoting if this mosquito is from the iso-female line"
+            positiveLabel="Yes"
+            negativeLabel="No"/>
           <reference
             name="generation"
             label="Generation"
             required="true"
             description="The generation of the mosquito"
-            type="dss.vector.solutions.mo.Generation" />
+            type="dss.vector.solutions.mo.Generation"/>
           <integer
             name="exposureTime"
             label="Exposure Time (minutes)"
@@ -2451,14 +2453,14 @@
             rejectNegative="true"
             rejectZero="true"
             default_value="60"
-            immutable="true" />
+            immutable="true"/>
           <integer
             name="quantityTested"
             label="Number Exposed"
             rejectNegative="true"
             rejectZero="true"
             required="true"
-            description="The total number mosquitos tested" />
+            description="The total number mosquitos tested"/>
           <integer
             name="intervalTime"
             label="Interval Time (minutes)"
@@ -2467,20 +2469,20 @@
             rejectZero="true"
             required="true"
             description="The interval time in minutes"
-            default_value="10" />
+            default_value="10"/>
         </attributes>
         <mdMethod
           name="getKD50"
           label="Get KD50"
           returnType="java.lang.Double"
           static="false"
-          description="Returns the predicted KD50" />
+          description="Returns the predicted KD50"/>
         <mdMethod
           name="getKD95"
           label="Get KD95"
           returnType="java.lang.Double"
           static="false"
-          description="Returns the predicted KD95" />
+          description="Returns the predicted KD95"/>
       </mdBusiness>
 
       <mdBusiness
@@ -2495,26 +2497,26 @@
             label="Age Range"
             required="false"
             description="The age range of the mosquitos tested"
-            type="dss.vector.solutions.entomology.assay.AdultAgeRange" />
+            type="dss.vector.solutions.entomology.assay.AdultAgeRange"/>
           <integer
             name="fed"
             label="Number Fed"
             description="Fed value (Only applicable when females are present)."
             rejectNegative="true"
-            required="false" />
+            required="false"/>
           <integer
             name="gravid"
             label="Number Gravid"
             description="Gravid value (Only applicable when females are present)"
             rejectNegative="true"
-            required="false" />
+            required="false"/>
           <enumeration
             name="sex"
             label="Sex"
             required="true"
             description="The sex of the tested mosquitos"
             selectMultiple="false"
-            type="dss.vector.solutions.entomology.AssaySex" />
+            type="dss.vector.solutions.entomology.AssaySex"/>
         </attributes>
         <mdMethod
           name="getTestIntervals"
@@ -2544,33 +2546,33 @@
             required="true"
             rejectNegative="true"
             description="The amount of time the mosquitos were held before exposure in hours"
-            default_value="24" />
+            default_value="24"/>
           <integer
             name="quantityDead"
             label="Number Dead"
             rejectNegative="true"
             required="true"
-            description="The total number of mosquitos which died during the assay" />
+            description="The total number of mosquitos which died during the assay"/>
           <integer
             name="quantityLive"
             label="Number Alive"
             rejectNegative="true"
             required="true"
-            description="The total number of mosquitos which lived during the assay" />
+            description="The total number of mosquitos which lived during the assay"/>
           <float
             name="mortality"
             label="Percentage Mortality"
             length="5"
             decimal="2"
             required="true"
-            description="The mortality rate of mosquitos" />
+            description="The mortality rate of mosquitos"/>
           <float
             name="controlTestMortality"
             label="Control Test Mortality Rate"
             length="5"
             decimal="2"
             description="Mortality rate of the control test"
-            required="false" />
+            required="false"/>
         </attributes>
       </mdBusiness>
 
@@ -2586,13 +2588,13 @@
             label="Beginning Age"
             required="false"
             description="Starting age of the age range"
-            type="dss.vector.solutions.mo.LarvaeAge" />
+            type="dss.vector.solutions.mo.LarvaeAge"/>
           <reference
             name="endPoint"
             label="End Age"
             required="false"
             description="End age of the age range"
-            type="dss.vector.solutions.mo.LarvaeAge" />
+            type="dss.vector.solutions.mo.LarvaeAge"/>
         </attributes>
         <mdMethod
           name="getTestIntervals"
@@ -2615,33 +2617,33 @@
             required="true"
             rejectNegative="true"
             description="The amount of time the mosquitos were held before exposure in hours"
-            default_value="23" />
+            default_value="23"/>
           <integer
             name="quantityDead"
             label="Number Dead"
             rejectNegative="true"
             required="true"
-            description="The total number of mosquitos which died during the assay" />
+            description="The total number of mosquitos which died during the assay"/>
           <integer
             name="quantityLive"
             label="Number Alive"
             rejectNegative="true"
             required="true"
-            description="The total number of mosquitos which lived during the assay" />
+            description="The total number of mosquitos which lived during the assay"/>
           <float
             name="mortality"
             label="Percentage Mortality"
             length="5"
             decimal="2"
             required="true"
-            description="The mortality rate of mosquitos" />
+            description="The mortality rate of mosquitos"/>
           <float
             name="controlTestMortality"
             label="Control Test Mortality Rate"
             length="5"
             decimal="2"
             description="Mortality rate of the control test"
-            required="false" />
+            required="false"/>
         </attributes>
       </mdBusiness>
 
@@ -2654,38 +2656,38 @@
           <reference
             name="testMethod"
             label="Test Method"
-            type="dss.vector.solutions.mo.ResistanceMethodology" />
+            type="dss.vector.solutions.mo.ResistanceMethodology"/>
           <integer
             name="holdingTime"
             label="Holding Time (hr)"
             required="true"
             rejectNegative="true"
             description="The amount of time the mosquitos were held before exposure in hours"
-            default_value="23" />
+            default_value="23"/>
           <integer
             name="quantityDead"
             label="Number Dead"
             rejectNegative="true"
             required="true"
-            description="The total number of mosquitos which died during the assay" />
+            description="The total number of mosquitos which died during the assay"/>
           <integer
             name="quantityLive"
             label="Number Alive"
             rejectNegative="true"
             required="true"
-            description="The total number of mosquitos which lived during the assay" />
+            description="The total number of mosquitos which lived during the assay"/>
           <float
             name="mortality"
             label="Percentage Mortality"
             length="5"
             decimal="2"
             required="true"
-            description="The mortality rate of mosquitos" />
+            description="The mortality rate of mosquitos"/>
           <char
             name="colonyName"
             size="255"
             label="Colony Name"
-            description="The name of the colony" />
+            description="The name of the colony"/>
           <integer
             name="exposureTime"
             label="Time Exposed (minutes)"
@@ -2693,55 +2695,55 @@
             rejectNegative="true"
             rejectZero="true"
             default_value="60"
-            immutable="true" />
+            immutable="true"/>
           <integer
             name="quantityTested"
             label="Number Exposed"
             rejectNegative="true"
             rejectZero="true"
             required="true"
-            description="The total number mosquitos tested" />
+            description="The total number mosquitos tested"/>
           <enumeration
             name="surfacePostion"
             label="Position on surface"
             type="dss.vector.solutions.SurfacePosition"
             selectMultiple="false"
-            description="The surface position of the insecticide" />
+            description="The surface position of the insecticide"/>
           <integer
             name="timeOnSurface"
             label="Time on Surface (weeks)"
             description="The length of time the Insecticide has been on the surface in weeks"
-            rejectNegative="true" />
+            rejectNegative="true"/>
           <reference
             name="geoEntity"
             required="true"
             label="Geo Entity"
-            type="dss.vector.solutions.geo.generated.GeoEntity" />
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
           <struct
             name="ageRange"
             label="Age Range"
             required="false"
             description="The age range of the mosquitos tested"
-            type="dss.vector.solutions.entomology.assay.AdultAgeRange" />
+            type="dss.vector.solutions.entomology.assay.AdultAgeRange"/>
           <integer
             name="fed"
             label="Number Fed"
             description="Fed value (Only applicable when females are present)."
             rejectNegative="true"
-            required="false" />
+            required="false"/>
           <integer
             name="gravid"
             label="Number Gravid"
             description="Gravid value (Only applicable when females are present)"
             rejectNegative="true"
-            required="false" />
+            required="false"/>
           <enumeration
             name="sex"
             label="Sex"
             required="true"
             description="The sex of the tested mosquitos"
             selectMultiple="false"
-            type="dss.vector.solutions.entomology.AssaySex" />
+            type="dss.vector.solutions.entomology.AssaySex"/>
         </attributes>
         <mdMethod
           name="getOverallMortalityRate"
@@ -2761,31 +2763,31 @@
             label="Geo Entity"
             type="dss.vector.solutions.geo.generated.GeoEntity"
             order="0"
-            description="GeoEntity" />
+            description="GeoEntity"/>
           <mdParameter
             name="collectionDate"
             label="Colllection Date"
             type="java.util.Date"
-            order="1" />
+            order="1"/>
         </mdMethod>
       </mdBusiness>
 
       <enumerationMaster
         name="dss.vector.solutions.SurfacePositionMaster"
         label="Position on surface"
-        description="Configurable table of surface positions" />
+        description="Configurable table of surface positions"/>
 
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
         id="TOP">
         <valueAttribute
           name="enumName"
-          value="TOP" />
+          value="TOP"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Top" />
+            value="Top"/>
         </structAttribute>
       </object>
 
@@ -2794,12 +2796,12 @@
         id="MIDDLE">
         <valueAttribute
           name="enumName"
-          value="MIDDLE" />
+          value="MIDDLE"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Middle" />
+            value="Middle"/>
         </structAttribute>
       </object>
 
@@ -2808,12 +2810,12 @@
         id="BOTTOM">
         <valueAttribute
           name="enumName"
-          value="BOTTOM" />
+          value="BOTTOM"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Bottom" />
+            value="Bottom"/>
         </structAttribute>
       </object>
 
@@ -2822,12 +2824,12 @@
         id="RANDOM">
         <valueAttribute
           name="enumName"
-          value="RANDOM" />
+          value="RANDOM"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Random" />
+            value="Random"/>
         </structAttribute>
       </object>
 
@@ -2836,12 +2838,12 @@
         id="NOT_APPLICABLE">
         <valueAttribute
           name="enumName"
-          value="NOT_APPLICABLE" />
+          value="NOT_APPLICABLE"/>
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Not Applicable" />
+            value="Not Applicable"/>
         </structAttribute>
       </object>
 
@@ -2850,7 +2852,7 @@
         type="dss.vector.solutions.SurfacePositionMaster"
         label="Surface Position"
         description="List of all possible assay surface positions">
-        <includeAll />
+        <includeAll/>
       </mdEnumeration>
 
       <mdBusiness
@@ -2862,33 +2864,33 @@
             label="Insecticide"
             required="true"
             type="dss.vector.solutions.general.Insecticide"
-            indexType="unique index" />
+            indexType="unique index"/>
           <integer
             name="upperPercent"
             label="Upper Percent"
             required="true"
             rejectNegative="true"
             rejectZero="true"
-            default_value="95" />
+            default_value="95"/>
           <integer
             name="upperTime"
             label="Upper Time"
             required="true"
             rejectNegative="true"
-            rejectZero="true" />
+            rejectZero="true"/>
           <integer
             name="lowerPercent"
             label="Lower Percent"
             required="true"
             rejectNegative="true"
             rejectZero="true"
-            default_value="50" />
+            default_value="50"/>
           <integer
             name="lowerTime"
             label="Lower Time"
             required="true"
             rejectNegative="true"
-            rejectZero="true" />
+            rejectZero="true"/>
         </attributes>
         <mdMethod
           name="searchByInsecticide"
@@ -2899,7 +2901,7 @@
             name="insecticide"
             order="0"
             label="Insecticide"
-            type="dss.vector.solutions.general.Insecticide" />
+            type="dss.vector.solutions.general.Insecticide"/>
         </mdMethod>
       </mdBusiness>
 
@@ -2912,33 +2914,33 @@
             label="Insecticide"
             required="true"
             type="dss.vector.solutions.general.Insecticide"
-            indexType="unique index" />
+            indexType="unique index"/>
           <integer
             name="upperPercent"
             label="Upper Percent"
             required="true"
             rejectNegative="true"
             rejectZero="true"
-            default_value="95" />
+            default_value="95"/>
           <integer
             name="upperTime"
             label="Upper Time"
             required="true"
             rejectNegative="true"
-            rejectZero="true" />
+            rejectZero="true"/>
           <integer
             name="lowerPercent"
             label="Lower Percent"
             required="true"
             rejectNegative="true"
             rejectZero="true"
-            default_value="50" />
+            default_value="50"/>
           <integer
             name="lowerTime"
             label="Lower Time"
             required="true"
             rejectNegative="true"
-            rejectZero="true" />
+            rejectZero="true"/>
         </attributes>
         <mdMethod
           name="searchByInsecticide"
@@ -2949,7 +2951,7 @@
             name="insecticide"
             order="0"
             label="Insecticide"
-            type="dss.vector.solutions.general.Insecticide" />
+            type="dss.vector.solutions.general.Insecticide"/>
         </mdMethod>
       </mdBusiness>
 
@@ -2964,7 +2966,7 @@
             label="Percent"
             rejectZero="true"
             rejectNegative="true"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
 
@@ -2977,7 +2979,7 @@
             name="insecticide"
             label="Insecticide"
             type="dss.vector.solutions.general.Insecticide"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdException>
 
@@ -2990,7 +2992,7 @@
             name="insecticide"
             label="Insecticide"
             type="dss.vector.solutions.general.Insecticide"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdException>
 
@@ -2998,17 +3000,17 @@
       <mdInformation
         name="dss.vector.solutions.entomology.assay.ResistantCollection"
         label="Collection Resistant Information"
-        description="A collection is resistant to the test assay" />
+        description="A collection is resistant to the test assay"/>
 
       <mdInformation
         name="dss.vector.solutions.entomology.assay.PotentiallyResistantCollection"
         label="Collection Resistant Information"
-        description="A collection is potentially to the test assay" />
+        description="A collection is potentially to the test assay"/>
 
       <mdInformation
         name="dss.vector.solutions.entomology.assay.SusceptibleCollection"
         label="Susceptible Collection"
-        description="A collection is susceptible to the test assay" />
+        description="A collection is susceptible to the test assay"/>
 
       <mdBusiness
         name="dss.vector.solutions.entomology.assay.AdultTestInterval"
@@ -3019,18 +3021,18 @@
             name="assay"
             label="Adult Assay"
             required="true"
-            type="dss.vector.solutions.entomology.assay.AdultAssay" />
+            type="dss.vector.solutions.entomology.assay.AdultAssay"/>
           <integer
             name="period"
             label="Period"
             rejectNegative="true"
-            required="true" />
+            required="true"/>
           <integer
             name="knockedDown"
             rejectNegative="true"
             label="Knocked Down"
             required="true"
-            default_value="0" />
+            default_value="0"/>
         </attributes>
       </mdBusiness>
 
@@ -3041,9 +3043,9 @@
         unique="true"
         description="Uniqueness constraint between an assay and its interval period">
         <attribute
-          name="assay" />
+          name="assay"/>
         <attribute
-          name="period" />
+          name="period"/>
       </mdIndex>
 
       <mdView
@@ -3055,27 +3057,27 @@
             name="intervalId"
             label="Test Interval Id"
             required="true"
-            size="255" />
+            size="255"/>
           <integer
             name="intervalTime"
             label="Interval Time"
             rejectNegative="true"
-            required="true" />
+            required="true"/>
           <virtual
             name="assay"
             required="true"
             type="dss.vector.solutions.entomology.assay.AdultTestInterval"
-            concrete="assay" />
+            concrete="assay"/>
           <virtual
             name="period"
             required="true"
             type="dss.vector.solutions.entomology.assay.AdultTestInterval"
-            concrete="period" />
+            concrete="period"/>
           <virtual
             name="knockedDown"
             required="true"
             type="dss.vector.solutions.entomology.assay.AdultTestInterval"
-            concrete="knockedDown" />
+            concrete="knockedDown"/>
         </attributes>
         <mdMethod
           name="saveAll"
@@ -3088,7 +3090,7 @@
             label="Array"
             description="Array of objects to save"
             order="0"
-            type="dss.vector.solutions.entomology.assay.AdultTestIntervalView[]" />
+            type="dss.vector.solutions.entomology.assay.AdultTestIntervalView[]"/>
         </mdMethod>
       </mdView>
 
@@ -3101,18 +3103,18 @@
             name="assay"
             label="Larvae Assay"
             required="true"
-            type="dss.vector.solutions.entomology.assay.LarvaeAssay" />
+            type="dss.vector.solutions.entomology.assay.LarvaeAssay"/>
           <integer
             name="period"
             label="Period"
             rejectNegative="true"
-            required="true" />
+            required="true"/>
           <integer
             name="quantityDead"
             rejectNegative="true"
             label="Number Dead"
             required="true"
-            default_value="0" />
+            default_value="0"/>
         </attributes>
       </mdBusiness>
 
@@ -3123,9 +3125,9 @@
         unique="true"
         description="Uniqueness constraint between an assay and its interval period">
         <attribute
-          name="assay" />
+          name="assay"/>
         <attribute
-          name="period" />
+          name="period"/>
       </mdIndex>
 
       <mdView
@@ -3137,27 +3139,27 @@
             name="intervalId"
             label="Test Interval Id"
             required="true"
-            size="255" />
+            size="255"/>
           <integer
             name="intervalTime"
             label="Interval Time"
             rejectNegative="true"
-            required="true" />
+            required="true"/>
           <virtual
             name="assay"
             required="true"
             type="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
-            concrete="assay" />
+            concrete="assay"/>
           <virtual
             name="period"
             required="true"
             type="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
-            concrete="period" />
+            concrete="period"/>
           <virtual
             name="quantityDead"
             required="true"
             type="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
-            concrete="quantityDead" />
+            concrete="quantityDead"/>
         </attributes>
         <mdMethod
           name="saveAll"
@@ -3170,7 +3172,7 @@
             label="Array"
             description="Array of objects to save"
             order="0"
-            type="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView[]" />
+            type="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView[]"/>
         </mdMethod>
       </mdView>
 
@@ -3184,7 +3186,7 @@
             name="fed"
             label="Number Fed"
             description="The Fed value"
-            required="false" />
+            required="false"/>
         </attributes>
       </mdProblem>
 
@@ -3197,24 +3199,24 @@
             name="gravid"
             label="Number Gravid"
             description="The Gravid value"
-            required="false" />
+            required="false"/>
         </attributes>
       </mdProblem>
 
       <mdProblem
         name="dss.vector.solutions.entomology.assay.InvalidFedSexProblem"
         label="Invalid Fed Sex"
-        extends="dss.vector.solutions.NotificationProblem" />
+        extends="dss.vector.solutions.NotificationProblem"/>
 
       <mdProblem
         name="dss.vector.solutions.entomology.assay.InvalidGravidSexProblem"
         label="Invalid Gravid Sex"
-        extends="dss.vector.solutions.NotificationProblem" />
+        extends="dss.vector.solutions.NotificationProblem"/>
 
       <mdProblem
         name="dss.vector.solutions.entomology.assay.InvalidGenerationProblem"
         label="Invalid Generation Value"
-        extends="dss.vector.solutions.NotificationProblem" />
+        extends="dss.vector.solutions.NotificationProblem"/>
 
       <mdProblem
         name="dss.vector.solutions.entomology.assay.InvalidIntervalTimeProblem"
@@ -3225,12 +3227,12 @@
             name="exposureTime"
             label="Exposure Time"
             description="Exposure Time"
-            required="true" />
+            required="true"/>
           <integer
             name="intervalTime"
             label="Interval Time"
             description="Interval Time"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
 
@@ -3243,12 +3245,12 @@
             name="quantityDead"
             label="Number Dead"
             description="Quantity Dead"
-            required="true" />
+            required="true"/>
           <integer
             name="quantityTested"
             label="Number Exposed"
             description="Quantity Tested"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
 
@@ -3261,12 +3263,12 @@
             name="quantityKnockDown"
             label="Quantity Knock Down"
             description="Quantity Knock Down"
-            required="true" />
+            required="true"/>
           <integer
             name="quantityTested"
             label="Number Exposed"
             description="Quantity Tested"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
 
@@ -3279,7 +3281,7 @@
             name="period"
             label="Period"
             description="period"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
 
@@ -3292,12 +3294,12 @@
             name="testDate"
             label="Period"
             description="period"
-            required="true" />
+            required="true"/>
           <date
             name="collectionDate"
             label="Period"
             description="period"
-            required="true" />
+            required="true"/>
         </attributes>
       </mdProblem>
     </create>
@@ -3316,7 +3318,7 @@
               type="java.lang.String"
               order="0"
               name="id"
-              label="Id" />
+              label="Id"/>
           </mdAction>
         </create>
       </mdController>
@@ -3334,14 +3336,14 @@
               label="Insecticide Id"
               order="0"
               type="java.lang.String"
-              description="Insecticide" />
+              description="Insecticide"/>
           </mdAction>
           <mdAction
             name="search"
             description="Forwards the user to the search page"
             isPost="false"
             label="Search"
-            isQuery="false" />
+            isQuery="false"/>
         </create>
       </mdController>
       <mdController
@@ -3357,14 +3359,14 @@
               label="Insecticide Id"
               order="0"
               type="java.lang.String"
-              description="Insecticide" />
+              description="Insecticide"/>
           </mdAction>
           <mdAction
             name="search"
             description="Forwards the user to the search page"
             isPost="false"
             label="Search"
-            isQuery="false" />
+            isQuery="false"/>
         </create>
       </mdController>
     </update>
@@ -3379,42 +3381,42 @@
             name="propertyName"
             label="Name"
             required="true"
-            size="255" />
+            size="255"/>
           <char
             name="displayLabel"
             label="Display Label"
             required="true"
-            size="255" />
+            size="255"/>
           <char
             name="propertyPackage"
             required="true"
             label="Package"
-            size="255" />
+            size="255"/>
           <char
             name="propertyValue"
             required="true"
             label="Value"
-            size="255" />
+            size="255"/>
           <char
             name="validValues"
             required="false"
             label="Valid Values"
-            size="255" />
+            size="255"/>
           <char
             name="propertyType"
             required="true"
             label="Type"
-            size="255" />
+            size="255"/>
           <char
             name="propertyValidator"
             required="true"
             label="Validator Regexp"
-            size="255" />
+            size="255"/>
           <char
             name="description"
             required="false"
             label="Description"
-            size="255" />
+            size="255"/>
         </attributes>
         <mdMethod
           name="getStr"
@@ -3427,13 +3429,13 @@
             description="Package to search for"
             label="key"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
           <mdParameter
             name="name"
             description="Name to search for"
             label="key"
             order="1"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
         <mdMethod
           name="getDate"
@@ -3446,13 +3448,13 @@
             description="Package to search for"
             label="key"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
           <mdParameter
             name="name"
             description="Name to search for"
             label="key"
             order="1"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
         <mdMethod
           name="getByPackageAndName"
@@ -3465,13 +3467,13 @@
             description="Package to search for"
             label="key"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
           <mdParameter
             name="name"
             description="Name to search for"
             label="key"
             order="1"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
         <mdMethod
           name="getAllByPackage"
@@ -3484,7 +3486,7 @@
             description="Package to search for"
             label="key"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
         <mdMethod
           name="getInt"
@@ -3497,13 +3499,13 @@
             description="Package to search for"
             label="key"
             order="0"
-            type="java.lang.String" />
+            type="java.lang.String"/>
           <mdParameter
             name="name"
             description="Name to search for"
             label="key"
             order="1"
-            type="java.lang.String" />
+            type="java.lang.String"/>
         </mdMethod>
       </mdBusiness>
 
@@ -3514,9 +3516,9 @@
         unique="true"
         description="Uniquness constraint between the Package And Key for this Property">
         <attribute
-          name="propertyPackage" />
+          name="propertyPackage"/>
         <attribute
-          name="propertyName" />
+          name="propertyName"/>
       </mdIndex>
 
       <mdException
@@ -3537,7 +3539,7 @@
             label="validValues"
             size="128"
             required="true"
-            description="List of valid Values to display in error message." />
+            description="List of valid Values to display in error message."/>
         </attributes>
       </mdException>
 
@@ -3546,28 +3548,28 @@
         id="aDDAR">
         <valueAttribute
           name="propertyName"
-          value="aDDAR" />
+          value="aDDAR"/>
         <valueAttribute
           name="displayLabel"
-          value="Adult Diagnostic Dose Assay Resistant" />
+          value="Adult Diagnostic Dose Assay Resistant"/>
         <valueAttribute
           name="propertyPackage"
-          value="dss.vector.solutions.entomology.ResistantanceCutOff" />
+          value="dss.vector.solutions.entomology.ResistantanceCutOff"/>
         <valueAttribute
           name="propertyValue"
-          value="95" />
+          value="95"/>
         <valueAttribute
           name="propertyType"
-          value="Integer" />
+          value="Integer"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[0-9]+$" />
+          value="^[0-9]+$"/>
         <valueAttribute
           name="validValues"
-          value="0-100" />
+          value="0-100"/>
         <valueAttribute
           name="description"
-          value="% mortality that the population is resistant – Less Than" />
+          value="% mortality that the population is resistant – Less Than"/>
       </object>
 
       <object
@@ -3575,28 +3577,28 @@
         id="aDDAS">
         <valueAttribute
           name="propertyName"
-          value="aDDAS" />
+          value="aDDAS"/>
         <valueAttribute
           name="displayLabel"
-          value="Adult Diagnostic Dose Assay Susceptible" />
+          value="Adult Diagnostic Dose Assay Susceptible"/>
         <valueAttribute
           name="propertyPackage"
-          value="dss.vector.solutions.entomology.ResistantanceCutOff" />
+          value="dss.vector.solutions.entomology.ResistantanceCutOff"/>
         <valueAttribute
           name="propertyValue"
-          value="98" />
+          value="98"/>
         <valueAttribute
           name="propertyType"
-          value="Integer" />
+          value="Integer"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[0-9]+$" />
+          value="^[0-9]+$"/>
         <valueAttribute
           name="validValues"
-          value="0-100" />
+          value="0-100"/>
         <valueAttribute
           name="description"
-          value="% mortality that the population is susceptible – Greater than or Equal to" />
+          value="% mortality that the population is susceptible – Greater than or Equal to"/>
       </object>
 
       <object
@@ -3604,28 +3606,28 @@
         id="lDDAR">
         <valueAttribute
           name="propertyName"
-          value="lDDAR" />
+          value="lDDAR"/>
         <valueAttribute
           name="displayLabel"
-          value="Larvae Diagnostic Dose Assay Resistant" />
+          value="Larvae Diagnostic Dose Assay Resistant"/>
         <valueAttribute
           name="propertyPackage"
-          value="dss.vector.solutions.entomology.ResistantanceCutOff" />
+          value="dss.vector.solutions.entomology.ResistantanceCutOff"/>
         <valueAttribute
           name="propertyValue"
-          value="95" />
+          value="95"/>
         <valueAttribute
           name="propertyType"
-          value="Integer" />
+          value="Integer"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[0-9]+$" />
+          value="^[0-9]+$"/>
         <valueAttribute
           name="validValues"
-          value="0-100" />
+          value="0-100"/>
         <valueAttribute
           name="description"
-          value="% mortality that the population is resistant – Less Than" />
+          value="% mortality that the population is resistant – Less Than"/>
       </object>
 
       <object
@@ -3633,28 +3635,28 @@
         id="lDDAS">
         <valueAttribute
           name="propertyName"
-          value="lDDAS" />
+          value="lDDAS"/>
         <valueAttribute
           name="displayLabel"
-          value="Larvae Diagnostic Dose Assay Susceptible" />
+          value="Larvae Diagnostic Dose Assay Susceptible"/>
         <valueAttribute
           name="propertyPackage"
-          value="dss.vector.solutions.entomology.ResistantanceCutOff" />
+          value="dss.vector.solutions.entomology.ResistantanceCutOff"/>
         <valueAttribute
           name="propertyValue"
-          value="98" />
+          value="98"/>
         <valueAttribute
           name="propertyType"
-          value="Integer" />
+          value="Integer"/>
         <valueAttribute
           name="validValues"
-          value="0-100" />
+          value="0-100"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[0-9]+$" />
+          value="^[0-9]+$"/>
         <valueAttribute
           name="description"
-          value="% mortality that the population is susceptible – Greater than or Equal to" />
+          value="% mortality that the population is susceptible – Greater than or Equal to"/>
       </object>
 
       <object
@@ -3662,53 +3664,53 @@
         id="SHORT_ID_SEGMENTS">
         <valueAttribute
           name="propertyName"
-          value="SHORT_ID_SEGMENTS" />
+          value="SHORT_ID_SEGMENTS"/>
         <valueAttribute
           name="displayLabel"
-          value="SHORT_ID_SEGMENTS" />
+          value="SHORT_ID_SEGMENTS"/>
         <valueAttribute
           name="propertyPackage"
-          value="dss.vector.solutions.system.global" />
+          value="dss.vector.solutions.system.global"/>
         <valueAttribute
           name="propertyValue"
-          value="1024" />
+          value="1024"/>
         <valueAttribute
           name="propertyType"
-          value="Integer" />
+          value="Integer"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[1-9][0-9]{0,3}$" />
+          value="^[1-9][0-9]{0,3}$"/>
         <valueAttribute
           name="validValues"
-          value="1-9999" />
+          value="1-9999"/>
         <valueAttribute
           name="description"
-          value="Numeber of address space segments or number of installs, Must be the SAME on evey install" />
+          value="Numeber of address space segments or number of installs, Must be the SAME on evey install"/>
       </object>
       <object
         type="dss.vector.solutions.Property"
         id="SHORT_ID_OFFSET">
         <valueAttribute
           name="propertyName"
-          value="SHORT_ID_OFFSET" />
+          value="SHORT_ID_OFFSET"/>
         <valueAttribute
           name="displayLabel"
-          value="SHORT_ID_OFFSET" />
+          value="SHORT_ID_OFFSET"/>
         <valueAttribute
           name="propertyPackage"
-          value="dss.vector.solutions.system.install" />
+          value="dss.vector.solutions.system.install"/>
         <valueAttribute
           name="propertyValue"
-          value="0" />
+          value="0"/>
         <valueAttribute
           name="propertyType"
-          value="Integer" />
+          value="Integer"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[0-9]+$" />
+          value="^[0-9]+$"/>
         <valueAttribute
           name="description"
-          value="The id address space offset or install number, MUST be unique for each server" />
+          value="The id address space offset or install number, MUST be unique for each server"/>
       </object>
 
       <object
@@ -3716,78 +3718,78 @@
         id="SHORT_ID_COUNTER">
         <valueAttribute
           name="propertyName"
-          value="SHORT_ID_COUNTER" />
+          value="SHORT_ID_COUNTER"/>
         <valueAttribute
           name="displayLabel"
-          value="SHORT_ID_COUNTER" />
+          value="SHORT_ID_COUNTER"/>
         <valueAttribute
           name="propertyPackage"
-          value="dss.vector.solutions.system.install" />
+          value="dss.vector.solutions.system.install"/>
         <valueAttribute
           name="propertyValue"
-          value="0" />
+          value="0"/>
         <valueAttribute
           name="propertyType"
-          value="Integer" />
+          value="Integer"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[0-9]+$" />
+          value="^[0-9]+$"/>
         <valueAttribute
           name="description"
-          value="How many ids have we generated in this install's address space" />
+          value="How many ids have we generated in this install's address space"/>
       </object>
       <object
         type="dss.vector.solutions.Property"
         id="dateFormat">
         <valueAttribute
           name="propertyName"
-          value="dateFormat" />
+          value="dateFormat"/>
         <valueAttribute
           name="displayLabel"
-          value="Date Format" />
+          value="Date Format"/>
         <valueAttribute
           name="propertyPackage"
-          value="dss.vector.solutions" />
+          value="dss.vector.solutions"/>
         <valueAttribute
           name="propertyValue"
-          value="mm/dd/yyyy" />
+          value="mm/dd/yyyy"/>
         <valueAttribute
           name="propertyType"
-          value="String" />
+          value="String"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[MmDdYy/- ]+$" />
+          value="^[MmDdYy/- ]+$"/>
         <valueAttribute
           name="description"
-          value="Date Format" />
+          value="Date Format"/>
       </object>
       <object
         type="dss.vector.solutions.Property"
         id="dateFormatShort">
         <valueAttribute
           name="propertyName"
-          value="dateFormatShort" />
+          value="dateFormatShort"/>
         <valueAttribute
           name="displayLabel"
-          value="Short Date Format" />
+          value="Short Date Format"/>
         <valueAttribute
           name="propertyPackage"
-          value="dss.vector.solutions" />
+          value="dss.vector.solutions"/>
         <valueAttribute
           name="propertyValue"
-          value="mm/yy" />
+          value="mm/yy"/>
         <valueAttribute
           name="propertyType"
-          value="String" />
+          value="String"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[MmDdYy/- ]+$" />
+          value="^[MmDdYy/- ]+$"/>
         <valueAttribute
           name="validValues"
-          value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" />
+          value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy"/>
         <valueAttribute
           name="description"
-          value="Short Date Format" />
+          value="Short Date Format"/>
       </object>
 
       <object
@@ -3795,28 +3797,28 @@
         id="countryGeoId">
         <valueAttribute
           name="propertyName"
-          value="countryGeoId" />
+          value="countryGeoId"/>
         <valueAttribute
           name="displayLabel"
-          value="Country Geo ID" />
+          value="Country Geo ID"/>
         <valueAttribute
           name="propertyPackage"
-          value="dss.vector.solutions.install" />
+          value="dss.vector.solutions.install"/>
         <valueAttribute
           name="propertyValue"
-          value="1100" />
+          value="1100"/>
         <valueAttribute
           name="propertyType"
-          value="STRING" />
+          value="STRING"/>
         <valueAttribute
           name="propertyValidator"
-          value="^[0-9A-Za-z]{1,16}$" />
+          value="^[0-9A-Za-z]{1,16}$"/>
         <valueAttribute
           name="validValues"
-          value="12323,ABCD,23AB,ZZZ456" />
+          value="12323,ABCD,23AB,ZZZ456"/>
         <valueAttribute
           name="description"
-          value="The GeoID of the Country in which this server is installed" />
+          value="The GeoID of the Country in which this server is installed"/>
       </object>
 
     </create>
@@ -3828,19 +3830,19 @@
         id="RR">
         <valueAttribute
           name="termName"
-          value="RR" />
+          value="RR"/>
         <valueAttribute
           name="displayLabel"
-          value="RR" />
+          value="RR"/>
         <valueAttribute
           name="termId"
-          value="MIRO_88000039" />
+          value="MIRO_88000039"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Molecular assay reult" />
+          value="Molecular assay reult"/>
       </object>
 
       <object
@@ -3848,19 +3850,19 @@
         id="RS">
         <valueAttribute
           name="termName"
-          value="RS" />
+          value="RS"/>
         <valueAttribute
           name="displayLabel"
-          value="RS" />
+          value="RS"/>
         <valueAttribute
           name="termId"
-          value="MIRO_89000039" />
+          value="MIRO_89000039"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Molecular assay reult" />
+          value="Molecular assay reult"/>
       </object>
 
       <object
@@ -3868,19 +3870,19 @@
         id="SS">
         <valueAttribute
           name="termName"
-          value="SS" />
+          value="SS"/>
         <valueAttribute
           name="displayLabel"
-          value="SS" />
+          value="SS"/>
         <valueAttribute
           name="termId"
-          value="MIRO_90000039" />
+          value="MIRO_90000039"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Molecular assay reult" />
+          value="Molecular assay reult"/>
       </object>
 
       <mdBusiness
@@ -3893,7 +3895,7 @@
           returnType="dss.vector.solutions.mo.MolecularAssayResult[]"
           label="Get All Terms"
           static="true"
-          description="Returns all term of a MO subcatagory" />
+          description="Returns all term of a MO subcatagory"/>
       </mdBusiness>
 
       <mdBusiness
@@ -3906,7 +3908,7 @@
           returnType="dss.vector.solutions.mo.InfectivityMethodology[]"
           label="Get All Terms"
           static="true"
-          description="Returns all term of a MO subcatagory" />
+          description="Returns all term of a MO subcatagory"/>
       </mdBusiness>
 
       <mdBusiness
@@ -3919,7 +3921,7 @@
           returnType="dss.vector.solutions.mo.InsecticideMethodology[]"
           label="Get All Terms"
           static="true"
-          description="Returns all term of a MO subcatagory" />
+          description="Returns all term of a MO subcatagory"/>
       </mdBusiness>
 
       <mdBusiness
@@ -3936,7 +3938,7 @@
             indexType="non-unique index"
             immutable="true"
             description="The mosquito on which the W-KDR test was performed"
-            type="dss.vector.solutions.entomology.Mosquito" />
+            type="dss.vector.solutions.entomology.Mosquito"/>
         </attributes>
       </mdBusiness>
 
@@ -3953,7 +3955,7 @@
             name="testMethod"
             label="Test Methodology"
             required="true"
-            description="The test methodology use for the gene mutation assay" />
+            description="The test methodology use for the gene mutation assay"/>
         </attributes>
       </mdBusiness>
 
@@ -3969,7 +3971,7 @@
             label="Kdr L104F (west)"
             required="true"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.mo.MolecularAssayResult"/>
         </attributes>
       </mdBusiness>
 
@@ -3985,7 +3987,7 @@
             label="Kdr L104S (east)"
             required="true"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.mo.MolecularAssayResult"/>
         </attributes>
       </mdBusiness>
 
@@ -4001,7 +4003,7 @@
             label="Insensitive AChE"
             required="true"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.mo.MolecularAssayResult"/>
         </attributes>
       </mdBusiness>
 
@@ -4017,7 +4019,7 @@
             label="AChE F290V"
             required="true"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.mo.MolecularAssayResult"/>
         </attributes>
       </mdBusiness>
 
@@ -4033,7 +4035,7 @@
             label="AChE F331W"
             required="true"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.mo.MolecularAssayResult"/>
         </attributes>
       </mdBusiness>
 
@@ -4049,7 +4051,7 @@
             label="AChE G119S"
             required="true"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.mo.MolecularAssayResult"/>
         </attributes>
       </mdBusiness>
 
@@ -4065,7 +4067,7 @@
             label="GABA Rdl A296G"
             required="true"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.mo.MolecularAssayResult"/>
         </attributes>
       </mdBusiness>
 
@@ -4081,7 +4083,7 @@
             label="GABA Rdl A296S"
             required="true"
             description="Molecular assay result"
-            type="dss.vector.solutions.mo.MolecularAssayResult" />
+            type="dss.vector.solutions.mo.MolecularAssayResult"/>
         </attributes>
       </mdBusiness>
 
@@ -4105,7 +4107,7 @@
             name="testResult"
             label="α-napthyl acetate assay"
             required="true"
-            description="assay result|Elevated|Not Elevated" />
+            description="assay result|Elevated|Not Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4120,7 +4122,7 @@
             name="testResult"
             label="β-napthyl acetate assay"
             required="true"
-            description="assay result|Elevated|Not Elevated" />
+            description="assay result|Elevated|Not Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4135,7 +4137,7 @@
             name="testResult"
             label="pNPA assay"
             required="true"
-            description="assay result|Elevated|Not Elevated" />
+            description="assay result|Elevated|Not Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4150,7 +4152,7 @@
             name="testResult"
             label="GST CDNB rate reaction assay"
             required="true"
-            description="assay result|Elevated|Not Elevated" />
+            description="assay result|Elevated|Not Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4165,7 +4167,7 @@
             name="testResult"
             label="GST DCNB rate reaction assay"
             required="true"
-            description="assay result|Elevated|Not Elevated" />
+            description="assay result|Elevated|Not Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4180,7 +4182,7 @@
             name="testResult"
             label="heme content"
             required="true"
-            description="assay result|Elevated|Not Elevated" />
+            description="assay result|Elevated|Not Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4195,7 +4197,7 @@
             name="testResult"
             label="p450 activity assay"
             required="true"
-            description="p450 activity assay result|Elevated|Not Elevated" />
+            description="p450 activity assay result|Elevated|Not Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4212,7 +4214,7 @@
             name="testMethod"
             label="Test Methodology"
             required="true"
-            description="The test methodologyd use for the infectivity assay" />
+            description="The test methodologyd use for the infectivity assay"/>
         </attributes>
         <mdMethod
           name="getInfectivityAssays"
@@ -4233,7 +4235,9 @@
             name="testResult"
             label="P. falciparum"
             required="true"
-            description="assay result|Positive|Negative" />
+            description="assay result"
+            positiveLabel="Positive"
+            negativeLabel="Negative"/>
         </attributes>
       </mdBusiness>
 
@@ -4248,7 +4252,9 @@
             name="testResult"
             label="P. Ovale"
             required="true"
-            description="assay result|Positive|Negative" />
+            description="assay result"
+            positiveLabel="Positive"
+            negativeLabel="Negative"/>
         </attributes>
       </mdBusiness>
 
@@ -4263,7 +4269,9 @@
             name="testResult"
             label="P. Malariae"
             required="true"
-            description="assay result|Positive|Negative" />
+            description="assay result"
+            positiveLabel="Positive"
+            negativeLabel="Negative"/>
         </attributes>
       </mdBusiness>
 
@@ -4278,7 +4286,9 @@
             name="testResult"
             label="P. Vivax"
             required="true"
-            description="assay result|Positive|Negative" />
+            description="assay result"
+            positiveLabel="Positive"
+            negativeLabel="Negative"/>
         </attributes>
       </mdBusiness>
 
@@ -4291,202 +4301,202 @@
             name="mosquitoId"
             size="255"
             label="Mosquito Id"
-            description="The id of the mosquito, if the Id is blank then it is assumed the mosquito is new" />
+            description="The id of the mosquito, if the Id is blank then it is assumed the mosquito is new"/>
           <virtual
             name="sampleId"
             type="dss.vector.solutions.entomology.TrueSpecieEntity"
             concrete="sampleId"
-            required="true" />
+            required="true"/>
           <virtual
             name="collection"
             type="dss.vector.solutions.entomology.TrueSpecieEntity"
             concrete="collection"
-            required="true" />
+            required="true"/>
           <virtual
             name="specie"
             type="dss.vector.solutions.entomology.TrueSpecieEntity"
             required="true"
-            concrete="specie" />
+            concrete="specie"/>
           <virtual
             name="identificationMethod"
             type="dss.vector.solutions.entomology.TrueSpecieEntity"
             concrete="identificationMethod"
-            required="true" />
+            required="true"/>
           <virtual
             name="testDate"
             type="dss.vector.solutions.entomology.Mosquito"
             concrete="testDate"
-            required="true" />
+            required="true"/>
           <virtual
             name="isofemale"
             type="dss.vector.solutions.entomology.Mosquito"
             concrete="isofemale"
-            required="true" />
+            required="true"/>
           <virtual
             name="sex"
             type="dss.vector.solutions.entomology.Mosquito"
             concrete="sex"
-            required="true" />
+            required="true"/>
           <virtual
             name="generation"
             type="dss.vector.solutions.entomology.Mosquito"
             concrete="generation"
-            required="true" />
+            required="true"/>
           <virtual
             name="wKDR"
             type="dss.vector.solutions.entomology.assay.molecular.WKDRTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="wKDRMethod"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
           <virtual
             name="eKDR"
             type="dss.vector.solutions.entomology.assay.molecular.EKDRTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="eKDRMethod"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
           <virtual
             name="iAcHE"
             type="dss.vector.solutions.entomology.assay.molecular.IAcHETestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="iAcHEMethod"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
           <virtual
             name="acHEV"
             type="dss.vector.solutions.entomology.assay.molecular.AcHEVTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="acHEVMethod"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
           <virtual
             name="acHEW"
             type="dss.vector.solutions.entomology.assay.molecular.AcHEWTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="acHEWMethod"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
           <virtual
             name="acHES"
             type="dss.vector.solutions.entomology.assay.molecular.AcHESTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="acHESMethod"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
           <virtual
             name="gABAG"
             type="dss.vector.solutions.entomology.assay.molecular.GABAGTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="gABAGMethod"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
           <virtual
             name="gABAS"
             type="dss.vector.solutions.entomology.assay.molecular.GABASTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="gABASMethod"
             type="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
           <virtual
             name="aAcetate"
             type="dss.vector.solutions.entomology.assay.biochemical.AAcetateTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="bAcetate"
             type="dss.vector.solutions.entomology.assay.biochemical.BAcetateTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="pNPA"
             type="dss.vector.solutions.entomology.assay.biochemical.PNPATestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="gSTCDNB"
             type="dss.vector.solutions.entomology.assay.biochemical.GSTCDNBTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="gSTDCNB"
             type="dss.vector.solutions.entomology.assay.biochemical.GSTDCNBTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="heme"
             type="dss.vector.solutions.entomology.assay.biochemical.HemeTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="p450"
             type="dss.vector.solutions.entomology.assay.biochemical.P450TestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="pFalciparum"
             type="dss.vector.solutions.entomology.assay.infectivity.PFalciparumTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="pFalciparumMethod"
             type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
           <virtual
             name="pOvale"
             type="dss.vector.solutions.entomology.assay.infectivity.POvaleTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="pOvaleMethod"
             type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
           <virtual
             name="pMalariae"
             type="dss.vector.solutions.entomology.assay.infectivity.PMalariaeTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="pMalariaeMethod"
             type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
           <virtual
             name="pVivax"
             type="dss.vector.solutions.entomology.assay.infectivity.PVivaxTestResult"
             concrete="testResult"
-            required="false" />
+            required="false"/>
           <virtual
             name="pVivaxMethod"
             type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
             concrete="testMethod"
-            required="false" />
+            required="false"/>
         </attributes>
         <mdMethod
           name="saveAll"
@@ -4499,7 +4509,7 @@
             label="Array"
             description="Array of objects to save"
             order="0"
-            type="dss.vector.solutions.entomology.MosquitoView[]" />
+            type="dss.vector.solutions.entomology.MosquitoView[]"/>
         </mdMethod>
       </mdView>
     </create>
@@ -4520,7 +4530,7 @@
             order="0"
             type="java.lang.String"
             description="The name of the report"
-            label="Report Name" />
+            label="Report Name"/>
         </mdAction>
       </mdController>
     </create>
@@ -4533,19 +4543,19 @@
         id="F0">
         <valueAttribute
           name="termId"
-          value="MIRO_343458349" />
+          value="MIRO_343458349"/>
         <valueAttribute
           name="termName"
-          value="F0" />
+          value="F0"/>
         <valueAttribute
           name="displayLabel"
-          value="F0" />
+          value="F0"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="F0" />
+          value="F0"/>
       </object>
 
       <object
@@ -4553,19 +4563,19 @@
         id="F2">
         <valueAttribute
           name="termId"
-          value="MIRO_3535332" />
+          value="MIRO_3535332"/>
         <valueAttribute
           name="termName"
-          value="F1" />
+          value="F1"/>
         <valueAttribute
           name="displayLabel"
-          value="F1" />
+          value="F1"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="F1" />
+          value="F1"/>
       </object>
 
     </create>
@@ -4577,25 +4587,25 @@
         id="MIRO_30000044">
         <valueAttribute
           name="termId"
-          value="MIRO_30000044" />
+          value="MIRO_30000044"/>
         <valueAttribute
           name="termName"
-          value="field population catch" />
+          value="field population catch"/>
         <valueAttribute
           name="displayLabel"
-          value="field population catch" />
+          value="field population catch"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any population catch method using either aspiration or traps. [KL:KL]" />
+          value="Any population catch method using either aspiration or traps. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="method" />
+          value="method"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000000" />
+          value="MIRO_20000000"/>
       </object>
 
       <object
@@ -4603,25 +4613,25 @@
         id="MIRO_30000045">
         <valueAttribute
           name="termId"
-          value="MIRO_30000045" />
+          value="MIRO_30000045"/>
         <valueAttribute
           name="termName"
-          value="catch of live specimens" />
+          value="catch of live specimens"/>
         <valueAttribute
           name="displayLabel"
-          value="catch of live specimens" />
+          value="catch of live specimens"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any population catch method meant to collect live specimens. [KL:KL]" />
+          value="Any population catch method meant to collect live specimens. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="field population catch" />
+          value="field population catch"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000044" />
+          value="MIRO_30000044"/>
       </object>
 
       <object
@@ -4629,25 +4639,25 @@
         id="MIRO_30000048">
         <valueAttribute
           name="termId"
-          value="MIRO_30000048" />
+          value="MIRO_30000048"/>
         <valueAttribute
           name="termName"
-          value="aquatic environment catch" />
+          value="aquatic environment catch"/>
         <valueAttribute
           name="displayLabel"
-          value="aquatic environment catch" />
+          value="aquatic environment catch"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any catch of live specimens method meant to collect mosquitoes from aquatic environment. [PT:PT]" />
+          value="Any catch of live specimens method meant to collect mosquitoes from aquatic environment. [PT:PT]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="catch of live specimens" />
+          value="catch of live specimens"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000045" />
+          value="MIRO_30000045"/>
       </object>
 
       <object
@@ -4655,25 +4665,25 @@
         id="MIRO_30000022">
         <valueAttribute
           name="termId"
-          value="MIRO_30000022" />
+          value="MIRO_30000022"/>
         <valueAttribute
           name="termName"
-          value="collection of larvae" />
+          value="collection of larvae"/>
         <valueAttribute
           name="displayLabel"
-          value="collection of larvae" />
+          value="collection of larvae"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any method designed to collect (and later examine) live larvae from a field population. [KL:KL]" />
+          value="Any method designed to collect (and later examine) live larvae from a field population. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="aquatic environment catch" />
+          value="aquatic environment catch"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000048" />
+          value="MIRO_30000048"/>
       </object>
 
       <object
@@ -4681,25 +4691,25 @@
         id="MIRO_30000049">
         <valueAttribute
           name="termId"
-          value="MIRO_30000049" />
+          value="MIRO_30000049"/>
         <valueAttribute
           name="termName"
-          value="collection of eggs" />
+          value="collection of eggs"/>
         <valueAttribute
           name="displayLabel"
-          value="collection of eggs" />
+          value="collection of eggs"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any method designed to collect (and later examine) eggs from a field population. [PT:PT]" />
+          value="Any method designed to collect (and later examine) eggs from a field population. [PT:PT]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="aquatic environment catch" />
+          value="aquatic environment catch"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000048" />
+          value="MIRO_30000048"/>
       </object>
 
       <object
@@ -4707,25 +4717,25 @@
         id="MIRO_30000053">
         <valueAttribute
           name="termId"
-          value="MIRO_30000053" />
+          value="MIRO_30000053"/>
         <valueAttribute
           name="termName"
-          value="collection of naturally deposited eggs" />
+          value="collection of naturally deposited eggs"/>
         <valueAttribute
           name="displayLabel"
-          value="collection of naturally deposited eggs" />
+          value="collection of naturally deposited eggs"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any eggs collection method which targets naturally deposited eggs. [PT:PT]" />
+          value="Any eggs collection method which targets naturally deposited eggs. [PT:PT]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="collection of eggs" />
+          value="collection of eggs"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000049" />
+          value="MIRO_30000049"/>
       </object>
 
       <object
@@ -4733,25 +4743,25 @@
         id="MIRO_30000060">
         <valueAttribute
           name="termId"
-          value="MIRO_30000060" />
+          value="MIRO_30000060"/>
         <valueAttribute
           name="termName"
-          value="collection of eggs via scraping" />
+          value="collection of eggs via scraping"/>
         <valueAttribute
           name="displayLabel"
-          value="collection of eggs via scraping" />
+          value="collection of eggs via scraping"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any eggs collection method that uses scraping. [PT:PT]" />
+          value="Any eggs collection method that uses scraping. [PT:PT]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="collection of eggs" />
+          value="collection of eggs"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000049" />
+          value="MIRO_30000049"/>
       </object>
 
       <object
@@ -4759,25 +4769,25 @@
         id="MIRO_30000050">
         <valueAttribute
           name="termId"
-          value="MIRO_30000050" />
+          value="MIRO_30000050"/>
         <valueAttribute
           name="termName"
-          value="collection of pupae" />
+          value="collection of pupae"/>
         <valueAttribute
           name="displayLabel"
-          value="collection of pupae" />
+          value="collection of pupae"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any method designed to collect (and later examine) live pupae from a field population. [PT:PT]" />
+          value="Any method designed to collect (and later examine) live pupae from a field population. [PT:PT]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="aquatic environment catch" />
+          value="aquatic environment catch"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000048" />
+          value="MIRO_30000048"/>
       </object>
 
       <object
@@ -4785,25 +4795,25 @@
         id="MIRO_30000051">
         <valueAttribute
           name="termId"
-          value="MIRO_30000051" />
+          value="MIRO_30000051"/>
         <valueAttribute
           name="termName"
-          value="terrain environment catch" />
+          value="terrain environment catch"/>
         <valueAttribute
           name="displayLabel"
-          value="terrain environment catch" />
+          value="terrain environment catch"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any catch of live specimens method meant to collect mosquitoes from aquatic environment. [PT:PT]" />
+          value="Any catch of live specimens method meant to collect mosquitoes from aquatic environment. [PT:PT]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="catch of live specimens" />
+          value="catch of live specimens"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000045" />
+          value="MIRO_30000045"/>
       </object>
 
       <object
@@ -4811,25 +4821,25 @@
         id="MIRO_30000052">
         <valueAttribute
           name="termId"
-          value="MIRO_30000052" />
+          value="MIRO_30000052"/>
         <valueAttribute
           name="termName"
-          value="collection of adults" />
+          value="collection of adults"/>
         <valueAttribute
           name="displayLabel"
-          value="collection of adults" />
+          value="collection of adults"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any method designed to collect (and later examine) live adults from a field population. [PT:PT]" />
+          value="Any method designed to collect (and later examine) live adults from a field population. [PT:PT]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="terrain environment catch" />
+          value="terrain environment catch"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000051" />
+          value="MIRO_30000051"/>
       </object>
 
       <object
@@ -4837,25 +4847,25 @@
         id="MIRO_30000046">
         <valueAttribute
           name="termId"
-          value="MIRO_30000046" />
+          value="MIRO_30000046"/>
         <valueAttribute
           name="termName"
-          value="collection of dead specimens" />
+          value="collection of dead specimens"/>
         <valueAttribute
           name="displayLabel"
-          value="collection of dead specimens" />
+          value="collection of dead specimens"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any population catch method meant to collect dead specimens. [KL:KL]" />
+          value="Any population catch method meant to collect dead specimens. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="field population catch" />
+          value="field population catch"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000044" />
+          value="MIRO_30000044"/>
       </object>
 
 
@@ -4864,25 +4874,25 @@
         id="IRO_30000005">
         <valueAttribute
           name="termId"
-          value="IRO_30000005" />
+          value="IRO_30000005"/>
         <valueAttribute
           name="termName"
-          value="species identification method" />
+          value="species identification method"/>
         <valueAttribute
           name="displayLabel"
-          value="species identification method" />
+          value="species identification method"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Any method designed to identify the species of the insect specimen under study, usually caught /isolated from a field population. [KL:KL]" />
+          value="Any method designed to identify the species of the insect specimen under study, usually caught /isolated from a field population. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="method" />
+          value="method"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000000" />
+          value="MIRO_20000000"/>
       </object>
 
       <object
@@ -4890,25 +4900,25 @@
         id="MIRO_30000036">
         <valueAttribute
           name="termId"
-          value="MIRO_30000036" />
+          value="MIRO_30000036"/>
         <valueAttribute
           name="termName"
-          value="cross mating experiment" />
+          value="cross mating experiment"/>
         <valueAttribute
           name="displayLabel"
-          value="cross mating experiment" />
+          value="cross mating experiment"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Genetic crossings between specimens collected in the field to determine whether fertile progeny is produced. [KL:KL]" />
+          value="Genetic crossings between specimens collected in the field to determine whether fertile progeny is produced. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="species identification method" />
+          value="species identification method"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000005" />
+          value="MIRO_30000005"/>
       </object>
 
       <object
@@ -4916,25 +4926,25 @@
         id="MIRO_30000037">
         <valueAttribute
           name="termId"
-          value="MIRO_30000037" />
+          value="MIRO_30000037"/>
         <valueAttribute
           name="termName"
-          value="cytological chromosome examination" />
+          value="cytological chromosome examination"/>
         <valueAttribute
           name="displayLabel"
-          value="cytological chromosome examination" />
+          value="cytological chromosome examination"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Analysis of polytene chromosomes to determine, through cytological examination of the banding pattern, the species that they belong to. [KL:KL]" />
+          value="Analysis of polytene chromosomes to determine, through cytological examination of the banding pattern, the species that they belong to. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="species identification method" />
+          value="species identification method"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000005" />
+          value="MIRO_30000005"/>
       </object>
 
       <object
@@ -4942,25 +4952,25 @@
         id="MIRO_30000038">
         <valueAttribute
           name="termId"
-          value="MIRO_30000038" />
+          value="MIRO_30000038"/>
         <valueAttribute
           name="termName"
-          value="isoenzyme electrophoresis" />
+          value="isoenzyme electrophoresis"/>
         <valueAttribute
           name="displayLabel"
-          value="isoenzyme electrophoresis" />
+          value="isoenzyme electrophoresis"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Electrophoresis to determine the isozymes that are present in a given mosquito/population, from which in some cases the species can be determined. [KL:KL]" />
+          value="Electrophoresis to determine the isozymes that are present in a given mosquito/population, from which in some cases the species can be determined. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="species identification method" />
+          value="species identification method"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000005" />
+          value="MIRO_30000005"/>
       </object>
 
       <object
@@ -4968,25 +4978,25 @@
         id="MIRO_30000039">
         <valueAttribute
           name="termId"
-          value="MIRO_30000039" />
+          value="MIRO_30000039"/>
         <valueAttribute
           name="termName"
-          value="morphological examination" />
+          value="morphological examination"/>
         <valueAttribute
           name="displayLabel"
-          value="morphological examination" />
+          value="morphological examination"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Examination of the morphology to determine, through the use of specific \taxonomical keys\ the species a specimen belongs to. [KL:KL]" />
+          value="Examination of the morphology to determine, through the use of specific \taxonomical keys\ the species a specimen belongs to. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="species identification method" />
+          value="species identification method"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000005" />
+          value="MIRO_30000005"/>
       </object>
 
       <object
@@ -4994,25 +5004,25 @@
         id="MIRO_30000040">
         <valueAttribute
           name="termId"
-          value="MIRO_30000040" />
+          value="MIRO_30000040"/>
         <valueAttribute
           name="termName"
-          value="PCR-based species identification" />
+          value="PCR-based species identification"/>
         <valueAttribute
           name="displayLabel"
-          value="PCR-based species identification" />
+          value="PCR-based species identification"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Use of a variety of PCR-based procedures to determine the species that a specimen belongs to. [KL:KL]" />
+          value="Use of a variety of PCR-based procedures to determine the species that a specimen belongs to. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="species identification method" />
+          value="species identification method"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000005" />
+          value="MIRO_30000005"/>
       </object>
 
       <object
@@ -5020,25 +5030,25 @@
         id="MIRO_30000041">
         <valueAttribute
           name="termId"
-          value="MIRO_30000041" />
+          value="MIRO_30000041"/>
         <valueAttribute
           name="termName"
-          value="species specific DNA hybridization" />
+          value="species specific DNA hybridization"/>
         <valueAttribute
           name="displayLabel"
-          value="species specific DNA hybridization" />
+          value="species specific DNA hybridization"/>
         <valueAttribute
           name="oboNamespace"
-          value="mosquito_insecticide_resistance_ontology" />
+          value="mosquito_insecticide_resistance_ontology"/>
         <valueAttribute
           name="definition"
-          value="Usage of labeled DNA fragments of variable length (usually 100-1000 bases long), to detect in DNA or RNA samples the presence of nucleotide sequences that are complementary to the sequence in the probe through hybridization. [KL:KL]" />
+          value="Usage of labeled DNA fragments of variable length (usually 100-1000 bases long), to detect in DNA or RNA samples the presence of nucleotide sequences that are complementary to the sequence in the probe through hybridization. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="species identification method" />
+          value="species identification method"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_30000005" />
+          value="MIRO_30000005"/>
       </object>
 
 
@@ -5047,25 +5057,25 @@
         id="MIRO_20000001">
         <valueAttribute
           name="termId"
-          value="MIRO_20000001" />
+          value="MIRO_20000001"/>
         <valueAttribute
           name="termName"
-          value="resistance identification/monitoring" />
+          value="resistance identification/monitoring"/>
         <valueAttribute
           name="displayLabel"
-          value="resistance identification/monitoring" />
+          value="resistance identification/monitoring"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="A series of analytical procedures to detect the presence, and estimate the frequency of resistance phenotypes, or resistance-associated markers in wild populations at a given time or over a defined time period. [KL:KL]" />
+          value="A series of analytical procedures to detect the presence, and estimate the frequency of resistance phenotypes, or resistance-associated markers in wild populations at a given time or over a defined time period. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="method" />
+          value="method"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000000" />
+          value="MIRO_20000000"/>
       </object>
 
       <object
@@ -5073,25 +5083,25 @@
         id="MIRO_20000003">
         <valueAttribute
           name="termId"
-          value="MIRO_20000003" />
+          value="MIRO_20000003"/>
         <valueAttribute
           name="termName"
-          value="biochemical assay" />
+          value="biochemical assay"/>
         <valueAttribute
           name="displayLabel"
-          value="biochemical assay" />
+          value="biochemical assay"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="An assay used to determine enzyme activity associated with insecticide resistance phenotypes. [KL:KL]" />
+          value="An assay used to determine enzyme activity associated with insecticide resistance phenotypes. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="resistance identification/monitoring" />
+          value="resistance identification/monitoring"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000001" />
+          value="MIRO_20000001"/>
       </object>
 
       <object
@@ -5099,25 +5109,25 @@
         id="MIRO_20000004">
         <valueAttribute
           name="termId"
-          value="MIRO_20000004" />
+          value="MIRO_20000004"/>
         <valueAttribute
           name="termName"
-          value="molecular assay" />
+          value="molecular assay"/>
         <valueAttribute
           name="displayLabel"
-          value="molecular assay" />
+          value="molecular assay"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="An assay used to determine changes at genomic DNA or mRNA levels associated with insecticide resistance phenotypes. [KL:KL]" />
+          value="An assay used to determine changes at genomic DNA or mRNA levels associated with insecticide resistance phenotypes. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="resistance identification/monitoring" />
+          value="resistance identification/monitoring"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000001" />
+          value="MIRO_20000001"/>
       </object>
 
       <object
@@ -5125,25 +5135,25 @@
         id="MIRO_20000043">
         <valueAttribute
           name="termId"
-          value="MIRO_20000043" />
+          value="MIRO_20000043"/>
         <valueAttribute
           name="termName"
-          value="penetration/excretion assay" />
+          value="penetration/excretion assay"/>
         <valueAttribute
           name="displayLabel"
-          value="penetration/excretion assay" />
+          value="penetration/excretion assay"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="In vivo assays to measure the rate of insecticide uptake, translocation or excretion by a living organism. [KL:KL]" />
+          value="In vivo assays to measure the rate of insecticide uptake, translocation or excretion by a living organism. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="resistance identification/monitoring" />
+          value="resistance identification/monitoring"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000001" />
+          value="MIRO_20000001"/>
       </object>
 
       <object
@@ -5151,25 +5161,25 @@
         id="MIRO_20000058">
         <valueAttribute
           name="termId"
-          value="MIRO_20000058" />
+          value="MIRO_20000058"/>
         <valueAttribute
           name="termName"
-          value="bioassay" />
+          value="bioassay"/>
         <valueAttribute
           name="displayLabel"
-          value="bioassay" />
+          value="bioassay"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="Bioassay is a shorthand commonly used term for biological assay and is a type of scientific experiment. Bioassays are typically conducted to measure the effects of a substance on a living organism. [Wikipedia:bioassay]" />
+          value="Bioassay is a shorthand commonly used term for biological assay and is a type of scientific experiment. Bioassays are typically conducted to measure the effects of a substance on a living organism. [Wikipedia:bioassay]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="resistance identification/monitoring" />
+          value="resistance identification/monitoring"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000001" />
+          value="MIRO_20000001"/>
       </object>
 
       <object
@@ -5177,25 +5187,25 @@
         id="MIRO_20000090">
         <valueAttribute
           name="termId"
-          value="MIRO_20000090" />
+          value="MIRO_20000090"/>
         <valueAttribute
           name="termName"
-          value="antibody-based assay" />
+          value="antibody-based assay"/>
         <valueAttribute
           name="displayLabel"
-          value="antibody-based assay" />
+          value="antibody-based assay"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="Antibody-based assays to measure, in a biological sample, levels of antigens. [KL:KL]" />
+          value="Antibody-based assays to measure, in a biological sample, levels of antigens. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="resistance identification/monitoring" />
+          value="resistance identification/monitoring"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000001" />
+          value="MIRO_20000001"/>
       </object>
 
       <object
@@ -5203,25 +5213,25 @@
         id="MIRO_20000075">
         <valueAttribute
           name="termId"
-          value="MIRO_20000075" />
+          value="MIRO_20000075"/>
         <valueAttribute
           name="termName"
-          value="diagnostic test" />
+          value="diagnostic test"/>
         <valueAttribute
           name="displayLabel"
-          value="diagnostic test" />
+          value="diagnostic test"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="Bioassay at preset insecticide dosage scoring mortality to determine resistance of a population. [KL:KL]" />
+          value="Bioassay at preset insecticide dosage scoring mortality to determine resistance of a population. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="direct bioassay" />
+          value="direct bioassay"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000044" />
+          value="MIRO_20000044"/>
       </object>
 
       <object
@@ -5229,25 +5239,25 @@
         id="MIRO_20000009">
         <valueAttribute
           name="termId"
-          value="MIRO_20000009" />
+          value="MIRO_20000009"/>
         <valueAttribute
           name="termName"
-          value="bottle bioassay DT" />
+          value="bottle bioassay DT"/>
         <valueAttribute
           name="displayLabel"
-          value="bottle bioassay DT" />
+          value="bottle bioassay DT"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="Diagnostic assay, performed in a glass bottle coated with insecticides. [KL:KL]" />
+          value="Diagnostic assay, performed in a glass bottle coated with insecticides. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="diagnostic test" />
+          value="diagnostic test"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000075" />
+          value="MIRO_20000075"/>
       </object>
 
       <object
@@ -5255,25 +5265,25 @@
         id="MIRO_20000039">
         <valueAttribute
           name="termId"
-          value="MIRO_20000039" />
+          value="MIRO_20000039"/>
         <valueAttribute
           name="termName"
-          value="cone DT" />
+          value="cone DT"/>
         <valueAttribute
           name="displayLabel"
-          value="cone DT" />
+          value="cone DT"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="Diagnostic assay, using WHO cone kit. [KL:KL]" />
+          value="Diagnostic assay, using WHO cone kit. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="diagnostic test" />
+          value="diagnostic test"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000075" />
+          value="MIRO_20000075"/>
       </object>
 
       <object
@@ -5281,25 +5291,25 @@
         id="MIRO_20000041">
         <valueAttribute
           name="termId"
-          value="MIRO_20000041" />
+          value="MIRO_20000041"/>
         <valueAttribute
           name="termName"
-          value="WHO paper kit DT" />
+          value="WHO paper kit DT"/>
         <valueAttribute
           name="displayLabel"
-          value="WHO paper kit DT" />
+          value="WHO paper kit DT"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="Diagnostic assay, using WHO paper kit. [KL:KL]" />
+          value="Diagnostic assay, using WHO paper kit. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="diagnostic test" />
+          value="diagnostic test"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000075" />
+          value="MIRO_20000075"/>
       </object>
 
       <object
@@ -5307,25 +5317,25 @@
         id="MIRO_20000049">
         <valueAttribute
           name="termId"
-          value="MIRO_20000049" />
+          value="MIRO_20000049"/>
         <valueAttribute
           name="termName"
-          value="WHO larvicide DT" />
+          value="WHO larvicide DT"/>
         <valueAttribute
           name="displayLabel"
-          value="WHO larvicide DT" />
+          value="WHO larvicide DT"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="Diagnostic assay, testing survival of larvae in a medium supplemented with insecticide. [KL:KL]" />
+          value="Diagnostic assay, testing survival of larvae in a medium supplemented with insecticide. [KL:KL]"/>
         <valueAttribute
           name="inheritsTerm"
-          value="diagnostic test" />
+          value="diagnostic test"/>
         <valueAttribute
           name="inheritsTermName"
-          value="MIRO_20000075" />
+          value="MIRO_20000075"/>
       </object>
 
       <object
@@ -5333,19 +5343,19 @@
         id="MIRO_99900063">
         <valueAttribute
           name="termId"
-          value="MIRO_99900063" />
+          value="MIRO_99900063"/>
         <valueAttribute
           name="termName"
-          value="Test Lavae Age" />
+          value="Test Lavae Age"/>
         <valueAttribute
           name="displayLabel"
-          value="Test Lavae Age" />
+          value="Test Lavae Age"/>
         <valueAttribute
           name="oboNamespace"
-          value="" />
+          value=""/>
         <valueAttribute
           name="definition"
-          value="A chemical substance which is being used as insecticide. [PT:PT]" />
+          value="A chemical substance which is being used as insecticide. [PT:PT]"/>
       </object>
 
     </create>
@@ -5354,99 +5364,99 @@
       <object
         key="dss.vector.solutions.geo.generated.GeoEntity"
         id="GeoEntityMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Earth"
         id="EarthMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Country"
         id="CountryMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Province"
         id="ProvinceMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.District"
         id="DistrictMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.AdminPost"
         id="AdminPostMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Locality"
         id="LocalityMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.PopulatedArea"
         id="PopulatedAreaMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.City"
         id="CityMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Town"
         id="TownMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Village"
         id="VillageMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.AbstractSite"
         id="AbstractSiteMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.SentinelSite"
         id="SentinelSiteMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.NonSentinelSite"
         id="NonSentinelSiteMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Facility"
         id="FacilityMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Trap"
         id="TrapMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.SprayZone"
         id="SprayZoneMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.BreedingSite"
         id="BreedingSiteMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.PermanentWaterBody"
         id="PermanentWaterBodyMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.River"
         id="RiverMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Road"
         id="RoadMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.NationalRoad"
         id="NationalRoadMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Reserve"
         id="ReserveMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
       <object
         key="dss.vector.solutions.geo.generated.Railway"
         id="RailwayMd"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
     </existing>
 
     <create>
@@ -5456,13 +5466,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="GeoEntityMd" />
+          id="GeoEntityMd"/>
       </object>
 
       <object
@@ -5470,13 +5480,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="EarthMd" />
+          id="EarthMd"/>
       </object>
 
       <object
@@ -5484,13 +5494,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="CountryMd" />
+          id="CountryMd"/>
       </object>
 
       <relationship
@@ -5505,13 +5515,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="ProvinceMd" />
+          id="ProvinceMd"/>
       </object>
 
       <relationship
@@ -5526,13 +5536,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="DistrictMd" />
+          id="DistrictMd"/>
       </object>
 
       <relationship
@@ -5547,13 +5557,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="AdminPostMd" />
+          id="AdminPostMd"/>
       </object>
 
       <relationship
@@ -5568,13 +5578,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="LocalityMd" />
+          id="LocalityMd"/>
       </object>
 
       <relationship
@@ -5589,13 +5599,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="PopulatedAreaMd" />
+          id="PopulatedAreaMd"/>
       </object>
 
       <object
@@ -5603,13 +5613,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="CityMd" />
+          id="CityMd"/>
       </object>
 
       <object
@@ -5617,13 +5627,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="TownMd" />
+          id="TownMd"/>
       </object>
 
       <object
@@ -5631,13 +5641,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="VillageMd" />
+          id="VillageMd"/>
       </object>
 
       <object
@@ -5645,13 +5655,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="false" />
+          value="false"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="FacilityMd" />
+          id="FacilityMd"/>
       </object>
 
       <object
@@ -5659,13 +5669,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="false" />
+          value="false"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="RiverMd" />
+          id="RiverMd"/>
       </object>
 
       <object
@@ -5673,13 +5683,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="false" />
+          value="false"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="RoadMd" />
+          id="RoadMd"/>
       </object>
 
       <object
@@ -5687,13 +5697,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="false" />
+          value="false"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="NationalRoadMd" />
+          id="NationalRoadMd"/>
       </object>
 
       <object
@@ -5701,13 +5711,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="false" />
+          value="false"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="ReserveMd" />
+          id="ReserveMd"/>
       </object>
 
       <object
@@ -5715,13 +5725,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="false" />
+          value="false"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="RailwayMd" />
+          id="RailwayMd"/>
       </object>
 
       <relationship
@@ -5799,13 +5809,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="false" />
+          value="false"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="AbstractSiteMd" />
+          id="AbstractSiteMd"/>
       </object>
 
       <object
@@ -5814,13 +5824,13 @@
         key="GeoHierarchy_SentinelSite">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="SentinelSiteMd" />
+          id="SentinelSiteMd"/>
       </object>
 
       <relationship
@@ -5836,13 +5846,13 @@
         key="GeoHierarchy_NonSentinelSite">
         <valueAttribute
           name="political"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="NonSentinelSiteMd" />
+          id="NonSentinelSiteMd"/>
       </object>
 
       <relationship
@@ -5857,13 +5867,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="false" />
+          value="false"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="TrapMd" />
+          id="TrapMd"/>
       </object>
 
       <object
@@ -5871,13 +5881,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="false" />
+          value="false"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="SprayZoneMd" />
+          id="SprayZoneMd"/>
       </object>
 
       <relationship
@@ -5899,13 +5909,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="false" />
+          value="false"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="BreedingSiteMd" />
+          id="BreedingSiteMd"/>
       </object>
 
       <relationship
@@ -5920,13 +5930,13 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="false" />
+          value="false"/>
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="true"/>
         <referenceAttribute
           name="geoEntityClass"
-          id="PermanentWaterBodyMd" />
+          id="PermanentWaterBodyMd"/>
       </object>
 
       <relationship
@@ -5941,13 +5951,13 @@
         type="dss.vector.solutions.geo.generated.Earth">
         <valueAttribute
           name="activated"
-          value="true" />
+          value="true"/>
         <valueAttribute
           name="entityName"
-          value="Earth" />
+          value="Earth"/>
         <valueAttribute
           name="geoId"
-          value="000000" />
+          value="000000"/>
       </object>
 
     </create>
@@ -5959,10 +5969,10 @@
         id="SystemUser">
         <valueAttribute
           name="sessionLimit"
-          value="20" />
+          value="20"/>
         <valueAttribute
           name="password"
-          value="mdsstest2" />
+          value="mdsstest2"/>
       </object>
     </update>
   </doIt>
@@ -5970,7 +5980,7 @@
     <delete>
       <object
         key="test.xmlclasses.Class1"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+        type="com.terraframe.mojo.system.metadata.MdBusiness"/>
     </delete>
   </undoIt>
 </version>
