@@ -917,7 +917,7 @@
           value="1" />
         <valueAttribute
           name="displayLabel"
-          value="[0,1)" />
+          value="0 &lt; 1" />
         <valueAttribute
           name="active"
           value="true" />
@@ -941,7 +941,7 @@
           value="true" />
         <valueAttribute
           name="displayLabel"
-          value="[1,5)" />
+          value="1 &lt; 5" />
         <referenceAttribute
           name="mdView"
           id="dss.vector.solutions.surveillance.ChildCaseView" />
@@ -962,7 +962,7 @@
           value="true" />
         <valueAttribute
           name="displayLabel"
-          value="[5,14)" />
+          value="5 &lt; 14" />
         <referenceAttribute
           name="mdView"
           id="dss.vector.solutions.surveillance.TeenCaseView" />
