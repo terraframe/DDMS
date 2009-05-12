@@ -126,40 +126,6 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return map.toString();
   }
 
-  public static String getLocalizedBool(AttributeBooleanDTO attrib)
-  {
-    // if(Pattern.matches("^[^|]+\\|[^|]+\\|[^|]$+", md.getDescription()))
-    AttributeMdDTO md = attrib.getAttributeMdDTO();
-    if (attrib.getValue().equals("true"))
-    {
-      return translateBool(md, true);
-    }
-    if (attrib.getValue().equals("false"))
-    {
-      return translateBool(md, false);
-    }
-    return null;
-  }
-
-  public static String translateBool(AttributeMdDTO md, boolean bool)
-  {
-    // if(Pattern.matches("^[^|]+\\|[^|]+\\|[^|]$+", md.getDescription()))
-    Pattern pipe = Pattern.compile("\\|");
-    String[] arr = pipe.split(md.getDescription());
-    if (arr.length == 3)
-    {
-      if (bool)
-      {
-        return arr[1];
-      }
-      else
-      {
-        return arr[2];
-      }
-    }
-    return null;
-  }
-
   public static String getDisplayLabels(LabeledDTO[] terms, String name) throws JSONException
   {
     JSONArray ids = new JSONArray();
@@ -328,7 +294,6 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
         AttributeMdDTO md = (AttributeMdDTO) v.getMethod("get" + attrib + "Md").invoke(view);
         Class<?> mdClass = md.getClass();
-        // buff.add("class:"+mdClass.toString());
 
         String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();
         buff.add("label:'" + label + "'");
@@ -351,19 +316,16 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           }
           if (md instanceof AttributeBooleanMdDTO)
           {
-            // editor =
+           // if (translateBool(md, true) != null)
+           // {
 
-            if (translateBool(md, true) != null)
-            {
+              editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'" + ((AttributeBooleanMdDTO)md).getPositiveDisplayLabel() + "', value:'true'}, {label:'" + ((AttributeBooleanMdDTO)md).getNegativeDisplayLabel() + "', value:'false'}],disableBtns:true})";
 
-              editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'" + translateBool(md, true) + "', value:'true'}, {label:'" + translateBool(md, false) + "', value:'false'}],disableBtns:true})";
-              // editor =
-              // "new YAHOO.widget.RadioCellEditor({radioOptions:['"+translateBool(md,true)+"','"+translateBool(md,false)+"'],disableBtns:true})";
-            }
-            else
-            {
-              editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['true','false'],disableBtns:true})";
-            }
+           // }
+           // else
+           // {
+           //   editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['true','false'],disableBtns:true})";
+          //  }
           }
           if (md instanceof AttributeCharacterMdDTO)
           {
@@ -375,13 +337,10 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
             // editor =
             // "new YAHOO.widget.DateCellEditor({disableBtns:true})";
             editor = "new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})";
-            // editor =
-            // "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
           }
           if (md instanceof AttributeEnumerationMdDTO)
           {
             AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
-            // "new YAHOO.widget.CheckboxCellEditor({checkboxOptions:['true','false'],disableBtns:true})";
             editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[";
             String comma = "";
             for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
