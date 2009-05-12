@@ -67,10 +67,16 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			  	  for each(radioOpt in editor.radioOptions)
 				  if(record.getData(feild.key)== radioOpt.value)
 				  {
-					  record.setData(feild.key, radioOpt.label);
+					  //record.setData(feild.key,radioOpt.label);
+					  myDataTable.updateCell(record, feild.key,  radioOpt.label);
 				  }
-				  myDataTable.render();
+				  //myDataTable.render();
 			  }
+			if(editor && editor instanceof YAHOO.widget.DateCellEditor )
+		    {
+				var date = MojoCal.parseDate(record.getData(feild.key));
+				myDataTable.updateCell(record,feild.key, date);
+		    }
 		}
 	    if(table_data.after_row_load)
 	    {
@@ -324,20 +330,28 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    	var view_contructor = Mojo.util.getType(table_data.data_type);
 	    	var view = new view_contructor();
 
-	    	if(table_data.collection_setter)
+	    	/*if(table_data.collection_setter)
 	    	{
 	    		str = "view."+table_data.collection_setter;
 	    		eval(str);
-	    	}
+	    	}*/
 	    	for each (attrib in table_data.fields)
 	    	{
 	    		var setter_exists = Mojo.util.isFunction(view['set'+attrib.key]);
+	    		var attribName = attrib.key.substring(0, 1).toLowerCase() + attrib.key.substring(1);
 	    		var val = row[attrib.key];
 	    		if(setter_exists)
 	    		{
 	    			if(typeof val !== 'undefined' && val != 'undefined')
 	    			{
-	    				view['set'+attrib.key](val);
+	    				if( view.attributeMap[attribName].dtoType ==  "AttributeDateDTO")
+	    				{
+	    					view['set'+attrib.key](MojoCal.parseDate(val));
+	    				}
+	    				else
+	    				{
+	    					view['set'+attrib.key](val);
+	    				}
 	    			}
 	    			else
 	    			{

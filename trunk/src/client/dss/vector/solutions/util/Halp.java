@@ -31,6 +31,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.Request;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +39,7 @@ import org.json.JSONObject;
 import com.terraframe.mojo.business.ComponentDTO;
 import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.constants.Constants;
 import com.terraframe.mojo.transport.attributes.AttributeBooleanDTO;
 import com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO;
@@ -161,19 +163,15 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       {
         try
         {
-          // System.out.println("Setting "+attrib);
           String value = (String) c.getMethod("get" + attrib).invoke(row).toString();
 
           String attributeType = view.getAttributeType(attrib.substring(0, 1).toLowerCase() + attrib.substring(1));
 
-          SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-          // DateFormat df_full =
-          // DateFormat.getDateInstance(DateFormat.FULL);
+          SimpleDateFormat df = new SimpleDateFormat(Constants.DATETIME_FORMAT);
 
           switch (Halp.MdType.toType(attributeType))
           {
             case DATE:
-              // FIXME:Date format?
               value = df.format(new Date(value));
               break;
             case ENUMERATION:

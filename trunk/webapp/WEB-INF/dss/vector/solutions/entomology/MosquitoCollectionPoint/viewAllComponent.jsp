@@ -121,7 +121,7 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
        {key:'Quantity',label:'Total Number',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})},
        {key:'Collection',label:''},
        {key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}],
-              defaults: {GroupId:"",GeoEntity:"${geoEntity.id}",Specie:"",DateCollected:"<fmt:formatDate value="${startDate}" pattern="MM/dd/yyyy"/>",IdentificationMethod:"",QuantityMale:"",QuantityFemale:"",Quantity:""},
+              defaults: {GroupId:"",GeoEntity:"${geoEntity.id}",Specie:"",DateCollected:"<fmt:formatDate value="${startDate}" pattern="<%=Halp.getDateFormatString(request)%>"/>"},
               div_id: "MorphologicalSpecieGroups",
               copy_from_above: ["DateCollected","IdentificationMethod"],
               data_type: "Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroupView",

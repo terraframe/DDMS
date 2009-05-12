@@ -4,6 +4,7 @@
 <%@page import="java.text.AttributedCharacterIterator"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="dss.vector.solutions.util.Halp" %>
+<%@page import="com.terraframe.mojo.constants.Constants" %>
 <%@page import="org.json.JSONArray"%>
 <%
 Locale locale = request.getLocale();
@@ -35,8 +36,9 @@ var MojoCal= YAHOO.namespace('MojoCal');
         init_not_done = true,
         java_date_format = '${dateFormatPattern}',
         over_cal = false,
-        cur_field = ''
-        db_date_format = 'yyyy-MM-dd';
+        cur_field = '',
+        db_datetime_format = '<%=Constants.DATETIME_FORMAT%>',
+        db_date_format = '<%=Constants.DATE_FORMAT%>';
 
 
       cfg = {DATE_FIELD_DELIMITER:'/',
@@ -84,6 +86,7 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
     	if(date_str instanceof Date) return date_str;
 
     	date = Date.parseString(date_str,java_date_format);
+    	if(date == null) date = Date.parseString(date_str,db_datetime_format);
     	if(date == null) date = Date.parseString(date_str,db_date_format);
     	if(date == null) date = Date.parseString(date_str);
     	if(date == null && date_str.length > 16) date = new Date(date_str);
