@@ -1,13 +1,23 @@
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
+<%@page import="java.util.ResourceBundle"%>
+<%@page import="org.apache.taglibs.standard.tag.common.fmt.BundleSupport"%>
+<%@page import="java.util.Enumeration"%>
+
+
 /**
  * Constants used for localization in javascript.
  */
 MDSS.Localized = {
-
-  Ajax_Loading: '<fmt:message key="Ajax_Loading"/>',
-
-  Confirm_Delete_Row:'<fmt:message key="Confirm_Delete_Row"/>',
+<%
+   //Nifty automatic localizer!
+   ResourceBundle rb = BundleSupport.getLocalizationContext(pageContext).getResourceBundle();
+   for( Enumeration en = rb.getKeys(); en.hasMoreElements(); )
+   {
+       String key = (String)en.nextElement();
+          out.println( "'" + key + "' : '" + rb.getString(key) + "',");
+   }
+%>
 
   // tree widget options (per node)
   Tree: {
@@ -91,3 +101,12 @@ MDSS.Localized = {
 
   Treatments: '<fmt:message key="Treatments"/>'
 };
+
+
+
+
+MDSS.localize = function(key){
+  var s = MDSS.Localized[key];
+  if( !s ) return(  "???" + key + "???"  );
+  return s;
+}
