@@ -53,7 +53,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 
 <!--YUI's UI Controls:-->
 <script type="text/javascript" src="js/yui/build/container/container-min.js"></script>
-<script type="text/javascript" src="js/yui/build/menu/menu-min.js"></script>
+<script type="text/javascript" src="js/yui/build/menu/menu.js"></script>
 <script type="text/javascript" src="js/yui/build/autocomplete/autocomplete-min.js"></script>
 <script type="text/javascript" src="js/yui/build/button/button-min.js"></script>
 <script type="text/javascript" src="js/yui/build/calendar/calendar-min.js"></script>
