@@ -8,6 +8,8 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
 
+import dss.vector.solutions.Property;
+
 public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollectionBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -29,8 +31,8 @@ public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollect
 
       if (current.before(this.getDateCollected()))
       {
-        String msg = "It is impossible to have a collection date before the current date";        
-        
+        String msg = "It is impossible to have a collection date before the current date";
+
         InvalidCollectionDateProblem p = new InvalidCollectionDateProblem(msg);
         p.setCollectionDate(this.getDateCollected());
         p.setCurrentDate(current);
@@ -40,14 +42,21 @@ public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollect
       }
     }
   }
-  
+
   @Override
   public void apply()
   {
     validateDateCollected();
-    
+
+    if(this.getCollectionId() == null || this.getCollectionId().equals(""))
+    {
+      this.setCollectionId(Property.getNextId());
+    }
+
     super.apply();
   }
+
+
 
   @Override
   public MorphologicalSpecieGroupView[] getMorphologicalSpecieGroups()

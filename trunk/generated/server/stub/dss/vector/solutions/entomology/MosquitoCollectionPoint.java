@@ -103,7 +103,7 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
         point.setGeoEntity(geoEntity);
         point.setDateCollected(dateCollected);
         point.apply();
-        
+
         return point;
       }
     }
