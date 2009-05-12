@@ -6,8 +6,6 @@
 
 <c:set var="page_title" value="Edit_Knockdown_Assay"  scope="request"/>
 
-<c:set var="true_label" value='<%=Halp.translateBool(((KnockDownAssayDTO)request.getAttribute("item")).getIsofemaleMd(),true)%>' />
-<c:set var="false_label" value='<%=Halp.translateBool(((KnockDownAssayDTO)request.getAttribute("item")).getIsofemaleMd(),false)%>' />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>

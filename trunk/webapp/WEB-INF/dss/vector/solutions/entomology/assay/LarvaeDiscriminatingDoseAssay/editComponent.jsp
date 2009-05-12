@@ -7,8 +7,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<c:set var="true_label" value='<%=Halp.translateBool(((LarvaeDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),true)%>'/>
-<c:set var="false_label" value='<%=Halp.translateBool(((LarvaeDiscriminatingDoseAssayDTO)request.getAttribute("item")).getIsofemaleMd(),false)%>'/>
+
 <mjl:form name="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.id" method="POST">
 <mjl:component item="${item}" param="dto">
     <dl>
