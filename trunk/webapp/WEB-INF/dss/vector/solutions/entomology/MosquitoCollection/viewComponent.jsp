@@ -28,6 +28,8 @@
 
     <dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
     <dd>${item.collectionMethod.displayLabel}</dd>
+    <dt><label> ${item.collectionIdMd.displayLabel} </label></dt>
+    <dd>${item.collectionId}</dd>
     <dt><label > ${item.dateCollectedMd.displayLabel} </label></dt>
     <dd class="formatDate">${item.dateCollected}</dd>
     <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
