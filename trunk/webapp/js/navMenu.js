@@ -95,7 +95,7 @@ var aSubmenuData = [
     {
         id: "Case_Surveillance",
         itemdata: [
-            { text: "Configure_Application_Rate", url: "dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo" , visibleTo:'SYSTEM'},
+            { text: "Search_Aggregated_Cases", url: "dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo" , visibleTo:'SYSTEM'},
             { text: "Query_Aggregated_Cases", url: "dss.vector.solutions.query.QueryController.queryAggregatedCases.mojo" , visibleTo:'SYSTEM'},
 
         ]

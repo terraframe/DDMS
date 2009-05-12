@@ -1,11 +1,9 @@
-<%@page trimDirectiveWhitespaces="true"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="java.io.*" %>
 <%@ page import="dss.vector.solutions.util.RedirectingServletResponse" %>
 <%@page import="dss.vector.solutions.util.Halp"%>
-
 
 <%//set the defualt header and footer, this can be overidden in the component jsp %>
 <c:set var="header_jsp" value="/WEB-INF/templates/header.jsp"  scope="request"/>
