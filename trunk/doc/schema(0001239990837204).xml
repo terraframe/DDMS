@@ -47,7 +47,7 @@
             name="displayLabel"
             required="true"
             label="The Display Label"
-            size="64"/>
+            size="255"/>
         </attributes>
         <mdMethod
           name="setActorAttributes"
