@@ -168,10 +168,10 @@
         key="Net_Permanent">
         <valueAttribute
           name="netName"
-          value="Permanent" />
+          value="Permanet" />
         <valueAttribute
           name="displayLabel"
-          value="Permanent" />
+          value="Permanet" />
       </object>
 
       <relationship
@@ -487,7 +487,9 @@
           <boolean
             name="urban"
             label="Household Type"
-            description="Flag indicating if the household is urban or rural" />
+            description="Flag indicating if the household is urban or rural"
+            negativeLabel="Urban"
+            positiveLabel="Rural" />
           <integer
             name="people"
             label="Number of people"
@@ -515,7 +517,9 @@
             description="Extra information about the roof surface" />
           <boolean
             name="hasWindows"
-            label="Has Windows" />
+            label="Has Windows"
+            negativeLabel="No"
+            positiveLabel="Yes" />
           <enumeration
             name="windowType"
             label="WindowType"
@@ -877,15 +881,21 @@
           <boolean
             name="pregnant"
             label="Pregnant"
-            description="Flag indicating if the person is pregnant" />
+            description="Flag indicating if the person is pregnant"
+            negativeLabel="No"
+            positiveLabel="Yes" />
           <boolean
             name="sleptUnderNet"
-            label="Slept Under Net"
-            description="Flag indicating if the person slept under a net last night" />
+            label="Did person sleep under net last night"
+            description="Flag indicating if the person slept under a net last night"
+            negativeLabel="No"
+            positiveLabel="Yes" />
           <boolean
             name="haemoglobinMeasured"
-            label="Haemoglobin Measured"
-            description="Flag indicating if the person had their haemoglobin measured" />
+            label="Was haemoglobin measured"
+            description="Flag indicating if the person had their haemoglobin measured"
+            negativeLabel="No"
+            positiveLabel="Yes" />
           <decimal
             name="haemoglobin"
             label="haemoglobin"
@@ -898,48 +908,50 @@
             type="dss.vector.solutions.intervention.Drug" />
           <boolean
             name="iron"
-            label="Iron Given"
-            description="Flag indicating if iron was given" />
+            label="Was iron given"
+            description="Flag indicating if iron was given"
+            negativeLabel="No"
+            positiveLabel="Yes" />
           <enumeration
             name="performedRDT"
-            label="RDT"
+            label="Was RDT done"
             selectMultiple="false"
             type="dss.vector.solutions.intervention.RDTResponse" />
           <enumeration
             name="rDTResult"
-            label="RDT Result"
+            label="Result"
             selectMultiple="true"
             type="dss.vector.solutions.intervention.RDTResult" />
           <reference
             name="rdtTreatment"
-            label="RDT Treatment"
+            label="Treatment given"
             type="dss.vector.solutions.intervention.Drug" />
           <enumeration
             name="bloodslide"
-            label="Bloodslide"
+            label="Bloodslide detail"
             selectMultiple="false"
             type="dss.vector.solutions.intervention.BloodslideResponse" />
           <enumeration
             name="fever"
-            label="fever"
+            label="Has person had fever in last week"
             selectMultiple="false"
             type="dss.vector.solutions.intervention.FeverResponse" />
           <reference
             name="feverTreatment"
-            label="Fever Treatment"
+            label="What treatment was sought"
             type="dss.vector.solutions.intervention.Drug" />
           <enumeration
             name="malaria"
-            label="Malaria"
+            label="Was it confirmed malaria"
             selectMultiple="false"
             type="dss.vector.solutions.intervention.FeverResponse" />
           <reference
             name="malariaTreatment"
-            label="Malaria Treatment"
+            label="Treatment taken"
             type="dss.vector.solutions.intervention.Drug" />
           <enumeration
             name="payment"
-            label="Payment"
+            label="Payment for treatment"
             selectMultiple="false"
             type="dss.vector.solutions.intervention.FeverResponse" />
         </attributes>
