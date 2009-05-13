@@ -118,9 +118,17 @@ public class InsecticideController extends InsecticideControllerBase implements 
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
-      this.failDelete(dto);
+      ErrorUtility.prepareProblems(e, req);
+
+      this.viewAll();
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.viewAll();
     }
   }
   public void failDelete(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
