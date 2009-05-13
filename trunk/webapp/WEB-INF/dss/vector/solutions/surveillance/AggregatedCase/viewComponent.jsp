@@ -54,20 +54,21 @@
 
     <c:if test="${item.isCaseStocksReadable}">
     <dt>
-      <fmt:message key="Treatment_out_of_Stock"/>
     </dt>
     <dd>
       <table class="displayTable">
+        <tr> 
+          <th><fmt:message key="Treatment_out_of_Stock"/></th>
+          <th><fmt:message key="Out_of_Stock"/></th>
+        </tr>      
+      
         <mjl:components items="${stock}" param="stock" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
             <td>
               ${current.child.displayLabel}
             </td>
             <td>
-              <c:choose>
-                <c:when test="${current.outOfStock}">Yes</c:when>
-                <c:otherwise>No</c:otherwise>
-              </c:choose>
+              ${current.outOfStock ? current.outOfStockMd.positiveDisplayLabel :current.outOfStockMd.negativeDisplayLabel}
               <mjl:messages attribute="outOfStock">
                 <mjl:message />
               </mjl:messages>
@@ -80,10 +81,14 @@
 
     <c:if test="${item.isCaseReferralsReadable}">
     <dt>
-      <fmt:message key="Facility_referred"/>
     </dt>
     <dd>
       <table class="displayTable">
+        <tr> 
+          <th><fmt:message key="Facility_referred"/></th>      
+          <th><fmt:message key="Amount"/></th>
+        </tr>      
+      
         <mjl:components items="${referrals}" param="referrals" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
             <td>
@@ -103,10 +108,16 @@
 
     <c:if test="${item.isCaseDiagnosticReadable}">
     <dt>
-      <fmt:message key="Diagnostic_methods"/>
+      
     </dt>
     <dd>
       <table class="displayTable">
+        <tr> 
+          <th><fmt:message key="Diagnostic_methods"/></th>      
+          <th><fmt:message key="Amount"/></th>
+          <th><fmt:message key="Positive"/></th>
+        </tr>      
+      
         <mjl:components items="${diagnostics}" param="diagnosticMethods" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
             <td>
@@ -132,10 +143,14 @@
 
     <c:if test="${item.isCaseTreatmentMethodReadable}">
     <dt>
-      <fmt:message key="Treatment_methods"/>
+      
     </dt>
     <dd>
       <table class="displayTable">
+        <tr> 
+          <th><fmt:message key="Treatment_methods"/></th>      
+          <th><fmt:message key="Amount"/></th>
+        </tr>            
         <mjl:components items="${treatmentMethods}" param="treatmentMethods" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
             <td>
@@ -155,10 +170,15 @@
 
     <c:if test="${item.isCaseTreatmentsReadable}">
     <dt>
-      <fmt:message key="Treatments"/>
+      
     </dt>
     <dd>
       <table class="displayTable">
+        <tr> 
+          <th><fmt:message key="Treatments"/></th>      
+          <th><fmt:message key="Amount"/></th>
+        </tr>            
+      
         <mjl:components items="${treatments}" param="treatments" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
             <td>

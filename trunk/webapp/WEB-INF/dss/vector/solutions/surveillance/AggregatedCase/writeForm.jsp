@@ -66,7 +66,7 @@
               ${current.child.displayLabel}
             </td>
             <td>
-              <mjl:boolean param="outOfStock" trueLabel="Yes" falseLabel="No"/>
+              <mjl:boolean param="outOfStock"/>
               <mjl:messages attribute="outOfStock">
                 <mjl:message />
               </mjl:messages>
