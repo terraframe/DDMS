@@ -34,6 +34,9 @@
     <mjl:input value="${item.sprayId}" type="hidden" param="id" />      
     
     <mjl:component item="${item}" param="dto">
+      <mjl:dt attribute="teamLeader">
+        ${item.teamLeader.person.lastName}, ${item.teamLeader.person.firstName}
+      </mjl:dt>
       <mjl:dt attribute="surfaceType" >          
         <ul>
           <c:forEach var="enumName" items="${item.surfaceTypeEnumNames}">
@@ -44,8 +47,8 @@
       <mjl:dt attribute="teamSprayWeek"> ${item.teamSprayWeek} </mjl:dt>      
       <mjl:dt attribute="target"> ${item.target} </mjl:dt>     
     </mjl:component>
+    <mjl:command value="Edit" action="dss.vector.solutions.irs.TeamSprayController.edit.mojo" name="dss.vector.solutions.irs.TeamSpray.form.edit.button" />
   </dl>  
-  <mjl:command value="Edit" action="dss.vector.solutions.irs.TeamSprayController.edit.mojo" name="dss.vector.solutions.irs.TeamSpray.form.edit.button" />
 </mjl:form>
 
 <h2><fmt:message key="Operator_Sprays"/></h2>
