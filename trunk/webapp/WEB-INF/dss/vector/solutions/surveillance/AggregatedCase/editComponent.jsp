@@ -8,7 +8,7 @@
 
 <%@ include file="form.jsp"%>
 
-<div class="pageTitle"> <fmt:message key="Enter_data_for_ages"/> ${item.ageGroup.startAge} &lt; ${item.ageGroup.endAge} </div> 
+<div class="pageTitle"> <fmt:message key="Enter_data_for_ages"/> ${item.ageGroup.displayLabel} </div> 
 
 <mjl:form name="dss.vector.solutions.surveillance.AggregatedCase.form.name" id="dss.vector.solutions.surveillance.AggregatedCase.form.id" method="POST">
   

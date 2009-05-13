@@ -13,7 +13,7 @@
       ${item.ageGroupMd.displayLabel}
       <mjl:select var="current" valueAttribute="id" includeBlank="true" items="${ageGroups}"  param="ageGroup.componentId" id="search.select.id">
         <mjl:option>
-          ${current.startAge} &lt; ${current.endAge}
+          ${current.displayLabel}
         </mjl:option>
       </mjl:select>
     </mjl:form>
