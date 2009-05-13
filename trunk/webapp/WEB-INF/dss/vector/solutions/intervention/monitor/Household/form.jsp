@@ -110,9 +110,12 @@
               </c:when>
               <c:otherwise>
                 <td>${current.child.displayLabel}</td>
-                <td><mjl:input type="text" param="amount" /> <mjl:messages attribute="amount">
-                  <mjl:message />
-                </mjl:messages></td>
+                <td>
+                  <mjl:input type="text" param="amount" />
+                  <mjl:messages attribute="amount">
+                   <mjl:message />
+                  </mjl:messages>
+                </td>
               </c:otherwise>
             </c:choose>
           </tr>
