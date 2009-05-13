@@ -7,52 +7,40 @@
 
 <mjl:form name="dss.vector.solutions.intervention.monitor.Household.form.name" id="dss.vector.solutions.intervention.monitor.Household.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
-  <mjl:component item="${item}" param="dto">
   <dl>
+    <mjl:component item="${item}" param="dto">
     <mjl:dt attribute="householdName">
       ${item.householdName}
-</mjl:dt>
-    <mjl:dt attribute="lastSprayed">
-      ${item.lastSprayed}
-</mjl:dt>
-    <mjl:dt attribute="nets">
-      ${item.nets}
-</mjl:dt>
-    <mjl:dt attribute="netsUsed">
-      ${item.netsUsed}
-</mjl:dt>
+    </mjl:dt>
+    
+    <mjl:dt attribute="urban">
+      ${item.urban?item.urbanMd.positiveDisplayLabel:item.urbanMd.negativeDisplayLabel}
+    </mjl:dt>
+
     <mjl:dt attribute="people">
       ${item.people}
-</mjl:dt>
-    <mjl:dt attribute="roof">
-      ${item.roof.displayLabel}
     </mjl:dt>
-    <mjl:dt attribute="roofInfo">
-      ${item.roofInfo}
-</mjl:dt>
-    <mjl:dt attribute="rooms">
-      ${item.rooms}
-</mjl:dt>
-    <mjl:dt attribute="sleptUnderNets">
-      ${item.sleptUnderNets}
-</mjl:dt>
-    <mjl:dt attribute="surveyPoint">
-      <mjl:commandLink display="${item.surveyPoint.displayLabel}" action="dss.vector.solutions.intervention.monitor.SurveyPointController.view.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.view.link">
-        <mjl:property value="${item.surveyPoint.id}" name="id" />
-      </mjl:commandLink>
-</mjl:dt>
-    <mjl:dt attribute="urban">
-      ${item.urban}
-</mjl:dt>
+
     <mjl:dt attribute="wall">
       ${item.wall.displayLabel}    
     </mjl:dt>
+
     <mjl:dt attribute="wallInfo">
       ${item.wallInfo}
-</mjl:dt>
+    </mjl:dt>
+
+    <mjl:dt attribute="roof">
+      ${item.roof.displayLabel}
+    </mjl:dt>
+    
+    <mjl:dt attribute="roofInfo">
+      ${item.roofInfo}
+    </mjl:dt>
+
     <mjl:dt attribute="hasWindows">
-      ${item.hasWindows}
-</mjl:dt>
+      ${item.hasWindows?item.hasWindowsMd.positiveDisplayLabel:item.hasWindowsMd.negativeDisplayLabel}
+    </mjl:dt>
+    
     <mjl:dt attribute="windowType">
       <ul>
         <c:forEach var="enumName" items="${item.windowTypeEnumNames}">
@@ -61,12 +49,33 @@
           </li>
         </c:forEach>
       </ul>
-</mjl:dt>
+    </mjl:dt>
+
+    <mjl:dt attribute="rooms">
+      ${item.rooms}
+     </mjl:dt>
+    
+    <mjl:dt attribute="lastSprayed">
+      ${item.lastSprayed}
+    </mjl:dt>
+
+    <mjl:dt attribute="nets">
+      ${item.nets}
+      </mjl:dt>
+    <mjl:dt attribute="netsUsed">
+      ${item.netsUsed}
+    </mjl:dt>
+    <mjl:dt attribute="sleptUnderNets">
+      ${item.sleptUnderNets}
+    </mjl:dt>
     <dt>
-      <label><fmt:message key="Nets"/>  </label>
     </dt>
     <dd>
       <table class="displayTable">
+        <tr>
+          <th><fmt:message key="Nets" /></th>
+          <th><fmt:message key="Amount" /></th>
+        </tr>
         <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
             <c:choose>
@@ -88,9 +97,9 @@
         </mjl:components>
       </table>
     </dd>
+    </mjl:component>
+    <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.HouseholdController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Household.form.edit.button" />
   </dl>
-  </mjl:component>
-  <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.HouseholdController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Household.form.edit.button" />
 </mjl:form>
 <dl>
   <dt><fmt:message key="People" /> </dt>

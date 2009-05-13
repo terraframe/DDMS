@@ -12,7 +12,7 @@
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
-<c:set var="page_title" value="Create_Household"  scope="request"/>
+<c:set var="page_title" value="Edit_Household"  scope="request"/>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
@@ -75,129 +75,10 @@
 
 <mjl:form name="dss.vector.solutions.intervention.monitor.Household.form.name" id="Household.form.id" method="POST">
   <dl>
-    <mjl:component item="${item}" param="dto">
-    <mjl:input type="hidden" param="surveyPoint" value="${item.surveyPoint.id}"/>
-      <mjl:dt attribute="householdName">
-        <mjl:input type="text" param="householdName" />
-
-</mjl:dt>
-      <mjl:dt attribute="lastSprayed">
-        <mjl:input type="text" param="lastSprayed" />
-
-</mjl:dt>
-      <mjl:dt attribute="nets">
-        <mjl:input type="text" param="nets" />
-
-</mjl:dt>
-      <mjl:dt attribute="netsUsed">
-        <mjl:input type="text" param="netsUsed" />
-
-</mjl:dt>
-      <mjl:dt attribute="people">
-        <mjl:input type="text" param="people" />
-
-</mjl:dt>
-      <mjl:dt attribute="roof">
-       <mjl:select var="current" varStatus="status" valueAttribute="roofId" items="${roofs}" param="roof">
-          <c:if test="${status.index!=0 && !current.hasParent && roofs[status.index-1].hasParent}">
-              </optgroup>            
-          </c:if>   
-                 
-          <c:choose>
-            <c:when test="${current.hasChildren}">
-              <optgroup label="${current.displayLabel}">
-            </c:when>
-            <c:otherwise>
-              <mjl:option>
-                ${current.displayLabel}
-              </mjl:option>            
-            </c:otherwise>
-          </c:choose>            
-        </mjl:select>     
-      </mjl:dt>
-      <mjl:dt attribute="roofInfo">
-        <mjl:input type="text" param="roofInfo" />
-
-</mjl:dt>
-      <mjl:dt attribute="rooms">
-        <mjl:input type="text" param="rooms" />
-
-</mjl:dt>
-      <mjl:dt attribute="sleptUnderNets">
-        <mjl:input type="text" param="sleptUnderNets" />
-
-</mjl:dt>
-      <mjl:dt attribute="urban">
-        <mjl:boolean param="urban" trueLabel="urban" falseLabel="rural" />
-
-</mjl:dt>
-      <mjl:dt attribute="wall">
-       <mjl:select var="current" varStatus="status" valueAttribute="wallId" items="${walls}" param="wall">
-          <c:if test="${status.index!=0 && !current.hasParent && walls[status.index-1].hasParent}">
-              </optgroup>            
-          </c:if>   
-                 
-          <c:choose>
-            <c:when test="${current.hasChildren}">
-              <optgroup label="${current.displayLabel}">
-            </c:when>
-            <c:otherwise>
-              <mjl:option>
-                ${current.displayLabel}
-              </mjl:option>            
-            </c:otherwise>
-          </c:choose>            
-        </mjl:select>         
-      </mjl:dt>
-      <mjl:dt attribute="wallInfo">
-        <mjl:input type="text" param="wallInfo" />
-
-</mjl:dt>
-      <mjl:dt attribute="hasWindows">
-        <mjl:boolean param="hasWindows" trueLabel="Yes" falseLabel="No"/>
-
-</mjl:dt>
-      <mjl:dt attribute="windowType">
-        <mjl:select var="current" valueAttribute="enumName" items="${windowType}" param="windowType" includeBlank="true">
-          <mjl:option selected="${mjl:contains(item.windowTypeEnumNames, current.enumName) ? 'selected' : 'false'}">
-            ${item.windowTypeMd.enumItems[current.enumName]}
-          </mjl:option>
-        </mjl:select>
-
-</mjl:dt>
-      </mjl:component>
-
-      <dt>
-        <label><fmt:message key="Nets"/> </label>
-      </dt>
-      <dd>
-        <table class="displayTable">
-          <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
-            <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-              <c:choose>
-                <c:when test="${current.child.isAbstract}">
-                  <td colspan="2">
-                    ${current.child.displayLabel}
-                  </td>
-                </c:when>
-              <c:otherwise>
-                <td>
-                  ${current.child.displayLabel}
-                </td>
-                <td>
-                  <mjl:input type="text" param="amount" />
-                  <mjl:messages attribute="amount">
-                    <mjl:message />
-                  </mjl:messages>
-                </td>
-              </c:otherwise>
-              </c:choose>
-            </tr>
-          </mjl:components>
-        </table>
-      </dd>
-    </dl>
+    <%@ include file="form.jsp"%>
+    
     <mjl:command value="Update" action="dss.vector.solutions.intervention.monitor.HouseholdController.update.mojo" name="dss.vector.solutions.intervention.monitor.Household.form.update.button" />
     <mjl:command value="Delete" action="dss.vector.solutions.intervention.monitor.HouseholdController.delete.mojo" name="dss.vector.solutions.intervention.monitor.Household.form.delete.button" />
     <mjl:command value="Cancel" action="dss.vector.solutions.intervention.monitor.HouseholdController.cancel.mojo" name="dss.vector.solutions.intervention.monitor.Household.form.cancel.button" />
+  </dl>
 </mjl:form>
