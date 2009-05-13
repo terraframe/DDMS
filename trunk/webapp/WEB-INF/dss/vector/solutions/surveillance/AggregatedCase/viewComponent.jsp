@@ -114,7 +114,7 @@
       <table class="displayTable">
         <tr> 
           <th><fmt:message key="Diagnostic_methods"/></th>      
-          <th><fmt:message key="Amount"/></th>
+          <th><fmt:message key="Total_Tests"/></th>
           <th><fmt:message key="Positive"/></th>
         </tr>      
       
