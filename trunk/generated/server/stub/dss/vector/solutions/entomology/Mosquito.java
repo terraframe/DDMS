@@ -19,7 +19,8 @@ import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSiteQuery;
-import dss.vector.solutions.query.Mapping;
+import dss.vector.solutions.query.MapUtil;
+import dss.vector.solutions.query.MapWithoutGeoEntityException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
@@ -118,7 +119,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   * 
+   *
    * @param xml
    * @return
    */
@@ -134,17 +135,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     // include the thematic layer (if applicable).
     if (thematicLayer != null)
     {
-      // Matcher matcher = thematicLayer.matchOnThematicVariable();
-      // if(matcher != null)
-      String thematicVariable = thematicLayer.getThematicVariable();
-      if (thematicVariable != null && thematicVariable.trim().length() > 0)
-      {
-        // String entityAlias = matcher.group(ThematicLayer.TYPE_GROUP);
-        // String variable = matcher.group(ThematicLayer.VARIABLE_GROUP);
-
-        valueQueryParser.addAttributeSelectable(Mosquito.CLASS, thematicVariable, "",
-            QueryConstants.THEMATIC_DATA_COLUMN);
-      }
+      // FIXME look at AggregatedCase for new code
     }
 
     // include the geometry of the GeoEntity
@@ -185,7 +176,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
   /**
    * Queries for Mosquitos.
-   * 
+   *
    * @param xml
    */
   public static com.terraframe.mojo.query.ValueQuery queryEntomology(String xml, String geoEntityType)
@@ -194,8 +185,8 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   }
 
   /**
-   * Creates a
-   * 
+   *
+   *
    * @param xml
    * @return
    */
@@ -210,11 +201,30 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     }
 
     SavedSearch search = SavedSearch.get(savedSearchId);
+
+    if(thematicLayerType == null || thematicLayerType.trim().length() == 0)
+    {
+      String error = "Cannot create a map for search [] without having restricted by a GeoEntity(s).";
+      MapWithoutGeoEntityException ex = new MapWithoutGeoEntityException(error);
+      throw ex;
+    }
+
+    // Create the thematic layer if it does not exist
     ThematicLayer thematicLayer = search.getThematicLayer();
+    if(thematicLayer == null)
+    {
+      thematicLayer = ThematicLayer.newInstance(thematicLayerType);
+      search.setThematicLayer(thematicLayer);
+    }
+    // Update ThematicLayer if the thematic layer type has changed.
+    else if(!thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
+    {
+      thematicLayer.changeLayerType(thematicLayerType);
+    }
 
     ValueQuery query = xmlToValueQuery(xml, thematicLayerType, true, thematicLayer);
 
-    String layers = Mapping.generateLayers(universalLayers, query, search, thematicLayer);
+    String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
     return layers;
   }
 }

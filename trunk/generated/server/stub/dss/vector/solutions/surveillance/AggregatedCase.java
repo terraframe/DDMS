@@ -34,11 +34,13 @@ import dss.vector.solutions.PeriodQuarterProblem;
 import dss.vector.solutions.PeriodWeekProblem;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.query.Mapping;
+import dss.vector.solutions.query.MapUtil;
+import dss.vector.solutions.query.MapWithoutGeoEntityException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
+import dss.vector.solutions.query.ThematicVariable;
 
 public class AggregatedCase extends AggregatedCaseBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -487,10 +489,13 @@ public class AggregatedCase extends AggregatedCaseBase implements
     // include the thematic layer (if applicable).
     if (thematicLayer != null)
     {
-      String thematicVariable = thematicLayer.getThematicVariable();
-      if (thematicVariable != null && thematicVariable.trim().length() > 0)
+      ThematicVariable thematicVariable = thematicLayer.getThematicVariable();
+      if (thematicVariable != null)
       {
-        valueQueryParser.addAttributeSelectable(AggregatedCase.CLASS, thematicVariable, "",
+        String entityAlias = thematicVariable.getEntityAlias();
+        String attributeName = thematicVariable.getAttributeName();
+
+        valueQueryParser.addAttributeSelectable(entityAlias, attributeName, "",
             QueryConstants.THEMATIC_DATA_COLUMN);
       }
     }
@@ -516,7 +521,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
 
     // join collection with geo entity and select that entity type's geometry
-    if (geoEntityType != null)
+    if (geoEntityType != null && geoEntityType.trim().length() > 0)
     {
       GeneratedBusinessQuery businessQuery = (GeneratedBusinessQuery) queryMap.get(geoEntityType);
 
@@ -600,15 +605,14 @@ public class AggregatedCase extends AggregatedCaseBase implements
   }
 
   /**
-   * Creates a map based off the given query.
+   * Creates a
    *
    * @param xml
    * @return
    */
-  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers,
-      String savedSearchId)
+  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers, String savedSearchId)
   {
-    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    if(savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot map a query without a current SavedSearch instance.";
       SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
@@ -616,12 +620,29 @@ public class AggregatedCase extends AggregatedCaseBase implements
     }
 
     SavedSearch search = SavedSearch.get(savedSearchId);
+
+    if(thematicLayerType == null || thematicLayerType.trim().length() == 0)
+    {
+      String error = "Cannot create a map for search ["+search.getQueryName()+"] without having restricted by a GeoEntity(s).";
+      MapWithoutGeoEntityException ex = new MapWithoutGeoEntityException(error);
+      throw ex;
+    }
+
+    // Create the thematic layer if it does not exist
     ThematicLayer thematicLayer = search.getThematicLayer();
+
+    // Update ThematicLayer if the thematic layer type has changed or
+    // if one has not yet been defined.
+    if(thematicLayer.getGeometryStyle() == null ||
+        !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
+    {
+      thematicLayer.changeLayerType(thematicLayerType);
+    }
+
 
     ValueQuery query = xmlToValueQuery(xml, thematicLayerType, true, thematicLayer);
 
-    String layers = Mapping.generateLayers(universalLayers, query, search, thematicLayer);
+    String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
     return layers;
   }
-
 }

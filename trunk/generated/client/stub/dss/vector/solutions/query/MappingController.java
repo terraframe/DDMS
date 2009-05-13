@@ -1,20 +1,15 @@
 package dss.vector.solutions.query;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
-import com.terraframe.mojo.business.ComponentDTOFacade;
-import com.terraframe.mojo.transport.attributes.AttributeDTO;
-import com.terraframe.mojo.transport.attributes.AttributeNumberDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
+import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.sld.SLDWriter;
 import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 
@@ -35,8 +30,93 @@ public class MappingController extends MappingControllerBase implements
     super(req, resp, isAsynchronous);
   }
 
+  /**
+   * Writes all layers for the SavedSearch with the given id.
+   *
+   * @param savedSearchId
+   */
+  private void writeLayers(String savedSearchId)
+  {
+    SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+    List<? extends LayerDTO> layers = search.getAllDefinesLayers();
+
+    // Check that a thematic layer has been defined with valid a valid geometry style.
+    ThematicLayerDTO thematicLayerDTO = search.getThematicLayer();
+    if(thematicLayerDTO.getGeometryStyle() == null)
+    {
+      MapWithoutGeoEntityExceptionDTO ex = new MapWithoutGeoEntityExceptionDTO(this.getClientRequest(), this.req.getLocale());
+      throw ex;
+    }
+
+    SLDWriter sldWriter = SLDWriter.getSLDWriter(thematicLayerDTO);
+    sldWriter.write();
+
+    for(LayerDTO layer : layers)
+    {
+      SLDWriter layerWriter = SLDWriter.getSLDWriter(layer);
+      layerWriter.write();
+    }
+
+  }
+
   @Override
-  public void editThematicLayer(String thematicLayerId, String[] thematicVariables) throws IOException,
+  public void mapAggregatedCaseQuery(String queryXML, String thematicLayerType,
+      String[] universalLayers, String savedSearchId) throws IOException, ServletException
+  {
+    try
+    {
+      // must write layers first so the mapping has valid SLD files to reference. If
+      // the search id is null, skip this step so control flow continues and the proper
+      // error can be thrown.
+      if(savedSearchId != null && savedSearchId.trim().length() > 0)
+      {
+        writeLayers(savedSearchId);
+      }
+
+      String layers = AggregatedCaseDTO.mapQuery(this.getClientRequest(), queryXML, thematicLayerType,
+          universalLayers, savedSearchId);
+
+
+      resp.getWriter().print(layers);
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }
+
+  @Override
+  public void mapEntomologyQuery(String queryXML, String thematicLayerType, String[] universalLayers,
+      String savedSearchId) throws IOException, ServletException
+  {
+    try
+    {
+      // must write layers first so the mapping has valid SLD files to reference. If
+      // the search id is null, skip this step so control flow continues and the proper
+      // error can be thrown.
+      if(savedSearchId != null && savedSearchId.trim().length() > 0)
+      {
+        writeLayers(savedSearchId);
+      }
+
+      String layers = MosquitoDTO.mapQuery(this.getClientRequest(), queryXML, thematicLayerType,
+          universalLayers, savedSearchId);
+
+
+      resp.getWriter().print(layers);
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }
+
+  @Override
+  public void editThematicLayer(String thematicLayerId, ThematicVariableDTO[] thematicVariables) throws IOException,
       ServletException
   {
     try
@@ -48,23 +128,7 @@ public class MappingController extends MappingControllerBase implements
       req.setAttribute("categories", categories);
       req.setAttribute("thematicVariable", layer.getThematicVariable());
 
-      // createMap of display labels since
-      AggregatedCaseDTO caseDTO = new AggregatedCaseDTO(this.getClientRequest());
-      Map<String, String> labels = new HashMap<String, String>();
-      List<String> allowedVariables = new LinkedList<String>();
-      for(String variable : thematicVariables)
-      {
-        AttributeDTO aDTO = ComponentDTOFacade.getAttributeDTO(caseDTO, variable);
-        if(aDTO instanceof AttributeNumberDTO)
-        {
-          allowedVariables.add(variable);
-          labels.put(variable, aDTO.getAttributeMdDTO().getDisplayLabel());
-        }
-      }
-
-      req.setAttribute("variables", allowedVariables);
-      req.setAttribute("labels", labels);
-
+      req.setAttribute("variables", thematicVariables);
 
       req.getRequestDispatcher(EDIT_VARIABLE_STYLES).forward(req, resp);
 
@@ -78,16 +142,13 @@ public class MappingController extends MappingControllerBase implements
   }
 
   @Override
-  public void updateThematicVariable(String layerId, String thematicVariable,
+  public void updateThematicVariable(String layerId, ThematicVariableDTO thematicVariable,
       AbstractCategoryDTO[] categories) throws IOException, ServletException
   {
     try
     {
-      ThematicLayerDTO layer = ThematicLayerDTO.updateThematicVariable(this.getClientRequest(), layerId,
+      ThematicLayerDTO.updateThematicVariable(this.getClientRequest(), layerId,
           thematicVariable, categories);
-
-      SLDWriter sldWriter = SLDWriter.getSLDWriter(layer);
-      sldWriter.write();
     }
     catch (ProblemExceptionDTO e)
     {
@@ -125,8 +186,8 @@ public class MappingController extends MappingControllerBase implements
     {
       LayerDTO layer = LayerDTO.updateLayer(this.getClientRequest(), geometryStyle, textStyle, layerId);
 
-      SLDWriter sldWriter = SLDWriter.getSLDWriter(layer);
-      sldWriter.write();
+      // SLDWriter sldWriter = SLDWriter.getSLDWriter(layer);
+      // sldWriter.write();
 
       resp.getWriter().print(layer.getId());
     }
@@ -161,8 +222,8 @@ public class MappingController extends MappingControllerBase implements
     {
       LayerDTO layer = UniversalLayerDTO.createLayer(this.getClientRequest(), savedSearchId, layerClass);
 
-      SLDWriter sldWriter = SLDWriter.getSLDWriter(layer);
-      sldWriter.write();
+      // SLDWriter sldWriter = SLDWriter.getSLDWriter(layer);
+      // sldWriter.write();
 
       resp.getWriter().print(layer.getId());
     }

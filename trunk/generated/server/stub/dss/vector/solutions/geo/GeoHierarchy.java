@@ -275,8 +275,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     {
       GeoHierarchy child = children.get(i);
 
-      MdBusiness md = child.getGeoEntityClass();
-      String type = md.getPackageName() + "." + md.getTypeName();
+      String type = child.getQualifiedType();
 
       allowed.put(type);
 
@@ -285,13 +284,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     MdBusiness md = parent.getGeoEntityClass();
 
-    String type = md.getPackageName() + "." + md.getTypeName();
+    String type = parent.getQualifiedType(md);
 
     Object grandParentType;
     if(grandParent != null)
     {
-      MdBusiness gMd = grandParent.getGeoEntityClass();
-      grandParentType = (String) gMd.getPackageName() + "." + gMd.getTypeName();
+      grandParentType = grandParent.getQualifiedType();
     }
     else
     {
@@ -306,6 +304,29 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     imports.add(type);
     imports.add(type + "Controller");
+  }
+
+  /**
+   * Returns the concatenated package and type name of the
+   * underlying MdBusiness this GeoHierarchy represents.
+   *
+   * @return
+   */
+  public String getQualifiedType()
+  {
+    MdBusiness md = this.getGeoEntityClass();
+    return getQualifiedType(md);
+  }
+
+  /**
+   * Returns the concatenated package and type name of the
+   * underlying MdBusiness this GeoHierarchy represents.
+   *
+   * @return
+   */
+  public String getQualifiedType(MdBusiness md)
+  {
+    return md.getPackageName() + "." + md.getTypeName();
   }
 
   /**
@@ -886,6 +907,23 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       treeRecurse(hierarchy, childH);
     }
 
+  }
+
+  /**
+   * This GeoHierarchy is equal to the given object if the object is the same
+   * object reference or if the ids match.
+   */
+  @Override
+  public boolean equals(Object obj)
+  {
+    boolean equals = super.equals(obj);
+
+    if (!equals && obj instanceof GeoHierarchy)
+    {
+      equals = this.getId().equals( ( (GeoHierarchy) obj ).getId());
+    }
+
+    return equals;
   }
 
   /**

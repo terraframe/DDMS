@@ -26,16 +26,7 @@ public class ThematicSLDWriter extends SLDWriter implements Reloadable
   protected void writeTextStyle(TextStyleDTO textStyle)
   {
     // thematic variable value (use text style for entire layer)
-    ThematicLayerDTO layer = getLayer();
-    String variable = layer.getThematicVariable();
-
-    boolean writeThematic = false;
-    if(variable != null && variable.trim().length() > 0)
-    {
-      writeThematic = true;
-    }
-
-    TextSymbolizer textSymbolizer = new TextSymbolizer(getLayer(), textStyle, writeThematic);
+    TextSymbolizer textSymbolizer = new TextSymbolizer(getLayer(), textStyle);
     textSymbolizer.write(this);
   }
 }

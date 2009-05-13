@@ -332,17 +332,19 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 	    	/*if(table_data.collection_setter)
 	    	{
-	    		str = "view."+table_data.collection_setter;
+	    		var str = "view."+table_data.collection_setter;
 	    		eval(str);
 	    	}*/
-	    	for each (attrib in table_data.fields)
+	    	//for each (attrib in table_data.fields)
+	    	for(var i=0; i<table_data.fields.length; i++)
 	    	{
+	    		var attrib = table_data.fields[i];
 	    		var setter_exists = Mojo.util.isFunction(view['set'+attrib.key]);
 	    		var attribName = attrib.key.substring(0, 1).toLowerCase() + attrib.key.substring(1);
 	    		var val = row[attrib.key];
 	    		if(setter_exists)
 	    		{
-	    			if(typeof val !== 'undefined' && val != 'undefined')
+	    			if(val != null)
 	    			{
 	    				if( view.attributeMap[attribName].dtoType ==  "AttributeDateDTO")
 	    				{
@@ -364,7 +366,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    			var setter_exists = Mojo.util.isFunction(view['add'+attrib.key]);
 		    		if(setter_exists)
 		    		{
-		    			view['add'+attrib.key](val);
+		    			view['add'+attrib.key](val_asdf);
 		    		}
 	    		}
 	    	}

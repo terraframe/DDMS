@@ -1,20 +1,15 @@
 package dss.vector.solutions.query;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 
-public class ThematicLayer extends ThematicLayerBase implements com.terraframe.mojo.generation.loader.Reloadable
+import dss.vector.solutions.geo.GeoHierarchy;
+
+public class ThematicLayer extends ThematicLayerBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1241158194588L;
-
-  public static final Pattern THEMATIC_VARIABLE_PATTERN = Pattern.compile("^(.*?)\\[(\\w+)\\]$");
-
-  public static final int TYPE_GROUP = 1;
-
-  public static final int VARIABLE_GROUP  = 2;
+  private static final long   serialVersionUID          = 1241158194588L;
 
   public ThematicLayer()
   {
@@ -33,7 +28,7 @@ public class ThematicLayer extends ThematicLayerBase implements com.terraframe.m
     OIterator<? extends AbstractCategory> iter = this.getAllDefinesCategory();
     try
     {
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         iter.next().lock();
       }
@@ -56,7 +51,7 @@ public class ThematicLayer extends ThematicLayerBase implements com.terraframe.m
     OIterator<? extends AbstractCategory> iter = this.getAllDefinesCategory();
     try
     {
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         iter.next().unlock();
       }
@@ -76,15 +71,34 @@ public class ThematicLayer extends ThematicLayerBase implements com.terraframe.m
    * @return
    */
   @Transaction
-  public static ThematicLayer updateThematicVariable(String layerId, String thematicVariable, AbstractCategory[] categories)
+  public static ThematicLayer updateThematicVariable(String layerId, ThematicVariable thematicVariable,
+      AbstractCategory[] categories)
   {
+    if (thematicVariable == null)
+    {
+      String error = "A layer is required when adding categories to a thematic variable.";
+      CategoriesWithoutThematicException ex = new CategoriesWithoutThematicException(error);
+      throw ex;
+    }
+    else
+    {
+      thematicVariable.apply();
+    }
+
     ThematicLayer layer = ThematicLayer.get(layerId);
+
+    // remove the previous ThematicVariable
+    ThematicVariable oldVariable = layer.getThematicVariable();
+    if(oldVariable != null)
+    {
+      oldVariable.delete();
+    }
 
     // remove all prior Categories
     OIterator<? extends AbstractCategory> oldCategories = layer.getAllDefinesCategory();
     try
     {
-      while(oldCategories.hasNext())
+      while (oldCategories.hasNext())
       {
         oldCategories.next().delete();
       }
@@ -94,10 +108,11 @@ public class ThematicLayer extends ThematicLayerBase implements com.terraframe.m
       oldCategories.close();
     }
 
+    layer.lock();
     layer.setThematicVariable(thematicVariable);
     layer.apply();
 
-    for(AbstractCategory category : categories)
+    for (AbstractCategory category : categories)
     {
       category.apply();
       layer.addDefinesCategory(category).apply();
@@ -107,26 +122,63 @@ public class ThematicLayer extends ThematicLayerBase implements com.terraframe.m
   }
 
   /**
-   * Returns a Matcher object used to access the entity alias and variable
-   * name for a thematic variable. This method returns null if no thematic
-   * variable exists or if the pattern doesn't match.
+   * Creates a new ThematicLayer based off the given thematic layer type.
    *
+   * @param thematicLayerType
    * @return
    */
-  public Matcher matchOnThematicVariable()
+  @Transaction
+  public static ThematicLayer newInstance(String thematicLayerType)
   {
-    Matcher matcher = null;
-    String thematicVariable = this.getThematicVariable();
-    if(thematicVariable != null)
+    ThematicLayer thematicLayer = new ThematicLayer();
+
+    if (thematicLayerType != null && thematicLayerType.trim().length() > 0)
     {
-      Matcher m = THEMATIC_VARIABLE_PATTERN.matcher(thematicVariable);
-      if(m.matches())
-      {
-        matcher = m;
-      }
+      GeoHierarchy thematicGeoH = GeoHierarchy.getGeoHierarchyFromType(thematicLayerType);
+      MdAttributeGeometry geoAttr = thematicGeoH.getGeometry();
+
+      thematicLayer.setGeoHierarchy(thematicGeoH);
+
+      // Geo Style
+      GeometryStyle geoStyle = GeometryStyle.convertAttributeGeometryToStyle(geoAttr);
+      thematicLayer.setGeometryStyle(geoStyle);
+    }
+    else
+    {
+      thematicLayer.setGeoHierarchy(null);
+      thematicLayer.setGeometryStyle(null);
     }
 
-    return matcher;
+    // Create the view name, which has to be unique as unique as possible
+    // without going over the maximum view name size.
+    String viewName = "view_" + thematicLayer.getId().substring(0, 16);
+    thematicLayer.setViewName(viewName);
+
+    // text style
+    TextStyle textStyle = new TextStyle();
+    textStyle.apply();
+    thematicLayer.setTextStyle(textStyle);
+    thematicLayer.apply();
+
+    return thematicLayer;
+  }
+
+  /**
+   * Changes the underlying styles to reflect the thematic layer type.
+   *
+   */
+  public void changeLayerType(String thematicLayerType)
+  {
+    GeoHierarchy thematicGeoH = GeoHierarchy.getGeoHierarchyFromType(thematicLayerType);
+    MdAttributeGeometry geoAttr = thematicGeoH.getGeometry();
+
+    // Geo Style
+    GeometryStyle geoStyle = GeometryStyle.convertAttributeGeometryToStyle(geoAttr);
+
+    this.appLock();
+    this.setGeoHierarchy(thematicGeoH);
+    this.setGeometryStyle(geoStyle);
+    this.apply();
   }
 
 }

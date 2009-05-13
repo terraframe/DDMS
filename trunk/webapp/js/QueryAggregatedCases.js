@@ -9,10 +9,12 @@ MDSS.QueryAggregatedCases = (function(){
   // Ref to instance of AggregatedCase (used as template for display labels)
   var _aggregatedCase = null;
 
-  var _geoEntityQueryType = null;
+  // use string as default because controllers error out if null
+  var _geoEntityQueryType = '';
 
 
   // START: query objects that dictate state of the query.
+
   var _startDate = null;
   var _endDate = null;
 
@@ -32,6 +34,12 @@ MDSS.QueryAggregatedCases = (function(){
   var _gridAggregateSelectables = {};
   var _gridGroupBySelectables = {};
 
+  var _thematicSearchList = []; //list of map to search for thematic variable.
+  _thematicSearchList.push(_gridEntities);
+  _thematicSearchList.push(_gridSelectables);
+  _thematicSearchList.push(_gridAggregateSelectables);
+  _thematicSearchList.push(_gridGroupBySelectables);
+
   // END: query objects
 
   /**
@@ -40,10 +48,9 @@ MDSS.QueryAggregatedCases = (function(){
   function _loadQuery(savedSearchId)
   {
     var request = new MDSS.Request({
-      onSuccess: function(savedSearchJSON){
-        var savedSearchObj = Mojo.util.getObject(savedSearchJSON);
+      onSuccess: function(savedSearchView){
 
-        _queryPanel.setCurrentSavedSearch(savedSearchObj);
+        _queryPanel.setCurrentSavedSearch(savedSearchView);
 
         // set the XML
 
@@ -51,7 +58,7 @@ MDSS.QueryAggregatedCases = (function(){
       }
     });
 
-    Mojo.$.dss.vector.solutions.query.AggregatedCasesSearch.get(request, savedSearchId);
+    Mojo.$.dss.vector.solutions.query.SavedSearch.getAsView(request, savedSearchId, true);
   }
 
   /**
@@ -71,18 +78,21 @@ MDSS.QueryAggregatedCases = (function(){
 
     var request = new MDSS.Request({
       modal:modal,
-      onSuccess: function(savedSearchJSON){
+      onSuccess: function(savedSearchView){
 
-        var savedSearchObj = Mojo.util.getObject(savedSearchJSON);
+        _queryPanel.setCurrentSavedSearch(savedSearchView);
 
-        var obj = {id: savedSearchObj.id, name: savedSearchObj.queryName };
+        var obj = {
+          id: savedSearchView.getSavedQueryId(),
+          name: savedSearchView.getQueryName()
+        };
         _queryPanel.addAvailableQuery(obj);
-        _queryPanel.setCurrentSavedSearch(savedSearchObj);
+
         this.modal.destroy();
       }
     });
 
-    Mojo.$.dss.vector.solutions.query.QueryController.saveAggregatedCasesQuery(request, view);
+    Mojo.$.dss.vector.solutions.query.AggregatedCasesSearch.saveSearch(request, view);
   }
 
   function _cancelQueryListener(modal, params, action)
@@ -192,8 +202,7 @@ MDSS.QueryAggregatedCases = (function(){
       }
     });
 
-    var geoEntityQueryType = _geoEntityQueryType;
-    Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, geoEntityQueryType);
+    Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, _geoEntityQueryType);
   }
 
   /**
@@ -201,15 +210,41 @@ MDSS.QueryAggregatedCases = (function(){
    */
   function _mapQuery()
   {
-    var geoEntityQueryClass = _geoEntityQueryType;
-    var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
-
     var types = [];
-    types.push(geoEntityQueryClass);
-    types.push(aggregatedCase);
+    types.push(Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS); // always included
 
     var selectables = [];
-    //selectables.push(types[0]+'_geoId');
+
+  	// use the current thematic variable to know which entities/selectables
+  	// can be included in the query for thematic mapping.
+    var thematicVar = this.getCurrentThematicVariable();
+    if(thematicVar != null)
+    {
+      var entityAlias = thematicVar.getEntityAlias();
+
+      for(var i=0; i<_thematicSearchList.length; i++)
+      {
+        var map = _thematicSearchList[i];
+        var entry = map[entityAlias];
+        if(Mojo.util.isObject(entry))
+        {
+          if(entry instanceof MDSS.QueryXML.Entity)
+          {
+          }
+          else if(entry instanceof MDSS.QueryXML.Selectable)
+          {
+          }
+        }
+      }
+    }
+
+
+    // the server will error out if the type is empty, but GEOID should always be included.
+    if(_geoEntityQueryType !== '')
+    {
+      types.push(_geoEntityQueryType);
+      selectables.push(_geoEntityQueryType+'_'+Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.GEOID);
+    }
 
     var queryXML = _constructQuery();
     var xml = queryXML.getXMLForMap(types, selectables);
@@ -223,9 +258,9 @@ MDSS.QueryAggregatedCases = (function(){
     });
 
     var layerIds = this.getSelectedLayers();
-    var savedSearch = this.getCurrentSavedSearch();
-    var savedSearchId = (savedSearch != null ? savedSearch.id : null);
-    Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.mapQuery(request, xml, geoEntityQueryClass, layerIds, savedSearchId);
+    var savedSearchView = this.getCurrentSavedSearch();
+    var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
+    Mojo.$.dss.vector.solutions.query.MappingController.mapAggregatedCaseQuery(request, xml, _geoEntityQueryType, layerIds, savedSearchId);
   }
 
   /**
@@ -600,6 +635,14 @@ MDSS.QueryAggregatedCases = (function(){
     var selectable = new MDSS.QueryXML.Selectable(attribute);
 
     _visibleSelectables[attributeObj.key] = selectable;
+
+    // ADD THEMATIC VARIABLE
+    var thematicVar = new Mojo.$.dss.vector.solutions.query.ThematicVariable();
+    thematicVar.setEntityAlias(aggregatedCaseClass);
+    thematicVar.setAttributeName(attributeObj.key);
+    thematicVar.setDisplayLabel(attributeObj.label);
+
+    _queryPanel.addThematicVariable(thematicVar);
   }
 
   /**
@@ -643,6 +686,14 @@ MDSS.QueryAggregatedCases = (function(){
     entity.setCondition(condition);
 
     _gridEntities[busAlias] = entity;
+
+    // ADD THEMATIC VARIABLE
+    var thematicVar = new Mojo.$.dss.vector.solutions.query.ThematicVariable();
+    thematicVar.setEntityAlias(relAlias);
+    thematicVar.setAttributeName(attributeObj.attributeName); // use attributeName because key == optionName
+    thematicVar.setDisplayLabel(attributeObj.label);
+
+    _queryPanel.addThematicVariable(thematicVar);
   }
 
   /**
@@ -786,7 +837,7 @@ MDSS.QueryAggregatedCases = (function(){
     var selectable = new MDSS.QueryXML.Selectable(attribute);
 
     // special cases
-    if(func === 'GB')
+    if(func === MDSS.QueryXML.Functions.GB)
     {
   	  _removeGridAttribute(relAlias, busAlias, optionName, false, false);
       _gridSelectables[relAlias] = selectable;
@@ -803,19 +854,19 @@ MDSS.QueryAggregatedCases = (function(){
 
     // aggregate functions
     var aggFunc = null;
-    if(func === 'SUM')
+    if(func === MDSS.QueryXML.Functions.SUM)
     {
       aggFunc = new MDSS.QueryXML.SUM(selectable, optionName);
     }
-    else if(func === 'MIN')
+    else if(func === MDSS.QueryXML.Functions.MIN)
     {
       aggFunc = new MDSS.QueryXML.MIN(selectable, optionName);
     }
-    else if(func === 'MAX')
+    else if(func === MDSS.QueryXML.Functions.MAX)
     {
       aggFunc = new MDSS.QueryXML.MAX(selectable, optionName);
     }
-    else if(func === 'AVG')
+    else if(func === MDSS.QueryXML.Functions.AVG)
     {
       aggFunc = new MDSS.QueryXML.AVG(selectable, optionName);
     }
@@ -842,7 +893,7 @@ MDSS.QueryAggregatedCases = (function(){
     var selectable = new MDSS.QueryXML.Selectable(attribute);
 
     // special cases
-    if(func === 'GB')
+    if(func === MDSS.QueryXML.Functions.GB)
     {
   	  _removeVisibleAttribute(attributeName, false, false);
       _visibleSelectables[attributeName] = selectable;
@@ -859,19 +910,19 @@ MDSS.QueryAggregatedCases = (function(){
 
     // aggregate functions
     var aggFunc = null;
-    if(func === 'SUM')
+    if(func === MDSS.QueryXML.Functions.SUM)
     {
       aggFunc = new MDSS.QueryXML.SUM(selectable, attributeName);
     }
-    else if(func === 'MIN')
+    else if(func === MDSS.QueryXML.Functions.MIN)
     {
       aggFunc = new MDSS.QueryXML.MIN(selectable, attributeName);
     }
-    else if(func === 'MAX')
+    else if(func === MDSS.QueryXML.Functions.MAX)
     {
       aggFunc = new MDSS.QueryXML.MAX(selectable, attributeName);
     }
-    else if(func === 'AVG')
+    else if(func === MDSS.QueryXML.Functions.AVG)
     {
       aggFunc = new MDSS.QueryXML.AVG(selectable, attributeName);
     }
@@ -915,7 +966,7 @@ MDSS.QueryAggregatedCases = (function(){
     // send null to signal this is for All Ages
     YAHOO.util.Event.on(groupByCheck, 'click', _groupByAgeGroupHandler, null, this);
 
-    groupBySpan.innerHTML = 'GB';
+    groupBySpan.innerHTML = MDSS.QueryXML.Functions.GB;
 
     groupByLi.appendChild(groupByCheck);
     groupByLi.appendChild(groupBySpan);
@@ -1002,7 +1053,8 @@ MDSS.QueryAggregatedCases = (function(){
       YAHOO.util.Event.on(check, 'click', _visibleAttributeHandler, attributeObj, this);
 
       var select = document.createElement('select');
-      var options =  ['', 'GB', 'SUM', 'MIN', 'MAX', 'AVG'];
+      var options = [''];
+      options = options.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
       for(var j=0; j<options.length; j++)
       {
       	var option = options[j];
@@ -1080,7 +1132,9 @@ MDSS.QueryAggregatedCases = (function(){
         YAHOO.util.Event.on(check, 'click', _gridAttributeHandler, attributeObj, this);
 
         var select = document.createElement('select');
-        var aggOptions =  ['', 'GB', 'SUM', 'MIN', 'MAX', 'AVG'];
+        var aggOptions = [''];
+        aggOptions = aggOptions.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
+
         for(var k=0; k<aggOptions.length; k++)
         {
           var aggOption = aggOptions[k];
@@ -1149,8 +1203,8 @@ MDSS.QueryAggregatedCases = (function(){
       }
     });
 
-    var savedSearch = this.getCurrentSavedSearch();
-    var savedSearchId = savedSearch.id;
+    var savedSearchView = this.getCurrentSavedSearch();
+    var savedSearchId = savedSearchView.getSavedQueryId();
     Mojo.$.dss.vector.solutions.query.MappingController.createLayer(request, savedSearchId, type);
   }
 
@@ -1239,9 +1293,25 @@ MDSS.QueryAggregatedCases = (function(){
       }
     });
 
-    var thematicVar = params['variable'][0];
+
+    var thematicVarStr = params['variable'][0];
+    var thematicVar;
+    if(thematicVarStr !== '')
+    {
+      thematicVar = new Mojo.$.dss.vector.solutions.query.ThematicVariable();
+      var pieces = thematicVarStr.split('-');
+      thematicVar.setEntityAlias(pieces[0]);
+      thematicVar.setAttributeName(pieces[1]);
+    }
+    else
+    {
+      thematicVar = null;
+    }
+
+    _queryPanel.setCurrentThematicVariable(thematicVar);
+
     var categories = _queryPanel.scrapeCategories();
-    Mojo.$.dss.vector.solutions.query.MappingController.updateThematicVariable(request, layerId, thematicVar, categories);
+    Mojo.$.dss.vector.solutions.query.ThematicLayer.updateThematicVariable(request, layerId, thematicVar, categories);
   }
 
   /**
@@ -1250,8 +1320,8 @@ MDSS.QueryAggregatedCases = (function(){
   function _editVariableStyles()
   {
     var controller = Mojo.$.dss.vector.solutions.query.MappingController;
-    var savedSearch = this.getCurrentSavedSearch();
-    var thematicLayerId = savedSearch.thematicLayerId;
+    var savedSearchView = this.getCurrentSavedSearch();
+    var thematicLayerId = savedSearchView.getThematicLayerId();
 
     var request = new MDSS.Request({
       controller: controller,
@@ -1270,7 +1340,8 @@ MDSS.QueryAggregatedCases = (function(){
       }
     });
 
-    var thematicVars = Mojo.util.getKeys(_visibleSelectables);
+    //var thematicVars = Mojo.util.getKeys(_visibleSelectables);
+    var thematicVars = this.getThematicVariables();
 
     controller.editThematicLayer(request, thematicLayerId, thematicVars);
   }
@@ -1375,3 +1446,5 @@ MDSS.QueryAggregatedCases = (function(){
   };
 
 })();
+
+

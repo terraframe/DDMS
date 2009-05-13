@@ -90,24 +90,24 @@
           <reference
             name="thematicLayer"
             type="dss.vector.solutions.query.ThematicLayer"
-            required="true"
+            required="false"
             label="Thematic Layer" />
-          <char
-            name="queryViewName"
-            size="64"
-            label="Query View Name"
-            required="true"
-            description="The name of the DB view that is the result of an N-Query." />
-          <boolean
-            name="viewCreated"
-            label="View Created"
-            description="Denotes if a database view has been created for the search results."
-            required="true"
-            default_value="false"
+        </attributes>
+        <mdMethod
+          name="getAsView"
+          label="Get As View"
+          description="Returns this SavedSearch as a SavedSearchView"
+          static="false"
+          returnType="dss.vector.solutions.query.SavedSearchView">
+          <mdParameter
+            name="includeXML"
+            label="Include XML"
+            description="The XML may be large so this param disables/enables it"
+            order="0"
             type="java.lang.Boolean"      
             negativeLabel="No"
             positiveLabel="Yes"/>
-        </attributes>
+        </mdMethod>
       </mdBusiness>
 
       <mdBusiness
@@ -127,7 +127,7 @@
           label="Save Query"
           description="Saves a query."
           static="true"
-          returnType="dss.vector.solutions.query.AggregatedCasesSearch">
+          returnType="dss.vector.solutions.query.SavedSearchView">
           <mdParameter
             name="savedQueryView"
             label="Saved Query View"
@@ -160,8 +160,8 @@
         description="Thrown when a user tries to define a duplicate search name for the same query screen.">
       </mdException>
 
-      <mdView
-        name="dss.vector.solutions.query.ThematicVariableView"
+      <mdBusiness
+        name="dss.vector.solutions.query.ThematicVariable"
         label="Thematic Variable View"
         description="View that represents a thematic variable.">
         <attributes>
@@ -169,14 +169,8 @@
             name="displayLabel"
             size="255"
             label="Display Label"
-            required="true"
+            required="false"
             description="The variable's MdAttribute display label."/>
-          <char
-            name="attributeMdId"
-            label="Attribute Md Id"
-            description="The id of the MdAttribute that defines the thematic variable"
-            size="64"
-            required="true" />
           <char
             name="attributeName"
             label="Attribute Name"
@@ -184,19 +178,19 @@
             size="50"
             required="true"/>
           <char
-            name="attributeType"
-            label="Attribute Type"
-            description="The MdAttribute type of the thematic variable"
+            name="entityAlias"
             size="255"
-            required="true" />
-          <char
-            name="definingMdType"
-            label="Defining MdType"
-            description="The type name of the class that defines the attribute."
-            size="255"
-            required="true"/>
+            label="Entity Alias"
+            required="true"
+            description="The Entity Alias used in the XML value query." />
         </attributes>
-      </mdView>
+      </mdBusiness>
+
+      <mdUtil
+        name="dss.vector.solutions.query.MapUtil"
+        label="Map Util"
+        description="Utility class to help with mapping.">
+      </mdUtil>
 
       <mdView
         name="dss.vector.solutions.query.SavedSearchView"
@@ -220,8 +214,13 @@
           <char
             name="thematicLayer"
             required="false"
-            label="Thematic Layer"
+            label="Thematic Layer GeoEntity class"
             size="255" />
+          <char
+            name="thematicLayerId"
+            required="false"
+            label="The id of the thematic layer."
+            size="64" />
         </attributes>
       </mdView>
 
@@ -242,7 +241,7 @@
           label="Save Query"
           description="Saves a query."
           static="true"
-          returnType="dss.vector.solutions.query.EntomologySearch">
+          returnType="dss.vector.solutions.query.SavedSearchView">
           <mdParameter
             name="savedQueryView"
             label="Saved Query View"
@@ -291,12 +290,12 @@
             name="geoHierarchy"
             label="GeoHierarchy Reference"
             description="A reference to the GeoHierarchy this layer represents."
-            required="true"
+            required="false"
             type="dss.vector.solutions.geo.GeoHierarchy"/>
           <reference
             name="geometryStyle"
             label="Geometry Style"
-            required="true"
+            required="false"
             type="dss.vector.solutions.query.GeometryStyle" />
           <reference
             name="textStyle"
@@ -373,12 +372,18 @@
         label="Thematic Layer"
         description="Base layer for thematic mapping.">
         <attributes>
-          <char
+          <reference
             name="thematicVariable"
             label="Thematic Variable"
-            description="Variable in format of qualified.type.Name[attributeName]"
-            size="255"
-            required="false" />
+            required="false"
+            type="dss.vector.solutions.query.ThematicVariable" />
+          <boolean
+            name="viewCreated"
+            label="View Created"
+            description="Denotes if a database view has been created for the thematic layer."
+            required="true"
+            default_value="false"
+            type="java.lang.Boolean" />
         </attributes>
         <mdMethod
           name="updateThematicVariable"
@@ -394,7 +399,7 @@
               name="thematicVariable"
               label="Thematic Variable"
               order="1"
-              type="java.lang.String" />
+              type="dss.vector.solutions.query.ThematicVariable" />
             <mdParameter
               name="categories"
               label="Categories"
@@ -585,6 +590,66 @@
         label="Mapping Controller"
         description="Controller used for Mapping functionality.">
         <mdAction
+          name="mapAggregatedCaseQuery"
+          label="Map Query"
+          description="Map Query"
+          isPost="true">
+          <mdParameter
+            name="queryXML"
+            label="Query XML"
+            description="Query XML"
+            order="0"
+            type="java.lang.String"/>
+          <mdParameter
+            name="thematicLayerType"
+            label="Thematic Layer Type"
+            description="The GeoEntity type for the base layer with thematic variables."
+            order="1"
+            type="java.lang.String"/>
+          <mdParameter
+            name="universalLayers"
+            label="Universal Layers"
+            description="The universal types that will act as additional layers"
+            order="2"
+            type="java.lang.String[]" />
+          <mdParameter
+            name="savedSearchId"
+            label="SavedSearch Id"
+            description="The id of the SavedSearch for which the map will be generated."
+            order="3"
+            type="java.lang.String"/>
+        </mdAction>
+        <mdAction
+          name="mapEntomologyQuery"
+          label="Map Query"
+          description="Map Query"
+          isPost="true">
+          <mdParameter
+            name="queryXML"
+            label="Query XML"
+            description="Query XML"
+            order="0"
+            type="java.lang.String"/>
+          <mdParameter
+            name="thematicLayerType"
+            label="Thematic Layer Type"
+            description="The GeoEntity type for the base layer with thematic variables."
+            order="1"
+            type="java.lang.String"/>
+          <mdParameter
+            name="universalLayers"
+            label="Universal Layers"
+            description="The universal types that will act as additional layers"
+            order="2"
+            type="java.lang.String[]" />
+          <mdParameter
+            name="savedSearchId"
+            label="SavedSearch Id"
+            description="The id of the SavedSearch for which the map will be generated."
+            order="3"
+            type="java.lang.String"/>
+        </mdAction>
+        <mdAction
           name="addCategoryToLayer"
           label="Adds a category to a layer"
           description="Provides a form to create a NonRangeCategory"
@@ -654,7 +719,7 @@
             name="thematicVariables"
             label="Thematic Variables"
             order="1"
-            type="java.lang.String[]"/>
+            type="dss.vector.solutions.query.ThematicVariable[]"/>
         </mdAction>
         <mdAction
           name="updateThematicVariable"
@@ -670,7 +735,7 @@
               name="thematicVariable"
               label="Thematic Variable"
               order="1"
-              type="java.lang.String" />
+              type="dss.vector.solutions.query.ThematicVariable" />
             <mdParameter
               name="categories"
               label="Categories"
@@ -809,8 +874,8 @@
         key="dss.vector.solutions.query.SavedSearch"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
       <object
-        key="dss.vector.solutions.query.ThematicVariableView"
-        type="com.terraframe.mojo.system.metadata.MdView" />
+        key="dss.vector.solutions.query.ThematicVariable"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.query.SavedSearchView"
         type="com.terraframe.mojo.system.metadata.MdView" />

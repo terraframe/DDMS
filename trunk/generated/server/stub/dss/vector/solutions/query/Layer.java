@@ -16,7 +16,15 @@ public abstract class Layer extends LayerBase implements com.terraframe.mojo.gen
   public void lock()
   {
     super.lock();
-    this.getGeometryStyle().lock();
+
+    // Note that a geometry style may not exist until
+    // a thematic layer type (geo entity type) has been defined.
+    GeometryStyle geoStyle = this.getGeometryStyle();
+    if(geoStyle != null)
+    {
+      this.getGeometryStyle().lock();
+    }
+
     this.getTextStyle().lock();
   }
 

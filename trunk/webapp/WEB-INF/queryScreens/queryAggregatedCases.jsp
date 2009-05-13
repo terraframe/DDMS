@@ -19,6 +19,8 @@
 <%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
+<%@page import="dss.vector.solutions.query.AggregatedCasesSearchDTO"%>
+<%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
@@ -30,8 +32,9 @@
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-    String[] types = new String[]{AggregatedCaseDTO.CLASS, RangeCategoryDTO.CLASS, NonRangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] types = new String[]{ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, AggregatedCasesSearchDTO.CLASS, AggregatedCaseDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
     String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
+
     out.print(js);
   %>
 

@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
-import java.util.regex.Pattern;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -31,7 +30,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.connector.Request;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +38,6 @@ import com.terraframe.mojo.business.ComponentDTO;
 import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.Constants;
-import com.terraframe.mojo.transport.attributes.AttributeBooleanDTO;
 import com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeDateMdDTO;
@@ -60,6 +57,10 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   public final static String EMAIL_ERRORS_TO = "dtaylor@terraframe.com";
 
+public static void blahblah()
+{
+
+}
 
   public static String getDateFormatString(HttpServletRequest request)
   {

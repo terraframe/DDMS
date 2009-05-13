@@ -14,11 +14,11 @@
   <option value=""></option>
   <c:forEach items="${variables}" var="variable">
     <c:choose>
-      <c:when test="${thematicVariable == variable}">
-        <option value="${variable}" selected="selected">${labels[variable]}</option>
+      <c:when test="${thematicVariable != null && thematicVariable.entityAlias == variable.entityAlias && thematicVariable.attributeName == variable.attributeName}">
+        <option value="${variable.entityAlias}-${variable.attributeName}" selected="selected">${variable.displayLabel}</option>
       </c:when>
       <c:otherwise>
-        <option value="${variable}">${labels[variable]}</option>
+        <option value="${variable.entityAlias}-${variable.attributeName}">${variable.displayLabel}</option>
       </c:otherwise>
     </c:choose>
   </c:forEach>
@@ -33,20 +33,68 @@
 <ul id="categoryList">
 <c:forEach items="${categories}" var="category">
   <li>
-    <%
-      AbstractCategoryDTO category = (AbstractCategoryDTO) request.getAttribute("category");
-      if(category instanceof RangeCategoryDTO)
-      {
-        %>
 
-        <%
-      }
-      else
-      {
-    	%>
-        <%
-      }
+    <%
+      request.setAttribute("RangeCategoryClass", RangeCategoryDTO.CLASS);
     %>
+    <c:choose>
+      <c:when test="${category.type == RangeCategoryClass}">
+        <dl id="${category.id}_dl">
+          <dt>
+            ${category.lowerBoundMd.displayLabel} - ${category.upperBoundMd.displayLabel}
+          </dt>
+          <dd>
+            <div>
+            <div style='float: left'>
+              <input type="hidden" name="type" value="${category.type}" />
+              <input maxlength="7" type="hidden" name="dto.thematicColor" value="${category.thematicColor}" id="${category.id}_thematicColor" />
+              <input class="bounds" type="text" value="${category.lowerBound}" />
+              &nbsp;-&nbsp;
+              <input class="bounds" type="text" value="${category.upperBound}" />
+            </div>
+            <div style='float: left'>
+              <div class="colorPickerValue" id="${category.id}_opener" style="background-color: ${category.thematicColor}">&nbsp;</div>
+            </div>
+            <div style='float: left; margin-top: 3px; margin-left: 15px'>
+              <img id="${category.id}_delBtn" src="imgs/icons/delete.png" class="clickable"/>
+            </div>
+          </dd>
+        </dl>
+      </c:when>
+      <c:otherwise>
+        <dl id="${category.id}_dl">
+          <dt>
+            ${category.exactValueMd.displayLabel}
+          </dt>
+          <dd>
+            <div>
+            <div style='float: left'>
+              <input type="hidden" name="type" value="${category.type}" />
+              <input maxlength="7" type="hidden" name="dto.thematicColor" value="${category.thematicColor}" id="${category.id}_thematicColor" />
+              <input class="bounds" type="text" value="${category.exactValue}" />
+            </div>
+            <div style='float: left'>
+              <div class="colorPickerValue" id="${category.id}_opener" style="background-color: ${category.thematicColor}">&nbsp;</div>
+            </div>
+            <div style='float: left; margin-top: 3px; margin-left: 15px'>
+              <img id="${category.id}_delBtn" src="imgs/icons/delete.png" class="clickable"/>
+            </div>
+          </dd>
+        </dl>
+      </c:otherwise>
+    </c:choose>
+<script type="text/javascript">
+(function(){
+  new MDSS.ColorPicker('${category.id}', '${category.id}_opener', '${category.id}_thematicColor', '${category.thematicColor}');
+
+  // deletes the category from the DOM
+  YAHOO.util.Event.on("${category.id}_delBtn", 'click', function(e, dlId){
+    var el = document.getElementById(dlId);
+    el.parentNode.removeChild(el);
+  }, "${category.id}_dl", this);
+
+})();
+</script>
   </li>
 </c:forEach>
 </ul>

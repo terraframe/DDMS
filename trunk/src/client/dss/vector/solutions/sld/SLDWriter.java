@@ -48,15 +48,22 @@ public abstract class SLDWriter implements Reloadable
 
     ClientRequestIF requestIF = this.layer.getRequest();
 
-    // SLD name is the LayerDTO id
-    // FIXME how to figure out path?
+    // delete the previous file if it exists
     String path = "styles/";
     String fileName = "style_" + this.layer.getId().substring(0, 32);
+    String oldFileId = this.layer.getSldFile();
+    if(oldFileId != null && oldFileId.trim().length() > 0)
+    {
+      requestIF.delete(oldFileId);
+    }
+
+    // SLD name is the LayerDTO id
+    // FIXME how to figure out path?
     ByteArrayInputStream stream = new ByteArrayInputStream(builder.toString().getBytes());
-    BusinessDTO file = requestIF.newFile(path, fileName, "sld", stream);
+    BusinessDTO webFile = requestIF.newFile(path, fileName, "sld", stream);
 
     this.layer.lock();
-    this.layer.setSldFile(file.getId());
+    this.layer.setSldFile(webFile.getId());
     this.layer.apply();
   }
 
@@ -82,7 +89,7 @@ public abstract class SLDWriter implements Reloadable
 
   protected void writeTextStyle(TextStyleDTO textStyle)
   {
-    TextSymbolizer textSymbolizer = new TextSymbolizer(layer, textStyle, false);
+    TextSymbolizer textSymbolizer = new TextSymbolizer(layer, textStyle);
     textSymbolizer.write(this);
   }
 

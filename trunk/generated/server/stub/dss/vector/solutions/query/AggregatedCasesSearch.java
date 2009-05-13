@@ -17,15 +17,23 @@ public class AggregatedCasesSearch extends AggregatedCasesSearchBase implements 
    * @param savedQueryView
    * @return
    */
-  public static AggregatedCasesSearch saveSearch(dss.vector.solutions.query.SavedSearchView view)
+  public static SavedSearchView saveSearch(SavedSearchView view)
   {
-    AggregatedCasesSearch search = new AggregatedCasesSearch();
-    search.populate(view);
+    String savedSearchId = view.getSavedQueryId();
+    AggregatedCasesSearch search;
+    if(savedSearchId != null && savedSearchId.trim().length() > 0)
+    {
+      search = AggregatedCasesSearch.get(savedSearchId);
+      search.update(view);
+    }
+    else
+    {
+      search = new AggregatedCasesSearch();
+      search.create(view);
+    }
 
-    return search;
+    return search.getAsView(false);
   }
-
-
 
   /**
    * Returns all saved queries for Aggregated cases for this user.

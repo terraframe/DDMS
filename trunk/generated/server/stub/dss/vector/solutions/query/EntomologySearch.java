@@ -19,12 +19,22 @@ public class EntomologySearch extends EntomologySearchBase implements com.terraf
    * @return
    */
   @Transaction
-  public static EntomologySearch saveSearch(SavedSearchView view)
+  public static SavedSearchView saveSearch(SavedSearchView view)
   {
-    EntomologySearch search = new EntomologySearch();
-    search.populate(view);
+    String savedSearchId = view.getSavedQueryId();
+    EntomologySearch search;
+    if(savedSearchId != null && savedSearchId.trim().length() > 0)
+    {
+      search = EntomologySearch.get(savedSearchId);
+      search.update(view);
+    }
+    else
+    {
+      search = new EntomologySearch();
+      search.create(view);
+    }
 
-    return search;
+    return search.getAsView(false);
   }
 
   public static SavedSearchViewQuery getEntomologyQueries()

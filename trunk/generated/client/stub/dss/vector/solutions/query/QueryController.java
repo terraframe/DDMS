@@ -282,6 +282,7 @@ public class QueryController extends QueryControllerBase implements
   @Override
   public void saveEntomologyQuery(SavedSearchViewDTO savedQueryView) throws IOException, ServletException
   {
+    /*
     try
     {
       SavedSearchDTO search = EntomologySearchDTO.saveSearch(this.getClientRequest(), savedQueryView);
@@ -296,7 +297,7 @@ public class QueryController extends QueryControllerBase implements
       // will
       // be used to update the available query list.
       JSONObject savedSearchJSON = new JSONObject();
-      savedSearchJSON.put("id", search.getId());
+      savedSearchJSON.put("savedSearchId", search.getId());
       savedSearchJSON.put("queryName", search.getQueryName());
       savedSearchJSON.put("thematicLayerId", layer.getId());
 
@@ -314,11 +315,13 @@ public class QueryController extends QueryControllerBase implements
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
+    */
   }
 
   @Override
   public void saveAggregatedCasesQuery(SavedSearchViewDTO savedQueryView) throws IOException, ServletException
   {
+    /*
     try
     {
       SavedSearchDTO search = AggregatedCasesSearchDTO.saveSearch(this.getClientRequest(), savedQueryView);
@@ -333,7 +336,7 @@ public class QueryController extends QueryControllerBase implements
       // will
       // be used to update the available query list.
       JSONObject savedSearchJSON = new JSONObject();
-      savedSearchJSON.put("id", search.getId());
+      savedSearchJSON.put("savedSearchId", search.getId());
       savedSearchJSON.put("queryName", search.getQueryName());
       savedSearchJSON.put("thematicLayerId", layer.getId());
 
@@ -351,6 +354,7 @@ public class QueryController extends QueryControllerBase implements
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
+    */
   }
 
   @Override

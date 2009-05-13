@@ -9,6 +9,13 @@ MDSS.QueryXML = {
     GE: 'GE',
     LT: 'LT',
     LE: 'LE'
+  },
+  Functions : {
+  	GB: 'GB',
+  	SUM: 'SUM',
+  	MIN: 'MIN',
+  	MAX: 'MAX',
+  	AVG: 'AVG'
   }
 };
 
@@ -641,8 +648,8 @@ MDSS.QueryXML.OrderBy.prototype = {
 MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
 {
   this._queryLayout = new YAHOO.widget.Layout(queryPanelId, {
-    height: 480,
-    width: 800,
+    height: 500,
+    width: 900,
     units: [
         { position: 'top', height: 40, resize: false, body: '', gutter: '2' },
         { position: 'left', width: 180, resize: true, body: '', gutter: '0 5 0 2', scroll: true },
@@ -653,8 +660,8 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
   });
 
   this._mapLayout = new YAHOO.widget.Layout(mapPanelId, {
-    height: 480,
-    width: 800,
+    height: 500,
+    width: 900,
     units: [
         { position: 'left', width: 300, resize: false, body: '', gutter: '0 5 0 2', scroll: true },
         { position: 'bottom', height: 40, body: '', gutter: '2' },
@@ -688,8 +695,11 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
   this._availableQueries = [];
   this._queryList = null;
 
-  // Obj representing a SavedSearch (FIXME needs to be a view)
+  // Obj representing a SavedSearchView
   this._currentSavedSearch = null;
+
+  // The current ThematicVarible object that is used for mapping.
+  this._currentThematicVariable = null;
 
   // the current layers in the map. If this._currentSavedSearch
   // is not null, then these layers belong to that SavedSearch.
@@ -712,6 +722,9 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
   // The button that adds a new layer when clicked
   this._addLayerButton = null;
   //this._addThematicButton = null;
+
+  // a map of ThematicVariable objects
+  this._thematicVariables = {};
 };
 
 MDSS.QueryPanel.prototype = {
@@ -764,6 +777,22 @@ MDSS.QueryPanel.prototype = {
   getCurrentSavedSearch : function()
   {
     return this._currentSavedSearch;
+  },
+
+  /**
+   * Sets the current ThematicVariable instance.
+   */
+  setCurrentThematicVariable : function(thematicVar)
+  {
+    this._currentThematicVariable = thematicVar;
+  },
+
+  /**
+   * Returns the curren ThematicVariable instance.
+   */
+  getCurrentThematicVariable : function(thematicVar)
+  {
+    return this._currentThematicVariable;
   },
 
   /**
@@ -955,7 +984,7 @@ MDSS.QueryPanel.prototype = {
     var thematicSpan = document.createElement('div');
     thematicSpan.innerHTML = MDSS.Localized.Thematic.Layer;
 
-    var thematicLayerId = this._currentSavedSearch.thematicLayerId;
+    var thematicLayerId = this._currentSavedSearch.getThematicLayerId();
 
     // edit default style
     var editDefaultStyle = new YAHOO.util.Element(document.createElement('input'));
@@ -1404,6 +1433,30 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
+   * Adds to the list of possible thematic variables a user can
+   * choose from.
+   */
+  addThematicVariable : function(thematicVariable)
+  {
+  	var key = thematicVariable.getEntityAlias() + "-" + thematicVariable.getAttributeName();
+  	this._thematicVariables[key] = thematicVariable;
+  },
+
+  /**
+   * Removes the given thematic variable.
+   */
+  removeThematicVariable : function(thematicVariable)
+  {
+  	var key = thematicVariable.getEntityAlias() + "-" + thematicVariable.getAttributeName();
+    delete this._thematicVariables[key];
+  },
+
+  getThematicVariables : function()
+  {
+  	return Mojo.util.getValues(this._thematicVariables);
+  },
+
+  /**
    * Scraps the category list HTML and creates new instances
    * of AbstractCategor.
    */
@@ -1661,16 +1714,24 @@ MDSS.QueryPanel.prototype = {
  * Class to manage a color picker inside of a
  * dialog.
  */
-MDSS.ColorPicker = function(baseId, openerId, inputId)
+MDSS.ColorPicker = function(baseId, openerId, inputId, colorHex)
 {
   this._baseId = baseId;
   this._openerId = openerId;
   this._inputId = inputId;
+  this._colorHex = colorHex;
   this._dialog = null;
   this._picker = null;
 
   YAHOO.util.Event.on(openerId, 'click', this._renderDialog, null, this);
 };
+
+/**
+ * Cache of color pickers with the key being the id of the Category
+ * and value a color picker instance.
+ */
+MDSS.ColorPicker.cache = {};
+
 MDSS.ColorPicker.prototype = {
 
   /**
@@ -1697,13 +1758,17 @@ MDSS.ColorPicker.prototype = {
 
   _renderPicker : function()
   {
+  	var val = this._colorHex.substring(1);
+
     this._picker = new YAHOO.widget.ColorPicker(this._baseId+"_picker", {
       container: this._dialog,
       showcontrols: false,
       images: {
         PICKER_THUMB: "js/yui/build/colorpicker/assets/picker_thumb.png"
-      }
+      },
     });
+
+    this._picker.set('hex', val);
   },
 
   _renderDialog : function()
