@@ -35,26 +35,7 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
 
   public void populateView(ZoneSprayView view)
   {
-    SprayData data = this.getSprayData();
-    view.setBrand(data.getBrand());
-    view.setGeoEntity(data.getGeoEntity());
-    view.setSprayDate(data.getSprayDate());
-
-    view.clearSprayMethod();
-    view.clearSurfaceType();
-
-    for(SprayMethod method : data.getSprayMethod())
-    {
-      view.addSprayMethod(method);
-    }
-
-    for(SurfaceType type : data.getSurfaceType())
-    {
-      view.addSurfaceType(type);
-    }
-
-    view.setSprayId(this.getId());
-    view.setDataId(data.getId());
+    super.populateView(view);
   }
 
   @Override

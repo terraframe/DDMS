@@ -9,4 +9,19 @@ public abstract class ActorSpray extends ActorSprayBase implements com.terrafram
     super();
   }
   
+  public void populateView(ActorSprayView view)
+  {
+    super.populateView(view);
+    
+    view.setTarget(this.getTarget());
+    view.setReceived(this.getReceived());
+    view.setRefills(this.getRefills());
+    view.setReturned(this.getReturned());
+    view.setUsed(this.getUsed());
+    view.setTarget(this.getTarget());
+    view.setTeamSprayWeek(this.getTeamSprayWeek());
+    view.setTeamLeader(this.getTeamLeader());
+  }
+
+  
 }

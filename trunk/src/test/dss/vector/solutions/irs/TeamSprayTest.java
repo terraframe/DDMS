@@ -130,6 +130,7 @@ public class TeamSprayTest extends TestCase
     spray.setSprayTeam(team);
     spray.setTarget(232);
     spray.setTeamSprayWeek(24);
+    spray.setTeamLeader(operator);
     spray.apply();
 
     try
@@ -140,6 +141,7 @@ public class TeamSprayTest extends TestCase
       assertEquals(data.getId(), test.getSprayData().getId());
       assertEquals(spray.getTeamSprayWeek(), test.getTeamSprayWeek());
       assertEquals(team.getId(), test.getSprayTeam().getId());
+      assertEquals(operator.getId(), test.getTeamLeader().getId());
       assertEquals(spray.getTarget(), test.getTarget());
       assertEquals(spray.getTeamSprayWeek(), test.getTeamSprayWeek());
     }
@@ -157,6 +159,7 @@ public class TeamSprayTest extends TestCase
     spray.setSprayTeam(team);
     spray.setTarget(232);
     spray.setTeamSprayWeek(24);
+    spray.setTeamLeader(operator);    
     spray.apply();
 
     TeamSpray edit = TeamSpray.get(spray.getId());
@@ -176,6 +179,8 @@ public class TeamSprayTest extends TestCase
       assertEquals(team.getId(), test.getSprayTeam().getId());
       assertEquals(edit.getTarget(), test.getTarget());
       assertEquals(edit.getTeamSprayWeek(), test.getTeamSprayWeek());
+      assertEquals(operator.getId(), test.getTeamLeader().getId());
+
     }
     finally
     {
@@ -195,6 +200,7 @@ public class TeamSprayTest extends TestCase
     spray.setSprayTeam(team);
     spray.setTarget(232);
     spray.setTeamSprayWeek(24);
+    spray.setTeamLeader(operator);    
     spray.apply();
 
     TeamSprayView edit = TeamSpray.lockView(spray.getSprayId());
@@ -219,6 +225,8 @@ public class TeamSprayTest extends TestCase
       assertEquals(team.getId(), test.getSprayTeam().getId());
       assertEquals(edit.getTarget(), test.getTarget());
       assertEquals(edit.getTeamSprayWeek(), test.getTeamSprayWeek());
+      assertEquals(operator.getId(), test.getTeamLeader().getId());
+
     }
     finally
     {
@@ -238,6 +246,7 @@ public class TeamSprayTest extends TestCase
     spray.setSprayTeam(team);
     spray.setTarget(232);
     spray.setTeamSprayWeek(24);
+    spray.setTeamLeader(operator);    
     spray.apply();
 
     try
@@ -256,6 +265,7 @@ public class TeamSprayTest extends TestCase
       assertEquals(team.getId(), test.getSprayTeam().getId());
       assertEquals(spray.getTarget(), test.getTarget());
       assertEquals(spray.getTeamSprayWeek(), test.getTeamSprayWeek());
+      assertEquals(operator.getId(), test.getTeamLeader().getId());
     }
     finally
     {
@@ -275,6 +285,7 @@ public class TeamSprayTest extends TestCase
     spray.setTarget(232);
     spray.setTeamSprayWeek(24);
     spray.setSprayTeam(team);
+    spray.setTeamLeader(operator);
     spray.apply();
 
     String id = spray.getSprayId();
@@ -308,6 +319,7 @@ public class TeamSprayTest extends TestCase
     spray.setTarget(232);
     spray.setTeamSprayWeek(24);
     spray.setSprayTeam(team);
+    spray.setTeamLeader(operator);
     spray.apply();
 
     try
@@ -326,6 +338,7 @@ public class TeamSprayTest extends TestCase
       assertEquals(spray.getTeamSprayWeek(), test.getTeamSprayWeek());
       assertEquals(spray.getTarget(), test.getTarget());
       assertEquals(spray.getTeamSprayWeek(), test.getTeamSprayWeek());
+      assertEquals(operator.getId(), test.getTeamLeader().getId());
     }
     finally
     {
@@ -359,6 +372,7 @@ public class TeamSprayTest extends TestCase
     spray.setTarget(232);
     spray.setTeamSprayWeek(24);
     spray.setSprayTeam(team);
+    spray.setTeamLeader(operator);
     spray.apply();
     
     try

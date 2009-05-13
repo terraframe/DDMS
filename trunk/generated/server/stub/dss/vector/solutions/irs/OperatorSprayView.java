@@ -47,11 +47,7 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.terr
     super.populateConcrete(spray, data);
 
     spray.setOperatorSprayWeek(this.getOperatorSprayWeek());
-    spray.setReceived(this.getReceived());
-    spray.setRefills(this.getRefills());
-    spray.setReturned(this.getReturned());
     spray.setSprayOperator(this.getSprayOperator());
-    spray.setUsed(this.getUsed());
   }
 
   public void deleteConcrete()

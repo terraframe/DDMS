@@ -66,7 +66,7 @@ public class SprayOperatorView extends SprayOperatorViewBase implements com.terr
         view.setIsAssigned(false);
       }
       
-      view.apply();
+//      view.apply();
       views[i] = view;
     }
     

@@ -12,8 +12,14 @@ public abstract class ActorSprayView extends ActorSprayViewBase implements com.t
   protected void populateConcrete(ActorSpray spray, SprayData data)
   {
     super.populateConcrete(spray, data);
+    
     spray.setTarget(this.getTarget());
-    spray.setTeamSprayWeek(this.getTeamSprayWeek());
+    spray.setTeamSprayWeek(this.getTeamSprayWeek());    
+    spray.setReceived(this.getReceived());
+    spray.setRefills(this.getRefills());
+    spray.setReturned(this.getReturned());
+    spray.setUsed(this.getUsed());
+    spray.setTeamLeader(this.getTeamLeader());
   }
 
 }

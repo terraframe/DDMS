@@ -117,7 +117,7 @@ public class OperatorSprayStatusTest extends TestCase
 
   public void testCreate()
   {
-    SprayStatus status = new SprayStatus();
+    SprayStatus status = new ActorSprayStatus();
     status.setSpray(spray);
     status.setHouseholds(2);
     status.setStructures(3);
@@ -164,7 +164,7 @@ public class OperatorSprayStatusTest extends TestCase
 
   public void testUpdate()
   {
-    SprayStatus status = new SprayStatus();
+    SprayStatus status = new ActorSprayStatus();
     status.setSpray(spray);
     status.setHouseholds(2);
     status.setStructures(3);

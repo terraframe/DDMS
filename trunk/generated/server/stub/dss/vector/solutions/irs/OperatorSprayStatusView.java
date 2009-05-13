@@ -23,10 +23,6 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
 
     this.populate(operator);
     this.setOperatorSprayWeek(s.getOperatorSprayWeek());
-    this.setReceived(s.getReceived());
-    this.setRefills(s.getRefills());
-    this.setReturned(s.getReturned());
-    this.setUsed(s.getUsed());
   }
   
   public void populate(SprayOperator operator)
@@ -37,13 +33,10 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
 
   protected void populateSpray(OperatorSpray spray)
   {
-    spray.setSprayData(this.getSprayData());
+    super.populateSpray(spray);
+    
     spray.setSprayOperator(this.getSprayOperator());
     spray.setOperatorSprayWeek(this.getOperatorSprayWeek());
-    spray.setReceived(this.getReceived());
-    spray.setRefills(this.getRefills());
-    spray.setReturned(this.getReturned());
-    spray.setUsed(this.getUsed());
   }
 
   @Override
@@ -67,11 +60,11 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
       abstractSpray.apply();
     }
 
-    SprayStatus status = new SprayStatus();
+    ActorSprayStatus status = new ActorSprayStatus();
 
     if (this.hasConcrete())
     {
-      status = SprayStatus.lock(this.getStatusId());
+      status = ActorSprayStatus.lock(this.getStatusId());
     }
 
     this.populateConcrete(status, abstractSpray);

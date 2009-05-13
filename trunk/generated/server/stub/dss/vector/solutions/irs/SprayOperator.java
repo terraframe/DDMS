@@ -8,5 +8,4 @@ public class SprayOperator extends SprayOperatorBase implements com.terraframe.m
   {
     super();
   }
-  
 }

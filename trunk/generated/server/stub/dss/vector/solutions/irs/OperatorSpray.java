@@ -40,35 +40,11 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
 
   public void populateView(OperatorSprayView view)
   {
-    SprayData data = this.getSprayData();
-    view.setBrand(data.getBrand());
-    view.setGeoEntity(data.getGeoEntity());
-    view.setSprayDate(data.getSprayDate());
-
-    view.clearSprayMethod();
-    view.clearSurfaceType();
-
-    for(SprayMethod method : data.getSprayMethod())
-    {
-      view.addSprayMethod(method);
-    }
-
-    for(SurfaceType type : data.getSurfaceType())
-    {
-      view.addSurfaceType(type);
-    }
-
+    super.populateView(view);
+    
     view.setOperatorSprayWeek(this.getOperatorSprayWeek());
-    view.setReceived(this.getReceived());
-    view.setRefills(this.getRefills());
-    view.setReturned(this.getReturned());
     view.setSprayOperator(this.getSprayOperator());
-    view.setTarget(this.getTarget());
-    view.setTeamSprayWeek(this.getTeamSprayWeek());
-    view.setUsed(this.getUsed());
-
     view.setSprayId(this.getId());
-    view.setDataId(data.getId());
   }
 
   @Override

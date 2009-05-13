@@ -52,7 +52,8 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements
 
   protected void populateSpray(TeamSpray spray)
   {
-    spray.setSprayData(this.getSprayData());
+    super.populateSpray(spray);
+    
     spray.setSprayTeam(this.getSprayTeam());
     spray.setTeamSprayWeek(this.getTeamSprayWeek());
   }
@@ -78,11 +79,11 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements
       abstractSpray.apply();
     }
 
-    SprayStatus status = new SprayStatus();
+    ActorSprayStatus status = new ActorSprayStatus();
 
     if (this.hasConcrete())
     {
-      status = SprayStatus.lock(this.getStatusId());
+      status = ActorSprayStatus.lock(this.getStatusId());
     }
 
     this.populateConcrete(status, abstractSpray);

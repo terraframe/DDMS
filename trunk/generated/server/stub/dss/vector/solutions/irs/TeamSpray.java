@@ -38,31 +38,9 @@ public class TeamSpray extends TeamSprayBase implements com.terraframe.mojo.gene
 
   public void populateView(TeamSprayView view)
   {
-    SprayData data = this.getSprayData();
-    view.setBrand(data.getBrand());
-    view.setGeoEntity(data.getGeoEntity());
-    view.setSprayDate(data.getSprayDate());
-
-    view.clearSprayMethod();
-    view.clearSurfaceType();
-
-    for (SprayMethod method : data.getSprayMethod())
-    {
-      view.addSprayMethod(method);
-    }
-
-    for (SurfaceType type : data.getSurfaceType())
-    {
-      view.addSurfaceType(type);
-    }
-
-    view.setTeamSprayWeek(this.getTeamSprayWeek());
+    super.populateView(view);
+    
     view.setSprayTeam(this.getSprayTeam());
-    view.setTarget(this.getTarget());
-    view.setTeamSprayWeek(this.getTeamSprayWeek());
-
-    view.setSprayId(this.getId());
-    view.setDataId(data.getId());
   }
 
   @Override
