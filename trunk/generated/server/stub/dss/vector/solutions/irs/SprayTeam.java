@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
 import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -17,9 +18,17 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.geo.generated.SprayZoneQuery;
 
-public class SprayTeam extends SprayTeamBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SprayTeam extends SprayTeamBase implements Reloadable
 {
   private static final long serialVersionUID = 1240342487755L;
+  
+  class OperatorCompator implements Comparator<SprayOperator>, Reloadable
+  {
+    public int compare(SprayOperator o1, SprayOperator o2)
+    {
+      return o1.getId().compareTo(o2.getId()); 
+    }
+  }
 
   public SprayTeam()
   {
@@ -41,14 +50,7 @@ public class SprayTeam extends SprayTeamBase implements com.terraframe.mojo.gene
 
   public List<SprayOperator> getTeamMembers()
   {
-    Set<SprayOperator> set = new TreeSet<SprayOperator>(new Comparator<SprayOperator>()
-        {
-          public int compare(SprayOperator o1, SprayOperator o2)
-          {
-            return o1.getId().compareTo(o2.getId());
-          }
-      
-        });
+    Set<SprayOperator> set = new TreeSet<SprayOperator>(new OperatorCompator());
     
     OIterator<? extends SprayOperator> teamMembers = this.getAllSprayTeamMembers();
     OIterator<? extends SprayLeader> sprayLeaders = this.getAllTeamLeader();
