@@ -33,7 +33,7 @@ var aSubmenuData = [
                             itemdata: [
                                        { text: "Manage_People", url: "dss.vector.solutions.PersonController.viewAll.mojo" , visibleTo:'SYSTEM'},
                                        { text: "Manage_IRS_Teams", url: "dss.vector.solutions.irs.SprayTeamController.viewAll.mojo", visibleTo:'SYSTEM' },
-                                       { text: "Edit_Roles", url: "dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo?actor=entomologist", visibleTo:'SYSTEM' }
+                                       { text: "Edit_Roles", url: "dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo?actor=manager", visibleTo:'SYSTEM' }
                             ]
                         }
 
