@@ -65,12 +65,15 @@ public class Base30Test extends TestCase
   public void testToBase30() {
       assertEquals("0", Base30.toBase30String(0));
       assertEquals("1", Base30.toBase30String(1));
+      assertEquals("00001", Base30.toBase30String(1,5));
 
       assertEquals("10", Base30.toBase30String(30));
       assertEquals("20", Base30.toBase30String(60));
+      assertEquals("00000020", Base30.toBase30String(60,8));
 
       assertEquals("11", Base30.toBase30String(31));
       assertEquals("21", Base30.toBase30String(61));
+      assertEquals("**21", Base30.toBase30String(61,4,"*"));
 
   }
 
@@ -139,6 +142,12 @@ public class Base30Test extends TestCase
 
           Long ll = new Long(Math.abs(random.nextLong()));
           assertEquals(ll.longValue(),  Base30.fromBase30(Base30.toBase30String(ll.longValue())));
+
+          assertEquals(Base30.toBase30String(l).indexOf("A"), -1);
+          assertEquals(Base30.toBase30String(l).indexOf("E"), -1);
+          assertEquals(Base30.toBase30String(l).indexOf("I"), -1);
+          assertEquals(Base30.toBase30String(l).indexOf("O"), -1);
+          assertEquals(Base30.toBase30String(l).indexOf("U"), -1);
 
       }
   }

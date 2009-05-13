@@ -27,8 +27,6 @@ public class PropertyTest extends TestCase
       {
         classSetUp();
       }
-
-
       protected void tearDown()
       {
         classTearDown();
@@ -50,27 +48,43 @@ public class PropertyTest extends TestCase
   }
 
   public void testGetNextID() {
+    Property segmentsProperty = Property.getByPackageAndName(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
+    segmentsProperty.lock();
+    segmentsProperty.setPropertyValue("1024");
+    segmentsProperty.apply();
+
+    Property offsetProperty = Property.getByPackageAndName(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);
+    offsetProperty.lock();
+    offsetProperty.setPropertyValue("512");
+    offsetProperty.apply();
+
     int segments = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
     int offset = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);
-    long totalOffset = (Long.MAX_VALUE/segments)*offset;
+
+    //assume ids are 8 long and in base 30
+    long MAX_ID = (long) Math.pow(30,8);
+
+    long totalOffset = (MAX_ID/segments)*offset;
 
     Long oldValue = Property.getLong(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_COUNTER);
 
     long expectedId = totalOffset + oldValue + 1 ;
 
     String nextId = Property.getNextId();
+
     Long newValue = Property.getLong(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_COUNTER);
-
-
 
     assertEquals((long)oldValue + 1,  (long)newValue);
 
     assertEquals(Base30.fromBase30(nextId),expectedId);
 
-    assertEquals(Base30.toBase30String(expectedId),nextId);
+    assertEquals(Base30.toBase30String(expectedId,8),nextId);
 
     System.out.println("nextId is :" + nextId);
 
+    System.out.println("nubmer of ids is  :" + MAX_ID);
+
+    System.out.println("max id is  :" + Base30.toBase30String(MAX_ID,8));
 
   }
 
