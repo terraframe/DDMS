@@ -143,7 +143,9 @@
             name="isMDSSUser"
             label="Is MDSS User"
             description="Is this Person an MDSS User?"
-            default_value="false" />
+            default_value="false"      
+            negativeLabel="No"
+            positiveLabel="Yes"/>
           <char
             name="uzername"
             accessor="username"
@@ -160,27 +162,37 @@
             name="isPatient"
             label="Is Malaria Patient"
             description="Is this Person a Malaria Patient?"
-            default_value="false" />
+            default_value="false"      
+            negativeLabel="No"
+            positiveLabel="Yes"/>
           <boolean
             name="isITNRecipient"
             label="Is ITN Recipient"
             description="Is this Person an ITN Recipient?"
-            default_value="false" />
+            default_value="false"      
+            negativeLabel="No"
+            positiveLabel="Yes"/>
           <boolean
             name="isIPTRecipient"
             label="Is IPT Recipient"
             description="Is this Person an IPT Recipient?"
-            default_value="false" />
+            default_value="false"      
+            negativeLabel="No"
+            positiveLabel="Yes"/>
           <boolean
             name="isSprayOperator"
             label="Is Spray Operator"
             description="Is this Person a Spray Operator?"
-            default_value="false" />
+            default_value="false"      
+            negativeLabel="No"
+            positiveLabel="Yes"/>
           <boolean
             name="isSprayLeader"
             label="Is Spray Leader"
             description="Is this Person a Spray Team Leader?"
-            default_value="false" />
+            default_value="false"      
+            negativeLabel="No"
+            positiveLabel="Yes"/>
         </attributes>
         <mdMethod
           name="searchForDuplicates"

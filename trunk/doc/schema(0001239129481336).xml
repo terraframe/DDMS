@@ -19,7 +19,9 @@
             label="active"
             required="true"
             default_value="true"
-            description="If this is an active age group" />
+            description="If this is an active age group"     
+            negativeLabel="False"
+            positiveLabel="True"/>
           <integer
             name="startAge"
             label="from"
@@ -430,7 +432,9 @@
             name="active"
             label="Active"
             required="true"
-            default_value="true" />
+            default_value="true"      
+            negativeLabel="False"
+            positiveLabel="True"/>
         </attributes>
       </mdBusiness>
 
@@ -738,7 +742,9 @@
             name="outOfStock"
             label="Treatment out of Stock"
             required="true"
-            description="Flag denoting if the treatment is out of stock" />
+            description="Flag denoting if the treatment is out of stock"      
+            negativeLabel="No"
+            positiveLabel="Yes"/>
         </attributes>
       </mdTree>
 

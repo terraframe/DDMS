@@ -305,7 +305,7 @@
           name="displayLabel"
           value="NATURAL WALLS" />
       </object>
-      
+
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         id="No_walls"
@@ -323,7 +323,7 @@
         childId="No_walls"
         parentId="NATURAL_WALLS"
         id="P_No_walls" />
-      
+
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         id="Cane/sticks/bamboo/reed"
@@ -341,7 +341,7 @@
         childId="Cane/sticks/bamboo/reed"
         parentId="NATURAL_WALLS"
         id="P_Cane/sticks/bamboo/reed" />
-      
+
       <object
         type="dss.vector.solutions.intervention.monitor.Wall"
         id="RUDIMENTARY_WALLS"
@@ -586,11 +586,17 @@
           <boolean
             name="hasParent"
             label="Has Parent"
-            required="true" />
+            required="true"
+            negativeLabel="No"
+            positiveLabel="Yes" />
+
           <boolean
             name="hasChildren"
             label="Has Children"
-            required="true" />
+            required="true"
+            negativeLabel="No"
+            positiveLabel="Yes" />
+
           <char
             name="wallId"
             label="Wall Id"
@@ -614,11 +620,16 @@
           <boolean
             name="hasParent"
             label="Has Parent"
-            required="true" />
+            required="true"
+            negativeLabel="No"
+            positiveLabel="Yes" />
           <boolean
             name="hasChildren"
             label="Has Children"
-            required="true" />
+            required="true"
+            negativeLabel="No"
+            positiveLabel="Yes" />
+
           <char
             name="roofId"
             label="Roof Id"
@@ -632,7 +643,7 @@
           returnType="dss.vector.solutions.intervention.monitor.RoofView[]"
           description="Returns a list of all roofs" />
       </mdView>
-      
+
     </create>
     <update>
       <mdBusiness

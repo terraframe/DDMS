@@ -188,7 +188,9 @@
           <boolean
             name="isAssigned"
             label="Is Assigned"
-            description="Is this Operator assigned to a team?"/>
+            description="Is this Operator assigned to a team?"
+            negativeLabel="No"
+            positiveLabel="Yes"/>
           <virtual
             name="teamId"
             concrete="teamId"

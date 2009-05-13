@@ -119,7 +119,9 @@
             label="Enabled"
             required="true"
             default_value="true"
-            description="If the insecticide brand is enabled" />
+            description="If the insecticide brand is enabled"      
+            negativeLabel="No"
+            positiveLabel="Yes"/>
         </attributes>
         <mdMethod
           name="getView"
@@ -238,7 +240,9 @@
             label="Enabled"
             required="true"
             default_value="true"
-            description="If the nozzle is enabled" />
+            description="If the nozzle is enabled"      
+            negativeLabel="No"
+            positiveLabel="Yes"/>
         </attributes>
         <mdMethod
           name="getView"
@@ -342,7 +346,9 @@
             label="Enabled"
             required="true"
             default_value="true"
-            description="If the nozzle is enabled" />
+            description="If the nozzle is enabled"      
+            negativeLabel="No"
+            positiveLabel="Yes"/>
         </attributes>
         <mdMethod
           name="getAll"

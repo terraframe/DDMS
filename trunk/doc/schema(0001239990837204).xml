@@ -37,7 +37,9 @@
             name="readPermission"
             label="Read Permission"
             description="Can the attribute be read by the given user / role?"
-            required="true"/>
+            required="true"     
+            negativeLabel="No"
+            positiveLabel="Yes"/>
           <virtual
             name="attributeName"
             required="true"

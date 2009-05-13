@@ -109,7 +109,9 @@
               name="enabled"
               label="Enabled"
               required="true"
-              default_value="true" />
+              default_value="true"
+              negativeLabel="No"
+              positiveLabel="Yes" />
           </attributes>
           <mdMethod
             name="getAll"

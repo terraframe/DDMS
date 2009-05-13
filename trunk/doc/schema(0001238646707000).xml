@@ -28,7 +28,9 @@
             required="true"
             default_value="true"
             label="Activated"
-            description="Determines if this entity is active or not."/>
+            description="Determines if this entity is active or not."     
+            negativeLabel="No"
+            positiveLabel="Yes"/>
         </attributes>
         <mdMethod
           name="updateFromTree"
@@ -108,17 +110,23 @@
             label="View Created"
             description="Denotes if the view table has been created"
             required="true"
-            default_value="false"/>
+            default_value="false"     
+            negativeLabel="No"
+            positiveLabel="Yes"/>
           <boolean
             name="political"
             label="political"
             description="Denotes if this object is political (e.g., a Country)"
-            required="true"/>
+            required="true"     
+            negativeLabel="No"
+            positiveLabel="Yes"/>
           <boolean
             name="sprayTargetAllowed"
             label="Spray Target Allowed"
             description="Spray Target Allowed"
-            required="true"/>
+            required="true"     
+            negativeLabel="No"
+            positiveLabel="Yes"/>
           <reference
             name="geoEntityClass"
             label="Geo Entity Class"
@@ -1926,7 +1934,9 @@
             label="Enabled"
             required="true"
             default_value="true"
-            description="If the MO term is enabled"/>
+            description="If the MO term is enabled"     
+            negativeLabel="No"
+            positiveLabel="Yes"/>
         </attributes>
         <mdMethod
           name="searchByTermId"
@@ -4107,7 +4117,9 @@
             name="testResult"
             label="α-napthyl acetate assay"
             required="true"
-            description="assay result|Elevated|Not Elevated"/>
+            description="assay result"     
+            negativeLabel="Not Elevated"
+            positiveLabel="Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4122,7 +4134,9 @@
             name="testResult"
             label="β-napthyl acetate assay"
             required="true"
-            description="assay result|Elevated|Not Elevated"/>
+            description="assay result|Elevated|Not Elevated"     
+            negativeLabel="Not Elevated"
+            positiveLabel="Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4137,7 +4151,9 @@
             name="testResult"
             label="pNPA assay"
             required="true"
-            description="assay result|Elevated|Not Elevated"/>
+            description="assay result|Elevated|Not Elevated"     
+            negativeLabel="Not Elevated"
+            positiveLabel="Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4152,7 +4168,9 @@
             name="testResult"
             label="GST CDNB rate reaction assay"
             required="true"
-            description="assay result|Elevated|Not Elevated"/>
+            description="assay result|Elevated|Not Elevated"     
+            negativeLabel="Not Elevated"
+            positiveLabel="Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4167,7 +4185,9 @@
             name="testResult"
             label="GST DCNB rate reaction assay"
             required="true"
-            description="assay result|Elevated|Not Elevated"/>
+            description="assay result|Elevated|Not Elevated"     
+            negativeLabel="Not Elevated"
+            positiveLabel="Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4182,7 +4202,9 @@
             name="testResult"
             label="heme content"
             required="true"
-            description="assay result|Elevated|Not Elevated"/>
+            description="assay result|Elevated|Not Elevated"     
+            negativeLabel="Not Elevated"
+            positiveLabel="Elevated"/>
         </attributes>
       </mdBusiness>
 
@@ -4197,7 +4219,9 @@
             name="testResult"
             label="p450 activity assay"
             required="true"
-            description="p450 activity assay result|Elevated|Not Elevated"/>
+            description="p450 activity assay result|Elevated|Not Elevated"     
+            negativeLabel="Not Elevated"
+            positiveLabel="Elevated"/>
         </attributes>
       </mdBusiness>
 

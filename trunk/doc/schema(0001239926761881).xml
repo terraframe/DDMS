@@ -89,12 +89,16 @@
             name="isAbstract"
             label="Abstract"
             required="true"
-            default_value="false" />
+            default_value="false"     
+            negativeLabel="False"
+            positiveLabel="True"/>
           <boolean
             name="enabled"
             label="Enabled"
             required="true"
-            default_value="true" />
+            default_value="true"     
+            negativeLabel="False"
+            positiveLabel="True"/>
         </attributes>
         <mdMethod
           name="getAll"
