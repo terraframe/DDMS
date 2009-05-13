@@ -24,6 +24,7 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
     {
       SprayProblem p = new SprayProblem();
       p.setMonths(this.getLastSprayed());
+      p.setNotification(this, LASTSPRAYED);
       p.apply();
       p.throwIt();
     }
