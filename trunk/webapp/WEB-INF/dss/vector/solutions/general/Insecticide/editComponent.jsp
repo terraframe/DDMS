@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<%--
 <c:set var="page_title" value="Edit_Insecticide"  scope="request"/>
 <mjl:messages>
   <mjl:message />
@@ -58,3 +59,4 @@
   <mjl:command value="Delete" action="dss.vector.solutions.general.InsecticideController.delete.mojo" name="dss.vector.solutions.general.Insecticide.form.delete.button" />
   <mjl:command value="Cancel" action="dss.vector.solutions.general.InsecticideController.cancel.mojo" name="dss.vector.solutions.general.Insecticide.form.cancel.button" />
 </mjl:form>
+--%>

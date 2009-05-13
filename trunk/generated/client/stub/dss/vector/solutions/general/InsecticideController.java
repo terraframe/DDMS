@@ -21,7 +21,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.viewAll();
     }
     catch (ProblemExceptionDTO e)
     {

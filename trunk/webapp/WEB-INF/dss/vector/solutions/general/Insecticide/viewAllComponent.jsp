@@ -10,24 +10,25 @@
   <mjl:columns>
     <mjl:attributeColumn attributeName="activeIngredient">
       <mjl:row>
-        ${item.displayLabel}
+        ${item.activeIngredient.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:freeColumn>
-      <mjl:header>
-      </mjl:header>
+   <mjl:attributeColumn attributeName="amount">
       <mjl:row>
-        <mjl:commandLink display="View" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
-        </mjl:commandLink>
+        ${item.amount}
       </mjl:row>
-      <mjl:footer>
-      </mjl:footer>
-    </mjl:freeColumn>
+    </mjl:attributeColumn>
+   <mjl:attributeColumn attributeName="units">
+      <mjl:row>
+        ${item.unitsMd.enumItems[item.unitsEnumNames[0]]}
+      </mjl:row>
+    </mjl:attributeColumn>
   </mjl:columns>
   <mjl:pagination>
     <mjl:page />
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Insecticide" action="dss.vector.solutions.general.InsecticideController.newInstance.mojo" name="InsecticideController.newInstance" />
+<mjl:form name="dss.vector.solutions.general.Insecticide.form.name" id="dss.vector.solutions.general.Insecticide.form.id" method="GET">
+<mjl:command value="Create_New" action="dss.vector.solutions.general.InsecticideController.newInstance.mojo" name="InsecticideController.newInstance" />
+</mjl:form>
