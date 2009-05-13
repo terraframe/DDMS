@@ -88,7 +88,7 @@
                 <td>
                   ${current.child.displayLabel}
                 </td>
-                <td>
+                <td style="text-align:right;">
                   ${current.amount}
                 </td>
               </c:otherwise>
