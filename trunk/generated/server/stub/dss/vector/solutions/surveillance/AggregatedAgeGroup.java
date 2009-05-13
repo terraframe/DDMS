@@ -20,7 +20,7 @@ public class AggregatedAgeGroup extends AggregatedAgeGroupBase implements com.te
     List<AggregatedAgeGroup> list = new LinkedList<AggregatedAgeGroup>();
     AggregatedAgeGroupQuery query = new AggregatedAgeGroupQuery(new QueryFactory());
     query.WHERE(query.getActive().EQ(true));
-    query.ORDER_BY_ASC(query.getStartAge());
+    query.ORDER_BY_ASC(query.getEndAge());
 
     for(AggregatedAgeGroup d : query.getIterator())
     {
