@@ -18,6 +18,7 @@ ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientCon
 response.setHeader("Content-Type","text/html;charset=UTF-8");
 response.setHeader("Cache-Control","must-revalidate");
 response.setHeader("Expires","0");
+session.getId();
 
 //parse the input
 String[] types_to_load = request.getQueryString().split("&");
@@ -28,7 +29,9 @@ Date  lastUpdate    = new Date();
 //-1 means something went wrong
 Long  lastUpdatedTimestamp = new Long(-1);
 
-long etag = 0;
+//long etag = 0;
+
+String etagStr="NEW";
 
 try
 {
@@ -37,12 +40,13 @@ try
   lastUpdate = dateFormat.parse(newestUpdated, new java.text.ParsePosition(0));
   lastUpdatedTimestamp = new Long(lastUpdate.getTime());
   response.setDateHeader("Last-Modified",lastUpdate.getTime());
-  response.setHeader("Etag", lastUpdatedTimestamp.toString());
+  etagStr = session.getId() + lastUpdatedTimestamp.toString();
+
+  response.setHeader("Etag", etagStr);
   //parse incoming etag
-  etag = Long.parseLong(request.getHeader("If-None-Match").replace("\"",""));
+  //etag = Long.parseLong(request.getHeader("If-None-Match").replace("\"",""));
 }
 catch(Exception e){}
-
 
 
 String cacheControl = request.getHeader("Cache-Control");
@@ -58,21 +62,22 @@ SimpleDateFormat   showDateFormatter = new SimpleDateFormat ("yyyy-MM-dd hh:mm:s
 
 String   outString = "";
 outString += "/*================================================================\n";
-outString += "This file was created "+showDateFormatter.format(todaysDate)+"\n";
-outString += "Newest Type's Update date is "+showDateFormatter.format(lastUpdate)+"\n";
+outString += "This file was created " + showDateFormatter.format(todaysDate)+"\n";
+outString += "For Session : " + session.getId()+"\n";
+outString += "Newest Type's Update date is " + showDateFormatter.format(lastUpdate)+"\n";
 outString += Halp.join((List<String>) Arrays.asList(types_to_load),"\n") +"\n";
 outString += "================================================================*/\n";
 
 
-if ( etag < lastUpdatedTimestamp || refreshWanted)
-{
-  out.println(outString);
-  out.println(JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
-}
-else
+if ( etagStr.equals(request.getHeader("If-None-Match")))
 {
   outString += "Contents are unchanged: send 304 status message \n";
   response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+}
+else
+{
+  out.println(outString);
+  out.println(JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
 }
 //System.out.println(outString);
 %>
