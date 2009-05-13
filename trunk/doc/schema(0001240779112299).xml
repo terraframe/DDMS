@@ -383,7 +383,9 @@
             description="Denotes if a database view has been created for the thematic layer."
             required="true"
             default_value="false"
-            type="java.lang.Boolean" />
+            type="java.lang.Boolean"
+            positiveLabel="Yes"
+            negativeLabel="No" />
         </attributes>
         <mdMethod
           name="updateThematicVariable"

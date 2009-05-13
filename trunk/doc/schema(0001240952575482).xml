@@ -15,10 +15,11 @@
         <valueAttribute
           name="enumName"
           value="MAIN_SPRAY" />
-        <structAttribute name="displayLabel">
-           <valueAttribute
-             name="defaultLocale"
-             value="Main Spray"/>
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Main Spray" />
         </structAttribute>
       </object>
 
@@ -28,10 +29,11 @@
         <valueAttribute
           name="enumName"
           value="MOP_UP" />
-        <structAttribute name="displayLabel">
+        <structAttribute
+          name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Mop Up"/>
+            value="Mop Up" />
         </structAttribute>
       </object>
 
@@ -53,10 +55,11 @@
         <valueAttribute
           name="enumName"
           value="POROUS" />
-        <structAttribute name="displayLabel">
+        <structAttribute
+          name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Porous"/>
+            value="Porous" />
         </structAttribute>
       </object>
 
@@ -66,10 +69,11 @@
         <valueAttribute
           name="enumName"
           value="NON_POROUS" />
-        <structAttribute name="displayLabel">
+        <structAttribute
+          name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Non Porous"/>
+            value="Non Porous" />
         </structAttribute>
       </object>
 
@@ -119,9 +123,9 @@
             label="Enabled"
             required="true"
             default_value="true"
-            description="If the insecticide brand is enabled"      
+            description="If the insecticide brand is enabled"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
         </attributes>
         <mdMethod
           name="getView"
@@ -240,9 +244,9 @@
             label="Enabled"
             required="true"
             default_value="true"
-            description="If the nozzle is enabled"      
+            description="If the nozzle is enabled"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
         </attributes>
         <mdMethod
           name="getView"
@@ -346,9 +350,9 @@
             label="Enabled"
             required="true"
             default_value="true"
-            description="If the nozzle is enabled"      
+            description="If the nozzle is enabled"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
         </attributes>
         <mdMethod
           name="getAll"
@@ -495,7 +499,7 @@
             type="dss.vector.solutions.irs.InsecticideBrand" />
           <enumeration
             name="surfaceType"
-            label="surfaceType"
+            label="Surface Type"
             required="true"
             type="dss.vector.solutions.irs.SurfaceType"
             default_value="Porous" />
@@ -568,6 +572,10 @@
         extendable="true"
         extends="dss.vector.solutions.irs.AbstractSpray">
         <attributes>
+          <reference
+            name="teamLeader"
+            label="Team Leader"
+            type="dss.vector.solutions.irs.SprayOperator" />
           <integer
             name="teamSprayWeek"
             label="Team Spray Week"
@@ -577,6 +585,23 @@
             name="target"
             label="Target"
             rejectNegative="true" />
+          <integer
+            name="received"
+            label="Number of sachets received"
+            rejectNegative="true" />
+          <integer
+            name="returned"
+            label="Number of sachets returned"
+            rejectNegative="true" />
+          <integer
+            name="used"
+            label="Number of sachets used"
+            rejectNegative="true" />
+          <integer
+            name="refills"
+            label="Number of pump/can refills"
+            rejectNegative="true" />
+            
         </attributes>
       </mdBusiness>
 
@@ -588,6 +613,10 @@
         extends="dss.vector.solutions.irs.AbstractSprayView">
         <attributes>
           <virtual
+            name="teamLeader"
+            concrete="teamLeader"
+            type="dss.vector.solutions.irs.ActorSpray" />
+          <virtual
             name="teamSprayWeek"
             concrete="teamSprayWeek"
             type="dss.vector.solutions.irs.ActorSpray" />
@@ -595,6 +624,22 @@
             name="target"
             concrete="target"
             type="dss.vector.solutions.irs.ActorSpray" />
+          <virtual
+            name="received"
+            concrete="received"
+            type="dss.vector.solutions.irs.ActorSpray" />
+          <virtual
+            name="returned"
+            concrete="returned"
+            type="dss.vector.solutions.irs.ActorSpray" />
+          <virtual
+            name="used"
+            concrete="used"
+            type="dss.vector.solutions.irs.ActorSpray" />
+          <virtual
+            name="refills"
+            concrete="refills"
+            type="dss.vector.solutions.irs.ActorSpray" />                        
         </attributes>
       </mdView>
 
@@ -613,22 +658,6 @@
             name="operatorSprayWeek"
             label="Operator Spray Week"
             rejectZero="true"
-            rejectNegative="true" />
-          <integer
-            name="received"
-            label="Number of sachets received"
-            rejectNegative="true" />
-          <integer
-            name="returned"
-            label="Number of sachets returned"
-            rejectNegative="true" />
-          <integer
-            name="used"
-            label="Number of sachets used"
-            rejectNegative="true" />
-          <integer
-            name="refills"
-            label="Number of pump/can refills"
             rejectNegative="true" />
         </attributes>
         <mdMethod
@@ -671,22 +700,6 @@
           <virtual
             name="operatorSprayWeek"
             concrete="operatorSprayWeek"
-            type="dss.vector.solutions.irs.OperatorSpray" />
-          <virtual
-            name="received"
-            concrete="received"
-            type="dss.vector.solutions.irs.OperatorSpray" />
-          <virtual
-            name="returned"
-            concrete="returned"
-            type="dss.vector.solutions.irs.OperatorSpray" />
-          <virtual
-            name="used"
-            concrete="used"
-            type="dss.vector.solutions.irs.OperatorSpray" />
-          <virtual
-            name="refills"
-            concrete="refills"
             type="dss.vector.solutions.irs.OperatorSpray" />
         </attributes>
         <mdMethod
@@ -889,7 +902,8 @@
         name="dss.vector.solutions.irs.SprayStatus"
         label="Spray Status"
         generateController="false"
-        extendable="true">
+        extendable="true"
+        isAbstract="true">
         <attributes>
           <reference
             name="spray"
@@ -979,6 +993,13 @@
           label="Unlock View"
           description="Unlocks the represented operator spray">
         </mdMethod>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.irs.ActorSprayStatus"
+        label="Household Spray Status"
+        generateController="false"
+        extends="dss.vector.solutions.irs.SprayStatus">
       </mdBusiness>
 
       <mdBusiness
@@ -1078,6 +1099,22 @@
         extendable="true"
         extends="dss.vector.solutions.irs.SprayStatusView">
         <attributes>
+          <virtual
+            name="received"
+            concrete="received"
+            type="dss.vector.solutions.irs.ActorSpray" />
+          <virtual
+            name="returned"
+            concrete="returned"
+            type="dss.vector.solutions.irs.ActorSpray" />
+          <virtual
+            name="used"
+            concrete="used"
+            type="dss.vector.solutions.irs.ActorSpray" />
+          <virtual
+            name="refills"
+            concrete="refills"
+            type="dss.vector.solutions.irs.ActorSpray" />            
           <reference
             name="sprayData"
             label="Spray Data"
@@ -1130,22 +1167,6 @@
           <virtual
             name="operatorSprayWeek"
             concrete="operatorSprayWeek"
-            type="dss.vector.solutions.irs.OperatorSpray" />
-          <virtual
-            name="received"
-            concrete="received"
-            type="dss.vector.solutions.irs.OperatorSpray" />
-          <virtual
-            name="returned"
-            concrete="returned"
-            type="dss.vector.solutions.irs.OperatorSpray" />
-          <virtual
-            name="used"
-            concrete="used"
-            type="dss.vector.solutions.irs.OperatorSpray" />
-          <virtual
-            name="refills"
-            concrete="refills"
             type="dss.vector.solutions.irs.OperatorSpray" />
         </attributes>
         <mdMethod

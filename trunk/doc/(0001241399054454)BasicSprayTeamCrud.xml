@@ -17,7 +17,9 @@
               name="teamId"
               label="Team Identifier"
               description="Human entered team identifier"
-              size="32"/>
+              size="32"
+              required="true"
+              indexType="unique index"/>
           </attributes>
           <mdMethod
             name="create"
