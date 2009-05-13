@@ -366,7 +366,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    			var setter_exists = Mojo.util.isFunction(view['add'+attrib.key]);
 		    		if(setter_exists)
 		    		{
-		    			view['add'+attrib.key](val_asdf);
+		    			view['add'+attrib.key](val);
 		    		}
 	    		}
 	    	}
