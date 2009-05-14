@@ -57,19 +57,22 @@
 <button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
 </span> </span> <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a></div>
 
-<fmt:message key="Area"/>
-<dl>
+
   <mjl:form name="standards.form.name" id="standards.form" method="POST">
     <mjl:component item="${dto}" param="dto">
+    <h2><fmt:message key="Area"/></h2>
+     <dl>
+      <mjl:dt attribute="unitNozzleAreaCoverage" type="text" />
       <mjl:input type="hidden" param="areaStandardsId" value="${dto.areaStandardsId}"/>
       <mjl:dt attribute="room" type="text" />
-      <mjl:dt attribute="house" type="text" />
+      <mjl:dt attribute="structureArea" type="text" />
       <mjl:dt attribute="household" type="text" />
+     </dl>
     </mjl:component>
     <mjl:command value="Update" id="update.id" action="dss.vector.solutions.irs.ApplicationRateController.update.mojo" name="update.button" />
     <mjl:command value="Create" id="create.id" action="dss.vector.solutions.irs.ApplicationRateController.create.mojo" name="create.button" />
   </mjl:form>
-</dl>
+
 
 <script type="text/javascript">
 
