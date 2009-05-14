@@ -52,9 +52,9 @@ body {
 }
 
 h2 {
-	font-size: 20px;
+	font-size: 18px;
 	color: BLACK;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 	margin-top: 10px;
 }
 
@@ -322,7 +322,8 @@ dl
 	background-color: #E8E8E8;
 	min-width: 300px;
 	max-width: 860px;
-	margin-left: 12px;
+	margin-left: 0px;
+	margin-bottom: 5px;
 }
 
 fieldset
