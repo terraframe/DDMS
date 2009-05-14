@@ -1,0 +1,36 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.general.MalariaSeason"
+        label="Malaria Season"
+        description="A time period in which malaria tracking and intervention occurs">
+        <attributes>
+          <char
+            name="seasonName"
+            label="SeasonName"
+            required="true"
+            unique="true"
+            size="255"
+            description="The name or display label for this season"/>
+          <date
+            name="startDate"
+            required="true"
+            label="Start Date"
+            description="The first day of this season, inclusive"/>
+          <date
+            name="endDate"
+            required="true"
+            label="End Date"
+            description="The last day of this season, inclusive"/>
+        </attributes>
+      </mdBusiness>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
