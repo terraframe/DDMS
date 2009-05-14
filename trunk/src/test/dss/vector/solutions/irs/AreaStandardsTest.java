@@ -45,7 +45,7 @@ public class AreaStandardsTest extends TestCase
 
     AreaStandards standards = new AreaStandards();
     standards.setRoom(value);
-    standards.setHouse(value);
+    standards.setStructureArea(value);
     standards.setHousehold(value);
     standards.apply();
 
@@ -55,7 +55,7 @@ public class AreaStandardsTest extends TestCase
 
       assertNotNull(test);
       assertEquals(standards.getRoom(), test.getRoom());
-      assertEquals(standards.getHouse(), test.getHouse());
+      assertEquals(standards.getStructureArea(), test.getStructureArea());
       assertEquals(standards.getHousehold(), test.getHousehold());
 
     }
@@ -72,13 +72,13 @@ public class AreaStandardsTest extends TestCase
 
     AreaStandards standards = new AreaStandards();
     standards.setRoom(value);
-    standards.setHouse(value);
+    standards.setStructureArea(value);
     standards.setHousehold(value);
     standards.apply();
 
     AreaStandards edit = AreaStandards.lock(standards.getId());
     edit.setRoom(value2);
-    edit.setHouse(value2);
+    edit.setStructureArea(value2);
     edit.setHousehold(value2);
     edit.apply();
 
@@ -88,7 +88,7 @@ public class AreaStandardsTest extends TestCase
 
       assertNotNull(test);
       assertEquals(edit.getRoom(), test.getRoom());
-      assertEquals(edit.getHouse(), test.getHouse());
+      assertEquals(edit.getStructureArea(), test.getStructureArea());
       assertEquals(edit.getHousehold(), test.getHousehold());
 
     }
@@ -104,7 +104,7 @@ public class AreaStandardsTest extends TestCase
 
     AreaStandardsView standards = new AreaStandardsView();
     standards.setRoom(value);
-    standards.setHouse(value);
+    standards.setStructureArea(value);
     standards.setHousehold(value);
     standards.apply();
 
@@ -114,7 +114,7 @@ public class AreaStandardsTest extends TestCase
 
       assertNotNull(test);
       assertEquals(standards.getRoom(), test.getRoom());
-      assertEquals(standards.getHouse(), test.getHouse());
+      assertEquals(standards.getStructureArea(), test.getStructureArea());
       assertEquals(standards.getHousehold(), test.getHousehold());
     }
     finally
@@ -130,13 +130,13 @@ public class AreaStandardsTest extends TestCase
 
     AreaStandardsView standards = new AreaStandardsView();
     standards.setRoom(value);
-    standards.setHouse(value);
+    standards.setStructureArea(value);
     standards.setHousehold(value);
     standards.apply();
 
     AreaStandardsView edit = AreaStandards.lockView(standards.getAreaStandardsId());
     edit.setRoom(value2);
-    edit.setHouse(value2);
+    edit.setStructureArea(value2);
     edit.setHousehold(value2);
     edit.apply();
 
@@ -146,7 +146,7 @@ public class AreaStandardsTest extends TestCase
 
       assertNotNull(test);
       assertEquals(edit.getRoom(), test.getRoom());
-      assertEquals(edit.getHouse(), test.getHouse());
+      assertEquals(edit.getStructureArea(), test.getStructureArea());
       assertEquals(edit.getHousehold(), test.getHousehold());
 
     }
@@ -162,7 +162,7 @@ public class AreaStandardsTest extends TestCase
 
     AreaStandardsView standards = new AreaStandardsView();
     standards.setRoom(value);
-    standards.setHouse(value);
+    standards.setStructureArea(value);
     standards.setHousehold(value);
     standards.apply();
 

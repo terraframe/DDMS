@@ -57,10 +57,6 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   public final static String EMAIL_ERRORS_TO = "dtaylor@terraframe.com";
 
-public static void blahblah()
-{
-
-}
 
   public static String getDateFormatString(HttpServletRequest request)
   {
@@ -274,12 +270,17 @@ public static void blahblah()
     // List<String> v_attribs = view.getAttributeNames();
     ArrayList<String> ordered_attribs = new ArrayList<String>(Arrays.asList(attribs));
 
-    for (String a : view.getAccessorNames())
+    for (String accessorName : view.getAccessorNames())
     {
-      String upcased_attrib = a.substring(0, 1).toUpperCase() + a.substring(1);
-      if (!ordered_attribs.contains(upcased_attrib) && a.length() >= 3 && autoload)
+      String upcased_attrib = accessorName.substring(0, 1).toUpperCase() + accessorName.substring(1);
+      if (!ordered_attribs.contains(upcased_attrib) && accessorName.length() >= 3 && autoload)
       {
         ordered_attribs.add(upcased_attrib);
+      }
+
+      if(! view.isReadable(accessorName))
+      {
+        ordered_attribs.remove(upcased_attrib);
       }
     }
 
@@ -315,16 +316,7 @@ public static void blahblah()
           }
           if (md instanceof AttributeBooleanMdDTO)
           {
-           // if (translateBool(md, true) != null)
-           // {
-
               editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'" + ((AttributeBooleanMdDTO)md).getPositiveDisplayLabel() + "', value:'true'}, {label:'" + ((AttributeBooleanMdDTO)md).getNegativeDisplayLabel() + "', value:'false'}],disableBtns:true})";
-
-           // }
-           // else
-           // {
-           //   editor = "new YAHOO.widget.RadioCellEditor({radioOptions:['true','false'],disableBtns:true})";
-          //  }
           }
           if (md instanceof AttributeCharacterMdDTO)
           {
@@ -333,8 +325,7 @@ public static void blahblah()
           if (md instanceof AttributeDateMdDTO)
           {
             buff.add("formatter:YAHOO.widget.DataTable.formatDate");
-            // editor =
-            // "new YAHOO.widget.DateCellEditor({disableBtns:true})";
+            // editor = "new YAHOO.widget.DateCellEditor({disableBtns:true})";
             editor = "new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})";
           }
           if (md instanceof AttributeEnumerationMdDTO)
@@ -369,7 +360,11 @@ public static void blahblah()
             }
 
           }
-          buff.add("editor:" + editor);
+          if( view.isWritable(md.getAccessorName()))
+          {
+            buff.add("editor:" + editor);
+          }
+
         }
         arr.add("{" + Halp.join(buff, ",") + "}");
       }
