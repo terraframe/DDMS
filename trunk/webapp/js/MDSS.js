@@ -74,13 +74,13 @@ var MDSS = {
         if(el.getStyle('display') === 'block')
         {
           el.setStyle('display', 'none');
-          toggle.innerHTML = MDSS.Localized.Toggle.Show;
+          toggle.innerHTML = MDSS.Localized.Click_to_Add;
           hidden.value = 'false';
         }
         else
         {
           el.setStyle('display', 'block');
-          toggle.innerHTML = MDSS.Localized.Toggle.Hide;
+          toggle.innerHTML = MDSS.Localized.Click_to_Remove;
           hidden.value = 'true';
         }
 
