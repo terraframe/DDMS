@@ -89,14 +89,14 @@
             name="isAbstract"
             label="Abstract"
             required="true"
-            default_value="false"     
+            default_value="false"
             negativeLabel="False"
             positiveLabel="True"/>
           <boolean
             name="enabled"
             label="Enabled"
             required="true"
-            default_value="true"     
+            default_value="true"
             negativeLabel="False"
             positiveLabel="True"/>
         </attributes>
@@ -485,7 +485,7 @@
             type="dss.vector.solutions.intervention.monitor.SurveyPoint" />
           <char
             name="householdName"
-            label="Name"
+            label="Household name or ID"
             size="255"
             description="The name of the household" />
           <boolean
@@ -496,8 +496,8 @@
             positiveLabel="Rural" />
           <integer
             name="people"
-            label="Number of people"
-            description="The number of people in the household"
+            label="Number of people living in household"
+            description="The number of people living in the household"
             rejectNegative="true" />
           <reference
             name="wall"
@@ -506,9 +506,9 @@
             type="dss.vector.solutions.geo.generated.Wall" />
           <char
             name="wallInfo"
-            label="Wall Information"
+            label="Wall other"
             size="255"
-            description="Extra information about the wall surface" />
+            description="The specific kind of wall if not in Wall Surface list" />
           <reference
             name="roof"
             label="Roof Surface"
@@ -521,7 +521,8 @@
             description="Extra information about the roof surface" />
           <boolean
             name="hasWindows"
-            label="Has Windows"
+            label="Windows"
+            description="Does this house have any windows?"
             negativeLabel="No"
             positiveLabel="Yes" />
           <enumeration
@@ -531,7 +532,7 @@
             type="dss.vector.solutions.intervention.monitor.WindowType" />
           <integer
             name="rooms"
-            label="Rooms"
+            label="Number of rooms in household"
             rejectNegative="true" />
           <integer
             name="lastSprayed"
@@ -539,19 +540,19 @@
             rejectNegative="true" />
           <integer
             name="nets"
-            label="Nets"
+            label="Number of nets in household"
             description="Number of nets in household"
             rejectNegative="true"
             default_value="0" />
           <integer
             name="sleptUnderNets"
-            label="Slept Under Nets"
-            description="The number of people who slept under nets last night"
+            label="Number of people who slept under nets last night"
+            description="How many people in this household  slept under a net last night?"
             rejectNegative="true"
             default_value="0" />
           <integer
             name="netsUsed"
-            label="Nets Used"
+            label="Number of nets used last night"
             description="The number of nets which were used to sleep under last night"
             rejectNegative="true"
             default_value="0" />
