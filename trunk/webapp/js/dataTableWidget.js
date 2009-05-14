@@ -292,6 +292,8 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	// set up the button that saves the rows to the db
 	var btnSaveRows = new YAHOO.widget.Button(table_data.div_id+"Saverows");
 	btnSaveRows.on("click", function() {
+		//save any open editors
+		myDataTable.saveCellEditor();
 		var request = new MDSS.Request( {
 			// success handler for saved rows
 			dataTable : myDataTable,
