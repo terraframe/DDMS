@@ -50,7 +50,9 @@ public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollect
 
     if(this.getCollectionId() == null || this.getCollectionId().equals(""))
     {
-      this.setCollectionId(Property.getNextId());
+
+      String nextId = Property.getNextId();
+      this.setCollectionId(nextId);
     }
 
     super.apply();

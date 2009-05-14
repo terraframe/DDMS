@@ -13,9 +13,23 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 {
   private static final long serialVersionUID = 1235777070211L;
 
+  public static final long SHORT_ID_LENGTH = 8;
+  public static final long MAX_ID = (long) Math.pow(30,SHORT_ID_LENGTH);
+
   public Property()
   {
     super();
+  }
+
+  public static PropertyQuery getAllByPackage(java.lang.String pkg)
+  {
+    Property prop = null;
+
+    PropertyQuery query = new PropertyQuery(new QueryFactory());
+
+    query.WHERE(query.getPropertyPackage().LIKE(pkg+"%"));
+
+    return query;
   }
 
   public static dss.vector.solutions.Property getByPackageAndName(java.lang.String pkg,
@@ -190,12 +204,6 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     }
   }
 
-  public static final String SHORT_ID_COUNTER        = "SHORT_ID_COUNTER";
-
-  public static final String SHORT_ID_OFFSET         = "SHORT_ID_OFFSET";
-
-  public static final String SHORT_ID_SEGMENTS       = "SHORT_ID_SEGMENTS";
-
   @Transaction
   public static String getNextId()
   {
@@ -205,13 +213,15 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     int segments = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
     int offset = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);
 
-    long totalOffset = (Long.MAX_VALUE/segments)*offset;
+    long totalOffset = (MAX_ID/segments)*offset;
 
     counter++;
     currentValue.setPropertyValue(counter.toString());
     currentValue.apply();
 
-    return Base30.toBase30String(totalOffset+counter);
+    //TODO:perhaps a check that the address space has not been overflowed should be added?
+
+    return Base30.toBase30String(totalOffset+counter,8);
   }
 
 }

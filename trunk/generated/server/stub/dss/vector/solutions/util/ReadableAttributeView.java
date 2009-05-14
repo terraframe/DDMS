@@ -49,6 +49,8 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       ReadableAttributeView view = new ReadableAttributeView();
       view.setAttributeName(mdAttribute.definesAttribute());
       view.setDisplayLabel(mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
+      view.setAttributeRequired(mdAttribute.isRequired());
+      view.setAttributeDescription(mdAttribute.getDescription(Session.getCurrentLocale()));
 
       Set<Operation> permissions = actor.getPermissions(mdAttribute);
       if (permissions.contains(Operation.READ))
@@ -87,7 +89,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
         mdAttribute.getDisplayLabel().setValue(newValue);
         mdAttribute.apply();
       }
-      
+
       if (view.getReadPermission())
         actor.grantPermission(Operation.READ, mdAttribute.getId());
       else

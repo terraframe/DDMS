@@ -29,14 +29,15 @@ public class ResourceTarget extends ResourceTargetBase implements
     {
       SprayTeam st = (SprayTeam) targeter;
 
+      /*
       String leader_name = "";
       if(! st.getAllTeamLeader().getAll().isEmpty())
       {
         Person leader = st.getAllTeamLeader().getAll().get(0).getPerson();
         leader_name = leader.getLastName() + ", " + leader.getFirstName();
       }
-
-      return (st.getTeamId() + " - " + leader_name );
+      */
+      return (st.getTeamId() );
     }
     return null;
   }

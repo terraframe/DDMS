@@ -16,8 +16,9 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
   private void populateConcrete(AreaStandards concrete)
   {
     concrete.setRoom(this.getRoom());
-    concrete.setHouse(this.getHouse());
+    concrete.setStructureArea(this.getStructureArea());
     concrete.setHousehold(this.getHousehold());
+    concrete.setUnitNozzleAreaCoverage(this.getUnitNozzleAreaCoverage());
   }
 
   private boolean hasConcrete()

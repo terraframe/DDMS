@@ -12,7 +12,7 @@ public class AreaStandards extends AreaStandardsBase implements com.terraframe.m
   public void populateView(AreaStandardsView view)
   {
     view.setRoom(this.getRoom());
-    view.setHouse(this.getHouse());
+    view.setStructureArea(this.getStructureArea());
     view.setHousehold(this.getHousehold());
     view.setAreaStandardsId(this.getId());
   }
