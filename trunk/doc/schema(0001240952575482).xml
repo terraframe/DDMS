@@ -387,15 +387,15 @@
             decimal="2"
             rejectNegative="true"
             rejectZero="true"
-            description="Average surface area of a room" />
+            description="Average surface area of a room in square Meters" />
           <float
-            name="house"
-            label="House"
+            name="structureArea"
+            label="Structure"
             length="12"
             decimal="2"
             rejectNegative="true"
             rejectZero="true"
-            description="Average surface area of a house" />
+            description="Average surface area of a house in square Meters" />
           <float
             name="household"
             label="Household"
@@ -403,7 +403,16 @@
             decimal="2"
             rejectNegative="true"
             rejectZero="true"
-            description="Average surface area of a household" />
+            description="Average surface area of a household in square Meters" />
+          <float
+            name="unitNozzleAreaCoverage"
+            label="Household"
+            length="12"
+            decimal="2"
+            rejectNegative="true"
+            rejectZero="true"
+            description="Average number of square meters that can typically be covered by a full can of insecticide using the unit nozzle." />
+
         </attributes>
         <mdMethod
           name="getView"
@@ -456,11 +465,15 @@
             concrete="room"
             type="dss.vector.solutions.irs.AreaStandards" />
           <virtual
-            name="house"
-            concrete="house"
+            name="structureArea"
+            concrete="structureArea"
             type="dss.vector.solutions.irs.AreaStandards" />
           <virtual
             name="household"
+            concrete="household"
+            type="dss.vector.solutions.irs.AreaStandards" />
+          <virtual
+            name="unitNozzleAreaCoverage"
             concrete="household"
             type="dss.vector.solutions.irs.AreaStandards" />
         </attributes>
@@ -601,7 +614,7 @@
             name="refills"
             label="Number of pump/can refills"
             rejectNegative="true" />
-            
+
         </attributes>
       </mdBusiness>
 
@@ -639,7 +652,7 @@
           <virtual
             name="refills"
             concrete="refills"
-            type="dss.vector.solutions.irs.ActorSpray" />                        
+            type="dss.vector.solutions.irs.ActorSpray" />
         </attributes>
       </mdView>
 
@@ -1114,7 +1127,7 @@
           <virtual
             name="refills"
             concrete="refills"
-            type="dss.vector.solutions.irs.ActorSpray" />            
+            type="dss.vector.solutions.irs.ActorSpray" />
           <reference
             name="sprayData"
             label="Spray Data"
