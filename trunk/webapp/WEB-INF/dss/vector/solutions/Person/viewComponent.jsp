@@ -90,6 +90,18 @@
           ${item.isSprayOperatorMd.displayLabel}
         </label>
       </dt>
+      <dd>
+        <fieldset>
+          <dt>
+            <label>
+              ${item.operatorIdMd.displayLabel}
+            </label>
+          </dt>
+          <dd>
+            ${item.operatorId}
+          </dd>
+        </fieldset>
+      </dd>
     </c:if>
     <%-- 5.13.09 - Marlize says we don't need Spray Leaders
     <c:if test="${item.isSprayLeader}">

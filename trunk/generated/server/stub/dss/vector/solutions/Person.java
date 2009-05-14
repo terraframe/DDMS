@@ -178,6 +178,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     else
     {
       view.setIsSprayOperator(true);
+      view.setOperatorId(sprayOperator.getOperatorId());
     }
     
     SprayLeader sprayLeader= this.getSprayLeaderDelegate();

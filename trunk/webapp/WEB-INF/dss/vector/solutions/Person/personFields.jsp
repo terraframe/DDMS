@@ -175,7 +175,19 @@
       <dd>
         <mjl:input id="sprayOperatorInput" type="hidden" value="${item.isSprayOperator}" param="isSprayOperator" />
         <div id="sprayOperatorDiv" style="display: ${item.isSprayOperator ? 'block' : 'none'}">
-          <!-- Spray Operator Fieldset -->
+          <fieldset>
+            <dt>
+              <label>
+                ${item.operatorIdMd.displayLabel}
+              </label>
+            </dt>
+            <dd>
+              <mjl:input type="text" param="operatorId" />
+              <mjl:messages attribute="operatorId">
+                <mjl:message />
+              </mjl:messages>
+            </dd>
+          </fieldset>
         </div>
       </dd>
     </dl>

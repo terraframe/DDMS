@@ -114,6 +114,7 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       if (sprayOperator==null)
         sprayOperator = new SprayOperator();
       sprayOperator.setPerson(person);
+      sprayOperator.setOperatorId(this.getOperatorId());
       sprayOperator.apply();
       person.setSprayOperatorDelegate(sprayOperator);
       person.apply();

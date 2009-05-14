@@ -186,6 +186,10 @@
             default_value="false"      
             negativeLabel="No"
             positiveLabel="Yes"/>
+          <virtual
+            name="operatorId"
+            concrete="operatorId"
+            type="dss.vector.solutions.irs.SprayOperator"/>
           <boolean
             name="isSprayLeader"
             label="Is Spray Leader"
