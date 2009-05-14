@@ -12,7 +12,7 @@
           value="8002" />
         <valueAttribute
           name="displayLabel"
-          value="Unit nozzle area coverage" />
+          value="Unit nozzle area coverage Default" />
         <valueAttribute
           name="propertyPackage"
           value="dss.vector.solutions.irs.Standards" />
@@ -24,7 +24,7 @@
           value="Float" />
         <valueAttribute
           name="propertyValidator"
-          value="^\d{1,9}\.{0,1}\d{0,9}$" />
+          value="^\d{1,9}\.{0,1}\d{0,2}$" />
         <valueAttribute
           name="description"
           value="Average amount of square meters that can typically be covered by a full can of insecticide using the unit nozzle." />
