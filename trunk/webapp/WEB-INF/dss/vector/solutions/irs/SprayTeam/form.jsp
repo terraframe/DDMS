@@ -62,6 +62,7 @@ YAHOO.util.Event.onDOMReady(function(){
     <a href="#" id="searchOpener"><img src="./imgs/icons/world.png" /></a>
 <br/>(<span id ="entityName"></span>)
     </dd>
+    <%-- 5.13.09 - Marlize says we don't need Spray Leaders
     <dt><label> <fmt:message key="Spray_Team_Leader" /> </label></dt>
     <dd><mjl:select var="leader" valueAttribute="id" items="${leaders}" param="leaderId" includeBlank="true">
       <mjl:option selected="${leader.id==leaderId?'selected':'false'}">
@@ -70,6 +71,7 @@ YAHOO.util.Event.onDOMReady(function(){
     </mjl:select> <mjl:messages attribute="leaderId">
       <mjl:message />
     </mjl:messages></dd>
+    --%>
     <dt><label> <fmt:message key="Spray_Team_Manage_Operators" /> </label></dt>
     <dd>
     <table>

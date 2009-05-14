@@ -143,6 +143,7 @@
           <!-- Patient Fieldset -->
         </div>
       </dd>
+      <%-- 5.13.09 - Marlize says we don't need Spray Leaders
       <dt>
         <label>
           ${item.isSprayLeaderMd.displayLabel}
@@ -157,9 +158,9 @@
       <dd>
         <mjl:input id="sprayLeaderInput" type="hidden" value="${item.isSprayLeader}" param="isSprayLeader" />
         <div id="sprayLeaderDiv" style="display: ${item.isSprayLeader ? 'block' : 'none'}">
-          <!-- Spray Leader Fieldset -->
         </div>
       </dd>
+      --%>
       <dt>
         <label>
           ${item.isSprayOperatorMd.displayLabel}

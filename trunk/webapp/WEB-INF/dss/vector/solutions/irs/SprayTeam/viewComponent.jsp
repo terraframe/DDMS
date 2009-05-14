@@ -25,6 +25,7 @@
     <dd>
       ${item.sprayZone.entityName}
     </dd>
+    <%-- 5.13.09 - Marlize says we don't need Spray Leaders
     <dt>
       <label>
         <fmt:message key="Spray_Team_Leader" />
@@ -33,6 +34,7 @@
     <dd>
       <c:if test="${leader!=null}">${leader.firstName} ${leader.lastName}</c:if>
     </dd>
+    --%>
     <dt>
       <label>
         <fmt:message key="Spray_Team_Operators" />
