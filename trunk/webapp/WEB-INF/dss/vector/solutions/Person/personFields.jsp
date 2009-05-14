@@ -57,8 +57,8 @@
           ${item.isMDSSUserMd.displayLabel}?
           <span id="userSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isMDSSUser}"><fmt:message key="Toggle_Hide" /></c:when>
-            <c:otherwise><fmt:message key="Toggle_Show" /></c:otherwise>
+            <c:when test="${item.isMDSSUser}"><fmt:message key="Click_to_Remove" /></c:when>
+            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
@@ -97,8 +97,8 @@
           ${item.isIPTRecipientMd.displayLabel}
           <span id="iptSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isIPTRecipient}"><fmt:message key="Toggle_Hide" /></c:when>
-            <c:otherwise><fmt:message key="Toggle_Show" /></c:otherwise>
+            <c:when test="${item.isIPTRecipient}"><fmt:message key="Click_to_Remove" /></c:when>
+            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
@@ -114,8 +114,8 @@
           ${item.isITNRecipientMd.displayLabel}
           <span id="itnSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isITNRecipient}"><fmt:message key="Toggle_Hide" /></c:when>
-            <c:otherwise><fmt:message key="Toggle_Show" /></c:otherwise>
+            <c:when test="${item.isITNRecipient}"><fmt:message key="Click_to_Remove" /></c:when>
+            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
@@ -131,8 +131,8 @@
           ${item.isPatientMd.displayLabel}
           <span id="patientSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isPatient}"><fmt:message key="Toggle_Hide" /></c:when>
-            <c:otherwise><fmt:message key="Toggle_Show" /></c:otherwise>
+            <c:when test="${item.isPatient}"><fmt:message key="Click_to_Remove" /></c:when>
+            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
@@ -149,8 +149,8 @@
           ${item.isSprayLeaderMd.displayLabel}
           <span id="sprayLeaderSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isSprayLeader}"><fmt:message key="Toggle_Hide" /></c:when>
-            <c:otherwise><fmt:message key="Toggle_Show" /></c:otherwise>
+            <c:when test="${item.isSprayLeader}"><fmt:message key="Click_to_Remove" /></c:when>
+            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
@@ -166,8 +166,8 @@
           ${item.isSprayOperatorMd.displayLabel}
           <span id="sprayOperatorSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isSprayOperator}"><fmt:message key="Toggle_Hide" /></c:when>
-            <c:otherwise><fmt:message key="Toggle_Show" /></c:otherwise>
+            <c:when test="${item.isSprayOperator}"><fmt:message key="Click_to_Remove" /></c:when>
+            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
