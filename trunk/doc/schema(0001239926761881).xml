@@ -897,16 +897,16 @@
             positiveLabel="Yes" />
           <boolean
             name="haemoglobinMeasured"
-            label="Was haemoglobin measured"
+            label="Was hemoglobin measured"
             description="Flag indicating if the person had their haemoglobin measured"
             negativeLabel="No"
             positiveLabel="Yes" />
           <decimal
             name="haemoglobin"
-            label="haemoglobin"
+            label="Hemoglobin"
             length="3"
             decimal="1"
-            description="Haemoglobin value" />
+            description="Hemoglobin value" />
           <reference
             name="anaemiaTreatment"
             label="Anaemia Treatment"
