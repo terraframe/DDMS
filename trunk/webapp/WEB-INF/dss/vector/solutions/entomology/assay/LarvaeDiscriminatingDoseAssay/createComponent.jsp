@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO"%>
-<c:set var="page_title" value="Enter_data_for_Larvae_Diagnostic_Assay"  scope="request"/>
+<c:set var="page_title" value="Enter_new_Larvae_Diagnostic_Assay_Data"  scope="request"/>
 
 <mjl:messages>
   <mjl:message />

@@ -4,6 +4,9 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO"%>
 
+<c:set var="page_title" value="Edit_data_for_Larvae_Diagnostic_Dose_Assay"  scope="request"/>
+
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>

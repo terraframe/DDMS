@@ -9,6 +9,10 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="dss.vector.solutions.entomology.assay.LarvaeTestIntervalViewDTO"%>
+
+
+
+<c:set var="page_title" value="View_Larvae_Diagnostic_Dose_Assay"  scope="request"/>
 <%
 LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) request.getAttribute("item");
 %>

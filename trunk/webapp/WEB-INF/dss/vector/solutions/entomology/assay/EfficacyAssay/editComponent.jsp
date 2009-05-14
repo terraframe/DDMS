@@ -7,6 +7,9 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 <script type="text/javascript">
 
+<c:set var="window_title" value="Efficacy_bioassay_data_entry" scope="request" />
+<c:set var="page_title" value="Enter_New_Data" scope="request" />
+
 YAHOO.util.Event.onDOMReady(function(){
 
     function selectHandler(selected)
@@ -49,8 +52,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
 </script>
 
-<c:set var="window_title" value="Efficacy bioassay data entry" scope="request" />
-<c:set var="page_title" value="Enter_New_Data" scope="request" />
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
