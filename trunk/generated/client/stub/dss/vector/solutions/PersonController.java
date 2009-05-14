@@ -137,6 +137,13 @@ public class PersonController extends PersonControllerBase implements com.terraf
 
   private void renderView(PersonViewDTO view) throws IOException, ServletException
   {
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + view.getPersonId());
+      return;
+    }
+
     req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", view);
     req.setAttribute("page_title", "View_Person");
