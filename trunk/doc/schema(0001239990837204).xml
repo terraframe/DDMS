@@ -37,9 +37,9 @@
             name="readPermission"
             label="Read Permission"
             description="Can the attribute be read by the given user / role?"
-            required="true"     
-            negativeLabel="No"
-            positiveLabel="Yes"/>
+            required="true"
+            negativeLabel="Hide"
+            positiveLabel="Show"/>
           <virtual
             name="attributeName"
             required="true"
@@ -49,6 +49,17 @@
             name="displayLabel"
             required="true"
             label="The Display Label"
+            size="255"/>
+          <boolean
+            name="attributeRequired"
+            label="Required"
+            description="Is this atribute required?"
+            negativeLabel="Required"
+            positiveLabel="Not Required"/>
+          <char
+            name="attributeDescription"
+            label="Description"
+            description="The Description Of this Attribute"
             size="255"/>
         </attributes>
         <mdMethod
