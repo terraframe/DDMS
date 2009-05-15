@@ -9,7 +9,7 @@
 
   InsecticideBrandViewDTO brandDTO = new InsecticideBrandViewDTO(clientRequest);
   InsecticideBrandViewDTO[] brandRows = InsecticideBrandViewDTO.getAll(clientRequest);
-  String[] brandAttributes = {"InsecticdeId", "BrandName", "ActiveIngredient", "Amount", "Units", "Weight", "SachetsPerRefill", "Enabled"};
+  String[] brandAttributes = {"InsecticdeId", "BrandName", "ActiveIngredient", "Amount", "Weight", "SachetsPerRefill", "Enabled"};
 
   NozzleViewDTO nozzleDTO = new NozzleViewDTO(clientRequest);
   NozzleViewDTO[] nozzleRows = NozzleViewDTO.getAll(clientRequest);
@@ -62,8 +62,8 @@
     <mjl:component item="${dto}" param="dto">
     <h2><fmt:message key="Area"/></h2>
      <dl>
-      <mjl:dt attribute="unitNozzleAreaCoverage" type="text" />
       <mjl:input type="hidden" param="areaStandardsId" value="${dto.areaStandardsId}"/>
+      <mjl:dt attribute="unitNozzleAreaCoverage" type="text" />
       <mjl:dt attribute="room" type="text" />
       <mjl:dt attribute="structureArea" type="text" />
       <mjl:dt attribute="household" type="text" />
@@ -92,7 +92,7 @@
     brandData = {
               rows:<%=Halp.getDataMap(brandRows, brandAttributes, brandDTO)%>,
               columnDefs:<%=Halp.getColumnSetup(brandDTO, brandAttributes, deleteColumn, true)%>,
-              defaults: {"Units":"PERCENT"},
+              defaults: {"Enabled":"true"},
               copy_from_above: [],
               div_id: "InsecticideBrand",
               data_type: "Mojo.$.<%=InsecticideBrandViewDTO.CLASS%>",
