@@ -3,10 +3,23 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<jsp:include page="/WEB-INF/templates/yuiIncludes.jsp" />
+<link rel="icon" type="image/png" href="./imgs/favicon.png" >
+
+<jwr:style src="/bundles/yuiStyle.css"/>
+<jwr:style src="/bundles/mdssScreen.css"/>
+<jwr:style src="/bundles/mdssPrint.css" media="print"/>
+
+<script type="text/javascript">var locale = "<%=request.getLocale().toString()%>";</script>
+<jwr:script src="/bundles/yuiBundle.js"/>
+<jwr:script src="/bundles/Mojo.js"/>
+<script type="text/javascript" src="js/Localized.js.jsp"></script>
+<jwr:script src="/bundles/mdssBundle.js"/>
+<script type="text/javascript" src="js/addCalendarWidgets.js.jsp"></script>
+
 <c:choose>
   <c:when test='${window_title != null}'>
     <title><fmt:message key="${window_title}"/></title>
@@ -17,8 +30,7 @@
 </c:choose>
 </head>
 <body class="yui-skin-sam">
-<div id="freeText"><strong>National Malaria Control Program</strong><br />
-MALAWI</div>
+<div id="freeText"><strong>National Malaria Control Program</strong><br/>MALAWI</div>
 <div id="uploadLogo"><img src="./imgs/design/sample_logo.gif" width="85" height="57" /></div>
 <div class="header">
 <div class="hTitle"></div>

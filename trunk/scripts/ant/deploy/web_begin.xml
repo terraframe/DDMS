@@ -19,12 +19,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
     version="2.4">
-    
+
   <display-name>Terraframe Project</display-name>
   <description>
 	Terraframe Project
   </description>
-  
+
   <servlet>
     <servlet-name>ActionServlet</servlet-name>
     <display-name>Action Servlet</display-name>
@@ -32,12 +32,12 @@
         com.terraframe.mojo.web.ActionServlet
     </servlet-class>
   </servlet>
-  
+
   <servlet-mapping>
     <servlet-name>ActionServlet</servlet-name>
     <url-pattern>/Mojo/ActionServlet</url-pattern>
   </servlet-mapping>
-  
+
   <servlet>
     <servlet-name>SecureFileDownloadServlet</servlet-name>
     <display-name>Secure File Download Servlet</display-name>
@@ -49,7 +49,7 @@
   <listener>
     <listener-class>com.terraframe.mojo.web.UploadListener</listener-class>
   </listener>
-  
+
   <servlet>
     <servlet-name>SecureFileUploadServlet</servlet-name>
     <display-name>Secure File Upload Servlet</display-name>
@@ -57,17 +57,17 @@
         com.terraframe.mojo.web.SecureFileUploadServlet
     </servlet-class>
   </servlet>
-  
+
   <servlet-mapping>
     <servlet-name>SecureFileDownloadServlet</servlet-name>
     <url-pattern>/Mojo/SecureFileDownloadServlet</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>SecureFileUploadServlet</servlet-name>
     <url-pattern>/Mojo/SecureFileUploadServlet</url-pattern>
   </servlet-mapping>
-  
+
     <servlet>
     <servlet-name>WebFileDownloadServlet</servlet-name>
     <display-name>Web File Download Servlet</display-name>
@@ -75,7 +75,7 @@
         com.terraframe.mojo.web.WebFileDownloadServlet
     </servlet-class>
   </servlet>
-  
+
   <servlet>
     <servlet-name>WebFileUploadServlet</servlet-name>
     <display-name>Web File Upload Servlet</display-name>
@@ -83,21 +83,21 @@
         com.terraframe.mojo.web.WebFileUploadServlet
     </servlet-class>
   </servlet>
-  
+
   <servlet-mapping>
     <servlet-name>WebFileDownloadServlet</servlet-name>
     <url-pattern>/Mojo/WebFileDownloadServlet</url-pattern>
   </servlet-mapping>
-  
+
   <servlet-mapping>
     <servlet-name>WebFileUploadServlet</servlet-name>
     <url-pattern>/Mojo/WebFileUploadServlet</url-pattern>
   </servlet-mapping>
-  
+
     <listener>
      <listener-class>org.apache.axis.transport.http.AxisHTTPSessionListener</listener-class>
   </listener>
-    
+
   <servlet>
     <servlet-name>AxisServlet</servlet-name>
     <display-name>Apache-Axis Servlet</display-name>
@@ -160,7 +160,7 @@
     <extension>wsdl</extension>
      <mime-type>text/xml</mime-type>
   </mime-mapping>
-  
+
   <mime-mapping>
     <extension>xsd</extension>
     <mime-type>text/xml</mime-type>
@@ -183,7 +183,7 @@
       /Mojo/JSONControllerServlet
     </url-pattern>
   </servlet-mapping>
-  
+
   <filter>
     <filter-name>
       AdminLoginFilter
@@ -201,7 +201,8 @@
       /admin.jsp
     </url-pattern>
   </filter-mapping>
-  
+
+  <!--
     <filter>
     <filter-name>
       JavascriptFilter
@@ -222,8 +223,9 @@
     <url-pattern>
       /*
     </url-pattern>
-  </filter-mapping>  
-  
+  </filter-mapping>
+   -->
+
   <servlet>
     <servlet-name>
       AdminLoginServlet
@@ -231,8 +233,8 @@
     <servlet-class>
       com.terraframe.mojo.web.AdminLoginServlet
     </servlet-class>
-  </servlet>  
-  
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>
       AdminLoginServlet
@@ -241,7 +243,7 @@
       /AdminLoginServlet
     </url-pattern>
   </servlet-mapping>
-  
+
   <servlet>
     <servlet-name>
       AdminLogoutServlet
@@ -249,8 +251,8 @@
     <servlet-class>
       com.terraframe.mojo.web.AdminLogoutServlet
     </servlet-class>
-  </servlet>  
-  
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>
       AdminLogoutServlet
@@ -259,7 +261,7 @@
       /AdminLogoutServlet
     </url-pattern>
   </servlet-mapping>
-  
+
   <error-page>
   	<exception-type>java.lang.Throwable</exception-type>
    	<location>/error.jsp</location>
