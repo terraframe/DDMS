@@ -40,7 +40,6 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
-
   YAHOO.util.Event.onDOMReady(function(){
 
     function selectHandler(selected)
@@ -51,9 +50,16 @@
 
       if(selected != null)
       {
-        geoId.value = selected.getGeoId();
-        geoEntityId.value = selected.getGeoEntityId();
-        geoEntityName.innerHTML = selected.getEntityName();
+        if(selected.getEntityType() == "${ProvinceClass}" || selected.getEntityType() == "${ProvinceClass}" || selected.getEntityType() == "${ProvinceClass}")
+        {
+          geoId.value = selected.getGeoId();
+          geoEntityId.value = selected.getGeoEntityId();
+          geoEntityName.innerHTML = selected.getEntityName();
+        }
+        else
+        {
+        	geoEntityName.innerHTML = "Error, Must Select a Province or District or SprayZone";
+        }
       }
       else
       {
