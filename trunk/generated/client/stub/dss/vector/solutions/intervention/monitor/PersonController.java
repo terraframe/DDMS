@@ -49,9 +49,11 @@ public class PersonController extends PersonControllerBase implements com.terraf
     if (!req.getRequestURI().contains(".view.mojo"))
     {
       String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", "PersonController");
       resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + person.getConcreteId());
       return;
     }
+
 
     req.setAttribute("item", person);
     req.setAttribute("page_title", "View Person");
