@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.business.rbac.ActorDAO;
 import com.terraframe.mojo.business.rbac.ActorDAOIF;
 import com.terraframe.mojo.business.rbac.Operation;
@@ -22,8 +21,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdAttribute;
-import com.terraframe.mojo.system.metadata.MdBusiness;
-import com.terraframe.mojo.system.metadata.MetaDataDisplayLabel;
 
 public class ReadableAttributeView extends ReadableAttributeViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
