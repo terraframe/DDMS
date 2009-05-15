@@ -63,17 +63,31 @@ public class InsecticideNozzleView extends InsecticideNozzleViewBase implements 
       InsecticideNozzle.get(this.getInsecticideNozzleId()).delete();
     }
   }
-
+  
   @Transaction
   public static InsecticideNozzleView[] getAll()
   {
-    List<InsecticideNozzleView> list = new LinkedList<InsecticideNozzleView>();
+    InsecticideNozzleQuery query = new InsecticideNozzleQuery(new QueryFactory());
+    query.ORDER_BY_ASC(query.getCreateDate());
+    
+    return InsecticideNozzleView.getViews(query);
+  }
+
+  @Transaction
+  public static InsecticideNozzleView[] getAllActive()
+  {
     InsecticideNozzleQuery query = new InsecticideNozzleQuery(new QueryFactory());
     query.WHERE(query.getEnabled().EQ(true));
     query.ORDER_BY_ASC(query.getCreateDate());
 
-    OIterator<? extends InsecticideNozzle> it = query.getIterator();
+    return InsecticideNozzleView.getViews(query);
+  }
 
+  private static InsecticideNozzleView[] getViews(InsecticideNozzleQuery query)
+  {
+    List<InsecticideNozzleView> list = new LinkedList<InsecticideNozzleView>();
+    OIterator<? extends InsecticideNozzle> it = query.getIterator();
+    
     try
     {
       while (it.hasNext())

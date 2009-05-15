@@ -79,7 +79,10 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
     List<HouseholdNet> list = new LinkedList<HouseholdNet>();
     Stack<Net> stack = new Stack<Net>();
 
-    stack.push(Net.getRoot());
+    for(Net root : Net.getRoots())
+    {
+      stack.push(root);
+    }
 
     while(!stack.empty())
     {

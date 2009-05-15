@@ -70,8 +70,9 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
     }
   }
 
-  public static Net getRoot()
+  public static List<Net> getRoots()
   {
+    List<Net> list = new LinkedList<Net>();
     NetQuery query = new NetQuery(new QueryFactory());
     query.WHERE(query.NOT_IN_parentNets());
     query.ORDER_BY_ASC(query.getCreateDate());
@@ -82,10 +83,10 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
     {
       while (it.hasNext())
       {
-        return it.next();
+        list.add(it.next());
       }
 
-      return null;
+      return list;
     }
     finally
     {

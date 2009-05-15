@@ -14,6 +14,7 @@ public class AreaStandards extends AreaStandardsBase implements com.terraframe.m
     view.setRoom(this.getRoom());
     view.setStructureArea(this.getStructureArea());
     view.setHousehold(this.getHousehold());
+    view.setUnitNozzleAreaCoverage(this.getUnitNozzleAreaCoverage());
     view.setAreaStandardsId(this.getId());
   }
 

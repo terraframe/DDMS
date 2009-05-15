@@ -3,18 +3,18 @@ package dss.vector.solutions.irs;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
-
-import dss.vector.solutions.Person;
-import dss.vector.solutions.entomology.Sex;
-import dss.vector.solutions.entomology.assay.Unit;
-import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.mo.ActiveIngredient;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+
+import dss.vector.solutions.Person;
+import dss.vector.solutions.entomology.Sex;
+import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.SentinelSite;
+import dss.vector.solutions.mo.ActiveIngredient;
 
 public class OperatorSprayTest extends TestCase
 {
@@ -76,7 +76,6 @@ public class OperatorSprayTest extends TestCase
     brand = new InsecticideBrand();
     brand.setActiveIngredient(activeIngredient);
     brand.setAmount(57);
-    brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
     brand.setBrandName("Test Brand");    

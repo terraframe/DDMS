@@ -49,18 +49,29 @@ public class NozzleView extends NozzleViewBase implements com.terraframe.mojo.ge
   {
     return this.getNozzleId() != null && !this.getNozzleId().equals("");
   }
+  
+  @Transaction
+  public static NozzleView[] getAllActive()
+  {
+    return NozzleView.getViews(Nozzle.getAll());
+  }
+
 
   @Transaction
   public static NozzleView[] getAll()
   {
-    Nozzle[] nozzels = Nozzle.getAll();
-    NozzleView[] views = new NozzleView[nozzels.length];
+    return NozzleView.getViews(Nozzle.getAll());
+  }
 
+  private static NozzleView[] getViews(Nozzle[] nozzels)
+  {
+    NozzleView[] views = new NozzleView[nozzels.length];
+    
     for(int i = 0; i < nozzels.length; i++)
     {
       views[i] = nozzels[i].getView();
     }
-
+    
     return views;
   }
 

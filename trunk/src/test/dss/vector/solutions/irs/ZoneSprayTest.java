@@ -11,7 +11,6 @@ import junit.framework.TestSuite;
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
 import dss.vector.solutions.Person;
-import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.mo.ActiveIngredient;
@@ -76,7 +75,6 @@ public class ZoneSprayTest extends TestCase
     brand = new InsecticideBrand();
     brand.setActiveIngredient(activeIngredient);
     brand.setAmount(57);
-    brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
     brand.setBrandName("Test Brand");    

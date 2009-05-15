@@ -2,8 +2,6 @@ package dss.vector.solutions.irs;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
-import dss.vector.solutions.entomology.assay.Unit;
-
 public class InsecticideBrandView extends InsecticideBrandViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -22,12 +20,6 @@ public class InsecticideBrandView extends InsecticideBrandViewBase implements
     brand.setWeight(this.getWeight());
     brand.setSachetsPerRefill(this.getSachetsPerRefill());
     brand.setEnabled(this.getEnabled());
-    brand.clearEnum(InsecticideBrand.UNITS);
-
-    for (Unit unit : this.getUnits())
-    {
-      brand.addUnits(unit);
-    }
   }
 
   private boolean hasInsecticideBrand()
@@ -63,14 +55,24 @@ public class InsecticideBrandView extends InsecticideBrandViewBase implements
   @Transaction
   public static InsecticideBrandView[] getAll()
   {
-    InsecticideBrand[] brands = InsecticideBrand.getAll();
-    InsecticideBrandView[] views = new InsecticideBrandView[brands.length];
+    return InsecticideBrandView.getViews(InsecticideBrand.getAll());
+  }
 
+  @Transaction
+  public static InsecticideBrandView[] getAllActive()
+  {
+    return InsecticideBrandView.getViews(InsecticideBrand.getAllActive());
+  }
+
+  private static InsecticideBrandView[] getViews(InsecticideBrand[] brands)
+  {
+    InsecticideBrandView[] views = new InsecticideBrandView[brands.length];
+    
     for(int i = 0; i < brands.length; i++)
     {
       views[i] = brands[i].getView();
     }
-
+    
     return views;
   }
 

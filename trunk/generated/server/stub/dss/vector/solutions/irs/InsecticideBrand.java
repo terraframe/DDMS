@@ -7,8 +7,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.entomology.assay.Unit;
-
 public class InsecticideBrand extends InsecticideBrandBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240597944432L;
@@ -27,12 +25,6 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
     view.setSachetsPerRefill(this.getSachetsPerRefill());
     view.setInsecticdeId(this.getId());
     view.setEnabled(this.getEnabled());
-    view.clearEnum(InsecticideBrandView.UNITS);
-
-    for(Unit unit : this.getUnits())
-    {
-      view.addUnits(unit);
-    }
   }
 
   public InsecticideBrandView getView()
@@ -61,6 +53,29 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
 
   @Transaction
   public static InsecticideBrand[] getAll()
+  {
+    List<InsecticideBrand> list = new LinkedList<InsecticideBrand>();
+    InsecticideBrandQuery query = new InsecticideBrandQuery(new QueryFactory());
+    query.ORDER_BY_ASC(query.getCreateDate());
+    
+    OIterator<? extends InsecticideBrand> it = query.getIterator();
+    
+    try
+    {
+      while (it.hasNext())
+      {
+        list.add(it.next());
+      }
+      return list.toArray(new InsecticideBrand[list.size()]);
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
+  @Transaction
+  public static InsecticideBrand[] getAllActive()
   {
     List<InsecticideBrand> list = new LinkedList<InsecticideBrand>();
     InsecticideBrandQuery query = new InsecticideBrandQuery(new QueryFactory());

@@ -6,7 +6,6 @@ import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.mo.ActiveIngredient;
 
 public class InsecticideNozzleTest extends TestCase
@@ -59,7 +58,6 @@ public class InsecticideNozzleTest extends TestCase
     brand = new InsecticideBrand();
     brand.setActiveIngredient(activeIngredient);
     brand.setAmount(57);
-    brand.addUnits(Unit.PERCENT);
     brand.setWeight(weight);
     brand.setSachetsPerRefill(refill);
     brand.setBrandName("Test Brand");
@@ -68,7 +66,6 @@ public class InsecticideNozzleTest extends TestCase
     brand2 = new InsecticideBrand();
     brand2.setActiveIngredient(activeIngredient);
     brand2.setAmount(13);
-    brand2.addUnits(Unit.PERCENT);
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
     brand2.setBrandName("Test Brand");    
@@ -185,7 +182,6 @@ public class InsecticideNozzleTest extends TestCase
     InsecticideBrand testBrand = new InsecticideBrand();
     testBrand.setActiveIngredient(activeIngredient);
     testBrand.setAmount(57);
-    testBrand.addUnits(Unit.PERCENT);
     testBrand.setWeight(weight);
     testBrand.setSachetsPerRefill(refill);
     testBrand.setEnabled(false);

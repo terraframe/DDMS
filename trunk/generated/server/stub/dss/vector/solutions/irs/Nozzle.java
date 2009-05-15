@@ -50,15 +50,29 @@ public class Nozzle extends NozzleBase implements com.terraframe.mojo.generation
   {
     return Nozzle.lock(id).getView();
   }
+  
+  @Transaction
+  public static Nozzle[] getAllActive()
+  {
+    NozzleQuery query = new NozzleQuery(new QueryFactory());
+    query.WHERE(query.getEnabled().EQ(true));
+    query.ORDER_BY_ASC(query.getCreateDate());
+    
+    return Nozzle.getNozzles(query);
+  }
 
   @Transaction
   public static Nozzle[] getAll()
   {
-    List<Nozzle> list = new LinkedList<Nozzle>();
     NozzleQuery query = new NozzleQuery(new QueryFactory());
-    query.WHERE(query.getEnabled().EQ(true));
     query.ORDER_BY_ASC(query.getCreateDate());
 
+    return Nozzle.getNozzles(query);
+  }
+
+  private static Nozzle[] getNozzles(NozzleQuery query)
+  {
+    List<Nozzle> list = new LinkedList<Nozzle>();
     OIterator<? extends Nozzle> it = query.getIterator();
 
     try
