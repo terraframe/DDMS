@@ -85,7 +85,7 @@
                 </td>
               </c:when>
               <c:otherwise>
-                <td>
+                <td style="padding-left:2em">
                   ${current.child.displayLabel}
                 </td>
                 <td style="text-align:right;">

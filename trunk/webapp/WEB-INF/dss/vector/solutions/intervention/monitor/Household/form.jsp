@@ -109,7 +109,7 @@
                 <td colspan="2">${current.child.displayLabel}</td>
               </c:when>
               <c:otherwise>
-                <td>${current.child.displayLabel}</td>
+                <td style="padding-left:2em">${current.child.displayLabel}</td>
                 <td>
                   <mjl:input type="text" param="amount" />
                   <mjl:messages attribute="amount">
