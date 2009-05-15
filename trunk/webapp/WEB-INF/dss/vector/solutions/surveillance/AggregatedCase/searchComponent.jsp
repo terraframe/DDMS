@@ -76,9 +76,19 @@ YAHOO.util.Event.onDOMReady(function(){
       </mjl:radioGroup>
     </dd>
     <dt> <fmt:message key="Period"/> </dt>
-    <dd> <mjl:input param="period" type="text" size="2" value="${period}"/></dd>
+    <dd> 
+      <mjl:input param="period" type="text" size="2" maxlength="2" value="${period}"/>
+      <mjl:messages attribute="period">
+        <mjl:message/>
+      </mjl:messages>
+    </dd>
     <dt> <fmt:message key="Year"/> </dt>
-    <dd> <mjl:input param="year" type="text" size="4" value="${year}"/></dd>
+    <dd> 
+      <mjl:input param="year" type="text" size="4" maxlength="4" value="${year}"/>
+      <mjl:messages attribute="year">
+        <mjl:message/>
+      </mjl:messages>
+    </dd>
   </dl>
   <br>
   <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.searchByGeoIdAndEpiWeek.mojo" name="search.button" value="Search" />
