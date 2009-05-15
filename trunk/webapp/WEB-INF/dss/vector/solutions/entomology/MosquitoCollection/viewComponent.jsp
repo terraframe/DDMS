@@ -102,7 +102,7 @@ ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientCon
 Object ojbect = request.getAttribute("item");
 MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) ojbect;
 MorphologicalSpecieGroupViewDTO[] rows = mosquito_collection.getMorphologicalSpecieGroups();
-String[] attribs = { "GroupId","Specie","IdentificationMethod","QuantityMale","QuantityFemale","Quantity"};
+String[] attribs = { "GroupId","Collection", "Specie","IdentificationMethod","QuantityMale","QuantityFemale","Quantity"};
 MorphologicalSpecieGroupViewDTO mdView = new MorphologicalSpecieGroupViewDTO(clientRequest);
 
 String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
@@ -126,8 +126,8 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
     %>
     <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
     table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,
-       columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false)%>,
-              defaults: {GroupId:"",Specie:"",IdentificationMethod:"",QuantityMale:"",QuantityFemale:"",Quantity:""},
+       columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false, 2)%>,
+              defaults: {GroupId:"",Collection:"<%=mosquito_collection.getId()%>", Specie:"",IdentificationMethod:"",QuantityMale:"",QuantityFemale:"",Quantity:""},
               div_id: "MorphologicalSpecieGroups",
               copy_from_above: ["IdentificationMethod"],
               //collection_setter: "setCollection('${item.id}')",
