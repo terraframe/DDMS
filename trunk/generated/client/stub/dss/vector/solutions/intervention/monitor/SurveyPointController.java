@@ -125,6 +125,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     if (!req.getRequestURI().contains(".view.mojo"))
     {
       String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", "SurveyPointController");
       resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + survey.getId());
       return;
     }
