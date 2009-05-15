@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
+  name="dss.vector.solutions.intervention.monitor.NetQuantityProblem">
+  <!--
+    - {netCount} netCount
+    - {quantity} quantity
+    -->
+  <locale language="en">The net count [{netCount}] cannot be greater than the number of household nets [{quantity}]</locale>
+</exception>
