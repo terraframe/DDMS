@@ -110,7 +110,7 @@ public class HouseholdController extends HouseholdControllerBase implements
     if (!uri.contains(".view.mojo"))
     {
       String path = req.getRequestURL().toString();
-      path = path.replaceFirst("PersonController", "HouseholdController");
+      path = path.replaceFirst("(\\w+)Controller", "HouseholdController");
       resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
       return;
     }
