@@ -1,5 +1,9 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
@@ -24,7 +28,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -68,7 +72,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
     catch (ProblemExceptionDTO e)
     {
@@ -110,10 +114,20 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
   {
     this.viewAll();
   }
+  
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    SurveyPointDTO survey = SurveyPointDTO.get(clientRequest, id);
+    view(SurveyPointDTO.get(super.getClientRequest(), id));
+  }
+
+  public void view(SurveyPointDTO survey) throws IOException, ServletException
+  {
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + survey.getId());
+      return;
+    }
 
     req.setAttribute("item", survey);
     req.setAttribute("households", survey.getAllHouseholds());
@@ -127,7 +141,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
   public void cancel(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
-    this.view(dto.getId());
+    this.view(dto);
   }
   public void failCancel(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
