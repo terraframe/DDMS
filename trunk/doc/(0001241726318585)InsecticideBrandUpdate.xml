@@ -12,7 +12,8 @@
               name="brandName"
               label="Brand Name"
               required="true"
-              size="255" />
+              size="255"
+              indexType="unique index" />
           </attributes>
         </create>
       </mdBusiness>
