@@ -670,7 +670,7 @@ var Mojo = {
    */
   ClientSession : (function(){
 
-    var baseEndpoint = '@@BASE_ENDPOINT@@';
+    var baseEndpoint = window.location.protocol + "//" + window.location.host  +'/'+ window.location.pathname.split( '/' )[1] +'/' ;
 
     var defaultOptions = {
       'method':'post',

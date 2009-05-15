@@ -1,9 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
-
 <%@page import="java.util.ResourceBundle"%>
 <%@page import="org.apache.taglibs.standard.tag.common.fmt.BundleSupport"%>
 <%@page import="java.util.Enumeration"%>
-
 
 /**
  * Constants used for localization in javascript.
@@ -101,7 +99,6 @@ MDSS.Localized = {
 
   Treatments: '<fmt:message key="Treatments"/>'
 };
-
 
 
 
