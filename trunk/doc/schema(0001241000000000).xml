@@ -85,7 +85,7 @@
 
       <mdView
         name="dss.vector.solutions.irs.InsecticideNozzleView"
-        label="InsecticideNozzleView">
+        label="Configuration">
         <attributes>
           <char
             name="insecticideNozzleId"
@@ -113,6 +113,13 @@
           static="false" />
         <mdMethod
           name="getAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideNozzleView[]"
+          label="Get All"
+          description="Returns all enabled Nozzles">
+        </mdMethod>
+        <mdMethod
+          name="getAllActive"
           static="true"
           returnType="dss.vector.solutions.irs.InsecticideNozzleView[]"
           label="Get All"

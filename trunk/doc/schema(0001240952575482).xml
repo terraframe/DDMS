@@ -96,28 +96,24 @@
             required="true" />
           <integer
             name="amount"
-            label="Concentration"
+            label="Concentration (%)"
             rejectZero="true"
             rejectNegative="true"
             required="true" />
-          <enumeration
-            name="units"
-            label="Units"
-            required="true"
-            type="dss.vector.solutions.entomology.assay.Unit"
-            selectMultiple="false" />
           <decimal
             name="weight"
             label="Weight (g)"
             length="6"
             decimal="2"
             rejectNegative="true"
-            rejectZero="true" />
+            rejectZero="true"
+            required="true" />
           <integer
             name="sachetsPerRefill"
             label="Sachets per Refill"
             rejectNegative="true"
-            rejectZero="true" />
+            rejectZero="true"
+            required="true" />
           <boolean
             name="enabled"
             label="Enabled"
@@ -167,7 +163,7 @@
 
       <mdView
         name="dss.vector.solutions.irs.InsecticideBrandView"
-        label="Insecticide Brand View">
+        label="Insecticide Brand">
         <attributes>
           <char
             name="insecticdeId"
@@ -181,10 +177,6 @@
             name="amount"
             type="dss.vector.solutions.irs.InsecticideBrand"
             concrete="amount" />
-          <virtual
-            name="units"
-            type="dss.vector.solutions.irs.InsecticideBrand"
-            concrete="units" />
           <virtual
             name="weight"
             type="dss.vector.solutions.irs.InsecticideBrand"
@@ -204,11 +196,18 @@
           returnType="void"
           static="false" />
         <mdMethod
-          name="getAll"
+          name="getAllActive"
           static="true"
           returnType="dss.vector.solutions.irs.InsecticideBrandView[]"
           label="Get All"
           description="Returns all enabled Insecticide Brands">
+        </mdMethod>
+        <mdMethod
+          name="getAll"
+          static="true"
+          returnType="dss.vector.solutions.irs.InsecticideBrandView[]"
+          label="Get All"
+          description="Returns all Insecticide Brands">
         </mdMethod>
         <mdMethod
           name="applyAll"
@@ -231,14 +230,16 @@
           <decimal
             name="ratio"
             label="Ratio"
-            length="6"
-            decimal="3"
-            rejectNegative="true" />
+            length="8"
+            decimal="2"
+            rejectNegative="true"
+            required="true" />
           <char
             name="displayLabel"
-            label="Display Label"
+            label="Name"
             size="255"
-            required="true" />
+            required="true"
+            indexType="unique index" />
           <boolean
             name="enabled"
             label="Enabled"
@@ -288,7 +289,7 @@
 
       <mdView
         name="dss.vector.solutions.irs.NozzleView"
-        label="Nozzle View">
+        label="Nozzle">
         <attributes>
           <char
             name="nozzleId"
@@ -320,6 +321,13 @@
           description="Returns all enabled Nozzles">
         </mdMethod>
         <mdMethod
+          name="getAllActive"
+          static="true"
+          returnType="dss.vector.solutions.irs.NozzleView[]"
+          label="Get All"
+          description="Returns all enabled Nozzles">
+        </mdMethod>
+        <mdMethod
           name="applyAll"
           static="true"
           returnType="dss.vector.solutions.irs.NozzleView[]"
@@ -334,7 +342,7 @@
 
       <mdRelationship
         name="dss.vector.solutions.irs.InsecticideNozzle"
-        label="Insecticide Nozzle"
+        label="Configuration"
         generateController="false">
         <parent
           cardinality="*"

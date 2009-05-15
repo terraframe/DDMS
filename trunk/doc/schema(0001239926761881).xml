@@ -24,7 +24,7 @@
         <attributes>
           <reference
             name="geoEntity"
-            label="geoEntity"
+            label="Geo Entity"
             description="The geoEntity of the survey"
             required="true"
             type="dss.vector.solutions.geo.generated.GeoEntity" />
@@ -130,21 +130,6 @@
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
-        id="Net_Net"
-        key="Net_Net">
-        <valueAttribute
-          name="netName"
-          value="Net" />
-        <valueAttribute
-          name="displayLabel"
-          value="Net" />
-        <valueAttribute
-          name="isAbstract"
-          value="true" />
-      </object>
-
-      <object
-        type="dss.vector.solutions.intervention.monitor.Net"
         id="Net_Permanent_Net"
         key="Net_Permanent_Net">
         <valueAttribute
@@ -157,14 +142,6 @@
           name="isAbstract"
           value="true" />
       </object>
-
-      <relationship
-        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        childId="Net_Permanent_Net"
-        parentId="Net_Net"
-        id="Net_Net-Net_Permanent_Net"
-        key="Net_Net-Net_Permanent_Net">
-      </relationship>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
@@ -240,14 +217,6 @@
           name="isAbstract"
           value="true" />
       </object>
-
-      <relationship
-        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        childId="Net_Pretreated_Net"
-        parentId="Net_Net"
-        id="Net_Net-Net_Pretreated_Net"
-        key="Net_Net-Net_Pretreated_Net">
-      </relationship>
 
       <object
         type="dss.vector.solutions.intervention.monitor.Net"
@@ -381,14 +350,6 @@
           value="OTHER- DON’T KNOW BRAND" />
       </object>
 
-      <relationship
-        type="dss.vector.solutions.intervention.monitor.NetHeiarchy"
-        childId="Net_Other"
-        parentId="Net_Net"
-        id="Net_Net-Net_Other"
-        key="Net_Net-Net_Other">
-      </relationship>
-
       <enumerationMaster
         name="dss.vector.solutions.intervention.monitor.WindowMaster"
         label="WindowType Master"
@@ -485,7 +446,7 @@
             type="dss.vector.solutions.intervention.monitor.SurveyPoint" />
           <char
             name="householdName"
-            label="Household name or ID"
+            label="Household Id"
             size="255"
             description="The name of the household" />
           <boolean
