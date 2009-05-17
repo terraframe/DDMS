@@ -5,7 +5,7 @@ import dss.vector.solutions.mo.AbstractTermControllerBase;
 public class AbstractTermController extends AbstractTermControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/mo/AbstractTerm/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1235073586920L;
   

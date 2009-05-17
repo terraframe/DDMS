@@ -3,7 +3,7 @@ package dss.vector.solutions;
 public class PointStyleController extends PointStyleControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/PointStyle/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1241158092965L;
   

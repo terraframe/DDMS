@@ -14,7 +14,7 @@ import dss.vector.solutions.util.ErrorUtility;
 public class SurveyPointController extends SurveyPointControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/intervention/monitor/SurveyPoint/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
 
   private static final long serialVersionUID = 1239641276396L;
 

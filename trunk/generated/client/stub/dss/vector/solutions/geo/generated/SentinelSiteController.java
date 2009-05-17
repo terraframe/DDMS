@@ -5,7 +5,7 @@ import dss.vector.solutions.geo.generated.SentinelSiteControllerBase;
 public class SentinelSiteController extends SentinelSiteControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/SentinelSite/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
 
   private static final long serialVersionUID = 1236384561903L;
 

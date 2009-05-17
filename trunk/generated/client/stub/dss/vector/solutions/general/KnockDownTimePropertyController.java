@@ -9,7 +9,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 public class KnockDownTimePropertyController extends KnockDownTimePropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/general/KnockDownTimeProperty/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1237411066733L;
   

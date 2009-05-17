@@ -3,15 +3,15 @@ package dss.vector.solutions.general;
 public class MalariaSeasonController extends MalariaSeasonControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/general/MalariaSeason/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
-  
+  public static final String LAYOUT = "/layout.jsp";
+
   private static final long serialVersionUID = 1242259543111L;
-  
+
   public MalariaSeasonController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   public void create(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try

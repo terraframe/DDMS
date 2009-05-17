@@ -5,7 +5,7 @@ import dss.vector.solutions.geo.LocatedInControllerBase;
 public class LocatedInController extends LocatedInControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/LocatedIn/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1236133822556L;
   

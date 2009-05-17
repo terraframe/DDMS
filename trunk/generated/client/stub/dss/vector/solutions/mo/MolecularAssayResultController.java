@@ -5,7 +5,7 @@ import dss.vector.solutions.mo.MolecularAssayResultControllerBase;
 public class MolecularAssayResultController extends MolecularAssayResultControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/mo/MolecularAssayResult/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1235599937715L;
   

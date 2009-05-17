@@ -5,7 +5,7 @@ import dss.vector.solutions.mo.InfectivityMethodologyControllerBase;
 public class InfectivityMethodologyController extends InfectivityMethodologyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/mo/InfectivityMethodology/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1235957077008L;
   

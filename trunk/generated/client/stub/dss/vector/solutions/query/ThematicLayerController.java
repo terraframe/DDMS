@@ -3,7 +3,7 @@ package dss.vector.solutions.query;
 public class ThematicLayerController extends ThematicLayerControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/query/ThematicLayer/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1241158165413L;
   

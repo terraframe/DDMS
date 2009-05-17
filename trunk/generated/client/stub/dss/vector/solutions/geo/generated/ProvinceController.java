@@ -5,7 +5,7 @@ import dss.vector.solutions.geo.generated.ProvinceControllerBase;
 public class ProvinceController extends ProvinceControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/Province/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1236384563651L;
   

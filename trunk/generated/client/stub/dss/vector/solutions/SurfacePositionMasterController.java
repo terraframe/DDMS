@@ -5,7 +5,7 @@ import dss.vector.solutions.SurfacePositionMasterControllerBase;
 public class SurfacePositionMasterController extends SurfacePositionMasterControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/SurfacePositionMaster/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1236363374533L;
   

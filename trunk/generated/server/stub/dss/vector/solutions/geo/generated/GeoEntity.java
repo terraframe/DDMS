@@ -330,6 +330,17 @@ public abstract class GeoEntity extends GeoEntityBase implements
   }
 
   /**
+   * Converts a GeoEntity id into a view representation.
+   *
+   * @return
+   */
+
+  public static GeoEntityView getView(String id)
+  {
+    return GeoEntity.get(id).getViewFromGeoEntity();
+  }
+
+  /**
    * Converts this GeoEntity into a view representation.
    *
    * @return

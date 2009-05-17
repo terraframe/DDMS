@@ -5,7 +5,7 @@ import dss.vector.solutions.entomology.assay.AdultAgeRangeControllerBase;
 public class AdultAgeRangeController extends AdultAgeRangeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/entomology/assay/AdultAgeRange/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1235073590825L;
   

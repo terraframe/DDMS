@@ -5,7 +5,7 @@ import dss.vector.solutions.entomology.UninterestingSpecieGroupControllerBase;
 public class UninterestingSpecieGroupController extends UninterestingSpecieGroupControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/entomology/UninterestingSpecieGroup/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1235073583096L;
   

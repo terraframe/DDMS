@@ -3,7 +3,7 @@ package dss.vector.solutions.query;
 public class GeometryStyleController extends GeometryStyleControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/query/GeometryStyle/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1240851003143L;
   

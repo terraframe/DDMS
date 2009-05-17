@@ -6,7 +6,7 @@ import dss.vector.solutions.mo.GenerationControllerBase;
 public class GenerationController extends GenerationControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/entomology/Generation/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
   
   private static final long serialVersionUID = 1235073595137L;
   

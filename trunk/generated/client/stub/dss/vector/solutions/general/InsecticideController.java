@@ -7,7 +7,7 @@ import dss.vector.solutions.util.ErrorUtility;
 public class InsecticideController extends InsecticideControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/general/Insecticide/";
-  public static final String LAYOUT = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT = "/layout.jsp";
 
   private static final long serialVersionUID = 1237396167095L;
 
