@@ -45,7 +45,8 @@ var aSubmenuData = [
                             itemdata: [
                                        { text: "Manage_Insecticides", url: "dss.vector.solutions.general.InsecticideController.viewAll.mojo", visibleTo:'SYSTEM' },
                                        { text: "Manage_Knock_Down_Properties", url: "dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo" , visibleTo:'SYSTEM'},
-                                       { text: "Manage_Lethal_Properties", url: "dss.vector.solutions.general.LethalTimePropertyController.search.mojo" , visibleTo:'SYSTEM'}
+                                       { text: "Manage_Lethal_Properties", url: "dss.vector.solutions.general.LethalTimePropertyController.search.mojo" , visibleTo:'SYSTEM'},
+                                       { text: "Malaria_Season", url: "dss.vector.solutions.general.MalariaSeasonController.viewAll.mojo" , visibleTo:'SYSTEM'},
                             ]
                         }
 

@@ -1,27 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="java.util.*"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.text.AttributedCharacterIterator"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="dss.vector.solutions.util.Halp" %>
-<%@page import="com.terraframe.mojo.constants.Constants" %>
-<%@page import="org.json.JSONArray"%>
-<%
-Locale locale = request.getLocale();
-DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-SimpleDateFormat formatter = (SimpleDateFormat)df;
-Date today = new Date();
-AttributedCharacterIterator aci = df.formatToCharacterIterator(today);
 
-List<String> month_list = new ArrayList<String>(Arrays.asList(formatter.getDateFormatSymbols().getMonths()));
-month_list.removeAll(Arrays.asList(""));
-JSONArray months = new JSONArray(month_list);
-
-List<String> day_list = new ArrayList<String>(Arrays.asList(formatter.getDateFormatSymbols().getShortWeekdays()));
-day_list.removeAll(Arrays.asList(""));
-JSONArray short_days = new JSONArray(day_list);
-request.setAttribute("dateFormatPattern" ,formatter.toPattern());
-%>
 // If you include this file it will add calandar popups to all elements with the
 // class "DatePick"
 // HOW TO USE
@@ -34,36 +11,21 @@ var MojoCal= YAHOO.namespace('MojoCal');
         Event = YAHOO.util.Event,
         cal1,
         init_not_done = true,
-        java_date_format = '${dateFormatPattern}',
         over_cal = false,
         cur_field = '',
-        db_datetime_format = '<%=Constants.DATETIME_FORMAT%>',
-        db_date_format = '<%=Constants.DATE_FORMAT%>';
+        java_date_format = MDSS.DateSettings.java_date_format,
+        db_datetime_format = MDSS.DateSettings.db_datetime_format,
+        db_date_format = MDSS.DateSettings.db_date_format;
 
 
-      cfg = {DATE_FIELD_DELIMITER:'/',
-			DATE_RANGE_DELIMITER:'-',
-<%
-for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
-{
-  String str = key.toString();
-  int pos = aci.getRunLimit(key);
-  if(pos > 3) pos = 3;
-  if(str.contains("(day of month)"))
-  {
-    out.println("MDY_MONTH_POSITION:"+pos+",");
-  }
-  if(str.contains("(month)"))
-  {
-      out.println("MDY_DAY_POSITION:"+pos+",");
-  }
-  if(str.contains("(year)"))
-  {
-    out.println("MDY_YEAR_POSITION:"+pos+",");
-  }
-}
-%>      MONTHS_LONG:<%=months%>,
-        WEEKDAYS_SHORT:<%=short_days%>};
+      cfg = {DATE_FIELD_DELIMITER:MDSS.DateSettings.DATE_FIELD_DELIMITER,
+			DATE_RANGE_DELIMITER:MDSS.DateSettings.DATE_RANGE_DELIMITER,
+			MDY_DAY_POSITION:MDSS.DateSettings.MDY_DAY_POSITION,
+			MDY_MONTH_POSITION:MDSS.DateSettings.MDY_MONTH_POSITION,
+			MDY_YEAR_POSITION:MDSS.DateSettings.MDY_YEAR_POSITION,
+			MONTHS_LONG:MDSS.DateSettings.MONTHS_LONG,
+	        WEEKDAYS_SHORT:MDSS.DateSettings.WEEKDAYS_SHORT,
+      		};
 
     var setupListeners = function() {
         Event.addListener('cal1Container', 'mouseover', function() {

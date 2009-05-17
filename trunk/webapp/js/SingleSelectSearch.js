@@ -27,6 +27,11 @@ MDSS.SingleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearch,
   	}
   },
 
+  getSelectHandler : function()
+  {
+  	  return(this._selectHandler);
+  },
+
   /**
    * Invokes the appropriate controller action to
    * render the select search component.

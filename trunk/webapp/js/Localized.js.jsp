@@ -2,6 +2,62 @@
 <%@page import="java.util.ResourceBundle"%>
 <%@page import="org.apache.taglibs.standard.tag.common.fmt.BundleSupport"%>
 <%@page import="java.util.Enumeration"%>
+<%@page import="java.util.*"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.AttributedCharacterIterator"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="dss.vector.solutions.util.Halp" %>
+<%@page import="com.terraframe.mojo.constants.Constants" %>
+<%@page import="org.json.JSONArray"%>
+<%
+Locale locale = request.getLocale();
+DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+SimpleDateFormat formatter = (SimpleDateFormat)df;
+Date today = new Date();
+AttributedCharacterIterator aci = df.formatToCharacterIterator(today);
+
+List<String> month_list = new ArrayList<String>(Arrays.asList(formatter.getDateFormatSymbols().getMonths()));
+month_list.removeAll(Arrays.asList(""));
+JSONArray months = new JSONArray(month_list);
+
+List<String> day_list = new ArrayList<String>(Arrays.asList(formatter.getDateFormatSymbols().getShortWeekdays()));
+day_list.removeAll(Arrays.asList(""));
+JSONArray short_days = new JSONArray(day_list);
+request.setAttribute("dateFormatPattern" ,formatter.toPattern());
+
+%>
+var locale = "<%=request.getLocale().toString()%>";
+
+MDSS.DateSettings =
+{
+java_date_format:'${dateFormatPattern}',
+db_datetime_format:'<%=Constants.DATETIME_FORMAT%>',
+db_date_format:'<%=Constants.DATE_FORMAT%>',
+DATE_FIELD_DELIMITER:'/',
+DATE_RANGE_DELIMITER:'-',
+MONTHS_LONG:<%=months%>,
+WEEKDAYS_SHORT:<%=short_days%>}
+<%
+for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
+{
+  String str = key.toString();
+  int pos = aci.getRunLimit(key);
+  if(pos > 3) pos = 3;
+  if(str.contains("(day of month)"))
+  {
+    out.println("MDY_MONTH_POSITION:"+pos+",");
+  }
+  if(str.contains("(month)"))
+  {
+      out.println("MDY_DAY_POSITION:"+pos+",");
+  }
+  if(str.contains("(year)"))
+  {
+    out.println("MDY_YEAR_POSITION:"+pos+",");
+  }
+}
+%>
+}
 
 /**
  * Constants used for localization in javascript.
@@ -55,24 +111,6 @@ MDSS.Localized = {
     Hide: '<fmt:message key="Toggle_Hide" />'
   },
 
-  Select_Universal_Type: '<fmt:message key="Select_Universal_Type" />',
-
-  New_Universal_Located_In: '<fmt:message key="New_Universal_Located_In" />',
-
-  Search_Results: '<fmt:message key="Search_Results" />',
-
-  Add: '<fmt:message key="Add" />',
-
-  Submit: '<fmt:message key="Submit" />',
-
-  Cancel: '<fmt:message key="Cancel" />',
-
-  Update: '<fmt:message key="Update" />',
-
-  Available_Layers : '<fmt:message key="Available_Layers" />',
-
-  Defined_Layers: '<fmt:message key="Defined_Layers" />',
-
   Thematic:
   {
     Layer: '<fmt:message key="Thematic_Layer" />',
@@ -80,24 +118,6 @@ MDSS.Localized = {
     Edit_Variable_Styles: '<fmt:message key="Thematic_Edit_Variable_Styles" />'
   },
 
-  Target_Search: '<fmt:message key="Target_Search" />',
-
-  Age_Group: '<fmt:message key="Age_Group" />',
-  All_Ages: '<fmt:message key="All_Ages" />',
-
-  Remove_Column: '<fmt:message key="Remove_Column" />',
-
-  Aggregated_Case: '<fmt:message key="Aggregated_Case" />',
-
-  Treatment_out_of_Stock: '<fmt:message key="Treatment_out_of_Stock"/>',
-
-  Facility_referred: '<fmt:message key="Facility_referred"/>',
-
-  Diagnostic_methods: '<fmt:message key="Diagnostic_methods"/>',
-
-  Treatment_methods: '<fmt:message key="Treatment_methods"/>',
-
-  Treatments: '<fmt:message key="Treatments"/>'
 };
 
 
