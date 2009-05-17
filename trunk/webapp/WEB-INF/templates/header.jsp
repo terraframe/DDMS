@@ -13,12 +13,10 @@
 <jwr:style src="/bundles/mdssScreen.css"/>
 <jwr:style src="/bundles/mdssPrint.css" media="print"/>
 
-<script type="text/javascript">var locale = "<%=request.getLocale().toString()%>";</script>
 <jwr:script src="/bundles/yuiBundle.js"/>
 <jwr:script src="/bundles/Mojo.js"/>
 <script type="text/javascript" src="js/Localized.js.jsp"></script>
 <jwr:script src="/bundles/mdssBundle.js"/>
-<script type="text/javascript" src="js/addCalendarWidgets.js.jsp"></script>
 
 <c:choose>
   <c:when test='${window_title != null}'>
