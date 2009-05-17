@@ -36,7 +36,7 @@ db_date_format:'<%=Constants.DATE_FORMAT%>',
 DATE_FIELD_DELIMITER:'/',
 DATE_RANGE_DELIMITER:'-',
 MONTHS_LONG:<%=months%>,
-WEEKDAYS_SHORT:<%=short_days%>}
+WEEKDAYS_SHORT:<%=short_days%>,
 <%
 for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
 {
