@@ -77,9 +77,7 @@ LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) reque
       ${item.holdingTime}
 </mjl:dt>
   <mjl:dt attribute="insecticide">
-    <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="insecticide.form.link">
-      <mjl:property value="${item.insecticide.id}" name="id" />
-    </mjl:commandLink>
+   ${item.insecticide.displayLabel}
   </mjl:dt>
   <mjl:dt attribute="quantityTested">
       ${item.quantityTested}

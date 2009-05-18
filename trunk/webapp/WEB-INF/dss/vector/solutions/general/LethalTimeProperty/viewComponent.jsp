@@ -14,9 +14,7 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="dss.vector.solutions.general.Insecticide.form.view.link">
-        <mjl:property value="${item.insecticide.id}" name="id" />
-      </mjl:commandLink>
+      ${item.insecticide.displayLabel}
     </dd>
     <dt>
       <label>

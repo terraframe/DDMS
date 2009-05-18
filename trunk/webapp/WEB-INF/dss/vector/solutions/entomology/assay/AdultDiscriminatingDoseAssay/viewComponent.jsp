@@ -66,8 +66,8 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
         <mjl:property value="${item.identificationMethod.id}" name="id" />
       </mjl:commandLink>
     </mjl:dt>
-    <mjl:dt attribute="ageRange">      
-      <mjl:struct param="ageRange">        
+    <mjl:dt attribute="ageRange">
+      <mjl:struct param="ageRange">
         <mjl:dt attribute="startPoint">
           ${item.ageRange.startPoint}
         </mjl:dt>
@@ -93,9 +93,7 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
       ${item.holdingTime}
 </mjl:dt>
     <mjl:dt attribute="insecticide">
-      <mjl:commandLink display="${item.insecticide.displayLabel}" action="dss.vector.solutions.general.InsecticideController.view.mojo" name="insecticide.form.link">
-        <mjl:property value="${item.insecticide.id}" name="id" />
-      </mjl:commandLink>
+      ${item.insecticide.displayLabel}
     </mjl:dt>
     <mjl:dt attribute="quantityTested">
 
