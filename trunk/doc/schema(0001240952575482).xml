@@ -482,7 +482,7 @@
             type="dss.vector.solutions.irs.AreaStandards" />
           <virtual
             name="unitNozzleAreaCoverage"
-            concrete="household"
+            concrete="unitNozzleAreaCoverage"
             type="dss.vector.solutions.irs.AreaStandards" />
         </attributes>
         <mdMethod
