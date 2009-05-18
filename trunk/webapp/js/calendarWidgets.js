@@ -77,9 +77,17 @@ var MojoCal= YAHOO.namespace('MojoCal');
         var tar = Event.getTarget(ev);
         cur_field = tar;
         var xy = Dom.getXY(tar);
-
         var date_str = Dom.get(tar).value;
         var date =  var_to_date(date_str);
+
+        if(Dom.hasClass(tar ,'NoFuture'))
+        {
+        	cal1.cfg.setProperty('maxdate', new Date());
+        }
+        else
+        {
+        	cal1.cfg.setProperty('maxdate', null);
+        }
 
 
         if (date_str && (date != null)) {
@@ -95,17 +103,58 @@ var MojoCal= YAHOO.namespace('MojoCal');
         Dom.setXY('cal1Container', xy);
     }
 
-    var hideCal = function() {
+    var hideCal = function(ev) {
         if (!over_cal) {
             Dom.setStyle('cal1Container', 'display', 'none');
         }
+        validate(ev);
     }
 
-  /*
-	 * MojoCal.getConfig = function(){ return cfg; } ;
-	 *
-	 * MojoCal.getCal = function(){return cal;};
-	 */
+    var validate = function(ev) {
+        var tar = Event.getTarget(ev);
+        var date_str = Dom.get(tar).value;
+        var today = new Date();
+
+        //clear any errors before we move foward
+        removeError(tar);
+
+        if(date_str.length == 0)
+        {
+        	return;
+        }
+
+        var date = Date.parseString(date_str,java_date_format);
+
+        if (date_str.length > 0  && (date == null))
+        {
+        	addError(tar, MDSS.localize('Invalid_Date_Format'));
+        }
+
+        if(Dom.hasClass(tar ,'NoFuture') && date > today)
+        {
+        	addError(tar, MDSS.localize('Future_Dates_Not_Allowed'));
+        }
+
+    }
+
+	function addError(tar,errorMessage)
+	{
+		var errorInfo = document.createElement('span');
+	    errorInfo.id = tar.id +'errorInfo';
+	    errorInfo.innerHTML = ' '+ errorMessage;
+	    Dom.insertAfter(errorInfo,tar);
+		Dom.addClass(errorInfo,'alert');
+	}
+
+	function removeError(tar)
+	{
+		 var delMe = Dom.get(tar.id +'errorInfo');
+		 if(delMe)
+		 {
+			 var parent = delMe.parentNode;
+			 parent.removeChild(delMe);
+		 }
+	}
 
 
     var init = function() {
