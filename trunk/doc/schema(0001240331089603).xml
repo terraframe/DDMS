@@ -523,10 +523,11 @@
             label="Geo Entity"
             type="dss.vector.solutions.geo.generated.GeoEntity"
             required="true" />
-          <integer
-            name="targetYear"
+          <reference
+            name="season"
             label="Season"
-            description="The Year (Season) to set targets for"
+            description="The Season to set targets for"
+            type="dss.vector.solutions.general.MalariaSeason"
             required="true" />
           <integer
             name="target_0"
@@ -731,9 +732,9 @@
             type="dss.vector.solutions.geo.generated.GeoEntity"
             concrete="entityName" />
           <virtual
-            name="targetYear"
+            name="season"
             type="dss.vector.solutions.irs.GeoTarget"
-            concrete="targetYear" />
+            concrete="season" />
           <virtual
             concrete="target_0"
             name="target_0"

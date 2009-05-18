@@ -18,11 +18,11 @@
               order="0"
               type="java.lang.String[]" />
             <mdParameter
-              name="targetYear"
-              label="targetYear"
+              name="season"
+              label="Target Season"
               description="The year to get targets for"
               order="1"
-              type="java.lang.Integer" />
+              type="dss.vector.solutions.general.MalariaSeason" />
           </mdMethod>
         </create>
       </mdView>

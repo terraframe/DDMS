@@ -12,8 +12,8 @@
         name="dss.vector.solutions.irs.GeoTarget">
         <create>
         <mdMethod
-          name="findByGeoEntityIdAndYear"
-          label="findByGeoEntityIdAndYear"
+          name="findByGeoEntityIdAndSeason"
+          label="findByGeoEntityIdAndSeason"
           static="true"
           returnType="dss.vector.solutions.irs.GeoTargetView">
           <mdParameter
@@ -22,11 +22,11 @@
             order="0"
             type="java.lang.String"/>
           <mdParameter
-            name="targetYear"
-            label="targetYear"
+            name="season"
+            label="season"
             description="The Year (Season) to target "
             order="1"
-            type="java.lang.Integer"/>
+            type="dss.vector.solutions.general.MalariaSeason"/>
         </mdMethod>
         </create>
       </mdBusiness>
@@ -43,11 +43,11 @@
               order="0"
               type="dss.vector.solutions.geo.generated.GeoEntity"/>
             <mdParameter
-              name="targetYear"
-              label="Target Year"
-              description="The Year (Season) to set targets for"
+              name="season"
+              label="Target Season"
+              description="The Season (year) to set targets for"
               order="1"
-              type="java.lang.Integer"/>
+              type="dss.vector.solutions.general.MalariaSeason"/>
             <mdParameter
               name="showChildren"
               label="Show Children"
