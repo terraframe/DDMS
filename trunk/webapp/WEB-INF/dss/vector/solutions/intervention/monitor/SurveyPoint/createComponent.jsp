@@ -21,19 +21,16 @@
     function selectHandler(selected)
     {
       var geoId = document.getElementById('geoIdEl');
-      var geoEntityId = document.getElementById('geoEntityId');
       var geoEntityName = document.getElementById('entityName');
 
       if(selected != null)
       {
         geoId.value = selected.getGeoId();
-        geoEntityId.value = selected.getGeoEntityId();
         geoEntityName.innerHTML = selected.getEntityName();// +':'+ selected.getType() ;
       }
       else
       {
         geoId.value = '';
-        geoEntityId.value = '';
         geoEntityName.innerHTML = '';
       }
     }
@@ -75,35 +72,21 @@
 
 </script>
 
+<mjl:messages>
+  <mjl:message />
+</mjl:messages>
+
 <%
   request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 %>
 
-<mjl:messages>
-  <mjl:message />
-</mjl:messages>
 <mjl:form name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.name" id="surveyPointForm" method="POST">
-  <mjl:component item="${item}" param="dto">
-    <dl>
-      <dt><fmt:message key="Filter"/></dt>
-      <dd>
-      <input type="radio" name="filterType" value="" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
-      <input type="radio" name="filterType" value="${SentinelSiteClass}" />&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp;
-      </dd>
-      <mjl:dt attribute="geoEntity">
-        <mjl:input id="geoIdEl" param="none" type="text" maxlength="16"/><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a>
-        <mjl:input id="geoEntityId" param="geoEntity" type="hidden" />
-        <br/>(<span id ="entityName"></span>)
-
-</mjl:dt>
-      <mjl:dt attribute="surveyDate">
-        <mjl:input param="surveyDate" type="text" classes="DatePick" id="surveyDate"/>
-
-</mjl:dt>
-    </dl>
-  </mjl:component>
-  <mjl:command value="Create" action="dss.vector.solutions.intervention.monitor.SurveyPointController.create.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.create.button" />
+  <dl>
+    <%@ include file="form.jsp"%>
+  
+    <mjl:command value="Create" action="dss.vector.solutions.intervention.monitor.SurveyPointController.create.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.create.button" />
+  </dl>
 </mjl:form>
 
 <div id="cal1Container" class="yui-skin-sam"></div>

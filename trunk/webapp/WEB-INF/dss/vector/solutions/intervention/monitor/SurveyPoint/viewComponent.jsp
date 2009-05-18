@@ -6,38 +6,29 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.name" id="dss.vector.solutions.intervention.monitor.SurveyPoint.form.id" method="POST">
-  <mjl:input value="${item.id}" type="hidden" param="id" />
+  <mjl:input value="${item.concreteId}" type="hidden" param="id" />
   <dl>
-        <dt>
+    <dt>
       <label>
-        ${item.geoEntityMd.displayLabel}
+        ${item.geoIdMd.displayLabel}
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.geoEntity.geoId} (${item.geoEntity.entityName})" action="dss.vector.solutions.geo.generated.GeoEntityController.view.mojo" name="dss.vector.solutions.geo.generated.GeoEntity.form.view.link">
-        <mjl:property value="${item.geoEntity.id}" name="id" />
-      </mjl:commandLink>
+      ${item.geoId}
     </dd>
-    <dt><label> ${item.surveyDateMd.displayLabel} </label></dt>
+    <dt>
+      <label> ${item.surveyDateMd.displayLabel} </label>
+    </dt>
     <dd class="formatDate">${item.surveyDate}</dd>
+    <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.SurveyPointController.edit.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.edit.button" />
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.SurveyPointController.edit.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.edit.button" />
   <br />
 </mjl:form>
-
-
 
 <dl>
   <dt><fmt:message key="Households" /></dt>
   <dd>
   <table class="displayTable">
-  <%--
-  <tr>
-      <th>HouseHold Name</th>
-      <th>HouseHold Type</th>
-      <th>Rooms</th>
-    </tr>
-  --%>
     <c:forEach items="${households}" var="current" varStatus="status">
       <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
         <td>${current.householdName}</td>
@@ -49,7 +40,7 @@
   </table>
   </dd>
   <mjl:commandLink display="Add a household" action="dss.vector.solutions.intervention.monitor.HouseholdController.newInstance.mojo" name="Household.newInstance.link">
-    <mjl:property name="surveyId" value="${item.id}" />
+    <mjl:property name="surveyId" value="${item.concreteId}" />
   </mjl:commandLink>
 </dl>
 

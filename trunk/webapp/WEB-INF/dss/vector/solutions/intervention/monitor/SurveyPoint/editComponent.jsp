@@ -40,17 +40,14 @@
        function selectHandler(selected)
        {
          var geoId = document.getElementById('geoIdEl');
-         var geoEntityId = document.getElementById('geoEntityId');
 
          if(selected != null)
          {
            geoId.value = selected.getGeoId();
-           geoEntityId.value = selected.getGeoEntityId();
          }
          else
          {
            geoId.value = '';
-           geoEntityId.value = '';
          }
        }
 
@@ -66,25 +63,10 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.name" id="SurveyPoint.form.id" method="POST">
-  <mjl:component item="${item}" param="dto">
-    <dl>
-      <dt> Filter </dt>
-      <dd>
-        <input type="radio" name="filterType" value="" checked="checked" />All  &nbsp;&nbsp;&nbsp;
-        <input type="radio" name="filterType" value="${SentinelSiteClass}" />Sentinel Site &nbsp;&nbsp;&nbsp;
-      </dd>
-      <mjl:dt attribute="geoEntity">
-        <mjl:input id="geoIdEl" param="none" type="text" maxlength="16" value="${item.geoEntity.geoId}" /><a href="#" id="searchOpener"><img src="./imgs/icons/world.png"/></a>
-        <mjl:input id="geoEntityId" param="geoEntity" type="hidden" value="${item.geoEntity.id}" />
-        
-</mjl:dt>
-      <mjl:dt attribute="surveyDate">
-        <mjl:input param="surveyDate" type="text" classes="DatePick" id="surveyDate" />
-        
-</mjl:dt>
-    </dl>
-  </mjl:component>
-  <mjl:command value="Update" action="dss.vector.solutions.intervention.monitor.SurveyPointController.update.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.update.button" />
-  <mjl:command value="Delete" action="dss.vector.solutions.intervention.monitor.SurveyPointController.delete.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.delete.button" />
-  <mjl:command value="Cancel" action="dss.vector.solutions.intervention.monitor.SurveyPointController.cancel.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.cancel.button" />
+  <dl>
+    <%@ include file="form.jsp"%>
+    <mjl:command value="Update" action="dss.vector.solutions.intervention.monitor.SurveyPointController.update.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.update.button" />
+    <mjl:command value="Delete" action="dss.vector.solutions.intervention.monitor.SurveyPointController.delete.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.delete.button" />
+    <mjl:command value="Cancel" action="dss.vector.solutions.intervention.monitor.SurveyPointController.cancel.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.cancel.button" />
+  </dl>
 </mjl:form>
