@@ -148,141 +148,138 @@ for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
       }
     });
 
+    //selectSearch.initialize();
 
-selectSearch.initialize();
-
-var div = document.getElementById('geoIdEl'+'_results');
-var panel = new YAHOO.widget.Panel(div, {
-  width:'400px',
-  height:'200px',
-  zindex:15,
-  draggable: false,
-  close: true
-});
+    var div = document.getElementById('geoIdEl'+'_results');
+    var panel = new YAHOO.widget.Panel(div, {
+      width:'400px',
+      height:'200px',
+      zindex:15,
+      draggable: false,
+      close: true
+    });
 
 
-/**
- * Performs an ajax search based on the entity
- * name and type.
- */
-ajaxSearch =  function(e)
-{
-  var input = document.getElementById('geoIdEl');
-  var value = input.value;
-  var type = selectSearch._filterType;
-  var resultPanel = panel; //document.getElementById('geoIdEl'+'_results');
-
-  // must have at least 2 characters ready
-  if(value.length < 2)
-  {
-    return;
-  }
-
-  var request = new MDSS.Request({
-    resultPanel: resultPanel,
-    searchValue: value,
-    selectHandler: selectHandler,
-    input: input,
-    searchRef: this,
-    type: type,
-    // don't paint a loading bar. It's too slow for this
-    // type of call
-    onSend: function(){},
-    onComplete: function(){},
-    onSuccess: function(query)
+    /**
+     * Performs an ajax search based on the entity
+     * name and type.
+     */
+    ajaxSearch =  function(e)
     {
-      var resultSet = query.getResultSet();
+      var input = document.getElementById('geoIdEl');
+      var value = input.value;
+      var type = selectSearch._filterType;
+      var resultPanel = panel; //document.getElementById('geoIdEl'+'_results');
 
-      var outer = document.createElement('div');
-
-      var header = document.createElement('div');
-      header.innerHTML = '<h3>'+MDSS.Localized.Search_Results+'</h3><hr />';
-      outer.appendChild(header);
-
-      var inner = document.createElement('div');
-      YAHOO.util.Dom.addClass(inner, 'entitySearchResults');
-      outer.appendChild(inner);
-
-      var ul = document.createElement('ul');
-      YAHOO.util.Dom.addClass(ul, 'selectableList')
-      YAHOO.util.Event.on(ul, 'mouseover', function(e, obj){
-
-        var li = e.target;
-        var ul = e.currentTarget;
-        if(li.nodeName === 'SPAN')
-        {
-          li = li.parentNode;
-        }
-
-        if(li.nodeName !== 'LI')
-        {
-          return;
-        }
-
-        // clear all lis of their current class
-        var lis = YAHOO.util.Selector.query('li.currentSelection', ul);
-        for(var i=0; i<lis.length; i++)
-        {
-          YAHOO.util.Dom.removeClass(lis[i], 'currentSelection');
-        }
-
-        YAHOO.util.Dom.addClass(li, 'currentSelection');
-      });
-
-      YAHOO.util.Event.on(ul, 'click', function(e, obj){
-
-        var li = e.target;
-        var ul = e.currentTarget;
-        if(li.nodeName === 'SPAN')
-        {
-          li = li.parentNode;
-        }
-
-        if(li.nodeName !== 'LI')
-        {
-          return;
-        }
-
-        var geoEntityId = li.id;
-        resultPanel.hide();
-        selectHandler(geoEntityId);
-
-      }, {input: this.input, panel: this.resultPanel}, this.searchRef);
-
-      var idAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ID;
-      var entityNameAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME;
-      var geoIdAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.GEOID;
-      for(var i=0; i<resultSet.length; i++)
+      // must have at least 2 characters ready
+      if(value.length < 2)
       {
-        var valueObj = resultSet[i];
-
-        var li = document.createElement('li');
-        li.id = valueObj.getValue(idAttr);
-        var displayStr = valueObj.getValue(entityNameAttr) + ' - ' + valueObj.getValue(geoIdAttr) ;
-        var matched = displayStr.replace(new RegExp("(.*?)("+this.searchValue+")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
-        li.innerHTML = matched;
-
-        ul.appendChild(li);
+        return;
       }
 
-      inner.appendChild(ul);
+      var request = new MDSS.Request({
+        resultPanel: resultPanel,
+        searchValue: value,
+        selectHandler: selectHandler,
+        input: input,
+        searchRef: this,
+        type: type,
+        // don't paint a loading bar. It's too slow for this
+        // type of call
+        onSend: function(){},
+        onComplete: function(){},
+        onSuccess: function(query)
+        {
+          var resultSet = query.getResultSet();
 
-      this.resultPanel.setBody(outer);
-      this.resultPanel.render();
-      this.resultPanel.show();
-      this.resultPanel.bringToTop();
+          var outer = document.createElement('div');
 
-      // refocus the input field
-      this.input.focus();
+          var header = document.createElement('div');
+          header.innerHTML = '<h3>'+MDSS.Localized.Search_Results+'</h3><hr />';
+          outer.appendChild(header);
+
+          var inner = document.createElement('div');
+          YAHOO.util.Dom.addClass(inner, 'entitySearchResults');
+          outer.appendChild(inner);
+
+          var ul = document.createElement('ul');
+          YAHOO.util.Dom.addClass(ul, 'selectableList')
+          YAHOO.util.Event.on(ul, 'mouseover', function(e, obj){
+
+            var li = e.target;
+            var ul = e.currentTarget;
+            if(li.nodeName === 'SPAN')
+            {
+              li = li.parentNode;
+            }
+
+            if(li.nodeName !== 'LI')
+            {
+              return;
+            }
+
+            // clear all lis of their current class
+            var lis = YAHOO.util.Selector.query('li.currentSelection', ul);
+            for(var i=0; i<lis.length; i++)
+            {
+              YAHOO.util.Dom.removeClass(lis[i], 'currentSelection');
+            }
+
+            YAHOO.util.Dom.addClass(li, 'currentSelection');
+          });
+
+          YAHOO.util.Event.on(ul, 'click', function(e, obj){
+
+            var li = e.target;
+            var ul = e.currentTarget;
+            if(li.nodeName === 'SPAN')
+            {
+              li = li.parentNode;
+            }
+
+            if(li.nodeName !== 'LI')
+            {
+              return;
+            }
+
+            var geoEntityId = li.id;
+            resultPanel.hide();
+            selectHandler(geoEntityId);
+
+          }, {input: this.input, panel: this.resultPanel}, this.searchRef);
+
+          var idAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ID;
+          var entityNameAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME;
+          var geoIdAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.GEOID;
+          for(var i=0; i<resultSet.length; i++)
+          {
+            var valueObj = resultSet[i];
+
+            var li = document.createElement('li');
+            li.id = valueObj.getValue(idAttr);
+            var displayStr = valueObj.getValue(entityNameAttr) + ' - ' + valueObj.getValue(geoIdAttr) ;
+            var matched = displayStr.replace(new RegExp("(.*?)("+this.searchValue+")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
+            li.innerHTML = matched;
+
+            ul.appendChild(li);
+          }
+
+          inner.appendChild(ul);
+
+          this.resultPanel.setBody(outer);
+          this.resultPanel.render();
+          this.resultPanel.show();
+          this.resultPanel.bringToTop();
+
+          // refocus the input field
+          this.input.focus();
+        }
+      });
+
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type, value);
     }
-  });
 
-  Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type, value);
-}
-
-YAHOO.util.Event.on(geoInput, 'keyup', ajaxSearch, null, null);
-
-
+    YAHOO.util.Event.on(geoInput, 'keyup', ajaxSearch, null, null);
 }
 
 
