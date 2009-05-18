@@ -44,7 +44,8 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
 
    if(thematicLayer.getViewCreated().booleanValue())
    {
-     Database.dropView(viewName, sql);
+     //FIXME Ask nathan or naifeh what the boolean parameter
+     Database.dropView(viewName, sql, false);
    }
 
    Database.createView(viewName, sql);
