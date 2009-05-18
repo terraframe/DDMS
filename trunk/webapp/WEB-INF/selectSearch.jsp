@@ -147,7 +147,6 @@ for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
 
       }
     });
-}
 
 
 selectSearch.initialize();
@@ -282,6 +281,9 @@ ajaxSearch =  function(e)
 }
 
 YAHOO.util.Event.on(geoInput, 'keyup', ajaxSearch, null, null);
+
+
+}
 
 
 },null,null);
