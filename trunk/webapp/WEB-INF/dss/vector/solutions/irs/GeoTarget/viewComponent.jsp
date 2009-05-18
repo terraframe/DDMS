@@ -32,11 +32,11 @@
     </dd>
     <dt>
       <label>
-        ${item.targetYearMd.displayLabel}
+        ${item.seasonMd.displayLabel}
       </label>
     </dt>
     <dd>
-      ${item.targetYear}
+      ${item.season.seasonName}
     </dd>
   </dl>
 <br/>
@@ -76,7 +76,7 @@
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 GeoTargetViewDTO[] rows = (GeoTargetViewDTO[]) request.getAttribute("geoTargetViews");
-String[] attribs = {"TargetId","GeoEntity","EntityName","TargetYear"};
+String[] attribs = {"TargetId","GeoEntity","EntityName","Season"};
 GeoTargetViewDTO mdView = new GeoTargetViewDTO(clientRequest);
 GeoTargetDTO item = (GeoTargetDTO) request.getAttribute("item");
 
@@ -88,13 +88,13 @@ String[] types_to_load ={"dss.vector.solutions.irs.GeoTargetView"};
 String colConfig = "{key:'TargetId',label:'TargetId',hidden:true}";
 colConfig += "\n,{key:'GeoEntity',label:'" + item.getGeoEntityMd().getDisplayLabel() + "',hidden:true}";
 colConfig += "\n,{key:'EntityName',label:'" + item.getGeoEntityMd().getDisplayLabel() + "',resizeable:true}";
-colConfig += "\n,{key:'TargetYear',label:'Year',hidden:true}";
+colConfig += "\n,{key:'Season',label:'Season',hidden:true}";
 
 Date epiStart = PropertyDTO.getDate(clientRequest,PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START);
 
 for(int i = 0;i<=52;i++)
 {
-    EpiWeek  epiWeek = new EpiWeek(i,item.getTargetYear(),epiStart);
+    EpiWeek  epiWeek = new EpiWeek(i,item.getSeason().getStartDate().getYear(),epiStart);
     String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
     String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
 

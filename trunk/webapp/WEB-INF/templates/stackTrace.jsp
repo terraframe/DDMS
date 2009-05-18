@@ -58,7 +58,8 @@
 
 
   out.print(exception.getClass().getName() + "<br/>");
-
+try
+{
   if (exception.getClass().getName().contains("RuntimeException"))
   {
     out.println("<h2>Cause:</h2>");
@@ -68,6 +69,10 @@
     exception.getCause().printStackTrace(pw);
     out.println("</pre><br/><br/><br/>");
   }
+}
+catch(Exception e)
+{out.println(e.getStackTrace());}
+
 
   out.println("<pre>");
   out.print(exception.getLocalizedMessage());

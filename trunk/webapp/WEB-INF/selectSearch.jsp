@@ -53,6 +53,7 @@ for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
     {
 
       var geoId = document.getElementById('geoIdEl');
+      var geoEntityId = document.getElementById('geoEntityId');
 
       if(selected != null)
       {
@@ -60,6 +61,9 @@ for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
     	if(typeof selected == 'string'){
           var request = new MDSS.Request({
               selectHandler: this,
+              onSend: function(){},
+              onComplete: function(){},
+              onFailure: function(){},
               onSuccess : function(result){
                 selectHandler(result);
             }
@@ -72,6 +76,7 @@ for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
         {
             YAHOO.util.Dom.removeClass(geoInfo,'alert');
             geoId.value = selected.getGeoId();
+            if(geoEntityId) geoEntityId.value = selected.getGeoEntityId();
             geoInfo.innerHTML = selected.getEntityName() + ' (' + selected.getTypeDisplayLabel()+ ')';
         }
         else
@@ -79,6 +84,7 @@ for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
             YAHOO.util.Dom.addClass(geoInfo,'alert');
             geoId.value = '';
             geoInfo.innerHTML = selected.getEntityName() + ' (' + selected.getTypeDisplayLabel()+ ') is not a valid Geo Entity Type for this Field';
+            if(geoEntityId) geoEntityId.value = selected.getGeoEntityId();
         }
       }
       else
@@ -86,6 +92,7 @@ for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
         YAHOO.util.Dom.removeClass(geoInfo,'alert');
         geoInput.value = '';
         geoInfo.innerHTML = '';
+        if(geoEntityId) geoEntityId.value ='';
       }
     }
 
@@ -96,15 +103,19 @@ for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
 
       var request = new MDSS.Request({
           selectHandler: this,
+          onSend: function(){},
+          onComplete: function(){},
+          onFailure: function(){},
           onSuccess : function(result){
             selectHandler(result);
         }
       });
+
       Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getViewByGeoId(request, geoId.value);
 
     }
 
-    YAHOO.util.Event.on(geoInput, 'change', checkManualEntry, null, null);
+    YAHOO.util.Event.on(geoInput, 'blur', checkManualEntry, null, null);
 
     var selectSearch = new MDSS.SingleSelectSearch();
     selectSearch.setSelectHandler(selectHandler);

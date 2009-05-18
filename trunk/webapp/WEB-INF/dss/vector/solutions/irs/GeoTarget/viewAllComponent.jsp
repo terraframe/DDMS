@@ -54,7 +54,9 @@
       <input type="radio" name="filterType" value="${SprayZoneClass}" class="filterType"/>&nbsp;<fmt:message key="SprayZone"/>
     </dd>
     <dt> <label><fmt:message key="Geo_Id"/></label></dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/></dd>
+    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/>
+    <mjl:input id="geoEntityId" param="geoEntity.componentId" type="hidden" />
+    </dd>
     <dd>
       <input type="radio" name="showChildren" value="true" checked="checked" />&nbsp;<fmt:message key="Edit_All_Children"/>  &nbsp;&nbsp;&nbsp;
       <input type="radio" name="showChildren" value="false" />&nbsp;<fmt:message key="Edit_Only_Selected"/> &nbsp;&nbsp;&nbsp;
