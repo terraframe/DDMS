@@ -14,9 +14,12 @@ import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.query.AND;
+import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.GeneratedViewQuery;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.ValueQuery;
@@ -37,8 +40,7 @@ import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
 
-public abstract class GeoEntity extends GeoEntityBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234288139462L;
 
@@ -159,17 +161,50 @@ public abstract class GeoEntity extends GeoEntityBase implements
     GeoEntityQuery q = new GeoEntityQuery(f);
     ValueQuery valueQuery = new ValueQuery(f);
 
-    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID),
-        q.getEntityName(GeoEntity.ENTITYNAME) };
+    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME) };
     valueQuery.SELECT(selectables);
 
     valueQuery.WHERE(q.getType().EQ(type));
 
-    String searchable = name+"%";
+    String searchable = name + "%";
     valueQuery.WHERE(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable));
 
     // FIXME how to limit result set?
 
+    return valueQuery;
+  }
+
+  /**
+   * Searches for a GeoEntity based on the entity name and type.
+   *
+   * @param type
+   * @param name
+   * @return
+   */
+  public static ValueQuery searchByEntityNameOrGeoId(String type, String name)
+  {
+    QueryFactory f = new QueryFactory();
+    GeoEntityQuery q = new GeoEntityQuery(f);
+    ValueQuery valueQuery = new ValueQuery(f);
+
+    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID) };
+    valueQuery.SELECT(selectables);
+
+    String searchable = name + "%";
+
+    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
+
+    if (type != null && type.length() > 0)
+    {
+      Condition and = AND.get(or, q.getType().EQ(type));
+      valueQuery.WHERE(and);
+    }
+    else
+    {
+      valueQuery.WHERE(or);
+    }
+
+    // FIXME how to limit result set?
     return valueQuery;
   }
 
@@ -308,7 +343,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
     List<GeoEntityView> finalList = new LinkedList<GeoEntityView>();
 
     Set<String> filteredTypes = null;
-    if(filter != null && filter.trim().length() > 0)
+    if (filter != null && filter.trim().length() > 0)
     {
       String types[] = filteredTypes(filter);
       filteredTypes = new HashSet<String>(Arrays.asList(types));
@@ -316,7 +351,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     for (GeoEntity geoEntity : collected)
     {
-      if(filteredTypes != null && !filteredTypes.contains(geoEntity.getType()))
+      if (filteredTypes != null && !filteredTypes.contains(geoEntity.getType()))
       {
         continue;
       }
@@ -338,6 +373,17 @@ public abstract class GeoEntity extends GeoEntityBase implements
   public static GeoEntityView getView(String id)
   {
     return GeoEntity.get(id).getViewFromGeoEntity();
+  }
+
+  /**
+   * Converts a GeoEntity id into a view representation.
+   *
+   * @return
+   */
+
+  public static GeoEntityView getViewByGeoId(String id)
+  {
+    return  GeoEntity.searchByGeoId(id).getViewFromGeoEntity();
   }
 
   /**
@@ -399,10 +445,10 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   /**
    * Recursively collects all child ids with the {@link LocatedIn} relationship.
+   *
    * @param filter
-   *    Return only children with this class
-   * @return
-   *    Array of child Ids sorted by name
+   *          Return only children with this class
+   * @return Array of child Ids sorted by name
    */
   public String[] getAllChildIds(String filter)
   {
@@ -412,11 +458,11 @@ public abstract class GeoEntity extends GeoEntityBase implements
     Collections.sort(children, new GeoEntitySorter());
     for (GeoEntity child : children)
     {
-        //if the filter is null we will just add all children
-        if(filter == null || child.getClass().getName().equals(filter))
-        {
-            geoEntityIdList.add(child.getId());
-        }
+      // if the filter is null we will just add all children
+      if (filter == null || child.getClass().getName().equals(filter))
+      {
+        geoEntityIdList.add(child.getId());
+      }
     }
 
     return geoEntityIdList.toArray(new String[geoEntityIdList.size()]);
@@ -530,7 +576,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
    * cannot be deactivated. All other cases are allowed.
    *
    * @param activated
-   *            The active status of the parent.
+   *          The active status of the parent.
    * @return
    */
   private boolean eligibleForActiveChange(boolean activated)
@@ -615,8 +661,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
         String childDL = this.getEntityName();
         String parentDL = parent.getEntityName();
 
-        String error = "The child [" + childDL + "] is already located in the parent [" + parentDL
-            + "].";
+        String error = "The child [" + childDL + "] is already located in the parent [" + parentDL + "].";
         DuplicateParentException e = new DuplicateParentException(error);
         e.setChildEntityName(childDL);
         e.setParentEntityName(parentDL);
@@ -797,8 +842,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
       vQuery.WHERE(this.locatedInQuery.parentId().EQ(geoEntity.getId()));
       vQuery.WHERE(this.geoEntityQuery.locatedInGeoEntity(this.locatedInQuery));
 
-      vQuery.WHERE(F.CONCAT(mdBusinessQuery.getPackageName(),
-          F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
+      vQuery.WHERE(F.CONCAT(mdBusinessQuery.getPackageName(), F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
 
       // filter by type if possible (and all of type's child subclasses)
       if (filter != null && filter.trim().length() > 0)

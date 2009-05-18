@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -27,7 +28,7 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
     }
 
     target.setGeoEntity(this.getGeoEntity());
-    target.setTargetYear(this.getTargetYear());
+    target.setSeason(this.getSeason());
 
     for (int i = 0; i < 53; i++)
     {
@@ -160,6 +161,7 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
     return newView;
   }
 
+  /*
   @Transaction
   public static GeoTargetView[] getGeoTargets(GeoEntity[] geoEntities,Integer year)
   {
@@ -167,20 +169,21 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
 
     for(int i = 0; i < geoEntities.length; i++)
     {
-      views[i] = GeoTarget.findByGeoEntityAndYear(geoEntities[i],year);
+      views[i] = GeoTarget.findByGeoEntityAndSeason(geoEntities[i],year);
     }
 
     return views;
   }
+  */
 
   @Transaction
-  public static GeoTargetView[] getGeoTargets(String[] geoEntityIds,Integer year)
+  public static GeoTargetView[] getGeoTargets(String[] geoEntityIds, MalariaSeason season)
   {
     GeoTargetView[] views = new GeoTargetView[geoEntityIds.length];
 
     for(int i = 0; i < geoEntityIds.length; i++)
     {
-      views[i] = GeoTarget.findByGeoEntityIdAndYear(geoEntityIds[i],year);
+      views[i] = GeoTarget.findByGeoEntityIdAndSeason(geoEntityIds[i],season);
     }
 
     return views;

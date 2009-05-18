@@ -17,7 +17,7 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.viewAll();
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
@@ -86,7 +86,7 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
   public void cancel(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
-    this.view(dto.getId());
+    this.viewAll();
   }
   public void failCancel(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -97,7 +97,7 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.viewAll();
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {

@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.geo.generated.DistrictDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.geo.generated.ProvinceDTO;
 import dss.vector.solutions.geo.generated.SprayZoneDTO;
+import dss.vector.solutions.mo.CollectionMethodDTO;
 
 public class GeoTargetController extends GeoTargetControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -23,7 +26,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements com.
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void view(GeoEntityDTO geoEntinty, Integer year, Boolean showChildren) throws java.io.IOException, javax.servlet.ServletException
+  public void view(GeoEntityDTO geoEntinty, MalariaSeasonDTO season, Boolean showChildren) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
 
@@ -46,11 +49,11 @@ public class GeoTargetController extends GeoTargetControllerBase implements com.
     }
 
     geoEntityIds.add(geoEntinty.getId());
-    item.setTargetYear(year.intValue());
+    item.setSeason(season);
     item.setGeoEntity(geoEntinty);
     // item.apply();
 
-    GeoTargetViewDTO[] geoTargetViews = GeoTargetViewDTO.getGeoTargets(clientRequest,(String[])geoEntityIds.toArray(new String[geoEntityIds.size()]), year);
+    GeoTargetViewDTO[] geoTargetViews = GeoTargetViewDTO.getGeoTargets(clientRequest,(String[])geoEntityIds.toArray(new String[geoEntityIds.size()]), season);
     // geoTargetViews = GeoTargetViewDTO.lockAll(clientRequest,geoTargetViews);
 
     req.setAttribute("item", item);
@@ -66,6 +69,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements com.
 
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
+    req.setAttribute("seasons", MalariaSeasonDTO.getAllInstances(super.getClientSession().getRequest(), "endDate", true, 0, 0).getResultSet());
     render("viewAllComponent.jsp");
   }
 

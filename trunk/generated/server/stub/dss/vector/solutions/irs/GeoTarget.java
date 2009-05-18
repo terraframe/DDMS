@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -21,7 +22,7 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
     GeoTargetView view = new GeoTargetView();
     view.setGeoEntity(this.getGeoEntity());
     view.setEntityName(this.getGeoEntity().getEntityName());
-    view.setTargetYear(this.getTargetYear());
+    view.setSeason(this.getSeason());
     view.setTargetId(this.getId());
 
     for (int i = 0; i < 53; i++)
@@ -76,6 +77,7 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
       it.close();
     }
   }
+  /*
   public static GeoTargetView findByGeoEntityAndYear(GeoEntity resource, Integer year)
   {
     GeoTargetQuery query = new GeoTargetQuery(new QueryFactory());
@@ -104,12 +106,12 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
     {
       it.close();
     }
-  }
-  public static GeoTargetView findByGeoEntityIdAndYear(String resource, Integer year)
+  }*/
+  public static GeoTargetView findByGeoEntityIdAndSeason(String resource, MalariaSeason season)
   {
     GeoTargetQuery query = new GeoTargetQuery(new QueryFactory());
     query.WHERE(query.getGeoEntity().getId().EQ(resource));
-    query.AND(query.getTargetYear().EQ(year));
+    query.AND(query.getSeason().EQ(season));
 
     OIterator<? extends GeoTarget> it = query.getIterator();
 
@@ -125,7 +127,7 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
         GeoEntity ge = GeoEntity.get(resource);
         view.setGeoEntity(ge);
         view.setEntityName(ge.getEntityName());
-        view.setTargetYear(year);
+        view.setSeason(season);
         return view;
       }
     }
