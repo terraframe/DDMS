@@ -1,17 +1,14 @@
 package dss.vector.solutions.irs;
 
-import java.lang.String;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.geo.generated.DistrictDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.geo.generated.ProvinceDTO;
 import dss.vector.solutions.geo.generated.SprayZoneDTO;
-import dss.vector.solutions.mo.CollectionMethodDTO;
 
 public class GeoTargetController extends GeoTargetControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
