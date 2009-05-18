@@ -7,13 +7,6 @@ import java.util.List;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.entomology.assay.EfficacyAssayBase;
-import dss.vector.solutions.entomology.assay.EfficacyAssayQuery;
-
-import dss.vector.solutions.entomology.assay.AdultAgeRangeValidator;
-import dss.vector.solutions.entomology.assay.FedValidator;
-import dss.vector.solutions.entomology.assay.GravidValidator;
-import dss.vector.solutions.entomology.assay.QuantityDeadValidator;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -91,7 +84,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
     QueryFactory factory = new QueryFactory();
     EfficacyAssayQuery query = new EfficacyAssayQuery(factory);
 
-    query.WHERE(query.getGeoEntity().getId().EQ(geoEntity.getId()));
+    query.WHERE(query.getGeoEntity().EQ(geoEntity));
     query.AND(query.getTestDate().EQ(collectionDate));
 
     OIterator<? extends EfficacyAssay> iterator = query.getIterator();
@@ -133,4 +126,34 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
 
     return calculateMortality(dead, total);
   }
+  
+  public EfficacyAssayView lockView()
+  {
+    this.lock();
+    
+    return this.getView();
+  }
+  
+  public EfficacyAssayView unlockView()
+  {
+    this.unlock();
+    
+    return this.getView();
+  }
+  
+  public EfficacyAssayView getView()
+  {
+    EfficacyAssayView view = new EfficacyAssayView();
+    
+    view.populateView(this);
+    
+    return view;
+  }
+
+  
+  public static EfficacyAssayView getView(String id)
+  {
+    return EfficacyAssay.get(id).getView();
+  }
+
 }

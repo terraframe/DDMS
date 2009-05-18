@@ -1,6 +1,7 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 
@@ -23,7 +24,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void update(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -44,7 +45,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     }
   }
 
-  public void failUpdate(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     EarthDTO earth = EarthDTO.getEarthInstance(super.getClientSession().getRequest());
 
@@ -67,7 +68,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     resp.sendError(500);
   }
 
-  public void create(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -88,7 +89,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     }
   }
 
-  public void failCreate(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     EarthDTO earth = EarthDTO.getEarthInstance(super.getClientSession().getRequest());
 
@@ -101,11 +102,8 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
+    SurveyPointViewDTO dto = new SurveyPointViewDTO(clientRequest);
 
-    SurveyPointDTO dto = new SurveyPointDTO(clientRequest);
-    EarthDTO earth = EarthDTO.getEarthInstance(super.getClientSession().getRequest());
-
-    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Survey Point");
     render("createComponent.jsp");
@@ -117,21 +115,21 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
   
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    view(SurveyPointDTO.get(super.getClientRequest(), id));
+    view(SurveyPointDTO.getView(super.getClientRequest(), id));
   }
 
-  public void view(SurveyPointDTO survey) throws IOException, ServletException
+  public void view(SurveyPointViewDTO survey) throws IOException, ServletException
   {
     if (!req.getRequestURI().contains(".view.mojo"))
     {
       String path = req.getRequestURL().toString();
       path = path.replaceFirst("(\\w+)Controller", "SurveyPointController");
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + survey.getId());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + survey.getConcreteId());
       return;
     }
 
     req.setAttribute("item", survey);
-    req.setAttribute("households", survey.getAllHouseholds());
+    req.setAttribute("households", Arrays.asList(survey.getHouseholds()));
     req.setAttribute("page_title", "View Survey Point");
     render("viewComponent.jsp");
   }
@@ -139,20 +137,19 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
   {
     this.viewAll();
   }
-  public void cancel(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    dto.unlock();
-    this.view(dto);
+    this.view(SurveyPointDTO.unlockView(dto.getRequest(), dto.getConcreteId()));
   }
   public void failCancel(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
-  public void delete(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
-      dto.delete();
+      dto.deleteConcrete();
       this.viewAll();
     }
     catch (ProblemExceptionDTO e)
@@ -168,7 +165,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
       this.failDelete(dto);
     }
   }
-  public void failDelete(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     EarthDTO earth = EarthDTO.getEarthInstance(super.getClientSession().getRequest());
 
@@ -192,11 +189,8 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
 
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    SurveyPointDTO dto = SurveyPointDTO.lock(super.getClientRequest(), id);
+    SurveyPointViewDTO dto = SurveyPointDTO.lockView(super.getClientRequest(), id);
 
-    EarthDTO earth = EarthDTO.getEarthInstance(super.getClientSession().getRequest());
-
-    req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Survey Point");
     render("editComponent.jsp");

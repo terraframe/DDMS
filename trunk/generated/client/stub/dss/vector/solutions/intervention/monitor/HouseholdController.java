@@ -69,7 +69,7 @@ public class HouseholdController extends HouseholdControllerBase implements
 
       dto.delete();
 
-      new SurveyPointController(req, resp, false).view(surveyPoint);
+      new SurveyPointController(req, resp, false).view(surveyPoint.getId());
     }
     catch (ProblemExceptionDTO e)
     {

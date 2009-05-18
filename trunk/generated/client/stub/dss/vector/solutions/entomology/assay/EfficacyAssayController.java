@@ -1,10 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.SurfacePositionDTO;
 import dss.vector.solutions.entomology.AssaySexDTO;
@@ -27,12 +29,12 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void create(EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
     catch(ProblemExceptionDTO e)
     {
@@ -47,20 +49,15 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
       this.failCreate(dto);
     }
   }
-  public void failCreate(EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCreate(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-	//req.setAttribute("geoEntintys", GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-	req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("surfacePostion", SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("sex", AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    this.loadRequestParameters();
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
   }
+  
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -69,30 +66,26 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
     render("viewAllComponent.jsp");
   }
+  
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
-  public void cancel(EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dto.unlock();
-    this.view(dto.getId());
+  
+  public void cancel(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {    
+    this.view(EfficacyAssayDTO.unlockView(this.getClientRequest(), dto.getConcreteId()));
   }
-  public void failCancel(EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  
+  public void failCancel(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    EfficacyAssayDTO dto = EfficacyAssayDTO.lock(super.getClientRequest(), id);
-    //req.setAttribute("geoEntintys", GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("surfacePostion", SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("sex", AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    EfficacyAssayViewDTO dto = EfficacyAssayDTO.lockView(super.getClientRequest(), id);
+
+    this.loadRequestParameters();
     req.setAttribute("item", dto);
 
     render("editComponent.jsp");
@@ -101,12 +94,12 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   {
     this.view(id);
   }
-  public void update(EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.view(dto);
     }
     catch(ProblemExceptionDTO e)
     {
@@ -121,44 +114,43 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  
+  public void failUpdate(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-	//req.setAttribute("geoEntintys", GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("surfacePostion", SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("sex", AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    this.loadRequestParameters();
     req.setAttribute("item", dto);
 
     render("editComponent.jsp");
   }
+  
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    //req.setAttribute("geoEntintys", GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("surfacePostion", SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("sex", AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", EfficacyAssayDTO.get(clientRequest, id));
+    this.view(EfficacyAssayDTO.getView(super.getClientRequest(), id));
+  }
+  
+  public void view(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", "EfficacyAssayController");
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getConcreteId());
+      return;
+    }
 
+    req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
+  
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
   }
-  public void delete(EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
-      dto.delete();
+      dto.deleteConcrete();
       this.viewAll();
     }
     catch(ProblemExceptionDTO e)
@@ -174,16 +166,9 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
       this.failDelete(dto);
     }
   }
-  public void failDelete(EfficacyAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failDelete(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    //req.setAttribute("geoEntintys", GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-	req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("surfacePostion", SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("sex", AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    this.loadRequestParameters();
     req.setAttribute("item", dto);
 
     render("editComponent.jsp");
@@ -202,20 +187,14 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    EfficacyAssayDTO dto = new EfficacyAssayDTO(clientRequest);
-    //req.setAttribute("geoEntintys", GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("surfacePostion", SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("sex", AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    EfficacyAssayViewDTO dto = new EfficacyAssayViewDTO(super.getClientRequest());
+
+    this.loadRequestParameters();
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
   }
+
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
@@ -224,16 +203,17 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   @Override
   public void cloneAssay(String id) throws IOException, ServletException
   {
-    this.cloneAssay(EfficacyAssayDTO.get(this.getClientRequest(), id));
+    this.cloneAssay(EfficacyAssayDTO.getView(this.getClientRequest(), id));
   }
 
 
-  public void cloneAssay(EfficacyAssayDTO dto) throws IOException, ServletException
+  public void cloneAssay(EfficacyAssayViewDTO dto) throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    ClientRequestIF clientRequest = super.getClientRequest();
 
-    EfficacyAssayDTO clone = new EfficacyAssayDTO(clientRequest);
-    clone.setGeoEntity(dto.getGeoEntity());
+    EfficacyAssayViewDTO clone = new EfficacyAssayViewDTO(clientRequest);
+    clone.setGeoId(dto.getGeoId());
+    clone.setTestDate(dto.getTestDate());
     clone.setTestMethod(dto.getTestMethod());
     clone.setSpecie(dto.getSpecie());
     clone.setColonyName(dto.getColonyName());
@@ -249,17 +229,21 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
       clone.addSex(sex);
     }
 
-    //req.setAttribute("geoEntintys", GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("surfacePostion", SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("sex", AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    this.loadRequestParameters();
     req.setAttribute("item", clone);
-
 
     render("createComponent.jsp");
   }
+  
+  private void loadRequestParameters()
+  {
+    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
+    req.setAttribute("surfacePostion", SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("generation", Arrays.asList(GenerationDTO.getAll(super.getClientSession().getRequest())));
+    req.setAttribute("identificationMethod", Arrays.asList(IdentificationMethodDTO.getAll(super.getClientSession().getRequest())));
+    req.setAttribute("sex", AssaySexDTO.allItems(super.getClientSession().getRequest()));
+    req.setAttribute("specie", Arrays.asList(SpecieDTO.getAll(super.getClientSession().getRequest())));
+    req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAll(super.getClientSession().getRequest())));
+  }
+
 }

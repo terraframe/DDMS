@@ -38,5 +38,35 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
       it.close();
     }
   }
+  
+  @Override
+  public SurveyPointView lockView()
+  {
+    this.lock();
+    
+    return this.getView();
+  }
+  
+  @Override
+  public SurveyPointView unlockView()
+  {
+    this.unlock();
+    
+    return this.getView();
+  }
+
+  private SurveyPointView getView()
+  {
+    SurveyPointView view = new SurveyPointView();
+    
+    view.populateView(this);
+    
+    return view;
+  }
+  
+  public static SurveyPointView getView(String id)
+  {
+    return SurveyPoint.get(id).getView();
+  }
 
 }
