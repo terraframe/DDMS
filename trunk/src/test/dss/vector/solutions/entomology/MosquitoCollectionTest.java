@@ -14,7 +14,6 @@ import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.CannotDeleteReferencedObject;
-import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.session.StartSession;
 
 import dss.vector.solutions.export.entomology.MosquitoCollectionView;
@@ -506,7 +505,7 @@ public class MosquitoCollectionTest extends TestCase
 
       fail("Able to create mulutiple MosquitoCollections with the same GeoEntity and Date");
     }
-    catch (DuplicateDataDatabaseException e)
+    catch (MosquitoCollectionAllreadyExistsException e)
     {
       // This is expected
     }

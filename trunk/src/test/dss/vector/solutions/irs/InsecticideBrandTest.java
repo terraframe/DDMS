@@ -248,6 +248,43 @@ public class InsecticideBrandTest extends TestCase
       brand2.deleteConcrete();
     }
   }
+  
+  public void testInactiveGetAllActive()
+  {
+    BigDecimal weight = new BigDecimal("4.50");
+    Integer refill = new Integer(20);
+    
+    InsecticideBrandView brand = new InsecticideBrandView();
+    brand.setActiveIngredient(activeIngredient);
+    brand.setAmount(57);
+    
+    brand.setWeight(weight);
+    brand.setSachetsPerRefill(refill);
+    brand.setBrandName("Test Brand");    
+    brand.apply();
+    
+    InsecticideBrandView brand2 = new InsecticideBrandView();
+    brand2.setActiveIngredient(activeIngredient);
+    brand2.setAmount(57);
+    
+    brand2.setWeight(weight);
+    brand2.setSachetsPerRefill(refill);
+    brand2.setEnabled(false);
+    brand2.setBrandName("Test Brand 2");    
+    brand2.apply();
+    
+    try
+    {
+      InsecticideBrandView[] all = InsecticideBrandView.getAllActive();
+      
+      assertEquals(1, all.length);
+    }
+    finally
+    {
+      brand.deleteConcrete();
+      brand2.deleteConcrete();
+    }
+  }
 
   public void testInactiveGetAll()
   {
@@ -277,7 +314,7 @@ public class InsecticideBrandTest extends TestCase
     {
       InsecticideBrandView[] all = InsecticideBrandView.getAll();
 
-      assertEquals(1, all.length);
+      assertEquals(2, all.length);
     }
     finally
     {

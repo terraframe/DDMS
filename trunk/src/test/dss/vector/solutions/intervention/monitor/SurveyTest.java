@@ -179,7 +179,7 @@ public class SurveyTest extends TestCase
   {
     Net[] nets = Net.getAll();
 
-    assertEquals(13, nets.length);
+    assertEquals(12, nets.length);
   }
 
   public void testGelAllLeafNets()

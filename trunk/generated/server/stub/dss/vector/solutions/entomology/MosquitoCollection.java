@@ -43,7 +43,6 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
 
   public void validateUniqueness()
   {
-
     QueryFactory factory = new QueryFactory();
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);
 
@@ -72,7 +71,6 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     {
       iterator.close();
     }
-
   }
 
   public static dss.vector.solutions.entomology.MosquitoCollection searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)

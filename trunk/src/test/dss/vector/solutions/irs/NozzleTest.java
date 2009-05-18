@@ -190,7 +190,7 @@ public class NozzleTest extends TestCase
     nozzle.apply();
 
     NozzleView nozzle2 = new NozzleView();
-    nozzle2.setDisplayLabel("test NozzleView");
+    nozzle2.setDisplayLabel("test NozzleView 2");
     nozzle2.setEnabled(true);
     nozzle2.setRatio(ratio);
     nozzle2.apply();
@@ -219,7 +219,7 @@ public class NozzleTest extends TestCase
     nozzle.apply();
 
     NozzleView nozzle2 = new NozzleView();
-    nozzle2.setDisplayLabel("test NozzleView");
+    nozzle2.setDisplayLabel("test NozzleView 2");
     nozzle2.setEnabled(false);
     nozzle2.setRatio(ratio);
     nozzle2.apply();
@@ -247,7 +247,7 @@ public class NozzleTest extends TestCase
     nozzle.setRatio(ratio);
 
     NozzleView nozzle2 = new NozzleView();
-    nozzle2.setDisplayLabel("test NozzleView");
+    nozzle2.setDisplayLabel("test NozzleView 2");
     nozzle2.setEnabled(true);
     nozzle2.setRatio(ratio);
 

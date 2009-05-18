@@ -1,5 +1,8 @@
 package dss.vector.solutions.irs;
 
+import java.util.Date;
+
+import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.District;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -12,21 +15,23 @@ import junit.framework.TestSuite;
 
 public class GeoTargetTest extends TestCase
 {
-  public static GeoEntity geoEntity;
+  public static MalariaSeason season;
 
-  public static SprayZone sprayZone;
+  public static GeoEntity     geoEntity;
 
-  public static Province  province1;
+  public static SprayZone     sprayZone;
 
-  public static Province  province2;
+  public static Province      province1;
 
-  public static District  district1;
+  public static Province      province2;
 
-  public static District  district2;
+  public static District      district1;
 
-  public static District  district3;
+  public static District      district2;
 
-  public static District  district4;
+  public static District      district3;
+
+  public static District      district4;
 
   public static Test suite()
   {
@@ -52,6 +57,7 @@ public class GeoTargetTest extends TestCase
 
   protected static void classTearDown()
   {
+    season.delete();
     sprayZone.delete();
     district4.delete();
     district3.delete();
@@ -64,6 +70,12 @@ public class GeoTargetTest extends TestCase
 
   protected static void classSetUp()
   {
+    season = new MalariaSeason();
+    season.setSeasonName("Test Season");
+    season.setStartDate(new Date());
+    season.setEndDate(new Date());
+    season.apply();
+
     geoEntity = new SentinelSite();
     geoEntity.setActivated(true);
     geoEntity.setGeoId("0");
@@ -113,15 +125,12 @@ public class GeoTargetTest extends TestCase
     sprayZone.applyWithParent(district1.getId(), false);
   }
 
-
-  /*
   public void testCreate() throws Exception
   {
-    Integer year = 2009;
 
     GeoTarget target = new GeoTarget();
     target.setGeoEntity(geoEntity);
-    target.setTargetYear(year);
+    target.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -135,7 +144,7 @@ public class GeoTargetTest extends TestCase
       GeoTarget test = GeoTarget.get(target.getId());
 
       assertEquals(test.getGeoEntity().getId(), target.getGeoEntity().getId());
-      assertEquals(test.getTargetYear(), target.getTargetYear());
+      assertEquals(test.getSeason().getId(), target.getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -150,11 +159,10 @@ public class GeoTargetTest extends TestCase
 
   public void testUpdate() throws Exception
   {
-    Integer year = 2009;
 
     GeoTarget target = new GeoTarget();
     target.setGeoEntity(geoEntity);
-    target.setTargetYear(year);
+    target.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -177,7 +185,7 @@ public class GeoTargetTest extends TestCase
       GeoTarget test = GeoTarget.get(edit.getId());
 
       assertEquals(test.getGeoEntity().getId(), edit.getGeoEntity().getId());
-      assertEquals(test.getTargetYear(), edit.getTargetYear());
+      assertEquals(test.getSeason().getId(), edit.getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -192,11 +200,10 @@ public class GeoTargetTest extends TestCase
 
   public void testDelete() throws Exception
   {
-    Integer year = 2009;
 
     GeoTarget target = new GeoTarget();
     target.setGeoEntity(geoEntity);
-    target.setTargetYear(year);
+    target.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -220,11 +227,10 @@ public class GeoTargetTest extends TestCase
 
   public void testCreateView() throws Exception
   {
-    Integer year = 2009;
 
     GeoTargetView view = new GeoTargetView();
     view.setGeoEntity(geoEntity);
-    view.setTargetYear(year);
+    view.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -239,7 +245,7 @@ public class GeoTargetTest extends TestCase
 
       assertEquals(test.getTargetId(), view.getTargetId());
       assertEquals(test.getGeoEntity().getId(), view.getGeoEntity().getId());
-      assertEquals(test.getTargetYear(), view.getTargetYear());
+      assertEquals(test.getSeason().getId(), view.getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -254,11 +260,10 @@ public class GeoTargetTest extends TestCase
 
   public void testUpdateView() throws Exception
   {
-    Integer year = 2009;
 
     GeoTargetView view = new GeoTargetView();
     view.setGeoEntity(geoEntity);
-    view.setTargetYear(year);
+    view.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -282,7 +287,7 @@ public class GeoTargetTest extends TestCase
 
       assertEquals(test.getTargetId(), view.getTargetId());
       assertEquals(test.getGeoEntity().getId(), view.getGeoEntity().getId());
-      assertEquals(test.getTargetYear(), view.getTargetYear());
+      assertEquals(test.getSeason().getId(), view.getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -298,11 +303,10 @@ public class GeoTargetTest extends TestCase
 
   public void testSearch() throws Exception
   {
-    Integer year = 2009;
 
     GeoTargetView view = new GeoTargetView();
     view.setGeoEntity(geoEntity);
-    view.setTargetYear(year);
+    view.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -317,7 +321,7 @@ public class GeoTargetTest extends TestCase
 
       assertEquals(test.getTargetId(), view.getTargetId());
       assertEquals(test.getGeoEntity().getId(), view.getGeoEntity().getId());
-      assertEquals(test.getTargetYear(), view.getTargetYear());
+      assertEquals(test.getSeason().getId(), view.getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -340,18 +344,17 @@ public class GeoTargetTest extends TestCase
 
   public void testApplyAll() throws Exception
   {
-    Integer year = 2009;
 
     GeoTargetView[] views = new GeoTargetView[2];
     GeoTargetView[] tests = new GeoTargetView[2];
 
     views[0] = new GeoTargetView();
     views[0].setGeoEntity(geoEntity);
-    views[0].setTargetYear(year);
+    views[0].setSeason(season);
 
     views[1] = new GeoTargetView();
     views[1].setGeoEntity(geoEntity);
-    views[1].setTargetYear(year);
+    views[1].setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -368,11 +371,11 @@ public class GeoTargetTest extends TestCase
 
       assertEquals(tests[0].getTargetId(), views[0].getTargetId());
       assertEquals(tests[0].getGeoEntity().getId(), views[0].getGeoEntity().getId());
-      assertEquals(tests[0].getTargetYear(), views[0].getTargetYear());
+      assertEquals(tests[0].getSeason().getId(), views[0].getSeason().getId());
 
       assertEquals(tests[1].getTargetId(), views[1].getTargetId());
       assertEquals(tests[1].getGeoEntity().getId(), views[1].getGeoEntity().getId());
-      assertEquals(tests[1].getTargetYear(), views[1].getTargetYear());
+      assertEquals(tests[1].getSeason().getId(), views[1].getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -390,7 +393,6 @@ public class GeoTargetTest extends TestCase
 
   public void testEditAll() throws Exception
   {
-    Integer year = 2009;
 
     GeoTargetView[] views = new GeoTargetView[2];
     GeoTargetView[] edits = new GeoTargetView[2];
@@ -398,11 +400,11 @@ public class GeoTargetTest extends TestCase
 
     views[0] = new GeoTargetView();
     views[0].setGeoEntity(geoEntity);
-    views[0].setTargetYear(year);
+    views[0].setSeason(season);
 
     views[1] = new GeoTargetView();
     views[1].setGeoEntity(geoEntity);
-    views[1].setTargetYear(year);
+    views[1].setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -429,11 +431,11 @@ public class GeoTargetTest extends TestCase
 
       assertEquals(tests[0].getTargetId(), edits[0].getTargetId());
       assertEquals(tests[0].getGeoEntity().getId(), edits[0].getGeoEntity().getId());
-      assertEquals(tests[0].getTargetYear(), edits[0].getTargetYear());
+      assertEquals(tests[0].getSeason().getId(), edits[0].getSeason().getId());
 
       assertEquals(tests[1].getTargetId(), edits[1].getTargetId());
       assertEquals(tests[1].getGeoEntity().getId(), edits[1].getGeoEntity().getId());
-      assertEquals(tests[1].getTargetYear(), edits[1].getTargetYear());
+      assertEquals(tests[1].getSeason().getId(), edits[1].getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -452,17 +454,15 @@ public class GeoTargetTest extends TestCase
 
   public void testSum() throws Exception
   {
-    Integer year = 2009;
-
     GeoTargetView[] views = new GeoTargetView[2];
 
     views[0] = new GeoTargetView();
     views[0].setGeoEntity(geoEntity);
-    views[0].setTargetYear(year);
+    views[0].setSeason(season);
 
     views[1] = new GeoTargetView();
     views[1].setGeoEntity(geoEntity);
-    views[1].setTargetYear(year);
+    views[1].setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -491,26 +491,25 @@ public class GeoTargetTest extends TestCase
 
   public void testGeoGeoTargets()
   {
-    GeoEntity[] geoEntities = new GeoEntity[] { geoEntity, province1, province2, district1, district2,
-        district3, district4, sprayZone };
+    String[] geoEntities = new String[] { geoEntity.getId(), province1.getId(), province2.getId(),
+        district1.getId(), district2.getId(), district3.getId(), district4.getId(), sprayZone.getId()};
 
-    GeoTargetView[] views = GeoTargetView.getGeoTargets(geoEntities,2009);
+    GeoTargetView[] views = GeoTargetView.getGeoTargets(geoEntities, season);
 
     assertEquals(geoEntities.length, views.length);
 
     for (int i = 0; i < geoEntities.length; i++)
     {
-      assertEquals(geoEntities[i].getId(), views[i].getGeoEntity().getId());
+      assertEquals(geoEntities[i], views[i].getGeoEntity().getId());
       assertEquals("", views[i].getTargetId());
     }
   }
 
   public void testGetExistingGeoTargets() throws Exception
   {
-    int year = 2009;
     GeoTargetView view = new GeoTargetView();
     view.setGeoEntity(geoEntity);
-    view.setTargetYear(year);
+    view.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -521,19 +520,18 @@ public class GeoTargetTest extends TestCase
 
     try
     {
+      String[] geoEntities = new String[] { geoEntity.getId(), province1.getId(), province2.getId(),
+          district1.getId(), district2.getId(), district3.getId(), district4.getId(), sprayZone.getId()};
 
-      GeoEntity[] geoEntities = new GeoEntity[] { geoEntity, province1, province2, district1, district2,
-          district3, district4, sprayZone };
-
-      GeoTargetView[] views = GeoTargetView.getGeoTargets(geoEntities ,2009);
+      GeoTargetView[] views = GeoTargetView.getGeoTargets(geoEntities, season);
 
       assertEquals(geoEntities.length, views.length);
 
       for (int i = 0; i < geoEntities.length; i++)
       {
-        assertEquals(geoEntities[i].getId(), views[i].getGeoEntity().getId());
+        assertEquals(geoEntities[i], views[i].getGeoEntity().getId());
 
-        if(i == 0)
+        if (i == 0)
         {
           assertEquals(view.getTargetId(), views[i].getTargetId());
         }
@@ -548,5 +546,4 @@ public class GeoTargetTest extends TestCase
       view.deleteConcrete();
     }
   }
-  */
 }

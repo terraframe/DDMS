@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,15 +26,15 @@ import dss.vector.solutions.mo.Specie;
 
 public class MosquitoCollectionPointTest extends TestCase
 {
-  private static GeoEntity                   sentinelSite         = null;
+  private static GeoEntity            sentinelSite         = null;
 
-  private static GeoEntity                   waterBody            = null;
+  private static GeoEntity            waterBody            = null;
 
-  private static GeoEntity                   fixedTrap            = null;
+  private static GeoEntity            fixedTrap            = null;
 
-  private static Specie                      specie               = null;
+  private static Specie               specie               = null;
 
-  private static IdentificationMethod        identificationMethod = null;
+  private static IdentificationMethod identificationMethod = null;
 
   public static Test suite()
   {
@@ -86,7 +85,7 @@ public class MosquitoCollectionPointTest extends TestCase
     OIterator<? extends MosquitoCollectionPoint> iterator = query.getIterator();
     List<MosquitoCollectionPoint> list = new LinkedList<MosquitoCollectionPoint>();
 
-    while(iterator.hasNext())
+    while (iterator.hasNext())
     {
       MosquitoCollectionPoint next = iterator.next();
       System.out.println(next.getDateCollected() + " " + next.getGeoEntity().getEntityName());
@@ -94,7 +93,8 @@ public class MosquitoCollectionPointTest extends TestCase
       list.add(next);
     }
 
-    for(MosquitoCollectionPoint p : list) p.delete();
+    for (MosquitoCollectionPoint p : list)
+      p.delete();
 
     sentinelSite.delete();
     waterBody.delete();
@@ -145,7 +145,6 @@ public class MosquitoCollectionPointTest extends TestCase
       assertEquals(1, groups.length);
       assertEquals(view.getSpecie().getId(), groups[0].getSpecie().getId());
       assertEquals(view.getIdentificationMethod().getId(), groups[0].getIdentificationMethod().getId());
-      assertEquals(view.getDateCollected(), ((MosquitoCollectionPointView) groups[0]).getDateCollected());
     }
     finally
     {
@@ -379,7 +378,7 @@ public class MosquitoCollectionPointTest extends TestCase
 
       fail("Able to create mulutiple MosquitoCollections with the same GeoEntity and Date");
     }
-    catch (DuplicateDataDatabaseException e)
+    catch (MosquitoCollectionAllreadyExistsException e)
     {
       // This is expected
     }
@@ -433,10 +432,10 @@ public class MosquitoCollectionPointTest extends TestCase
     group3.setCollection(collection2);
     group3.apply();
 
-
     try
     {
-      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(fixedTrap, startDate, endDate);
+      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPointView.searchByGeoEntityAndDate(
+          fixedTrap.getGeoId(), startDate, endDate);
 
       assertNotNull(groups);
       assertEquals(3, groups.length);
@@ -456,7 +455,8 @@ public class MosquitoCollectionPointTest extends TestCase
 
   public void testEmptySearchByGeoEntityAndDate()
   {
-    MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(fixedTrap, new Date(), new Date());
+    MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(fixedTrap,
+        new Date(), new Date());
 
     assertNotNull(groups);
     assertEquals(0, groups.length);
@@ -476,10 +476,10 @@ public class MosquitoCollectionPointTest extends TestCase
     group.setCollection(collection);
     group.apply();
 
-
     try
     {
-      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(waterBody, new Date(), new Date());
+      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(
+          waterBody, new Date(), new Date());
 
       assertNotNull(groups);
       assertEquals(0, groups.length);
@@ -504,7 +504,8 @@ public class MosquitoCollectionPointTest extends TestCase
 
     try
     {
-      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(waterBody, searchDate, searchDate);
+      MorphologicalSpecieGroupView[] groups = MosquitoCollectionPoint.searchByGeoEntityAndDate(
+          waterBody, searchDate, searchDate);
 
       assertNotNull(groups);
       assertEquals(0, groups.length);

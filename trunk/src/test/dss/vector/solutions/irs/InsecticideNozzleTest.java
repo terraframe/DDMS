@@ -68,7 +68,7 @@ public class InsecticideNozzleTest extends TestCase
     brand2.setAmount(13);
     brand2.setWeight(weight);
     brand2.setSachetsPerRefill(refill);
-    brand2.setBrandName("Test Brand");    
+    brand2.setBrandName("Test Brand 2");    
     brand2.apply();
 
     nozzle = new Nozzle();
@@ -185,7 +185,7 @@ public class InsecticideNozzleTest extends TestCase
     testBrand.setWeight(weight);
     testBrand.setSachetsPerRefill(refill);
     testBrand.setEnabled(false);
-    testBrand.setBrandName("Test Brand");
+    testBrand.setBrandName("Test Brand 3");
     testBrand.apply();
 
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
@@ -217,7 +217,7 @@ public class InsecticideNozzleTest extends TestCase
     BigDecimal ratio = new BigDecimal("0.30");
 
     Nozzle testNozzle = new Nozzle();
-    testNozzle.setDisplayLabel("test Nozzle");
+    testNozzle.setDisplayLabel("test Nozzle 2");
     testNozzle.setEnabled(false);
     testNozzle.setRatio(ratio);
     testNozzle.apply();

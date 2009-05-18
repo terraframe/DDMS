@@ -25,9 +25,38 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
   public void apply()
   {
     validateGeoEntity();
+    validateUniqueness();
 
     super.apply();
   }
+  
+  public void validateUniqueness()
+  {
+    QueryFactory factory = new QueryFactory();
+    MosquitoCollectionPointQuery query = new MosquitoCollectionPointQuery(factory);
+
+    query.AND(query.getGeoEntity().EQ(this.getGeoEntity()));
+    query.AND(query.getDateCollected().EQ(this.getDateCollected()));
+
+    OIterator<? extends MosquitoCollectionPoint> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        String msg = "This mosquito collection point already exists";
+        MosquitoCollectionAllreadyExistsException e = new MosquitoCollectionAllreadyExistsException(msg);
+        e.apply();
+        throw e;
+      }
+
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+
 
   @Override
   public void validateGeoEntity()
