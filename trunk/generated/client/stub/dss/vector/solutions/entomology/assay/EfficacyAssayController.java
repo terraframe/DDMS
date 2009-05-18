@@ -146,6 +146,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   {
     this.viewAll();
   }
+  
   public void delete(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -166,6 +167,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
       this.failDelete(dto);
     }
   }
+  
   public void failDelete(EfficacyAssayViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     this.loadRequestParameters();
@@ -173,6 +175,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
     render("editComponent.jsp");
   }
+  
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -181,10 +184,12 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
     render("viewAllComponent.jsp");
   }
+  
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
+  
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     EfficacyAssayViewDTO dto = new EfficacyAssayViewDTO(super.getClientRequest());

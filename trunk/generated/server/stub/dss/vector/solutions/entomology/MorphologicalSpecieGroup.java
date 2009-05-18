@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-import dss.vector.solutions.entomology.MorphologicalSpecieGroupBase;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 
 public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase implements
@@ -142,30 +142,12 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   {
     MorphologicalSpecieGroupView view = new MorphologicalSpecieGroupView();
     
-    view.setGroupId(this.getId());
-    view.setCollection(this.getCollection());
-    view.setQuantity(this.getQuantity());
-    view.setSpecie(this.getSpecie());
-    view.setIdentificationMethod(this.getIdentificationMethod());
-    view.setDateCollected(this.getCollection().getDateCollected());
-    view.setGeoEntity(this.getCollection().getGeoEntity());
-
-    if(this.getQuantityFemale() != null)
-    {
-      view.setQuantityFemale(this.getQuantityFemale());
-    }
-
-    if(this.getQuantityMale() != null)
-    {
-      view.setQuantityMale(this.getQuantityMale());
-    }
-
-    view.applyNoPersist();
+    view.populateView(this);    
     
     return view;
   }
 
-  @Override
+  @Transaction
   public void apply()
   {
     validateQuantity();
@@ -173,7 +155,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
     validateQuantityMale();
     validateIdentificationMethod();
     validateSpecie();
-
+    
     super.apply();
   }
 }

@@ -126,7 +126,7 @@ public class MosquitoCollectionPointTest extends TestCase
 
   public void testNewCollectionFromView()
   {
-    MorphologicalSpecieGroupView view = new MorphologicalSpecieGroupView();
+    MosquitoCollectionPointView view = new MosquitoCollectionPointView();
     view.setQuantity(20);
     view.setSpecie(specie);
     view.setIdentificationMethod(identificationMethod);
@@ -145,7 +145,7 @@ public class MosquitoCollectionPointTest extends TestCase
       assertEquals(1, groups.length);
       assertEquals(view.getSpecie().getId(), groups[0].getSpecie().getId());
       assertEquals(view.getIdentificationMethod().getId(), groups[0].getIdentificationMethod().getId());
-      assertEquals(view.getDateCollected(), groups[0].getDateCollected());
+      assertEquals(view.getDateCollected(), ((MosquitoCollectionPointView) groups[0]).getDateCollected());
     }
     finally
     {

@@ -52,7 +52,7 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
   public static MorphologicalSpecieGroupView[] searchByGeoEntityAndDate(GeoEntity geoEntity,
       Date startDate, Date endDate)
   {
-    List<MorphologicalSpecieGroupView> list = new LinkedList<MorphologicalSpecieGroupView>();
+    List<MosquitoCollectionPointView> list = new LinkedList<MosquitoCollectionPointView>();
 
     QueryFactory factory = new QueryFactory();
     MosquitoCollectionPointQuery collectionQuery = new MosquitoCollectionPointQuery(factory);
@@ -70,7 +70,7 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
     {
       while (iterator.hasNext())
       {
-        list.add(iterator.next().getView());
+        list.add((MosquitoCollectionPointView) iterator.next().getView());
       }
     }
     finally
@@ -78,7 +78,7 @@ public class MosquitoCollectionPoint extends MosquitoCollectionPointBase impleme
       iterator.close();
     }
 
-    return list.toArray(new MorphologicalSpecieGroupView[list.size()]);
+    return list.toArray(new MosquitoCollectionPointView[list.size()]);
   }
 
   public static MosquitoCollectionPoint findOrCreate(GeoEntity geoEntity, Date dateCollected)

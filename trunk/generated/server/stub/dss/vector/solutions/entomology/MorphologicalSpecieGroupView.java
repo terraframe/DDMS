@@ -1,10 +1,6 @@
 package dss.vector.solutions.entomology;
 
-import java.util.Date;
-
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-
-import dss.vector.solutions.entomology.MorphologicalSpecieGroupViewBase;
 
 public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -16,63 +12,70 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
     super();
   }
 
-  @Override
   @Transaction
   public void apply()
   {
-    Date collectionDate = this.getDateCollected();
+    MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
 
-    if (this.getCollection() == null)
+    if (this.hasConcreteId())
     {
-      this.setCollection(MosquitoCollectionPoint.findOrCreate(this.getGeoEntity(), collectionDate));
+      group = MorphologicalSpecieGroup.lock(this.getGroupId());
     }
-    else if( this.getCollection() instanceof MosquitoCollectionPoint)
-    {
-      ConcreteMosquitoCollection collection = this.getCollection();
+    
+    this.populateConcrete(group);
+    
+    group.apply();
+    
+    this.populateView(group);    
+  }
 
-      if (collectionDate != null && !collection.getDateCollected().equals(collectionDate))
-      {
-        collection.lock();
-        collection.setDateCollected(collectionDate);
-        collection.apply();
-      }
+  public void populateView(MorphologicalSpecieGroup group)
+  {
+    this.setGroupId(group.getId());
+    this.setCollection(group.getCollection());
+    this.setQuantity(group.getQuantity());
+    this.setSpecie(group.getSpecie());
+    this.setIdentificationMethod(group.getIdentificationMethod());
+
+    if(group.getQuantityFemale() != null)
+    {
+      this.setQuantityFemale(group.getQuantityFemale());
     }
 
-    if (this.getGroupId() == null || this.getGroupId().equals(""))
+    if(group.getQuantityMale() != null)
     {
-      MorphologicalSpecieGroup group = new MorphologicalSpecieGroup();
-      group.setCollection(this.getCollection());
-      group.setQuantity(this.getQuantity());
-      group.setQuantityFemale(this.getQuantityFemale());
-      group.setQuantityMale(this.getQuantityMale());
-      group.setIdentificationMethod(this.getIdentificationMethod());
-      group.setSpecie(this.getSpecie());
-      group.apply();
+      this.setQuantityMale(group.getQuantityMale());
+    }
 
-      this.setGroupId(group.getId());
-    }
-    else
-    {
-      MorphologicalSpecieGroup group = MorphologicalSpecieGroup.lock(this.getGroupId());
-      group.setCollection(this.getCollection());
-      group.setQuantity(this.getQuantity());
-      group.setQuantityFemale(this.getQuantityFemale());
-      group.setQuantityMale(this.getQuantityMale());
-      group.setIdentificationMethod(this.getIdentificationMethod());
-      group.setSpecie(this.getSpecie());
-      group.apply();
-    }
+    this.applyNoPersist();
+  }
+
+  protected void populateConcrete(MorphologicalSpecieGroup group)
+  {
+    group.setCollection(this.getCollection());
+    group.setQuantity(this.getQuantity());
+    group.setQuantityFemale(this.getQuantityFemale());
+    group.setQuantityMale(this.getQuantityMale());
+    group.setIdentificationMethod(this.getIdentificationMethod());
+    group.setSpecie(this.getSpecie());
+  }
+
+  private boolean hasConcreteId()
+  {
+    return this.getGroupId() != null && !this.getGroupId().equals("");
   }
 
   @Override
   public void delete()
   {
-    MorphologicalSpecieGroup.get(this.getGroupId()).delete();
+    if(this.hasConcreteId())
+    {
+      MorphologicalSpecieGroup.get(this.getGroupId()).delete();
+    }
   }
 
   @Transaction
-  public static dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] saveAll(
-      dss.vector.solutions.entomology.MorphologicalSpecieGroupView[] array)
+  public static MorphologicalSpecieGroupView[] saveAll(MorphologicalSpecieGroupView[] array)
   {
     for (MorphologicalSpecieGroupView view : array)
     {

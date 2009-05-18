@@ -58,7 +58,22 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     }
   }
 
-  @Override
+  @Transaction
+  public void apply()
+  {
+    boolean first = this.isNew() && !this.isAppliedToDB();
+        
+    super.apply();
+    
+    // Create a relationship the Collection-Mosquito relationship used for querying
+    if(first)
+    {
+      CollectionMosquito rel = new CollectionMosquito(this.getCollection(), this);
+      rel.apply();
+    }
+  }
+  
+
   @Transaction
   public void delete()
   {

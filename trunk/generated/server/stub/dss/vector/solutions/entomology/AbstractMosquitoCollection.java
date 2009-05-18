@@ -4,14 +4,9 @@ package dss.vector.solutions.entomology;
 import java.util.LinkedList;
 import java.util.List;
 
-
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
-
-import dss.vector.solutions.entomology.AbstractMosquitoCollectionBase;
-import dss.vector.solutions.entomology.MosquitoQuery;
-import dss.vector.solutions.entomology.UninterestingSpecieGroupQuery;
 
 public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollectionBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -27,20 +22,21 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
   {
     List<MosquitoView> list = new LinkedList<MosquitoView>();
 
-    MosquitoQuery query = new MosquitoQuery(new QueryFactory());
-    query.WHERE(query.getCollection().getId().EQ(this.getId()));
-    query.ORDER_BY(query.getCreateDate(), SortOrder.ASC);
+    OIterator<? extends Mosquito> it = this.getAllMosquitos();
     
-    OIterator<? extends Mosquito> iterator = query.getIterator();
-    
-    while(iterator.hasNext())
+    try
     {
-      list.add(iterator.next().getView());
+      while(it.hasNext())
+      {
+        list.add(it.next().getView());
+      }
+      
+      return list.toArray(new MosquitoView[list.size()]);
     }
-    
-    iterator.close();
-    
-    return list.toArray(new MosquitoView[list.size()]);
+    finally
+    {
+      it.close();
+    }
   }
   
   public dss.vector.solutions.entomology.UninterestingSpecieGroupView[] getUninterestingSpecieGroups()

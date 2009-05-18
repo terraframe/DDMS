@@ -92,4 +92,25 @@ public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollect
     super.delete();
   }
 
+  public Integer getMosquitoTotal()
+  {
+    int count = 0;
+    OIterator<? extends Mosquito> it = this.getAllMosquitos();
+    
+    try
+    {      
+      while(it.hasNext())
+      {
+        it.next();
+        count++;
+      }
+      
+      return count;
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
 }
