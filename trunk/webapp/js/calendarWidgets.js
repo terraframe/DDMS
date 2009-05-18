@@ -137,6 +137,34 @@ var MojoCal= YAHOO.namespace('MojoCal');
 
     }
 
+    var validateYear = function(ev) {
+        var tar = Event.getTarget(ev);
+        var date_str = tar.value;
+        var today = new Date();
+
+        var re = /^(19|20)[0-9]{2}$/;
+        //clear any errors before we move foward
+        removeError(tar);
+
+        if(date_str.length == 0)
+        {
+        	return;
+        }
+
+        var date = Date.parseString(date_str,java_date_format);
+
+        if ( ! re.test(date_str))
+        {
+        	addError(tar, MDSS.localize('Invalid_Year'));
+        }
+
+        if(parseInt(date_str) > parseInt(today.getFullYear()))
+        {
+        	addError(tar, MDSS.localize('Future_Dates_Not_Allowed'));
+        }
+
+    }
+
 	function addError(tar,errorMessage)
 	{
 		var errorInfo = document.createElement('span');
@@ -159,11 +187,19 @@ var MojoCal= YAHOO.namespace('MojoCal');
 
     var init = function() {
 
-    	if(Dom.getElementsByClassName("formatDate").length > 0 && init_not_done)
+    	if(init_not_done)
     	{
     		for each (el in Dom.getElementsByClassName("formatDate"))
 	        {
 	          el.innerHTML = var_to_localized_string(el.innerHTML);
+	        }
+    	}
+
+    	if(init_not_done)
+    	{
+    		for each (el in Dom.getElementsByClassName("NoFutureYear"))
+	        {
+    			Event.addListener(el, 'blur', validateYear);
 	        }
     	}
 

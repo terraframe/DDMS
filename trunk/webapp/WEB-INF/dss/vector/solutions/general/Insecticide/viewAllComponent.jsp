@@ -1,7 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
-<c:set var="page_title" value="View_All_Insecticides" scope="request" />
+<c:set var="page_title" value="View_Insecticide_Definitions" scope="request" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -43,5 +43,5 @@
 </mjl:table>
 <br />
 <mjl:form name="dss.vector.solutions.general.Insecticide.form.name" id="dss.vector.solutions.general.Insecticide.form.id" method="GET">
-  <mjl:command value="Create_New" action="dss.vector.solutions.general.InsecticideController.newInstance.mojo" name="InsecticideController.newInstance" />
+  <mjl:command value="Define_Insecticide" action="dss.vector.solutions.general.InsecticideController.newInstance.mojo" name="InsecticideController.newInstance" />
 </mjl:form>
