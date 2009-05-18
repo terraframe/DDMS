@@ -14,63 +14,7 @@
 <%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 <c:set var="page_title" value="Create_Survey_Point"  scope="request"/>
-<script type="text/javascript">
 
-  YAHOO.util.Event.onDOMReady(function(){
-
-    function selectHandler(selected)
-    {
-      var geoId = document.getElementById('geoIdEl');
-      var geoEntityName = document.getElementById('entityName');
-
-      if(selected != null)
-      {
-        geoId.value = selected.getGeoId();
-        geoEntityName.innerHTML = selected.getEntityName();// +':'+ selected.getType() ;
-      }
-      else
-      {
-        geoId.value = '';
-        geoEntityName.innerHTML = '';
-      }
-    }
-
-    var selectSearch = new MDSS.SingleSelectSearch();
-    selectSearch.setSelectHandler(selectHandler);
-    selectSearch.setTreeSelectHandler(selectHandler);
-    selectSearch.setFilter('');
-
-    var radios = YAHOO.util.Selector.query('input[type="radio"]', 'surveyPointForm');
-    for(var i=0; i<radios.length; i++)
-    {
-      var radio = radios[i];
-      YAHOO.util.Event.on(radio, 'click', function(e, obj){
-
-        var radio = e.target;
-        if(radio.checked)
-        {
-          var filter = e.target.value;
-          this.setFilter(filter);
-        }
-
-      }, null, selectSearch);
-    }
-
-    var opener = new YAHOO.util.Element("searchOpener");
-    opener.on("click", function(){
-
-      if(selectSearch.isInitialized())
-      {
-        selectSearch.show();
-      }
-      else
-      {
-        selectSearch.render();
-      }
-    });
-  }, null, true);
-
-</script>
 
 <mjl:messages>
   <mjl:message />
@@ -84,7 +28,7 @@
 <mjl:form name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.name" id="surveyPointForm" method="POST">
   <dl>
     <%@ include file="form.jsp"%>
-  
+
     <mjl:command value="Create" action="dss.vector.solutions.intervention.monitor.SurveyPointController.create.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.create.button" />
   </dl>
 </mjl:form>

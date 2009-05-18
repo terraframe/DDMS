@@ -13,50 +13,7 @@
 <%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
-<script type="text/javascript">
 
-  YAHOO.util.Event.onDOMReady(function(){
-
-    var opener = new YAHOO.util.Element("searchOpener");
-    opener.on("click", function(){
-
-      if(MDSS.SelectSearch.isInitialized())
-      {
-        MDSS.SelectSearch.show();
-      }
-      else
-      {
-        var radios = YAHOO.util.Selector.query('input[type="radio"]', 'SurveyPoint.form.id');
-        var filterType = '';
-        for(var i=0; i<radios.length; i++)
-        {
-          var radio = radios[i];
-          if(radio.checked)
-          {
-            filterType = radio.value;
-          }
-        }
-
-       function selectHandler(selected)
-       {
-         var geoId = document.getElementById('geoIdEl');
-
-         if(selected != null)
-         {
-           geoId.value = selected.getGeoId();
-         }
-         else
-         {
-           geoId.value = '';
-         }
-       }
-
-       MDSS.SelectSearch.initialize(selectHandler, selectHandler, filterType);
-      }
-    });
-  }, null, true);
-
-</script>
 
 
 <mjl:messages>

@@ -11,19 +11,20 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 <jsp:include page="geoEntityTreeComponent.jsp"/>
-<script type="text/javascript">
 <%ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 String rootId = (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID);
 String[] types = new String[] { GeoHierarchyDTO.CLASS, GeoHierarchyViewDTO.CLASS, GeoEntityTreeController.CLASS };
 //String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 // out.print(js);%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(types))%>
+<script type="text/javascript">
 MDSS.SelectSearchRootId = '<%=rootId%>';
 
 
 YAHOO.util.Event.onDOMReady(function(){
 
-for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
-{
+  for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
+  {
 	//var geoInput = new YAHOO.util.Element(geoIn);
 
     var opener = document.createElement('img');
@@ -72,7 +73,7 @@ for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
           return;
         }
 
-        if (validTypes.indexOf(selected.getEntityType()) > -1 )
+        if (validTypes.length == 0  || validTypes.indexOf(selected.getEntityType()) > -1 )
         {
             YAHOO.util.Dom.removeClass(geoInfo,'alert');
             geoId.value = selected.getGeoId();
@@ -280,10 +281,6 @@ for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
     }
 
     YAHOO.util.Event.on(geoInput, 'keyup', ajaxSearch, null, null);
-}
-
-
+  }
 },null,null);
-
 </script>
-<%=Halp.loadTypes((List<String>) Arrays.asList(types))%>

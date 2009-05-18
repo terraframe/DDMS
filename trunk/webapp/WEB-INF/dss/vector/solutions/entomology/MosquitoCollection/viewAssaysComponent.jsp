@@ -102,7 +102,6 @@
 			"TestDate"};
 
 	String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
-	//out.println(getColumnSetup(mdView,attribs,delete_row,clientRequest));
 %>
 
 
@@ -135,26 +134,22 @@ function showCol(key,checked)
   }
 }
 
-    <%String[] types_to_load = {
-					"dss.vector.solutions.entomology.MosquitoView",
-					"dss.vector.solutions.entomology.UninterestingSpecieGroupView"};
-			out.println(com.terraframe.mojo.web.json.JSONController
-					.importTypes(clientRequest.getSessionId(), types_to_load,
-							true));%>
-    <%=Halp.getDropdownSetup(mdView, attribs, delete_row,
-							clientRequest)%>
-    MojoCal.init()
-    table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
-                columnDefs:<%=Halp.getColumnSetup(mdView, attribs, delete_row, true,2)%>,
-              defaults: {Collection:'${item.id}'},
-              copy_from_above: ["IdentificationMethod"],
-              div_id: "Mosquitos",
-              data_type: "Mojo.$.dss.vector.solutions.entomology.MosquitoView",
-                width:"65em"
-          };
-    YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
+<%String[] types_to_load = {"dss.vector.solutions.entomology.MosquitoView","dss.vector.solutions.entomology.UninterestingSpecieGroupView"};
+	//out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), types_to_load,true));%>
+<%=Halp.getDropdownSetup(mdView, attribs, delete_row,clientRequest)%>
+MojoCal.init()
+table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
+            columnDefs:<%=Halp.getColumnSetup(mdView, attribs, delete_row, true,2)%>,
+          defaults: {Collection:'${item.id}'},
+          copy_from_above: ["IdentificationMethod"],
+          div_id: "Mosquitos",
+          data_type: "Mojo.$.dss.vector.solutions.entomology.MosquitoView",
+            width:"65em"
+      };
+Event.addListener(window, 'load', MojoGrid.createDataTable(table_data));
+//YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script></div>
-
+<%=Halp.loadTypes((List<String>) Arrays.asList(types_to_load))%>
 
 <h2>UninterestingSpecieGroups</h2>
 <div class="fldContainer">
@@ -191,5 +186,6 @@ UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows, unint_attri
               data_type: "Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroupView"
 
           };
-    YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(UninterestingSpecieGroupData));
+    Event.addListener(window, 'load', MojoGrid.createDataTable(UninterestingSpecieGroupData));
+   // YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(UninterestingSpecieGroupData));
 </script></div>

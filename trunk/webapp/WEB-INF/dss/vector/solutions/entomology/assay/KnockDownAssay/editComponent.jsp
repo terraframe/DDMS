@@ -20,7 +20,7 @@
         </mjl:select>
       </mjl:dt>
       <mjl:dt attribute="testDate">
-        <mjl:input type="text" param="testDate" id="testDate" classes="DatePick" />
+        <mjl:input type="text" param="testDate" id="testDate" classes="DatePick NoFuture" />
       </mjl:dt>
       <mjl:dt attribute="testMethod">
         <mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
