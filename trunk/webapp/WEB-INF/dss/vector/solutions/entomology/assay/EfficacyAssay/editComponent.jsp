@@ -15,17 +15,14 @@ YAHOO.util.Event.onDOMReady(function(){
     function selectHandler(selected)
     {
       var geoId = document.getElementById('geoIdEl');
-      var geoEntityId = document.getElementById('geoEntityId');
 
       if(selected != null)
       {
         geoId.value = selected.getGeoId();
-        geoEntityId.value = selected.getGeoEntityId();
       }
       else
       {
         geoId.value = '';
-        geoEntityId.value = '';
       }
     }
 
@@ -57,94 +54,11 @@ YAHOO.util.Event.onDOMReady(function(){
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.name" id="dss.vector.solutions.entomology.assay.EfficacyAssay.form.id" method="POST">
-  <mjl:component item="${item}" param="dto">
-    <dl>
-      <mjl:dt attribute="geoEntity">
-        <mjl:input id="geoIdEl" param="none" type="text" value="${item.geoEntity.geoId}" maxlength="16"/>
-        <a href="#" id="searchOpener"><img src="./imgs/icons/world.png" /></a>
-        <mjl:input id="geoEntityId" param="geoEntity" type="hidden" />
-        <mjl:messages attribute="geoEntity">
-          <mjl:message />
-        </mjl:messages>
-      </mjl:dt>
-      <mjl:dt attribute="testDate">
-        <mjl:input type="text" param="testDate" classes="DatePick" id="testDate" />
-      </mjl:dt>
-      <mjl:dt attribute="testMethod">
-        <mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
-          <mjl:option>
-            ${current.termName}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
-      <mjl:dt attribute="specie">
-        <mjl:select var="current" valueAttribute="id" items="${specie}" param="specie">
-          <mjl:option>
-            ${current.termName}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
-      <mjl:dt attribute="colonyName">
-        <mjl:input type="text" param="colonyName" />
-      </mjl:dt>
-      <mjl:dt attribute="ageRange">
-      <dl>
-        <mjl:struct param="ageRange">
-          <mjl:dt attribute="startPoint" type="text"  />
-          <mjl:dt attribute="endPoint" type="text"  />
-        </mjl:struct>
-      </dl>
-      </mjl:dt>
-      <mjl:dt attribute="sex">
-        <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
-          <mjl:option>
-                ${item.sexMd.enumItems[current.enumName]}
-              </mjl:option>
-        </mjl:select>
-      </mjl:dt>
-      <mjl:dt attribute="gravid">
-        <mjl:input type="text" param="gravid" />
-      </mjl:dt>
-      <mjl:dt attribute="fed">
-        <mjl:input type="text" param="fed" />
-      </mjl:dt>
+  <dl>
+    <%@ include file="form.jsp"%>
 
-      <mjl:dt attribute="insecticide">
-        <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-        <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides" /></a>
-      </mjl:dt>
-
-      <mjl:dt attribute="timeOnSurface" >
-      <mjl:input type="text" param="timeOnSurface" />
-      </mjl:dt>
-
-      <mjl:dt attribute="surfacePostion">
-        <mjl:select var="current" valueAttribute="enumName" items="${surfacePostion}" param="surfacePostion">
-              <mjl:option>
-                ${item.surfacePostionMd.enumItems[current.enumName]}
-              </mjl:option>
-        </mjl:select>
-      </mjl:dt>
-      <mjl:dt attribute="exposureTime">
-        <mjl:input type="text" param="exposureTime" />
-      </mjl:dt>
-      <mjl:dt attribute="holdingTime">
-        <mjl:input type="text" param="holdingTime" />
-      </mjl:dt>
-      <mjl:dt attribute="quantityTested">
-        <mjl:input type="text" param="quantityTested" />
-      </mjl:dt>
-      <mjl:dt attribute="quantityDead">
-        <mjl:input type="text" param="quantityDead" />
-      </mjl:dt>
-    </dl>
-  </mjl:component>
-
-  <mjl:command value="Update" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.update.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.update.button" />
-  <mjl:command value="Delete" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.delete.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.delete.button" />
-  <mjl:command value="Cancel" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.cancel.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.cancel.button" />
+    <mjl:command value="Update" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.update.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.update.button" />
+    <mjl:command value="Delete" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.delete.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.delete.button" />
+    <mjl:command value="Cancel" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.cancel.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.cancel.button" />
+  </dl>
 </mjl:form>
