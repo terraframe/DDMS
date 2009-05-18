@@ -19,12 +19,17 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.name" id="dss.vector.solutions.entomology.assay.KnockDownAssay.form.id" method="POST">
   <mjl:component item="${item}" param="dto">
+        <mjl:commandLink display="Create_Another_Knock_Down_Assay_With_This_Collection" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" name="newWiththisCollection">
+        <mjl:property value="${item.collection.id}" name="id" />
+      </mjl:commandLink>
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
     <mjl:dt attribute="collection">
-<mjl:commandLink display="${item.collection.displayLabel}" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.view.link">
+       <mjl:commandLink display="${item.collection.collectionId} ${item.collection.displayLabel}" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.view.link">
         <mjl:property value="${item.collection.id}" name="id" />
       </mjl:commandLink>
+<br>
+
 </mjl:dt>
   <dt>
       <label>
