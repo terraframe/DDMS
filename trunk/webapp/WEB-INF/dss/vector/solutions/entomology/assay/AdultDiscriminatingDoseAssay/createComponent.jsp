@@ -72,22 +72,14 @@
           </mjl:option>
         </mjl:select>
       </mjl:dt>
-      <dt><label> ${item.ageRangeMd.displayLabel} </label></dt>
-      <dd>
+     <mjl:dt attribute="ageRange">
       <dl>
         <mjl:struct param="ageRange">
-          <dt><label> ${item.ageRange.startPointMd.displayLabel} </label></dt>
-          <dd><mjl:input type="text" param="startPoint" /> <mjl:messages attribute="startPoint">
-            <mjl:message />
-          </mjl:messages></dd>
-          <dt><label> ${item.ageRange.endPointMd.displayLabel} </label></dt>
-          <dd><mjl:input type="text" param="endPoint" /> <mjl:messages attribute="endPoint">
-            <mjl:message />
-          </mjl:messages></dd>
-
+          <mjl:dt attribute="startPoint" type="text"  />
+          <mjl:dt attribute="endPoint" type="text"  />
         </mjl:struct>
       </dl>
-      </dd>
+      </mjl:dt>
       <mjl:dt attribute="fed">
         <mjl:input type="text" param="fed" />
       </mjl:dt>
