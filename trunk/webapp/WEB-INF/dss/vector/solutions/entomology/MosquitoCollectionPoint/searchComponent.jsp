@@ -1,5 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@page import="dss.vector.solutions.geo.GeoHierarchyDTO"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
@@ -78,18 +79,33 @@
 
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollectionPoint.search" method="GET" id ="searchMosquitoCollections">
   <dl>
-    <dt> Filter </dt>
+    <dt> <fmt:message key="Filter" /> </dt>
     <dd>
-        <input type="radio" name="filterType" value="" checked="checked" />All &nbsp;&nbsp;&nbsp;
-        <input type="radio" name="filterType" value="${TrapClass}" />Trap &nbsp;&nbsp;&nbsp;
-        <input type="radio" name="filterType" value="${PermanentWaterBodyClass}" />Permanent Water Body
+        <input type="radio" name="filterType" value="" checked="checked" /><fmt:message key="All" /> &nbsp;&nbsp;&nbsp;
+        <input type="radio" name="filterType" value="${TrapClass}" /><fmt:message key="Trap" /> &nbsp;&nbsp;&nbsp;
+        <input type="radio" name="filterType" value="${PermanentWaterBodyClass}" /><fmt:message key="Permanent_Water_Body" />
     </dd>
-    <dt> Geo Id </dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text"  maxlength="16"/><a id="searchOpener" href="#"><img src="./imgs/icons/world.png"/></a></dd>
-    <dt>Start Date </dt>
-    <dd> <mjl:input param="startDate" type="text" classes="DatePick" id="startDate"/></dd>
-    <dt>End Date </dt>
-    <dd> <mjl:input param="endDate" type="text" classes="DatePick" id="endDate"/></dd>
+    <dt> <fmt:message key="Geo_Entity" /> </dt>
+    <dd> 
+      <mjl:input id="geoIdEl" param="geoId" type="text"  maxlength="16" value="${geoId}"/><a id="searchOpener" href="#"><img src="./imgs/icons/world.png"/></a>
+      <mjl:messages attribute="geoId">
+        <mjl:message/>
+      </mjl:messages>
+    </dd>
+    <dt> <fmt:message key="Start_Date" /> </dt>
+    <dd> 
+      <mjl:input param="startDate" type="text" classes="DatePick" id="startDate" value="${startDate}"/>
+      <mjl:messages attribute="startDate">
+        <mjl:message/>
+      </mjl:messages>
+    </dd>
+    <dt> <fmt:message key="End_Date" /> </dt>
+    <dd>
+      <mjl:input param="endDate" type="text" classes="DatePick" id="endDate" value="${endDate}"/>
+      <mjl:messages attribute="endDate">
+        <mjl:message/>
+      </mjl:messages>
+    </dd>
 
   </dl>
   <br>

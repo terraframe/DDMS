@@ -2,6 +2,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <%@page import="java.util.*"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
@@ -13,7 +14,8 @@
 <%@page import="java.lang.reflect.InvocationTargetException"%>
 <%@page import="com.terraframe.mojo.transport.metadata.*"%>
 <%@page import="com.terraframe.mojo.business.ViewDTO"%>
-<c:set var="page_title" value="View_Mosquito_Collection_Points"  scope="request"/>
+
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionPointViewDTO"%><c:set var="page_title" value="View_Mosquito_Collection_Points"  scope="request"/>
 <fmt:setLocale value="<%=request.getLocale()%>" />
 <div id="cal1Container" class="yui-skin-sam"></div>
 <mjl:messages>
@@ -22,7 +24,7 @@
   <dl>
     <dt>
       <label>
-        GeoEntinty
+        <fmt:message key="Geo_Entity" />        
       </label>
     </dt>
     <dd>
@@ -30,7 +32,7 @@
     </dd>
     <dt>
       <label >
-        Start Date
+        <fmt:message key="Start_Date" />        
       </label>
     </dt>
     <dd class="formatDate">
@@ -38,7 +40,7 @@
     </dd>
     <dt>
       <label>
-        End Date
+        <fmt:message key="End_Date" />        
       </label>
     </dt>
     <dd class="formatDate">
@@ -93,45 +95,31 @@
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 MorphologicalSpecieGroupViewDTO[] rows = (MorphologicalSpecieGroupViewDTO[]) request.getAttribute("collection_points");
-String[] attribs = {"GroupId","GeoEntity","DateCollected","Specie","IdentificationMethod","QuantityMale","QuantityFemale","Quantity","Collection"};
-MorphologicalSpecieGroupViewDTO mdView = new MorphologicalSpecieGroupViewDTO(clientRequest);
+String[] attribs = {"GroupId", "GeoEntity","DateCollected","Specie","IdentificationMethod","QuantityMale","QuantityFemale","Quantity", "Total", "Collection"};
+MosquitoCollectionPointViewDTO mdView = new MosquitoCollectionPointViewDTO(clientRequest);
 
 String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
-//out.println(getColumnSetup(mdView,attribs,delete_row));
 
 %>
 
 <script type="text/javascript">
-    <%String[] types_to_load =
-  {
-     "dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
-  };
-    out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
-    %>
-    <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
+  <%  
+    out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , new String[]{MorphologicalSpecieGroupViewDTO.CLASS}, true));
+    out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , new String[]{MosquitoCollectionPointViewDTO.CLASS}, true));
+  %>
+  
+  <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
+
     table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,
-       columnDefs: <%//=Halp.getColumnSetup(mdView,attribs,delete_row,false,2)%>
-       [{key:'GroupId',label:'Morphological Group Id',hidden:true},
-       {key:'GeoEntity',label:'Geo Entity',hidden:true},
-       {key:'DateCollected',label:'Collection Date',formatter:YAHOO.widget.DataTable.formatDate,editor:new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})},
-       {key:'Specie',label:'Species',save_as_id:true,editor:new YAHOO.widget.DropdownCellEditor({dropdownOptions:SpecieLabels,disableBtns:true})},
-       {key:'IdentificationMethod',label:'Identification Method',save_as_id:true,editor:new YAHOO.widget.DropdownCellEditor({dropdownOptions:IdentificationMethodLabels,disableBtns:true})},
-       {key:'QuantityMale',label:'Number Male',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})},
-       {key:'QuantityFemale',label:'Number Female',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})},
-       {key:'Quantity',label:'Total Number',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})},
-       {key:'Collection',label:''},
-       {key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}],
-              defaults: {GroupId:"",GeoEntity:"${geoEntity.id}",Specie:"",DateCollected:"<fmt:formatDate value="${startDate}" pattern="<%=Halp.getDateFormatString(request)%>"/>"},
-              div_id: "MorphologicalSpecieGroups",
-              copy_from_above: ["DateCollected","IdentificationMethod"],
-              data_type: "Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroupView",
-              after_row_load:function(record,dt){
-                record.setData('Collection',('<a href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo?id='+record.getData('Collection')+'">Assays</a>'));
-              },
-              after_save:function(){window.location.reload( false );}
-          };
+       columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false,2)%>,
+       defaults: {GroupId:"",GeoEntity:"${geoEntity.id}",Specie:"",DateCollected:"<fmt:formatDate value="${startDate}" pattern="<%=Halp.getDateFormatString(request)%>"/>"},
+       div_id: "MorphologicalSpecieGroups",
+       copy_from_above: ["DateCollected","IdentificationMethod"],
+       data_type: "Mojo.$.<%=MosquitoCollectionPointViewDTO.CLASS%>",
+       after_row_load:function(record,dt){
+         record.setData('Collection',('<a href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo?id='+record.getData('Collection')+'">Assays</a>'));
+       }
+     };
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 
-    //dt.getColumn('Collection').editor=null;
-    //dt.getColumn('Collection').getThLinerEl().innerHTML="";
 </script>
