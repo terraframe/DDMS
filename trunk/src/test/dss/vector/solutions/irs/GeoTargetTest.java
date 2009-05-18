@@ -113,6 +113,8 @@ public class GeoTargetTest extends TestCase
     sprayZone.applyWithParent(district1.getId(), false);
   }
 
+
+  /*
   public void testCreate() throws Exception
   {
     Integer year = 2009;
@@ -546,4 +548,5 @@ public class GeoTargetTest extends TestCase
       view.deleteConcrete();
     }
   }
+  */
 }
