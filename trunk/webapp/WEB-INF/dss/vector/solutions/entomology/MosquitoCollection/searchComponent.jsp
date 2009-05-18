@@ -15,7 +15,7 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
 <%
-  request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
+request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
   request.setAttribute("NonSentinelSiteClass", NonSentinelSiteDTO.CLASS);
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
   MosquitoCollectionDTO item = new MosquitoCollectionDTO(clientRequest);
@@ -31,9 +31,7 @@
       <input type="radio" name="filterType" value="${NonSentinelSiteClass}" class="filterType" />&nbsp;<fmt:message key="Non_Sentinel_Site"/>
     </dd>
     <dt> <label> ${item.geoEntityMd.displayLabel}</label></dt>
-    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/>
-    <div class="yui-panel-container show-scrollbars shadow" id="geoIdEl_results" style="visibility:hidden;"></div>
-    </dd>
+    <dd> <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/></dd>
     <dt> <label> ${item.dateCollectedMd.displayLabel}</label></dt>
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick" id="collectionDate"/></dd>
     <dt> <label> ${item.collectionMethodMd.displayLabel}</label> </dt>

@@ -22,9 +22,9 @@ MDSS.SelectSearchRootId = '<%=rootId%>';
 
 YAHOO.util.Event.onDOMReady(function(){
 
-for each (geoIn in YAHOO.util.Dom.getElementsByClassName("geoInput"))
+for each (geoInput in YAHOO.util.Dom.getElementsByClassName("geoInput"))
 {
-	geoInput = new YAHOO.util.Element(geoIn);
+	//var geoInput = new YAHOO.util.Element(geoIn);
 
     var opener = document.createElement('img');
     opener.src = "./imgs/icons/world.png";
@@ -36,6 +36,13 @@ for each (geoIn in YAHOO.util.Dom.getElementsByClassName("geoInput"))
     geoInfo.id = geoInput.id +'Info';
     geoInfo.innerHTML = '()';
     YAHOO.util.Dom.insertAfter(geoInfo,opener);
+
+
+    var geoSearchResults = document.createElement('div');
+    geoSearchResults.id = geoInput.id +'_results';
+    geoSearchResults.className = "yui-panel-container show-scrollbars shadow";
+    //geoSearchResults.setStyle('visibility','hidden');
+    YAHOO.util.Dom.insertAfter(geoSearchResults,geoInfo);
 
 
     //alert('test');
@@ -81,6 +88,23 @@ for each (geoIn in YAHOO.util.Dom.getElementsByClassName("geoInput"))
         geoInfo.innerHTML = '';
       }
     }
+
+    function checkManualEntry(selected)
+    {
+
+      var geoId = document.getElementById('geoIdEl');
+
+      var request = new MDSS.Request({
+          selectHandler: this,
+          onSuccess : function(result){
+            selectHandler(result);
+        }
+      });
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getViewByGeoId(request, geoId.value);
+
+    }
+
+    YAHOO.util.Event.on(geoInput, 'change', checkManualEntry, null, null);
 
     var selectSearch = new MDSS.SingleSelectSearch();
     selectSearch.setSelectHandler(selectHandler);
@@ -139,7 +163,7 @@ ajaxSearch =  function(e)
   var resultPanel = panel; //document.getElementById('geoIdEl'+'_results');
 
   // must have at least 2 characters ready
-  if(value.length < 2 || type.length < 2)
+  if(value.length < 2)
   {
     return;
   }
@@ -217,15 +241,15 @@ ajaxSearch =  function(e)
 
       var idAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ID;
       var entityNameAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME;
+      var geoIdAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.GEOID;
       for(var i=0; i<resultSet.length; i++)
       {
         var valueObj = resultSet[i];
 
         var li = document.createElement('li');
         li.id = valueObj.getValue(idAttr);
-        var entityName = valueObj.getValue(entityNameAttr);
-        var matched = entityName.replace(new RegExp("(.*?)("+this.searchValue+")(.*?)", "gi"),
-          "$1<span class='searchMatch'>$2</span>$3");
+        var displayStr = valueObj.getValue(entityNameAttr) + ' - ' + valueObj.getValue(geoIdAttr) ;
+        var matched = displayStr.replace(new RegExp("(.*?)("+this.searchValue+")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
         li.innerHTML = matched;
 
         ul.appendChild(li);
@@ -243,14 +267,10 @@ ajaxSearch =  function(e)
     }
   });
 
-  Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityName(request, type, value);
+  Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type, value);
 }
 
-
-YAHOO.util.Event.on(geoIn, 'keyup', ajaxSearch, null, null);
-
-
-
+YAHOO.util.Event.on(geoInput, 'keyup', ajaxSearch, null, null);
 
 
 },null,null);
