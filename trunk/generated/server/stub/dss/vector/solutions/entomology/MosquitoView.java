@@ -3,6 +3,7 @@ package dss.vector.solutions.entomology;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,16 +16,18 @@ import com.terraframe.mojo.dataaccess.MdAttributeVirtualDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdAttributeConcreteDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
+import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
-
-import dss.vector.solutions.entomology.MosquitoViewBase;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.entomology.assay.AssayTestResult;
+import dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult;
+import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult;
+import dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult;
 import dss.vector.solutions.mo.AbstractTerm;
 
-public class MosquitoView extends MosquitoViewBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class MosquitoView extends MosquitoViewBase implements Reloadable
 {
   private static final long serialVersionUID = 1235599942174L;
 
@@ -33,22 +36,19 @@ public class MosquitoView extends MosquitoViewBase implements
     super();
   }
 
-  @Override
+  @Transaction
   public void apply()
   {
-    Mosquito mosquito = null;
-    String id = this.getMosquitoId();
-
-    if (id == null || id.equals(""))
+    Mosquito mosquito = new Mosquito();
+    
+    if (this.hasConcreteId())
     {
-      mosquito = new Mosquito();
-    }
-    else
-    {
-      mosquito = Mosquito.lock(id);
+      mosquito = Mosquito.lock(this.getMosquitoId());
     }
 
-    applyMosquito(mosquito);
+    this.populateConcrete(mosquito);
+
+    mosquito.apply();
 
     try
     {
@@ -58,27 +58,57 @@ public class MosquitoView extends MosquitoViewBase implements
     {
       throw new RuntimeException(e);
     }
-
-    this.setMosquitoId(mosquito.getId());
+    
+    this.populateView(mosquito);
   }
 
-  private void applyMosquito(Mosquito mosquito)
+  private boolean hasConcreteId()
   {
-    List<Sex> list = this.getSex();
+    return this.getMosquitoId() != null && !this.getMosquitoId().equals("");
+  }
+  
+  public void populateView(Mosquito mosquito)
+  {
+    this.setSpecie(mosquito.getSpecie());
+    this.setCollection(mosquito.getCollection());
+    this.setGeneration(mosquito.getGeneration());
+    this.setIsofemale(mosquito.getIsofemale());
+    this.setIdentificationMethod(mosquito.getIdentificationMethod());
+    this.setTestDate(mosquito.getTestDate());
+    this.setMosquitoId(mosquito.getId());
+    this.setSampleId(mosquito.getSampleId());    
+    this.clearSex();
+    
+    for(Sex sex : mosquito.getSex())
+    {
+      this.addSex(sex);
+    }
+    
+    try
+    {
+      this.setAssays(mosquito.getTestResults());
+    }
+    catch (Exception e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void populateConcrete(Mosquito mosquito)
+  {
     mosquito.setIdentificationMethod(this.getIdentificationMethod());
     mosquito.setIsofemale(this.getIsofemale());
     mosquito.setGeneration(this.getGeneration());
     mosquito.setSpecie(this.getSpecie());
     mosquito.setTestDate(this.getTestDate());
     mosquito.setCollection(this.getCollection());
-    mosquito.setSampleId(this.getSampleId());
+    mosquito.setSampleId(this.getSampleId());    
+    mosquito.clearSex();
 
-    if (list.size() > 0)
+    for(Sex sex : this.getSex())
     {
-      mosquito.addSex(list.get(0));
+      mosquito.addSex(sex);
     }
-
-    mosquito.apply();
   }
 
   public void delete()
@@ -96,7 +126,7 @@ public class MosquitoView extends MosquitoViewBase implements
 
   private boolean hasConcrete()
   {
-    return this.getMosquitoId() != null && !this.getMosquitoId().equals("");
+    return hasConcreteId();
   }
 
   /**
@@ -104,12 +134,11 @@ public class MosquitoView extends MosquitoViewBase implements
    *         attribute. The class must extend from AssayTestResult.
    */
   @SuppressWarnings("unchecked")
-  public Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> getAssayMap()
+  public static Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> getAssayMap()
   {
     Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> map = new HashMap<Class<AssayTestResult>, MdAttributeVirtualDAOIF>();
-    List<MdAttributeDAOIF> mdAttributeDAOs = (List<MdAttributeDAOIF>) this.getMdAttributeDAOs();
 
-    for (MdAttributeDAOIF mdAttribute : mdAttributeDAOs)
+    for (MdAttributeDAOIF mdAttribute : MdViewDAO.getMdViewDAO(CLASS).definesAttributes())
     {
       // We want to return a map for all virtual attributes which
       if (mdAttribute instanceof MdAttributeVirtualDAOIF)
@@ -139,7 +168,7 @@ public class MosquitoView extends MosquitoViewBase implements
   private void applyAssays(Mosquito mosquito) throws InstantiationException, IllegalAccessException,
       IllegalArgumentException, SecurityException, InvocationTargetException, NoSuchMethodException
   {
-    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = this.getAssayMap();
+    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = MosquitoView.getAssayMap();
 
     for (Class<AssayTestResult> c : assayMap.keySet())
     {
@@ -191,7 +220,7 @@ public class MosquitoView extends MosquitoViewBase implements
   public void setAssays(AssayTestResult[] results) throws IllegalArgumentException, SecurityException,
       IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {
-    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = this.getAssayMap();
+    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = MosquitoView.getAssayMap();
 
     for (AssayTestResult result : results)
     {
@@ -228,5 +257,52 @@ public class MosquitoView extends MosquitoViewBase implements
 
     return array;
   }
+  
+  public static String[] getTargetSiteAccessors()
+  {
+    List<String> list = new LinkedList<String>();
+    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> map = MosquitoView.getAssayMap();
+    
+    for(Class<AssayTestResult> key : map.keySet())
+    {
+      if(TargetSiteAssayTestResult.class.isAssignableFrom(key))
+      {
+        list.add(map.get(key).getAccessorName());
+      }
+    }
 
+    return list.toArray(new String[list.size()]);
+  }
+  
+  public static String[] getInfectivityAccessors()
+  {
+    List<String> list = new LinkedList<String>();
+    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> map = MosquitoView.getAssayMap();
+    
+    for(Class<AssayTestResult> key : map.keySet())
+    {
+      if(InfectivityAssayTestResult.class.isAssignableFrom(key))
+      {
+        list.add(map.get(key).getAccessorName());
+      }
+    }
+
+    return list.toArray(new String[list.size()]);
+  }
+  
+  public static String[] getMetabolicAccessors()
+  {
+    List<String> list = new LinkedList<String>();
+    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> map = MosquitoView.getAssayMap();
+    
+    for(Class<AssayTestResult> key : map.keySet())
+    {
+      if(MetabolicAssayTestResult.class.isAssignableFrom(key))
+      {
+        list.add(map.get(key).getAccessorName());
+      }
+    }
+
+    return list.toArray(new String[list.size()]);
+  }
 }

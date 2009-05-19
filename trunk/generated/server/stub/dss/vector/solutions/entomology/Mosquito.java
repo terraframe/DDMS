@@ -90,29 +90,8 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   {
     MosquitoView view = new MosquitoView();
 
-    view.setSpecie(this.getSpecie());
-    view.setCollection(this.getCollection());
-    view.setGeneration(this.getGeneration());
-    view.setIsofemale(this.getIsofemale());
-    view.setIdentificationMethod(this.getIdentificationMethod());
-    view.setTestDate(this.getTestDate());
-    view.setMosquitoId(this.getId());
-    view.setSampleId(this.getSampleId());
-
-    if (this.getSex().size() > 0)
-    {
-      view.addSex(this.getSex().get(0));
-    }
-
-    try
-    {
-      view.setAssays(this.getTestResults());
-    }
-    catch (Exception e)
-    {
-      throw new RuntimeException(e);
-    }
-
+    view.populateView(this);
+    
     view.applyNoPersist();
 
     return view;
