@@ -13,7 +13,7 @@
       <dt><label> ${item.geoIdMd.displayLabel} </label></dt>
       <dd>${item.geoId}</dd>
       <mjl:dt attribute="testDate">
-        <span id="testDateSpan" class="formatDate">${item.testDateMd.displayLabel}</span>
+        <span id="testDateSpan" class="formatDate">${item.testDate}</span>
       </mjl:dt>
       <mjl:dt attribute="testMethod">
         ${item.testMethod.displayLabel}
