@@ -23,7 +23,8 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
   {
     if(this.getLastSprayed() != null && this.getLastSprayed() > 12)
     {
-      SprayProblem p = new SprayProblem();
+      String msg = "Not able to have a last spray date greater than 12";
+      SprayProblem p = new SprayProblem(msg);      
       p.setMonths(this.getLastSprayed());
       p.setNotification(this, LASTSPRAYED);
       p.apply();
@@ -38,7 +39,8 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
     {
       if(this.getNets() < this.getNetsUsed())
       {
-        NetQuantityProblem p = new NetQuantityProblem();
+        String msg = "Nets used is not allowed to be greater than total nets";
+        NetQuantityProblem p = new NetQuantityProblem(msg);
         p.setNetCount(this.getNetsUsed());
         p.setQuantity(this.getNets());
         p.setNotification(this, NETSUSED);
@@ -55,7 +57,8 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
     {
       if(this.getNets() < this.getSleptUnderNets())
       {
-        NetQuantityProblem p = new NetQuantityProblem();
+        String msg = "Slept under nets cannot be greater than the total number of nets";
+        NetQuantityProblem p = new NetQuantityProblem(msg);
         p.setNetCount(this.getSleptUnderNets());
         p.setQuantity(this.getNets());
         p.setNotification(this, SLEPTUNDERNETS);
@@ -72,7 +75,8 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
     {
       if(this.getWindowType().size() > 0)
       {
-        WindowTypeProblem p = new WindowTypeProblem();
+        String msg = "A window type is not allowed to be set when has windows is false";
+        WindowTypeProblem p = new WindowTypeProblem(msg);
         p.setNotification(this, WINDOWTYPE);
         p.apply();
         p.throwIt();
