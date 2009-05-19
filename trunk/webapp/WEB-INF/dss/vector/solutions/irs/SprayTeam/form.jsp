@@ -1,51 +1,8 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
-
 <%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%>
 
-<script type="text/javascript">
-YAHOO.util.Event.onDOMReady(function(){
-
-    function selectHandler(selected)
-    {
-      var geoId = document.getElementById('geoIdEl');
-      var geoEntityName = document.getElementById('entityName');
-
-      if(selected != null)
-      {
-        geoId.value = selected.getGeoId();
-        geoEntityName.innerHTML = selected.getEntityName();
-      }
-      else
-      {
-        geoId.value = '';
-        geoEntityName.innerHTML = '';
-      }
-    }
-
-    var selectSearch = new MDSS.SingleSelectSearch();
-    selectSearch.setSelectHandler(selectHandler);
-    selectSearch.setTreeSelectHandler(selectHandler);
-    var searchFilter = '<%=SprayZoneDTO.CLASS%>';
-    selectSearch.setFilter(searchFilter);
-
-
-
-    var opener = new YAHOO.util.Element("searchOpener");
-    opener.on("click", function(){
-
-      if(selectSearch.isInitialized())
-      {
-        selectSearch.show();
-      }
-      else
-      {
-        selectSearch.render();
-      }
-    });
-  }, null, true);
-</script>
 
   <dl>
     <dt><label> ${item.teamIdMd.displayLabel} </label></dt>
@@ -58,10 +15,7 @@ YAHOO.util.Event.onDOMReady(function(){
     </mjl:component>
     </dd>
     <dt><label> ${item.sprayZoneMd.displayLabel} </label></dt>
-    <dd><mjl:input type="text" param="geoId" value="${item.sprayZone.geoId}" id="geoIdEl"/>
-    <a href="#" id="searchOpener"><img src="./imgs/icons/world.png" /></a>
-<br/>(<span id ="entityName"></span>)
-    </dd>
+    <dd><mjl:input type="text" param="geoId" value="${item.sprayZone.geoId}" id="geoIdEl" classes="geoInput"/>  </dd>
     <%-- 5.13.09 - Marlize says we don't need Spray Leaders
     <dt><label> <fmt:message key="Spray_Team_Leader" /> </label></dt>
     <dd><mjl:select var="leader" valueAttribute="id" items="${leaders}" param="leaderId" includeBlank="true">

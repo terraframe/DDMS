@@ -5,49 +5,11 @@
 <%@page import="dss.vector.solutions.geo.generated.SurfaceDTO"%>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
-<script type="text/javascript">
+
 
 <c:set var="window_title" value="Efficacy_bioassay_data_entry" scope="request" />
 <c:set var="page_title" value="Enter_New_Data" scope="request" />
 
-YAHOO.util.Event.onDOMReady(function(){
-
-    function selectHandler(selected)
-    {
-      var geoId = document.getElementById('geoIdEl');
-
-      if(selected != null)
-      {
-        geoId.value = selected.getGeoId();
-      }
-      else
-      {
-        geoId.value = '';
-      }
-    }
-
-    var selectSearch = new MDSS.SingleSelectSearch();
-    selectSearch.setSelectHandler(selectHandler);
-    selectSearch.setTreeSelectHandler(selectHandler);
-    var searchFilter = '<%=SurfaceDTO.CLASS%>';
-    selectSearch.setFilter('');
-
-
-    var opener = new YAHOO.util.Element("searchOpener");
-    opener.on("click", function(){
-
-      if(selectSearch.isInitialized())
-      {
-        selectSearch.show();
-      }
-      else
-      {
-        selectSearch.render();
-      }
-    });
-  }, null, true);
-
-</script>
 
 
 <mjl:messages>

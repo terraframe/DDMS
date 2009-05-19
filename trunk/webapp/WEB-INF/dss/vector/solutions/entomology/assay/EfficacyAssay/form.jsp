@@ -5,11 +5,7 @@
     <mjl:component item="${item}" param="dto">
       <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
       <mjl:dt attribute="geoId">
-        <mjl:input id="geoIdEl" param="geoId" type="text" value="${item.geoId}" maxlength="16"/>
-        <a href="#" id="searchOpener"><img src="./imgs/icons/world.png" /></a>
-        <mjl:messages attribute="geoId">
-          <mjl:message />
-        </mjl:messages>
+        <mjl:input id="geoIdEl" param="geoId" type="text" value="${item.geoId}" maxlength="16" classes="geoInput"/>
       </mjl:dt>
       <mjl:dt attribute="testDate">
         <mjl:input type="text" param="testDate" classes="DatePick" id="testDate" />
