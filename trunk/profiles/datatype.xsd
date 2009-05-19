@@ -36,8 +36,9 @@
       <xs:sequence>
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element name="mdEnumeration" type="mdEnumeration" />
-          <xs:element name="enumerationMaster" type="mdStruct" />
+          <xs:element name="enumerationMaster" type="mdBusiness" />
           <xs:element name="mdStruct" type="mdStruct" />
+          <xs:element name="mdLocalStruct" type="mdLocalStruct" />
           <xs:element name="mdBusiness" type="mdBusiness" />
           <xs:element name="mdRelationship" type="mdRelationship" />
           <xs:element name="mdTree" type="mdRelationship" />
@@ -62,8 +63,9 @@
         <xs:element name="mdEnumeration" type="mdEnumeration" />
         <xs:element name="object" type="entity" />
         <xs:element name="relationship" type="relationshipCreate" />
-        <xs:element name="enumerationMaster" type="mdStruct" />
+        <xs:element name="enumerationMaster" type="mdBusiness" />
         <xs:element name="mdStruct" type="mdStruct" />
+        <xs:element name="mdLocalStruct" type="mdLocalStruct" />
         <xs:element name="mdBusiness" type="mdBusiness" />
         <xs:element name="mdRelationship" type="mdRelationship" />
         <xs:element name="mdTree" type="mdRelationship" />
@@ -414,6 +416,12 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="mdLocalStruct">
+    <xs:complexContent>
+      <xs:extension base="mdEntity"/>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="mdElement">
     <xs:complexContent>
       <xs:extension base="mdEntity">
@@ -726,6 +734,8 @@
         <xs:element name="symmetricEncryption" type="symmetricEncryption" />
         <xs:element name="blob" type="blob" />
         <xs:element name="file" type="file" />
+        <xs:element name="localChar" type="localChar" />
+        <xs:element name="localText" type="localText" />
         <xs:element name="virtual" type="virtual" />
       </xs:choice>
     </xs:complexType>
@@ -830,6 +840,12 @@
     <xs:attribute name="type" type="xs:string" />
   </xs:attributeGroup>
 
+  <xs:attributeGroup name="attributeStruct">
+    <xs:attributeGroup ref="attribute" />
+    <!--The fully qualified path of type that defines the struct -->
+    <xs:attribute name="type" type="xs:string" />
+  </xs:attributeGroup>
+
   <!--Common attribute of hash attribute and symmetric attribute -->
   <xs:attributeGroup name="attributeEncryption">
     <xs:attributeGroup ref="attribute" />
@@ -904,6 +920,16 @@
     <xs:attributeGroup ref="attributereference" />
   </xs:complexType>
 
+  <!-- local character: a localized character attribute -->
+  <xs:complexType name="localChar">
+    <xs:attributeGroup ref="attributeStruct" />
+  </xs:complexType>
+
+  <!-- text character: a localized character attribute -->
+  <xs:complexType name="localText">
+    <xs:attributeGroup ref="attributeStruct" />
+  </xs:complexType>
+
   <!--
 		referenceName: Must reference a defined enumerationFilter type
 		selectMultiple: Check boxes vs. Radio Buttons
@@ -919,12 +945,7 @@
 
   <!-- referenceName: Must reference a defined mdBusiness type -->
   <xs:complexType name="struct">
-    <xs:attributeGroup ref="attribute" />
-    <!--
-			referenceName: The fully qualified name of the mdBusiness being
-			referenced
-		-->
-    <xs:attribute name="type" type="xs:string" />
+    <xs:attributeGroup ref="attributeStruct" />
   </xs:complexType>
 
   <!-- Defines the hash encryption attribute -->
@@ -983,6 +1004,8 @@
       <xs:element name="assignedRole">
         <xs:complexType>
           <xs:attribute name="roleName" type="xs:string" use="required" />
+          <xs:attribute name="label" type="xs:string" />
+          <xs:anyAttribute processContents="skip"/>
         </xs:complexType>
       </xs:element>
       <!--A permission defined for a MdFacade-->
