@@ -10,6 +10,7 @@ MDSS.QueryXML = {
     LT: 'LT',
     LE: 'LE'
   },
+
   Functions : {
   	GB: 'GB',
   	SUM: 'SUM',
@@ -1032,7 +1033,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.editVariableStyles))
     {
-      this._config.editVariableStyles.call(this);
+      this._config.editVariableStyles();
     }
   },
 
@@ -1043,7 +1044,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.editLayer))
     {
-      this._config.editLayer.call(this, layerId);
+      this._config.editLayer(layerId);
     }
   },
 
@@ -1132,7 +1133,7 @@ MDSS.QueryPanel.prototype = {
       if(selected && selected.value)
       {
         var type = selected.value;
-        this._config.addLayer.call(this, type);
+        this._config.addLayer(type);
       }
     }
   },
@@ -1628,7 +1629,7 @@ MDSS.QueryPanel.prototype = {
       if(index > 0)
       {
         var savedSearchId = queries.options[index].value;
-        this._config.loadQuery.call(this, savedSearchId);
+        this._config.loadQuery(savedSearchId);
       }
     }
   },
@@ -1640,7 +1641,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.saveQuery))
     {
-      this._config.saveQuery.call(this);
+      this._config.saveQuery();
     }
   },
 
@@ -1651,7 +1652,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.mapQuery))
     {
-      this._config.mapQuery.call(this);
+      this._config.mapQuery();
     }
   },
 
@@ -1663,7 +1664,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.executeQuery))
     {
-      this._config.executeQuery.call(this);
+      this._config.executeQuery();
     }
   },
 

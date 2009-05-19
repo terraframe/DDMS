@@ -48,9 +48,8 @@
 
     var orderedGrids = <%= (String) request.getAttribute("orderedGrids") %>;
 
-    MDSS.QueryAggregatedCases.initialize(ageGroups, visibleAttributes, orderedGrids, queryList);
-
-    MDSS.QueryAggregatedCases.render();
+    var query = new MDSS.QueryAggregatedCases(ageGroups, visibleAttributes, orderedGrids, queryList);
+    query.render();
 
   });
 
