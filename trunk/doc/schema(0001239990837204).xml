@@ -167,6 +167,12 @@
         <valueAttribute
           name="roleName"
           value="entomologist" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Entomologist" />
+        </structAttribute>
       </object>
       <object
         id="testEntomologist"
@@ -182,56 +188,6 @@
           value="10" />
       </object>
     </create>
-    <permissions>
-      <user userName="testEntomologist">
-        <assignedRole roleName="entomologist"/>
-      </user>
-      <role roleName="entomologist">
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.EfficacyAssay">
-          <operation name="CREATE"/>
-          <operation name="READ"/>
-          <operation name="WRITE"/>
-          <operation name="READ_ALL"/>
-          <operation name="WRITE_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AbstractAssay">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.general.Insecticide">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.GeoEntity">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.mo.Generation">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.mo.IdentificationMethod">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.mo.Specie">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.mo.ResistanceMethodology">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.SexMaster">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.SurfacePositionMaster">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-      </role>
-    </permissions>
   </doIt>
   <undoIt>
     <delete>

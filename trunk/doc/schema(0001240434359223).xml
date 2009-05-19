@@ -10,6 +10,12 @@
         <valueAttribute
           name="roleName"
           value="dataCapturer" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Data Capturer" />
+        </structAttribute>
       </object>
       <object
         id="testDataCapturer"
@@ -30,6 +36,12 @@
         <valueAttribute
           name="roleName"
           value="manager" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Manager" />
+        </structAttribute>          
       </object>
       <object
         id="testManager"
@@ -46,272 +58,449 @@
       </object>
     </create>
     <permissions>
-      <user userName="testDataCapturer">
-        <assignedRole roleName="dataCapturer"/>
+      <user
+        userName="testDataCapturer">
+        <assignedRole
+          roleName="dataCapturer" />
       </user>
-      <role roleName="manager">
-
-        <mdViewPermission type="dss.vector.solutions.geo.GeoHierarchyView">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+      <role
+        roleName="manager">
+        <mdViewPermission
+          type="dss.vector.solutions.geo.GeoHierarchyView">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.geo.GeoEntityView">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdViewPermission
+          type="dss.vector.solutions.geo.GeoEntityView">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdViewPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.GeoEntity">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-          <attributePermission attributeName="id">
-            <operation name="READ"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.geo.generated.GeoEntity">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
+          <attributePermission
+            attributeName="id">
+            <operation
+              name="READ" />
           </attributePermission>
         </mdBusinessPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.geo.LocatedIn">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-          <operation name="READ_CHILD"/>
-          <operation name="READ_PARENT"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.geo.LocatedIn">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
+          <operation
+            name="READ_CHILD" />
+          <operation
+            name="READ_PARENT" />
         </mdRelationshipPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.PeriodTypeMaster">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-          <attributePermission attributeName="enumName">
-            <operation name="READ"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.surveillance.PeriodTypeMaster">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
+          <attributePermission
+            attributeName="enumName">
+            <operation
+              name="READ" />
           </attributePermission>
-          <attributePermission attributeName="displayLabel">
-            <operation name="READ"/>
+          <attributePermission
+            attributeName="displayLabel">
+            <operation
+              name="READ" />
           </attributePermission>
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.AggregatedAgeGroup">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.surveillance.AggregatedAgeGroup">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.AggregatedCase">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.surveillance.AggregatedCase">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdBusinessPermission>
 
-       <mdViewPermission type="dss.vector.solutions.surveillance.AggregatedCaseView">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-          <operation name="WRITE_ALL"/>
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.AggregatedCaseView">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.AdultCaseView">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-          <operation name="WRITE_ALL"/>          
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.AdultCaseView">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.AncientCaseView">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-          <operation name="WRITE_ALL"/>          
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.AncientCaseView">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.ChildCaseView">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-          <operation name="WRITE_ALL"/>          
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.ChildCaseView">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.ElderCaseView">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-          <operation name="WRITE_ALL"/>          
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.ElderCaseView">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.InfiantCaseView">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-          <operation name="WRITE_ALL"/>          
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.InfiantCaseView">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.TeenCaseView">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-          <operation name="WRITE_ALL"/>          
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.TeenCaseView">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.Property">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.Property">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.AbstractGrid">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.surveillance.AbstractGrid">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.TreatmentGrid">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.surveillance.TreatmentGrid">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.ReferralGrid">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.surveillance.ReferralGrid">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.DiagnosticGrid">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.surveillance.DiagnosticGrid">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.TreatmentMethodGrid">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.surveillance.TreatmentMethodGrid">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.surveillance.CaseTreatmentStock">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.surveillance.CaseTreatmentStock">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdRelationshipPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.surveillance.CaseTreatment">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.surveillance.CaseTreatment">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdRelationshipPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.surveillance.CaseDiagnostic">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.surveillance.CaseDiagnostic">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdRelationshipPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.surveillance.CaseReferral">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.surveillance.CaseReferral">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdRelationshipPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.surveillance.CaseTreatmentMethod">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.surveillance.CaseTreatmentMethod">
+          <operation
+            name="READ" />
+          <operation
+            name="READ_ALL" />
         </mdRelationshipPermission>
 
       </role>
 
-      <role roleName="dataCapturer">
-        <superRole roleName="manager"/>
+      <role
+        roleName="dataCapturer">
+        <superRole
+          roleName="manager" />
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.GeoEntity">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE_ALL"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.geo.generated.GeoEntity">
+          <operation
+            name="CREATE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE_ALL" />
         </mdBusinessPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.geo.LocatedIn">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="WRITE_CHILD"/>
-          <operation name="WRITE_PARENT"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.geo.LocatedIn">
+          <operation
+            name="CREATE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE_ALL" />
+          <operation
+            name="WRITE_CHILD" />
+          <operation
+            name="WRITE_PARENT" />
         </mdRelationshipPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.AggregatedCase">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.surveillance.AggregatedCase">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdBusinessPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.AggregatedCaseView">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="READ"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.AggregatedCaseView">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="READ" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.AdultCaseView">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.AdultCaseView">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.AncientCaseView">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.AncientCaseView">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.ChildCaseView">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.ChildCaseView">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.ElderCaseView">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.ElderCaseView">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.InfiantCaseView">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.InfiantCaseView">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdViewPermission type="dss.vector.solutions.surveillance.TeenCaseView">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdViewPermission
+          type="dss.vector.solutions.surveillance.TeenCaseView">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.surveillance.AbstractGrid">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdBusinessPermission
+          type="dss.vector.solutions.surveillance.AbstractGrid">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdBusinessPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.surveillance.CaseTreatmentStock">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.surveillance.CaseTreatmentStock">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdRelationshipPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.surveillance.CaseTreatment">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.surveillance.CaseTreatment">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdRelationshipPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.surveillance.CaseDiagnostic">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.surveillance.CaseDiagnostic">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdRelationshipPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.surveillance.CaseReferral">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.surveillance.CaseReferral">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdRelationshipPermission>
 
-        <mdRelationshipPermission type="dss.vector.solutions.surveillance.CaseTreatmentMethod">
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
+        <mdRelationshipPermission
+          type="dss.vector.solutions.surveillance.CaseTreatmentMethod">
+          <operation
+            name="CREATE" />
+          <operation
+            name="DELETE" />
+          <operation
+            name="WRITE" />
+          <operation
+            name="WRITE_ALL" />
         </mdRelationshipPermission>
 
       </role>
