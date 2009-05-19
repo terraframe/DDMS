@@ -210,44 +210,8 @@ MDSS.QueryAggregatedCases = (function(){
    */
   function _mapQuery()
   {
-    var types = [];
-    types.push(Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS); // always included
-
-    var selectables = [];
-
-  	// use the current thematic variable to know which entities/selectables
-  	// can be included in the query for thematic mapping.
-    var thematicVar = this.getCurrentThematicVariable();
-    if(thematicVar != null)
-    {
-      var entityAlias = thematicVar.getEntityAlias();
-
-      for(var i=0; i<_thematicSearchList.length; i++)
-      {
-        var map = _thematicSearchList[i];
-        var entry = map[entityAlias];
-        if(Mojo.util.isObject(entry))
-        {
-          if(entry instanceof MDSS.QueryXML.Entity)
-          {
-          }
-          else if(entry instanceof MDSS.QueryXML.Selectable)
-          {
-          }
-        }
-      }
-    }
-
-
-    // the server will error out if the type is empty, but GEOID should always be included.
-    if(_geoEntityQueryType !== '')
-    {
-      types.push(_geoEntityQueryType);
-      selectables.push(_geoEntityQueryType+'_'+Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.GEOID);
-    }
-
     var queryXML = _constructQuery();
-    var xml = queryXML.getXMLForMap(types, selectables);
+    var xml = queryXML.getXML();
 
     var request = new MDSS.Request({
       queryPanelRef: this,
@@ -446,8 +410,7 @@ MDSS.QueryAggregatedCases = (function(){
      bestFit = selected;
 
      // Earth is not allowed in the Select
-     var earth = Mojo.$.dss.vector.solutions.geo.generated.Earth.CLASS;
-     if(bestFit.getEntityType() === earth)
+     if(bestFit.getEntityType() === 'dss.vector.solutions.geo.generated.Earth.CLASS')
      {
        return;
      }
@@ -529,12 +492,10 @@ MDSS.QueryAggregatedCases = (function(){
     }
     else
     {
-      var filterType = '';
-
       _selectSearch = new MDSS.SingleSelectSearch();
       _selectSearch.setSelectHandler(_selectHandler);
       _selectSearch.setTreeSelectHandler(_selectHandler);
-      _selectSearch.setFilter(filterType);
+      _selectSearch.setFilter('');
       _selectSearch.render();
     }
   }
@@ -637,12 +598,7 @@ MDSS.QueryAggregatedCases = (function(){
     _visibleSelectables[attributeObj.key] = selectable;
 
     // ADD THEMATIC VARIABLE
-    var thematicVar = new Mojo.$.dss.vector.solutions.query.ThematicVariable();
-    thematicVar.setEntityAlias(aggregatedCaseClass);
-    thematicVar.setAttributeName(attributeObj.key);
-    thematicVar.setDisplayLabel(attributeObj.label);
-
-    _queryPanel.addThematicVariable(thematicVar);
+    _queryPanel.addThematicVariable(aggregatedCaseClass, attributeObj.key, attributeObj.label);
   }
 
   /**
@@ -688,12 +644,7 @@ MDSS.QueryAggregatedCases = (function(){
     _gridEntities[busAlias] = entity;
 
     // ADD THEMATIC VARIABLE
-    var thematicVar = new Mojo.$.dss.vector.solutions.query.ThematicVariable();
-    thematicVar.setEntityAlias(relAlias);
-    thematicVar.setAttributeName(attributeObj.attributeName); // use attributeName because key == optionName
-    thematicVar.setDisplayLabel(attributeObj.label);
-
-    _queryPanel.addThematicVariable(thematicVar);
+    _queryPanel.addThematicVariable(relAlias, optionName, attributeObj.label);
   }
 
   /**
@@ -725,7 +676,7 @@ MDSS.QueryAggregatedCases = (function(){
   /**
    * Removes an attribute as a selectable and column.
    */
-  function _removeVisibleAttribute(attributeName, removeColumn, removeSelectable)
+  function _removeVisibleAttribute(attributeName, removeColumn, removeSelectable, removeThematic)
   {
   	if(removeSelectable === true)
   	{
@@ -741,12 +692,18 @@ MDSS.QueryAggregatedCases = (function(){
       var column = _queryPanel.getColumn(attributeName);
       _queryPanel.removeColumn(column);
     }
+
+   if(removeThematic === true)
+   {
+      var aggregatedCaseClass = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
+      _queryPanel.removeThematicVariable(aggregatedCaseClass, attributeName);
+   }
   }
 
   /**
    * Removes a grid attribute from the selectables and column.
    */
-  function _removeGridAttribute(relAlias, busAlias, attributeName, removeColumn, removeSelectable)
+  function _removeGridAttribute(relAlias, busAlias, optionName, removeColumn, removeSelectable, removeThematic)
   {
   	if(removeSelectable === true)
   	{
@@ -759,10 +716,15 @@ MDSS.QueryAggregatedCases = (function(){
 
     if(removeColumn === true)
     {
-      var column = _queryPanel.getColumn(attributeName);
+      var column = _queryPanel.getColumn(optionName);
       _queryPanel.removeColumn(column);
 
       delete _gridEntities[busAlias];
+    }
+
+    if(removeThematic === true)
+    {
+      _queryPanel.removeThematicVariable(relAlias, optionName);
     }
   }
 
@@ -780,7 +742,7 @@ MDSS.QueryAggregatedCases = (function(){
     }
     else
     {
-      _removeVisibleAttribute(attributeObj.key, true, true);
+      _removeVisibleAttribute(attributeObj.key, true, true, true);
 
       var select = check.nextSibling;
       select.selectedIndex = 0;
@@ -809,7 +771,7 @@ MDSS.QueryAggregatedCases = (function(){
       var relAlias = _getGridRelAlias(relType, optionName);
       var busAlias = _getGridBusAlias(relType, optionName, busType);
 
-      _removeGridAttribute(busType, relType, optionName, true, true);
+      _removeGridAttribute(relAlias, busAlias, optionName, true, true, true);
 
       var select = check.nextSibling;
       select.selectedIndex = 0;
@@ -823,6 +785,7 @@ MDSS.QueryAggregatedCases = (function(){
     var attributeObj = obj.attributeObj;
 
     var optionName = attributeObj.key;
+    var attributeName = attributeObj.attributeName;
     var relAttribute = attributeObj.meta.relAttribute;
 
     var busType = attributeObj.type;
@@ -839,7 +802,7 @@ MDSS.QueryAggregatedCases = (function(){
     // special cases
     if(func === MDSS.QueryXML.Functions.GB)
     {
-  	  _removeGridAttribute(relAlias, busAlias, optionName, false, false);
+  	  _removeGridAttribute(relAlias, busAlias, optionName, false, false, false);
       _gridSelectables[relAlias] = selectable;
       _gridGroupBySelectables[relAlias] = selectable;
       return;
@@ -847,7 +810,7 @@ MDSS.QueryAggregatedCases = (function(){
     else if(func === '')
     {
       // Use regular selectable (this is just here for clarity).
-  	  _removeGridAttribute(relAlias, busAlias, optionName, false, true);
+  	  _removeGridAttribute(relAlias, busAlias, optionName, false, true, false);
       _gridSelectables[relAlias] = selectable;
       return;
     }
@@ -871,7 +834,7 @@ MDSS.QueryAggregatedCases = (function(){
       aggFunc = new MDSS.QueryXML.AVG(selectable, optionName);
     }
 
-  	_removeGridAttribute(relAlias, busAlias, optionName, false, true);
+  	_removeGridAttribute(relAlias, busAlias, optionName, false, true, false);
 
     var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
     _gridAggregateSelectables[relAlias] = aggSelectable;
@@ -895,7 +858,7 @@ MDSS.QueryAggregatedCases = (function(){
     // special cases
     if(func === MDSS.QueryXML.Functions.GB)
     {
-  	  _removeVisibleAttribute(attributeName, false, false);
+  	  _removeVisibleAttribute(attributeName, false, false, false);
       _visibleSelectables[attributeName] = selectable;
       _visibleGroupBySelectables[attributeName] = selectable;
       return;
@@ -903,7 +866,7 @@ MDSS.QueryAggregatedCases = (function(){
     else if(func === '')
     {
       // Use regular selectable (this is just here for clarity).
-  	  _removeVisibleAttribute(attributeName, false, true);
+  	  _removeVisibleAttribute(attributeName, false, true, false);
       _visibleSelectables[attributeName] = selectable;
       return;
     }
@@ -927,7 +890,7 @@ MDSS.QueryAggregatedCases = (function(){
       aggFunc = new MDSS.QueryXML.AVG(selectable, attributeName);
     }
 
-  	_removeVisibleAttribute(attributeName, false, true);
+  	_removeVisibleAttribute(attributeName, false, true, false);
 
     var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
     _visibleAggregateSelectables[attributeName] = aggSelectable;
@@ -1446,5 +1409,3 @@ MDSS.QueryAggregatedCases = (function(){
   };
 
 })();
-
-

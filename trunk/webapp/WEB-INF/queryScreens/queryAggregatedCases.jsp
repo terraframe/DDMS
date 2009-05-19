@@ -24,9 +24,6 @@
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
-
-<script src="/geoserver/openlayers/OpenLayers.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/QueryAggregatedCases.js"></script>
 <script type="text/javascript">
 
   <%

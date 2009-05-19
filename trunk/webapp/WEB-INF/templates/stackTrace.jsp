@@ -14,7 +14,7 @@
 <%
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-  if (clientRequest.isLoggedIn())
+  if (clientRequest != null && clientRequest.isLoggedIn())
   {
     out.println("Logged In As: " + clientRequest.getSessionUser() + "<br/>");
   }

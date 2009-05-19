@@ -128,48 +128,6 @@ MDSS.QueryXML.Query.prototype = {
     var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>';
     xml += MDSS.QueryXML.objectToXML(obj);
     return xml;
-  },
-
-  /**
-   * Returns the XML to display a map, which is a
-   * subset of the original XML as restricted by the
-   * given parameter.
-   */
-  getXMLForMap : function(entityAliases, selectableAliases)
-  {
-    // include only the entity of the given alias
-    // and its selectable attributes
-    var entities = new MDSS.QueryXML.Entities();
-    for(var i=0; i<entityAliases.length; i++)
-    {
-      var entityAlias = entityAliases[i];
-      var entity = this.getEntity(entityAlias);
-      entities.addEntity(entityAlias, entity);
-    }
-
-
-    // TODO filter out by entityAlias instead of selectable aliases
-    var select = new MDSS.QueryXML.Select();
-    for(var i=0; i<selectableAliases.length; i++)
-    {
-      var key = selectableAliases[i];
-      var selectable = this._select.getSelectable(key);
-      select.addSelectable(key, selectable);
-    }
-
-    var entitiesArray = entities.build();
-    var selectArray = select.build();
-    var groupByArray = this._groupBy.build();
-    var havingArray = this._having.build();
-    var orderByArray = this._orderBy.build();
-
-    var obj = {
-      'query' : [entitiesArray, selectArray, groupByArray, havingArray, orderByArray]
-    };
-
-    var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>';
-    xml += MDSS.QueryXML.objectToXML(obj);
-    return xml;
   }
 };
 
@@ -897,7 +855,7 @@ MDSS.QueryPanel.prototype = {
       }
 
       // add click event handler
-      if(queryItem.onclick)
+      if(Mojo.util.isObject(queryItem.onclick))
       {
         liE.on('click', queryItem.onclick.handler, queryItem.onclick.obj);
       }
@@ -1407,7 +1365,17 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   * Adds a new Query Item to the left column of the panel.
+   * Adds a new Query Item to the left column of the panel. The object
+   * must be in the following format (R == required and O == optional):
+   * {
+   *   id (R): [string],
+   *   html (R): [string] or [Element],
+   *   onclick (O): {
+   *     handler (R): [Function],
+   *     obj (O): [Object]
+   *   },
+   *   menuBuilder (O): [Function]
+   * }
    */
   addQueryItem : function(menuObj)
   {
@@ -1436,18 +1404,23 @@ MDSS.QueryPanel.prototype = {
    * Adds to the list of possible thematic variables a user can
    * choose from.
    */
-  addThematicVariable : function(thematicVariable)
+  addThematicVariable : function(entityAlias, attributeName, displayLabel)
   {
-  	var key = thematicVariable.getEntityAlias() + "-" + thematicVariable.getAttributeName();
-  	this._thematicVariables[key] = thematicVariable;
+    var thematicVar = new Mojo.$.dss.vector.solutions.query.ThematicVariable();
+    thematicVar.setEntityAlias(entityAlias);
+    thematicVar.setAttributeName(attributeName);
+    thematicVar.setDisplayLabel(displayLabel);
+
+  	var key = thematicVar.getEntityAlias() + "-" + thematicVar.getAttributeName();
+  	this._thematicVariables[key] = thematicVar;
   },
 
   /**
    * Removes the given thematic variable.
    */
-  removeThematicVariable : function(thematicVariable)
+  removeThematicVariable : function(entityAlias, attributeName)
   {
-  	var key = thematicVariable.getEntityAlias() + "-" + thematicVariable.getAttributeName();
+  	var key = entityAlias + "-" + attributeName;
     delete this._thematicVariables[key];
   },
 
@@ -1575,8 +1548,6 @@ MDSS.QueryPanel.prototype = {
     );
     var options = {
         controls: [],
-        //maxExtent: bounds,
-        //maxResolution: 0.000859375,
         projection: "EPSG:4326",
         units: 'degrees'
     };
@@ -1596,8 +1567,7 @@ MDSS.QueryPanel.prototype = {
             styles: '',
             format: 'image/png',
             tiled: 'true',
-            sld: Mojo.ClientSession.getBaseEndpoint()+baseLayer.sld,
-            //tilesOrigin : "36.718452,-17.700377000000003"
+            sld: Mojo.ClientSession.getBaseEndpoint()+baseLayer.sld
         },
         {
           buffer: 0,
@@ -1620,7 +1590,6 @@ MDSS.QueryPanel.prototype = {
             format: 'image/png',
             tiled: 'true',
             sld: Mojo.ClientSession.getBaseEndpoint()+layerName.sld,
-            //tilesOrigin : "36.718452,-17.700377000000003",
             transparent: true
         },
         {

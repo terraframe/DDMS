@@ -1,16 +1,12 @@
 package dss.vector.solutions;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.sun.mail.imap.Utility.Condition;
 import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.business.BusinessFacade;
-import com.terraframe.mojo.business.rbac.RoleDAO;
-import com.terraframe.mojo.business.rbac.RoleDAOIF;
-import com.terraframe.mojo.business.rbac.SingleActorDAOIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.ServerConstants;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.MdRelationshipDAOIF;
@@ -18,20 +14,24 @@ import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdRelationshipDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.util.FileIO;
+import com.terraframe.mojo.web.json.JSONController;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.CountryQuery;
 import dss.vector.solutions.geo.generated.District;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geo.generated.Province;
 import dss.vector.solutions.surveillance.AggregatedCase;
 import dss.vector.solutions.surveillance.AggregatedCaseQuery;
@@ -52,6 +52,14 @@ public class Sandbox
   public static void main(String[] args) throws Exception
   {
 
+    QueryFactory f = new QueryFactory();
+    GeoEntityQuery q = new GeoEntityQuery(f);
+
+    com.terraframe.mojo.query.Condition or = OR.get(q.getEntityName().LIKE("A"), q.getEntityName().LIKE("B"));
+    com.terraframe.mojo.query.Condition and = AND.get(or, q.getGeoId().EQ("123"));
+
+    q.WHERE(and);
+
 //    String temp = "CaseTreatmentStock_SP_TreatmentGrid";
 //
 //    int firstIndex = temp.indexOf("_", 0);
@@ -62,16 +70,35 @@ public class Sandbox
 //
 //    System.out.println(firstIndex+"  "+secondIndex+"  "+relString);
 
+    ClientSession session = ClientSession.createUserSession(ServerConstants.SYSTEM_USER_NAME, "mdsstest2");
 
-//    ClientSession session = ClientSession.createUserSession(ServerConstants.SYSTEM_USER_NAME, "mdsstest2");
-//    ClientRequestIF request = session.getRequest();
+    String s = "dss.vector.solutions.geo.generated.CountryController&dss.vector.solutions.geo.generated.DistrictController&dss.vector.solutions.geo.generated.VillageController&dss.vector.solutions.geo.generated.LocalityController&dss.vector.solutions.geo.generated.AdminPostController&dss.vector.solutions.geo.generated.Trap&dss.vector.solutions.geo.generated.RoadController&dss.vector.solutions.geo.generated.Reserve&dss.vector.solutions.geo.generated.EarthController&dss.vector.solutions.geo.generated.CityController&dss.vector.solutions.geo.generated.Town&dss.vector.solutions.geo.generated.District&dss.vector.solutions.geo.generated.Village&dss.vector.solutions.geo.generated.RoofController&dss.vector.solutions.geo.generated.NonSentinelSiteController&dss.vector.solutions.geo.generated.Earth&dss.vector.solutions.geo.generated.SentinelSite&dss.vector.solutions.geo.generated.RiverController&dss.vector.solutions.geo.generated.Wall&dss.vector.solutions.geo.generated.SprayZoneController&dss.vector.solutions.geo.generated.WallController&dss.vector.solutions.geo.generated.PermanentWaterBodyController&dss.vector.solutions.geo.generated.BreedingSiteController&dss.vector.solutions.geo.generated.PopulatedArea&dss.vector.solutions.geo.generated.FacilityController&dss.vector.solutions.geo.generated.Railway&dss.vector.solutions.geo.generated.Locality&dss.vector.solutions.geo.generated.SentinelSiteController&dss.vector.solutions.geo.generated.NationalRoadController&dss.vector.solutions.geo.generated.Road&dss.vector.solutions.geo.generated.Facility&dss.vector.solutions.geo.generated.Province&dss.vector.solutions.geo.generated.PopulatedAreaController&dss.vector.solutions.geo.generated.ProvinceController&dss.vector.solutions.geo.generated.ReserveController&dss.vector.solutions.geo.generated.TrapController&dss.vector.solutions.geo.generated.BreedingSite&dss.vector.solutions.geo.generated.AdminPost&dss.vector.solutions.geo.generated.Roof&dss.vector.solutions.geo.generated.SprayZone&dss.vector.solutions.geo.generated.River&dss.vector.solutions.geo.generated.NationalRoad&dss.vector.solutions.geo.generated.City&dss.vector.solutions.geo.generated.Country&dss.vector.solutions.geo.generated.PermanentWaterBody&dss.vector.solutions.geo.generated.RailwayController&dss.vector.solutions.geo.generated.TownController&dss.vector.solutions.geo.generated.NonSentinelSite&dss.vector.solutions.geo.GeoEntityView";
 
-//    createGeoEntities(request.getSessionId());
-    //testDefineAllowedTree(request.getSessionId());
+    String[] arr = s.split("&");
+
+    for(String type : arr)
+    {
+    //  System.out.println(type);
+    }
+
+    Date before = new Date();
+
+//    String js = JSONController.importTypes(session.getSessionId(), arr, true);
+    String js = JSONController.importTypes(session.getSessionId(), new String[]{GeoEntity.CLASS}, true);
+
+
+    //System.out.println(js);
+
+    Date after = new Date();
+
+    //System.out.println(before);
+    //System.out.println(after);
+
+    //    createGeoEntities(request.getSessionId());
 
 //    testQueries();
 
-    queryAggregatedCases();
+//    queryAggregatedCases();
   }
 
   @StartSession
@@ -209,13 +236,6 @@ public class Sandbox
   @StartSession
   private static void createGeoEntities(String sessionId) throws IOException
   {
-     MDSSUser u = new MDSSUser();
-     u.setUsername("MDSS");
-     u.setPassword("MDSS");
-     u.apply();
-
-     SingleActorDAOIF uDAO = (SingleActorDAOIF) BusinessFacade.getEntityDAO(u);
-     RoleDAO.findRole(RoleDAOIF.ADMIN_ROLE).assignMember(uDAO);
   }
 
   private static void r(GeoEntity child)

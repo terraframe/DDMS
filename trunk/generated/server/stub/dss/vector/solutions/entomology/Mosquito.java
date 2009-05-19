@@ -194,6 +194,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    *
    * @param xml
    */
+  @Transaction
   public static com.terraframe.mojo.query.ValueQuery queryEntomology(String xml, String geoEntityType)
   {
     return xmlToValueQuery(xml, geoEntityType, false, null);
@@ -205,6 +206,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    * @param xml
    * @return
    */
+  @Transaction
   public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers,
       String savedSearchId)
   {

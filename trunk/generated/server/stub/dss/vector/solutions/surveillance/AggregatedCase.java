@@ -495,7 +495,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
         String entityAlias = thematicVariable.getEntityAlias();
         String attributeName = thematicVariable.getAttributeName();
 
-        valueQueryParser.addAttributeSelectable(entityAlias, attributeName, "",
+        valueQueryParser.setColumnAlias(entityAlias, attributeName,
             QueryConstants.THEMATIC_DATA_COLUMN);
       }
     }
@@ -599,6 +599,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
    *
    * @param xml
    */
+  @Transaction
   public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String geoEntityType)
   {
     return xmlToValueQuery(xml, geoEntityType, false, null);
@@ -610,6 +611,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * @param xml
    * @return
    */
+  @Transaction
   public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers, String savedSearchId)
   {
     if(savedSearchId == null || savedSearchId.trim().length() == 0)

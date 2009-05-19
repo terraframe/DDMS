@@ -1,5 +1,7 @@
 package dss.vector.solutions.geo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -45,6 +47,7 @@ import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.QueryConstants;
 
 public class GeoHierarchy extends GeoHierarchyBase implements
@@ -976,14 +979,44 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
       Database.createView(viewName, sql);
 
-      GeoServerReloader.reload(sessionId, viewName, mdAttrGeo);
+      MapUtil.reload(sessionId, viewName, mdAttrGeo);
 
       this.appLock();
       this.setViewCreated(true);
       this.apply();
     }
 
-    return true;
+    // To avoid a bug in GeoServer, only include the layer if count > 0
+    String countSQL = "SELECT COUNT(*) "+Database.formatColumnAlias("ct")+" FROM "+viewName;
+    ResultSet resultSet = Database.query(countSQL);
+
+    Long count = 0L;
+
+    try
+    {
+      resultSet.next();
+      String result = resultSet.getString("ct");
+      count = new Long(result.toString());
+    }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet.getStatement();
+        resultSet.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
+    }
+
+    return count > 0;
   }
 
   @SuppressWarnings("unchecked")

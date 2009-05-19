@@ -19,6 +19,9 @@
         <valueAttribute
           name="password"
           value="mdsstest2" />
+        <valueAttribute
+          name="sessionLimit"
+          value="10" />
         <referenceAttribute
           name="person"
           id="MDSSPersonAdmin" />
