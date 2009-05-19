@@ -1,5 +1,7 @@
 package dss.vector.solutions.util;
 
+import java.util.Locale;
+
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -169,7 +171,7 @@ public class PermissionsTest extends TestCase
 
   private boolean checkAttributeAccess(Users user, MdAttribute attribute)
   {
-    ClientSession adminSession = ClientSession.createUserSession(user.getUsername(), user.getUsername());
+    ClientSession adminSession = ClientSession.createUserSession(user.getUsername(), user.getUsername(), Locale.US);
     MdAttributeDAO mdAttributeDAO = (MdAttributeDAO) BusinessFacade.getEntityDAO(attribute);
     boolean checkAttributeAccess = SessionFacade.checkAttributeAccess(adminSession.getSessionId(), Operation.READ, mdAttributeDAO);
     adminSession.logout();
