@@ -1,0 +1,32 @@
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.entomology.MosquitoView">
+        <create>
+          <mdMethod
+            name="getTargetSiteAccessors"
+            returnType="java.lang.String[]"
+            label="Get Target Site Accessors"
+            static="true"
+            description="Returns a list of the target site accessor names" />
+          <mdMethod
+            name="getInfectivityAccessors"
+            returnType="java.lang.String[]"
+            label="Get Infectivity Accessors"
+            static="true"
+            description="Returns a list of the infectivity accessor names" />
+          <mdMethod
+            name="getMetabolicAccessors"
+            returnType="java.lang.String[]"
+            label="Get metabolic Accessors"
+            static="true"
+            description="Returns a list of the metabolic accessor names" />
+        </create>
+      </mdView>    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
