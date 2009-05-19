@@ -130,7 +130,7 @@
       <mjl:commandLink
         name="EfficacyAssay"
         display="Efficacy Bioassay"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.assay.EfficacyAssay"/>
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.assay.EfficacyAssayView"/>
     </dd>
     <dd>
       <mjl:commandLink
@@ -184,7 +184,7 @@
       <mjl:commandLink
         name="SurveyPoint"
         display="Survey Point"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.SurveyPoint"/>
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.SurveyPointView"/>
     </dd>
     <dd>
       <mjl:commandLink
