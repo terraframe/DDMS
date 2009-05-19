@@ -10,8 +10,9 @@
   <dl>
     <mjl:input value="${item.concreteId}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
-      <dt><label> ${item.geoIdMd.displayLabel} </label></dt>
-      <dd>${item.geoId}</dd>
+      <mjl:dt attribute="geoId">
+        ${item.geoId}
+      </mjl:dt>
       <mjl:dt attribute="testDate">
         <span id="testDateSpan" class="formatDate">${item.testDate}</span>
       </mjl:dt>
@@ -80,7 +81,8 @@
       <mjl:dt attribute="mortality">
         ${item.mortality}
       </mjl:dt>
-      <dt><label> <fmt:message key="Overall_Mortality_for_surface" />: ${item.geoId} </label></dt>
+      
+      <dt><label> <fmt:message key="Overall_Mortality_for_surface" /> </label></dt>
       <dd><fmt:formatNumber type="number" maxFractionDigits="2" value="${item.overallMortalityRate}" /></dd>
     </mjl:component>
 
