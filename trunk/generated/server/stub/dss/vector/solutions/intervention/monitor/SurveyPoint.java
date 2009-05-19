@@ -1,7 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -37,6 +40,34 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
     {
       it.close();
     }
+  }
+  
+  @Override
+  @Transaction
+  public void delete()
+  {
+    //First delete all of the households of this survey point
+    List<Household> list = new LinkedList<Household>();
+    OIterator<? extends Household> it = this.getAllHouseholds();
+    
+    try
+    {      
+      while(it.hasNext())
+      {
+        list.add(it.next());
+      }      
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    for(Household household : list)
+    {
+      household.delete();
+    }
+
+    super.delete();
   }
   
   @Override

@@ -22,4 +22,29 @@ public class HouseholdNet extends HouseholdNetBase implements com.terraframe.moj
 
     return clone;
   }
+  
+  @Override
+  public void validateAmount()
+  {
+    if(this.getAmount() != null)
+    {
+      Integer nets = this.getParent().getNets();
+    
+      if(nets != null && nets == 0 && this.getAmount() != 0)
+      {
+        NetProblem p = new NetProblem();
+        p.setNotification(this, AMOUNT);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+  
+  @Override
+  public void apply()
+  {
+    validateAmount();
+    
+    super.apply();
+  }
 }

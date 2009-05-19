@@ -38,15 +38,15 @@ import dss.vector.solutions.intervention.RDTResult;
 
 public class SurveyTest extends TestCase
 {
-  private static GeoEntity       geoEntity = null;
+  private static GeoEntity     geoEntity = null;
 
-  private static Wall            wall      = null;
+  private static Wall          wall      = null;
 
-  private static Roof            roof      = null;
+  private static Roof          roof      = null;
 
-  private static Drug            drug      = null;
+  private static Drug          drug      = null;
 
-  private static ClientSession   clientSession;
+  private static ClientSession clientSession;
 
   public static Test suite()
   {
@@ -85,7 +85,7 @@ public class SurveyTest extends TestCase
     clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
 
     geoEntity = new SentinelSite();
-    geoEntity.setGeoId("0");
+    geoEntity.setGeoId("9");
     geoEntity.setEntityName("Sentinel Site");
     geoEntity.apply();
 
@@ -212,7 +212,7 @@ public class SurveyTest extends TestCase
     household.addWindowType(WindowType.ANY_WINDOW);
     household.setRooms(30);
     household.setLastSprayed(7);
-    household.setNets(4);
+    household.setNets(24);
     household.setNetsUsed(2);
     household.setSleptUnderNets(14);
     household.apply();
@@ -237,9 +237,17 @@ public class SurveyTest extends TestCase
       assertEquals(test.getNetsUsed(), household.getNetsUsed());
       assertEquals(test.getSleptUnderNets(), household.getSleptUnderNets());
     }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
     finally
     {
-      household.delete();
+      if (household.isAppliedToDB())
+      {
+        household.delete();
+      }
+
       point.delete();
     }
   }
@@ -267,7 +275,7 @@ public class SurveyTest extends TestCase
     household.addWindowType(WindowType.ANY_WINDOW);
     household.setRooms(30);
     household.setLastSprayed(7);
-    household.setNets(4);
+    household.setNets(24);
     household.setNetsUsed(2);
     household.setSleptUnderNets(14);
 
@@ -350,7 +358,7 @@ public class SurveyTest extends TestCase
     household.addWindowType(WindowType.ANY_WINDOW);
     household.setRooms(30);
     household.setLastSprayed(7);
-    household.setNets(4);
+    household.setNets(24);
     household.setNetsUsed(2);
     household.setSleptUnderNets(14);
 
@@ -425,7 +433,7 @@ public class SurveyTest extends TestCase
     household.addWindowType(WindowType.ANY_WINDOW);
     household.setRooms(30);
     household.setLastSprayed(7);
-    household.setNets(4);
+    household.setNets(24);
     household.setNetsUsed(2);
     household.setSleptUnderNets(14);
 
@@ -512,7 +520,7 @@ public class SurveyTest extends TestCase
     household.addWindowType(WindowType.ANY_WINDOW);
     household.setRooms(30);
     household.setLastSprayed(7);
-    household.setNets(4);
+    household.setNets(24);
     household.setNetsUsed(2);
     household.setSleptUnderNets(14);
     household.apply();
@@ -529,7 +537,7 @@ public class SurveyTest extends TestCase
     household2.addWindowType(WindowType.ANY_WINDOW);
     household2.setRooms(30);
     household2.setLastSprayed(7);
-    household2.setNets(4);
+    household2.setNets(24);
     household2.setNetsUsed(2);
     household2.setSleptUnderNets(14);
     household2.apply();
@@ -586,7 +594,7 @@ public class SurveyTest extends TestCase
       household.addWindowType(WindowType.ANY_WINDOW);
       household.setRooms(30);
       household.setLastSprayed(15);
-      household.setNets(4);
+      household.setNets(24);
       household.setNetsUsed(2);
       household.setSleptUnderNets(14);
       household.apply();
@@ -628,7 +636,7 @@ public class SurveyTest extends TestCase
     household.addWindowType(WindowType.ANY_WINDOW);
     household.setRooms(30);
     household.setLastSprayed(7);
-    household.setNets(4);
+    household.setNets(24);
     household.setNetsUsed(2);
     household.setSleptUnderNets(14);
     household.apply();
@@ -720,7 +728,7 @@ public class SurveyTest extends TestCase
     household.addWindowType(WindowType.ANY_WINDOW);
     household.setRooms(30);
     household.setLastSprayed(7);
-    household.setNets(4);
+    household.setNets(24);
     household.setNetsUsed(2);
     household.setSleptUnderNets(14);
     household.apply();
@@ -812,7 +820,7 @@ public class SurveyTest extends TestCase
     household.addWindowType(WindowType.ANY_WINDOW);
     household.setRooms(30);
     household.setLastSprayed(7);
-    household.setNets(4);
+    household.setNets(24);
     household.setNetsUsed(2);
     household.setSleptUnderNets(14);
     household.apply();
@@ -884,7 +892,7 @@ public class SurveyTest extends TestCase
     household.addWindowType(WindowType.ANY_WINDOW);
     household.setRooms(30);
     household.setLastSprayed(7);
-    household.setNets(4);
+    household.setNets(24);
     household.setNetsUsed(2);
     household.setSleptUnderNets(14);
     household.apply();
@@ -957,6 +965,293 @@ public class SurveyTest extends TestCase
       person.delete();
       person2.delete();
       household.delete();
+      point.delete();
+    }
+  }
+
+  public void testCreateSurveyPointVeiw()
+  {
+    Date date = new Date();
+
+    SurveyPointView point = new SurveyPointView();
+    point.setSurveyDate(date);
+    point.setGeoId(geoEntity.getGeoId());
+    point.apply();
+
+    try
+    {
+      SurveyPointView test = SurveyPoint.getView(point.getConcreteId());
+
+      assertNotNull(test);
+      assertEquals(test.getSurveyDate(), point.getSurveyDate());
+      assertEquals(test.getGeoId(), point.getGeoId());
+    }
+    finally
+    {
+      point.deleteConcrete();
+    }
+  }
+
+  public void testInvalidNetsUsed()
+  {
+    Date date = new Date();
+
+    Boolean b = new Boolean(false);
+
+    SurveyPoint point = new SurveyPoint();
+    point.setSurveyDate(date);
+    point.setGeoEntity(geoEntity);
+    point.apply();
+
+    try
+    {
+      Household household = new Household();
+      household.setSurveyPoint(point);
+      household.setHouseholdName("Some name");
+      household.setUrban(b);
+      household.setPeople(20);
+      household.setWall(wall);
+      household.setWallInfo("Some generic info");
+      household.setRoof(roof);
+      household.setRoofInfo("Some roof info");
+      household.addWindowType(WindowType.ANY_WINDOW);
+      household.setRooms(30);
+      household.setLastSprayed(7);
+      household.setNets(24);
+      household.setNetsUsed(30);
+      household.setSleptUnderNets(14);
+      household.apply();
+      
+      household.delete();
+      
+      fail("Able to create a household where the nets used is greater than nets sprayed");
+    }
+    catch (ProblemException e)
+    {
+      //This is expected
+      List<ProblemIF> problems = e.getProblems();
+      
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof NetQuantityProblem);
+    }
+    finally
+    {
+      point.delete();
+    }
+
+  }
+
+  public void testInvalidSleptUnderNets()
+  {
+    Date date = new Date();
+
+    Boolean b = new Boolean(false);
+
+    SurveyPoint point = new SurveyPoint();
+    point.setSurveyDate(date);
+    point.setGeoEntity(geoEntity);
+    point.apply();
+
+    try
+    {
+      Household household = new Household();
+      household.setSurveyPoint(point);
+      household.setHouseholdName("Some name");
+      household.setUrban(b);
+      household.setPeople(20);
+      household.setWall(wall);
+      household.setWallInfo("Some generic info");
+      household.setRoof(roof);
+      household.setRoofInfo("Some roof info");
+      household.addWindowType(WindowType.ANY_WINDOW);
+      household.setRooms(30);
+      household.setLastSprayed(7);
+      household.setNets(24);
+      household.setNetsUsed(3);
+      household.setSleptUnderNets(30);
+      household.apply();
+      
+      household.delete();
+      
+      fail("Able to create a household where the nets used is greater than nets sprayed");
+    }
+    catch (ProblemException e)
+    {
+      //This is expected
+      List<ProblemIF> problems = e.getProblems();
+      
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof NetQuantityProblem);
+    }
+    finally
+    {
+      point.delete();
+    }
+  }
+
+  public void testNullNets()
+  {
+    Date date = new Date();
+    
+    Boolean b = new Boolean(false);
+    
+    SurveyPoint point = new SurveyPoint();
+    point.setSurveyDate(date);
+    point.setGeoEntity(geoEntity);
+    point.apply();
+    
+    try
+    {
+      Household household = new Household();
+      household.setSurveyPoint(point);
+      household.setHouseholdName("Some name");
+      household.setUrban(b);
+      household.setPeople(20);
+      household.setWall(wall);
+      household.setWallInfo("Some generic info");
+      household.setRoof(roof);
+      household.setRoofInfo("Some roof info");
+      household.addWindowType(WindowType.ANY_WINDOW);
+      household.setRooms(30);
+      household.setLastSprayed(7);
+      household.setNetsUsed(4);
+      household.setSleptUnderNets(30);
+      household.apply();
+      
+      household.delete();
+      
+      fail("Able to create a household where the nets used is greater than nets sprayed");
+    }
+    catch (ProblemException e)
+    {
+      //This is expected
+      List<ProblemIF> problems = e.getProblems();
+      
+      assertEquals(2, problems.size());
+      
+      for(ProblemIF problem : problems)
+      {
+        assertTrue(problem instanceof NetQuantityProblem);
+      }
+    }
+    finally
+    {
+      point.delete();
+    }
+  }
+
+  public void testInvalidNetAmount()
+  {
+    Date date = new Date();
+
+    Boolean b = new Boolean(false);
+
+    SurveyPoint point = new SurveyPoint();
+    point.setSurveyDate(date);
+    point.setGeoEntity(geoEntity);
+    point.apply();
+
+    Household household = new Household();
+    household.setSurveyPoint(point);
+    household.setHouseholdName("Some name");
+    household.setUrban(b);
+    household.setPeople(20);
+    household.setWall(wall);
+    household.setWallInfo("Some generic info");
+    household.setRoof(roof);
+    household.setRoofInfo("Some roof info");
+    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setRooms(30);
+    household.setLastSprayed(7);
+    household.setNets(0);
+    household.setNetsUsed(0);
+    household.setSleptUnderNets(0);
+
+    Collection<HouseholdNet> values = new LinkedList<HouseholdNet>();
+
+    for (Net net : Net.getAllLeafs())
+    {
+      HouseholdNet value = new HouseholdNet(household, net);
+      value.setAmount(30);
+
+      values.add(value);
+    }
+
+    try
+    {
+      household.applyAll(values.toArray(new HouseholdNet[values.size()]));
+
+      household.delete();
+      
+      fail("Able to apply household nets with invalid amount values");
+    }
+    catch(ProblemException e)
+    {
+      List<ProblemIF> problems = e.getProblems();
+      
+      assertEquals(values.size(), problems.size());
+      
+      for(ProblemIF problem : problems)
+      {
+        assertTrue(problem instanceof NetProblem);
+      }
+    }
+    finally
+    {
+      point.delete();
+    }
+
+  }
+
+  public void testInvalidWindowType()
+  {
+    Date date = new Date();
+    
+    Boolean b = new Boolean(false);
+    
+    SurveyPoint point = new SurveyPoint();
+    point.setSurveyDate(date);
+    point.setGeoEntity(geoEntity);
+    point.apply();
+    
+    try
+    {
+      Household household = new Household();
+      household.setSurveyPoint(point);
+      household.setHouseholdName("Some name");
+      household.setUrban(b);
+      household.setPeople(20);
+      household.setWall(wall);
+      household.setWallInfo("Some generic info");
+      household.setRoof(roof);
+      household.setRoofInfo("Some roof info");
+      household.setHasWindows(false);
+      household.addWindowType(WindowType.ANY_WINDOW);
+      household.setRooms(30);
+      household.setLastSprayed(7);
+      household.setNets(50);
+      household.setNetsUsed(4);
+      household.setSleptUnderNets(30);
+      household.apply();
+      
+      household.delete();
+      
+      fail("Able to create a household where hasWindows=false && windowType != null");
+    }
+    catch (ProblemException e)
+    {
+      //This is expected
+      List<ProblemIF> problems = e.getProblems();
+      
+      assertEquals(1, problems.size());
+      
+      for(ProblemIF problem : problems)
+      {
+        assertTrue(problem instanceof WindowTypeProblem);
+      }
+    }
+    finally
+    {
       point.delete();
     }
   }

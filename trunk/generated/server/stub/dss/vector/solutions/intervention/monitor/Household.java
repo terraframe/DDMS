@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.OIterator;
 
 public class Household extends HouseholdBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -29,12 +30,64 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
       p.throwIt();
     }
   }
+  
+  @Override
+  public void validateNetsUsed()
+  {
+    if(this.getNets() != null && this.getNetsUsed() != null)
+    {
+      if(this.getNets() < this.getNetsUsed())
+      {
+        NetQuantityProblem p = new NetQuantityProblem();
+        p.setNetCount(this.getNetsUsed());
+        p.setQuantity(this.getNets());
+        p.setNotification(this, NETSUSED);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+  
+  @Override
+  public void validateSleptUnderNets()
+  {
+    if(this.getNets() != null && this.getSleptUnderNets() != null)
+    {
+      if(this.getNets() < this.getSleptUnderNets())
+      {
+        NetQuantityProblem p = new NetQuantityProblem();
+        p.setNetCount(this.getSleptUnderNets());
+        p.setQuantity(this.getNets());
+        p.setNotification(this, SLEPTUNDERNETS);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+  
+  @Override
+  public void validateWindowType()
+  {
+    if(this.getHasWindows() != null && !this.getHasWindows())
+    {
+      if(this.getWindowType().size() > 0)
+      {
+        WindowTypeProblem p = new WindowTypeProblem();
+        p.setNotification(this, WINDOWTYPE);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
 
   @Override
   @Transaction
   public void apply()
   {
     validateLastSprayed();
+    validateNetsUsed();
+    validateSleptUnderNets();
+    validateWindowType();
 
     boolean first = !this.isAppliedToDB() && this.isNew();
 
@@ -45,6 +98,34 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
       SurveyHousehold surveyHousehold = this.addSurveyPoints(this.getSurveyPoint());
       surveyHousehold.apply();
     }
+  }
+  
+  @Override
+  @Transaction
+  public void delete()
+  {
+    //First delete all of the Surveyed People of this household
+    List<Person> list = new LinkedList<Person>();
+    OIterator<? extends Person> it = this.getAllPersons();
+    
+    try
+    {      
+      while(it.hasNext())
+      {
+        list.add(it.next());
+      }      
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    for(Person person : list)
+    {
+      person.delete();
+    }
+    
+    super.delete();
   }
 
   @Override

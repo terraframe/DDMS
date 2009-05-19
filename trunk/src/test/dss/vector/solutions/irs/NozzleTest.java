@@ -207,8 +207,37 @@ public class NozzleTest extends TestCase
       nozzle2.deleteConcrete();
     }
   }
-
+  
   public void testInactiveGetAll()
+  {
+    BigDecimal ratio = new BigDecimal("0.30");
+    
+    NozzleView nozzle = new NozzleView();
+    nozzle.setDisplayLabel("test NozzleView");
+    nozzle.setEnabled(true);
+    nozzle.setRatio(ratio);
+    nozzle.apply();
+    
+    NozzleView nozzle2 = new NozzleView();
+    nozzle2.setDisplayLabel("test NozzleView 2");
+    nozzle2.setEnabled(false);
+    nozzle2.setRatio(ratio);
+    nozzle2.apply();
+    
+    try
+    {
+      NozzleView[] all = NozzleView.getAll();
+      
+      assertEquals(2, all.length);
+    }
+    finally
+    {
+      nozzle.deleteConcrete();
+      nozzle2.deleteConcrete();
+    }
+  }
+
+  public void testInactiveGetAllActive()
   {
     BigDecimal ratio = new BigDecimal("0.30");
 
@@ -226,7 +255,7 @@ public class NozzleTest extends TestCase
 
     try
     {
-      NozzleView[] all = NozzleView.getAll();
+      NozzleView[] all = NozzleView.getAllActive();
 
       assertEquals(1, all.length);
     }
