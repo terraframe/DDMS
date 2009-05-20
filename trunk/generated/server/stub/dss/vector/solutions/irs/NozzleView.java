@@ -53,7 +53,7 @@ public class NozzleView extends NozzleViewBase implements com.terraframe.mojo.ge
   @Transaction
   public static NozzleView[] getAllActive()
   {
-    return NozzleView.getViews(Nozzle.getAll());
+    return NozzleView.getViews(Nozzle.getAllActive());
   }
 
 

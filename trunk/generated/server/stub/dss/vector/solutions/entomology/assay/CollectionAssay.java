@@ -66,10 +66,10 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
   @Override
   public void validateTestDate()
   {
-    super.validateTestDate();
-
     if (this.getTestDate() != null)
-    {
+    {      
+      super.validateTestDate();
+      
       Date collectionDate = this.getCollection().getDateCollected();
 
       if (this.getTestDate().before(collectionDate))
@@ -169,7 +169,6 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
   {
     validateIsofemale();
     validateIntervalTime();
-    validateTestDate();
 
     super.apply();
   }

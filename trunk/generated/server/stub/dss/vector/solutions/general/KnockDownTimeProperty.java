@@ -3,6 +3,8 @@ package dss.vector.solutions.general;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.entomology.KnockDownTimePropertyProblem;
+
 public class KnockDownTimeProperty extends KnockDownTimePropertyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1237411050776L;
@@ -10,6 +12,29 @@ public class KnockDownTimeProperty extends KnockDownTimePropertyBase implements 
   public KnockDownTimeProperty()
   {
     super();
+  }
+  
+  @Override
+  public void validateLowerTime()
+  {
+    if (this.getLowerTime() != null && this.getUpperTime() != null
+        && !(this.getLowerTime() < this.getUpperTime()))
+    {
+      String msg = "Lower time must be less then upper time for Knockdown Time Properties";
+      
+      KnockDownTimePropertyProblem p = new KnockDownTimePropertyProblem(msg);
+      p.setNotification(this, LOWERTIME);
+      p.apply();
+      p.throwIt();
+    }
+  }
+
+  @Override
+  public void apply()
+  {
+    validateLowerTime();
+
+    super.apply();
   }
     
   public static KnockDownTimeProperty searchByInsecticide(Insecticide insecticide)

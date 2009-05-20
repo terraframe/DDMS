@@ -29,6 +29,7 @@ import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.PeriodMonthProblem;
 import dss.vector.solutions.PeriodQuarterProblem;
 import dss.vector.solutions.PeriodWeekProblem;
@@ -126,10 +127,59 @@ public class AggregatedCase extends AggregatedCaseBase implements
     }
     return hasVisibility;
   }
+  
+  @Override
+  public void validateStartDate()
+  {
+    if (this.getStartDate() != null)
+    {
+      super.validateStartDate();
+
+      Date current = new Date();
+
+      if (current.before(this.getStartDate()))
+      {
+        String msg = "It is impossible to have a start date after the current date";
+
+        CurrentDateProblem p = new CurrentDateProblem(msg);
+        p.setGivenDate(this.getStartDate());
+        p.setCurrentDate(current);
+        p.setNotification(this, STARTDATE);
+        p.apply();
+        p.throwIt();
+      }
+    }    
+  }
+  
+  @Override
+  public void validateEndDate()
+  {
+    if (this.getEndDate() != null)
+    {
+      super.validateEndDate();
+
+      Date current = new Date();
+
+      if (current.before(this.getEndDate()))
+      {
+        String msg = "It is impossible to have a end date after the current date";
+
+        CurrentDateProblem p = new CurrentDateProblem(msg);
+        p.setGivenDate(this.getEndDate());
+        p.setCurrentDate(current);
+        p.setNotification(this, ENDDATE);
+        p.apply();
+        p.throwIt();
+      }
+    }    
+  }
 
   @Override
   public void apply()
   {
+    validateStartDate();
+    validateEndDate();
+    
     this.setStartAge(this.getAgeGroup().getStartAge());
     this.setEndAge(this.getAgeGroup().getEndAge());
 

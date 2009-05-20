@@ -8,35 +8,35 @@ package dss.vector.solutions.intervention;
  */
 public enum BloodslideResponseDTO implements com.terraframe.mojo.business.EnumerationDTOIF, com.terraframe.mojo.generation.loader.Reloadable
 {
-  NO(),
+  DONE(),
   
-  NOT_PRESENT(),
+  NOT_AVAILABLE(),
   
-  YES();
+  REFUSED();
   
   public final static String CLASS = "dss.vector.solutions.intervention.BloodslideResponse";
   
   
-  public dss.vector.solutions.intervention.ResponseMasterDTO item(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public dss.vector.solutions.intervention.BloodslideResponseMasterDTO item(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (dss.vector.solutions.intervention.ResponseMasterDTO) clientRequest.getEnumeration("dss.vector.solutions.intervention.BloodslideResponse", this.name());
+    return (dss.vector.solutions.intervention.BloodslideResponseMasterDTO) clientRequest.getEnumeration("dss.vector.solutions.intervention.BloodslideResponse", this.name());
   }
   
   @java.lang.SuppressWarnings("unchecked")
-  public static java.util.List<dss.vector.solutions.intervention.ResponseMasterDTO> items(com.terraframe.mojo.constants.ClientRequestIF clientRequest, BloodslideResponseDTO ... items)
+  public static java.util.List<dss.vector.solutions.intervention.BloodslideResponseMasterDTO> items(com.terraframe.mojo.constants.ClientRequestIF clientRequest, BloodslideResponseDTO ... items)
   {
     java.lang.String[] itemNames = new java.lang.String[items.length];
     for(int i=0; i<items.length; i++)
     {
       itemNames[i] = items[i].name();
     }
-    return (java.util.List<dss.vector.solutions.intervention.ResponseMasterDTO>) clientRequest.getEnumerations("dss.vector.solutions.intervention.BloodslideResponse", itemNames);
+    return (java.util.List<dss.vector.solutions.intervention.BloodslideResponseMasterDTO>) clientRequest.getEnumerations("dss.vector.solutions.intervention.BloodslideResponse", itemNames);
   }
   
   @java.lang.SuppressWarnings("unchecked")
-  public static java.util.List<dss.vector.solutions.intervention.ResponseMasterDTO> allItems(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
+  public static java.util.List<dss.vector.solutions.intervention.BloodslideResponseMasterDTO> allItems(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
-    return (java.util.List<dss.vector.solutions.intervention.ResponseMasterDTO>) clientRequest.getAllEnumerations("dss.vector.solutions.intervention.BloodslideResponse");
+    return (java.util.List<dss.vector.solutions.intervention.BloodslideResponseMasterDTO>) clientRequest.getAllEnumerations("dss.vector.solutions.intervention.BloodslideResponse");
   }
   
   public java.lang.String getName()

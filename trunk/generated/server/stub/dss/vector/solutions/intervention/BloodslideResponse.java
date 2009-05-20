@@ -8,22 +8,22 @@ package dss.vector.solutions.intervention;
  */
 public enum BloodslideResponse implements com.terraframe.mojo.business.BusinessEnumeration, com.terraframe.mojo.generation.loader.Reloadable
 {
-  NO(),
+  DONE(),
   
-  NOT_PRESENT(),
+  NOT_AVAILABLE(),
   
-  YES();
+  REFUSED();
   
   public static final java.lang.String CLASS = "dss.vector.solutions.intervention.BloodslideResponse";
-  private dss.vector.solutions.intervention.ResponseMaster enumeration;
+  private dss.vector.solutions.intervention.BloodslideResponseMaster enumeration;
   
   private synchronized void loadEnumeration()
   {
-    dss.vector.solutions.intervention.ResponseMaster enu = dss.vector.solutions.intervention.ResponseMaster.getEnumeration(this.name());
+    dss.vector.solutions.intervention.BloodslideResponseMaster enu = dss.vector.solutions.intervention.BloodslideResponseMaster.getEnumeration(this.name());
     setEnumeration(enu);
   }
   
-  private synchronized void setEnumeration(dss.vector.solutions.intervention.ResponseMaster enumeration)
+  private synchronized void setEnumeration(dss.vector.solutions.intervention.BloodslideResponseMaster enumeration)
   {
     this.enumeration = enumeration;
   }

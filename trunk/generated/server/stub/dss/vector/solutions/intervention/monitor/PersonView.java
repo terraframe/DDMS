@@ -33,12 +33,12 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   @Override
   public void delete()
   {
-    if(this.getConcreteId() != null)
+    if(this.hasConcrete())
     {
       Person.get(this.getConcreteId()).delete();
     }
   }
-
+  
   private Person populatePerson()
   {
     Person person = new Person();

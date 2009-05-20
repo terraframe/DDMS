@@ -2,6 +2,7 @@ package dss.vector.solutions.entomology;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -21,6 +22,7 @@ import com.terraframe.mojo.dataaccess.attributes.AttributeValueException;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.web.WebClientSession;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
@@ -471,6 +473,55 @@ public class ADDATest extends TestCase
       assertEquals(assay.getId(), problem.getComponentId());
       assertEquals(date, problem.getTestDate());
       assertEquals(assay.getCollection().getDateCollected(), problem.getCollectionDate());
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
+  }
+  
+  public void testCurrentDateProblem() throws ParseException
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_YEAR, 99);
+    Date date = calendar.getTime();
+    
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(AssaySex.FEMALE);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(10);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setGeneration(F1);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(5);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(3);
+      assay.getAgeRange().setEndPoint(15);
+      assay.setInsecticide(insecticide);
+      assay.apply();
+      
+      fail("Able to create an assay with an test date after the current date");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected
+      List<ProblemIF> problems = e.getProblems();
+      
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof CurrentDateProblem);
     }
     finally
     {

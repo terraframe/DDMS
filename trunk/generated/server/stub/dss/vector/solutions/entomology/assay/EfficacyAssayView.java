@@ -103,7 +103,7 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements com.terr
     this.populateConcrete(concrete);
     
     concrete.apply();
-    
+        
     this.populateView(concrete);
   }
 

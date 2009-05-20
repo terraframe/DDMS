@@ -17,11 +17,24 @@ public class Drug extends DrugBase implements com.terraframe.mojo.generation.loa
 
   public static Drug[] getAll()
   {
-    List<Drug> drugs = new LinkedList<Drug>();
+    DrugQuery query = new DrugQuery(new QueryFactory());
+    query.ORDER_BY_ASC(query.getDrugName());
+
+    return Drug.convertQueryToArray(query);
+  }
+  
+  public static Drug[] getAllActive()
+  {
     DrugQuery query = new DrugQuery(new QueryFactory());
     query.WHERE(query.getEnabled().EQ(true));
     query.ORDER_BY_ASC(query.getDrugName());
 
+    return Drug.convertQueryToArray(query);
+  }
+
+  private static Drug[] convertQueryToArray(DrugQuery query)
+  {
+    List<Drug> drugs = new LinkedList<Drug>();
     OIterator<? extends Drug> it = query.getIterator();
 
     try
@@ -38,4 +51,5 @@ public class Drug extends DrugBase implements com.terraframe.mojo.generation.loa
       it.close();
     }
   }
+
 }

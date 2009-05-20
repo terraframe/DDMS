@@ -8,6 +8,7 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.Property;
 
 public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollectionBase implements
@@ -31,10 +32,10 @@ public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollect
 
       if (current.before(this.getDateCollected()))
       {
-        String msg = "It is impossible to have a collection date before the current date";
+        String msg = "It is impossible to have a collection date after the current date";
 
-        InvalidCollectionDateProblem p = new InvalidCollectionDateProblem(msg);
-        p.setCollectionDate(this.getDateCollected());
+        CurrentDateProblem p = new CurrentDateProblem(msg);
+        p.setGivenDate(this.getDateCollected());
         p.setCurrentDate(current);
         p.setNotification(this, DATECOLLECTED);
         p.apply();

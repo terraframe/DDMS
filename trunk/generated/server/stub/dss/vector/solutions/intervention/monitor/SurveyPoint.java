@@ -8,15 +8,106 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class SurveyPoint extends SurveyPointBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239641306732L;
 
   public SurveyPoint()
   {
     super();
+  }
+
+  @Override
+  public void apply()
+  {
+    validateSurveyDate();
+    
+    super.apply();
+  }
+
+  @Override
+  public void validateSurveyDate()
+  {
+    if (this.getSurveyDate() != null)
+    {
+      super.validateSurveyDate();
+
+      Date current = new Date();
+
+      if (current.before(this.getSurveyDate()))
+      {
+        String msg = "It is impossible to have a survey date after the current date";
+
+        CurrentDateProblem p = new CurrentDateProblem(msg);
+        p.setGivenDate(this.getSurveyDate());
+        p.setCurrentDate(current);
+        p.setNotification(this, SURVEYDATE);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
+
+  @Override
+  @Transaction
+  public void delete()
+  {
+    // First delete all of the households of this survey point
+    List<Household> list = new LinkedList<Household>();
+    OIterator<? extends Household> it = this.getAllHouseholds();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        list.add(it.next());
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+
+    for (Household household : list)
+    {
+      household.delete();
+    }
+
+    super.delete();
+  }
+
+  @Override
+  public SurveyPointView lockView()
+  {
+    this.lock();
+
+    return this.getView();
+  }
+
+  @Override
+  public SurveyPointView unlockView()
+  {
+    this.unlock();
+
+    return this.getView();
+  }
+
+  private SurveyPointView getView()
+  {
+    SurveyPointView view = new SurveyPointView();
+
+    view.populateView(this);
+
+    return view;
+  }
+
+  public static SurveyPointView getView(String id)
+  {
+    return SurveyPoint.get(id).getView();
   }
 
   public static SurveyPoint searchByGeoEntityAndDate(GeoEntity geoEntity, Date date)
@@ -29,7 +120,7 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
 
     try
     {
-      if(it.hasNext())
+      if (it.hasNext())
       {
         return it.next();
       }
@@ -41,63 +132,4 @@ public class SurveyPoint extends SurveyPointBase implements com.terraframe.mojo.
       it.close();
     }
   }
-  
-  @Override
-  @Transaction
-  public void delete()
-  {
-    //First delete all of the households of this survey point
-    List<Household> list = new LinkedList<Household>();
-    OIterator<? extends Household> it = this.getAllHouseholds();
-    
-    try
-    {      
-      while(it.hasNext())
-      {
-        list.add(it.next());
-      }      
-    }
-    finally
-    {
-      it.close();
-    }
-    
-    for(Household household : list)
-    {
-      household.delete();
-    }
-
-    super.delete();
-  }
-  
-  @Override
-  public SurveyPointView lockView()
-  {
-    this.lock();
-    
-    return this.getView();
-  }
-  
-  @Override
-  public SurveyPointView unlockView()
-  {
-    this.unlock();
-    
-    return this.getView();
-  }
-
-  private SurveyPointView getView()
-  {
-    SurveyPointView view = new SurveyPointView();
-    
-    view.populateView(this);
-    
-    return view;
-  }
-  
-  public static SurveyPointView getView(String id)
-  {
-    return SurveyPoint.get(id).getView();
-  }
-
 }

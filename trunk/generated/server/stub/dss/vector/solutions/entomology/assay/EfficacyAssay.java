@@ -49,7 +49,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
 
     new QuantityDeadValidator(this).validate();
   }
-
+  
   @Override
   public void apply()
   {

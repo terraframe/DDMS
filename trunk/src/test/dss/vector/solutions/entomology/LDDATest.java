@@ -2,6 +2,7 @@ package dss.vector.solutions.entomology;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -20,6 +21,7 @@ import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.web.WebClientSession;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.assay.LarvaeTestInterval;
 import dss.vector.solutions.entomology.assay.LarvaeTestIntervalView;
@@ -310,10 +312,8 @@ public class LDDATest extends TestCase
     {
       assay.setCollection(collection);
       assay.setTestDate(date);
-
       assay.setIdentificationMethod(identificationMethod);
       assay.setTestMethod(assayMethod);
-
       assay.setExposureTime(60);
       assay.setIntervalTime(10);
       assay.setGeneration(F1);
@@ -322,10 +322,7 @@ public class LDDATest extends TestCase
       assay.setIsofemale(false);
       assay.setQuantityDead(5);
       assay.setQuantityTested(30);
-
       assay.setInsecticide(insecticide);
-
-
       assay.apply();
 
       fail("Able to create an adult assay with an test date before the collection date");
@@ -353,16 +350,58 @@ public class LDDATest extends TestCase
     }
   }
 
+  public void testCurrentDateProblem() throws ParseException
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_YEAR, 99);
+    Date date = calendar.getTime();
+    
+    LarvaeDiscriminatingDoseAssay assay = new LarvaeDiscriminatingDoseAssay();
+    
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setGeneration(F1);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(99.99));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(5);
+      assay.setQuantityTested(30);
+      assay.setInsecticide(insecticide);
+      assay.apply();
+      
+      fail("Able to create an assay with an test date after the current date");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected
+      List<ProblemIF> problems = e.getProblems();
+      
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof CurrentDateProblem);
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
+  }
+
   public void testInsecticideGenericName() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-
     LarvaeDiscriminatingDoseAssay assay = new LarvaeDiscriminatingDoseAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
@@ -372,22 +411,16 @@ public class LDDATest extends TestCase
     assay.setIsofemale(false);
     assay.setQuantityDead(5);
     assay.setQuantityTested(30);
-
     assay.setInsecticide(insecticide);
-
-
-
     assay.setGeneration(F1);
     assay.apply();
 
     try
     {
-
       LarvaeDiscriminatingDoseAssay assay2 = LarvaeDiscriminatingDoseAssay.get(assay.getId());
 
       assertEquals(collection.getId(), assay2.getCollection().getId());
       assertEquals(date, assay2.getTestDate());
-
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(60), assay2.getExposureTime());
@@ -398,9 +431,6 @@ public class LDDATest extends TestCase
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-
-
-
     }
     finally
     {
@@ -413,11 +443,9 @@ public class LDDATest extends TestCase
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
     Date date = dateTime.parse("2008-01-01");
 
-
     LarvaeDiscriminatingDoseAssay assay = new LarvaeDiscriminatingDoseAssay();
     assay.setCollection(collection);
     assay.setTestDate(date);
-
     assay.setIdentificationMethod(identificationMethod);
     assay.setTestMethod(assayMethod);
     assay.setExposureTime(60);
@@ -427,11 +455,7 @@ public class LDDATest extends TestCase
     assay.setIsofemale(false);
     assay.setQuantityDead(0);
     assay.setQuantityTested(30);
-
     assay.setInsecticide(insecticide);
-
-
-
     assay.setGeneration(F1);
     assay.apply();
 
@@ -442,7 +466,6 @@ public class LDDATest extends TestCase
 
       assertEquals(collection.getId(), assay2.getCollection().getId());
       assertEquals(date, assay2.getTestDate());
-
       assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
       assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
       assertEquals(new Integer(60), assay2.getExposureTime());
@@ -453,9 +476,6 @@ public class LDDATest extends TestCase
       assertEquals(new Float(99.99), assay2.getControlTestMortality());
       assertEquals(new Boolean(false), assay2.getIsofemale());
       assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
-
-
-
     }
     finally
     {

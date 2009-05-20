@@ -3,13 +3,13 @@ package dss.vector.solutions.intervention.monitor;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -19,34 +19,33 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
-import com.terraframe.mojo.web.WebClientSession;
 
-import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.intervention.BloodslideResponse;
 import dss.vector.solutions.intervention.Drug;
 import dss.vector.solutions.intervention.FeverResponse;
+import dss.vector.solutions.intervention.FeverTreatment;
 import dss.vector.solutions.intervention.HumanSex;
 import dss.vector.solutions.intervention.RDTResponse;
 import dss.vector.solutions.intervention.RDTResult;
 
 public class SurveyTest extends TestCase
 {
-  private static GeoEntity     geoEntity = null;
+  private static GeoEntity      geoEntity = null;
 
-  private static Wall          wall      = null;
+  private static Wall           wall      = null;
 
-  private static Roof          roof      = null;
+  private static Roof           roof      = null;
 
-  private static Drug          drug      = null;
+  private static Drug           drug      = null;
 
-  private static ClientSession clientSession;
+  private static FeverTreatment treatment = null;
 
   public static Test suite()
   {
@@ -76,14 +75,11 @@ public class SurveyTest extends TestCase
     wall.delete();
     roof.delete();
     drug.delete();
-
-    clientSession.logout();
+    treatment.delete();
   }
 
   protected static void classSetUp()
   {
-    clientSession = WebClientSession.createUserSession("SYSTEM", TestConstants.PASSWORD, Locale.US);
-
     geoEntity = new SentinelSite();
     geoEntity.setGeoId("9");
     geoEntity.setEntityName("Sentinel Site");
@@ -100,9 +96,14 @@ public class SurveyTest extends TestCase
     roof.apply();
 
     drug = new Drug();
-    drug.setDisplayLabel("Test Drug");
+    drug.getDisplayLabel().setDefaultLocale("Test Drug");
     drug.setDrugName("testDrug");
     drug.apply();
+    
+    treatment = new FeverTreatment();
+    treatment.getDisplayLabel().setDefaultLocale("Test FeverTreatment");
+    treatment.setTreatmentName("testFeverTreatment");
+    treatment.apply();
   }
 
   public void testCreateSurveyPoint()
@@ -125,6 +126,32 @@ public class SurveyTest extends TestCase
     finally
     {
       point.delete();
+    }
+  }
+
+  public void testCurrentDateProblem()
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_YEAR, 99);
+    Date date = calendar.getTime();
+
+    try
+    {
+      SurveyPoint point = new SurveyPoint();
+      point.setSurveyDate(date);
+      point.setGeoEntity(geoEntity);
+      point.apply();
+      point.delete();
+
+      fail("Able to create a survey point with a survey date after the current date");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected
+      List<ProblemIF> problems = e.getProblems();
+
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof CurrentDateProblem);
     }
   }
 
@@ -645,7 +672,7 @@ public class SurveyTest extends TestCase
     person.setHousehold(household);
     person.setDob(date);
     person.setAnaemiaTreatment(drug);
-    person.setFeverTreatment(drug);
+    person.setFeverTreatment(treatment);
     person.setHaemoglobin(haemoglobin);
     person.setHaemoglobinMeasured(true);
     person.setIron(true);
@@ -653,7 +680,7 @@ public class SurveyTest extends TestCase
     person.setPersonId("000");
     person.setPregnant(true);
     person.setRdtTreatment(drug);
-    person.addBloodslide(BloodslideResponse.NOT_PRESENT);
+    person.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
     person.addFever(FeverResponse.DONT_KNOW);
     person.addMalaria(FeverResponse.YES);
     person.addPayment(FeverResponse.NO);
@@ -671,7 +698,7 @@ public class SurveyTest extends TestCase
       assertEquals(household.getId(), test.getHousehold().getId());
       assertEquals(date, test.getDob());
       assertEquals(drug.getId(), test.getAnaemiaTreatment().getId());
-      assertEquals(drug.getId(), test.getFeverTreatment().getId());
+      assertEquals(treatment.getId(), test.getFeverTreatment().getId());
       assertEquals(haemoglobin, test.getHaemoglobin());
       assertEquals(new Boolean(true), test.getHaemoglobinMeasured());
       assertEquals(new Boolean(true), test.getIron());
@@ -680,7 +707,7 @@ public class SurveyTest extends TestCase
       assertEquals(new Boolean(true), test.getPregnant());
       assertEquals(drug.getId(), test.getRdtTreatment().getId());
       assertEquals(1, test.getBloodslide().size());
-      assertEquals(BloodslideResponse.NOT_PRESENT, test.getBloodslide().get(0));
+      assertEquals(BloodslideResponse.NOT_AVAILABLE, test.getBloodslide().get(0));
       assertEquals(1, test.getFever().size());
       assertEquals(FeverResponse.DONT_KNOW, test.getFever().get(0));
       assertEquals(1, test.getMalaria().size());
@@ -703,6 +730,98 @@ public class SurveyTest extends TestCase
     }
   }
 
+  public void testCreatePersonView() throws ParseException
+  {
+    SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
+    Date date = dateTime.parse("2008-01-01");
+    Boolean b = new Boolean(false);
+    BigDecimal haemoglobin = new BigDecimal("99.2");
+    haemoglobin = haemoglobin.stripTrailingZeros();
+    
+    SurveyPoint point = new SurveyPoint();
+    point.setSurveyDate(date);
+    point.setGeoEntity(geoEntity);
+    point.apply();
+    
+    Household household = new Household();
+    household.setSurveyPoint(point);
+    household.setHouseholdName("Some name");
+    household.setUrban(b);
+    household.setPeople(20);
+    household.setWall(wall);
+    household.setWallInfo("Some generic info");
+    household.setRoof(roof);
+    household.setRoofInfo("Some roof info");
+    household.addWindowType(WindowType.ANY_WINDOW);
+    household.setRooms(30);
+    household.setLastSprayed(7);
+    household.setNets(24);
+    household.setNetsUsed(2);
+    household.setSleptUnderNets(14);
+    household.apply();
+    
+    PersonView person = new PersonView();
+    person.setHousehold(household);
+    person.setDob(date);
+    person.setAnaemiaTreatment(drug);
+    person.setFeverTreatment(treatment);
+    person.setHaemoglobin(haemoglobin);
+    person.setHaemoglobinMeasured(true);
+    person.setIron(true);
+    person.setMalariaTreatment(drug);
+    person.setPersonId("000");
+    person.setPregnant(true);
+    person.setRdtTreatment(drug);
+    person.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
+    person.addFever(FeverResponse.DONT_KNOW);
+    person.addMalaria(FeverResponse.YES);
+    person.addPayment(FeverResponse.NO);
+    person.addPerformedRDT(RDTResponse.REFUSED);
+    person.addRDTResult(RDTResult.VIVAX_POSITIVE);
+    person.addRDTResult(RDTResult.OVALE_POSITIVE);
+    person.addSex(HumanSex.FEMALE);
+    person.apply();
+    
+    try
+    {
+      PersonView test = Person.getView(person.getConcreteId());
+      
+      assertNotNull(test);
+      assertEquals(household.getId(), test.getHousehold().getId());
+      assertEquals(date, test.getDob());
+      assertEquals(drug.getId(), test.getAnaemiaTreatment().getId());
+      assertEquals(treatment.getId(), test.getFeverTreatment().getId());
+      assertEquals(haemoglobin, test.getHaemoglobin());
+      assertEquals(new Boolean(true), test.getHaemoglobinMeasured());
+      assertEquals(new Boolean(true), test.getIron());
+      assertEquals(drug.getId(), test.getMalariaTreatment().getId());
+      assertEquals("000", test.getPersonId());
+      assertEquals(new Boolean(true), test.getPregnant());
+      assertEquals(drug.getId(), test.getRdtTreatment().getId());
+      assertEquals(1, test.getBloodslide().size());
+      assertEquals(BloodslideResponse.NOT_AVAILABLE, test.getBloodslide().get(0));
+      assertEquals(1, test.getFever().size());
+      assertEquals(FeverResponse.DONT_KNOW, test.getFever().get(0));
+      assertEquals(1, test.getMalaria().size());
+      assertEquals(FeverResponse.YES, test.getMalaria().get(0));
+      assertEquals(1, test.getPayment().size());
+      assertEquals(FeverResponse.NO, test.getPayment().get(0));
+      assertEquals(1, test.getPerformedRDT().size());
+      assertEquals(RDTResponse.REFUSED, test.getPerformedRDT().get(0));
+      assertEquals(2, test.getRDTResult().size());
+      assertTrue(test.getRDTResult().contains(RDTResult.VIVAX_POSITIVE));
+      assertTrue(test.getRDTResult().contains(RDTResult.OVALE_POSITIVE));
+      assertEquals(1, test.getSex().size());
+      assertEquals(HumanSex.FEMALE, test.getSex().get(0));
+    }
+    finally
+    {
+      person.delete();
+      household.delete();
+      point.delete();
+    }
+  }
+  
   public void testUniquePersonId() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());
@@ -737,7 +856,7 @@ public class SurveyTest extends TestCase
     person.setHousehold(household);
     person.setDob(date);
     person.setAnaemiaTreatment(drug);
-    person.setFeverTreatment(drug);
+    person.setFeverTreatment(treatment);
     person.setHaemoglobin(haemoglobin);
     person.setHaemoglobinMeasured(true);
     person.setIron(true);
@@ -745,7 +864,7 @@ public class SurveyTest extends TestCase
     person.setPersonId("000");
     person.setPregnant(true);
     person.setRdtTreatment(drug);
-    person.addBloodslide(BloodslideResponse.NOT_PRESENT);
+    person.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
     person.addFever(FeverResponse.DONT_KNOW);
     person.addMalaria(FeverResponse.YES);
     person.addPayment(FeverResponse.NO);
@@ -761,7 +880,7 @@ public class SurveyTest extends TestCase
       duplicate.setHousehold(household);
       duplicate.setDob(date);
       duplicate.setAnaemiaTreatment(drug);
-      duplicate.setFeverTreatment(drug);
+      duplicate.setFeverTreatment(treatment);
       duplicate.setHaemoglobin(haemoglobin);
       duplicate.setHaemoglobinMeasured(true);
       duplicate.setIron(true);
@@ -769,7 +888,7 @@ public class SurveyTest extends TestCase
       duplicate.setPersonId("000");
       duplicate.setPregnant(true);
       duplicate.setRdtTreatment(drug);
-      duplicate.addBloodslide(BloodslideResponse.NOT_PRESENT);
+      duplicate.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
       duplicate.addFever(FeverResponse.DONT_KNOW);
       duplicate.addMalaria(FeverResponse.YES);
       duplicate.addPayment(FeverResponse.NO);
@@ -831,7 +950,7 @@ public class SurveyTest extends TestCase
       person.setHousehold(household);
       person.setDob(date);
       person.setAnaemiaTreatment(drug);
-      person.setFeverTreatment(drug);
+      person.setFeverTreatment(treatment);
       person.setHaemoglobin(haemoglobin);
       person.setHaemoglobinMeasured(true);
       person.setIron(true);
@@ -839,7 +958,7 @@ public class SurveyTest extends TestCase
       person.setPersonId("000");
       person.setPregnant(true);
       person.setRdtTreatment(drug);
-      person.addBloodslide(BloodslideResponse.NOT_PRESENT);
+      person.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
       person.addFever(FeverResponse.DONT_KNOW);
       person.addMalaria(FeverResponse.YES);
       person.addPayment(FeverResponse.NO);
@@ -901,7 +1020,7 @@ public class SurveyTest extends TestCase
     person.setHousehold(household);
     person.setDob(date);
     person.setAnaemiaTreatment(drug);
-    person.setFeverTreatment(drug);
+    person.setFeverTreatment(treatment);
     person.setHaemoglobin(haemoglobin);
     person.setHaemoglobinMeasured(true);
     person.setIron(true);
@@ -909,7 +1028,7 @@ public class SurveyTest extends TestCase
     person.setPersonId("000");
     person.setPregnant(true);
     person.setRdtTreatment(drug);
-    person.addBloodslide(BloodslideResponse.NOT_PRESENT);
+    person.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
     person.addFever(FeverResponse.DONT_KNOW);
     person.addMalaria(FeverResponse.YES);
     person.addPayment(FeverResponse.NO);
@@ -923,7 +1042,7 @@ public class SurveyTest extends TestCase
     person2.setHousehold(household);
     person2.setDob(date);
     person2.setAnaemiaTreatment(drug);
-    person2.setFeverTreatment(drug);
+    person2.setFeverTreatment(treatment);
     person2.setHaemoglobin(haemoglobin);
     person2.setHaemoglobinMeasured(true);
     person2.setIron(true);
@@ -931,7 +1050,7 @@ public class SurveyTest extends TestCase
     person2.setPersonId("001");
     person2.setPregnant(true);
     person2.setRdtTreatment(drug);
-    person2.addBloodslide(BloodslideResponse.NOT_PRESENT);
+    person2.addBloodslide(BloodslideResponse.NOT_AVAILABLE);
     person2.addFever(FeverResponse.DONT_KNOW);
     person2.addMalaria(FeverResponse.YES);
     person2.addPayment(FeverResponse.NO);
@@ -1021,16 +1140,16 @@ public class SurveyTest extends TestCase
       household.setNetsUsed(30);
       household.setSleptUnderNets(14);
       household.apply();
-      
+
       household.delete();
-      
+
       fail("Able to create a household where the nets used is greater than nets sprayed");
     }
     catch (ProblemException e)
     {
-      //This is expected
+      // This is expected
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof NetQuantityProblem);
     }
@@ -1070,16 +1189,16 @@ public class SurveyTest extends TestCase
       household.setNetsUsed(3);
       household.setSleptUnderNets(30);
       household.apply();
-      
+
       household.delete();
-      
+
       fail("Able to create a household where the nets used is greater than nets sprayed");
     }
     catch (ProblemException e)
     {
-      //This is expected
+      // This is expected
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertEquals(1, problems.size());
       assertTrue(problems.get(0) instanceof NetQuantityProblem);
     }
@@ -1092,14 +1211,14 @@ public class SurveyTest extends TestCase
   public void testNullNets()
   {
     Date date = new Date();
-    
+
     Boolean b = new Boolean(false);
-    
+
     SurveyPoint point = new SurveyPoint();
     point.setSurveyDate(date);
     point.setGeoEntity(geoEntity);
     point.apply();
-    
+
     try
     {
       Household household = new Household();
@@ -1117,19 +1236,19 @@ public class SurveyTest extends TestCase
       household.setNetsUsed(4);
       household.setSleptUnderNets(30);
       household.apply();
-      
+
       household.delete();
-      
+
       fail("Able to create a household where the nets used is greater than nets sprayed");
     }
     catch (ProblemException e)
     {
-      //This is expected
+      // This is expected
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertEquals(2, problems.size());
-      
-      for(ProblemIF problem : problems)
+
+      for (ProblemIF problem : problems)
       {
         assertTrue(problem instanceof NetQuantityProblem);
       }
@@ -1182,16 +1301,16 @@ public class SurveyTest extends TestCase
       household.applyAll(values.toArray(new HouseholdNet[values.size()]));
 
       household.delete();
-      
+
       fail("Able to apply household nets with invalid amount values");
     }
-    catch(ProblemException e)
+    catch (ProblemException e)
     {
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertEquals(values.size(), problems.size());
-      
-      for(ProblemIF problem : problems)
+
+      for (ProblemIF problem : problems)
       {
         assertTrue(problem instanceof NetProblem);
       }
@@ -1206,14 +1325,14 @@ public class SurveyTest extends TestCase
   public void testInvalidWindowType()
   {
     Date date = new Date();
-    
+
     Boolean b = new Boolean(false);
-    
+
     SurveyPoint point = new SurveyPoint();
     point.setSurveyDate(date);
     point.setGeoEntity(geoEntity);
     point.apply();
-    
+
     try
     {
       Household household = new Household();
@@ -1233,19 +1352,19 @@ public class SurveyTest extends TestCase
       household.setNetsUsed(4);
       household.setSleptUnderNets(30);
       household.apply();
-      
+
       household.delete();
-      
+
       fail("Able to create a household where hasWindows=false && windowType != null");
     }
     catch (ProblemException e)
     {
-      //This is expected
+      // This is expected
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertEquals(1, problems.size());
-      
-      for(ProblemIF problem : problems)
+
+      for (ProblemIF problem : problems)
       {
         assertTrue(problem instanceof WindowTypeProblem);
       }

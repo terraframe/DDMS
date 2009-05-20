@@ -13,9 +13,12 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ClientSession;
+import com.terraframe.mojo.ProblemException;
+import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.web.WebClientSession;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
@@ -187,11 +190,6 @@ public class AggregatedCaseTest extends TestCase
     }
   }
 
-  public void testDuplicateAggregatedCAse()
-  {
-
-  }
-
   public void testApplyAll()
   {
     Integer cases = new Integer(50);
@@ -289,6 +287,189 @@ public class AggregatedCaseTest extends TestCase
     {
       c.delete();
     }
+  }
+  
+  public void testStartDateProblem()
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_YEAR, 99);
+    Date startDate = calendar.getTime();
+    calendar.add(Calendar.DAY_OF_YEAR, 99);
+    Date endDate = calendar.getTime();
+    
+    Integer cases = new Integer(50);
+    Integer casesFemale = new Integer(23);
+    Integer casesMale = new Integer(50);
+    Integer casesPregnant = new Integer(2);
+    Integer clinicallyDiagnosed = new Integer(50);
+    Integer deaths = new Integer(50);
+    
+    AggregatedCase c = new AggregatedCase();
+    c.setGeoEntity(geoEntity);
+    c.setStartDate(startDate);
+    c.setEndDate(endDate);
+    c.setAgeGroup(ageGroup);
+    c.setCases(cases);
+    c.setCasesFemale(casesFemale);
+    c.setCasesMale(casesMale);
+    c.setCasesPregnant(casesPregnant);
+    c.setClinicallyDiagnosed(clinicallyDiagnosed);
+    c.setDeaths(deaths);
+    
+    List<CaseDiagnostic> diagnostics = new LinkedList<CaseDiagnostic>();
+    for (DiagnosticGrid d : DiagnosticGrid.getAll())
+    {
+      CaseDiagnostic method = c.addDiagnosticMethod(d);
+      method.setAmount(new Integer(50));
+      diagnostics.add(method);
+    }
+    
+    List<CaseTreatment> treatments = new LinkedList<CaseTreatment>();
+    List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
+    for (TreatmentGrid g : TreatmentGrid.getAll())
+    {
+      CaseTreatment t = c.addTreatment(g);
+      t.setAmount(new Integer(30));
+      treatments.add(t);
+      
+      CaseTreatmentStock s = c.addTreatmentStock(g);
+      s.setOutOfStock(true);
+      stocks.add(s);
+    }
+    
+    List<CaseTreatmentMethod> methods = new LinkedList<CaseTreatmentMethod>();
+    for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
+    {
+      CaseTreatmentMethod t = c.addTreatmentMethod(g);
+      t.setAmount(new Integer(40));
+      methods.add(t);
+    }
+    
+    List<CaseReferral> referrals = new LinkedList<CaseReferral>();
+    for (ReferralGrid g : ReferralGrid.getAll())
+    {
+      CaseReferral r = c.addReferral(g);
+      r.setAmount(new Integer(70));
+      referrals.add(r);
+    }
+    
+    CaseTreatment[] treatArray = treatments.toArray(new CaseTreatment[treatments.size()]);
+    CaseTreatmentMethod[] methodArray = methods.toArray(new CaseTreatmentMethod[methods.size()]);
+    CaseTreatmentStock[] stockArray = stocks.toArray(new CaseTreatmentStock[stocks.size()]);
+    CaseDiagnostic[] diagnosticArray = diagnostics.toArray(new CaseDiagnostic[diagnostics.size()]);
+    CaseReferral[] referralArray = referrals.toArray(new CaseReferral[referrals.size()]);
+    
+    try
+    {
+      c.applyAll(treatArray, methodArray, stockArray, diagnosticArray, referralArray);
+      c.delete();
+      
+      fail("Able to create an aggregated case with the start date and end date after the current date");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected
+      List<ProblemIF> problems = e.getProblems();
+      
+      assertEquals(2, problems.size());
+      
+      for(ProblemIF problem : problems)
+      {
+        assertTrue(problem instanceof CurrentDateProblem);
+      }
+    }
+
+  }
+  public void testEndDateProblem()
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_YEAR, -10);
+    Date startDate = calendar.getTime();
+    calendar.add(Calendar.DAY_OF_YEAR, 99);
+    Date endDate = calendar.getTime();
+    
+    Integer cases = new Integer(50);
+    Integer casesFemale = new Integer(23);
+    Integer casesMale = new Integer(50);
+    Integer casesPregnant = new Integer(2);
+    Integer clinicallyDiagnosed = new Integer(50);
+    Integer deaths = new Integer(50);
+    
+    AggregatedCase c = new AggregatedCase();
+    c.setGeoEntity(geoEntity);
+    c.setStartDate(startDate);
+    c.setEndDate(endDate);
+    c.setAgeGroup(ageGroup);
+    c.setCases(cases);
+    c.setCasesFemale(casesFemale);
+    c.setCasesMale(casesMale);
+    c.setCasesPregnant(casesPregnant);
+    c.setClinicallyDiagnosed(clinicallyDiagnosed);
+    c.setDeaths(deaths);
+    
+    List<CaseDiagnostic> diagnostics = new LinkedList<CaseDiagnostic>();
+    for (DiagnosticGrid d : DiagnosticGrid.getAll())
+    {
+      CaseDiagnostic method = c.addDiagnosticMethod(d);
+      method.setAmount(new Integer(50));
+      diagnostics.add(method);
+    }
+    
+    List<CaseTreatment> treatments = new LinkedList<CaseTreatment>();
+    List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
+    for (TreatmentGrid g : TreatmentGrid.getAll())
+    {
+      CaseTreatment t = c.addTreatment(g);
+      t.setAmount(new Integer(30));
+      treatments.add(t);
+      
+      CaseTreatmentStock s = c.addTreatmentStock(g);
+      s.setOutOfStock(true);
+      stocks.add(s);
+    }
+    
+    List<CaseTreatmentMethod> methods = new LinkedList<CaseTreatmentMethod>();
+    for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
+    {
+      CaseTreatmentMethod t = c.addTreatmentMethod(g);
+      t.setAmount(new Integer(40));
+      methods.add(t);
+    }
+    
+    List<CaseReferral> referrals = new LinkedList<CaseReferral>();
+    for (ReferralGrid g : ReferralGrid.getAll())
+    {
+      CaseReferral r = c.addReferral(g);
+      r.setAmount(new Integer(70));
+      referrals.add(r);
+    }
+    
+    CaseTreatment[] treatArray = treatments.toArray(new CaseTreatment[treatments.size()]);
+    CaseTreatmentMethod[] methodArray = methods.toArray(new CaseTreatmentMethod[methods.size()]);
+    CaseTreatmentStock[] stockArray = stocks.toArray(new CaseTreatmentStock[stocks.size()]);
+    CaseDiagnostic[] diagnosticArray = diagnostics.toArray(new CaseDiagnostic[diagnostics.size()]);
+    CaseReferral[] referralArray = referrals.toArray(new CaseReferral[referrals.size()]);
+    
+    try
+    {
+      c.applyAll(treatArray, methodArray, stockArray, diagnosticArray, referralArray);
+      c.delete();
+      
+      fail("Able to create an aggregated case with the end date after the current date");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected
+      List<ProblemIF> problems = e.getProblems();
+      
+      assertEquals(1, problems.size());
+      
+      for(ProblemIF problem : problems)
+      {
+        assertTrue(problem instanceof CurrentDateProblem);
+      }
+    }
+    
   }
 
   public void testApplyAllDTO()

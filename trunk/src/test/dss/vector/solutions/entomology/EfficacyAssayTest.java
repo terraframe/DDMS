@@ -2,6 +2,7 @@ package dss.vector.solutions.entomology;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -17,6 +18,7 @@ import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.web.WebClientSession;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.SurfacePosition;
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.AssaySex;
@@ -395,6 +397,54 @@ public class EfficacyAssayTest extends TestCase
     }
   }
 
+  public void testCurrentDateProblem() throws ParseException
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_YEAR, 99);
+    Date date = calendar.getTime();
+    
+    AssaySex sex = AssaySex.FEMALE;
+    EfficacyAssay assay = new EfficacyAssay();
+    SurfacePosition position = SurfacePosition.BOTTOM;
+    
+    try
+    {
+      assay.setTestDate(date);
+      assay.addSex(sex);      
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(10);
+      assay.setExposureTime(60);      
+      assay.setHoldingTime(24);      
+      assay.setQuantityDead(5);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(2);
+      assay.getAgeRange().setEndPoint(20);
+      assay.setInsecticide(insecticide);
+      assay.addSurfacePostion(position);
+      assay.setGeoEntity(geoEntity);      
+      assay.setColonyName("Colony Name");
+      assay.apply();
+      
+      fail("Able to create an assay with a test after the current date");
+    }
+    catch (ProblemException e)
+    {
+      // This is expected
+      List<ProblemIF> problems = e.getProblems();
+      
+      assertEquals(1, problems.size());
+      assertTrue(problems.get(0) instanceof CurrentDateProblem);
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }
+  }
+  
   public void testFedLargerThanQuantityTested() throws ParseException
   {
     SimpleDateFormat dateTime = new SimpleDateFormat(DatabaseProperties.getDateFormat());

@@ -128,12 +128,10 @@ public class InsecticideNozzleTest extends TestCase
   {
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-
     insecticideNozzle.apply();
 
     InsecticideNozzle insecticideNozzle2 = new InsecticideNozzle(brand2, nozzle);
     insecticideNozzle2.setEnabled(true);
-
     insecticideNozzle2.apply();
 
     try
@@ -153,12 +151,10 @@ public class InsecticideNozzleTest extends TestCase
   {
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-
     insecticideNozzle.apply();
 
     InsecticideNozzle insecticideNozzle2 = new InsecticideNozzle(brand2, nozzle);
     insecticideNozzle2.setEnabled(false);
-
     insecticideNozzle2.apply();
 
     try
@@ -190,12 +186,10 @@ public class InsecticideNozzleTest extends TestCase
 
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-
     insecticideNozzle.apply();
 
     InsecticideNozzle insecticideNozzle2 = new InsecticideNozzle(testBrand, nozzle);
     insecticideNozzle2.setEnabled(true);
-
     insecticideNozzle2.apply();
 
     try
@@ -217,19 +211,17 @@ public class InsecticideNozzleTest extends TestCase
     BigDecimal ratio = new BigDecimal("0.30");
 
     Nozzle testNozzle = new Nozzle();
-    testNozzle.setDisplayLabel("test Nozzle 2");
+    testNozzle.setDisplayLabel("test Nozzle 9");
     testNozzle.setEnabled(false);
     testNozzle.setRatio(ratio);
     testNozzle.apply();
 
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
     insecticideNozzle.setEnabled(true);
-
     insecticideNozzle.apply();
 
     InsecticideNozzle insecticideNozzle2 = new InsecticideNozzle(brand2, testNozzle);
     insecticideNozzle2.setEnabled(false);
-
     insecticideNozzle2.apply();
 
     try
@@ -242,6 +234,7 @@ public class InsecticideNozzleTest extends TestCase
     {
       insecticideNozzle.delete();
       insecticideNozzle2.delete();
+      testNozzle.delete();
     }
   }
 
@@ -253,7 +246,6 @@ public class InsecticideNozzleTest extends TestCase
 
     InsecticideNozzle insecticideNozzle2 = new InsecticideNozzle(brand2, nozzle);
     insecticideNozzle2.setEnabled(true);
-
 
     InsecticideNozzle[] array = new InsecticideNozzle[] { insecticideNozzle, insecticideNozzle2 };
     InsecticideNozzle[] applied = InsecticideNozzle.applyAll(array);
