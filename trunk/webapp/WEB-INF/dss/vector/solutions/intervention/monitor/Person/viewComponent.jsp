@@ -48,6 +48,13 @@
           </c:forEach>
         </ul>
       </mjl:dt>
+      <mjl:dt attribute="bloodslide">
+        <ul>
+          <c:forEach var="enumName" items="${item.bloodslideEnumNames}">
+            <li>${item.bloodslideMd.enumItems[enumName]}</li>
+          </c:forEach>
+        </ul>
+      </mjl:dt>
       <mjl:dt attribute="rDTResult">
         <ul>
           <c:forEach var="enumName" items="${item.RDTResultEnumNames}">
@@ -58,13 +65,6 @@
       <mjl:dt attribute="rdtTreatment">
         ${item.rdtTreatment.displayLabel}
       </mjl:dt>      
-      <mjl:dt attribute="bloodslide">
-        <ul>
-          <c:forEach var="enumName" items="${item.bloodslideEnumNames}">
-            <li>${item.bloodslideMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>
-      </mjl:dt>
       <mjl:dt attribute="fever">
         <ul>
           <c:forEach var="enumName" items="${item.feverEnumNames}">
