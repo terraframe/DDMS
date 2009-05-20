@@ -91,14 +91,14 @@
             required="true"
             default_value="false"
             negativeLabel="False"
-            positiveLabel="True"/>
+            positiveLabel="True" />
           <boolean
             name="enabled"
             label="Enabled"
             required="true"
             default_value="true"
             negativeLabel="False"
-            positiveLabel="True"/>
+            positiveLabel="True" />
         </attributes>
         <mdMethod
           name="getAll"
@@ -287,7 +287,7 @@
           value="ICONET" />
         <valueAttribute
           name="displayLabel"
-          value="ICONET" />
+          value="Iconet" />
       </object>
 
       <relationship
@@ -307,7 +307,7 @@
           value="SAFINET" />
         <valueAttribute
           name="displayLabel"
-          value="SAFINET" />
+          value="Safinet" />
       </object>
 
       <relationship
@@ -589,12 +589,136 @@
         generateController="true">
         <attributes>
           <char
+            name="drugName"
+            label="Name"
+            required="true"
+            size="255"
+            indexType="unique index" />
+          <localChar
             name="displayLabel"
             label="Display Label"
             required="true"
             size="255" />
+          <boolean
+            name="enabled"
+            label="Enabled"
+            required="true"
+            default_value="true"
+            positiveLabel="Yes"
+            negativeLabel="No" />
         </attributes>
+        <mdMethod
+          name="getAllActive"
+          label="Get All Active"
+          returnType="dss.vector.solutions.intervention.Drug[]"
+          static="true"/>
       </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.FeverTreatment"
+        label="Fever Treatment"
+        generateController="true">
+        <attributes>
+          <char
+            name="treatmentName"
+            label="Name"
+            required="true"
+            size="255"
+            indexType="unique index" />
+          <localChar
+            name="displayLabel"
+            label="Display Label"
+            required="true"
+            size="255" />
+          <boolean
+            name="enabled"
+            label="Enabled"
+            required="true"
+            default_value="true"
+            positiveLabel="Yes"
+            negativeLabel="No" />
+        </attributes>
+        <mdMethod
+          name="getAllActive"
+          label="Get All Active"
+          returnType="dss.vector.solutions.intervention.FeverTreatment[]"
+          static="true"/>        
+      </mdBusiness>
+
+      <object
+        type="dss.vector.solutions.intervention.FeverTreatment"
+        id="Fever_None"
+        key="none">
+        <valueAttribute
+          name="treatmentName"
+          value="none" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="None" />
+        </structAttribute>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.FeverTreatment"
+        id="Fever_private"
+        key="private">
+        <valueAttribute
+          name="treatmentName"
+          value="private" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Private" />
+        </structAttribute>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.FeverTreatment"
+        id="Fever_public"
+        key="public">
+        <valueAttribute
+          name="treatmentName"
+          value="public" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Public" />
+        </structAttribute>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.FeverTreatment"
+        id="Fever_local healer"
+        key="local healer">
+        <valueAttribute
+          name="treatmentName"
+          value="local healer" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Local healer" />
+        </structAttribute>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.FeverTreatment"
+        id="Fever_pharmacist"
+        key="pharmacist">
+        <valueAttribute
+          name="treatmentName"
+          value="pharmacist" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Pharmacist" />
+        </structAttribute>
+      </object>
 
       <enumerationMaster
         name="dss.vector.solutions.intervention.ResponseMaster"
@@ -768,7 +892,7 @@
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="NEGATIVE" />
+            value="Negative" />
         </structAttribute>
       </object>
 
@@ -782,7 +906,7 @@
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="NOT VALID" />
+            value="Not Valid" />
         </structAttribute>
       </object>
 
@@ -793,16 +917,58 @@
         <includeAll />
       </mdEnumeration>
 
+      <enumerationMaster
+        name="dss.vector.solutions.intervention.BloodslideResponseMaster"
+        label="Bloodslide Response Master"
+        generateController="false" />
+
+      <object
+        type="dss.vector.solutions.intervention.BloodslideResponseMaster"
+        id="Done">
+        <valueAttribute
+          name="enumName"
+          value="DONE" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Done" />
+        </structAttribute>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.BloodslideResponseMaster"
+        id="Not_Available">
+        <valueAttribute
+          name="enumName"
+          value="NOT_AVAILABLE" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Not Available" />
+        </structAttribute>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.BloodslideResponseMaster"
+        id="Blood_Refused">
+        <valueAttribute
+          name="enumName"
+          value="REFUSED" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Refused" />
+        </structAttribute>
+      </object>
+
       <mdEnumeration
         name="dss.vector.solutions.intervention.BloodslideResponse"
-        type="dss.vector.solutions.intervention.ResponseMaster"
+        type="dss.vector.solutions.intervention.BloodslideResponseMaster"
         label="Bloodslide Response">
-        <addEnumItem
-          id="YES" />
-        <addEnumItem
-          id="NO" />
-        <addEnumItem
-          id="NOT_PRESENT" />
+        <includeAll />
       </mdEnumeration>
 
       <mdEnumeration
@@ -899,21 +1065,21 @@
             type="dss.vector.solutions.intervention.BloodslideResponse" />
           <enumeration
             name="fever"
-            label="Has person had fever in last week"
+            label="Has person had fever in last week?"
             selectMultiple="false"
             type="dss.vector.solutions.intervention.FeverResponse" />
           <reference
             name="feverTreatment"
-            label="What treatment was sought"
-            type="dss.vector.solutions.intervention.Drug" />
+            label="What treatment was sought for fever?"
+            type="dss.vector.solutions.intervention.FeverTreatment" />
           <enumeration
             name="malaria"
-            label="Was it confirmed malaria"
+            label="Was this episode confirmed malaria?"
             selectMultiple="false"
             type="dss.vector.solutions.intervention.FeverResponse" />
           <reference
             name="malariaTreatment"
-            label="Treatment taken"
+            label="Was Treatment taken for this episode"
             type="dss.vector.solutions.intervention.Drug" />
           <enumeration
             name="payment"

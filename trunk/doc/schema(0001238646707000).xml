@@ -1125,23 +1125,6 @@
         </attributes>
       </mdProblem>
 
-      <mdProblem
-        name="dss.vector.solutions.entomology.InvalidCollectionDateProblem"
-        label="Invalid Collection Date Problem"
-        description="Collection date is after the current date"
-        extends="dss.vector.solutions.NotificationProblem">
-        <attributes>
-          <date
-            name="collectionDate"
-            label="Collection Date"
-            required="true" />
-          <date
-            name="currentDate"
-            label="Current Date"
-            required="true" />
-        </attributes>
-      </mdProblem>
-
       <mdBusiness
         name="dss.vector.solutions.entomology.MosquitoCollection"
         description="A mosqitio collection from a Sentinel or non sental site, these are usualy collected only once from a given point, this is not for permenant traps"

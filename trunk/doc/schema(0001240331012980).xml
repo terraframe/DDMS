@@ -99,20 +99,6 @@
       <mdBusiness
         name="dss.vector.solutions.intervention.Drug">
         <create>
-          <attributes>
-            <char
-              name="drugName"
-              label="Drug Name"
-              required="true"
-              size="255" />
-            <boolean
-              name="enabled"
-              label="Enabled"
-              required="true"
-              default_value="true"
-              negativeLabel="No"
-              positiveLabel="Yes" />
-          </attributes>
           <mdMethod
             name="getAll"
             label="Get All"
@@ -193,9 +179,12 @@
         <valueAttribute
           name="drugName"
           value="Test_Drug" />
-        <valueAttribute
-          name="displayLabel"
-          value="Test Drug" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Test Drug" />
+        </structAttribute>
       </object>
     </create>
   </doIt>
