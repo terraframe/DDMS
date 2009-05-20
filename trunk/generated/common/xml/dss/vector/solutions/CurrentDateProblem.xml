@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
+  name="dss.vector.solutions.CurrentDateProblem">
+  <!--
+    - {currentDate} currentDate
+    - {givenDate} givenDate
+    -->
+  <locale language="en">The given date [{givenDate}] may not be after the current date [{currentDate}]</locale>
+</exception>
