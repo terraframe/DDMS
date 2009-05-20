@@ -1,6 +1,9 @@
 package dss.vector.solutions.entomology.assay;
 
+import java.util.Arrays;
+
 import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
@@ -26,18 +29,12 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     LarvaeDiscriminatingDoseAssayDTO dto = LarvaeDiscriminatingDoseAssayDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("ageRange", LarvaeAgeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    this.setupRequest();
     req.setAttribute("item", dto);
     
     render("editComponent.jsp");
   }
+
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.view(id);
@@ -51,14 +48,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
       dto.setCollection(MosquitoCollectionDTO.get(clientRequest, req.getParameter("collection_id")));
     }
 
-    req.setAttribute("ageRange", LarvaeAgeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    this.setupRequest();
     req.setAttribute("item", dto);
     
     render("createComponent.jsp");
@@ -69,7 +59,15 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    if (!req.getRequestURI().contains(".viewAll.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
+      return;
+    }
+
+    ClientRequestIF clientRequest = super.getClientRequest();
     LarvaeDiscriminatingDoseAssayQueryDTO query = LarvaeDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
     
@@ -113,14 +111,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   }
   public void failUpdate(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("ageRange", LarvaeAgeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    this.setupRequest();
     req.setAttribute("item", dto);
     
     render("updateComponent.jsp");
@@ -147,14 +138,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   }
   public void failCreate(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("ageRange", LarvaeAgeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    this.setupRequest();
     req.setAttribute("item", dto);
     
     render("createComponent.jsp");
@@ -173,14 +157,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   }
   public void failDelete(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("ageRange", LarvaeAgeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    this.setupRequest();
     req.setAttribute("item", dto);
     
     render("editComponent.jsp");
@@ -193,17 +170,16 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
   public void view(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    req.setAttribute("ageRange", LarvaeAgeDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("generation", GenerationDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("identificationMethod", IdentificationMethodDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("testMethod", ResistanceMethodologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("units", UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
-    req.setAttribute("specie", SpecieDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
+      return;
+    }
+
     req.setAttribute("item", dto);
     
-
     render("viewComponent.jsp");
   }
 
@@ -222,4 +198,19 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   {
     resp.sendError(500);
   }
+  
+  private void setupRequest()
+  {
+    ClientRequestIF request = super.getClientSession().getRequest();
+
+    req.setAttribute("ageRange", Arrays.asList(LarvaeAgeDTO.getAll(request)));
+    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(request, "keyName", true, 0, 0).getResultSet());
+    req.setAttribute("generation", Arrays.asList(GenerationDTO.getAll(request)));
+    req.setAttribute("identificationMethod", Arrays.asList(IdentificationMethodDTO.getAll(request)));
+    req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAll(request)));
+    req.setAttribute("insecticide", InsecticideDTO.getAll(request));
+    req.setAttribute("specie", Arrays.asList(SpecieDTO.getAll(request)));
+
+  }
+
 }
