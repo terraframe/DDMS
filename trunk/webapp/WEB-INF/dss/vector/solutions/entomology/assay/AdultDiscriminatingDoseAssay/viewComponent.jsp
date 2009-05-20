@@ -52,14 +52,14 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
         ${item.identificationMethod.displayLabel}
       </mjl:dt>
       <mjl:dt attribute="ageRange">
-      <mjl:struct param="ageRange">
-        <mjl:dt attribute="startPoint">
-          ${item.ageRange.startPoint}
-        </mjl:dt>
-        <mjl:dt attribute="endPoint">
-          ${item.ageRange.endPoint}
-        </mjl:dt>
-      </mjl:struct>
+        <mjl:struct param="ageRange">
+          <mjl:dt attribute="startPoint">
+            ${item.ageRange.startPoint}
+          </mjl:dt>
+          <mjl:dt attribute="endPoint">
+            ${item.ageRange.endPoint}
+          </mjl:dt>
+        </mjl:struct>
       </mjl:dt>
       <mjl:dt attribute="fed">
         ${item.fed}

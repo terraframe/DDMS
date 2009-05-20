@@ -18,104 +18,69 @@ KnockDownAssayDTO kda = (KnockDownAssayDTO) request.getAttribute("item");
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.name" id="dss.vector.solutions.entomology.assay.KnockDownAssay.form.id" method="POST">
-  <mjl:component item="${item}" param="dto">
-        <mjl:commandLink display="Create_Another_Knock_Down_Assay_With_This_Collection" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" name="newWiththisCollection">
-        <mjl:property value="${item.collection.id}" name="id" />
-      </mjl:commandLink>
-  <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <mjl:dt attribute="collection">
-       <mjl:commandLink display="${item.collection.collectionId} ${item.collection.displayLabel}" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.view.link">
+    <mjl:input value="${item.id}" type="hidden" param="id" />
+    <mjl:component item="${item}" param="dto">
+      <mjl:commandLink display="Create_Another_Knock_Down_Assay_With_This_Collection" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" name="newWiththisCollection">
         <mjl:property value="${item.collection.id}" name="id" />
       </mjl:commandLink>
-<br>
-
-</mjl:dt>
-  <dt>
-      <label>
-        ${item.testDateMd.displayLabel}
-      </label>
-    </dt>
-    <dd class="formatDate">
-      ${item.testDate}
-    </dd>
-     <mjl:dt attribute="testMethod">
-<mjl:commandLink display="${item.testMethod.displayLabel}" action="dss.vector.solutions.mo.ResistanceMethodologyController.view.mojo" name="dss.vector.solutions.mo.ResistanceMethodology.form.view.link">
-        <mjl:property value="${item.testMethod.id}" name="id" />
-      </mjl:commandLink>
-</mjl:dt>
-    <mjl:dt attribute="generation">
-<mjl:commandLink display="${item.generation.displayLabel}" action="dss.vector.solutions.mo.GenerationController.view.mojo" name="dss.vector.solutions.mo.Generation.form.view.link">
-        <mjl:property value="${item.generation.id}" name="id" />
-      </mjl:commandLink>
-</mjl:dt>
-    <mjl:dt attribute="isofemale">
-      ${item.isofemale}
-</mjl:dt>
-    <dt>
-      <label>
-        ${item.sexMd.displayLabel}
-      </label>
-    </dt>
-    <dd>
+      <mjl:dt attribute="collection">
+        ${item.collection.collectionId} ${item.collection.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="testDate">
+        <span class="formatDate">${item.testDate}</span>
+      </mjl:dt>
+      <mjl:dt attribute="testMethod">
+        ${item.testMethod.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="generation">
+        ${item.generation.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="isofemale">
+        ${item.isofemale}
+      </mjl:dt>
+      <mjl:dt attribute="sex">
         <c:forEach var="enumName" items="${item.sexEnumNames}">
-            ${item.sexMd.enumItems[enumName]}
+          ${item.sexMd.enumItems[enumName]}
         </c:forEach>
-    </dd>
-    <mjl:dt attribute="specie">
-<mjl:commandLink display="${item.specie.displayLabel}" action="dss.vector.solutions.mo.SpecieController.view.mojo" name="dss.vector.solutions.mo.Specie.form.view.link">
-        <mjl:property value="${item.specie.id}" name="id" />
-      </mjl:commandLink>
-</mjl:dt>
-     <mjl:dt attribute="identificationMethod">
-<mjl:commandLink display="${item.identificationMethod.displayLabel}" action="dss.vector.solutions.mo.IdentificationMethodController.view.mojo" name="dss.vector.solutions.mo.IdentificationMethod.form.view.link">
-        <mjl:property value="${item.identificationMethod.id}" name="id" />
-      </mjl:commandLink>
-</mjl:dt>
-        <dt>
-          <label>
-            ${item.ageRange.startPointMd.displayLabel}
-          </label>
-        </dt>
-        <dd>
-          ${item.ageRange.startPoint}
-        </dd>
-        <dt>
-          <label>
-            ${item.ageRange.endPointMd.displayLabel}
-          </label>
-        </dt>
-        <dd>
-          ${item.ageRange.endPoint}
-        </dd>
-    <mjl:dt attribute="fed">
-      ${item.fed}
-</mjl:dt>
-       <mjl:dt attribute="gravid">
-      ${item.gravid}
-</mjl:dt>
-    <mjl:dt attribute="exposureTime">
-      ${item.exposureTime}
-</mjl:dt>
-
-    <mjl:dt attribute="insecticide">
-${item.insecticide.displayLabel}
-</mjl:dt>
-    <mjl:dt attribute="quantityTested">
-      ${item.quantityTested}
-</mjl:dt>
-
-
-    <mjl:dt attribute="intervalTime">
-      ${item.intervalTime}
-</mjl:dt>
-
-
+      </mjl:dt>
+      <mjl:dt attribute="specie">
+        ${item.specie.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="identificationMethod">
+        ${item.identificationMethod.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="ageRange">
+        <mjl:struct param="ageRange">
+          <mjl:dt attribute="startPoint">
+            ${item.ageRange.startPoint}
+          </mjl:dt>
+          <mjl:dt attribute="endPoint">
+            ${item.ageRange.endPoint}
+          </mjl:dt>
+        </mjl:struct>
+      </mjl:dt>
+      <mjl:dt attribute="fed">
+        ${item.fed}
+      </mjl:dt>
+      <mjl:dt attribute="gravid">
+        ${item.gravid}
+      </mjl:dt>
+      <mjl:dt attribute="exposureTime">
+        ${item.exposureTime}
+      </mjl:dt>
+      <mjl:dt attribute="insecticide">
+        ${item.insecticide.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="quantityTested">
+        ${item.quantityTested}
+      </mjl:dt>
+      <mjl:dt attribute="intervalTime">
+        ${item.intervalTime}
+      </mjl:dt>
+    </mjl:component>
+    <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.edit.button" classes="submitButton" />
   </dl>
-
-  <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.edit.button" classes="submitButton" />
-  <br />
-  </mjl:component>
 </mjl:form>
 
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.KnockDownAssay.viewAll.link" />

@@ -45,7 +45,7 @@
         </mjl:select>
       </mjl:dt>
       <mjl:dt attribute="specie">
-        <mjl:select var="current" valueAttribute="id" items="${specie}" param="specie">
+        <mjl:select var="current" valueAttribute="id" items="${specie}" param="specie" includeBlank="true">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
