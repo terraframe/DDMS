@@ -13,60 +13,45 @@
 AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request.getAttribute("item");
 %>
 
-
 <c:set var="page_title" value="View_ADDA"  scope="request"/>
 
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
-  <mjl:input value="${item.id}" type="hidden" param="id" />
-<mjl:component item="${item}" param="dto">
-
   <dl>
-    <mjl:dt attribute="collection">
-      <mjl:commandLink display="${item.collection.displayLabel}" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo"
-        name="dss.vector.solutions.entomology.MosquitoCollection.form.view.link">
-        <mjl:property value="${item.collection.id}" name="id" />
-      </mjl:commandLink>
-    </mjl:dt>
-    <dt><label> ${item.testDateMd.displayLabel} </label></dt>
-    <dd class="formatDate">${item.testDate}</dd>
-    <mjl:dt attribute="controlTestMortality">
-
-      ${item.controlTestMortality}
-</mjl:dt>
-    <mjl:dt attribute="testMethod">
-      <mjl:commandLink display="${item.testMethod.displayLabel}" action="dss.vector.solutions.mo.ResistanceMethodologyController.view.mojo"
-        name="dss.vector.solutions.mo.ResistanceMethodology.form.view.link">
-        <mjl:property value="${item.testMethod.id}" name="id" />
-      </mjl:commandLink>
-    </mjl:dt>
-    <mjl:dt attribute="generation">
-      <mjl:commandLink display="${item.generation.displayLabel}" action="dss.vector.solutions.mo.GenerationController.view.mojo" name="dss.vector.solutions.mo.Generation.form.view.link">
-        <mjl:property value="${item.generation.id}" name="id" />
-      </mjl:commandLink>
-    </mjl:dt>
-    <mjl:dt attribute="isofemale">
-
-      ${item.isofemale}
-</mjl:dt>
-    <dt><label> ${item.sexMd.displayLabel} </label></dt>
-    <dd><c:forEach var="enumName" items="${item.sexEnumNames}">
-            ${item.sexMd.enumItems[enumName]}
-        </c:forEach></dd>
-    <mjl:dt attribute="specie">
-      <mjl:commandLink display="${item.specie.displayLabel}" action="dss.vector.solutions.mo.SpecieController.view.mojo" name="dss.vector.solutions.mo.Specie.form.view.link">
-        <mjl:property value="${item.specie.id}" name="id" />
-      </mjl:commandLink>
-    </mjl:dt>
-    <mjl:dt attribute="identificationMethod">
-      <mjl:commandLink display="${item.identificationMethod.displayLabel}" action="dss.vector.solutions.mo.IdentificationMethodController.view.mojo"
-        name="dss.vector.solutions.mo.IdentificationMethod.form.view.link">
-        <mjl:property value="${item.identificationMethod.id}" name="id" />
-      </mjl:commandLink>
-    </mjl:dt>
-    <mjl:dt attribute="ageRange">
+    <mjl:input value="${item.id}" type="hidden" param="id" />
+    <mjl:component item="${item}" param="dto">
+      <mjl:dt attribute="collection">
+        ${item.collection.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="testDate">
+        <span class="formatDate">${item.testDate}</span>
+      </mjl:dt>
+      <mjl:dt attribute="controlTestMortality">
+        ${item.controlTestMortality}
+      </mjl:dt>
+      <mjl:dt attribute="testMethod">
+        ${item.testMethod.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="generation">
+        ${item.generation.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="isofemale">
+        ${item.isofemale}
+      </mjl:dt>
+      <mjl:dt attribute="sex">
+        <c:forEach var="enumName" items="${item.sexEnumNames}">
+          ${item.sexMd.enumItems[enumName]}
+        </c:forEach>
+      </mjl:dt>
+      <mjl:dt attribute="specie">
+        ${item.specie.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="identificationMethod">
+        ${item.identificationMethod.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="ageRange">
       <mjl:struct param="ageRange">
         <mjl:dt attribute="startPoint">
           ${item.ageRange.startPoint}
@@ -75,55 +60,46 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
           ${item.ageRange.endPoint}
         </mjl:dt>
       </mjl:struct>
-    </mjl:dt>
-    <mjl:dt attribute="fed">
-
-      ${item.fed}
-</mjl:dt>
-    <mjl:dt attribute="gravid">
-
-      ${item.gravid}
-</mjl:dt>
-    <mjl:dt attribute="exposureTime">
-
-      ${item.exposureTime}
-</mjl:dt>
-    <mjl:dt attribute="holdingTime">
-
-      ${item.holdingTime}
-</mjl:dt>
-    <mjl:dt attribute="insecticide">
-      ${item.insecticide.displayLabel}
-    </mjl:dt>
-    <mjl:dt attribute="quantityTested">
-
-      ${item.quantityTested}
-</mjl:dt>
-    <mjl:dt attribute="quantityLive">
-
-      ${item.quantityLive}
-</mjl:dt>
-    <mjl:dt attribute="quantityDead">
-
-      ${item.quantityDead}
-</mjl:dt>
-    <mjl:dt attribute="mortality">
-
+      </mjl:dt>
+      <mjl:dt attribute="fed">
+        ${item.fed}
+      </mjl:dt>
+      <mjl:dt attribute="gravid">
+        ${item.gravid}
+      </mjl:dt>
+      <mjl:dt attribute="exposureTime">
+        ${item.exposureTime}
+      </mjl:dt>
+      <mjl:dt attribute="holdingTime">
+        ${item.holdingTime}
+      </mjl:dt>
+      <mjl:dt attribute="insecticide">
+        ${item.insecticide.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="quantityTested">
+        ${item.quantityTested}
+      </mjl:dt>
+      <mjl:dt attribute="quantityLive">
+        ${item.quantityLive}
+      </mjl:dt>
+      <mjl:dt attribute="quantityDead">
+        ${item.quantityDead}
+      </mjl:dt>
+      <mjl:dt attribute="mortality">
         ${item.mortality}
-</mjl:dt>
-    <dt><label> KD50 </label></dt>
-    <dd><fmt:formatNumber pattern="##.##">${item.KD50}</fmt:formatNumber></dd>
-    <dt><label> KD95 </label></dt>
-    <dd><fmt:formatNumber pattern="##.##">${item.KD95}</fmt:formatNumber></dd>
-    <mjl:dt attribute="intervalTime">
-
-      ${item.intervalTime}
-</mjl:dt>
+      </mjl:dt>
+      <dt><label> <fmt:message key="KD50"/> </label></dt>
+      <dd><fmt:formatNumber pattern="##.##">${item.KD50}</fmt:formatNumber></dd>
+      <dt><label> <fmt:message key="KD95"/> </label></dt>
+      <dd><fmt:formatNumber pattern="##.##">${item.KD95}</fmt:formatNumber></dd>
+      <mjl:dt attribute="intervalTime">
+        ${item.intervalTime}
+      </mjl:dt>
+    </mjl:component>
+    
+    <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.edit.mojo"
+      name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
   </dl>
-  </mjl:component>
-
-  <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.edit.mojo"
-    name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
 </mjl:form>
 
 <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"

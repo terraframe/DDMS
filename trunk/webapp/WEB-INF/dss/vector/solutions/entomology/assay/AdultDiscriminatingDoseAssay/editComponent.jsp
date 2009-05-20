@@ -9,121 +9,15 @@
 </mjl:messages>
 <c:set var="page_title" value="Edit_ADDA" scope="request" />
 <mjl:form name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.name" id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.id" method="POST">
+  <dl>
+    <%@ include file="form.jsp"%>
 
-
-  <mjl:component item="${item}" param="dto">
-    <dl>
-      <mjl:dt attribute="collection">
-        <mjl:select var="current" valueAttribute="id" items="${collection}" param="collection">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
-      <mjl:dt attribute="testDate">
-        <mjl:input type="text" param="testDate" id="testDate" classes="DatePick" />
-      </mjl:dt>
-      <mjl:dt attribute="testMethod">
-        <mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
-      <mjl:dt attribute="generation">
-        <mjl:select var="current" valueAttribute="id" items="${generation}" param="generation">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
-      <mjl:dt attribute="isofemale">
-        <mjl:boolean param="isofemale"  />
-      </mjl:dt>
-      <mjl:dt attribute="sex">
-        <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
-          <c:choose>
-            <c:when test="${mjl:contains(item.sexEnumNames, current.enumName)}">
-              <mjl:option selected="selected">
-                ${item.sexMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:when>
-            <c:otherwise>
-              <mjl:option>
-                ${item.sexMd.enumItems[current.enumName]}
-              </mjl:option>
-            </c:otherwise>
-          </c:choose>
-        </mjl:select>
-      </mjl:dt>
-      <mjl:dt attribute="specie">
-        <mjl:select var="current" valueAttribute="id" items="${specie}" param="specie">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
-      <mjl:dt attribute="identificationMethod">
-        <mjl:select var="current" valueAttribute="id" items="${identificationMethod}" param="identificationMethod">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
-     <mjl:dt attribute="ageRange">
-      <dl>
-        <mjl:struct param="ageRange">
-          <mjl:dt attribute="startPoint" type="text"  />
-          <mjl:dt attribute="endPoint" type="text"  />
-        </mjl:struct>
-      </dl>
-      </mjl:dt>
-      <mjl:dt attribute="fed">
-        <mjl:input type="text" param="fed" />
-      </mjl:dt>
-      <mjl:dt attribute="gravid">
-        <mjl:input type="text" param="gravid" />
-      </mjl:dt>
-      <mjl:dt attribute="exposureTime">
-        <mjl:input type="text" param="exposureTime" />
-      </mjl:dt>
-      <mjl:dt attribute="holdingTime">
-        <mjl:input type="text" param="holdingTime" />
-      </mjl:dt>
-
-      <mjl:dt attribute="insecticide">
-        <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
-        <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides" /></a>
-      </mjl:dt>
-      <mjl:dt attribute="quantityTested">
-        <mjl:input type="text" param="quantityTested" />
-      </mjl:dt>
-
-      <mjl:dt attribute="quantityDead">
-        <mjl:input type="text" param="quantityDead" />
-      </mjl:dt>
-      <mjl:dt attribute="controlTestMortality">
-        <mjl:input type="text" param="controlTestMortality" />
-      </mjl:dt>
-
-      <mjl:dt attribute="intervalTime">
-        <mjl:input type="text" param="intervalTime" />
-      </mjl:dt>
-
-    </dl>
-  </mjl:component>
-
-
-
-  <mjl:command value="Update" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.update.mojo"
-    name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.update.button" classes="submitButton" />
-  <mjl:command value="Delete" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.delete.mojo"
-    name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.delete.button" classes="submitButton" />
-  <mjl:command value="Cancel" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.cancel.mojo"
-    name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.cancel.button" classes="submitButton" />
+    <mjl:command value="Update" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.update.mojo"
+      name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.update.button" classes="submitButton" />
+    <mjl:command value="Delete" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.delete.mojo"
+      name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.delete.button" classes="submitButton" />
+    <mjl:command value="Cancel" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.cancel.mojo"
+      name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.cancel.button" classes="submitButton" />
+  </dl>
 </mjl:form>
 <div id="cal1Container" class="yui-skin-sam"></div>
