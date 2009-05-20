@@ -37,7 +37,7 @@
     <update>
 
       <object
-        id="MDSSPersonAdmin"
+        id="UpdatedMDSSPersonAdmin"
         type="dss.vector.solutions.Person"
         key="dss.vector.solutions.MDSSPersonAdmin">
         <referenceAttribute
