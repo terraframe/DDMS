@@ -1,12 +1,13 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="page_title" value="View_Person"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.intervention.monitor.Person.form.name" id="dss.vector.solutions.intervention.monitor.Person.form.id" method="POST">
   <dl>
     <mjl:input value="${item.concreteId}" type="hidden" param="id" />
-    <mjl:component item="${item}" param="dto">  
+    <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="personId">
         ${item.personId}
       </mjl:dt>
@@ -34,7 +35,7 @@
       </mjl:dt>
       <mjl:dt attribute="haemoglobin">
         ${item.haemoglobin}
-      </mjl:dt>         
+      </mjl:dt>
       <mjl:dt attribute="anaemiaTreatment">
         ${item.anaemiaTreatment.displayLabel}
       </mjl:dt>
@@ -64,7 +65,7 @@
       </mjl:dt>
       <mjl:dt attribute="rdtTreatment">
         ${item.rdtTreatment.displayLabel}
-      </mjl:dt>      
+      </mjl:dt>
       <mjl:dt attribute="fever">
         <ul>
           <c:forEach var="enumName" items="${item.feverEnumNames}">

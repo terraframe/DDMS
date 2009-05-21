@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<c:set var="page_title" value="View_Household"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -12,7 +13,7 @@
     <mjl:dt attribute="householdName">
       ${item.householdName}
     </mjl:dt>
-    
+
     <mjl:dt attribute="urban">
       ${item.urban?item.urbanMd.positiveDisplayLabel:item.urbanMd.negativeDisplayLabel}
     </mjl:dt>
@@ -22,7 +23,7 @@
     </mjl:dt>
 
     <mjl:dt attribute="wall">
-      ${item.wall.displayLabel}    
+      ${item.wall.displayLabel}
     </mjl:dt>
 
     <mjl:dt attribute="wallInfo">
@@ -32,7 +33,7 @@
     <mjl:dt attribute="roof">
       ${item.roof.displayLabel}
     </mjl:dt>
-    
+
     <mjl:dt attribute="roofInfo">
       ${item.roofInfo}
     </mjl:dt>
@@ -40,7 +41,7 @@
     <mjl:dt attribute="hasWindows">
       ${item.hasWindows?item.hasWindowsMd.positiveDisplayLabel:item.hasWindowsMd.negativeDisplayLabel}
     </mjl:dt>
-    
+
     <mjl:dt attribute="windowType">
       <ul>
         <c:forEach var="enumName" items="${item.windowTypeEnumNames}">
@@ -54,7 +55,7 @@
     <mjl:dt attribute="rooms">
       ${item.rooms}
      </mjl:dt>
-    
+
     <mjl:dt attribute="lastSprayed">
       ${item.lastSprayed}
     </mjl:dt>

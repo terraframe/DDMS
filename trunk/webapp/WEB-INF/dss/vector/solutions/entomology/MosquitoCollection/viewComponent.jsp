@@ -134,5 +134,5 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
               data_type: "Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroupView"
 
           };
-    Event.addListener(window, 'load', MojoGrid.createDataTable(table_data));
+    YAHOO.util.Event.addListener(window, 'load', MojoGrid.createDataTable(table_data));
 </script>
