@@ -31,9 +31,9 @@ var aSubmenuData = [
                 submenu: {
                             id: "User_Administration",
                             itemdata: [
-                                       { text: "Manage_People", url: "dss.vector.solutions.PersonController.viewAll.mojo" , visibleTo:'SYSTEM'},
-                                       { text: "Manage_IRS_Teams", url: "dss.vector.solutions.irs.SprayTeamController.viewAll.mojo", visibleTo:'SYSTEM' },
-                                       { text: "Edit_Roles", url: "dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo?actor=manager", visibleTo:'SYSTEM' }
+                                       { text: "Manage_People", url: "dss.vector.solutions.PersonController.viewAll.mojo" , visibleTo:'Administrator'},
+                                       { text: "Manage_IRS_Teams", url: "dss.vector.solutions.irs.SprayTeamController.viewAll.mojo", visibleTo:'Administrator' },
+                                       { text: "Edit_Roles", url: "dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo?actor=manager", visibleTo:'Administrator' }
                             ]
                         }
 
@@ -43,28 +43,28 @@ var aSubmenuData = [
                 submenu: {
                             id: "Entomology",
                             itemdata: [
-                                       { text: "Manage_Insecticides", url: "dss.vector.solutions.general.InsecticideController.viewAll.mojo", visibleTo:'SYSTEM' },
-                                       { text: "Manage_Knock_Down_Properties", url: "dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo" , visibleTo:'SYSTEM'},
-                                       { text: "Manage_Lethal_Properties", url: "dss.vector.solutions.general.LethalTimePropertyController.search.mojo" , visibleTo:'SYSTEM'},
-                                       { text: "Malaria_Season", url: "dss.vector.solutions.general.MalariaSeasonController.viewAll.mojo" , visibleTo:'SYSTEM'},
+                                       { text: "Manage_Insecticides", url: "dss.vector.solutions.general.InsecticideController.viewAll.mojo", visibleTo:'Administrator' },
+                                       { text: "Manage_Knock_Down_Properties", url: "dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo" , visibleTo:'Administrator'},
+                                       { text: "Manage_Lethal_Properties", url: "dss.vector.solutions.general.LethalTimePropertyController.search.mojo" , visibleTo:'Administrator'},
+                                       { text: "Malaria_Season", url: "dss.vector.solutions.general.MalariaSeasonController.viewAll.mojo" , visibleTo:'Administrator'},
                             ]
                         }
 
             },
-            { text: "Change_Settings", url: "dss.vector.solutions.PropertyController.viewAll.mojo" , visibleTo:'SYSTEM'},
+            { text: "Change_Settings", url: "dss.vector.solutions.PropertyController.viewAll.mojo" , visibleTo:'Administrator'},
         ]
     },
     {
         id: "Intervention_Planning",
         itemdata: [
-            { text: "Configure_Application_Rate", url: "dss.vector.solutions.irs.ApplicationRateController.view.mojo" , visibleTo:'SYSTEM'},
+            { text: "Configure_Application_Rate", url: "dss.vector.solutions.irs.ApplicationRateController.view.mojo" , visibleTo:'Administrator'},
             {
                 text: "IRS",
                 submenu: {
                             id: "IRS_INV",
                             itemdata: [
-                                       { text: "Geographic_Targets", url: "dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" , visibleTo:'SYSTEM'},
-                                       { text: "Spray_Team_Targets", url: "dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" , visibleTo:'SYSTEM'},
+                                       { text: "Geographic_Targets", url: "dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" , visibleTo:'Administrator'},
+                                       { text: "Spray_Team_Targets", url: "dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" , visibleTo:'Administrator'},
 
                             ]
                         }
@@ -75,18 +75,18 @@ var aSubmenuData = [
     {
         id: "Entomology_Surveillance",
         itemdata: [
-            { text: "Search_Mosquito_Collections", url: "dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo", visibleTo:'SYSTEM' },
-            { text: "Mosquito_Collection_Points", url: "dss.vector.solutions.entomology.MosquitoCollectionPointController.search.mojo", visibleTo:'SYSTEM' },
-            { text: "Query_Entomology", url: "dss.vector.solutions.query.QueryController.queryEntomology.mojo" , visibleTo:'SYSTEM'},
+            { text: "Search_Mosquito_Collections", url: "dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo", visibleTo:'Administrator' },
+            { text: "Mosquito_Collection_Points", url: "dss.vector.solutions.entomology.MosquitoCollectionPointController.search.mojo", visibleTo:'Administrator' },
+            { text: "Query_Entomology", url: "dss.vector.solutions.query.QueryController.queryEntomology.mojo" , visibleTo:'Administrator'},
             {
                 text: "Resistance_Monitoring",
                 submenu: {
                             id: "Resistance_Monitoring",
                             itemdata: [
-                                       { text: "Adult_DDA", url: "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo" , visibleTo:'SYSTEM'},
-                                       { text: "Larvae_DDA", url: "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" , visibleTo:'SYSTEM'},
-                                       { text: "View_All_EfficacyAssay", url: "dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo" , visibleTo:'SYSTEM'},
-                                       { text: "Knock_Down_Assay", url: "dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" , visibleTo:'SYSTEM'},
+                                       { text: "Adult_DDA", url: "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo" , visibleTo:'Administrator'},
+                                       { text: "Larvae_DDA", url: "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" , visibleTo:'Administrator'},
+                                       { text: "View_All_EfficacyAssay", url: "dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo" , visibleTo:'Administrator'},
+                                       { text: "Knock_Down_Assay", url: "dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" , visibleTo:'Administrator'},
                             ]
                         }
 
@@ -96,23 +96,23 @@ var aSubmenuData = [
     {
         id: "Case_Surveillance",
         itemdata: [
-            { text: "Search_Aggregated_Cases", url: "dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo" , visibleTo:'SYSTEM'},
-            { text: "Query_Aggregated_Cases", url: "dss.vector.solutions.query.QueryController.queryAggregatedCases.mojo" , visibleTo:'SYSTEM'},
+            { text: "Search_Aggregated_Cases", url: "dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo" , visibleTo:'Administrator'},
+            { text: "Query_Aggregated_Cases", url: "dss.vector.solutions.query.QueryController.queryAggregatedCases.mojo" , visibleTo:'Administrator'},
 
         ]
     },
     {
         id: "Intervention_Monitoring",
         itemdata: [
-            { text: "View_Surveys", url: "dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" , visibleTo:'SYSTEM'},
+            { text: "View_Surveys", url: "dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" , visibleTo:'Administrator'},
             {
                 text: "IRS",
                 submenu: {
                             id: "IRS_SPRAYS",
                             itemdata: [
-                                       { text: "Operator_Spray_Level_1", url: "dss.vector.solutions.irs.OperatorSprayController.search.mojo" , visibleTo:'SYSTEM'},
-                                       { text: "Team_Spray_Level_2", url: "dss.vector.solutions.irs.TeamSprayController.search.mojo" , visibleTo:'SYSTEM'},
-                                       { text: "Sprayed_Area_Level_3", url: "dss.vector.solutions.irs.ZoneSprayController.search.mojo" , visibleTo:'SYSTEM'},
+                                       { text: "Operator_Spray_Level_1", url: "dss.vector.solutions.irs.OperatorSprayController.search.mojo" , visibleTo:'Administrator'},
+                                       { text: "Team_Spray_Level_2", url: "dss.vector.solutions.irs.TeamSprayController.search.mojo" , visibleTo:'Administrator'},
+                                       { text: "Sprayed_Area_Level_3", url: "dss.vector.solutions.irs.ZoneSprayController.search.mojo" , visibleTo:'Administrator'},
 
                             ]
                         }
@@ -130,8 +130,8 @@ var aSubmenuData = [
     {
         id: "GIS",
         itemdata: [
-            { text: "View_GeoEntityTypes", url: "dss.vector.solutions.geo.GeoEntityTypeController.viewHierarchyTree.mojo?rootGeoHierarchyId=" , visibleTo:'SYSTEM'},
-            { text: "View_GeoEntities", url: "dss.vector.solutions.geo.GeoEntityTreeController.displayTree.mojo?rootGeoEntityId=" , visibleTo:'SYSTEM'},
+            { text: "View_GeoEntityTypes", url: "dss.vector.solutions.geo.GeoEntityTypeController.viewHierarchyTree.mojo?rootGeoHierarchyId=" , visibleTo:'Administrator'},
+            { text: "View_GeoEntities", url: "dss.vector.solutions.geo.GeoEntityTreeController.displayTree.mojo?rootGeoEntityId=" , visibleTo:'Administrator'},
 
         ]
     },
