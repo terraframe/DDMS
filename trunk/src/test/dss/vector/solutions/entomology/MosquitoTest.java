@@ -687,19 +687,20 @@ public class MosquitoTest extends TestCase
       view.delete();
     }
   }
-  
+  /*
   public void testGetTargetSiteAccessors()
   {
-    assertEquals(8, MosquitoView.getTargetSiteAccessors().length);    
+    assertEquals(8, MosquitoView.getTargetSiteAccessors().length);
   }
-  
+
   public void testInfectivityAccessors()
   {
     assertEquals(4, MosquitoView.getInfectivityAccessors().length);
   }
-  
+
   public void testMetabolicAccessors()
   {
-    assertEquals(7, MosquitoView.getMetabolicAccessors().length);    
+    assertEquals(7, MosquitoView.getMetabolicAccessors().length);
   }
+  */
 }
