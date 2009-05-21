@@ -62,7 +62,8 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException,
       ServletException
   {
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
+        .getRequest());
 
     req.setAttribute("diagnostics", Arrays.asList(diagnosticMethods));
     req.setAttribute("referrals", Arrays.asList(referrals));
@@ -114,7 +115,8 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     render("editComponent.jsp");
   }
 
-  public void cancel(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(AggregatedCaseViewDTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     dto.unlockCase();
     this.view(dto);
@@ -126,7 +128,8 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     resp.sendError(500);
   }
 
-  public void delete(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(AggregatedCaseViewDTO dto) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     try
     {
@@ -167,9 +170,8 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     AggregatedCaseViewDTO c = AggregatedCaseDTO.lockView(this.getClientRequest(), id);
 
     EpiDateDTO epiDate = new EpiDateDTO(c.getPeriodType().get(0), c.getPeriod(), c.getPeriodYear());
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
-
-
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
+        .getRequest());
 
     // Load all of the corresponding grid values
     String caseId = c.getCaseId();
@@ -180,7 +182,8 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     req.setAttribute("treatmentMethods", this.getTreatmentMethods(caseId));
     req.setAttribute("stock", this.getTreatmentStocks(caseId));
     req.setAttribute("item", c);
-    req.setAttribute("page_title", "Edit Aggregated Case " + epiDate.getDisplayLabel(this.getClientRequest()));
+    req.setAttribute("page_title", "Edit Aggregated Case "
+        + epiDate.getDisplayLabel(this.getClientRequest()));
     render("editComponent.jsp");
   }
 
@@ -198,7 +201,8 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   public void view(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     // Load all of the corresponding grid values
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
+        .getRequest());
     String caseId = dto.getCaseId();
 
     req.setAttribute("ageGroups", Arrays.asList(ageGroups));
@@ -223,22 +227,23 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
     List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(clientRequest);
 
     req.setAttribute("periodType", allItems);
     req.setAttribute("checkedType", PeriodTypeDTO.MONTH.getName());
-    req.setAttribute("ageGroup", ageGroups[0]);
     req.setAttribute("page_title", "Search for an Aggregated Case");
 
     render("searchComponent.jsp");
   }
 
-  public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, EpiDateDTO date, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
+  public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, EpiDateDTO date,
+      AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
   {
     String label = date.getDisplayLabel(this.getClientSession().getRequest());
 
-    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(), geoEntity, date.getPeriodType(), date.getPeriod(), date.getYear(), ageGroup);
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
+    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(),
+        geoEntity, date.getPeriodType(), date.getPeriod(), date.getYear(), ageGroup);
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
+        .getRequest());
 
     String jsp = "createComponent.jsp";
     req.setAttribute("page_title", "New Aggregated Case " + label);
@@ -261,8 +266,22 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     render(jsp);
   }
 
-  public void searchByGeoIdAndEpiWeek(String geoId, String periodType, Integer period,
-      Integer year, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
+  public void selectAgeGroup(String geoId, String periodType, Integer period, Integer year) throws IOException, ServletException
+  {
+    ClientRequestIF request = this.getClientSession().getRequest();
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
+
+    req.setAttribute("geoId", geoId);
+    req.setAttribute("periodType", periodType);
+    req.setAttribute("period", period);
+    req.setAttribute("year", year);
+    req.setAttribute("ageGroups", Arrays.asList(ageGroups));
+
+    render("selectComponent.jsp");
+  }
+
+  public void searchByGeoIdAndEpiWeek(String geoId, String periodType, Integer period, Integer year,
+      AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
   {
     try
     {
@@ -299,43 +318,44 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   {
     List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
 
-    if(geoId == null)
+    if (geoId == null)
     {
       ClientRequestIF clientRequest = super.getClientSession().getRequest();
       problems.add(new RequiredGeoIdProblemDTO(clientRequest, req.getLocale()));
     }
 
-    if(periodType == null)
+    if (periodType == null)
     {
       ClientRequestIF clientRequest = super.getClientSession().getRequest();
       problems.add(new RequiredPeriodTypeProblemDTO(clientRequest, req.getLocale()));
     }
 
-    if(period == null)
+    if (period == null)
     {
       ClientRequestIF clientRequest = super.getClientSession().getRequest();
       problems.add(new RequiredPeriodProblemDTO(clientRequest, req.getLocale()));
     }
 
-    if(year == null)
+    if (year == null)
     {
       ClientRequestIF clientRequest = super.getClientSession().getRequest();
       problems.add(new RequiredYearProblemDTO(clientRequest, req.getLocale()));
     }
 
-    if(ageGroup == null)
+    if (ageGroup == null)
     {
       ClientRequestIF clientRequest = super.getClientSession().getRequest();
       problems.add(new RequiredAgeGroupProblemDTO(clientRequest, req.getLocale()));
     }
 
-    if(problems.size() > 0)
+    if (problems.size() > 0)
     {
       throw new ProblemExceptionDTO("", problems);
     }
   }
 
-  public void failSearchByGeoIdAndEpiWeek(String geoId, String periodType, String period, String year, AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
+  public void failSearchByGeoIdAndEpiWeek(String geoId, String periodType, String period, String year,
+      AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
     List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
@@ -354,7 +374,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   @Override
   public void failSearch() throws IOException, ServletException
   {
-    //This should never occur
+    // This should never occur
     super.failSearch();
   }
 
@@ -364,7 +384,8 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 
     if (id != null && !id.equals(""))
     {
-      for (CaseDiagnosticDTO d : AggregatedCaseDTO.getDiagnosticMethods(this.getClientSession().getRequest(), id))
+      for (CaseDiagnosticDTO d : AggregatedCaseDTO.getDiagnosticMethods(this.getClientSession()
+          .getRequest(), id))
       {
         map.put(d.getChildId(), d);
       }
@@ -454,7 +475,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   {
     LinkedHashMap<String, CaseTreatmentStockDTO> map = new LinkedHashMap<String, CaseTreatmentStockDTO>();
 
-    //TODO fix this such that you only add active treatments
+    // TODO fix this such that you only add active treatments
     if (id != null && !id.equals(""))
     {
       for (CaseTreatmentStockDTO d : AggregatedCaseDTO.getTreatmentStocks(this.getClientRequest(), id))
