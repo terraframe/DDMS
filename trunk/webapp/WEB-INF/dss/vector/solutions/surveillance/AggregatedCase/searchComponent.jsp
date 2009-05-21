@@ -14,7 +14,6 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <mjl:form name="search" method="POST" id ="searchAggregatedCase">
-  <mjl:input type="hidden" param="ageGroup.componentId" value="${ageGroup.id}"/>
   <dl>
     <dt> <fmt:message key="Geo_Id"/> </dt>
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" value="${geoId}" maxlength="16" classes="geoInput"/></dd>
@@ -40,9 +39,8 @@
         <mjl:message/>
       </mjl:messages>
     </dd>
+    <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.selectAgeGroup.mojo" name="search.button" value="Search" />
   </dl>
-  <br>
-  <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.searchByGeoIdAndEpiWeek.mojo" name="search.button" value="Search" />
 </mjl:form>
 
 <div id="cal1Container" class="yui-skin-sam"></div>
