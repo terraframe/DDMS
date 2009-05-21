@@ -32,7 +32,8 @@ var Mojo = {
       Mojo.util.copy(classDef, temp);
 
       return temp;
-    }
+    },
+
   },
 
   util : {
@@ -75,6 +76,21 @@ var Mojo = {
     isNumber : function(o)
     {
       return o != null && Object.prototype.toString.call(o) === this.IS_NUMBER_TO_STRING;
+    },
+
+    hasMethod : function(obj, method)
+    {
+      return method in obj && Mojo.util.isFunction(obj[method]);
+    },
+
+    hasNativeMethod : function (obj, method)
+    {
+      return method in obj && obj.hasOwnProperty(method) && Mojo.util.isFunction(obj[method]);
+    },
+
+    hasInheritedMethod : function(obj, method)
+    {
+      return method in obj && !obj.hasOwnProperty(method) && Mojo.util.isFunction(obj[method]);
     },
 
     /**
