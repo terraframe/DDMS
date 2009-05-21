@@ -34,7 +34,7 @@ public class InsecticideDTO extends InsecticideDTOBase implements
   public String getDisplayLabel()
   {
     String unitDisplayLabel = this.getUnitsMd().getEnumDisplayLabel(this.getUnits().get(0).getName());
-    String ingredientDisplayLabel = this.getActiveIngredient().getDisplayLabel();
+    String ingredientDisplayLabel = this.getActiveIngredient().getDisplayLabel().getValue();
 
     return ingredientDisplayLabel + " - " + this.getAmount() + " " + unitDisplayLabel;
   }

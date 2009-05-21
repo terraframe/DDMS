@@ -13,4 +13,8 @@ public class NozzleViewDTO extends NozzleViewDTOBase implements Reloadable, Labe
     super(clientRequest);
   }
 
+  public String getLabel()
+  {
+    return this.getDisplayLabel();
+  }
 }

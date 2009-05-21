@@ -25,7 +25,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     validateQuantityDead();
 
-    if (this.getQuantityDead() <= this.getQuantityTested())
+    if (this.getQuantityDead() != null && this.getQuantityTested() != null && this.getQuantityDead() <= this.getQuantityTested())
     {
       this.setQuantityLive(this.getQuantityTested() - this.getQuantityDead());
       this.setMortality( ( (float) ( this.getQuantityDead() ) * 100 / this.getQuantityTested() ));

@@ -39,7 +39,7 @@ public class AdultTestInterval extends AdultTestIntervalBase implements com.terr
     {
       Integer quantityTested = this.getAssay().getQuantityTested();
 
-      if (this.getKnockedDown() > quantityTested)
+      if (this.getKnockedDown() != null && quantityTested != null && this.getKnockedDown() > quantityTested)
       {
         String msg = "It is impossible to have more mosquitos knocked down then mosquitos tested";
 

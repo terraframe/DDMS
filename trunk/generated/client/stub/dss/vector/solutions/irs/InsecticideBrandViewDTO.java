@@ -13,7 +13,7 @@ public class InsecticideBrandViewDTO extends InsecticideBrandViewDTOBase impleme
     super(clientRequest);
   }
 
-  public String getDisplayLabel()
+  public String getLabel()
   {
     return this.getBrandName();
   }

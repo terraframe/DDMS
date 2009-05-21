@@ -13,10 +13,8 @@ public abstract class AbstractGrid extends AbstractGridBase implements com.terra
 
   public static AbstractGridQuery getAllInstances(String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    // Return all instances
-    QueryFactory f = new QueryFactory();
-    AbstractGridQuery q = new AbstractGridQuery(f);
-    q.ORDER_BY_ASC(q.getDisplayLabel());
+    AbstractGridQuery q = new AbstractGridQuery(new QueryFactory());
+    q.ORDER_BY_ASC(q.getCreateDate());
     return q;
   }
 

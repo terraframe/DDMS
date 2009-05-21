@@ -22,7 +22,7 @@ public class RoofView extends RoofViewBase implements com.terraframe.mojo.genera
     
     try
     {
-      this.setDisplayLabel(roof.getDisplayLabel());
+      this.setDisplayLabel(roof.getDisplayLabel().getValue());
       this.setHasChildren(childrenIt.hasNext());
       this.setHasParent(parentIt.hasNext());
       this.setRoofId(roof.getId());

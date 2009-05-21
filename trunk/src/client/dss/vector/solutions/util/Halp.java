@@ -120,7 +120,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     JSONObject map = new JSONObject();
     for (AbstractTermDTO term : terms)
     {
-      map.put(term.getDisplayLabel(), term.getId());
+      map.put(term.getDisplayLabel().getValue(), term.getId());
     }
     return map.toString();
   }
@@ -133,12 +133,13 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     for (LabeledDTO term : terms)
     {
       ids.put(term.getId());
-      labels.put(term.getDisplayLabel());
+      labels.put(term.getLabel());
     }
 
     return name + "Ids = " + ids.toString() + "; \n " + name + "Labels = " + labels.toString() + ";";
   }
 
+  @SuppressWarnings("deprecation")
   public static String getDataMap(ViewDTO[] rows, String[] attribs, ViewDTO view) throws JSONException
   {
     JSONArray map = new JSONArray();

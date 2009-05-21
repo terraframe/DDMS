@@ -22,7 +22,7 @@ public class WallView extends WallViewBase implements com.terraframe.mojo.genera
     
     try
     {
-      this.setDisplayLabel(wall.getDisplayLabel());
+      this.setDisplayLabel(wall.getDisplayLabel().getValue());
       this.setHasChildren(childrenIt.hasNext());
       this.setHasParent(parentIt.hasNext());
       this.setWallId(wall.getId());

@@ -87,12 +87,12 @@ public class SurveyTest extends TestCase
 
     wall = new Wall();
     wall.setWallName("testWall");
-    wall.setDisplayLabel("Test Wall");
+    wall.getDisplayLabel().setDefaultLocale("Test Wall");
     wall.apply();
 
     roof = new Roof();
     roof.setRoofName("testRoof");
-    roof.setDisplayLabel("Test Roof");
+    roof.getDisplayLabel().setDefaultLocale("Test Roof");
     roof.apply();
 
     drug = new Drug();
@@ -187,7 +187,7 @@ public class SurveyTest extends TestCase
   {
     Net net = new Net();
     net.setNetName("Test_Net");
-    net.setDisplayLabel("Test Net");
+    net.getDisplayLabel().setDefaultLocale("Test Net");
     net.apply();
 
     try

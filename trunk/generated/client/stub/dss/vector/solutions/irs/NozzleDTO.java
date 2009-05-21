@@ -28,5 +28,10 @@ public class NozzleDTO extends NozzleDTOBase implements Reloadable, LabeledDTO
   {
     super(businessDTO, clientRequest);
   }
+  
+  public String getLabel()
+  {
+    return this.getDisplayLabel();
+  }
 
 }

@@ -266,7 +266,8 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     render(jsp);
   }
 
-  public void selectAgeGroup(String geoId, String periodType, Integer period, Integer year) throws IOException, ServletException
+  public void selectAgeGroup(String geoId, String periodType, Integer period, Integer year)
+      throws IOException, ServletException
   {
     ClientRequestIF request = this.getClientSession().getRequest();
     AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);

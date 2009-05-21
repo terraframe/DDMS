@@ -18,7 +18,7 @@ public class LarvaeTestInterval extends LarvaeTestIntervalBase implements com.te
     {
       int maxPeriod = this.getAssay().calculatePeriod();
 
-      if (!(this.getPeriod() < maxPeriod))
+      if (this.getPeriod() != null && !(this.getPeriod() < maxPeriod))
       {
         String msg = "Interval time * period is larger than exposure time";
         InvalidPeriodProblem p = new InvalidPeriodProblem(msg);
@@ -39,7 +39,7 @@ public class LarvaeTestInterval extends LarvaeTestIntervalBase implements com.te
     {
       Integer quantityTested = this.getAssay().getQuantityTested();
 
-      if (this.getQuantityDead() > quantityTested)
+      if (this.getQuantityDead() != null && quantityTested != null && this.getQuantityDead() > quantityTested)
       {
         String msg = "It is impossible to have more mosquitos knocked down then mosquitos tested";
 

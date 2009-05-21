@@ -4,5 +4,5 @@ public interface LabeledDTO
 {
   public String getId();
 
-  public String getDisplayLabel();
+  public String getLabel();
 }

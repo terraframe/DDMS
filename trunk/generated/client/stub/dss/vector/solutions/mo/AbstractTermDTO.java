@@ -28,5 +28,9 @@ public abstract class AbstractTermDTO extends AbstractTermDTOBase implements Rel
   {
     super(businessDTO, clientRequest);
   }
-
+  
+  public String getLabel()
+  {
+    return this.getDisplayLabel().getValue();
+  }
 }

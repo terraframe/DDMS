@@ -53,7 +53,7 @@ public class GridTest extends TestCase
     TreatmentGrid newOption = new TreatmentGrid();
     newOption.setActive(false);
     newOption.setOptionName("testOption");
-    newOption.setDisplayLabel("Test Option");
+    newOption.getDisplayLabel().setDefaultLocale("Test Option");
     newOption.apply();
     
     try
@@ -62,7 +62,7 @@ public class GridTest extends TestCase
       
       assertEquals(newOption.getActive(), test.getActive());
       assertEquals(newOption.getOptionName(), test.getOptionName());
-      assertEquals(newOption.getDisplayLabel(), test.getDisplayLabel());
+      assertEquals(newOption.getDisplayLabel().getValue(), test.getDisplayLabel().getValue());
       assertEquals(before, TreatmentGrid.getAll().length);
     }
     finally
@@ -78,7 +78,7 @@ public class GridTest extends TestCase
     TreatmentGrid newOption = new TreatmentGrid();
     newOption.setActive(true);
     newOption.setOptionName("testOption");
-    newOption.setDisplayLabel("Test Option");
+    newOption.getDisplayLabel().setDefaultLocale("Test Option");
     newOption.apply();
     
     try
@@ -87,7 +87,7 @@ public class GridTest extends TestCase
       
       assertEquals(newOption.getActive(), test.getActive());
       assertEquals(newOption.getOptionName(), test.getOptionName());
-      assertEquals(newOption.getDisplayLabel(), test.getDisplayLabel());
+      assertEquals(newOption.getDisplayLabel().getValue(), test.getDisplayLabel().getValue());
       assertEquals(before + 1, TreatmentGrid.getAll().length);
     }
     finally
@@ -103,7 +103,7 @@ public class GridTest extends TestCase
     ReferralGrid newOption = new ReferralGrid();
     newOption.setActive(false);
     newOption.setOptionName("testOption");
-    newOption.setDisplayLabel("Test Option");
+    newOption.getDisplayLabel().setDefaultLocale("Test Option");
     newOption.apply();
     
     try
@@ -112,7 +112,7 @@ public class GridTest extends TestCase
       
       assertEquals(newOption.getActive(), test.getActive());
       assertEquals(newOption.getOptionName(), test.getOptionName());
-      assertEquals(newOption.getDisplayLabel(), test.getDisplayLabel());
+      assertEquals(newOption.getDisplayLabel().getValue(), test.getDisplayLabel().getValue());
       assertEquals(before, ReferralGrid.getAll().length);
     }
     finally
@@ -128,7 +128,7 @@ public class GridTest extends TestCase
     ReferralGrid newOption = new ReferralGrid();
     newOption.setActive(true);
     newOption.setOptionName("testOption");
-    newOption.setDisplayLabel("Test Option");
+    newOption.getDisplayLabel().setDefaultLocale("Test Option");
     newOption.apply();
     
     try
@@ -137,7 +137,7 @@ public class GridTest extends TestCase
       
       assertEquals(newOption.getActive(), test.getActive());
       assertEquals(newOption.getOptionName(), test.getOptionName());
-      assertEquals(newOption.getDisplayLabel(), test.getDisplayLabel());
+      assertEquals(newOption.getDisplayLabel().getValue(), test.getDisplayLabel().getValue());
       assertEquals(before + 1, ReferralGrid.getAll().length);
     }
     finally
@@ -153,7 +153,7 @@ public class GridTest extends TestCase
     TreatmentMethodGrid newOption = new TreatmentMethodGrid();
     newOption.setActive(true);
     newOption.setOptionName("testOption");
-    newOption.setDisplayLabel("Test Option");
+    newOption.getDisplayLabel().setDefaultLocale("Test Option");
     newOption.apply();
     
     try
@@ -162,7 +162,7 @@ public class GridTest extends TestCase
       
       assertEquals(newOption.getActive(), test.getActive());
       assertEquals(newOption.getOptionName(), test.getOptionName());
-      assertEquals(newOption.getDisplayLabel(), test.getDisplayLabel());
+      assertEquals(newOption.getDisplayLabel().getValue(), test.getDisplayLabel().getValue());
       assertEquals(before + 1, TreatmentMethodGrid.getAll().length);
     }
     finally
@@ -178,7 +178,7 @@ public class GridTest extends TestCase
     TreatmentMethodGrid newOption = new TreatmentMethodGrid();
     newOption.setActive(false);
     newOption.setOptionName("testOption");
-    newOption.setDisplayLabel("Test Option");
+    newOption.getDisplayLabel().setDefaultLocale("Test Option");
     newOption.apply();
     
     try
@@ -187,7 +187,7 @@ public class GridTest extends TestCase
       
       assertEquals(newOption.getActive(), test.getActive());
       assertEquals(newOption.getOptionName(), test.getOptionName());
-      assertEquals(newOption.getDisplayLabel(), test.getDisplayLabel());
+      assertEquals(newOption.getDisplayLabel().getValue(), test.getDisplayLabel().getValue());
       assertEquals(before, TreatmentMethodGrid.getAll().length);
     }
     finally
@@ -203,7 +203,7 @@ public class GridTest extends TestCase
     DiagnosticGrid newOption = new DiagnosticGrid();
     newOption.setActive(true);
     newOption.setOptionName("testOption");
-    newOption.setDisplayLabel("Test Option");
+    newOption.getDisplayLabel().setDefaultLocale("Test Option");
     newOption.apply();
 
     try
@@ -212,7 +212,7 @@ public class GridTest extends TestCase
       
       assertEquals(newOption.getActive(), test.getActive());
       assertEquals(newOption.getOptionName(), test.getOptionName());
-      assertEquals(newOption.getDisplayLabel(), test.getDisplayLabel());
+      assertEquals(newOption.getDisplayLabel().getValue(), test.getDisplayLabel().getValue());
       assertEquals(before + 1, DiagnosticGrid.getAll().length);
     }
     finally
@@ -228,7 +228,7 @@ public class GridTest extends TestCase
     DiagnosticGrid newOption = new DiagnosticGrid();
     newOption.setActive(false);
     newOption.setOptionName("testOption");
-    newOption.setDisplayLabel("Test Option");
+    newOption.getDisplayLabel().setDefaultLocale("Test Option");
     newOption.apply();
 
     try
@@ -237,7 +237,7 @@ public class GridTest extends TestCase
       
       assertEquals(newOption.getActive(), test.getActive());
       assertEquals(newOption.getOptionName(), test.getOptionName());
-      assertEquals(newOption.getDisplayLabel(), test.getDisplayLabel());
+      assertEquals(newOption.getDisplayLabel().getValue(), test.getDisplayLabel().getValue());
       assertEquals(before, DiagnosticGrid.getAll().length);
     }
     finally
