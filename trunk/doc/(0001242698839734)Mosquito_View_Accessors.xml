@@ -4,26 +4,20 @@
       <mdView
         name="dss.vector.solutions.entomology.MosquitoView">
         <create>
-          <mdMethod
-            name="getTargetSiteAccessors"
-            returnType="java.lang.String[]"
+        <mdMethod
+            name="getAccessors"
+            returnType="com.terraframe.mojo.system.metadata.MdAttributeVirtual[]"
             label="Get Target Site Accessors"
             static="true"
-            description="Returns a list of the target site accessor names" />
-          <mdMethod
-            name="getInfectivityAccessors"
-            returnType="java.lang.String[]"
-            label="Get Infectivity Accessors"
-            static="true"
-            description="Returns a list of the infectivity accessor names" />
-          <mdMethod
-            name="getMetabolicAccessors"
-            returnType="java.lang.String[]"
-            label="Get metabolic Accessors"
-            static="true"
-            description="Returns a list of the metabolic accessor names" />
+            description="Returns a list of the target site accessor names" >
+            <mdParameter
+              name="className"
+              order="0"
+              type="java.lang.String"/>
+            </mdMethod>
+
         </create>
-      </mdView>    
+      </mdView>
     </update>
   </doIt>
   <undoIt>
