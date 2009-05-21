@@ -26,9 +26,51 @@
             label="End Date"
             description="The last day of this season, inclusive"/>
         </attributes>
+
+        <mdMethod
+          name="getSeasonByDate"
+          label="Get Season By Date"
+          description="Returns the season that this date belongs to"
+          static="true"
+          returnType="dss.vector.solutions.general.MalariaSeason">
+          <mdParameter
+            name="date"
+            description="Date to search for"
+            label="date"
+            order="0"
+            type="java.util.Date"/>
+        </mdMethod>
+
       </mdBusiness>
+
+      <mdProblem
+        name="dss.vector.solutions.general.MalariaSeasonOverlapProblem"
+        label="Season Overlap Exception"
+        description="The given date may not be after the current date"
+        extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <char
+            size="256"
+            name="overlap"
+            label="Overlaping Season"
+            required="true"/>
+        </attributes>
+      </mdProblem>
+
+      <mdProblem
+        name="dss.vector.solutions.general.MalariaSeasonTooLongProblem"
+        label="Season To Long Exception"
+        description="The season may not be longer then 365 days or 366 days for leap years"
+        extends="dss.vector.solutions.NotificationProblem">
+      </mdProblem>
+
+      <mdProblem
+        name="dss.vector.solutions.general.MalariaSeasonDateProblem"
+        label="Season To Long Exception"
+        description="The end date must be after the start date"
+        extends="dss.vector.solutions.NotificationProblem">
+      </mdProblem>
     </create>
-    <update></update>
   </doIt>
   <undoIt>
     <delete></delete>
