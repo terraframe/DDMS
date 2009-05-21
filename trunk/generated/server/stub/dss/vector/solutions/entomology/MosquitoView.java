@@ -20,6 +20,7 @@ import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
 
 import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult;
@@ -40,7 +41,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
   public void apply()
   {
     Mosquito mosquito = new Mosquito();
-    
+
     if (this.hasConcreteId())
     {
       mosquito = Mosquito.lock(this.getMosquitoId());
@@ -58,7 +59,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     {
       throw new RuntimeException(e);
     }
-    
+
     this.populateView(mosquito);
   }
 
@@ -66,7 +67,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
   {
     return this.getMosquitoId() != null && !this.getMosquitoId().equals("");
   }
-  
+
   public void populateView(Mosquito mosquito)
   {
     this.setSpecie(mosquito.getSpecie());
@@ -76,14 +77,14 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     this.setIdentificationMethod(mosquito.getIdentificationMethod());
     this.setTestDate(mosquito.getTestDate());
     this.setMosquitoId(mosquito.getId());
-    this.setSampleId(mosquito.getSampleId());    
+    this.setSampleId(mosquito.getSampleId());
     this.clearSex();
-    
+
     for(Sex sex : mosquito.getSex())
     {
       this.addSex(sex);
     }
-    
+
     try
     {
       this.setAssays(mosquito.getTestResults());
@@ -102,7 +103,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     mosquito.setSpecie(this.getSpecie());
     mosquito.setTestDate(this.getTestDate());
     mosquito.setCollection(this.getCollection());
-    mosquito.setSampleId(this.getSampleId());    
+    mosquito.setSampleId(this.getSampleId());
     mosquito.clearSex();
 
     for(Sex sex : this.getSex())
@@ -115,7 +116,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
   {
     throw new RuntimeException("This method should not be invoked");
   }
-  
+
   public void deleteConcrete()
   {
     if (this.hasConcrete())
@@ -257,52 +258,25 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
 
     return array;
   }
-  
-  public static String[] getTargetSiteAccessors()
+
+
+
+  public static MdAttributeVirtual[] getAccessors(String className)
   {
-    List<String> list = new LinkedList<String>();
+    List<MdAttributeVirtual> list = new LinkedList<MdAttributeVirtual>();
     Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> map = MosquitoView.getAssayMap();
-    
+    Class<?> assayClass = LoaderDecorator.load(className);
+
     for(Class<AssayTestResult> key : map.keySet())
     {
-      if(TargetSiteAssayTestResult.class.isAssignableFrom(key))
+
+      if(assayClass.isAssignableFrom(key))
       {
-        list.add(map.get(key).getAccessorName());
+        list.add(MdAttributeVirtual.get(map.get(key).getId()));
       }
     }
-
-    return list.toArray(new String[list.size()]);
+    return list.toArray(new MdAttributeVirtual[list.size()]);
   }
-  
-  public static String[] getInfectivityAccessors()
-  {
-    List<String> list = new LinkedList<String>();
-    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> map = MosquitoView.getAssayMap();
-    
-    for(Class<AssayTestResult> key : map.keySet())
-    {
-      if(InfectivityAssayTestResult.class.isAssignableFrom(key))
-      {
-        list.add(map.get(key).getAccessorName());
-      }
-    }
 
-    return list.toArray(new String[list.size()]);
-  }
-  
-  public static String[] getMetabolicAccessors()
-  {
-    List<String> list = new LinkedList<String>();
-    Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> map = MosquitoView.getAssayMap();
-    
-    for(Class<AssayTestResult> key : map.keySet())
-    {
-      if(MetabolicAssayTestResult.class.isAssignableFrom(key))
-      {
-        list.add(map.get(key).getAccessorName());
-      }
-    }
 
-    return list.toArray(new String[list.size()]);
-  }
 }

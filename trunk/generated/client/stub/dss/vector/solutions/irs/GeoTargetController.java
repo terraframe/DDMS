@@ -61,6 +61,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements com.
   public void failView(GeoEntityDTO geoEntinty, Integer year, Boolean showChildren) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
+
   }
 
 
