@@ -14,9 +14,12 @@
         <valueAttribute
           name="termName"
           value="acephate" />
-        <valueAttribute
-          name="displayLabel"
-          value="acephate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="acephate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -40,9 +43,12 @@
         <valueAttribute
           name="termName"
           value="acrinathrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="acrinathrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="acrinathrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -66,9 +72,12 @@
         <valueAttribute
           name="termName"
           value="alanycarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="alanycarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="alanycarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -92,9 +101,12 @@
         <valueAttribute
           name="termName"
           value="aldicarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="aldicarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="aldicarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -118,9 +130,12 @@
         <valueAttribute
           name="termName"
           value="allethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="allethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="allethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -144,9 +159,12 @@
         <valueAttribute
           name="termName"
           value="alpha-cypermethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="alpha-cypermethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="alpha-cypermethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -170,9 +188,12 @@
         <valueAttribute
           name="termName"
           value="aminocarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="aminocarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="aminocarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -196,9 +217,12 @@
         <valueAttribute
           name="termName"
           value="azamethiphos" />
-        <valueAttribute
-          name="displayLabel"
-          value="azamethiphos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="azamethiphos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -222,9 +246,12 @@
         <valueAttribute
           name="termName"
           value="azinphos-ethyl" />
-        <valueAttribute
-          name="displayLabel"
-          value="azinphos-ethyl" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="azinphos-ethyl" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -248,9 +275,12 @@
         <valueAttribute
           name="termName"
           value="azinphos-methyl" />
-        <valueAttribute
-          name="displayLabel"
-          value="azinphos-methyl" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="azinphos-methyl" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -274,9 +304,12 @@
         <valueAttribute
           name="termName"
           value="bendiocarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="bendiocarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="bendiocarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -300,9 +333,12 @@
         <valueAttribute
           name="termName"
           value="benfuracarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="benfuracarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="benfuracarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -326,9 +362,12 @@
         <valueAttribute
           name="termName"
           value="beta-cyfluthrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="beta-cyfluthrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="beta-cyfluthrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -352,9 +391,12 @@
         <valueAttribute
           name="termName"
           value="beta-cypermethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="beta-cypermethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="beta-cypermethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -378,9 +420,12 @@
         <valueAttribute
           name="termName"
           value="bifenthrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="bifenthrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="bifenthrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -404,9 +449,12 @@
         <valueAttribute
           name="termName"
           value="bioallethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="bioallethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="bioallethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -430,9 +478,12 @@
         <valueAttribute
           name="termName"
           value="bioallethrin S-cyclopentenyl" />
-        <valueAttribute
-          name="displayLabel"
-          value="bioallethrin S-cyclopentenyl" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="bioallethrin S-cyclopentenyl" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -456,9 +507,12 @@
         <valueAttribute
           name="termName"
           value="bioresmethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="bioresmethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="bioresmethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -482,9 +536,12 @@
         <valueAttribute
           name="termName"
           value="butocarboxim" />
-        <valueAttribute
-          name="displayLabel"
-          value="butocarboxim" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="butocarboxim" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -508,9 +565,12 @@
         <valueAttribute
           name="termName"
           value="butoxycarboxim" />
-        <valueAttribute
-          name="displayLabel"
-          value="butoxycarboxim" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="butoxycarboxim" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -534,9 +594,12 @@
         <valueAttribute
           name="termName"
           value="cadusafos" />
-        <valueAttribute
-          name="displayLabel"
-          value="cadusafos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="cadusafos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -560,9 +623,12 @@
         <valueAttribute
           name="termName"
           value="carbamate" />
-        <valueAttribute
-          name="displayLabel"
-          value="carbamate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="carbamate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -586,9 +652,12 @@
         <valueAttribute
           name="termName"
           value="carbaryl" />
-        <valueAttribute
-          name="displayLabel"
-          value="carbaryl" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="carbaryl" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -612,9 +681,12 @@
         <valueAttribute
           name="termName"
           value="carbofuran" />
-        <valueAttribute
-          name="displayLabel"
-          value="carbofuran" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="carbofuran" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -638,9 +710,12 @@
         <valueAttribute
           name="termName"
           value="carbosulfan" />
-        <valueAttribute
-          name="displayLabel"
-          value="carbosulfan" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="carbosulfan" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -664,9 +739,12 @@
         <valueAttribute
           name="termName"
           value="chlorethoxyfos" />
-        <valueAttribute
-          name="displayLabel"
-          value="chlorethoxyfos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="chlorethoxyfos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -690,9 +768,12 @@
         <valueAttribute
           name="termName"
           value="chlorfenvinphos" />
-        <valueAttribute
-          name="displayLabel"
-          value="chlorfenvinphos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="chlorfenvinphos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -716,9 +797,12 @@
         <valueAttribute
           name="termName"
           value="chlormephos" />
-        <valueAttribute
-          name="displayLabel"
-          value="chlormephos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="chlormephos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -742,9 +826,12 @@
         <valueAttribute
           name="termName"
           value="chlorpyrifos" />
-        <valueAttribute
-          name="displayLabel"
-          value="chlorpyrifos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="chlorpyrifos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -768,9 +855,12 @@
         <valueAttribute
           name="termName"
           value="chlorpyrifos-methyl" />
-        <valueAttribute
-          name="displayLabel"
-          value="chlorpyrifos-methyl" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="chlorpyrifos-methyl" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -794,9 +884,12 @@
         <valueAttribute
           name="termName"
           value="coumaphos" />
-        <valueAttribute
-          name="displayLabel"
-          value="coumaphos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="coumaphos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -820,9 +913,12 @@
         <valueAttribute
           name="termName"
           value="cyanophos" />
-        <valueAttribute
-          name="displayLabel"
-          value="cyanophos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="cyanophos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -846,9 +942,12 @@
         <valueAttribute
           name="termName"
           value="cycloprothrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="cycloprothrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="cycloprothrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -872,9 +971,12 @@
         <valueAttribute
           name="termName"
           value="cyfluthrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="cyfluthrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="cyfluthrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -898,9 +1000,12 @@
         <valueAttribute
           name="termName"
           value="cyhalothrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="cyhalothrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="cyhalothrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -924,9 +1029,12 @@
         <valueAttribute
           name="termName"
           value="cypermethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="cypermethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="cypermethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -950,9 +1058,12 @@
         <valueAttribute
           name="termName"
           value="cyphenothrin [(1R)-trans- isomers]" />
-        <valueAttribute
-          name="displayLabel"
-          value="cyphenothrin [(1R)-trans- isomers]" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="cyphenothrin [(1R)-trans- isomers]" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -976,9 +1087,12 @@
         <valueAttribute
           name="termName"
           value="d-cis-trans allethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="d-cis-trans allethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="d-cis-trans allethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1002,9 +1116,12 @@
         <valueAttribute
           name="termName"
           value="DDT" />
-        <valueAttribute
-          name="displayLabel"
-          value="DDT" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="DDT" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1028,9 +1145,12 @@
         <valueAttribute
           name="termName"
           value="deltamethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="deltamethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="deltamethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1054,9 +1174,12 @@
         <valueAttribute
           name="termName"
           value="demeton-S-methyl" />
-        <valueAttribute
-          name="displayLabel"
-          value="demeton-S-methyl" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="demeton-S-methyl" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1080,9 +1203,12 @@
         <valueAttribute
           name="termName"
           value="diazinon" />
-        <valueAttribute
-          name="displayLabel"
-          value="diazinon" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="diazinon" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1106,9 +1232,12 @@
         <valueAttribute
           name="termName"
           value="dichlorvos" />
-        <valueAttribute
-          name="displayLabel"
-          value="dichlorvos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="dichlorvos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1132,9 +1261,12 @@
         <valueAttribute
           name="termName"
           value="dicrotophos" />
-        <valueAttribute
-          name="displayLabel"
-          value="dicrotophos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="dicrotophos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1158,9 +1290,12 @@
         <valueAttribute
           name="termName"
           value="dimethoate" />
-        <valueAttribute
-          name="displayLabel"
-          value="dimethoate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="dimethoate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1184,9 +1319,12 @@
         <valueAttribute
           name="termName"
           value="dimethylvinphos" />
-        <valueAttribute
-          name="displayLabel"
-          value="dimethylvinphos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="dimethylvinphos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1210,9 +1348,12 @@
         <valueAttribute
           name="termName"
           value="disulfoton" />
-        <valueAttribute
-          name="displayLabel"
-          value="disulfoton" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="disulfoton" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1236,9 +1377,12 @@
         <valueAttribute
           name="termName"
           value="d-trans allethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="d-trans allethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="d-trans allethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1262,9 +1406,12 @@
         <valueAttribute
           name="termName"
           value="empenthrin [(EZ)- (1R)- isomers]" />
-        <valueAttribute
-          name="displayLabel"
-          value="empenthrin [(EZ)- (1R)- isomers]" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="empenthrin [(EZ)- (1R)- isomers]" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1288,9 +1435,12 @@
         <valueAttribute
           name="termName"
           value="EPN" />
-        <valueAttribute
-          name="displayLabel"
-          value="EPN" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="EPN" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1314,9 +1464,12 @@
         <valueAttribute
           name="termName"
           value="esfenvalerate" />
-        <valueAttribute
-          name="displayLabel"
-          value="esfenvalerate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="esfenvalerate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1340,9 +1493,12 @@
         <valueAttribute
           name="termName"
           value="ethiofencarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="ethiofencarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="ethiofencarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1366,9 +1522,12 @@
         <valueAttribute
           name="termName"
           value="ethion" />
-        <valueAttribute
-          name="displayLabel"
-          value="ethion" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="ethion" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1392,9 +1551,12 @@
         <valueAttribute
           name="termName"
           value="ethoprophos" />
-        <valueAttribute
-          name="displayLabel"
-          value="ethoprophos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="ethoprophos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1418,9 +1580,12 @@
         <valueAttribute
           name="termName"
           value="etofenprox" />
-        <valueAttribute
-          name="displayLabel"
-          value="etofenprox" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="etofenprox" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1444,9 +1609,12 @@
         <valueAttribute
           name="termName"
           value="famphur" />
-        <valueAttribute
-          name="displayLabel"
-          value="famphur" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="famphur" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1470,9 +1638,12 @@
         <valueAttribute
           name="termName"
           value="fenamiphos" />
-        <valueAttribute
-          name="displayLabel"
-          value="fenamiphos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="fenamiphos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1496,9 +1667,12 @@
         <valueAttribute
           name="termName"
           value="fenitrothion" />
-        <valueAttribute
-          name="displayLabel"
-          value="fenitrothion" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="fenitrothion" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1522,9 +1696,12 @@
         <valueAttribute
           name="termName"
           value="fenobucarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="fenobucarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="fenobucarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1548,9 +1725,12 @@
         <valueAttribute
           name="termName"
           value="fenpropathrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="fenpropathrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="fenpropathrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1574,9 +1754,12 @@
         <valueAttribute
           name="termName"
           value="fensulfothion" />
-        <valueAttribute
-          name="displayLabel"
-          value="fensulfothion" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="fensulfothion" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1600,9 +1783,12 @@
         <valueAttribute
           name="termName"
           value="fenthion" />
-        <valueAttribute
-          name="displayLabel"
-          value="fenthion" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="fenthion" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1626,9 +1812,12 @@
         <valueAttribute
           name="termName"
           value="fenvalerate" />
-        <valueAttribute
-          name="displayLabel"
-          value="fenvalerate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="fenvalerate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1652,9 +1841,12 @@
         <valueAttribute
           name="termName"
           value="flucythrinate" />
-        <valueAttribute
-          name="displayLabel"
-          value="flucythrinate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="flucythrinate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1678,9 +1870,12 @@
         <valueAttribute
           name="termName"
           value="flumethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="flumethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="flumethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1704,9 +1899,12 @@
         <valueAttribute
           name="termName"
           value="fonofos" />
-        <valueAttribute
-          name="displayLabel"
-          value="fonofos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="fonofos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1730,9 +1928,12 @@
         <valueAttribute
           name="termName"
           value="formetanate" />
-        <valueAttribute
-          name="displayLabel"
-          value="formetanate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="formetanate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1756,9 +1957,12 @@
         <valueAttribute
           name="termName"
           value="fosthiazate" />
-        <valueAttribute
-          name="displayLabel"
-          value="fosthiazate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="fosthiazate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1782,9 +1986,12 @@
         <valueAttribute
           name="termName"
           value="furathiocarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="furathiocarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="furathiocarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1808,9 +2015,12 @@
         <valueAttribute
           name="termName"
           value="gamma-cyhalothrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="gamma-cyhalothrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="gamma-cyhalothrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1834,9 +2044,12 @@
         <valueAttribute
           name="termName"
           value="halfenprox" />
-        <valueAttribute
-          name="displayLabel"
-          value="halfenprox" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="halfenprox" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1860,9 +2073,12 @@
         <valueAttribute
           name="termName"
           value="heptenophos" />
-        <valueAttribute
-          name="displayLabel"
-          value="heptenophos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="heptenophos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1886,9 +2102,12 @@
         <valueAttribute
           name="termName"
           value="imiprothrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="imiprothrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="imiprothrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1912,9 +2131,12 @@
         <valueAttribute
           name="termName"
           value="isofenphos" />
-        <valueAttribute
-          name="displayLabel"
-          value="isofenphos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="isofenphos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1938,9 +2160,12 @@
         <valueAttribute
           name="termName"
           value="isoprocarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="isoprocarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="isoprocarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1964,9 +2189,12 @@
         <valueAttribute
           name="termName"
           value="isopropyl O-(methoxyaminothio-phosphoryl)salicylate" />
-        <valueAttribute
-          name="displayLabel"
-          value="isopropyl O-(methoxyaminothio-phosphoryl)salicylate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="isopropyl O-(methoxyaminothio-phosphoryl)salicylate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -1990,9 +2218,12 @@
         <valueAttribute
           name="termName"
           value="isoxathion" />
-        <valueAttribute
-          name="displayLabel"
-          value="isoxathion" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="isoxathion" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2016,9 +2247,12 @@
         <valueAttribute
           name="termName"
           value="lambda-cyhalothrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="lambda-cyhalothrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="lambda-cyhalothrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2042,9 +2276,12 @@
         <valueAttribute
           name="termName"
           value="malathion" />
-        <valueAttribute
-          name="displayLabel"
-          value="malathion" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="malathion" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2068,9 +2305,12 @@
         <valueAttribute
           name="termName"
           value="mecarbam" />
-        <valueAttribute
-          name="displayLabel"
-          value="mecarbam" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="mecarbam" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2094,9 +2334,12 @@
         <valueAttribute
           name="termName"
           value="methamidophos" />
-        <valueAttribute
-          name="displayLabel"
-          value="methamidophos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="methamidophos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2120,9 +2363,12 @@
         <valueAttribute
           name="termName"
           value="methidathion" />
-        <valueAttribute
-          name="displayLabel"
-          value="methidathion" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="methidathion" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2146,9 +2392,12 @@
         <valueAttribute
           name="termName"
           value="methiocarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="methiocarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="methiocarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2172,9 +2421,12 @@
         <valueAttribute
           name="termName"
           value="methomyl" />
-        <valueAttribute
-          name="displayLabel"
-          value="methomyl" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="methomyl" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2198,9 +2450,12 @@
         <valueAttribute
           name="termName"
           value="methoxychlor" />
-        <valueAttribute
-          name="displayLabel"
-          value="methoxychlor" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="methoxychlor" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2224,9 +2479,12 @@
         <valueAttribute
           name="termName"
           value="metolcarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="metolcarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="metolcarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2250,9 +2508,12 @@
         <valueAttribute
           name="termName"
           value="mevinphos" />
-        <valueAttribute
-          name="displayLabel"
-          value="mevinphos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="mevinphos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2276,9 +2537,12 @@
         <valueAttribute
           name="termName"
           value="monocrotophos" />
-        <valueAttribute
-          name="displayLabel"
-          value="monocrotophos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="monocrotophos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2302,9 +2566,12 @@
         <valueAttribute
           name="termName"
           value="naled" />
-        <valueAttribute
-          name="displayLabel"
-          value="naled" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="naled" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2328,9 +2595,12 @@
         <valueAttribute
           name="termName"
           value="omethoate" />
-        <valueAttribute
-          name="displayLabel"
-          value="omethoate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="omethoate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2354,9 +2624,12 @@
         <valueAttribute
           name="termName"
           value="organophosphate" />
-        <valueAttribute
-          name="displayLabel"
-          value="organophosphate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="organophosphate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2380,9 +2653,12 @@
         <valueAttribute
           name="termName"
           value="oxamyl" />
-        <valueAttribute
-          name="displayLabel"
-          value="oxamyl" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="oxamyl" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2406,9 +2682,12 @@
         <valueAttribute
           name="termName"
           value="oxydemeton-methyl" />
-        <valueAttribute
-          name="displayLabel"
-          value="oxydemeton-methyl" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="oxydemeton-methyl" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2432,9 +2711,12 @@
         <valueAttribute
           name="termName"
           value="parathion" />
-        <valueAttribute
-          name="displayLabel"
-          value="parathion" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="parathion" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2458,9 +2740,12 @@
         <valueAttribute
           name="termName"
           value="parathion-methyl" />
-        <valueAttribute
-          name="displayLabel"
-          value="parathion-methyl" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="parathion-methyl" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2484,9 +2769,12 @@
         <valueAttribute
           name="termName"
           value="permethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="permethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="permethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2510,9 +2798,12 @@
         <valueAttribute
           name="termName"
           value="phenothrin [(1R)-trans- isomer]" />
-        <valueAttribute
-          name="displayLabel"
-          value="phenothrin [(1R)-trans- isomer]" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="phenothrin [(1R)-trans- isomer]" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2536,9 +2827,12 @@
         <valueAttribute
           name="termName"
           value="phenthoate" />
-        <valueAttribute
-          name="displayLabel"
-          value="phenthoate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="phenthoate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2562,9 +2856,12 @@
         <valueAttribute
           name="termName"
           value="phorate" />
-        <valueAttribute
-          name="displayLabel"
-          value="phorate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="phorate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2588,9 +2885,12 @@
         <valueAttribute
           name="termName"
           value="phosalone" />
-        <valueAttribute
-          name="displayLabel"
-          value="phosalone" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="phosalone" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2614,9 +2914,12 @@
         <valueAttribute
           name="termName"
           value="phosmet" />
-        <valueAttribute
-          name="displayLabel"
-          value="phosmet" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="phosmet" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2640,9 +2943,12 @@
         <valueAttribute
           name="termName"
           value="phosphamidon" />
-        <valueAttribute
-          name="displayLabel"
-          value="phosphamidon" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="phosphamidon" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2666,9 +2972,12 @@
         <valueAttribute
           name="termName"
           value="phoxim" />
-        <valueAttribute
-          name="displayLabel"
-          value="phoxim" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="phoxim" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2692,9 +3001,12 @@
         <valueAttribute
           name="termName"
           value="pirimicarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="pirimicarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="pirimicarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2718,9 +3030,12 @@
         <valueAttribute
           name="termName"
           value="pirimiphos-methyl" />
-        <valueAttribute
-          name="displayLabel"
-          value="pirimiphos-methyl" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="pirimiphos-methyl" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2744,9 +3059,12 @@
         <valueAttribute
           name="termName"
           value="prallethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="prallethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="prallethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2770,9 +3088,12 @@
         <valueAttribute
           name="termName"
           value="profenofos" />
-        <valueAttribute
-          name="displayLabel"
-          value="profenofos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="profenofos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2796,9 +3117,12 @@
         <valueAttribute
           name="termName"
           value="propaphos" />
-        <valueAttribute
-          name="displayLabel"
-          value="propaphos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="propaphos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2822,9 +3146,12 @@
         <valueAttribute
           name="termName"
           value="propetamphos" />
-        <valueAttribute
-          name="displayLabel"
-          value="propetamphos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="propetamphos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2848,9 +3175,12 @@
         <valueAttribute
           name="termName"
           value="propoxur" />
-        <valueAttribute
-          name="displayLabel"
-          value="propoxur" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="propoxur" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2874,9 +3204,12 @@
         <valueAttribute
           name="termName"
           value="prothiofos" />
-        <valueAttribute
-          name="displayLabel"
-          value="prothiofos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="prothiofos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2900,9 +3233,12 @@
         <valueAttribute
           name="termName"
           value="pyraclofos" />
-        <valueAttribute
-          name="displayLabel"
-          value="pyraclofos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="pyraclofos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2926,9 +3262,12 @@
         <valueAttribute
           name="termName"
           value="pyrethroid" />
-        <valueAttribute
-          name="displayLabel"
-          value="pyrethroid" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="pyrethroid" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2952,9 +3291,12 @@
         <valueAttribute
           name="termName"
           value="pyridaphenthion" />
-        <valueAttribute
-          name="displayLabel"
-          value="pyridaphenthion" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="pyridaphenthion" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -2978,9 +3320,12 @@
         <valueAttribute
           name="termName"
           value="quinalphos" />
-        <valueAttribute
-          name="displayLabel"
-          value="quinalphos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="quinalphos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3004,9 +3349,12 @@
         <valueAttribute
           name="termName"
           value="resmethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="resmethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="resmethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3030,9 +3378,12 @@
         <valueAttribute
           name="termName"
           value="rU 15525" />
-        <valueAttribute
-          name="displayLabel"
-          value="rU 15525" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="rU 15525" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3056,9 +3407,12 @@
         <valueAttribute
           name="termName"
           value="silafluofen" />
-        <valueAttribute
-          name="displayLabel"
-          value="silafluofen" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="silafluofen" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3082,9 +3436,12 @@
         <valueAttribute
           name="termName"
           value="sulfotep" />
-        <valueAttribute
-          name="displayLabel"
-          value="sulfotep" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="sulfotep" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3108,9 +3465,12 @@
         <valueAttribute
           name="termName"
           value="sulprofos" />
-        <valueAttribute
-          name="displayLabel"
-          value="sulprofos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="sulprofos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3134,9 +3494,12 @@
         <valueAttribute
           name="termName"
           value="tau-fluvalinate" />
-        <valueAttribute
-          name="displayLabel"
-          value="tau-fluvalinate" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="tau-fluvalinate" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3160,9 +3523,12 @@
         <valueAttribute
           name="termName"
           value="tebupirimfos" />
-        <valueAttribute
-          name="displayLabel"
-          value="tebupirimfos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="tebupirimfos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3186,9 +3552,12 @@
         <valueAttribute
           name="termName"
           value="tefluthrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="tefluthrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="tefluthrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3212,9 +3581,12 @@
         <valueAttribute
           name="termName"
           value="temephos" />
-        <valueAttribute
-          name="displayLabel"
-          value="temephos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="temephos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3238,9 +3610,12 @@
         <valueAttribute
           name="termName"
           value="terbufos" />
-        <valueAttribute
-          name="displayLabel"
-          value="terbufos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="terbufos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3264,9 +3639,12 @@
         <valueAttribute
           name="termName"
           value="tetrachlorvinphos" />
-        <valueAttribute
-          name="displayLabel"
-          value="tetrachlorvinphos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="tetrachlorvinphos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3290,9 +3668,12 @@
         <valueAttribute
           name="termName"
           value="tetramethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="tetramethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="tetramethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3316,9 +3697,12 @@
         <valueAttribute
           name="termName"
           value="tetramethrin [(1R)- isomers]" />
-        <valueAttribute
-          name="displayLabel"
-          value="tetramethrin [(1R)- isomers]" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="tetramethrin [(1R)- isomers]" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3342,9 +3726,12 @@
         <valueAttribute
           name="termName"
           value="theta-cypermethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="theta-cypermethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="theta-cypermethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3368,9 +3755,12 @@
         <valueAttribute
           name="termName"
           value="thiodicarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="thiodicarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="thiodicarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3394,9 +3784,12 @@
         <valueAttribute
           name="termName"
           value="thiofanox" />
-        <valueAttribute
-          name="displayLabel"
-          value="thiofanox" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="thiofanox" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3420,9 +3813,12 @@
         <valueAttribute
           name="termName"
           value="thiometon" />
-        <valueAttribute
-          name="displayLabel"
-          value="thiometon" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="thiometon" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3446,9 +3842,12 @@
         <valueAttribute
           name="termName"
           value="tralomethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="tralomethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="tralomethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3472,9 +3871,12 @@
         <valueAttribute
           name="termName"
           value="transfluthrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="transfluthrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="transfluthrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3498,9 +3900,12 @@
         <valueAttribute
           name="termName"
           value="triazophos" />
-        <valueAttribute
-          name="displayLabel"
-          value="triazophos" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="triazophos" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3524,9 +3929,12 @@
         <valueAttribute
           name="termName"
           value="trichlorfon" />
-        <valueAttribute
-          name="displayLabel"
-          value="trichlorfon" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="trichlorfon" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3550,9 +3958,12 @@
         <valueAttribute
           name="termName"
           value="trimethacarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="trimethacarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="trimethacarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3576,9 +3987,12 @@
         <valueAttribute
           name="termName"
           value="vamidothion" />
-        <valueAttribute
-          name="displayLabel"
-          value="vamidothion" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="vamidothion" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3602,9 +4016,12 @@
         <valueAttribute
           name="termName"
           value="XMC" />
-        <valueAttribute
-          name="displayLabel"
-          value="XMC" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="XMC" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3628,9 +4045,12 @@
         <valueAttribute
           name="termName"
           value="xylylcarb" />
-        <valueAttribute
-          name="displayLabel"
-          value="xylylcarb" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="xylylcarb" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3654,9 +4074,12 @@
         <valueAttribute
           name="termName"
           value="zeta-cypermethrin" />
-        <valueAttribute
-          name="displayLabel"
-          value="zeta-cypermethrin" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="zeta-cypermethrin" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3680,9 +4103,12 @@
         <valueAttribute
           name="termName"
           value="ZXI 8901" />
-        <valueAttribute
-          name="displayLabel"
-          value="ZXI 8901" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="ZXI 8901" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3706,9 +4132,12 @@
         <valueAttribute
           name="termName"
           value="Culicinae" />
-        <valueAttribute
-          name="displayLabel"
-          value="Culicine" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Culicine" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3732,9 +4161,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles funestus sensu lato" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. funestus s.l." />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. funestus s.l." />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3758,9 +4190,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles brucei" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. brucei" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. brucei" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3784,9 +4219,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles confusus" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. confuses" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. confuses" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3810,9 +4248,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles funestus" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. funestus" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. funestus" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3836,9 +4277,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles fuscivenosus" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. fuscivenosus" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. fuscivenosus" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3862,9 +4306,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles leesoni" />
-        <valueAttribute
-          name="displayLabel"
-          value="An.leesoni" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An.leesoni" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3888,9 +4335,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles parensis" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. parensis" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. parensis" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3914,9 +4364,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles rivulorum" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. rivulorum" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. rivulorum" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3940,9 +4393,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles vaneedeni" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. vaneedeni" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. vaneedeni" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3966,9 +4422,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles gambiae sensu lato" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. gambiae s.l." />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. gambiae s.l." />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -3992,9 +4451,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles arabiensis" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. arabiensis" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. arabiensis" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -4018,9 +4480,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles bwambae" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. bwambae" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. bwambae" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -4044,9 +4509,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles gambiae" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. gambiae" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. gambiae" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -4070,9 +4538,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles gambiae molecular form M" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. gambiae molecular form M" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. gambiae molecular form M" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -4096,9 +4567,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles gambiae molecular form S" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. gambiae molecular form S" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. gambiae molecular form S" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -4122,9 +4596,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles melas" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. melas" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. melas" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -4148,9 +4625,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles merus" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. merus" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. merus" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -4174,9 +4654,12 @@
         <valueAttribute
           name="termName"
           value="Anopheles quadriannulatus" />
-        <valueAttribute
-          name="displayLabel"
-          value="An. quadriannulatus" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="An. quadriannulatus" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />

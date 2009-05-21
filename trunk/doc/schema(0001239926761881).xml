@@ -73,7 +73,7 @@
             indexType="unique index"
             required="true"
             size="255" />
-          <char
+          <localChar
             name="displayLabel"
             label="displayLabel"
             required="true"
@@ -135,9 +135,12 @@
         <valueAttribute
           name="netName"
           value="Permanent_Net" />
-        <valueAttribute
-          name="displayLabel"
-          value="PERMANENT NET" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="PERMANENT NET" />
+        </structAttribute>
         <valueAttribute
           name="isAbstract"
           value="true" />
@@ -150,9 +153,12 @@
         <valueAttribute
           name="netName"
           value="Permanet" />
-        <valueAttribute
-          name="displayLabel"
-          value="Permanet" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Permanet" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -170,9 +176,12 @@
         <valueAttribute
           name="netName"
           value="Olyset" />
-        <valueAttribute
-          name="displayLabel"
-          value="Olyset" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Olyset" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -190,9 +199,12 @@
         <valueAttribute
           name="netName"
           value="Permanent_Other" />
-        <valueAttribute
-          name="displayLabel"
-          value="Other/Don't Know brand" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Other/Don't Know brand" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -210,9 +222,12 @@
         <valueAttribute
           name="netName"
           value="Pretreated_Net" />
-        <valueAttribute
-          name="displayLabel"
-          value="PRETREATED NET" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="PRETREATED NET" />
+        </structAttribute>
         <valueAttribute
           name="isAbstract"
           value="true" />
@@ -225,9 +240,12 @@
         <valueAttribute
           name="netName"
           value="Salam_Enkilfe" />
-        <valueAttribute
-          name="displayLabel"
-          value="Salam Enkilfe" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Salam Enkilfe" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -245,9 +263,12 @@
         <valueAttribute
           name="netName"
           value="Fennet" />
-        <valueAttribute
-          name="displayLabel"
-          value="Fennet" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Fennet" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -265,9 +286,12 @@
         <valueAttribute
           name="netName"
           value="KO_Net" />
-        <valueAttribute
-          name="displayLabel"
-          value="KO Net" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="KO Net" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -285,9 +309,12 @@
         <valueAttribute
           name="netName"
           value="ICONET" />
-        <valueAttribute
-          name="displayLabel"
-          value="Iconet" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Iconet" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -305,9 +332,12 @@
         <valueAttribute
           name="netName"
           value="SAFINET" />
-        <valueAttribute
-          name="displayLabel"
-          value="Safinet" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Safinet" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -325,9 +355,12 @@
         <valueAttribute
           name="netName"
           value="Pretreated_Other" />
-        <valueAttribute
-          name="displayLabel"
-          value="Other - Don’t Know" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Other - Don’t Know" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -345,9 +378,12 @@
         <valueAttribute
           name="netName"
           value="Other" />
-        <valueAttribute
-          name="displayLabel"
-          value="OTHER- DON’T KNOW BRAND" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="OTHER- DON’T KNOW BRAND" />
+        </structAttribute>
       </object>
 
       <enumerationMaster
@@ -611,7 +647,7 @@
           name="getAllActive"
           label="Get All Active"
           returnType="dss.vector.solutions.intervention.Drug[]"
-          static="true"/>
+          static="true" />
       </mdBusiness>
 
       <mdBusiness
@@ -642,7 +678,7 @@
           name="getAllActive"
           label="Get All Active"
           returnType="dss.vector.solutions.intervention.FeverTreatment[]"
-          static="true"/>        
+          static="true" />
       </mdBusiness>
 
       <object

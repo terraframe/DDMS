@@ -1869,7 +1869,7 @@
             size="255"
             label="Term Name"
             description="The name of the MO Collection Method Term" />
-          <char
+          <localChar
             name="displayLabel"
             required="true"
             size="255"
@@ -4556,9 +4556,12 @@
         <valueAttribute
           name="termName"
           value="F0" />
-        <valueAttribute
-          name="displayLabel"
-          value="F0" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="F0" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4576,9 +4579,12 @@
         <valueAttribute
           name="termName"
           value="F1" />
-        <valueAttribute
-          name="displayLabel"
-          value="F1" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="F1" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4600,9 +4606,12 @@
         <valueAttribute
           name="termName"
           value="field population catch" />
-        <valueAttribute
-          name="displayLabel"
-          value="field population catch" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="field population catch" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4626,9 +4635,12 @@
         <valueAttribute
           name="termName"
           value="catch of live specimens" />
-        <valueAttribute
-          name="displayLabel"
-          value="catch of live specimens" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="catch of live specimens" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4652,9 +4664,12 @@
         <valueAttribute
           name="termName"
           value="aquatic environment catch" />
-        <valueAttribute
-          name="displayLabel"
-          value="aquatic environment catch" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="aquatic environment catch" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4678,9 +4693,12 @@
         <valueAttribute
           name="termName"
           value="collection of larvae" />
-        <valueAttribute
-          name="displayLabel"
-          value="collection of larvae" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="collection of larvae" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4704,9 +4722,12 @@
         <valueAttribute
           name="termName"
           value="collection of eggs" />
-        <valueAttribute
-          name="displayLabel"
-          value="collection of eggs" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="collection of eggs" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4730,9 +4751,12 @@
         <valueAttribute
           name="termName"
           value="collection of naturally deposited eggs" />
-        <valueAttribute
-          name="displayLabel"
-          value="collection of naturally deposited eggs" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="collection of naturally deposited eggs" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4756,9 +4780,12 @@
         <valueAttribute
           name="termName"
           value="collection of eggs via scraping" />
-        <valueAttribute
-          name="displayLabel"
-          value="collection of eggs via scraping" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="collection of eggs via scraping" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4782,9 +4809,12 @@
         <valueAttribute
           name="termName"
           value="collection of pupae" />
-        <valueAttribute
-          name="displayLabel"
-          value="collection of pupae" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="collection of pupae" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4808,9 +4838,12 @@
         <valueAttribute
           name="termName"
           value="terrain environment catch" />
-        <valueAttribute
-          name="displayLabel"
-          value="terrain environment catch" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="terrain environment catch" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4834,9 +4867,12 @@
         <valueAttribute
           name="termName"
           value="collection of adults" />
-        <valueAttribute
-          name="displayLabel"
-          value="collection of adults" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="collection of adults" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4860,9 +4896,12 @@
         <valueAttribute
           name="termName"
           value="collection of dead specimens" />
-        <valueAttribute
-          name="displayLabel"
-          value="collection of dead specimens" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="collection of dead specimens" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4887,9 +4926,12 @@
         <valueAttribute
           name="termName"
           value="species identification method" />
-        <valueAttribute
-          name="displayLabel"
-          value="species identification method" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="species identification method" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4913,9 +4955,12 @@
         <valueAttribute
           name="termName"
           value="cross mating experiment" />
-        <valueAttribute
-          name="displayLabel"
-          value="cross mating experiment" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="cross mating experiment" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4939,9 +4984,12 @@
         <valueAttribute
           name="termName"
           value="cytological chromosome examination" />
-        <valueAttribute
-          name="displayLabel"
-          value="cytological chromosome examination" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="cytological chromosome examination" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4965,9 +5013,12 @@
         <valueAttribute
           name="termName"
           value="isoenzyme electrophoresis" />
-        <valueAttribute
-          name="displayLabel"
-          value="isoenzyme electrophoresis" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="isoenzyme electrophoresis" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -4991,9 +5042,12 @@
         <valueAttribute
           name="termName"
           value="morphological examination" />
-        <valueAttribute
-          name="displayLabel"
-          value="morphological examination" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="morphological examination" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -5017,9 +5071,12 @@
         <valueAttribute
           name="termName"
           value="PCR-based species identification" />
-        <valueAttribute
-          name="displayLabel"
-          value="PCR-based species identification" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="PCR-based species identification" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -5043,9 +5100,12 @@
         <valueAttribute
           name="termName"
           value="species specific DNA hybridization" />
-        <valueAttribute
-          name="displayLabel"
-          value="species specific DNA hybridization" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="species specific DNA hybridization" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="mosquito_insecticide_resistance_ontology" />
@@ -5070,9 +5130,12 @@
         <valueAttribute
           name="termName"
           value="resistance identification/monitoring" />
-        <valueAttribute
-          name="displayLabel"
-          value="resistance identification/monitoring" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="resistance identification/monitoring" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -5096,9 +5159,12 @@
         <valueAttribute
           name="termName"
           value="biochemical assay" />
-        <valueAttribute
-          name="displayLabel"
-          value="biochemical assay" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="biochemical assay" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -5122,9 +5188,12 @@
         <valueAttribute
           name="termName"
           value="molecular assay" />
-        <valueAttribute
-          name="displayLabel"
-          value="molecular assay" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="molecular assay" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -5148,9 +5217,12 @@
         <valueAttribute
           name="termName"
           value="penetration/excretion assay" />
-        <valueAttribute
-          name="displayLabel"
-          value="penetration/excretion assay" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="penetration/excretion assay" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -5174,9 +5246,12 @@
         <valueAttribute
           name="termName"
           value="bioassay" />
-        <valueAttribute
-          name="displayLabel"
-          value="bioassay" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="bioassay" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -5200,9 +5275,12 @@
         <valueAttribute
           name="termName"
           value="antibody-based assay" />
-        <valueAttribute
-          name="displayLabel"
-          value="antibody-based assay" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="antibody-based assay" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -5226,9 +5304,12 @@
         <valueAttribute
           name="termName"
           value="diagnostic test" />
-        <valueAttribute
-          name="displayLabel"
-          value="diagnostic test" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="diagnostic test" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -5252,9 +5333,12 @@
         <valueAttribute
           name="termName"
           value="bottle bioassay DT" />
-        <valueAttribute
-          name="displayLabel"
-          value="bottle bioassay DT" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="bottle bioassay DT" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -5278,9 +5362,12 @@
         <valueAttribute
           name="termName"
           value="cone DT" />
-        <valueAttribute
-          name="displayLabel"
-          value="cone DT" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="cone DT" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -5304,9 +5391,12 @@
         <valueAttribute
           name="termName"
           value="WHO paper kit DT" />
-        <valueAttribute
-          name="displayLabel"
-          value="WHO paper kit DT" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="WHO paper kit DT" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -5330,9 +5420,12 @@
         <valueAttribute
           name="termName"
           value="WHO larvicide DT" />
-        <valueAttribute
-          name="displayLabel"
-          value="WHO larvicide DT" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="WHO larvicide DT" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
@@ -5356,9 +5449,12 @@
         <valueAttribute
           name="termName"
           value="Test Lavae Age" />
-        <valueAttribute
-          name="displayLabel"
-          value="Test Lavae Age" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Test Lavae Age" />
+        </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />

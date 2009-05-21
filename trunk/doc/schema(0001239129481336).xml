@@ -19,9 +19,9 @@
             label="active"
             required="true"
             default_value="true"
-            description="If this is an active age group"     
+            description="If this is an active age group"
             negativeLabel="False"
-            positiveLabel="True"/>
+            positiveLabel="True" />
           <integer
             name="startAge"
             label="from"
@@ -292,13 +292,13 @@
             label="Query XML"
             description="Query XML"
             order="0"
-            type="java.lang.String"/>
+            type="java.lang.String" />
           <mdParameter
             name="geoEntityType"
             label="GeoEntity type"
             description="The type on which to gather spatial data"
             order="1"
-            type="java.lang.String"/>
+            type="java.lang.String" />
         </mdMethod>
         <mdMethod
           name="mapQuery"
@@ -311,13 +311,13 @@
             label="Query XML"
             description="Query XML"
             order="0"
-            type="java.lang.String"/>
+            type="java.lang.String" />
           <mdParameter
             name="thematicLayerType"
             label="Thematic Layer Type"
             description="The GeoEntity type for the base layer with thematic variables."
             order="1"
-            type="java.lang.String"/>
+            type="java.lang.String" />
           <mdParameter
             name="universalLayers"
             label="Universal Layers"
@@ -329,7 +329,7 @@
             label="SavedSearch Id"
             description="The id of the SavedSearch for which the map will be generated."
             order="3"
-            type="java.lang.String"/>
+            type="java.lang.String" />
         </mdMethod>
         <mdMethod
           name="applyAll"
@@ -422,19 +422,19 @@
             size="255"
             label="Name"
             description="The name of the grid option" />
-          <char
+          <localChar
             name="displayLabel"
             required="true"
             size="255"
             label="Display Label"
-            description="Localizable label of the referral reason" />
+            description="Localizable label of the grid" />
           <boolean
             name="active"
             label="Active"
             required="true"
-            default_value="true"      
+            default_value="true"
             negativeLabel="False"
-            positiveLabel="True"/>
+            positiveLabel="True" />
         </attributes>
       </mdBusiness>
 
@@ -458,9 +458,12 @@
         <valueAttribute
           name="optionName"
           value="LA" />
-        <valueAttribute
-          name="displayLabel"
-          value="LA" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="LA" />
+        </structAttribute>
       </object>
 
       <object
@@ -469,9 +472,12 @@
         <valueAttribute
           name="optionName"
           value="AA" />
-        <valueAttribute
-          name="displayLabel"
-          value="AA" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="AA" />
+        </structAttribute>
       </object>
 
       <object
@@ -480,9 +486,12 @@
         <valueAttribute
           name="optionName"
           value="SP" />
-        <valueAttribute
-          name="displayLabel"
-          value="SP" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="SP" />
+        </structAttribute>
       </object>
 
       <object
@@ -491,9 +500,12 @@
         <valueAttribute
           name="optionName"
           value="AS_SP" />
-        <valueAttribute
-          name="displayLabel"
-          value="AS+SP" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="AS+SP" />
+        </structAttribute>
       </object>
 
       <object
@@ -502,9 +514,12 @@
         <valueAttribute
           name="optionName"
           value="Cloroquine" />
-        <valueAttribute
-          name="displayLabel"
-          value="Cloroquine" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Cloroquine" />
+        </structAttribute>
       </object>
 
       <object
@@ -513,9 +528,12 @@
         <valueAttribute
           name="optionName"
           value="Quinine" />
-        <valueAttribute
-          name="displayLabel"
-          value="Quinine" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Quinine" />
+        </structAttribute>
       </object>
 
       <object
@@ -524,9 +542,12 @@
         <valueAttribute
           name="optionName"
           value="None" />
-        <valueAttribute
-          name="displayLabel"
-          value="None" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="None" />
+        </structAttribute>
       </object>
 
       <object
@@ -535,9 +556,12 @@
         <valueAttribute
           name="optionName"
           value="Other" />
-        <valueAttribute
-          name="displayLabel"
-          value="Other" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Other" />
+        </structAttribute>
       </object>
 
       <mdBusiness
@@ -560,9 +584,12 @@
         <valueAttribute
           name="optionName"
           value="ComplicatedCase" />
-        <valueAttribute
-          name="displayLabel"
-          value="Complicated case" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Complicated case" />
+        </structAttribute>
       </object>
 
       <object
@@ -571,9 +598,12 @@
         <valueAttribute
           name="optionName"
           value="LessThanOne" />
-        <valueAttribute
-          name="displayLabel"
-          value="Less than one year old" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Less than one year old" />
+        </structAttribute>
       </object>
 
       <object
@@ -582,9 +612,12 @@
         <valueAttribute
           name="optionName"
           value="OutOfStock" />
-        <valueAttribute
-          name="displayLabel"
-          value="Out of stock" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Out of stock" />
+        </structAttribute>
       </object>
 
       <object
@@ -593,9 +626,12 @@
         <valueAttribute
           name="optionName"
           value="Other" />
-        <valueAttribute
-          name="displayLabel"
-          value="Other" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Other" />
+        </structAttribute>
       </object>
 
       <mdBusiness
@@ -618,9 +654,12 @@
         <valueAttribute
           name="optionName"
           value="BloodSmear" />
-        <valueAttribute
-          name="displayLabel"
-          value="Blood smear" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Blood smear" />
+        </structAttribute>
       </object>
 
       <object
@@ -629,9 +668,12 @@
         <valueAttribute
           name="optionName"
           value="RDT" />
-        <valueAttribute
-          name="displayLabel"
-          value="RDT" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="RDT" />
+        </structAttribute>
       </object>
 
       <object
@@ -640,9 +682,12 @@
         <valueAttribute
           name="optionName"
           value="Clinical" />
-        <valueAttribute
-          name="displayLabel"
-          value="Clinical" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Clinical" />
+        </structAttribute>
       </object>
 
       <object
@@ -651,9 +696,12 @@
         <valueAttribute
           name="optionName"
           value="Other" />
-        <valueAttribute
-          name="displayLabel"
-          value="Other" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Other" />
+        </structAttribute>
       </object>
 
       <mdBusiness
@@ -676,9 +724,12 @@
         <valueAttribute
           name="optionName"
           value="Tablets" />
-        <valueAttribute
-          name="displayLabel"
-          value="Tablets" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Tablets" />
+        </structAttribute>
       </object>
 
       <object
@@ -687,9 +738,12 @@
         <valueAttribute
           name="optionName"
           value="Syrup" />
-        <valueAttribute
-          name="displayLabel"
-          value="Syrup" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Syrup" />
+        </structAttribute>
       </object>
 
       <object
@@ -698,9 +752,12 @@
         <valueAttribute
           name="optionName"
           value="IV" />
-        <valueAttribute
-          name="displayLabel"
-          value="IV" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="IV" />
+        </structAttribute>
       </object>
 
       <object
@@ -709,9 +766,12 @@
         <valueAttribute
           name="optionName"
           value="IM" />
-        <valueAttribute
-          name="displayLabel"
-          value="IM" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="IM" />
+        </structAttribute>
       </object>
 
       <object
@@ -720,9 +780,12 @@
         <valueAttribute
           name="optionName"
           value="Other" />
-        <valueAttribute
-          name="displayLabel"
-          value="Other" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Other" />
+        </structAttribute>
       </object>
 
       <mdTree
@@ -742,9 +805,9 @@
             name="outOfStock"
             label="Treatment out of Stock"
             required="true"
-            description="Flag denoting if the treatment is out of stock"      
+            description="Flag denoting if the treatment is out of stock"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
         </attributes>
       </mdTree>
 

@@ -1,0 +1,45 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdProblem
+        name="dss.vector.solutions.FuturePeriodProblem"
+        label="Future Period Problem"
+        description="The given period falls past the current date"
+        extends="dss.vector.solutions.NotificationProblem">
+      </mdProblem>
+    </create>
+    <update>
+      <mdView
+        name="dss.vector.solutions.surveillance.AggregatedCaseView">
+        <create>
+          <mdMethod
+            name="validateEpiDate"
+            label="Validate Epi Date"
+            returnType="void"
+            static="true">
+            <mdParameter
+              name="periodType"
+              label="Period Type"
+              type="java.lang.String"
+              order="1" />
+            <mdParameter
+              name="period"
+              label="period"
+              order="2"
+              type="java.lang.Integer" />
+            <mdParameter
+              name="year"
+              label="Year"
+              order="3"
+              type="java.lang.Integer" />
+          </mdMethod>
+        </create>
+      </mdView>
+    </update>    
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

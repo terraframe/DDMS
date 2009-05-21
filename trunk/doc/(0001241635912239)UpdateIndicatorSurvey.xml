@@ -21,7 +21,7 @@
             label="Roof Name"
             required="true"
             size="255" />
-          <char
+          <localChar
             name="displayLabel"
             label="Display Label"
             required="true"
@@ -57,7 +57,7 @@
             label="Wall Name"
             required="true"
             size="255" />
-          <char
+          <localChar
             name="displayLabel"
             label="Display Label"
             required="true"
@@ -91,9 +91,18 @@
         <valueAttribute
           name="roofName"
           value="Natural_Roof" />
-        <valueAttribute
-          name="displayLabel"
-          value="NATURAL ROOF" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="NATURAL ROOF" />
+        </structAttribute>
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="NATURAL ROOF" />
+        </structAttribute>
       </object>
 
       <object
@@ -103,9 +112,12 @@
         <valueAttribute
           name="roofName"
           value="Thatch_Leaf" />
-        <valueAttribute
-          name="displayLabel"
-          value="Thatch/Leaf" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Thatch/Leaf" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -121,9 +133,12 @@
         <valueAttribute
           name="roofName"
           value="Sticks_and_Mud" />
-        <valueAttribute
-          name="displayLabel"
-          value="Sticks and mud" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Sticks and mud" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -139,9 +154,12 @@
         <valueAttribute
           name="roofName"
           value="RUDIMENTARY_ROOF" />
-        <valueAttribute
-          name="displayLabel"
-          value="RUDIMENTARY ROOF" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="RUDIMENTARY ROOF" />
+        </structAttribute>
       </object>
 
       <object
@@ -151,9 +169,12 @@
         <valueAttribute
           name="roofName"
           value="Rustic_mat/plastic_sheet" />
-        <valueAttribute
-          name="displayLabel"
-          value="Rustic mat/plastic sheet" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Rustic mat/plastic sheet" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -169,9 +190,12 @@
         <valueAttribute
           name="roofName"
           value="Reed/bamboo" />
-        <valueAttribute
-          name="displayLabel"
-          value="Reed/bamboo" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Reed/bamboo" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -187,9 +211,12 @@
         <valueAttribute
           name="roofName"
           value="Wood_planks" />
-        <valueAttribute
-          name="displayLabel"
-          value="Wood planks" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Wood planks" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -205,9 +232,12 @@
         <valueAttribute
           name="roofName"
           value="FINISHED ROOF" />
-        <valueAttribute
-          name="displayLabel"
-          value="FINISHED ROOF" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="FINISHED ROOF" />
+        </structAttribute>
       </object>
 
       <object
@@ -217,9 +247,12 @@
         <valueAttribute
           name="roofName"
           value="Corrugated_iron" />
-        <valueAttribute
-          name="displayLabel"
-          value="Corrugated iron" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Corrugated iron" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -235,9 +268,12 @@
         <valueAttribute
           name="roofName"
           value="Wood" />
-        <valueAttribute
-          name="displayLabel"
-          value="Wood" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Wood" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -253,9 +289,12 @@
         <valueAttribute
           name="roofName"
           value="Calamine/cement_fiber" />
-        <valueAttribute
-          name="displayLabel"
-          value="Calamine/cement fiber" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Calamine/cement fiber" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -271,9 +310,12 @@
         <valueAttribute
           name="roofName"
           value="Roofing_shingles" />
-        <valueAttribute
-          name="displayLabel"
-          value="Roofing shingles" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Roofing shingles" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -289,9 +331,12 @@
         <valueAttribute
           name="roofName"
           value="OTHER" />
-        <valueAttribute
-          name="displayLabel"
-          value="OTHER" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="OTHER" />
+        </structAttribute>
       </object>
 
       <object
@@ -301,9 +346,12 @@
         <valueAttribute
           name="wallName"
           value="NATURAL_WALLS" />
-        <valueAttribute
-          name="displayLabel"
-          value="NATURAL WALLS" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="NATURAL WALLS" />
+        </structAttribute>
       </object>
 
       <object
@@ -313,9 +361,12 @@
         <valueAttribute
           name="wallName"
           value="No_walls" />
-        <valueAttribute
-          name="displayLabel"
-          value="No walls" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="No walls" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -331,9 +382,12 @@
         <valueAttribute
           name="wallName"
           value="Cane/sticks/bamboo/reed" />
-        <valueAttribute
-          name="displayLabel"
-          value="Cane/sticks/bamboo/reed" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Cane/sticks/bamboo/reed" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -349,9 +403,12 @@
         <valueAttribute
           name="wallName"
           value="RUDIMENTARY_WALLS" />
-        <valueAttribute
-          name="displayLabel"
-          value="RUDIMENTARY WALLS" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="RUDIMENTARY WALLS" />
+        </structAttribute>
       </object>
 
       <object
@@ -361,9 +418,12 @@
         <valueAttribute
           name="wallName"
           value="Bamboo/wood_with_mud" />
-        <valueAttribute
-          name="displayLabel"
-          value="Bamboo/wood with mud" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Bamboo/wood with mud" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -379,9 +439,12 @@
         <valueAttribute
           name="wallName"
           value="Stone_with_mud" />
-        <valueAttribute
-          name="displayLabel"
-          value="Stone with mud" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Stone with mud" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -397,9 +460,12 @@
         <valueAttribute
           name="wallName"
           value="Uncovered_abode" />
-        <valueAttribute
-          name="displayLabel"
-          value="Uncovered abode" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Uncovered abode" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -415,9 +481,12 @@
         <valueAttribute
           name="wallName"
           value="Plywood" />
-        <valueAttribute
-          name="displayLabel"
-          value="Plywood" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Plywood" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -433,9 +502,12 @@
         <valueAttribute
           name="wallName"
           value="Carton" />
-        <valueAttribute
-          name="displayLabel"
-          value="Carton" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Carton" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -451,9 +523,12 @@
         <valueAttribute
           name="wallName"
           value="FINISHED_WALLS" />
-        <valueAttribute
-          name="displayLabel"
-          value="FINISHED WALLS" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="FINISHED WALLS" />
+        </structAttribute>
       </object>
 
       <object
@@ -463,9 +538,12 @@
         <valueAttribute
           name="wallName"
           value="Cement" />
-        <valueAttribute
-          name="displayLabel"
-          value="Cement" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Cement" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -481,9 +559,12 @@
         <valueAttribute
           name="wallName"
           value="Stone_with_lime/cement" />
-        <valueAttribute
-          name="displayLabel"
-          value="Stone with lime/cement" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Stone with lime/cement" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -499,9 +580,12 @@
         <valueAttribute
           name="wallName"
           value="Bricks" />
-        <valueAttribute
-          name="displayLabel"
-          value="Bricks" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Bricks" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -517,9 +601,12 @@
         <valueAttribute
           name="wallName"
           value="Cement_blocks" />
-        <valueAttribute
-          name="displayLabel"
-          value="Cement blocks" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Cement blocks" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -535,9 +622,12 @@
         <valueAttribute
           name="wallName"
           value="Covered_Adobe" />
-        <valueAttribute
-          name="displayLabel"
-          value="Covered Adobe" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Covered Adobe" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -553,9 +643,12 @@
         <valueAttribute
           name="wallName"
           value="Wood_planks/shingles" />
-        <valueAttribute
-          name="displayLabel"
-          value="Wood planks/shingles" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Wood planks/shingles" />
+        </structAttribute>
       </object>
 
       <relationship
@@ -571,32 +664,34 @@
         <valueAttribute
           name="wallName"
           value="OTHER" />
-        <valueAttribute
-          name="displayLabel"
-          value="OTHER" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="OTHER" />
+        </structAttribute>
       </object>
 
       <mdView
         name="dss.vector.solutions.intervention.monitor.WallView">
         <attributes>
-          <virtual
+          <char
             name="displayLabel"
-            concrete="displayLabel"
-            type="dss.vector.solutions.intervention.monitor.Wall" />
+            label="Display Label"
+            required="true"
+            size="255" />
           <boolean
             name="hasParent"
             label="Has Parent"
             required="true"
             negativeLabel="No"
             positiveLabel="Yes" />
-
           <boolean
             name="hasChildren"
             label="Has Children"
             required="true"
             negativeLabel="No"
             positiveLabel="Yes" />
-
           <char
             name="wallId"
             label="Wall Id"
@@ -613,10 +708,11 @@
       <mdView
         name="dss.vector.solutions.intervention.monitor.RoofView">
         <attributes>
-          <virtual
+          <char
             name="displayLabel"
-            concrete="displayLabel"
-            type="dss.vector.solutions.intervention.monitor.Roof" />
+            label="Display Label"
+            required="true"
+            size="255" />
           <boolean
             name="hasParent"
             label="Has Parent"
@@ -629,7 +725,6 @@
             required="true"
             negativeLabel="No"
             positiveLabel="Yes" />
-
           <char
             name="roofId"
             label="Roof Id"
