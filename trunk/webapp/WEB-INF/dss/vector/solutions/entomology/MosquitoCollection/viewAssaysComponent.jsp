@@ -32,42 +32,32 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.io.PrintStream"%>
 <%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
+<%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
 
-<%!static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass ) throws JSONException{
+<%!static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass , ClientRequestIF clientRequest) throws JSONException{
 	String s = "<table><tr><th colspan=\"2\">";
 	s += superAssayClass.getSimpleName().substring(0,superAssayClass.getSimpleName().indexOf("Assay")) +"</th></tr>";
 
-    	Class viewClass = view.getClass();
+  	Class viewClass = view.getClass();
 
-    	MosquitoView mv = new MosquitoView();
+  	MdAttributeVirtualDTO[] mdArray = MosquitoViewDTO.getAccessors(clientRequest,superAssayClass.getCanonicalName());
 
-    	 Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = mv.getAssayMap();
-
-        for (Class<AssayTestResult> c : assayMap.keySet())
+    for (MdAttributeVirtualDTO md : mdArray)
+    {
+ 	    String acc = md.getAccessor();
+        if(acc.length() == 0)
         {
-          // Get the result
-          MdAttributeVirtualDAOIF mdAttribute = assayMap.get(c);
-          String attributeName = GenerationUtil.upperFirstCharacter(mdAttribute.getAccessorName());
-          String displayLabel = mdAttribute.getDisplayLabel(java.util.Locale.ENGLISH);
-    		try
-    		{
+          acc =  md.getAttributeName();
+        }
 
-         		if(superAssayClass.isAssignableFrom(c) )
-         		{
-         			 s += "<tr><td><input type=\"checkbox\" id =\""+ attributeName + "\" onclick=\"";
-                     s += "showCol('"+ attributeName + "',this.checked)";
-                     s += "\"/></td><td>" ;
-         			 s += displayLabel + "</td></tr>";
-         		}
-    		}
-    		catch (Exception e) {
-    			System.out.println("Exception on "+e.getMessage() +" " + e);
-    		}
-    	}
+        s += "<tr><td><input type=\"checkbox\" id =\""+ acc + "\" onclick=\"";
+        s += "showCol('"+ acc + "',this.checked)";
+        s += "\"/></td><td>" ;
+ 		s += md.getMdAttributeConcrete().getDisplayLabel()+ "</td></tr>";
+  	}
 
 	return s + "</table>";
 }%>
-
 
 
 
@@ -108,9 +98,9 @@
 <h2>Mosquitos</h2>
 <div class="fldContainer"><br>
 <div id="checkBoxContanier" style="height: 12em;">
-<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,InfectivityAssayTestResult.class)%></div>
-<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,TargetSiteAssayTestResult.class)%></div>
-<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,MetabolicAssayTestResult.class)%></div>
+<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,InfectivityAssayTestResult.class,clientRequest)%></div>
+<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,TargetSiteAssayTestResult.class,clientRequest)%></div>
+<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,MetabolicAssayTestResult.class,clientRequest)%></div>
 </div>
 <div id="Mosquitos"></div>
 <div id="buttons" class="noprint"><span id="MosquitosAddrow" class="yui-button yui-push-button"> <span class="first-child">
@@ -122,6 +112,7 @@
 <script type="text/javascript">
 function showCol(key,checked)
 {
+  key=key.substring(0, 1).toUpperCase() + key.substring(1);
   if(checked)
   {
     table_data.myDataTable.showColumn(key);
@@ -146,7 +137,7 @@ table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
           data_type: "Mojo.$.dss.vector.solutions.entomology.MosquitoView",
             width:"65em"
       };
-Event.addListener(window, 'load', MojoGrid.createDataTable(table_data));
+YAHOO.util.Event.addListener(window, 'load', MojoGrid.createDataTable(table_data));
 //YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script></div>
 <%=Halp.loadTypes((List<String>) Arrays.asList(types_to_load))%>
@@ -186,6 +177,6 @@ UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows, unint_attri
               data_type: "Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroupView"
 
           };
-    Event.addListener(window, 'load', MojoGrid.createDataTable(UninterestingSpecieGroupData));
+YAHOO.util.Event.addListener(window, 'load', MojoGrid.createDataTable(UninterestingSpecieGroupData));
    // YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(UninterestingSpecieGroupData));
 </script></div>

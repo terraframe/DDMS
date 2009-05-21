@@ -9,6 +9,8 @@
 <%@page import="dss.vector.solutions.util.Halp" %>
 <%@page import="com.terraframe.mojo.constants.Constants" %>
 <%@page import="org.json.JSONArray"%>
+<%@page import="com.terraframe.mojo.constants.ClientConstants"%>
+<%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%
 Locale locale = request.getLocale();
 DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
@@ -25,8 +27,15 @@ day_list.removeAll(Arrays.asList(""));
 JSONArray short_days = new JSONArray(day_list);
 request.setAttribute("dateFormatPattern" ,formatter.toPattern());
 
+ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+Map<String,String> roleMap =  clientRequest.getSessionUserRoles();
+JSONArray roles = new JSONArray(roleMap.keySet());
+
 %>
-var locale = "<%=request.getLocale().toString()%>";
+MDSS.user = {
+roles:<%=roles%>,
+locale : "<%=request.getLocale().toString()%>"
+};
 
 MDSS.DateSettings =
 {

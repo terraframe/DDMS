@@ -138,8 +138,6 @@ var aSubmenuData = [
 ];
 
 
-userRoles=['SYSTEM','MANAGER'];
-
 
 //Nifty recursive localizations and permisions!
 function localizeText(text_obj)
@@ -163,12 +161,15 @@ function localizeText(text_obj)
 	if(typeof text_obj.visibleTo == 'string')
 	{
 		//check if the user is in any role that has access to this link
-		for each(role in userRoles)
+		for each(role in MDSS.user.roles)
 		{
-			if(text_obj.visibleTo.indexOf(role) >= 0) return;
+			if(text_obj.visibleTo.indexOf(role) >= 0)
+			{
+				return(false);
+			}
 		}
-		//if we make it here the user does not have access
-		//text_obj.text = null;
+		/*if we make it here the user does not have access
+		text_obj.text = null;*/
 		delete text_obj.text;
 	}
 }
