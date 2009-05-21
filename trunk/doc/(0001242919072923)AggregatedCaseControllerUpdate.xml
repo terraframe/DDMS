@@ -1,0 +1,19 @@
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdController name="dss.vector.solutions.surveillance.AggregatedCaseController">
+        <create>
+          <mdAction name="selectAgeGroup" label="selectAgeGroup" description="Select Age Group">
+            <mdParameter name="geoId" label="Geo Id" order="0" type="java.lang.String"/>
+            <mdParameter name="periodType" label="Period Type" order="1" type="java.lang.String"/>
+            <mdParameter name="period" label="Period" order="2" type="java.lang.Integer"/>
+            <mdParameter name="year" label="Year" order="3" type="java.lang.Integer"/>
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
