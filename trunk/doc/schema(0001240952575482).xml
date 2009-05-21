@@ -390,7 +390,7 @@
         <attributes>
           <float
             name="room"
-            label="Room"
+            label="Room (m²)"
             length="12"
             decimal="2"
             rejectNegative="true"
@@ -398,7 +398,7 @@
             description="Average surface area of a room in square Meters" />
           <float
             name="structureArea"
-            label="Structure"
+            label="Structure (m²)"
             length="12"
             decimal="2"
             rejectNegative="true"
@@ -406,7 +406,7 @@
             description="Average surface area of a house in square Meters" />
           <float
             name="household"
-            label="Household"
+            label="Household (m²)"
             length="12"
             decimal="2"
             rejectNegative="true"
@@ -414,7 +414,7 @@
             description="Average surface area of a household in square Meters" />
           <float
             name="unitNozzleAreaCoverage"
-            label="Unit Nozzle Area Coverage"
+            label="Unit Nozzle Area Coverage (m²)"
             length="12"
             decimal="2"
             rejectNegative="true"
