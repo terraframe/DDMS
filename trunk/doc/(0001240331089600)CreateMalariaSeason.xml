@@ -46,8 +46,7 @@
       <mdProblem
         name="dss.vector.solutions.general.MalariaSeasonOverlapProblem"
         label="Season Overlap Exception"
-        description="The given date may not be after the current date"
-        extends="dss.vector.solutions.NotificationProblem">
+        description="The given date may not be after the current date">
         <attributes>
           <char
             size="256"
@@ -60,16 +59,34 @@
       <mdProblem
         name="dss.vector.solutions.general.MalariaSeasonTooLongProblem"
         label="Season To Long Exception"
-        description="The season may not be longer then 365 days or 366 days for leap years"
-        extends="dss.vector.solutions.NotificationProblem">
+        description="The season may not be longer then 365 days or 366 days for leap years">
       </mdProblem>
 
       <mdProblem
         name="dss.vector.solutions.general.MalariaSeasonDateProblem"
         label="Season To Long Exception"
-        description="The end date must be after the start date"
-        extends="dss.vector.solutions.NotificationProblem">
+        description="The end date must be after the start date">
       </mdProblem>
+
+      <mdView
+        name="dss.vector.solutions.general.MalariaSeasonView"
+        label="Malaria Season">
+        <attributes>
+          <virtual
+            name="seasonName"
+            concrete="seasonName"
+            type="dss.vector.solutions.general.MalariaSeason"/>
+          <virtual
+            name="startDate"
+            concrete="startDate"
+            type="dss.vector.solutions.general.MalariaSeason"/>
+          <virtual
+            name="endDate"
+            concrete="endDate"
+            type="dss.vector.solutions.general.MalariaSeason"/>
+        </attributes>
+      </mdView>
+
     </create>
   </doIt>
   <undoIt>
