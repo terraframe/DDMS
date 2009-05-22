@@ -24,7 +24,7 @@
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${brands}" param="brand.componentId" >
        <mjl:option selected="${brand != null && current.id == brand.id ? 'selected' : 'false'}">
-          ${current.displayLabel}
+          ${current.brandName}
        </mjl:option>
       </mjl:select>
     </dd>
