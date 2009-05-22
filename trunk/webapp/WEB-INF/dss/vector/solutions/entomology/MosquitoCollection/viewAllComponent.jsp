@@ -10,7 +10,6 @@
   <mjl:message />
 </mjl:messages>
 
-
 <mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.viewPage.mojo" />
   <mjl:columns>

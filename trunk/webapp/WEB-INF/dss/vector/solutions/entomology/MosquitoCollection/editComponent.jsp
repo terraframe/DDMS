@@ -8,24 +8,23 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.form.name" id="dss.vector.solutions.entomology.MosquitoCollection.form.id" method="POST">
-    <mjl:component item="${item}" param="dto">
-    <dl>
-      <mjl:dt attribute="collectionMethod">
-        <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod">
-          <mjl:option>
-            ${current.termName}
-          </mjl:option>
-        </mjl:select>
-      </mjl:dt>
-      <mjl:dt attribute="dateCollected" type="text" classes="DatePick" />
-      <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
-      <dd>${item.geoEntity.geoId}  (${item.geoEntity.entityName})
-      <mjl:input type="hidden" param="geoEntity" id="dto.geoEntity.id" /> <mjl:messages attribute="geoEntity">
-        <mjl:message />
-      </mjl:messages></dd>
-    </dl>
-  </mjl:component>
-
+  <mjl:component item="${item}" param="dto">
+  <dl>
+    <mjl:dt attribute="collectionMethod">
+      <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod">
+        <mjl:option>
+          ${current.termName}
+        </mjl:option>
+      </mjl:select>
+    </mjl:dt>
+    <mjl:dt attribute="dateCollected" type="text" classes="DatePick" />
+    <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
+    <dd>${item.geoEntity.geoId}  (${item.geoEntity.entityName})
+    <mjl:input type="hidden" param="geoEntity" id="dto.geoEntity.id" /> <mjl:messages attribute="geoEntity">
+      <mjl:message />
+    </mjl:messages></dd>
+  </dl>
+</mjl:component>
 
 
 <mjl:command value="Update" action="dss.vector.solutions.entomology.MosquitoCollectionController.update.mojo"
