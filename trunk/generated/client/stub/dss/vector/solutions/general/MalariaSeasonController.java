@@ -1,5 +1,9 @@
 package dss.vector.solutions.general;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
+
+import dss.vector.solutions.util.ErrorUtility;
+
 public class MalariaSeasonController extends MalariaSeasonControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/general/MalariaSeason/";
@@ -19,8 +23,16 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
       dto.apply();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failCreate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failCreate(dto);
     }
   }
@@ -72,8 +84,16 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failDelete(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failDelete(dto);
     }
   }
@@ -99,8 +119,16 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
       dto.apply();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.forceProblems(e, req);
+
+      this.failUpdate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failUpdate(dto);
     }
   }
