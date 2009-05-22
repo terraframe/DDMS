@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import com.ibm.icu.util.Calendar;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -20,7 +21,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
     super();
   }
 
-  @Override
+  @Transaction
   public void apply()
   {
     super.validateEndDate();
@@ -83,7 +84,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
     MalariaSeason endOverlap = MalariaSeason.getSeasonByDate(this.getEndDate());
 
-    if (endOverlap != null && endOverlap.getId() != this.getId())
+    if (endOverlap != null && ! endOverlap.getId().equals(this.getId()))
     {
       return endOverlap;
     }
