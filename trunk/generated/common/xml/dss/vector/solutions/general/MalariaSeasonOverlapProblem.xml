@@ -3,7 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.general.MalariaSeasonOverlapProblem">
   <!--
+    - {id} id
     - {overlap} overlap
     -->
-  <locale language="en">Replace this with your customized error message.</locale>
+  <locale language="en">This Season Overlaps with: {overlap}</locale>
 </exception>

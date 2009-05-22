@@ -121,7 +121,7 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
     }
     catch (ProblemExceptionDTO e)
     {
-      ErrorUtility.forceProblems(e, req);
+      ErrorUtility.prepareProblems(e, req);
 
       this.failUpdate(dto);
     }

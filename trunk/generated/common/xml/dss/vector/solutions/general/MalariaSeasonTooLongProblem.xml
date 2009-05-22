@@ -3,6 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.general.MalariaSeasonTooLongProblem">
   <!--
+    - {id} id
     -->
-  <locale language="en">Replace this with your customized error message.</locale>
+  <locale language="en">Seasons may not be longer then one year.</locale>
 </exception>

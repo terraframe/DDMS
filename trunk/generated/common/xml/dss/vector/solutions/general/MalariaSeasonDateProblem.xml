@@ -3,6 +3,7 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.general.MalariaSeasonDateProblem">
   <!--
+    - {id} id
     -->
-  <locale language="en">Replace this with your customized error message.</locale>
+  <locale language="en">The End Date must be after the Start Date.</locale>
 </exception>
