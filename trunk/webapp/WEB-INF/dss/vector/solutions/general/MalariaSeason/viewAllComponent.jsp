@@ -1,11 +1,10 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="page_title" value="View_All_Malaria_Seasons" scope="request" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-
 
 <mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.general.MalariaSeasonController.viewPage.mojo" />
