@@ -105,6 +105,7 @@ var aSubmenuData = [
         id: "Intervention_Monitoring",
         itemdata: [
             { text: "View_Surveys", url: "dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" , visibleTo:'Administrator'},
+            { text: "Query_Indicator_Surveys", url: "dss.vector.solutions.query.QueryController.queryIndicatorSurvey.mojo" , visibleTo:'Administrator'},
             {
                 text: "IRS",
                 submenu: {

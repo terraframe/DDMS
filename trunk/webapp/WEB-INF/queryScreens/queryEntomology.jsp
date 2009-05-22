@@ -1,3 +1,4 @@
+<%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@page import="com.terraframe.mojo.business.ClassQueryDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoDTO"%>
 <%@page import="org.json.JSONObject"%>
@@ -21,7 +22,7 @@
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
-
+<jwr:script src="/bundles/queryBundle.js"/>
 <script src="/geoserver/openlayers/OpenLayers.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/QueryEntomology.js"></script>
 <script type="text/javascript">
