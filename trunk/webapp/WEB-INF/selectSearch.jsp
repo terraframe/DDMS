@@ -31,6 +31,7 @@ YAHOO.util.Event.onDOMReady(function(){
     opener.src = "./imgs/icons/world.png";
     opener.id = geoInput.id +'Go';
     opener = new YAHOO.util.Element(opener);
+    YAHOO.util.Dom.addClass(opener,'geoOpener');
     YAHOO.util.Dom.insertAfter(opener,geoInput);
 
     var geoInfo = document.createElement('div');
@@ -252,13 +253,20 @@ YAHOO.util.Event.onDOMReady(function(){
           var idAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ID;
           var entityNameAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME;
           var geoIdAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.GEOID;
+          var typeAttr = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.TYPE;
           for(var i=0; i<resultSet.length; i++)
           {
             var valueObj = resultSet[i];
 
             var li = document.createElement('li');
             li.id = valueObj.getValue(idAttr);
-            var displayStr = valueObj.getValue(entityNameAttr) + ' - ' + valueObj.getValue(geoIdAttr) ;
+
+            var construct = Mojo.util.getType(valueObj.getValue(typeAttr));
+            var type = new construct(); // use new instance as a template
+            var localizedType = type.getTypeMd().getDisplayLabel();
+
+
+            var displayStr = valueObj.getValue(entityNameAttr) + '('+ localizedType + ') - ' + valueObj.getValue(geoIdAttr) ;
             var matched = displayStr.replace(new RegExp("(.*?)("+this.searchValue+")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
             li.innerHTML = matched;
 
