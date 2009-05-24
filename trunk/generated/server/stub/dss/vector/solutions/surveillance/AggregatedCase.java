@@ -21,6 +21,7 @@ import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.query.ValueQueryExcelExporter;
 import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.session.SessionFacade;
@@ -127,7 +128,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     }
     return hasVisibility;
   }
-  
+
   @Override
   public void validateStartDate()
   {
@@ -148,9 +149,9 @@ public class AggregatedCase extends AggregatedCaseBase implements
         p.apply();
         p.throwIt();
       }
-    }    
+    }
   }
-  
+
   @Override
   public void validateEndDate()
   {
@@ -171,7 +172,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
         p.apply();
         p.throwIt();
       }
-    }    
+    }
   }
 
   @Override
@@ -179,7 +180,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   {
     validateStartDate();
     validateEndDate();
-    
+
     this.setStartAge(this.getAgeGroup().getStartAge());
     this.setEndAge(this.getAgeGroup().getEndAge());
 
@@ -696,5 +697,23 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
     return layers;
+  }
+
+  @Transaction
+  public static Byte[] exportQueryToExcel(String queryXML, String geoEntityType, String savedSearchId)
+  {
+    if(savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot export to Excel without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    SavedSearch search = SavedSearch.get(savedSearchId);
+
+    ValueQuery query = xmlToValueQuery(queryXML, geoEntityType, false, null);
+
+    ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
+    return exporter.export();
   }
 }

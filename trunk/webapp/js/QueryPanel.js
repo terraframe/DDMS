@@ -16,7 +16,8 @@ MDSS.QueryXML = {
   	SUM: 'SUM',
   	MIN: 'MIN',
   	MAX: 'MAX',
-  	AVG: 'AVG'
+  	AVG: 'AVG',
+  	COUNT: 'COUNT'
   }
 };
 
@@ -255,6 +256,8 @@ MDSS.QueryXML.BasicCondition = function(selectable, operator, value)
 }
 MDSS.QueryXML.BasicCondition.prototype = {
 
+  getSelectable : function() { return this._selectable; },
+
   build : function()
   {
     var selectableObj = this._selectable.build();
@@ -410,6 +413,8 @@ MDSS.QueryXML.Selectable = function(component)
 }
 MDSS.QueryXML.Selectable.prototype = {
 
+  getComponent: function() { return this._component; },
+
   build : function()
   {
     var componentObj = this._component.build();
@@ -526,6 +531,27 @@ MDSS.QueryXML.AVG.prototype = {
 
   	var obj = {
   	  'avg': [selectableObj,
+  	  {'userAlias': alias}]
+  	};
+
+  	return obj;
+  }
+}
+
+MDSS.QueryXML.COUNT = function(selectable, userAlias)
+{
+  this._selectable = selectable;
+  this._userAlias = userAlias;
+}
+MDSS.QueryXML.COUNT.prototype = {
+
+  build : function()
+  {
+  	var selectableObj = this._selectable.build();
+    var alias = this._userAlias != null ? this._userAlias : '';
+
+  	var obj = {
+  	  'count': [selectableObj,
   	  {'userAlias': alias}]
   	};
 
@@ -1138,17 +1164,75 @@ MDSS.QueryPanel.prototype = {
     }
   },
 
+  _exportXLS : function(e, obj)
+  {
+    if(Mojo.util.isFunction(this._config.exportXLS))
+    {
+      // pass in the form element so the calling process
+      // can modify its action.
+      this._config.exportXLS.apply(this, Mojo.util.getValues(obj));
+    }
+  },
+
   /**
-   * Builds the buttons to perform actions in the QueryPanel.
+   * Builds the form to do a synchronous post to the server to
+   * download a Excel file.
+   */
+  _buildXLSForm : function()
+  {
+    var form = document.createElement('form');
+    YAHOO.util.Dom.setAttribute(form, 'method', 'POST');
+
+    var xmlInput = document.createElement('textarea');
+    YAHOO.util.Dom.setAttribute(xmlInput, 'name', 'queryXML');
+
+    var geoEntityTypeInput = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(geoEntityTypeInput, 'type', 'hidden');
+    YAHOO.util.Dom.setAttribute(geoEntityTypeInput, 'name', 'geoEntityType');
+
+    var searchIdInput = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
+    YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
+
+    var obj = {
+      form: form,
+      xmlInput: xmlInput,
+      geoEntityTypeInput : geoEntityTypeInput,
+      searchIdInput : searchIdInput
+    };
+
+    var exportXLSButton = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(exportXLSButton, 'type', 'button');
+    YAHOO.util.Dom.setAttribute(exportXLSButton, 'value', MDSS.Localized.Excel_Export_Nav);
+    YAHOO.util.Dom.addClass(exportXLSButton, 'queryButton');
+    YAHOO.util.Event.on(exportXLSButton, 'click', this._exportXLS, obj, this);
+
+    form.appendChild(xmlInput);
+    form.appendChild(geoEntityTypeInput);
+    form.appendChild(searchIdInput);
+
+    document.getElementById('XLSFormContainer').appendChild(form);
+
+    return exportXLSButton;
+  },
+
+  /**
+   * Builds the buttons to perform acions in the QueryPanel.
    */
   _buildButtons : function()
   {
+    var exportXLSButton = this._buildXLSForm();
+
     this._runButton = new YAHOO.util.Element(document.createElement('input'));
     this._runButton.set('type', 'button');
     this._runButton.set('value', MDSS.Localized.Query.Run);
     this._runButton.set('id', this.RUN_QUERY_BUTTON);
     this._runButton.addClass('queryButton');
     this._runButton.on('click', this._executeQuery, {}, this);
+
+    var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
+    qBottom.appendChild(this._runButton);
+    qBottom.appendChild(exportXLSButton);
 
     this._saveButton = new YAHOO.util.Element(document.createElement('input'));
     this._saveButton.set('type', 'button');
@@ -1179,9 +1263,6 @@ MDSS.QueryPanel.prototype = {
 
       this._queryList.appendChild(option);
     }
-
-    var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
-    qBottom.appendChild(this._runButton);
 
     var qRight = new YAHOO.util.Element(this._qRightUnit.body);
     qRight.appendChild(this._queryList);

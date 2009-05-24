@@ -69,6 +69,7 @@
     </div>
 </div>
 
+<div style="display: none" id="XLSFormContainer"></div>
 
 </div>
 <div id="cal1Container" class="yui-skin-sam"></div>

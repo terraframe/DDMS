@@ -10,6 +10,20 @@ MDSS.SingleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearch,
   initialize : function()
   {
     MDSS.AbstractSelectSearch.prototype.initialize.call(this);
+
+    this._currentSelection = null;
+    this._CURRENT_SELECTION = 'currentSelection';
+  },
+
+  /**
+   * Replaces the current selection with the given GeoEntityView.
+   */
+  _updateSelection : function(geoEntityView)
+  {
+    var div = document.getElementById(this._CURRENT_SELECTION);
+    div.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
+
+    this._currentSelection = geoEntityView;
   },
 
   /**
@@ -17,9 +31,12 @@ MDSS.SingleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearch,
    * has been selected. The GeoEntityView is passed
    * to the handler.
    */
-  _notifySelectHandler : function(geoEntityView)
+  _notifySelectHandler : function(geoEntityView, updateSelection)
   {
-  	this._updateSelection(geoEntityView);
+  	if(updateSelection)
+  	{
+  	  this._updateSelection(geoEntityView);
+  	}
 
   	if(Mojo.util.isFunction(this._selectHandler))
   	{
@@ -29,7 +46,16 @@ MDSS.SingleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearch,
 
   getSelectHandler : function()
   {
-  	  return(this._selectHandler);
+    return(this._selectHandler);
+  },
+
+  /**
+   * Returns 1 as the start index. One option is for the
+   * Select One field.
+   */
+  _getStartIndex : function()
+  {
+    return 1;
   },
 
   /**
@@ -40,4 +66,9 @@ MDSS.SingleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearch,
   {
     Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySingleSelectSearch(request, rootId);
   },
+
+  _disableAllowed : function()
+  {
+  	return true;
+  }
 });

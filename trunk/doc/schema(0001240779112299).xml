@@ -104,7 +104,7 @@
             label="Include XML"
             description="The XML may be large so this param disables/enables it"
             order="0"
-            type="java.lang.Boolean"      
+            type="java.lang.Boolean"
             negativeLabel="No"
             positiveLabel="Yes"/>
         </mdMethod>
@@ -806,6 +806,28 @@
       <mdController
         name="dss.vector.solutions.query.QueryController">
         <create>
+        <mdAction
+          name="exportAggregatedCaseQueryToExcel"
+          label="Export Aggregated Query To Excel"
+          isPost="true">
+          <mdParameter
+            name="queryXML"
+            label="Query XML"
+            description="Query XML"
+            order="0"
+            type="java.lang.String"/>
+          <mdParameter
+            name="geoEntityType"
+            label="GeoEntity type"
+            description="The type on which to gather spatial data"
+            order="1"
+            type="java.lang.String"/>
+           <mdParameter
+             name="savedSearchId"
+             label="Saved Search Id"
+             order="2"
+             type="java.lang.String"/>
+        </mdAction>
         <mdAction
           name="queryAggregatedCases"
           label="Query Aggregated Cases"

@@ -1,6 +1,7 @@
 package dss.vector.solutions.util;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -14,12 +15,10 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.system.metadata.MdClassQueryDTO;
 import com.terraframe.mojo.util.FileIO;
 
-import dss.vector.solutions.util.FacadeDTO;
-
 public class ExcelExportServlet extends HttpServlet implements Reloadable
 {
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = -4211492402501853068L;
 
@@ -28,21 +27,29 @@ public class ExcelExportServlet extends HttpServlet implements Reloadable
   {
     ClientRequestIF clientRequest = (ClientRequestIF)req.getAttribute(ClientConstants.CLIENTREQUEST);
     String type = req.getParameter("type");
-    
+
     String[] split = type.split("\\.");
     String fileName = split[split.length-1] + ".xls";
-    res.addHeader("Content-Disposition", "attachment;filename=\""+fileName+"\"");
-    ServletOutputStream stream = res.getOutputStream();
-    FileIO.write(stream, clientRequest.exportExcelFile(type));
+    InputStream inputStream = clientRequest.exportExcelFile(type);
+
+    writeExcelFile(res, fileName, inputStream);
   }
-  
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
   {
     ClientRequestIF clientRequest = (ClientRequestIF)req.getAttribute(ClientConstants.CLIENTREQUEST);
     MdClassQueryDTO query = FacadeDTO.getMDSSClasses(clientRequest);
     req.setAttribute("classes", query.getResultSet());
-    
+
     req.getRequestDispatcher("/WEB-INF/excelExport.jsp").forward(req, resp);
+  }
+
+  public static void writeExcelFile(HttpServletResponse resp, String filename, InputStream inputStream) throws IOException
+  {
+    String excelFile = filename + ".xls";
+    resp.addHeader("Content-Disposition", "attachment;filename=\""+excelFile+"\"");
+    ServletOutputStream stream = resp.getOutputStream();
+    FileIO.write(stream, inputStream);
   }
 }

@@ -4,6 +4,7 @@
 <%@page import="dss.vector.solutions.MDSSInfo"%>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="f" %>
 
+<div style="width: 725px; margin-top: 15px;" >
 <div id="selectSearchComponent">
   <dl>
   <c:forEach items="${views}" var="view" varStatus="status">
@@ -20,7 +21,9 @@
       <div id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_results" class="ajaxResults"></div>
     </c:if>
     <select disabled="disabled" style="width: 250px" name="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}">
+    <c:if test="${!status.first}">
       <option value="DEFAULT"><f:message key="Select_One"/></option>
+    </c:if>
     </select>
       <c:choose>
         <c:when test="${status.first}">
@@ -37,14 +40,10 @@
   </dd>
   </c:forEach>
   </dl>
-  <dl style="height: 100px;">
-    <dt id="bestFitName">
-    </dt>
-    <dd id="bestFitNameValue">
-    </dd>
-    <dt id="bestFitId">
-    </dt>
-    <dd id="bestFitIdValue">
-    </dd>
-  </dl>
+</div>
+<div id="searchSelection">
+    <h3><f:message key="Current_Selection" /></h3>
+    <hr />
+    <span id="currentSelection"></span>
+</div>
 </div>

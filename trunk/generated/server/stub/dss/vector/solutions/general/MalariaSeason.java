@@ -3,14 +3,10 @@ package dss.vector.solutions.general;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import com.ibm.icu.util.Calendar;
+import java.util.Calendar;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-
-import dss.vector.solutions.entomology.MosquitoCollection;
-import dss.vector.solutions.entomology.MosquitoCollectionAllreadyExistsException;
-import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 
 public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.mojo.generation.loader.Reloadable
 {

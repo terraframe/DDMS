@@ -13,6 +13,9 @@ MDSS.AbstractSelectSearch.prototype = {
     // handler for when a geo entity is selected via the tree
     this._treeSelectHandler = null;
 
+    // handler to be executed when the search is closed.
+    this._hideHandler = null;
+
     // The id of the element that contains the select lists.
     this._SELECT_CONTAINER_ID = "selectSearchComponent";
 
@@ -102,6 +105,14 @@ MDSS.AbstractSelectSearch.prototype = {
   },
 
   /**
+   * Sets the handler to be called when this modal is hidden.
+   */
+  setHideHandler : function(handler)
+  {
+  	this._hideHandler = handler;
+  },
+
+  /**
    * Sets the root entity
    */
   _createRoot : function()
@@ -147,7 +158,7 @@ MDSS.AbstractSelectSearch.prototype = {
       var panel = panels[i];
       //if(Mojo.util.isNumber(excludeIndex) && i !== excludeIndex)
       var visible = panel.cfg.getProperty('visible');
-      if(visible === true)
+      if(visible)
       {
         panel.hide();
       }
@@ -184,6 +195,9 @@ MDSS.AbstractSelectSearch.prototype = {
           {
             this._geoTreePanel.hide();
           }
+
+          this._notifyHideHandler();
+
         }, null, this.searchRef);
 
         this.searchRef._searchModal.setBody(html);
@@ -245,11 +259,22 @@ MDSS.AbstractSelectSearch.prototype = {
           YAHOO.util.Event.on(toggle, 'click', this.searchRef._toggleSearch, null, this.searchRef);
         }
 
+        this.searchRef._postRender();
+
         this.searchRef._createRoot();
       }
     });
 
     this._invokeControllerAction(request, MDSS.SelectSearchRootId);
+  },
+
+  /**
+   * Calls after render() but before _createRoot(). Subclasses
+   * may override this method to do any post render processing.
+   */
+  _postRender : function()
+  {
+  	// Abstract
   },
 
   /**
@@ -263,7 +288,10 @@ MDSS.AbstractSelectSearch.prototype = {
 
     if(select && !this._geoEntityViewCache[geoEntityView.getGeoEntityId()])
     {
-      select.disabled = false;
+      if(this._disableAllowed())
+      {
+        select.disabled = false;
+      }
 
       var optionRaw = document.createElement('option');
       optionRaw.value = geoEntityView.getGeoEntityId();
@@ -280,10 +308,18 @@ MDSS.AbstractSelectSearch.prototype = {
   },
 
   /**
+   * Calls the handler when the user hides the search modal.
+   */
+  _notifyHideHandler : function()
+  {
+    // abstract
+  },
+
+  /**
    * Abstract method to notify the select
    * handler that a GeoEntity has been selected.
    */
-  _notifySelectHandler : function(geoEntityView)
+  _notifySelectHandler : function(geoEntityView, updateSelection)
   {
     // abstract
   },
@@ -298,15 +334,11 @@ MDSS.AbstractSelectSearch.prototype = {
   },
 
   /**
-   * Updates the HTML area with information about the most recently selected
-   * (best fit) GeoEntity.
+   * Updates the HTML area with information about the most recently selected GeoEntity.
    */
   _updateSelection : function(geoEntity)
   {
-    document.getElementById('bestFitName').innerHTML = geoEntity != null ? geoEntity.getEntityNameMd().getDisplayLabel() : '';
-    document.getElementById('bestFitNameValue').innerHTML = geoEntity != null ? geoEntity.getEntityName() : '';
-    document.getElementById('bestFitId').innerHTML = geoEntity != null ? geoEntity.getGeoIdMd().getDisplayLabel() : '';
-    document.getElementById('bestFitIdValue').innerHTML = geoEntity != null ? geoEntity.getGeoId() : '';
+    // abstract
   },
 
   /**
@@ -584,16 +616,19 @@ MDSS.AbstractSelectSearch.prototype = {
     for(var i=selectIndex; i>=0; i--)
     {
       var select = this._selectLists[i];
-      if(select.options.length > 1)
+      if(select.options.length > this._getStartIndex())
       {
-        select.selectedIndex = 1;
+        select.selectedIndex = this._getStartIndex();
       }
     }
 
     var select = this._selectLists[selectIndex];
-    var firstEntry = select.options[1].id;
-    var geoEntityView = this._geoEntityViewCache[firstEntry];
-    this._notifySelectHandler(geoEntityView);
+
+    // the root won't have a default root entry
+    var firstInd = selectIndex == 0? 0 : this._getStartIndex();
+    var firstEntry = select.options[firstInd];
+    var geoEntityView = this._geoEntityViewCache[firstEntry.id];
+    this._notifySelectHandler(geoEntityView, true);
   },
 
   /**
@@ -664,7 +699,7 @@ MDSS.AbstractSelectSearch.prototype = {
     {
       // do nothign. Options already cleared before reaching
       // this point.
-      this._notifySelectHandler(null);
+      this._notifySelectHandler(null, false);
       return;
     }
     else
@@ -688,7 +723,7 @@ MDSS.AbstractSelectSearch.prototype = {
           this.searchRef._setEntityOption(childView);
         }
 
-        this.searchRef._notifySelectHandler(this.parentEntityView);
+        this.searchRef._notifySelectHandler(this.parentEntityView, true);
       }
       });
 
@@ -711,29 +746,42 @@ MDSS.AbstractSelectSearch.prototype = {
       return;
     }
 
-    var startIndex = inclusive === true ? index : index+1;
+    var startIndex = inclusive ? index : index+1;
     for(var i=startIndex; i<this._selectLists.length; i++)
     {
       var select = this._selectLists[i];
 
       // remove option node and mappings
-      this._clearOptionsOnSelect(select);
+      this._clearOptionsOnSelect(i, select);
     }
   },
 
   /**
    * Clears options on the given select list.
    */
-  _clearOptionsOnSelect : function(select)
+  _clearOptionsOnSelect : function(selectIndex, select)
   {
     var options = select.options;
     var oLength = options.length;
-    for(var i=oLength-1; i>0; i--)
+
+    var startInd = selectIndex == 0 ? 0 : this._getStartIndex()-1;
+
+    for(var i=oLength-1; i>startInd; i--)
     {
       var option = options[i];
 
       this._removeOptionNode(option);
     }
+  },
+
+
+  /**
+   * Subclasses must override this method to return the index
+   * at which non-root select lists start listing GeoEntities.
+   */
+  _getStartIndex : function()
+  {
+    // abstract
   },
 
   /**
@@ -749,10 +797,23 @@ MDSS.AbstractSelectSearch.prototype = {
 
     delete this._geoEntityViewCache[optionEl.id];
 
-    if(select.options.length == 1)
+    if(select.options.length == this._getStartIndex())
     {
       select.selectedIndex = 0;
-      select.disabled = true;
+
+      if(this._disableAllowed())
+      {
+        select.disabled = true;
+      }
     }
+  },
+
+  /**
+   * Subclasses must override this to denote if empty select
+   * lists can be disabled.
+   */
+  _disableAllowed : function()
+  {
+  	// abstract
   }
 }

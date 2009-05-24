@@ -1,5 +1,6 @@
 package dss.vector.solutions.query;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,18 +8,20 @@ import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.terraframe.mojo.ApplicationException;
-import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ComponentDTOFacade;
+import com.terraframe.mojo.transport.attributes.AttributeDTO;
+import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
+import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
-import com.terraframe.mojo.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.entomology.assay.AbstractAssayDTO;
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
-import dss.vector.solutions.sld.SLDWriter;
 import dss.vector.solutions.surveillance.AbstractGridDTO;
 import dss.vector.solutions.surveillance.AbstractGridQueryDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
@@ -32,6 +35,7 @@ import dss.vector.solutions.surveillance.DiagnosticGridDTO;
 import dss.vector.solutions.surveillance.ReferralGridDTO;
 import dss.vector.solutions.surveillance.TreatmentGridDTO;
 import dss.vector.solutions.surveillance.TreatmentMethodGridDTO;
+import dss.vector.solutions.util.ExcelExportServlet;
 
 public class QueryController extends QueryControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -97,10 +101,25 @@ public class QueryController extends QueryControllerBase implements
 
       // Visible attributes
       String[] visibleAttributes = AggregatedCaseDTO.getVisibleAttributeNames(this.getClientRequest());
+      AggregatedCaseDTO caseDTO = new AggregatedCaseDTO(this.getClientRequest());
+
       JSONArray visible = new JSONArray();
       for(String visibleAttribute : visibleAttributes)
       {
-        visible.put(visibleAttribute);
+        AttributeDTO attributeDTO = ComponentDTOFacade.getAttributeDTO(caseDTO, visibleAttribute);
+        if(attributeDTO.isReadable()
+            && !(attributeDTO instanceof AttributeReferenceDTO)
+            && !(attributeDTO instanceof AttributeStructDTO)
+            && !attributeDTO.getName().equals(AggregatedCaseDTO.GEOENTITY)
+            && !attributeDTO.getName().equals(AggregatedCaseDTO.ID))
+        {
+          JSONObject json = new JSONObject();
+          json.put("attributeName", visibleAttribute);
+          json.put("displayLabel", attributeDTO.getAttributeMdDTO().getDisplayLabel());
+          json.put("type", AggregatedCaseDTO.CLASS);
+
+          visible.put(json);
+        }
       }
 
       req.setAttribute("visibleAttributes", visible.toString());
@@ -126,8 +145,11 @@ public class QueryController extends QueryControllerBase implements
       diagnostic.put("type", DiagnosticGridDTO.CLASS);
       diagnostic.put("label", localized.getObject("Diagnostic_methods"));
       diagnostic.put("relType", CaseDiagnosticDTO.CLASS);
-      diagnostic.put("relAttribute", CaseDiagnosticDTO.AMOUNT);
-      //diagnostic.put("relAttribute2", CaseDiagnosticDTO.AMOUNTPOSITIVE);
+
+      JSONArray attributes = new JSONArray();
+      attributes.put(CaseDiagnosticDTO.AMOUNT);
+      attributes.put(CaseDiagnosticDTO.AMOUNTPOSITIVE);
+      diagnostic.put("relAttribute", attributes);
       diagnostic.put("options", new JSONArray());
       ordered.put(diagnostic);
       orderedMap.put(DiagnosticGridDTO.CLASS, diagnostic);
@@ -168,7 +190,7 @@ public class QueryController extends QueryControllerBase implements
       {
         JSONObject option = new JSONObject();
         option.put("optionName", grid.getOptionName());
-        option.put("display", grid.getDisplayLabel());
+        option.put("displayLabel", grid.getDisplayLabel());
         option.put("attributeName", AbstractGridDTO.OPTIONNAME);
         option.put("type", grid.getType());
 
@@ -225,27 +247,33 @@ public class QueryController extends QueryControllerBase implements
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
     }
   }
 
-//  @Override
-//  public void newQuery() throws IOException, ServletException
-//  {
-//    try
-//    {
-//      SavedSearchViewDTO savedSearch = new SavedSearchViewDTO(this.getClientRequest());
-//      req.setAttribute("savedSearch", savedSearch);
-//
-//      req.getRequestDispatcher(NEW_QUERY).forward(req, resp);
-//    }
-//    catch (Throwable t)
-//    {
-//      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-//      resp.setStatus(500);
-//      resp.getWriter().print(jsonE.getJSON());
-//    }
-//  }
+  @Override
+  public void exportAggregatedCaseQueryToExcel(String queryXML, String geoEntityType,
+      String savedSearchId) throws IOException, ServletException
+  {
+    try
+    {
+      Byte[] excelFile = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
+      byte[] bytes = ArrayUtils.toPrimitive(excelFile);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+      ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
+
+      ExcelExportServlet.writeExcelFile(resp, search.getQueryName(), inputStream);
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }
 
   public void newEntomologyQuery() throws IOException, ServletException
   {

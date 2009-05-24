@@ -50,12 +50,27 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._buildColumns();
   },
 
+  _containsGroupBy : function()
+  {
+    return this._startAgeGroupBySel != null || this._endAgeGroupBySel != null ||
+      Mojo.util.getValues(this._visibleGroupBySelectables).length > 0 ||
+      Mojo.util.getValues(this._gridGroupBySelectables).length > 0;
+  },
+
   /**
    * Returns the method to save this AggregatedCase search.
    */
   _getSaveQueryMethod : function()
   {
   	return Mojo.$.dss.vector.solutions.query.AggregatedCasesSearch.saveSearch;
+  },
+
+  /**
+   * Returns the controller action to invoke when exporting the query to XML.
+   */
+  _getExportXLSAction : function()
+  {
+  	return 'dss.vector.solutions.query.QueryController.exportAggregatedCaseQueryToExcel.mojo';
   },
 
   /**
@@ -426,127 +441,101 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   /**
    * Helper method to add AggregatedCase attributes to selectables and as a column.
    */
-  _addVisibleAttribute : function(attributeObj)
+  _addVisibleAttribute : function(attribute)
   {
-    var column = new YAHOO.widget.Column(attributeObj);
+    var column = new YAHOO.widget.Column(attribute.getColumnObject());
     column = this._queryPanel.insertColumn(column);
 
-    var aggregatedCaseClass = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
+    var attributeName = attribute.getAttributeName();
+    var selectable = attribute.getSelectable();
 
-    var attribute = new MDSS.QueryXML.Attribute(aggregatedCaseClass, attributeObj.key, attributeObj.key);
-    var selectable = new MDSS.QueryXML.Selectable(attribute);
-
-    this._visibleSelectables[attributeObj.key] = selectable;
+    this._visibleSelectables[attribute.getKey()] = selectable;
 
     // ADD THEMATIC VARIABLE
-    this._queryPanel.addThematicVariable(aggregatedCaseClass, attributeObj.key, attributeObj.label);
+    this._queryPanel.addThematicVariable(attribute.getType(), attributeName, attribute.getDisplayLabel());
   },
 
   /**
    * Adds a grid attribute as a selectable.
    */
-  _addGridAttribute : function(attributeObj)
+  _addGridAttribute : function(attribute)
   {
-    var column = new YAHOO.widget.Column(attributeObj);
+    var column = new YAHOO.widget.Column(attribute.getColumnObject());
     column = this._queryPanel.insertColumn(column);
 
-    var optionName = attributeObj.key;
+    var optionName = attribute.getOptionName();
 
     /*
      * Relationship
      */
-    var meta = attributeObj.meta;
+    var relationshipType = attribute.getRelationshipType();
+    var relationshipAlias = attribute.getRelationshipAlias();
 
-    var relType = meta.relType;
-    var relAlias = this._getGridRelAlias(relType, optionName);
-    var relEntity = new MDSS.QueryXML.Entity(relType, relAlias);
+    var relEntity = new MDSS.QueryXML.Entity(relationshipType, relationshipAlias);
 
-    this._gridEntities[relAlias] = relEntity;
+    this._gridEntities[relationshipAlias] = relEntity;
 
     // selectable
-    var attribute = new MDSS.QueryXML.Attribute(relAlias, meta.relAttribute, optionName);
-    var selectable = new MDSS.QueryXML.Selectable(attribute);
-    this._gridSelectables[relAlias] = selectable;
+    var rSelectable = attribute.getRelationshipSelectable();
+    this._gridSelectables[relationshipAlias] = rSelectable;
 
     /*
      * Business
      */
-    var busType = attributeObj.type;
-    var busAlias = this._getGridBusAlias(relType, optionName, busType);
+    var type = attribute.getType();
+    var businessAlias = attribute.getBusinessAlias();
 
     // entity and criteria
-    var entity = new MDSS.QueryXML.Entity(busType, busAlias);
-    var cAttribute = new MDSS.QueryXML.Attribute(busAlias, attributeObj.attributeName);
-    var cSelectable = new MDSS.QueryXML.Selectable(cAttribute);
+    var entity = new MDSS.QueryXML.Entity(type, businessAlias);
+    var bSelectable = attribute.getBusinessSelectable();
 
-    var condition = new MDSS.QueryXML.BasicCondition(cSelectable, MDSS.QueryXML.Operator.EQ, optionName);
+    var condition = new MDSS.QueryXML.BasicCondition(bSelectable, MDSS.QueryXML.Operator.EQ, optionName);
     entity.setCondition(condition);
 
-    this._gridEntities[busAlias] = entity;
+    this._gridEntities[businessAlias] = entity;
 
     // ADD THEMATIC VARIABLE
-    this._queryPanel.addThematicVariable(relAlias, optionName, attributeObj.label);
+    this._queryPanel.addThematicVariable(relationshipAlias, optionName, attribute.getDisplayLabel());
   },
 
-  /**
-   * Returns the alias for a grid relationship.
-   */
-  _getGridRelAlias : function(relType, optionName)
-  {
-    var relTypeName = this._extractTypeName(relType);
-    return relTypeName+'_'+optionName;
-  },
-
-  /**
-   * Returns the alias for a grid business.
-   */
-  _getGridBusAlias : function(relType, optionName, busType)
-  {
-    var relTypeName = this._extractTypeName(relType);
-    var busTypeName = this._extractTypeName(busType);
-    return relTypeName+'_'+optionName+'_'+busTypeName;
-  },
-
-  _extractTypeName : function(type)
-  {
-    var ind = type.lastIndexOf('.');
-    var typeName = type.substring(ind+1);
-    return typeName;
-  },
 
   /**
    * Removes an attribute as a selectable and column.
    */
-  _removeVisibleAttribute : function(attributeName, removeColumn, removeSelectable, removeThematic)
+  _removeVisibleAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
   {
-  	if(removeSelectable === true)
+  	var attributeName = attribute.getAttributeName();
+  	var key = attribute.getKey();
+
+  	if(removeSelectable)
   	{
-      delete this._visibleSelectables[attributeName];
+      delete this._visibleSelectables[attribute.getKey()];
   	}
 
   	// remove all possible query references
-    delete this._visibleAggregateSelectables[attributeName];
-    delete this._visibleGroupBySelectables[attributeName];
+    delete this._visibleAggregateSelectables[attribute.getKey()];
+    delete this._visibleGroupBySelectables[attribute.getKey()];
 
-    if(removeColumn === true)
+    if(removeColumn)
     {
-      var column = this._queryPanel.getColumn(attributeName);
+      var column = this._queryPanel.getColumn(key);
       this._queryPanel.removeColumn(column);
     }
 
-   if(removeThematic === true)
+   if(removeThematic)
    {
-      var aggregatedCaseClass = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
-      this._queryPanel.removeThematicVariable(aggregatedCaseClass, attributeName);
+      this._queryPanel.removeThematicVariable(attribute.getKey(), attributeName);
    }
   },
 
   /**
    * Removes a grid attribute from the selectables and column.
    */
-  _removeGridAttribute : function(relAlias, busAlias, optionName, removeColumn, removeSelectable, removeThematic)
+  _removeGridAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
   {
-  	if(removeSelectable === true)
+  	var relAlias = attribute.getRelationshipAlias();
+
+  	if(removeSelectable)
   	{
       delete this._gridSelectables[relAlias];
   	}
@@ -555,17 +544,17 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     delete this._gridAggregateSelectables[relAlias];
     delete this._gridGroupBySelectables[relAlias];
 
-    if(removeColumn === true)
+    if(removeColumn)
     {
-      var column = this._queryPanel.getColumn(optionName);
+      var column = this._queryPanel.getColumn(attribute.getKey());
       this._queryPanel.removeColumn(column);
 
-      delete this._gridEntities[busAlias];
+      delete this._gridEntities[attribute.getBusinessAlias()];
     }
 
-    if(removeThematic === true)
+    if(removeThematic)
     {
-      this._queryPanel.removeThematicVariable(relAlias, optionName);
+      this._queryPanel.removeThematicVariable(relAlias, attribute.getOptionName());
     }
   },
 
@@ -573,17 +562,17 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
    * Handler to toggle visible attributes as selectables
    * to the AggregatedCase query.
    */
-  _visibleAttributeHandler : function(e, attributeObj)
+  _visibleAttributeHandler : function(e, attribute)
   {
     var check = e.target;
     if(check.checked)
     {
-      this._addVisibleAttribute(attributeObj);
+      this._addVisibleAttribute(attribute);
       check.nextSibling.disabled = false;
     }
     else
     {
-      this._removeVisibleAttribute(attributeObj.key, true, true, true);
+      this._removeVisibleAttribute(attribute, true, true, true);
 
       var select = check.nextSibling;
       select.selectedIndex = 0;
@@ -594,25 +583,17 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   /**
    * Handler when a new grid attribute is checked/unchecked.
    */
-  _gridAttributeHandler : function(e, attributeObj)
+  _gridAttributeHandler : function(e, attribute)
   {
     var check = e.target;
     if(check.checked)
     {
-      this._addGridAttribute(attributeObj);
+      this._addGridAttribute(attribute);
       check.nextSibling.disabled = false;
     }
     else
     {
-      var optionName = attributeObj.key;
-
-      var busType = attributeObj.type;
-      var relType = attributeObj.meta.relType;
-
-      var relAlias = this._getGridRelAlias(relType, optionName);
-      var busAlias = this._getGridBusAlias(relType, optionName, busType);
-
-      this._removeGridAttribute(relAlias, busAlias, optionName, true, true, true);
+      this._removeGridAttribute(attribute, true, true, true);
 
       var select = check.nextSibling;
       select.selectedIndex = 0;
@@ -620,39 +601,30 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     }
   },
 
-  _gridAggregateHandler : function(e, obj)
+  _gridAggregateHandler : function(e, attribute)
   {
-    var func = obj.func;
-    var attributeObj = obj.attributeObj;
+    var func = e.target.value;
 
-    var optionName = attributeObj.key;
-    var attributeName = attributeObj.attributeName;
-    var relAttribute = attributeObj.meta.relAttribute;
+    var optionName = attribute.getOptionName();
+    var attributeName = attribute.getAttributeName();
+    var relationshipAlias = attribute.getRelationshipAlias();
+    var key = attribute.getKey();
 
-    var busType = attributeObj.type;
-    var relType = attributeObj.meta.relType;
-
-    var relAlias = this._getGridRelAlias(relType, optionName);
-    var busAlias = this._getGridBusAlias(relType, optionName, busType);
-
-    var option = e.target;
-
-    var attribute = new MDSS.QueryXML.Attribute(relAlias, relAttribute, optionName);
-    var selectable = new MDSS.QueryXML.Selectable(attribute);
+    var selectable = attribute.getRelationshipSelectable();
 
     // special cases
     if(func === MDSS.QueryXML.Functions.GB)
     {
-  	  this._removeGridAttribute(relAlias, busAlias, optionName, false, false, false);
-      this._gridSelectables[relAlias] = selectable;
-      this._gridGroupBySelectables[relAlias] = selectable;
+  	  this._removeGridAttribute(attribute, false, false, false);
+      this._gridSelectables[relationshipAlias] = selectable;
+      this._gridGroupBySelectables[relationshipAlias] = selectable;
       return;
     }
     else if(func === '')
     {
       // Use regular selectable (this is just here for clarity).
-  	  this._removeGridAttribute(relAlias, busAlias, optionName, false, true, false);
-      this._gridSelectables[relAlias] = selectable;
+  	  this._removeGridAttribute(attribute, false, true, false);
+      this._gridSelectables[relationshipAlias] = selectable;
       return;
     }
 
@@ -660,55 +632,59 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var aggFunc = null;
     if(func === MDSS.QueryXML.Functions.SUM)
     {
-      aggFunc = new MDSS.QueryXML.SUM(selectable, optionName);
+      aggFunc = new MDSS.QueryXML.SUM(selectable, key);
     }
     else if(func === MDSS.QueryXML.Functions.MIN)
     {
-      aggFunc = new MDSS.QueryXML.MIN(selectable, optionName);
+      aggFunc = new MDSS.QueryXML.MIN(selectable, key);
     }
     else if(func === MDSS.QueryXML.Functions.MAX)
     {
-      aggFunc = new MDSS.QueryXML.MAX(selectable, optionName);
+      aggFunc = new MDSS.QueryXML.MAX(selectable, key);
     }
     else if(func === MDSS.QueryXML.Functions.AVG)
     {
-      aggFunc = new MDSS.QueryXML.AVG(selectable, optionName);
+      aggFunc = new MDSS.QueryXML.AVG(selectable, key);
+    }
+    else if(func === MDSS.QueryXML.Functions.COUNT)
+    {
+      aggFunc = new MDSS.QueryXML.COUNT(selectable, key);
     }
 
-  	this._removeGridAttribute(relAlias, busAlias, optionName, false, true, false);
+  	this._removeGridAttribute(attribute, false, true, false);
 
     var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
-    this._gridAggregateSelectables[relAlias] = aggSelectable;
+    this._gridAggregateSelectables[relationshipAlias] = aggSelectable;
   },
 
   /**
    * Handler when someone selects an aggregate function
    * on a visible attribute.
    */
-  _visibleAggregateHandler : function(e, obj)
+  _visibleAggregateHandler : function(e, attribute)
   {
-    var func = obj.func;
-    var attributeName = obj.attribute;
+    var func = e.target.value;
+    var attributeName = attribute.getAttributeName();
+    var key = attribute.getKey();
 
 
     var option = e.target;
 
-    var attribute = new MDSS.QueryXML.Attribute(Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS, attributeName, attributeName);
-    var selectable = new MDSS.QueryXML.Selectable(attribute);
+    var selectable = attribute.getSelectable();
 
     // special cases
     if(func === MDSS.QueryXML.Functions.GB)
     {
-  	  this._removeVisibleAttribute(attributeName, false, false, false);
-      this._visibleSelectables[attributeName] = selectable;
-      this._visibleGroupBySelectables[attributeName] = selectable;
+  	  this._removeVisibleAttribute(attribute, false, false, false);
+      this._visibleSelectables[attribute.getKey()] = selectable;
+      this._visibleGroupBySelectables[attribute.getKey()] = selectable;
       return;
     }
     else if(func === '')
     {
       // Use regular selectable (this is just here for clarity).
-  	  this._removeVisibleAttribute(attributeName, false, true, false);
-      this._visibleSelectables[attributeName] = selectable;
+  	  this._removeVisibleAttribute(attribute, false, true, false);
+      this._visibleSelectables[attribute.getKey()] = selectable;
       return;
     }
 
@@ -716,25 +692,29 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var aggFunc = null;
     if(func === MDSS.QueryXML.Functions.SUM)
     {
-      aggFunc = new MDSS.QueryXML.SUM(selectable, attributeName);
+      aggFunc = new MDSS.QueryXML.SUM(selectable, key);
     }
     else if(func === MDSS.QueryXML.Functions.MIN)
     {
-      aggFunc = new MDSS.QueryXML.MIN(selectable, attributeName);
+      aggFunc = new MDSS.QueryXML.MIN(selectable, key);
     }
     else if(func === MDSS.QueryXML.Functions.MAX)
     {
-      aggFunc = new MDSS.QueryXML.MAX(selectable, attributeName);
+      aggFunc = new MDSS.QueryXML.MAX(selectable, key);
     }
     else if(func === MDSS.QueryXML.Functions.AVG)
     {
-      aggFunc = new MDSS.QueryXML.AVG(selectable, attributeName);
+      aggFunc = new MDSS.QueryXML.AVG(selectable, key);
+    }
+    else if(func === MDSS.QueryXML.Functions.COUNT)
+    {
+      aggFunc = new MDSS.QueryXML.COUNT(selectable, key);
     }
 
-  	this._removeVisibleAttribute(attributeName, false, true, false);
+  	this._removeVisibleAttribute(attribute, false, true, false);
 
     var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
-    this._visibleAggregateSelectables[attributeName] = aggSelectable;
+    this._visibleAggregateSelectables[attribute.getKey()] = aggSelectable;
   },
 
   /**
@@ -758,8 +738,8 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
      */
     var ageGroupDiv = document.createElement('div');
 
-    var ageSpan = document.createElement('span');
-    ageSpan.innerHTML = MDSS.Localized.Age_Group;
+    var ageDiv = document.createElement('div');
+    ageDiv	.innerHTML = MDSS.Localized.Age_Group;
 
     // group by
     var groupBy = document.createElement('ul');
@@ -816,7 +796,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       groups.appendChild(li);
     }
 
-    ageGroupDiv.appendChild(ageSpan);
+    ageGroupDiv.appendChild(ageDiv);
     ageGroupDiv.appendChild(groupBy);
     ageGroupDiv.appendChild(groups);
 
@@ -829,37 +809,49 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
      * Visible Attributes
      */
     var visibleDiv = document.createElement('div');
-    var visibleSpan = document.createElement('span');
-    visibleSpan.innerHTML = MDSS.Localized.Aggregated_Case;
+    YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
 
-    visibleDiv.appendChild(visibleSpan);
+    var labelDiv = document.createElement('div');
+    YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
+    labelDiv.innerHTML = MDSS.Localized.Aggregated_Case;
+
+    var toggleDiv = document.createElement('div');
+    YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
+    YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
+    toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
+
+    visibleDiv.appendChild(labelDiv);
+    visibleDiv.appendChild(toggleDiv);
 
     var visibleUl = document.createElement('ul');
+    YAHOO.util.Dom.setStyle(visibleUl, 'clear', 'both');
+    YAHOO.util.Dom.setStyle(visibleUl, 'display', 'none');
+
+    this._toggleVisibility(toggleDiv, visibleUl);
+
+    this._attachSelectAll(visibleUl);
+
+    var type = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
     for(var i=0; i<visibleAttributes.length; i++)
     {
-      var visible = visibleAttributes[i];
-      var md = this._aggregatedCase.getAttributeDTO(visible).getAttributeMdDTO();
-      var display = md.getDisplayLabel();
+      var visibleObj = visibleAttributes[i];
+      var attribute = new MDSS.VisibleAttribute(visibleObj);
 
       var li = document.createElement('li');
 
       var span = document.createElement('span');
-      span.innerHTML = display;
+      span.innerHTML = attribute.getDisplayLabel();
 
-      // used to build a column
-      var attributeObj = {
-      	key: visible,
-      	label: display
-      }
 
       var check = document.createElement('input');
       YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-      YAHOO.util.Dom.setAttribute(check, 'value', visible);
-      YAHOO.util.Event.on(check, 'click', this._visibleAttributeHandler, attributeObj, this);
+      YAHOO.util.Event.on(check, 'click', this._visibleAttributeHandler, attribute, this);
 
       var select = document.createElement('select');
       var options = [''];
       options = options.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
+
+
       for(var j=0; j<options.length; j++)
       {
       	var option = options[j];
@@ -867,12 +859,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         optionEl.innerHTML = option;
         YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
 
-        var obj = {
-          func: option,
-          attribute: visible
-        };
-
-        YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, obj, this);
+        YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
 
         select.appendChild(optionEl);
       }
@@ -900,41 +887,44 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       var order = orderedGrids[i];
 
       var gridDiv = document.createElement('div');
-      var labelSpan = document.createElement('span');
-      labelSpan.innerHTML = order.label;
+      YAHOO.util.Dom.addClass(gridDiv, 'scrollable');
 
-      gridDiv.appendChild(labelSpan);
+      var labelDiv = document.createElement('div');
+      YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
+      labelDiv.innerHTML = order.label;
+
+      var toggleDiv = document.createElement('div');
+      YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
+      YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
+      toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
+
+      gridDiv.appendChild(labelDiv);
+      gridDiv.appendChild(toggleDiv);
 
       var ul = document.createElement('ul');
       YAHOO.util.Dom.addClass(ul, 'gridList');
+      YAHOO.util.Dom.setStyle(ul, 'clear', 'both');
+      YAHOO.util.Dom.setStyle(ul, 'display', 'none');
+
+      this._toggleVisibility(toggleDiv, ul);
+
+      this._attachSelectAll(ul);
 
       var options = order.options;
       for(var j=0; j<options.length; j++)
       {
       	var option = options[j];
-      	var display = option.display;
-      	var optionName = option.optionName;
-      	var type = option.type;
-      	var attributeName = option.attributeName;
+        var attribute = new MDSS.GridAttribute(option, order);
 
         var li = document.createElement('li');
 
         var span = document.createElement('span');
-        span.innerHTML = display;
+        span.innerHTML = attribute.getDisplayLabel();
 
-        // used to build a column
-        var attributeObj = {
-          key: optionName,
-          attributeName: attributeName,
-          label: display,
-          type: type,
-          meta: order
-        }
 
         var check = document.createElement('input');
         YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-        YAHOO.util.Dom.setAttribute(check, 'value', optionName);
-        YAHOO.util.Event.on(check, 'click', this._gridAttributeHandler, attributeObj, this);
+        YAHOO.util.Event.on(check, 'click', this._gridAttributeHandler, attribute, this);
 
         var select = document.createElement('select');
         var aggOptions = [''];
@@ -947,12 +937,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
           optionEl.innerHTML = aggOption;
           YAHOO.util.Dom.setAttribute(optionEl, 'value', aggOption);
 
-          var obj = {
-            func: aggOption,
-            attributeObj: attributeObj
-          };
-
-          YAHOO.util.Event.on(optionEl, 'click', this._gridAggregateHandler, obj, this);
+          YAHOO.util.Event.on(optionEl, 'click', this._gridAggregateHandler, attribute, this);
 
           select.appendChild(optionEl);
         }
@@ -975,22 +960,94 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   },
 
   /**
+   * Attaches an option to select all items in the given list.
+   */
+  _attachSelectAll : function(ul)
+  {
+    var check = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+    YAHOO.util.Event.on(check, 'click', this._toggleSelectAll, ul, this);
+
+    var span = document.createElement('span');
+    span.innerHTML = MDSS.Localized.Select_All;
+
+    var li = document.createElement('li');
+    li.appendChild(check);
+    li.appendChild(span);
+
+    ul.appendChild(li);
+  },
+
+  /**
+   *
+   */
+  _toggleSelectAll : function(e, ul)
+  {
+  	var check = e.target;
+  	var checks = YAHOO.util.Selector.query('input[type="checkbox"]', ul);
+  	var doCheck = check.checked;
+
+    for(var i=0; i<checks.length; i++)
+    {
+      var check = checks[i];
+      if(doCheck !== check.checked)
+      {
+        check.click();
+      }
+    }
+  },
+
+  /**
+   * Handler to toggle the visibility of a list.
+   */
+  _toggleVisibility : function(toggle, element)
+  {
+    YAHOO.util.Event.on(toggle, 'click', function(e, obj){
+      var el = obj.element;
+      var toggle = obj.toggle;
+
+      if(YAHOO.util.Dom.getStyle(el, 'display') === 'block')
+      {
+        YAHOO.util.Dom.setStyle(el, 'display', 'none');
+        toggle.innerHTML = MDSS.Localized.Toggle_Show;
+      }
+      else
+      {
+        YAHOO.util.Dom.setStyle(el, 'display', 'block');
+        toggle.innerHTML = MDSS.Localized.Toggle_Hide;
+      }
+
+    }, {toggle: toggle, element: element}, this);
+
+  },
+
+  /**
    * Builds the column information (pre-render) for the table
    * in the the QueryPanel.
    */
   _buildColumns : function()
   {
+  	var type = this._aggregatedCase.getType();
+
     // startAge
-    this._preconfiguredColumns.push({
-      key: this._aggregatedCase.getStartAgeMd().getName(),
-      label: this._aggregatedCase.getStartAgeMd().getDisplayLabel()
+    var startAge = this._aggregatedCase.getStartAgeMd().getName();
+    var startAgeObj = new MDSS.VisibleAttribute({
+      type: type,
+      attributeName : startAge,
+      displayLabel: this._aggregatedCase.getStartAgeMd().getDisplayLabel(),
     });
 
+    this._preconfiguredColumns.push(startAgeObj);
+
     // endAge
-    this._preconfiguredColumns.push({
-      key: this._aggregatedCase.getEndAgeMd().getName(),
-      label: this._aggregatedCase.getEndAgeMd().getDisplayLabel()
+    var endAge = this._aggregatedCase.getEndAgeMd().getName();
+    var endAgeObj = new MDSS.VisibleAttribute({
+      type: type,
+      displayLabel: this._aggregatedCase.getEndAgeMd().getDisplayLabel(),
+      attributeName: endAge
     });
+
+    this._preconfiguredColumns.push(endAgeObj);
   },
 
   /**
@@ -1016,3 +1073,151 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     }
   }
 });
+
+MDSS.AbstractAttribute = function(obj)
+{
+  	this._type = obj.type;
+  	this._displayLabel = obj.displayLabel;
+  	this._attributeName = obj.attributeName;
+
+  	this._key = this._type.substring(this._type.lastIndexOf('.')+1) +'_'+this._attributeName;
+};
+MDSS.AbstractAttribute.prototype = {
+
+  /**
+   * Unique key used with YUI Column
+   * and as the user alias for the attribute
+   * in a ValueObject.
+   */
+  getKey : function()
+  {
+  	return this._key;
+  },
+
+  getType : function()
+  {
+  	return this._type;
+  },
+
+  getAttributeName : function()
+  {
+  	return this._attributeName;
+  },
+
+  getDisplayLabel : function()
+  {
+  	return this._displayLabel;
+  },
+
+  /**
+   * Returns an object compatible with YUI Column's
+   * constructor.
+   */
+  getColumnObject : function()
+  {
+  	return {
+  	  key: this._key,
+  	  label: this._displayLabel
+  	};
+  }
+};
+
+MDSS.VisibleAttribute = function(obj)
+{
+  Mojo.util.copy(new MDSS.AbstractAttribute(obj), this);
+};
+MDSS.VisibleAttribute.prototype = {
+
+  /**
+   * Returns a basic selectable object that represents this
+   * attribute.
+   */
+  getSelectable : function()
+  {
+    var attribute = new MDSS.QueryXML.Attribute(this._type, this._attributeName, this._key);
+    var selectable = new MDSS.QueryXML.Selectable(attribute);
+    return selectable;
+  }
+};
+
+MDSS.GridAttribute = function(obj, meta)
+{
+  Mojo.util.copy(new MDSS.AbstractAttribute(obj), this);
+
+  this._optionName = obj.optionName;
+  this._meta = meta;
+
+  var busType = this._type;
+  var relType = this._meta.relType;
+
+  this._relAlias = this._getGridRelAlias(relType, this._optionName);
+  this._busAlias = this._getGridBusAlias(relType, this._optionName, busType);
+};
+MDSS.GridAttribute.prototype = {
+
+  getOptionName : function()
+  {
+  	return this._optionName;
+  },
+
+  /**
+   * Returns the namespaced business alias for this attribute.
+   */
+  getBusinessAlias : function()
+  {
+    return this._busAlias;
+  },
+
+  /**
+   * Returns the namespaced relationship alias for this attribute.
+   */
+  getRelationshipAlias : function()
+  {
+    return this._relAlias;
+  },
+
+  getRelationshipType : function()
+  {
+  	return this._meta.relType;
+  },
+
+  getRelationshipSelectable : function()
+  {
+  	var attribute = new MDSS.QueryXML.Attribute(this._relAlias, this._meta.relAttribute, this._key);
+    var selectable = new MDSS.QueryXML.Selectable(attribute);
+    return selectable;
+  },
+
+  getBusinessSelectable : function()
+  {
+    var attribute = new MDSS.QueryXML.Attribute(this._busAlias, this._attributeName);
+    var selectable = new MDSS.QueryXML.Selectable(attribute);
+    return selectable;
+  },
+
+  /**
+   * Returns the alias for a grid relationship.
+   */
+  _getGridRelAlias : function(relType, optionName)
+  {
+    var relTypeName = this._extractTypeName(relType);
+    return relTypeName+'_'+optionName;
+  },
+
+  /**
+   * Returns the alias for a grid business.
+   */
+  _getGridBusAlias : function(relType, optionName, busType)
+  {
+    var relTypeName = this._extractTypeName(relType);
+    var busTypeName = this._extractTypeName(busType);
+    return relTypeName+'_'+optionName+'_'+busTypeName;
+  },
+
+  _extractTypeName : function(type)
+  {
+    var ind = type.lastIndexOf('.');
+    var typeName = type.substring(ind+1);
+    return typeName;
+  },
+};

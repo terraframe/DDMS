@@ -281,8 +281,17 @@ h2
 	height:450px;
 	width:450px;
 	overflow-y:scroll;
-	margin-top: 15px;
+	/*margin-top: 15px;*/
 	padding-right: 5px;
+	float:left;
+}
+
+#searchSelection {
+	width: 250px;
+	height: 450px;
+	overflow-y:scroll;
+	/*margin-top: 15px;*/
+	padding-left: 5px;
 }
 
 #queryPanel {
@@ -299,8 +308,12 @@ h2
 
 ul#queryItemsList li {
   background-color: white;
-  padding:5px;
   border: 1px solid black;
+  padding: 5px 0px 0px 5px;
+}
+
+ul#queryItemsList li ul li {
+  padding: 5px;
 }
 
 div#dateRange {
@@ -513,4 +526,16 @@ div.colorPickerValue {
 
 #visibleAttributesItem li select, .gridList li select {
 	margin-right: 5px;
+}
+
+div.queryItemLabel {
+}
+
+div.queryItemToggle {
+	font-size: 10px;
+}
+
+div.scrollable {
+	overflow: scroll;
+	max-height: 300px;
 }

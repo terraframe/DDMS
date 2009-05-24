@@ -108,8 +108,6 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    // create views (if needed) for all other layers
    for (String layerId : universalLayers)
    {
-     // TODO return null if count(*) == 0 and don't add
-     // to layers (do inside createViewTable())
      UniversalLayer layer = UniversalLayer.get(layerId);
      GeoHierarchy geoH = layer.getGeoHierarchy();
 
