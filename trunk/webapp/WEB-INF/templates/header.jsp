@@ -8,19 +8,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >
-<link rel="stylesheet" type="text/css" href="js/yui/build/colorpicker/assets/skins/sam/colorpicker.css">
+<!--<link rel="stylesheet" type="text/css" href="js/yui/build/colorpicker/assets/skins/sam/colorpicker.css">-->
 
 <jwr:style src="/bundles/yuiStyle.css"/>
 <jwr:style src="/bundles/mdssScreen.css"/>
-<jwr:style src="/bundles/mdssPrint.css" media="print"/>
 
 <jwr:script src="/bundles/yuiBundle.js"/>
 <jwr:script src="/bundles/Mojo.js"/>
 <script type="text/javascript" src="js/Localized.js.jsp"></script>
-
 <jwr:script src="/bundles/mdssBundle.js"/>
 
-<link rel="stylesheet" type="text/css" href="css/style.css" />
+
 <c:choose>
   <c:when test='${window_title != null}'>
     <title><fmt:message key="${window_title}"/></title>
