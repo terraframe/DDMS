@@ -539,3 +539,77 @@ div.scrollable {
 	overflow: scroll;
 	max-height: 300px;
 }
+
+.geoOpener{
+	padding-left:5px;
+	vertical-align:-10%;
+}
+
+/*---------------------------------------------------------------*/
+/*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
+/*---------------------------------------------------------------*/
+@media print {
+  @charset "utf-8";
+
+	/* CSS Document */
+	body {
+		margin-left: 0px;
+		margin-top: 0px;
+		margin-right: 0px;
+		margin-bottom: 0px;
+		min-width: 800px;
+		text-align: left;
+	}
+
+	#navContainer {
+		display: none;
+	}
+
+	#uploadLogo img{
+		display: none;
+	}
+
+	.header {
+		display: none;
+	}
+
+	.hTitle {
+		display: none;
+	}
+
+	#freeText {
+		display: none;
+	}
+
+	.pageFooter {
+		display: none;
+	}
+
+	.first-of-type{
+		display: none;
+	}
+
+	input[type="button"],input[type="submit"] {
+	  display: none;
+	}
+
+	.noprint{
+		display: none;
+	}
+	.fldContainer
+	{
+		border: 0px solid black;
+		margin: 0 0 0 0;
+		padding: 0 0 0 0;
+	}
+	.fcTop
+	{
+		border: 2px solid black;
+		border-width: 2px 0 0 0;
+		margin-left: 0px;
+		padding: 12px 12px 12px 12px;
+	}
+}
+/*---------------------------------------------------------------*/
+/*   DO NOT PUT ANYTHING BELOW THIS LINE, PUT CHANGES ABOVE THE PRINT STYLES  */
+/*---------------------------------------------------------------*/
