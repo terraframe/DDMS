@@ -187,7 +187,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     GeoEntityQuery q = new GeoEntityQuery(f);
     ValueQuery valueQuery = new ValueQuery(f);
 
-    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID) };
+    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE) };
     valueQuery.SELECT(selectables);
 
     String searchable = name + "%";
