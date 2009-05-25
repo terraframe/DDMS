@@ -18,7 +18,14 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
     concrete.setRoom(this.getRoom());
     concrete.setStructureArea(this.getStructureArea());
     concrete.setHousehold(this.getHousehold());
-    concrete.setUnitNozzleAreaCoverage(this.getUnitNozzleAreaCoverage());
+    concrete.setUnitNozzleAreaCoverage(this.getUnitNozzleAreaCoverage()); 
+    
+    concrete.clearTargetUnit();
+    
+    for(TargetUnit unit : this.getTargetUnit())
+    {
+      concrete.addTargetUnit(unit);
+    }
   }
 
   private boolean hasConcrete()
@@ -36,11 +43,11 @@ public class AreaStandardsView extends AreaStandardsViewBase implements com.terr
     {
       concrete = AreaStandards.lock(this.getAreaStandardsId());
     }
-
+    
     this.populateConcrete(concrete);
 
     concrete.apply();
-    concrete.populateView(this);
+    concrete.populateView(this); 
   }
 
   @Override

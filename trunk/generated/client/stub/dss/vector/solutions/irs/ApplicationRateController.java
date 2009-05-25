@@ -49,8 +49,10 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
       return;
     }
 
+    req.setAttribute("targetUnits", TargetUnitDTO.allItems(this.getClientRequest())); 
     req.setAttribute("dto", dto);
     render("viewComponent.jsp");
+    
   }
 
   @Override
