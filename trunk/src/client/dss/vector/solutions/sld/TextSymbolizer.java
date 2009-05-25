@@ -37,7 +37,10 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
     writer.writeln("<TextSymbolizer>");
     writer.writeln("<Label>");
 
-    if(layer instanceof ThematicLayerDTO && layer.getGeometryStyle() instanceof PointStyleDTO)
+
+    if(layer instanceof ThematicLayerDTO
+        && layer.getGeometryStyle() instanceof PointStyleDTO
+        && ((ThematicLayerDTO)layer).getThematicVariable() != null)
     {
       writer.write("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
       writer.writeln(" (<ogc:PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</ogc:PropertyName>)");
