@@ -13,31 +13,6 @@
               required="true"
               label="Age Group" />
           </attributes>
-          <mdMethod
-            name="getDiagnosticMethods"
-            label="getDiagnosticMethods"
-            static="false"
-            returnType="dss.vector.solutions.surveillance.CaseDiagnostic[]" />
-          <mdMethod
-            name="getReferrals"
-            label="getReferrals"
-            static="false"
-            returnType="dss.vector.solutions.surveillance.CaseReferral[]" />
-          <mdMethod
-            name="getTreatments"
-            label="getTreatments"
-            static="false"
-            returnType="dss.vector.solutions.surveillance.CaseTreatment[]" />
-          <mdMethod
-            name="getTreatmentMethods"
-            label="getTreatmentMethods"
-            static="false"
-            returnType="dss.vector.solutions.surveillance.CaseTreatmentMethod[]" />
-          <mdMethod
-            name="getTreatmentStocks"
-            label="getTreatmentStocks"
-            static="false"
-            returnType="dss.vector.solutions.surveillance.CaseTreatmentStock[]" />
         </create>
       </mdBusiness>
     </update>
