@@ -115,6 +115,10 @@ for(int i = 0;i<=106;i++)
 
     colConfig += ",\n{sum:true, key:'Target_" + i + "',label:'" + ((i%53)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
   }
+  else
+  {
+    colConfig += "\n,{key:'Target_" + i + "',hidden:true}";
+  }
 }
 
 %>

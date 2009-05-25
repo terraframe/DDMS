@@ -223,7 +223,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			  {
 				  myDataTable.updateCell(lastRecord,editor.getColumn(),newTotal);
 				 //lastRecord.setData(editor.getColumn().key, newTotal);
-				  var save_now = 'table_data.rows[' + lastIndex + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newTotal+ '"';
+				  var save_now = 'table_data.rows[' + lastIndex + '].' + editor.getColumn().key + ' = ' + newTotal+ '';
 				  eval(save_now);
 			  }
 
