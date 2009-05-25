@@ -35,18 +35,15 @@ request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
     <dt> <label> ${item.dateCollectedMd.displayLabel}</label></dt>
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick NoFuture" id="collectionDate"/></dd>
     <dt> <label> ${item.collectionMethodMd.displayLabel}</label> </dt>
-
-    <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod.componentId" >
-       <mjl:option>
+    <dd>
+      <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod.componentId" >
+        <mjl:option>
           ${current.displayLabel}
-       </mjl:option>
-    </mjl:select>
+        </mjl:option>
+      </mjl:select>
+    </dd>
+    <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionController.searchByGeoIdAndDate.mojo" name="search.button" value="Search"/>
   </dl>
-  <br>
-  <br>
-  <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionController.searchByGeoIdAndDate.mojo" name="search.button"
-  value="Search"
-  />
 </mjl:form>
 
 
