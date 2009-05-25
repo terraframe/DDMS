@@ -1048,6 +1048,8 @@ MDSS.QueryPanel.prototype = {
     wrapper.appendChild(universalListDiv);
     wrapper.appendChild(layersListDiv);
 
+    // clear any prior HTML
+    this._mLeftUnit.body.innerHTML = '';
     var body = new YAHOO.util.Element(this._mLeftUnit.body);
     body.appendChild(wrapper);
   },
