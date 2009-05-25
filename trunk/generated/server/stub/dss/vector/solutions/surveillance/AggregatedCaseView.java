@@ -1,6 +1,8 @@
 package dss.vector.solutions.surveillance;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.session.Session;
@@ -10,9 +12,8 @@ import dss.vector.solutions.PeriodMonthProblem;
 import dss.vector.solutions.PeriodQuarterProblem;
 import dss.vector.solutions.PeriodWeekProblem;
 
-
-
-public abstract class AggregatedCaseView extends AggregatedCaseViewBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class AggregatedCaseView extends AggregatedCaseViewBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239135495810L;
 
@@ -169,7 +170,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   {
     AggregatedCase c = new AggregatedCase();
 
-    if(hasCaseId())
+    if (hasConcreteId())
     {
       c = AggregatedCase.get(this.getCaseId());
     }
@@ -229,7 +230,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   @Override
   public void lockCase()
   {
-    if(hasCaseId())
+    if (hasConcreteId())
     {
       AggregatedCase lock = AggregatedCase.lock(this.getCaseId());
       lock.updateView(this);
@@ -239,7 +240,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   @Override
   public void unlockCase()
   {
-    if(hasCaseId())
+    if (hasConcreteId())
     {
       AggregatedCase lock = AggregatedCase.unlock(this.getCaseId());
       lock.updateView(this);
@@ -258,18 +259,19 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   @Override
   public final void delete()
   {
-    if(hasCaseId())
+    if (hasConcreteId())
     {
       AggregatedCase.get(this.getCaseId()).delete();
     }
   }
 
-  private boolean hasCaseId()
+  private boolean hasConcreteId()
   {
     return this.getCaseId() != null && !this.getCaseId().equals("");
   }
 
-  public void applyAll(CaseTreatment[] treatments, CaseTreatmentMethod[] treatmentMethods, CaseTreatmentStock[] stock, CaseDiagnostic[] diagnosticMethods, CaseReferral[] referrals)
+  public void applyAll(CaseTreatment[] treatments, CaseTreatmentMethod[] treatmentMethods,
+      CaseTreatmentStock[] stock, CaseDiagnostic[] diagnosticMethods, CaseReferral[] referrals)
   {
     AggregatedCase aggregatedCase = this.getAggregatedCase();
     aggregatedCase.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
@@ -277,16 +279,166 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
     aggregatedCase.updateView(this);
   }
 
-  public static AggregatedCaseView get(String id)
+  public CaseDiagnostic[] getDiagnosticMethods()
   {
-    return (AggregatedCaseView) AggregatedCase.get(id).getView();
+    Set<CaseDiagnostic> set = new TreeSet<CaseDiagnostic>(new GridComparator());
+
+    for (DiagnosticGrid d : DiagnosticGrid.getAll())
+    {
+      set.add(new CaseDiagnostic(this.getId(), d.getId()));
+    }
+
+    if (this.hasConcreteId())
+    {
+      AggregatedCase c = AggregatedCase.get(this.getCaseId());
+
+      for (CaseDiagnostic d : c.getAllDiagnosticMethodRel())
+      {
+        // We will only want Diagnostic methods which are active
+        // All active methods are already in the set.  Thus, if
+        // the set already contains an entry for the Grid Option
+        // replace the default relationshipo with the actaul
+        // relationship
+        if(set.contains(d))
+        {
+          set.remove(d);
+          set.add(d);
+        }
+      }
+    }
+
+    return set.toArray(new CaseDiagnostic[set.size()]);
   }
-  
+
+  public CaseReferral[] getReferrals()
+  {
+    Set<CaseReferral> set = new TreeSet<CaseReferral>(new GridComparator());
+
+    for (ReferralGrid d : ReferralGrid.getAll())
+    {
+      set.add(new CaseReferral(this.getId(), d.getId()));
+    }
+
+    if (this.hasConcreteId())
+    {
+      AggregatedCase c = AggregatedCase.get(this.getCaseId());
+
+      for (CaseReferral d : c.getAllReferralRel())
+      {
+        // We will only want grid options methods which are active
+        // All active methods are already in the set.  Thus, if
+        // the set already contains an entry for the Grid Option
+        // replace the default relationship with the actaul
+        // relationship
+        if(set.contains(d))
+        {
+          set.remove(d);
+          set.add(d);
+        }
+      }
+    }
+
+    return set.toArray(new CaseReferral[set.size()]);
+  }
+
+  public CaseTreatmentMethod[] getTreatmentMethods()
+  {
+    Set<CaseTreatmentMethod> set = new TreeSet<CaseTreatmentMethod>(new GridComparator());
+    
+    for (TreatmentMethodGrid d : TreatmentMethodGrid.getAll())
+    {
+      set.add(new CaseTreatmentMethod(this.getId(), d.getId()));
+    }
+
+    if (this.hasConcreteId())
+    {
+      AggregatedCase c = AggregatedCase.get(this.getCaseId());
+
+      for (CaseTreatmentMethod d : c.getAllTreatmentMethodRel())
+      {
+        // We will only want grid options methods which are active
+        // All active methods are already in the set.  Thus, if
+        // the set already contains an entry for the Grid Option
+        // replace the default relationship with the actaul
+        // relationship
+        if(set.contains(d))
+        {
+          set.remove(d);
+          set.add(d);
+        }
+      }
+    }
+
+    return set.toArray(new CaseTreatmentMethod[set.size()]);
+  }
+
+  public CaseTreatment[] getTreatments()
+  {
+    Set<CaseTreatment> set = new TreeSet<CaseTreatment>(new GridComparator());
+
+    for (TreatmentGrid d : TreatmentGrid.getAll())
+    {
+      set.add(new CaseTreatment(this.getId(), d.getId()));
+    }
+
+    if (this.hasConcreteId())
+    {
+      AggregatedCase c = AggregatedCase.get(this.getCaseId());
+
+      for (CaseTreatment d : c.getAllTreatmentRel())
+      {
+        // We will only want grid options methods which are active
+        // All active methods are already in the set.  Thus, if
+        // the set already contains an entry for the Grid Option
+        // replace the default relationship with the actaul
+        // relationship
+        if(set.contains(d))
+        {
+          set.remove(d);
+          set.add(d);
+        }
+      }
+    }
+
+    return set.toArray(new CaseTreatment[set.size()]);
+  }
+
+  public CaseTreatmentStock[] getTreatmentStocks()
+  {
+    Set<CaseTreatmentStock> set = new TreeSet<CaseTreatmentStock>(new GridComparator());
+
+    for (TreatmentGrid d : TreatmentGrid.getAll())
+    {
+      set.add(new CaseTreatmentStock(this.getId(), d.getId()));
+    }
+
+    if (this.hasConcreteId())
+    {
+      AggregatedCase c = AggregatedCase.get(this.getCaseId());
+
+      for (CaseTreatmentStock d : c.getAllTreatmentStockRel())
+      {
+        // We will only want grid options methods which are active
+        // All active methods are already in the set.  Thus, if
+        // the set already contains an entry for the Grid Option
+        // replace the default relationship with the actaul
+        // relationship
+        if(set.contains(d))
+        {
+          set.remove(d);
+          set.add(d);
+        }
+      }
+    }
+
+    return set.toArray(new CaseTreatmentStock[set.size()]);
+  }
+
   @Transaction
   public static void validateEpiDate(String periodType, Integer period, Integer year)
   {
     PeriodType type = PeriodType.valueOf(periodType);
-    
+
     if (period > type.getMaximumPeriod() && type.equals(PeriodType.QUARTER))
     {
       PeriodQuarterProblem p = new PeriodQuarterProblem();
@@ -307,16 +459,16 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
       p.setPeriod(period);
       p.setMaxPeriod(type.getMaximumPeriod());
       p.throwIt();
-    }    
-    
+    }
+
     EpiDate date = new EpiDate(type, period, year);
-    
+
     Date current = new Date();
 
     if (current.before(date.getStartDate()) || current.before(date.getEndDate()))
     {
       String msg = "The period contains date past the current date";
-      
+
       FuturePeriodProblem p = new FuturePeriodProblem(msg);
       p.setAttributeName(PERIODYEAR);
       p.setAttributeDisplayLabel(getPeriodYearMd().getDisplayLabel(Session.getCurrentLocale()));

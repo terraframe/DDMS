@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -25,21 +26,32 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.terr
   public void apply()
   {
     List<SprayMethod> method = this.getSprayMethod();
-    OperatorSpray spray = new OperatorSpray();
 
     SprayData data = SprayData.get(this.getBrand(), this.getGeoEntity(), this.getSprayDate(), method.toArray(new SprayMethod[method.size()]));
-
-    this.applySprayData(data);
+    
+    OperatorSpray spray = new OperatorSpray();
 
     if(this.hasConcrete())
     {
       spray = OperatorSpray.get(this.getSprayId());
     }
+    
+    this.populateMapping(spray, data);
+
+    this.applySprayData(data);
 
     this.populateConcrete(spray, data);
 
     spray.apply();
     spray.populateView(this);
+  }
+
+  protected void populateMapping(OperatorSpray spray, SprayData data)
+  {
+    super.populateMapping(spray, data);
+    
+    new AttributeNotificationMap(spray, OperatorSpray.OPERATORSPRAYWEEK, this, OperatorSprayView.OPERATORSPRAYWEEK);
+    new AttributeNotificationMap(spray, OperatorSpray.SPRAYOPERATOR, this, OperatorSprayView.SPRAYOPERATOR);
   }
 
   protected void populateConcrete(OperatorSpray spray, SprayData data)

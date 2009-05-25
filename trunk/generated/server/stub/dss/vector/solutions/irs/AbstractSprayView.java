@@ -1,5 +1,7 @@
 package dss.vector.solutions.irs;
 
+import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
+
 public abstract class AbstractSprayView extends AbstractSprayViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240860693788L;
@@ -45,6 +47,15 @@ public abstract class AbstractSprayView extends AbstractSprayViewBase implements
       
       data.apply();
     }
+  }
+  
+  protected void populateMapping(AbstractSpray spray, SprayData data)
+  {
+    new AttributeNotificationMap(data, SprayData.BRAND, this, AbstractSprayView.BRAND);
+    new AttributeNotificationMap(data, SprayData.GEOENTITY, this, AbstractSprayView.GEOENTITY);
+    new AttributeNotificationMap(data, SprayData.SPRAYDATE, this, AbstractSprayView.SPRAYDATE);
+    new AttributeNotificationMap(data, SprayData.SPRAYMETHOD, this, AbstractSprayView.SPRAYMETHOD);
+    new AttributeNotificationMap(data, SprayData.SURFACETYPE, this, AbstractSprayView.SURFACETYPE);    
   }
 
 }

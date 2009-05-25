@@ -1,18 +1,14 @@
 package dss.vector.solutions.general;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import java.util.Calendar;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.EpiWeek;
-import dss.vector.solutions.Property;
-import dss.vector.solutions.PropertyDTO;
-import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.surveillance.EpiDate;
 import dss.vector.solutions.surveillance.PeriodType;
 

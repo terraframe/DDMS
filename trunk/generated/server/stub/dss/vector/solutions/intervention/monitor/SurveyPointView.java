@@ -3,6 +3,7 @@ package dss.vector.solutions.intervention.monitor;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.query.OIterator;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -60,11 +61,19 @@ public class SurveyPointView extends SurveyPointViewBase implements com.terrafra
       point = SurveyPoint.lock(this.getConcreteId());
     }
 
+    this.populateMapping(point);
+    
     this.populateConcrete(point);
 
     point.apply();
     
     this.populateView(point);
+  }
+
+  private void populateMapping(SurveyPoint point)
+  {
+    new AttributeNotificationMap(point, SurveyPoint.GEOENTITY, this, SurveyPointView.GEOID);
+    new AttributeNotificationMap(point, SurveyPoint.SURVEYDATE, this, SurveyPointView.SURVEYDATE);
   }
 
   public void populateView(SurveyPoint point)

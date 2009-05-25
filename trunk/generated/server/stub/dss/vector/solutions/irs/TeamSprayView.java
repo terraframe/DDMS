@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -27,19 +28,28 @@ public class TeamSprayView extends TeamSprayViewBase implements
     List<SprayMethod> method = this.getSprayMethod();
     TeamSpray spray = new TeamSpray();
 
-    SprayData data = SprayData.get(this.getBrand(), this.getGeoEntity(), this.getSprayDate(), method.toArray(new SprayMethod[method.size()]));
-
-    this.applySprayData(data);
-
     if (this.hasConcrete())
     {
       spray = TeamSpray.get(this.getSprayId());
     }
 
+    SprayData data = SprayData.get(this.getBrand(), this.getGeoEntity(), this.getSprayDate(), method.toArray(new SprayMethod[method.size()]));
+    
+    this.populateMapping(spray, data);
+
+    this.applySprayData(data);
+
     this.populateConcrete(spray, data);
 
     spray.apply();
     spray.populateView(this);
+  }
+  
+  protected void populateMapping(TeamSpray spray, SprayData data)
+  {
+    super.populateMapping(spray, data);
+    
+    new AttributeNotificationMap(spray, TeamSpray.SPRAYTEAM, this, TeamSprayView.SPRAYTEAM);
   }
 
   protected void populateConcrete(TeamSpray spray, SprayData data)

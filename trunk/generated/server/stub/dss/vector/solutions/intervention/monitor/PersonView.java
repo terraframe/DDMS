@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.util.Calendar;
 
+import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.intervention.BloodslideResponse;
@@ -24,11 +25,43 @@ public class PersonView extends PersonViewBase implements
   @Transaction
   public void apply()
   {
-    Person person = this.populatePerson();
+    Person person = new Person();
+
+    if (this.hasConcrete())
+    {
+      person = Person.lock(this.getConcreteId());
+    }
+    
+    this.populateMapping(person);
+    
+    this.populateConcrete(person);
 
     person.apply();
 
     person.populateView(this);
+  }
+
+  private void populateMapping(Person person)
+  {
+    new AttributeNotificationMap(person, Person.ANAEMIATREATMENT, this, PersonView.ANAEMIATREATMENT);
+    new AttributeNotificationMap(person, Person.BLOODSLIDE, this, PersonView.BLOODSLIDE);
+    new AttributeNotificationMap(person, Person.DOB, this, PersonView.DOB);
+    new AttributeNotificationMap(person, Person.FEVER, this, PersonView.FEVER);
+    new AttributeNotificationMap(person, Person.FEVERTREATMENT, this, PersonView.FEVERTREATMENT);
+    new AttributeNotificationMap(person, Person.HAEMOGLOBIN, this, PersonView.HAEMOGLOBIN);
+    new AttributeNotificationMap(person, Person.HAEMOGLOBINMEASURED, this, PersonView.HAEMOGLOBINMEASURED);
+    new AttributeNotificationMap(person, Person.HOUSEHOLD, this, PersonView.HOUSEHOLD);
+    new AttributeNotificationMap(person, Person.IRON, this, PersonView.IRON);
+    new AttributeNotificationMap(person, Person.MALARIA, this, PersonView.MALARIA);
+    new AttributeNotificationMap(person, Person.MALARIATREATMENT, this, PersonView.MALARIATREATMENT);
+    new AttributeNotificationMap(person, Person.PAYMENT, this, PersonView.PAYMENT);
+    new AttributeNotificationMap(person, Person.PERFORMEDRDT, this, PersonView.PERFORMEDRDT);
+    new AttributeNotificationMap(person, Person.PERSONID, this, PersonView.PERSONID);
+    new AttributeNotificationMap(person, Person.PREGNANT, this, PersonView.PREGNANT);
+    new AttributeNotificationMap(person, Person.RDTRESULT, this, PersonView.RDTRESULT);
+    new AttributeNotificationMap(person, Person.RDTTREATMENT, this, PersonView.RDTTREATMENT);
+    new AttributeNotificationMap(person, Person.SEX, this, PersonView.SEX);
+    new AttributeNotificationMap(person, Person.SLEPTUNDERNET, this, PersonView.SLEPTUNDERNET);
   }
 
   @Override
@@ -40,15 +73,8 @@ public class PersonView extends PersonViewBase implements
     }
   }
 
-  private Person populatePerson()
+  private void populateConcrete(Person person)
   {
-    Person person = new Person();
-
-    if (this.hasConcrete())
-    {
-      person = Person.lock(this.getConcreteId());
-    }
-
     if (this.getDob() != null)
     {
       person.setDob(this.getDob());
@@ -96,8 +122,6 @@ public class PersonView extends PersonViewBase implements
       person.addRDTResult(r);
     for (HumanSex r : this.getSex())
       person.addSex(r);
-
-    return person;
   }
 
   private boolean hasConcrete()

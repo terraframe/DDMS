@@ -100,16 +100,16 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * Returns true if the given attribute is defined by a
    * <code>MdAttributeDAOIF</code> in the given map and the current user has
    * permission to view the attribute, false otherwise.
-   *
+   * 
    * <br>
-   * Precondition:</br> <code>Session.getCurrentSession()</code> does not
-   * return null.
-   *
+   * Precondition:</br> <code>Session.getCurrentSession()</code> does not return
+   * null.
+   * 
    * @param attributeName
    * @param viewCaseAttributeMap
    * @return true if the given attribute is defined by a
-   *         <code>MdAttributeDAOIF</code> in the given map and the current
-   *         user has permission to view the attribute, false otherwise.
+   *         <code>MdAttributeDAOIF</code> in the given map and the current user
+   *         has permission to view the attribute, false otherwise.
    */
   private static boolean hasVisibility(String attributeName,
       Map<String, ? extends MdAttributeDAOIF> viewCaseAttributeMap)
@@ -414,7 +414,6 @@ public class AggregatedCase extends AggregatedCaseBase implements
       AggregatedCaseView view = c.getView();
       view.setAgeGroup(ageGroup);
       view.setCaseId(c.getId());
-      view.applyNoPersist();
 
       return view;
     }
@@ -469,62 +468,10 @@ public class AggregatedCase extends AggregatedCaseBase implements
     return AggregatedCase.unlock(id).getView();
   }
 
-  private <T> List<T> convertToList(OIterator<T> it)
-  {
-    List<T> list = new LinkedList<T>();
-
-    for (T value : it)
-    {
-      list.add(value);
-    }
-
-    return list;
-  }
-
-  @Override
-  public CaseDiagnostic[] getDiagnosticMethods()
-  {
-    List<? extends CaseDiagnostic> list = convertToList(this.getAllDiagnosticMethodRel());
-
-    return list.toArray(new CaseDiagnostic[list.size()]);
-  }
-
-  @Override
-  public CaseReferral[] getReferrals()
-  {
-    List<? extends CaseReferral> list = convertToList(this.getAllReferralRel());
-
-    return list.toArray(new CaseReferral[list.size()]);
-  }
-
-  @Override
-  public CaseTreatmentMethod[] getTreatmentMethods()
-  {
-    List<? extends CaseTreatmentMethod> list = convertToList(this.getAllTreatmentMethodRel());
-
-    return list.toArray(new CaseTreatmentMethod[list.size()]);
-  }
-
-  @Override
-  public CaseTreatment[] getTreatments()
-  {
-    List<? extends CaseTreatment> list = convertToList(this.getAllTreatmentRel());
-
-    return list.toArray(new CaseTreatment[list.size()]);
-  }
-
-  @Override
-  public CaseTreatmentStock[] getTreatmentStocks()
-  {
-    List<? extends CaseTreatmentStock> list = convertToList(this.getAllTreatmentStockRel());
-
-    return list.toArray(new CaseTreatmentStock[list.size()]);
-  }
-
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   *
+   * 
    * @param xml
    * @return
    */
@@ -546,8 +493,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
         String entityAlias = thematicVariable.getEntityAlias();
         String attributeName = thematicVariable.getAttributeName();
 
-        valueQueryParser.setColumnAlias(entityAlias, attributeName,
-            QueryConstants.THEMATIC_DATA_COLUMN);
+        valueQueryParser.setColumnAlias(entityAlias, attributeName, QueryConstants.THEMATIC_DATA_COLUMN);
       }
     }
 
@@ -579,7 +525,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
       valueQuery.WHERE(aggregatedCaseQuery.getGeoEntity().EQ(businessQuery));
     }
 
-    MdRelationshipDAOIF caseTreatmentStockRel = MdRelationshipDAO.getMdRelationshipDAO(CaseTreatmentStock.CLASS);
+    MdRelationshipDAOIF caseTreatmentStockRel = MdRelationshipDAO
+        .getMdRelationshipDAO(CaseTreatmentStock.CLASS);
 
     for (String gridAlias : queryMap.keySet())
     {
@@ -587,44 +534,45 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
       if (generatedQuery instanceof TreatmentGridQuery)
       {
-        TreatmentGridQuery treatmentGridQuery = (TreatmentGridQuery)generatedQuery;
-        //Alias startse with CaseTreatmentStock_
-        if (gridAlias.startsWith(caseTreatmentStockRel.getTypeName()+"_"))
+        TreatmentGridQuery treatmentGridQuery = (TreatmentGridQuery) generatedQuery;
+        // Alias startse with CaseTreatmentStock_
+        if (gridAlias.startsWith(caseTreatmentStockRel.getTypeName() + "_"))
         {
           String caseTreatmentStockAlias = getRelationshipAlias(gridAlias);
-          CaseTreatmentStockQuery ctsq = (CaseTreatmentStockQuery)queryMap.get(caseTreatmentStockAlias);
+          CaseTreatmentStockQuery ctsq = (CaseTreatmentStockQuery) queryMap.get(caseTreatmentStockAlias);
           valueQuery.AND(aggregatedCaseQuery.treatmentStock(ctsq));
           valueQuery.AND(ctsq.hasChild(treatmentGridQuery));
         }
         else
         {
           String caseTreatmentAlias = getRelationshipAlias(gridAlias);
-          CaseTreatmentQuery ctq = (CaseTreatmentQuery)queryMap.get(caseTreatmentAlias);
+          CaseTreatmentQuery ctq = (CaseTreatmentQuery) queryMap.get(caseTreatmentAlias);
           valueQuery.AND(aggregatedCaseQuery.treatment(ctq));
           valueQuery.AND(ctq.hasChild(treatmentGridQuery));
         }
       }
       else if (generatedQuery instanceof ReferralGridQuery)
       {
-        ReferralGridQuery referralGridQuery = (ReferralGridQuery)generatedQuery;
+        ReferralGridQuery referralGridQuery = (ReferralGridQuery) generatedQuery;
         String caseReferralAlias = getRelationshipAlias(gridAlias);
-        CaseReferralQuery crq = (CaseReferralQuery)queryMap.get(caseReferralAlias);
+        CaseReferralQuery crq = (CaseReferralQuery) queryMap.get(caseReferralAlias);
         valueQuery.AND(aggregatedCaseQuery.referral(crq));
         valueQuery.AND(crq.hasChild(referralGridQuery));
       }
       else if (generatedQuery instanceof DiagnosticGridQuery)
       {
-        DiagnosticGridQuery diagnosticGridQuery = (DiagnosticGridQuery)generatedQuery;
+        DiagnosticGridQuery diagnosticGridQuery = (DiagnosticGridQuery) generatedQuery;
         String caseDiagnosticAlias = getRelationshipAlias(gridAlias);
-        CaseDiagnosticQuery cdq = (CaseDiagnosticQuery)queryMap.get(caseDiagnosticAlias);
+        CaseDiagnosticQuery cdq = (CaseDiagnosticQuery) queryMap.get(caseDiagnosticAlias);
         valueQuery.AND(aggregatedCaseQuery.diagnosticMethod(cdq));
         valueQuery.AND(cdq.hasChild(diagnosticGridQuery));
       }
       else if (generatedQuery instanceof TreatmentMethodGridQuery)
       {
-        TreatmentMethodGridQuery treatmentMethodGridQuery = (TreatmentMethodGridQuery)generatedQuery;
+        TreatmentMethodGridQuery treatmentMethodGridQuery = (TreatmentMethodGridQuery) generatedQuery;
         String caseTreatmentMethodAlias = getRelationshipAlias(gridAlias);
-        CaseTreatmentMethodQuery ctmq = (CaseTreatmentMethodQuery)queryMap.get(caseTreatmentMethodAlias);
+        CaseTreatmentMethodQuery ctmq = (CaseTreatmentMethodQuery) queryMap
+            .get(caseTreatmentMethodAlias);
         valueQuery.AND(aggregatedCaseQuery.treatmentMethod(ctmq));
         valueQuery.AND(ctmq.hasChild(treatmentMethodGridQuery));
       }
@@ -639,7 +587,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
    */
   private static String getRelationshipAlias(String gridAlias)
   {
-//    int firstIndex = gridAlias.indexOf("_", 0);
+    // int firstIndex = gridAlias.indexOf("_", 0);
     int index = gridAlias.lastIndexOf("_");
 
     return gridAlias.substring(0, index);
@@ -647,7 +595,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   /**
    * Queries for AggregatedCases.
-   *
+   * 
    * @param xml
    */
   @Transaction
@@ -658,14 +606,15 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   /**
    * Creates a
-   *
+   * 
    * @param xml
    * @return
    */
   @Transaction
-  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers, String savedSearchId)
+  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers,
+      String savedSearchId)
   {
-    if(savedSearchId == null || savedSearchId.trim().length() == 0)
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot map a query without a current SavedSearch instance.";
       SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
@@ -674,9 +623,10 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    if(thematicLayerType == null || thematicLayerType.trim().length() == 0)
+    if (thematicLayerType == null || thematicLayerType.trim().length() == 0)
     {
-      String error = "Cannot create a map for search ["+search.getQueryName()+"] without having restricted by a GeoEntity(s).";
+      String error = "Cannot create a map for search [" + search.getQueryName()
+          + "] without having restricted by a GeoEntity(s).";
       MapWithoutGeoEntityException ex = new MapWithoutGeoEntityException(error);
       throw ex;
     }
@@ -686,12 +636,11 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     // Update ThematicLayer if the thematic layer type has changed or
     // if one has not yet been defined.
-    if(thematicLayer.getGeometryStyle() == null ||
-        !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
+    if (thematicLayer.getGeometryStyle() == null
+        || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
     {
       thematicLayer.changeLayerType(thematicLayerType);
     }
-
 
     ValueQuery query = xmlToValueQuery(xml, thematicLayerType, true, thematicLayer);
 
@@ -702,7 +651,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   @Transaction
   public static Byte[] exportQueryToExcel(String queryXML, String geoEntityType, String savedSearchId)
   {
-    if(savedSearchId == null || savedSearchId.trim().length() == 0)
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to Excel without a current SavedSearch instance.";
       SavedSearchRequiredException ex = new SavedSearchRequiredException(error);

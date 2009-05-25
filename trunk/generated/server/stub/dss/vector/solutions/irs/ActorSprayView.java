@@ -1,5 +1,7 @@
 package dss.vector.solutions.irs;
 
+import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
+
 public abstract class ActorSprayView extends ActorSprayViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240860676330L;
@@ -22,4 +24,15 @@ public abstract class ActorSprayView extends ActorSprayViewBase implements com.t
     spray.setTeamLeader(this.getTeamLeader());
   }
 
+  protected void populateMapping(ActorSpray spray, SprayData data)
+  {
+    super.populateMapping(spray, data);
+    
+    new AttributeNotificationMap(spray, ActorSpray.TEAMLEADER, this, ActorSprayView.TEAMLEADER);
+    new AttributeNotificationMap(spray, ActorSpray.TARGET, this, ActorSprayView.TARGET);
+    new AttributeNotificationMap(spray, ActorSpray.TEAMSPRAYWEEK, this, ActorSprayView.TEAMSPRAYWEEK);
+    new AttributeNotificationMap(spray, ActorSpray.RECEIVED, this, ActorSprayView.RECEIVED);
+    new AttributeNotificationMap(spray, ActorSpray.REFILLS, this, ActorSprayView.REFILLS);
+    new AttributeNotificationMap(spray, ActorSpray.RETURNED, this, ActorSprayView.RETURNED);    
+  }
 }

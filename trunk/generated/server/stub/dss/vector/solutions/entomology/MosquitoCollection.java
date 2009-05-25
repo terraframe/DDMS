@@ -46,12 +46,12 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     QueryFactory factory = new QueryFactory();
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);
 
-    query.AND(query.getGeoEntity().getId().EQ(this.getGeoEntity().getId()));
+    query.AND(query.getGeoEntity().EQ(this.getGeoEntity()));
     query.AND(query.getDateCollected().EQ(this.getDateCollected()));
     query.AND(query.getCollectionMethod().EQ(this.getCollectionMethod()));
     if (this.getId() != null)
     {
-      query.AND(query.getCollectionMethod().NE(this.getId()));
+      query.AND(query.getId().NE(this.getId()));
     }
 
     OIterator<? extends MosquitoCollection> iterator = query.getIterator();
@@ -60,7 +60,9 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     {
       if (iterator.hasNext())
       {
-        String msg = "This mosquito collection allready exists";
+        MosquitoCollection collection = iterator.next();
+        
+        String msg = "This mosquito collection already exists with the id [" + collection.getId() + "]";
         MosquitoCollectionAllreadyExistsException e = new MosquitoCollectionAllreadyExistsException(msg);
         e.apply();
         throw e;

@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-public class CaseTreatmentStock extends CaseTreatmentStockBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class CaseTreatmentStock extends CaseTreatmentStockBase implements CaseGrid, com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1238693145662L;
   

@@ -2,8 +2,6 @@ package dss.vector.solutions.surveillance;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -62,8 +60,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException,
       ServletException
   {
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
-        .getRequest());
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
 
     req.setAttribute("diagnostics", Arrays.asList(diagnosticMethods));
     req.setAttribute("referrals", Arrays.asList(referrals));
@@ -153,13 +150,11 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   public void failDelete(AggregatedCaseViewDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    String caseId = dto.getCaseId();
-
-    req.setAttribute("diagnostics", this.getDiagnosticMethods(caseId));
-    req.setAttribute("referrals", this.getReferrals(caseId));
-    req.setAttribute("treatments", this.getTreatments(caseId));
-    req.setAttribute("treatmentMethods", this.getTreatmentMethods(caseId));
-    req.setAttribute("stock", this.getTreatmentStocks(caseId));
+    req.setAttribute("diagnostics", Arrays.asList(dto.getDiagnosticMethods()));
+    req.setAttribute("referrals", Arrays.asList(dto.getReferrals()));
+    req.setAttribute("treatments", Arrays.asList(dto.getTreatments()));
+    req.setAttribute("treatmentMethods", Arrays.asList(dto.getTreatmentMethods()));
+    req.setAttribute("stock", Arrays.asList(dto.getTreatmentStocks()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Aggregated Case");
     render("editComponent.jsp");
@@ -174,13 +169,12 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
         .getRequest());
 
     // Load all of the corresponding grid values
-    String caseId = c.getCaseId();
     req.setAttribute("ageGroups", Arrays.asList(ageGroups));
-    req.setAttribute("diagnostics", this.getDiagnosticMethods(caseId));
-    req.setAttribute("referrals", this.getReferrals(caseId));
-    req.setAttribute("treatments", this.getTreatments(caseId));
-    req.setAttribute("treatmentMethods", this.getTreatmentMethods(caseId));
-    req.setAttribute("stock", this.getTreatmentStocks(caseId));
+    req.setAttribute("diagnostics", Arrays.asList(c.getDiagnosticMethods()));
+    req.setAttribute("referrals", Arrays.asList(c.getReferrals()));
+    req.setAttribute("treatments", Arrays.asList(c.getTreatments()));
+    req.setAttribute("treatmentMethods", Arrays.asList(c.getTreatmentMethods()));
+    req.setAttribute("stock", Arrays.asList(c.getTreatmentStocks()));
     req.setAttribute("item", c);
     req.setAttribute("page_title", "Edit Aggregated Case "
         + epiDate.getDisplayLabel(this.getClientRequest()));
@@ -201,16 +195,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   public void view(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     // Load all of the corresponding grid values
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
-        .getRequest());
-    String caseId = dto.getCaseId();
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
 
     req.setAttribute("ageGroups", Arrays.asList(ageGroups));
-    req.setAttribute("diagnostics", this.getDiagnosticMethods(caseId));
-    req.setAttribute("referrals", this.getReferrals(caseId));
-    req.setAttribute("treatments", this.getTreatments(caseId));
-    req.setAttribute("treatmentMethods", this.getTreatmentMethods(caseId));
-    req.setAttribute("stock", this.getTreatmentStocks(caseId));
+    req.setAttribute("diagnostics", Arrays.asList(dto.getDiagnosticMethods()));
+    req.setAttribute("referrals", Arrays.asList(dto.getReferrals()));
+    req.setAttribute("treatments", Arrays.asList(dto.getTreatments()));
+    req.setAttribute("treatmentMethods", Arrays.asList(dto.getTreatmentMethods()));
+    req.setAttribute("stock", Arrays.asList(dto.getTreatmentStocks()));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "View an Aggregated Case");
     render("viewComponent.jsp");
@@ -238,12 +230,11 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   public void searchByGeoEntityAndDate(GeoEntityDTO geoEntity, EpiDateDTO date,
       AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
   {
-    String label = date.getDisplayLabel(this.getClientSession().getRequest());
+    ClientRequestIF request = this.getClientSession().getRequest();
+    String label = date.getDisplayLabel(request);
 
-    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(),
-        geoEntity, date.getPeriodType(), date.getPeriod(), date.getYear(), ageGroup);
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
-        .getRequest());
+    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(), geoEntity, date.getPeriodType(), date.getPeriod(), date.getYear(), ageGroup);
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
 
     String jsp = "createComponent.jsp";
     req.setAttribute("page_title", "New Aggregated Case " + label);
@@ -255,12 +246,11 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     }
 
     // Load all of the corresponding grid values
-    String caseId = c.getCaseId();
-    req.setAttribute("diagnostics", this.getDiagnosticMethods(caseId));
-    req.setAttribute("referrals", this.getReferrals(caseId));
-    req.setAttribute("treatments", this.getTreatments(caseId));
-    req.setAttribute("treatmentMethods", this.getTreatmentMethods(caseId));
-    req.setAttribute("stock", this.getTreatmentStocks(caseId));
+    req.setAttribute("diagnostics", Arrays.asList(c.getDiagnosticMethods()));
+    req.setAttribute("referrals", Arrays.asList(c.getReferrals()));
+    req.setAttribute("treatments", Arrays.asList(c.getTreatments()));
+    req.setAttribute("treatmentMethods", Arrays.asList(c.getTreatmentMethods()));
+    req.setAttribute("stock", Arrays.asList(c.getTreatmentStocks()));
     req.setAttribute("ageGroups", Arrays.asList(ageGroups));
     req.setAttribute("item", c);
     render(jsp);
@@ -362,7 +352,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
 
     req.setAttribute("periodType", allItems);
-    req.setAttribute("period", period);
+    req.setAttribute("period", period); 
     req.setAttribute("year", year);
     req.setAttribute("geoId", geoId);
     req.setAttribute("checkedType", periodType);
@@ -378,122 +368,4 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     // This should never occur
     super.failSearch();
   }
-
-  private Collection<CaseDiagnosticDTO> getDiagnosticMethods(String id)
-  {
-    LinkedHashMap<String, CaseDiagnosticDTO> map = new LinkedHashMap<String, CaseDiagnosticDTO>();
-
-    if (id != null && !id.equals(""))
-    {
-      for (CaseDiagnosticDTO d : AggregatedCaseDTO.getDiagnosticMethods(this.getClientSession()
-          .getRequest(), id))
-      {
-        map.put(d.getChildId(), d);
-      }
-    }
-
-    for (DiagnosticGridDTO d : DiagnosticGridDTO.getAll(this.getClientRequest()))
-    {
-      if (!map.containsKey(d.getId()))
-      {
-        map.put(d.getId(), new CaseDiagnosticDTO(this.getClientRequest(), id, d.getId()));
-      }
-    }
-
-    return new LinkedList<CaseDiagnosticDTO>(map.values());
-  }
-
-  private Collection<CaseReferralDTO> getReferrals(String id)
-  {
-    LinkedHashMap<String, CaseReferralDTO> map = new LinkedHashMap<String, CaseReferralDTO>();
-
-    if (id != null && !id.equals(""))
-    {
-      for (CaseReferralDTO d : AggregatedCaseDTO.getReferrals(this.getClientRequest(), id))
-      {
-        map.put(d.getChildId(), d);
-      }
-    }
-
-    for (ReferralGridDTO d : ReferralGridDTO.getAll(this.getClientRequest()))
-    {
-      if (!map.containsKey(d.getId()))
-      {
-        map.put(d.getId(), new CaseReferralDTO(this.getClientRequest(), id, d.getId()));
-      }
-    }
-
-    return new LinkedList<CaseReferralDTO>(map.values());
-  }
-
-  private Collection<CaseTreatmentDTO> getTreatments(String id)
-  {
-    LinkedHashMap<String, CaseTreatmentDTO> map = new LinkedHashMap<String, CaseTreatmentDTO>();
-
-    if (id != null && !id.equals(""))
-    {
-      for (CaseTreatmentDTO d : AggregatedCaseDTO.getTreatments(this.getClientRequest(), id))
-      {
-        map.put(d.getChildId(), d);
-      }
-    }
-
-    for (TreatmentGridDTO d : TreatmentGridDTO.getAll(this.getClientRequest()))
-    {
-      if (!map.containsKey(d.getId()))
-      {
-        map.put(d.getId(), new CaseTreatmentDTO(this.getClientRequest(), id, d.getId()));
-      }
-    }
-
-    return new LinkedList<CaseTreatmentDTO>(map.values());
-  }
-
-  private Collection<CaseTreatmentMethodDTO> getTreatmentMethods(String id)
-  {
-    LinkedHashMap<String, CaseTreatmentMethodDTO> map = new LinkedHashMap<String, CaseTreatmentMethodDTO>();
-
-    if (id != null && !id.equals(""))
-    {
-      for (CaseTreatmentMethodDTO d : AggregatedCaseDTO.getTreatmentMethods(this.getClientRequest(), id))
-      {
-        map.put(d.getChildId(), d);
-      }
-    }
-
-    for (TreatmentMethodGridDTO d : TreatmentMethodGridDTO.getAll(this.getClientRequest()))
-    {
-      if (!map.containsKey(d.getId()))
-      {
-        map.put(d.getId(), new CaseTreatmentMethodDTO(this.getClientRequest(), id, d.getId()));
-      }
-    }
-
-    return new LinkedList<CaseTreatmentMethodDTO>(map.values());
-  }
-
-  private Collection<CaseTreatmentStockDTO> getTreatmentStocks(String id)
-  {
-    LinkedHashMap<String, CaseTreatmentStockDTO> map = new LinkedHashMap<String, CaseTreatmentStockDTO>();
-
-    // TODO fix this such that you only add active treatments
-    if (id != null && !id.equals(""))
-    {
-      for (CaseTreatmentStockDTO d : AggregatedCaseDTO.getTreatmentStocks(this.getClientRequest(), id))
-      {
-        map.put(d.getChildId(), d);
-      }
-    }
-
-    for (TreatmentGridDTO d : TreatmentGridDTO.getAll(this.getClientRequest()))
-    {
-      if (!map.containsKey(d.getId()))
-      {
-        map.put(d.getId(), new CaseTreatmentStockDTO(this.getClientRequest(), id, d.getId()));
-      }
-    }
-
-    return new LinkedList<CaseTreatmentStockDTO>(map.values());
-  }
-
 }
