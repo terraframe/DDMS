@@ -1493,17 +1493,15 @@ MDSS.QueryPanel.prototype = {
     thematicVar.setAttributeName(attributeName);
     thematicVar.setDisplayLabel(displayLabel);
 
-  	var key = thematicVar.getEntityAlias() + "-" + thematicVar.getAttributeName();
-  	this._thematicVariables[key] = thematicVar;
+  	this._thematicVariables[attributeName] = thematicVar;
   },
 
   /**
    * Removes the given thematic variable.
    */
-  removeThematicVariable : function(entityAlias, attributeName)
+  removeThematicVariable : function(attributeName)
   {
-  	var key = entityAlias + "-" + attributeName;
-    delete this._thematicVariables[key];
+    delete this._thematicVariables[attributeName];
   },
 
   getThematicVariables : function()

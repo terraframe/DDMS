@@ -120,7 +120,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     JSONObject map = new JSONObject();
     for (AbstractTermDTO term : terms)
     {
-      map.put(term.getDisplayLabel().getValue(), term.getId());
+      map.put(term.getLabel(), term.getId());
     }
     return map.toString();
   }

@@ -301,8 +301,8 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     if(ageGroupOr != null && dateAndOr != null)
     {
       var and = new MDSS.QueryXML.And();
-      and.addCondition('ageGroup', ageGroupOr);
-      and.addCondition('dateRange', dateAndOr);
+      and.addCondition('ageGroup', new MDSS.QueryXML.CompositeCondition(ageGroupOr));
+      and.addCondition('dateRange', new MDSS.QueryXML.CompositeCondition(dateAndOr));
 
       var composite = new MDSS.QueryXML.CompositeCondition(and);
 
@@ -452,7 +452,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._visibleSelectables[attribute.getKey()] = selectable;
 
     // ADD THEMATIC VARIABLE
-    this._queryPanel.addThematicVariable(attribute.getType(), attributeName, attribute.getDisplayLabel());
+    this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
   },
 
   /**
@@ -477,7 +477,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     // selectable
     var rSelectable = attribute.getRelationshipSelectable();
-    this._gridSelectables[relationshipAlias] = rSelectable;
+    this._gridSelectables[attribute.getKey()] = rSelectable;
 
     /*
      * Business
@@ -495,7 +495,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._gridEntities[businessAlias] = entity;
 
     // ADD THEMATIC VARIABLE
-    this._queryPanel.addThematicVariable(relationshipAlias, optionName, attribute.getDisplayLabel());
+    this._queryPanel.addThematicVariable(relationshipAlias, attribute.getKey(), attribute.getDisplayLabel());
   },
 
 
@@ -524,7 +524,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
    if(removeThematic)
    {
-      this._queryPanel.removeThematicVariable(attribute.getKey(), attributeName);
+      this._queryPanel.removeThematicVariable(attribute.getKey());
    }
   },
 
@@ -537,12 +537,12 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
   	if(removeSelectable)
   	{
-      delete this._gridSelectables[relAlias];
+      delete this._gridSelectables[attribute.getKey()];
   	}
 
   	// remove all possible query references
-    delete this._gridAggregateSelectables[relAlias];
-    delete this._gridGroupBySelectables[relAlias];
+    delete this._gridAggregateSelectables[attribute.getKey()];
+    delete this._gridGroupBySelectables[attribute.getKey()];
 
     if(removeColumn)
     {
@@ -554,7 +554,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     if(removeThematic)
     {
-      this._queryPanel.removeThematicVariable(relAlias, attribute.getOptionName());
+      this._queryPanel.removeThematicVariable(attribute.getKey());
     }
   },
 
@@ -616,15 +616,15 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     if(func === MDSS.QueryXML.Functions.GB)
     {
   	  this._removeGridAttribute(attribute, false, false, false);
-      this._gridSelectables[relationshipAlias] = selectable;
-      this._gridGroupBySelectables[relationshipAlias] = selectable;
+      this._gridSelectables[key] = selectable;
+      this._gridGroupBySelectables[key] = selectable;
       return;
     }
     else if(func === '')
     {
       // Use regular selectable (this is just here for clarity).
   	  this._removeGridAttribute(attribute, false, true, false);
-      this._gridSelectables[relationshipAlias] = selectable;
+      this._gridSelectables[key] = selectable;
       return;
     }
 
@@ -654,7 +654,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   	this._removeGridAttribute(attribute, false, true, false);
 
     var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
-    this._gridAggregateSelectables[relationshipAlias] = aggSelectable;
+    this._gridAggregateSelectables[key] = aggSelectable;
   },
 
   /**
@@ -884,14 +884,14 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
      */
     for(var i=0; i<orderedGrids.length; i++)
     {
-      var order = orderedGrids[i];
+      var grid = orderedGrids[i];
 
       var gridDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(gridDiv, 'scrollable');
 
       var labelDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
-      labelDiv.innerHTML = order.label;
+      labelDiv.innerHTML = grid.label;
 
       var toggleDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
@@ -910,11 +910,11 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
       this._attachSelectAll(ul);
 
-      var options = order.options;
+      var options = grid.options;
       for(var j=0; j<options.length; j++)
       {
       	var option = options[j];
-        var attribute = new MDSS.GridAttribute(option, order);
+        var attribute = new MDSS.GridAttribute(option, grid);
 
         var li = document.createElement('li');
 
@@ -924,7 +924,29 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
         var check = document.createElement('input');
         YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-        YAHOO.util.Event.on(check, 'click', this._gridAttributeHandler, attribute, this);
+
+        // Diagnostic Method adds two columns
+        if(attribute.getType() === 'dss.vector.solutions.surveillance.DiagnosticGrid')
+        {
+          attribute._displayLabel += ' ('+MDSS.Localized.Total_Tests+')';
+          YAHOO.util.Event.on(check, 'click', this._gridAttributeHandler, attribute, this);
+
+          // copy the object and set the attribute name to that of the second column
+          var optionCopy = {};
+          var gridCopy = {};
+          Mojo.util.copy(option, optionCopy);
+          Mojo.util.copy(grid, gridCopy);
+
+          gridCopy.relAttribute = gridCopy.relAttributeTwo;
+
+          var second = new MDSS.GridAttribute(optionCopy, gridCopy);
+          second._displayLabel += ' ('+MDSS.Localized.Positive+')';
+          YAHOO.util.Event.on(check, 'click', this._gridAttributeHandler, second, this);
+        }
+        else
+        {
+          YAHOO.util.Event.on(check, 'click', this._gridAttributeHandler, attribute, this);
+        }
 
         var select = document.createElement('select');
         var aggOptions = [''];
@@ -937,6 +959,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
           optionEl.innerHTML = aggOption;
           YAHOO.util.Dom.setAttribute(optionEl, 'value', aggOption);
 
+          // Diagnostic Method adds two columns
           YAHOO.util.Event.on(optionEl, 'click', this._gridAggregateHandler, attribute, this);
 
           select.appendChild(optionEl);
@@ -1080,7 +1103,9 @@ MDSS.AbstractAttribute = function(obj)
   	this._displayLabel = obj.displayLabel;
   	this._attributeName = obj.attributeName;
 
-  	this._key = this._type.substring(this._type.lastIndexOf('.')+1) +'_'+this._attributeName;
+    var s = new String(Math.random());
+    var r = s.substring(s.length-6);
+  	this._key = this._type.substring(this._type.lastIndexOf('.')+1) +'_'+this._attributeName+'_'+r;
 };
 MDSS.AbstractAttribute.prototype = {
 

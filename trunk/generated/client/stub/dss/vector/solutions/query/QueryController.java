@@ -35,6 +35,7 @@ import dss.vector.solutions.surveillance.DiagnosticGridDTO;
 import dss.vector.solutions.surveillance.ReferralGridDTO;
 import dss.vector.solutions.surveillance.TreatmentGridDTO;
 import dss.vector.solutions.surveillance.TreatmentMethodGridDTO;
+import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.ExcelExportServlet;
 
 public class QueryController extends QueryControllerBase implements
@@ -145,11 +146,8 @@ public class QueryController extends QueryControllerBase implements
       diagnostic.put("type", DiagnosticGridDTO.CLASS);
       diagnostic.put("label", localized.getObject("Diagnostic_methods"));
       diagnostic.put("relType", CaseDiagnosticDTO.CLASS);
-
-      JSONArray attributes = new JSONArray();
-      attributes.put(CaseDiagnosticDTO.AMOUNT);
-      attributes.put(CaseDiagnosticDTO.AMOUNTPOSITIVE);
-      diagnostic.put("relAttribute", attributes);
+      diagnostic.put("relAttribute", CaseDiagnosticDTO.AMOUNT);
+      diagnostic.put("relAttributeTwo", CaseDiagnosticDTO.AMOUNTPOSITIVE);
       diagnostic.put("options", new JSONArray());
       ordered.put(diagnostic);
       orderedMap.put(DiagnosticGridDTO.CLASS, diagnostic);
@@ -197,13 +195,25 @@ public class QueryController extends QueryControllerBase implements
         if(grid.getType().equals(TreatmentGridDTO.CLASS))
         {
           // CaseTreatmentStock (a relationship) gets a copy of all
-          // attributes in Treatment. Yes, this is hacky.
+          // attributes in Treatment.
           caseTreatmentStock.getJSONArray("options").put(option);
         }
 
         JSONObject gridType = orderedMap.get(grid.getType());
         gridType.getJSONArray("options").put(option);
       }
+
+      /*
+      List<String> keysList = new LinkedList<String>();
+      Iterator<?> keys = diagnostic.keys();
+      while(keys.hasNext())
+      {
+        keysList.add((String) keys.next());
+      }
+      JSONObject amountPositive = new JSONObject(diagnostic, keysList.toArray(new String[keysList.size()]));
+      amountPositive.put("relAttribute", CaseDiagnosticDTO.AMOUNTPOSITIVE);
+      ordered.put(2, amountPositive); // insert right after Diagnostic with AMOUNT attribute
+      */
 
       req.setAttribute("orderedGrids", ordered.toString());
 
@@ -269,9 +279,9 @@ public class QueryController extends QueryControllerBase implements
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
+      // FIXME avoid wiping out the state of the query
+      req.setAttribute(ErrorUtility.ERROR_MESSAGE, t.getLocalizedMessage());
+      this.queryAggregatedCases();
     }
   }
 
