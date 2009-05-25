@@ -1,0 +1,89 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <enumerationMaster
+        name="dss.vector.solutions.irs.TargetUnitMaster"
+        label="Target Unit Master"
+        generateController="false" />
+
+      <object
+        type="dss.vector.solutions.irs.TargetUnitMaster"
+        id="ROOM">
+        <valueAttribute
+          name="enumName"
+          value="ROOM" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Room" />
+        </structAttribute>
+      </object>
+      <object
+        type="dss.vector.solutions.irs.TargetUnitMaster"
+        id="STRUCTURE">
+        <valueAttribute
+          name="enumName"
+          value="STRUCTURE" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Structure" />
+        </structAttribute>
+      </object>
+      <object
+        type="dss.vector.solutions.irs.TargetUnitMaster"
+        id="HOUSEHOLD">
+        <valueAttribute
+          name="enumName"
+          value="HOUSEHOLD" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Household" />
+        </structAttribute>
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.irs.TargetUnit"
+        type="dss.vector.solutions.irs.TargetUnitMaster"
+        label="Target Unit">
+        <includeAll />
+      </mdEnumeration>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.irs.AreaStandards"
+        generateController="false">
+        <create>
+          <attributes>
+            <enumeration
+              name="targetUnit"
+              label="Target Unit"
+              required="true"
+              type="dss.vector.solutions.irs.TargetUnit"
+              selectMultiple="false" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.irs.AreaStandardsView">
+        <create>
+          <attributes>
+            <virtual
+              name="targetUnit"
+              concrete="targetUnit"
+              type="dss.vector.solutions.irs.AreaStandards" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
