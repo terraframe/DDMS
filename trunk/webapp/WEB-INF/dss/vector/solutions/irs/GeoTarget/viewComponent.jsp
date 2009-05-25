@@ -16,6 +16,9 @@
 <%@page import="dss.vector.solutions.PropertyInfo"%>
 <%@page import="java.util.Date"%>
 
+
+<%@page import="java.util.GregorianCalendar"%>
+<%@page import="java.util.Calendar"%>
 <c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
 <mjl:messages>
   <mjl:message />
@@ -33,6 +36,10 @@
     <dt>
       <label>
         ${item.seasonMd.displayLabel}
+        <fmt:formatDate value="${item.season.startDate}" pattern="<%=Halp.getDateFormatString(request)%>"/>
+        -
+        <fmt:formatDate value="${item.season.endDate}" pattern="<%=Halp.getDateFormatString(request)%>"/>
+
       </label>
     </dt>
     <dd>
@@ -91,17 +98,27 @@ colConfig += "\n,{key:'EntityName',label:'" + item.getGeoEntityMd().getDisplayLa
 colConfig += "\n,{key:'Season',label:'Season',hidden:true}";
 
 Date epiStart = PropertyDTO.getDate(clientRequest,PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START);
-
-for(int i = 0;i<=52;i++)
+long seasonStart = item.getSeason().getStartDate().getTime();
+long seasonEnd =item.getSeason().getEndDate().getTime();
+GregorianCalendar cal = new GregorianCalendar();
+cal.setTime(item.getSeason().getStartDate());
+int seasonStartYear = cal.get(Calendar.YEAR);
+for(int i = 0;i<=106;i++)
 {
-    EpiWeek  epiWeek = new EpiWeek(i,item.getSeason().getStartDate().getYear(),epiStart);
+  EpiWeek  epiWeek = new EpiWeek(i,seasonStartYear,epiStart);
+  long weekStart = epiWeek.getStartDate().getTime();
+
+  if(weekStart > seasonStart && weekStart < seasonEnd )
+  {
     String startDate = Halp.getFormatedDate(request,epiWeek.getStartDate());
     String endDate = Halp.getFormatedDate(request,epiWeek.getEndDate());
 
-    colConfig += ",\n{sum:true, key:'Target_" + i + "',label:'" + (i+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
+    colConfig += ",\n{sum:true, key:'Target_" + i + "',label:'" + ((i%53)+1) + "',title:'" + startDate + " -> " + endDate + "',editor:new YAHOO.widget.TextboxCellEditor({disableBtns:true})}";
+  }
 }
 
 %>
+
 <script type="text/javascript">
 
 <%=com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true)%>
