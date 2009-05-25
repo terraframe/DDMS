@@ -84,7 +84,7 @@ var aSubmenuData = [
                             id: "Resistance_Monitoring",
                             itemdata: [
                                        { text: "Adult_DDA", url: "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo" , visibleTo:'Administrator'},
-                                       { text: "Larvae_DDA", url: "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" , visibleTo:'Administrator'},
+                                       { text: "Larvae_DDA", url: "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo" , visibleTo:'Administrator'},
                                        { text: "View_All_EfficacyAssay", url: "dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo" , visibleTo:'Administrator'},
                                        { text: "Knock_Down_Assay", url: "dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" , visibleTo:'Administrator'},
                             ]
