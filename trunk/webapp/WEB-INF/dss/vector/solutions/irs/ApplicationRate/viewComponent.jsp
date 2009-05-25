@@ -19,8 +19,6 @@
   InsecticideNozzleViewDTO[] insecticideNozzleRows = InsecticideNozzleViewDTO.getAll(clientRequest);
   String[] insecticideNozzleAttributes = {"InsecticideNozzleId", "Brand", "Nozzle", "Enabled"};
 
-  AreaStandardsViewDTO standards = AreaStandardsViewDTO.getMostRecent(clientRequest);
-
   String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 %>
 
@@ -30,8 +28,6 @@
 <%@page import="dss.vector.solutions.irs.InsecticideBrandViewDTO"%>
 <%@page import="dss.vector.solutions.irs.NozzleViewDTO"%>
 <%@page import="dss.vector.solutions.irs.InsecticideNozzleViewDTO"%>
-<%@page import="dss.vector.solutions.irs.AreaStandardsDTO"%>
-<%@page import="dss.vector.solutions.irs.AreaStandardsViewDTO"%><br />
 
 <h2><fmt:message key="Insecticide_Brand"/></h2>
 <div id="InsecticideBrand"></div>
@@ -63,6 +59,13 @@
     <h2><fmt:message key="Area"/></h2>
      <dl>
       <mjl:input type="hidden" param="areaStandardsId" value="${dto.areaStandardsId}"/>
+      <mjl:dt attribute="targetUnit">
+        <mjl:select var="current" valueAttribute="enumName" items="${targetUnits}" param="targetUnit">
+          <mjl:option>
+            ${current.displayLabel}
+          </mjl:option>
+        </mjl:select>
+      </mjl:dt>
       <mjl:dt attribute="unitNozzleAreaCoverage" type="text" />
       <mjl:dt attribute="room" type="text" />
       <mjl:dt attribute="structureArea" type="text" />
