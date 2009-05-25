@@ -2,9 +2,11 @@ package dss.vector.solutions.sld;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.PointStyleDTO;
 import dss.vector.solutions.query.LayerDTO;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.TextStyleDTO;
+import dss.vector.solutions.query.ThematicLayerDTO;
 
 public class TextSymbolizer extends Symbolizer implements Reloadable
 {
@@ -23,6 +25,8 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
   @Override
   protected void write(SLDWriter writer)
   {
+    LayerDTO layer = this.getLayer();
+
     TextStyleDTO style = this.getStyleRule();
     String fontFamily = style.getFontFamily();
     String fontStyle = style.getFontStyle();
@@ -32,7 +36,18 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
     writer.writeln("<Rule>");
     writer.writeln("<TextSymbolizer>");
     writer.writeln("<Label>");
-    writer.writeln("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
+
+    if(layer instanceof ThematicLayerDTO && layer.getGeometryStyle() instanceof PointStyleDTO)
+    {
+      writer.write("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
+      writer.writeln(" (<ogc:PropertyName>"+QueryConstants.THEMATIC_DATA_COLUMN+"</ogc:PropertyName>)");
+    }
+    else
+    {
+      writer.writeln("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
+    }
+
+
     writer.writeln("</Label>");
     writer.writeln("<Font>");
     writer.writeln("<CssParameter name=\"font-family\">"+fontFamily+"</CssParameter>");
