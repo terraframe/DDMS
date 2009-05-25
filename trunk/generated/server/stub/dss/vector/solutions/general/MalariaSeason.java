@@ -1,5 +1,6 @@
 package dss.vector.solutions.general;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -7,6 +8,13 @@ import java.util.Calendar;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+
+import dss.vector.solutions.EpiWeek;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyDTO;
+import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.surveillance.EpiDate;
+import dss.vector.solutions.surveillance.PeriodType;
 
 public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -28,6 +36,31 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
     validateOverlap();
 
     super.apply();
+  }
+
+  public EpiDate[] getEpiWeeks() {
+    //Date epiStart = Property.getDate(PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START);
+    long seasonStart = this.getStartDate().getTime();
+    long seasonEnd = this.getEndDate().getTime();
+    GregorianCalendar cal = new GregorianCalendar();
+    cal.setTime(this.getStartDate());
+    int seasonStartYear = cal.get(Calendar.YEAR);
+
+    ArrayList<EpiDate> weeks = new ArrayList<EpiDate>();
+
+    for(int i = 0;i<=800;i++)
+    {
+      EpiDate  epiWeek = new EpiDate(PeriodType.WEEK,i,seasonStartYear);
+      long weekStart = epiWeek.getStartDate().getTime();
+
+      if(weekStart > seasonStart && weekStart < seasonEnd )
+      {
+       weeks.add(epiWeek);
+
+
+      }
+    }
+    return (EpiDate[]) weeks.toArray();
   }
 
   public void validateStartEndDates()
