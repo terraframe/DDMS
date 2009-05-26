@@ -147,7 +147,7 @@
             name="concreteId"
             label="Concrete Id"
             size="255"
-            required="true" />            
+            required="false" />            
           <char
             name="geoId"
             label="Geo Id"
@@ -318,8 +318,7 @@
             type="dss.vector.solutions.entomology.assay.EfficacyAssayView" />
         </mdAction>
       </mdController>
-    </update>
-    
+    </update>    
   </doIt>
   <undoIt>
     <delete></delete>

@@ -6,12 +6,12 @@
         type="com.terraframe.mojo.system.Roles"
         id="dataCapturer" />
       <object
-        key="com.terraframe.mojo.system.Roles.manager"
+        key="com.terraframe.mojo.system.Roles.GUIVisibility"
         type="com.terraframe.mojo.system.Roles"
-        id="manager" />
+        id="GUIVisibility" />
     </existing>  
     <permissions>
-      <role roleName="manager">
+      <role roleName="GUIVisibility">
         <mdBusinessPermission type="dss.vector.solutions.irs.Targeter">
           <operation name="READ"/>
           <operation name="READ_ALL"/>

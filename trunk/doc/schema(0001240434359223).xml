@@ -6,6 +6,19 @@
     <create>
       <object
         type="com.terraframe.mojo.system.Roles"
+        id="GUIVisibility">
+        <valueAttribute
+          name="roleName"
+          value="GUIVisibility" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="GUIVisibility" />
+        </structAttribute>
+      </object>
+      <object
+        type="com.terraframe.mojo.system.Roles"
         id="dataCapturer">
         <valueAttribute
           name="roleName"
@@ -64,7 +77,7 @@
           roleName="dataCapturer" />
       </user>
       <role
-        roleName="manager">
+        roleName="GUIVisibility">
         <mdViewPermission
           type="dss.vector.solutions.geo.GeoHierarchyView">
           <operation
@@ -299,11 +312,15 @@
         </mdRelationshipPermission>
 
       </role>
-
+      <role
+        roleName="manager">
+        <superRole
+          roleName="GUIVisibility" />
+      </role>
       <role
         roleName="dataCapturer">
         <superRole
-          roleName="manager" />
+          roleName="GUIVisibility" />
 
         <mdBusinessPermission
           type="dss.vector.solutions.geo.generated.GeoEntity">
@@ -502,7 +519,6 @@
           <operation
             name="WRITE_ALL" />
         </mdRelationshipPermission>
-
       </role>
     </permissions>
 
