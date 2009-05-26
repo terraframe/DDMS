@@ -147,9 +147,13 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    /*
     dss.vector.solutions.PropertyDTO dto = new dss.vector.solutions.PropertyDTO(clientRequest);
+    */
+    PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START_DAY);
+
     req.setAttribute("item", dto);
-    render("createComponent.jsp");
+    render("epiWeekComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {

@@ -40,11 +40,11 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
     long seasonEnd = this.getEndDate().getTime();
     GregorianCalendar cal = new GregorianCalendar();
     cal.setTime(this.getStartDate());
-    int seasonStartYear = cal.get(Calendar.YEAR);
+    Integer seasonStartYear = cal.get(Calendar.YEAR);
 
     ArrayList<EpiDate> weeks = new ArrayList<EpiDate>();
 
-    for(int i = 0;i<=800;i++)
+    for(Integer i = 0;i<=800;i++)
     {
       EpiDate  epiWeek = EpiDate.getInstanceByPeriod(PeriodType.WEEK,i,seasonStartYear);
       long weekStart = epiWeek.getStartDate().getTime();

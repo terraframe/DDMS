@@ -80,7 +80,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
   {
     if (!Pattern.matches(this.getPropertyValidator(), this.getPropertyValue()))
     {
-      String msg = "The proprtey value does not match the property validator regexp.";
+      String msg = "The property value does not match the property validator regexp.";
 
       PropertyValidationFailedException e = new PropertyValidationFailedException(msg);
       if (this.getValidValues() == null)
@@ -95,6 +95,11 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
       throw e;
     }
+    //if(this.getPropertyType() == "Date")
+   // {
+
+   // }
+
   }
 
   public Integer getPropertyInteger()
@@ -197,8 +202,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     }
     else
     {
-      Property format = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE,
-          PropertyInfo.DATE_FORMAT);
+      Property format = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE,PropertyInfo.SYSTEM_DATE_FORMAT);
 
       return prop.getPropertyDate(format.getPropertyValue());
     }
