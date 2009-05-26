@@ -1195,10 +1195,49 @@
             label="Collection Date"
             required="true" />
           <char
-            name="geoEntity"
-            required="true"
-            label="Geo Entity"
-            size="16" />
+            name="geoEntity_0"
+            label="Geo Entity 0"
+            size="255" />
+          <char
+            name="geoEntity_1"
+            label="Geo Entity 1"
+            size="255" />
+          <char
+            name="geoEntity_2"
+            label="Geo Entity 2"
+            size="255" />
+          <char
+            name="geoEntity_3"
+            label="Geo Entity 3"
+            size="255" />
+          <char
+            name="geoEntity_4"
+            label="Geo Entity 4"
+            size="255" />
+          <char
+            name="geoEntity_5"
+            label="Geo Entity 5"
+            size="255" />
+          <char
+            name="geoEntity_6"
+            label="Geo Entity 6"
+            size="255" />
+          <char
+            name="geoEntity_7"
+            label="Geo Entity 7"
+            size="255" />
+          <char
+            name="geoEntity_8"
+            label="Geo Entity 8"
+            size="255" />
+          <char
+            name="geoEntity_9"
+            label="Geo Entity 9"
+            size="255" />
+          <char
+            name="geoEntity_10"
+            label="Geo Entity 10"
+            size="255" />
         </attributes>
       </mdView>
 
@@ -3826,9 +3865,12 @@
         <valueAttribute
           name="termName"
           value="RR" />
-        <valueAttribute
-          name="displayLabel"
-          value="RR" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="RR" />
+        </structAttribute>
         <valueAttribute
           name="termId"
           value="MIRO_88000039" />
@@ -3846,9 +3888,12 @@
         <valueAttribute
           name="termName"
           value="RS" />
-        <valueAttribute
-          name="displayLabel"
-          value="RS" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="RS" />
+        </structAttribute>
         <valueAttribute
           name="termId"
           value="MIRO_89000039" />
@@ -3866,9 +3911,12 @@
         <valueAttribute
           name="termName"
           value="SS" />
-        <valueAttribute
-          name="displayLabel"
-          value="SS" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="SS" />
+        </structAttribute>
         <valueAttribute
           name="termId"
           value="MIRO_90000039" />
