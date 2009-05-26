@@ -4,11 +4,11 @@ public interface PropertyInfo
 {
   public static final String GENERAL_PACKAGE         = "dss.vector.solutions";
 
-  public static final String SYSTEM_PACKAGE         = "dss.vector.solutions.system";
+  public static final String SYSTEM_PACKAGE          = "dss.vector.solutions.system";
 
   public static final String INSTALL_PACKAGE         = "dss.vector.solutions.system.install";
 
-  public static final String EPI_WEEK_PACKAGE       = "dss.vector.solutions.surveillance.EpiWeek";
+  public static final String EPI_WEEK_PACKAGE        = "dss.vector.solutions.surveillance.EpiWeek";
 
   public static final String STANDARDS_PACKAGE       = "dss.vector.solutions.irs.Standards";
 
@@ -26,11 +26,15 @@ public interface PropertyInfo
 
   public static final String EPI_START               = "epiStart";
 
+  public static final String EPI_START_DAY           = "epiStartWeekDay";
+
   public static final String COUNTRY_GEO_ID          = "countryGeoId";
 
   public static final String DATE_FORMAT_SHORT       = "dateFormatShort";
 
   public static final String DATE_FORMAT             = "dateFormat";
+
+  public static final String SYSTEM_DATE_FORMAT       = "systemDateFormat";
 
   public static final String SHORT_ID_COUNTER        = "SHORT_ID_COUNTER";
 

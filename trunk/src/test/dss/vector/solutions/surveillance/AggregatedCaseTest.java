@@ -20,6 +20,7 @@ import com.terraframe.mojo.web.WebClientSession;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.TestConstants;
+import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -78,30 +79,8 @@ public class AggregatedCaseTest extends TestCase
     ageGroup = AggregatedAgeGroup.getAll()[0];
     ageGroupDTO = AggregatedAgeGroupDTO.getAll(clientRequest)[0];
   }
-  
-  public void testEpiDateBeforeOffsetEquals()
-  {
-    EpiDate epiDate = new EpiDate(PeriodType.QUARTER, 2, 1999);
-    Date startDate = epiDate.getStartDate();
-    Date endDate = epiDate.getEndDate();
-    EpiDate epiDate2 = new EpiDate(startDate, endDate);
-    
-    assertEquals(epiDate.getType(), epiDate2.getType());
-    assertEquals(epiDate.getPeriod(), epiDate2.getPeriod());
-    assertEquals(epiDate.getYear(), epiDate2.getYear());
-  }
 
-  public void testEpiDateAfterOffsetEquals()
-  {
-    EpiDate epiDate = new EpiDate(PeriodType.QUARTER, 2, 2008);
-    Date startDate = epiDate.getStartDate();
-    Date endDate = epiDate.getEndDate();
-    EpiDate epiDate2 = new EpiDate(startDate, endDate);
 
-    assertEquals(epiDate.getType(), epiDate2.getType());
-    assertEquals(epiDate.getPeriod(), epiDate2.getPeriod());
-    assertEquals(epiDate.getYear(), epiDate2.getYear());
-  }
 
   public void testCreateAggregatedCase()
   {
@@ -288,7 +267,7 @@ public class AggregatedCaseTest extends TestCase
       c.delete();
     }
   }
-  
+
   public void testStartDateProblem()
   {
     Calendar calendar = Calendar.getInstance();
@@ -296,14 +275,14 @@ public class AggregatedCaseTest extends TestCase
     Date startDate = calendar.getTime();
     calendar.add(Calendar.DAY_OF_YEAR, 99);
     Date endDate = calendar.getTime();
-    
+
     Integer cases = new Integer(50);
     Integer casesFemale = new Integer(23);
     Integer casesMale = new Integer(50);
     Integer casesPregnant = new Integer(2);
     Integer clinicallyDiagnosed = new Integer(50);
     Integer deaths = new Integer(50);
-    
+
     AggregatedCase c = new AggregatedCase();
     c.setGeoEntity(geoEntity);
     c.setStartDate(startDate);
@@ -315,7 +294,7 @@ public class AggregatedCaseTest extends TestCase
     c.setCasesPregnant(casesPregnant);
     c.setClinicallyDiagnosed(clinicallyDiagnosed);
     c.setDeaths(deaths);
-    
+
     List<CaseDiagnostic> diagnostics = new LinkedList<CaseDiagnostic>();
     for (DiagnosticGrid d : DiagnosticGrid.getAll())
     {
@@ -323,7 +302,7 @@ public class AggregatedCaseTest extends TestCase
       method.setAmount(new Integer(50));
       diagnostics.add(method);
     }
-    
+
     List<CaseTreatment> treatments = new LinkedList<CaseTreatment>();
     List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
     for (TreatmentGrid g : TreatmentGrid.getAll())
@@ -331,12 +310,12 @@ public class AggregatedCaseTest extends TestCase
       CaseTreatment t = c.addTreatment(g);
       t.setAmount(new Integer(30));
       treatments.add(t);
-      
+
       CaseTreatmentStock s = c.addTreatmentStock(g);
       s.setOutOfStock(true);
       stocks.add(s);
     }
-    
+
     List<CaseTreatmentMethod> methods = new LinkedList<CaseTreatmentMethod>();
     for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
     {
@@ -344,7 +323,7 @@ public class AggregatedCaseTest extends TestCase
       t.setAmount(new Integer(40));
       methods.add(t);
     }
-    
+
     List<CaseReferral> referrals = new LinkedList<CaseReferral>();
     for (ReferralGrid g : ReferralGrid.getAll())
     {
@@ -352,27 +331,27 @@ public class AggregatedCaseTest extends TestCase
       r.setAmount(new Integer(70));
       referrals.add(r);
     }
-    
+
     CaseTreatment[] treatArray = treatments.toArray(new CaseTreatment[treatments.size()]);
     CaseTreatmentMethod[] methodArray = methods.toArray(new CaseTreatmentMethod[methods.size()]);
     CaseTreatmentStock[] stockArray = stocks.toArray(new CaseTreatmentStock[stocks.size()]);
     CaseDiagnostic[] diagnosticArray = diagnostics.toArray(new CaseDiagnostic[diagnostics.size()]);
     CaseReferral[] referralArray = referrals.toArray(new CaseReferral[referrals.size()]);
-    
+
     try
     {
       c.applyAll(treatArray, methodArray, stockArray, diagnosticArray, referralArray);
       c.delete();
-      
+
       fail("Able to create an aggregated case with the start date and end date after the current date");
     }
     catch (ProblemException e)
     {
       // This is expected
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertEquals(2, problems.size());
-      
+
       for(ProblemIF problem : problems)
       {
         assertTrue(problem instanceof CurrentDateProblem);
@@ -387,14 +366,14 @@ public class AggregatedCaseTest extends TestCase
     Date startDate = calendar.getTime();
     calendar.add(Calendar.DAY_OF_YEAR, 99);
     Date endDate = calendar.getTime();
-    
+
     Integer cases = new Integer(50);
     Integer casesFemale = new Integer(23);
     Integer casesMale = new Integer(50);
     Integer casesPregnant = new Integer(2);
     Integer clinicallyDiagnosed = new Integer(50);
     Integer deaths = new Integer(50);
-    
+
     AggregatedCase c = new AggregatedCase();
     c.setGeoEntity(geoEntity);
     c.setStartDate(startDate);
@@ -406,7 +385,7 @@ public class AggregatedCaseTest extends TestCase
     c.setCasesPregnant(casesPregnant);
     c.setClinicallyDiagnosed(clinicallyDiagnosed);
     c.setDeaths(deaths);
-    
+
     List<CaseDiagnostic> diagnostics = new LinkedList<CaseDiagnostic>();
     for (DiagnosticGrid d : DiagnosticGrid.getAll())
     {
@@ -414,7 +393,7 @@ public class AggregatedCaseTest extends TestCase
       method.setAmount(new Integer(50));
       diagnostics.add(method);
     }
-    
+
     List<CaseTreatment> treatments = new LinkedList<CaseTreatment>();
     List<CaseTreatmentStock> stocks = new LinkedList<CaseTreatmentStock>();
     for (TreatmentGrid g : TreatmentGrid.getAll())
@@ -422,12 +401,12 @@ public class AggregatedCaseTest extends TestCase
       CaseTreatment t = c.addTreatment(g);
       t.setAmount(new Integer(30));
       treatments.add(t);
-      
+
       CaseTreatmentStock s = c.addTreatmentStock(g);
       s.setOutOfStock(true);
       stocks.add(s);
     }
-    
+
     List<CaseTreatmentMethod> methods = new LinkedList<CaseTreatmentMethod>();
     for (TreatmentMethodGrid g : TreatmentMethodGrid.getAll())
     {
@@ -435,7 +414,7 @@ public class AggregatedCaseTest extends TestCase
       t.setAmount(new Integer(40));
       methods.add(t);
     }
-    
+
     List<CaseReferral> referrals = new LinkedList<CaseReferral>();
     for (ReferralGrid g : ReferralGrid.getAll())
     {
@@ -443,33 +422,33 @@ public class AggregatedCaseTest extends TestCase
       r.setAmount(new Integer(70));
       referrals.add(r);
     }
-    
+
     CaseTreatment[] treatArray = treatments.toArray(new CaseTreatment[treatments.size()]);
     CaseTreatmentMethod[] methodArray = methods.toArray(new CaseTreatmentMethod[methods.size()]);
     CaseTreatmentStock[] stockArray = stocks.toArray(new CaseTreatmentStock[stocks.size()]);
     CaseDiagnostic[] diagnosticArray = diagnostics.toArray(new CaseDiagnostic[diagnostics.size()]);
     CaseReferral[] referralArray = referrals.toArray(new CaseReferral[referrals.size()]);
-    
+
     try
     {
       c.applyAll(treatArray, methodArray, stockArray, diagnosticArray, referralArray);
       c.delete();
-      
+
       fail("Able to create an aggregated case with the end date after the current date");
     }
     catch (ProblemException e)
     {
       // This is expected
       List<ProblemIF> problems = e.getProblems();
-      
+
       assertEquals(1, problems.size());
-      
+
       for(ProblemIF problem : problems)
       {
         assertTrue(problem instanceof CurrentDateProblem);
       }
     }
-    
+
   }
 
   public void testApplyAllDTO()
@@ -574,7 +553,7 @@ public class AggregatedCaseTest extends TestCase
 
   public void testCreateAggregatedView()
   {
-    EpiDate date = new EpiDate(PeriodType.QUARTER, 1, 2009);
+    EpiDate date = EpiDate.getInstanceByPeriod(PeriodType.QUARTER, new Integer(1), new Integer(2009));
 
     Integer cases = new Integer(50);
     Integer casesFemale = new Integer(23);

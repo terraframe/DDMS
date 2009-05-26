@@ -172,7 +172,7 @@ public class MosquitoCollectionTest extends TestCase
 
     view.setCollectionMethod(collectionMethod.getTermName());
     view.setDateCollected(new Date());
-    view.setGeoEntity(nonSentinelSite.getGeoId());
+    //view.setGeoEntity(nonSentinelSite.getGeoId());
     view.apply();
 
     try
@@ -412,8 +412,8 @@ public class MosquitoCollectionTest extends TestCase
       List<ProblemIF> problems = e.getProblems();
 
       assertEquals(1, problems.size());
-     
-      assertTrue("Problem is not of type EmptyValueProblem", problems.get(0) instanceof com.terraframe.mojo.dataaccess.attributes.EmptyValueProblem);      
+
+      assertTrue("Problem is not of type EmptyValueProblem", problems.get(0) instanceof com.terraframe.mojo.dataaccess.attributes.EmptyValueProblem);
     }
     finally
     {
