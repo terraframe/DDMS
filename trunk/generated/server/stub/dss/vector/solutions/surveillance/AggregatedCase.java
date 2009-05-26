@@ -34,6 +34,7 @@ import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.PeriodMonthProblem;
 import dss.vector.solutions.PeriodQuarterProblem;
 import dss.vector.solutions.PeriodWeekProblem;
+import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.MapUtil;
@@ -100,11 +101,11 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * Returns true if the given attribute is defined by a
    * <code>MdAttributeDAOIF</code> in the given map and the current user has
    * permission to view the attribute, false otherwise.
-   * 
+   *
    * <br>
    * Precondition:</br> <code>Session.getCurrentSession()</code> does not return
    * null.
-   * 
+   *
    * @param attributeName
    * @param viewCaseAttributeMap
    * @return true if the given attribute is defined by a
@@ -351,11 +352,11 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   public AggregatedCaseView updateView(AggregatedCaseView view)
   {
-    EpiDate epiDate = new EpiDate(this.getStartDate(), this.getEndDate());
+    EpiDate epiDate = EpiDate.getInstanceByDate(this.getStartDate(), this.getEndDate());
 
     view.setGeoEntity(this.getGeoEntity());
     view.setPeriod(epiDate.getPeriod());
-    view.addPeriodType(epiDate.getType());
+    view.addPeriodType(epiDate.getEpiPeriodType());
     view.setPeriodYear(epiDate.getYear());
     view.setAgeGroup(this.getAgeGroup());
     view.setCaseId(this.getId());
@@ -405,7 +406,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   {
     validate(periodType, period, year);
 
-    EpiDate date = new EpiDate(periodType, period, year);
+    EpiDate date = EpiDate.getInstanceByPeriod(periodType, period, year);
     AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date
         .getEndDate(), ageGroup);
 
@@ -471,7 +472,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   * 
+   *
    * @param xml
    * @return
    */
@@ -595,7 +596,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   /**
    * Queries for AggregatedCases.
-   * 
+   *
    * @param xml
    */
   @Transaction
@@ -606,7 +607,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   /**
    * Creates a
-   * 
+   *
    * @param xml
    * @return
    */

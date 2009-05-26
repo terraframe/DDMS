@@ -2,7 +2,7 @@ package dss.vector.solutions.irs;
 
 public class TargetUnitMasterDTO extends TargetUnitMasterDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1243244709944L;
+  private static final long serialVersionUID = 1243292742138L;
   
   public TargetUnitMasterDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {

@@ -164,7 +164,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   {
     AggregatedCaseViewDTO c = AggregatedCaseDTO.lockView(this.getClientRequest(), id);
 
-    EpiDateDTO epiDate = new EpiDateDTO(c.getPeriodType().get(0), c.getPeriod(), c.getPeriodYear());
+    EpiDateDTO epiDate = EpiDateDTO.getInstanceByPeriod(c.getPeriodType().get(0), c.getPeriod(), c.getPeriodYear());
     AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
         .getRequest());
 
@@ -176,8 +176,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     req.setAttribute("treatmentMethods", Arrays.asList(c.getTreatmentMethods()));
     req.setAttribute("stock", Arrays.asList(c.getTreatmentStocks()));
     req.setAttribute("item", c);
-    req.setAttribute("page_title", "Edit Aggregated Case "
-        + epiDate.getDisplayLabel(this.getClientRequest()));
+    req.setAttribute("page_title", "Edit Aggregated Case " + epiDate.getDisplayLabel(this.getClientRequest()));
     render("editComponent.jsp");
   }
 
@@ -279,7 +278,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       validateParameters(geoId, periodType, period, year, ageGroup);
 
       PeriodTypeDTO type = PeriodTypeDTO.valueOf(periodType);
-      EpiDateDTO date = new EpiDateDTO(type, period, year);
+      EpiDateDTO date = EpiDateDTO.getInstanceByPeriod(type, period, year);
       GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(this.getClientRequest(), geoId);
 
       this.searchByGeoEntityAndDate(geoEntity, date, ageGroup);
@@ -352,7 +351,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
 
     req.setAttribute("periodType", allItems);
-    req.setAttribute("period", period); 
+    req.setAttribute("period", period);
     req.setAttribute("year", year);
     req.setAttribute("geoId", geoId);
     req.setAttribute("checkedType", periodType);

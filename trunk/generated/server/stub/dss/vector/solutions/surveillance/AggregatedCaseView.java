@@ -11,6 +11,7 @@ import dss.vector.solutions.FuturePeriodProblem;
 import dss.vector.solutions.PeriodMonthProblem;
 import dss.vector.solutions.PeriodQuarterProblem;
 import dss.vector.solutions.PeriodWeekProblem;
+import dss.vector.solutions.general.EpiDate;
 
 public abstract class AggregatedCaseView extends AggregatedCaseViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -177,7 +178,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
     else
     {
       PeriodType pt = this.getPeriodType().get(0);
-      EpiDate date = new EpiDate(pt, this.getPeriod(), this.getPeriodYear());
+      EpiDate date = EpiDate.getInstanceByPeriod(pt, this.getPeriod(), this.getPeriodYear());
 
       c.setStartDate(date.getStartDate());
       c.setEndDate(date.getEndDate());
@@ -344,7 +345,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   public CaseTreatmentMethod[] getTreatmentMethods()
   {
     Set<CaseTreatmentMethod> set = new TreeSet<CaseTreatmentMethod>(new GridComparator());
-    
+
     for (TreatmentMethodGrid d : TreatmentMethodGrid.getAll())
     {
       set.add(new CaseTreatmentMethod(this.getId(), d.getId()));
@@ -461,7 +462,7 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
       p.throwIt();
     }
 
-    EpiDate date = new EpiDate(type, period, year);
+    EpiDate date = EpiDate.getInstanceByPeriod(type, period, year);
 
     Date current = new Date();
 

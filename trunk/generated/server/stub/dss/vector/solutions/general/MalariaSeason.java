@@ -9,7 +9,7 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.surveillance.EpiDate;
+import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.surveillance.PeriodType;
 
 public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -46,7 +46,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
     for(int i = 0;i<=800;i++)
     {
-      EpiDate  epiWeek = new EpiDate(PeriodType.WEEK,i,seasonStartYear);
+      EpiDate  epiWeek = EpiDate.getInstanceByPeriod(PeriodType.WEEK,i,seasonStartYear);
       long weekStart = epiWeek.getStartDate().getTime();
 
       if(weekStart > seasonStart && weekStart < seasonEnd )
