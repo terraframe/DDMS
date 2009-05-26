@@ -78,30 +78,33 @@
         </attributes>
       </mdException>
 
-      <object
+       <object
         type="dss.vector.solutions.Property"
-        id="epiStart">
+        id="epiStartWeekDay">
         <valueAttribute
           name="propertyName"
-          value="epiStart" />
+          value="epiStartWeekDay" />
         <valueAttribute
           name="displayLabel"
-          value="First Day of the Epi Year" />
+          value="First Weekday Day of the Epi Year" />
         <valueAttribute
           name="propertyPackage"
           value="dss.vector.solutions.surveillance.EpiWeek" />
         <valueAttribute
           name="propertyValue"
-          value="01/05/2008" />
+          value="0" />
         <valueAttribute
           name="propertyType"
-          value="String" />
+          value="Integer" />
         <valueAttribute
           name="propertyValidator"
-          value="\\d{2}-\\d{2}" />
+          value="^[0-6]$" />
         <valueAttribute
           name="description"
-          value="Start date of the EPI year" />
+          value="Start Weekday of the EPI year, 0 = Sunday 1 = Monday, etc." />
+        <valueAttribute
+          name="validValues"
+          value="0,1,2,3,4,5,6" />
       </object>
 
       <mdBusiness
