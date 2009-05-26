@@ -761,15 +761,15 @@ public class AggregatedCaseTest extends TestCase
     {
       AggregatedCaseView test = AggregatedCase.getView(c.getCaseId());
 
-      for (CaseTreatmentStock s : AggregatedCase.getTreatmentStocks(test.getCaseId()))
+      for (CaseTreatmentStock s : test.getTreatmentStocks())
         assertEquals(new Boolean(true), s.getOutOfStock());
-      for (CaseTreatmentMethod m : AggregatedCase.getTreatmentMethods(test.getCaseId()))
+      for (CaseTreatmentMethod m : test.getTreatmentMethods())
         assertEquals(new Integer(40), m.getAmount());
-      for (CaseTreatment t : AggregatedCase.getTreatments(test.getCaseId()))
+      for (CaseTreatment t :test.getTreatments())
         assertEquals(new Integer(30), t.getAmount());
-      for (CaseReferral r : AggregatedCase.getReferrals(test.getCaseId()))
+      for (CaseReferral r : test.getReferrals())
         assertEquals(new Integer(70), r.getAmount());
-      for (CaseDiagnostic d : AggregatedCase.getDiagnosticMethods(test.getCaseId()))
+      for (CaseDiagnostic d : test.getDiagnosticMethods())
         assertEquals(new Integer(50), d.getAmount());
     }
     finally
@@ -858,15 +858,15 @@ public class AggregatedCaseTest extends TestCase
       assertEquals(c.getClinicallyDiagnosed(), test.getClinicallyDiagnosed());
       assertEquals(c.getDeaths(), test.getDeaths());
 
-      for (CaseTreatmentStockDTO s : AggregatedCaseDTO.getTreatmentStocks(clientRequest, test.getCaseId()))
+      for (CaseTreatmentStockDTO s : test.getTreatmentStocks())
         assertEquals(new Boolean(true), s.getOutOfStock());
-      for (CaseTreatmentMethodDTO m : AggregatedCaseDTO.getTreatmentMethods(clientRequest, test.getCaseId()))
+      for (CaseTreatmentMethodDTO m : test.getTreatmentMethods())
         assertEquals(new Integer(40), m.getAmount());
-      for (CaseTreatmentDTO t : AggregatedCaseDTO.getTreatments(clientRequest, test.getCaseId()))
+      for (CaseTreatmentDTO t : test.getTreatments())
         assertEquals(new Integer(30), t.getAmount());
-      for (CaseReferralDTO r : AggregatedCaseDTO.getReferrals(clientRequest, test.getCaseId()))
+      for (CaseReferralDTO r : test.getReferrals())
         assertEquals(new Integer(70), r.getAmount());
-      for (CaseDiagnosticDTO d : AggregatedCaseDTO.getDiagnosticMethods(clientRequest, test.getCaseId()))
+      for (CaseDiagnosticDTO d : test.getDiagnosticMethods())
         assertEquals(new Integer(50), d.getAmount());
     }
     finally
@@ -958,15 +958,15 @@ public class AggregatedCaseTest extends TestCase
       assertEquals(c.getPeriodType().get(0), test.getPeriodType().get(0));
       assertEquals(c.getPeriodYear(), test.getPeriodYear());
 
-      for (CaseTreatmentStock s : AggregatedCase.getTreatmentStocks(test.getCaseId()))
+      for (CaseTreatmentStock s : test.getTreatmentStocks())
         assertEquals(new Boolean(true), s.getOutOfStock());
-      for (CaseTreatmentMethod m : AggregatedCase.getTreatmentMethods(test.getCaseId()))
+      for (CaseTreatmentMethod m : test.getTreatmentMethods())
         assertEquals(new Integer(40), m.getAmount());
-      for (CaseTreatment t : AggregatedCase.getTreatments(test.getCaseId()))
+      for (CaseTreatment t : test.getTreatments())
         assertEquals(new Integer(30), t.getAmount());
-      for (CaseReferral r : AggregatedCase.getReferrals(test.getCaseId()))
+      for (CaseReferral r : test.getReferrals())
         assertEquals(new Integer(70), r.getAmount());
-      for (CaseDiagnostic d : AggregatedCase.getDiagnosticMethods(test.getCaseId()))
+      for (CaseDiagnostic d : test.getDiagnosticMethods())
         assertEquals(new Integer(50), d.getAmount());
     }
     finally
