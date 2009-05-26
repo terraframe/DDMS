@@ -33,7 +33,7 @@ var aSubmenuData = [
                             itemdata: [
                                        { text: "Manage_People", url: "dss.vector.solutions.PersonController.viewAll.mojo" , visibleTo:'Administrator'},
                                        { text: "Manage_IRS_Teams", url: "dss.vector.solutions.irs.SprayTeamController.viewAll.mojo", visibleTo:'Administrator' },
-                                       { text: "Edit_Roles", url: "dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo?actor=manager", visibleTo:'Administrator' }
+                                       { text: "Edit_Roles", url: "dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo?actor=GUIVisibility", visibleTo:'Administrator' }
                             ]
                         }
 
@@ -158,21 +158,21 @@ function localizeText(text_obj)
 		text_obj.text = MDSS.localize(text_obj.text);
 	}
 
-	/*after depth first search then check permissions*/
-	if(typeof text_obj.visibleTo == 'string')
-	{
-		//check if the user is in any role that has access to this link
-		for each(role in MDSS.user.roles)
-		{
-			if(text_obj.visibleTo.indexOf(role) >= 0)
-			{
-				return(false);
-			}
-		}
-		/*if we make it here the user does not have access
-		text_obj.text = null;*/
-		delete text_obj.text;
-	}
+//	/*after depth first search then check permissions*/
+//	if(typeof text_obj.visibleTo == 'string')
+//	{
+//		//check if the user is in any role that has access to this link
+//		for each(role in MDSS.user.roles)
+//		{
+//			if(text_obj.visibleTo.indexOf(role) >= 0)
+//			{
+//				return(false);
+//			}
+//		}
+//		/*if we make it here the user does not have access
+//		text_obj.text = null;*/
+//		delete text_obj.text;
+//	}
 }
 
 localizeText(aSubmenuData);
