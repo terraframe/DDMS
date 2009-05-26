@@ -3713,13 +3713,13 @@
           value="Integer" />
         <valueAttribute
           name="propertyValidator"
-          value="^[1-9][0-9]{0,3}$" />
+          value="^1024$" />
         <valueAttribute
           name="validValues"
-          value="1-9999" />
+          value="1024" />
         <valueAttribute
           name="description"
-          value="Numeber of address space segments or number of installs, Must be the SAME on evey install" />
+          value="Number of address space segments(installs), NOT EDITABLE" />
       </object>
       <object
         type="dss.vector.solutions.Property"
@@ -3741,7 +3741,7 @@
           value="Integer" />
         <valueAttribute
           name="propertyValidator"
-          value="^[0-9]+$" />
+          value="^[0-9]{0-4}$" />
         <valueAttribute
           name="description"
           value="The id address space offset or install number, MUST be unique for each server, 0-23 are reserved" />
@@ -3764,7 +3764,7 @@
           value="0" />
         <valueAttribute
           name="propertyType"
-          value="Integer" />
+          value="Long" />
         <valueAttribute
           name="propertyValidator"
           value="^[0-9]+$" />
@@ -3795,7 +3795,38 @@
           value="^[MmDdYy/- ]+$" />
         <valueAttribute
           name="description"
+          value="Date Format For Display" />
+        <valueAttribute
+          name="validValues"
+          value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" />
+      </object>
+      <object
+        type="dss.vector.solutions.Property"
+        id="systemDateFormat">
+        <valueAttribute
+          name="propertyName"
+          value="systemDateFormat" />
+        <valueAttribute
+          name="displayLabel"
           value="Date Format" />
+        <valueAttribute
+          name="propertyPackage"
+          value="dss.vector.solutions" />
+        <valueAttribute
+          name="propertyValue"
+          value="yyyy-mm-dd" />
+        <valueAttribute
+          name="propertyType"
+          value="String" />
+        <valueAttribute
+          name="propertyValidator"
+          value="^yyyy-mm-dd$" />
+        <valueAttribute
+          name="description"
+          value="Date Format for system date Properties, NOT EDITABLE" />
+       <valueAttribute
+          name="validValues"
+          value="yyyy-mm-dd" />
       </object>
       <object
         type="dss.vector.solutions.Property"
@@ -3823,7 +3854,7 @@
           value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" />
         <valueAttribute
           name="description"
-          value="Short Date Format" />
+          value="Short Date Format, should not include year" />
       </object>
 
       <object
