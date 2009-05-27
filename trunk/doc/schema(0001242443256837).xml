@@ -6,7 +6,7 @@
           <mdMethod
             name="getView"
             label="Get View"
-            description="Get a veiw by GeoEntitny UUID."
+            description="Get a veiw by GeoEntiny UUID."
             static="true"
             returnType="dss.vector.solutions.geo.GeoEntityView">
             <mdParameter
