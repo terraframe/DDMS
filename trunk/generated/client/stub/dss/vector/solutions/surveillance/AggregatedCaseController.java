@@ -164,8 +164,9 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     AggregatedCaseViewDTO c = AggregatedCaseDTO.lockView(this.getClientRequest(), id);
+    ClientRequestIF request = this.getClientSession().getRequest();
 
-    EpiDateDTO epiDate = EpiDateDTO.getInstanceByPeriod(c.getPeriodType().get(0), c.getPeriod(), c.getPeriodYear());
+    EpiDateDTO epiDate = EpiDateDTO.getInstanceByPeriod(request,c.getPeriodType().get(0), c.getPeriod(), c.getPeriodYear());
     AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
         .getRequest());
 
@@ -233,7 +234,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     ClientRequestIF request = this.getClientSession().getRequest();
     String label = date.getDisplayLabel(request);
 
-    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(), geoEntity, date.getPeriodType(), date.getPeriod(), date.getYear(), ageGroup);
+    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(), geoEntity, date.getPeriodType().get(0), date.getPeriod(), date.getEpiYear(), ageGroup);
     AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
 
     String jsp = "createComponent.jsp";
@@ -274,12 +275,13 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   public void searchByGeoIdAndEpiWeek(String geoId, String periodType, Integer period, Integer year,
       AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
   {
+    ClientRequestIF request = this.getClientSession().getRequest();
     try
     {
       validateParameters(geoId, periodType, period, year, ageGroup);
 
       PeriodTypeDTO type = PeriodTypeDTO.valueOf(periodType);
-      EpiDateDTO date = EpiDateDTO.getInstanceByPeriod(type, period, year);
+      EpiDateDTO date = EpiDateDTO.getInstanceByPeriod(request, type, period, year);
       GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(this.getClientRequest(), geoId);
 
       this.searchByGeoEntityAndDate(geoEntity, date, ageGroup);
