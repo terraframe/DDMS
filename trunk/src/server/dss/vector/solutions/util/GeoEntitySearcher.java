@@ -3,6 +3,8 @@ package dss.vector.solutions.util;
 import java.util.Iterator;
 import java.util.List;
 
+import dss.vector.solutions.AmbigiousGeoEntityException;
+import dss.vector.solutions.UnknownGeoEntityException;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class GeoEntitySearcher
@@ -34,13 +36,12 @@ public class GeoEntitySearcher
           if (results.size() == 0)
           {
             String msg = "Unknown Geo Entity [" + entityName + "]";
-            throw new RuntimeException(msg);
+            throw new UnknownGeoEntityException(msg);
           }
           else if (results.size() != 1)
           {
-            String msg = "Geo Entity [" + entityName
-                + "] is ambiguous (It has more than one possible solution)";
-            throw new RuntimeException(msg);
+            String msg = "Geo Entity ending with [" + entityName + "] is ambiguous (It has more than one possible solution)";
+            throw new AmbigiousGeoEntityException(msg);
           }
 
           current = results.get(0);
