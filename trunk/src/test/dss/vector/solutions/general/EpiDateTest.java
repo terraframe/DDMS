@@ -76,7 +76,7 @@ public class EpiDateTest extends TestCase
     d.set(Calendar.DAY_OF_WEEK,offset);
     System.out.println("offset = " + df.format(d.getTime()));
     Integer testYear = 1997;
-    while (testYear < 2014)
+    while (testYear < 2011)
     {
       System.out.println("***********************************************\n SYSTEM YEAR = " + testYear);
       System.out.println("EW Mon S  M  T  W Th  F  S  Mon");
@@ -129,7 +129,7 @@ public class EpiDateTest extends TestCase
    *
    * }
    */
-  public void testEpiQurater()
+  public void testEpiQuarter()
   {
     Integer period = 2;
     Integer testYear = 2009;
