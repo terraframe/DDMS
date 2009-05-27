@@ -11,7 +11,7 @@
 <!--<link rel="stylesheet" type="text/css" href="js/yui/build/colorpicker/assets/skins/sam/colorpicker.css">-->
 
 <jwr:style src="/bundles/yuiStyle.css"/>
-<jwr:style src="/bundles/mdssScreen.css"/>
+<jwr:style src="/bundles/mdssScreen.css" media="all"/>
 
 <jwr:script src="/bundles/yuiBundle.js"/>
 <jwr:script src="/bundles/Mojo.js"/>
