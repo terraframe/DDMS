@@ -542,6 +542,7 @@ div.scrollable {
 .geoOpener{
 	padding-left:5px;
 	vertical-align:-10%;
+	cursor:pointer;
 }
 
 /*---------------------------------------------------------------*/
