@@ -246,8 +246,7 @@ textarea {
 
 .delete-button {
 	cursor: pointer;
-	background: transparent url(/MDSS/imgs/icons/delete.png) no-repeat center
-		center;
+	background: transparent url(/MDSS/imgs/icons/delete.png) no-repeat center center;
 	width: 16px;
 	height: 16px;
 }
