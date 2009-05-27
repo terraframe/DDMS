@@ -27,37 +27,12 @@ public class PropertyController extends PropertyControllerBase implements com.te
   {
     this.viewAll();
   }
-  public void delete(dss.vector.solutions.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.delete();
-      this.viewAll();
-    }
-    catch(ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failDelete(dto);
-    }
-    catch(Throwable t)
-    {
-      ErrorUtility.prepareThrowable(t, req);
-
-      this.failDelete(dto);
-    }
-  }
-  public void failDelete(dss.vector.solutions.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
-  }
   public void create(dss.vector.solutions.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      this.newInstance();
     }
     catch(ProblemExceptionDTO e)
     {
@@ -75,14 +50,15 @@ public class PropertyController extends PropertyControllerBase implements com.te
   public void failCreate(dss.vector.solutions.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    render("createComponent.jsp");
+    render("epiWeekComponent.jsp");
   }
+
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.PropertyQueryDTO query = dss.vector.solutions.PropertyDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
-    render("viewAllComponent.jsp");
+    PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START_DAY);
+    req.setAttribute("item", dto);
+    req.getRequestDispatcher(dir+"epiWeekExcel.jsp").forward(req, resp);
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -151,7 +127,7 @@ public class PropertyController extends PropertyControllerBase implements com.te
     dss.vector.solutions.PropertyDTO dto = new dss.vector.solutions.PropertyDTO(clientRequest);
     */
     PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START_DAY);
-
+    dto.lock();
     req.setAttribute("item", dto);
     render("epiWeekComponent.jsp");
   }
