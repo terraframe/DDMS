@@ -548,9 +548,6 @@ div.scrollable {
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/
 @media print {
-  @charset "utf-8";
-
-	/* CSS Document */
 	body {
 		margin-left: 0px;
 		margin-top: 0px;
