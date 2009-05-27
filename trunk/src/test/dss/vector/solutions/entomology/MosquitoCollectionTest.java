@@ -16,7 +16,6 @@ import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.CannotDeleteReferencedObject;
 import com.terraframe.mojo.session.StartSession;
 
-import dss.vector.solutions.export.entomology.MosquitoCollectionView;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -163,29 +162,6 @@ public class MosquitoCollectionTest extends TestCase
       {
         collection.delete();
       }
-    }
-  }
-
-  public void testMosquitoCollectionView()
-  {
-    MosquitoCollectionView view = new MosquitoCollectionView();
-
-    view.setCollectionMethod(collectionMethod.getTermName());
-    view.setDateCollected(new Date());
-    //view.setGeoEntity(nonSentinelSite.getGeoId());
-    view.apply();
-
-    try
-    {
-      MosquitoCollection collection = MosquitoCollection.get(view.getCollectionId());
-
-      assertEquals(collectionMethod.getId(), collection.getCollectionMethod().getId());
-      assertEquals(view.getDateCollected(), collection.getDateCollected());
-      assertEquals(nonSentinelSite.getId(), collection.getGeoEntity().getId());
-    }
-    finally
-    {
-      MosquitoCollection.get(view.getCollectionId()).delete();
     }
   }
 

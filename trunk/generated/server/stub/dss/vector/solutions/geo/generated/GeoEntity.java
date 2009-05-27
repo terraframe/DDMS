@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 import com.terraframe.mojo.business.Business;
@@ -537,6 +538,32 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     }
 
     return children;
+  }
+  
+  /**
+   * Gets all children of a GeoEntity, but stops its breadth-first decent
+   * when it finds a child which belongs to the given fully qualified types. 
+   */
+  public List<GeoEntity> getPrunedChildren(List<String> types)
+  {
+    List<GeoEntity> list = new LinkedList<GeoEntity>();
+    Queue<GeoEntity> queue = new LinkedList<GeoEntity>(this.getImmediateChildren());
+
+    while(!queue.isEmpty())
+    {
+      GeoEntity child = queue.poll();
+      
+      if(types.contains(child.getType()))
+      {
+        list.add(child);
+      }
+      else
+      {
+        queue.addAll(child.getImmediateChildren());
+      }
+    }
+    
+    return list;
   }
 
   /**
