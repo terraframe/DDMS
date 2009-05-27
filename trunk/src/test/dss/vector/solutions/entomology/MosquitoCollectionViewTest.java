@@ -199,10 +199,10 @@ public class MosquitoCollectionViewTest extends TestCase
     view.setCollectionMethod(collectionMethod.getTermName());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
-    view.setGeoEntity_1(provinceName);
-    view.setGeoEntity_2(districtName);
-    view.setGeoEntity_3(localityName);
-    view.setGeoEntity_4(sentinelSiteName);
+    view.setGeoEntity_01(provinceName);
+    view.setGeoEntity_02(districtName);
+    view.setGeoEntity_03(localityName);
+    view.setGeoEntity_04(sentinelSiteName);
     view.apply();
 
     try
@@ -226,10 +226,10 @@ public class MosquitoCollectionViewTest extends TestCase
     view.setCollectionMethod(collectionMethod.getTermName());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
-    view.setGeoEntity_1(provinceName);
-    view.setGeoEntity_2(districtName);
-    view.setGeoEntity_3(localityName);
-    view.setGeoEntity_4(nonSentinelSiteName);
+    view.setGeoEntity_01(provinceName);
+    view.setGeoEntity_02(districtName);
+    view.setGeoEntity_03(localityName);
+    view.setGeoEntity_04(nonSentinelSiteName);
     view.apply();
     
     try
@@ -252,10 +252,10 @@ public class MosquitoCollectionViewTest extends TestCase
     view.setCollectionMethod(collectionMethod.getTermName());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
-    view.setGeoEntity_1(provinceName);
-    view.setGeoEntity_2(districtName);
-    view.setGeoEntity_3(localityName);
-    view.setGeoEntity_4(duplicateSiteName);
+    view.setGeoEntity_01(provinceName);
+    view.setGeoEntity_02(districtName);
+    view.setGeoEntity_03(localityName);
+    view.setGeoEntity_04(duplicateSiteName);
 
     try
     {
@@ -277,10 +277,10 @@ public class MosquitoCollectionViewTest extends TestCase
     view.setCollectionMethod(collectionMethod.getTermName());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
-    view.setGeoEntity_1(provinceName);
-    view.setGeoEntity_2(districtName);
-    view.setGeoEntity_3(localityName);
-    view.setGeoEntity_4(twinSentinelSiteName);
+    view.setGeoEntity_01(provinceName);
+    view.setGeoEntity_02(districtName);
+    view.setGeoEntity_03(localityName);
+    view.setGeoEntity_04(twinSentinelSiteName);
     
     try
     {
@@ -302,10 +302,10 @@ public class MosquitoCollectionViewTest extends TestCase
     view.setCollectionMethod(collectionMethod.getTermName());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
-    view.setGeoEntity_1(provinceName);
-    view.setGeoEntity_2(districtName);
-    view.setGeoEntity_3(localityName);
-    view.setGeoEntity_4(twinNonSentinelSiteName);
+    view.setGeoEntity_01(provinceName);
+    view.setGeoEntity_02(districtName);
+    view.setGeoEntity_03(localityName);
+    view.setGeoEntity_04(twinNonSentinelSiteName);
     
     try
     {
@@ -327,10 +327,10 @@ public class MosquitoCollectionViewTest extends TestCase
     view.setCollectionMethod(collectionMethod.getTermName());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
-    view.setGeoEntity_1(provinceName);
-    view.setGeoEntity_2(districtName);
-    view.setGeoEntity_3(localityName);
-    view.setGeoEntity_4("babga");
+    view.setGeoEntity_01(provinceName);
+    view.setGeoEntity_02(districtName);
+    view.setGeoEntity_03(localityName);
+    view.setGeoEntity_04("babga");
     
     try
     {
@@ -352,10 +352,10 @@ public class MosquitoCollectionViewTest extends TestCase
     view.setCollectionMethod(collectionMethod.getTermName());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
-    view.setGeoEntity_1(provinceName);
-    view.setGeoEntity_2(districtName);
-    view.setGeoEntity_3("baddata");
-    view.setGeoEntity_4(sentinelSiteName);
+    view.setGeoEntity_01(provinceName);
+    view.setGeoEntity_02(districtName);
+    view.setGeoEntity_03("baddata");
+    view.setGeoEntity_04(sentinelSiteName);
     
     try
     {
@@ -377,10 +377,10 @@ public class MosquitoCollectionViewTest extends TestCase
     view.setCollectionMethod("bad name");
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
-    view.setGeoEntity_1(provinceName);
-    view.setGeoEntity_2(districtName);
-    view.setGeoEntity_3(localityName);
-    view.setGeoEntity_4(sentinelSiteName);
+    view.setGeoEntity_01(provinceName);
+    view.setGeoEntity_02(districtName);
+    view.setGeoEntity_03(localityName);
+    view.setGeoEntity_04(sentinelSiteName);
     
     try
     {
@@ -401,10 +401,10 @@ public class MosquitoCollectionViewTest extends TestCase
     MosquitoCollectionView view = new MosquitoCollectionView();        
     view.setCollectionMethod(collectionMethod.getTermName());
     view.setGeoEntity_0(countryName);
-    view.setGeoEntity_1(provinceName);
-    view.setGeoEntity_2(districtName);
-    view.setGeoEntity_3(localityName);
-    view.setGeoEntity_4(sentinelSiteName);
+    view.setGeoEntity_01(provinceName);
+    view.setGeoEntity_02(districtName);
+    view.setGeoEntity_03(localityName);
+    view.setGeoEntity_04(sentinelSiteName);
     
     try
     {
@@ -427,10 +427,10 @@ public class MosquitoCollectionViewTest extends TestCase
     MosquitoCollectionView view = new MosquitoCollectionView();        
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
-    view.setGeoEntity_1(provinceName);
-    view.setGeoEntity_2(districtName);
-    view.setGeoEntity_3(localityName);
-    view.setGeoEntity_4(sentinelSiteName);
+    view.setGeoEntity_01(provinceName);
+    view.setGeoEntity_02(districtName);
+    view.setGeoEntity_03(localityName);
+    view.setGeoEntity_04(sentinelSiteName);
     
     try
     {
