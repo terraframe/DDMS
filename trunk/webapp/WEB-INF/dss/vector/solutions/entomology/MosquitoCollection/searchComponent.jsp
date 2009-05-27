@@ -10,7 +10,8 @@
 <%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 
-<c:set var="page_title" value="Search_Mosquito_Collections"  scope="request"/>
+
+<%@page import="dss.vector.solutions.export.entomology.MosquitoCollectionViewDTO"%><c:set var="page_title" value="Search_Mosquito_Collections"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
@@ -23,6 +24,7 @@ request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
 %>
 
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.search" method="POST" id ="searchMosquitoCollections">
+  <mjl:input type="hidden" param="type" value="<%=MosquitoCollectionViewDTO.CLASS%>"/>
   <dl>
     <dt><fmt:message key="Filter"/></dt>
     <dd>
@@ -43,6 +45,8 @@ request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
       </mjl:select>
     </dd>
     <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionController.searchByGeoIdAndDate.mojo" name="search.button" value="Search"/>
+    <mjl:command classes="submitButton" action="excelexport" name="export.button" value="Excel_Export_Header"/>
+    <mjl:command classes="submitButton" action="excelimport" name="import.button" value="Excel_Import_Header"/>
   </dl>
 </mjl:form>
 
