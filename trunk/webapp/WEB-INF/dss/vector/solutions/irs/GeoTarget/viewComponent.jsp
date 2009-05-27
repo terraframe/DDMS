@@ -12,14 +12,14 @@
 <%@page import="dss.vector.solutions.PropertyInfo"%>
 <%@page import="dss.vector.solutions.irs.GeoTargetDTO"%>
 
-
 <%@page import="dss.vector.solutions.PropertyInfo"%>
 <%@page import="java.util.Date"%>
 
-
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.Calendar"%>
-<c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
+
+<%@page import="dss.vector.solutions.surveillance.PeriodTypeDTO"%>
+<%@page import="dss.vector.solutions.general.EpiDateDTO"%><c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -52,9 +52,6 @@
 
 <div id="buttons" class="noprint">
 
-
-
-
 <span id="GeoTargetsSaverows" class="yui-button yui-push-button">
 <span class="first-child">
 <button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
@@ -78,8 +75,6 @@
 <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
 
 </div>
-
-
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 GeoTargetViewDTO[] rows = (GeoTargetViewDTO[]) request.getAttribute("geoTargetViews");
@@ -105,7 +100,7 @@ cal.setTime(item.getSeason().getStartDate());
 int seasonStartYear = cal.get(Calendar.YEAR);
 for(int i = 0;i<=106;i++)
 {
-  EpiWeek  epiWeek = new EpiWeek(i,seasonStartYear,epiStart);
+  EpiDateDTO epiWeek = EpiDateDTO.getInstanceByPeriod(clientRequest,PeriodTypeDTO.WEEK, i, seasonStartYear);
   long weekStart = epiWeek.getStartDate().getTime();
 
   if(weekStart > seasonStart && weekStart < seasonEnd )
@@ -122,11 +117,9 @@ for(int i = 0;i<=106;i++)
 }
 
 %>
-
 <script type="text/javascript">
 
 <%=com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true)%>
-
 
 GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
        columnDefs: [<%=colConfig%>],
