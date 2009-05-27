@@ -17,7 +17,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     super();
   }
 
-  public static EpiDate getInstanceByPeriod(PeriodType periodType, int period, Integer year)
+  public static EpiDate getInstanceByPeriod(PeriodType periodType, Integer period, Integer year)
   {
      EpiDate newInstance =  new EpiDate();
      newInstance.construct(periodType, period, year);
@@ -71,8 +71,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
   {
     super.setStartDate(startDate);
     super.setEndDate(endDate);
-    GregorianCalendar tempCal = makeRegularCalendar(getEpiYear());
-    tempCal.setTime(startDate);
+    GregorianCalendar tempCal = makeRegularCalendar(startDate);
     super.setEpiYear(tempCal.get(Calendar.YEAR));
 
     if (plusOneWeek(startDate).equals(endDate))
@@ -117,6 +116,16 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     cal.clear();
     cal.setFirstDayOfWeek(startDay);
     cal.set(year, 1, 1);
+    return cal;
+  }
+
+  private GregorianCalendar makeRegularCalendar(Date date)
+  {
+    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+    GregorianCalendar cal = new GregorianCalendar();
+    cal.clear();
+    cal.setFirstDayOfWeek(startDay);
+    cal.setTime(date);
     return cal;
   }
 
