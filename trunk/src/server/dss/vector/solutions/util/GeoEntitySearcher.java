@@ -3,11 +3,13 @@ package dss.vector.solutions.util;
 import java.util.Iterator;
 import java.util.List;
 
+import com.terraframe.mojo.generation.loader.Reloadable;
+
 import dss.vector.solutions.AmbigiousGeoEntityException;
 import dss.vector.solutions.UnknownGeoEntityException;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class GeoEntitySearcher
+public class GeoEntitySearcher implements Reloadable
 {
   public GeoEntity                 current;
 

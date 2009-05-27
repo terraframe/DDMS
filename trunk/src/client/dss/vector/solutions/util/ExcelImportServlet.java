@@ -33,7 +33,10 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
   protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
   {
     if (!ServletFileUpload.isMultipartContent(req))
+    {
+      req.getRequestDispatcher("/WEB-INF/excelImport.jsp").forward(req, res);
       return;
+    }
     
     ClientRequestIF clientRequest = (ClientRequestIF)req.getAttribute(ClientConstants.CLIENTREQUEST);
     

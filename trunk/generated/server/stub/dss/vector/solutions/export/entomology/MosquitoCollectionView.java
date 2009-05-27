@@ -46,7 +46,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     
     if(this.hasCollectionMethod())
     {
-      method = (CollectionMethod) CollectionMethod.validateByTermName(this.getCollectionMethod());    
+      method = (CollectionMethod) CollectionMethod.validateByTermName(this.getCollectionMethod());     
     }
 
     MosquitoCollection collection = new MosquitoCollection();
@@ -78,15 +78,16 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   {
     List<String> list = new LinkedList<String>();
     list.add(this.getGeoEntity_0());
-    list.add(this.getGeoEntity_1());
-    list.add(this.getGeoEntity_2());
-    list.add(this.getGeoEntity_3());
-    list.add(this.getGeoEntity_4());
-    list.add(this.getGeoEntity_5());
-    list.add(this.getGeoEntity_6());
-    list.add(this.getGeoEntity_7()); 
-    list.add(this.getGeoEntity_8());
-    list.add(this.getGeoEntity_9());
+    list.add(this.getGeoEntity_01());
+    list.add(this.getGeoEntity_02());
+    list.add(this.getGeoEntity_03());
+    list.add(this.getGeoEntity_04());
+    list.add(this.getGeoEntity_05());
+    list.add(this.getGeoEntity_06());
+    list.add(this.getGeoEntity_07()); 
+    list.add(this.getGeoEntity_08());
+    list.add(this.getGeoEntity_09());
+    list.add(this.getGeoEntity_10());
     
     return list;
   }

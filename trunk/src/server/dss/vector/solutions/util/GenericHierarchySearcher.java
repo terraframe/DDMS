@@ -4,12 +4,13 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
-public class GenericHierarchySearcher implements SearchableHierarchy
+public class GenericHierarchySearcher implements SearchableHierarchy, Reloadable
 {
   private List<String> types;
   
