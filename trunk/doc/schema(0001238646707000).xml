@@ -119,7 +119,8 @@
             description="Denotes if this object is political (e.g., a Country)"
             required="true"
             negativeLabel="No"
-            positiveLabel="Yes" />
+            positiveLabel="Yes"
+            default_value="false" />
           <boolean
             name="sprayTargetAllowed"
             label="Spray Target Allowed"
@@ -5741,7 +5742,7 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
           value="true" />
@@ -5783,7 +5784,7 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
           value="true" />
@@ -5797,7 +5798,7 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
           value="true" />
@@ -5811,7 +5812,7 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
           value="true" />
@@ -5825,7 +5826,7 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
           value="true" />
@@ -6008,7 +6009,7 @@
         key="GeoHierarchy_SentinelSite">
         <valueAttribute
           name="political"
-          value="true" />
+          value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
           value="true" />
@@ -6030,7 +6031,7 @@
         key="GeoHierarchy_NonSentinelSite">
         <valueAttribute
           name="political"
-          value="true" />
+          value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
           value="true" />
