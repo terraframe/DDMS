@@ -6,7 +6,8 @@ import com.terraframe.mojo.query.QueryFactory;
 import dss.vector.solutions.geo.generated.AbstractSite;
 import dss.vector.solutions.mo.CollectionMethod;
 
-public class MosquitoCollection extends MosquitoCollectionBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MosquitoCollection extends MosquitoCollectionBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234285245712L;
 
@@ -33,7 +34,8 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     {
       String msg = "The geoEntity of a mosquito collection must be a (non)sentinel site";
 
-      InvalidMosquitoCollectionGeoEntityException e = new InvalidMosquitoCollectionGeoEntityException(msg);
+      InvalidMosquitoCollectionGeoEntityException e = new InvalidMosquitoCollectionGeoEntityException(
+          msg);
       e.setGeoId(this.getGeoEntity().getGeoId());
       e.apply();
 
@@ -43,39 +45,45 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
 
   public void validateUniqueness()
   {
-    QueryFactory factory = new QueryFactory();
-    MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);
-
-    query.AND(query.getGeoEntity().EQ(this.getGeoEntity()));
-    query.AND(query.getDateCollected().EQ(this.getDateCollected()));
-    query.AND(query.getCollectionMethod().EQ(this.getCollectionMethod()));
-    if (this.getId() != null)
+    if (this.getGeoEntity() != null && this.getCollectionMethod() != null)
     {
-      query.AND(query.getId().NE(this.getId()));
-    }
+      MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
 
-    OIterator<? extends MosquitoCollection> iterator = query.getIterator();
+      query.AND(query.getGeoEntity().EQ(this.getGeoEntity()));
+      query.AND(query.getDateCollected().EQ(this.getDateCollected()));
+      query.AND(query.getCollectionMethod().EQ(this.getCollectionMethod()));
 
-    try
-    {
-      if (iterator.hasNext())
+      if (this.getId() != null)
       {
-        MosquitoCollection collection = iterator.next();
-        
-        String msg = "This mosquito collection already exists with the id [" + collection.getId() + "]";
-        MosquitoCollectionAllreadyExistsException e = new MosquitoCollectionAllreadyExistsException(msg);
-        e.apply();
-        throw e;
+        query.AND(query.getId().NE(this.getId()));
       }
 
-    }
-    finally
-    {
-      iterator.close();
+      OIterator<? extends MosquitoCollection> iterator = query.getIterator();
+
+      try
+      {
+        if (iterator.hasNext())
+        {
+          MosquitoCollection collection = iterator.next();
+
+          String msg = "This mosquito collection already exists with the id [" + collection.getId()
+              + "]";
+          MosquitoCollectionAllreadyExistsException e = new MosquitoCollectionAllreadyExistsException(
+              msg);
+          e.apply();
+          throw e;
+        }
+
+      }
+      finally
+      {
+        iterator.close();
+      }
     }
   }
 
-  public static dss.vector.solutions.entomology.MosquitoCollection searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)
+  public static dss.vector.solutions.entomology.MosquitoCollection searchByGeoEntityAndDate(
+      dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate)
   {
     QueryFactory factory = new QueryFactory();
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);
@@ -100,7 +108,9 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.te
     }
   }
 
-  public static dss.vector.solutions.entomology.MosquitoCollection searchByGeoEntityAndDateAndCollectionMethod(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate, CollectionMethod collectionMethod)
+  public static dss.vector.solutions.entomology.MosquitoCollection searchByGeoEntityAndDateAndCollectionMethod(
+      dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date collectionDate,
+      CollectionMethod collectionMethod)
   {
     QueryFactory factory = new QueryFactory();
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(factory);

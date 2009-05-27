@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
+
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyView;
@@ -20,7 +22,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 {
   private static final long serialVersionUID = 1236703946827L;
 
-  private String id;
+  private String concreteId;
 
   public MosquitoCollectionView()
   {
@@ -28,8 +30,10 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   }
 
   @Override
+  @Transaction
   public void apply()
   {    
+    CollectionMethod method = null;
     List<GeoHierarchyView> political = Arrays.asList(GeoHierarchy.getPoliticalGeoHierarchiesByType(Country.CLASS));    
     List<SearchableHierarchy> hierarchy = new LinkedList<SearchableHierarchy>(political);
 
@@ -38,8 +42,12 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     hierarchy.add(new GenericHierarchySearcher(new String[]{SentinelSite.CLASS, NonSentinelSite.CLASS}));
         
     GeoEntitySearcher searcher = new GeoEntitySearcher(hierarchy);    
-    GeoEntity entity = searcher.getGeoEntity(this.getGeoEntityNames());        
-    CollectionMethod method = (CollectionMethod) CollectionMethod.searchByTermName(this.getCollectionMethod());    
+    GeoEntity entity = searcher.getGeoEntity(this.getGeoEntityNames());   
+    
+    if(this.hasCollectionMethod())
+    {
+      method = (CollectionMethod) CollectionMethod.validateByTermName(this.getCollectionMethod());    
+    }
 
     MosquitoCollection collection = new MosquitoCollection();
     collection.setGeoEntity(entity);
@@ -47,7 +55,23 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     collection.setDateCollected(this.getDateCollected());
     collection.apply();
 
-    this.id = collection.getId();
+    this.populateView(collection);
+  }
+
+  private boolean hasCollectionMethod()
+  {
+    return this.getCollectionMethod() != null && !this.getCollectionMethod().equals("");
+  }
+
+  private void populateView(MosquitoCollection collection)
+  {
+    this.setConcreteId(collection.getId());
+    this.setDateCollected(collection.getDateCollected());
+
+    if(collection.getCollectionMethod() != null)
+    {
+      this.setCollectionMethod(collection.getCollectionMethod().getTermName());
+    }    
   }
 
   private List<String> getGeoEntityNames()
@@ -60,15 +84,34 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     list.add(this.getGeoEntity_4());
     list.add(this.getGeoEntity_5());
     list.add(this.getGeoEntity_6());
-    list.add(this.getGeoEntity_7());
+    list.add(this.getGeoEntity_7()); 
     list.add(this.getGeoEntity_8());
     list.add(this.getGeoEntity_9());
     
     return list;
   }
   
-  public String getCollectionId()
+  public void setConcreteId(String concreteId)
   {
-    return id;
+    this.concreteId = concreteId;
+  }
+  
+  public String getConcreteId()
+  {
+    return concreteId;
+  }
+  
+  @Transaction
+  public void deleteConcrete()
+  {
+    if(hasConcreteId())
+    {
+      MosquitoCollection.get(this.getConcreteId()).delete();
+    }
+  }
+
+  private boolean hasConcreteId()
+  {
+    return this.concreteId != null && !this.concreteId.equals("");
   }
 }

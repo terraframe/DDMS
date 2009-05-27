@@ -3,6 +3,7 @@ package dss.vector.solutions.mo;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.UnknownTermException;
 import dss.vector.solutions.mo.AbstractTermBase;
 import dss.vector.solutions.mo.AbstractTermQuery;
 
@@ -64,6 +65,24 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
     {
       iterator.close();
     }    
+  }
+  
+  public static AbstractTerm validateByTermName(String termName)
+  {
+    AbstractTerm term = searchByTermName(termName);
+    
+    if(term == null)
+    {
+      String msg = "Unknown term with the given name [" + termName + "]";
+      
+      UnknownTermException e = new UnknownTermException(msg);
+      e.setTermName(termName);
+      e.apply();
+      
+      throw e;
+    }
+    
+    return term;
   }
 
   @SuppressWarnings("unchecked")
