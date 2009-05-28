@@ -545,6 +545,13 @@ div.scrollable {
 	cursor:pointer;
 }
 
+@media screen {
+
+	.printOnly{
+		display: none;
+	}
+
+}
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/
@@ -593,6 +600,7 @@ div.scrollable {
 	.noprint{
 		display: none;
 	}
+
 	.fldContainer
 	{
 		border: 0px solid black;
