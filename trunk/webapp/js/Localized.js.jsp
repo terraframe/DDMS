@@ -78,7 +78,9 @@ MDSS.Localized = {
    for( Enumeration en = rb.getKeys(); en.hasMoreElements(); )
    {
        String key = (String)en.nextElement();
-          out.println( "'" + key + "' : '" + rb.getString(key) + "',");
+       String value = rb.getString(key);
+       String escaped = value.replace("'", "\\'"); // Converts ' to \'
+          out.println( "'" + key + "' : '" + escaped + "',");
    }
 %>
 
