@@ -29,9 +29,14 @@ else
 {
  out.print("Not Logged In");
 }
-
+Long startTime = (Long) request.getAttribute("startTime");
+Double serverTime = (new Date().getTime() - startTime) / 1000.0;
+request.setAttribute("serverTime",serverTime);
 %>
-<span id="loadTime"></span>
+<br>
+ST=<fmt:formatNumber maxFractionDigits="2" value="${serverTime}"/>
+CT=<span id="clientTime"></span>
+TT=<span id="loadTime"></span>
 </div>
 
 <c:choose>
@@ -57,7 +62,6 @@ YAHOO.util.Event.addListener(window, 'unload', function()
 
 YAHOO.util.Event.addListener(window, 'load', function()
 {
-
   function readCookie(name)
   {
     var ca = document.cookie.split(';');
@@ -70,13 +74,17 @@ YAHOO.util.Event.addListener(window, 'load', function()
     return null;
   }
 
+
+  var serverTime = <fmt:formatNumber maxFractionDigits="2" value="${serverTime}"/>;
   var prevPagePostTime = readCookie('pagepostTime');
-  var loadtime = Date.now() - parseInt(prevPagePostTime);
-  loadtime = loadtime / 1000.0;
-  document.getElementById('loadTime').innerHTML = loadtime;
+  var loadtime = (Date.now() - parseInt(prevPagePostTime)) / 1000.0;
+  var clientTime = loadtime - serverTime;
+  document.getElementById('loadTime').innerHTML = loadtime.toPrecision(2);;
+  document.getElementById('clientTime').innerHTML = clientTime.toPrecision(2);
   //the server can log this on the next request
-  document.cookie = "PrevLoadTime=" + loadtime +"@"+ document.location + "; path=/";
+  document.cookie = " PrevLoadTime=CT=" + clientTime.toPrecision(2) +"ST=" + serverTime +"@"+ document.location + "; path=/";
 });
 </script>
 </body>
-</html>
+
+<%@page import="java.util.Date"%></html>
