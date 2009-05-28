@@ -163,35 +163,35 @@ var MojoCal= YAHOO.namespace('MojoCal');
         	addError(tar, MDSS.localize('Future_Dates_Not_Allowed'));
         }
     }
-    
+
     var validateNumber = function(ev) {
     	var tar = Event.getTarget(ev);
     	var number_str = tar.value;
-    	
+
     	var re = /^[0-9]+$/;
     	//clear any errors before we move foward
     	removeError(tar);
-    	
+
     	if(number_str.length == 0)
     	{
     		return;
     	}
-    	    	
+
     	if ( ! re.test(number_str))
     	{
     		addError(tar, MDSS.localize('Invalid_Number'));
-    	}    	
+    	}
     }
-    
-    
+
+
 
 	function addError(tar,errorMessage)
 	{
 		if(tar instanceof String)
 		{
-		  tar = Document.getElementById(tar);
+		  tar = document.getElementById(tar);
 		}
-		
+
 		var errorInfo = document.createElement('span');
 	    errorInfo.id = tar.id +'errorInfo';
 	    errorInfo.innerHTML = ' '+ errorMessage;
@@ -203,9 +203,9 @@ var MojoCal= YAHOO.namespace('MojoCal');
 	{
 		if(tar instanceof String)
 		{
-		  tar = Document.getElementById(tar);
+		  tar = document.getElementById(tar);
 		}
-		
+
 		 var delMe = Dom.get(tar.id +'errorInfo');
 		 if(delMe)
 		 {
@@ -213,7 +213,7 @@ var MojoCal= YAHOO.namespace('MojoCal');
 			 parent.removeChild(delMe);
 		 }
 	}
-	
+
 	MojoCal.addError = addError;
 	MojoCal.removeError = removeError;
 
@@ -234,7 +234,7 @@ var MojoCal= YAHOO.namespace('MojoCal');
     			Event.addListener(el, 'blur', validateYear);
 	        }
     	}
-    	
+
     	if(init_not_done)
     	{
     		for each (el in Dom.getElementsByClassName("NumbersOnly"))
