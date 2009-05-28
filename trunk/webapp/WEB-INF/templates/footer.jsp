@@ -6,6 +6,7 @@
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page import="dss.vector.solutions.util.ErrorUtility"%>
+<%@page import="java.util.Date"%>
 <div class="pageFooter">
 
 <!--  <a href="#">Administration</a>
@@ -29,6 +30,7 @@ else
 {
  out.print("Not Logged In");
 }
+//load time stats
 Long startTime = (Long) request.getAttribute("startTime");
 Double serverTime = (new Date().getTime() - startTime) / 1000.0;
 request.setAttribute("serverTime",serverTime);
@@ -59,7 +61,6 @@ YAHOO.util.Event.addListener(window, 'unload', function()
 {
   document.cookie = "pagepostTime=" + Date.now() + "; path=/";
 });
-
 YAHOO.util.Event.addListener(window, 'load', function()
 {
   function readCookie(name)
@@ -73,8 +74,6 @@ YAHOO.util.Event.addListener(window, 'load', function()
     }
     return null;
   }
-
-
   var serverTime = <fmt:formatNumber maxFractionDigits="2" value="${serverTime}"/>;
   var prevPagePostTime = readCookie('pagepostTime');
   var loadtime = (Date.now() - parseInt(prevPagePostTime)) / 1000.0;
@@ -86,5 +85,4 @@ YAHOO.util.Event.addListener(window, 'load', function()
 });
 </script>
 </body>
-
-<%@page import="java.util.Date"%></html>
+</html>
