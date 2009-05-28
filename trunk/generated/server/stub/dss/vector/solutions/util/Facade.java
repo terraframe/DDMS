@@ -6,6 +6,7 @@ import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.system.Roles;
 import com.terraframe.mojo.system.metadata.MdClassQuery;
 import com.terraframe.mojo.system.metadata.MdElementQuery;
 
@@ -38,5 +39,15 @@ public abstract class Facade extends FacadeBase implements com.terraframe.mojo.g
     classQuery.ORDER_BY_ASC(classQuery.getDisplayLabel().currentLocale());
     
     return classQuery;
+  }
+  
+  public static Roles[] getMDSSRoles()
+  {
+    return new Roles[]
+    {
+      Roles.findRoleByName("entomologist"),
+      Roles.findRoleByName("dataCapturer"),
+      Roles.findRoleByName("manager"),
+    };
   }
 }
