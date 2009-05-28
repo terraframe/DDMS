@@ -18,7 +18,7 @@
       <c:forEach var="problem" items="${problems}">
         <% altRow = !altRow; %>
         <tr <% if (altRow) out.print("class=\"evenRow\""); else out.print("class=\"oddRow\""); %>>
-          <td>${problem.rowNumber}</td>
+          <td>${problem.row}</td>
           <td>${problem.column}</td>
           <td>${problem.message}</td>
         </tr>

@@ -47,8 +47,7 @@ public class ExcelExportServlet extends HttpServlet implements Reloadable
 
   public static void writeExcelFile(HttpServletResponse resp, String filename, InputStream inputStream) throws IOException
   {
-    String excelFile = filename + ".xls";
-    resp.addHeader("Content-Disposition", "attachment;filename=\""+excelFile+"\"");
+    resp.addHeader("Content-Disposition", "attachment;filename=\""+filename+"\"");
     ServletOutputStream stream = resp.getOutputStream();
     FileIO.write(stream, inputStream);
   }
