@@ -16,35 +16,42 @@
   <mjl:message />
 </mjl:messages>
 <%
-ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-GregorianCalendar week = new GregorianCalendar();
+  GregorianCalendar week = new GregorianCalendar();
 
-PropertyDTO item = (PropertyDTO) request.getAttribute("item");
+  PropertyDTO item = (PropertyDTO) request.getAttribute("item");
 
-Integer testYear = week.get(Calendar.YEAR);
-SimpleDateFormat wd = new SimpleDateFormat("EEE");
-SimpleDateFormat fullWd = new SimpleDateFormat("EEEEEEEE");
-SimpleDateFormat mf = new SimpleDateFormat("MMM");
-SimpleDateFormat df = new SimpleDateFormat("dd");
+  Integer year = week.get(Calendar.YEAR);
 
+  try
+  {
+    year = Integer.parseInt(request.getParameter("year"));
+  }
+  catch (Exception e)
+  {
+  }
+  SimpleDateFormat wd = new SimpleDateFormat("EEE");
+  SimpleDateFormat fullWd = new SimpleDateFormat("EEEEEEEE");
+  SimpleDateFormat mf = new SimpleDateFormat("MMM");
+  SimpleDateFormat df = new SimpleDateFormat("dd");
 
-EpiDateDTO epiDate = EpiDateDTO.getInstanceByPeriod(clientRequest,PeriodTypeDTO.WEEK, 1, testYear);
+  week.set(Calendar.DAY_OF_WEEK, 1);
 
-week.clear();
-week.setTime(epiDate.getStartDate());
+  String options = "";
+  for (int j = 0; j < 7; j++)
+  {
+    options += "<option ≈\"" + ( j == Integer.parseInt(item.getPropertyValue()) ? "selected=\"selected\"" : "" ) + "\" value=\"" + j + "\" >";
+    options += fullWd.format(week.getTime()) + "</option>";
+    week.add(Calendar.DAY_OF_WEEK, 1);
+  }
 
+  EpiDateDTO epiDate = EpiDateDTO.getInstanceByPeriod(clientRequest, PeriodTypeDTO.WEEK, 1, year);
 
+  week.clear();
+  week.setTime(epiDate.getStartDate());
 
-String options = "";
-for (int j = 0; j < 7; j++)
-{
-  options += "<option ≈\""+(j == Integer.parseInt(item.getPropertyValue()) ? "selected=\"selected\"" : "")+"\" value=\"" + j + "\" >";
-  options += fullWd.format(week.getTime()) + "</option>";
-  week.add(Calendar.DAY_OF_WEEK, 1);
-}
-
-request.setAttribute("options",options);
+  request.setAttribute("options", options);
 %>
 <div class="noprint">
 <mjl:form name="dss.vector.solutions.Property.form.name" id="dss.vector.solutions.Property.form.id" method="POST" >
@@ -53,29 +60,14 @@ request.setAttribute("options",options);
     <dl>
       <dt>
         <label>
-          ${item.propertyNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
           ${item.displayLabel}
-      </dd>
-      <dt>
-        <label>
-          ${item.descriptionMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        ${item.description}
-      </dd>
-      <dt>
-        <label>
-          ${item.propertyValueMd.displayLabel}
         </label>
       </dt>
       <dd>
       <select name="dto.propertyValue">
           ${options}
        </select>
+       ${item.description}
         <mjl:messages attribute="propertyValue">
           <mjl:message />
         </mjl:messages>
@@ -85,47 +77,67 @@ request.setAttribute("options",options);
     </dl>
   </mjl:component>
 </mjl:form>
+
+
+<br>
+
+<select name="changeYear"  id="changeYear" >
+<%
+  for (Integer i = 1970; i <= 2070; i++)
+  {
+    out.println("<option ≈\"" + ( year.equals(i) ? "selected=\"selected\"" : "" ) + "\" value=\"" + i + "\" >" + i + "</option>");
+  }
+%>
+</select>
+<script type='text/javascript'>
+        selectBox = document.getElementById('changeYear');
+        selectBox.onchange = function(){
+          location.href="./dss.vector.solutions.PropertyController.newInstance.mojo?year=" + selectBox.value;
+        }
+</script>
 </div>
-<br>
-<br>
-<h2><%=testYear %></h2>
+
+
+<h2 class="printOnly"><%=year%></h2>
 <table class="displayTable">
 <tr>
   <th ><fmt:message key="EW"/></th>
   <th ><fmt:message key="Month"/></th>
   <%
-  for (int j = 0; j < 7; j++)
-  {
-    out.print("<th width=\"\">" + wd.format(week.getTime()) + "</th>");
-    week.add(Calendar.DAY_OF_WEEK, 1);
-  }%>
+    for (int j = 0; j < 7; j++)
+    {
+      out.print("<th width=\"\">" + wd.format(week.getTime()) + "</th>");
+      week.add(Calendar.DAY_OF_WEEK, 1);
+    }
+  %>
     <th width=""><fmt:message key="Month"/></th>
 </tr>
 <%
-for (Integer i = 0; i < 52; i++)
-{
-  epiDate = EpiDateDTO.getInstanceByPeriod(clientRequest,PeriodTypeDTO.WEEK, i, testYear);
-  week = new GregorianCalendar();
-  week.clear();
-  week.setTime(epiDate.getStartDate());
-  out.println("<tr class=\"" + (i % 2 == 0 ? "evenRow" : "oddRow") +"\">");
-  out.print("<td>" + Integer.toString(i) + "</td>");
-  out.print("<td>" + mf.format(week.getTime()) + "</td>");
-  for (int j = 0; j < 7; j++)
+  for (Integer i = 0; i < 52; i++)
   {
-    out.print("<td>" + df.format(week.getTime()) + "</td>");
-    week.add(Calendar.DAY_OF_WEEK, 1);
+    epiDate = EpiDateDTO.getInstanceByPeriod(clientRequest, PeriodTypeDTO.WEEK, i, year);
+    week = new GregorianCalendar();
+    week.clear();
+    week.setTime(epiDate.getStartDate());
+    out.println("<tr class=\"" + ( i % 2 == 0 ? "evenRow" : "oddRow" ) + "\">");
+    out.print("<td>" + Integer.toString(i+1) + "</td>");
+    out.print("<td>" + mf.format(week.getTime()) + "</td>");
+    for (int j = 0; j < 7; j++)
+    {
+      out.print("<td>" + df.format(week.getTime()) + "</td>");
+      week.add(Calendar.DAY_OF_WEEK, 1);
+    }
+    out.print("<td>" + mf.format(week.getTime()) + "</td>");
+    out.println("</tr>");
   }
-  out.print("<td>" + mf.format(week.getTime()) + "</td>");
-  out.println("</tr>");
-}
 %>
 </table>
+<br>
 <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
 
 
 <form method="get" action="dss.vector.solutions.PropertyController.viewPage.mojo" style="display: inline;">
-<input type="hidden" name="year" value="<%=testYear %>" />
+<input type="hidden" name="year" value="<%=year%>" />
 <button type="submit"><fmt:message key="Excel_Export_Header" />
 </button>
 </form>

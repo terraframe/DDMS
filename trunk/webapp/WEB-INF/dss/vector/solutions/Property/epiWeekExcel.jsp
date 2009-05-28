@@ -16,18 +16,22 @@ ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientCon
 
 GregorianCalendar week = new GregorianCalendar();
 
-Integer testYear = week.get(Calendar.YEAR);
-
+Integer year = week.get(Calendar.YEAR);
+try
+{
+ year = Integer.parseInt(request.getParameter("year"));
+}
+catch(Exception e){}
 
 response.setHeader("Content-Type","application/excel;");
-response.setHeader("Content-Disposition:","attachment; filename=\"epiWeeks"+testYear+".xls\"");
+response.setHeader("Content-Disposition:","attachment; filename=\"epiWeeks"+year+".xls\"");
 
 
 SimpleDateFormat wd = new SimpleDateFormat("EEE");
 SimpleDateFormat mf = new SimpleDateFormat("MMM");
 SimpleDateFormat df = new SimpleDateFormat("dd");
 
-EpiDateDTO epiDate = EpiDateDTO.getInstanceByPeriod(clientRequest,PeriodTypeDTO.WEEK, 1, testYear);
+EpiDateDTO epiDate = EpiDateDTO.getInstanceByPeriod(clientRequest,PeriodTypeDTO.WEEK, 1, year);
 week.clear();
 week.setTime(epiDate.getStartDate());
 %>
@@ -43,16 +47,17 @@ week.setTime(epiDate.getStartDate());
     week.add(Calendar.DAY_OF_WEEK, 1);
   }%>
     <th><fmt:message key="Month"/></th>
+    <th><%=year%></th>
 </tr>
 <%
 for (Integer i = 0; i < 52; i++)
 {
-  epiDate = EpiDateDTO.getInstanceByPeriod(clientRequest,PeriodTypeDTO.WEEK, i, testYear);
+  epiDate = EpiDateDTO.getInstanceByPeriod(clientRequest,PeriodTypeDTO.WEEK, i, year);
   week = new GregorianCalendar();
   week.clear();
   week.setTime(epiDate.getStartDate());
   out.println("<tr>");
-  out.print("<td>" + Integer.toString(i) + "</td>");
+  out.print("<td>" + Integer.toString(i+1) + "</td>");
   out.print("<td>" + mf.format(week.getTime()) + "</td>");
   for (int j = 0; j < 7; j++)
   {
