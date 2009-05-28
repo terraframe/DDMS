@@ -1,6 +1,7 @@
 package com.terraframe.mojo.defaults;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -33,6 +34,7 @@ public class LoginFilter implements Filter, Reloadable
   public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException
   {
     HttpServletRequest httpReq = (HttpServletRequest) req;
+    req.setAttribute("startTime", (Long)(new Date().getTime()));
     HttpServletResponse httpRes = (HttpServletResponse) res;
 
     HttpSession session = httpReq.getSession();
