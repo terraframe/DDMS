@@ -130,7 +130,7 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
   }
   public void failCancel(dss.vector.solutions.general.LethalTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void create(dss.vector.solutions.general.LethalTimePropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
