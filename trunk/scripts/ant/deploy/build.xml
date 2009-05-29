@@ -360,13 +360,19 @@
 		<fileset dir="../../../webapp" includes="**/*.jsp" />
 	</concat>
 
-
 	<!-- Collect all the keys into one file-->
 	<concat force="yes" destfile="MDSS.properties" append="false" >
-	<filterchain>
-		<containsregex pattern='(fmt:message[^>]+key|var="page_title"[^>]+value|mjl:command[^>]+value)="[A-Za-z0-9_]+"' />
+		<filterchain>
+			<containsregex pattern='(fmt:message[^>]+key|var="page_title"[^>]+value|mjl:command[^>]+value)="[A-Za-z0-9_]+"' />
 		</filterchain>
 		<fileset dir="../../../webapp" includes="**/*.jsp" />
+	</concat>
+
+	<concat force="yes" destfile="MDSS.properties" append="true" >
+		<filterchain>
+			<containsregex pattern='text:\s*"([A-Za-z0-9_]+)[("]' />
+		</filterchain>
+		<fileset dir="../../../webapp" includes="**/navMenu.js" />
 	</concat>
 
 	<!-- Collect all the mjl commands
@@ -378,9 +384,11 @@
 	</concat>-->
 
 	<!--mark these keys as new-->
-	<replaceregexp byline="true" file="MDSS.properties" match='^.*(fmt:message[^>]+key|var="page_title"[^>]+value|mjl:command[^>]+value)="([^"]+)(".*)$' replace="\2=\2  FOUND-A-NEW-KEY" />
+	<replaceregexp byline="true" file="MDSS.properties" match='^(.*text:\s*")([A-Za-z0-9_]+)([("].*)' replace="\2=\2  FOUND-A-NEW-KEY" />
 
-	<replaceregexp byline="true" file="MDSS.properties" match='^(.*var="page_title" *value=")([^"]+)(".*)$' replace="\2=\2  FOUND-A-NEW-KEY" />
+	<replaceregexp byline="true" file="MDSS.properties" match='^.*(fmt:message[^>]+key|var="page_title"[^>]+value|mjl:command[^>]+value)="([^"]+)(".*)' replace="\2=\2  FOUND-A-NEW-KEY" />
+
+	<replaceregexp byline="true" file="MDSS.properties" match='^(.*var="page_title" *value=")([^"]+)(".*)' replace="\2=\2  FOUND-A-NEW-KEY" />
 
 	<!-- replace undercores after the equals sign with spaces		<retry retrycount="10">-->
 	<replaceregexp byline="true" file="MDSS.properties" match='^([^=]+=[^_]+)(_)+' replace="\1 " />
@@ -420,7 +428,7 @@
 		</filterchain>
 	</concat>
 
-	<!-- update the master properties file <fail/> -->
+	<!-- update the master properties file  <fail/>-->
 	<move file="MDSS.properties" tofile="../../../profiles/MDSS.properties">
 		<filterchain>
 			<replaceregex pattern='  FOUND-A-NEW-KEY' />
