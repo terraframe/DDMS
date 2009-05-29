@@ -24,7 +24,7 @@
   <dl>
     <dt>
       <label>
-        <fmt:message key="Geo_Entity" />        
+        <fmt:message key="Geo_Entity" />
       </label>
     </dt>
     <dd>
@@ -32,7 +32,7 @@
     </dd>
     <dt>
       <label >
-        <fmt:message key="Start_Date" />        
+        <fmt:message key="Start_Date" />
       </label>
     </dt>
     <dd class="formatDate">
@@ -40,7 +40,7 @@
     </dd>
     <dt>
       <label>
-        <fmt:message key="End_Date" />        
+        <fmt:message key="End_Date" />
       </label>
     </dt>
     <dd class="formatDate">
@@ -100,24 +100,29 @@ MosquitoCollectionPointViewDTO mdView = new MosquitoCollectionPointViewDTO(clien
 
 String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 
+Integer[] no_show_arr = {0,1,8};
+List no_show_list = Arrays.asList(no_show_arr);
+Integer[] no_edit_arr = {8,9};
+List no_edit_list = Arrays.asList(no_edit_arr);
+
 %>
 
 <script type="text/javascript">
-  <%  
+  <%
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , new String[]{MorphologicalSpecieGroupViewDTO.CLASS}, true));
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , new String[]{MosquitoCollectionPointViewDTO.CLASS}, true));
   %>
-  
+
   <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
 
     table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,
-       columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false,2)%>,
+       columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false,no_show_list,no_edit_list)%>,
        defaults: {GroupId:"",GeoEntity:"${geoEntity.id}",Specie:"",DateCollected:"<fmt:formatDate value="${startDate}" pattern="<%=Halp.getDateFormatString(request)%>"/>"},
        div_id: "MorphologicalSpecieGroups",
        copy_from_above: ["DateCollected","IdentificationMethod"],
        data_type: "Mojo.$.<%=MosquitoCollectionPointViewDTO.CLASS%>",
        after_row_load:function(record,dt){
-         record.setData('Collection',('<a href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo?id='+record.getData('Collection')+'">Assays</a>'));
+         record.setData('Collection',('<a href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo?id='+record.getData('Collection')+'">'+record.getData('Total')+' <fmt:message key="Bioassays" /></a>'));
        }
      };
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
