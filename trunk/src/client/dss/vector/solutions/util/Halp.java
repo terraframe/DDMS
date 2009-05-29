@@ -265,11 +265,25 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, int num_to_hide) throws JSONException
   {
+    ArrayList<Integer> no_edit_cols = new ArrayList<Integer>();
+    ArrayList<Integer> no_show_cols = new ArrayList<Integer>();
+
+    for (Integer i = 0; i < num_to_hide; i++)
+    {
+      no_edit_cols.add(i);
+      no_show_cols.add(i);
+    }
+
+    return getColumnSetup(view, attribs, extra_rows, autoload, no_edit_cols,no_show_cols );
+  }
+
+  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, List<Integer> no_show, List<Integer> no_edit) throws JSONException
+  {
     ArrayList<String> arr = new ArrayList<String>();
-    int colnum = 0;
+    Integer colnum = 0;
     Class<?> v = view.getClass();
-    // List<String> v_attribs = view.getAttributeNames();
     ArrayList<String> ordered_attribs = new ArrayList<String>(Arrays.asList(attribs));
+
 
     for (String accessorName : view.getAccessorNames())
     {
@@ -299,7 +313,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();
         buff.add("label:'" + label + "'");
 
-        if (colnum < num_to_hide)
+        if (no_show.contains(colnum) )
         {
           buff.add("hidden:true");
         }
@@ -326,7 +340,6 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           if (md instanceof AttributeDateMdDTO)
           {
             buff.add("formatter:YAHOO.widget.DataTable.formatDate");
-            // editor = "new YAHOO.widget.DateCellEditor({disableBtns:true})";
             editor = "new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})";
           }
           if (md instanceof AttributeEnumerationMdDTO)
@@ -361,7 +374,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
             }
 
           }
-          if( view.isWritable(md.getAccessorName()))
+          if( view.isWritable(md.getAccessorName()) && ! no_edit.contains(colnum) )
           {
             buff.add("editor:" + editor);
           }
