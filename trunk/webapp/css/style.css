@@ -177,6 +177,10 @@ h2 {
 	background: url(/MDSS/imgs/design/sprite.png) repeat-x 0 -100px;
 }
 
+.yui-skin-sam .yuimenuitemlabel .helptext {
+    margin-left: 15em;
+}
+
 label {
 	font-weight: bold;
 	font-size: 14px;
@@ -537,9 +541,9 @@ div.workarea {
 	float:left
 }
 
-ul.draglist { 
+ul.draglist {
     position: relative;
-    width: 200px; 
+    width: 200px;
     height:180px;
     background: #f7f7f7;
     border: 1px solid gray;
