@@ -532,6 +532,34 @@ div.colorPickerValue {
 	margin-right: 5px;
 }
 
+div.workarea {
+	padding:10px;
+	float:left
+}
+
+ul.draglist { 
+    position: relative;
+    width: 200px; 
+    height:180px;
+    background: #f7f7f7;
+    border: 1px solid gray;
+    list-style: none;
+    margin:0;
+    padding:5px;
+}
+
+ul.draglist li {
+    margin: 1px;
+    padding: 2px;
+    cursor: move;
+    border:1px solid;
+}
+
+
+#user_actions {
+	clear: both;
+}
+
 div.queryItemLabel {
 }
 
