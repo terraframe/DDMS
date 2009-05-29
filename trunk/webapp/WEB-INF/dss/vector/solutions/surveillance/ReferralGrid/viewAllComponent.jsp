@@ -4,7 +4,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}">
+<mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.surveillance.ReferralGridController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="active">
