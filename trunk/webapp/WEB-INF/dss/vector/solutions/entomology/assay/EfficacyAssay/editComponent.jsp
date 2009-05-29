@@ -6,6 +6,9 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
+<script type="text/javascript">
+MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= SurfaceDTO.CLASS %>');
+</script>
 
 <c:set var="window_title" value="Efficacy_bioassay_data_entry" scope="request" />
 <c:set var="page_title" value="Enter_New_Data" scope="request" />

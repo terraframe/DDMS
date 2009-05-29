@@ -269,7 +269,7 @@ MDSS.QueryBase.prototype = {
     }
 
     var type = geoEntityView.getEntityType();
-    this._geoEntityQueryType = type;
+    //this._geoEntityQueryType = type;
     var typeName = type.substring(type.lastIndexOf('.')+1);
 
     var entityNameColumn = typeName+'_'+geoEntityView.getEntityNameMd().getName();
@@ -328,11 +328,16 @@ MDSS.QueryBase.prototype = {
    * Uses the given GeoEntityView objects to add
    * restrictions to the GeoEntity query.
    */
-  _hideHandler : function(geoEntityViews, selectedTypes)
+  _hideHandler : function(geoEntityViews, unselectedTypes)
   {
+    // remove all prior conditions
+    this._geoIdConditions = {};
+
+    var required = {};
     for(var i=0; i<geoEntityViews.length; i++)
     {
       var geoEntityView = geoEntityViews[i];
+      required[geoEntityView.getEntityType()] = {};
 
       var geoEntityQuery = this._geoEntityTypes[geoEntityView.getEntityType()];
 
@@ -342,23 +347,39 @@ MDSS.QueryBase.prototype = {
       var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, geoEntityView.getGeoId());
 
       this._geoIdConditions[geoEntityView.getGeoId()] = geoIdCondition;
+
+      this._geoEntityQueryType = geoEntityView.getEntityType(); // FIXME support multiple types
     }
 
     this._queryPanel.addSelectedGeoEntities(geoEntityViews);
 
-/*
-    // remove any GeoEntity types that were not in the final select list
-    var currentTypes = Mojo.util.getKeys(this._geoEntityTypes);
-    for(var i=0; i<currentTypes.length; i++)
+    var entityNameSuffix = '_' + Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME;
+    var geoIdSuffix = '_' + Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.GEOID;
+
+    for(var i=0; i<unselectedTypes.length; i++)
     {
-      var type = currentTypes[i];
-      for(var j=0; j<selectedTypes.length; j++)
+      var unselected = unselectedTypes[i];
+      if(unselected in this._geoEntityTypes)
       {
-        var selected = selectedTypes[j];
-        if()
+      	// don't delete the entity query if it's being used by GeoEntity objects
+      	// for criteria restriction
+      	if(!(unselected in required))
+      	{
+      	  delete this._geoEntityTypes[unselected];
+      	}
+
+      	delete this._geoEntitySelectables[unselected+entityNameSuffix];
+      	delete this._geoEntitySelectables[unselected+geoIdSuffix];
+
+        var typeName = unselected.substring(unselected.lastIndexOf('.')+1);
+
+      	var entityNameColumn = this._queryPanel.getColumn(typeName+entityNameSuffix);
+        this._queryPanel.removeColumn(entityNameColumn);
+
+        var geoIdColumn = this._queryPanel.getColumn(typeName+geoIdSuffix);
+        this._queryPanel.removeColumn(geoIdColumn);
       }
     }
-*/
   },
 
   /**

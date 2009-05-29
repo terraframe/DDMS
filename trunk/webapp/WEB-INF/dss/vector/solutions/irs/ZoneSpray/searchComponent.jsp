@@ -15,6 +15,10 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
+<script type="text/javascript">
+MDSS.AbstractSelectSearch.Political = false;
+MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
+</script>
 
 <mjl:form name="search" method="POST" id ="searchZoneSpray">
   <dl>

@@ -4,6 +4,11 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
+<script type="text/javascript">
+MDSS.AbstractSelectSearch.Political = false;
+MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
+</script>
+
 <c:set var="page_title" value="Spray_Team_Create" scope="request"/>
 
 <mjl:messages>

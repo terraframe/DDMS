@@ -13,6 +13,12 @@
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
+
+<script type="text/javascript">
+MDSS.AbstractSelectSearch.Political = false;
+MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
+</script>
+
 <c:set var="page_title" value="Create_Survey_Point"  scope="request"/>
 
 

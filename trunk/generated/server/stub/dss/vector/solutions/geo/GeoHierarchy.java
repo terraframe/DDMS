@@ -895,7 +895,25 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     for(String universal : extraUniversals)
     {
       GeoHierarchy extra = getGeoHierarchyFromType(universal);
-      hierarchies.add(extra.getViewForGeoHierarchy());
+      MdBusiness md = extra.getGeoEntityClass();
+
+      // if abstract, add all of its non-abstract children
+      if(md.getIsAbstract())
+      {
+        OIterator<? extends MdBusiness> children =  md.getAllSubClass();
+        for(MdBusiness child : children)
+        {
+          if(!child.getIsAbstract())
+          {
+            GeoHierarchy childH = GeoHierarchy.getGeoHierarchyFromType(child);
+            hierarchies.add(childH.getViewForGeoHierarchy());
+          }
+        }
+      }
+      else
+      {
+        hierarchies.add(extra.getViewForGeoHierarchy());
+      }
     }
 
     return hierarchies.toArray(new GeoHierarchyView[hierarchies.size()]);

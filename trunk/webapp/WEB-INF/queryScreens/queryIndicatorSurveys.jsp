@@ -35,6 +35,10 @@
     out.print(js);
   %>
 
+// Setting both values to false will select *all* univerals
+MDSS.AbstractSelectSearch.Political = false;
+MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
+
 (function(){
 
   YAHOO.util.Event.onDOMReady(function(){

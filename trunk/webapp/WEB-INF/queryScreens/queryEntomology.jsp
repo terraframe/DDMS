@@ -22,10 +22,15 @@
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
+
 <jwr:script src="/bundles/queryBundle.js"/>
 <script src="/geoserver/openlayers/OpenLayers.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/QueryEntomology.js"></script>
 <script type="text/javascript">
+
+// Setting both values to false will select *all* univerals
+MDSS.AbstractSelectSearch.Political = false;
+MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);

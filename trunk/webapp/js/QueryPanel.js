@@ -632,7 +632,7 @@ MDSS.QueryXML.OrderBy.prototype = {
  */
 MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
 {
-  var rightPanel = MDSS.Localized.Selected_Entities + '<hr /><ul id="'+this.GEO_ENTITY_PANEL_LIST+'"></ul>';
+  var rightPanel = '<div style="padding-left:10px">'+MDSS.Localized.Selected_Entities + '<hr /><ul id="'+this.GEO_ENTITY_PANEL_LIST+'"></ul></div>';
 
   this._queryLayout = new YAHOO.widget.Layout(queryPanelId, {
     height: 500,
@@ -1310,15 +1310,20 @@ MDSS.QueryPanel.prototype = {
     //var qRight = new YAHOO.util.Element(this._qRightUnit.body);
 
     // map panel buttons
+    var mapButtonDiv = new YAHOO.util.Element(document.createElement('div'));
+    mapButtonDiv.setStyle('float', 'right');
+
+
     this._refreshMapButton = new YAHOO.util.Element(document.createElement('input'));
     this._refreshMapButton.set('type', 'button');
     this._refreshMapButton.set('value', MDSS.Localized.Query.Refresh);
     this._refreshMapButton.set('id', this.REFRESH_MAP_BUTTON);
     this._refreshMapButton.addClass('queryButton');
     this._refreshMapButton.on('click', this._mapQuery, {}, this);
+    mapButtonDiv.appendChild(this._refreshMapButton);
 
     var mBottom = new YAHOO.util.Element(this._mBottomUnit.body);
-    mBottom.appendChild(this._refreshMapButton);
+    mBottom.appendChild(mapButtonDiv);
   },
 
   /**

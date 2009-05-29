@@ -100,14 +100,18 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     if(Mojo.util.isFunction(this._hideHandler))
     {
       var entities = Mojo.util.getValues(this._selectedMap);
-      var checked = YAHOO.util.Selector.query('input[type="checkbox"]:checked.selectUniversalType');
-      var selectedTypes = [];
-      for(var i=0; i<checked.length; i++)
+      var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
+      var unselected = [];
+      for(var i=0; i<checkboxes.length; i++)
       {
-      	selectedTypes.push(checked[i].value);
+      	var check = checkboxes[i];
+      	if(!check.checked)
+      	{
+      	  unselected.push(check.value);
+      	}
       }
 
-      this._hideHandler(entities, selectedTypes);
+      this._hideHandler(entities, unselected);
     }
   },
 

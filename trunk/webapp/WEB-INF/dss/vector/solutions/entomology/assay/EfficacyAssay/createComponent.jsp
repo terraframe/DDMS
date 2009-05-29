@@ -9,6 +9,10 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
+<script type="text/javascript">
+MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= SurfaceDTO.CLASS %>');
+</script>
+
 
 <mjl:messages>
   <mjl:message />
