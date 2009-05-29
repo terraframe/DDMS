@@ -17,6 +17,7 @@ import java.util.TreeSet;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ProblemException;
@@ -37,6 +38,18 @@ import dss.vector.solutions.intervention.RDTResult;
 
 public class SurveyTest extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   private static GeoEntity      geoEntity = null;
 
   private static Wall           wall      = null;
@@ -554,7 +567,7 @@ public class SurveyTest extends TestCase
 
     Household household2 = new Household();
     household2.setSurveyPoint(point);
-    household2.setHouseholdName("Some name");
+    household2.setHouseholdName("Some name 1");
     household2.setUrban(b);
     household2.setPeople(20);
     household2.setWall(wall);
@@ -611,7 +624,7 @@ public class SurveyTest extends TestCase
     {
       Household household = new Household();
       household.setSurveyPoint(point);
-      household.setHouseholdName("Some name");
+      household.setHouseholdName("Some name 2");
       household.setUrban(b);
       household.setPeople(20);
       household.setWall(wall);
@@ -653,7 +666,7 @@ public class SurveyTest extends TestCase
 
     Household household = new Household();
     household.setSurveyPoint(point);
-    household.setHouseholdName("Some name");
+    household.setHouseholdName("Some name 3");
     household.setUrban(b);
     household.setPeople(20);
     household.setWall(wall);
@@ -745,7 +758,7 @@ public class SurveyTest extends TestCase
     
     Household household = new Household();
     household.setSurveyPoint(point);
-    household.setHouseholdName("Some name");
+    household.setHouseholdName("Some name 4");
     household.setUrban(b);
     household.setPeople(20);
     household.setWall(wall);
@@ -837,7 +850,7 @@ public class SurveyTest extends TestCase
 
     Household household = new Household();
     household.setSurveyPoint(point);
-    household.setHouseholdName("Some name");
+    household.setHouseholdName("Some name 6");
     household.setUrban(b);
     household.setPeople(20);
     household.setWall(wall);
@@ -929,7 +942,7 @@ public class SurveyTest extends TestCase
 
     Household household = new Household();
     household.setSurveyPoint(point);
-    household.setHouseholdName("Some name");
+    household.setHouseholdName("Some name 8");
     household.setUrban(b);
     household.setPeople(20);
     household.setWall(wall);
@@ -1001,7 +1014,7 @@ public class SurveyTest extends TestCase
 
     Household household = new Household();
     household.setSurveyPoint(point);
-    household.setHouseholdName("Some name");
+    household.setHouseholdName("Some name 9");
     household.setUrban(b);
     household.setPeople(20);
     household.setWall(wall);
@@ -1126,7 +1139,7 @@ public class SurveyTest extends TestCase
     {
       Household household = new Household();
       household.setSurveyPoint(point);
-      household.setHouseholdName("Some name");
+      household.setHouseholdName("Some name 10");
       household.setUrban(b);
       household.setPeople(20);
       household.setWall(wall);
@@ -1175,7 +1188,7 @@ public class SurveyTest extends TestCase
     {
       Household household = new Household();
       household.setSurveyPoint(point);
-      household.setHouseholdName("Some name");
+      household.setHouseholdName("Some name 11");
       household.setUrban(b);
       household.setPeople(20);
       household.setWall(wall);
@@ -1223,7 +1236,7 @@ public class SurveyTest extends TestCase
     {
       Household household = new Household();
       household.setSurveyPoint(point);
-      household.setHouseholdName("Some name");
+      household.setHouseholdName("Some name 12");
       household.setUrban(b);
       household.setPeople(20);
       household.setWall(wall);
@@ -1272,7 +1285,7 @@ public class SurveyTest extends TestCase
 
     Household household = new Household();
     household.setSurveyPoint(point);
-    household.setHouseholdName("Some name");
+    household.setHouseholdName("Some name 13");
     household.setUrban(b);
     household.setPeople(20);
     household.setWall(wall);
@@ -1337,7 +1350,7 @@ public class SurveyTest extends TestCase
     {
       Household household = new Household();
       household.setSurveyPoint(point);
-      household.setHouseholdName("Some name");
+      household.setHouseholdName("Some name 14");
       household.setUrban(b);
       household.setPeople(20);
       household.setWall(wall);

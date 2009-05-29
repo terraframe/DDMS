@@ -3,6 +3,8 @@ package dss.vector.solutions.entomology;
 import java.util.LinkedList;
 import java.util.List;
 
+import junit.framework.TestResult;
+
 import com.terraframe.mojo.query.OIterator;
 
 import dss.vector.solutions.geo.DeleteEarthException;
@@ -20,6 +22,18 @@ import dss.vector.solutions.geo.generated.Province;
 
 public class GeoEntityTest extends GeoTest
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   /**
    * Tests that the default Earth GeoEntity exists.
    */

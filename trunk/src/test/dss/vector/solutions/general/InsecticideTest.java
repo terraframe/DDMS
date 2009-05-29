@@ -5,12 +5,25 @@ import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.mo.ActiveIngredient;
 
 public class InsecticideTest extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   private static ActiveIngredient ingredient = null;
   private static ActiveIngredient ingredient2 = null;
 

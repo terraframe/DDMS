@@ -8,6 +8,7 @@ import java.util.Locale;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ClientSession;
@@ -63,6 +64,18 @@ public class MosquitoTestDTO extends TestCase implements DoNotWeave
   private static ClientSession          clientSession;
 
   private static ClientRequestIF        clientRequest;
+
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
+
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
   public static Test suite()
   {

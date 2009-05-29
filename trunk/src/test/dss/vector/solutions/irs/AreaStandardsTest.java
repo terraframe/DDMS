@@ -5,10 +5,23 @@ import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 public class AreaStandardsTest extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -47,6 +60,7 @@ public class AreaStandardsTest extends TestCase
     standards.setRoom(value);
     standards.setStructureArea(value);
     standards.setHousehold(value);
+    standards.addTargetUnit(TargetUnit.HOUSEHOLD);
     standards.apply();
 
     try
@@ -57,7 +71,8 @@ public class AreaStandardsTest extends TestCase
       assertEquals(standards.getRoom(), test.getRoom());
       assertEquals(standards.getStructureArea(), test.getStructureArea());
       assertEquals(standards.getHousehold(), test.getHousehold());
-
+      assertEquals(1, test.getTargetUnit().size());
+      assertEquals(TargetUnit.HOUSEHOLD, test.getTargetUnit().get(0));
     }
     finally
     {
@@ -74,6 +89,7 @@ public class AreaStandardsTest extends TestCase
     standards.setRoom(value);
     standards.setStructureArea(value);
     standards.setHousehold(value);
+    standards.addTargetUnit(TargetUnit.HOUSEHOLD);
     standards.apply();
 
     AreaStandards edit = AreaStandards.lock(standards.getId());
@@ -90,7 +106,8 @@ public class AreaStandardsTest extends TestCase
       assertEquals(edit.getRoom(), test.getRoom());
       assertEquals(edit.getStructureArea(), test.getStructureArea());
       assertEquals(edit.getHousehold(), test.getHousehold());
-
+      assertEquals(1, test.getTargetUnit().size());
+      assertEquals(TargetUnit.HOUSEHOLD, test.getTargetUnit().get(0));
     }
     finally
     {
@@ -106,6 +123,7 @@ public class AreaStandardsTest extends TestCase
     standards.setRoom(value);
     standards.setStructureArea(value);
     standards.setHousehold(value);
+    standards.addTargetUnit(TargetUnit.HOUSEHOLD);    
     standards.apply();
 
     try
@@ -116,6 +134,8 @@ public class AreaStandardsTest extends TestCase
       assertEquals(standards.getRoom(), test.getRoom());
       assertEquals(standards.getStructureArea(), test.getStructureArea());
       assertEquals(standards.getHousehold(), test.getHousehold());
+      assertEquals(1, test.getTargetUnit().size());
+      assertEquals(TargetUnit.HOUSEHOLD, test.getTargetUnit().get(0));
     }
     finally
     {
@@ -132,6 +152,7 @@ public class AreaStandardsTest extends TestCase
     standards.setRoom(value);
     standards.setStructureArea(value);
     standards.setHousehold(value);
+    standards.addTargetUnit(TargetUnit.HOUSEHOLD);
     standards.apply();
 
     AreaStandardsView edit = AreaStandards.lockView(standards.getAreaStandardsId());
@@ -148,7 +169,8 @@ public class AreaStandardsTest extends TestCase
       assertEquals(edit.getRoom(), test.getRoom());
       assertEquals(edit.getStructureArea(), test.getStructureArea());
       assertEquals(edit.getHousehold(), test.getHousehold());
-
+      assertEquals(1, test.getTargetUnit().size());
+      assertEquals(TargetUnit.HOUSEHOLD, test.getTargetUnit().get(0));
     }
     finally
     {
@@ -164,6 +186,7 @@ public class AreaStandardsTest extends TestCase
     standards.setRoom(value);
     standards.setStructureArea(value);
     standards.setHousehold(value);
+    standards.addTargetUnit(TargetUnit.HOUSEHOLD);
     standards.apply();
 
     String id = standards.getAreaStandardsId();

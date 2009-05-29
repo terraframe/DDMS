@@ -3,10 +3,23 @@ package dss.vector.solutions.irs;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 public class ResourceTargetTest extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   public static SprayTeam targeter;
 
   public static Test suite()

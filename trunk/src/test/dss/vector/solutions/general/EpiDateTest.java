@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
@@ -16,6 +17,18 @@ import dss.vector.solutions.surveillance.PeriodType;
 
 public class EpiDateTest extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   SimpleDateFormat sys = new SimpleDateFormat("yyyy-mm-dd");
   SimpleDateFormat full = new SimpleDateFormat("EEE, d MMM yyyy");
   SimpleDateFormat mf = new SimpleDateFormat("MMM");

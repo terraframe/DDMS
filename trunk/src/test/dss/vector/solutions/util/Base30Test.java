@@ -3,6 +3,7 @@ package dss.vector.solutions.util;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import java.lang.Integer;
 import java.util.Random;
@@ -13,6 +14,18 @@ import dss.vector.solutions.Base30;
 
 public class Base30Test extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
 
 
   public static Test suite()

@@ -46,7 +46,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     
     if(this.hasCollectionMethod())
     {
-      method = (CollectionMethod) CollectionMethod.validateByTermName(this.getCollectionMethod());     
+      method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod());     
     }
 
     MosquitoCollection collection = new MosquitoCollection();

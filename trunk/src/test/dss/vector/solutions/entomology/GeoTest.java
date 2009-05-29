@@ -3,6 +3,7 @@ package dss.vector.solutions.entomology;
 import java.util.List;
 
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 
@@ -10,6 +11,18 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 
 public abstract class GeoTest extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   /**
    * Deletes all the given GeoEntities if they exist in the database.
    * 

@@ -10,6 +10,7 @@ import java.util.Locale;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ClientSession;
@@ -27,6 +28,18 @@ import dss.vector.solutions.geo.generated.SentinelSite;
 
 public class AggregatedCaseTest extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   private static GeoEntity             geoEntity   = null;
 
   private static AggregatedAgeGroup    ageGroup    = null;
@@ -553,7 +566,7 @@ public class AggregatedCaseTest extends TestCase
 
   public void testCreateAggregatedView()
   {
-    EpiDate date = EpiDate.getInstanceByPeriod(PeriodType.QUARTER, new Integer(1), new Integer(2009));
+    EpiDate date = EpiDate.getInstanceByPeriod(PeriodType.QUARTER, new Integer(1), new Integer(2007));
 
     Integer cases = new Integer(50);
     Integer casesFemale = new Integer(23);
@@ -566,7 +579,7 @@ public class AggregatedCaseTest extends TestCase
     c.setGeoEntity(geoEntity);
     c.setPeriod(1);
     c.addPeriodType(PeriodType.QUARTER);
-    c.setPeriodYear(2009);
+    c.setPeriodYear(2007);
     c.setCases(cases);
     c.setCasesFemale(casesFemale);
     c.setCasesMale(casesMale);
@@ -682,7 +695,7 @@ public class AggregatedCaseTest extends TestCase
     c.setGeoEntity(geoEntity);
     c.setPeriod(1);
     c.addPeriodType(PeriodType.QUARTER);
-    c.setPeriodYear(2009);
+    c.setPeriodYear(2007);
     c.setCases(cases);
     c.setCasesFemale(casesFemale);
     c.setCasesMale(casesMale);
@@ -770,7 +783,7 @@ public class AggregatedCaseTest extends TestCase
     c.setGeoEntity(GeoEntityDTO.get(clientRequest, geoEntity.getId()));
     c.setPeriod(1);
     c.addPeriodType(PeriodTypeDTO.QUARTER);
-    c.setPeriodYear(2009);
+    c.setPeriodYear(2007);
     c.setAgeGroup(ageGroupDTO);
     c.setCases(cases);
     c.setCasesFemale(casesFemale);
@@ -867,7 +880,7 @@ public class AggregatedCaseTest extends TestCase
     c.setGeoEntity(geoEntity);
     c.setPeriod(1);
     c.addPeriodType(PeriodType.QUARTER);
-    c.setPeriodYear(2009);
+    c.setPeriodYear(2007);
     c.setCases(cases);
     c.setCasesFemale(casesFemale);
     c.setCasesMale(casesMale);
@@ -923,7 +936,7 @@ public class AggregatedCaseTest extends TestCase
 
     try
     {
-      AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, 2009, ageGroup);
+      AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, 2007, ageGroup);
 
       assertNotNull(test);
       assertEquals(c.getCases(), test.getCases());

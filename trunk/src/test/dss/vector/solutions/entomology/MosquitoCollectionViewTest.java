@@ -9,6 +9,7 @@ import com.terraframe.mojo.ProblemIF;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import dss.vector.solutions.AmbigiousGeoEntityException;
 import dss.vector.solutions.UnknownGeoEntityException;
@@ -28,7 +29,7 @@ public class MosquitoCollectionViewTest extends TestCase
   private static Country          country                  = null;
 
   private static Province         province                 = null;
-  
+
   private static District         district                 = null;
 
   private static AdminPost        adminPost                = null;
@@ -52,19 +53,18 @@ public class MosquitoCollectionViewTest extends TestCase
   private static NonSentinelSite  twinNonSentinelSite2     = null;
 
   private static CollectionMethod collectionMethod         = null;
-  
 
   private static String           countryName              = "Test Country";
 
   private static String           provinceName             = "Test Province";
 
-  private static String           districtName             = "Test District";             
+  private static String           districtName             = "Test District";
 
   private static String           localityName             = "Test Town";
 
   private static String           sentinelSiteName         = "Test Sentinel Site";
 
-  private static String           nonSentinelSiteName  = "Test Non Sentinel Site";
+  private static String           nonSentinelSiteName      = "Test Non Sentinel Site";
 
   private static String           duplicateSiteName        = "Duplicate Site";
 
@@ -75,6 +75,18 @@ public class MosquitoCollectionViewTest extends TestCase
   private static String           adminName                = "Test Admin Post";
 
   private static Integer          base                     = new Integer(420);
+
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
+
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
   public static Test suite()
   {
@@ -123,7 +135,7 @@ public class MosquitoCollectionViewTest extends TestCase
     district.setGeoId(next());
     district.setEntityName(districtName);
     district.applyWithParent(province.getId(), false);
-    
+
     adminPost = new AdminPost();
     adminPost.setGeoId(next());
     adminPost.setEntityName(adminName);
@@ -196,7 +208,7 @@ public class MosquitoCollectionViewTest extends TestCase
   {
     MosquitoCollectionView view = new MosquitoCollectionView();
 
-    view.setCollectionMethod(collectionMethod.getTermName());
+    view.setCollectionMethod(collectionMethod.getDisplayLabel().getValue());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
     view.setGeoEntity_01(provinceName);
@@ -218,12 +230,12 @@ public class MosquitoCollectionViewTest extends TestCase
       view.deleteConcrete();
     }
   }
-  
+
   public void testNonSentinelSite()
   {
     MosquitoCollectionView view = new MosquitoCollectionView();
-    
-    view.setCollectionMethod(collectionMethod.getTermName());
+
+    view.setCollectionMethod(collectionMethod.getDisplayLabel().getValue());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
     view.setGeoEntity_01(provinceName);
@@ -231,11 +243,11 @@ public class MosquitoCollectionViewTest extends TestCase
     view.setGeoEntity_03(localityName);
     view.setGeoEntity_04(nonSentinelSiteName);
     view.apply();
-    
+
     try
     {
       MosquitoCollection collection = MosquitoCollection.get(view.getConcreteId());
-      
+
       assertEquals(collectionMethod.getId(), collection.getCollectionMethod().getId());
       assertEquals(view.getDateCollected(), collection.getDateCollected());
       assertEquals(nonSentinelSite.getId(), collection.getGeoEntity().getId());
@@ -245,11 +257,11 @@ public class MosquitoCollectionViewTest extends TestCase
       view.deleteConcrete();
     }
   }
-  
+
   public void testDuplicateSite()
   {
-    MosquitoCollectionView view = new MosquitoCollectionView();        
-    view.setCollectionMethod(collectionMethod.getTermName());
+    MosquitoCollectionView view = new MosquitoCollectionView();
+    view.setCollectionMethod(collectionMethod.getDisplayLabel().getValue());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
     view.setGeoEntity_01(provinceName);
@@ -260,120 +272,120 @@ public class MosquitoCollectionViewTest extends TestCase
     try
     {
       view.apply();
-    
+
       view.deleteConcrete();
-      
+
       fail("Able to import an ambigious Geo Entity");
     }
-    catch(AmbigiousGeoEntityException e)
+    catch (AmbigiousGeoEntityException e)
     {
-      //This is expected
+      // This is expected
     }
   }
-  
+
   public void testTwinSentinelSite()
   {
-    MosquitoCollectionView view = new MosquitoCollectionView();        
-    view.setCollectionMethod(collectionMethod.getTermName());
+    MosquitoCollectionView view = new MosquitoCollectionView();
+    view.setCollectionMethod(collectionMethod.getDisplayLabel().getValue());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
     view.setGeoEntity_01(provinceName);
     view.setGeoEntity_02(districtName);
     view.setGeoEntity_03(localityName);
     view.setGeoEntity_04(twinSentinelSiteName);
-    
+
     try
     {
       view.apply();
-      
+
       view.deleteConcrete();
-      
+
       fail("Able to import an ambigious Geo Entity");
     }
-    catch(AmbigiousGeoEntityException e)
+    catch (AmbigiousGeoEntityException e)
     {
-      //This is expected
+      // This is expected
     }
   }
-  
+
   public void testTwinNonSentinelSite()
   {
-    MosquitoCollectionView view = new MosquitoCollectionView();        
-    view.setCollectionMethod(collectionMethod.getTermName());
+    MosquitoCollectionView view = new MosquitoCollectionView();
+    view.setCollectionMethod(collectionMethod.getDisplayLabel().getValue());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
     view.setGeoEntity_01(provinceName);
     view.setGeoEntity_02(districtName);
     view.setGeoEntity_03(localityName);
     view.setGeoEntity_04(twinNonSentinelSiteName);
-    
+
     try
     {
       view.apply();
-      
+
       view.deleteConcrete();
-      
+
       fail("Able to import an ambigious Geo Entity");
     }
-    catch(AmbigiousGeoEntityException e)
+    catch (AmbigiousGeoEntityException e)
     {
-      //This is expected
+      // This is expected
     }
   }
-  
+
   public void testUnknownSite()
   {
-    MosquitoCollectionView view = new MosquitoCollectionView();        
-    view.setCollectionMethod(collectionMethod.getTermName());
+    MosquitoCollectionView view = new MosquitoCollectionView();
+    view.setCollectionMethod(collectionMethod.getDisplayLabel().getValue());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
     view.setGeoEntity_01(provinceName);
     view.setGeoEntity_02(districtName);
     view.setGeoEntity_03(localityName);
     view.setGeoEntity_04("babga");
-    
+
     try
     {
       view.apply();
-      
+
       view.deleteConcrete();
-      
+
       fail("Able to import an ambigious Geo Entity");
     }
-    catch(UnknownGeoEntityException e)
+    catch (UnknownGeoEntityException e)
     {
-      //This is expected
+      // This is expected
     }
   }
-  
+
   public void testUnknownLocality()
   {
-    MosquitoCollectionView view = new MosquitoCollectionView();        
-    view.setCollectionMethod(collectionMethod.getTermName());
+    MosquitoCollectionView view = new MosquitoCollectionView();
+    view.setCollectionMethod(collectionMethod.getDisplayLabel().getValue());
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
     view.setGeoEntity_01(provinceName);
     view.setGeoEntity_02(districtName);
     view.setGeoEntity_03("baddata");
     view.setGeoEntity_04(sentinelSiteName);
-    
+
     try
     {
       view.apply();
-      
+
       view.deleteConcrete();
-      
+
       fail("Able to import an ambigious Geo Entity");
     }
-    catch(UnknownGeoEntityException e)
+    catch (UnknownGeoEntityException e)
     {
-      //This is expected
+      // This is expected
     }
   }
-  
+
   public void testInvalidCollectionMethod()
   {
-    MosquitoCollectionView view = new MosquitoCollectionView();        
+    MosquitoCollectionView view = new MosquitoCollectionView();
     view.setCollectionMethod("bad name");
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
@@ -381,71 +393,71 @@ public class MosquitoCollectionViewTest extends TestCase
     view.setGeoEntity_02(districtName);
     view.setGeoEntity_03(localityName);
     view.setGeoEntity_04(sentinelSiteName);
-    
+
     try
     {
       view.apply();
-      
+
       view.deleteConcrete();
-      
+
       fail("Able to import an undefined collection method");
     }
-    catch(UnknownTermException e)
+    catch (UnknownTermException e)
     {
-      //This is expected
+      // This is expected
     }
   }
-  
+
   public void testEmptyCollectionDate()
   {
-    MosquitoCollectionView view = new MosquitoCollectionView();        
-    view.setCollectionMethod(collectionMethod.getTermName());
+    MosquitoCollectionView view = new MosquitoCollectionView();
+    view.setCollectionMethod(collectionMethod.getDisplayLabel().getValue());
     view.setGeoEntity_0(countryName);
     view.setGeoEntity_01(provinceName);
     view.setGeoEntity_02(districtName);
     view.setGeoEntity_03(localityName);
     view.setGeoEntity_04(sentinelSiteName);
-    
+
     try
     {
-      view.apply();      
+      view.apply();
       view.deleteConcrete();
-      
+
       fail("Able to import an ambigious Geo Entity");
     }
-    catch(ProblemException e)
+    catch (ProblemException e)
     {
-      //This is expected
+      // This is expected
       List<ProblemIF> p = e.getProblems();
-      
+
       assertEquals(1, p.size());
-    }    
+    }
   }
-  
+
   public void testEmptyCollectionMethod()
   {
-    MosquitoCollectionView view = new MosquitoCollectionView();        
+    MosquitoCollectionView view = new MosquitoCollectionView();
     view.setDateCollected(new Date());
     view.setGeoEntity_0(countryName);
     view.setGeoEntity_01(provinceName);
     view.setGeoEntity_02(districtName);
     view.setGeoEntity_03(localityName);
     view.setGeoEntity_04(sentinelSiteName);
-    
+
     try
     {
-      view.apply();      
+      view.apply();
       view.deleteConcrete();
-      
+
       fail("Able to import an ambigious Geo Entity");
     }
-    catch(ProblemException e)
+    catch (ProblemException e)
     {
-      //This is expected
+      // This is expected
       List<ProblemIF> p = e.getProblems();
-      
+
       assertEquals(1, p.size());
-    }    
+    }
   }
 
 }

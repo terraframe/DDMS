@@ -5,6 +5,7 @@ import java.util.Locale;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ClientSession;
@@ -27,14 +28,33 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 
 public class PermissionsTest extends TestCase
 {
-  private static MdBusiness mdssType;
-  private static Roles mdssAdmin;
-  private static Roles mdssUser;
-  private static Users adminUser;
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
+
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
+
+  private static MdBusiness           mdssType;
+
+  private static Roles                mdssAdmin;
+
+  private static Roles                mdssUser;
+
+  private static Users                adminUser;
+
   private static MdAttributeCharacter visibleChar;
-  private static Users publicUser;
-  private static MdAttributeInteger hiddenInt;
-  private static MdAttributeBoolean userBoolean;
+
+  private static Users                publicUser;
+
+  private static MdAttributeInteger   hiddenInt;
+
+  private static MdAttributeBoolean   userBoolean;
 
   public static Test suite()
   {
@@ -47,7 +67,6 @@ public class PermissionsTest extends TestCase
       {
         classSetUp();
       }
-
 
       protected void tearDown()
       {
@@ -128,7 +147,8 @@ public class PermissionsTest extends TestCase
 
   public void testGetRoleAttributes() throws Exception
   {
-    ReadableAttributeView[] views = ReadableAttributeView.getActorAttributes(mdssType.definesType(), mdssAdmin.getRoleName());
+    ReadableAttributeView[] views = ReadableAttributeView.getActorAttributes(mdssType.definesType(),
+        mdssAdmin.getRoleName());
     assertEquals(hiddenInt.getAttributeName(), views[0].getAttributeName());
     assertEquals(Boolean.FALSE, views[0].getReadPermission());
     assertEquals(userBoolean.getAttributeName(), views[1].getAttributeName());
@@ -171,9 +191,11 @@ public class PermissionsTest extends TestCase
 
   private boolean checkAttributeAccess(Users user, MdAttribute attribute)
   {
-    ClientSession adminSession = ClientSession.createUserSession(user.getUsername(), user.getUsername(), Locale.US);
+    ClientSession adminSession = ClientSession.createUserSession(user.getUsername(), user.getUsername(),
+        Locale.US);
     MdAttributeDAO mdAttributeDAO = (MdAttributeDAO) BusinessFacade.getEntityDAO(attribute);
-    boolean checkAttributeAccess = SessionFacade.checkAttributeAccess(adminSession.getSessionId(), Operation.READ, mdAttributeDAO);
+    boolean checkAttributeAccess = SessionFacade.checkAttributeAccess(adminSession.getSessionId(),
+        Operation.READ, mdAttributeDAO);
     adminSession.logout();
     return checkAttributeAccess;
 

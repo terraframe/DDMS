@@ -4,8 +4,6 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.UnknownTermException;
-import dss.vector.solutions.mo.AbstractTermBase;
-import dss.vector.solutions.mo.AbstractTermQuery;
 
 
 public abstract class AbstractTerm extends AbstractTermBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -60,6 +58,37 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
       }
 
       return null;
+    }
+    finally
+    {
+      iterator.close();
+    }    
+  }
+  
+  public static AbstractTerm validateByDisplayLabel(String displayLabel)
+  {
+    QueryFactory factory = new QueryFactory();
+    AbstractTermQuery query = new AbstractTermQuery(factory);
+
+    query.WHERE(query.getDisplayLabel().currentLocale().EQ(displayLabel));
+    query.AND(query.getEnabled().EQ(true));
+
+    OIterator<? extends AbstractTerm> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+
+      String msg = "Unknown term with the given name [" + displayLabel + "]";
+      
+      UnknownTermException e = new UnknownTermException(msg);
+      e.setTermName(displayLabel);
+      e.apply();
+      
+      throw e;
     }
     finally
     {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
@@ -34,6 +35,18 @@ public class GeoHierarchyTest extends GeoTest
   private static final String NEW_TYPE      = MDSSInfo.GENERATED_GEO_PACKAGE + "." + NEW_TYPE_NAME;
 
   private static Earth        earth         = Earth.getEarthInstance();
+
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
+
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
   public static Test suite()
   {

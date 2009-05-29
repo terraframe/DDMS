@@ -9,12 +9,12 @@ import java.util.List;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ProblemException;
 import com.terraframe.mojo.ProblemIF;
 import com.terraframe.mojo.constants.DatabaseProperties;
-import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.query.OIterator;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -35,6 +35,18 @@ public class MosquitoCollectionPointTest extends TestCase
   private static Specie               specie               = null;
 
   private static IdentificationMethod identificationMethod = null;
+
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
+
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
   public static Test suite()
   {

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
@@ -13,6 +14,18 @@ import dss.vector.solutions.mo.ActiveIngredient;
 
 public class InsecticideBrandTest extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   private static ActiveIngredient activeIngredient = null;
 
   public static Test suite()

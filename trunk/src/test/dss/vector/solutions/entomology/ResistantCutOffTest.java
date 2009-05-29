@@ -3,9 +3,22 @@ package dss.vector.solutions.entomology;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 
 public class ResistantCutOffTest extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   public Integer getProperty(String name)
   {
     return Property.getInt(PropertyInfo.RESISTANCE_PACKAGE, name);

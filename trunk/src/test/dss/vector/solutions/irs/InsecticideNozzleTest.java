@@ -5,11 +5,24 @@ import java.math.BigDecimal;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 import dss.vector.solutions.mo.ActiveIngredient;
 
 public class InsecticideNozzleTest extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   private static Nozzle           nozzle;
 
   private static InsecticideBrand brand;

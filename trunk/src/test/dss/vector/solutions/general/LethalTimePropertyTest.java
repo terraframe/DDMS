@@ -5,6 +5,7 @@ import java.util.List;
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
 import com.terraframe.mojo.ProblemException;
@@ -16,6 +17,18 @@ import dss.vector.solutions.mo.ActiveIngredient;
 
 public class LethalTimePropertyTest extends TestCase
 {
+	  @Override
+	  public TestResult run()
+	  {
+	    return super.run();
+	  }
+
+	  @Override
+	  public void run(TestResult testResult)
+	  {
+	    super.run(testResult);
+	  }
+
   private static Insecticide insecticide;
   
   public static Test suite()
