@@ -1948,7 +1948,7 @@
             size="25" />
           <boolean
             name="enabled"
-            label="Enabled"
+            label="Active"
             required="true"
             default_value="true"
             description="If the MO term is enabled"
