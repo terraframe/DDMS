@@ -639,7 +639,7 @@
             size="255" />
           <boolean
             name="enabled"
-            label="Enabled"
+            label="Active"
             required="true"
             default_value="true"
             positiveLabel="Yes"
