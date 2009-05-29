@@ -33,7 +33,8 @@ var aSubmenuData = [
                             itemdata: [
                                        { text: "Manage_People", url: "dss.vector.solutions.PersonController.viewAll.mojo" , visibleTo:'Administrator'},
                                        { text: "Manage_IRS_Teams", url: "dss.vector.solutions.irs.SprayTeamController.viewAll.mojo", visibleTo:'Administrator' },
-                                       { text: "Edit_Roles", url: "dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo?actor=GUIVisibility", visibleTo:'Administrator' }
+                                       { text: "Edit_Visibility", url: "dss.vector.solutions.util.ReadableAttributeController.getUniversal.mojo?actor=GUIVisibility", visibleTo:'Administrator' },
+                                       { text: "Manage_Roles", url: "dss.vector.solutions.RoleController.viewAll.mojo", visibleTo:'Administrator' }
                             ]
                         }
 
@@ -52,6 +53,7 @@ var aSubmenuData = [
 
             },
             { text: "Change_Settings", url: "dss.vector.solutions.PropertyController.viewAll.mojo" , visibleTo:'Administrator'},
+            { text: "Configurable_Lists", url: "dss.vector.solutions.util.ConfigurableListController.viewAll.mojo" , visibleTo:'Administrator'},
         ]
     },
     {
