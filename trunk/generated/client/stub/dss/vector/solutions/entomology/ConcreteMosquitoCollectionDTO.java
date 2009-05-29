@@ -2,10 +2,6 @@ package dss.vector.solutions.entomology;
 
 import java.text.DateFormat;
 
-import com.terraframe.mojo.util.Converter;
-
-import dss.vector.solutions.util.DateConverter;
-
 public abstract class ConcreteMosquitoCollectionDTO extends ConcreteMosquitoCollectionDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   private static final long serialVersionUID = 1236104204962L;

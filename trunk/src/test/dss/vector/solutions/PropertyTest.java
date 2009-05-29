@@ -4,13 +4,6 @@ import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import java.lang.Integer;
-import java.util.Random;
-import java.lang.Math;
-
-import dss.vector.solutions.Base30;
-import dss.vector.solutions.Property;
-import dss.vector.solutions.PropertyInfo;
 
 public class PropertyTest extends TestCase
 {

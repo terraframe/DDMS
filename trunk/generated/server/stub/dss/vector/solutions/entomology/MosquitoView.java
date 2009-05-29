@@ -23,9 +23,6 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
 
 import dss.vector.solutions.entomology.assay.AssayTestResult;
-import dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult;
-import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult;
-import dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult;
 import dss.vector.solutions.mo.AbstractTerm;
 
 public class MosquitoView extends MosquitoViewBase implements Reloadable

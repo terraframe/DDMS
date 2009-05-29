@@ -5,28 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
 
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import com.terraframe.mojo.ClientSession;
-import com.terraframe.mojo.ProblemException;
-import com.terraframe.mojo.ProblemIF;
-import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.web.WebClientSession;
-
-import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
-import dss.vector.solutions.TestConstants;
-import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.surveillance.PeriodType;
 
 public class EpiDateTest extends TestCase

@@ -5,8 +5,6 @@ import java.lang.reflect.Method;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.Person;
-
 public class ResourceTarget extends ResourceTargetBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {

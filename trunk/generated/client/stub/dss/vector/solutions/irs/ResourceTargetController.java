@@ -1,13 +1,7 @@
 package dss.vector.solutions.irs;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-
-import dss.vector.solutions.irs.SprayOperatorDTO;
-import dss.vector.solutions.PersonDTO;
-import dss.vector.solutions.irs.ResourceTargetViewDTO;
 
 //TODO: delete unused methods from metadata
 
