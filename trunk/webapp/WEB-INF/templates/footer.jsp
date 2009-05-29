@@ -78,10 +78,10 @@ YAHOO.util.Event.addListener(window, 'load', function()
   var prevPagePostTime = readCookie('pagepostTime');
   var loadtime = (Date.now() - parseInt(prevPagePostTime)) / 1000.0;
   var clientTime = loadtime - serverTime;
-  document.getElementById('loadTime').innerHTML = loadtime.toPrecision(2);;
-  document.getElementById('clientTime').innerHTML = clientTime.toPrecision(2);
+  document.getElementById('loadTime').innerHTML = loadtime.toFixed(2);;
+  document.getElementById('clientTime').innerHTML = clientTime.toFixed(2);
   //the server can log this on the next request
-  document.cookie = " PrevLoadTime=CT=" + clientTime.toPrecision(2) +"ST=" + serverTime +"@"+ document.location + "; path=/";
+  document.cookie = "PrevLoadTime=CT" + clientTime.toFixed(2) +"ST" + serverTime + escape(document.location) + "; path=/";
 });
 </script>
 </body>
