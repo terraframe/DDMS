@@ -19,6 +19,12 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
+<script type="text/javascript">
+// Setting both values to false will select *all* univerals
+MDSS.AbstractSelectSearch.Political = false;
+MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
+</script>
+
 <mjl:form name="search" method="POST" id ="searchAggregatedCase">
   <dl>
     <dt> <fmt:message key="Geo_Id"/> </dt>
@@ -56,7 +62,7 @@
     var year = document.getElementById('year');
     var period = document.getElementById('period');
     var periodType;
-    
+
     var radios = document.getElementsByName('periodType');
     for(var i=0; i<radios.length; i++)
     {
@@ -69,11 +75,11 @@
     }
 
 	var re = /^[0-9]+$/;
-	    	
+
 	if ( !re.test(year.value) || !re.test(period.value))
 	{
 	  return;
-	}    	
+	}
 
     if(year.value != '' && period.value != '' && periodType != '')
     {
@@ -91,7 +97,7 @@
         		}
         		else
         		{
-                	MojoCal.addError(period,p.getLocalizedMessage());            		
+                	MojoCal.addError(period,p.getLocalizedMessage());
         		}
     		  }
     		}
@@ -99,14 +105,14 @@
 
   	  MojoCal.removeError(year);
 	  MojoCal.removeError(period);
-    
+
       Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView.validateEpiDate(request, periodType, parseInt(period.value), parseInt(year.value));
     }
   }
 
   var form = document.getElementById('searchAggregatedCase');
   var periodType = form.periodType;
-  
+
   YAHOO.util.Event.on(periodType, 'click', validate);
   YAHOO.util.Event.on('period', 'blur', validate);
   YAHOO.util.Event.on('year', 'blur', validate);

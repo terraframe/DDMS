@@ -13,7 +13,34 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
 
     // map of currently selected objects
     this._selectedMap = {};
+    this._selectUniversalTypeHandler = null;
     this._CURRENT_SELECTIONS = 'currentSelections';
+  },
+
+  /**
+   * Override to handle shift+click.
+   */
+  _getChildren : function(e)
+  {
+    if(e.shiftKey)
+    {
+      var currentOption = e.target;
+      var select = currentOption.parentNode;
+      var geoEntityView = this._geoEntityViewCache[currentOption.id];
+
+      // don't allow Earth
+      if(geoEntityView.getEntityType() === "dss.vector.solutions.geo.generated.Earth")
+      {
+        return;
+      }
+
+      this._updateSelection(geoEntityView);
+      this._notifySelectHandler(geoEntityView, true);
+    }
+    else
+    {
+      MDSS.AbstractSelectSearch.prototype._getChildren.call(this, e);
+    }
   },
 
   /**
@@ -73,7 +100,14 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     if(Mojo.util.isFunction(this._hideHandler))
     {
       var entities = Mojo.util.getValues(this._selectedMap);
-      this._hideHandler(entities);
+      var checked = YAHOO.util.Selector.query('input[type="checkbox"]:checked.selectUniversalType');
+      var selectedTypes = [];
+      for(var i=0; i<checked.length; i++)
+      {
+      	selectedTypes.push(checked[i].value);
+      }
+
+      this._hideHandler(entities, selectedTypes);
     }
   },
 
@@ -83,7 +117,7 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
    */
   _postRender : function()
   {
-    // attach event handlers to all Select All options that will clear
+    // attach event handlers to all Select All options
     var selects = YAHOO.util.Selector.query('select', this._SELECT_CONTAINER_ID);
     for(var i=0; i<selects.length; i++)
     {
@@ -96,6 +130,14 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
 
         YAHOO.util.Event.on(selectAll, 'click', this._selectAll, null, this);
       }
+    }
+
+    // create toggle events to display selectable types
+    var toggles = YAHOO.util.Selector.query('input.selectUniversalType', this._SELECT_CONTAINER_ID);
+    for(var i=0; i<toggles.length; i++)
+    {
+      var toggle = toggles[i];
+      YAHOO.util.Event.on(toggle, 'click', this._notifySelectUniversalTypeHandler, null, this);
     }
   },
 
@@ -141,31 +183,42 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
   _notifySelectHandler : function(geoEntityView, updateSelection)
   {
     // add to list of currently selected
-
-    // don't allow Earth
-    if(geoEntityView.getEntityType() === "dss.vector.solutions.geo.generated.Earth")
-    {
-      return;
-    }
-
-    if(updateSelection)
-    {
-      this._updateSelection(geoEntityView);
-    }
-
   	if(Mojo.util.isFunction(this._selectHandler))
   	{
   	  this._selectHandler(geoEntityView);
   	}
   },
 
+  setSelectUniversalTypeHandler : function(handler)
+  {
+  	this._selectUniversalTypeHandler = handler;
+  },
+
   /**
-   * Invokes the appropriate controller action to
+   *
+   */
+  _notifySelectUniversalTypeHandler : function(e)
+  {
+  	if(Mojo.util.isFunction(this._selectUniversalTypeHandler))
+  	{
+  	  var type = e.target.value;
+
+      // send in a new instance as a template
+  	  var construct = Mojo.util.getType(type);
+  	  var geoEntity = new construct();
+      var geoEntityView = this._copyEntityToView(geoEntity);
+
+  	  this._selectUniversalTypeHandler(geoEntityView, e.target.checked);
+  	}
+  },
+
+  /**
+   * Gets the appropriate controller action to
    * render the select search component.
    */
-  _invokeControllerAction : function(request, rootId)
+  _getControllerAction : function()
   {
-    Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displayMultipleSelectSearch(request, rootId);
+    return Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displayMultipleSelectSearch;
   },
 
   _disableAllowed : function()

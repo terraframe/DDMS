@@ -19,11 +19,16 @@
   request.setAttribute("PermanentWaterBodyClass", PermanentWaterBodyDTO.CLASS);
 %>
 
+<script type="text/javascript">
+  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= TrapDTO.CLASS %>');
+  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= PermanentWaterBodyDTO.CLASS %>');
+</script>
+
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollectionPoint.search" method="GET" id ="searchMosquitoCollections">
   <dl>
     <dt> <fmt:message key="Filter" /> </dt>
     <dd>
-        <input type="radio" name="filterType" value="" checked="checked" /><fmt:message key="All" /> &nbsp;&nbsp;&nbsp;
+        <input type="radio" name="filterType" class="filterType" value="" checked="checked" /><fmt:message key="All" /> &nbsp;&nbsp;&nbsp;
         <input type="radio"  class="filterType" name="filterType" value="${TrapClass}" /><fmt:message key="Trap" /> &nbsp;&nbsp;&nbsp;
         <input type="radio"  class="filterType" name="filterType" value="${PermanentWaterBodyClass}" /><fmt:message key="Permanent_Water_Body" />
     </dd>

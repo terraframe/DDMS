@@ -10,7 +10,7 @@
   <c:forEach items="${views}" var="view" varStatus="status">
   <dt id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_dt">
     <c:if test="${!status.first}">
-      <input type="checkbox" checked="checked" class="searchToggle" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_toggle" />&nbsp;
+      <input type="checkbox" value="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}" class="selectUniversalType" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_selectUniversalType" />&nbsp;
     </c:if>
     ${view.displayLabel}
   </dt>

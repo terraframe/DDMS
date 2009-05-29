@@ -800,13 +800,6 @@ MDSS.QueryEntomology = (function(){
     // render the panel
     _queryPanel.render();
 
-    // modify the right panel to accept GeoEntity data as a list
-    var rightUnit = _queryPanel.getQueryRightUnit();
-    var body = rightUnit.body;
-    var ul = document.createElement('ul');
-    YAHOO.util.Dom.addClass(ul, 'geoEntityPanelList');
-    body.appendChild(ul);
-
   	// add pre-configured columns
     for(var i=0; i<_mosquitoColumns.length; i++)
     {

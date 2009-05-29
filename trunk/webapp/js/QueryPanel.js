@@ -632,6 +632,8 @@ MDSS.QueryXML.OrderBy.prototype = {
  */
 MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
 {
+  var rightPanel = MDSS.Localized.Selected_Entities + '<hr /><ul id="'+this.GEO_ENTITY_PANEL_LIST+'"></ul>';
+
   this._queryLayout = new YAHOO.widget.Layout(queryPanelId, {
     height: 500,
     width: 900,
@@ -640,7 +642,7 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
         { position: 'left', width: 180, resize: true, body: '', gutter: '0 5 0 2', scroll: true },
         { position: 'bottom', height: 40, body: '', gutter: '2' },
         { position: 'center', body: '<div id="'+this.QUERY_DATA_TABLE+'"></div>', gutter: '0 2 0 0', scroll: true },
-        { position: 'right', width: 120, body: '', resize: false, scroll: true, gutter: '0 5 0 2'}
+        { position: 'right', width: 150, body: rightPanel, resize: true, scroll: true, gutter: '0 5 0 2'}
     ]
   });
 
@@ -744,6 +746,8 @@ MDSS.QueryPanel.prototype = {
 
   SAVE_QUERY_BUTTON : "saveQueryButton",
 
+  GEO_ENTITY_PANEL_LIST : "geoEntityPanelList",
+
   /**
    *
    */
@@ -778,6 +782,29 @@ MDSS.QueryPanel.prototype = {
   getCurrentThematicVariable : function(thematicVar)
   {
     return this._currentThematicVariable;
+  },
+
+  /**
+   * Adds the list of GeoEntit objects to the list
+   * of selected GeoEntities.
+   */
+  addSelectedGeoEntities : function(geoEntities)
+  {
+    var ul = document.getElementById(this.GEO_ENTITY_PANEL_LIST);
+
+    var frag = document.createDocumentFragment();
+    for(var i=0; i<geoEntities.length; i++)
+    {
+      var geoEntityView = geoEntities[i];
+
+      var li = document.createElement('li');
+      li.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
+
+      frag.appendChild(li);
+    }
+
+    ul.innerHTML = '';
+    ul.appendChild(frag);
   },
 
   /**
@@ -1223,18 +1250,6 @@ MDSS.QueryPanel.prototype = {
    */
   _buildButtons : function()
   {
-    var exportXLSButton = this._buildXLSForm();
-
-    this._runButton = new YAHOO.util.Element(document.createElement('input'));
-    this._runButton.set('type', 'button');
-    this._runButton.set('value', MDSS.Localized.Query.Run);
-    this._runButton.set('id', this.RUN_QUERY_BUTTON);
-    this._runButton.addClass('queryButton');
-    this._runButton.on('click', this._executeQuery, {}, this);
-
-    var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
-    qBottom.appendChild(this._runButton);
-    qBottom.appendChild(exportXLSButton);
 
     this._saveButton = new YAHOO.util.Element(document.createElement('input'));
     this._saveButton.set('type', 'button');
@@ -1266,10 +1281,33 @@ MDSS.QueryPanel.prototype = {
       this._queryList.appendChild(option);
     }
 
-    var qRight = new YAHOO.util.Element(this._qRightUnit.body);
-    qRight.appendChild(this._queryList);
-    qRight.appendChild(this._loadButton);
-    qRight.appendChild(this._saveButton);
+
+    var exportXLSButton = this._buildXLSForm();
+
+    this._runButton = new YAHOO.util.Element(document.createElement('input'));
+    this._runButton.set('type', 'button');
+    this._runButton.set('value', MDSS.Localized.Query.Run);
+    this._runButton.set('id', this.RUN_QUERY_BUTTON);
+    this._runButton.addClass('queryButton');
+    this._runButton.on('click', this._executeQuery, {}, this);
+
+
+    var leftDiv = new YAHOO.util.Element(document.createElement('div'));
+    leftDiv.setStyle('float', 'right');
+    leftDiv.appendChild(this._runButton);
+    leftDiv.appendChild(exportXLSButton);
+
+    var rightDiv = new YAHOO.util.Element(document.createElement('div'));
+    rightDiv.setStyle('float', 'left');
+    rightDiv.appendChild(this._queryList);
+    rightDiv.appendChild(this._loadButton);
+    rightDiv.appendChild(this._saveButton);
+
+    var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
+    qBottom.appendChild(rightDiv);
+    qBottom.appendChild(leftDiv);
+
+    //var qRight = new YAHOO.util.Element(this._qRightUnit.body);
 
     // map panel buttons
     this._refreshMapButton = new YAHOO.util.Element(document.createElement('input'));

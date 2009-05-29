@@ -18,11 +18,25 @@ public class GeoHierarchyView extends GeoHierarchyViewBase implements Searchable
     super();
   }
 
+  @Override
+  public boolean equals(Object obj)
+  {
+    boolean equals = super.equals(obj);
+
+    if (!equals && obj instanceof GeoHierarchyView)
+    {
+      equals = this.getGeoHierarchyId().equals( ( (GeoHierarchyView) obj ).getGeoHierarchyId());
+    }
+
+
+    return equals;
+  }
+
   public List<GeoEntity> searchGeoEntity(String entityName, GeoEntity parent)
-  {    
+  {
     MdBusiness mdBusiness = MdBusiness.get(this.getReferenceId());
     GenericHierarchySearcher searcher = new GenericHierarchySearcher(new String[]{mdBusiness.definesType()});
-    
+
     return searcher.searchGeoEntity(entityName, parent);
   }
 }

@@ -1,5 +1,8 @@
 MDSS.AbstractSelectSearch = Mojo.Class.create();
 MDSS.AbstractSelectSearch.SelectSearchRootId = null; // must be set before instantiating a subclass.
+MDSS.AbstractSelectSearch.ExtraUniversals = []; // must be set before instantiating a subclass.
+MDSS.AbstractSelectSearch.Political = true;
+MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 MDSS.AbstractSelectSearch.prototype = {
 
   /**
@@ -43,6 +46,10 @@ MDSS.AbstractSelectSearch.prototype = {
 
     // the current type of GeoEntity for ajax searching
     this._currentSearchType = null;
+
+    this._political = true;
+
+    this._sprayTargetAllowed = false;
   },
 
   /**
@@ -57,6 +64,7 @@ MDSS.AbstractSelectSearch.prototype = {
     view.setActivated(geoEntity.getActivated());
     view.setEntityName(geoEntity.getEntityName());
     view.setEntityType(geoEntity.getType());
+    view.setTypeDisplayLabel(geoEntity.getTypeMd().getDisplayLabel());
 
     return view;
   },
@@ -127,24 +135,6 @@ MDSS.AbstractSelectSearch.prototype = {
     });
 
     Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, MDSS.SelectSearchRootId, false, '');
-  },
-
-  /**
-   * Toggles the visibility of the search div.
-   */
-  _toggleSearch : function(e, obj)
-  {
-    var checkbox = e.target;
-    var type = checkbox.id.replace(/_toggle/, '');
-    var container = new YAHOO.util.Element(type+"_container");
-    if(container.getStyle('display') === 'none')
-    {
-      container.setStyle('display', 'block');
-    }
-    else
-    {
-      container.setStyle('display', 'none');
-    }
   },
 
   /**
@@ -251,21 +241,14 @@ MDSS.AbstractSelectSearch.prototype = {
           YAHOO.util.Event.on(search, 'click', this.searchRef._manualSearch, null, this.searchRef);
         }
 
-        // create toggle events to display divs
-        var toggles = YAHOO.util.Selector.query('input.searchToggle', this.__SELECT_CONTAINER_ID);
-        for(var i=0; i<toggles.length; i++)
-        {
-          var toggle = toggles[i];
-          YAHOO.util.Event.on(toggle, 'click', this.searchRef._toggleSearch, null, this.searchRef);
-        }
-
         this.searchRef._postRender();
 
         this.searchRef._createRoot();
       }
     });
 
-    this._invokeControllerAction(request, MDSS.SelectSearchRootId);
+    var method = this._getControllerAction();
+    method(request, MDSS.SelectSearchRootId, MDSS.AbstractSelectSearch.Political, MDSS.AbstractSelectSearch.SprayTargetAllowed, MDSS.AbstractSelectSearch.ExtraUniversals);
   },
 
   /**
@@ -328,7 +311,7 @@ MDSS.AbstractSelectSearch.prototype = {
    * Invokes the appropriate controller action to
    * render the select search component.
    */
-  _invokeControllerAction : function(request, rootId)
+  _getControllerAction : function(request, rootId)
   {
     // abstract
   },
@@ -405,7 +388,7 @@ MDSS.AbstractSelectSearch.prototype = {
     // show all if no filter exists
     if(this._filterType == null || this._filterType === '')
     {
-      var selects = YAHOO.util.Selector.query('select', this.__SELECT_CONTAINER_ID);
+      var selects = YAHOO.util.Selector.query('select', this._SELECT_CONTAINER_ID);
       for(var i=0; i<selects.length; i++)
       {
         var type = selects[i].id;
@@ -451,7 +434,7 @@ MDSS.AbstractSelectSearch.prototype = {
     collectChildren(tree, allowed, typeEntry);
 
     // hide all sections not in the allowed array
-    var selects = YAHOO.util.Selector.query('select', this.__SELECT_CONTAINER_ID);
+    var selects = YAHOO.util.Selector.query('select', this._SELECT_CONTAINER_ID);
     for(var i=0; i<selects.length; i++)
     {
       var type = selects[i].id;

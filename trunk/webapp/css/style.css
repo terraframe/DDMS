@@ -349,9 +349,14 @@ fieldset
 }
 
 input.queryButton, select.queryList {
-	float: right;
+	/*float: right;*/
 	margin-top: 5px;
 	margin-right: 10px;
+}
+
+select.queryList {
+	width: 100px;
+	margin-left: 10px;
 }
 
 .fldContainer

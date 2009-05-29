@@ -8,7 +8,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >
-<!--<link rel="stylesheet" type="text/css" href="js/yui/build/colorpicker/assets/skins/sam/colorpicker.css">-->
 
 <jwr:style src="/bundles/yuiStyle.css"/>
 <jwr:style src="/bundles/mdssScreen.css" media="all"/>

@@ -9,9 +9,6 @@
   <dl>
   <c:forEach items="${views}" var="view" varStatus="status">
   <dt id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_dt">
-    <c:if test="${!status.first}">
-      <input type="checkbox" checked="checked" class="searchToggle" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_toggle" />&nbsp;
-    </c:if>
     ${view.displayLabel}
   </dt>
   <dd id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_dd">

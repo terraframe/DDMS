@@ -19,8 +19,7 @@ MDSS.QueryBase.prototype = {
       exportXLS : MDSS.util.bind(this, this.exportXLS)
     });
 
-    // The class name of the GeoEntity that will be used for
-    // mapping.
+    // Set of GeoEntity subclasses that will be used for the query/mapping
     this._geoEntityQueryType = '';
 
     this._geoEntityTypes = {};
@@ -43,7 +42,7 @@ MDSS.QueryBase.prototype = {
     form.action = action;
 
     xmlInput.innerHTML = xml;
-    geoEntityTypeInput.value = this._geoEntityQueryType;
+    geoEntityTypeInput.value = this._geoEntityQueryType; // FIXME
     searchIdInput.value = savedSearchId;
     form.submit();
   },
@@ -229,6 +228,34 @@ MDSS.QueryBase.prototype = {
   },
 
   /**
+   * Handler when a user chooses to add a GeoEntity type
+   * to the select list.
+   */
+  _selectUniversalTypeHandler : function(geoEntityView, checked)
+  {
+  	if(checked)
+  	{
+      // don't allow Earth
+      if(geoEntityView.getEntityType() !== "dss.vector.solutions.geo.generated.Earth")
+      {
+        this._selectHandler(geoEntityView);
+      }
+  	}
+  	else
+  	{
+      /*
+      // remove the entity type from the select IF AND ONLY IF
+      // there is no criteria specified.
+      var geoEntityQuery = this._geoEntityTypes[geoEntityView.getEntityType()];
+      if(Mojo.util.isObject(geoEntityQuery))
+      {
+        var selected =
+      }
+      */
+  	}
+  },
+
+  /**
    * Handler for a selected GeoEntity. The selected GeoEntity
    * is added as restricting criteria and the type is added
    * as a column for the query output.
@@ -288,13 +315,20 @@ MDSS.QueryBase.prototype = {
      var geoIdSel = new MDSS.QueryXML.Selectable(geoIdAttr);
      this._geoEntitySelectables[type+'_'+geoIdAttr.getName()] = geoIdSel;
     }
+
+    // check the universal type box if it has not been checked.
+    var checkbox = document.getElementById(type+"_selectUniversalType");
+    if(!checkbox.checked)
+    {
+      checkbox.checked = true;
+    }
   },
 
   /**
    * Uses the given GeoEntityView objects to add
    * restrictions to the GeoEntity query.
    */
-  _hideHandler : function(geoEntityViews)
+  _hideHandler : function(geoEntityViews, selectedTypes)
   {
     for(var i=0; i<geoEntityViews.length; i++)
     {
@@ -309,6 +343,22 @@ MDSS.QueryBase.prototype = {
 
       this._geoIdConditions[geoEntityView.getGeoId()] = geoIdCondition;
     }
+
+    this._queryPanel.addSelectedGeoEntities(geoEntityViews);
+
+/*
+    // remove any GeoEntity types that were not in the final select list
+    var currentTypes = Mojo.util.getKeys(this._geoEntityTypes);
+    for(var i=0; i<currentTypes.length; i++)
+    {
+      var type = currentTypes[i];
+      for(var j=0; j<selectedTypes.length; j++)
+      {
+        var selected = selectedTypes[j];
+        if()
+      }
+    }
+*/
   },
 
   /**
@@ -323,12 +373,14 @@ MDSS.QueryBase.prototype = {
     else
     {
       var selectBound = MDSS.util.bind(this, this._selectHandler);
+      var selectUniversalBound = MDSS.util.bind(this, this._selectUniversalTypeHandler);
       var hideBound = MDSS.util.bind(this, this._hideHandler);
 
       //this._selectSearch = new MDSS.SingleSelectSearch();
       this._selectSearch = new MDSS.MultipleSelectSearch();
       this._selectSearch.setSelectHandler(selectBound);
       this._selectSearch.setTreeSelectHandler(selectBound);
+      this._selectSearch.setSelectUniversalTypeHandler(selectUniversalBound);
       this._selectSearch.setHideHandler(hideBound);
       this._selectSearch.setFilter('');
       this._selectSearch.render();

@@ -59,12 +59,12 @@ MDSS.SingleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearch,
   },
 
   /**
-   * Invokes the appropriate controller action to
+   * Returns the appropriate controller action to
    * render the select search component.
    */
-  _invokeControllerAction : function(request, rootId)
+  _getControllerAction : function()
   {
-    Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySingleSelectSearch(request, rootId);
+    return Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySingleSelectSearch;
   },
 
   _disableAllowed : function()

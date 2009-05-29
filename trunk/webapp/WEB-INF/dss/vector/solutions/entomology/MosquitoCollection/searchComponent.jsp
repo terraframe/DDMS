@@ -16,19 +16,24 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
 <%
-request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
+  request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
   request.setAttribute("NonSentinelSiteClass", NonSentinelSiteDTO.CLASS);
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
   MosquitoCollectionDTO item = new MosquitoCollectionDTO(clientRequest);
   request.setAttribute("item",item);
 %>
 
+<script type="text/javascript">
+  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= SentinelSiteDTO.CLASS %>');
+  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= NonSentinelSiteDTO.CLASS %>');
+</script>
+
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.search" method="POST" id ="searchMosquitoCollections">
   <mjl:input type="hidden" param="type" value="<%=MosquitoCollectionViewDTO.CLASS%>"/>
   <dl>
     <dt><fmt:message key="Filter"/></dt>
     <dd>
-      <input type="radio" name="filterType" value="" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" class="filterType" value="" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
       <input type="radio" name="filterType" value="${SentinelSiteClass}" class="filterType"/>&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp;
       <input type="radio" name="filterType" value="${NonSentinelSiteClass}" class="filterType" />&nbsp;<fmt:message key="Non_Sentinel_Site"/>
     </dd>

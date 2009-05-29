@@ -136,6 +136,36 @@
             type="com.terraframe.mojo.system.metadata.MdBusiness" />
         </attributes>
         <mdMethod
+             name="collectHierarchies"
+             label="Collects GeoHierarchy types based on search criteria."
+             static="true"
+             returnType="dss.vector.solutions.geo.GeoHierarchyView[]">
+         <mdParameter
+            name="rootGeoEntityId"
+            label="Root GeoEntity Id"
+            description="The id of the GeoEntity that will be the root of the select lists."
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="political"
+            label="political"
+            description="denotes if only political GeoHierarchies should be allowed."
+            order="1"
+            type="java.lang.Boolean" />
+          <mdParameter
+            name="sprayZoneAllowed"
+            label="Spray Zone Allowed"
+            description="Denotes if only spray zone GeoHierarchies should be allowed."
+            order="2"
+            type="java.lang.Boolean" />
+          <mdParameter
+            name="extraUniversals"
+            label="Extra Univerals"
+            description="A list of other universals to be appended to the search."
+            order="3"
+            type="java.lang.String[]" />
+        </mdMethod>
+        <mdMethod
           name="getEarthGeoHierarchy"
           label="Get Earth GeoHierarchy"
           description="Get Earth GeoHierarchy"
@@ -513,25 +543,61 @@
           name="displaySingleSelectSearch"
           label="Display Select Search"
           description="Display Select Search"
-          isPost="false">
+          isPost="true">
           <mdParameter
             name="rootGeoEntityId"
             label="Root GeoEntity Id"
             description="The id of the GeoEntity that will be the root of the select lists."
             order="0"
             type="java.lang.String" />
+          <mdParameter
+            name="political"
+            label="political"
+            description="denotes if only political GeoHierarchies should be allowed."
+            order="1"
+            type="java.lang.Boolean" />
+          <mdParameter
+            name="sprayZoneAllowed"
+            label="Spray Zone Allowed"
+            description="Denotes if only spray zone GeoHierarchies should be allowed."
+            order="2"
+            type="java.lang.Boolean" />
+          <mdParameter
+            name="extraUniversals"
+            label="Extra Univerals"
+            order="3"
+            description="A list of other universals to be appended to the search."
+            type="java.lang.String[]" />
         </mdAction>
         <mdAction
           name="displayMultipleSelectSearch"
           label="Display Select Search"
           description="Display Select Search"
-          isPost="false">
+          isPost="true">
           <mdParameter
             name="rootGeoEntityId"
             label="Root GeoEntity Id"
             description="The id of the GeoEntity that will be the root of the select lists."
             order="0"
             type="java.lang.String" />
+          <mdParameter
+            name="political"
+            label="political"
+            description="denotes if only political GeoHierarchies should be allowed."
+            order="1"
+            type="java.lang.Boolean" />
+          <mdParameter
+            name="sprayZoneAllowed"
+            label="Spray Zone Allowed"
+            description="Denotes if only spray zone GeoHierarchies should be allowed."
+            order="2"
+            type="java.lang.Boolean" />
+          <mdParameter
+            name="extraUniversals"
+            label="Extra Univerals"
+            order="3"
+            description="A list of other universals to be appended to the search."
+            type="java.lang.String[]" />
         </mdAction>
         <mdAction
           name="displayTree"
