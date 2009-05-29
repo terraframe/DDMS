@@ -176,7 +176,7 @@ h2 {
 .yui-skin-sam .yuimenubaritem-selected {
 	background: url(/MDSS/imgs/design/sprite.png) repeat-x 0 -100px;
 }
-
+/*this controls the width of the menus*/
 .yui-skin-sam .yuimenuitemlabel .helptext {
     margin-left: 15em;
 }
