@@ -40,4 +40,3 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
 </mjl:form>
 
 <div id="cal1Container" class="yui-skin-sam"></div>
-<%//out.flush();%>
