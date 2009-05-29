@@ -23,6 +23,13 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
         </mdViewPermission>              
+        <mdViewPermission type="dss.vector.solutions.intervention.monitor.SurveyPointView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdViewPermission>              
       </role>
       <role roleName="dataCapturer">
         <mdBusinessPermission type="dss.vector.solutions.Property">
