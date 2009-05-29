@@ -77,7 +77,7 @@ YAHOO.util.Event.addListener(window, 'load', function()
   var serverTime = <fmt:formatNumber maxFractionDigits="2" value="${serverTime}"/>;
   var prevPagePostTime = readCookie('pagepostTime');
   var loadtime = (Date.now() - parseInt(prevPagePostTime)) / 1000.0;
-  var clientTime = loadtime - serverTime;
+  var clientTime = Math.abs(loadtime - serverTime);
   document.getElementById('loadTime').innerHTML = loadtime.toFixed(2);;
   document.getElementById('clientTime').innerHTML = clientTime.toFixed(2);
   //the server can log this on the next request

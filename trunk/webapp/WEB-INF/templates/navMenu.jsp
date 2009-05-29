@@ -7,20 +7,22 @@
                   <a class="yuimenubaritemlabel" href="#"><fmt:message key="Administration" /></a>
               </li>
               <li class="yuimenubaritem">
-                  <a class="yuimenubaritemlabel" href="#"><fmt:message key="Intervention_Planning"/></a>
-              </li>
-              <li class="yuimenubaritem">
-
                   <a class="yuimenubaritemlabel" href="#"><fmt:message key="Entomology_Surveillance"/></a>
               </li>
               <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="#"><fmt:message key="Case_Surveillance"/></a>
               </li>
+              <li class="yuimenubaritem">
+                  <a class="yuimenubaritemlabel" href="#"><fmt:message key="Intervention_Planning"/></a>
+              </li>
                <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="#"><fmt:message key="Intervention_Monitoring"/></a>
               </li>
               <li class="yuimenubaritem">
-                  <a class="yuimenubaritemlabel" href="#"><fmt:message key="Malaria_Indicators"/></a>
+                  <a class="yuimenubaritemlabel" href="#"><fmt:message key="Stock_Control"/></a>
+              </li>
+              <li class="yuimenubaritem">
+                  <a class="yuimenubaritemlabel" href="#"><fmt:message key="Surveys"/></a>
               </li>
               <li class="yuimenubaritem">
                   <a class="yuimenubaritemlabel" href="#"><fmt:message key="GIS"/></a>
