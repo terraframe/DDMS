@@ -35,19 +35,25 @@ public class LoginFilter implements Filter, Reloadable
   public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException
   {
     HttpServletRequest httpReq = (HttpServletRequest) req;
+    HttpServletResponse httpRes = (HttpServletResponse) res;
     //response time logging
     req.setAttribute("startTime", (Long)(new Date().getTime()));
     Cookie cookie1[]= httpReq.getCookies();
     if (cookie1 != null) {
        for (int i=0; i<cookie1.length; i++) {
           Cookie cookie = cookie1[i];
-          if (cookie != null && cookie.getName().equals("pageloadTime"))
+          if (cookie != null && cookie.getName().equals("PrevLoadTime"))
+          {
             filterConfig.getServletContext().log(cookie.getValue());
             System.out.println(cookie.getValue());
+            cookie.setValue("");
+            cookie.setMaxAge(-1);
+            httpRes.addCookie(cookie);
+          }
        }
     }
 
-    HttpServletResponse httpRes = (HttpServletResponse) res;
+
 
     HttpSession session = httpReq.getSession();
 
