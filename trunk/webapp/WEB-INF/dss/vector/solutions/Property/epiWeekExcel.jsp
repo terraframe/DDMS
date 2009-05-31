@@ -64,6 +64,7 @@ for (Integer i = 0; i < 52; i++)
     out.print("<td>" + df.format(week.getTime()) + "</td>");
     week.add(Calendar.DAY_OF_WEEK, 1);
   }
+  week.add(Calendar.DAY_OF_WEEK, -1);
   out.print("<td>" + mf.format(week.getTime()) + "</td>");
   out.println("</tr>");
 }
