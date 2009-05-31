@@ -7,21 +7,26 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 	MojoGrid.validateBool = function(inputValue, currentValue, editorInstance){
 		return "test";
-	}
+	};
 
 	MojoGrid.createDataTable = function(table_data) {
 	// locals to be returned
     var myDataSource, myDataTable;
 
     // set the fields
-    if(table_data.fields == null)
+    if(typeof table_data.fields === 'undefined')
     {
-    	table_data.fields = table_data.columnDefs.map(function(c){return c.key}).filter(function(c){return c != 'delete'});
+    	table_data.fields = table_data.columnDefs.map(function(c){return c.key}).filter(function(c){return(c != 'delete');});
     }
 
-    if(typeof table_data.saveFunction === 'undefined'  )
+    if(typeof table_data.saveFunction === 'undefined')
     {
     	table_data.saveFunction = "saveAll";
+    }
+
+    if(typeof table_data.addButton === 'undefined')
+    {
+    	table_data.addButton = "allreadyThere";
     }
 
     table_data.dirty = false;
@@ -36,51 +41,45 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	myDataTable = new YAHOO.widget.ScrollingDataTable(table_data.div_id,
 			table_data.columnDefs, myDataSource, {width:table_data.width});
 
+	table_data.myDataTable = myDataTable;
 
 	function getLabelFromId(feild,id)
 	{
-		  str = feild+"Ids.indexOf(id)";
-		  i = eval(str);
+		  var str = feild + "Ids.indexOf(id)";
+		  var i = eval(str);
 		  str = feild+"Labels["+i+"]" ;
 		  return(eval(str));
 	}
 
 	// the data comes from the server as ids, we need to set the labels
-	for each(record in myDataTable.getRecordSet().getRecords())
-	{
-		for each(feild in table_data.columnDefs)
-		{
-			if (feild.save_as_id)
-			{
-			  label = getLabelFromId(feild.key,record.getData(feild.key));
-			  // alert(label);
-			  record.setData(feild.key, label);
-			}
-			if (feild.title)
-			{
-			  myDataTable.getThEl(myDataTable.getColumn(feild.key)).title = feild.title;
-			}
-			//now we set the labels for bools
-			editor = myDataTable.getColumn(feild.key).editor
-			 if(editor && editor instanceof YAHOO.widget.RadioCellEditor )
-			  {
-			  	  for each(radioOpt in editor.radioOptions)
-				  if(record.getData(feild.key)== radioOpt.value)
-				  {
-					  //record.setData(feild.key,radioOpt.label);
-					  myDataTable.updateCell(record, feild.key,  radioOpt.label);
+	for each(record in myDataTable.getRecordSet().getRecords()){
+		for each(feild in table_data.columnDefs){
+			if (feild.save_as_id){
+			  	var label = getLabelFromId(feild.key,record.getData(feild.key));
+				  record.setData(feild.key, label);
+				}
+				if (feild.title)
+				{
+				  myDataTable.getThEl(myDataTable.getColumn(feild.key)).title = feild.title;
+				}
+				//now we set the labels for bools
+				var editor = myDataTable.getColumn(feild.key).editor;
+				 if(editor && editor instanceof YAHOO.widget.RadioCellEditor ){
+				  	for each(radioOpt in editor.radioOptions){
+						  if(record.getData(feild.key)== radioOpt.value){
+							  myDataTable.updateCell(record, feild.key,  radioOpt.label);
+						  }
+				  	}
+
 				  }
-				  //myDataTable.render();
-			  }
-			if(editor && editor instanceof YAHOO.widget.DateCellEditor )
-		    {
-				var date = MojoCal.parseDate(record.getData(feild.key));
-				myDataTable.updateCell(record,feild.key, date);
-		    }
-		}
+					if(editor && editor instanceof YAHOO.widget.DateCellEditor ){
+						var date = MojoCal.parseDate(record.getData(feild.key));
+						myDataTable.updateCell(record,feild.key, date);
+			    }
+			}
 	    if(table_data.after_row_load)
 	    {
-	       table_data.after_row_load(record,myDataTable);
+	       table_data.after_row_load(record);
 	    }
 	}
 	myDataTable.render();
@@ -110,50 +109,66 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	 * and move right. Use the handleTableKeyEvent() to handle the moving Open a
 	 * new cell editor on the newly focused cell
 	 */
-    var editorKeyEvent = function ( obj ) {
-        // 9 = tab, 13 = enter
-        var e   = obj.event;
-        if ( e.keyCode == 9 ) {
-            var cell        = myDataTable.getCellEditor().getTdEl();
-            var nextCell    = myDataTable.getNextTdEl( cell );
-            myDataTable.saveCellEditor();
-            if ( nextCell &&  myDataTable.getColumn(nextCell).editor)
-            {
-            	myDataTable.showCellEditor( nextCell );
-                e.returnValue   = false;
-                e.preventDefault();
-                return false;
-            }
-             // No next cell, go to the next row and search for editable cell
-            else
-            {
-            	var nextRow = myDataTable.getNextTrEl(cell);
-            	// No next cell, make a new row and open the editor for that one
-            	if(! nextRow)
-                {
-            		addRow();
-            		var nextRow = myDataTable.getNextTrEl(cell);
-                }
-                var nextCell  = myDataTable.getFirstTdEl(nextRow);
-                while(nextCell && ! myDataTable.getColumn(nextCell).editor)
-                {
-                	var nextCell = myDataTable.getNextTdEl( nextCell );
-                }
-                if ( nextCell ) {
-                	myDataTable.showCellEditor( nextCell );
-                    e.returnValue   = false;
-                    e.preventDefault();
-                    return false;
-                }
+	 var editorKeyEvent = function ( obj ) {
+		 // 9 = tab, 13 = enter
+		 var e = obj.event;
 
-            }
+		 function findNext(cell){
+			 var newCell = null;
+		   if (e.shiftKey){
+		  	 newCell = myDataTable.getPreviousTdEl(cell);
+			 }else{
+				 newCell = myDataTable.getNextTdEl(cell);
+			 }
+			 while(newCell !== null && myDataTable.getColumn(newCell).editor === null){
+				 if (e.shiftKey){
+					 newCell = myDataTable.getPreviousTdEl(newCell);
+				 }else{
+					 newCell = myDataTable.getNextTdEl(newCell);
+				 }
+			 }
+			 return(newCell);
+		 }
 
-        }
+		 if ( e.keyCode === 9 ){
 
-        // not sure what we want to do this for enter
-        if ( e.keyCode == 13 ) {
-        }
-    };
+		   var cell     = myDataTable.getCellEditor().getTdEl();
+		   var nextCell = findNext(cell);
+
+			 // No editable cell found on this row, go to the next row and search for editable cell
+			 if (nextCell === null){
+				 if (e.shiftKey){
+					 var nextRow = myDataTable.getPreviousTrEl(cell);
+				 }else{
+					 var nextRow = myDataTable.getNextTrEl(cell);
+				 }
+
+				 // No next cell, make a new row and open the editor for that one
+				 if(nextRow === null){
+					 if(table_data.add_button!==false){
+						 addRow();
+						 nextRow = myDataTable.getLastTrEl();
+					 }else{
+						 //wrap around
+						 //nextRow = myDataTable.getFirstTrEl();
+					 }
+				 }
+				 if (e.shiftKey){
+					 nextCell  =  findNext(myDataTable.getLastTdEl(nextRow));
+				 }else{
+					 nextCell  =  findNext(myDataTable.getFirstTdEl(nextRow));
+				 }
+			 }
+			 e.returnValue   = false;
+			 e.preventDefault();
+			 myDataTable.saveCellEditor();
+			 if (nextCell) {
+				 myDataTable.showCellEditor( nextCell );
+			 }
+			 //return(false);
+		 }
+
+	 };
     myDataTable.subscribe("editorKeydownEvent", editorKeyEvent);
 
 	// Save edits back to the original data array
@@ -180,7 +195,6 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			  	for each(radioOpt in editor.radioOptions)
 				  if(oArgs.newData == radioOpt.value)
 				  {
-
 					  myDataTable.updateCell(record,editor.getColumn(), radioOpt.label);
 					  //record.setData(editor.getColumn().key, radioOpt.label);
 				  }
@@ -201,7 +215,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	      if(table_data.after_row_edit)
 	      {
 	    	  table_data.after_row_edit(record);
-	    	  myDataTable.render();
+	    	  //myDataTable.render();
 	      }
 
 
@@ -332,12 +346,6 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	    	var view_contructor = Mojo.util.getType(table_data.data_type);
 	    	var view = new view_contructor();
 
-	    	/*if(table_data.collection_setter)
-	    	{
-	    		var str = "view."+table_data.collection_setter;
-	    		eval(str);
-	    	}*/
-	    	//for each (attrib in table_data.fields)
 	    	for(var i=0; i<table_data.fields.length; i++)
 	    	{
 	    		var attrib = table_data.fields[i];
@@ -418,7 +426,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 	}
 
-	table_data.myDataTable = myDataTable;
+
 	return {
         oDS: myDataSource,
         oDT: myDataTable
