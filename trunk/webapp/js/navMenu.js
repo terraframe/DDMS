@@ -95,7 +95,7 @@ var aSubmenuData = [
     {
         id: "Intervention_Planning",
         itemdata: [
-
+            { text: "Manage_IRS_Teams(028)", url: "dss.vector.solutions.irs.SprayTeamController.viewAll.mojo", visibleTo:'Administrator' },
             {
                 text: "IRS_Intervention_Targets",
                 submenu: {
