@@ -121,7 +121,7 @@ List no_edit_list = Arrays.asList(no_edit_arr);
        div_id: "MorphologicalSpecieGroups",
        copy_from_above: ["DateCollected","IdentificationMethod"],
        data_type: "Mojo.$.<%=MosquitoCollectionPointViewDTO.CLASS%>",
-       after_row_load:function(record,dt){
+       after_row_load:function(record){
          record.setData('Collection',('<a href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo?id='+record.getData('Collection')+'">'+record.getData('Total')+' <fmt:message key="Bioassays" /></a>'));
        }
      };

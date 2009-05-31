@@ -26,14 +26,16 @@
 
   <mjl:input value="${item.id}" type="hidden" param="id" />
 
-    <dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
-    <dd>${item.collectionMethod.displayLabel}</dd>
     <dt><label> ${item.collectionIdMd.displayLabel} </label></dt>
     <dd>${item.collectionId}</dd>
-    <dt><label > ${item.dateCollectedMd.displayLabel} </label></dt>
-    <dd class="formatDate">${item.dateCollected}</dd>
     <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
     <dd>${item.geoEntity.geoId}</dd>
+    <dt><label > ${item.dateCollectedMd.displayLabel} </label></dt>
+    <dd class="formatDate">${item.dateCollected}</dd>
+    <dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
+    <dd>${item.collectionMethod.displayLabel}</dd>
+
+
 
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.MosquitoCollectionController.edit.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.edit.button" classes="submitButton" />
 </mjl:form>
@@ -99,8 +101,7 @@
 
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-Object ojbect = request.getAttribute("item");
-MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) ojbect;
+MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) request.getAttribute("item");
 MorphologicalSpecieGroupViewDTO[] rows = mosquito_collection.getMorphologicalSpecieGroups();
 String[] attribs = { "GroupId","Collection", "Specie","IdentificationMethod","QuantityMale","QuantityFemale","Quantity"};
 MorphologicalSpecieGroupViewDTO mdView = new MorphologicalSpecieGroupViewDTO(clientRequest);

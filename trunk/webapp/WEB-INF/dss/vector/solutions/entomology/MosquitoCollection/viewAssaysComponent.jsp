@@ -73,6 +73,8 @@
 
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
+    <dt><label> ${item.collectionIdMd.displayLabel} </label></dt>
+    <dd>${item.collectionId}</dd>
     <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
     <dd>${item.geoEntity.geoId}</dd>
     <dt><label> ${item.dateCollectedMd.displayLabel} </label></dt>

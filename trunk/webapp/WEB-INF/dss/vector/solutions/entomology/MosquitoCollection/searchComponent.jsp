@@ -69,25 +69,16 @@
   <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.search.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="collectionMethod">
-      <mjl:header>
-         ${item.collectionMethodMd.displayLabel}
-      </mjl:header>
       <mjl:row>
         ${item.collectionMethod.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="dateCollected">
-      <mjl:header>
-        ${item.dateCollectedMd.displayLabel}
-      </mjl:header>
       <mjl:row>
         <fmt:formatDate value="${item.dateCollected}" dateStyle="SHORT" />
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoEntity">
-      <mjl:header>
-         ${item.geoEntityMd.displayLabel}
-      </mjl:header>
       <mjl:row>
         ${item.geoEntity.entityName}
       </mjl:row>
