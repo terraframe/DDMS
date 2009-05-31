@@ -56,7 +56,7 @@ TT=<span id="loadTime"></span>
 
  ${add_to_footer}
 
-<script type="text/javascript">
+<script type="text/javascript" defer="defer">
 YAHOO.util.Event.addListener(window, 'unload', function()
 {
   document.cookie = "pagepostTime=" + Date.now() + "; path=/";
