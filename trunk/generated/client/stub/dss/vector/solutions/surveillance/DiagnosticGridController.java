@@ -95,7 +95,7 @@ public class DiagnosticGridController extends DiagnosticGridControllerBase imple
   }
   public void failCancel(dss.vector.solutions.surveillance.DiagnosticGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {

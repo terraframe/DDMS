@@ -51,7 +51,7 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
     {
       List<FileItem> items = upload.parseRequest(req);
       InputStream inputStream = new BufferedInputStream(items.get(0).getInputStream());
-      InputStream errorStream = clientRequest.importExcelFile(inputStream);
+      InputStream errorStream = clientRequest.importExcelFile(inputStream, null, null, new String[]{});
       if (errorStream.available()>0)
       {
         res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");

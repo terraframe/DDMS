@@ -113,7 +113,7 @@ public class DrugController extends DrugControllerBase implements com.terraframe
   }
   public void failCancel(dss.vector.solutions.intervention.DrugDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {

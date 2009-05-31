@@ -115,7 +115,7 @@ public class AbstractSiteController extends AbstractSiteControllerBase implement
   }
   public void failCancel(dss.vector.solutions.geo.generated.AbstractSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void delete(dss.vector.solutions.geo.generated.AbstractSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

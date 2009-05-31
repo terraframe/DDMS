@@ -135,7 +135,7 @@ public class HouseholdController extends HouseholdControllerBase implements
 
   public void failCancel(HouseholdDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
 
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending,

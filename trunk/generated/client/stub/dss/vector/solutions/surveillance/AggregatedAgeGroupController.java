@@ -43,7 +43,7 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
   }
   public void failCancel(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void update(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

@@ -196,7 +196,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
   public void failCancel(LarvaeDiscriminatingDoseAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   
   private void setupRequest()

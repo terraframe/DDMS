@@ -123,6 +123,6 @@ public class TreatmentMethodGridController extends TreatmentMethodGridController
   }
   public void failCancel(dss.vector.solutions.surveillance.TreatmentMethodGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
 }

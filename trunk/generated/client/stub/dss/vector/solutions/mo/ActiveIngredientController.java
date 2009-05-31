@@ -57,7 +57,7 @@ public class ActiveIngredientController extends ActiveIngredientControllerBase i
   }
   public void failCancel(dss.vector.solutions.mo.ActiveIngredientDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {

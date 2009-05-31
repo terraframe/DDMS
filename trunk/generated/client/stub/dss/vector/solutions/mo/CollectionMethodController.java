@@ -75,7 +75,7 @@ public class CollectionMethodController extends CollectionMethodControllerBase i
   }
   public void failCancel(dss.vector.solutions.mo.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void create(dss.vector.solutions.mo.CollectionMethodDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

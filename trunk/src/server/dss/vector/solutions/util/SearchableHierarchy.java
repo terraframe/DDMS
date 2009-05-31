@@ -9,4 +9,6 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 public interface SearchableHierarchy extends Reloadable
 {
   public List<GeoEntity> searchGeoEntity(String entityName, GeoEntity parent);
+  
+  public String getDisplayLabel();
 }

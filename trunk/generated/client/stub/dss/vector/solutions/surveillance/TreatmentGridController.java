@@ -19,7 +19,7 @@ public class TreatmentGridController extends TreatmentGridControllerBase impleme
   }
   public void failCancel(dss.vector.solutions.surveillance.TreatmentGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {

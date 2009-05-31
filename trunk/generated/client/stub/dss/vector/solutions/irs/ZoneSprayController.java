@@ -134,7 +134,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
   public void failCancel(ZoneSprayViewDTO dto) throws IOException, ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
 
   public void delete(ZoneSprayViewDTO dto) throws IOException, ServletException

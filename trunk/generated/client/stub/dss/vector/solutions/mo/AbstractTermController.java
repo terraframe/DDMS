@@ -55,7 +55,7 @@ public class AbstractTermController extends AbstractTermControllerBase implement
   }
   public void failCancel(dss.vector.solutions.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void delete(dss.vector.solutions.mo.AbstractTermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

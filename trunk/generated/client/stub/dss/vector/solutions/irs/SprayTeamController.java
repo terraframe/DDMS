@@ -222,7 +222,7 @@ public class SprayTeamController extends SprayTeamControllerBase implements com.
   }
   public void failCancel(SprayTeamDTO dto) throws IOException, ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void failNewInstance() throws IOException, ServletException
   {

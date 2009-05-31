@@ -115,7 +115,7 @@ public class CountryController extends CountryControllerBase implements com.terr
   }
   public void failCancel(dss.vector.solutions.geo.generated.CountryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void delete(dss.vector.solutions.geo.generated.CountryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

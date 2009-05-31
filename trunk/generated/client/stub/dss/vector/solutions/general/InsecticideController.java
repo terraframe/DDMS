@@ -109,7 +109,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
   }
   public void failCancel(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void delete(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

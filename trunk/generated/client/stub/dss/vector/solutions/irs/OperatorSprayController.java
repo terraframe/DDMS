@@ -140,7 +140,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
   public void failCancel(OperatorSprayViewDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
 
   public void delete(OperatorSprayViewDTO dto) throws java.io.IOException,

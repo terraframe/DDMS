@@ -103,7 +103,7 @@ public class MolecularAssayResultController extends MolecularAssayResultControll
   }
   public void failCancel(dss.vector.solutions.mo.MolecularAssayResultDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {

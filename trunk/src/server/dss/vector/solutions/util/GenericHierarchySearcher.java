@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -72,5 +73,19 @@ public class GenericHierarchySearcher implements SearchableHierarchy, Reloadable
       
       return new LinkedList<GeoEntity>(query.getIterator().getAll());
     }
+  }
+
+  public String getDisplayLabel()
+  {
+    StringBuffer buffer = new StringBuffer();
+    
+    for(String type : types)
+    {
+      MdBusiness mdBusiness = MdBusiness.getMdBusiness(type);
+      
+      buffer.append("/" + mdBusiness.getDisplayLabel().getValue());
+    }
+    
+    return buffer.toString().replaceFirst("/", "");
   }
 }

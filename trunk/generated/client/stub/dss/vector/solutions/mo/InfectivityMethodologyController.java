@@ -19,7 +19,7 @@ public class InfectivityMethodologyController extends InfectivityMethodologyCont
   }
   public void failCancel(dss.vector.solutions.mo.InfectivityMethodologyDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {

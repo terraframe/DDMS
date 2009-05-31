@@ -160,7 +160,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failCancel(MosquitoCollectionDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
 
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException

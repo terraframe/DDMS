@@ -138,7 +138,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
   public void failCancel(TeamSprayViewDTO dto) throws IOException, ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
 
   public void delete(TeamSprayViewDTO dto) throws IOException, ServletException

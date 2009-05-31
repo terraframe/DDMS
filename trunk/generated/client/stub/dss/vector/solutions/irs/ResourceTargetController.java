@@ -18,6 +18,7 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
+  @SuppressWarnings("unchecked")
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -34,6 +35,7 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
     resp.sendError(500);
   }
 
+  @SuppressWarnings("unchecked")
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();

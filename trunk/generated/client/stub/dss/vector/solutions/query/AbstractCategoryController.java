@@ -55,7 +55,7 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
   }
   public void failCancel(dss.vector.solutions.query.AbstractCategoryDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {

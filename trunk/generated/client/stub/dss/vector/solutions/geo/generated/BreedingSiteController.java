@@ -115,7 +115,7 @@ public class BreedingSiteController extends BreedingSiteControllerBase implement
   }
   public void failCancel(dss.vector.solutions.geo.generated.BreedingSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void delete(dss.vector.solutions.geo.generated.BreedingSiteDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

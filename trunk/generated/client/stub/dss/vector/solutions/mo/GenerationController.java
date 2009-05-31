@@ -123,6 +123,6 @@ public class GenerationController extends GenerationControllerBase implements co
   }
   public void failCancel(dss.vector.solutions.mo.GenerationDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
 }

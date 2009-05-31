@@ -134,7 +134,7 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   }
   public void failCancel(KnockDownTimePropertyDTO dto) throws IOException, ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
 
   public void view(String id) throws IOException, ServletException

@@ -143,7 +143,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
   }
   public void failCancel(SurveyPointDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void delete(SurveyPointViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

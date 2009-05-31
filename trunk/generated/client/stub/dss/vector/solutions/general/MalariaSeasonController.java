@@ -110,7 +110,7 @@ public class MalariaSeasonController extends MalariaSeasonControllerBase impleme
   }
   public void failCancel(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void update(dss.vector.solutions.general.MalariaSeasonDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {

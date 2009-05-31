@@ -37,7 +37,7 @@ public class FeverTreatmentController extends FeverTreatmentControllerBase imple
   }
   public void failCancel(dss.vector.solutions.intervention.FeverTreatmentDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    resp.sendError(500);
+    this.edit(dto.getId());
   }
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
