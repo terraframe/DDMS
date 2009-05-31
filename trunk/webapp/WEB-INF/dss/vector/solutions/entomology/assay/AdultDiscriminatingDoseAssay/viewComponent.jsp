@@ -136,6 +136,7 @@ table_data = {
             columnDefs:<%=Halp.getColumnSetup(adda.getTestIntervals()[0],attribs,last_column,false,no_show_list,no_edit_list)%>,
             defaults: {IntervalId:"",Period:"",IntervalTime:"",KnockedDown:"",Percent:""},
             div_id: "intervals",
+            addButton:false,
   	        data_type: "Mojo.$.dss.vector.solutions.entomology.assay.AdultTestIntervalView",
             after_row_load:function(record){this.myDataTable.updateCell(record, 'Percent', calculate_percent(record))},
             after_row_edit:function(record){this.myDataTable.updateCell(record, 'Percent', calculate_percent(record))},
