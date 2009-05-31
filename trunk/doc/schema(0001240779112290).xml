@@ -287,7 +287,8 @@
       <mdRelationship
         name="dss.vector.solutions.irs.InTeam"
         label="In Team"
-        description="Connects a Spray Operator to a Spray Team">
+        description="Connects a Spray Operator to a Spray Team"
+        generateController="false">
         <parent
           cardinality="1"
           name="dss.vector.solutions.irs.SprayTeam"

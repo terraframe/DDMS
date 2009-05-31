@@ -358,7 +358,8 @@
       <mdTree
         name="dss.vector.solutions.geo.AllowedIn"
         label="Allowed In"
-        description="Relates which GeoEntity classes are allowed within one another.">
+        description="Relates which GeoEntity classes are allowed within one another."
+        generateController="false">
         <parent
           cardinality="*"
           name="dss.vector.solutions.geo.GeoHierarchy"
@@ -372,7 +373,8 @@
       <mdTree
         name="dss.vector.solutions.geo.LocatedIn"
         label="Located In"
-        description="Relates how GeoEntities are located within one another.">
+        description="Relates how GeoEntities are located within one another."
+        generateController="false">
         <parent
           cardinality="*"
           name="dss.vector.solutions.geo.generated.GeoEntity"
@@ -438,7 +440,8 @@
       <enumerationMaster
         name="dss.vector.solutions.geo.SpatialMaster"
         label="Spatial Master"
-        description="Enumeration Master to define spatial attributes.">
+        description="Enumeration Master to define spatial attributes."
+        generateController="false">
       </enumerationMaster>
 
       <object
@@ -1498,7 +1501,8 @@
       <mdBusiness
         name="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
         label="Morphological Specie Group"
-        description="This is a row that records the quantity of a species and its identification method.">
+        description="This is a row that records the quantity of a species and its identification method."
+        generateController="false">
         <attributes>
           <integer
             name="quantity"
@@ -1679,7 +1683,8 @@
         name="dss.vector.solutions.entomology.TrueSpecieEntity"
         label="True Specie Collection"
         isAbstract="true"
-        extendable="true">
+        extendable="true"
+        generateController="false">
         <attributes>
           <reference
             name="specie"
@@ -1722,7 +1727,8 @@
       <mdBusiness
         name="dss.vector.solutions.entomology.UninterestingSpecieGroup"
         label="Uninteresting Specie"
-        extends="dss.vector.solutions.entomology.TrueSpecieEntity">
+        extends="dss.vector.solutions.entomology.TrueSpecieEntity"
+        generateController="false">
         <attributes>
           <integer
             name="quantity"
@@ -1787,7 +1793,8 @@
       <mdBusiness
         name="dss.vector.solutions.entomology.Mosquito"
         label="Mosquito"
-        extends="dss.vector.solutions.entomology.TrueSpecieEntity">
+        extends="dss.vector.solutions.entomology.TrueSpecieEntity"
+        generateController="false">
         <attributes>
           <date
             name="testDate"
@@ -1871,7 +1878,8 @@
       <enumerationMaster
         name="dss.vector.solutions.entomology.SexMaster"
         label="Sex Master"
-        description="Master list of all possible mosquito sexes" />
+        description="Master list of all possible mosquito sexes"
+        generateController="false" />
 
       <object
         id="MALE"
@@ -2397,7 +2405,8 @@
       <mdStruct
         name="dss.vector.solutions.entomology.assay.AdultAgeRange"
         label="Age Range"
-        description="Age range of mosquitos in an assay">
+        description="Age range of mosquitos in an assay"
+        generateController="false">
         <attributes>
           <integer
             name="startPoint"
@@ -3108,7 +3117,8 @@
       <mdBusiness
         name="dss.vector.solutions.entomology.assay.AdultTestInterval"
         label="Test Interval"
-        description="A single test interval for an individual adult discriminating dose assay">
+        description="A single test interval for an individual adult discriminating dose assay"
+        generateController="false">
         <attributes>
           <reference
             name="assay"
@@ -3190,7 +3200,8 @@
       <mdBusiness
         name="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
         label="Test Interval"
-        description="A single test interval for an individual larvae discriminating dose assay">
+        description="A single test interval for an individual larvae discriminating dose assay"
+        generateController="false">
         <attributes>
           <reference
             name="assay"
