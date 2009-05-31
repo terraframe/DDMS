@@ -14,7 +14,7 @@
 
 <c:set var="page_title" value="View_Larvae_Diagnostic_Dose_Assay"  scope="request"/>
 <%
-LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) request.getAttribute("item");
+LarvaeDiscriminatingDoseAssayDTO adda = (LarvaeDiscriminatingDoseAssayDTO) request.getAttribute("item");
 %>
 <mjl:messages>
   <mjl:message />
@@ -92,49 +92,34 @@ LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) reque
 <div id="buttons" class="noprint"><span id="intervalsSaverows" class="yui-button yui-push-button"> <span class="first-child">
 <button type="button"><fmt:message key="Save_Rows_To_DB" /></button>
 </span> </span> <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a></div>
-<script type="text/javascript">
-    <%
-    String[] types_to_load =
-  {
-     "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay",
-     "dss.vector.solutions.entomology.assay.LarvaeTestIntervalView"
-  };
-  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , types_to_load,true));
-    DecimalFormat percent = new DecimalFormat("0.0");
 
-    %>
-    table_data = {
-        rows:<%
-             // LarvaeDiscriminatingDoseAssayDTO ldda = (LarvaeDiscriminatingDoseAssayDTO) request.getAttribute("item");
-                  LarvaeTestIntervalViewDTO[] rows = ldda.getTestIntervals();
-                ArrayList<String> arr = new ArrayList<String>();
-                 for (LarvaeTestIntervalViewDTO row : rows)  {
-                   ArrayList<String> buff = new ArrayList<String>();
-                   buff.add("IntervalId:'" + row.getIntervalId() + "'");
-                   buff.add("Assay:'" + row.getAssay().getId() + "'");
-                   buff.add("Period:'" + row.getPeriod() + "'");
-                   buff.add("IntervalTime:'" + row.getIntervalTime() + "'");
-                   buff.add("QuantityDead:'" + row.getQuantityDead() + "'");
-                   buff.add("Percent:'" + percent.format((row.getQuantityDead()*100.0)/ldda.getQuantityTested())+"%'");
-                   arr.add("{" +Halp.join(buff,",")+ "}");
-                 }
-                 out.println("[" +Halp.join(arr,",\n")+ "]");%>
-             ,columnDefs:[
-                  {key:"IntervalId",label:"ID",hidden:true},
-                  {key:"Assay",label:"AssayId",hidden:true},
-                  {key:"Period",label:'<%=rows[0].getPeriodMd().getDisplayLabel()%>'},
-                  {key:"IntervalTime",label:'<%=rows[0].getIntervalTimeMd().getDisplayLabel()%>',resizeable:true},
-                  {key:"QuantityDead",label:"<%=rows[0].getQuantityDeadMd().getDisplayLabel()%>",resizeable:true,editor: new YAHOO.widget.TextboxCellEditor({validator:YAHOO.widget.DataTable.validateNumber,disableBtns:true})},
-                  {key:"Percent",label:"%",resizeable:true} ],
-              defaults: {IntervalId:"",Period:"",IntervalTime:"",KnockedDown:"",Percent:""},
-              div_id: "intervals",
-              //collection_setter: "setAssay('${item.id}')",
-              data_type: "Mojo.$.dss.vector.solutions.entomology.assay.LarvaeTestIntervalView",
-              after_row_edit:function(record){record.setData('Percent',((parseInt(record.getData('QuantityDead'))*100.0)/<%=ldda.getQuantityTested()%>).toFixed(1)+"%");},
-              after_save:function(){location.href="./dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.view.mojo?id=${item.id}";}
-          };
-    YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
+<%
+    String[] types =
+    {
+    "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay",
+    "dss.vector.solutions.entomology.assay.LarvaeTestIntervalView"
+    };
+    String[] attribs = { "IntervalId","Assay","Period","IntervalTime","QuantityDead"};
+    String last_column = "{key:'Percent',label:'%',resizeable:true}";
 
+    Integer[] no_show_arr = {0,1};
+    List no_show_list = Arrays.asList(no_show_arr);
+    Integer[] no_edit_arr = {0,1,2,3};
+    List no_edit_list = Arrays.asList(no_edit_arr);
+%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(types))%>
+<script type="text/javascript" defer="defer">
+calculate_percent = function(record){
+  return ((parseInt(record.getData('QuantityDead'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%";
+}
+table_data = {
+        rows:<%=Halp.getDataMap(adda.getTestIntervals(),attribs,adda.getTestIntervals()[0])%>,
+            columnDefs:<%=Halp.getColumnSetup(adda.getTestIntervals()[0],attribs,last_column,false,no_show_list,no_edit_list)%>,
+            div_id: "intervals",
+            data_type: "Mojo.$.dss.vector.solutions.entomology.assay.LarvaeTestIntervalView",
+            after_row_load:function(record){this.myDataTable.updateCell(record, 'Percent', calculate_percent(record))},
+            after_row_edit:function(record){this.myDataTable.updateCell(record, 'Percent', calculate_percent(record))},
+            after_save:function(){location.href="./dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.view.mojo?id=${item.id}";}
+      };
+MojoGrid.createDataTable(table_data);
 </script>
-test
