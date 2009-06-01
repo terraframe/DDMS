@@ -33,11 +33,9 @@
         </mdViewPermission>
         <mdBusinessPermission type="dss.vector.solutions.entomology.MosquitoCollectionPoint">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.entomology.MorphologicalSpecieGroup">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdViewPermission type="dss.vector.solutions.entomology.MorphologicalSpecieGroupView">
           <operation name="READ"/>
