@@ -120,7 +120,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 			 }else{
 				 newCell = myDataTable.getNextTdEl(cell);
 			 }
-			 while(newCell !== null && myDataTable.getColumn(newCell).editor === null){
+			 while(newCell !== null && (myDataTable.getColumn(newCell).editor === null || myDataTable.getColumn(newCell).hidden === true)){
 				 if (e.shiftKey){
 					 newCell = myDataTable.getPreviousTdEl(newCell);
 				 }else{
@@ -145,7 +145,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 				 // No next cell, make a new row and open the editor for that one
 				 if(nextRow === null){
-					 if(table_data.add_button!==false){
+					 if(table_data.addButton !== false){
 						 addRow();
 						 nextRow = myDataTable.getLastTrEl();
 					 }else{
@@ -159,13 +159,13 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 					 nextCell  =  findNext(myDataTable.getFirstTdEl(nextRow));
 				 }
 			 }
-			 e.returnValue   = false;
-			 e.preventDefault();
+			 //YAHOO.util.Event.stopEvent(e);
+			 //e.returnValue   = false;
+			 //e.preventDefault();
 			 myDataTable.saveCellEditor();
 			 if (nextCell) {
-				 myDataTable.showCellEditor( nextCell );
+				   myDataTable.showCellEditor( nextCell );
 			 }
-			 //return(false);
 		 }
 
 	 };
@@ -300,6 +300,30 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 	};
 
 	myDataTable.subscribe("cellClickEvent", onCellClick);
+
+
+	if(YAHOO.util.Dom.get('buttons') === null)
+	{
+	  var tableDiv = YAHOO.util.Dom.get(table_data.div_id);
+	  var buttons = document.createElement('span');
+    buttons.id = table_data.div_id+'Buttons';
+    YAHOO.util.Dom.addClass(buttons,'noprint');
+    YAHOO.util.Dom.addClass(buttons,'dataTableButtons');
+    buttons.innerHTML = '';
+
+    if(table_data.addButton !== false){
+    	buttons.innerHTML +=  '<button type="button" id="'+table_data.div_id+'Addrow">'+MDSS.localize('New_Row')+'</button>';
+    }
+
+    buttons.innerHTML += '<button type="button" id="'+table_data.div_id+'Saverows">'+MDSS.localize('Save_Rows_To_DB')+'</button>';
+
+    if(table_data.excelButtons !== false){
+    	buttons.innerHTML +=  '<form method="get" action="excelimport" style="display: inline;"><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">'+MDSS.localize('Excel_Import_Header')+'</button></span></span></form>';
+    	buttons.innerHTML += '<form method="post" action="excelexport" style="display: inline;"><input type="hidden" name="type" value="'+table_data.div_id+'" /><span class="yui-button yui-push-button"> <span class="first-child"><button type="submit">'+MDSS.localize('Excel_Export_Header')+'</button></span></span></form>';
+    }
+
+    YAHOO.util.Dom.insertAfter(buttons,tableDiv);
+	}
 
 	if(YAHOO.util.Dom.get(table_data.div_id+'Saverows'))
 	{
