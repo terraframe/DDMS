@@ -166,7 +166,7 @@ public abstract class AggregatedCaseViewDTO extends AggregatedCaseViewDTOBase
 
   public boolean getIsCaseStocksReadable()
   {
-    return isCaseDiagnosticReadable();
+    return isCaseStocksReadable();
   }
 
   public boolean getIsCaseDiagnosticReadable()
