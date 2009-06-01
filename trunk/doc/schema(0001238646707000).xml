@@ -2877,7 +2877,8 @@
       <enumerationMaster
         name="dss.vector.solutions.SurfacePositionMaster"
         label="Position on surface"
-        description="Configurable table of surface positions" />
+        description="Configurable table of surface positions"
+        generateController="false" />
 
       <object
         type="dss.vector.solutions.SurfacePositionMaster"
