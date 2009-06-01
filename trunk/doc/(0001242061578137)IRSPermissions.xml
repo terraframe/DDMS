@@ -159,11 +159,9 @@
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayStatus">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>   
         <mdBusinessPermission type="dss.vector.solutions.irs.HouseholdSprayStatus">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>   
                      
         <mdViewPermission type="dss.vector.solutions.irs.SprayOperatorView">
