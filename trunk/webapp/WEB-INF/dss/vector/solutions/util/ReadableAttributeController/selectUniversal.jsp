@@ -177,6 +177,13 @@
         display="Aggregated Cases 6"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.AncientCaseView"/>
     </dd>    
+    <dd>
+      <mjl:commandLink
+        name="AncientCaseView"
+        display="Aggregated Cases 6"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.EpiDate"/>
+    </dd>    
+    
   </dl>
   <dl>
     <dt><label><f:message key="Indicator_Survey_Management"/></label></dt>
@@ -198,6 +205,19 @@
         display="Surveyed Person"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.PersonView"/>
     </dd>
+    <dd>
+      <mjl:commandLink
+        name="Wall"
+        display="Wall"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.WallView"/>
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="Roof"
+        display="Surveyed Person"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.RoofView"/>
+    </dd>
+
   </dl>
   <dl>
     <dt><label><f:message key="Configure_Application_Rate_Management"/></label></dt>
