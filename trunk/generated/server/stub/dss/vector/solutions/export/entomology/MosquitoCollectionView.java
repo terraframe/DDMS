@@ -13,6 +13,7 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyView;
+import dss.vector.solutions.geo.PoliticalHierarchyLengthException;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.NonSentinelSite;
@@ -40,7 +41,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   {    
     CollectionMethod method = null;
     List<SearchableHierarchy> hierarchy = MosquitoCollectionView.getHierarchy();
-        
+            
     GeoEntitySearcher searcher = new GeoEntitySearcher(hierarchy);    
     GeoEntity entity = searcher.getGeoEntity(this.getGeoEntityNames());   
     
@@ -119,6 +120,21 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   private static List<SearchableHierarchy> getHierarchy()
   {
     List<GeoHierarchyView> political = Arrays.asList(GeoHierarchy.getPoliticalGeoHierarchiesByType(Country.CLASS));    
+
+    //Ensure that the Political Hierarhcy length is 10 or less
+    if(political.size() > 10)
+    {
+      String msg = "The political hierarchy is longer than the number of allocated spots for the geo entity attribute.";
+      
+      PoliticalHierarchyLengthException e = new PoliticalHierarchyLengthException(msg);
+      e.setSlots(10);
+      e.setHierarchyLength(political.size());
+      e.apply();
+      
+      throw e;
+    }
+
+    
     List<SearchableHierarchy> hierarchy = new LinkedList<SearchableHierarchy>(political);
 
     //Sentinel and Non-Sentinel Sites are not part of the political hierarchy so I must add them manually,

@@ -144,6 +144,14 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   
   public void view(KnockDownTimePropertyDTO dto) throws IOException, ServletException
   {
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
+      return;
+    }
+    
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
     
@@ -158,6 +166,14 @@ public class KnockDownTimePropertyController extends KnockDownTimePropertyContro
   
   public void viewAll() throws IOException, ServletException
   {
+    if (!req.getRequestURI().contains(".viewAll.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
+      return;
+    }
+    
     ClientRequestIF clientRequest = super.getClientRequest();
     KnockDownTimePropertyQueryDTO query = KnockDownTimePropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);

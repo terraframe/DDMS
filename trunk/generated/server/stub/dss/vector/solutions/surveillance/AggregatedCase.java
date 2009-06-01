@@ -21,6 +21,7 @@ import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
 import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.session.Session;
@@ -664,6 +665,22 @@ public class AggregatedCase extends AggregatedCaseBase implements
     ValueQuery query = xmlToValueQuery(queryXML, geoEntityType, false, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
+    return exporter.export();
+  }
+  
+  @Transaction
+  public static Byte[] exportQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
+  {
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot export to CSV without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    ValueQuery query = xmlToValueQuery(queryXML, geoEntityType, false, null);
+
+    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.export();
   }
 }

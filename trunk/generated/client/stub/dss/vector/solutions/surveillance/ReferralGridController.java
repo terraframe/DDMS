@@ -100,6 +100,14 @@ public class ReferralGridController extends ReferralGridControllerBase implement
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
+      return;
+    }
+    
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", dss.vector.solutions.surveillance.ReferralGridDTO.get(clientRequest, id));
     render("viewComponent.jsp");

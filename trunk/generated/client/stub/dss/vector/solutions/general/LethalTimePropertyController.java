@@ -101,6 +101,14 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
+      return;
+    }
+    
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("insecticide", dss.vector.solutions.general.InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("item", dss.vector.solutions.general.LethalTimePropertyDTO.get(clientRequest, id));
@@ -113,6 +121,14 @@ public class LethalTimePropertyController extends LethalTimePropertyControllerBa
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
+    if (!req.getRequestURI().contains(".viewAll.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
+      return;
+    }
+    
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.general.LethalTimePropertyQueryDTO query = dss.vector.solutions.general.LethalTimePropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);

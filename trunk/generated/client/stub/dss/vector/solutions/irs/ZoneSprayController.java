@@ -96,6 +96,14 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
   public void view(ZoneSprayViewDTO dto) throws IOException, ServletException
   {
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
+      return;
+    }
+    
     // FIXME: This is a hack to ensure the dto is dirty when its sent back to
     // the server. Remove when nathan has submitted his fix.
     dto.setModified(true);

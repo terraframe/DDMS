@@ -61,6 +61,14 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
+    if (!req.getRequestURI().contains(".viewAll.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
+      return;
+    }
+    
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.mo.SpecieQueryDTO query = dss.vector.solutions.mo.SpecieDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
@@ -100,6 +108,14 @@ public class SpecieController extends SpecieControllerBase implements com.terraf
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
+      return;
+    }
+    
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", dss.vector.solutions.mo.SpecieDTO.get(clientRequest, id));
     render("viewComponent.jsp");

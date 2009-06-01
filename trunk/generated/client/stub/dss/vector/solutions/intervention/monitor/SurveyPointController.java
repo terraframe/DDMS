@@ -57,6 +57,14 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
 
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
+    if (!req.getRequestURI().contains(".viewAll.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
+      return;
+    }
+    
     ClientRequestIF clientRequest = super.getClientRequest();
     SurveyPointQueryDTO query = SurveyPointDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);

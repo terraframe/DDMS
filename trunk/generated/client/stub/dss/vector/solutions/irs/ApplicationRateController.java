@@ -45,6 +45,7 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
     if (!req.getRequestURI().contains(".view.mojo"))
     {
       String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
       resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo"));
       return;
     }

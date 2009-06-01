@@ -129,9 +129,11 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     if (!req.getRequestURI().contains(".view.mojo"))
     {
       String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
       resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
       return;
     }
+
 
     req.setAttribute("item", MosquitoCollectionDTO.get(super.getClientRequest(), id));
     render("viewComponent.jsp");
@@ -165,6 +167,14 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
+    if (!req.getRequestURI().contains(".viewAll.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
+      return;
+    }
+    
     ClientRequestIF clientRequest = super.getClientRequest();
     MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);

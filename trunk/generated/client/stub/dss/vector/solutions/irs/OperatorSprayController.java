@@ -102,6 +102,14 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
   public void view(OperatorSprayViewDTO dto) throws IOException, ServletException
   {
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
+      return;
+    }
+    
     dto.setModified(true);
     dto.setModified(TeamSprayViewDTO.SPRAYID, true);
     req.setAttribute("status", dto.getStatus());

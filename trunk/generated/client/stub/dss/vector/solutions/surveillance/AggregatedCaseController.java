@@ -195,6 +195,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 
   public void view(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
+    if (!req.getRequestURI().contains(".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
+      return;
+    }
+    
     // Load all of the corresponding grid values
     AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
 

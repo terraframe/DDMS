@@ -58,6 +58,14 @@ public class NetController extends NetControllerBase implements com.terraframe.m
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
+    if (!req.getRequestURI().contains(".viewAll.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
+      return;
+    }
+    
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.intervention.monitor.NetQueryDTO query = dss.vector.solutions.intervention.monitor.NetDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);

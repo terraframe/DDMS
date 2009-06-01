@@ -3,6 +3,9 @@ package dss.vector.solutions.entomology;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery;
+import dss.vector.solutions.entomology.assay.KnockDownAssayQuery;
+import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.geo.generated.AbstractSite;
 import dss.vector.solutions.mo.CollectionMethod;
 
@@ -80,6 +83,30 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
         iterator.close();
       }
     }
+  }
+
+  public AdultDiscriminatingDoseAssayQuery getAdultDoseAssays()
+  {
+    AdultDiscriminatingDoseAssayQuery query = new AdultDiscriminatingDoseAssayQuery(new QueryFactory());
+    query.WHERE(query.getCollection().EQ(this));
+
+    return query;
+  }
+
+  public LarvaeDiscriminatingDoseAssayQuery getLarvaeDoseAssays()
+  {
+    LarvaeDiscriminatingDoseAssayQuery query = new LarvaeDiscriminatingDoseAssayQuery(new QueryFactory());
+    query.WHERE(query.getCollection().EQ(this));
+
+    return query;
+  }
+
+  public KnockDownAssayQuery getKnockDownAssays()
+  {
+    KnockDownAssayQuery query = new KnockDownAssayQuery(new QueryFactory());
+    query.WHERE(query.getCollection().EQ(this));
+
+    return query;
   }
 
   public static dss.vector.solutions.entomology.MosquitoCollection searchByGeoEntityAndDate(
