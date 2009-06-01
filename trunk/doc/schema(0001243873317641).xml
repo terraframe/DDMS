@@ -1,0 +1,53 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.geo.PoliticalHierarchyLengthException"
+        label="Political Hierarchy Length Exception"
+        description="The political hierarchy is longer than the number of allocated spots for the geo entity attribute.">
+        <attributes>
+          <integer
+            name="slots"
+            label="Slots"
+            required="true"
+            description="The number of allocated spots for a geo entity attribute" />
+          <integer
+            name="hierarchyLength"
+            label="Hierarchy Length"
+            required="true"
+            description="Length of the political hierarchy" />
+        </attributes>
+      </mdException>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.MosquitoCollection">
+        <create>
+          <mdMethod
+            name="getAdultDoseAssays"
+            label="Get Adult Dose Assay"
+            static="false"
+            returnType="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery"
+            description="Returns a query of all the Adult Discriminating Dose Assay which belong to this Mosquito Collection" />
+          <mdMethod
+            name="getLarvaeDoseAssays"
+            label="Get Adult Dose Assay"
+            static="false"
+            returnType="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery"
+            description="Returns a query of all the Larvae Discriminating Dose Assay which belong to this Mosquito Collection" />
+          <mdMethod
+            name="getKnockDownAssays"
+            label="Get Adult Dose Assay"
+            static="false"
+            returnType="dss.vector.solutions.entomology.assay.KnockDownAssayQuery"
+            description="Returns a query of all the Knock Down Assay which belong to this Mosquito Collection" />
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

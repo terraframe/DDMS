@@ -141,10 +141,6 @@
           <operation name="READ"/>
           <operation name="READ_ALL"/>
         </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.EfficacyAssay">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.SurfacePositionMaster">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
