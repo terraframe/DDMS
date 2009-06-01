@@ -16,16 +16,17 @@
     </dd>
     <dt><label> ${item.sprayZoneMd.displayLabel} </label></dt>
     <dd><mjl:input type="text" param="geoId" value="${item.sprayZone.geoId}" id="geoIdEl" classes="geoInput"/>  </dd>
-    <%-- 5.13.09 - Marlize says we don't need Spray Leaders
+    <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
     <dt><label> <fmt:message key="Spray_Team_Leader" /> </label></dt>
     <dd><mjl:select var="leader" valueAttribute="id" items="${leaders}" param="leaderId" includeBlank="true">
       <mjl:option selected="${leader.id==leaderId?'selected':'false'}">
           ${leader.person.firstName} ${leader.person.lastName}
         </mjl:option>
-    </mjl:select> <mjl:messages attribute="leaderId">
+    </mjl:select>
+    <mjl:messages attribute="leaderId">
       <mjl:message />
-    </mjl:messages></dd>
-    --%>
+    </mjl:messages>
+    </dd>
     <dt><label> <fmt:message key="Spray_Team_Manage_Operators" /> </label></dt>
     <dd>
     <table>
