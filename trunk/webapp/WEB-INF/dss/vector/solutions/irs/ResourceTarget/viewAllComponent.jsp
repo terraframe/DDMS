@@ -26,7 +26,13 @@
        </mjl:option>
     </mjl:select></dd>
     <dt><label> <fmt:message key="Season" /></label></dt>
-    <dd><input id="year" type="text" name="targetYear" value="<fmt:formatDate pattern="yyyy" value="${now}"/>" maxlength="4" /></dd>
+    <dd>
+    <mjl:select var="current" valueAttribute="id" items="${seasons}" param="season.componentId" >
+       <mjl:option>
+          ${current.seasonName}
+       </mjl:option>
+    </mjl:select>
+    </dd>
   </dl>
   <br>
   <br>

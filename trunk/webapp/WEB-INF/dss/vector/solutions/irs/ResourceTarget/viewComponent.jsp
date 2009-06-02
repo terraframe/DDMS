@@ -1,6 +1,5 @@
 <%@ include file="/WEB-INF/templates/jsp_includes.jsp"%>
 
-<%@page import="dss.vector.solutions.EpiWeek"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
 <%@page import="dss.vector.solutions.irs.ResourceTargetViewDTO"%>
@@ -52,7 +51,7 @@ ResourceTargetDTO item = new ResourceTargetDTO(clientRequest) ;
 String delete_row = "";
 
 String colConfig = "{key:'TargetId',label:'TargetId',hidden:true}";
-colConfig += "\n,{key:'TargetYear',label:'Season',hidden:true}";
+colConfig += "\n,{key:'Season',label:'Season',hidden:true}";
 colConfig += "\n,{key:'Targeter',label:'" + "Targeter" + "',hidden:true}";
 colConfig += "\n,{key:'TargeterName',label:'" + "Name" + "',resizeable:true}";
 
