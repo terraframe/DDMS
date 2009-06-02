@@ -11,21 +11,22 @@ import com.terraframe.mojo.query.QueryFactory;
 public class MosquitoCollectionPointView extends MosquitoCollectionPointViewBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242677987151L;
-  
+
   public MosquitoCollectionPointView()
   {
     super();
   }
-    
+
   public void populateView(MorphologicalSpecieGroup group)
   {
     this.setDateCollected(group.getCollection().getDateCollected());
     this.setGeoEntity(group.getCollection().getGeoEntity());
     this.setTotal(group.getCollection().getMosquitoTotal());
-    
-    super.populateView(group);    
+    this.setCollection(group.getCollection());
+
+    super.populateView(group);
   }
-  
+
   @Transaction
   public void apply()
   {
@@ -48,10 +49,10 @@ public class MosquitoCollectionPointView extends MosquitoCollectionPointViewBase
         collection.apply();
       }
     }
-    
+
     super.apply();
-  }  
-  
+  }
+
   public static MosquitoCollectionPointView[] searchByGeoEntityAndDate(String geoId, Date startDate, Date endDate)
   {
     List<MosquitoCollectionPointView> list = new LinkedList<MosquitoCollectionPointView>();
@@ -76,7 +77,7 @@ public class MosquitoCollectionPointView extends MosquitoCollectionPointViewBase
         MosquitoCollectionPointView view = new MosquitoCollectionPointView();
 
         view.populateView(group);
-        
+
         list.add( view);
       }
     }
