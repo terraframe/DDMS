@@ -17,10 +17,10 @@
               order="0"
               type="java.lang.String[]" />
             <mdParameter
-              name="year"
-              label="Year"
+              name="season"
+              label="season"
               order="1"
-              type="java.lang.Integer" />
+              type="dss.vector.solutions.general.MalariaSeason" />
           </mdMethod>
         </create>
       </mdView>
