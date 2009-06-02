@@ -7,7 +7,6 @@
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 
-<%@page import="dss.vector.solutions.EpiWeek"%>
 <%@page import="dss.vector.solutions.PropertyDTO"%>
 <%@page import="dss.vector.solutions.PropertyInfo"%>
 <%@page import="dss.vector.solutions.irs.GeoTargetDTO"%>
@@ -19,7 +18,8 @@
 <%@page import="java.util.Calendar"%>
 
 <%@page import="dss.vector.solutions.surveillance.PeriodTypeDTO"%>
-<%@page import="dss.vector.solutions.general.EpiDateDTO"%><c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
+<%@page import="dss.vector.solutions.general.EpiDateDTO"%>
+<c:set var="page_title" value="Edit_GeoTarget"  scope="request"/>
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
