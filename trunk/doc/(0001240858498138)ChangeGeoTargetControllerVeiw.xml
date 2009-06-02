@@ -39,7 +39,7 @@
             <mdParameter
               name="geoEntity"
               label="Root GeoEntity "
-              description="The id of the GeoEntity that will be the root target table."
+              description="The id of the GeoEntity that will be the root of the target table."
               order="0"
               type="dss.vector.solutions.geo.generated.GeoEntity"/>
             <mdParameter
@@ -54,6 +54,21 @@
               description="Shows all children when true"
               order="2"
               type="java.lang.Boolean"/>
+          </create>
+        </mdAction>
+      </mdController>
+      <mdController
+        name="dss.vector.solutions.irs.ResourceTargetController">
+        <mdAction
+          name="view"
+          isPost="true">
+          <create>
+            <mdParameter
+              name="season"
+              label="Target Season"
+              description="The Season (year) to set targets for"
+              order="1"
+              type="dss.vector.solutions.general.MalariaSeason"/>
           </create>
         </mdAction>
       </mdController>
