@@ -199,10 +199,10 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     {
       String path = req.getRequestURL().toString();
       path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getCaseId());
       return;
     }
-    
+
     // Load all of the corresponding grid values
     AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
 
