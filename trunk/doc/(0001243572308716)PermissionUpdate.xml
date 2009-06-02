@@ -16,6 +16,14 @@
           <operation name="READ"/>
           <operation name="READ_ALL"/>
         </mdBusinessPermission>      
+        <mdBusinessPermission type="dss.vector.solutions.irs.TargetUnitMaster">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>      
+        <mdBusinessPermission type="dss.vector.solutions.general.MalariaSeason">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>      
         <mdViewPermission type="dss.vector.solutions.entomology.assay.EfficacyAssayView">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
@@ -57,6 +65,10 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
         </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.general.MalariaSeason">
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+        </mdBusinessPermission>        
       </role>
     </permissions>
   </doIt>
