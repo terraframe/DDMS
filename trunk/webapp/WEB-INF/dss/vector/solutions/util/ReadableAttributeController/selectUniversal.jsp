@@ -55,13 +55,7 @@
       <mjl:commandLink
         name="MosquitoCollection"
         display="Mosquito Collection Point"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.MosquitoCollectionPoint"/>
-    </dd>
-    <dd>
-      <mjl:commandLink
-        name="MorphologicalSpecieGroup"
-        display="Morphological Specie Group"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.MorphologicalSpecieGroupView"/>
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.MosquitoCollectionPointView"/>
     </dd>
   </dl>
   <dl>
