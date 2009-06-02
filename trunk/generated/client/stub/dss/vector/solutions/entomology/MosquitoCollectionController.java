@@ -12,7 +12,10 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
+import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.mo.CollectionMethodDTO;
 import dss.vector.solutions.util.ErrorUtility;
@@ -129,13 +132,11 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     if (!req.getRequestURI().contains(".view.mojo"))
     {
       String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
       resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
       return;
     }
-
-
-    req.setAttribute("item", MosquitoCollectionDTO.get(super.getClientRequest(), id));
+    MosquitoCollectionDTO mc = MosquitoCollectionDTO.get(super.getClientRequest(), id);
+    req.setAttribute("item", mc);
     render("viewComponent.jsp");
   }
 
@@ -174,7 +175,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
       return;
     }
-    
+
     ClientRequestIF clientRequest = super.getClientRequest();
     MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);

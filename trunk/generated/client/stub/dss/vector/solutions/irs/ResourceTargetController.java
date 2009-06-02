@@ -3,6 +3,8 @@ package dss.vector.solutions.irs;
 import java.util.ArrayList;
 import java.util.List;
 
+import dss.vector.solutions.general.MalariaSeasonDTO;
+
 //TODO: delete unused methods from metadata
 
 public class ResourceTargetController extends ResourceTargetControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -27,6 +29,8 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
     req.setAttribute("sprayTeams", sprayTeams);
 
+    req.setAttribute("seasons", MalariaSeasonDTO.getAllInstances(super.getClientSession().getRequest(), "endDate", true, 0, 0).getResultSet());
+
     render("viewAllComponent.jsp");
   }
 
@@ -36,11 +40,9 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
   }
 
   @SuppressWarnings("unchecked")
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void view(java.lang.String id, MalariaSeasonDTO season) throws java.io.IOException, javax.servlet.ServletException
   {
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-
-    Integer year = new Integer(req.getParameter("targetYear"));
 
     List<SprayTeamDTO> sprayTeams = new ArrayList<SprayTeamDTO>();
     List<SprayOperatorDTO> sprayOperators = new ArrayList<SprayOperatorDTO>();
@@ -70,7 +72,7 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
       targetIds.add(team.getId());
     }
 
-    ResourceTargetViewDTO[] resourceTargetViews = ResourceTargetViewDTO.getResourceTargets(clientRequest, (String[]) targetIds.toArray(new String[targetIds.size()]), year);
+    ResourceTargetViewDTO[] resourceTargetViews = ResourceTargetViewDTO.getResourceTargets(clientRequest, (String[]) targetIds.toArray(new String[targetIds.size()]), season);
 
     req.setAttribute("resourceTargetViews", resourceTargetViews);
     render("viewComponent.jsp");
