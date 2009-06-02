@@ -15,7 +15,10 @@
 <%@page import="com.terraframe.mojo.transport.metadata.*"%>
 <%@page import="com.terraframe.mojo.business.ViewDTO"%>
 
-<%@page import="dss.vector.solutions.entomology.MosquitoCollectionPointViewDTO"%><c:set var="page_title" value="View_Mosquito_Collection_Points"  scope="request"/>
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionPointViewDTO"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionPointDTO"%><c:set var="page_title" value="View_Mosquito_Collection_Points"  scope="request"/>
 <fmt:setLocale value="<%=request.getLocale()%>" />
 <div id="cal1Container" class="yui-skin-sam"></div>
 <mjl:messages>
@@ -56,42 +59,6 @@
 <br/>
 
 
-
-
-
-<div id="buttons" class="noprint">
-
-<span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button">
-<span class="first-child">
-<button type="button"><fmt:message key="New_Row"/></button>
- </span>
- </span>
-
-<span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button">
-<span class="first-child">
-<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-</span> </span>
-
-<form method="get" action="excelimport" style="display:inline;">
-       <span class="yui-button yui-push-button">
-       <span class="first-child">
-        <button type="submit"><fmt:message key="Excel_Import_Header" /></button>
-        </span>
-        </span>
-</form>
-<form method="post" action="excelexport" style="display:inline;">
-        <input type="hidden" name="type" value="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"/>
-        <span class="yui-button yui-push-button">
-        <span class="first-child">
-        <button type="submit"><fmt:message key="Excel_Export_Header" /></button>
-        </span>
-        </span>
-</form>
-<a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
-
-</div>
-
-
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 MorphologicalSpecieGroupViewDTO[] rows = (MorphologicalSpecieGroupViewDTO[]) request.getAttribute("collection_points");
@@ -107,10 +74,12 @@ List no_edit_list = Arrays.asList(no_edit_arr);
 
 %>
 
-<script type="text/javascript">
+<script type="text/javascript" defer="defer">
   <%
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , new String[]{MorphologicalSpecieGroupViewDTO.CLASS}, true));
     out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , new String[]{MosquitoCollectionPointViewDTO.CLASS}, true));
+    //out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , new String[]{MosquitoCollectionDTO.CLASS}, true));
+    out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId() , new String[]{MosquitoCollectionPointDTO.CLASS}, true));
   %>
 
   <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
@@ -121,10 +90,18 @@ List no_edit_list = Arrays.asList(no_edit_arr);
        div_id: "MorphologicalSpecieGroups",
        copy_from_above: ["DateCollected","IdentificationMethod"],
        data_type: "Mojo.$.<%=MosquitoCollectionPointViewDTO.CLASS%>",
-       after_row_load:function(record){
-         record.setData('Collection',('<a href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo?id='+record.getData('Collection')+'">'+record.getData('Total')+' <fmt:message key="Bioassays" /></a>'));
+       after_row_load:function(record)
+       {
+         var request = new MDSS.Request({
+           record:record,
+           onSuccess : function(result){
+             var str = '<a href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo?id='+record.getData('Collection')+'">'+result.getCollectionId()+'</a> ('+record.getData('Total')+')';
+             table_data.myDataTable.updateCell(record, 'Collection', str);
+           },
+         });
+       Mojo.get(request,record.getData('Collection'));
        }
      };
-    YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
+    MojoGrid.createDataTable(table_data);
 
 </script>
