@@ -100,7 +100,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
     {
       String path = req.getRequestURL().toString();
       path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getSprayId());
       return;
     }
     

@@ -103,7 +103,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     {
       String path = req.getRequestURL().toString();
       path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getSprayId());
       return;
     }
     
