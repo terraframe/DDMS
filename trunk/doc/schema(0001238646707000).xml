@@ -1656,6 +1656,7 @@
           <virtual
             name="collection"
             required="false"
+            label="Assays"
             type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"
             concrete="collection" />
           <char
@@ -3935,7 +3936,7 @@
           name="description"
           value="Short Date Format, should not include year" />
       </object>
-
+-->
       <object
         type="dss.vector.solutions.Property"
         id="countryGeoId">
@@ -3964,7 +3965,7 @@
           name="description"
           value="The GeoID of the Country in which this server is installed" />
       </object>
--->
+
     </create>
 
     <create>
