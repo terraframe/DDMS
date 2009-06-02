@@ -18,7 +18,7 @@ var MojoCal= YAHOO.namespace('MojoCal');
         db_date_format = MDSS.DateSettings.db_date_format;
 
 
-      cfg = {DATE_FIELD_DELIMITER:MDSS.DateSettings.DATE_FIELD_DELIMITER,
+      var cfg = {DATE_FIELD_DELIMITER:MDSS.DateSettings.DATE_FIELD_DELIMITER,
 			DATE_RANGE_DELIMITER:MDSS.DateSettings.DATE_RANGE_DELIMITER,
 			MDY_DAY_POSITION:MDSS.DateSettings.MDY_DAY_POSITION,
 			MDY_MONTH_POSITION:MDSS.DateSettings.MDY_MONTH_POSITION,

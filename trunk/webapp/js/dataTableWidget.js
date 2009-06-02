@@ -11,7 +11,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 
 	MojoGrid.createDataTable = function(table_data) {
 	// locals to be returned
-    var myDataSource, myDataTable;
+    var myDataSource, myDataTable, feild,record;
 
     // set the fields
     if(typeof table_data.fields === 'undefined')
@@ -176,6 +176,7 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		  var record = oArgs.editor.getRecord();
 		  var editor = oArgs.editor;
 		  var index = myDataTable.getRecordIndex(record);
+		  var str,i,id;
 		  if(editor instanceof YAHOO.widget.DropdownCellEditor )
 		  {
 			  //look get the index for this label
@@ -270,9 +271,9 @@ var MojoGrid = YAHOO.namespace('MojoGrid');
 		column = myDataTable.getColumn(target);
 		switch (column.action) {
 		case 'delete':
-			record = myDataTable.getRecord(target);
-			row_id = record.getData(table_data.fields[0].key);
-			row_index = myDataTable.getRecordIndex(record);
+			var record = myDataTable.getRecord(target);
+			var row_id = record.getData(table_data.fields[0].key);
+			var row_index = myDataTable.getRecordIndex(record);
 			if (confirm(MDSS.Localized.Confirm_Delete_Row + (row_index+1) + '?')) {
 				if(typeof row_id !== 'undefined' && row_id.length > 1){
 				var request = new MDSS.Request( {
