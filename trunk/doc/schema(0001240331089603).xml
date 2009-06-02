@@ -24,12 +24,12 @@
             label="Targeter"
             type="dss.vector.solutions.irs.Targeter"
             required="true" />
-          <integer
-            name="targetYear"
+          <reference
+            name="season"
             label="Season"
-            required="true"
-            description="The Year (Season) to set targets for"
-            />
+            description="The Season to set targets for"
+            type="dss.vector.solutions.general.MalariaSeason"
+            required="true" />
           <integer
             name="target_0"
             label="Target 1" />
@@ -229,13 +229,13 @@
             label="Name"
             size="255" />
           <virtual
+            name="season"
+            type="dss.vector.solutions.irs.ResourceTarget"
+            concrete="season" />
+          <virtual
             name="targeter"
             type="dss.vector.solutions.irs.ResourceTarget"
             concrete="targeter" />
-          <virtual
-            name="targetYear"
-            type="dss.vector.solutions.irs.ResourceTarget"
-            concrete="targetYear" />
           <virtual
             concrete="target_0"
             name="target_0"
