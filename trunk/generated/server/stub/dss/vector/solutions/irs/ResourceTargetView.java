@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.general.MalariaSeason;
+
 public class ResourceTargetView extends ResourceTargetViewBase implements Reloadable
 {
   private static final long serialVersionUID = 1240257027793L;
@@ -25,7 +27,7 @@ public class ResourceTargetView extends ResourceTargetViewBase implements Reload
     }
 
     target.setTargeter(this.getTargeter());
-    target.setTargetYear(this.getTargetYear());
+    target.setSeason(this.getSeason());
 
     for (int i = 0; i < 53; i++)
     {
@@ -119,13 +121,13 @@ public class ResourceTargetView extends ResourceTargetViewBase implements Reload
   }
 
   @Transaction
-  public static ResourceTargetView[] getResourceTargets(String[] targeterIds, Integer year)
+  public static ResourceTargetView[] getResourceTargets(String[] targeterIds, MalariaSeason season)
   {
     ResourceTargetView[] views = new ResourceTargetView[targeterIds.length];
 
     for (int i = 0; i < targeterIds.length; i++)
     {
-      views[i] = ResourceTarget.searchByTargeterIdAndYear(targeterIds[i], year);
+      views[i] = ResourceTarget.searchByTargeterIdAndSeason(targeterIds[i], season);
     }
 
     return views;

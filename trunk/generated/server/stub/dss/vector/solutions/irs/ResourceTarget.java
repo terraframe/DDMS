@@ -5,6 +5,9 @@ import java.lang.reflect.Method;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.Person;
+import dss.vector.solutions.general.MalariaSeason;
+
 public class ResourceTarget extends ResourceTargetBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -20,22 +23,21 @@ public class ResourceTarget extends ResourceTargetBase implements
     if(targeter instanceof SprayOperator)
     {
       SprayOperator so = (SprayOperator) targeter;
-     return (so.getOperatorId() + " - " + so.getPerson().getLastName() +", "+ so.getPerson().getFirstName() );
+     return (so.getOperatorId() + " - " + so.getPerson().getFirstName() +" "+ so.getPerson().getLastName() );
     }
 
     if(targeter instanceof SprayTeam)
     {
       SprayTeam st = (SprayTeam) targeter;
 
-      /*
       String leader_name = "";
       if(! st.getAllTeamLeader().getAll().isEmpty())
       {
         Person leader = st.getAllTeamLeader().getAll().get(0).getPerson();
-        leader_name = leader.getLastName() + ", " + leader.getFirstName();
+        leader_name = " - " + leader.getFirstName() + " " + leader.getLastName();
       }
-      */
-      return (st.getTeamId() );
+
+      return (st.getTeamId() + "");
     }
     return null;
   }
@@ -49,7 +51,7 @@ public class ResourceTarget extends ResourceTargetBase implements
   {
     ResourceTargetView view = new ResourceTargetView();
     view.setTargeter(this.getTargeter());
-    view.setTargetYear(this.getTargetYear());
+    view.setSeason(this.getSeason());
     view.setTargetId(this.getId());
     view.setTargeterName(this.getTargeterName());
 
@@ -81,11 +83,11 @@ public class ResourceTarget extends ResourceTargetBase implements
     return ResourceTarget.get(id).getView();
   }
 
-  public static ResourceTargetView searchByTargeterAndYear(Targeter resource, Integer year)
+  public static ResourceTargetView searchByTargeterAndSeason(Targeter resource, MalariaSeason season)
   {
     ResourceTargetQuery query = new ResourceTargetQuery(new QueryFactory());
     query.WHERE(query.getTargeter().EQ(resource));
-    query.AND(query.getTargetYear().EQ(year));
+    query.AND(query.getSeason().EQ(season));
 
     OIterator<? extends ResourceTarget> it = query.getIterator();
 
@@ -99,7 +101,7 @@ public class ResourceTarget extends ResourceTargetBase implements
       {
         ResourceTargetView view = new ResourceTargetView();
         view.setTargeter(resource);
-        view.setTargetYear(year);
+        view.setSeason(season);
         view.setTargeterName(ResourceTarget.getTargeterName(resource));
 
         return view;
@@ -111,9 +113,9 @@ public class ResourceTarget extends ResourceTargetBase implements
     }
   }
 
-  public static ResourceTargetView searchByTargeterIdAndYear(String id, Integer year)
+  public static ResourceTargetView searchByTargeterIdAndSeason(String id, MalariaSeason season)
   {
-    return searchByTargeterAndYear(Targeter.get(id), year);
+    return searchByTargeterAndSeason(Targeter.get(id), season);
   }
 
 }
