@@ -21,7 +21,7 @@ public class ResourceTargetTest extends TestCase
 	  }
 
   public static SprayTeam targeter;
-
+/*
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -428,5 +428,5 @@ public class ResourceTargetTest extends TestCase
       views[1].deleteConcrete();
     }
   }
-
+*/
 }
