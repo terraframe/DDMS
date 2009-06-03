@@ -4,10 +4,13 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.MdAttributeReferenceDAOIF;
+import com.terraframe.mojo.dataaccess.attributes.InvalidReferenceException;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.Surface;
 
 public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -51,8 +54,18 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.terraframe.m
   }
   
   @Override
+  public void validateGeoEntity()
+  {
+    if(this.getGeoEntity() != null && !(this.getGeoEntity() instanceof Surface))
+    {
+      throw new InvalidReferenceException("[" + this.getGeoEntity().getId() + "] is not a valid Surface geo id", (MdAttributeReferenceDAOIF) EfficacyAssay.getGeoEntityMd());
+    }
+  }
+  
+  @Override
   public void apply()
   {
+    validateGeoEntity();
     validateQuantityDead();
     validateAgeRange();
     validateFed();

@@ -1,14 +1,13 @@
 package dss.vector.solutions.query;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -269,13 +268,11 @@ public class QueryController extends QueryControllerBase implements
   {
     try
     {
-      Byte[] excelFile = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
-      byte[] bytes = ArrayUtils.toPrimitive(excelFile);
+      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-      ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
 
-      ExcelExportServlet.writeExcelFile(resp, search.getQueryName(), inputStream);
+      ExcelExportServlet.writeExcelFile(resp, search.getQueryName(), stream);
     }
     catch (Throwable t)
     {

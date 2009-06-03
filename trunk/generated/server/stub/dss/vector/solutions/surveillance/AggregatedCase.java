@@ -1,5 +1,7 @@
 package dss.vector.solutions.surveillance;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -45,6 +47,7 @@ import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.query.ThematicVariable;
+import dss.vector.solutions.util.report.ReportGenerator;
 
 public class AggregatedCase extends AggregatedCaseBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -651,7 +654,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   }
 
   @Transaction
-  public static Byte[] exportQueryToExcel(String queryXML, String geoEntityType, String savedSearchId)
+  public static InputStream exportQueryToExcel(String queryXML, String geoEntityType, String savedSearchId)
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
@@ -665,11 +668,11 @@ public class AggregatedCase extends AggregatedCaseBase implements
     ValueQuery query = xmlToValueQuery(queryXML, geoEntityType, false, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
-    return exporter.export();
+    return exporter.exportStream();
   }
   
   @Transaction
-  public static Byte[] exportQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
+  public static InputStream exportQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
@@ -681,6 +684,12 @@ public class AggregatedCase extends AggregatedCaseBase implements
     ValueQuery query = xmlToValueQuery(queryXML, geoEntityType, false, null);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
-    return exporter.export();
+    return exporter.exportStream();
+  }
+  
+  @Transaction
+  public static Byte[] generateReport(String file)
+  {
+    return new ReportGenerator(new File(file)).generateReport();
   }
 }

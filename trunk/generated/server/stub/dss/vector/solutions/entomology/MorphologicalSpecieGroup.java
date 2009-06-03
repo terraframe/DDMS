@@ -46,8 +46,6 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
   {
     if(this.getQuantityFemale() != null && this.getQuantity() != null)
     {
-      super.validateQuantityFemale();
-      
       if(this.getQuantityFemale() > this.getQuantity())
       {
         String msg = "It is impossible to have more female mosquitos than the total number of mosquitos";
