@@ -91,7 +91,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(ZoneSprayViewDTO.get(this.getClientRequest(), id));
+    this.view(ZoneSprayDTO.getView(this.getClientRequest(), id));
   }
 
   public void view(ZoneSprayViewDTO dto) throws IOException, ServletException

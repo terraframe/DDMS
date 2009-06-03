@@ -97,7 +97,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    this.view(OperatorSprayViewDTO.get(this.getClientRequest(), id));
+    this.view(OperatorSprayDTO.getView(this.getClientRequest(), id));
   }
 
   public void view(OperatorSprayViewDTO dto) throws IOException, ServletException

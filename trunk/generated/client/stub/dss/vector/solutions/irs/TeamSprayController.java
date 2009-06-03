@@ -94,7 +94,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
   public void view(String id) throws IOException, ServletException
   {
-    this.view(TeamSprayViewDTO.get(this.getClientRequest(), id));
+    this.view(TeamSprayDTO.getView(this.getClientRequest(), id));
   }
 
   public void view(TeamSprayViewDTO dto) throws IOException, ServletException
