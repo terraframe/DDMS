@@ -1278,4 +1278,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     }
   }
 
+  public String toString()
+  {
+    return this.getGeoEntityClass().getDisplayLabel().getValue();
+  }
+
 }

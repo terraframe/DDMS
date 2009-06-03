@@ -15,6 +15,7 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     this._selectedMap = {};
     this._selectUniversalTypeHandler = null;
     this._CURRENT_SELECTIONS = 'currentSelections';
+    this._restrictingType = null;
   },
 
   /**
@@ -111,8 +112,21 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
       	}
       }
 
-      this._hideHandler(entities, unselected);
+      this._hideHandler(entities, unselected, this._restrictingType);
     }
+  },
+
+  /**
+   * Changes the type of query/map geo entity type to that of the current
+   * value in the select list.
+   */
+  _restrictType : function(e)
+  {
+    var select = e.target;
+    var option = select.options[select.selectedIndex];
+    var type = option.value;
+
+    this._restrictingType = type;
   },
 
   /**
@@ -121,8 +135,11 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
    */
   _postRender : function()
   {
+  	// attach event to the select box where the user chooses the query/map type
+    YAHOO.util.Event.on('restrictingType', 'change', this._restrictType, null, this);
+
     // attach event handlers to all Select All options
-    var selects = YAHOO.util.Selector.query('select', this._SELECT_CONTAINER_ID);
+    var selects = YAHOO.util.Selector.query('select.typeSelect', this._SELECT_CONTAINER_ID);
     for(var i=0; i<selects.length; i++)
     {
       var select = selects[i];
@@ -189,7 +206,7 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     // add to list of currently selected
   	if(Mojo.util.isFunction(this._selectHandler))
   	{
-  	  this._selectHandler(geoEntityView);
+  	  this._selectHandler(geoEntityView, this._restrictingType);
   	}
   },
 

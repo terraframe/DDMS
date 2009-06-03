@@ -807,6 +807,28 @@
         name="dss.vector.solutions.query.QueryController">
         <create>
         <mdAction
+          name="exportQueryToCSV"
+          label="Export Query To CSV"
+          isPost="true">
+          <mdParameter
+            name="queryXML"
+            label="Query XML"
+            description="Query XML"
+            order="0"
+            type="java.lang.String"/>
+          <mdParameter
+            name="geoEntityType"
+            label="GeoEntity type"
+            description="The type on which to gather spatial data"
+            order="1"
+            type="java.lang.String"/>
+           <mdParameter
+             name="savedSearchId"
+             label="Saved Search Id"
+             order="2"
+             type="java.lang.String"/>
+        </mdAction>
+        <mdAction
           name="exportAggregatedCaseQueryToExcel"
           label="Export Aggregated Query To Excel"
           isPost="true">

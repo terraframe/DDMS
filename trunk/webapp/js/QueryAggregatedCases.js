@@ -73,6 +73,11 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   	return 'dss.vector.solutions.query.QueryController.exportAggregatedCaseQueryToExcel.mojo';
   },
 
+  _getExportCSVAction : function()
+  {
+  	return 'dss.vector.solutions.query.QueryController.exportQueryToCSV.mojo';
+  },
+
   /**
    * Saves the current state of the QueryXML.
    */

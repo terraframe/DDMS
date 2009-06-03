@@ -1050,6 +1050,18 @@
         label="Query Controller"
         description="Query Controller">
         <mdAction
+           name="uploadTemplate"
+           label="Upload Template"
+           description="Uploads a template for user with BIRT."
+           isPost="true">
+           <mdParameter
+             name="savedSearchId"
+             label="Saved Search Id"
+             description="The id of the SavedSearch that will reference the template"
+             order="0"
+             type="java.lang.String" />
+        </mdAction>
+        <mdAction
           name="queryEntomology"
           label="Query Entomology"
           description="Query Entomology"

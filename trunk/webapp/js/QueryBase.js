@@ -16,7 +16,8 @@ MDSS.QueryBase.prototype = {
       editLayer: MDSS.util.bind(this, this.editLayer),
       deleteLayer: MDSS.util.bind(this, this.deleteLayer),
       editVariableStyles: MDSS.util.bind(this, this.editVariableStyles),
-      exportXLS : MDSS.util.bind(this, this.exportXLS)
+      exportXLS : MDSS.util.bind(this, this.exportXLS),
+      exportCSV : MDSS.util.bind(this, this.exportCSV)
     });
 
     // Set of GeoEntity subclasses that will be used for the query/mapping
@@ -25,6 +26,23 @@ MDSS.QueryBase.prototype = {
     this._geoEntityTypes = {};
     this._geoEntitySelectables = {};
     this._geoIdConditions = {};
+  },
+
+  exportCSV : function(form, xmlInput, geoEntityTypeInput, searchIdInput)
+  {
+    var queryXML = this._constructQuery();
+    var xml = queryXML.getXML();
+
+    var savedSearchView = this._queryPanel.getCurrentSavedSearch();
+    var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
+
+  	var action = this._getExportCSVAction();
+    form.action = action;
+
+    xmlInput.innerHTML = xml;
+    geoEntityTypeInput.value = this._geoEntityQueryType; // FIXME
+    searchIdInput.value = savedSearchId;
+    form.submit();
   },
 
   /**
@@ -48,6 +66,11 @@ MDSS.QueryBase.prototype = {
   },
 
   _getExportXLSAction : function()
+  {
+    // abstract
+  },
+
+  _getExportCSVAction : function()
   {
     // abstract
   },
@@ -269,7 +292,6 @@ MDSS.QueryBase.prototype = {
     }
 
     var type = geoEntityView.getEntityType();
-    //this._geoEntityQueryType = type;
     var typeName = type.substring(type.lastIndexOf('.')+1);
 
     var entityNameColumn = typeName+'_'+geoEntityView.getEntityNameMd().getName();
@@ -328,10 +350,14 @@ MDSS.QueryBase.prototype = {
    * Uses the given GeoEntityView objects to add
    * restrictions to the GeoEntity query.
    */
-  _hideHandler : function(geoEntityViews, unselectedTypes)
+  _hideHandler : function(geoEntityViews, unselectedTypes, restrictingType)
   {
     // remove all prior conditions
     this._geoIdConditions = {};
+    this._geoEntityQueryType = restrictingType;
+
+    // add the restricting type as an entity to select if it's not defined.
+
 
     var required = {};
     for(var i=0; i<geoEntityViews.length; i++)
@@ -347,8 +373,6 @@ MDSS.QueryBase.prototype = {
       var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, geoEntityView.getGeoId());
 
       this._geoIdConditions[geoEntityView.getGeoId()] = geoIdCondition;
-
-      this._geoEntityQueryType = geoEntityView.getEntityType(); // FIXME support multiple types
     }
 
     this._queryPanel.addSelectedGeoEntities(geoEntityViews);

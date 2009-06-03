@@ -3,11 +3,17 @@ package dss.vector.solutions.query;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -56,6 +62,67 @@ public class QueryController extends QueryControllerBase implements
       javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public void uploadTemplate(String savedSearchId) throws IOException, ServletException
+  {
+    ResourceBundle localized = ResourceBundle.getBundle("MDSS");
+
+    String message = "";
+
+    try
+    {
+      // Create a factory for disk-based file items
+      FileItemFactory factory = new DiskFileItemFactory();
+
+      // Create a new file upload handler
+      ServletFileUpload upload = new ServletFileUpload(factory);
+
+      String savedSearchIdValue = null;
+      FileItem file = null;
+      List<FileItem> items = upload.parseRequest(this.req);
+      for (FileItem item : items)
+      {
+        if (item.getFieldName().equals("savedSearchId"))
+        {
+          savedSearchIdValue = item.getString();
+        }
+        else if (!item.isFormField() && item.getSize() > 0)
+        {
+          file = item;
+        }
+      }
+
+      if(savedSearchIdValue == null || savedSearchIdValue.trim().length() == 0)
+      {
+        SavedSearchRequiredExceptionDTO ex = new SavedSearchRequiredExceptionDTO(
+            this.getClientRequest(), req.getLocale());
+        message = ex.getLocalizedMessage();
+        return;
+      }
+
+      if(file == null)
+      {
+        message = localized.getString("File_Required");
+        return;
+      }
+
+
+      // All checks passed. Save the file to the SavedSearch
+      message = localized.getString("File_Upload_Success");
+    }
+    catch (Throwable e)
+    {
+      message = localized.getString("File_Upload_Failure");
+    }
+    finally
+    {
+      this.resp.setContentType("text/html;charset=UTF-8");
+      this.resp.setCharacterEncoding("UTF-8");
+      this.resp.getWriter().write(message);
+    }
   }
 
   /**
@@ -259,6 +326,26 @@ public class QueryController extends QueryControllerBase implements
       JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
+    }
+  }
+
+  @Override
+  public void exportQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
+      throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      ExcelExportServlet.writeExcelFile(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      // FIXME avoid wiping out the state of the query
+      req.setAttribute(ErrorUtility.ERROR_MESSAGE, t.getLocalizedMessage());
+      this.queryAggregatedCases();
     }
   }
 

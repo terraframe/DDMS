@@ -668,7 +668,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
   }
-  
+
   @Transaction
   public static InputStream exportQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
   {
@@ -684,7 +684,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();
   }
-  
+
   @Transaction
   public static Byte[] generateReport(String file)
   {

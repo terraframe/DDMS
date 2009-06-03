@@ -75,6 +75,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 </div>
 
 <div style="display: none" id="XLSFormContainer"></div>
+<div style="display: none" id="CSVFormContainer"></div>
 
 </div>
 <div id="cal1Container" class="yui-skin-sam"></div>

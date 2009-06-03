@@ -199,7 +199,7 @@ MDSS.AbstractSelectSearch.prototype = {
         var treeOpener = new YAHOO.util.Element("treeOpener");
         treeOpener.on('click', this.searchRef._openTree, null, this.searchRef);
 
-        var selects = YAHOO.util.Selector.query('select', this.searchRef._SELECT_CONTAINER_ID);
+        var selects = YAHOO.util.Selector.query('select.typeSelect', this.searchRef._SELECT_CONTAINER_ID);
         for(var i=0; i<selects.length; i++)
         {
           var select = selects[i];
