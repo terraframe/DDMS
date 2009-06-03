@@ -690,6 +690,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   @Transaction
   public static Byte[] generateReport(String file)
   {
-    return new ReportGenerator(new File(file)).generateReport();
+//    return new ReportGenerator(new File(file)).generateReport();
+    return null;
   }
 }
