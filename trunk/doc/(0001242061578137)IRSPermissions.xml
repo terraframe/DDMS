@@ -18,7 +18,6 @@
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.ResourceTarget">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdViewPermission type="dss.vector.solutions.irs.ResourceTargetView">
           <operation name="READ"/>
@@ -29,7 +28,6 @@
         </mdViewPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.GeoTarget">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdViewPermission type="dss.vector.solutions.irs.GeoTargetView">
           <operation name="READ"/>
@@ -89,7 +87,6 @@
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.SurfaceTypeMaster">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.InsecticideBrand">
           <operation name="READ"/>
@@ -104,7 +101,6 @@
         </mdViewPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.Nozzle">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdViewPermission type="dss.vector.solutions.irs.NozzleView">
           <operation name="READ"/>
@@ -121,7 +117,6 @@
         </mdRelationshipPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.AreaStandards">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdViewPermission type="dss.vector.solutions.irs.AreaStandardsView">
           <operation name="READ"/>
@@ -143,19 +138,15 @@
         </mdViewPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.ActorSpray">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.OperatorSpray">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.TeamSpray">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayStatus">
           <operation name="READ"/>
