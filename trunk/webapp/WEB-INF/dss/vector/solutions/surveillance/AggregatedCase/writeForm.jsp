@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
 
-  <dl>
     <mjl:component item="${item}" param="dto">
       <input type="hidden" name="#dto.actualType" value="${item.type}DTO" />
       <mjl:input type="hidden" param="geoEntity" value="${item.geoEntity.id}" />
@@ -192,5 +191,3 @@
       </table>
     </dd>
     </c:if>
-
-  </dl>
