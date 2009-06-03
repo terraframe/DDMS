@@ -150,8 +150,8 @@
             required="false" />            
           <char
             name="geoId"
-            label="Geo Id"
-            description="The Geo Id of the survey"
+            label="Surface"
+            description="The geo id of the surface used in the efficacy biosassy"
             required="true"
             size="255" />
           <virtual

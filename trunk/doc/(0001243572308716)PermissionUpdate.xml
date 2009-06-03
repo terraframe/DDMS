@@ -12,6 +12,34 @@
     </existing>  
     <permissions>
       <role roleName="GUIVisibility">
+        <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdAttributeVirtual">
+          <operation name="READ"/>
+          <attributePermission attributeName="accessor">
+            <operation name="READ"/>
+          </attributePermission>
+          <attributePermission attributeName="attributeName">
+            <operation name="READ"/>
+          </attributePermission>
+          <attributePermission attributeName="mdAttributeConcrete">
+            <operation name="READ"/>
+          </attributePermission>
+          <attributePermission attributeName="displayLabel">
+            <operation name="READ"/>
+          </attributePermission>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdAttributeVirtual">
+          <operation name="READ"/>
+          <attributePermission attributeName="accessor">
+            <operation name="READ"/>
+          </attributePermission>
+          <attributePermission attributeName="attributeName">
+            <operation name="READ"/>
+          </attributePermission>
+          <attributePermission attributeName="displayLabel">
+            <operation name="READ"/>
+          </attributePermission>
+        </mdBusinessPermission>        
+      
         <mdBusinessPermission type="dss.vector.solutions.Property">
           <operation name="READ"/>
           <operation name="READ_ALL"/>

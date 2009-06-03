@@ -307,7 +307,7 @@
           name="exportQueryToExcel"
           label="Export Query To Excel"
           static="true"
-          returnType="java.lang.Byte[]">
+          returnType="java.io.InputStream">
           <mdParameter
             name="queryXML"
             label="Query XML"
@@ -330,7 +330,7 @@
           name="exportQueryToCSV"
           label="Export Query To CSV"
           static="true"
-          returnType="java.lang.Byte[]">
+          returnType="java.io.InputStream">
           <mdParameter
             name="queryXML"
             label="Query XML"
@@ -348,6 +348,19 @@
              label="Saved Search Id"
              order="2"
              type="java.lang.String"/>
+        </mdMethod>
+
+        <mdMethod
+          name="generateReport"
+          label="Generate Report"
+          static="true"
+          returnType="java.lang.Byte[]">
+          <mdParameter
+            name="file"
+            label="File"
+            description="The fully qualified file path"
+            order="0"
+            type="java.lang.String"/>
         </mdMethod>
         
         <mdMethod
