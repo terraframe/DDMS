@@ -1,6 +1,5 @@
 package dss.vector.solutions.surveillance;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,7 +46,6 @@ import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.query.ThematicVariable;
-import dss.vector.solutions.util.report.ReportGenerator;
 
 public class AggregatedCase extends AggregatedCaseBase implements
     com.terraframe.mojo.generation.loader.Reloadable
