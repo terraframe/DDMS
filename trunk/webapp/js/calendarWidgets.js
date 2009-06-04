@@ -24,6 +24,7 @@ MDSS.Calendar = {};
 			MDY_YEAR_POSITION:MDSS.DateSettings.MDY_YEAR_POSITION,
 			MONTHS_LONG:MDSS.DateSettings.MONTHS_LONG,
 	        WEEKDAYS_SHORT:MDSS.DateSettings.WEEKDAYS_SHORT,
+	        navigator:true
       		};
 
     var setupListeners = function() {
