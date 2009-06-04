@@ -27,6 +27,184 @@
 	<property name="geodata.db" value="mozambique" />
 	<!--<property name="write_rev" value="false" />-->
 
+	<!-- Rebuild Deploy -->
+	<target name="deploy_rebuild_all"
+		depends="deploy_cleanup_files_rebuild_db, deploy_all_files, deploy_import_schema, import_geodata_deploy"
+		description="Deploy - Everything">
+	</target>
+
+    <!-- depends="deploy_cleanup_files_rebuild_db, deploy_all_files, deploy_import_schema, deploy_update_db_source_and_classes, import_geodata_deploy" -->
+	<target name="deploy_cleanup_files_rebuild_db" depends="" description="Deploy Step 1 - Cleanup Files and Rebuild MOJO">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy - Cleanup Files and Rebuild MOJO">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Dprofile.name=deploy" />
+			<arg value="-Droot.user=${root.user}" />
+			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="-Droot.db=${root.db}" />
+			<arg value="delete_generated_all" />
+			<arg value="rebuild_db" />
+		</java>
+	</target>
+
+
+	<target name="deploy_all_files" depends="" description="Deploy Step 2 - Copy All Files (including Tomcat config)">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Copies all tomcat files">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="deploy_all_files" />
+		</java>
+	</target>
+
+	<target name="deploy_all_application_files" depends="" description="Deploy Step 2 - Copy Files">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Copies all application files">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="deploy_all_application_files" />
+		</java>
+	</target>
+
+	<target name="deploy_import_schema" depends="" description="Deploy Step 3 - Import Most Recent Schema">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy - Import Most Recent Schema">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Dprofile.name=deploy" />
+			<arg value="import_most_recent" />
+		</java>
+	</target>
+
+	<target name="deploy_update_db_source_and_classes" depends="" description="Deploy Step 4 - Update DB Source and Classes">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy Update DB Source and Classes">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Dprofile.name=deploy" />
+			<arg value="update_db_source_and_classes" />
+		</java>
+	</target>
+
+
+	<!-- Deploy Incremental Schema Update -->
+	<target name="deploy_incremental_schema_update" depends="deploy_all_application_files, deploy_import_schema, deploy_update_db_source_and_classes" description="Deploy - Incremental Schema Update">
+		<antcall target="call_reload_jsp">
+	    </antcall>
+	</target>
+    <!-- depends="deploy_delete_generated_all, deploy_all_files, deploy_import_schema, deploy_update_db_source_and_classes" -->
+
+	<!-- Deploy Incremental File Update -->
+	<target name="deploy_incremental_file_update_1" depends="deploy_all_application_files, deploy_update_db_source_and_classes" description="Deploy - Incremental File Update (including DB) ">
+	    <antcall target="call_reload_jsp">
+	    </antcall>
+	</target>
+
+	<!-- Deploy Incremental File Update -->
+	<target name="deploy_incremental_file_update_2" depends="deploy_all_application_files" description="Deploy - Incremental File Update (not including DB)">
+	    <antcall target="call_reload_jsp">
+	    </antcall>
+	</target>
+
+	<!-- Deploy Presentation Files -->
+	<target name="deploy_presentation_files" depends="" description="Deploy - Presentaiton Files">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy Presentaiton Files">
+			<jvmarg value="-Xmx${max_memory_use}" />
+		    <jvmarg value="-Dmojo.keepSource=true" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="deploy_presentation_files" />
+		</java>
+	</target>
+
+	<!-- Development Incremental Schema Update -->
+	<target name="develop_incremental_schema_update" depends="" description="Develop - Incremental Schema Update">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Development Incremental Schema Update">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="import_most_recent" />
+		</java>
+	</target>
+
+	<target name="develop_delete_generated_base" depends="" description="Develop delete generated base source and class files">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop delete generated base source and class files">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="delete_generated_base" />
+		</java>
+	</target>
+
+	<target name="deploy_delete_generated_all" depends="" description="Deploy delete all source and class files">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy delete all source and class files">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Dprofile.name=deploy" />
+			<arg value="delete_generated_all" />
+		</java>
+	</target>
+
+	<target name="develop_change_schema_version" depends="" description="Updates the schema to the given version">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
+			<jvmarg value="-Xmx${max_memory_use}" />
+		    <jvmarg value="-Dmojo.keepSource=true" />
+		    <jvmarg value="-DversionNumber=${versionNumber}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="change_schema_version" />
+		</java>
+	</target>
+
+	<target name="deploy_change_schema_version" depends="" description="Updates the schema to the given version">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
+			<jvmarg value="-Xmx${max_memory_use}" />
+		    <jvmarg value="-Dmojo.keepSource=true" />
+		    <jvmarg value="-DversionNumber=${versionNumber}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Dprofile.name=deploy" />
+			<arg value="change_schema_version" />
+		</java>
+	</target>
+
 
 	<!-- =================================================================== -->
 	<!--         CAUTION: THIS WILL OVERWRITE EXISTING DATABASES             -->
@@ -78,13 +256,12 @@
 		<echo message="The build is complete" />
 	</target>
 
-
 	<!-- =================================================================== -->
 	<!-- These are five tasks that rebuild MDSS.                             -->
 	<!-- You can run them one at a time if you wish.                         -->
 	<!-- =================================================================== -->
-	<target name="develop_rebuild_import" depends="" description="Step 1">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(1)Develop Rebuild Import">
+	<target name="develop_rebuild_import" depends="" description="Development Rebuild All">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
 			<jvmarg value="-Xmx${max_memory_use}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
