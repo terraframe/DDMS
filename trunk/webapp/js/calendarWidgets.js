@@ -1,10 +1,9 @@
-
 // If you include this file it will add calandar popups to all elements with the
 // class "DatePick"
 // HOW TO USE
 // 1. Set the class of the input to "DATE PICK"
 // 2. MAKE SURE THE ELEMENT HAS A DOM ID !!!!!!!
-var MojoCal= YAHOO.namespace('MojoCal');
+MDSS.Calendar = {};
 
 (function() {
     var Dom = YAHOO.util.Dom,
@@ -55,7 +54,7 @@ var MojoCal= YAHOO.namespace('MojoCal');
     	return date;
     }
 
-    MojoCal.parseDate = var_to_date;
+    MDSS.Calendar.parseDate = var_to_date;
 
     var var_to_db_string = function(date_str) {
     	date = var_to_date(date_str);
@@ -63,7 +62,7 @@ var MojoCal= YAHOO.namespace('MojoCal');
     	return date.format(db_date_format);
     }
 
-    MojoCal.getMojoDateString = var_to_db_string;
+    MDSS.Calendar.getMojoDateString = var_to_db_string;
 
     var var_to_localized_string = function(date_str) {
     	date = var_to_date(date_str);
@@ -71,7 +70,7 @@ var MojoCal= YAHOO.namespace('MojoCal');
     	return date.format(java_date_format);
     }
 
-    MojoCal.getLocalizedString = var_to_localized_string;
+    MDSS.Calendar.getLocalizedString = var_to_localized_string;
 
     var showCal = function(ev) {
         var tar = Event.getTarget(ev);
@@ -107,7 +106,9 @@ var MojoCal= YAHOO.namespace('MojoCal');
         if (!over_cal) {
             Dom.setStyle('cal1Container', 'display', 'none');
         }
-        validate(ev);
+        if(ev){
+        	validate(ev);
+        }
     }
 
     var validate = function(ev) {
@@ -214,11 +215,11 @@ var MojoCal= YAHOO.namespace('MojoCal');
 		 }
 	}
 
-	MojoCal.addError = addError;
-	MojoCal.removeError = removeError;
+	MDSS.Calendar.addError = addError;
+	MDSS.Calendar.removeError = removeError;
 
     var init = function() {
-
+      var el;
     	if(init_not_done)
     	{
     		for each (el in Dom.getElementsByClassName("formatDate"))
@@ -243,9 +244,7 @@ var MojoCal= YAHOO.namespace('MojoCal');
     		}
     	}
 
-    	if(Dom.getElementsByClassName("DatePick").length > 0 && init_not_done)
-        {
-
+    	if(init_not_done){
     		if(! Dom.get('cal1Container'))
     		{
 	    		caldiv = document.createElement('div');
@@ -266,14 +265,13 @@ var MojoCal= YAHOO.namespace('MojoCal');
 	          el.value = var_to_localized_string(el.value);
 	        }
 	        cal1.render();
-        }
-        init_not_done = false;
-        return cal1;
+	        init_not_done = false;
+       }
+       return cal1;
     }
 
-    MojoCal.init = init;
+    MDSS.Calendar.init = init;
 
     Event.addListener(window, 'load', init);
-    // YAHOO.util.Event.onContentReady("cal1Container", init);
 
 })();
