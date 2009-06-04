@@ -17,7 +17,8 @@ MDSS.QueryBase.prototype = {
       deleteLayer: MDSS.util.bind(this, this.deleteLayer),
       editVariableStyles: MDSS.util.bind(this, this.editVariableStyles),
       exportXLS : MDSS.util.bind(this, this.exportXLS),
-      exportCSV : MDSS.util.bind(this, this.exportCSV)
+      exportCSV : MDSS.util.bind(this, this.exportCSV),
+      exportReport : MDSS.util.bind(this, this.exportReport)      
     });
 
     // Set of GeoEntity subclasses that will be used for the query/mapping
@@ -37,6 +38,24 @@ MDSS.QueryBase.prototype = {
     var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
 
   	var action = this._getExportCSVAction();
+    form.action = action;
+
+    xmlInput.innerHTML = xml;
+    geoEntityTypeInput.value = this._geoEntityQueryType; // FIXME
+    searchIdInput.value = savedSearchId;
+    form.submit();
+  },
+
+
+  exportReport : function(form, xmlInput, geoEntityTypeInput, searchIdInput)
+  {
+    var queryXML = this._constructQuery();
+    var xml = queryXML.getXML();
+
+    var savedSearchView = this._queryPanel.getCurrentSavedSearch();
+    var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
+
+  	var action = this._getExportReportAction();
     form.action = action;
 
     xmlInput.innerHTML = xml;
@@ -71,6 +90,11 @@ MDSS.QueryBase.prototype = {
   },
 
   _getExportCSVAction : function()
+  {
+    // abstract
+  },
+  
+  _getExportReportAction : function()
   {
     // abstract
   },

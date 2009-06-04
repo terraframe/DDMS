@@ -1212,6 +1212,16 @@ MDSS.QueryPanel.prototype = {
       this._config.exportCSV.apply(this, Mojo.util.getValues(obj));
     }
   },
+  
+  _exportReport : function(e, obj)
+  {
+    if(Mojo.util.isFunction(this._config.exportReport))
+    {
+      // pass in the form element so the calling process
+      // can modify its action.
+      this._config.exportReport.apply(this, Mojo.util.getValues(obj));
+    }
+  },
 
   /**
    * Builds the form to request to download a CSV list
@@ -1255,6 +1265,48 @@ MDSS.QueryPanel.prototype = {
     return exportCSVButton;
   },
 
+  /**
+  * Builds the form to request to download a pdf of the saved report
+  */
+ _buildReportForm : function()
+ {
+   var form = document.createElement('form');
+   YAHOO.util.Dom.setAttribute(form, 'method', 'POST');
+
+   var xmlInput = document.createElement('textarea');
+   YAHOO.util.Dom.setAttribute(xmlInput, 'name', 'queryXML');
+
+   var geoEntityTypeInput = document.createElement('input');
+   YAHOO.util.Dom.setAttribute(geoEntityTypeInput, 'type', 'hidden');
+   YAHOO.util.Dom.setAttribute(geoEntityTypeInput, 'name', 'geoEntityType');
+
+   var searchIdInput = document.createElement('input');
+   YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
+   YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
+
+   var obj = {
+     form: form,
+     xmlInput: xmlInput,
+     geoEntityTypeInput : geoEntityTypeInput,
+     searchIdInput : searchIdInput
+   };
+
+   var exportReportButton = document.createElement('input');
+   YAHOO.util.Dom.setAttribute(exportReportButton, 'type', 'button');
+   YAHOO.util.Dom.setAttribute(exportReportButton, 'value', MDSS.Localized.Export_Report);
+   YAHOO.util.Dom.addClass(exportReportButton, 'queryButton');
+   YAHOO.util.Event.on(exportReportButton, 'click', this._exportReport, obj, this);
+
+   form.appendChild(xmlInput);
+   form.appendChild(geoEntityTypeInput);
+   form.appendChild(searchIdInput);
+
+   document.getElementById('ReportFormContainer').appendChild(form);
+
+   return exportReportButton;
+ },
+
+  
   /**
    * Builds the form to do a synchronous post to the server to
    * download a Excel file.
@@ -1399,6 +1451,8 @@ MDSS.QueryPanel.prototype = {
 
       this._queryList.appendChild(option);
     }
+    
+    var exportReportButton = this._buildReportForm();
 
     var exportCSVButton = this._buildCSVForm();
 
@@ -1414,6 +1468,7 @@ MDSS.QueryPanel.prototype = {
 
     var rightDiv = new YAHOO.util.Element(document.createElement('div'));
     rightDiv.setStyle('float', 'right');
+    rightDiv.appendChild(exportReportButton);
     rightDiv.appendChild(exportCSVButton);
     rightDiv.appendChild(exportXLSButton);
     rightDiv.appendChild(this._runButton);
