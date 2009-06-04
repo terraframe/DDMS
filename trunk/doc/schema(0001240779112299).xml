@@ -92,7 +92,61 @@
             type="dss.vector.solutions.query.ThematicLayer"
             required="false"
             label="Thematic Layer" />
+          <file
+            name="csvFile"
+            label="CSV File"
+            required="false"
+            description="Temporary CSV file used when generating a report"
+            getterVisibility="protected" />
+          <file
+            name="templateFile"
+            label="BIRT template report file"
+            required="false"
+            description="Template Report File" />
         </attributes>
+        <mdMethod
+          name="generateCSV"
+          returnType="java.lang.String"
+          static="false"
+          label="Generate CSV"
+          description="Generates a temporary CSV file and returns the fully qualified path to the CSV">
+          <mdParameter
+            name="queryXML"
+            label="Query XML"
+            description="Query XML"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="geoEntityType"
+            label="GeoEntity type"
+            description="The type on which to gather spatial data"
+            order="1"
+            type="java.lang.String" />
+          <mdParameter
+            name="savedSearchId"
+            label="Saved Search Id"
+            order="2"
+            type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+          name="deleteCSV"
+          label="Delete CSV"
+          returnType="void"
+          static="false"
+          description="Deletes the temporary CSV file">
+          <mdParameter
+            name="file"
+            label="File"
+            order="0"
+            type="java.lang.String"
+            description="The absolute file path of the directory to delete" />
+        </mdMethod>
+        <mdMethod
+          name="getTemplateStream"
+          static="false"
+          returnType="java.io.InputStream"
+          label="Get Template Stream"
+          description="Returns a input stream to read the template file.  If a file doesn't exist then this method returns null" />
         <mdMethod
           name="getAsView"
           label="Get As View"
@@ -106,7 +160,7 @@
             order="0"
             type="java.lang.Boolean"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
         </mdMethod>
       </mdBusiness>
 
@@ -170,13 +224,13 @@
             size="255"
             label="Display Label"
             required="false"
-            description="The variable's MdAttribute display label."/>
+            description="The variable's MdAttribute display label." />
           <char
             name="attributeName"
             label="Attribute Name"
             description="The attribute name of the thematic variable."
             size="50"
-            required="true"/>
+            required="true" />
           <char
             name="entityAlias"
             size="255"
@@ -200,7 +254,7 @@
             name="savedQueryId"
             label="Saved Query Id"
             size="64"
-            required="false"/>
+            required="false" />
           <virtual
             name="queryName"
             concrete="queryName"
@@ -258,11 +312,11 @@
         <parent
           cardinality="1"
           name="dss.vector.solutions.MDSSUser"
-          method="PersistedBy"/>
+          method="PersistedBy" />
         <child
           cardinality="*"
           name="dss.vector.solutions.query.SavedSearch"
-          method="PersistedQueries"/>
+          method="PersistedQueries" />
       </mdRelationship>
 
       <mdRelationship
@@ -273,11 +327,11 @@
         <parent
           cardinality="1"
           name="dss.vector.solutions.query.SavedSearch"
-          method="FromSavedSearch"/>
+          method="FromSavedSearch" />
         <child
           cardinality="*"
           name="dss.vector.solutions.query.UniversalLayer"
-          method="DefinesLayers"/>
+          method="DefinesLayers" />
       </mdRelationship>
 
       <mdBusiness
@@ -291,7 +345,7 @@
             label="GeoHierarchy Reference"
             description="A reference to the GeoHierarchy this layer represents."
             required="false"
-            type="dss.vector.solutions.geo.GeoHierarchy"/>
+            type="dss.vector.solutions.geo.GeoHierarchy" />
           <reference
             name="geometryStyle"
             label="Geometry Style"
@@ -392,21 +446,21 @@
           label="Update Thematic Layer"
           returnType="dss.vector.solutions.query.ThematicLayer"
           static="true">
-            <mdParameter
-              name="layerId"
-              label="Layer Id"
-              order="0"
-              type="java.lang.String" />
-            <mdParameter
-              name="thematicVariable"
-              label="Thematic Variable"
-              order="1"
-              type="dss.vector.solutions.query.ThematicVariable" />
-            <mdParameter
-              name="categories"
-              label="Categories"
-              order="2"
-              type="dss.vector.solutions.query.AbstractCategory[]"/>
+          <mdParameter
+            name="layerId"
+            label="Layer Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="thematicVariable"
+            label="Thematic Variable"
+            order="1"
+            type="dss.vector.solutions.query.ThematicVariable" />
+          <mdParameter
+            name="categories"
+            label="Categories"
+            order="2"
+            type="dss.vector.solutions.query.AbstractCategory[]" />
         </mdMethod>
       </mdBusiness>
 
@@ -422,7 +476,7 @@
             label="Thematic Color"
             description="Thematic Color"
             required="true"
-            default_value="#7F7F7F"  />
+            default_value="#7F7F7F" />
         </attributes>
       </mdBusiness>
 
@@ -473,11 +527,11 @@
         <parent
           cardinality="1"
           name="dss.vector.solutions.query.ThematicLayer"
-          method="FromThematicLayer"/>
+          method="FromThematicLayer" />
         <child
           cardinality="*"
           name="dss.vector.solutions.query.AbstractCategory"
-          method="DefinesCategory"/>
+          method="DefinesCategory" />
       </mdRelationship>
 
       <mdBusiness
@@ -601,13 +655,13 @@
             label="Query XML"
             description="Query XML"
             order="0"
-            type="java.lang.String"/>
+            type="java.lang.String" />
           <mdParameter
             name="thematicLayerType"
             label="Thematic Layer Type"
             description="The GeoEntity type for the base layer with thematic variables."
             order="1"
-            type="java.lang.String"/>
+            type="java.lang.String" />
           <mdParameter
             name="universalLayers"
             label="Universal Layers"
@@ -619,7 +673,7 @@
             label="SavedSearch Id"
             description="The id of the SavedSearch for which the map will be generated."
             order="3"
-            type="java.lang.String"/>
+            type="java.lang.String" />
         </mdAction>
         <mdAction
           name="mapEntomologyQuery"
@@ -631,13 +685,13 @@
             label="Query XML"
             description="Query XML"
             order="0"
-            type="java.lang.String"/>
+            type="java.lang.String" />
           <mdParameter
             name="thematicLayerType"
             label="Thematic Layer Type"
             description="The GeoEntity type for the base layer with thematic variables."
             order="1"
-            type="java.lang.String"/>
+            type="java.lang.String" />
           <mdParameter
             name="universalLayers"
             label="Universal Layers"
@@ -649,7 +703,7 @@
             label="SavedSearch Id"
             description="The id of the SavedSearch for which the map will be generated."
             order="3"
-            type="java.lang.String"/>
+            type="java.lang.String" />
         </mdAction>
         <mdAction
           name="addCategoryToLayer"
@@ -721,28 +775,28 @@
             name="thematicVariables"
             label="Thematic Variables"
             order="1"
-            type="dss.vector.solutions.query.ThematicVariable[]"/>
+            type="dss.vector.solutions.query.ThematicVariable[]" />
         </mdAction>
         <mdAction
           name="updateThematicVariable"
           label="Update Thematic Variable"
           description="Updates just the variable aspect of a Thematic Layer"
           isPost="true">
-            <mdParameter
-              name="layerId"
-              label="Layer Id"
-              order="0"
-              type="java.lang.String" />
-            <mdParameter
-              name="thematicVariable"
-              label="Thematic Variable"
-              order="1"
-              type="dss.vector.solutions.query.ThematicVariable" />
-            <mdParameter
-              name="categories"
-              label="Categories"
-              order="2"
-              type="dss.vector.solutions.query.AbstractCategory[]"/>
+          <mdParameter
+            name="layerId"
+            label="Layer Id"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="thematicVariable"
+            label="Thematic Variable"
+            order="1"
+            type="dss.vector.solutions.query.ThematicVariable" />
+          <mdParameter
+            name="categories"
+            label="Categories"
+            order="2"
+            type="dss.vector.solutions.query.AbstractCategory[]" />
         </mdAction>
         <mdAction
           name="cancelLayer"
@@ -806,105 +860,105 @@
       <mdController
         name="dss.vector.solutions.query.QueryController">
         <create>
-        <mdAction
-          name="exportQueryToCSV"
-          label="Export Query To CSV"
-          isPost="true">
-          <mdParameter
-            name="queryXML"
-            label="Query XML"
-            description="Query XML"
-            order="0"
-            type="java.lang.String"/>
-          <mdParameter
-            name="geoEntityType"
-            label="GeoEntity type"
-            description="The type on which to gather spatial data"
-            order="1"
-            type="java.lang.String"/>
-           <mdParameter
-             name="savedSearchId"
-             label="Saved Search Id"
-             order="2"
-             type="java.lang.String"/>
-        </mdAction>
-        <mdAction
-          name="exportAggregatedCaseQueryToExcel"
-          label="Export Aggregated Query To Excel"
-          isPost="true">
-          <mdParameter
-            name="queryXML"
-            label="Query XML"
-            description="Query XML"
-            order="0"
-            type="java.lang.String"/>
-          <mdParameter
-            name="geoEntityType"
-            label="GeoEntity type"
-            description="The type on which to gather spatial data"
-            order="1"
-            type="java.lang.String"/>
-           <mdParameter
-             name="savedSearchId"
-             label="Saved Search Id"
-             order="2"
-             type="java.lang.String"/>
-        </mdAction>
-        <mdAction
-          name="queryAggregatedCases"
-          label="Query Aggregated Cases"
-          isPost="false">
-        </mdAction>
-        <mdAction
-          name="newEntomologyQuery"
-          label="New Query"
-          isPost="false">
-        </mdAction>
-        <mdAction
-          name="newAggregatedCasesQuery"
-          label="New Query"
-          isPost="false">
-        </mdAction>
-        <mdAction
-          name="saveEntomologyQuery"
-          label="Save Query"
-          isPost="true">
-          <mdParameter
-            name="savedQueryView"
-            label="Saved Query View"
-            order="0"
-            type="dss.vector.solutions.query.SavedSearchView" />
-        </mdAction>
-        <mdAction
-          name="saveAggregatedCasesQuery"
-          label="Save Query"
-          isPost="true">
-          <mdParameter
-            name="savedQueryView"
-            label="Saved Query View"
-            order="0"
-            type="dss.vector.solutions.query.SavedSearchView" />
-        </mdAction>
-        <mdAction
-          name="cancelQuery"
-          label="Cancel Query"
-          isPost="true">
-          <mdParameter
-            name="savedQueryView"
-            label="Saved Query View"
-            order="0"
-            type="dss.vector.solutions.query.SavedSearchView" />
-        </mdAction>
-        <mdAction
-          name="deleteQuery"
-          label="Delete Query"
-          isPost="true">
-          <mdParameter
-            name="savedQueryView"
-            label="Saved Query View"
-            order="0"
-            type="dss.vector.solutions.query.SavedSearchView" />
-        </mdAction>
+          <mdAction
+            name="exportQueryToCSV"
+            label="Export Query To CSV"
+            isPost="true">
+            <mdParameter
+              name="queryXML"
+              label="Query XML"
+              description="Query XML"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="geoEntityType"
+              label="GeoEntity type"
+              description="The type on which to gather spatial data"
+              order="1"
+              type="java.lang.String" />
+            <mdParameter
+              name="savedSearchId"
+              label="Saved Search Id"
+              order="2"
+              type="java.lang.String" />
+          </mdAction>
+          <mdAction
+            name="exportAggregatedCaseQueryToExcel"
+            label="Export Aggregated Query To Excel"
+            isPost="true">
+            <mdParameter
+              name="queryXML"
+              label="Query XML"
+              description="Query XML"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="geoEntityType"
+              label="GeoEntity type"
+              description="The type on which to gather spatial data"
+              order="1"
+              type="java.lang.String" />
+            <mdParameter
+              name="savedSearchId"
+              label="Saved Search Id"
+              order="2"
+              type="java.lang.String" />
+          </mdAction>
+          <mdAction
+            name="queryAggregatedCases"
+            label="Query Aggregated Cases"
+            isPost="false">
+          </mdAction>
+          <mdAction
+            name="newEntomologyQuery"
+            label="New Query"
+            isPost="false">
+          </mdAction>
+          <mdAction
+            name="newAggregatedCasesQuery"
+            label="New Query"
+            isPost="false">
+          </mdAction>
+          <mdAction
+            name="saveEntomologyQuery"
+            label="Save Query"
+            isPost="true">
+            <mdParameter
+              name="savedQueryView"
+              label="Saved Query View"
+              order="0"
+              type="dss.vector.solutions.query.SavedSearchView" />
+          </mdAction>
+          <mdAction
+            name="saveAggregatedCasesQuery"
+            label="Save Query"
+            isPost="true">
+            <mdParameter
+              name="savedQueryView"
+              label="Saved Query View"
+              order="0"
+              type="dss.vector.solutions.query.SavedSearchView" />
+          </mdAction>
+          <mdAction
+            name="cancelQuery"
+            label="Cancel Query"
+            isPost="true">
+            <mdParameter
+              name="savedQueryView"
+              label="Saved Query View"
+              order="0"
+              type="dss.vector.solutions.query.SavedSearchView" />
+          </mdAction>
+          <mdAction
+            name="deleteQuery"
+            label="Delete Query"
+            isPost="true">
+            <mdParameter
+              name="savedQueryView"
+              label="Saved Query View"
+              order="0"
+              type="dss.vector.solutions.query.SavedSearchView" />
+          </mdAction>
         </create>
       </mdController>
 

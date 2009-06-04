@@ -4700,17 +4700,28 @@
         label="Report Controller"
         description="Dynamic report controller">
         <mdAction
-          name="report"
-          isPost="false"
+          name="generateReport"
+          isPost="true"
           isQuery="false"
           label="Runs a report"
           description="Runs a report from the server">
-          <mdParameter
-            name="reportName"
-            order="0"
-            type="java.lang.String"
-            description="The name of the report"
-            label="Report Name" />
+            <mdParameter
+              name="queryXML"
+              label="Query XML"
+              description="Query XML"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
+              name="geoEntityType"
+              label="GeoEntity type"
+              description="The type on which to gather spatial data"
+              order="1"
+              type="java.lang.String" />
+            <mdParameter
+              name="savedSearchId"
+              label="Saved Search Id"
+              order="2"
+              type="java.lang.String" />
         </mdAction>
       </mdController>
     </create>
