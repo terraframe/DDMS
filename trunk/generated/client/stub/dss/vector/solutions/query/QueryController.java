@@ -13,12 +13,13 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.lang.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.terraframe.mojo.ApplicationException;
+import com.terraframe.mojo.business.BusinessDTO;
 import com.terraframe.mojo.business.ComponentDTOFacade;
+import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.transport.attributes.AttributeDTO;
 import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
 import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
@@ -95,10 +96,11 @@ public class QueryController extends QueryControllerBase implements
         }
       }
 
+      ClientRequestIF request = this.getClientRequest();
       if(savedSearchIdValue == null || savedSearchIdValue.trim().length() == 0)
       {
         SavedSearchRequiredExceptionDTO ex = new SavedSearchRequiredExceptionDTO(
-            this.getClientRequest(), req.getLocale());
+            request, req.getLocale());
         message = ex.getLocalizedMessage();
         return;
       }
@@ -109,13 +111,33 @@ public class QueryController extends QueryControllerBase implements
         return;
       }
 
+      // All checks passed. Save the file to the SavedSearch     
+      
+      // Ensure that a saved search actually exists
+      SavedSearchDTO search = SavedSearchDTO.lock(request, savedSearchIdValue);
+      
+      String templateId = search.getTemplateFile();
+      
+      if(templateId != null && !templateId.equals(""))
+      {
+        // This search already has a file associated with it.
+        // The existing file needs to be deleted        
+        request.delete(templateId);
+      }
+      
+      // Upload the template file to the vault
+      BusinessDTO templateDTO = request.newSecureFile("template", "rptdesign", file.getInputStream());      
+      
+      // Associate the template file with the saved search
+      search.setTemplateFile(templateDTO.getId());
+      search.apply();
 
-      // All checks passed. Save the file to the SavedSearch
       message = localized.getString("File_Upload_Success");
     }
     catch (Throwable e)
     {
-      message = localized.getString("File_Upload_Failure");
+      e.printStackTrace(this.getResponse().getWriter());
+//      message = localized.getString("File_Upload_Failure");
     }
     finally
     {
@@ -339,7 +361,7 @@ public class QueryController extends QueryControllerBase implements
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
-      ExcelExportServlet.writeExcelFile(resp, search.getQueryName(), stream);
+      ExcelExportServlet.writeExcelFile(resp, search.getQueryName() + ".csv", stream);
     }
     catch (Throwable t)
     {

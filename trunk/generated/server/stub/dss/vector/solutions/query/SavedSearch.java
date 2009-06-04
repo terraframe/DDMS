@@ -1,10 +1,22 @@
 package dss.vector.solutions.query;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.terraframe.mojo.business.rbac.UserDAOIF;
+import com.terraframe.mojo.constants.LocalProperties;
+import com.terraframe.mojo.dataaccess.database.IDGenerator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.Session;
+import com.terraframe.mojo.util.FileIO;
+import com.terraframe.mojo.vault.VaultFileDAO;
+import com.terraframe.mojo.vault.VaultFileDAOIF;
 
 import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.surveillance.AggregatedCase;
 
 public abstract class SavedSearch extends SavedSearchBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -109,6 +121,61 @@ public abstract class SavedSearch extends SavedSearchBase implements
     }
 
     return view;
+  }
+  
+  public InputStream getTemplateStream()
+  {
+    String template = this.getTemplateFile();
+    
+    if(template == null || template.equals(""))
+    {
+      String msg = "A report template has not been defined for this query";
+      throw new RuntimeException(msg);
+    }
+    
+    VaultFileDAOIF file = VaultFileDAO.get(template);
+    
+    return file.getFile();
+  }
+  
+  @Override
+  public String generateCSV(String queryXML, String geoEntityType, String savedSearchId)
+  {
+    try
+    {
+      String path = LocalProperties.getJspDir() + "/tmp/" + IDGenerator.nextID() + "/";
+      
+      // Make the file structure
+      new File(path).mkdirs();
+      
+      File file = new File(path + "temp.csv"); 
+      file.deleteOnExit();
+      
+      BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
+      
+      InputStream in = AggregatedCase.exportQueryToCSV(queryXML, geoEntityType, savedSearchId);
+      
+      FileIO.write(out, in);
+      
+      return path;
+    }
+    catch(Exception e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  @Override
+  public void deleteCSV(String file)
+  {
+    try
+    {
+      FileIO.deleteDirectory(new File(file));
+    }
+    catch (IOException e)
+    {
+      throw new RuntimeException(e);
+    }
   }
 
 }

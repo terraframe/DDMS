@@ -684,11 +684,4 @@ public class AggregatedCase extends AggregatedCaseBase implements
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();
   }
-
-  @Transaction
-  public static Byte[] generateReport(String file)
-  {
-//    return new ReportGenerator(new File(file)).generateReport();
-    return null;
-  }
 }
