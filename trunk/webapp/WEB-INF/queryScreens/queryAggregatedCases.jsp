@@ -76,7 +76,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 
 <div style="display: none" id="XLSFormContainer"></div>
 <div style="display: none" id="CSVFormContainer"></div>
+<div style="display: none" id="ReportFormContainer"></div>
 
 </div>
-<div id="cal1Container" class="yui-skin-sam"></div>
 <jsp:include page="../templates/footer.jsp"></jsp:include>
