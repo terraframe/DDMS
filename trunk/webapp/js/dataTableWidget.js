@@ -72,7 +72,7 @@ MojoGrid.createDataTable = function(table_data) {
 					});
 				}
 				if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
-					var date = MojoCal.parseDate(record.getData(feild.key));
+					var date = MDSS.Calendar.parseDate(record.getData(feild.key));
 					myDataTable.updateCell(record, feild.key, date);
 				}
 			});
@@ -337,7 +337,7 @@ MojoGrid.createDataTable = function(table_data) {
 					if (setter_exists) {
 						if (val != null) {
 							if (view.attributeMap[attribName].dtoType == "AttributeDateDTO") {
-								view['set' + attrib.key](MojoCal.parseDate(val));
+								view['set' + attrib.key](MDSS.Calendar.parseDate(val));
 							} else {
 								view['set' + attrib.key](val);
 							}

@@ -16350,7 +16350,7 @@ resetForm : function() {
 //CHANGED BY DARRELL TAYLOR
 //@HACK
 resetForm : function() {
-    var value = MojoCal.parseDate(this.value);
+    var value = MDSS.Calendar.parseDate(this.value);
     var selectedValue = (value.getMonth()+1)+"/"+value.getDate()+"/"+value.getFullYear();
     this.calendar.cfg.setProperty("selected",selectedValue,false);
 	this.calendar.render();

@@ -1,14 +1,14 @@
 /**
  * Copyright (c)2005-2009 Matt Kruse (javascripttoolbox.com)
- * 
- * Dual licensed under the MIT and GPL licenses. 
+ *
+ * Dual licensed under the MIT and GPL licenses.
  * This basically means you can use this code however you want for
  * free, but don't claim to have written it yourself!
  * Donations always accepted: http://www.JavascriptToolbox.com/donate/
- * 
+ *
  * Please do not link to the .js files on javascripttoolbox.com from
  * your site. Copy the files locally to your server instead.
- * 
+ *
  */
 /* $VERSION: 1.2 */
 var Selectbox = {};
@@ -54,12 +54,12 @@ Selectbox.sort = function(obj) {
 		o[o.length] = new Option( obj.options[i].text, obj.options[i].value, obj.options[i].defaultSelected, obj.options[i].selected) ;
 	}
 	if (o.length==0) { return true; }
-	o = o.sort( 
-		function(a,b) { 
+	o = o.sort(
+		function(a,b) {
 			if ((a.text+"") < (b.text+"")) { return -1; }
 			if ((a.text+"") > (b.text+"")) { return 1; }
 			return 0;
-		} 
+		}
 	);
 
 	for (var i=0; i<o.length; i++) {
@@ -198,28 +198,28 @@ Selectbox.moveOptionDown = function(obj) {
 	return true;
 };
 
-Selectbox.removeSelectedOptions = function(from) { 
+Selectbox.removeSelectedOptions = function(from) {
 	if (!this.hasOptions(from)) { return false; }
 	if (from.type=="select-one" && from.selectedIndex>=0) {
 		from.options[from.selectedIndex] = null;
 	}
 	else {
-		for (var i=(from.options.length-1); i>=0; i--) { 
-			var o=from.options[i]; 
-			if (o.selected) { 
-				from.options[i] = null; 
-			} 
+		for (var i=(from.options.length-1); i>=0; i--) {
+			var o=from.options[i];
+			if (o.selected) {
+				from.options[i] = null;
+			}
 		}
 	}
-	from.selectedIndex = -1; 
+	from.selectedIndex = -1;
 };
 
-Selectbox.removeAllOptions = function(from) { 
+Selectbox.removeAllOptions = function(from) {
 	if (!this.hasOptions(from)) { return false; }
-	for (var i=(from.options.length-1); i>=0; i--) { 
-		from.options[i] = null; 
-	} 
-	from.selectedIndex = -1; 
+	for (var i=(from.options.length-1); i>=0; i--) {
+		from.options[i] = null;
+	}
+	from.selectedIndex = -1;
 	return true;
 };
 
@@ -230,6 +230,7 @@ Selectbox.addOption = function(obj,text,value,selected) {
 };
 
 // Create a jQuery Plugin wrapper around the functions
+/*
 if (typeof jQuery!="undefined") {
 	var fn;
 	jQuery.fn.Selectbox = function(fn) {
@@ -239,8 +240,8 @@ if (typeof jQuery!="undefined") {
 				function() { Selectbox[fn].apply(Selectbox,([this]).concat(args)); }
 			);
 		};
-	};	
+	};
 	for (fn in Selectbox) {
 		jQuery.fn[(fn=="sort")?"sortOptions":fn] = jQuery.fn.Selectbox(fn);
 	}
-};
+};*/

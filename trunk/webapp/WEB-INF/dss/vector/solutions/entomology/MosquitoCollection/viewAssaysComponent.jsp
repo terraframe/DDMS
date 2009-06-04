@@ -130,7 +130,7 @@ function showCol(key,checked)
 <%String[] types_to_load = {"dss.vector.solutions.entomology.MosquitoView","dss.vector.solutions.entomology.UninterestingSpecieGroupView"};
 	//out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), types_to_load,true));%>
 <%=Halp.getDropdownSetup(mdView, attribs, delete_row,clientRequest)%>
-MojoCal.init()
+MDSS.Calendar.init()
 table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
             columnDefs:<%=Halp.getColumnSetup(mdView, attribs, delete_row, true,2)%>,
           defaults: {Collection:'${item.id}'},

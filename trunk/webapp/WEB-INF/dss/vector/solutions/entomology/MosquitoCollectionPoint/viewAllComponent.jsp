@@ -90,10 +90,13 @@ List no_edit_list = Arrays.asList(no_edit_arr);
        div_id: "MorphologicalSpecieGroups",
        copy_from_above: ["DateCollected","IdentificationMethod"],
        data_type: "Mojo.$.<%=MosquitoCollectionPointViewDTO.CLASS%>",
-       after_row_load:function(record)
-       {
+       after_save:function(){window.location.reload( false );},
+       after_row_load:function(record){
          var request = new MDSS.Request({
            record:record,
+           onSend:function(){},
+           onComplete:function(){},
+           onFailure:function(){},
            onSuccess : function(result){
              var str = '<a href="dss.vector.solutions.entomology.MosquitoCollectionController.viewAssays.mojo?id='+record.getData('Collection')+'">'+result.getCollectionId()+'</a> ('+record.getData('Total')+')';
              table_data.myDataTable.updateCell(record, 'Collection', str);

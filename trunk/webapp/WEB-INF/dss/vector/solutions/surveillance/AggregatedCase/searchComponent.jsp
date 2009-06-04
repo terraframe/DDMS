@@ -93,18 +93,18 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     		  {
         		if(p.getType() == "dss.vector.solutions.FuturePeriodProblem")
             	{
-                	MojoCal.addError(year,p.getLocalizedMessage());
+                	MDSS.Calendar.addError(year,p.getLocalizedMessage());
         		}
         		else
         		{
-                	MojoCal.addError(period,p.getLocalizedMessage());
+                	MDSS.Calendar.addError(period,p.getLocalizedMessage());
         		}
     		  }
     		}
   		});
 
-  	  MojoCal.removeError(year);
-	  MojoCal.removeError(period);
+  	  MDSS.Calendar.removeError(year);
+	  MDSS.Calendar.removeError(period);
 
       Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView.validateEpiDate(request, periodType, parseInt(period.value), parseInt(year.value));
     }

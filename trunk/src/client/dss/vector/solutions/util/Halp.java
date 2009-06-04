@@ -340,7 +340,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           if (md instanceof AttributeDateMdDTO)
           {
             buff.add("formatter:YAHOO.widget.DataTable.formatDate");
-            editor = "new YAHOO.widget.DateCellEditor({calendar:MojoCal.init(),disableBtns:true})";
+            editor = "new YAHOO.widget.DateCellEditor({calendar:MDSS.Calendar.init(),disableBtns:true})";
           }
           if (md instanceof AttributeEnumerationMdDTO)
           {
