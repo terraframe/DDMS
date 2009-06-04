@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.report.UndefinedTemplateException">
+  <!--
+    - {id} id
+    -->
+  <locale language="en">A report template has not been defined for this saved search</locale>
+</exception>
