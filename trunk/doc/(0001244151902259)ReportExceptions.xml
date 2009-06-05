@@ -35,7 +35,10 @@
         name="dss.vector.solutions.report.TemplateException"
         label="Template Exception"
         description="Template does not produce a valid report"/>
-
+      <mdException
+        name="dss.vector.solutions.entomology.ControlMortalityException"
+        label="Control Mortality Exception"
+        description="The mortality rate of the control collection exceeds 20%, thus the test is invalid"/>
     </create>
     <update></update>
   </doIt>
