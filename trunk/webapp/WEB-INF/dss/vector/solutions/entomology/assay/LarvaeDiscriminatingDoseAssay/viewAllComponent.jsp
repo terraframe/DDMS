@@ -12,60 +12,39 @@
   <mjl:columns>
 
   <mjl:attributeColumn attributeName="collection">
-      <mjl:header>
-        Mosquito Collection
-      </mjl:header>
        <mjl:row>
         ${item.collection.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
 
-      <mjl:attributeColumn attributeName="testDate">
-      <mjl:header>
-        Test Date
-      </mjl:header>
+    <mjl:attributeColumn attributeName="testDate">
       <mjl:row>
         <fmt:formatDate value="${item.testDate}" dateStyle="SHORT" />
       </mjl:row>
     </mjl:attributeColumn>
 
-     <mjl:attributeColumn attributeName="testMethod">
-      <mjl:header>
-        Test Method
-      </mjl:header>
+    <mjl:attributeColumn attributeName="testMethod">
       <mjl:row>
         ${item.testMethod.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
 
     <mjl:attributeColumn attributeName="insecticide">
-      <mjl:header>
-        Insecticide
-      </mjl:header>
       <mjl:row>
         ${item.insecticide.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
 
     <mjl:attributeColumn attributeName="exposureTime">
-      <mjl:header>
-        Exposure Time
-      </mjl:header>
     </mjl:attributeColumn>
 
      <mjl:attributeColumn attributeName="specie">
-      <mjl:header>
-        Specie
-      </mjl:header>
       <mjl:row >
         ${item.specie.termName}
       </mjl:row>
     </mjl:attributeColumn>
 
      <mjl:attributeColumn attributeName="identificationMethod">
-      <mjl:header>
-        Identification Method
-      </mjl:header>
       <mjl:row >
         ${item.identificationMethod.termName}
       </mjl:row>
@@ -73,9 +52,6 @@
 
 
     <mjl:attributeColumn attributeName="quantityTested">
-      <mjl:header>
-        Quantity Tested
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
