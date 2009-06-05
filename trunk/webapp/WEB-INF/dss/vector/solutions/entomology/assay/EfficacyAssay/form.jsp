@@ -28,12 +28,12 @@
         <mjl:input type="text" param="colonyName" />
       </mjl:dt>
       <mjl:dt attribute="ageRange">
-      <dl>
-        <mjl:struct param="ageRange">
-          <mjl:dt attribute="startPoint" type="text"  />
-          <mjl:dt attribute="endPoint" type="text"  />
-        </mjl:struct>
-      </dl>
+        <dl>
+          <mjl:struct param="ageRange">
+            <mjl:dt attribute="startPoint" type="text"  />
+            <mjl:dt attribute="endPoint" type="text"  />
+          </mjl:struct>
+        </dl>
       </mjl:dt>
       <mjl:dt attribute="sex">
         <mjl:select var="current" valueAttribute="enumName" items="${sex}" param="sex">
