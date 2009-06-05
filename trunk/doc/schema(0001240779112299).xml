@@ -105,43 +105,6 @@
             description="Template Report File" />
         </attributes>
         <mdMethod
-          name="generateCSV"
-          returnType="java.lang.String"
-          static="false"
-          label="Generate CSV"
-          description="Generates a temporary CSV file and returns the fully qualified path to the CSV">
-          <mdParameter
-            name="queryXML"
-            label="Query XML"
-            description="Query XML"
-            order="0"
-            type="java.lang.String" />
-          <mdParameter
-            name="geoEntityType"
-            label="GeoEntity type"
-            description="The type on which to gather spatial data"
-            order="1"
-            type="java.lang.String" />
-          <mdParameter
-            name="savedSearchId"
-            label="Saved Search Id"
-            order="2"
-            type="java.lang.String" />
-        </mdMethod>
-        <mdMethod
-          name="deleteCSV"
-          label="Delete CSV"
-          returnType="void"
-          static="false"
-          description="Deletes the temporary CSV file">
-          <mdParameter
-            name="file"
-            label="File"
-            order="0"
-            type="java.lang.String"
-            description="The absolute file path of the directory to delete" />
-        </mdMethod>
-        <mdMethod
           name="getTemplateStream"
           static="false"
           returnType="java.io.InputStream"
