@@ -1,10 +1,13 @@
 package dss.vector.solutions.irs;
 
+import java.util.Date;
+
 import junit.extensions.TestSetup;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
+import dss.vector.solutions.general.MalariaSeason;
 
 public class ResourceTargetTest extends TestCase
 {
@@ -19,9 +22,12 @@ public class ResourceTargetTest extends TestCase
 	  {
 	    super.run(testResult);
 	  }
+	  
+	  public static MalariaSeason season;
+
 
   public static SprayTeam targeter;
-/*
+
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -47,6 +53,7 @@ public class ResourceTargetTest extends TestCase
   protected static void classTearDown()
   {
     targeter.delete();
+    season.delete();
   }
 
   protected static void classSetUp()
@@ -54,15 +61,21 @@ public class ResourceTargetTest extends TestCase
     targeter = new SprayTeam();
     targeter.setTeamId("000");
     targeter.apply();
+    
+    season = new MalariaSeason();
+    season.setSeasonName("Test Season");
+    season.setStartDate(new Date());
+    season.setEndDate(new Date());
+    season.apply();
   }
 
   public void testCreate() throws Exception
   {
-    Integer year = 2009;
+    
 
     ResourceTarget target = new ResourceTarget();
     target.setTargeter(targeter);
-    target.setTargetYear(year);
+    target.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -76,7 +89,7 @@ public class ResourceTargetTest extends TestCase
       ResourceTarget test = ResourceTarget.get(target.getId());
 
       assertEquals(test.getTargeter().getId(), target.getTargeter().getId());
-      assertEquals(test.getTargetYear(), target.getTargetYear());
+      assertEquals(test.getSeason().getId(), target.getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -91,11 +104,11 @@ public class ResourceTargetTest extends TestCase
 
   public void testUpdate() throws Exception
   {
-    Integer year = 2009;
+    
 
     ResourceTarget target = new ResourceTarget();
     target.setTargeter(targeter);
-    target.setTargetYear(year);
+    target.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -118,7 +131,7 @@ public class ResourceTargetTest extends TestCase
       ResourceTarget test = ResourceTarget.get(edit.getId());
 
       assertEquals(test.getTargeter().getId(), edit.getTargeter().getId());
-      assertEquals(test.getTargetYear(), edit.getTargetYear());
+      assertEquals(test.getSeason().getId(), edit.getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -133,11 +146,11 @@ public class ResourceTargetTest extends TestCase
 
   public void testDelete() throws Exception
   {
-    Integer year = 2009;
+    
 
     ResourceTarget target = new ResourceTarget();
     target.setTargeter(targeter);
-    target.setTargetYear(year);
+    target.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -161,11 +174,11 @@ public class ResourceTargetTest extends TestCase
 
   public void testCreateView() throws Exception
   {
-    Integer year = 2009;
+    
 
     ResourceTargetView view = new ResourceTargetView();
     view.setTargeter(targeter);
-    view.setTargetYear(year);
+    view.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -180,7 +193,7 @@ public class ResourceTargetTest extends TestCase
 
       assertEquals(test.getTargetId(), view.getTargetId());
       assertEquals(test.getTargeter().getId(), view.getTargeter().getId());
-      assertEquals(test.getTargetYear(), view.getTargetYear());
+      assertEquals(test.getSeason().getId(), view.getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -195,11 +208,11 @@ public class ResourceTargetTest extends TestCase
 
   public void testUpdateView() throws Exception
   {
-    Integer year = 2009;
+    
 
     ResourceTargetView view = new ResourceTargetView();
     view.setTargeter(targeter);
-    view.setTargetYear(year);
+    view.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -223,7 +236,7 @@ public class ResourceTargetTest extends TestCase
 
       assertEquals(test.getTargetId(), view.getTargetId());
       assertEquals(test.getTargeter().getId(), view.getTargeter().getId());
-      assertEquals(test.getTargetYear(), view.getTargetYear());
+      assertEquals(test.getSeason().getId(), view.getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -239,11 +252,11 @@ public class ResourceTargetTest extends TestCase
 
   public void testSearch() throws Exception
   {
-    Integer year = 2009;
+    
 
     ResourceTargetView view = new ResourceTargetView();
     view.setTargeter(targeter);
-    view.setTargetYear(year);
+    view.setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -254,11 +267,11 @@ public class ResourceTargetTest extends TestCase
 
     try
     {
-      ResourceTargetView test = ResourceTarget.searchByTargeterAndYear(targeter, year);
+      ResourceTargetView test = ResourceTarget.searchByTargeterAndSeason(targeter, season);
 
       assertEquals(test.getTargetId(), view.getTargetId());
       assertEquals(test.getTargeter().getId(), view.getTargeter().getId());
-      assertEquals(test.getTargetYear(), view.getTargetYear());
+      assertEquals(test.getSeason().getId(), view.getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -273,9 +286,9 @@ public class ResourceTargetTest extends TestCase
 
   public void testEmptySearch() throws Exception
   {
-    Integer year = 2009;
+    
 
-    ResourceTargetView test = ResourceTarget.searchByTargeterAndYear(targeter, year);
+    ResourceTargetView test = ResourceTarget.searchByTargeterAndSeason(targeter, season);
 
     assertEquals(test.getTargetId(), "");
     assertEquals(test.getTargeter().getId(), targeter.getId());
@@ -283,18 +296,18 @@ public class ResourceTargetTest extends TestCase
 
   public void testApplyAll() throws Exception
   {
-    Integer year = 2009;
+    
 
     ResourceTargetView[] views = new ResourceTargetView[2];
     ResourceTargetView[] tests = new ResourceTargetView[2];
 
     views[0] = new ResourceTargetView();
     views[0].setTargeter(targeter);
-    views[0].setTargetYear(year);
+    views[0].setSeason(season);
 
     views[1] = new ResourceTargetView();
     views[1].setTargeter(targeter);
-    views[1].setTargetYear(year);
+    views[1].setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -311,11 +324,11 @@ public class ResourceTargetTest extends TestCase
 
       assertEquals(tests[0].getTargetId(), views[0].getTargetId());
       assertEquals(tests[0].getTargeter().getId(), views[0].getTargeter().getId());
-      assertEquals(tests[0].getTargetYear(), views[0].getTargetYear());
+      assertEquals(tests[0].getSeason().getId(), views[0].getSeason().getId());
 
       assertEquals(tests[1].getTargetId(), views[1].getTargetId());
       assertEquals(tests[1].getTargeter().getId(), views[1].getTargeter().getId());
-      assertEquals(tests[1].getTargetYear(), views[1].getTargetYear());
+      assertEquals(tests[1].getSeason().getId(), views[1].getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -332,7 +345,7 @@ public class ResourceTargetTest extends TestCase
 
   public void testEditAll() throws Exception
   {
-    Integer year = 2009;
+    
 
     ResourceTargetView[] views = new ResourceTargetView[2];
     ResourceTargetView[] edits = new ResourceTargetView[2];
@@ -340,11 +353,11 @@ public class ResourceTargetTest extends TestCase
 
     views[0] = new ResourceTargetView();
     views[0].setTargeter(targeter);
-    views[0].setTargetYear(year);
+    views[0].setSeason(season);
 
     views[1] = new ResourceTargetView();
     views[1].setTargeter(targeter);
-    views[1].setTargetYear(year);
+    views[1].setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -371,11 +384,11 @@ public class ResourceTargetTest extends TestCase
 
       assertEquals(tests[0].getTargetId(), edits[0].getTargetId());
       assertEquals(tests[0].getTargeter().getId(), edits[0].getTargeter().getId());
-      assertEquals(tests[0].getTargetYear(), edits[0].getTargetYear());
+      assertEquals(tests[0].getSeason().getId(), edits[0].getSeason().getId());
 
       assertEquals(tests[1].getTargetId(), edits[1].getTargetId());
       assertEquals(tests[1].getTargeter().getId(), edits[1].getTargeter().getId());
-      assertEquals(tests[1].getTargetYear(), edits[1].getTargetYear());
+      assertEquals(tests[1].getSeason().getId(), edits[1].getSeason().getId());
 
       for (int i = 0; i < 53; i++)
       {
@@ -392,17 +405,15 @@ public class ResourceTargetTest extends TestCase
 
   public void testSum() throws Exception
   {
-    Integer year = 2009;
-
     ResourceTargetView[] views = new ResourceTargetView[2];
 
     views[0] = new ResourceTargetView();
     views[0].setTargeter(targeter);
-    views[0].setTargetYear(year);
+    views[0].setSeason(season);
 
     views[1] = new ResourceTargetView();
     views[1].setTargeter(targeter);
-    views[1].setTargetYear(year);
+    views[1].setSeason(season);
 
     for (int i = 0; i < 53; i++)
     {
@@ -428,5 +439,4 @@ public class ResourceTargetTest extends TestCase
       views[1].deleteConcrete();
     }
   }
-*/
 }
