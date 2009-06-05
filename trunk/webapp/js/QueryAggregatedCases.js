@@ -32,11 +32,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._gridAggregateSelectables = {};
     this._gridGroupBySelectables = {};
 
-    this._thematicSearchList = [];  //list of map to search for thematic variable.
-    this._thematicSearchList.push(this._gridEntities);
-    this._thematicSearchList.push(this._gridSelectables);
-    this._thematicSearchList.push(this._gridAggregateSelectables);
-    this._thematicSearchList.push(this._gridGroupBySelectables);
+    this._countSelectable = null;
 
     // END: query objects
 
@@ -227,6 +223,11 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     var groupBy = queryXML.getGroupBy();
 
+    // count
+    if(this._countSelectable != null)
+    {
+      queryXML.addSelectable(aggregatedCaseQuery.getAlias()+'_globalCount', this._countSelectable);
+    }
 
     // Age Group
     var ageGroupIds = Mojo.util.getKeys(this._ageGroupCriteria);
@@ -658,10 +659,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     {
       aggFunc = new MDSS.QueryXML.AVG(selectable, key);
     }
-    else if(func === MDSS.QueryXML.Functions.COUNT)
-    {
-      aggFunc = new MDSS.QueryXML.COUNT(selectable, key);
-    }
 
   	this._removeGridAttribute(attribute, false, true, false);
 
@@ -718,15 +715,34 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     {
       aggFunc = new MDSS.QueryXML.AVG(selectable, key);
     }
-    else if(func === MDSS.QueryXML.Functions.COUNT)
-    {
-      aggFunc = new MDSS.QueryXML.COUNT(selectable, key);
-    }
 
   	this._removeVisibleAttribute(attribute, false, true, false);
 
     var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
     this._visibleAggregateSelectables[attribute.getKey()] = aggSelectable;
+  },
+
+  _toggleCount : function(e, attribute)
+  {
+    var check = e.target;
+
+    if(check.checked)
+    {
+      var selectable = attribute.getSelectable();
+
+      var count = new MDSS.QueryXML.COUNT(selectable, attribute.getKey());
+      var aggSelectable = new MDSS.QueryXML.Selectable(count);
+      this._countSelectable = aggSelectable;
+
+      this._queryPanel.insertColumn(attribute.getColumnObject());
+    }
+    else
+    {
+      var column = this._queryPanel.getColumn(attribute.getKey());
+      this._queryPanel.removeColumn(column);
+
+      this._countSelectable = null;
+    }
   },
 
   /**
@@ -743,6 +759,31 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       html: MDSS.Localized.Target_Search+' <img src="./imgs/icons/world.png"/>',
       onclick: {handler: boundSearch},
       id: "areaItem"
+    });
+
+    // global count
+    var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
+    var countAttribute = new MDSS.VisibleAttribute({
+      type: aggregatedCase.CLASS,
+      displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
+      attributeName: aggregatedCase.STARTAGE
+    });
+
+    var countCheck = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
+    YAHOO.util.Event.on(countCheck, 'click', this._toggleCount, countAttribute, this);
+
+    var countSpan = document.createElement('span');
+    countSpan.innerHTML = countAttribute.getDisplayLabel();
+
+    var countDiv = document.createElement('div');
+
+    countDiv.appendChild(countCheck);
+    countDiv.appendChild(countSpan);
+
+    this._queryPanel.addQueryItem({
+      html: countDiv,
+      id: 'globalCount'
     });
 
     /*

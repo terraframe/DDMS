@@ -42,7 +42,7 @@ import dss.vector.solutions.surveillance.ReferralGridDTO;
 import dss.vector.solutions.surveillance.TreatmentGridDTO;
 import dss.vector.solutions.surveillance.TreatmentMethodGridDTO;
 import dss.vector.solutions.util.ErrorUtility;
-import dss.vector.solutions.util.ExcelExportServlet;
+import dss.vector.solutions.util.FileDownloadUtil;
 
 public class QueryController extends QueryControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -111,23 +111,23 @@ public class QueryController extends QueryControllerBase implements
         return;
       }
 
-      // All checks passed. Save the file to the SavedSearch     
-      
+      // All checks passed. Save the file to the SavedSearch
+
       // Ensure that a saved search actually exists
       SavedSearchDTO search = SavedSearchDTO.lock(request, savedSearchIdValue);
-      
+
       String templateId = search.getTemplateFile();
-      
+
       if(templateId != null && !templateId.equals(""))
       {
         // This search already has a file associated with it.
-        // The existing file needs to be deleted        
+        // The existing file needs to be deleted
         request.delete(templateId);
       }
-      
+
       // Upload the template file to the vault
-      BusinessDTO templateDTO = request.newSecureFile("template", "rptdesign", file.getInputStream());      
-      
+      BusinessDTO templateDTO = request.newSecureFile("template", "rptdesign", file.getInputStream());
+
       // Associate the template file with the saved search
       search.setTemplateFile(templateDTO.getId());
       search.apply();
@@ -361,7 +361,7 @@ public class QueryController extends QueryControllerBase implements
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
-      ExcelExportServlet.writeExcelFile(resp, search.getQueryName() + ".csv", stream);
+      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
     }
     catch (Throwable t)
     {
@@ -381,7 +381,7 @@ public class QueryController extends QueryControllerBase implements
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
-      ExcelExportServlet.writeExcelFile(resp, search.getQueryName(), stream);
+      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
     }
     catch (Throwable t)
     {

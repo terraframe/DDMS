@@ -127,6 +127,13 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     var type = option.value;
 
     this._restrictingType = type;
+
+    // check the universal associated with the restricted type
+  	var construct = Mojo.util.getType(type);
+  	var geoEntity = new construct();
+    var geoEntityView = this._copyEntityToView(geoEntity);
+
+    this._notifySelectHandler(geoEntityView, false);
   },
 
   /**

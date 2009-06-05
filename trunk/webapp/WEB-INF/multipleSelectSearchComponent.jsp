@@ -44,6 +44,7 @@
 <div id="searchSelection">
     Query Type:<br />
     <select id="restrictingType" name="restrictingType">
+    <option value=""><f:message key="Select_One" /></option>
     <c:forEach items="${views}" var="view" varStatus="status">
       <option value="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}">${view.displayLabel}</option>
     </c:forEach>

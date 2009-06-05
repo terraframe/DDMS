@@ -677,41 +677,31 @@ MDSS.AbstractSelectSearch.prototype = {
     var select = currentOption.parentNode;
     var parentEntityView = this._geoEntityViewCache[currentOption.id];
 
-    // clear all unchecked options
-    if(!currentOption.selected)
-    {
-      // do nothign. Options already cleared before reaching
-      // this point.
-      this._notifySelectHandler(null, false);
-      return;
-    }
-    else
-    {
-      // get the children
-      var request = new MDSS.Request({
-      searchRef: this,
-      currentType: parentEntityView.getEntityType(),
-      parentEntityView: parentEntityView,
-      onSuccess : function(query){
 
-        // clear nodes below this type to make way for new children
-        this.searchRef._clearSelectLists.call(this.searchRef, this.currentType);
+    // get the children
+    var request = new MDSS.Request({
+    searchRef: this,
+    currentType: parentEntityView.getEntityType(),
+    parentEntityView: parentEntityView,
+    onSuccess : function(query){
 
-        // these are GeoEntityView objects
-        var geoEntities = query.getResultSet();
+      // clear nodes below this type to make way for new children
+      this.searchRef._clearSelectLists.call(this.searchRef, this.currentType);
 
-        for(var i=0; i<geoEntities.length; i++)
-        {
-          var childView = geoEntities[i];
-          this.searchRef._setEntityOption(childView);
-        }
+      // these are GeoEntityView objects
+      var geoEntities = query.getResultSet();
 
-        this.searchRef._notifySelectHandler(this.parentEntityView, true);
+      for(var i=0; i<geoEntities.length; i++)
+      {
+        var childView = geoEntities[i];
+        this.searchRef._setEntityOption(childView);
       }
-      });
 
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getOrderedChildren(request, parentEntityView.getGeoEntityId(), this._filterType);
+      this.searchRef._notifySelectHandler(this.parentEntityView, true);
     }
+    });
+
+    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getOrderedChildren(request, parentEntityView.getGeoEntityId(), this._filterType);
   },
 
   /**

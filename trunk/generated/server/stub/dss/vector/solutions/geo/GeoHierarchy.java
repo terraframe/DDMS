@@ -2,6 +2,8 @@ package dss.vector.solutions.geo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -1116,46 +1118,48 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       }
     }
 
+    // Move along folks, there's nothing to see here (or join).
+    if(geoHierarchyMap.size() == 0)
+    {
+      return;
+    }
+
     // Get all children of Earth
     GeoHierarchy earthGeoHierarchy = getGeoHierarchyFromType(Earth.CLASS);
     List<GeoHierarchy> allEarthChildren = new LinkedList<GeoHierarchy>();
     getAllChildren(allEarthChildren, earthGeoHierarchy);
 
-    List<GeoHierarchy> pathFromParentToChild = new LinkedList<GeoHierarchy>();
-
-    // for (GeoHierarchy childOfEarthGeoHierarchy : allEarthChildren)
-    // {
-    // System.out.println(
-    // childOfEarthGeoHierarchy.getGeoEntityClass().definesType());
-    // }
-
-    GeoHierarchy parentMostGeoHierarchy = null;
-    HashMap<String, GeoHierarchy> cloneGeoHierarchyMap = (HashMap<String, GeoHierarchy>) geoHierarchyMap
-        .clone();
-    // locate the bottom of the hierarchy in this query
-    // locate the top of the hierarchy in this query
-    // compute the path between the top and the bottom in this hierarch
-    for (GeoHierarchy childOfEarthGeoHierarchy : allEarthChildren)
+    // Find the first and last GeoHierarchy
+    Collection<GeoHierarchy> requestedList = geoHierarchyMap.values();
+    List<Integer> indexes = new LinkedList<Integer>();
+    for(GeoHierarchy requested : requestedList)
     {
-      String childOfEarthType = childOfEarthGeoHierarchy.getGeoEntityClass().definesType();
+      // find the entry relative to the master list of GeoHierarchies
+      Integer index = allEarthChildren.indexOf(requested);
+      indexes.add(index);
+    }
 
-      if (parentMostGeoHierarchy == null && cloneGeoHierarchyMap.containsKey(childOfEarthType))
-      {
-        parentMostGeoHierarchy = cloneGeoHierarchyMap.get(childOfEarthType);
-      }
+    Collections.sort(indexes);
 
-      if (parentMostGeoHierarchy != null && cloneGeoHierarchyMap.containsKey(childOfEarthType))
-      {
-        pathFromParentToChild.add(childOfEarthGeoHierarchy);
-      }
+    GeoHierarchy first = allEarthChildren.get(indexes.get(0));
+    GeoHierarchy last = allEarthChildren.get(indexes.get(indexes.size()-1));
 
-      if (cloneGeoHierarchyMap.size() <= 0)
+    // Fill in the gaps from the first to last GeoHierarchy
+    List<GeoHierarchy> pathFromParentToChild = new LinkedList<GeoHierarchy>();
+    List<GeoHierarchy> absoluteParents = last.getAllParents();
+
+    for(GeoHierarchy parent : absoluteParents)
+    {
+      if(pathFromParentToChild.contains(first))
       {
         break;
       }
 
-      cloneGeoHierarchyMap.remove(childOfEarthType);
+      pathFromParentToChild.add(parent);
     }
+
+    pathFromParentToChild.add(0, last);
+    Collections.reverse(pathFromParentToChild);
 
     // create entity queries for types in the path from parent to child that are
     // not yet in the parser map
@@ -1215,6 +1219,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     }
 
   }
+
+//  public String toString()
+//  {
+//    return this.getGeoEntityClass().getDisplayLabel().getValue();
+//  }
 
   /**
    * Gets GeoHierarchy views that are immediate children of the given

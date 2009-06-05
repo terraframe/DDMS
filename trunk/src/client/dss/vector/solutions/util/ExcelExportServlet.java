@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +12,6 @@ import com.terraframe.mojo.constants.ClientConstants;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.system.metadata.MdClassQueryDTO;
-import com.terraframe.mojo.util.FileIO;
 
 public class ExcelExportServlet extends HttpServlet implements Reloadable
 {
@@ -29,10 +27,10 @@ public class ExcelExportServlet extends HttpServlet implements Reloadable
     String type = req.getParameter("type");
 
     String[] split = type.split("\\.");
-    String fileName = split[split.length-1] + ".xls";
+    String fileName = split[split.length-1];
     InputStream inputStream = clientRequest.exportExcelFile(type, "setupExcelListener", new String[]{});
 
-    writeExcelFile(res, fileName, inputStream);
+    FileDownloadUtil.writeXLS(res, fileName, inputStream);
   }
 
   @Override
@@ -45,10 +43,4 @@ public class ExcelExportServlet extends HttpServlet implements Reloadable
     req.getRequestDispatcher("/WEB-INF/excelExport.jsp").forward(req, resp);
   }
 
-  public static void writeExcelFile(HttpServletResponse resp, String filename, InputStream inputStream) throws IOException
-  {
-    resp.addHeader("Content-Disposition", "attachment;filename=\""+filename+"\"");
-    ServletOutputStream stream = resp.getOutputStream();
-    FileIO.write(stream, inputStream);
-  }
 }

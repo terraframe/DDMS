@@ -32,12 +32,6 @@ MDSS.QueryIndicatorSurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._gridAggregateSelectables = {};
 	    this._gridGroupBySelectables = {};
 
-	    this._thematicSearchList = [];  //list of map to search for thematic variable.
-	    this._thematicSearchList.push(this._gridEntities);
-	    this._thematicSearchList.push(this._gridSelectables);
-	    this._thematicSearchList.push(this._gridAggregateSelectables);
-	    this._thematicSearchList.push(this._gridGroupBySelectables);
-
 	    // END: query objects
 
 	    for(var i=0; i<queryList.length; i++)

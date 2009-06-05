@@ -17,8 +17,9 @@ MDSS.QueryXML = {
   	MIN: 'MIN',
   	MAX: 'MAX',
   	AVG: 'AVG',
-  	COUNT: 'COUNT'
-  }
+  },
+
+  COUNT_FUNCTION : 'COUNT'
 };
 
 /**

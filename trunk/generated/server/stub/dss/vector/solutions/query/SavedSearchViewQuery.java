@@ -64,9 +64,10 @@ private static final long serialVersionUID = 1240879208564L;
         viewQuery.map(SavedSearchView.QUERYXML, searchQuery.getQueryXml());
       }
 
-      CONCAT c = F.CONCAT(searchQuery.getThematicLayer().getGeoHierarchy().getGeoEntityClass().getPackageName(),
-          F.CONCAT(".", searchQuery.getThematicLayer().getGeoHierarchy().getGeoEntityClass().getTypeName()));
-      viewQuery.map(SavedSearchView.THEMATICLAYER, c);
+      // FIXME, is this ever needed when simply loading views to display available queries?
+//      CONCAT c = F.CONCAT(searchQuery.getThematicLayer().getGeoHierarchy().getGeoEntityClass().getPackageName(),
+//          F.CONCAT(".", searchQuery.getThematicLayer().getGeoHierarchy().getGeoEntityClass().getTypeName()));
+//      viewQuery.map(SavedSearchView.THEMATICLAYER, c);
     }
 
     /**
