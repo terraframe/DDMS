@@ -34,6 +34,7 @@ import org.eclipse.birt.report.model.api.ReportDesignHandle;
 import org.eclipse.birt.report.model.api.activity.SemanticException;
 import org.eclipse.birt.report.model.api.elements.structures.ResultSetColumn;
 
+import com.terraframe.mojo.constants.ClientProperties;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.dataaccess.database.IDGenerator;
@@ -75,7 +76,7 @@ public class ReportController extends ReportControllerBase implements
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
-      throw new SavedSearchRequiredExceptionDTO(this.getClientRequest());
+      throw new SavedSearchRequiredExceptionDTO(this.getClientRequest(), req.getLocale());
     }
   }
 
@@ -138,7 +139,7 @@ public class ReportController extends ReportControllerBase implements
   }
 
   @SuppressWarnings("unchecked")
-  private void configureDataSet(String dir, IReportRunnable design) throws SemanticException
+  private void configureDataSet(String dir, IReportRunnable design) throws SemanticException, ServletException
   {
     // Change the data source to the temporary csv directory
     ReportDesignHandle handle = (ReportDesignHandle) design.getDesignHandle();
@@ -169,7 +170,7 @@ public class ReportController extends ReportControllerBase implements
   }
 
   @SuppressWarnings("unchecked")
-  private void validateReportData(ReportDesignHandle handle, String dir)
+  private void validateReportData(ReportDesignHandle handle, String dir) throws ServletException
   {
     if (handle.getAllDataSets().size() > 1)
     {
@@ -231,8 +232,7 @@ public class ReportController extends ReportControllerBase implements
     }
     catch (IOException e)
     {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new ServletException(e);
     }    
   }
 
@@ -240,7 +240,7 @@ public class ReportController extends ReportControllerBase implements
   {
     try
     {
-      String path = LocalProperties.getJspDir() + "/tmp/" + IDGenerator.nextID() + "/";
+      String path = ClientProperties.getFileCacheDirectory() + "/tmp/" + IDGenerator.nextID() + "/";
 
       // Make the file structure
       new File(path).mkdirs();
