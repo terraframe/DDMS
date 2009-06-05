@@ -23,6 +23,19 @@
         name="dss.vector.solutions.report.UnableToGenerateCSVException"
         label="Unable To Generate CSV Exception"
         description="A report was unable to generate a dynamic CSV result set"/>
+      <mdException
+        name="dss.vector.solutions.report.UnsupportedDataSourceException"
+        label="Unsupported Data Source Exception"
+        description="The provided data source is not supported"/>
+      <mdException
+        name="dss.vector.solutions.report.QueryConfigurationException"
+        label="Query configuration exception"
+        description="The provided query does not contain all of the columns needed to generate this report"/>
+      <mdException
+        name="dss.vector.solutions.report.TemplateException"
+        label="Template Exception"
+        description="Template does not produce a valid report"/>
+
     </create>
     <update></update>
   </doIt>
