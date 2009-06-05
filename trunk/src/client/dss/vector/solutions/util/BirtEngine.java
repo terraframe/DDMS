@@ -1,6 +1,5 @@
 package dss.vector.solutions.util;
 
-import java.util.Properties;
 import java.util.logging.Level;
 
 import javax.servlet.ServletContext;
@@ -13,83 +12,65 @@ import org.eclipse.birt.report.engine.api.EngineConfig;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportEngineFactory;
 
+import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.constants.LocalProperties;
+import com.terraframe.mojo.generation.loader.Reloadable;
+
+import dss.vector.solutions.report.BirtConfigurationExceptionDTO;
+
 public class BirtEngine
 {
-  private static IReportEngine engine  = null;
+  private enum LogLevel implements Reloadable {
+    SEVERE(Level.SEVERE), WARNING(Level.WARNING), INFO(Level.INFO), CONFIG(Level.CONFIG), FINE(
+        Level.FINE), FINER(Level.FINER), FINEST(Level.FINEST), OFF(Level.OFF);
 
-  private static Properties    properties = new Properties();
+    private Level level;
+
+    private LogLevel(Level level)
+    {
+      this.level = level;
+    }
+
+    public Level getLevel()
+    {
+      return level;
+    }
+  }
+
+  private static IReportEngine engine     = null;
+
 
   public static synchronized void initBirtConfig()
   {
-    properties.setProperty("logDirectory", "home/jsmethie/temp");
-    properties.setProperty("logLevel", "FINEST");
   }
 
-  public static synchronized IReportEngine getBirtEngine(ServletContext sc)
+  public static synchronized IReportEngine getBirtEngine(ServletContext sc, ClientRequestIF request)
   {
     if (engine == null)
     {
-      EngineConfig config = new EngineConfig();
-
-      if (properties != null)
-      {
-        String logLevel = properties.getProperty("logLevel");
-        Level level = Level.OFF;
-
-        if ("SEVERE".equalsIgnoreCase(logLevel))
-        {
-          level = Level.SEVERE;
-        }
-        else if ("WARNING".equalsIgnoreCase(logLevel))
-        {
-          level = Level.WARNING;
-        }
-        else if ("INFO".equalsIgnoreCase(logLevel))
-        {
-          level = Level.INFO;
-        }
-        else if ("CONFIG".equalsIgnoreCase(logLevel))
-        {
-          level = Level.CONFIG;
-        }
-        else if ("FINE".equalsIgnoreCase(logLevel))
-        {
-          level = Level.FINE;
-        }
-        else if ("FINER".equalsIgnoreCase(logLevel))
-        {
-          level = Level.FINER;
-        }
-        else if ("FINEST".equalsIgnoreCase(logLevel))
-        {
-          level = Level.FINEST;
-        }
-        else if ("OFF".equalsIgnoreCase(logLevel))
-        {
-          level = Level.OFF;
-        }
-
-        config.setLogConfig(properties.getProperty("logDirectory"), level);
-      }
-
-      config.setEngineHome("");
+      LogLevel level = LogLevel.FINE;
       IPlatformContext context = new PlatformServletContext(sc);
-      config.setPlatformContext(context);
 
+      EngineConfig config = new EngineConfig();
+      config.setEngineHome("");       // Use the default /WEB-INF/platform as the location BIRT home
+      config.setLogConfig(LocalProperties.getLogDirectory(), level.getLevel());
+      config.setPlatformContext(context);
+     
       try
       {
         Platform.startup(config);
       }
       catch (BirtException e)
       {
-        e.printStackTrace();
+        String msg = "Unable to startup the BIRT report engine please ensure that all BIRT directories are configured properly";
+
+        throw new BirtConfigurationExceptionDTO(request, msg, e);
       }
 
-      IReportEngineFactory factory = (IReportEngineFactory) Platform
-          .createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY);
+      IReportEngineFactory factory = (IReportEngineFactory) Platform.createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY);
       engine = factory.createReportEngine(config);
-
     }
+    
     return engine;
   }
 

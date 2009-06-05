@@ -1,8 +1,17 @@
 package dss.vector.solutions.report;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,15 +19,29 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 import org.eclipse.birt.report.engine.api.EngineConstants;
+import org.eclipse.birt.report.engine.api.EngineException;
 import org.eclipse.birt.report.engine.api.IRenderOption;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
 import org.eclipse.birt.report.engine.api.RenderOption;
+import org.eclipse.birt.report.model.api.CachedMetaDataHandle;
 import org.eclipse.birt.report.model.api.DesignElementHandle;
+import org.eclipse.birt.report.model.api.MemberHandle;
+import org.eclipse.birt.report.model.api.OdaDataSetHandle;
+import org.eclipse.birt.report.model.api.OdaDataSourceHandle;
 import org.eclipse.birt.report.model.api.ReportDesignHandle;
+import org.eclipse.birt.report.model.api.activity.SemanticException;
+import org.eclipse.birt.report.model.api.elements.structures.ResultSetColumn;
+
+import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.constants.LocalProperties;
+import com.terraframe.mojo.dataaccess.database.IDGenerator;
+import com.terraframe.mojo.util.FileIO;
 
 import dss.vector.solutions.query.SavedSearchDTO;
+import dss.vector.solutions.query.SavedSearchRequiredExceptionDTO;
+import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 import dss.vector.solutions.util.BirtEngine;
 
 public class ReportController extends ReportControllerBase implements
@@ -26,65 +49,59 @@ public class ReportController extends ReportControllerBase implements
 {
   private static final long serialVersionUID = 1236706138416L;
 
+  private static String     DATA_SET_QUERY   = "queryText";
+
+  private static String     TEMP_FILE_NAME   = "temp.csv";
+  
+  private String FLAT_FILE_EXTENSION = "org.eclipse.datatools.connectivity.oda.flatfile";
+
+
   public ReportController(javax.servlet.http.HttpServletRequest req,
       javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
   }
-  
+
   @Override
   public void generateReport(String queryXML, String geoEntityType, String savedSearchId)
       throws IOException, ServletException
   {
+    validateParameters(queryXML, geoEntityType, savedSearchId);
+
     buildReport(queryXML, geoEntityType, savedSearchId);
   }
 
-  @SuppressWarnings("unchecked")
-  private void buildReport(String queryXML, String geoEntityType, String savedSearchId) throws ServletException
+  private void validateParameters(String queryXML, String geoEntityType, String savedSearchId)
   {
-    SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      throw new SavedSearchRequiredExceptionDTO(this.getClientRequest());
+    }
+  }
+
+  private void buildReport(String queryXML, String geoEntityType, String savedSearchId)
+      throws ServletException
+  {
+    ClientRequestIF request = this.getClientRequest();
+    SavedSearchDTO search = SavedSearchDTO.get(request, savedSearchId);
 
     resp.setHeader("Content-Disposition", "attachment;filename=" + search.getQueryName() + ".pdf");
 
     // Get report name and launch the engine
     ServletContext sc = req.getSession().getServletContext();
-    IReportEngine engine = BirtEngine.getBirtEngine(sc);
+    IReportEngine engine = BirtEngine.getBirtEngine(sc, request);
+
+    InputStream input = AggregatedCaseDTO.exportQueryToCSV(request, queryXML, geoEntityType, savedSearchId);
+
+    String dir = this.generateTempCSVFile(input, TEMP_FILE_NAME);
 
     try
     {
-      String csv = search.generateCSV(queryXML, geoEntityType, savedSearchId);
-
       // Open report design
       IReportRunnable design = engine.openReportDesign(search.getTemplateStream());
 
-      // Change the data source to the temporary csv directory
-      // FIXME This only works because the Server and Clerver
-      //       are on the same box.
-      ReportDesignHandle handle = (ReportDesignHandle) design.getDesignHandle();
-      
-      for (Iterator i = handle.getDataSources().iterator(); i.hasNext();)
-      {
-        ((DesignElementHandle) i.next()).setProperty("HOME", csv);
-      }
-      
-      // Update the data set to use the temporary csv file
-      for (Iterator i = handle.getDataSets().iterator(); i.hasNext();)
-      {
-        DesignElementHandle dataset = (DesignElementHandle) i.next();
-        
-        Pattern pattern = Pattern.compile("^(select\\s+.*?\\s+from\\s+)(.*?)(\\s+:.*)$");        
-        Matcher matcher = pattern.matcher((String) dataset.getProperty("queryText"));
-        
-        matcher.find();
-        
-        StringBuffer result = new StringBuffer(matcher.group(1));
-        result.append("temp.csv");
-        result.append(matcher.group(3));        
-                
-        dataset.setProperty("queryText", result.toString());
-      }
+      this.configureDataSet(dir, design);
 
-      
       // set output options
       IRenderOption options = new RenderOption();
       options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
@@ -93,21 +110,163 @@ public class ReportController extends ReportControllerBase implements
       HashMap<String, Object> contextMap = new HashMap<String, Object>();
       contextMap.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.getClass().getClassLoader());
 
-      // create task to run and render report      
+      // create task to run and render report
       IRunAndRenderTask task = engine.createRunAndRenderTask(design);
-      task.setAppContext(contextMap);       
+      task.setAppContext(contextMap);
       task.setRenderOption(options);
-      
+
       // run report
       task.run();
       task.close();
+    }
+    catch (EngineException e)
+    {
+      String msg = "The provided design is not a valid BIRT design";
+      throw new TemplateExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
+    }
+    catch (SemanticException e)
+    {
+      throw new ServletException(e);      
+    }
+    catch (IOException e)
+    {
+      throw new ServletException(e);
+    }
+
+    // Delete the temp file
+    this.deleteTempDirectory(dir);
+  }
+
+  @SuppressWarnings("unchecked")
+  private void configureDataSet(String dir, IReportRunnable design) throws SemanticException
+  {
+    // Change the data source to the temporary csv directory
+    ReportDesignHandle handle = (ReportDesignHandle) design.getDesignHandle();
+
+    validateReportData(handle, dir);
+
+    for (Iterator i = handle.getDataSources().iterator(); i.hasNext();)
+    {
+      ( (DesignElementHandle) i.next() ).setProperty("HOME", dir);
+    }
+
+    // Update the data set to use the temporary csv file
+    for (Iterator i = handle.getDataSets().iterator(); i.hasNext();)
+    {
+      DesignElementHandle dataset = (DesignElementHandle) i.next();
       
-      // Delete the temp file
-      search.deleteCSV(csv);
+      Pattern pattern = Pattern.compile("^(select\\s+.*?\\s+from\\s+)(.*?)(\\s+:.*)$");
+      Matcher matcher = pattern.matcher(dataset.getStringProperty(DATA_SET_QUERY));
+
+      matcher.find();
+
+      StringBuffer result = new StringBuffer(matcher.group(1));
+      result.append(TEMP_FILE_NAME);
+      result.append(matcher.group(3));
+
+      dataset.setProperty(DATA_SET_QUERY, result.toString());
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private void validateReportData(ReportDesignHandle handle, String dir)
+  {
+    if (handle.getAllDataSets().size() > 1)
+    {
+      throw new DataSetLimitExceptionDTO(this.getClientRequest());
+    }
+
+    if (handle.getAllDataSources().size() > 1)
+    {
+      throw new DataSourceLimitExceptionDTO(this.getClientRequest());
+    }
+    
+    // Validate the csv structure against the report structure
+    try
+    {
+      List<String> headers = new LinkedList<String>();
+      BufferedReader in = new BufferedReader(new FileReader(new File(dir + "/" + TEMP_FILE_NAME)));
+
+      String line = in.readLine();
+      in.close();
+      
+      for(String header : line.split(","))
+      {
+        headers.add(header.trim());
+      }
+
+      for (Iterator i = handle.getDataSources().iterator(); i.hasNext();)
+      {
+        String extensionID = ( (OdaDataSourceHandle) i.next() ).getExtensionID();
+        
+        if(!extensionID.equals(FLAT_FILE_EXTENSION))
+        {
+          String msg = "The only system only supports flat file data sources";
+          throw new UnsupportedDataSourceExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
+        }
+      }
+      
+      for (Iterator i = handle.getDataSets().iterator(); i.hasNext();)
+      {
+        OdaDataSetHandle dataset = (OdaDataSetHandle) i.next();
+        
+        CachedMetaDataHandle metadata = dataset.getCachedMetaDataHandle();
+        
+        MemberHandle members = metadata.getResultSet();
+        
+        ArrayList list = members.getListValue();
+        
+        for(Object choice : list) 
+        {
+          ResultSetColumn column = (ResultSetColumn) choice;          
+          String columnName = column.getColumnName();
+          
+          if(!headers.contains(columnName))
+          {
+            String msg = "Invalid query structure";
+            throw new QueryConfigurationExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
+          }
+        }
+      }
+    }
+    catch (IOException e)
+    {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }    
+  }
+
+  private String generateTempCSVFile(InputStream in, String fileName)
+  {
+    try
+    {
+      String path = LocalProperties.getJspDir() + "/tmp/" + IDGenerator.nextID() + "/";
+
+      // Make the file structure
+      new File(path).mkdirs();
+
+      File file = new File(path + fileName);
+      file.deleteOnExit();
+
+      FileIO.write(new BufferedOutputStream(new FileOutputStream(file)), in);
+
+      return path;
     }
     catch (Exception e)
     {
-      throw new ServletException(e);
+      throw new UnableToGenerateCSVExceptionDTO(this.getClientRequest(), req.getLocale());
+    }
+  }
+
+  private void deleteTempDirectory(String file)
+  {
+    try
+    {
+      FileIO.deleteDirectory(new File(file));
+    }
+    catch (IOException e)
+    {
+      throw new UnableToGenerateCSVExceptionDTO(this.getClientRequest(), req.getLocale());
     }
   }
 }
