@@ -19,16 +19,16 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
   public static EpiDate getInstanceByPeriod(PeriodType periodType, Integer period, Integer year)
   {
-     EpiDate newInstance =  new EpiDate();
-     newInstance.construct(periodType, period, year);
-     return newInstance;
+    EpiDate newInstance = new EpiDate();
+    newInstance.construct(periodType, period, year);
+    return newInstance;
   }
 
   public static EpiDate getInstanceByDate(Date startDate, Date endDate)
   {
-     EpiDate newInstance =  new EpiDate();
-     newInstance.construct(startDate,  endDate);
-     return newInstance;
+    EpiDate newInstance = new EpiDate();
+    newInstance.construct(startDate, endDate);
+    return newInstance;
   }
 
   // First Period is Zero
@@ -84,14 +84,14 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     else if (plusOneMonth(startDate).equals(endDate))
     {
       super.addPeriodType(PeriodType.MONTH);
-      int month =  tempCal.get(Calendar.MONTH);
-      super.setPeriod( month - 1 );
+      int month = tempCal.get(Calendar.MONTH);
+      super.setPeriod(month - 1);
     }
     else
     {
       super.addPeriodType(PeriodType.QUARTER);
-      int month =  tempCal.get(Calendar.MONTH);
-      super.setPeriod( month / 3);
+      int month = tempCal.get(Calendar.MONTH);
+      super.setPeriod(month / 3);
     }
   }
 
@@ -109,6 +109,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     cal.add(Calendar.DAY_OF_WEEK, 1);
     return cal;
   }
+
   private GregorianCalendar makeRegularCalendar(int year)
   {
     int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
@@ -160,6 +161,23 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     return c1.getTime();
   }
 
+  public  Integer getNumberOfEpiWeeks()
+  {
+    Calendar thisYear = makeEpiCalendar(this.getEpiYear());
+    Calendar nextYear = makeEpiCalendar(this.getEpiYear() + 1);
+    // add 52 weeks + 1 day and see if that puts us into the next epi year
+    thisYear.add(Calendar.WEEK_OF_YEAR, 52);
+    thisYear.add(Calendar.DAY_OF_WEEK, 1);
+    if (nextYear.after(thisYear))
+    {
+      return 53;
+    }
+    else
+    {
+      return 52;
+    }
+  }
+
   public PeriodType getEpiPeriodType()
   {
     return (PeriodType) this.getPeriodType().get(0);
@@ -169,6 +187,5 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
   {
     return super.getEpiYear();
   }
-
 
 }
