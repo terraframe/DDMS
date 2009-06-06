@@ -97,7 +97,7 @@ MALAWI</div>
 
 <dl>
   <dt><label> <fmt:message key="username" />: </label></dt>
-  <dd><mjl:input param="username" type="text" value="SYSTEM" /></dd>
+  <dd><mjl:input param="username" type="text" value="MDSS" /></dd>
   <dt><label> <fmt:message key="password" />: </label></dt>
   <dd><mjl:input param="password" type="password" value="" /></dd>
 </dl>
