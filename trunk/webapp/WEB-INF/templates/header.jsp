@@ -8,14 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >
+<script>document.cookie = "PrevLoadTime=;path=/;expires=Thu, 01-Jan-1970 00:00:01 GMT";</script>
+<jwr:style src="/bundles/yuiStyle.css" useRandomParam="false"/>
+<jwr:style src="/bundles/mdssScreen.css" media="all" useRandomParam="false"/>
 
-<jwr:style src="/bundles/yuiStyle.css"/>
-<jwr:style src="/bundles/mdssScreen.css" media="all"/>
-
-<jwr:script src="/bundles/yuiBundle.js"/>
-<jwr:script src="/bundles/Mojo.js"/>
+<jwr:script src="/bundles/yuiBundle.js" useRandomParam="false"/>
+<jwr:script src="/bundles/Mojo.js" useRandomParam="false"/>
 <script type="text/javascript" src="js/Localized.js.jsp"></script>
-<jwr:script src="/bundles/mdssBundle.js"/>
+<jwr:script src="/bundles/mdssBundle.js" useRandomParam="false"/>
 
 
 <c:choose>
