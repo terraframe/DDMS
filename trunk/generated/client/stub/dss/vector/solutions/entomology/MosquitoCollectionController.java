@@ -12,10 +12,10 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
-import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
-import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDTO;
+import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
+import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.mo.CollectionMethodDTO;
 import dss.vector.solutions.util.ErrorUtility;
@@ -40,7 +40,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     try
     {
       dto.delete();
-      this.viewAll();
+      this.search();
     }
     catch (ProblemExceptionDTO e)
     {
@@ -129,14 +129,63 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     // if this method is being accessed from create or edit, redirect so the url
     // will be correct and refresh will
     // not create a new object
-    if (!req.getRequestURI().contains(".view.mojo"))
+
+    view(MosquitoCollectionDTO.get(super.getClientRequest(), id));
+  }
+  
+  public void view(MosquitoCollectionDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    if (!req.getRequestURI().contains(this.getClass().getName() + ".view.mojo"))
     {
       String path = req.getRequestURL().toString();
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
+      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".view.mojo");
+      path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + dto.getId());
+
+      resp.sendRedirect(path);
       return;
     }
-    MosquitoCollectionDTO mc = MosquitoCollectionDTO.get(super.getClientRequest(), id);
-    req.setAttribute("item", mc);
+        
+    req.setAttribute("ada", dto.getAdultDoseAssays(AdultDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1));
+    req.setAttribute("lda", dto.getLarvaeDoseAssays(LarvaeDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1));
+    req.setAttribute("kda", dto.getKnockDownAssays(KnockDownAssayDTO.TESTDATE, true, 5, 1));
+    req.setAttribute("item", dto);
+
+    render("viewComponent.jsp");    
+  }
+  
+  public void viewADAPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String collectionId) throws IOException, ServletException
+  {    
+    MosquitoCollectionDTO dto = MosquitoCollectionDTO.get(super.getClientRequest(), collectionId);
+    
+    req.setAttribute("ada", dto.getAdultDoseAssays(sortAttribute, isAscending, pageSize, pageNumber));
+    req.setAttribute("lda", dto.getLarvaeDoseAssays(LarvaeDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1));
+    req.setAttribute("kda", dto.getKnockDownAssays(KnockDownAssayDTO.TESTDATE, true, 5, 1));
+    req.setAttribute("item", dto);
+
+    render("viewComponent.jsp");
+  }
+  
+  public void viewLDAPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String collectionId) throws IOException, ServletException
+  {
+    MosquitoCollectionDTO dto = MosquitoCollectionDTO.get(super.getClientRequest(), collectionId);
+    
+    req.setAttribute("ada", dto.getAdultDoseAssays(AdultDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1));
+    req.setAttribute("lda", dto.getLarvaeDoseAssays(sortAttribute, isAscending, pageSize, pageNumber));
+    req.setAttribute("kda", dto.getKnockDownAssays(KnockDownAssayDTO.TESTDATE, true, 5, 1));
+    req.setAttribute("item", dto);
+    
+    render("viewComponent.jsp");
+  }
+  
+  public void viewKDAPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, String collectionId) throws IOException, ServletException
+  {
+    MosquitoCollectionDTO dto = MosquitoCollectionDTO.get(super.getClientRequest(), collectionId);
+    
+    req.setAttribute("ada", dto.getAdultDoseAssays(AdultDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1));
+    req.setAttribute("lda", dto.getLarvaeDoseAssays(LarvaeDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1));
+    req.setAttribute("kda", dto.getKnockDownAssays(sortAttribute, isAscending, pageSize, pageNumber));
+    req.setAttribute("item", dto);
+
     render("viewComponent.jsp");
   }
 
@@ -295,6 +344,14 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void search() throws java.io.IOException, javax.servlet.ServletException
   {
+    if (!req.getRequestURI().contains(".search.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".search.mojo"));
+      return;
+    }
+    
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
     CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
     MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, "createDate", false, 10, 1);

@@ -2,6 +2,7 @@ package dss.vector.solutions.entomology.assay;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.entomology.ControlMortalityException;
 
 public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssayBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -19,21 +20,48 @@ public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssay
 
     new QuantityDeadValidator(this).validate();
   }
+  
+  @Override
+  public void validateControlTestMortality()
+  {
+    if(this.getControlTestMortality() != null && this.getControlTestMortality() > 20)
+    {
+      String msg = "The mortality rate of the control collection exceeds 20% invalidating this test";
+      
+      ControlMortalityException e = new ControlMortalityException(msg);
+      e.apply();
+      
+      throw e;
+    }
+  }
 
   @Override
   public void apply()
   {
+    validateControlTestMortality();
     validateQuantityDead();
+    
+    float mortality = 0.0F;
+    int live = 0;
     
     if (this.getQuantityDead() != null && this.getQuantityTested() != null && this.getQuantityDead() <= this.getQuantityTested())
     {
-      this.setQuantityLive(this.getQuantityTested() - this.getQuantityDead());
-      this.setMortality( ( (float) ( this.getQuantityDead() ) * 100 / this.getQuantityTested() ));
+      mortality = (float) ( this.getQuantityDead() ) * 100 / this.getQuantityTested();
+      live = this.getQuantityTested() - this.getQuantityDead();
     }
-    else
+
+    this.setQuantityLive(live);
+    this.setMortality(mortality);
+
+    if(this.getControlTestMortality() != null && this.getControlTestMortality() > 5)
     {
-      this.setQuantityLive(0);
-      this.setMortality(new Float(0));
+      //Use abbots formula to correct the mortality rate
+      //Corrected % = 100 * (T - C) / (100 - C) (WHO/CDC/NTD/WHOPES/GCDPP/2006.3)
+      //T = % mortality of the treated population
+      //C = % mortality of the control population
+      
+      float corrected = 100.0F * (mortality - this.getControlTestMortality()) / (100.0F - this.getControlTestMortality());
+      this.setMortality(corrected);
     }
     
     super.apply();

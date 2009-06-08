@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
+import dss.vector.solutions.entomology.MosquitoCollectionController;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.mo.GenerationDTO;
@@ -121,7 +122,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 	  try
 	    {
 	      dto.apply();
-	      this.view(dto.getId());
+	      new MosquitoCollectionController(req, resp, false).view(dto.getCollection());
 	    }
 	    catch(ProblemExceptionDTO e)
 	    {

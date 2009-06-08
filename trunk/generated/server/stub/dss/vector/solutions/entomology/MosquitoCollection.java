@@ -1,5 +1,6 @@
 package dss.vector.solutions.entomology;
 
+import com.terraframe.mojo.business.Entity;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -84,27 +85,34 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
       }
     }
   }
-
-  public AdultDiscriminatingDoseAssayQuery getAdultDoseAssays()
+  
+  public AdultDiscriminatingDoseAssayQuery getAdultDoseAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     AdultDiscriminatingDoseAssayQuery query = new AdultDiscriminatingDoseAssayQuery(new QueryFactory());
     query.WHERE(query.getCollection().EQ(this));
-
+    
+    Entity.getAllInstances(query, sortAttribute, isAscending, pageSize, pageNumber);
+    
     return query;
   }
-
-  public LarvaeDiscriminatingDoseAssayQuery getLarvaeDoseAssays()
+  
+  public LarvaeDiscriminatingDoseAssayQuery getLarvaeDoseAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     LarvaeDiscriminatingDoseAssayQuery query = new LarvaeDiscriminatingDoseAssayQuery(new QueryFactory());
     query.WHERE(query.getCollection().EQ(this));
 
+    Entity.getAllInstances(query, sortAttribute, isAscending, pageSize, pageNumber);
+    
     return query;
   }
-
-  public KnockDownAssayQuery getKnockDownAssays()
+  
+  @Override
+  public KnockDownAssayQuery getKnockDownAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     KnockDownAssayQuery query = new KnockDownAssayQuery(new QueryFactory());
     query.WHERE(query.getCollection().EQ(this));
+
+    Entity.getAllInstances(query, sortAttribute, isAscending, pageSize, pageNumber);
 
     return query;
   }

@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.AssaySexDTO;
+import dss.vector.solutions.entomology.MosquitoCollectionController;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.mo.GenerationDTO;
@@ -35,7 +36,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     try
     {
       dto.apply();
-      this.view(dto.getId());
+      new MosquitoCollectionController(req, resp, false).view(dto.getCollection());
     }
     catch (com.terraframe.mojo.ProblemExceptionDTO e)
     {
