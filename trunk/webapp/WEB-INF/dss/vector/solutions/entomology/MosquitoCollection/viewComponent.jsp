@@ -99,6 +99,113 @@
 </div>
 </dl>
 
+<h2><fmt:message key="Collection Assays"/></h2>
+<dl>
+  <dt>
+    <fmt:message key="Adult_DDA" />
+  </dt>
+  <dd>
+    <mjl:table var="current" query="${ada}" classes="displayTable" even="evenRow" odd="oddRow">
+      <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.viewADAPage.mojo" >
+        <mjl:property name="collectionId" value="${item.id}"/>
+      </mjl:context>
+      <mjl:columns>
+        <mjl:attributeColumn attributeName="testDate">
+        </mjl:attributeColumn>
+        <mjl:attributeColumn attributeName="insecticide">
+          <mjl:row>
+            ${current.insecticide.displayLabel}
+          </mjl:row>
+        </mjl:attributeColumn>
+        <mjl:freeColumn>
+          <mjl:header>
+          </mjl:header>
+          <mjl:row>
+            <mjl:commandLink action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.view.mojo" name="view.link">
+              <fmt:message key="View"/>
+              <mjl:property value="${current.id}" name="id" />
+            </mjl:commandLink>
+          </mjl:row>
+          <mjl:footer>        
+          </mjl:footer>
+        </mjl:freeColumn>
+      </mjl:columns>
+      <mjl:pagination>
+        <mjl:page />
+      </mjl:pagination>
+    </mjl:table>  
+  </dd>
+  <dt>
+    <fmt:message key="Larvae_DDA" />
+  </dt>
+  <dd>
+    <mjl:table var="current" query="${lda}" classes="displayTable" even="evenRow" odd="oddRow">
+      <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.viewLDAPage.mojo" >
+        <mjl:property name="collectionId" value="${item.id}"/>
+      </mjl:context>
+      <mjl:columns>
+        <mjl:attributeColumn attributeName="testDate">
+        </mjl:attributeColumn>
+        <mjl:attributeColumn attributeName="insecticide">
+          <mjl:row>
+            ${current.insecticide.displayLabel}
+          </mjl:row>
+        </mjl:attributeColumn>
+        <mjl:freeColumn>
+          <mjl:header>
+          </mjl:header>
+          <mjl:row>
+            <mjl:commandLink action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.view.mojo" name="view.link">
+              <fmt:message key="View"/>
+              <mjl:property value="${current.id}" name="id" />
+            </mjl:commandLink>
+          </mjl:row>
+          <mjl:footer>        
+          </mjl:footer>
+        </mjl:freeColumn>
+      </mjl:columns>
+      <mjl:pagination>
+        <mjl:page />
+      </mjl:pagination>
+    </mjl:table>  
+  </dd>  
+  <dt>
+    <fmt:message key="Knock_Down_Assay" />
+  </dt>
+  <dd>
+    <mjl:table var="current" query="${kda}" classes="displayTable" even="evenRow" odd="oddRow">
+      <mjl:context action="dss.vector.solutions.entomology.MosquitoCollectionController.viewKDAPage.mojo" >
+        <mjl:property name="collectionId" value="${item.id}"/>
+      </mjl:context>
+      <mjl:columns>
+        <mjl:attributeColumn attributeName="testDate">
+        </mjl:attributeColumn>
+        <mjl:attributeColumn attributeName="insecticide">
+          <mjl:row>
+            ${current.insecticide.displayLabel}
+          </mjl:row>
+        </mjl:attributeColumn>
+        <mjl:freeColumn>
+          <mjl:header>
+          </mjl:header>
+          <mjl:row>
+            <mjl:commandLink action="dss.vector.solutions.entomology.assay.KnockDownAssayController.view.mojo" name="view.link">
+              <fmt:message key="View"/>
+              <mjl:property value="${current.id}" name="id" />
+            </mjl:commandLink>
+          </mjl:row>
+          <mjl:footer>        
+          </mjl:footer>
+        </mjl:freeColumn>
+      </mjl:columns>
+      <mjl:pagination>
+        <mjl:page />
+      </mjl:pagination>
+    </mjl:table>  
+  </dd>    
+</dl>
+
+
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 MosquitoCollectionDTO mosquito_collection = (MosquitoCollectionDTO) request.getAttribute("item");
