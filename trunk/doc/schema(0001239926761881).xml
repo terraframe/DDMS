@@ -359,7 +359,7 @@
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Other - Don’t Know" />
+            value="Other - Don't Know" />
         </structAttribute>
       </object>
 
@@ -382,7 +382,7 @@
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="OTHER- DON’T KNOW BRAND" />
+            value="OTHER- DON'T KNOW BRAND" />
         </structAttribute>
       </object>
 
