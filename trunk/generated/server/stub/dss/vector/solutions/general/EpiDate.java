@@ -34,65 +34,73 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
   // First Period is Zero
   public void construct(PeriodType periodType, int period, Integer year)
   {
+    super.clearPeriodType();
     super.setPeriod(period);
     super.setEpiYear(year);
     super.addPeriodType(periodType);
-    
-    Calendar tempCal = makeRegularCalendar(year);
-    
+        
     if (periodType.equals(PeriodType.WEEK))
     {
-      tempCal = makeEpiCalendar(year);
-      tempCal.add(Calendar.WEEK_OF_YEAR, period);
-      super.setStartDate(tempCal.getTime());
-      tempCal.add(Calendar.WEEK_OF_YEAR, 1);
-      tempCal.add(Calendar.DAY_OF_MONTH, -1);
-      super.setEndDate(tempCal.getTime());
+      Calendar calendar = makeEpiCalendar(year);
+      
+      calendar.add(Calendar.WEEK_OF_YEAR, period);
+      super.setStartDate(calendar.getTime());
+      calendar.add(Calendar.WEEK_OF_YEAR, 1);
+      calendar.add(Calendar.DAY_OF_MONTH, -1);
+      super.setEndDate(calendar.getTime());
     }
     else if (periodType.equals(PeriodType.MONTH))
     {
-      tempCal.set(Calendar.MONTH, period);
-      super.setStartDate(tempCal.getTime());
-      tempCal.add(Calendar.MONTH, 1);
-      tempCal.add(Calendar.DAY_OF_YEAR, -1);
-      super.setEndDate(tempCal.getTime());
+      Calendar calendar = makeRegularCalendar(year);
+      
+      calendar.set(Calendar.MONTH, period);
+      super.setStartDate(calendar.getTime());
+      calendar.add(Calendar.MONTH, 1);
+      calendar.add(Calendar.DAY_OF_MONTH, -1);
+      super.setEndDate(calendar.getTime());
     }
     else if (periodType.equals(PeriodType.QUARTER))
     {
-      tempCal.set(Calendar.MONTH, 3 * period);
-      tempCal.add(Calendar.MONTH, -1);
-      super.setStartDate(tempCal.getTime());
-      tempCal.add(Calendar.MONTH, 3);
-      tempCal.add(Calendar.DAY_OF_MONTH, -1);
-      super.setEndDate(tempCal.getTime());
+      Calendar calendar = makeRegularCalendar(year);
+
+      calendar.set(Calendar.MONTH, 3 * (period-1) + 1);
+      super.setStartDate(calendar.getTime());
+      calendar.add(Calendar.MONTH, 3);
+      calendar.add(Calendar.DAY_OF_MONTH, -1);
+      super.setEndDate(calendar.getTime());
     }
   }
 
   public void construct(Date startDate, Date endDate)
   {
-    super.setStartDate(startDate);
-    super.setEndDate(endDate);
-    GregorianCalendar tempCal = makeRegularCalendar(startDate);
-    super.setEpiYear(tempCal.get(Calendar.YEAR));
+    GregorianCalendar calendar = makeRegularCalendar(startDate);
 
+    super.clearPeriodType();
+    super.setStartDate(startDate);
+    super.setEndDate(endDate);    
+    super.setEpiYear(calendar.get(Calendar.YEAR));
+    
     if (plusOneWeek(startDate).equals(endDate))
     {
-      tempCal = makeEpiCalendar(getEpiYear());
-      tempCal.setTime(startDate);
+      calendar = makeEpiCalendar(getEpiYear());
+      calendar.setTime(startDate);
+      
       super.addPeriodType(PeriodType.WEEK);
-      super.setPeriod(tempCal.get(Calendar.WEEK_OF_YEAR));
+      super.setPeriod(calendar.get(Calendar.WEEK_OF_YEAR));
     }
     else if (plusOneMonth(startDate).equals(endDate))
     {
+      int month = calendar.get(Calendar.MONTH);
+
+      super.setPeriod(month);
       super.addPeriodType(PeriodType.MONTH);
-      int month = tempCal.get(Calendar.MONTH);
-      super.setPeriod(month - 1);
     }
     else
     {
+      int month = calendar.get(Calendar.MONTH);
+
+      super.setPeriod((month-1)/3 + 1);
       super.addPeriodType(PeriodType.QUARTER);
-      int month = tempCal.get(Calendar.MONTH);
-      super.setPeriod(month / 3);
     }
   }
 
@@ -131,15 +139,6 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
   public GregorianCalendar getEpiCal()
   {
     return makeEpiCalendar(getEpiYear());
-  }
-
-  private Date plusOneQuarter(Date startDate)
-  {
-    Calendar c1 = Calendar.getInstance();
-    c1.setTime(startDate);
-    c1.add(Calendar.MONTH, 1);
-    c1.add(Calendar.DAY_OF_MONTH, -1);
-    return c1.getTime();
   }
 
   private Date plusOneMonth(Date startDate)

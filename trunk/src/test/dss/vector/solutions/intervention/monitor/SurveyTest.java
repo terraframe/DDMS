@@ -29,12 +29,12 @@ import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.intervention.BloodslideResponse;
-import dss.vector.solutions.intervention.Drug;
 import dss.vector.solutions.intervention.FeverResponse;
 import dss.vector.solutions.intervention.FeverTreatment;
 import dss.vector.solutions.intervention.HumanSex;
 import dss.vector.solutions.intervention.RDTResponse;
 import dss.vector.solutions.intervention.RDTResult;
+import dss.vector.solutions.surveillance.TreatmentGrid;
 
 public class SurveyTest extends TestCase
 {
@@ -56,7 +56,7 @@ public class SurveyTest extends TestCase
 
   private static Roof           roof      = null;
 
-  private static Drug           drug      = null;
+  private static TreatmentGrid  drug      = null;
 
   private static FeverTreatment treatment = null;
 
@@ -87,7 +87,6 @@ public class SurveyTest extends TestCase
     geoEntity.delete();
     wall.delete();
     roof.delete();
-    drug.delete();
     treatment.delete();
   }
 
@@ -108,10 +107,7 @@ public class SurveyTest extends TestCase
     roof.getDisplayLabel().setDefaultLocale("Test Roof");
     roof.apply();
 
-    drug = new Drug();
-    drug.getDisplayLabel().setDefaultLocale("Test Drug");
-    drug.setDrugName("testDrug");
-    drug.apply();
+    drug = TreatmentGrid.getAll()[0];
     
     treatment = new FeverTreatment();
     treatment.getDisplayLabel().setDefaultLocale("Test FeverTreatment");

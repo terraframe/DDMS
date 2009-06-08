@@ -33,8 +33,10 @@ public class HouseholdNet extends HouseholdNetBase implements com.terraframe.moj
       if(nets != null && nets == 0 && this.getAmount() != 0)
       {
         String msg = "The individual household net amount may not be set when the total number of nets is 0";
+        Net net = this.getChild();
+        
         NetProblem p = new NetProblem(msg);
-        p.setNotification(this, AMOUNT);
+        p.setNetName(net.getDisplayLabel().getValue());
         p.apply();
         p.throwIt();
       }

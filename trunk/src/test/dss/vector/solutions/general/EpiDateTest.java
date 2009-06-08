@@ -131,12 +131,39 @@ public class EpiDateTest extends TestCase
   {
     Integer period = 2;
     Integer testYear = 2009;
+    
     EpiDate epiDate = EpiDate.getInstanceByPeriod(PeriodType.QUARTER, period, testYear);
+    
     Date startDate = epiDate.getStartDate();
     Date endDate = epiDate.getEndDate();
-    System.out.println("\n\nP" + period + " Start=" + full.format(startDate) + " End=" + full.format(endDate));
+    
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(Calendar.MONTH, 4);
+    calendar.set(Calendar.YEAR, 2009);
+    
+    Calendar test = Calendar.getInstance();
+    test.setTime(startDate);
+    
+    assertEquals(calendar.get(Calendar.DAY_OF_YEAR), test.get(Calendar.DAY_OF_YEAR));
+    assertEquals(calendar.get(Calendar.YEAR), test.get(Calendar.YEAR));
+    assertEquals(calendar.get(Calendar.MONTH), test.get(Calendar.MONTH));
+
+    calendar.add(Calendar.MONTH, 3);
+    calendar.add(Calendar.DATE, -1);    
+
+    test.clear();
+    test.setTime(endDate);
+    
+    assertEquals(calendar.get(Calendar.DAY_OF_YEAR), test.get(Calendar.DAY_OF_YEAR));
+    assertEquals(calendar.get(Calendar.YEAR), test.get(Calendar.YEAR));
+    assertEquals(calendar.get(Calendar.MONTH), test.get(Calendar.MONTH));
+
+    
+    //    System.out.println("\n\nP" + period + " Start=" + full.format(startDate) + " End=" + full.format(endDate));
     EpiDate epiDate2 = EpiDate.getInstanceByDate(startDate, endDate);
-    System.out.println("Type=" + epiDate2.getType().toString() + " Period = " + epiDate2.getPeriod() + " Year=" + epiDate2.getEpiYear());
+//    System.out.println("Type=" + epiDate2.getType().toString() + " Period = " + epiDate2.getPeriod() + " Year=" + epiDate2.getEpiYear());
+    
     assertEquals(epiDate.getType(), epiDate2.getType());
     assertEquals(epiDate.getPeriod(), epiDate2.getPeriod());
     assertEquals(epiDate.getEpiYear(), epiDate2.getEpiYear());
@@ -147,11 +174,37 @@ public class EpiDateTest extends TestCase
     Integer period = 7;
     Integer testYear = 2009;
     EpiDate epiDate = EpiDate.getInstanceByPeriod(PeriodType.MONTH, period, testYear);
+
     Date startDate = epiDate.getStartDate();
     Date endDate = epiDate.getEndDate();
-    System.out.println("\n\nP" + period + " Start =  " + full.format(startDate) + " End=" + full.format(endDate));
+
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(Calendar.MONTH, 7);
+    calendar.set(Calendar.YEAR, 2009);
+    
+    Calendar test = Calendar.getInstance();
+    test.setTime(startDate);
+    
+    assertEquals(calendar.get(Calendar.DAY_OF_YEAR), test.get(Calendar.DAY_OF_YEAR));
+    assertEquals(calendar.get(Calendar.YEAR), test.get(Calendar.YEAR));
+    assertEquals(calendar.get(Calendar.MONTH), test.get(Calendar.MONTH));
+
+    calendar.add(Calendar.MONTH, 1);
+    calendar.add(Calendar.DATE, -1);    
+
+    test.clear();
+    test.setTime(endDate);
+    
+    assertEquals(calendar.get(Calendar.DAY_OF_YEAR), test.get(Calendar.DAY_OF_YEAR));
+    assertEquals(calendar.get(Calendar.YEAR), test.get(Calendar.YEAR));
+    assertEquals(calendar.get(Calendar.MONTH), test.get(Calendar.MONTH));
+    
+    //    System.out.println("\n\nP" + period + " Start =  " + full.format(startDate) + " End=" + full.format(endDate));
+    
     EpiDate epiDate2 = EpiDate.getInstanceByDate(startDate, endDate);
-    System.out.println("Type=" + epiDate2.getType().toString() + " Period=" + epiDate2.getPeriod() + " Year=" + epiDate2.getEpiYear());
+
+    //    System.out.println("Type=" + epiDate2.getType().toString() + " Period=" + epiDate2.getPeriod() + " Year=" + epiDate2.getEpiYear());
     assertEquals(epiDate.getType(), epiDate2.getType());
     assertEquals(epiDate.getPeriod(), epiDate2.getPeriod());
     assertEquals(epiDate.getEpiYear(), epiDate2.getEpiYear());

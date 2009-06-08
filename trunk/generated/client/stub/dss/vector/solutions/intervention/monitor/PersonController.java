@@ -7,13 +7,13 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.intervention.BloodslideResponseDTO;
-import dss.vector.solutions.intervention.DrugDTO;
 import dss.vector.solutions.intervention.FeverResponseDTO;
 import dss.vector.solutions.intervention.FeverTreatmentDTO;
 import dss.vector.solutions.intervention.HumanSexDTO;
 import dss.vector.solutions.intervention.RDTResponseDTO;
 import dss.vector.solutions.intervention.RDTResultDTO;
 import dss.vector.solutions.intervention.ResponseMasterDTO;
+import dss.vector.solutions.surveillance.TreatmentGridDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class PersonController extends PersonControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -195,7 +195,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
   private void setupRequest()
   {
     ClientRequestIF request = super.getClientSession().getRequest();
-    List<DrugDTO> drugs = Arrays.asList(DrugDTO.getAllActive(request));
+    List<TreatmentGridDTO> drugs = Arrays.asList(TreatmentGridDTO.getAll(request));
     List<FeverTreatmentDTO> treatments = Arrays.asList(FeverTreatmentDTO.getAllActive(request));
     List<ResponseMasterDTO> response = FeverResponseDTO.allItems(request);
     
