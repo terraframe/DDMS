@@ -4,8 +4,11 @@
       <mdProblem
         name="dss.vector.solutions.intervention.monitor.NetProblem"
         label="Net Quantity Problem"
-        extends="dss.vector.solutions.NotificationProblem"
-        description="The value cannot be set when the household has zero nets" />
+        description="The value cannot be set when the household has zero nets" >
+        <attributes>
+          <char name="netName" label="Name" size="255" required="true"/>
+        </attributes>
+      </mdProblem>
       <mdProblem
         name="dss.vector.solutions.intervention.monitor.NetQuantityProblem"
         label="Net Quantity Problem"
