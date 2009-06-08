@@ -147,7 +147,7 @@
             name="concreteId"
             label="Concrete Id"
             size="255"
-            required="false" />            
+            required="true" />            
           <char
             name="geoId"
             label="Surface"
