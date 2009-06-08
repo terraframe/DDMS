@@ -1726,6 +1726,112 @@ public class ADDATest extends TestCase
       assay.delete();
     }
   }
+  
+  public void testControlMortalityCorrection()
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(2008, 1, 1);
+    Date date = calendar.getTime();
+
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+    assay.setSpecie(specie);
+    assay.setCollection(collection);
+    assay.setTestDate(date);
+    assay.addSex(AssaySex.FEMALE);
+    assay.setIdentificationMethod(identificationMethod);
+    assay.setTestMethod(assayMethod);
+    assay.setFed(10);
+    assay.setGravid(10);
+    assay.setExposureTime(60);
+    assay.setIntervalTime(10);
+    assay.setHoldingTime(24);
+    assay.setControlTestMortality(new Float(15));
+    assay.setIsofemale(false);
+    assay.setGeneration(F0);
+    assay.setQuantityDead(15);
+    assay.setQuantityTested(30);
+    assay.getAgeRange().setStartPoint(2);
+    assay.getAgeRange().setEndPoint(20);
+    assay.setInsecticide(insecticide);
+    assay.apply();
+
+    try
+    {
+
+      AdultDiscriminatingDoseAssay assay2 = AdultDiscriminatingDoseAssay.get(assay.getId());
+
+      assertEquals(collection.getId(), assay2.getCollection().getId());
+      assertEquals(specie.getId(), assay2.getSpecie().getId());
+      assertEquals(date, assay2.getTestDate());
+      assertEquals(AssaySex.FEMALE, assay2.getSex().get(0));
+      assertEquals(identificationMethod.getId(), assay2.getIdentificationMethod().getId());
+      assertEquals(assayMethod.getId(), assay2.getTestMethod().getId());
+      assertEquals(new Integer(10), assay2.getFed());
+      assertEquals(new Integer(10), assay2.getGravid());
+      assertEquals(new Integer(60), assay2.getExposureTime());
+      assertEquals(new Integer(10), assay2.getIntervalTime());
+      assertEquals(new Integer(24), assay2.getHoldingTime());
+      assertEquals(new Integer(15), assay2.getQuantityDead());
+      assertEquals(new Integer(30), assay2.getQuantityTested());
+      assertEquals(new Float(15.0), assay2.getControlTestMortality());
+      assertEquals(new Boolean(false), assay2.getIsofemale());
+      assertEquals(insecticide.getId(), assay2.getInsecticide().getId());
+      assertEquals(new Integer(2), assay2.getAgeRange().getStartPoint());
+      assertEquals(new Integer(20), assay2.getAgeRange().getEndPoint());
+      assertEquals(new Float(41.18), assay2.getMortality());      
+    }
+    finally
+    {
+      assay.delete();
+    }
+
+  }
+  
+  public void testControlMortalityLimit()
+  {
+    Calendar calendar = Calendar.getInstance();
+    calendar.clear();
+    calendar.set(2008, 1, 1);
+    Date date = calendar.getTime();
+    
+    AdultDiscriminatingDoseAssay assay = new AdultDiscriminatingDoseAssay();
+
+    try
+    {
+      assay.setCollection(collection);
+      assay.setTestDate(date);
+      assay.addSex(AssaySex.FEMALE);
+      assay.setIdentificationMethod(identificationMethod);
+      assay.setTestMethod(assayMethod);
+      assay.setFed(10);
+      assay.setGravid(10);
+      assay.setExposureTime(60);
+      assay.setIntervalTime(10);
+      assay.setHoldingTime(24);
+      assay.setControlTestMortality(new Float(20.1));
+      assay.setIsofemale(false);
+      assay.setQuantityDead(5);
+      assay.setQuantityTested(30);
+      assay.getAgeRange().setStartPoint(1);
+      assay.getAgeRange().setEndPoint(12);
+      assay.setInsecticide(insecticide);
+      assay.apply();
+      
+      fail("Able to create an adult assay with a control mortality exceeding 20%");
+    }
+    catch (ControlMortalityException e)
+    {
+      // This is expected
+    }
+    finally
+    {
+      if (assay != null && assay.isAppliedToDB())
+      {
+        assay.delete();
+      }
+    }    
+  }
 
   public void testResistant() throws ParseException
   {
