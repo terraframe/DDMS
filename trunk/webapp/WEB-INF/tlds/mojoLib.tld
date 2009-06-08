@@ -4242,7 +4242,7 @@
         display
       </name>
       <required>
-        true
+        false
       </required>
       <rtexprvalue>
         true
