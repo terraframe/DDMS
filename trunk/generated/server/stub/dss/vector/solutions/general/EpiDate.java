@@ -37,8 +37,9 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     super.setPeriod(period);
     super.setEpiYear(year);
     super.addPeriodType(periodType);
-    GregorianCalendar tempCal = makeRegularCalendar(year);
-
+    
+    Calendar tempCal = makeRegularCalendar(year);
+    
     if (periodType.equals(PeriodType.WEEK))
     {
       tempCal = makeEpiCalendar(year);
@@ -50,15 +51,15 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     }
     else if (periodType.equals(PeriodType.MONTH))
     {
-      tempCal.add(Calendar.MONTH, period);
+      tempCal.set(Calendar.MONTH, period);
       super.setStartDate(tempCal.getTime());
       tempCal.add(Calendar.MONTH, 1);
-      tempCal.add(Calendar.DAY_OF_MONTH, -1);
+      tempCal.add(Calendar.DAY_OF_YEAR, -1);
       super.setEndDate(tempCal.getTime());
     }
     else if (periodType.equals(PeriodType.QUARTER))
     {
-      tempCal.add(Calendar.MONTH, 3 * period);
+      tempCal.set(Calendar.MONTH, 3 * period);
       tempCal.add(Calendar.MONTH, -1);
       super.setStartDate(tempCal.getTime());
       tempCal.add(Calendar.MONTH, 3);
@@ -112,20 +113,17 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
   private GregorianCalendar makeRegularCalendar(int year)
   {
-    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
     GregorianCalendar cal = new GregorianCalendar();
     cal.clear();
-    cal.setFirstDayOfWeek(startDay);
-    cal.set(year, 1, 1);
+    cal.set(year, 0, 1);
+    
     return cal;
   }
 
   private GregorianCalendar makeRegularCalendar(Date date)
   {
-    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
     GregorianCalendar cal = new GregorianCalendar();
     cal.clear();
-    cal.setFirstDayOfWeek(startDay);
     cal.setTime(date);
     return cal;
   }
