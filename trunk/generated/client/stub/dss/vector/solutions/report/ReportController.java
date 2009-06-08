@@ -36,7 +36,6 @@ import org.eclipse.birt.report.model.api.elements.structures.ResultSetColumn;
 
 import com.terraframe.mojo.constants.ClientProperties;
 import com.terraframe.mojo.constants.ClientRequestIF;
-import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.dataaccess.database.IDGenerator;
 import com.terraframe.mojo.util.FileIO;
 
@@ -48,14 +47,13 @@ import dss.vector.solutions.util.BirtEngine;
 public class ReportController extends ReportControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1236706138416L;
+  private static final long serialVersionUID    = 1236706138416L;
 
-  private static String     DATA_SET_QUERY   = "queryText";
+  private static String     DATA_SET_QUERY      = "queryText";
 
-  private static String     TEMP_FILE_NAME   = "temp.csv";
-  
-  private String FLAT_FILE_EXTENSION = "org.eclipse.datatools.connectivity.oda.flatfile";
+  private static String     TEMP_FILE_NAME      = "temp.csv";
 
+  private String            FLAT_FILE_EXTENSION = "org.eclipse.datatools.connectivity.oda.flatfile";
 
   public ReportController(javax.servlet.http.HttpServletRequest req,
       javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
@@ -92,7 +90,8 @@ public class ReportController extends ReportControllerBase implements
     ServletContext sc = req.getSession().getServletContext();
     IReportEngine engine = BirtEngine.getBirtEngine(sc, request);
 
-    InputStream input = AggregatedCaseDTO.exportQueryToCSV(request, queryXML, geoEntityType, savedSearchId);
+    InputStream input = AggregatedCaseDTO.exportQueryToCSV(request, queryXML, geoEntityType,
+        savedSearchId);
 
     String dir = this.generateTempCSVFile(input, TEMP_FILE_NAME);
 
@@ -127,7 +126,7 @@ public class ReportController extends ReportControllerBase implements
     }
     catch (SemanticException e)
     {
-      throw new ServletException(e);      
+      throw new ServletException(e);
     }
     catch (IOException e)
     {
@@ -139,7 +138,8 @@ public class ReportController extends ReportControllerBase implements
   }
 
   @SuppressWarnings("unchecked")
-  private void configureDataSet(String dir, IReportRunnable design) throws SemanticException, ServletException
+  private void configureDataSet(String dir, IReportRunnable design) throws SemanticException,
+      ServletException
   {
     // Change the data source to the temporary csv directory
     ReportDesignHandle handle = (ReportDesignHandle) design.getDesignHandle();
@@ -155,7 +155,7 @@ public class ReportController extends ReportControllerBase implements
     for (Iterator i = handle.getDataSets().iterator(); i.hasNext();)
     {
       DesignElementHandle dataset = (DesignElementHandle) i.next();
-      
+
       Pattern pattern = Pattern.compile("^(select\\s+.*?\\s+from\\s+)(.*?)(\\s+:.*)$");
       Matcher matcher = pattern.matcher(dataset.getStringProperty(DATA_SET_QUERY));
 
@@ -181,7 +181,7 @@ public class ReportController extends ReportControllerBase implements
     {
       throw new DataSourceLimitExceptionDTO(this.getClientRequest());
     }
-    
+
     // Validate the csv structure against the report structure
     try
     {
@@ -190,8 +190,8 @@ public class ReportController extends ReportControllerBase implements
 
       String line = in.readLine();
       in.close();
-      
-      for(String header : line.split(","))
+
+      for (String header : line.split(","))
       {
         headers.add(header.trim());
       }
@@ -199,30 +199,30 @@ public class ReportController extends ReportControllerBase implements
       for (Iterator i = handle.getDataSources().iterator(); i.hasNext();)
       {
         String extensionID = ( (OdaDataSourceHandle) i.next() ).getExtensionID();
-        
-        if(!extensionID.equals(FLAT_FILE_EXTENSION))
+
+        if (!extensionID.equals(FLAT_FILE_EXTENSION))
         {
           String msg = "The only system only supports flat file data sources";
           throw new UnsupportedDataSourceExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
         }
       }
-      
+
       for (Iterator i = handle.getDataSets().iterator(); i.hasNext();)
       {
         OdaDataSetHandle dataset = (OdaDataSetHandle) i.next();
-        
+
         CachedMetaDataHandle metadata = dataset.getCachedMetaDataHandle();
-        
+
         MemberHandle members = metadata.getResultSet();
-        
+
         ArrayList list = members.getListValue();
-        
-        for(Object choice : list) 
+
+        for (Object choice : list)
         {
-          ResultSetColumn column = (ResultSetColumn) choice;          
+          ResultSetColumn column = (ResultSetColumn) choice;
           String columnName = column.getColumnName();
-          
-          if(!headers.contains(columnName))
+
+          if (!headers.contains(columnName))
           {
             String msg = "Invalid query structure";
             throw new QueryConfigurationExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
@@ -233,7 +233,7 @@ public class ReportController extends ReportControllerBase implements
     catch (IOException e)
     {
       throw new ServletException(e);
-    }    
+    }
   }
 
   private String generateTempCSVFile(InputStream in, String fileName)
