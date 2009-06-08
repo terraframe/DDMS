@@ -34,18 +34,18 @@
 <%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
 <%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
 
-<%!static String buildChekboxTable(MosquitoViewDTO view, Class superAssayClass , ClientRequestIF clientRequest) throws JSONException{
+<%!static String buildChekboxTable(MosquitoViewDTO view, Class<?> superAssayClass , ClientRequestIF clientRequest) throws JSONException{
 	String s = "<table><tr><th colspan=\"2\">";
 	s += superAssayClass.getSimpleName().substring(0,superAssayClass.getSimpleName().indexOf("Assay")) +"</th></tr>";
 
-  	Class viewClass = view.getClass();
+  	Class<?> viewClass = view.getClass();
 
   	MdAttributeVirtualDTO[] mdArray = MosquitoViewDTO.getAccessors(clientRequest,superAssayClass.getCanonicalName());
 
     for (MdAttributeVirtualDTO md : mdArray)
     {
  	    String acc = md.getAccessor();
-        if(acc.length() == 0)
+        if(acc != null && acc.length() == 0)
         {
           acc =  md.getAttributeName();
         }
