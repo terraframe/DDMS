@@ -262,7 +262,12 @@ public class ReportController extends ReportControllerBase implements
   {
     try
     {
-      FileIO.deleteDirectory(new File(file));
+      File directory = new File(file);
+      
+      if(directory.exists())
+      {
+        FileIO.deleteDirectory(directory);
+      }
     }
     catch (IOException e)
     {
