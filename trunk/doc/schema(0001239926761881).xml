@@ -622,37 +622,6 @@
       </mdEnumeration>
 
       <mdBusiness
-        name="dss.vector.solutions.intervention.Drug"
-        label="Drug"
-        generateController="true">
-        <attributes>
-          <char
-            name="drugName"
-            label="Name"
-            required="true"
-            size="255"
-            indexType="unique index" />
-          <localChar
-            name="displayLabel"
-            label="Display Label"
-            required="true"
-            size="255" />
-          <boolean
-            name="enabled"
-            label="Active"
-            required="true"
-            default_value="true"
-            positiveLabel="Yes"
-            negativeLabel="No" />
-        </attributes>
-        <mdMethod
-          name="getAllActive"
-          label="Get All Active"
-          returnType="dss.vector.solutions.intervention.Drug[]"
-          static="true" />
-      </mdBusiness>
-
-      <mdBusiness
         name="dss.vector.solutions.intervention.FeverTreatment"
         label="Fever Treatment"
         generateController="true">
@@ -1075,7 +1044,7 @@
           <reference
             name="anaemiaTreatment"
             label="Anaemia Treatment"
-            type="dss.vector.solutions.intervention.Drug" />
+            type="dss.vector.solutions.surveillance.TreatmentGrid" />
           <boolean
             name="iron"
             label="Was iron given"
@@ -1095,7 +1064,7 @@
           <reference
             name="rdtTreatment"
             label="Treatment given"
-            type="dss.vector.solutions.intervention.Drug" />
+            type="dss.vector.solutions.surveillance.TreatmentGrid" />
           <enumeration
             name="bloodslide"
             label="Bloodslide detail"
@@ -1118,7 +1087,7 @@
           <reference
             name="malariaTreatment"
             label="Was Treatment taken for this episode"
-            type="dss.vector.solutions.intervention.Drug" />
+            type="dss.vector.solutions.surveillance.TreatmentGrid" />
           <enumeration
             name="payment"
             label="Payment for treatment"
@@ -1335,9 +1304,6 @@
         type="com.terraframe.mojo.system.metadata.MdEnumeration" />
       <object
         key="dss.vector.solutions.intervention.ResponseMaster"
-        type="com.terraframe.mojo.system.metadata.MdBusiness" />
-      <object
-        key="dss.vector.solutions.intervention.Drug"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.intervention.HumanSex"

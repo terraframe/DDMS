@@ -96,17 +96,6 @@
       </mdView>
     </create>
     <update>
-      <mdBusiness
-        name="dss.vector.solutions.intervention.Drug">
-        <create>
-          <mdMethod
-            name="getAll"
-            label="Get All"
-            description="Returns all active drugs"
-            static="true"
-            returnType="dss.vector.solutions.intervention.Drug[]" />
-        </create>
-      </mdBusiness>
 
       <mdController
         name="dss.vector.solutions.intervention.monitor.PersonController">
@@ -171,22 +160,6 @@
         </create>
       </mdBusiness>
     </update>
-    <create>
-      <object
-        type="dss.vector.solutions.intervention.Drug"
-        id="TEST_DRUG"
-        key="Test_Drug">
-        <valueAttribute
-          name="drugName"
-          value="Test_Drug" />
-        <structAttribute
-          name="displayLabel">
-          <valueAttribute
-            name="defaultLocale"
-            value="Test Drug" />
-        </structAttribute>
-      </object>
-    </create>
   </doIt>
   <undoIt>
     <delete>
