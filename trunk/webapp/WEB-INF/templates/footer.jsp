@@ -76,9 +76,9 @@ YAHOO.util.Event.addListener(window, 'load', function()
   }
   var serverTime = <fmt:formatNumber maxFractionDigits="2" value="${serverTime}"/>;
   var prevPagePostTime = readCookie('pagepostTime');
-  var loadtime = (Date.now() - parseInt(prevPagePostTime)) / 1000.0;
-  var clientTime = Math.abs(loadtime - serverTime);
-  document.getElementById('loadTime').innerHTML = loadtime.toFixed(2);;
+  var loadtime = (Date.now() - parseInt(prevPagePostTime,10)) / 1000.0;
+  var clientTime = loadtime - serverTime;
+  document.getElementById('loadTime').innerHTML = loadtime.toFixed(2);
   document.getElementById('clientTime').innerHTML = clientTime.toFixed(2);
   //the server can log this on the next request
   document.cookie = "PrevLoadTime=CT" + clientTime.toFixed(2) +"ST" + serverTime + escape(document.location) + "; path=/";
