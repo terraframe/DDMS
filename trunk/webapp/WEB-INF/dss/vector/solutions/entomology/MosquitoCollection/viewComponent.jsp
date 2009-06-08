@@ -25,18 +25,20 @@
 <mjl:form name="dss.entomology.MosquitoCollection.form.name" id="dss.entomology.MosquitoCollection.form.id" method="POST" style="display:inline;">
 
   <mjl:input value="${item.id}" type="hidden" param="id" />
-
-    <dt><label> ${item.collectionIdMd.displayLabel} </label></dt>
-    <dd>${item.collectionId}</dd>
-    <dt><label> ${item.geoEntityMd.displayLabel} </label></dt>
-    <dd>${item.geoEntity.geoId}</dd>
-    <dt><label > ${item.dateCollectedMd.displayLabel} </label></dt>
-    <dd class="formatDate">${item.dateCollected}</dd>
-    <dt><label> ${item.collectionMethodMd.displayLabel} </label></dt>
-    <dd>${item.collectionMethod.displayLabel}</dd>
-
-
-
+  <mjl:component item="${item}" param="dto">
+    <mjl:dt attribute="collectionId">
+      ${item.collectionId}
+    </mjl:dt>
+    <mjl:dt attribute="geoEntity">
+      ${item.geoEntity.geoId}
+    </mjl:dt>
+    <mjl:dt attribute="dateCollected">
+      <span class="formatDate">${item.dateCollected}</span>
+    </mjl:dt>
+    <mjl:dt attribute="collectionMethod">
+      ${item.collectionMethod.displayLabel}
+    </mjl:dt>
+  </mjl:component>
   <mjl:command value="Edit" action="dss.vector.solutions.entomology.MosquitoCollectionController.edit.mojo" name="dss.vector.solutions.entomology.MosquitoCollection.form.edit.button" classes="submitButton" />
 </mjl:form>
 
@@ -99,7 +101,7 @@
 </div>
 </dl>
 
-<h2><fmt:message key="Collection Assays"/></h2>
+<h2><fmt:message key="Collection_Assays"/></h2>
 <dl>
   <dt>
     <fmt:message key="Adult_DDA" />
@@ -111,6 +113,9 @@
       </mjl:context>
       <mjl:columns>
         <mjl:attributeColumn attributeName="testDate">
+          <mjl:row>
+            <span class="formatDate">${current.testDate}</span>
+          </mjl:row>        
         </mjl:attributeColumn>
         <mjl:attributeColumn attributeName="insecticide">
           <mjl:row>
@@ -145,6 +150,9 @@
       </mjl:context>
       <mjl:columns>
         <mjl:attributeColumn attributeName="testDate">
+          <mjl:row>
+            <span class="formatDate">${current.testDate}</span>
+          </mjl:row>        
         </mjl:attributeColumn>
         <mjl:attributeColumn attributeName="insecticide">
           <mjl:row>
@@ -179,6 +187,9 @@
       </mjl:context>
       <mjl:columns>
         <mjl:attributeColumn attributeName="testDate">
+          <mjl:row>
+            <span class="formatDate">${current.testDate}</span>
+          </mjl:row>        
         </mjl:attributeColumn>
         <mjl:attributeColumn attributeName="insecticide">
           <mjl:row>
