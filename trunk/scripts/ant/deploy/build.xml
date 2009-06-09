@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="MDSS" default="rebuild_all">
+<project name="MDSS" default="fast_build">
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../../../lib/ant/ant-contrib-1.0b3.jar" />
 	<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="../../../lib/ant/svnant.jar;../../../lib/ant/svnClientAdapter.jar;../../../lib/ant/svnkit.jar;../../../lib/ant/svnjavahl.jar;../../../lib/ant/ganymed.jar;" />
 
@@ -215,13 +215,10 @@
 	<!-- so that posgres does not require a password from localhost         -->
 	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
 	<!-- =================================================================== -->
-	<target name="fast_build" depends="alert_status,kill_tomcat,develop_rebuild_import,write_revision,deploy_all,import_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
+	<target name="fast_build" depends="alert_status,kill_tomcat,develop_rebuild_import,deploy_all,import_geodata,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="The build is complete, please start tomcat" />
 	</target>
 
-	<target name="fast_update" depends="alert_status,update_db" description=".">
-		<echo message="The update is complete" />
-	</target>
 
 	<target name="copy_dev_to_deploy" depends="kill_tomcat" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="dumping the develop db to a sql file " />
@@ -252,14 +249,6 @@
 		<delete file="./dump.sql" />
 	</target>
 
-	<target name="rebuild_all" depends="alert_status,develop_rebuild_import,deploy_all,deploy_rebuild_import,update_db,push_source">
-		<echo message="The build is complete" />
-	</target>
-
-	<!-- =================================================================== -->
-	<!-- These are five tasks that rebuild MDSS.                             -->
-	<!-- You can run them one at a time if you wish.                         -->
-	<!-- =================================================================== -->
 	<target name="develop_rebuild_import" depends="" description="Development Rebuild All">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
 			<jvmarg value="-Xmx${max_memory_use}" />
@@ -289,23 +278,6 @@
 			<!--<arg value="stop_tomcat_webapp" />-->
 			<arg value="deploy" />
 			<!--<arg value="start_tomcat_webapp" />-->
-		</java>
-	</target>
-
-	<target name="deploy_rebuild_import" depends="" description="Step 3">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(3)Deploy Rebuild Import">
-			<jvmarg value="-Xmx${max_memory_use}" />
-			<classpath>
-				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
-			</classpath>
-			<arg value="-buildfile" />
-			<arg file="deploy.xml" />
-			<arg value="-Dprofile.name=deploy" />
-			<arg value="-Droot.user=${root.user}" />
-			<arg value="-Droot.pass=${root.pass}" />
-			<arg value="-Droot.db=${root.db}" />
-			<arg value="rebuild_db" />
-			<arg value="import_most_recent" />
 		</java>
 	</target>
 
@@ -339,17 +311,7 @@
 		</java>
 	</target>
 
-	<target name="push_source" depends="alert_status" description="Step 5">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(5)Push Source To Server">
-			<jvmarg value="-Xmx${max_memory_use}" />
-			<classpath>
-				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
-			</classpath>
-			<arg value="-buildfile" />
-			<arg file="deploy.xml" />
-			<arg value="push_source" />
-		</java>
-	</target>
+
 
 	<!-- =================================================================== -->
 	<!-- These are some utility tasks and tasks for restarting things        -->
@@ -396,14 +358,6 @@
 	<!-- CAUTION: THESE TASKS UPDATE THE LIVE TEST SERVER!                   -->
 	<!-- =================================================================== -->
 
-	<target name="deploy_to_test_server" depends="alert_status" description="Dumps the sql and update the svn with your currently tomcat dir">
-		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true" inputstring="${postgres.bin}/pg_dump --blobs -U postgres mdssdeploy > dump.sql" />
-		<shellscript shell="bash" os="Mac OS X" dir="${deploy.path}" searchpath="true">
-		svn add * --force
-		svn ci -m"Update test servers to lastest version of MDSS"
-	</shellscript>
-		<echo message="SVN updated with image for test server" />
-	</target>
 	<!-- FIXME: upgrad jars to svn 1.6 when they come out-->
 	<target name="write_revision" if="write_rev" description="Writes the current svn revision info to an html file">
 		<antcall target="get_svn_user" />
@@ -421,40 +375,12 @@
 		</echo>
 	</target>
 
-	<target name="get_root_password" description="Checks for root password and prompts for it if not found." unless="testserver.password">
-		<input message="Test Server Password:" addproperty="testserver.password" />
-	</target>
-
 	<target name="get_svn_user" description="Checks for root password and prompts for it if not found." unless="svn.user">
 		<input message="Svn User:" addproperty="svn.user" />
 	</target>
 
 	<target name="get_svn_password" description="Checks for root password and prompts for it if not found." unless="svn.password">
 		<input message="Svn Password:" addproperty="svn.password" />
-	</target>
-
-	<!-- lib/common/jsch-0.1.31.jar must be added to your ant classpath-->
-	<target name="update_test_server" depends="get_root_password" description="logs in to the test server and preforms an update">
-		<sshexec host="${testserver.address}" username="${testserver.username}" password="${testserver.password}" command="CMD /c 'C:\\Program Files\\Apache Software Foundation\\Tomcat 6.0\\webapps\\MDSS\\update.bat'" />
-	</target>
-
-	<!-- =================================================================== -->
-	<!-- CAUTION: CHANGES PUSHED TO TOMCAT WITH THESE TASKS WILL BE LOST UPON RESTART!                   -->
-	<!-- =================================================================== -->
-
-	<target name="update_source" depends="alert_status" description="Step 6, use this if you have changed java code and want send changes to tomcat">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(6)Update Source">
-			<jvmarg value="-Xmx${max_memory_use}" />
-			<classpath>
-				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
-			</classpath>
-			<arg value="-buildfile" />
-			<arg file="deploy.xml" />
-			<arg value="deploy_application_files" />
-			<!--<arg value="deploy_presentation_files" /> -->
-		</java>
-		<antcall target="call_reload_jsp">
-		</antcall>
 	</target>
 
 
