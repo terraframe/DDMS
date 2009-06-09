@@ -16,7 +16,7 @@
         ${item.sprayZone.entityName}
       </mjl:row>
     </mjl:attributeColumn>
-    <%-- 5.13.09 - Marlize says we don't need Spray Leaders
+    <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
     <mjl:freeColumn>
       <mjl:header>
         <fmt:message key="Spray_Team_Leader" />
@@ -31,7 +31,6 @@
       
       </mjl:footer>
     </mjl:freeColumn>
-    --%>
     <mjl:freeColumn>
       <mjl:header>
         
