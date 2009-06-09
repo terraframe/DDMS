@@ -130,6 +130,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       return true;
 
     return mdAttribute.isSystem() ||
+           mdAttribute.isRequired() ||
            mdAttribute.definesAttribute().equals(MdAttributeInfo.OWNER) ||
            mdAttribute.definesAttribute().equals(MdAttributeInfo.DOMAIN);
   }
