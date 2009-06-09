@@ -39,4 +39,9 @@ public class GeoHierarchyView extends GeoHierarchyViewBase implements Searchable
 
     return searcher.searchGeoEntity(entityName, parent);
   }
+
+  public String toString()
+  {
+    return this.getTypeName();
+  }
 }

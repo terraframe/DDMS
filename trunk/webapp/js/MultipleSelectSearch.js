@@ -69,6 +69,12 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     var span = document.createElement('span');
     span.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
 
+    // add * to denote select all if geo entity type does not match query type
+    if(geoEntityView.getEntityType() !== this._restrictingType)
+    {
+      span.innerHTML += '<span style="font-weight: bold"> *</span>';
+    }
+
     var div = document.createElement('div');
     div.appendChild(del);
     div.appendChild(span);
@@ -123,6 +129,29 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
   _restrictType : function(e)
   {
     var select = e.target;
+    if(select.selectedIndex === 0)
+    {
+      // don't do anything for the first "Select One" entry
+      return;
+    }
+
+    // clear all prior information if the user is selecting
+    // a new restricting type
+    if(this._restrictingType != null)
+    {
+      var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
+      for(var i=0; i<checkboxes.length; i++)
+      {
+        checkboxes[i].checked = false;
+      }
+
+      var selections = document.getElementById(this._CURRENT_SELECTIONS);
+      selections.innerHTML = '';
+      this._selectedMap = {};
+
+      this._createRoot();
+    }
+
     var option = select.options[select.selectedIndex];
     var type = option.value;
 
@@ -133,7 +162,7 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
   	var geoEntity = new construct();
     var geoEntityView = this._copyEntityToView(geoEntity);
 
-    this._notifySelectHandler(geoEntityView, false);
+    this._notifySelectHandler(geoEntityView);
   },
 
   /**
@@ -165,7 +194,7 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     for(var i=0; i<toggles.length; i++)
     {
       var toggle = toggles[i];
-      YAHOO.util.Event.on(toggle, 'click', this._notifySelectUniversalTypeHandler, null, this);
+      YAHOO.util.Event.on(toggle, 'click', this._notifySelectUniversalTypeHandler, toggle.value, this);
     }
   },
 
@@ -175,7 +204,7 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
    */
   _getStartIndex : function()
   {
-    return 2;
+    return 1;
   },
 
   /**
@@ -201,14 +230,14 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
   	var geoEntity = new construct();
     var geoEntityView = this._copyEntityToView(geoEntity);
 
-    this._notifySelectHandler(geoEntityView, false);
+    this._notifySelectHandler(geoEntityView);
   },
 
   /**
    Notifies the select handler that a new select list
    * option has been chosen.
    */
-  _notifySelectHandler : function(geoEntityView, updateSelection)
+  _notifySelectHandler : function(geoEntityView)
   {
     // add to list of currently selected
   	if(Mojo.util.isFunction(this._selectHandler))
@@ -225,12 +254,10 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
   /**
    *
    */
-  _notifySelectUniversalTypeHandler : function(e)
+  _notifySelectUniversalTypeHandler : function(e, type)
   {
   	if(Mojo.util.isFunction(this._selectUniversalTypeHandler))
   	{
-  	  var type = e.target.value;
-
       // send in a new instance as a template
   	  var construct = Mojo.util.getType(type);
   	  var geoEntity = new construct();
@@ -251,6 +278,6 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
 
   _disableAllowed : function()
   {
-  	return false;
+  	return true;
   }
 });

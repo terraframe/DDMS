@@ -65,8 +65,6 @@ public class ReportController extends ReportControllerBase implements
   public void generateReport(String queryXML, String geoEntityType, String savedSearchId)
       throws IOException, ServletException
   {
-    validateParameters(queryXML, geoEntityType, savedSearchId);
-
     buildReport(queryXML, geoEntityType, savedSearchId);
   }
 
@@ -79,30 +77,31 @@ public class ReportController extends ReportControllerBase implements
   }
 
   private void buildReport(String queryXML, String geoEntityType, String savedSearchId)
-      throws ServletException
+      throws ServletException, IOException
   {
-    ClientRequestIF request = this.getClientRequest();
-    SavedSearchDTO search = SavedSearchDTO.get(request, savedSearchId);
-
-    resp.setHeader("Content-Disposition", "attachment;filename=" + search.getQueryName() + ".pdf");
-
-    // Get report name and launch the engine
-    ServletContext sc = req.getSession().getServletContext();
-    IReportEngine engine = BirtEngine.getBirtEngine(sc, request);
-
-    InputStream input = AggregatedCaseDTO.exportQueryToCSV(request, queryXML, geoEntityType,
-        savedSearchId);
-
-    String dir = this.generateTempCSVFile(input, TEMP_FILE_NAME);
-
     try
     {
+      validateParameters(queryXML, geoEntityType, savedSearchId);
+
+      ClientRequestIF request = this.getClientRequest();
+      SavedSearchDTO search = SavedSearchDTO.get(request, savedSearchId);
+
+
+      // Get report name and launch the engine
+      ServletContext sc = req.getSession().getServletContext();
+      IReportEngine engine = BirtEngine.getBirtEngine(sc, request);
+      InputStream input = AggregatedCaseDTO.exportQueryToCSV(request, queryXML, geoEntityType,
+        savedSearchId);
+
+      String dir = this.generateTempCSVFile(input, TEMP_FILE_NAME);
+
       // Open report design
       IReportRunnable design = engine.openReportDesign(search.getTemplateStream());
 
       this.configureDataSet(dir, design);
 
       // set output options
+      resp.setHeader("Content-Disposition", "attachment;filename=" + search.getQueryName() + ".pdf");
       IRenderOption options = new RenderOption();
       options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
       options.setOutputStream(resp.getOutputStream());
@@ -122,19 +121,18 @@ public class ReportController extends ReportControllerBase implements
     catch (EngineException e)
     {
       String msg = "The provided design is not a valid BIRT design";
-      throw new TemplateExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
+      TemplateExceptionDTO ex = new TemplateExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
+      resp.getWriter().write(ex.getLocalizedMessage());
     }
-    catch (SemanticException e)
+    catch (Throwable t)
     {
-      throw new ServletException(e);
+      resp.getWriter().write(t.getLocalizedMessage());
     }
-    catch (IOException e)
+    finally
     {
-      throw new ServletException(e);
+      // Delete the temp file
+      this.deleteTempDirectory(dir);
     }
-
-    // Delete the temp file
-    this.deleteTempDirectory(dir);
   }
 
   @SuppressWarnings("unchecked")
@@ -263,7 +261,7 @@ public class ReportController extends ReportControllerBase implements
     try
     {
       File directory = new File(file);
-      
+
       if(directory.exists())
       {
         FileIO.deleteDirectory(directory);

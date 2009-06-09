@@ -207,6 +207,8 @@ MDSS.AbstractSelectSearch.prototype = {
           // create mapping
           this.searchRef._typeAndSelectMap[select.name] = i; // select name is the type
           this.searchRef._selectLists.push(select);
+
+          YAHOO.util.Event.on(select, this._getChildren, null, this.searchRef);
         }
 
         // hook all entity name search events
@@ -348,6 +350,7 @@ MDSS.AbstractSelectSearch.prototype = {
     else
     {
       this._geoTreePanel.show();
+      this._geoTreePanel.bringToTop();
     }
 
     // always create a new tree per request
@@ -675,6 +678,8 @@ MDSS.AbstractSelectSearch.prototype = {
   {
     var currentOption = e.target;
     var select = currentOption.parentNode;
+
+
     var parentEntityView = this._geoEntityViewCache[currentOption.id];
 
 

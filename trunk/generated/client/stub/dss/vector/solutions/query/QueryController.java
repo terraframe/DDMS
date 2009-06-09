@@ -365,9 +365,7 @@ public class QueryController extends QueryControllerBase implements
     }
     catch (Throwable t)
     {
-      // FIXME avoid wiping out the state of the query
-      req.setAttribute(ErrorUtility.ERROR_MESSAGE, t.getLocalizedMessage());
-      this.queryAggregatedCases();
+      resp.getWriter().write(t.getLocalizedMessage());
     }
   }
 
@@ -385,9 +383,7 @@ public class QueryController extends QueryControllerBase implements
     }
     catch (Throwable t)
     {
-      // FIXME avoid wiping out the state of the query
-      req.setAttribute(ErrorUtility.ERROR_MESSAGE, t.getLocalizedMessage());
-      this.queryAggregatedCases();
+      resp.getWriter().write(t.getLocalizedMessage());
     }
   }
 

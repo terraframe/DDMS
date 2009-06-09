@@ -17,12 +17,15 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 
+<%@page import="dss.vector.solutions.geo.generated.FacilityDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.AbstractSite"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
-// Setting both values to false will select *all* univerals
-MDSS.AbstractSelectSearch.Political = false;
+MDSS.AbstractSelectSearch.Political = true;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
+MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= AbstractSite.CLASS %>');
+MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= FacilityDTO.CLASS %>*');
 </script>
 
 <mjl:form name="search" method="POST" id ="searchAggregatedCase">

@@ -89,14 +89,9 @@ var MDSS = {
 
   },
 
-  /**
-   * Provides a default request implementation.
-   */
-  Request : function(handler)
+  ErrorModal : function(content)
   {
-  	this.createModal = function(content)
-  	{
-       var modal = new YAHOO.widget.Panel("errorModal",
+      var modal = new YAHOO.widget.Panel("errorModal",
        {
           width:"400px",
           height: "200px",
@@ -114,8 +109,18 @@ var MDSS = {
       div.innerHTML = content;
 
       modal.setBody(div);
-      modal.bringToTop();
       modal.render(document.body);
+      modal.bringToTop();
+  },
+
+  /**
+   * Provides a default request implementation.
+   */
+  Request : function(handler)
+  {
+  	this.createModal = function(content)
+  	{
+      new MDSS.ErrorModal(content);
   	};
 
   	this.onSend = function()
@@ -136,6 +141,7 @@ var MDSS = {
   		MDSS.util.wait_for_ajax.setHeader(MDSS.Localized.Ajax_Loading);
   		MDSS.util.wait_for_ajax.setBody('<img src="imgs/rel_interstitial_loading.gif" />');
   		MDSS.util.wait_for_ajax.render(document.body);
+  		MDSS.util.wait_for_ajax.bringToTop();
   	}
 
   	this.onComplete = function()

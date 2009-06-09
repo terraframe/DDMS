@@ -1150,7 +1150,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="dss.vector.solutions.geo.generated.Wall" />
@@ -1179,7 +1179,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="dss.vector.solutions.geo.generated.Roof" />

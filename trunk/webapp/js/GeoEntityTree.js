@@ -713,6 +713,7 @@ MDSS.GeoEntityTree = (function(){
     var htmlNode = YAHOO.util.Dom.hasClass(oTarget, "ygtvhtml") ? oTarget : YAHOO.util.Dom.getAncestorByClassName(oTarget, "ygtvhtml");
     if (htmlNode) {
       _selectedNode = _geoTree.getNodeByElement(htmlNode);
+      this.bringToTop();
     }
     else {
       this.cancel();

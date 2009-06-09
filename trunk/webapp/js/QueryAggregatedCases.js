@@ -73,7 +73,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   {
   	return 'dss.vector.solutions.query.QueryController.exportQueryToCSV.mojo';
   },
-  
+
   _getExportReportAction : function()
   {
   	return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
@@ -625,6 +625,8 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     var selectable = attribute.getRelationshipSelectable();
 
+    this._queryPanel.updateColumnLabel(key, func);
+
     // special cases
     if(func === MDSS.QueryXML.Functions.GB)
     {
@@ -681,12 +683,17 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     var selectable = attribute.getSelectable();
 
+    this._queryPanel.updateColumnLabel(key, func);
+
     // special cases
     if(func === MDSS.QueryXML.Functions.GB)
     {
   	  this._removeVisibleAttribute(attribute, false, false, false);
       this._visibleSelectables[attribute.getKey()] = selectable;
       this._visibleGroupBySelectables[attribute.getKey()] = selectable;
+
+      this._queryPanel.updateColumnLabel(key, MDSS.QueryXML.Functions.GB);
+
       return;
     }
     else if(func === '')
@@ -694,6 +701,8 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       // Use regular selectable (this is just here for clarity).
   	  this._removeVisibleAttribute(attribute, false, true, false);
       this._visibleSelectables[attribute.getKey()] = selectable;
+
+
       return;
     }
 

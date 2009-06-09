@@ -19,10 +19,9 @@
       <input type="text" class="ajaxSearch" value="" style="width: 225px" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_search" /><br />
       <div id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}_results" class="ajaxResults"></div>
     </c:if>
-    <select style="width: 250px" class="typeSelect" name="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}">
+    <select disabled="disabled" style="width: 250px" class="typeSelect" name="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}" id="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}">
     <c:if test="${!status.first}">
       <option value="DEFAULT">&nbsp;</option>
-      <option value="SELECT_ALL"><f:message key="Select_All"/></option>
     </c:if>
     </select>
       <c:choose>
@@ -50,7 +49,7 @@
     </c:forEach>
     </select>
     <hr />
-    <h3 style="style: margin-bottom: 5px;"><f:message key="Current_Selection" />:</h3>
+    <h3 style="style: margin-bottom: 5px;"><f:message key="Current_Selection" /> (* <f:message key="Select_All" />):</h3>
     <ul id="currentSelections">
     </ul>
 </div>

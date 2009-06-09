@@ -633,8 +633,6 @@ MDSS.QueryXML.OrderBy.prototype = {
  */
 MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
 {
-  var rightPanel = '<div style="padding-left:10px">'+MDSS.Localized.Selected_Entities + '<hr /><ul id="'+this.GEO_ENTITY_PANEL_LIST+'"></ul></div>';
-
   this._queryLayout = new YAHOO.widget.Layout(queryPanelId, {
     height: 500,
     width: 900,
@@ -643,7 +641,7 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
         { position: 'left', width: 180, resize: true, body: '', gutter: '0 5 0 2', scroll: true },
         { position: 'bottom', height: 40, body: '', gutter: '2' },
         { position: 'center', body: '<div id="'+this.QUERY_DATA_TABLE+'"></div>', gutter: '0 2 0 0', scroll: true },
-        { position: 'right', width: 150, body: rightPanel, resize: true, scroll: true, gutter: '0 5 0 2'}
+        { position: 'right', width: 150, body: '<div style="margin-left: 10px" id="'+this.QUERY_SUMMARY+'"></div>', resize: true, scroll: true, gutter: '0 5 0 2'}
     ]
   });
 
@@ -678,6 +676,8 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
   this._mBottomUnit = null;
   this._mCenterUnit = null;
 
+  this._querySummary = null;
+
   // reference to the reusable modal for file uploading
   this._uploadModal = null;
 
@@ -704,14 +704,8 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
   // map between query list entries (LI tags) and context menu builder functions
   this._queryMenuBuilders = {};
 
-  this._mapButton = null;
-  this._runButton = null;
-  this._loadButton = null;
-  this._refreshMapButton = null;
-
   // The button that adds a new layer when clicked
   this._addLayerButton = null;
-  //this._addThematicButton = null;
 
   // a map of ThematicVariable objects
   this._thematicVariables = {};
@@ -741,13 +735,11 @@ MDSS.QueryPanel.prototype = {
 
   END_DATE_RANGE : "endDateRange",
 
-  REFRESH_MAP_BUTTON : "refreshMapButton",
-
-  RUN_QUERY_BUTTON : "runQueryButton",
-
-  LOAD_QUERY_BUTTON : "loadQueryButton",
-
   GEO_ENTITY_PANEL_LIST : "geoEntityPanelList",
+
+  COLUMNS_LIST : "columnsList",
+
+  QUERY_SUMMARY : "querySummary",
 
   /**
    *
@@ -783,6 +775,43 @@ MDSS.QueryPanel.prototype = {
   getCurrentThematicVariable : function(thematicVar)
   {
     return this._currentThematicVariable;
+  },
+
+  /**
+   * Updates the column label on both the YUI column object
+   * and the listing in the right panel query summary.
+   */
+  updateColumnLabel : function(key, prepend)
+  {
+    var li = document.getElementById(key+"_summary");
+    var prependEl = li.firstChild;
+    prependEl.innerHTML = (prepend === '') ? '' : '('+prepend+') ';
+  },
+
+  /**
+   * Adds a column to the query summary in
+   * the right panel.
+   */
+  _addSelectedColumn : function(column)
+  {
+    var ul = document.getElementById(this.COLUMNS_LIST);
+
+    var li = document.createElement('li');
+    li.id = column.getKey()+"_summary";
+    li.innerHTML = "<span></span>"+ column.label;
+
+    ul.appendChild(li);
+  },
+
+  /**
+   * Removes a column from the query summary in
+   * the right panel.
+   */
+  _removeSelectedColumn : function(column)
+  {
+    var ul = document.getElementById(this.COLUMNS_LIST);
+    var li = document.getElementById(column.getKey()+"_summary");
+    ul.removeChild(li);
   },
 
   /**
@@ -972,17 +1001,29 @@ MDSS.QueryPanel.prototype = {
     this._mBottomUnit = this._mapLayout.getUnitByPosition('bottom');
     this._mCenterUnit = this._mapLayout.getUnitByPosition('center');
 
-    // action buttons
     this._buildButtons();
 
-    // date range
     this._buildDateRange();
 
-    // query items
     this._buildQueryItems();
 
-    // content grid
     this._buildContentGrid();
+
+    this._buildQuerySummary();
+  },
+
+  /**
+   * Builds the right side of the query panel with information
+   * about the query, including the selected columns and restricting
+   * geo entities.
+   */
+  _buildQuerySummary : function()
+  {
+    var html = '<h3>'+MDSS.Localized.Columns+'</h3><ul id="'+this.COLUMNS_LIST+'"></ul>';
+    html += '<h3>'+MDSS.Localized.Selected_Entities + '</h3><ul id="'+this.GEO_ENTITY_PANEL_LIST+'"></ul>';
+
+    var querySummary = document.getElementById(this.QUERY_SUMMARY);
+    querySummary.innerHTML = html;
   },
 
   /**
@@ -1213,7 +1254,7 @@ MDSS.QueryPanel.prototype = {
       this._config.exportCSV.apply(this, Mojo.util.getValues(obj));
     }
   },
-  
+
   _exportReport : function(e, obj)
   {
     if(Mojo.util.isFunction(this._config.exportReport))
@@ -1232,6 +1273,7 @@ MDSS.QueryPanel.prototype = {
   {
     var form = document.createElement('form');
     YAHOO.util.Dom.setAttribute(form, 'method', 'POST');
+    YAHOO.util.Dom.setAttribute(form, 'target', 'messageFrame');
 
     var xmlInput = document.createElement('textarea');
     YAHOO.util.Dom.setAttribute(xmlInput, 'name', 'queryXML');
@@ -1273,6 +1315,7 @@ MDSS.QueryPanel.prototype = {
  {
    var form = document.createElement('form');
    YAHOO.util.Dom.setAttribute(form, 'method', 'POST');
+   YAHOO.util.Dom.setAttribute(form, 'target', 'messageFrame');
 
    var xmlInput = document.createElement('textarea');
    YAHOO.util.Dom.setAttribute(xmlInput, 'name', 'queryXML');
@@ -1307,7 +1350,7 @@ MDSS.QueryPanel.prototype = {
    return exportReportButton;
  },
 
-  
+
   /**
    * Builds the form to do a synchronous post to the server to
    * download a Excel file.
@@ -1316,6 +1359,7 @@ MDSS.QueryPanel.prototype = {
   {
     var form = document.createElement('form');
     YAHOO.util.Dom.setAttribute(form, 'method', 'POST');
+    YAHOO.util.Dom.setAttribute(form, 'target', 'messageFrame');
 
     var xmlInput = document.createElement('textarea');
     YAHOO.util.Dom.setAttribute(xmlInput, 'name', 'queryXML');
@@ -1415,7 +1459,6 @@ MDSS.QueryPanel.prototype = {
    */
   _buildButtons : function()
   {
-
     var uploadTemplate = new YAHOO.util.Element(document.createElement('input'));
     uploadTemplate.set('type', 'button');
     uploadTemplate.set('value', MDSS.Localized.Upload_Template);
@@ -1430,12 +1473,12 @@ MDSS.QueryPanel.prototype = {
     saveButton.addClass('queryButton');
     saveButton.on('click', this._saveQuery, {}, this);
 
-    this._loadButton = new YAHOO.util.Element(document.createElement('input'));
-    this._loadButton.set('type', 'button');
-    this._loadButton.set('value', MDSS.Localized.Query.Load);
-    this._loadButton.set('id', this.LOAD_QUERY_BUTTON);
-    this._loadButton.addClass('queryButton');
-    this._loadButton.on('click', this._loadQuery, {}, this);
+    var loadButton = new YAHOO.util.Element(document.createElement('input'));
+    loadButton.set('type', 'button');
+    loadButton.set('value', MDSS.Localized.Query.Load);
+    loadButton.set('id', this.LOAD_QUERY_BUTTON);
+    loadButton.addClass('queryButton');
+    loadButton.on('click', this._loadQuery, {}, this);
 
     this._queryList = new YAHOO.util.Element(document.createElement('select'));
     this._queryList.set('id', this.AVAILABLE_QUERY_LIST);
@@ -1452,19 +1495,19 @@ MDSS.QueryPanel.prototype = {
 
       this._queryList.appendChild(option);
     }
-    
+
     var exportReportButton = this._buildReportForm();
 
     var exportCSVButton = this._buildCSVForm();
 
     var exportXLSButton = this._buildXLSForm();
 
-    this._runButton = new YAHOO.util.Element(document.createElement('input'));
-    this._runButton.set('type', 'button');
-    this._runButton.set('value', MDSS.Localized.Query.Run);
-    this._runButton.set('id', this.RUN_QUERY_BUTTON);
-    this._runButton.addClass('queryButton');
-    this._runButton.on('click', this._executeQuery, {}, this);
+    var runButton = new YAHOO.util.Element(document.createElement('input'));
+    runButton.set('type', 'button');
+    runButton.set('value', MDSS.Localized.Query.Run);
+    runButton.set('id', this.RUN_QUERY_BUTTON);
+    runButton.addClass('queryButton');
+    runButton.on('click', this._executeQuery, {}, this);
 
 
     var rightDiv = new YAHOO.util.Element(document.createElement('div'));
@@ -1472,12 +1515,12 @@ MDSS.QueryPanel.prototype = {
     rightDiv.appendChild(exportReportButton);
     rightDiv.appendChild(exportCSVButton);
     rightDiv.appendChild(exportXLSButton);
-    rightDiv.appendChild(this._runButton);
+    rightDiv.appendChild(runButton);
 
     var leftDiv = new YAHOO.util.Element(document.createElement('div'));
     leftDiv.setStyle('float', 'left');
     leftDiv.appendChild(this._queryList);
-    leftDiv.appendChild(this._loadButton);
+    leftDiv.appendChild(loadButton);
     leftDiv.appendChild(saveButton);
     leftDiv.appendChild(uploadTemplate);
 
@@ -1485,20 +1528,18 @@ MDSS.QueryPanel.prototype = {
     qBottom.appendChild(leftDiv);
     qBottom.appendChild(rightDiv);
 
-    //var qRight = new YAHOO.util.Element(this._qRightUnit.body);
-
     // map panel buttons
     var mapButtonDiv = new YAHOO.util.Element(document.createElement('div'));
     mapButtonDiv.setStyle('float', 'right');
 
 
-    this._refreshMapButton = new YAHOO.util.Element(document.createElement('input'));
-    this._refreshMapButton.set('type', 'button');
-    this._refreshMapButton.set('value', MDSS.Localized.Query.Refresh);
-    this._refreshMapButton.set('id', this.REFRESH_MAP_BUTTON);
-    this._refreshMapButton.addClass('queryButton');
-    this._refreshMapButton.on('click', this._mapQuery, {}, this);
-    mapButtonDiv.appendChild(this._refreshMapButton);
+    var refreshMapButton = new YAHOO.util.Element(document.createElement('input'));
+    refreshMapButton.set('type', 'button');
+    refreshMapButton.set('value', MDSS.Localized.Query.Refresh);
+    refreshMapButton.set('id', this.REFRESH_MAP_BUTTON);
+    refreshMapButton.addClass('queryButton');
+    refreshMapButton.on('click', this._mapQuery, {}, this);
+    mapButtonDiv.appendChild(refreshMapButton);
 
     var mBottom = new YAHOO.util.Element(this._mBottomUnit.body);
     mBottom.appendChild(mapButtonDiv);
@@ -1702,6 +1743,8 @@ MDSS.QueryPanel.prototype = {
       this._headerMenuBuilders[column.getKey()] = menuBuilder;
     }
 
+    this._addSelectedColumn(column);
+
     return column;
   },
 
@@ -1790,6 +1833,7 @@ MDSS.QueryPanel.prototype = {
   removeColumn : function(column)
   {
     this._dataTable.removeColumn(column);
+    this._removeSelectedColumn(column);
   },
 
   /**

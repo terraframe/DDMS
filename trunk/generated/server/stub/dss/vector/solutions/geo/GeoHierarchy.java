@@ -891,48 +891,69 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     GeoHierarchy parent = getGeoHierarchyFromType(type);
 
     LinkedHashSet<GeoHierarchyView> hierarchies = new LinkedHashSet<GeoHierarchyView>();
-    collect(hierarchies, parent, political, sprayZoneAllowed);
+    collect(hierarchies, parent, political.booleanValue(), sprayZoneAllowed.booleanValue());
 
     // add the extra universals
     for(String universal : extraUniversals)
     {
+      boolean collectChildren = false;
+      boolean addUniversal = true;
+
+      if(universal.endsWith("*"))
+      {
+        universal = universal.substring(0, universal.length()-1);
+        collectChildren = true;
+      }
+
+
       GeoHierarchy extra = getGeoHierarchyFromType(universal);
       MdBusiness md = extra.getGeoEntityClass();
 
-      // if abstract, add all of its non-abstract children
       if(md.getIsAbstract())
+      {
+        collectChildren = true;
+        addUniversal = false;
+      }
+
+      if(addUniversal)
+      {
+        hierarchies.add(extra.getViewForGeoHierarchy());
+      }
+
+      // if abstract, add all of its non-abstract children
+      if(collectChildren)
       {
         OIterator<? extends MdBusiness> children =  md.getAllSubClass();
         for(MdBusiness child : children)
         {
-          if(!child.getIsAbstract())
-          {
-            GeoHierarchy childH = GeoHierarchy.getGeoHierarchyFromType(child);
-            hierarchies.add(childH.getViewForGeoHierarchy());
-          }
+          GeoHierarchy childH = GeoHierarchy.getGeoHierarchyFromType(child);
+
+          // set the flags to false, which will force-include all children
+          collect(hierarchies, childH, false, false);
         }
       }
-      else
-      {
-        hierarchies.add(extra.getViewForGeoHierarchy());
-      }
+
     }
 
     return hierarchies.toArray(new GeoHierarchyView[hierarchies.size()]);
   }
 
-  public static void collect(LinkedHashSet<GeoHierarchyView> hierarchies, GeoHierarchy parent, Boolean political, Boolean sprayZoneAllowed)
+  public static void collect(LinkedHashSet<GeoHierarchyView> hierarchies, GeoHierarchy parent, boolean political, boolean sprayZoneAllowed)
   {
-    Boolean isPolitical = parent.getPolitical();
-    Boolean isSprayZoneAllowed = parent.getSprayTargetAllowed();
+    boolean isPolitical = parent.getPolitical().booleanValue();
+    boolean isSprayZoneAllowed = parent.getSprayTargetAllowed().booleanValue();
 
-    if(!political.booleanValue() && !sprayZoneAllowed.booleanValue())
+    if(!political && !sprayZoneAllowed)
     {
       // special way to mean *any* universal as political=false and sprayZoneAllowed=false would
       // normally not make sense.
       hierarchies.add(parent.getViewForGeoHierarchy());
     }
-    else if (political.equals(isPolitical) || sprayZoneAllowed.equals(isSprayZoneAllowed))
+    else if (political && isPolitical)
+    {
+      hierarchies.add(parent.getViewForGeoHierarchy());
+    }
+    else if(sprayZoneAllowed && isSprayZoneAllowed)
     {
       hierarchies.add(parent.getViewForGeoHierarchy());
     }
@@ -1220,10 +1241,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
   }
 
-//  public String toString()
-//  {
-//    return this.getGeoEntityClass().getDisplayLabel().getValue();
-//  }
+  public String toString()
+  {
+    MdBusiness md = this.getGeoEntityClass();
+    return md != null ? md.getDisplayLabel().getValue() : this.getId();
+  }
 
   /**
    * Gets GeoHierarchy views that are immediate children of the given

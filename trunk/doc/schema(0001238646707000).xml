@@ -812,7 +812,8 @@
         name="dss.vector.solutions.geo.generated.PopulatedArea"
         label="Populated Area"
         description="Populated Area"
-        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        extends="dss.vector.solutions.geo.generated.GeoEntity"
+        isAbstract="true">
       </mdBusiness>
       <mdBusiness
         name="dss.vector.solutions.geo.generated.City"
@@ -908,6 +909,66 @@
         </attributes>
       </mdBusiness>
       <mdBusiness
+        name="dss.vector.solutions.geo.generated.Hospital"
+        label="Hospital"
+        description="Hospital"
+        extends="dss.vector.solutions.geo.generated.Facility">
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.PrivateHospital"
+        label="Private Hospital"
+        description="Private Hospital"
+        extends="dss.vector.solutions.geo.generated.Hospital">
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.PublicHospital"
+        label="Public Hospital"
+        description="Public Hospital"
+        extends="dss.vector.solutions.geo.generated.Hospital">
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.Clinic"
+        label="Clinic"
+        description="Clinic"
+        extends="dss.vector.solutions.geo.generated.Facility">
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.PrivateClinic"
+        label="Private Clinic"
+        description="Private Clinic"
+        extends="dss.vector.solutions.geo.generated.Clinic">
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.PublicClinic"
+        label="Public Clinic"
+        description="Public Clinic"
+        extends="dss.vector.solutions.geo.generated.Clinic">
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.MobileClinic"
+        label="Mobile Clinic"
+        description="Mobile Clinic"
+        extends="dss.vector.solutions.geo.generated.Clinic">
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.PrivatePractice"
+        label="Private Practice"
+        description="Private Practice"
+        extends="dss.vector.solutions.geo.generated.Facility">
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.CommunityHealthCenter"
+        label="Community Health Center"
+        description="Community Health Center"
+        extends="dss.vector.solutions.geo.generated.Facility">
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.CommunityHealthWorker"
+        label="Community Health Worker"
+        description="Community Health Worker"
+        extends="dss.vector.solutions.geo.generated.Facility">
+      </mdBusiness>
+      <mdBusiness
         name="dss.vector.solutions.geo.generated.Trap"
         label="Exit Trap"
         description="Exit Trap"
@@ -927,6 +988,22 @@
         name="dss.vector.solutions.geo.generated.SprayZone"
         label="Spray Zone"
         description="Spray Zone"
+        extends="dss.vector.solutions.geo.generated.GeoEntity">
+        <attributes>
+          <polygon
+            name="polygon"
+            label="Polygon"
+            description="Polygon"
+            removable="false"
+            required="false"
+            srid="4326"
+            dimension="2" />
+        </attributes>
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.SprayArea"
+        label="Spray Area"
+        description="Spray Area"
         extends="dss.vector.solutions.geo.generated.GeoEntity">
         <attributes>
           <polygon
@@ -5709,12 +5786,56 @@
         id="FacilityMd"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
       <object
+        key="dss.vector.solutions.geo.generated.Hospital"
+        id="HospitalMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.geo.generated.PrivateHospital"
+        id="PrivateHospitalMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.geo.generated.PublicHospital"
+        id="PublicHospitalMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.geo.generated.Clinic"
+        id="ClinicMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.geo.generated.PrivateClinic"
+        id="PrivateClinicMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.geo.generated.PublicClinic"
+        id="PublicClinicMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.geo.generated.MobileClinic"
+        id="MobileClinicMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.geo.generated.PrivatePractice"
+        id="PrivatePracticeMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.geo.generated.CommunityHealthCenter"
+        id="CommunityHealthCenterMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.geo.generated.CommunityHealthWorker"
+        id="CommunityHealthWorkerMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
         key="dss.vector.solutions.geo.generated.Trap"
         id="TrapMd"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.geo.generated.SprayZone"
         id="SprayZoneMd"
+        type="com.terraframe.mojo.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.geo.generated.SprayArea"
+        id="SprayAreaMd"
         type="com.terraframe.mojo.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.geo.generated.BreedingSite"
@@ -5847,7 +5968,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="AdminPostMd" />
@@ -5865,10 +5986,10 @@
         type="dss.vector.solutions.geo.GeoHierarchy">
         <valueAttribute
           name="political"
-          value="true" />
+          value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="LocalityMd" />
@@ -5889,7 +6010,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="PopulatedAreaMd" />
@@ -5903,7 +6024,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="CityMd" />
@@ -5917,7 +6038,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="TownMd" />
@@ -5931,7 +6052,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="VillageMd" />
@@ -5945,10 +6066,149 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="FacilityMd" />
+      </object>
+
+      <object
+        id="hospitalH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="HospitalMd" />
+      </object>
+
+      <object
+        id="publicHospitalH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="PublicHospitalMd" />
+      </object>
+
+      <object
+        id="privateHospitalH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="PrivateHospitalMd" />
+      </object>
+
+      <object
+        id="clinicH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="ClinicMd" />
+      </object>
+      <object
+        id="privateClinicH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="PrivateClinicMd" />
+      </object>
+
+      <object
+        id="publicClinicH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="PublicClinicMd" />
+      </object>
+
+      <object
+        id="mobileClinicH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="MobileClinicMd" />
+      </object>
+
+      <object
+        id="privatePracticeH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="PrivatePracticeMd" />
+      </object>
+
+      <object
+        id="communityHealthCenterH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="CommunityHealthCenterMd" />
+      </object>
+
+      <object
+        id="communityHealthWorkerH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="CommunityHealthWorkerMd" />
       </object>
 
       <object
@@ -5959,7 +6219,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="RiverMd" />
@@ -5973,7 +6233,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="RoadMd" />
@@ -5987,7 +6247,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="NationalRoadMd" />
@@ -6001,7 +6261,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="ReserveMd" />
@@ -6015,7 +6275,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="RailwayMd" />
@@ -6031,29 +6291,99 @@
       <relationship
         type="dss.vector.solutions.geo.AllowedIn"
         childId="cityH"
-        parentId="populatedAreaH"
-        id="cityInPopulatedArea">
+        parentId="localityH"
+        id="cityInLocality">
       </relationship>
 
       <relationship
         type="dss.vector.solutions.geo.AllowedIn"
         childId="townH"
-        parentId="populatedAreaH"
-        id="townInPopulatedArea">
+        parentId="localityH"
+        id="townInLocality">
       </relationship>
 
       <relationship
         type="dss.vector.solutions.geo.AllowedIn"
         childId="villageH"
-        parentId="populatedAreaH"
-        id="villageInPopulatedArea">
+        parentId="localityH"
+        id="villageInLocality">
       </relationship>
 
       <relationship
         type="dss.vector.solutions.geo.AllowedIn"
         childId="facilityH"
+        parentId="localityH"
+        id="facilityInLocality">
+      </relationship>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="clinicH"
+        parentId="localityH"
+        id="clinicInLocality">
+      </relationship>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="hospitalH"
+        parentId="localityH"
+        id="hospitalInLocality">
+      </relationship>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="privateHospitalH"
         parentId="populatedAreaH"
-        id="facilityInPopulatedArea">
+        id="privateHospitalInPopulatedArea">
+      </relationship>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="publicHospitalH"
+        parentId="populatedAreaH"
+        id="publicHospitalInPopulatedArea">
+      </relationship>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="privateClinicH"
+        parentId="populatedAreaH"
+        id="privateClinicInPopulatedArea">
+      </relationship>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="publicClinicH"
+        parentId="populatedAreaH"
+        id="publicClinicInPopulatedArea">
+      </relationship>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="mobileClinicH"
+        parentId="populatedAreaH"
+        id="mobileClinicInPopulatedArea">
+      </relationship>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="privatePracticeH"
+        parentId="populatedAreaH"
+        id="privatePracticeInPopulatedArea">
+      </relationship>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="communityHealthCenterH"
+        parentId="populatedAreaH"
+        id="communityHealthCenterInPopulatedArea">
+      </relationship>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="communityHealthWorkerH"
+        parentId="populatedAreaH"
+        id="communityHealthWorkerInPopulatedArea">
       </relationship>
 
       <relationship
@@ -6114,7 +6444,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="SentinelSiteMd" />
@@ -6136,7 +6466,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="NonSentinelSiteMd" />
@@ -6157,7 +6487,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="TrapMd" />
@@ -6180,8 +6510,29 @@
       <relationship
         type="dss.vector.solutions.geo.AllowedIn"
         childId="sprayZoneH"
-        parentId="localityH"
-        id="sprayZoneInLocality">
+        parentId="districtH"
+        id="sprayZoneInDistrict">
+      </relationship>
+
+      <object
+        id="sprayAreaH"
+        type="dss.vector.solutions.geo.GeoHierarchy">
+        <valueAttribute
+          name="political"
+          value="false" />
+        <valueAttribute
+          name="sprayTargetAllowed"
+          value="true" />
+        <referenceAttribute
+          name="geoEntityClass"
+          id="SprayAreaMd" />
+      </object>
+
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        childId="sprayAreaH"
+        parentId="sprayZoneH"
+        id="sprayAreaInSprayZone">
       </relationship>
 
       <relationship
@@ -6199,7 +6550,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="BreedingSiteMd" />
@@ -6220,7 +6571,7 @@
           value="false" />
         <valueAttribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <referenceAttribute
           name="geoEntityClass"
           id="PermanentWaterBodyMd" />
