@@ -79,6 +79,8 @@ public class ReportController extends ReportControllerBase implements
   private void buildReport(String queryXML, String geoEntityType, String savedSearchId)
       throws ServletException, IOException
   {
+    String tempDir = null;
+    
     try
     {
       validateParameters(queryXML, geoEntityType, savedSearchId);
@@ -93,12 +95,12 @@ public class ReportController extends ReportControllerBase implements
       InputStream input = AggregatedCaseDTO.exportQueryToCSV(request, queryXML, geoEntityType,
         savedSearchId);
 
-      String dir = this.generateTempCSVFile(input, TEMP_FILE_NAME);
+      tempDir = this.generateTempCSVFile(input, TEMP_FILE_NAME);
 
       // Open report design
       IReportRunnable design = engine.openReportDesign(search.getTemplateStream());
 
-      this.configureDataSet(dir, design);
+      this.configureDataSet(tempDir, design);
 
       // set output options
       resp.setHeader("Content-Disposition", "attachment;filename=" + search.getQueryName() + ".pdf");
@@ -131,22 +133,25 @@ public class ReportController extends ReportControllerBase implements
     finally
     {
       // Delete the temp file
-      this.deleteTempDirectory(dir);
+      if(tempDir != null)
+      {
+        this.deleteTempDirectory(tempDir);
+      }
     }
   }
 
   @SuppressWarnings("unchecked")
-  private void configureDataSet(String dir, IReportRunnable design) throws SemanticException,
+  private void configureDataSet(String tempDir, IReportRunnable design) throws SemanticException,
       ServletException
   {
     // Change the data source to the temporary csv directory
     ReportDesignHandle handle = (ReportDesignHandle) design.getDesignHandle();
 
-    validateReportData(handle, dir);
+    validateReportData(handle, tempDir);
 
     for (Iterator i = handle.getDataSources().iterator(); i.hasNext();)
     {
-      ( (DesignElementHandle) i.next() ).setProperty("HOME", dir);
+      ( (DesignElementHandle) i.next() ).setProperty("HOME", tempDir);
     }
 
     // Update the data set to use the temporary csv file
@@ -238,7 +243,7 @@ public class ReportController extends ReportControllerBase implements
   {
     try
     {
-      String path = ClientProperties.getFileCacheDirectory() + "/tmp/" + IDGenerator.nextID() + "/";
+      String path = ClientProperties.getFileCacheDirectory() + IDGenerator.nextID() + "/";
 
       // Make the file structure
       new File(path).mkdirs();
