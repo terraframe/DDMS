@@ -18,6 +18,8 @@
    <br>
 <pre>
 <jsp:include page="/revision.html" />
+<br/><br/>
+<jsp:include page="/changelog.html" />
 </pre>
 </div>
 
