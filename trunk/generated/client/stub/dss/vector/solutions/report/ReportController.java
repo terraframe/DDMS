@@ -1,7 +1,6 @@
 package dss.vector.solutions.report;
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -33,6 +32,8 @@ import org.eclipse.birt.report.model.api.OdaDataSourceHandle;
 import org.eclipse.birt.report.model.api.ReportDesignHandle;
 import org.eclipse.birt.report.model.api.activity.SemanticException;
 import org.eclipse.birt.report.model.api.elements.structures.ResultSetColumn;
+
+import au.com.bytecode.opencsv.CSVReader;
 
 import com.terraframe.mojo.constants.ClientProperties;
 import com.terraframe.mojo.constants.ClientRequestIF;
@@ -189,15 +190,14 @@ public class ReportController extends ReportControllerBase implements
     try
     {
       List<String> headers = new LinkedList<String>();
-      BufferedReader in = new BufferedReader(new FileReader(new File(dir + "/" + TEMP_FILE_NAME)));
+      CSVReader in = new CSVReader(new FileReader(new File(dir + "/" + TEMP_FILE_NAME)), ',', '\"');
 
-      String line = in.readLine();
-      in.close();
-
-      for (String header : line.split(","))
+      for(String token : in.readNext())
       {
-        headers.add(header.trim());
-      }
+        headers.add(token.replaceAll("\"", "").trim());
+      }      
+
+      in.close();
 
       for (Iterator i = handle.getDataSources().iterator(); i.hasNext();)
       {
