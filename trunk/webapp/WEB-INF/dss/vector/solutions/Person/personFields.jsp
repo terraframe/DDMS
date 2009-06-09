@@ -143,7 +143,7 @@
           <!-- Patient Fieldset -->
         </div>
       </dd>
-      <%-- 5.13.09 - Marlize says we don't need Spray Leaders
+      <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
       <dt>
         <label>
           ${item.isSprayLeaderMd.displayLabel}
@@ -160,7 +160,6 @@
         <div id="sprayLeaderDiv" style="display: ${item.isSprayLeader ? 'block' : 'none'}">
         </div>
       </dd>
-      --%>
       <dt>
         <label>
           ${item.isSprayOperatorMd.displayLabel}

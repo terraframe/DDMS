@@ -103,7 +103,7 @@
         </fieldset>
       </dd>
     </c:if>
-    <%-- 5.13.09 - Marlize says we don't need Spray Leaders
+    <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
     <c:if test="${item.isSprayLeader}">
       <dt>
         <label>
@@ -111,7 +111,6 @@
         </label>
       </dt>
     </c:if>
-    --%>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.PersonController.edit.mojo" name="dss.vector.solutions.Person.form.edit.button" />
   <br />

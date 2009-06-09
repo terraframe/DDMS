@@ -71,7 +71,7 @@
         </c:choose>
       </mjl:row>
     </mjl:freeColumn>
-    <%-- 5.13.09 - Marlize says we don't need Spray Leaders
+    <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
     <mjl:freeColumn>
       <mjl:header>Spray Leader</mjl:header>
       <mjl:row>
@@ -81,7 +81,6 @@
         </c:choose>
       </mjl:row>
     </mjl:freeColumn>
-    --%>
     <mjl:freeColumn>
       <mjl:header>
         
