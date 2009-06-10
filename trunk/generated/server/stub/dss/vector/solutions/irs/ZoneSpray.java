@@ -36,6 +36,11 @@ public class ZoneSpray extends ZoneSprayBase implements com.terraframe.mojo.gene
   public void populateView(ZoneSprayView view)
   {
     super.populateView(view);
+    
+    view.setSupervisorName(this.getSupervisorName());
+    view.setSupervisorSurname(this.getSupervisorSurname());
+    view.setTarget(this.getTarget());
+    view.setSprayWeek(this.getSprayWeek());    
   }
 
   @Override

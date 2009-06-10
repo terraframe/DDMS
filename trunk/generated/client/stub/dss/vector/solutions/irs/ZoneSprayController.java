@@ -3,15 +3,20 @@ package dss.vector.solutions.irs;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
+
+import org.json.JSONObject;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
+import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class ZoneSprayController extends ZoneSprayControllerBase implements
@@ -55,7 +60,6 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
   {
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Zone Sprays");
 
     render("createComponent.jsp");
   }
@@ -85,7 +89,6 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
   {
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update Zone Sprays");
     render("editComponent.jsp");
   }
 
@@ -104,15 +107,43 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
       return;
     }
     
-    // FIXME: This is a hack to ensure the dto is dirty when its sent back to
-    // the server. Remove when nathan has submitted his fix.
-    dto.setModified(true);
-    dto.setModified(ZoneSprayViewDTO.SPRAYID, true);
+    TeamSprayStatusViewDTO[] status = dto.getStatus();
+    
+    JSONObject operators = buildOperatorsMap(status);
 
-    req.setAttribute("status", dto.getStatus());
+    req.setAttribute("operators", operators);
+    req.setAttribute("status", status);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "View Zone Sprays");
+    
     render("viewComponent.jsp");
+  }
+
+  private JSONObject buildOperatorsMap(TeamSprayStatusViewDTO[] status)
+  {
+    //Build the map of possible team leaders for every spray team
+    Map<String, JSONObject> operators = new HashMap<String, JSONObject>();
+    
+    for(TeamSprayStatusViewDTO s : status)
+    {
+      //Map between an entities id and display label
+      Map<String, String> map = new HashMap<String, String>();
+
+      SprayTeamDTO team = s.getSprayTeam();
+      SprayOperatorDTO[] members = team.getTeamMembers();
+
+      for(SprayOperatorDTO operator : members)
+      {
+        PersonDTO person = operator.getPerson();
+        String key = operator.getId();
+        String label = person.getFirstName() + ", " + person.getLastName();
+
+        map.put(key, label);
+      }
+      
+      operators.put(team.getId(), new JSONObject(map));
+    }
+
+    return new JSONObject(operators);
   }
 
   public void failView(String id) throws IOException, ServletException
@@ -126,7 +157,6 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Zone Sprays");
     render("editComponent.jsp");
   }
 
@@ -162,7 +192,6 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
   {
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Zone Sprays");
     render("editComponent.jsp");
   }
 
@@ -176,7 +205,6 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
     req.setAttribute("methods", methods);
     req.setAttribute("method", SprayMethodDTO.MAIN_SPRAY.getName());
     req.setAttribute("brands", Arrays.asList(brands));
-    req.setAttribute("page_title", "Search for an Zone Spray");
 
     render("searchComponent.jsp");
   }
@@ -200,7 +228,6 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
       }
       else
       {
-        req.setAttribute("page_title", "New Zone Spray ");
         req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
         req.setAttribute("item", dto);
         render("createComponent.jsp");
@@ -268,13 +295,11 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
     req.setAttribute("methods", methods);
     req.setAttribute("brands", Arrays.asList(brands));
-    req.setAttribute("page_title", "Search for an Zone Spray");
 
     req.setAttribute("brand", brand);
     req.setAttribute("date", date);
     req.setAttribute("geoId", geoId);
     req.setAttribute("method", method);
-    req.setAttribute("page_title", "Search for an Zone Spray");
 
     render("searchComponent.jsp");
   }

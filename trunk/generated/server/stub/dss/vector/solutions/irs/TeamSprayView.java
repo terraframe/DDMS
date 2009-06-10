@@ -80,7 +80,7 @@ public class TeamSprayView extends TeamSprayViewBase implements
     TeamSpray spray = TeamSpray.get(this.getSprayId());
     SprayData data = spray.getSprayData();
     SprayTeam team = spray.getSprayTeam();
-    List<SprayOperator> members = team.getTeamMembers();
+    SprayOperator[] members = team.getTeamMembers();
 
     for (SprayOperator operator : members)
     {

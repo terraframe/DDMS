@@ -48,7 +48,7 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
     addOperators(operatorIds);
   }
 
-  public List<SprayOperator> getTeamMembers()
+  public SprayOperator[] getTeamMembers()
   {
     Set<SprayOperator> set = new TreeSet<SprayOperator>(new OperatorCompator());
     
@@ -57,24 +57,24 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
     
     try
     {
-      while(teamMembers.hasNext())
-      {
-        set.add(teamMembers.next());
-      }
-      
       while(sprayLeaders.hasNext())
       {
         SprayLeader leader = sprayLeaders.next();
         Person person = leader.getPerson();
         SprayOperator operator = person.getSprayOperatorDelegate();
-
+        
         if(operator != null)
         {
           set.add(operator);
         }
       }
-      
-      return new LinkedList<SprayOperator>(set);
+
+      while(teamMembers.hasNext())
+      {
+        set.add(teamMembers.next());
+      }
+            
+      return set.toArray(new SprayOperator[set.size()]);
     }
     finally
     {

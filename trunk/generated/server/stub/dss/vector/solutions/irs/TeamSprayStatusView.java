@@ -19,12 +19,21 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements
     super.populate(status);
 
     TeamSpray s = (TeamSpray) status.getSpray();
+    
+    this.configureSprayTeam(s.getSprayTeam());
 
-    this.populate(s.getSprayTeam());
-    this.setTeamSprayWeek(s.getTeamSprayWeek());        
+    this.setTeamSprayWeek(s.getTeamSprayWeek());
+    this.setTarget(s.getTarget());
+    this.setTeamLeader(s.getTeamLeader());
   }
   
-  public void populate(SprayTeam team)
+  public void configureSprayTeam(SprayTeam team)
+  {
+    this.setTeamLabel(team);
+    this.setSprayTeam(team);
+  }
+
+  private void setTeamLabel(SprayTeam team)
   {
     OIterator<? extends SprayLeader> it = team.getAllTeamLeader();
 
@@ -46,16 +55,18 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements
     {
       it.close();
     }
-
-    this.setSprayTeam(team);
   }
 
   protected void populateSpray(TeamSpray spray)
   {
     super.populateSpray(spray);
+
+    SprayOperator leader = this.getTeamLeader();
     
     spray.setSprayTeam(this.getSprayTeam());
     spray.setTeamSprayWeek(this.getTeamSprayWeek());
+    spray.setTarget(this.getTarget());
+    spray.setTeamLeader(leader);
   }
 
   @Override
@@ -63,21 +74,22 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements
   public void apply()
   {
     // Create spray
-    AbstractSpray abstractSpray = this.getSpray();
+    TeamSpray abstractSpray = (TeamSpray)this.getSpray();
 
     if (abstractSpray == null)
     {
       abstractSpray = TeamSpray.findOrCreate(this.getSprayData(), this.getSprayTeam());
-
-      if (!abstractSpray.isNew())
-      {
-        abstractSpray.lock();
-      }
-
-      this.populateSpray((TeamSpray) abstractSpray);
-
-      abstractSpray.apply();
     }
+    
+    if (!abstractSpray.isNew())
+    {
+      abstractSpray.lock();
+    }
+
+    this.populateSpray(abstractSpray);
+
+    abstractSpray.apply();
+
 
     ActorSprayStatus status = new ActorSprayStatus();
 

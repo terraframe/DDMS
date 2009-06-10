@@ -41,6 +41,16 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
     spray.apply();
     spray.populateView(this);
   }
+  
+  protected void populateConcrete(ZoneSpray spray, SprayData data)
+  {
+    super.populateConcrete(spray, data);
+    
+    spray.setSupervisorName(this.getSupervisorName());
+    spray.setSupervisorSurname(this.getSupervisorSurname());
+    spray.setTarget(this.getTarget());
+    spray.setSprayWeek(this.getSprayWeek());    
+  }
 
   public void deleteConcrete()
   {
@@ -71,7 +81,7 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
       {
         view = new TeamSprayStatusView();
         view.setSprayData(data);
-        view.populate(team);
+        view.configureSprayTeam(team);
       }
 
       list.add(view);
