@@ -240,6 +240,8 @@ MojoGrid.createDataTable = function(table_data) {
 		}
 
 	};
+
+	MojoGrid.saveHandler = saveSomeData;
 	myDataTable.subscribe("editorSaveEvent", saveSomeData);
 
 	myDataTable.subscribe("cellMouseoutEvent", myDataTable.onEventUnhighlightCell);
