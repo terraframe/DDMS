@@ -100,8 +100,8 @@
   <dt><fmt:message key="Configurable_Other"/></dt>
   <dd>
     <mjl:commandLink
-      name="dss.vector.solutions.intervention.Drug"
-      action="dss.vector.solutions.intervention.DrugController.viewAll.mojo"
+      name="dss.vector.solutions.surveillance.TreatmentGrid"
+      action="dss.vector.solutions.surveillance.TreatmentGridController.viewAll.mojo"
       >
       <fmt:message key="Drug_Label"/>
       </mjl:commandLink><br />
