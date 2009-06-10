@@ -13,6 +13,7 @@
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 
+<c:set var="page_title" value="Search_Zone_Spray"  scope="request"/>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
