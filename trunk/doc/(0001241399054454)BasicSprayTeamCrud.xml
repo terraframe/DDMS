@@ -5,21 +5,22 @@
     <existing>
     </existing>
     <update>
-      <mdBusiness name="dss.vector.solutions.irs.SprayTeam">
+      <mdBusiness
+        name="dss.vector.solutions.irs.SprayTeam">
         <create>
           <attributes>
             <reference
               name="sprayZone"
               label="Spray Zone"
               description="This team's assigned Spray Zone"
-              type="dss.vector.solutions.geo.generated.SprayZone"/>
+              type="dss.vector.solutions.geo.generated.SprayZone" />
             <char
               name="teamId"
               label="Team Identifier"
               description="Human entered team identifier"
               size="32"
               required="true"
-              indexType="unique index"/>
+              indexType="unique index" />
           </attributes>
           <mdMethod
             name="create"
@@ -32,19 +33,19 @@
               label="Geo Id"
               description="Spray Zone Geo Id"
               order="0"
-              type="java.lang.String"/>
+              type="java.lang.String" />
             <mdParameter
               name="leaderId"
               label="Leader Id"
               description="Spray Leader Id"
               order="1"
-              type="java.lang.String"/>
+              type="java.lang.String" />
             <mdParameter
               name="operatorIds"
               label="Operator Ids"
               description="Spray Operator Ids"
               order="2"
-              type="java.lang.String[]"/>
+              type="java.lang.String[]" />
           </mdMethod>
           <mdMethod
             name="edit"
@@ -57,29 +58,47 @@
               label="Geo Id"
               description="Spray Zone Geo Id"
               order="0"
-              type="java.lang.String"/>
+              type="java.lang.String" />
             <mdParameter
               name="leaderId"
               label="Leader Id"
               description="Spray Leader Id"
               order="1"
-              type="java.lang.String"/>
+              type="java.lang.String" />
             <mdParameter
               name="operatorIds"
               label="Operator Ids"
               description="Spray Operator Ids"
               order="2"
-              type="java.lang.String[]"/>
+              type="java.lang.String[]" />
             <mdParameter
               name="removedIds"
               label="Removed Operator Ids"
               description="Ids of the Spray Operators being removed from this team"
               order="3"
-              type="java.lang.String[]"/>
+              type="java.lang.String[]" />
+          </mdMethod>
+          <mdMethod
+            name="getTeamMembers"
+            label="Get Team Members"
+            returnType="dss.vector.solutions.irs.SprayOperator[]"
+            static="false" />
+          <mdMethod
+            name="findByLocation"
+            label="Find by Location"
+            static="true"
+            returnType="dss.vector.solutions.irs.SprayTeam[]"
+            description="Returns a list of all teams which are active in a given location">
+            <mdParameter
+              name="location"
+              label="Location"
+              order="0"
+              type="dss.vector.solutions.geo.generated.GeoEntity" />
           </mdMethod>
         </create>
       </mdBusiness>
-      <mdController name="dss.vector.solutions.irs.SprayTeamController">
+      <mdController
+        name="dss.vector.solutions.irs.SprayTeamController">
         <create>
           <mdAction
             name="createAndAssign"
@@ -91,25 +110,25 @@
               label="Spray Team"
               description="New Spray Team"
               type="dss.vector.solutions.irs.SprayTeam"
-              order="0"/>
+              order="0" />
             <mdParameter
               name="geoId"
               label="Geo Id"
               description="Spray Zone Geo Id"
               type="java.lang.String"
-              order="1"/>
+              order="1" />
             <mdParameter
               name="leaderId"
               label="Spray Leader Id"
               description="Id of the assigned Spray Leader"
               type="java.lang.String"
-              order="2"/>
+              order="2" />
             <mdParameter
               name="operatorIds"
               label="Spray Operator Ids"
               description="Ids of the Spray Operators being reassigned to this team"
               type="java.lang.String[]"
-              order="3"/>
+              order="3" />
           </mdAction>
           <mdAction
             name="updateAssignments"
@@ -121,31 +140,31 @@
               label="Spray Team"
               description="New Spray Team"
               type="dss.vector.solutions.irs.SprayTeam"
-              order="0"/>
+              order="0" />
             <mdParameter
               name="geoId"
               label="Geo Id"
               description="Spray Zone Geo Id"
               type="java.lang.String"
-              order="1"/>
+              order="1" />
             <mdParameter
               name="leaderId"
               label="Spray Leader Id"
               description="Id of the assigned Spray Leader"
               type="java.lang.String"
-              order="2"/>
+              order="2" />
             <mdParameter
               name="operatorIds"
               label="Spray Operator Ids"
               description="Ids of the Spray Operators being assigned to this team"
               type="java.lang.String[]"
-              order="3"/>
+              order="3" />
             <mdParameter
               name="removedIds"
               label="Removed Operator Ids"
               description="Ids of the Spray Operators being removed from this team"
               type="java.lang.String[]"
-              order="4"/>
+              order="4" />
           </mdAction>
         </create>
       </mdController>
@@ -179,25 +198,25 @@
             name="operatorId"
             label="Spray Operator ID"
             description="Spray Operator ID"
-            size="64"/>
+            size="64" />
           <virtual
             name="firstName"
             concrete="firstName"
-            type="dss.vector.solutions.Person"/>
+            type="dss.vector.solutions.Person" />
           <virtual
             name="lastName"
             concrete="lastName"
-            type="dss.vector.solutions.Person"/>
+            type="dss.vector.solutions.Person" />
           <boolean
             name="isAssigned"
             label="Is Assigned"
             description="Is this Operator assigned to a team?"
             negativeLabel="No"
-            positiveLabel="Yes"/>
+            positiveLabel="Yes" />
           <virtual
             name="teamId"
             concrete="teamId"
-            type="dss.vector.solutions.irs.SprayTeam"/>
+            type="dss.vector.solutions.irs.SprayTeam" />
         </attributes>
         <mdMethod
           name="getAll"
@@ -217,7 +236,7 @@
             label="Spray Team"
             description="Operators assigned to this team are returned"
             type="dss.vector.solutions.irs.SprayTeam"
-            order="0"/>
+            order="0" />
         </mdMethod>
       </mdView>
     </create>

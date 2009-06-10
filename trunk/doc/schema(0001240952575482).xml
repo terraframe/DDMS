@@ -763,7 +763,7 @@
 
       <mdBusiness
         name="dss.vector.solutions.irs.TeamSpray"
-        label="Operator Spray"
+        label="Team Spray"
         extends="dss.vector.solutions.irs.ActorSpray"
         generateController="true">
         <attributes>
@@ -851,9 +851,28 @@
 
       <mdBusiness
         name="dss.vector.solutions.irs.ZoneSpray"
-        label="Operator Spray"
+        label="Zone Spray"
         extends="dss.vector.solutions.irs.AbstractSpray"
         generateController="true">
+        <attributes>
+          <integer
+            name="sprayWeek"
+            label="Location Spray Week"
+            rejectZero="true"
+            rejectNegative="true" />
+          <integer
+            name="target"
+            label="Location Spray Target"
+            rejectNegative="true" />
+          <char
+            name="supervisorName"
+            label="Supervisor Name"
+            size="255" />
+          <char
+            name="supervisorSurname"
+            label="Supervisor Surname"
+            size="255" />
+        </attributes>
         <mdMethod
           name="getView"
           static="true"
@@ -886,6 +905,24 @@
         name="dss.vector.solutions.irs.ZoneSprayView"
         label="Zone Spray View"
         extends="dss.vector.solutions.irs.AbstractSprayView">
+        <attributes>
+          <virtual
+            name="supervisorSurname"
+            concrete="supervisorSurname"
+            type="dss.vector.solutions.irs.ZoneSpray" />
+          <virtual
+            name="supervisorName"
+            concrete="supervisorName"
+            type="dss.vector.solutions.irs.ZoneSpray" />
+          <virtual
+            name="sprayWeek"
+            concrete="sprayWeek"
+            type="dss.vector.solutions.irs.ZoneSpray" />
+          <virtual
+            name="target"
+            concrete="target"
+            type="dss.vector.solutions.irs.ZoneSpray" />
+        </attributes>
         <mdMethod
           name="deleteConcrete"
           label="Delete Concrete"
@@ -969,11 +1006,11 @@
             rejectNegative="true" />
           <integer
             name="roomsWithBedNets"
-            label="Total number of rooms with bed nets"
+            label="Total number of rooms with ITN's"
             rejectNegative="true" />
           <integer
             name="bedNets"
-            label="Total number of bed nets"
+            label="Total number of ITN's"
             rejectNegative="true" />
           <integer
             name="locked"
@@ -1152,10 +1189,18 @@
           <virtual
             name="sprayTeam"
             concrete="sprayTeam"
-            type="dss.vector.solutions.irs.TeamSpray" />
+            type="dss.vector.solutions.irs.TeamSpray" />            
+          <virtual
+            name="teamLeader"
+            concrete="teamLeader"
+            type="dss.vector.solutions.irs.ActorSpray" />
           <virtual
             name="teamSprayWeek"
             concrete="teamSprayWeek"
+            type="dss.vector.solutions.irs.ActorSpray" />
+          <virtual
+            name="target"
+            concrete="target"
             type="dss.vector.solutions.irs.ActorSpray" />
         </attributes>
         <mdMethod
