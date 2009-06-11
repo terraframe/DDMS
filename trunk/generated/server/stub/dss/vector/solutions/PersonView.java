@@ -132,6 +132,7 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
       if (sprayLeader==null)
         sprayLeader = new SprayLeader();
       sprayLeader.setPerson(person);
+      sprayLeader.setLeaderId(this.getLeaderId());
       sprayLeader.apply();
       person.setSprayLeaderDelegate(sprayLeader);
       person.apply();

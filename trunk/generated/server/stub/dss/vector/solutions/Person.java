@@ -189,6 +189,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     else
     {
       view.setIsSprayLeader(true);
+      view.setLeaderId(sprayLeader.getLeaderId());
     }
     
     return view;

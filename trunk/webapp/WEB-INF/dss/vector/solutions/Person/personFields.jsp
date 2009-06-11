@@ -158,6 +158,19 @@
       <dd>
         <mjl:input id="sprayLeaderInput" type="hidden" value="${item.isSprayLeader}" param="isSprayLeader" />
         <div id="sprayLeaderDiv" style="display: ${item.isSprayLeader ? 'block' : 'none'}">
+          <fieldset>
+            <dt>
+              <label>
+                ${item.leaderIdMd.displayLabel}
+              </label>
+            </dt>
+            <dd>
+              <mjl:input type="text" param="leaderId" />
+              <mjl:messages attribute="leaderId">
+                <mjl:message />
+              </mjl:messages>
+            </dd>
+          </fieldset>
         </div>
       </dd>
       <dt>

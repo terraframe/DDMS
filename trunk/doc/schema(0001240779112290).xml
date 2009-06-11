@@ -197,6 +197,10 @@
             default_value="false"
             negativeLabel="No"
             positiveLabel="Yes"/>
+          <virtual
+            name="leaderId"
+            concrete="leaderId"
+            type="dss.vector.solutions.irs.SprayLeader"/>
         </attributes>
         <mdMethod
           name="searchForDuplicates"
@@ -280,6 +284,10 @@
             description="Gets the person this delegate is associated with"
             type="dss.vector.solutions.Person"
             required="true" />
+          <char
+            name="leaderId"
+            label="Leader Id"
+            size="255" />
         </attributes>
       </mdBusiness>
       <mdBusiness

@@ -110,6 +110,18 @@
           ${item.isSprayLeaderMd.displayLabel}
         </label>
       </dt>
+      <dd>
+        <fieldset>
+          <dt>
+            <label>
+              ${item.leaderIdMd.displayLabel}
+            </label>
+          </dt>
+          <dd>
+            ${item.leaderId}
+          </dd>
+        </fieldset>
+      </dd>
     </c:if>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.PersonController.edit.mojo" name="dss.vector.solutions.Person.form.edit.button" />
