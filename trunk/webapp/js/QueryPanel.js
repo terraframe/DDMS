@@ -19,6 +19,13 @@ MDSS.QueryXML = {
   	AVG: 'AVG',
   },
 
+  DateGroupOpts: {
+  	EPIWEEK:'Epi Week',
+  	MONTH:'Month',
+  	QUARTER:'Quarter',
+  	SEASON:'Season'
+  },
+
   COUNT_FUNCTION : 'COUNT'
 };
 
@@ -923,8 +930,28 @@ MDSS.QueryPanel.prototype = {
     dateRange.appendChild(endLabel);
     dateRange.appendChild(this._endDate);
 
+    var dateGroupLabel = document.createElement('span');
+    dateGroupLabel.innerHTML = MDSS.localize("Group By");
+
+    this._dateGroupBy = document.createElement('select');
+    var options = [''];
+    options = options.concat(Mojo.util.getValues(MDSS.QueryXML.DateGroupOpts));
+
+    for(var j=0; j<options.length; j++)
+    {
+    	var option = options[j];
+      var optionEl = document.createElement('option');
+      optionEl.innerHTML = option;
+      YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
+      //YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
+      this._dateGroupBy.appendChild(optionEl);
+    }
+    dateRange.appendChild(dateGroupLabel);
+    dateRange.appendChild(this._dateGroupBy);
+
     var body = new YAHOO.util.Element(this._qTopUnit.body);
     body.appendChild(dateRange);
+
   },
 
   /**
