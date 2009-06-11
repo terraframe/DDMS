@@ -28,17 +28,17 @@ import dss.vector.solutions.geo.generated.SentinelSite;
 
 public class AggregatedCaseTest extends TestCase
 {
-	  @Override
-	  public TestResult run()
-	  {
-	    return super.run();
-	  }
+  @Override
+  public TestResult run()
+  {
+    return super.run();
+  }
 
-	  @Override
-	  public void run(TestResult testResult)
-	  {
-	    super.run(testResult);
-	  }
+  @Override
+  public void run(TestResult testResult)
+  {
+    super.run(testResult);
+  }
 
   private static GeoEntity             geoEntity   = null;
 
@@ -92,8 +92,6 @@ public class AggregatedCaseTest extends TestCase
     ageGroup = AggregatedAgeGroup.getAll()[0];
     ageGroupDTO = AggregatedAgeGroupDTO.getAll(clientRequest)[0];
   }
-
-
 
   public void testCreateAggregatedCase()
   {
@@ -365,13 +363,14 @@ public class AggregatedCaseTest extends TestCase
 
       assertEquals(2, problems.size());
 
-      for(ProblemIF problem : problems)
+      for (ProblemIF problem : problems)
       {
         assertTrue(problem instanceof CurrentDateProblem);
       }
     }
 
   }
+
   public void testEndDateProblem()
   {
     Calendar calendar = Calendar.getInstance();
@@ -456,7 +455,7 @@ public class AggregatedCaseTest extends TestCase
 
       assertEquals(1, problems.size());
 
-      for(ProblemIF problem : problems)
+      for (ProblemIF problem : problems)
       {
         assertTrue(problem instanceof CurrentDateProblem);
       }
@@ -757,7 +756,7 @@ public class AggregatedCaseTest extends TestCase
         assertEquals(new Boolean(true), s.getOutOfStock());
       for (CaseTreatmentMethod m : test.getTreatmentMethods())
         assertEquals(new Integer(40), m.getAmount());
-      for (CaseTreatment t :test.getTreatments())
+      for (CaseTreatment t : test.getTreatments())
         assertEquals(new Integer(30), t.getAmount());
       for (CaseReferral r : test.getReferrals())
         assertEquals(new Integer(70), r.getAmount());
@@ -936,7 +935,8 @@ public class AggregatedCaseTest extends TestCase
 
     try
     {
-      AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, 2007, ageGroup);
+      AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity,
+          PeriodType.QUARTER, 1, 2007, ageGroup);
 
       assertNotNull(test);
       assertEquals(c.getCases(), test.getCases());
@@ -969,7 +969,8 @@ public class AggregatedCaseTest extends TestCase
 
   public void testUnknownCase()
   {
-    AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER, 1, 2009, ageGroup);
+    AggregatedCaseView test = AggregatedCase.searchByGeoEntityAndEpiDate(geoEntity, PeriodType.QUARTER,
+        1, 2009, ageGroup);
 
     assertEquals("", test.getCaseId());
   }

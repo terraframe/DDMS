@@ -4,6 +4,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import dss.vector.solutions.PeriodMonthProblem;
+import dss.vector.solutions.PeriodQuarterProblem;
+import dss.vector.solutions.PeriodWeekProblem;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.surveillance.PeriodType;
@@ -183,6 +186,31 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
   public Integer getYear()
   {
     return super.getEpiYear();
+  }
+
+  public static void validate(PeriodType periodType, Integer period, Integer year)
+  {
+    if (period > periodType.getMaximumPeriod() && periodType.equals(PeriodType.QUARTER))
+    {
+      PeriodQuarterProblem p = new PeriodQuarterProblem();
+      p.setPeriod(period);
+      p.setMaxPeriod(periodType.getMaximumPeriod());
+      p.throwIt();
+    }
+    else if (period > periodType.getMaximumPeriod() && periodType.equals(PeriodType.MONTH))
+    {
+      PeriodMonthProblem p = new PeriodMonthProblem();
+      p.setPeriod(period);
+      p.setMaxPeriod(periodType.getMaximumPeriod());
+      p.throwIt();
+    }
+    else if (period > periodType.getMaximumPeriod() && periodType.equals(PeriodType.WEEK))
+    {
+      PeriodWeekProblem p = new PeriodWeekProblem();
+      p.setPeriod(period);
+      p.setMaxPeriod(periodType.getMaximumPeriod());
+      p.throwIt();
+    }
   }
 
 }

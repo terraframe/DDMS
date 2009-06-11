@@ -406,7 +406,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public static AggregatedCaseView searchByGeoEntityAndEpiDate(GeoEntity geoEntity,
       PeriodType periodType, Integer period, Integer year, AggregatedAgeGroup ageGroup)
   {
-    validate(periodType, period, year);
+    EpiDate.validate(periodType, period, year);
 
     EpiDate date = EpiDate.getInstanceByPeriod(periodType, period, year);
     AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, date.getStartDate(), date
@@ -429,31 +429,6 @@ public class AggregatedCase extends AggregatedCaseBase implements
     view.setAgeGroup(ageGroup);
 
     return view;
-  }
-
-  private static void validate(PeriodType periodType, Integer period, Integer year)
-  {
-    if (period > periodType.getMaximumPeriod() && periodType.equals(PeriodType.QUARTER))
-    {
-      PeriodQuarterProblem p = new PeriodQuarterProblem();
-      p.setPeriod(period);
-      p.setMaxPeriod(periodType.getMaximumPeriod());
-      p.throwIt();
-    }
-    else if (period > periodType.getMaximumPeriod() && periodType.equals(PeriodType.MONTH))
-    {
-      PeriodMonthProblem p = new PeriodMonthProblem();
-      p.setPeriod(period);
-      p.setMaxPeriod(periodType.getMaximumPeriod());
-      p.throwIt();
-    }
-    else if (period > periodType.getMaximumPeriod() && periodType.equals(PeriodType.WEEK))
-    {
-      PeriodWeekProblem p = new PeriodWeekProblem();
-      p.setPeriod(period);
-      p.setMaxPeriod(periodType.getMaximumPeriod());
-      p.throwIt();
-    }
   }
 
   public static AggregatedCaseView getView(String id)

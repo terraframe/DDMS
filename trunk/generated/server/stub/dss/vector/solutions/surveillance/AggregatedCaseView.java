@@ -8,9 +8,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.FuturePeriodProblem;
-import dss.vector.solutions.PeriodMonthProblem;
-import dss.vector.solutions.PeriodQuarterProblem;
-import dss.vector.solutions.PeriodWeekProblem;
 import dss.vector.solutions.general.EpiDate;
 
 public abstract class AggregatedCaseView extends AggregatedCaseViewBase implements
@@ -439,28 +436,8 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
   public static void validateEpiDate(String periodType, Integer period, Integer year)
   {
     PeriodType type = PeriodType.valueOf(periodType);
-
-    if (period > type.getMaximumPeriod() && type.equals(PeriodType.QUARTER))
-    {
-      PeriodQuarterProblem p = new PeriodQuarterProblem();
-      p.setPeriod(period);
-      p.setMaxPeriod(type.getMaximumPeriod());
-      p.throwIt();
-    }
-    else if (period > type.getMaximumPeriod() && type.equals(PeriodType.MONTH))
-    {
-      PeriodMonthProblem p = new PeriodMonthProblem();
-      p.setPeriod(period);
-      p.setMaxPeriod(type.getMaximumPeriod());
-      p.throwIt();
-    }
-    else if (period > type.getMaximumPeriod() && type.equals(PeriodType.WEEK))
-    {
-      PeriodWeekProblem p = new PeriodWeekProblem();
-      p.setPeriod(period);
-      p.setMaxPeriod(type.getMaximumPeriod());
-      p.throwIt();
-    }
+    
+    EpiDate.validate(type, period, year);
 
     EpiDate date = EpiDate.getInstanceByPeriod(type, period, year);
 
