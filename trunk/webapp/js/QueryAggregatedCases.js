@@ -1157,7 +1157,7 @@ MDSS.AbstractAttribute = function(obj)
   	this._type = obj.type;
   	this._displayLabel = obj.displayLabel;
   	this._attributeName = obj.attributeName;
-
+    this._whereValues = [];
     var s = new String(Math.random());
     var r = s.substring(s.length-6);
   	this._key = this._type.substring(this._type.lastIndexOf('.')+1) +'_'+this._attributeName+'_'+r;
@@ -1175,6 +1175,11 @@ MDSS.AbstractAttribute.prototype = {
   },
 
   getType : function()
+  {
+  	return this._type;
+  },
+
+  getWhereValues : function()
   {
   	return this._type;
   },
