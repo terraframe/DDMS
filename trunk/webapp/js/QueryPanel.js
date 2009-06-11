@@ -633,12 +633,19 @@ MDSS.QueryXML.OrderBy.prototype = {
  */
 MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
 {
+	var minWidth = 1270;
+	var minHeight = 500;
+
+  var pWidth =  (window.innerWidth - 50) > minWidth ? (window.innerWidth - 50) : minWidth;
+  var pHeight = (window.innerHeight * 0.6) > minHeight ? (window.innerHeight * 0.6) : minHeight;
+
+
   this._queryLayout = new YAHOO.widget.Layout(queryPanelId, {
-    height: 500,
-    width: 900,
+    height: pHeight,
+    width: pWidth,
     units: [
         { position: 'top', height: 40, resize: false, body: '', gutter: '2' },
-        { position: 'left', width: 180, resize: true, body: '', gutter: '0 5 0 2', scroll: true },
+        { position: 'left', width: 220 , resize: true, body: '', gutter: '0 5 0 2', scroll: true },
         { position: 'bottom', height: 40, body: '', gutter: '2' },
         { position: 'center', body: '<div id="'+this.QUERY_DATA_TABLE+'"></div>', gutter: '0 2 0 0', scroll: true },
         { position: 'right', width: 150, body: '<div style="margin-left: 10px" id="'+this.QUERY_SUMMARY+'"></div>', resize: true, scroll: true, gutter: '0 5 0 2'}
@@ -646,8 +653,8 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
   });
 
   this._mapLayout = new YAHOO.widget.Layout(mapPanelId, {
-    height: 500,
-    width: 900,
+    height: pHeight,
+    width: pWidth,
     units: [
         { position: 'left', width: 300, resize: false, body: '', gutter: '0 5 0 2', scroll: true },
         { position: 'bottom', height: 40, body: '', gutter: '2' },
@@ -798,7 +805,15 @@ MDSS.QueryPanel.prototype = {
 
     var li = document.createElement('li');
     li.id = column.getKey()+"_summary";
-    li.innerHTML = "<span></span>"+ column.label;
+
+    if(column.attribute){
+    	var whereFilters = column.attribute._whereValues.filter(function(a){return a.checked;}).map(
+    			function(a){return('<li id= "'+a.uuid+'_summary">&nbsp;●&nbsp;'+a.text+'</li>');
+    			});
+    	li.innerHTML = "<span></span>"+ column.label + '<ul id="'+column.getKey()+'_whereValues">'+whereFilters.join('')+'</ul>';
+  	}else{
+  		li.innerHTML = "<span></span>"+ column.label + '<ul id="'+column.getKey()+'_whereValues"></ul>';
+  	}
 
     ul.appendChild(li);
   },
@@ -1735,7 +1750,9 @@ MDSS.QueryPanel.prototype = {
    */
   insertColumn : function(column, menuBuilder)
   {
-    column = this._dataTable.insertColumn(column);
+    var attrib = column.attribute;
+  	column = this._dataTable.insertColumn(column);
+  	column.attribute = attrib;
 
     if(Mojo.util.isFunction(menuBuilder))
     {
