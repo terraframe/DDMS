@@ -48,7 +48,6 @@ import com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO;
 
 import dss.vector.solutions.LabeledDTO;
 import dss.vector.solutions.entomology.assay.AssayTestResultDTO;
-import dss.vector.solutions.mo.AbstractTermDTO;
 
 public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -115,12 +114,12 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return builder.toString();
   }
 
-  public static String getDropDownMap(AbstractTermDTO[] terms) throws JSONException
+  public static String getDropDownMap(LabeledDTO[] terms) throws JSONException
   {
     JSONObject map = new JSONObject();
-    for (AbstractTermDTO term : terms)
+    for (LabeledDTO term : terms)
     {
-      map.put(term.getLabel(), term.getId());
+      map.put(term.getId(),term.getLabel());
     }
     return map.toString();
   }
@@ -255,6 +254,65 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     {
       arr.add(extra_rows);
     }
+    return ( Halp.join(dropdownbuff, "\n") );
+  }
+
+  public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest) throws JSONException
+  {
+    ArrayList<String> arr = new ArrayList<String>();
+    int colnum = 0;
+    Class<?> v = view.getClass();
+    ArrayList<String> ordered_attribs = new ArrayList<String>();
+
+    for (String a : view.getAccessorNames())
+    {
+      if (a.length() >= 3)
+      {
+        ordered_attribs.add(a);
+      }
+    }
+
+    ArrayList<String> dropdownbuff = new ArrayList<String>();
+    for (String attrib : ordered_attribs)
+    {
+      try
+      {
+        AttributeMdDTO md = (AttributeMdDTO) v.getMethod("get" + attrib.substring(0, 1).toUpperCase() + attrib.substring(1) + "Md").invoke(view);
+
+        if (md instanceof AttributeReferenceMdDTO)
+        {
+          Class<?> clazz = md.getJavaType();
+          if (LabeledDTO.class.isAssignableFrom(clazz))
+          {
+            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAll", new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
+            dropdownbuff.add(attrib + " : " + getDropDownMap(terms) + ",");
+          }
+        }
+        if (md instanceof AttributeEnumerationMdDTO)
+        {
+          AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
+          String map = "{";
+          for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
+          {
+             map += "'" + e.getKey() + "':'" + e.getValue() + "',";
+          }
+          map += "}";
+          //JSONObject map = new JSONObject((JSONTokener) ( (AttributeEnumerationMdDTO) md ).getEnumItems().entrySet());
+          dropdownbuff.add(attrib + " : " + map + ",");
+        }
+        if (md instanceof AttributeBooleanMdDTO)
+        {
+          dropdownbuff.add(attrib + ":{'true':'" + ((AttributeBooleanMdDTO)md).getPositiveDisplayLabel() + "', 'false':'" + ((AttributeBooleanMdDTO)md).getNegativeDisplayLabel() + "'},");
+        }
+
+      }
+      catch (Exception x)
+      {
+        System.out.println("Other exception on " + attrib + " " + x.getMessage());
+      }
+      colnum++;
+    }
+
     return ( Halp.join(dropdownbuff, "\n") );
   }
 
