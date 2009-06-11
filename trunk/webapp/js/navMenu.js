@@ -125,6 +125,7 @@ var aSubmenuData = [
                             ]
                         }
             },
+            { text: "Aggregated_IPT_Information(069)", url: "dss.vector.solutions.intervention.monitor.AggregatedIPTController.search.mojo", visibileTo:'Administrator'},
         ]
     },
     {
