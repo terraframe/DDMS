@@ -1,0 +1,583 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.PatientGrid"
+        label="Patient Grid"
+        description="Configurable list of IPT patients"
+        extends="dss.vector.solutions.surveillance.AbstractGrid"
+        generateController="true">
+        <mdMethod
+          name="getAll"
+          returnType="dss.vector.solutions.intervention.monitor.PatientGrid[]"
+          static="true"
+          label="Get All"
+          description="Returns all of the patient grid options" />
+      </mdBusiness>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.PatientGrid"
+        id="InPatient">
+        <valueAttribute
+          name="optionName"
+          value="inPatient" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="in patient" />
+        </structAttribute>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.PatientGrid"
+        id="outPatient">
+        <valueAttribute
+          name="optionName"
+          value="outPatient" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="out patient" />
+        </structAttribute>
+      </object>
+
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.VisitGrid"
+        label="Visit Grid"
+        description="Configurable list of IPT visits"
+        extends="dss.vector.solutions.surveillance.AbstractGrid"
+        generateController="true">
+        <mdMethod
+          name="getAll"
+          returnType="dss.vector.solutions.intervention.monitor.VisitGrid[]"
+          static="true"
+          label="Get All"
+          description="Returns all of the patient visit grid options" />
+      </mdBusiness>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.VisitGrid"
+        id="1st">
+        <valueAttribute
+          name="optionName"
+          value="1st" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="1st" />
+        </structAttribute>
+      </object>
+
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.VisitGrid"
+        id="2nd">
+        <valueAttribute
+          name="optionName"
+          value="2nd" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="2nd" />
+        </structAttribute>
+      </object>
+
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.VisitGrid"
+        id="3rd">
+        <valueAttribute
+          name="optionName"
+          value="3rd" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="3rd" />
+        </structAttribute>
+      </object>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.DoseGrid"
+        label="Dose Grid"
+        description="Configurable list of IPT doses"
+        extends="dss.vector.solutions.surveillance.AbstractGrid"
+        generateController="true">
+        <mdMethod
+          name="getAll"
+          returnType="dss.vector.solutions.intervention.monitor.DoseGrid[]"
+          static="true"
+          label="Get All"
+          description="Returns all of the patient visit grid options" />
+      </mdBusiness>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.DoseGrid"
+        id="1stDose">
+        <valueAttribute
+          name="optionName"
+          value="1st" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="1st" />
+        </structAttribute>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.DoseGrid"
+        id="2ndDose">
+        <valueAttribute
+          name="optionName"
+          value="2nd" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="2nd" />
+        </structAttribute>
+      </object>
+
+      <object
+        type="dss.vector.solutions.intervention.monitor.DoseGrid"
+        id="3rdDose">
+        <valueAttribute
+          name="optionName"
+          value="3rd" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="3rd" />
+        </structAttribute>
+      </object>
+
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
+        label="Aggregated IPT Information"
+        generateController="true">
+        <attributes>
+          <reference
+            name="geoEntity"
+            label="Geo Entity"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <date
+            name="startDate"
+            label="Start Date"
+            required="true" />
+          <date
+            name="endDate"
+            label="End Date"
+            required="true" />
+          <integer
+            name="numberPregnant"
+            label="Number of pregnant females who received IPT"
+            rejectNegative="true" />
+          <integer
+            name="numberNatalCare"
+            label="Number of Ante Natal Care visits for period"
+            rejectNegative="true" />
+          <integer
+            name="numberPregnantIron"
+            label="Number of pregnant females who received iron supplement when receiving IPT"
+            rejectNegative="true" />
+          <integer
+            name="numberPregnantITN"
+            label="Number of pregnant females who received ITN when receiving IPT"
+            rejectNegative="true" />
+          <integer
+            name="totalITN"
+            label="Total number of ITNs distributed during IPT administration"
+            rejectNegative="true" />
+        </attributes>
+        <mdMethod
+          name="searchByGeoEntityAndEpiDate"
+          returnType="dss.vector.solutions.intervention.monitor.AggregatedIPTView"
+          static="true"
+          label="Search By GeoEntity and Epi Date">
+          <mdParameter
+            name="geoEntity"
+            label="Geo Entity"
+            order="0"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+          <mdParameter
+            name="periodType"
+            label="Period Type"
+            order="1"
+            type="dss.vector.solutions.surveillance.PeriodType" />
+          <mdParameter
+            name="period"
+            label="Period"
+            order="2"
+            type="java.lang.Integer" />
+          <mdParameter
+            name="year"
+            label="Year"
+            order="3"
+            type="java.lang.Integer" />
+        </mdMethod>
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.intervention.monitor.AggregatedIPTView"
+          static="true">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          label="lock View"
+          returnType="dss.vector.solutions.intervention.monitor.AggregatedIPTView"
+          static="false" />
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.intervention.monitor.AggregatedIPTView"
+          static="false" />
+      </mdBusiness>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.IPTPatients"
+        label="IPT Patients"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
+          method="AggregatedIPTs" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.PatientGrid"
+          method="Patients" />
+        <attributes>
+          <integer
+            name="amount"
+            label="Number per person category"
+            default_value="0"
+            required="true"
+            rejectNegative="true" />
+        </attributes>
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.IPTANCVisit"
+        label="IPT ANC visit"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
+          method="AggregatedIPTs" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.VisitGrid"
+          method="ANCVisits" />
+        <attributes>
+          <integer
+            name="amount"
+            label="Number of pregnant females who received IPT per ANC visit"
+            default_value="0"
+            required="true"
+            rejectNegative="true" />
+        </attributes>
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.IPTDose"
+        label="IPT Dose"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
+          method="AggregatedIPTs" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.DoseGrid"
+          method="Doses" />
+        <attributes>
+          <integer
+            name="amount"
+            label="Number of pregnant females who received IPT per IPT dose number"
+            default_value="0"
+            required="true"
+            rejectNegative="true" />
+        </attributes>
+      </mdTree>
+
+      <mdTree
+        name="dss.vector.solutions.intervention.monitor.IPTTreatment"
+        label="IPT Treatment"
+        generateController="false">
+        <parent
+          cardinality="*"
+          name="dss.vector.solutions.intervention.monitor.AggregatedIPT"
+          method="AggregatedIPTs" />
+        <child
+          cardinality="*"
+          name="dss.vector.solutions.surveillance.TreatmentGrid"
+          method="Treatments" />
+        <attributes>
+          <integer
+            name="amount"
+            label="Number of pregnant females who received IPT per type"
+            default_value="0"
+            required="true"
+            rejectNegative="true" />
+        </attributes>
+      </mdTree>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.AggregatedIPTView"
+        label="Aggregated IPT Information"
+        generateController="true">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            required="true"
+            size="255" />
+          <char
+            name="geoId"
+            label="Geo Id"
+            required="true"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            size="255" />
+          <enumeration
+            name="periodType"
+            label="Period Type"
+            required="true"
+            type="dss.vector.solutions.surveillance.PeriodType"
+            description="The period type"
+            selectMultiple="false" />
+          <integer
+            name="period"
+            label="Period"
+            required="true"
+            rejectZero="true"
+            rejectNegative="true" />
+          <integer
+            name="periodYear"
+            label="Year"
+            required="true" />
+          <virtual
+            name="numberPregnant"
+            concrete="numberPregnant"
+            type="dss.vector.solutions.intervention.monitor.AggregatedIPT" />
+          <virtual
+            name="numberNatalCare"
+            concrete="numberNatalCare"
+            type="dss.vector.solutions.intervention.monitor.AggregatedIPT" />
+          <virtual
+            name="numberPregnantIron"
+            concrete="numberPregnantIron"
+            type="dss.vector.solutions.intervention.monitor.AggregatedIPT" />
+          <virtual
+            name="numberPregnantITN"
+            concrete="numberPregnantITN"
+            type="dss.vector.solutions.intervention.monitor.AggregatedIPT" />
+          <virtual
+            name="totalITN"
+            concrete="totalITN"
+            type="dss.vector.solutions.intervention.monitor.AggregatedIPT" />
+          <integer
+            name="displayPatients"
+            label="IPT Patients"
+            description="Marker for displaying IPT Patients grid" />
+          <integer
+            name="displayVisits"
+            label="IPT ANC Visits"
+            description="Marker for displaying IPT Visits grid" />
+          <integer
+            name="displayDose"
+            label="IPT Doses"
+            description="Marker for displaying IPT Dose grid" />
+          <integer
+            name="displayTreatments"
+            label="IPT Treatments"
+            description="Marker for displaying IPT Treatments grid" />
+        </attributes>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="getIPTTreatments"
+          label="Get IPT Treatments"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.IPTTreatment[]" />
+        <mdMethod
+          name="getIPTDoses"
+          label="Get IPT Doses"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.IPTDose[]" />
+        <mdMethod
+          name="getIPTANCVisits"
+          label="Get IPT ANC Visits"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.IPTANCVisit[]" />
+        <mdMethod
+          name="getIPTPatients"
+          label="Get IPT Patients"
+          static="false"
+          returnType="dss.vector.solutions.intervention.monitor.IPTPatients[]" />
+        <mdMethod
+          name="applyAll"
+          static="false"
+          returnType="void"
+          label="Apply All"
+          description="Apply an aggregated case and all of its corresponding grids">
+          <mdParameter
+            name="patients"
+            type="dss.vector.solutions.intervention.monitor.IPTPatients[]"
+            order="1"
+            label="IPT Patients" />
+          <mdParameter
+            name="visits"
+            type="dss.vector.solutions.intervention.monitor.IPTANCVisit[]"
+            order="2"
+            label="IPT Visits" />
+          <mdParameter
+            name="doses"
+            type="dss.vector.solutions.intervention.monitor.IPTDose[]"
+            order="3"
+            label="IPT Doses" />
+          <mdParameter
+            name="treatments"
+            type="dss.vector.solutions.intervention.monitor.IPTTreatment[]"
+            order="4"
+            label="IPT Treatments" />
+        </mdMethod>
+      </mdView>
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.AggregatedIPTController">
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.AggregatedIPTView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.intervention.monitor.AggregatedIPTView"
+            order="0" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.AggregatedIPTView" />
+          <create>
+            <mdParameter
+              name="patients"
+              type="dss.vector.solutions.intervention.monitor.IPTPatients[]"
+              order="1"
+              label="IPT Patients" />
+            <mdParameter
+              name="visits"
+              type="dss.vector.solutions.intervention.monitor.IPTANCVisit[]"
+              order="2"
+              label="IPT Visits" />
+            <mdParameter
+              name="doses"
+              type="dss.vector.solutions.intervention.monitor.IPTDose[]"
+              order="3"
+              label="IPT Doses" />
+            <mdParameter
+              name="treatments"
+              type="dss.vector.solutions.intervention.monitor.IPTTreatment[]"
+              order="4"
+              label="IPT Treatments" />
+          </create>
+        </mdAction>
+        <mdAction
+          name="update"
+          isPost="true"
+          isQuery="false">
+          <mdParameter
+            name="dto"
+            order="0"
+            type="dss.vector.solutions.intervention.monitor.AggregatedIPTView" />
+          <create>
+            <mdParameter
+              name="patients"
+              type="dss.vector.solutions.intervention.monitor.IPTPatients[]"
+              order="1"
+              label="IPT Patients" />
+            <mdParameter
+              name="visits"
+              type="dss.vector.solutions.intervention.monitor.IPTANCVisit[]"
+              order="2"
+              label="IPT Visits" />
+            <mdParameter
+              name="doses"
+              type="dss.vector.solutions.intervention.monitor.IPTDose[]"
+              order="3"
+              label="IPT Doses" />
+            <mdParameter
+              name="treatments"
+              type="dss.vector.solutions.intervention.monitor.IPTTreatment[]"
+              order="4"
+              label="IPT Treatments" />
+          </create>
+        </mdAction>
+        <create>
+          <mdAction
+            name="search"
+            isPost="false"
+            isQuery="false"
+            label="Search" />
+          <mdAction
+            name="searchByGeoIdAndPeriod"
+            isPost="true"
+            label="Search By GeoId and Period"
+            isQuery="false">
+            <mdParameter
+              name="geoId"
+              order="0"
+              type="java.lang.String"
+              label="Geo Id" />
+            <mdParameter
+              name="periodType"
+              label="Period Type"
+              type="java.lang.String"
+              order="1" />
+            <mdParameter
+              name="period"
+              label="period"
+              order="2"
+              type="java.lang.Integer" />
+            <mdParameter
+              name="year"
+              label="Year"
+              order="3"
+              type="java.lang.Integer" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
