@@ -1,5 +1,9 @@
 package dss.vector.solutions.intervention.monitor;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
+
+import dss.vector.solutions.util.ErrorUtility;
+
 public class PatientGridController extends PatientGridControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/intervention/monitor/PatientGrid/";
@@ -17,7 +21,6 @@ public class PatientGridController extends PatientGridControllerBase implements 
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.intervention.monitor.PatientGridQueryDTO query = dss.vector.solutions.intervention.monitor.PatientGridDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All PatientGrid Objects");
     render("viewAllComponent.jsp");
   }
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -28,7 +31,6 @@ public class PatientGridController extends PatientGridControllerBase implements 
   {
     dss.vector.solutions.intervention.monitor.PatientGridDTO dto = dss.vector.solutions.intervention.monitor.PatientGridDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit PatientGrid");
     render("editComponent.jsp");
   }
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -42,23 +44,38 @@ public class PatientGridController extends PatientGridControllerBase implements 
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failDelete(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failDelete(dto);
     }
   }
   public void failDelete(dss.vector.solutions.intervention.monitor.PatientGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit PatientGrid");
     render("editComponent.jsp");
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
+	    if (!req.getRequestURI().contains(this.getClass().getName() + ".viewAll.mojo"))
+	    {
+	      String path = req.getRequestURL().toString();
+	      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".viewAll.mojo");
+
+	      resp.sendRedirect(path);
+	      return;
+	    }
+	    
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.intervention.monitor.PatientGridQueryDTO query = dss.vector.solutions.intervention.monitor.PatientGridDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All PatientGrid Objects");
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -67,9 +84,18 @@ public class PatientGridController extends PatientGridControllerBase implements 
   }
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+	    if (!req.getRequestURI().contains(this.getClass().getName() + ".view.mojo"))
+	    {
+	      String path = req.getRequestURL().toString();
+	      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".view.mojo");
+	      path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + id);
+
+	      resp.sendRedirect(path);
+	      return;
+	    }
+	    
+	  com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", dss.vector.solutions.intervention.monitor.PatientGridDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View PatientGrid");
     render("viewComponent.jsp");
   }
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -83,15 +109,22 @@ public class PatientGridController extends PatientGridControllerBase implements 
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failCreate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failCreate(dto);
     }
   }
   public void failCreate(dss.vector.solutions.intervention.monitor.PatientGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create PatientGrid");
     render("createComponent.jsp");
   }
   public void update(dss.vector.solutions.intervention.monitor.PatientGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -101,15 +134,22 @@ public class PatientGridController extends PatientGridControllerBase implements 
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failUpdate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failUpdate(dto);
     }
   }
   public void failUpdate(dss.vector.solutions.intervention.monitor.PatientGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update PatientGrid");
     render("editComponent.jsp");
   }
   public void newInstance() throws java.io.IOException, javax.servlet.ServletException
@@ -117,7 +157,6 @@ public class PatientGridController extends PatientGridControllerBase implements 
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.intervention.monitor.PatientGridDTO dto = new dss.vector.solutions.intervention.monitor.PatientGridDTO(clientRequest);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create PatientGrid");
     render("createComponent.jsp");
   }
   public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
