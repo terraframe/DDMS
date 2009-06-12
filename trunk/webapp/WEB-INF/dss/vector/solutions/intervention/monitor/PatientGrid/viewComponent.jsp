@@ -1,5 +1,9 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+
+<c:set var="page_title" value="View_Patient_Grid"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -39,24 +43,10 @@
     <dd>
       ${item.optionName}
     </dd>
+    <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.PatientGridController.edit.mojo" name="dss.vector.solutions.intervention.monitor.PatientGrid.form.edit.button" />
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.PatientGridController.edit.mojo" name="dss.vector.solutions.intervention.monitor.PatientGrid.form.edit.button" />
-  <br />
 </mjl:form>
-<dl>
-  <dt>
-    <label>
-      Child Relationships
-    </label>
-  </dt>
-  <dd>
-    <ul>
-      <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.intervention.monitor.IPTPatientsController.childQuery.mojo" name="dss.vector.solutions.intervention.monitor.IPTPatients.childQuery.link">
-          <mjl:property value="${item.id}" name="childId" />
-        </mjl:commandLink>
-      </li>
-    </ul>
-  </dd>
-</dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.intervention.monitor.PatientGridController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.PatientGrid.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.intervention.monitor.PatientGridController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.PatientGrid.viewAll.link">
+  <fmt:message key="View_All"/>
+</mjl:commandLink>
+

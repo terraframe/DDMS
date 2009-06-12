@@ -1,5 +1,9 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<c:set var="page_title" value="View_Visit_Grid"  scope="request"/>
+
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -39,24 +43,9 @@
     <dd>
       ${item.optionName}
     </dd>
+    <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.VisitGridController.edit.mojo" name="dss.vector.solutions.intervention.monitor.VisitGrid.form.edit.button" />
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.VisitGridController.edit.mojo" name="dss.vector.solutions.intervention.monitor.VisitGrid.form.edit.button" />
-  <br />
 </mjl:form>
-<dl>
-  <dt>
-    <label>
-      Child Relationships
-    </label>
-  </dt>
-  <dd>
-    <ul>
-      <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.intervention.monitor.IPTANCVisitController.childQuery.mojo" name="dss.vector.solutions.intervention.monitor.IPTANCVisit.childQuery.link">
-          <mjl:property value="${item.id}" name="childId" />
-        </mjl:commandLink>
-      </li>
-    </ul>
-  </dd>
-</dl>
-<mjl:commandLink display="View All" action="dss.vector.solutions.intervention.monitor.VisitGridController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.VisitGrid.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.intervention.monitor.VisitGridController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.VisitGrid.viewAll.link">
+  <fmt:message key="View_All"/>
+</mjl:commandLink>

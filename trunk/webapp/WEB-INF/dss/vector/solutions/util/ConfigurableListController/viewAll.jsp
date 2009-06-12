@@ -97,6 +97,29 @@
       <fmt:message key="Treatment_Method_Grid_Label"/>
     </mjl:commandLink><br />
   </dd>
+  <dt><fmt:message key="Configurable_Intervention_Monitoring_Grids"/></dt>
+  <dd>
+    <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.DoseGrid"
+      action="dss.vector.solutions.intervention.monitor.DoseGridController.viewAll.mojo">
+      <fmt:message key="Dose_Grid_Label"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.VisitGrid"
+      action="dss.vector.solutions.intervention.monitor.VisitGridController.viewAll.mojo">
+      <fmt:message key="Visit_Grid_Label"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.PatientGrid"
+      action="dss.vector.solutions.intervention.monitor.PatientGridController.viewAll.mojo">
+      <fmt:message key="Patient_Grid_Label"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
+      name="dss.vector.solutions.surveillance.TreatmentGrid"
+      action="dss.vector.solutions.surveillance.TreatmentGridController.viewAll.mojo">
+      <fmt:message key="Treatment_Grid_Label"/>
+    </mjl:commandLink><br />
+  </dd>
   <dt><fmt:message key="Configurable_Other"/></dt>
   <dd>
     <mjl:commandLink
