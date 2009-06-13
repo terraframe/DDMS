@@ -50,7 +50,7 @@ week.setTime(epiDate.getStartDate());
     <th><%=year%></th>
 </tr>
 <%
-for (Integer i = 0; i < 52; i++)
+for (Integer i = 0; i < epiDate.getNumberOfEpiWeeks(); i++)
 {
   epiDate = EpiDateDTO.getInstanceByPeriod(clientRequest,PeriodTypeDTO.WEEK, i, year);
   week = new GregorianCalendar();

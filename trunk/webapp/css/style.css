@@ -549,6 +549,10 @@ div.colorPickerValue {
 	margin-right: 5px;
 }
 
+.gridList {
+	padding-bottom: 5px;
+}
+
 div.workarea {
 	padding:10px;
 	float:left
@@ -595,6 +599,18 @@ div.scrollable {
 	cursor:pointer;
 }
 
+#dateGroupBy{
+	float:right;
+}
+
+.DatePick{
+	width:6em;
+}
+
+/*---------------------------------------------------------------*/
+/*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
+/*---------------------------------------------------------------*/
+
 @media screen {
 
 	.printOnly{
@@ -602,9 +618,7 @@ div.scrollable {
 	}
 
 }
-/*---------------------------------------------------------------*/
-/*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
-/*---------------------------------------------------------------*/
+
 @media print {
 	body {
 		margin-left: 0px;

@@ -96,7 +96,13 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
         var attrib  = mosquitoView.attributeMap[attribName];
         var row = {};
         row.attributeName = attrib.attributeName;
-        row.type = '<%=MosquitoDTO.CLASS%>';
+       // row.attributeGetter = attrib.attributeName;
+        if(attrib.dtoType === 'AttributeReferenceDTO')
+        {
+       // 	row.attributeGetter += '.displayLabel.currentValue';
+        	row.attributeName += '.displayLabel.currentValue';
+        }
+        row.type = '<%=MosquitoViewDTO.CLASS%>';
         row.displayLabel = attrib.attributeMdDTO.displayLabel;
         if(dropDownMaps[row.attributeName]){
           row.dropDownMap = dropDownMaps[row.attributeName];
@@ -111,9 +117,9 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     var mosquitoColumns =  mapAttribs(mosquitoAttribs);
 
     var assays = [];
-    //assays.push(mapAttribs(<%=getAssayColumns(mosquitoView,InfectivityAssayTestResult.class,requestIF)%>));
-    //assays.push(mapAttribs(<%=getAssayColumns(mosquitoView,TargetSiteAssayTestResult.class,requestIF)%>));
-    //assays.push(mapAttribs(<%=getAssayColumns(mosquitoView,MetabolicAssayTestResult.class,requestIF)%>));
+    assays.push(mapAttribs(<%=getAssayColumns(mosquitoView,InfectivityAssayTestResult.class,requestIF)%>));
+    assays.push(mapAttribs(<%=getAssayColumns(mosquitoView,TargetSiteAssayTestResult.class,requestIF)%>));
+    assays.push(mapAttribs(<%=getAssayColumns(mosquitoView,MetabolicAssayTestResult.class,requestIF)%>));
 
     var query = new MDSS.QueryEntomology(mosquitoColumns, assays, queryList);
     query.render();
@@ -140,7 +146,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 <div style="display: none" id="CSVFormContainer"></div>
 <div style="display: none" id="ReportFormContainer"></div>
 
-<textarea id="debug_xml" cols="80" rows="40">
+<textarea id="debug_xml" cols="40" rows="40" style="width:1280px">
 
 </textarea>
 
