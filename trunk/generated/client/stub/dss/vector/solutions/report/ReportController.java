@@ -81,7 +81,7 @@ public class ReportController extends ReportControllerBase implements
       throws ServletException, IOException
   {
     String tempDir = null;
-    
+
     try
     {
       validateParameters(queryXML, geoEntityType, savedSearchId);
@@ -195,7 +195,7 @@ public class ReportController extends ReportControllerBase implements
       for(String token : in.readNext())
       {
         headers.add(token.replaceAll("\"", "").trim());
-      }      
+      }
 
       in.close();
 

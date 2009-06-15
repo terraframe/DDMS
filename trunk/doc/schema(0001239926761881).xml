@@ -57,9 +57,11 @@
         unique="true"
         label="Survey Point Index">
         <attribute
-          name="geoEntity" />
+          name="geoEntity"
+          indexOrder="0"/>
         <attribute
-          name="surveyDate" />
+          name="surveyDate"
+          indexOrder="1"/>
       </mdIndex>
 
       <mdBusiness

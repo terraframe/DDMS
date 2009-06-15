@@ -362,7 +362,7 @@
             order="0"
             type="java.lang.String"/>
         </mdMethod>
-        
+
         <mdMethod
           name="mapQuery"
           label="Map Query"
@@ -460,15 +460,20 @@
         active="true"
         unique="true">
         <attribute
-          name="startDate" />
+          name="startDate"
+          indexOrder="0"/>
         <attribute
-          name="endDate" />
+          name="endDate"
+          indexOrder="1"/>
         <attribute
-          name="geoEntity" />
+          name="geoEntity"
+          indexOrder="2"/>
         <attribute
-          name="startAge" />
+          name="startAge"
+          indexOrder="3"/>
         <attribute
-          name="endAge" />
+          name="endAge"
+          indexOrder="4"/>
       </mdIndex>
 
       <mdBusiness

@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1240257027869L;
      */
     protected void buildSelectClause()
     {
-      ResourceTargetViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultResourceTargetViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

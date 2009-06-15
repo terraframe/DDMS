@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1240941676556L;
      */
     protected void buildSelectClause()
     {
-      ActorSprayStatusViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultActorSprayStatusViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

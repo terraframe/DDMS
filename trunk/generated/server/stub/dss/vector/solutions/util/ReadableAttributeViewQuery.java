@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1239221651173L;
      */
     protected void buildSelectClause()
     {
-      ReadableAttributeViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultReadableAttributeViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

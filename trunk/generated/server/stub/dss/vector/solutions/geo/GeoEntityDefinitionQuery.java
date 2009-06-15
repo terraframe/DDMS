@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1236133819598L;
      */
     protected void buildSelectClause()
     {
-      GeoEntityDefinitionQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultGeoEntityDefinitionBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1237579407808L;
      */
     protected void buildSelectClause()
     {
-      LarvaeTestIntervalViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultLarvaeTestIntervalViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

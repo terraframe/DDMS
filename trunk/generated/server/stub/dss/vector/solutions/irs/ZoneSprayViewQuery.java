@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1240860657661L;
      */
     protected void buildSelectClause()
     {
-      ZoneSprayViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultZoneSprayViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

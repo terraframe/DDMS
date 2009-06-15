@@ -4,15 +4,17 @@ public interface PropertyInfo
 {
   public static final String GENERAL_PACKAGE         = "dss.vector.solutions";
 
-  public static final String SYSTEM_PACKAGE          = "dss.vector.solutions.system";
+  public static final String SYSTEM_PACKAGE          = GENERAL_PACKAGE+".system";
 
-  public static final String INSTALL_PACKAGE         = "dss.vector.solutions.system.install";
+  public static final String INSTALL_PACKAGE         = SYSTEM_PACKAGE+".install";
 
-  public static final String EPI_WEEK_PACKAGE        = "dss.vector.solutions.surveillance.EpiWeek";
+  public static final String EPI_WEEK_PACKAGE        = GENERAL_PACKAGE+".surveillance.EpiWeek";
 
-  public static final String STANDARDS_PACKAGE       = "dss.vector.solutions.irs.Standards";
+  public static final String STANDARDS_PACKAGE       = GENERAL_PACKAGE+".irs.Standards";
 
-  public static final String RESISTANCE_PACKAGE      = "dss.vector.solutions.entomology.ResistantanceCutOff";
+  public static final String RESISTANCE_PACKAGE      = GENERAL_PACKAGE+".entomology.ResistantanceCutOff";
+
+  public static final String GEO_PACKAGE             = GENERAL_PACKAGE+".geo";
 
   public static final String ADULT_DDA_RESISTANCE    = "aDDAR";
 

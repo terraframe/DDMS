@@ -1809,9 +1809,11 @@
         unique="true"
         description="Enforces a unique index between a collection and its sample id">
         <attribute
-          name="sampleId" />
+          name="sampleId"
+          indexOrder="0"/>
         <attribute
-          name="collection" />
+          name="collection"
+          indexOrder="1"/>
       </mdIndex>
 
       <mdBusiness
@@ -3237,9 +3239,11 @@
         unique="true"
         description="Uniqueness constraint between an assay and its interval period">
         <attribute
-          name="assay" />
+          name="assay"
+          indexOrder="0"/>
         <attribute
-          name="period" />
+          name="period"
+          indexOrder="1"/>
       </mdIndex>
 
       <mdView
@@ -3320,9 +3324,11 @@
         unique="true"
         description="Uniqueness constraint between an assay and its interval period">
         <attribute
-          name="assay" />
+          name="assay"
+          indexOrder="0"/>
         <attribute
-          name="period" />
+          name="period"
+          indexOrder="1"/>
       </mdIndex>
 
       <mdView
@@ -3719,9 +3725,11 @@
         unique="true"
         description="Uniquness constraint between the Package And Key for this Property">
         <attribute
-          name="propertyPackage" />
+          name="propertyPackage"
+          indexOrder="0"/>
         <attribute
-          name="propertyName" />
+          name="propertyName"
+          indexOrder="1"/>
       </mdIndex>
 
       <mdException

@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1236703946840L;
      */
     protected void buildSelectClause()
     {
-      MosquitoCollectionViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultMosquitoCollectionViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1239313043343L;
      */
     protected void buildSelectClause()
     {
-      ElderCaseViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultElderCaseViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

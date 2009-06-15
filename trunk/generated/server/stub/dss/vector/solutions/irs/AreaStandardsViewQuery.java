@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1240597921003L;
      */
     protected void buildSelectClause()
     {
-      AreaStandardsViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultAreaStandardsViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1240597920731L;
      */
     protected void buildSelectClause()
     {
-      InsecticideBrandViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultInsecticideBrandViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

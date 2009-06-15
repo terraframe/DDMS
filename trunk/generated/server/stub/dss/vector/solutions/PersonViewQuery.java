@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1240852496005L;
      */
     protected void buildSelectClause()
     {
-      PersonViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultPersonViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }

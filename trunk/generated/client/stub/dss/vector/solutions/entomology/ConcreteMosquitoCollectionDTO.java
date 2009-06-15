@@ -5,15 +5,15 @@ import java.text.DateFormat;
 public abstract class ConcreteMosquitoCollectionDTO extends ConcreteMosquitoCollectionDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   private static final long serialVersionUID = 1236104204962L;
-  
+
   public ConcreteMosquitoCollectionDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
   }
-  
+
   /**
   * Copy Constructor: Duplicates the values and attributes of the given BusinessDTO into a new DTO.
-  * 
+  *
   * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
@@ -21,7 +21,7 @@ public abstract class ConcreteMosquitoCollectionDTO extends ConcreteMosquitoColl
   {
     super(businessDTO, clientRequest);
   }
-  
+
   public String getDisplayLabel()
   {
     // TODO The date format needs to be localizable
@@ -30,7 +30,7 @@ public abstract class ConcreteMosquitoCollectionDTO extends ConcreteMosquitoColl
       DateFormat format = DateFormat.getDateInstance();
       return format.format(this.getDateCollected()) + " - " + this.getGeoEntity().getGeoId();
     }
-    
+
     return this.getId();
   }
 }

@@ -36,8 +36,6 @@ private static final long serialVersionUID = 1240597925970L;
      */
     protected void buildSelectClause()
     {
-      NozzleViewQuery viewQuery = this.getViewQuery();
-
       String errMsg = "buildSelectClause() method in class DefaultNozzleViewBuilder needs to be overwritten.";
       throw new com.terraframe.mojo.query.QueryException(errMsg);
     }
