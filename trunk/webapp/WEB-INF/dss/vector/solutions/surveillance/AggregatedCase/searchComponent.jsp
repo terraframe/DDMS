@@ -90,6 +90,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= FacilityDTO.CLASS %>*');
           onSend: function(){},
           onComplete: function(){},
           onSuccess : function(){},
+          onFailure : function(){},
           onProblemExceptionDTO : function(e){
               var problems = e.getProblems();
     		  for each (p in problems)
