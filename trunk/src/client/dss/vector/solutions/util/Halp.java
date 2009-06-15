@@ -132,7 +132,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     for (LabeledDTO term : terms)
     {
       ids.put(term.getId());
-      labels.put(term.getLabel());
+      labels.put(term.getLabel().replaceAll("'", "\\'"));
     }
 
     return name + "Ids = " + ids.toString() + "; \n " + name + "Labels = " + labels.toString() + ";";
@@ -302,7 +302,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         }
         if (md instanceof AttributeBooleanMdDTO)
         {
-          dropdownbuff.add(attrib + ":{'true':'" + ((AttributeBooleanMdDTO)md).getPositiveDisplayLabel() + "', 'false':'" + ((AttributeBooleanMdDTO)md).getNegativeDisplayLabel() + "'},");
+          dropdownbuff.add(attrib + ":{'true':'" + ((AttributeBooleanMdDTO)md).getPositiveDisplayLabel().replaceAll("'", "\\'") + "', 'false':'" + ((AttributeBooleanMdDTO)md).getNegativeDisplayLabel().replaceAll("'", "\\'") + "'},");
         }
 
       }
@@ -369,7 +369,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         Class<?> mdClass = md.getClass();
 
         String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();
-        buff.add("label:'" + label + "'");
+        buff.add("label:'" + label.replaceAll("'", "\\\\'") + "'");
 
         if (no_show.contains(colnum) )
         {
@@ -389,7 +389,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           }
           if (md instanceof AttributeBooleanMdDTO)
           {
-              editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'" + ((AttributeBooleanMdDTO)md).getPositiveDisplayLabel() + "', value:'true'}, {label:'" + ((AttributeBooleanMdDTO)md).getNegativeDisplayLabel() + "', value:'false'}],disableBtns:true})";
+              editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'" + ((AttributeBooleanMdDTO)md).getPositiveDisplayLabel().replaceAll("'", "\\\\'") + "', value:'true'}, {label:'" + ((AttributeBooleanMdDTO)md).getNegativeDisplayLabel().replaceAll("'", "\\\\'") + "', value:'false'}],disableBtns:true})";
           }
           if (md instanceof AttributeCharacterMdDTO)
           {
