@@ -10,6 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -314,6 +315,53 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     imports.add(type);
     imports.add(type + "Controller");
+  }
+
+  /**
+   * Returns a Set of type names included in the hierarchy for which the
+   * given type is a member. Abstract types will be recursed through but the type
+   * itself will not be added to the list. Although a Set is returned, the
+   * order of insertion is preserved to as closely mimic a flattened tree
+   * as possible.
+   *
+   * @param type
+   * @return
+   */
+  public static Set<String> getIsAHierarchy(String type)
+  {
+    Set<String> types = new LinkedHashSet<String>();
+
+    MdBusiness start = MdBusiness.getMdBusiness(type);
+
+    MdBusiness parent = start.getSuperMdBusiness();
+    while(parent != null)
+    {
+      if(!parent.getIsAbstract())
+      {
+        types.add(parent.definesType());
+      }
+
+      parent = parent.getSuperMdBusiness();
+    }
+
+    types.add(type);
+
+    getIsAChildren(types, start);
+
+    return types;
+  }
+
+  private static void getIsAChildren(Set<String> types, MdBusiness parent)
+  {
+    for(MdBusiness child : parent.getAllSubClass().getAll())
+    {
+      if(!child.getIsAbstract())
+      {
+        types.add(child.definesType());
+      }
+
+      getIsAChildren(types, child);
+    }
   }
 
   /**

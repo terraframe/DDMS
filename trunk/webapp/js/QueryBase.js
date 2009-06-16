@@ -18,7 +18,8 @@ MDSS.QueryBase.prototype = {
       editVariableStyles: MDSS.util.bind(this, this.editVariableStyles),
       exportXLS : MDSS.util.bind(this, this.exportXLS),
       exportCSV : MDSS.util.bind(this, this.exportCSV),
-      exportReport : MDSS.util.bind(this, this.exportReport)      
+      exportReport : MDSS.util.bind(this, this.exportReport),
+      toggleDates : MDSS.util.bind(this, this.toggleDates),
     });
 
     // Set of GeoEntity subclasses that will be used for the query/mapping
@@ -84,6 +85,17 @@ MDSS.QueryBase.prototype = {
     form.submit();
   },
 
+  /**
+   * Called when a user toggles the value in the checkbox next
+   * to the start and end date fields. This generally means the user
+   * wants to add the respective dates to the select clause in the result
+   * set.
+   */
+  toggleDates : function()
+  {
+    // abstract
+  },
+
   _getExportXLSAction : function()
   {
     // abstract
@@ -93,7 +105,7 @@ MDSS.QueryBase.prototype = {
   {
     // abstract
   },
-  
+
   _getExportReportAction : function()
   {
     // abstract
@@ -230,7 +242,7 @@ MDSS.QueryBase.prototype = {
      queryXML.addEntity(entity);
     }
 
-    var groupBy = this._containsGroupBy() ? queryXML.getGroupBy() : null;
+    //var groupBy = this._containsGroupBy() ? queryXML.getGroupBy() : null;
 
     var geoSelectables = Mojo.util.getKeys(this._geoEntitySelectables);
     for(var i=0; i<geoSelectables.length; i++)
@@ -240,10 +252,12 @@ MDSS.QueryBase.prototype = {
 
      queryXML.addSelectable(name, selectable);
 
+     /*
      if(groupBy != null)
      {
        groupBy.addSelectable(name, selectable);
      }
+     */
     }
 
     // geo id restrictions (WHERE clause)
@@ -275,39 +289,11 @@ MDSS.QueryBase.prototype = {
   },
 
   /**
-   * Handler when a user chooses to add a GeoEntity type
-   * to the select list.
+   * Adds a universal type as a selectable to the query results. The universal
+   * is represented as a GeoEntityView, which is a view instance of that geo entity
+   * type. This is done to grab any necessary metadata/display labels.
    */
-  _selectUniversalTypeHandler : function(geoEntityView, checked)
-  {
-  	if(checked)
-  	{
-      // don't allow Earth
-      if(geoEntityView.getEntityType() !== "dss.vector.solutions.geo.generated.Earth")
-      {
-        this._selectHandler(geoEntityView);
-      }
-  	}
-  	else
-  	{
-      /*
-      // remove the entity type from the select IF AND ONLY IF
-      // there is no criteria specified.
-      var geoEntityQuery = this._geoEntityTypes[geoEntityView.getEntityType()];
-      if(Mojo.util.isObject(geoEntityQuery))
-      {
-        var selected =
-      }
-      */
-  	}
-  },
-
-  /**
-   * Handler for a selected GeoEntity. The selected GeoEntity
-   * is added as restricting criteria and the type is added
-   * as a column for the query output.
-   */
-  _selectHandler: function(geoEntityView)
+  _addUniversalEntity: function(geoEntityView, addColumn)
   {
     // Earth is not allowed in the Select
     if(geoEntityView.getEntityType() === 'dss.vector.solutions.geo.generated.Earth')
@@ -316,80 +302,125 @@ MDSS.QueryBase.prototype = {
     }
 
     var type = geoEntityView.getEntityType();
-    var typeName = type.substring(type.lastIndexOf('.')+1);
 
-    var entityNameColumn = typeName+'_'+geoEntityView.getEntityNameMd().getName();
-    var geoIdColumn = typeName+'_'+geoEntityView.getGeoIdMd().getName();
-
-
-    // only add the column if it does not exist
-    if(this._queryPanel.getColumn(entityNameColumn) == null)
-    {
-      var obj = {
-        key: entityNameColumn,
-        label: (geoEntityView.getTypeDisplayLabel() + " " + geoEntityView.getEntityNameMd().getDisplayLabel())
-      };
-
-      var column = new YAHOO.widget.Column(obj);
-      this._queryPanel.insertColumn(column);
-    }
-
-    if(this._queryPanel.getColumn(geoIdColumn) == null)
-    {
-      var obj = {
-        key: geoIdColumn,
-        label: (geoEntityView.getTypeDisplayLabel() + " " + geoEntityView.getGeoIdMd().getDisplayLabel())
-      };
-
-      var column = new YAHOO.widget.Column(obj);
-      this._queryPanel.insertColumn(column);
-    }
 
     // add the GeoEntity as a query entity
     var geoEntityQuery = this._geoEntityTypes[type];
     if(!Mojo.util.isObject(geoEntityQuery))
     {
-     geoEntityQuery = new MDSS.QueryXML.Entity(type, type);
-     this._geoEntityTypes[type] = geoEntityQuery;
-
-     // selectables (entityName, geoId and spatial attribute)
-     var entityNameAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getEntityNameMd().getName(), entityNameColumn);
-     var entityNameSel = new MDSS.QueryXML.Selectable(entityNameAttr);
-     this._geoEntitySelectables[type+'_'+entityNameAttr.getName()] = entityNameSel;
-
-     var geoIdAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getGeoIdMd().getName(), geoIdColumn);
-     var geoIdSel = new MDSS.QueryXML.Selectable(geoIdAttr);
-     this._geoEntitySelectables[type+'_'+geoIdAttr.getName()] = geoIdSel;
+      geoEntityQuery = new MDSS.QueryXML.Entity(type, type);
+      this._geoEntityTypes[type] = geoEntityQuery;
     }
 
-    // check the universal type box if it has not been checked.
-    var checkbox = document.getElementById(type+"_selectUniversalType");
-    if(!checkbox.checked)
+    if(addColumn)
     {
-      checkbox.checked = true;
+      var typeName = type.substring(type.lastIndexOf('.')+1);
+
+      // only add the column if it does not exist
+      if(this._geoEntitySelectables[type+'_'+geoEntityView.getEntityNameMd().getName()] == null)
+      {
+        var entityNameColumn = typeName+'_'+geoEntityView.getEntityNameMd().getName();
+        var obj = {
+          key: entityNameColumn,
+          label: (geoEntityView.getTypeDisplayLabel() + " " + geoEntityView.getEntityNameMd().getDisplayLabel())
+        };
+
+        var column = new YAHOO.widget.Column(obj);
+        this._queryPanel.insertColumn(column);
+
+        var entityNameAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getEntityNameMd().getName(), entityNameColumn);
+        var entityNameSel = new MDSS.QueryXML.Selectable(entityNameAttr);
+        this._geoEntitySelectables[type+'_'+entityNameAttr.getName()] = entityNameSel;
+      }
+
+      if(this._geoEntitySelectables[type+'_'+geoEntityView.getGeoIdMd().getName()] == null)
+      {
+        var geoIdColumn = typeName+'_'+geoEntityView.getGeoIdMd().getName();
+        var obj = {
+          key: geoIdColumn,
+          label: (geoEntityView.getTypeDisplayLabel() + " " + geoEntityView.getGeoIdMd().getDisplayLabel())
+        };
+
+        var column = new YAHOO.widget.Column(obj);
+        this._queryPanel.insertColumn(column);
+
+        var geoIdAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getGeoIdMd().getName(), geoIdColumn);
+        var geoIdSel = new MDSS.QueryXML.Selectable(geoIdAttr);
+        this._geoEntitySelectables[type+'_'+geoIdAttr.getName()] = geoIdSel;
+      }
     }
+  },
+
+  /**
+   * Removes the given universal type as a selectable from the query results.
+   */
+  _removeUniversalEntity : function(type)
+  {
+    var entityNameSuffix = '_' + Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME;
+    var geoIdSuffix = '_' + Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.GEOID;
+
+    // remove the column and entry as a query entity
+    delete this._geoEntitySelectables[type+entityNameSuffix];
+    delete this._geoEntitySelectables[type+geoIdSuffix];
+
+    // the columns may not exist because the type exists only
+    // for restricting criteria, not selection.
+    var typeName = type.substring(type.lastIndexOf('.')+1);
+    var entityNameColumn = this._queryPanel.getColumn(typeName+entityNameSuffix);
+    if(entityNameColumn != null)
+    {
+      this._queryPanel.removeColumn(entityNameColumn);
+    }
+
+    var geoIdColumn = this._queryPanel.getColumn(typeName+geoIdSuffix);
+    if(geoIdColumn != null)
+    {
+      this._queryPanel.removeColumn(geoIdColumn);
+    }
+
+    delete this._geoEntityTypes[type];
   },
 
   /**
    * Uses the given GeoEntityView objects to add
    * restrictions to the GeoEntity query.
    */
-  _hideHandler : function(geoEntityViews, unselectedTypes, restrictingType)
+  _hideHandler : function(criteriaEntities, selectedEntities, restrictingType)
   {
+    this._queryPanel.clearAllRecords();
+
+    // remove existing columns
+    var types = Mojo.util.getKeys(this._geoEntityTypes);
+    for(var i=0; i<types.length; i++)
+    {
+      this._removeUniversalEntity(types[i]);
+    }
+
+    // add new columns
+    var keys = Mojo.util.getKeys(selectedEntities);
+    for(var i=0; i<keys.length; i++)
+    {
+      var geoEntityView = selectedEntities[keys[i]];
+      this._addUniversalEntity(geoEntityView, true);
+    }
+
     // remove all prior conditions
     this._geoIdConditions = {};
     this._geoEntityQueryType = restrictingType;
 
-    // add the restricting type as an entity to select if it's not defined.
-
-
-    var required = {};
-    for(var i=0; i<geoEntityViews.length; i++)
+    for(var i=0; i<criteriaEntities.length; i++)
     {
-      var geoEntityView = geoEntityViews[i];
-      required[geoEntityView.getEntityType()] = {};
+      var geoEntityView = criteriaEntities[i];
 
-      var geoEntityQuery = this._geoEntityTypes[geoEntityView.getEntityType()];
+      var type = geoEntityView.getEntityType();
+
+      // add the type as a selectable if it does not exist
+      if(!Mojo.util.isObject(this._geoEntityTypes[type]))
+      {
+        this._addUniversalEntity(geoEntityView, false);
+      }
+
+      var geoEntityQuery = this._geoEntityTypes[type];
 
       // add restriction based on geoId
       var attribute = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getGeoIdMd().getName());
@@ -399,35 +430,7 @@ MDSS.QueryBase.prototype = {
       this._geoIdConditions[geoEntityView.getGeoId()] = geoIdCondition;
     }
 
-    this._queryPanel.addSelectedGeoEntities(geoEntityViews);
-
-    var entityNameSuffix = '_' + Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME;
-    var geoIdSuffix = '_' + Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.GEOID;
-
-    for(var i=0; i<unselectedTypes.length; i++)
-    {
-      var unselected = unselectedTypes[i];
-      if(unselected in this._geoEntityTypes)
-      {
-      	// don't delete the entity query if it's being used by GeoEntity objects
-      	// for criteria restriction
-      	if(!(unselected in required))
-      	{
-      	  delete this._geoEntityTypes[unselected];
-      	}
-
-      	delete this._geoEntitySelectables[unselected+entityNameSuffix];
-      	delete this._geoEntitySelectables[unselected+geoIdSuffix];
-
-        var typeName = unselected.substring(unselected.lastIndexOf('.')+1);
-
-      	var entityNameColumn = this._queryPanel.getColumn(typeName+entityNameSuffix);
-        this._queryPanel.removeColumn(entityNameColumn);
-
-        var geoIdColumn = this._queryPanel.getColumn(typeName+geoIdSuffix);
-        this._queryPanel.removeColumn(geoIdColumn);
-      }
-    }
+    this._queryPanel.addSelectedGeoEntities(criteriaEntities);
   },
 
   /**
@@ -441,15 +444,9 @@ MDSS.QueryBase.prototype = {
     }
     else
     {
-      var selectBound = MDSS.util.bind(this, this._selectHandler);
-      var selectUniversalBound = MDSS.util.bind(this, this._selectUniversalTypeHandler);
       var hideBound = MDSS.util.bind(this, this._hideHandler);
 
-      //this._selectSearch = new MDSS.SingleSelectSearch();
       this._selectSearch = new MDSS.MultipleSelectSearch();
-      this._selectSearch.setSelectHandler(selectBound);
-      this._selectSearch.setTreeSelectHandler(selectBound);
-      this._selectSearch.setSelectUniversalTypeHandler(selectUniversalBound);
       this._selectSearch.setHideHandler(hideBound);
       this._selectSearch.setFilter('');
       this._selectSearch.render();

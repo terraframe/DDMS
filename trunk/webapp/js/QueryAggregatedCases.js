@@ -9,28 +9,40 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   	MDSS.QueryBase.prototype.initialize.call(this);
 
     // list of columns that have been added before a call to render()
-    this._preconfiguredColumns = [];
+    //this._preconfiguredColumns = [];
 
     // Ref to instance of AggregatedCase (used as template for display labels)
     this._aggregatedCase = new Mojo.$.dss.vector.solutions.surveillance.AggregatedCase();;
 
     // START: query objects that dictate state of the query.
 
+    this._startDateAttribute = new MDSS.VisibleAttribute({
+      type: this._aggregatedCase.getType(),
+      attributeName : this._aggregatedCase.getStartDateMd().getName(),
+      displayLabel: this._aggregatedCase.getStartDateMd().getDisplayLabel(),
+    });
+
+    this._endDateAttribute = new MDSS.VisibleAttribute({
+      type: this._aggregatedCase.getType(),
+      attributeName : this._aggregatedCase.getEndDateMd().getName(),
+      displayLabel: this._aggregatedCase.getEndDateMd().getDisplayLabel(),
+    });
+
     this._startDate = null;
     this._endDate = null;
 
-    this._startAgeGroupBySel = null;
-    this._endAgeGroupBySel = null;
+    //this._startAgeGroupBySel = null;
+    //this._endAgeGroupBySel = null;
     this._ageGroupCriteria = {};
 
     this._visibleSelectables = {};
     this._visibleAggregateSelectables = {};
-    this._visibleGroupBySelectables = {};
+    //this._visibleGroupBySelectables = {};
 
     this._gridEntities = {};
     this._gridSelectables = {};
     this._gridAggregateSelectables = {};
-    this._gridGroupBySelectables = {};
+    //this._gridGroupBySelectables = {};
 
     this._countSelectable = null;
 
@@ -43,15 +55,17 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     this._buildQueryItems(ageGroups, visibleAttributes, orderedGrids);
 
-    this._buildColumns();
+    //this._buildColumns();
   },
 
+  /*
   _containsGroupBy : function()
   {
     return this._startAgeGroupBySel != null || this._endAgeGroupBySel != null ||
       Mojo.util.getValues(this._visibleGroupBySelectables).length > 0 ||
       Mojo.util.getValues(this._gridGroupBySelectables).length > 0;
   },
+  */
 
   /**
    * Returns the method to save this AggregatedCase search.
@@ -77,6 +91,25 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   _getExportReportAction : function()
   {
   	return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
+  },
+
+  /**
+   * Handler to add/remove the STARTDATE and ENDDATE values on
+   * aggregated case.
+   */
+  toggleDates : function(e)
+  {
+    var check = e.target;
+    if(check.checked)
+    {
+      this._addVisibleAttribute(this._startDateAttribute);
+      this._addVisibleAttribute(this._endDateAttribute);
+    }
+    else
+    {
+      this._removeVisibleAttribute(this._startDateAttribute, true, true, true);
+      this._removeVisibleAttribute(this._endDateAttribute, true, true, true);
+    }
   },
 
   /**
@@ -117,7 +150,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var startDate = MDSS.util.stripWhitespace(startDateEl.get('value'));
     if(startDate.length > 0)
     {
-      var formatted = MojoCal.getMojoDateString(startDate);
+      var formatted = MDSS.Calendar.getMojoDateString(startDate);
 
       var attribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTDATE);
       var selectable = new MDSS.QueryXML.Selectable(attribute);
@@ -133,9 +166,9 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var endDate = MDSS.util.stripWhitespace(endDateEl.get('value'));
     if(endDate.length > 0)
     {
-      var formatted = MojoCal.getMojoDateString(endDate);
+      var formatted = MDSS.Calendar.getMojoDateString(endDate);
 
-      var attribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTDATE);
+      var attribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.ENDDATE);
       var selectable = new MDSS.QueryXML.Selectable(attribute);
       var endDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, formatted);
 
@@ -221,7 +254,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var aggregatedCaseQuery = new MDSS.QueryXML.Entity(aggregatedCase, aggregatedCase);
     queryXML.addEntity(aggregatedCaseQuery);
 
-    var groupBy = queryXML.getGroupBy();
+    //var groupBy = queryXML.getGroupBy();
 
     // count
     if(this._countSelectable != null)
@@ -246,6 +279,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       }
     }
 
+    /*
     // group by age (age will always be included)
     if(this._startAgeGroupBySel != null)
     {
@@ -256,6 +290,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     {
       groupBy.addSelectable('endAge', this._endAgeGroupBySel);
     }
+    */
 
     // Visible Attributes
     var selNames = Mojo.util.getKeys(this._visibleSelectables);
@@ -276,6 +311,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       queryXML.addSelectable(aggregatedCaseQuery.getAlias()+'_'+name, selectable);
     }
 
+    /*
     var gbNames = Mojo.util.getKeys(this._visibleGroupBySelectables);
     for(var i=0; i<gbNames.length; i++)
     {
@@ -284,6 +320,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
       groupBy.addSelectable(name, selectable);
     }
+    */
 
     // start and end dates
     var conditions = [];
@@ -349,6 +386,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       queryXML.addSelectable(alias, selectable);
     }
 
+    /*
     var gAliases = Mojo.util.getKeys(this._gridGroupBySelectables);
     for(var i=0; i<gAliases.length; i++)
     {
@@ -356,6 +394,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       var selectable = this._gridGroupBySelectables[alias];
       groupBy.addSelectable(alias, selectable);
     }
+    */
 
     var gridAggAliases = Mojo.util.getKeys(this._gridAggregateSelectables);
     for(var i=0; i<gridAggAliases.length; i++)
@@ -371,7 +410,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
   /**
    * Handler to toggle grouping by startAge/endAge.
-   */
   _groupByAgeGroupHandler : function(e)
   {
     var check = e.target;
@@ -394,6 +432,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._endAgeGroupBySel = null;
     }
   },
+   */
 
   /**
    * Handler for when an age group checkbox is selected as WHERE criteria.
@@ -404,30 +443,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     if(check.checked)
     {
-      // All Ages was selected so simply clear the criteria
-      // and other checkboxes
-      if(ageGroup == null)
-      {
-        var checks = YAHOO.util.Selector.query('input[type="checkbox"]', 'ageGroupsList');
-        for(var i=0; i<checks.length; i++)
-        {
-          var check = checks[i];
-          if(check.checked && check.id !== 'allAgesCheck')
-          {
-            check.checked = false;
-          }
-        }
-
-        this._ageGroupCriteria = {};
-
-        return;
-      }
-      else
-      {
-        // uncheck the All Ages option
-        document.getElementById('allAgesCheck').checked = false;
-      }
-
       var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
 
       var leftSide = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTAGE, aggregatedCase.STARTAGE);
@@ -527,7 +542,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
   	// remove all possible query references
     delete this._visibleAggregateSelectables[attribute.getKey()];
-    delete this._visibleGroupBySelectables[attribute.getKey()];
+    //delete this._visibleGroupBySelectables[attribute.getKey()];
 
     if(removeColumn)
     {
@@ -555,7 +570,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
   	// remove all possible query references
     delete this._gridAggregateSelectables[attribute.getKey()];
-    delete this._gridGroupBySelectables[attribute.getKey()];
+    //delete this._gridGroupBySelectables[attribute.getKey()];
 
     if(removeColumn)
     {
@@ -628,6 +643,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._queryPanel.updateColumnLabel(key, func);
 
     // special cases
+    /*
     if(func === MDSS.QueryXML.Functions.GB)
     {
   	  this._removeGridAttribute(attribute, false, false, false);
@@ -635,7 +651,9 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._gridGroupBySelectables[key] = selectable;
       return;
     }
-    else if(func === '')
+    */
+
+    if(func === '')
     {
       // Use regular selectable (this is just here for clarity).
   	  this._removeGridAttribute(attribute, false, true, false);
@@ -686,6 +704,8 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._queryPanel.updateColumnLabel(key, func);
 
     // special cases
+
+    /*
     if(func === MDSS.QueryXML.Functions.GB)
     {
   	  this._removeVisibleAttribute(attribute, false, false, false);
@@ -696,7 +716,9 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
       return;
     }
-    else if(func === '')
+    */
+
+    if(func === '')
     {
       // Use regular selectable (this is just here for clarity).
   	  this._removeVisibleAttribute(attribute, false, true, false);
@@ -744,6 +766,9 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._countSelectable = aggSelectable;
 
       this._queryPanel.insertColumn(attribute.getColumnObject());
+
+      // ADD THEMATIC VARIABLE
+      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
     }
     else
     {
@@ -751,6 +776,26 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._queryPanel.removeColumn(column);
 
       this._countSelectable = null;
+
+      this._queryPanel.removeThematicVariable(attribute.getKey());
+    }
+  },
+
+  _showAgeGroupAttributes : function(e, attributes)
+  {
+    var check = e.target;
+
+    for(var i=0; i<attributes.length; i++)
+    {
+      var attribute = attributes[i];
+      if(check.checked)
+      {
+        this._addVisibleAttribute(attribute);
+      }
+      else
+      {
+        this._removeVisibleAttribute(attribute, true, true, true);
+      }
     }
   },
 
@@ -775,7 +820,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var countAttribute = new MDSS.VisibleAttribute({
       type: aggregatedCase.CLASS,
       displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
-      attributeName: aggregatedCase.STARTAGE
+      attributeName: aggregatedCase.ID
     });
 
     var countCheck = document.createElement('input');
@@ -803,41 +848,40 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var ageDiv = document.createElement('div');
     ageDiv	.innerHTML = MDSS.Localized.Age_Group;
 
-    // group by
-    var groupBy = document.createElement('ul');
-    var groupByLi = document.createElement('li');
-    var groupBySpan = document.createElement('span');
+    // startAge
+    var startAge = this._aggregatedCase.getStartAgeMd().getName();
+    var startAgeAttribute = new MDSS.VisibleAttribute({
+      type: this._aggregatedCase.getType(),
+      attributeName : startAge,
+      displayLabel: this._aggregatedCase.getStartAgeMd().getDisplayLabel(),
+    });
 
-    var groupByCheck = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(groupByCheck, 'type', 'checkbox');
-    // send null to signal this is for All Ages
-    YAHOO.util.Event.on(groupByCheck, 'click', this._groupByAgeGroupHandler, null, this);
+    // endAge
+    var endAge = this._aggregatedCase.getEndAgeMd().getName();
+    var endAgeAttribute = new MDSS.VisibleAttribute({
+      type: this._aggregatedCase.getType(),
+      displayLabel: this._aggregatedCase.getEndAgeMd().getDisplayLabel(),
+      attributeName: endAge
+    });
 
-    groupBySpan.innerHTML = MDSS.QueryXML.Functions.GB;
+    // toggle to show the attributes
+    var show = document.createElement('ul');
+    var showLi = document.createElement('li');
+    var showSpan = document.createElement('span');
 
-    groupByLi.appendChild(groupByCheck);
-    groupByLi.appendChild(groupBySpan);
-    groupBy.appendChild(groupByLi);
+    var showCheck = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(showCheck, 'type', 'checkbox');
+    YAHOO.util.Event.on(showCheck, 'click', this._showAgeGroupAttributes, [startAgeAttribute, endAgeAttribute], this);
+
+    showSpan.innerHTML = MDSS.Localized.Toggle_Show;
+
+    showLi.appendChild(showCheck);
+    showLi.appendChild(showSpan);
+    show.appendChild(showLi);
 
 
     var groups = document.createElement('ul');
     YAHOO.util.Dom.setAttribute(groups, 'id', 'ageGroupsList');
-
-    // default All Ages option
-    var allLi = document.createElement('li');
-    var allSpan = document.createElement('span');
-    allSpan.innerHTML = MDSS.Localized.All_Ages;
-
-    var allCheck = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(allCheck, 'type', 'checkbox');
-    YAHOO.util.Dom.setAttribute(allCheck, 'id', 'allAgesCheck');
-    // send null to signal this is for All Ages
-    YAHOO.util.Event.on(allCheck, 'click', this._ageGroupCheckHandler, null, this);
-
-    allLi.appendChild(allCheck);
-    allLi.appendChild(allSpan);
-
-    groups.appendChild(allLi);
 
     for(var i=0; i<ageGroups.length; i++)
     {
@@ -850,6 +894,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       var check = document.createElement('input');
       YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
       YAHOO.util.Dom.setAttribute(check, 'value', group.id);
+      YAHOO.util.Dom.setAttribute(check, 'checked', true);
       YAHOO.util.Event.on(check, 'click', this._ageGroupCheckHandler, group, this);
 
       li.appendChild(check);
@@ -859,7 +904,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     }
 
     ageGroupDiv.appendChild(ageDiv);
-    ageGroupDiv.appendChild(groupBy);
+    ageGroupDiv.appendChild(show);
     ageGroupDiv.appendChild(groups);
 
     this._queryPanel.addQueryItem({
@@ -1109,7 +1154,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   /**
    * Builds the column information (pre-render) for the table
    * in the the QueryPanel.
-   */
   _buildColumns : function()
   {
   	var type = this._aggregatedCase.getType();
@@ -1134,6 +1178,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     this._preconfiguredColumns.push(endAgeObj);
   },
+   */
 
   /**
    * Renders the QueryPanel to query on AggregatedCases.
@@ -1143,12 +1188,14 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     // render the panel
     this._queryPanel.render();
 
+    /*
     // add pre-configured columns
     for(var i=0; i<this._preconfiguredColumns.length; i++)
     {
       var column = this._preconfiguredColumns[i];
       this._addVisibleAttribute(column);
     }
+    */
   }
 });
 

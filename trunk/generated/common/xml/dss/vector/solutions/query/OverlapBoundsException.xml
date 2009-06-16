@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.query.OverlapBoundsException">
+  <!--
+    - {id} id
+    - {rangeOne} rangeOne
+    - {rangeTwo} rangeTwo
+    -->
+  <locale language="en">The range [{rangeOne}] overlaps with [{rangeTwo}]. Please change the ranges such that no overlapping occurs.</locale>
+</exception>

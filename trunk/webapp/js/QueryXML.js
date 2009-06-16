@@ -12,7 +12,6 @@ MDSS.QueryXML = {
   },
 
   Functions : {
-  	GB: 'GB',
   	SUM: 'SUM',
   	MIN: 'MIN',
   	MAX: 'MAX',
@@ -26,6 +25,7 @@ MDSS.QueryXML = {
   	SEASON:'Season'
   },
 
+  GROUP_BY_FUNCTION : 'GB',
   COUNT_FUNCTION : 'COUNT'
 };
 

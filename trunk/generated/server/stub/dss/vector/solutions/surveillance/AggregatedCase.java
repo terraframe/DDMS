@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import org.xml.sax.SAXParseException;
 
 import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
@@ -20,6 +21,7 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedBusinessQuery;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
@@ -33,14 +35,12 @@ import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
-import dss.vector.solutions.PeriodMonthProblem;
-import dss.vector.solutions.PeriodQuarterProblem;
-import dss.vector.solutions.PeriodWeekProblem;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.MapWithoutGeoEntityException;
+import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
@@ -460,7 +460,26 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
-    ValueQueryParser valueQueryParser = new ValueQueryParser(xml, valueQuery);
+    ValueQueryParser valueQueryParser;
+
+    try
+    {
+      valueQueryParser = new ValueQueryParser(xml, valueQuery);
+    }
+    catch(QueryException e)
+    {
+      // Check if the error was because no selectables were added.
+      Throwable t = e.getCause();
+      if(t != null && t instanceof SAXParseException && t.getMessage().contains("{selectable}"))
+      {
+        NoColumnsAddedException ex = new NoColumnsAddedException();
+        throw ex;
+      }
+      else
+      {
+        throw e;
+      }
+    }
 
     // include the thematic layer (if applicable).
     if (thematicLayer != null)
@@ -658,5 +677,23 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();
+  }
+
+  /**
+   * Returns all AbstractGrid subclass instances relative to Aggregated Cases.
+   *
+   * @return
+   */
+  public static AbstractGridQuery getGridInstances()
+  {
+    QueryFactory f = new QueryFactory();
+    AbstractGridQuery q = new AbstractGridQuery(f);
+
+    String[] types = new String[]{CaseTreatmentStock.CLASS, TreatmentGrid.CLASS,
+        TreatmentMethodGrid.CLASS, DiagnosticGrid.CLASS, ReferralGrid.CLASS};
+
+    q.WHERE(q.getType().IN(types));
+
+    return q;
   }
 }

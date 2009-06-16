@@ -1,5 +1,7 @@
 package dss.vector.solutions.query;
 
+import org.apache.commons.lang.math.NumberRange;
+
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
@@ -85,6 +87,8 @@ public class ThematicLayer extends ThematicLayerBase implements
       thematicVariable.apply();
     }
 
+    validateCategoryBounds(categories);
+
     ThematicLayer layer = ThematicLayer.get(layerId);
 
     // remove the previous ThematicVariable
@@ -119,6 +123,45 @@ public class ThematicLayer extends ThematicLayerBase implements
     }
 
     return layer;
+  }
+
+  /**
+   * Ensures that no overlapping exists among category boundaries.
+   *
+   * @param categories
+   */
+  private static void validateCategoryBounds(AbstractCategory[] categories)
+  {
+    NumberRange[] ranges = new NumberRange[categories.length];
+
+    for(int i=0; i<categories.length; i++)
+    {
+      AbstractCategory category = categories[i];
+      ranges[i] = category.getAsNumberRange();
+    }
+
+    for(int i=0; i<ranges.length; i++)
+    {
+      for(int j=0; i<ranges.length; i++)
+      {
+        if(i != j && ranges[i].overlapsRange(ranges[j]))
+        {
+          OverlapBoundsException ex = new OverlapBoundsException();
+
+          NumberRange range1 = ranges[i];
+          Number min1 = range1.getMinimumNumber();
+          Number max1 = range1.getMaximumNumber();
+          ex.setRangeOne(min1.equals(max1) ? min1.toString() : min1.toString()+", "+max1.toString());
+
+          NumberRange range2 = ranges[j];
+          Number min2 = range2.getMinimumNumber();
+          Number max2 = range2.getMaximumNumber();
+          ex.setRangeTwo(min2.equals(max2) ? min2.toString() : min2.toString()+", "+max2.toString());
+
+          throw ex;
+        }
+      }
+    }
   }
 
   /**

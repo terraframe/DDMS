@@ -1,4 +1,3 @@
-
 /**
  * Class to create a Query Panel.
  */
@@ -288,11 +287,20 @@ MDSS.QueryPanel.prototype = {
     this._endDate.set('id', this.END_DATE_RANGE);
     this._endDate.addClass('DatePick');
 
+    var toggleDatesCheck = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(toggleDatesCheck, 'type', 'checkbox');
+    YAHOO.util.Event.on(toggleDatesCheck, 'click', this._toggleDates, null, this);
+
+    var toggleDatesSpan = document.createElement('span');
+    toggleDatesSpan.innerHTML = MDSS.Localized.Toggle_Show;
+
     // add the date fields
     dateRange.appendChild(startLabel);
     dateRange.appendChild(this._startDate);
     dateRange.appendChild(endLabel);
     dateRange.appendChild(this._endDate);
+    dateRange.appendChild(toggleDatesCheck);
+    dateRange.appendChild(toggleDatesSpan);
 
     var dateGroupLabel = document.createElement('span');
     dateGroupLabel.innerHTML = MDSS.localize("Group_By");
@@ -541,7 +549,18 @@ MDSS.QueryPanel.prototype = {
   },
 
   /**
-   *
+   * Called when a user clicks the checkbox next to the date ranges.
+   */
+  _toggleDates : function(e)
+  {
+    if(Mojo.util.isFunction(this._config.toggleDates))
+    {
+      this._config.toggleDates(e);
+    }
+  },
+
+  /**
+   * Called when a user makes a request to edit a layer.
    */
   _editDefinedLayer : function(e, layerId)
   {

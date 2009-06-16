@@ -11,10 +11,18 @@ import java.util.Queue;
 import java.util.Set;
 
 import com.terraframe.mojo.business.Business;
+import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.dataaccess.InvalidIdException;
+import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
+import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
+import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.gis.dataaccess.AttributeGeometryIF;
+import com.terraframe.mojo.gis.dataaccess.MdAttributeGeometryDAOIF;
 import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
@@ -539,10 +547,10 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     return children;
   }
-  
+
   /**
    * Gets all children of a GeoEntity, but stops its breadth-first decent
-   * when it finds a child which belongs to the given fully qualified types. 
+   * when it finds a child which belongs to the given fully qualified types.
    */
   public List<GeoEntity> getPrunedChildren(List<String> types)
   {
@@ -552,7 +560,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     while(!queue.isEmpty())
     {
       GeoEntity child = queue.poll();
-      
+
       if(types.contains(child.getType()))
       {
         list.add(child);
@@ -562,7 +570,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
         queue.addAll(child.getImmediateChildren());
       }
     }
-    
+
     return list;
   }
 
@@ -810,6 +818,69 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     return false;
   }
 
+  @Override
+  public String[] getCompatibleTypes()
+  {
+    String type = this.getType();
+    Set<String> types = GeoHierarchy.getIsAHierarchy(type);
+
+    types.remove(type);
+
+    return types.toArray(new String[types.size()]);
+  }
+
+  @Override
+  @Transaction
+  public void changeUniversalType(String newType)
+  {
+    Class<?> newClass = LoaderDecorator.load(newType);
+    try
+    {
+      GeoEntity copy = (GeoEntity) newClass.newInstance();
+
+      // copy all attributes from the old object to the new
+      MdBusinessDAOIF oldMd = MdBusinessDAO.getMdBusinessDAO(newType);
+      for(MdAttributeConcreteDAOIF mdAttr : oldMd.getAllDefinedMdAttributes())
+      {
+        if(!mdAttr.isSystem())
+        {
+          String attrName = mdAttr.definesAttribute();
+
+          if(mdAttr instanceof MdAttributeGeometryDAOIF)
+          {
+            AttributeGeometryIF geoAttr = (AttributeGeometryIF) BusinessFacade.getAttribute(copy, attrName);
+            copy.setValue(attrName, geoAttr.getGeometry());
+          }
+          else
+          {
+            copy.setValue(attrName, this.getValue(attrName));
+          }
+        }
+      }
+
+      // copy located_in relationships
+      List<GeoEntity> parents = this.getImmediateParents();
+      List<GeoEntity> children = this.getImmediateChildren();
+
+      this.delete();
+      copy.apply();
+
+      for(GeoEntity parent : parents)
+      {
+        copy.addLocatedInGeoEntity(parent).apply();
+      }
+
+      for(GeoEntity child : children)
+      {
+        copy.addContainsGeoEntity(child).apply();
+      }
+    }
+    catch (Throwable e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
   /**
    * Returns a list of all LocatedIn children for which this GeoEntity is a
    * parent. The list is ordered by the entity name.
@@ -925,4 +996,6 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       return geo1.getEntityName().compareTo(geo2.getEntityName());
     }
   }
+
+
 }

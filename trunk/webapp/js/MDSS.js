@@ -165,8 +165,56 @@ var MDSS = {
       }
 
       this.createModal(content);
-    }
+    };
+
+    this.onInvalidSessionException = function(e)
+    {
+      window.location = '/';
+    };
 
     Mojo.util.copy(new Mojo.ClientRequest(handler), this);
+  }
+};
+
+/**
+ * A basic set for String types only.
+ */
+MDSS.Set = function()
+{
+  this._set = {};
+}
+MDSS.Set.prototype = {
+
+  clear : function()
+  {
+    this._set = {};
+  },
+
+  addAll : function(array)
+  {
+    for(var i=0; i<array.length; i++)
+    {
+      this.set(array[i]);
+    }
+  },
+
+  contains : function(value)
+  {
+    return this._set[value] != null;
+  },
+
+  set : function(value)
+  {
+    this._set[value] = {};
+  },
+
+  size : function()
+  {
+    return Mojo.util.getKeys(this._set).length;
+  },
+
+  values : function()
+  {
+    return Mojo.util.getKeys(this._set);
   }
 };

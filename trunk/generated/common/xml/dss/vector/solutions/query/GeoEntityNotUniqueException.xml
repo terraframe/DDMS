@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
-  name="dss.vector.solutions.query.SavedSearchRequiredException">
+  name="dss.vector.solutions.query.GeoEntityNotUniqueException">
   <!--
+    - {entityType} entityType
     - {id} id
     -->
-  <locale language="en">Cannot perform the operation without first saving the current query or loading a previously saved query.</locale>
+  <locale language="en">Replace this with your customized error message.</locale>
 </exception>

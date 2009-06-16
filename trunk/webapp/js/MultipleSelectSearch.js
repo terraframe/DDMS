@@ -12,8 +12,7 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     MDSS.AbstractSelectSearch.prototype.initialize.call(this);
 
     // map of currently selected objects
-    this._selectedMap = {};
-    this._selectUniversalTypeHandler = null;
+    this._criteriaMap = {};
     this._CURRENT_SELECTIONS = 'currentSelections';
     this._restrictingType = null;
   },
@@ -36,7 +35,6 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
       }
 
       this._updateSelection(geoEntityView);
-      this._notifySelectHandler(geoEntityView, true);
     }
     else
     {
@@ -52,7 +50,7 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     var id = geoEntityView.getGeoEntityId();
 
     // check the geo entity hasn't already been selected
-    if(Mojo.util.isObject(this._selectedMap[id]))
+    if(Mojo.util.isObject(this._criteriaMap[id]))
     {
       return;
     }
@@ -84,7 +82,7 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     var selections = document.getElementById(this._CURRENT_SELECTIONS);
     selections.appendChild(li);
 
-    this._selectedMap[id] = geoEntityView;
+    this._criteriaMap[id] = geoEntityView;
   },
 
   /**
@@ -95,7 +93,7 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
   _deleteSelection : function(e, liId)
   {
   	var id = liId.replace(/_selected/, '');
-    delete this._selectedMap[id];
+    delete this._criteriaMap[id];
 
     var li = document.getElementById(liId);
     var ul = li.parentNode;
@@ -106,19 +104,25 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
   {
     if(Mojo.util.isFunction(this._hideHandler))
     {
-      var entities = Mojo.util.getValues(this._selectedMap);
+      var entities = Mojo.util.getValues(this._criteriaMap);
       var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
-      var unselected = [];
+      var selected = {};
       for(var i=0; i<checkboxes.length; i++)
       {
       	var check = checkboxes[i];
-      	if(!check.checked)
+      	if(check.checked)
       	{
-      	  unselected.push(check.value);
-      	}
+          var type = check.value;
+
+  	      var construct = Mojo.util.getType(type);
+    	  var geoEntity = new construct();
+          var geoEntityView = this._copyEntityToView(geoEntity);
+
+          selected[type] = geoEntityView;
+        }
       }
 
-      this._hideHandler(entities, unselected, this._restrictingType);
+      this._hideHandler(entities, selected, this._restrictingType);
     }
   },
 
@@ -129,6 +133,9 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
   _restrictType : function(e)
   {
     var select = e.target;
+    var option = select.options[select.selectedIndex];
+    var type = option.value;
+
     if(select.selectedIndex === 0)
     {
       // don't do anything for the first "Select One" entry
@@ -147,13 +154,12 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
 
       var selections = document.getElementById(this._CURRENT_SELECTIONS);
       selections.innerHTML = '';
-      this._selectedMap = {};
+      this._criteriaMap = {};
 
       this._createRoot();
     }
 
-    var option = select.options[select.selectedIndex];
-    var type = option.value;
+    document.getElementById(type+"_selectUniversalType").checked = true;
 
     this._restrictingType = type;
 
@@ -205,66 +211,6 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
   _getStartIndex : function()
   {
     return 1;
-  },
-
-  /**
-   * Handler when a use chooses to select all of a given type.
-   * The list of current selections will be cleared.
-   */
-  _selectAll : function(e, obj)
-  {
-    this._selectedMap = {};
-
-    var ul = document.getElementById(this._CURRENT_SELECTIONS);
-    ul.innerHTML = '';
-
-
-  	// add the GeoEntity type. The target is the option,
-  	// and the parent is the select list whose id matches that
-  	// of a GeoEntity type.
-    var type = e.target.parentNode.id;
-
-  	// Send in a template instance that can be used to add
-  	// the given type as selection criteria.
-  	var construct = Mojo.util.getType(type);
-  	var geoEntity = new construct();
-    var geoEntityView = this._copyEntityToView(geoEntity);
-
-    this._notifySelectHandler(geoEntityView);
-  },
-
-  /**
-   Notifies the select handler that a new select list
-   * option has been chosen.
-   */
-  _notifySelectHandler : function(geoEntityView)
-  {
-    // add to list of currently selected
-  	if(Mojo.util.isFunction(this._selectHandler))
-  	{
-  	  this._selectHandler(geoEntityView, this._restrictingType);
-  	}
-  },
-
-  setSelectUniversalTypeHandler : function(handler)
-  {
-  	this._selectUniversalTypeHandler = handler;
-  },
-
-  /**
-   *
-   */
-  _notifySelectUniversalTypeHandler : function(e, type)
-  {
-  	if(Mojo.util.isFunction(this._selectUniversalTypeHandler))
-  	{
-      // send in a new instance as a template
-  	  var construct = Mojo.util.getType(type);
-  	  var geoEntity = new construct();
-      var geoEntityView = this._copyEntityToView(geoEntity);
-
-  	  this._selectUniversalTypeHandler(geoEntityView, e.target.checked);
-  	}
   },
 
   /**

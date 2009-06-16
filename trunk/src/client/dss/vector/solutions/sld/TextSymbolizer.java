@@ -2,7 +2,6 @@ package dss.vector.solutions.sld;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.PointStyleDTO;
 import dss.vector.solutions.query.LayerDTO;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.TextStyleDTO;
@@ -39,7 +38,6 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
 
 
     if(layer instanceof ThematicLayerDTO
-        && layer.getGeometryStyle() instanceof PointStyleDTO
         && ((ThematicLayerDTO)layer).getThematicVariable() != null)
     {
       writer.write("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");

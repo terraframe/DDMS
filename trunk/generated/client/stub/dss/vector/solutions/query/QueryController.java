@@ -41,7 +41,6 @@ import dss.vector.solutions.surveillance.DiagnosticGridDTO;
 import dss.vector.solutions.surveillance.ReferralGridDTO;
 import dss.vector.solutions.surveillance.TreatmentGridDTO;
 import dss.vector.solutions.surveillance.TreatmentMethodGridDTO;
-import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FileDownloadUtil;
 
 public class QueryController extends QueryControllerBase implements
@@ -270,7 +269,7 @@ public class QueryController extends QueryControllerBase implements
       ordered.put(caseTreatmentStock);
       orderedMap.put(CaseTreatmentStockDTO.CLASS, caseTreatmentStock);
 
-      AbstractGridQueryDTO gridQuery = AbstractGridDTO.getAllInstances(this.getClientRequest(), null, null, null, null);
+      AbstractGridQueryDTO gridQuery = AggregatedCaseDTO.getGridInstances(this.getClientRequest());
 
       for(AbstractGridDTO grid : gridQuery.getResultSet())
       {

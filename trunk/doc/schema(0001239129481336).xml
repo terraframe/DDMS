@@ -285,6 +285,13 @@
             rejectNegative="true" />
         </attributes>
         <mdMethod
+          name="getGridInstances"
+          label="Get Grid Instances"
+          description="Get Grid Instances"
+          static="true"
+          returnType="dss.vector.solutions.surveillance.AbstractGridQuery">
+        </mdMethod>
+        <mdMethod
           name="queryAggregatedCase"
           label="Query Aggregated Case"
           description="Query Aggregated Case"
