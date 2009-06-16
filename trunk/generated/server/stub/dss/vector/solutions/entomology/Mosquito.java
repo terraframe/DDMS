@@ -18,13 +18,13 @@ import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SentinelSiteQuery;
 import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.MapWithoutGeoEntityException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
+import dss.vector.solutions.query.ThematicVariable;
 
 public class Mosquito extends MosquitoBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -62,9 +62,9 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   public void apply()
   {
     boolean first = this.isNew() && !this.isAppliedToDB();
-        
+
     super.apply();
-    
+
     // Create a relationship the Collection-Mosquito relationship used for querying
     if(first)
     {
@@ -72,7 +72,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       rel.apply();
     }
   }
-  
+
 
   @Transaction
   public void delete()
@@ -91,7 +91,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     MosquitoView view = new MosquitoView();
 
     view.populateView(this);
-    
+
     view.applyNoPersist();
 
     return view;
@@ -129,7 +129,14 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     // include the thematic layer (if applicable).
     if (thematicLayer != null)
     {
-      // FIXME look at AggregatedCase for new code
+      ThematicVariable thematicVariable = thematicLayer.getThematicVariable();
+      if (thematicVariable != null)
+      {
+        String entityAlias = thematicVariable.getEntityAlias();
+        String attributeName = thematicVariable.getAttributeName();
+
+        valueQueryParser.setColumnAlias(entityAlias, attributeName, QueryConstants.THEMATIC_DATA_COLUMN);
+      }
     }
 
     // include the geometry of the GeoEntity
@@ -155,15 +162,15 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     // join Mosquito with mosquito collection
     MosquitoCollectionQuery collectionQuery = new MosquitoCollectionQuery(queryFactory);
     valueQuery.WHERE(mosquitoQuery.getCollection().EQ(collectionQuery));
+    String sql = valueQuery.getSQL();
 
-    // join collection with geo entity and select that entity type's geometry
-    GeneratedBusinessQuery businessQuery = (SentinelSiteQuery) queryMap.get(geoEntityType);
+    //join collection with geo entity and select that entity type's geometry
+    if (geoEntityType != null && geoEntityType.trim().length() > 0)
+    {
+      GeneratedBusinessQuery businessQuery = (GeneratedBusinessQuery) queryMap.get(geoEntityType);
 
-    valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(businessQuery));
-
-    // join collection with geo entity
-    SentinelSiteQuery ssQuery = (SentinelSiteQuery) queryMap.get(geoEntityType);
-    valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(ssQuery));
+      valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(businessQuery));
+    }
 
     return valueQuery;
   }
