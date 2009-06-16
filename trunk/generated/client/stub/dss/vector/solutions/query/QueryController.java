@@ -315,21 +315,22 @@ public class QueryController extends QueryControllerBase implements
   /**
    * Creates the screen to query for Entomology (mosquitos).
    */
-  @Override
+
   public void queryEntomology() throws IOException, ServletException
   {
     try
     {
-      String json = AbstractAssayDTO.getAssayTree(this.getClientRequest());
-
       // The Earth is the root. FIXME use country's default root
       EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      String json = AbstractAssayDTO.getAssayTree(this.getClientRequest());
 
       req.setAttribute("assayTree", json);
 
       SavedSearchViewQueryDTO query = EntomologySearchDTO.getEntomologyQueries(this.getClientRequest());
       JSONArray queries = new JSONArray();
+      // Available queries
       for (SavedSearchViewDTO view : query.getResultSet())
       {
         JSONObject idAndName = new JSONObject();
@@ -338,17 +339,19 @@ public class QueryController extends QueryControllerBase implements
 
         queries.put(idAndName);
       }
+
       req.setAttribute("queryList", queries.toString());
 
       req.getRequestDispatcher(QUERY_ENTOMOLOGY).forward(req, resp);
+
     }
     catch (Throwable t)
     {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
+      throw new ApplicationException(t);
     }
   }
+
+
 
   @Override
   public void exportQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
