@@ -108,6 +108,8 @@ MDSS.QueryPanel.prototype = {
 
   DATE_RANGE_DIV : "dateRange",
 
+  DATE_GROUP_ID : "dateGroupSelection",
+
   START_DATE_RANGE : "startDateRange",
 
   END_DATE_RANGE : "endDateRange",
@@ -306,15 +308,17 @@ MDSS.QueryPanel.prototype = {
     dateGroupLabel.innerHTML = MDSS.localize("Group_By");
 
     this._dateGroupBy = document.createElement('select');
+    this._dateGroupBy.id = this.DATE_GROUP_ID;
     var options = [''];
+    var keys = [''];
     options = options.concat(Mojo.util.getValues(MDSS.QueryXML.DateGroupOpts));
+    keys = keys.concat(Mojo.util.getKeys(MDSS.QueryXML.DateGroupOpts));
 
     for(var j=0; j<options.length; j++)
     {
-    	var option = options[j];
       var optionEl = document.createElement('option');
-      optionEl.innerHTML = option;
-      YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
+      optionEl.innerHTML = options[j];
+      YAHOO.util.Dom.setAttribute(optionEl, 'value', keys[j]);
       //YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
       this._dateGroupBy.appendChild(optionEl);
     }

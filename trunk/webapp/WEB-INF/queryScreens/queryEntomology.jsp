@@ -95,23 +95,29 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
       return arr.map(function(attribName){
         var attrib  = mosquitoView.attributeMap[attribName];
         var row = {};
-        row.attributeName = attrib.attributeName;
-       // row.attributeGetter = attrib.attributeName;
-        if(attrib.dtoType === 'AttributeReferenceDTO')
-        {
-       // 	row.attributeGetter += '.displayLabel.currentValue';
-        	row.attributeName += '.displayLabel.currentValue';
-        }
-        row.type = '<%=MosquitoViewDTO.CLASS%>';
-        row.displayLabel = attrib.attributeMdDTO.displayLabel;
-        if(dropDownMaps[row.attributeName]){
-          row.dropDownMap = dropDownMaps[row.attributeName];
+        if(attrib){
+          row.attributeName = attrib.attributeName;
+          if(attrib.dtoType === 'AttributeReferenceDTO')
+          {
+          	row.attributeName += '.displayLabel.currentValue';
+          }
+
+          row.type = '<%=MosquitoDTO.CLASS%>';
+          row.displayLabel = attrib.attributeMdDTO.displayLabel;
+          if(dropDownMaps[attrib.attributeName]){
+            row.dropDownMap = dropDownMaps[attrib.attributeName];
+          }
+        }else{
+          row.attributeName = attribName;
+          row.type = 'java.lang.String';
+          row.displayLabel = attribName;
+          row.calculated = true;
         }
         return row;
       });
     }
 
-    var mosquitoAttribs = ["sampleId","specie","identificationMethod","sex","generation","isofemale","testDate"]
+    var mosquitoAttribs = ["sampleId","specie","identificationMethod","sex","generation","isofemale","testDate","SpecieRatio"]
     var mosquitoColums;
 
     var mosquitoColumns =  mapAttribs(mosquitoAttribs);
@@ -149,6 +155,5 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 <textarea id="debug_xml" cols="40" rows="40" style="width:1280px">
 
 </textarea>
-
 </div>
 <jsp:include page="../templates/footer.jsp"></jsp:include>
