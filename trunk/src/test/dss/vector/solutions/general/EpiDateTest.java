@@ -76,11 +76,12 @@ public class EpiDateTest extends TestCase
     Integer testYear = 1997;
     while (testYear < 2011)
     {
-      System.out.println("***********************************************\n SYSTEM YEAR = " + testYear);
+      EpiDate epiDate = EpiDate.getInstanceByPeriod(PeriodType.WEEK, 0, testYear);
+      System.out.println("************************************\n SYSTEM YEAR = " + testYear + " EpiWeeks = " + epiDate.getNumberOfEpiWeeks());
       System.out.println("EW Mon S  M  T  W Th  F  S  Mon");
       for (Integer i = 0; i < 4; i++)
       {
-        EpiDate epiDate = EpiDate.getInstanceByPeriod(PeriodType.WEEK, i, testYear);
+        epiDate = EpiDate.getInstanceByPeriod(PeriodType.WEEK, i, testYear);
         assertTrue(epiDate.getStartDate().before(epiDate.getEndDate()));
         GregorianCalendar week = new GregorianCalendar();
         week.clear();

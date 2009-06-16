@@ -9,7 +9,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,20 +37,20 @@ public class LoginFilter implements Filter, Reloadable
     HttpServletResponse httpRes = (HttpServletResponse) res;
     //response time logging
     req.setAttribute("startTime", (Long)(new Date().getTime()));
-    Cookie cookie1[]= httpReq.getCookies();
-    if (cookie1 != null) {
-       for (int i=0; i<cookie1.length; i++) {
-          Cookie cookie = cookie1[i];
-          if (cookie != null && cookie.getName().equals("PrevLoadTime"))
-          {
-            filterConfig.getServletContext().log(cookie.getValue());
-            System.out.println(cookie.getValue());
-            cookie.setValue("");
-            cookie.setMaxAge(-1);
-            httpRes.addCookie(cookie);
-          }
-       }
-    }
+//    Cookie cookie1[]= httpReq.getCookies();
+//    if (cookie1 != null) {
+//       for (int i=0; i<cookie1.length; i++) {
+//          Cookie cookie = cookie1[i];
+//          if (cookie != null && cookie.getName().equals("PrevLoadTime"))
+//          {
+//            filterConfig.getServletContext().log(cookie.getValue());
+//            System.out.println(cookie.getValue());
+//            cookie.setValue("");
+//            cookie.setMaxAge(-1);
+//            httpRes.addCookie(cookie);
+//          }
+//       }
+//    }
 
 
 
