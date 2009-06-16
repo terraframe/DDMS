@@ -31,19 +31,6 @@
         </structAttribute>
       </object>
       <object
-        id="testDataCapturer"
-        type="com.terraframe.mojo.system.Users">
-        <valueAttribute
-          name="username"
-          value="testDataCapturer" />
-        <valueAttribute
-          name="password"
-          value="mdsstest2" />
-        <valueAttribute
-          name="sessionLimit"
-          value="10" />
-      </object>
-      <object
         type="com.terraframe.mojo.system.Roles"
         id="manager">
         <valueAttribute
@@ -56,26 +43,8 @@
             value="Manager" />
         </structAttribute>          
       </object>
-      <object
-        id="testManager"
-        type="com.terraframe.mojo.system.Users">
-        <valueAttribute
-          name="username"
-          value="testManager" />
-        <valueAttribute
-          name="password"
-          value="mdsstest2" />
-        <valueAttribute
-          name="sessionLimit"
-          value="10" />
-      </object>
     </create>
     <permissions>
-      <user
-        userName="testDataCapturer">
-        <assignedRole
-          roleName="dataCapturer" />
-      </user>
       <role
         roleName="GUIVisibility">
         <mdViewPermission
@@ -447,18 +416,6 @@
           <operation
             name="WRITE_ALL" />
         </mdViewPermission>
-
-        <mdBusinessPermission
-          type="dss.vector.solutions.surveillance.AbstractGrid">
-          <operation
-            name="CREATE" />
-          <operation
-            name="DELETE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-        </mdBusinessPermission>
 
         <mdRelationshipPermission
           type="dss.vector.solutions.surveillance.CaseTreatmentStock">

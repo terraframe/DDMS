@@ -11,7 +11,8 @@
           <char
             name="concreteId"
             label="Concrete Id"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="household"
             concrete="household"
