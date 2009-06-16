@@ -34,9 +34,9 @@
 <%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
 <%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
 
-<%!static String buildChekboxTable(MosquitoViewDTO view, Class<?> superAssayClass , ClientRequestIF clientRequest) throws JSONException{
-	String s = "<table><tr><th colspan=\"2\">";
-	s += superAssayClass.getSimpleName().substring(0,superAssayClass.getSimpleName().indexOf("Assay")) +"</th></tr>";
+<%!static String buildChekboxTable(MosquitoViewDTO view, String title, Class<?> superAssayClass , ClientRequestIF clientRequest) throws JSONException{
+	String s = "<table><tr><th colspan=\"2\">"+ title;
+	//s += superAssayClass.getSimpleName().substring(0,superAssayClass.getSimpleName().indexOf("Assay")) +"</th></tr>";
 
   	Class<?> viewClass = view.getClass();
 
@@ -100,9 +100,9 @@
 <h2>Mosquitos</h2>
 <div class="fldContainer"><br>
 <div id="checkBoxContanier" style="height: 12em;">
-<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,InfectivityAssayTestResult.class,clientRequest)%></div>
-<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,TargetSiteAssayTestResult.class,clientRequest)%></div>
-<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,MetabolicAssayTestResult.class,clientRequest)%></div>
+<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,"Biochemical Assays",MetabolicAssayTestResult.class,clientRequest)%></div>
+<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,"Molecular Assays",TargetSiteAssayTestResult.class,clientRequest)%></div>
+<div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,"Infectivity Assays",InfectivityAssayTestResult.class,clientRequest)%></div>
 </div>
 <div id="Mosquitos"></div>
 <div id="buttons" class="noprint"><span id="MosquitosAddrow" class="yui-button yui-push-button"> <span class="first-child">
