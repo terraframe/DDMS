@@ -1,6 +1,13 @@
 package dss.vector.solutions.surveillance;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+
+import dss.vector.solutions.mo.AbstractTerm;
+import dss.vector.solutions.mo.AbstractTermQuery;
 
 public abstract class AbstractGrid extends AbstractGridBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -18,4 +25,34 @@ public abstract class AbstractGrid extends AbstractGridBase implements com.terra
     return q;
   }
 
+  protected static <T> List<T> getAll(AbstractGridQuery query, Class<T> c)
+  {
+    query.ORDER_BY_ASC(query.getOptionName());
+    
+    return convertQueryToList(query, c);
+  }
+  
+  public static <T> List<T> getAllActive(AbstractGridQuery query, Class<T> c)
+  {
+    query.WHERE(query.getActive().EQ(true));
+    query.ORDER_BY_ASC(query.getOptionName());
+    
+    return convertQueryToList(query, c);
+  }
+
+  @SuppressWarnings("unchecked")
+  private static <T> List<T> convertQueryToList(AbstractGridQuery query, Class<T> c)
+  {
+    List<T> list = new LinkedList<T>();   
+    OIterator<? extends AbstractGrid> it = query.getIterator();
+    
+    while(it.hasNext())
+    {
+      list.add((T) it.next());
+    }
+    
+    it.close();
+    
+    return list;
+  }
 }

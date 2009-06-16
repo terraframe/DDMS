@@ -1,11 +1,11 @@
 package dss.vector.solutions.surveillance;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.query.QueryFactory;
 
-public class DiagnosticGrid extends DiagnosticGridBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class DiagnosticGrid extends DiagnosticGridBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1238693138348L;
 
@@ -16,14 +16,16 @@ public class DiagnosticGrid extends DiagnosticGridBase implements com.terraframe
 
   public static DiagnosticGrid[] getAll()
   {
-    List<DiagnosticGrid> list = new LinkedList<DiagnosticGrid>();
     DiagnosticGridQuery query = new DiagnosticGridQuery(new QueryFactory());
-    query.WHERE(query.getActive().EQ(true));
+    List<DiagnosticGrid> list = AbstractGrid.getAll(query, DiagnosticGrid.class);
 
-    for(DiagnosticGrid d : query.getIterator())
-    {
-      list.add(d);
-    }
+    return list.toArray(new DiagnosticGrid[list.size()]);
+  }
+
+  public static DiagnosticGrid[] getAllActive()
+  {
+    DiagnosticGridQuery query = new DiagnosticGridQuery(new QueryFactory());
+    List<DiagnosticGrid> list = AbstractGrid.getAllActive(query, DiagnosticGrid.class);
 
     return list.toArray(new DiagnosticGrid[list.size()]);
   }

@@ -1,15 +1,9 @@
 package dss.vector.solutions.mo;
 
 
-import java.util.LinkedList;
 import java.util.List;
 
-
-import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-
-import dss.vector.solutions.mo.CollectionMethodBase;
-import dss.vector.solutions.mo.CollectionMethodQuery;
 
 public class CollectionMethod extends CollectionMethodBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -22,18 +16,17 @@ public class CollectionMethod extends CollectionMethodBase implements com.terraf
  
   public static CollectionMethod[] getAll()
   {
-    List<CollectionMethod> list = new LinkedList<CollectionMethod>();   
     CollectionMethodQuery query = new CollectionMethodQuery(new QueryFactory());
-    OIterator<? extends CollectionMethod> it = query.getIterator();
-    
-    while(it.hasNext())
-    {
-      list.add(it.next());
-    }
-    
-    it.close();
-    
+    List<CollectionMethod> list = AbstractTerm.getAll(query, CollectionMethod.class);
+
     return list.toArray(new CollectionMethod[list.size()]);
   }
+  
+  public static CollectionMethod[] getAllActive()
+  {
+    CollectionMethodQuery query = new CollectionMethodQuery(new QueryFactory());
+    List<CollectionMethod> list = AbstractTerm.getAllActive(query, CollectionMethod.class);
 
+    return list.toArray(new CollectionMethod[list.size()]);
+  }  
 }

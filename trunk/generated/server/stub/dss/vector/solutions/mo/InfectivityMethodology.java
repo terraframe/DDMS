@@ -1,15 +1,9 @@
 package dss.vector.solutions.mo;
 
 
-import java.util.LinkedList;
 import java.util.List;
 
-
-import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-
-import dss.vector.solutions.mo.InfectivityMethodologyBase;
-import dss.vector.solutions.mo.InfectivityMethodologyQuery;
 
 public class InfectivityMethodology extends InfectivityMethodologyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -22,17 +16,17 @@ public class InfectivityMethodology extends InfectivityMethodologyBase implement
   
   public static InfectivityMethodology[] getAll()
   {
-    List<InfectivityMethodology> list = new LinkedList<InfectivityMethodology>();   
     InfectivityMethodologyQuery query = new InfectivityMethodologyQuery(new QueryFactory());
-    OIterator<? extends InfectivityMethodology> it = query.getIterator();
-    
-    while(it.hasNext())
-    {
-      list.add(it.next());
-    }
-    
-    it.close();
-    
+    List<InfectivityMethodology> list = AbstractTerm.getAll(query, InfectivityMethodology.class);
+
+    return list.toArray(new InfectivityMethodology[list.size()]);
+  }
+  
+  public static InfectivityMethodology[] getAllActive()
+  {
+    InfectivityMethodologyQuery query = new InfectivityMethodologyQuery(new QueryFactory());
+    List<InfectivityMethodology> list = AbstractTerm.getAllActive(query, InfectivityMethodology.class);
+
     return list.toArray(new InfectivityMethodology[list.size()]);
   }  
 }

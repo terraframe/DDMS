@@ -1,5 +1,8 @@
 package dss.vector.solutions.mo;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -129,5 +132,36 @@ public abstract class AbstractTerm extends AbstractTermBase implements com.terra
       String msg = "Abstract term of wrong type";
       throw new RuntimeException(msg);
     }
+  }
+  
+  protected static <T> List<T> getAll(AbstractTermQuery query, Class<T> c)
+  {
+    query.ORDER_BY_ASC(query.getTermName());
+    
+    return convertQueryToList(query, c);
+  }
+  
+  public static <T> List<T> getAllActive(AbstractTermQuery query, Class<T> c)
+  {
+    query.WHERE(query.getEnabled().EQ(true));
+    query.ORDER_BY_ASC(query.getTermName());
+    
+    return convertQueryToList(query, c);
+  }
+
+  @SuppressWarnings("unchecked")
+  private static <T> List<T> convertQueryToList(AbstractTermQuery query, Class<T> c)
+  {
+    List<T> list = new LinkedList<T>();   
+    OIterator<? extends AbstractTerm> it = query.getIterator();
+    
+    while(it.hasNext())
+    {
+      list.add((T) it.next());
+    }
+    
+    it.close();
+    
+    return list;
   }
 }

@@ -1,13 +1,8 @@
 package dss.vector.solutions.mo;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-
-import dss.vector.solutions.mo.LarvaeAgeBase;
-import dss.vector.solutions.mo.LarvaeAgeQuery;
 
 public class LarvaeAge extends LarvaeAgeBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -18,19 +13,19 @@ public class LarvaeAge extends LarvaeAgeBase implements com.terraframe.mojo.gene
     super();
   }
   
-  public static dss.vector.solutions.mo.LarvaeAge[] getAll()
+  public static LarvaeAge[] getAll()
   {
-    List<LarvaeAge> list = new LinkedList<LarvaeAge>();   
     LarvaeAgeQuery query = new LarvaeAgeQuery(new QueryFactory());
-    OIterator<? extends LarvaeAge> it = query.getIterator();
-    
-    while(it.hasNext())
-    {
-      list.add(it.next());
-    }
-    
-    it.close();
-    
+    List<LarvaeAge> list = AbstractTerm.getAll(query, LarvaeAge.class);
+
+    return list.toArray(new LarvaeAge[list.size()]);
+  }
+  
+  public static LarvaeAge[] getAllActive()
+  {
+    LarvaeAgeQuery query = new LarvaeAgeQuery(new QueryFactory());
+    List<LarvaeAge> list = AbstractTerm.getAllActive(query, LarvaeAge.class);
+
     return list.toArray(new LarvaeAge[list.size()]);
   }  
 }

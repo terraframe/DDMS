@@ -1,9 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.query.QueryFactory;
+
+import dss.vector.solutions.surveillance.AbstractGrid;
 
 public class PatientGrid extends PatientGridBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -14,16 +15,19 @@ public class PatientGrid extends PatientGridBase implements com.terraframe.mojo.
     super();
   }
   
+
   public static PatientGrid[] getAll()
   {
-    List<PatientGrid> list = new LinkedList<PatientGrid>();
     PatientGridQuery query = new PatientGridQuery(new QueryFactory());
-    query.WHERE(query.getActive().EQ(true));
+    List<PatientGrid> list = AbstractGrid.getAll(query, PatientGrid.class);
 
-    for(PatientGrid d : query.getIterator())
-    {
-      list.add(d);
-    }
+    return list.toArray(new PatientGrid[list.size()]);
+  }
+
+  public static PatientGrid[] getAllActive()
+  {
+    PatientGridQuery query = new PatientGridQuery(new QueryFactory());
+    List<PatientGrid> list = AbstractGrid.getAllActive(query, PatientGrid.class);
 
     return list.toArray(new PatientGrid[list.size()]);
   }

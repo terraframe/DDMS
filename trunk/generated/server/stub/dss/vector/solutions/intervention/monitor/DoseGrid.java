@@ -1,9 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.query.QueryFactory;
+
+import dss.vector.solutions.surveillance.AbstractGrid;
 
 public class DoseGrid extends DoseGridBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -16,14 +17,16 @@ public class DoseGrid extends DoseGridBase implements com.terraframe.mojo.genera
   
   public static DoseGrid[] getAll()
   {
-    List<DoseGrid> list = new LinkedList<DoseGrid>();
     DoseGridQuery query = new DoseGridQuery(new QueryFactory());
-    query.WHERE(query.getActive().EQ(true));
+    List<DoseGrid> list = AbstractGrid.getAll(query, DoseGrid.class);
 
-    for(DoseGrid d : query.getIterator())
-    {
-      list.add(d);
-    }
+    return list.toArray(new DoseGrid[list.size()]);
+  }
+
+  public static DoseGrid[] getAllActive()
+  {
+    DoseGridQuery query = new DoseGridQuery(new QueryFactory());
+    List<DoseGrid> list = AbstractGrid.getAllActive(query, DoseGrid.class);
 
     return list.toArray(new DoseGrid[list.size()]);
   }

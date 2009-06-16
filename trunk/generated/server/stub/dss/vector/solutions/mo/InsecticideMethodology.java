@@ -1,15 +1,9 @@
 package dss.vector.solutions.mo;
 
 
-import java.util.LinkedList;
 import java.util.List;
 
-
-import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-
-import dss.vector.solutions.mo.InsecticideMethodologyBase;
-import dss.vector.solutions.mo.InsecticideMethodologyQuery;
 
 public class InsecticideMethodology extends InsecticideMethodologyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -22,18 +16,17 @@ public class InsecticideMethodology extends InsecticideMethodologyBase implement
 
   public static InsecticideMethodology[] getAll()
   {
-    List<InsecticideMethodology> list = new LinkedList<InsecticideMethodology>();   
     InsecticideMethodologyQuery query = new InsecticideMethodologyQuery(new QueryFactory());
-    OIterator<? extends InsecticideMethodology> it = query.getIterator();
-    
-    while(it.hasNext())
-    {
-      list.add(it.next());
-    }
-    
-    it.close();
-    
+    List<InsecticideMethodology> list = AbstractTerm.getAll(query, InsecticideMethodology.class);
+
+    return list.toArray(new InsecticideMethodology[list.size()]);
+  }
+  
+  public static InsecticideMethodology[] getAllActive()
+  {
+    InsecticideMethodologyQuery query = new InsecticideMethodologyQuery(new QueryFactory());
+    List<InsecticideMethodology> list = AbstractTerm.getAllActive(query, InsecticideMethodology.class);
+
     return list.toArray(new InsecticideMethodology[list.size()]);
   }  
-
 }

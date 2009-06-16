@@ -1,15 +1,9 @@
 package dss.vector.solutions.mo;
 
 
-import java.util.LinkedList;
 import java.util.List;
 
-
-import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-
-import dss.vector.solutions.mo.ResistanceMethodologyBase;
-import dss.vector.solutions.mo.ResistanceMethodologyQuery;
 
 public class ResistanceMethodology extends ResistanceMethodologyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -22,18 +16,17 @@ public class ResistanceMethodology extends ResistanceMethodologyBase implements 
   
   public static ResistanceMethodology[] getAll()
   {
-    List<ResistanceMethodology> list = new LinkedList<ResistanceMethodology>();   
     ResistanceMethodologyQuery query = new ResistanceMethodologyQuery(new QueryFactory());
-    OIterator<? extends ResistanceMethodology> it = query.getIterator();
-    
-    while(it.hasNext())
-    {
-      list.add(it.next());
-    }
-    
-    it.close();
-    
+    List<ResistanceMethodology> list = AbstractTerm.getAll(query, ResistanceMethodology.class);
+
     return list.toArray(new ResistanceMethodology[list.size()]);
   }
+  
+  public static ResistanceMethodology[] getAllActive()
+  {
+    ResistanceMethodologyQuery query = new ResistanceMethodologyQuery(new QueryFactory());
+    List<ResistanceMethodology> list = AbstractTerm.getAllActive(query, ResistanceMethodology.class);
 
+    return list.toArray(new ResistanceMethodology[list.size()]);
+  } 
 }

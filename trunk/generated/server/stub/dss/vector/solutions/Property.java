@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -23,8 +24,6 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
   public static PropertyQuery getAllByPackage(java.lang.String pkg)
   {
-    Property prop = null;
-
     PropertyQuery query = new PropertyQuery(new QueryFactory());
 
     query.WHERE(query.getPropertyPackage().LIKE(pkg+"%"));
@@ -209,6 +208,7 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
   }
 
   @Transaction
+  @Authenticate
   public static String getNextId()
   {
     Property currentValue = Property.getByPackageAndName(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_COUNTER);

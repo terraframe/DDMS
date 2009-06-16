@@ -1,6 +1,5 @@
 package dss.vector.solutions.surveillance;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.query.QueryFactory;
@@ -16,16 +15,17 @@ public class TreatmentMethodGrid extends TreatmentMethodGridBase implements com.
 
   public static TreatmentMethodGrid[] getAll()
   {
-    List<TreatmentMethodGrid> list = new LinkedList<TreatmentMethodGrid>();
     TreatmentMethodGridQuery query = new TreatmentMethodGridQuery(new QueryFactory());
-    query.WHERE(query.getActive().EQ(true));
-    
-    for(TreatmentMethodGrid d : query.getIterator())
-    {
-      list.add(d);
-    }
-    
+    List<TreatmentMethodGrid> list = AbstractGrid.getAll(query, TreatmentMethodGrid.class);
+
     return list.toArray(new TreatmentMethodGrid[list.size()]);
   }
 
+  public static TreatmentMethodGrid[] getAllActive()
+  {
+    TreatmentMethodGridQuery query = new TreatmentMethodGridQuery(new QueryFactory());
+    List<TreatmentMethodGrid> list = AbstractGrid.getAllActive(query, TreatmentMethodGrid.class);
+
+    return list.toArray(new TreatmentMethodGrid[list.size()]);
+  }
 }

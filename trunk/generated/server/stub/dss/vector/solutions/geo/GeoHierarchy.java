@@ -18,6 +18,8 @@ import org.json.JSONObject;
 import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.business.BusinessQuery;
 import com.terraframe.mojo.business.generation.EntityQueryAPIGenerator;
+import com.terraframe.mojo.business.rbac.Operation;
+import com.terraframe.mojo.business.rbac.RoleDAO;
 import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
@@ -43,10 +45,12 @@ import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPoint;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPolygon;
 import com.terraframe.mojo.system.gis.metadata.MdAttributePoint;
 import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
+import com.terraframe.mojo.system.metadata.MdAttribute;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -520,6 +524,27 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     {
       addGeometryAttribute(mdGeoEntity, spatialTypes.get(0));
     }
+    
+    // Define permissions on the new Universal
+    RoleDAO guiVisibility = RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
+    RoleDAO mdssCorrdinator = RoleDAO.findRole(MDSSRoleInfo.MDSS_CORRDINATOR).getBusinessDAO();
+    RoleDAO entomologist = RoleDAO.findRole(MDSSRoleInfo.ENTOMOLOGIST).getBusinessDAO();
+
+    // Define all read permissions
+    guiVisibility.grantPermission(Operation.READ, mdGeoEntity.getId());
+    mdssCorrdinator.grantPermission(Operation.WRITE, mdGeoEntity.getId());
+    entomologist.grantPermission(Operation.WRITE, mdGeoEntity.getId());
+    mdssCorrdinator.grantPermission(Operation.CREATE, mdGeoEntity.getId());
+    entomologist.grantPermission(Operation.CREATE, mdGeoEntity.getId());
+    mdssCorrdinator.grantPermission(Operation.DELETE, mdGeoEntity.getId());
+    entomologist.grantPermission(Operation.DELETE, mdGeoEntity.getId());
+    
+    for(MdAttribute mdAttribute : mdGeoEntity.getAllAttribute())
+    {
+      guiVisibility.grantPermission(Operation.READ, mdAttribute.getId());
+      mdssCorrdinator.grantPermission(Operation.WRITE, mdAttribute.getId());
+      entomologist.grantPermission(Operation.WRITE, mdAttribute.getId());
+    }
 
     // create the GeoHeirachy and relationship
     GeoHierarchy geoHierarchy = new GeoHierarchy();
@@ -595,6 +620,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * @param mdGeoEntity
    * @param spatialType
    */
+  @Transaction
   private static void addGeometryAttribute(MdBusiness mdGeoEntity, SpatialTypes spatialType)
   {
 
@@ -644,7 +670,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
 
     attr.setDefiningMdClass(mdGeoEntity);
     attr.setSrid(SRID);
-    attr.apply();
+    attr.apply();    
   }
 
   /**
