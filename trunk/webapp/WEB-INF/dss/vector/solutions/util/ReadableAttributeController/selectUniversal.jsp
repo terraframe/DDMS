@@ -296,3 +296,15 @@
     
   </dl>
   
+  <dl>
+    <dt><label><f:message key="Aggregated_IPT_Information"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="AggregatedIPT"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.AggregatedIPTView">
+        <f:message key="Aggregated_IPT_Information"/>
+      </mjl:commandLink>
+    </dd>
+    
+  </dl>
+  
