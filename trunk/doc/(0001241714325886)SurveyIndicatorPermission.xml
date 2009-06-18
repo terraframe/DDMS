@@ -142,25 +142,6 @@
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
         </mdRelationshipPermission>        
-        <mdViewPermission type="dss.vector.solutions.geo.GeoHierarchy">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdViewPermission>
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.GeoEntity">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdRelationshipPermission type="dss.vector.solutions.geo.LocatedIn">
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="WRITE_CHILD"/>
-          <operation name="WRITE_PARENT"/>
-          <operation name="DELETE"/>
-        </mdRelationshipPermission>              
       </role>
     </permissions>
   </doIt>

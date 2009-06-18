@@ -1,8 +1,16 @@
-<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <update>
-      <mdView name="dss.vector.solutions.surveillance.AggregatedCaseView">
+      <mdView
+        name="dss.vector.solutions.surveillance.AggregatedCaseView">
         <create>
+          <mdMethod
+            name="deleteConcrete"
+            label="Delete Concrete"
+            static="false"
+            returnType="void" />
           <mdMethod
             name="getDiagnosticMethods"
             label="getDiagnosticMethods"

@@ -39,29 +39,62 @@
             type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
             concrete="geoEntity" />
         </attributes>
-          <mdMethod
-            name="searchByGeoEntityAndDate"
-            label="Search By GeoEntity and Date"
-            description="Searches for all morphological specie group views on any mosquito collection between the given start and end date for a given geo entity"
-            static="true"
-            returnType="dss.vector.solutions.entomology.MosquitoCollectionPointView[]">
-            <mdParameter
-              name="geoId"
-              label="Geo Id"
-              type="java.lang.String"
-              order="0"
-              description="Geo Id" />
-            <mdParameter
-              name="startDate"
-              label="Start Date"
-              type="java.util.Date"
-              order="1" />
-            <mdParameter
-              name="endDate"
-              label="End Date"
-              type="java.util.Date"
-              order="2" />
-          </mdMethod>        
+        <mdMethod
+          name="searchByGeoEntityAndDate"
+          label="Search By GeoEntity and Date"
+          description="Searches for all morphological specie group views on any mosquito collection between the given start and end date for a given geo entity"
+          static="true"
+          returnType="dss.vector.solutions.entomology.MosquitoCollectionPointView[]">
+          <mdParameter
+            name="geoId"
+            label="Geo Id"
+            type="java.lang.String"
+            order="0"
+            description="Geo Id" />
+          <mdParameter
+            name="startDate"
+            label="Start Date"
+            type="java.util.Date"
+            order="1" />
+          <mdParameter
+            name="endDate"
+            label="End Date"
+            type="java.util.Date"
+            order="2" />
+        </mdMethod>
+        <mdMethod
+          name="getView"
+          returnType="dss.vector.solutions.entomology.MosquitoCollectionPointView"
+          label="Get View"
+          static="true">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+          name="lockView"
+          returnType="dss.vector.solutions.entomology.MosquitoCollectionPointView"
+          label="Lock View"
+          static="true">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+          name="unlockView"
+          returnType="dss.vector.solutions.entomology.MosquitoCollectionPointView"
+          label="unlock View"
+          static="true">
+          <mdParameter
+            name="id"
+            label="id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
       </mdView>
     </create>
   </doIt>

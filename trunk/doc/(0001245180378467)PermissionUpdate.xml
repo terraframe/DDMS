@@ -26,6 +26,17 @@
     </existing>
     <permissions>
       <role roleName="GUIVisibility">
+        <mdBusinessPermission type="com.terraframe.mojo.system.Roles">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>          
+        </mdBusinessPermission>      
+        <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
+          <operation name="READ"/>
+          <attributePermission attributeName="sprayData">
+            <operation name="READ"/>
+          </attributePermission>
+        </mdBusinessPermission>
+      
         <!-- DEFINE ALL READ PERMISSIONS FOR SURVEYS -->
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.Wall">
           <operation name="READ" />
@@ -1159,18 +1170,6 @@
             name="WRITE_ALL" />
         </mdViewPermission>
 
-        <mdBusinessPermission
-          type="dss.vector.solutions.surveillance.AbstractGrid">
-          <operation
-            name="CREATE" />
-          <operation
-            name="DELETE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-        </mdBusinessPermission>
-
         <mdRelationshipPermission
           type="dss.vector.solutions.surveillance.CaseTreatmentStock">
           <operation
@@ -1238,24 +1237,6 @@
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
         </mdBusinessPermission>        
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.PatientGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.VisitGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.DoseGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
         <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.IPTPatients">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -1292,6 +1273,52 @@
       </role>
       
       <role roleName="entomologist">
+        <!-- ENTOMOLOGIST USER CREATION CRUD -->
+
+        <mdBusinessPermission type="dss.vector.solutions.Person">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>                
+        <mdBusinessPermission type="dss.vector.solutions.MDSSUser">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.IPTRecipient">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>                
+        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.ITNRecipient">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>          
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayLeader">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>                
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayOperator">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>                              
+        <mdBusinessPermission type="dss.vector.solutions.Patient">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>                
+        
+        <!-- ENTOMOLOGIST GEO ENTITY CRUD -->
         
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdBusiness">
           <operation name="CREATE" />
@@ -1299,6 +1326,25 @@
           <operation name="WRITE_ALL" />
           <operation name="DELETE" />          
         </mdBusinessPermission>
+        
+        <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdAttributeConcrete">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />          
+        </mdBusinessPermission>
+        
+        <mdRelationshipPermission type="com.terraframe.mojo.system.metadata.BusinessInheritance">
+          <operation name="DELETE"/>
+        </mdRelationshipPermission>
+        
+        <mdBusinessPermission type="com.terraframe.mojo.system.metadata.ClassAttributeConcrete">
+          <operation name="DELETE" />          
+        </mdBusinessPermission>
+        
+        <mdRelationshipPermission type="com.terraframe.mojo.system.TypePermission">
+          <operation name="DELETE" />          
+        </mdRelationshipPermission>
         
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributeLineString">
           <operation name="CREATE" />
@@ -2153,6 +2199,53 @@
       </role>
       
       <role roleName="operationalManager">
+      
+        <!-- OPERATIONAL MANAGER PERSON CRUD -->
+
+        <mdBusinessPermission type="dss.vector.solutions.Person">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>                
+        <mdBusinessPermission type="dss.vector.solutions.MDSSUser">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.IPTRecipient">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>                
+        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.ITNRecipient">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>          
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayLeader">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>                
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayOperator">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>                              
+        <mdBusinessPermission type="dss.vector.solutions.Patient">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+        </mdBusinessPermission>                
+        
+        <!-- OPERATIONAL MANAGER IRS CRUD -->
             
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayTeam">
           <operation name="CREATE"/>
@@ -2352,24 +2445,6 @@
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
         </mdBusinessPermission>        
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.PatientGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.VisitGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.DoseGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
         <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.IPTPatients">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -2491,10 +2566,6 @@
           <operation name="READ"/>
           <operation name="READ_ALL"/>
         </mdViewPermission>
-        <mdBusinessPermission type="com.terraframe.mojo.system.Roles">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>          
-        </mdBusinessPermission>
         <mdBusinessPermission type="com.terraframe.mojo.system.Assignments">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -2773,24 +2844,6 @@
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
         </mdBusinessPermission>        
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.PatientGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.VisitGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.DoseGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
         <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.IPTPatients">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -3403,14 +3456,33 @@
             name="DELETE" />
         </mdBusinessPermission>
         
-        <!-- GEO ENTITY PERMISSIONS  -->
-        
+        <!-- GEO ENTITY PERMISSIONS  -->        
+                
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdBusiness">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
           <operation name="DELETE" />          
         </mdBusinessPermission>
+        
+        <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdAttributeConcrete">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />          
+        </mdBusinessPermission>
+        
+        <mdRelationshipPermission type="com.terraframe.mojo.system.metadata.BusinessInheritance">
+          <operation name="DELETE"/>
+        </mdRelationshipPermission>
+        
+        <mdBusinessPermission type="com.terraframe.mojo.system.metadata.ClassAttributeConcrete">
+          <operation name="DELETE" />          
+        </mdBusinessPermission>
+        
+        <mdRelationshipPermission type="com.terraframe.mojo.system.TypePermission">
+          <operation name="DELETE" />          
+        </mdRelationshipPermission>
         
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributeLineString">
           <operation name="CREATE" />
@@ -4046,18 +4118,6 @@
           <operation
             name="WRITE_ALL" />
         </mdViewPermission>
-
-        <mdBusinessPermission
-          type="dss.vector.solutions.surveillance.AbstractGrid">
-          <operation
-            name="CREATE" />
-          <operation
-            name="DELETE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-        </mdBusinessPermission>
 
         <mdRelationshipPermission
           type="dss.vector.solutions.surveillance.CaseTreatmentStock">

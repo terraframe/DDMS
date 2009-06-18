@@ -292,34 +292,6 @@
           roleName="GUIVisibility" />
 
         <mdBusinessPermission
-          type="dss.vector.solutions.geo.generated.GeoEntity">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="DELETE" />
-          <operation
-            name="WRITE_ALL" />
-        </mdBusinessPermission>
-
-        <mdRelationshipPermission
-          type="dss.vector.solutions.geo.LocatedIn">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="DELETE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="WRITE_CHILD" />
-          <operation
-            name="WRITE_PARENT" />
-        </mdRelationshipPermission>
-
-        <mdBusinessPermission
           type="dss.vector.solutions.surveillance.AggregatedCase">
           <operation
             name="CREATE" />

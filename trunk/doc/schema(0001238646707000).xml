@@ -136,11 +136,11 @@
             type="com.terraframe.mojo.system.metadata.MdBusiness" />
         </attributes>
         <mdMethod
-             name="collectHierarchies"
-             label="Collects GeoHierarchy types based on search criteria."
-             static="true"
-             returnType="dss.vector.solutions.geo.GeoHierarchyView[]">
-         <mdParameter
+          name="collectHierarchies"
+          label="Collects GeoHierarchy types based on search criteria."
+          static="true"
+          returnType="dss.vector.solutions.geo.GeoHierarchyView[]">
+          <mdParameter
             name="rootGeoEntityId"
             label="Root GeoEntity Id"
             description="The id of the GeoEntity that will be the root of the select lists."
@@ -1127,16 +1127,16 @@
         label="Query Controller"
         description="Query Controller">
         <mdAction
-           name="uploadTemplate"
-           label="Upload Template"
-           description="Uploads a template for user with BIRT."
-           isPost="true">
-           <mdParameter
-             name="savedSearchId"
-             label="Saved Search Id"
-             description="The id of the SavedSearch that will reference the template"
-             order="0"
-             type="java.lang.String" />
+          name="uploadTemplate"
+          label="Upload Template"
+          description="Uploads a template for user with BIRT."
+          isPost="true">
+          <mdParameter
+            name="savedSearchId"
+            label="Saved Search Id"
+            description="The id of the SavedSearch that will reference the template"
+            order="0"
+            type="java.lang.String" />
         </mdAction>
         <mdAction
           name="queryEntomology"
@@ -1625,6 +1625,27 @@
             type="dss.vector.solutions.entomology.ConcreteMosquitoCollection"
             immutable="true" />
         </attributes>
+        <mdMethod
+          name="lockView"
+          label="Lock View"
+          static="false"
+          returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView" />
+        <mdMethod
+          name="unlockView"
+          label="Unlock View"
+          static="false"
+          returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView" />
+        <mdMethod
+          name="getView"
+          label="Get View"
+          static="true"
+          returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView">
+          <mdParameter
+            name="id"
+            label="Id"
+            order="0"
+            type="java.lang.String" />
+        </mdMethod>
       </mdBusiness>
 
       <mdProblem
@@ -1755,6 +1776,11 @@
             size="255" />
         </attributes>
         <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
           name="saveAll"
           label="Save All"
           returnType="dss.vector.solutions.entomology.MorphologicalSpecieGroupView[]"
@@ -1810,10 +1836,10 @@
         description="Enforces a unique index between a collection and its sample id">
         <attribute
           name="sampleId"
-          indexOrder="0"/>
+          indexOrder="0" />
         <attribute
           name="collection"
-          indexOrder="1"/>
+          indexOrder="1" />
       </mdIndex>
 
       <mdBusiness
@@ -3240,10 +3266,10 @@
         description="Uniqueness constraint between an assay and its interval period">
         <attribute
           name="assay"
-          indexOrder="0"/>
+          indexOrder="0" />
         <attribute
           name="period"
-          indexOrder="1"/>
+          indexOrder="1" />
       </mdIndex>
 
       <mdView
@@ -3325,10 +3351,10 @@
         description="Uniqueness constraint between an assay and its interval period">
         <attribute
           name="assay"
-          indexOrder="0"/>
+          indexOrder="0" />
         <attribute
           name="period"
-          indexOrder="1"/>
+          indexOrder="1" />
       </mdIndex>
 
       <mdView
@@ -3726,10 +3752,10 @@
         description="Uniquness constraint between the Package And Key for this Property">
         <attribute
           name="propertyPackage"
-          indexOrder="0"/>
+          indexOrder="0" />
         <attribute
           name="propertyName"
-          indexOrder="1"/>
+          indexOrder="1" />
       </mdIndex>
 
       <mdException
@@ -3949,91 +3975,42 @@
           name="description"
           value="How many ids have we generated in this install's address space" />
       </object>
-<!--      <object
-        type="dss.vector.solutions.Property"
-        id="dateFormat">
-        <valueAttribute
-          name="propertyName"
-          value="dateFormat" />
-        <valueAttribute
-          name="displayLabel"
-          value="Date Format" />
-        <valueAttribute
-          name="propertyPackage"
-          value="dss.vector.solutions" />
-        <valueAttribute
-          name="propertyValue"
-          value="mm/dd/yyyy" />
-        <valueAttribute
-          name="propertyType"
-          value="String" />
-        <valueAttribute
-          name="propertyValidator"
-          value="^[MmDdYy/- ]+$" />
-        <valueAttribute
-          name="description"
-          value="Date Format For Display" />
-        <valueAttribute
-          name="validValues"
-          value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" />
-      </object>
-      <object
-        type="dss.vector.solutions.Property"
-        id="systemDateFormat">
-        <valueAttribute
-          name="propertyName"
-          value="systemDateFormat" />
-        <valueAttribute
-          name="displayLabel"
-          value="Date Format" />
-        <valueAttribute
-          name="propertyPackage"
-          value="dss.vector.solutions" />
-        <valueAttribute
-          name="propertyValue"
-          value="yyyy-mm-dd" />
-        <valueAttribute
-          name="propertyType"
-          value="String" />
-        <valueAttribute
-          name="propertyValidator"
-          value="^yyyy-mm-dd$" />
-        <valueAttribute
-          name="description"
-          value="Date Format for system date Properties, NOT EDITABLE" />
-       <valueAttribute
-          name="validValues"
-          value="yyyy-mm-dd" />
-      </object>
-      <object
-        type="dss.vector.solutions.Property"
-        id="dateFormatShort">
-        <valueAttribute
-          name="propertyName"
-          value="dateFormatShort" />
-        <valueAttribute
-          name="displayLabel"
-          value="Short Date Format" />
-        <valueAttribute
-          name="propertyPackage"
-          value="dss.vector.solutions" />
-        <valueAttribute
-          name="propertyValue"
-          value="mm/yy" />
-        <valueAttribute
-          name="propertyType"
-          value="String" />
-        <valueAttribute
-          name="propertyValidator"
-          value="^[MmDdYy/- ]+$" />
-        <valueAttribute
-          name="validValues"
-          value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" />
-        <valueAttribute
-          name="description"
-          value="Short Date Format, should not include year" />
-      </object>
--->
+      <!--
+        <object type="dss.vector.solutions.Property" id="dateFormat">
+        <valueAttribute name="propertyName" value="dateFormat" />
+        <valueAttribute name="displayLabel" value="Date Format" />
+        <valueAttribute name="propertyPackage"
+        value="dss.vector.solutions" /> <valueAttribute
+        name="propertyValue" value="mm/dd/yyyy" /> <valueAttribute
+        name="propertyType" value="String" /> <valueAttribute
+        name="propertyValidator" value="^[MmDdYy/- ]+$" />
+        <valueAttribute name="description" value="Date Format For
+        Display" /> <valueAttribute name="validValues"
+        value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" /> </object> <object
+        type="dss.vector.solutions.Property" id="systemDateFormat">
+        <valueAttribute name="propertyName" value="systemDateFormat" />
+        <valueAttribute name="displayLabel" value="Date Format" />
+        <valueAttribute name="propertyPackage"
+        value="dss.vector.solutions" /> <valueAttribute
+        name="propertyValue" value="yyyy-mm-dd" /> <valueAttribute
+        name="propertyType" value="String" /> <valueAttribute
+        name="propertyValidator" value="^yyyy-mm-dd$" /> <valueAttribute
+        name="description" value="Date Format for system date
+        Properties, NOT EDITABLE" /> <valueAttribute name="validValues"
+        value="yyyy-mm-dd" /> </object> <object
+        type="dss.vector.solutions.Property" id="dateFormatShort">
+        <valueAttribute name="propertyName" value="dateFormatShort" />
+        <valueAttribute name="displayLabel" value="Short Date Format" />
+        <valueAttribute name="propertyPackage"
+        value="dss.vector.solutions" /> <valueAttribute
+        name="propertyValue" value="mm/yy" /> <valueAttribute
+        name="propertyType" value="String" /> <valueAttribute
+        name="propertyValidator" value="^[MmDdYy/- ]+$" />
+        <valueAttribute name="validValues"
+        value="yyyy-mm-dd,dd/mm/yy,mm/dd/yyyy" /> <valueAttribute
+        name="description" value="Short Date Format, should not include
+        year" /> </object>
+      -->
       <object
         type="dss.vector.solutions.Property"
         id="countryGeoId">
@@ -4790,23 +4767,23 @@
           isQuery="false"
           label="Runs a report"
           description="Runs a report from the server">
-            <mdParameter
-              name="queryXML"
-              label="Query XML"
-              description="Query XML"
-              order="0"
-              type="java.lang.String" />
-            <mdParameter
-              name="geoEntityType"
-              label="GeoEntity type"
-              description="The type on which to gather spatial data"
-              order="1"
-              type="java.lang.String" />
-            <mdParameter
-              name="savedSearchId"
-              label="Saved Search Id"
-              order="2"
-              type="java.lang.String" />
+          <mdParameter
+            name="queryXML"
+            label="Query XML"
+            description="Query XML"
+            order="0"
+            type="java.lang.String" />
+          <mdParameter
+            name="geoEntityType"
+            label="GeoEntity type"
+            description="The type on which to gather spatial data"
+            order="1"
+            type="java.lang.String" />
+          <mdParameter
+            name="savedSearchId"
+            label="Saved Search Id"
+            order="2"
+            type="java.lang.String" />
         </mdAction>
       </mdController>
     </create>

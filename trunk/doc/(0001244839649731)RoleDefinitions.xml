@@ -36,8 +36,7 @@
             name="WRITE_ALL" />
         </mdBusinessPermission>
       </method>
-      <role
-        roleName="GUIVisibility">
+      <role roleName="GUIVisibility">
         <mdBusinessPermission
           type="dss.vector.solutions.Property">
           <mdMethodPermission
@@ -94,24 +93,6 @@
       </role>
       <role roleName="dataCapturer">
         <!-- DEFINE WRITE PERMISSIONS FOR AGGREGATED IPT INFORMATION -->
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.PatientGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.VisitGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.DoseGrid">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
         <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.IPTPatients">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -150,8 +131,7 @@
       <!-- DEFINE ALL OF THE PERMISSIONS FOR THE mdssCoordinator ROLE -->
       <role
         roleName="mdssCoordinator">
-        <superRole
-          roleName="GUIVisibility" />
+        <superRole roleName="GUIVisibility" />
         <!-- DEFINE WRITE PERMISSIONS FOR AGGREGATED IPT INFORMATION -->
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.PatientGrid">
           <operation name="CREATE"/>
@@ -268,41 +248,6 @@
             name="WRITE" />
           <operation
             name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdRelationshipPermission>
-        <mdViewPermission
-          type="dss.vector.solutions.geo.GeoHierarchy">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdViewPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.geo.generated.GeoEntity">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdRelationshipPermission
-          type="dss.vector.solutions.geo.LocatedIn">
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="WRITE_CHILD" />
-          <operation
-            name="WRITE_PARENT" />
           <operation
             name="DELETE" />
         </mdRelationshipPermission>
@@ -519,50 +464,6 @@
         </mdBusinessPermission>
         <mdBusinessPermission
           type="dss.vector.solutions.entomology.assay.AdultTestInterval">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.entomology.assay.LarvaeTestInterval">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.mo.MolecularAssayResult">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.mo.InfectivityMethodology">
-          <operation
-            name="CREATE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-          <operation
-            name="DELETE" />
-        </mdBusinessPermission>
-        <mdBusinessPermission
-          type="dss.vector.solutions.mo.InsecticideMethodology">
           <operation
             name="CREATE" />
           <operation
@@ -1129,18 +1030,6 @@
           <operation
             name="WRITE_ALL" />
         </mdViewPermission>
-
-        <mdBusinessPermission
-          type="dss.vector.solutions.surveillance.AbstractGrid">
-          <operation
-            name="CREATE" />
-          <operation
-            name="DELETE" />
-          <operation
-            name="WRITE" />
-          <operation
-            name="WRITE_ALL" />
-        </mdBusinessPermission>
 
         <mdRelationshipPermission
           type="dss.vector.solutions.surveillance.CaseTreatmentStock">

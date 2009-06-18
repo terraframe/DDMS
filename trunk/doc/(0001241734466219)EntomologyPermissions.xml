@@ -408,30 +408,6 @@
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
         </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.entomology.assay.LarvaeTestInterval">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.mo.MolecularAssayResult">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.mo.InfectivityMethodology">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.mo.InsecticideMethodology">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.entomology.assay.AssayTestResult">
           <operation name="CREATE"/>
           <operation name="WRITE"/>

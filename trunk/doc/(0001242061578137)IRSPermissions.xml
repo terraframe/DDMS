@@ -90,7 +90,6 @@
         </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.InsecticideBrand">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>
         </mdBusinessPermission>
         <mdViewPermission type="dss.vector.solutions.irs.InsecticideBrandView">
           <operation name="READ"/>
@@ -239,50 +238,12 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
         </mdViewPermission>
+        <mdBusinessPermission type="dss.vector.solutions.irs.SprayData">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>        
       </role>
       <role roleName="dataCapturer">
-        <mdBusinessPermission type="dss.vector.solutions.irs.Targeter">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.irs.ResourceTarget">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.irs.GeoTarget">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.irs.InsecticideBrand">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdBusinessPermission type="dss.vector.solutions.irs.Nozzle">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
-        <mdRelationshipPermission type="dss.vector.solutions.irs.InsecticideNozzle">
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="CREATE"/>
-          <operation name="DELETE"/>
-        </mdRelationshipPermission>
-        <mdBusinessPermission type="dss.vector.solutions.irs.AreaStandards">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayData">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
