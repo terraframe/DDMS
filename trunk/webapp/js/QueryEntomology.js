@@ -1,7 +1,7 @@
 MDSS.QueryEntomology = Mojo.Class.create();
 MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
-	  initialize : function(visibleAttributes, orderedGrids, queryList)
+	  initialize : function(groupAttributes,individualAttributes, orderedGrids, queryList)
 	  {
 	  	MDSS.QueryBase.prototype.initialize.call(this);
 
@@ -16,6 +16,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._startDate = null;
 	    this._endDate = null;
 
+	    this._specieGroupSelectables = {};
 	    this._visibleSelectables = {};
 	    this._whereOptions = {};
 	    this._visibleAggregateSelectables = {};
@@ -23,11 +24,11 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    this._thematicSearchList = [];
 
-	    //list of map to search for thematic variable.
-	    //this._thematicSearchList.push(this._gridEntities);
-	    //this._thematicSearchList.push(this._gridSelectables);
-	    //this._thematicSearchList.push(this._gridAggregateSelectables);
-	    //this._thematicSearchList.push(this._gridGroupBySelectables);
+	    // list of map to search for thematic variable.
+	    // this._thematicSearchList.push(this._gridEntities);
+	    // this._thematicSearchList.push(this._gridSelectables);
+	    // this._thematicSearchList.push(this._gridAggregateSelectables);
+	    // this._thematicSearchList.push(this._gridGroupBySelectables);
 
 	    // END: query objects
 
@@ -36,7 +37,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      this._queryPanel.addAvailableQuery(queryList[i]);
 	    }
 
-	    this._buildQueryItems(visibleAttributes, orderedGrids);
+	    this._buildQueryItems(groupAttributes,individualAttributes, orderedGrids);
 
 	    this._buildColumns();
 	  },
@@ -181,10 +182,11 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    $('debug_xml').value = xml;
 	    xml = $('debug_xml').value;
 
-	    //$('xml_go').onclick = function(){
-	    	//var xml = $('debug_xml').value;
-	    	//Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, this._geoEntityQueryType);
-	    //};
+	    // $('xml_go').onclick = function(){
+	    	// var xml = $('debug_xml').value;
+	    	// Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request,
+				// xml, this._geoEntityQueryType);
+	    // };
 	    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, this._geoEntityQueryType);
 	  },
 
@@ -232,7 +234,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      var selectable = this._visibleSelectables[name];
 	      queryXML.addSelectable(mosquitoQuery.getAlias()+'_'+name, selectable);
 
-	      //darrell
+	      // darrell
 	      if(selectable.attribute)
 	      {
 	      	var whereConds = selectable.attribute._whereValues.filter(
@@ -329,8 +331,8 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    var optionName = attribute.getOptionName();
 
 	    /*
-	     * Relationship
-	     */
+			 * Relationship
+			 */
 	    var relationshipType = attribute.getRelationshipType();
 	    var relationshipAlias = attribute.getRelationshipAlias();
 
@@ -343,8 +345,8 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._gridSelectables[attribute.getKey()] = rSelectable;
 
 	    /*
-	     * Business
-	     */
+			 * Business
+			 */
 	    var type = attribute.getType();
 	    var businessAlias = attribute.getBusinessAlias();
 
@@ -442,8 +444,15 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      			                                    lazyload: true
 	      			                                }
 	      			                            );
-	      //check.contextMenu.suscribe('beforeHideEvent',_addSelectedColumn)
-
+	      // check.contextMenu.suscribe('beforeHideEvent',_addSelectedColumn)
+	      if(YAHOO.util.Dom.hasClass(check, 'specieGroupCheck'))
+	      {
+	      	this._uncheckAllByClass('individualMosquitoCheck');
+	      }
+	      if(YAHOO.util.Dom.hasClass(check, 'individualMosquitoCheck'))
+	      {
+	      	this._uncheckAllByClass('specieGroupCheck');
+	      }
 
 	    }
 	    else
@@ -455,6 +464,24 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      select.disabled = true;
 	    }
 	  },
+
+	  _uncheckAllByClass : function(klass)
+	  {
+	  	for each (check in YAHOO.util.Dom.getElementsByClassName(klass))
+      {
+	  		if(check.checked)
+	      {
+	  			if(YAHOO.util.Dom.hasClass(check, 'selectAllCheck')){
+	  				check.checked = false;
+	  			}else{
+	  				check.click();
+	  			}
+	      }
+      }
+	  },
+
+
+
 
 	  /**
 	   * Handler when a new grid attribute is checked/unchecked.
@@ -535,68 +562,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._gridAggregateSelectables[key] = aggSelectable;
 	  },
 
-	  /**
-	   * Handler when someone selects an aggregate function
-	   * on a visible attribute.
-	   */
-	  _visibleAggregateHandler : function(e, attribute)
-	  {
-	    var func = e.target.value;
-	    var attributeName = attribute.getAttributeName();
-	    var key = attribute.getKey();
-
-
-	    var option = e.target;
-
-	    var selectable = attribute.getSelectable();
-
-	    // special cases
-	    if(func === MDSS.QueryXML.Functions.GB)
-	    {
-	  	  this._removeVisibleAttribute(attribute, false, false, false);
-	      this._visibleSelectables[attribute.getKey()] = selectable;
-	      this._visibleGroupBySelectables[attribute.getKey()] = selectable;
-	      return;
-	    }
-	    else if(func === '')
-	    {
-	      // Use regular selectable (this is just here for clarity).
-	  	  this._removeVisibleAttribute(attribute, false, true, false);
-	      this._visibleSelectables[attribute.getKey()] = selectable;
-	      return;
-	    }
-
-	    // aggregate functions
-	    var aggFunc = null;
-	    if(func === MDSS.QueryXML.Functions.SUM)
-	    {
-	      aggFunc = new MDSS.QueryXML.SUM(selectable, key);
-	    }
-	    else if(func === MDSS.QueryXML.Functions.MIN)
-	    {
-	      aggFunc = new MDSS.QueryXML.MIN(selectable, key);
-	    }
-	    else if(func === MDSS.QueryXML.Functions.MAX)
-	    {
-	      aggFunc = new MDSS.QueryXML.MAX(selectable, key);
-	    }
-	    else if(func === MDSS.QueryXML.Functions.AVG)
-	    {
-	      aggFunc = new MDSS.QueryXML.AVG(selectable, key);
-	    }
-	    else if(func === MDSS.QueryXML.Functions.COUNT)
-	    {
-	      aggFunc = new MDSS.QueryXML.COUNT(selectable, key);
-	    }
-
-	  	this._removeVisibleAttribute(attribute, false, true, false);
-
-	    var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
-	    this._visibleAggregateSelectables[attribute.getKey()] = aggSelectable;
-
-
-	  },
-
 	  _whereValueHandler: function(e,ee,obj){
 	    obj.checked = ! obj.checked;
 	    this.cfg.setProperty('checked', ! this.cfg.getProperty('checked'));
@@ -618,171 +583,53 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  },
 
 
-	  /**
-	   * Builds the query items for the left column.
-	   */
-	  _buildQueryItems : function(visibleAttributes, assays)
-	  {
-	  	/*
-	  	 * Target
-	  	 */
-	    // area (geo entity search)
-	    var boundSearch = MDSS.util.bind(this, this._displaySearch);
-	    this._queryPanel.addQueryItem({
-	      html: MDSS.Localized.Target_Search + ' <img src="./imgs/icons/world.png"/>',
-	      onclick: {handler: boundSearch},
-	      id: "areaItem"
-	    });
+    /*
+    * Visible Attributes
+    */
+   _getGroupDiv : function(that,visibleAttributes,divName,type)
+   {
+	    var visibleDiv = document.createElement('div');
+	    // YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
+
+	    var labelDiv = document.createElement('div');
+	    YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
+	    labelDiv.innerHTML = MDSS.localize(divName);
+
+	    var toggleDiv = document.createElement('div');
+	    YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
+	    YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
+	    toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
+
+	    visibleDiv.appendChild(labelDiv);
+	    visibleDiv.appendChild(toggleDiv);
+
+	    var visibleUl = document.createElement('ul');
+	    visibleUl.id = divName + "Li";
+	    YAHOO.util.Dom.addClass(visibleUl, 'gridList');
+	    YAHOO.util.Dom.setStyle(visibleUl, 'clear', 'both');
+	    YAHOO.util.Dom.setStyle(visibleUl, 'display', 'none');
+
+	    that._toggleVisibility(toggleDiv, visibleUl);
+
+	    that._attachSelectAll(visibleUl,'specieGroupCheck');
 
 
-	    /*
-	     * Visible Attributes
-	     */
-	    function getVizDiv(that,visibleAttributes,divName,type)
+	    for(var i=0; i<visibleAttributes.length; i++)
 	    {
-		    var visibleDiv = document.createElement('div');
-		    //YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
+	      var visibleObj = visibleAttributes[i];
+	      var attribute = new MDSS.VisibleAttribute(visibleObj);
 
-		    var labelDiv = document.createElement('div');
-		    YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
-		    labelDiv.innerHTML = MDSS.localize(divName);
+	      var li = document.createElement('li');
 
-		    var toggleDiv = document.createElement('div');
-		    YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
-		    YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
-		    toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
+	      var check = document.createElement('input');
+	      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+	      YAHOO.util.Dom.addClass(check,'specieGroupCheck');
+	      YAHOO.util.Event.on(check, 'click', that._visibleAttributeHandler, attribute, that);
+	      li.appendChild(check);
 
-		    visibleDiv.appendChild(labelDiv);
-		    visibleDiv.appendChild(toggleDiv);
-
-		    var visibleUl = document.createElement('ul');
-		    visibleUl.id = divName + "Li";
-		    YAHOO.util.Dom.addClass(visibleUl, 'gridList');
-		    YAHOO.util.Dom.setStyle(visibleUl, 'clear', 'both');
-		    YAHOO.util.Dom.setStyle(visibleUl, 'display', 'none');
-
-		    that._toggleVisibility(toggleDiv, visibleUl);
-
-		    that._attachSelectAll(visibleUl);
-
-		    for(var i=0; i<visibleAttributes.length; i++)
-		    {
-		      var visibleObj = visibleAttributes[i];
-		      var attribute = new MDSS.VisibleAttribute(visibleObj);
-
-		      var li = document.createElement('li');
-
-		      var check = document.createElement('input');
-		      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-		      YAHOO.util.Event.on(check, 'click', that._visibleAttributeHandler, attribute, that);
-		      li.appendChild(check);
-
-		      if(! visibleObj.calculated)
-		      {
-		      	var select = document.createElement('select');
-			      var options = ['','COUNT'];
-			      //options = options.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
-
-			      for(var j=0; j<options.length; j++)
-			      {
-			      	var option = options[j];
-			        var optionEl = document.createElement('option');
-			        optionEl.innerHTML = option;
-			        YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
-
-			        YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
-
-			        select.appendChild(optionEl);
-			      }
-			      select.disabled = true; // default (must be checked to enabled)
-
-			      li.appendChild(select);
-		      }
-		      var span = document.createElement('span');
-		      span.innerHTML = attribute.getDisplayLabel();
-		      li.appendChild(span);
-
-		      if (visibleObj.dropDownMap)
-		      {
-		      	var options = [''];
-		      	var displayLabels = [''];
-			      options = options.concat(Mojo.util.getKeys(visibleObj.dropDownMap));
-			      displayLabels = displayLabels.concat(Mojo.util.getValues(visibleObj.dropDownMap));
-			      for(var j=0; j<options.length; j++)
-			      {
-			      	attribute._whereValues.push({
-			        		checked : false,
-			        		text : displayLabels[j],
-			        		id:options[j],
-			        		uuid:options[j],
-			        		myIndex:j,
-			        		attribute:attribute,
-			        		onclick: {
-			      				fn: that._whereValueHandler
-			      	  }
-			        });
-			      	//give menu onclick handler reference back to the original attribute
-			        attribute._whereValues[attribute._whereValues.length-1].onclick.obj = attribute._whereValues[attribute._whereValues.length-1];
-			      }
-		      }
-
-		      visibleUl.appendChild(li);
-		    }
-
-		    visibleDiv.appendChild(visibleUl);
-
-		    return visibleDiv;
-	    }
-
-	    this._queryPanel.addQueryItem({
-	      html: getVizDiv(this,visibleAttributes,"Individuals",Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS),
-	      id: 'visibleAttributesItem'
-	    });
-
-
-	    /*
-	     * Assay Attributes
-	     */
-	    function getAssayDiv(that,visibleAttributes,divName,type)
-	    {
-		    var visibleDiv = document.createElement('div');
-		    //YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
-
-		    var labelDiv = document.createElement('div');
-		    YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
-		    labelDiv.innerHTML = MDSS.localize(divName);
-
-		    var toggleDiv = document.createElement('div');
-		    YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
-		    YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
-		    toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
-
-		    visibleDiv.appendChild(labelDiv);
-		    visibleDiv.appendChild(toggleDiv);
-
-		    var visibleUl = document.createElement('ul');
-		    visibleUl.id = divName + "Li";
-		    YAHOO.util.Dom.addClass(visibleUl, 'gridList');
-		    YAHOO.util.Dom.setStyle(visibleUl, 'clear', 'both');
-		    YAHOO.util.Dom.setStyle(visibleUl, 'display', 'none');
-
-		    that._toggleVisibility(toggleDiv, visibleUl);
-
-		    that._attachSelectAll(visibleUl);
-
-		    for(var i=0; i<visibleAttributes.length; i++)
-		    {
-		      var visibleObj = visibleAttributes[i];
-		      var attribute = new MDSS.VisibleAttribute(visibleObj);
-
-		      var li = document.createElement('li');
-
-		      var check = document.createElement('input');
-		      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-		      YAHOO.util.Event.on(check, 'click', that._visibleAttributeHandler, attribute, that);
-		      li.appendChild(check);
-
-		      var select = document.createElement('select');
+	      if(visibleObj.numeric)
+	      {
+	      	var select = document.createElement('select');
 		      var options = [''];
 		      options = options.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
 
@@ -800,65 +647,309 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 		      select.disabled = true; // default (must be checked to enabled)
 
 		      li.appendChild(select);
-		      var span = document.createElement('span');
-		      span.innerHTML = attribute.getDisplayLabel();
-		      li.appendChild(span);
+	      }
 
-		      if (visibleObj.dropDownMap)
+	      var span = document.createElement('span');
+	      span.innerHTML = attribute.getDisplayLabel();
+	      li.appendChild(span);
+
+	      if (visibleObj.dropDownMap)
+	      {
+	      	var options = [''];
+	      	var displayLabels = [''];
+		      options = options.concat(Mojo.util.getKeys(visibleObj.dropDownMap));
+		      displayLabels = displayLabels.concat(Mojo.util.getValues(visibleObj.dropDownMap));
+		      for(var j=0; j<options.length; j++)
 		      {
-		      	var options = [''];
-		      	var displayLabels = [''];
-			      options = options.concat(Mojo.util.getKeys(visibleObj.dropDownMap));
-			      displayLabels = displayLabels.concat(Mojo.util.getValues(visibleObj.dropDownMap));
-			      for(var j=0; j<options.length; j++)
-			      {
-			      	attribute._whereValues.push({
-			        		checked : false,
-			        		text : displayLabels[j],
-			        		id:options[j],
-			        		uuid:options[j],
-			        		myIndex:j,
-			        		attribute:attribute,
-			        		onclick: {
-			      				fn: that._whereValueHandler
-			      	  }
-			        });
-			      	//give menu onclick handler reference back to the original attribute
-			        attribute._whereValues[attribute._whereValues.length-1].onclick.obj = attribute._whereValues[attribute._whereValues.length-1];
-			      }
+		      	attribute._whereValues.push({
+		        		checked : false,
+		        		text : displayLabels[j],
+		        		id:options[j],
+		        		uuid:options[j],
+		        		myIndex:j,
+		        		attribute:attribute,
+		        		onclick: {
+		      				fn: that._whereValueHandler
+		      	  }
+		        });
+		      	// give menu onclick handler reference back to the original
+						// attribute
+		        attribute._whereValues[attribute._whereValues.length-1].onclick.obj = attribute._whereValues[attribute._whereValues.length-1];
 		      }
+	      }
 
-		      visibleUl.appendChild(li);
-		    }
-
-		    visibleDiv.appendChild(visibleUl);
-
-		    return visibleDiv;
+	      visibleUl.appendChild(li);
 	    }
 
+	    visibleDiv.appendChild(visibleUl);
+
+	    return visibleDiv;
+   },
+
+    /*
+     * Visible Attributes
+     */
+    _getVizDiv : function(that,visibleAttributes,divName,type)
+    {
+	    var visibleDiv = document.createElement('div');
+	    // YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
+
+	    var labelDiv = document.createElement('div');
+	    YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
+	    labelDiv.innerHTML = MDSS.localize(divName);
+
+	    var toggleDiv = document.createElement('div');
+	    YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
+	    YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
+	    toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
+
+	    visibleDiv.appendChild(labelDiv);
+	    visibleDiv.appendChild(toggleDiv);
+
+	    var visibleUl = document.createElement('ul');
+	    visibleUl.id = divName + "Li";
+	    YAHOO.util.Dom.addClass(visibleUl, 'gridList');
+	    YAHOO.util.Dom.setStyle(visibleUl, 'clear', 'both');
+	    YAHOO.util.Dom.setStyle(visibleUl, 'display', 'none');
+
+	    that._toggleVisibility(toggleDiv, visibleUl);
+
+	    that._attachSelectAll(visibleUl,'individualMosquitoCheck');
+
+	    for(var i=0; i<visibleAttributes.length; i++)
+	    {
+	      var visibleObj = visibleAttributes[i];
+	      var attribute = new MDSS.VisibleAttribute(visibleObj);
+
+	      var li = document.createElement('li');
+
+	      var check = document.createElement('input');
+	      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+	      YAHOO.util.Dom.addClass(check,'individualMosquitoCheck');
+	      YAHOO.util.Event.on(check, 'click', that._visibleAttributeHandler, attribute, that);
+	      li.appendChild(check);
+
+	      if(visibleObj.numeric)
+	      {
+	      	var select = document.createElement('select');
+		      var options = [''];
+		      options = options.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
+
+		      for(var j=0; j<options.length; j++)
+		      {
+		      	var option = options[j];
+		        var optionEl = document.createElement('option');
+		        optionEl.innerHTML = option;
+		        YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
+
+		        YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
+
+		        select.appendChild(optionEl);
+		      }
+		      select.disabled = true; // default (must be checked to enabled)
+
+		      li.appendChild(select);
+	      }
+
+	      var span = document.createElement('span');
+	      span.innerHTML = attribute.getDisplayLabel();
+	      li.appendChild(span);
+
+	      if (visibleObj.dropDownMap)
+	      {
+	      	var options = [''];
+	      	var displayLabels = [''];
+		      options = options.concat(Mojo.util.getKeys(visibleObj.dropDownMap));
+		      displayLabels = displayLabels.concat(Mojo.util.getValues(visibleObj.dropDownMap));
+		      for(var j=0; j<options.length; j++)
+		      {
+		      	attribute._whereValues.push({
+		        		checked : false,
+		        		text : displayLabels[j],
+		        		id:options[j],
+		        		uuid:options[j],
+		        		myIndex:j,
+		        		attribute:attribute,
+		        		onclick: {
+		      				fn: that._whereValueHandler
+		      	  }
+		        });
+		      	// give menu onclick handler reference back to the original
+						// attribute
+		        attribute._whereValues[attribute._whereValues.length-1].onclick.obj = attribute._whereValues[attribute._whereValues.length-1];
+		      }
+	      }
+
+	      visibleUl.appendChild(li);
+	    }
+
+	    visibleDiv.appendChild(visibleUl);
+
+	    return visibleDiv;
+    },
+
+
+    /*
+     * Assay Attributes
+     */
+    _getAssayDiv : function(that,visibleAttributes,divName,type)
+    {
+	    var visibleDiv = document.createElement('div');
+	    // YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
+
+	    var labelDiv = document.createElement('div');
+	    YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
+	    labelDiv.innerHTML = MDSS.localize(divName);
+
+	    var toggleDiv = document.createElement('div');
+	    YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
+	    YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
+	    toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
+
+	    visibleDiv.appendChild(labelDiv);
+	    visibleDiv.appendChild(toggleDiv);
+
+	    var visibleUl = document.createElement('ul');
+	    visibleUl.id = divName + "Li";
+	    YAHOO.util.Dom.addClass(visibleUl, 'gridList');
+	    YAHOO.util.Dom.setStyle(visibleUl, 'clear', 'both');
+	    YAHOO.util.Dom.setStyle(visibleUl, 'display', 'none');
+
+	    that._toggleVisibility(toggleDiv, visibleUl);
+
+	    that._attachSelectAll(visibleUl,'individualMosquitoCheck');
+
+	    for(var i=0; i<visibleAttributes.length; i++)
+	    {
+	      var visibleObj = visibleAttributes[i];
+	      var attribute = new MDSS.VisibleAttribute(visibleObj);
+
+	      var li = document.createElement('li');
+
+	      var check = document.createElement('input');
+	      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+	      YAHOO.util.Dom.addClass(check,'individualMosquitoCheck');
+	      YAHOO.util.Event.on(check, 'click', that._visibleAttributeHandler, attribute, that);
+	      li.appendChild(check);
+
+
+	      var span = document.createElement('span');
+	      span.innerHTML = attribute.getDisplayLabel();
+	      li.appendChild(span);
+
+	      if (visibleObj.dropDownMap)
+	      {
+	      	var options = [''];
+	      	var displayLabels = [''];
+		      options = options.concat(Mojo.util.getKeys(visibleObj.dropDownMap));
+		      displayLabels = displayLabels.concat(Mojo.util.getValues(visibleObj.dropDownMap));
+		      for(var j=0; j<options.length; j++)
+		      {
+		      	attribute._whereValues.push({
+		        		checked : false,
+		        		text : displayLabels[j],
+		        		id:options[j],
+		        		uuid:options[j],
+		        		myIndex:j,
+		        		attribute:attribute,
+		        		onclick: {
+		      				fn: that._whereValueHandler
+		      	  }
+		        });
+		      	// give menu onclick handler reference back to the original
+						// attribute
+		        attribute._whereValues[attribute._whereValues.length-1].onclick.obj = attribute._whereValues[attribute._whereValues.length-1];
+		      }
+	      }
+
+	      visibleUl.appendChild(li);
+	    }
+
+	    visibleDiv.appendChild(visibleUl);
+
+	    return visibleDiv;
+    },
+
+	  /**
+	   * Builds the query items for the left column.
+	   */
+	  _buildQueryItems : function(specieGroups, visibleAttributes, assays)
+	  {
+	  	/*
+	  	 * Target
+	  	 */
+	    // area (geo entity search)
+	    var boundSearch = MDSS.util.bind(this, this._displaySearch);
 	    this._queryPanel.addQueryItem({
-	      html: getAssayDiv(this,assays[0],"Infectivity_Assays",Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS),
+	      html: MDSS.Localized.Target_Search + ' <img src="./imgs/icons/world.png"/>',
+	      onclick: {handler: boundSearch},
+	      id: "areaItem"
+	    });
+
+	  	/*
+			 * Global COUNT, causes implicit group by on all selected attributes
+			 */
+
+	    var mosquitoView = Mojo.$.dss.vector.solutions.entomology.Mosquito;
+	    var countAttribute = new MDSS.VisibleAttribute({
+	      type: mosquitoView.CLASS,
+	      displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
+	      attributeName: mosquitoView.ID
+	    });
+
+	    var countCheck = document.createElement('input');
+	    YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
+	    YAHOO.util.Event.on(countCheck, 'click', this._toggleCount, countAttribute, this);
+
+	    var countSpan = document.createElement('span');
+	    countSpan.innerHTML = countAttribute.getDisplayLabel();
+
+	    var countDiv = document.createElement('div');
+
+	    countDiv.appendChild(countCheck);
+	    countDiv.appendChild(countSpan);
+
+	    this._queryPanel.addQueryItem({
+	      html: countDiv,
+	      id: 'globalCount'
+	    });
+
+	    this._queryPanel.addQueryItem({
+	      html: this._getGroupDiv(this,specieGroups, "Groups", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS),
+	      id: 'specieGroupsItem'
+	    });
+
+	    this._queryPanel.addQueryItem({
+	      html: this._getVizDiv(this,visibleAttributes, "Individuals", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS),
+	      id: 'visibleAttributesItem'
+	    });
+
+	    this._queryPanel.addQueryItem({
+	      html: this._getAssayDiv(this,assays[0], "Infectivity_Assays", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS),
 	      id: 'Infectivity_Assays'
 	    });
 
 	    this._queryPanel.addQueryItem({
-	      html: getAssayDiv(this,assays[1],"Molecular_Assays",Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS),
+	      html: this._getAssayDiv(this,assays[1], "Molecular_Assays", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS),
 	      id: 'Molecular_Assays'
 	    });
 
 	    this._queryPanel.addQueryItem({
-	      html: getAssayDiv(this,assays[2],"Biochemical_Assays",Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS),
+	      html: this._getAssayDiv(this,assays[2], "Biochemical_Assays", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS),
 	      id: 'Biochemical_Assays'
 	    });
 
 	  },
+
 	  /**
 	   * Attaches an option to select all items in the given list.
 	   */
-	  _attachSelectAll : function(ul)
+	  _attachSelectAll : function(ul,klass)
 	  {
 	    var check = document.createElement('input');
 	    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+	    YAHOO.util.Dom.addClass(check,'selectAllCheck');
+	    YAHOO.util.Dom.addClass(check,klass);
 	    YAHOO.util.Event.on(check, 'click', this._toggleSelectAll, ul, this);
 
 	    var span = document.createElement('span');

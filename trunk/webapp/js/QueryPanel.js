@@ -297,12 +297,13 @@ MDSS.QueryPanel.prototype = {
     toggleDatesSpan.innerHTML = MDSS.Localized.Toggle_Show;
 
     // add the date fields
+
+//    dateRange.appendChild(toggleDatesSpan);
+    dateRange.appendChild(toggleDatesCheck);
     dateRange.appendChild(startLabel);
     dateRange.appendChild(this._startDate);
     dateRange.appendChild(endLabel);
     dateRange.appendChild(this._endDate);
-    dateRange.appendChild(toggleDatesCheck);
-    dateRange.appendChild(toggleDatesSpan);
 
     var dateGroupLabel = document.createElement('span');
     dateGroupLabel.innerHTML = MDSS.localize("Group_By");
