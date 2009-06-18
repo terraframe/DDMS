@@ -9,6 +9,7 @@ import com.terraframe.mojo.business.rbac.Authenticate;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.session.StartSession;
 
 public class Property extends PropertyBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -207,12 +208,14 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
     }
   }
 
+  @StartSession
   @Transaction
   @Authenticate
   public static String getNextId()
   {
     Property currentValue = Property.getByPackageAndName(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_COUNTER);
-    currentValue.lock();
+    currentValue.appLock();
+    
     Long counter = currentValue.getPropertyLong();
     int segments = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
     int offset = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);

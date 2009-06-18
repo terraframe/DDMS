@@ -253,14 +253,14 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
 
     aggregatedCase.updateView(this);
   }
-
-  @Override
-  public final void delete()
+  
+  @Transaction
+  public void deleteConcrete()
   {
     if (hasConcreteId())
     {
       AggregatedCase.get(this.getCaseId()).delete();
-    }
+    }    
   }
 
   private boolean hasConcreteId()

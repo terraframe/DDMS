@@ -87,7 +87,7 @@ public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollect
   {
     for (MorphologicalSpecieGroupView view : this.getMorphologicalSpecieGroups())
     {
-      view.delete();
+      view.deleteConcrete();
     }
 
     super.delete();

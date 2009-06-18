@@ -24,126 +24,157 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   @Transaction
   public void apply()
   {
+    //Update the person data
     Person person = Person.get(this.getPersonId());
+
     if (person==null)
+    {
       person = new Person();
+    }
     else
+    {
       person.lock();
+    }
     
     person.setFirstName(this.getFirstName());
     person.setLastName(this.getLastName());
     person.setDateOfBirth(this.getDateOfBirth());
     person.addSex(this.getSex().get(0));
     person.apply();
-    person.lock();
-    this.setPersonId(person.getId());
     
+    // Update the delegates
     MDSSUser user = person.getUserDelegate();
+
     if (this.getIsMDSSUser())
     {
       if (user==null)
+      {
         user = new MDSSUser();
+      }
       user.setPerson(person);
       user.setUsername(this.getUsername());
       user.setPassword(this.getPassword());
       user.apply();
-      person.setUserDelegate(user);
-      person.apply();
     }
     else
     {
       if (user!=null)
+      {
         user.delete();
-      person.lock();
+        user = null;
+      }
     }
     
     Patient patient = person.getPatientDelegate();
     if (this.getIsPatient())
     {
       if (patient==null)
+      {
         patient = new Patient();
+      }
       patient.setPerson(person);
       patient.apply();
-      person.setPatientDelegate(patient);
-      person.apply();
     }
     else
     {
       if (patient!=null)
+      {
         patient.delete();
-      person.lock();
+        patient=null;
+      }
     }
     
     ITNRecipient itnRecipient = person.getItnRecipientDelegate();
     if (this.getIsITNRecipient())
     {
       if (itnRecipient==null)
+      {
         itnRecipient = new ITNRecipient();
+      }
+      
       itnRecipient.setPerson(person);
       itnRecipient.apply();
-      person.setItnRecipientDelegate(itnRecipient);
-      person.apply();
     }
     else
     {
       if (itnRecipient!=null)
+      {
         itnRecipient.delete();
-      person.lock();
+        itnRecipient = null;
+      }
     }
     
     IPTRecipient iptRecipient = person.getIptRecipientDelegate();
     if (this.getIsIPTRecipient())
     {
       if (iptRecipient==null)
+      {
         iptRecipient = new IPTRecipient();
+      }
       iptRecipient.setPerson(person);
       iptRecipient.apply();
-      person.setIptRecipientDelegate(iptRecipient);
-      person.apply();
     }
     else
     {
       if (iptRecipient!=null)
+      {
         iptRecipient.delete();
-      person.lock();
+        iptRecipient = null;
+      }
     }
     
     SprayOperator sprayOperator = person.getSprayOperatorDelegate();
     if (this.getIsSprayOperator())
     {
       if (sprayOperator==null)
+      {
         sprayOperator = new SprayOperator();
+      }
       sprayOperator.setPerson(person);
       sprayOperator.setOperatorId(this.getOperatorId());
       sprayOperator.apply();
-      person.setSprayOperatorDelegate(sprayOperator);
-      person.apply();
     }
     else
     {
       if (sprayOperator!=null)
+      {
         sprayOperator.delete();
-      person.lock();
+        sprayOperator = null;
+      }
     }
     
     SprayLeader sprayLeader = person.getSprayLeaderDelegate();
     if (this.getIsSprayLeader())
     {
       if (sprayLeader==null)
+      {
         sprayLeader = new SprayLeader();
+      }
+      
       sprayLeader.setPerson(person);
       sprayLeader.setLeaderId(this.getLeaderId());
       sprayLeader.apply();
-      person.setSprayLeaderDelegate(sprayLeader);
-      person.apply();
     }
     else
     {
       if (sprayLeader!=null)
+      {
         sprayLeader.delete();
-      person.lock();
+        sprayLeader = null;
+      }
     }
-    super.apply();
+
+    //Update the person delegates   
+    person = Person.lockPerson(person.getId());
+    person.setUserDelegate(user);
+    person.setItnRecipientDelegate(itnRecipient);
+    person.setIptRecipientDelegate(iptRecipient);
+    person.setSprayOperatorDelegate(sprayOperator);
+    person.setSprayLeaderDelegate(sprayLeader);
+    person.setPatientDelegate(patient);
+    person.apply();
+
+    this.setPersonId(person.getId());
   }
   
   @Override

@@ -164,8 +164,7 @@ public class MosquitoTestDTO extends TestCase implements DoNotWeave
     view.setGeneration(GenerationDTO.get(clientRequest, F0.getId()));
     view.setIsofemale(false);
     view.setSampleId("0");
-    view.setIdentificationMethod(IdentificationMethodDTO
-        .get(clientRequest, identificationMethod.getId()));
+    view.setIdentificationMethod(IdentificationMethodDTO.get(clientRequest, identificationMethod.getId()));
     view.addSex(SexDTO.FEMALE);
     view.setTestDate(date);
     view.setP450(true);
@@ -173,8 +172,7 @@ public class MosquitoTestDTO extends TestCase implements DoNotWeave
     view.setIAcHEMethod(InsecticideMethodologyDTO.get(clientRequest, insecticideMethodology.getId()));
     view.setAAcetate(false);
     view.setPMalariae(true);
-    view
-        .setPMalariaeMethod(InfectivityMethodologyDTO.get(clientRequest, infectivityMethodology.getId()));
+    view.setPMalariaeMethod(InfectivityMethodologyDTO.get(clientRequest, infectivityMethodology.getId()));
     view.apply();
 
     try

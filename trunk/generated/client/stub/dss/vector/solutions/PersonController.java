@@ -56,7 +56,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     try
     {
       person.apply();
-      this.view(PersonViewDTO.get(super.getClientRequest(), person.getId()).getPersonId());
+      this.view(person.getPersonId());
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {
@@ -97,7 +97,7 @@ public class PersonController extends PersonControllerBase implements com.terraf
     try
     {
       person.apply();
-      this.view(PersonViewDTO.get(super.getClientRequest(), person.getId()).getPersonId());
+      this.view(person.getPersonId());
     }
     catch(com.terraframe.mojo.ProblemExceptionDTO e)
     {

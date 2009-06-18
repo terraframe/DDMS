@@ -144,6 +144,22 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
     
     return view;
   }
+  
+  @Override
+  public MorphologicalSpecieGroupView lockView()
+  {
+    this.lock();
+    
+    return this.getView();
+  }
+  
+  @Override
+  public MorphologicalSpecieGroupView unlockView()
+  {
+    this.unlock();
+    
+    return this.getView();
+  }
 
   @Transaction
   public void apply()
@@ -155,5 +171,10 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
     validateSpecie();
     
     super.apply();
+  }
+  
+  public static MorphologicalSpecieGroupView getView(String id)
+  {
+    return MorphologicalSpecieGroup.get(id).getView();
   }
 }

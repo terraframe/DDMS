@@ -88,4 +88,32 @@ public class MosquitoCollectionPointView extends MosquitoCollectionPointViewBase
 
     return list.toArray(new MosquitoCollectionPointView[list.size()]);
   }
+
+  public static MosquitoCollectionPointView getView(String id)
+  {
+    MosquitoCollectionPointView view = new MosquitoCollectionPointView();
+    
+    view.populateView(MorphologicalSpecieGroup.get(id));
+    
+    return view;
+  }
+  
+  public static MosquitoCollectionPointView lockView(String id)
+  {
+    MosquitoCollectionPointView view = new MosquitoCollectionPointView();
+    
+    view.populateView(MorphologicalSpecieGroup.lock(id));
+    
+    return view;
+  }
+  
+  public static MosquitoCollectionPointView unlockView(String id)
+  {
+    MosquitoCollectionPointView view = new MosquitoCollectionPointView();
+    
+    view.populateView(MorphologicalSpecieGroup.unlock(id));
+    
+    return view;    
+  }
+
 }

@@ -102,7 +102,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
   {
     MalariaSeason startOverlap = MalariaSeason.getSeasonByDate(this.getStartDate());
 
-    if (startOverlap != null && startOverlap.getId() != this.getId())
+    if (startOverlap != null && !startOverlap.getId().equals(this.getId()))
     {
       return startOverlap;
     }

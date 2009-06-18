@@ -92,8 +92,6 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     view.populateView(this);
 
-    view.applyNoPersist();
-
     return view;
   }
 
@@ -230,4 +228,25 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
     return layers;
   }
+  
+  @Override
+  public MosquitoView lockView()
+  {
+    this.lock();
+    
+    return this.getView();
+  }
+
+  @Override
+  public MosquitoView unlockView()
+  {
+    this.unlock();
+    
+    return this.getView();
+  }
+  
+  public static MosquitoView getView(String id)
+  {
+    return Mosquito.get(id).getView();
+  }  
 }

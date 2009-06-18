@@ -14,111 +14,140 @@ import dss.vector.solutions.irs.SprayOperator;
 public class Person extends PersonBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1240792902476L;
-  
+
   public Person()
   {
     super();
   }
   
-  @Override
+  @Transaction
+  public void deleteDelegates()
+  {
+    if (this.getPatientDelegate() != null)
+    {
+      this.getPatientDelegate().delete();
+    }
+
+    if (this.getUserDelegate() != null)
+    {
+      this.getUserDelegate().delete();
+    }
+
+    if (this.getItnRecipientDelegate() != null)
+    {
+      this.getItnRecipientDelegate().delete();
+    }
+
+    if (this.getIptRecipientDelegate() != null)
+    {
+      this.getIptRecipientDelegate().delete();
+    }
+
+    if (this.getSprayOperatorDelegate() != null)
+    {
+      this.getSprayOperatorDelegate().delete();
+    }
+
+    if (this.getSprayLeaderDelegate() != null)
+    {
+      this.getSprayLeaderDelegate().delete();
+    }    
+  }
+
   @Transaction
   public void delete()
   {
-    MDSSUser user = this.getUserDelegate();
-    if (user!=null)
-    {
-      this.setUserDelegate(null);
-      user.delete();
-    }
-    
-    Patient patient = this.getPatientDelegate();
-    if (patient!=null)
-    {
-      this.setPatientDelegate(null);
-      patient.delete();
-    }
-    
-    ITNRecipient itnRecipient = this.getItnRecipientDelegate();
-    if (itnRecipient!=null)
-    {
-      this.setItnRecipientDelegate(null);
-      itnRecipient.delete();
-    }
-    
-    IPTRecipient iptRecipient = this.getIptRecipientDelegate();
-    if (iptRecipient!=null)
-    {
-      this.setIptRecipientDelegate(null);
-      iptRecipient.delete();
-    }
-    
-    SprayOperator sprayOperator = this.getSprayOperatorDelegate();
-    if (sprayOperator!=null)
-    {
-      this.setSprayOperatorDelegate(null);
-      sprayOperator.delete();
-    }
-    
-    SprayLeader sprayLeader = this.getSprayLeaderDelegate();
-    if (sprayLeader!=null)
-    {
-      this.setSprayLeaderDelegate(null);
-      sprayLeader.delete();
-    }
+    this.deleteDelegates();
     
     super.delete();
+  }
+
+  @Transaction
+  public void lock()
+  {
+    super.lock();
+    
+    if (this.getUserDelegate() != null)
+    {
+      this.getUserDelegate().lock();
+    }
+
+    if (this.getPatientDelegate() != null)
+    {
+      this.getPatientDelegate().lock();
+    }
+    
+    if (this.getItnRecipientDelegate() != null)
+    {
+      this.getItnRecipientDelegate().lock();
+    }
+    
+    if (this.getIptRecipientDelegate() != null)
+    {
+      this.getIptRecipientDelegate().lock();
+    }
+    
+    if (this.getSprayOperatorDelegate() != null)
+    {
+      this.getSprayOperatorDelegate().lock();
+    }
+    
+    if (this.getSprayLeaderDelegate() != null)
+    {
+      this.getSprayLeaderDelegate().lock();
+    }
+  }
+  
+  @Transaction
+  public void unlock()
+  {
+    super.unlock();
+
+    if (this.getUserDelegate() != null)
+    {
+      this.getUserDelegate().unlock();
+    }
+
+    if (this.getPatientDelegate() != null)
+    {
+      this.getPatientDelegate().unlock();
+    }
+    
+    if (this.getItnRecipientDelegate() != null)
+    {
+      this.getItnRecipientDelegate().unlock();
+    }
+    
+    if (this.getIptRecipientDelegate() != null)
+    {
+      this.getIptRecipientDelegate().unlock();
+    }
+    
+    if (this.getSprayOperatorDelegate() != null)
+    {
+      this.getSprayOperatorDelegate().unlock();
+    }
+    
+    if (this.getSprayLeaderDelegate() != null)
+    {
+      this.getSprayLeaderDelegate().unlock();
+    }
   }
   
   @Override
   public PersonView lockView()
   {
-    PersonView view = this.getView();
     this.lock();
-    if (view.getIsMDSSUser())
-      this.getUserDelegate().lock();
-    if (view.getIsPatient())
-      this.getPatientDelegate().lock();
-    if (view.getIsITNRecipient())
-      this.getItnRecipientDelegate().lock();
-    if (view.getIsIPTRecipient())
-      this.getIptRecipientDelegate().lock();
-    if (view.getIsSprayOperator())
-      this.getSprayOperatorDelegate().lock();
-    if (view.getIsSprayLeader())
-      this.getSprayLeaderDelegate().lock();
-    return view;
+
+    return this.getView();
   }
-  
+
   @Override
   public void unlockView()
   {
     this.unlock();
-    
-    MDSSUser user = this.getUserDelegate();
-    if (user != null)
-      user.unlock();
-    
-    Patient patient = this.getPatientDelegate();
-    if (patient != null)
-      patient.unlock();
-    
-    ITNRecipient itnRecipient = this.getItnRecipientDelegate();
-    if (itnRecipient != null)
-      itnRecipient.unlock();
-    
-    IPTRecipient iptRecipient = this.getIptRecipientDelegate();
-    if (iptRecipient != null)
-      iptRecipient.unlock();
-    
-    SprayOperator sprayOperator = this.getSprayOperatorDelegate();
-    if (sprayOperator != null)
-      sprayOperator.unlock();
-    
-    SprayLeader sprayLeader = this.getSprayLeaderDelegate();
-    if (sprayLeader != null)
-      sprayLeader.unlock();
   }
-  
+
   @Override
   public PersonView getView()
   {
@@ -128,9 +157,9 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     view.setLastName(this.getLastName());
     view.setDateOfBirth(this.getDateOfBirth());
     view.addSex(this.getSex().get(0));
-    
+
     MDSSUser user = this.getUserDelegate();
-    if (user==null)
+    if (user == null)
     {
       view.setIsMDSSUser(false);
     }
@@ -139,9 +168,9 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       view.setIsMDSSUser(true);
       view.setUsername(user.getUsername());
     }
-    
+
     Patient patient = this.getPatientDelegate();
-    if (patient==null)
+    if (patient == null)
     {
       view.setIsPatient(false);
     }
@@ -149,9 +178,9 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       view.setIsPatient(true);
     }
-    
+
     ITNRecipient itnRecipient = this.getItnRecipientDelegate();
-    if (itnRecipient==null)
+    if (itnRecipient == null)
     {
       view.setIsITNRecipient(false);
     }
@@ -159,9 +188,9 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       view.setIsITNRecipient(true);
     }
-    
+
     IPTRecipient iptRecipient = this.getIptRecipientDelegate();
-    if (iptRecipient==null)
+    if (iptRecipient == null)
     {
       view.setIsIPTRecipient(false);
     }
@@ -169,9 +198,9 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     {
       view.setIsIPTRecipient(true);
     }
-    
+
     SprayOperator sprayOperator = this.getSprayOperatorDelegate();
-    if (sprayOperator==null)
+    if (sprayOperator == null)
     {
       view.setIsSprayOperator(false);
     }
@@ -180,9 +209,9 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       view.setIsSprayOperator(true);
       view.setOperatorId(sprayOperator.getOperatorId());
     }
-    
-    SprayLeader sprayLeader= this.getSprayLeaderDelegate();
-    if (sprayLeader==null)
+
+    SprayLeader sprayLeader = this.getSprayLeaderDelegate();
+    if (sprayLeader == null)
     {
       view.setIsSprayLeader(false);
     }
@@ -191,37 +220,55 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
       view.setIsSprayLeader(true);
       view.setLeaderId(sprayLeader.getLeaderId());
     }
-    
+
     return view;
   }
-  
+
   public PersonQuery searchForDuplicates()
   {
     PersonQuery query = new PersonQuery(new QueryFactory());
-    
+
     String firstName = this.getFirstName();
-    if (firstName.length()>0)
+    if (firstName.length() > 0)
       query.WHERE(query.getFirstName().EQ(firstName));
-    
+
     String lastName = this.getLastName();
-    if (lastName.length()>0)
+    if (lastName.length() > 0)
       query.WHERE(query.getLastName().EQ(lastName));
-    
+
     Date dob = this.getDateOfBirth();
-    if (dob!=null)
+    if (dob != null)
       query.WHERE(query.getDateOfBirth().EQ(dob));
-    
+
     // We have a default value set, so there is always a value
     Sex sex = this.getSex().get(0);
     if (!sex.equals(Sex.UNKNOWN))
       query.WHERE(query.getSex().containsExactly(sex));
-    
-//    SprayOperator sprayDelegate = this.getSprayOperatorDelegate();
-//    if (sprayDelegate==null)
-//      query.WHERE(query.getSprayOperatorDelegate().EQ(""));
-//    else
-//      query.WHERE(query.getSprayOperatorDelegate().NE(""));
-    
+
+    // SprayOperator sprayDelegate = this.getSprayOperatorDelegate();
+    // if (sprayDelegate==null)
+    // query.WHERE(query.getSprayOperatorDelegate().EQ(""));
+    // else
+    // query.WHERE(query.getSprayOperatorDelegate().NE(""));
+
     return query;
+  }
+
+  public static Person lockPerson(String id)
+  {
+    Person person = Person.get(id);
+    person.lockPerson();
+
+    return person;
+  }
+
+  public void lockPerson()
+  {
+    super.lock();
+  }
+
+  public void unlockPerson()
+  {
+    super.unlock();
   }
 }

@@ -8,6 +8,23 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
   {
     super();
   }
+  
+  @Override
+  public void delete()
+  {
+    SprayData data = this.getSprayData();
+
+    super.delete();    
+    
+    try
+    {
+      data.delete();
+    }
+    catch(Exception e)
+    {
+      //The spray data is still being referenced by some other spray so do not delete it
+    }
+  }
 
   public abstract SprayStatusView getSprayStatusView();
   

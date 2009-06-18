@@ -13,7 +13,6 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
     super();
   }
 
-
   public OperatorSprayView unlockView()
   {
     this.unlock();
