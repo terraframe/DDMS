@@ -29,12 +29,6 @@
   request.setAttribute("DistrictClass", DistrictDTO.CLASS);
   request.setAttribute("ProvinceClass", ProvinceDTO.CLASS);
   request.setAttribute("SprayZoneClass", SprayZoneDTO.CLASS);
-  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-//set the root to this install's country
-  String geoRootId = PropertyDTO.getStr(clientRequest,"dss.vector.solutions.install","countryGeoId");
-
-  GeoEntityDTO country = GeoEntityDTO.searchByGeoId(clientRequest,geoRootId);
-  request.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, country.getId());
 %>
 
 
