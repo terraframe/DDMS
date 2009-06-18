@@ -34,7 +34,8 @@
 <%@page import="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"%>
 <%@page import="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"%>
 <%@page import="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"%>
-
+<%@page import="dss.vector.solutions.entomology.MorphologicalSpecieGroup"%>
+<%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollection"%>
 <c:set var="page_title" value="Query_Entomology"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
@@ -60,14 +61,13 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ MosquitoDTO.CLASS, SpecieDTO.CLASS, EntomologySearchDTO.CLASS, MosquitoViewDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ MosquitoDTO.CLASS, SpecieDTO.CLASS, EntomologySearchDTO.CLASS, MosquitoViewDTO.CLASS, MorphologicalSpecieGroup.CLASS, ConcreteMosquitoCollection.CLASS};
     String[] queryTypes = new String[]{ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
     MosquitoDTO mosquito = new MosquitoDTO(requestIF);
     MosquitoViewDTO mosquitoView = new MosquitoViewDTO(requestIF);
     JSONArray mosquitoAttribs = new JSONArray(mosquito.getAttributeNames());
-
-
 %>
+
 <%=Halp.loadTypes((List<String>) Arrays.asList(mosquitoTypes))%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(queryTypes))%>
 <script type="text/javascript">
@@ -87,13 +87,13 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 
      dropDownMaps = {<%=Halp.getDropDownMaps(mosquitoView,  requestIF)%>};
 
-    var mosquitoView = new Mojo.$.dss.vector.solutions.entomology.MosquitoView();
-
     //var mosquitoAttribs = <%=mosquitoAttribs%>
 
-    function mapAttribs(arr, type){
+    function mapAttribs(arr, type, obj){
+      tmpType = type;
+      obj = obj;
       return arr.map(function(attribName){
-        var attrib  = mosquitoView.attributeMap[attribName];
+        var attrib = obj.attributeMap[attribName];
         var row = {};
         if(attrib){
           row.attributeName = attrib.attributeName;
@@ -101,8 +101,11 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
           {
           	row.attributeName += '.displayLabel.currentValue';
           }
-
-          row.type = '<%=MosquitoDTO.CLASS%>';
+          if(attrib.dtoType === 'AttributeIntegerDTO')
+          {
+          	row.numeric = true;
+          }
+          row.type = tmpType;
           row.displayLabel = attrib.attributeMdDTO.displayLabel;
           if(dropDownMaps[attrib.attributeName]){
             row.dropDownMap = dropDownMaps[attrib.attributeName];
@@ -115,19 +118,37 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
         }
         return row;
       });
+      delete tmpType;
+      delete obj;
     }
 
-    var mosquitoAttribs = ["sampleId","specie","identificationMethod","sex","generation","isofemale","testDate","SpecieRatio"]
-    var mosquitoColums;
+    var mosquitoView = new Mojo.$.dss.vector.solutions.entomology.MosquitoView();
+    var mosquitoGroup = new  Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroup();
 
-    var mosquitoColumns =  mapAttribs(mosquitoAttribs);
+    var groupAttribs = ["CollectionId","specie","identificationMethod","quantityFemale","quantityMale","quantity"];
+    var groupColumns =  mapAttribs(groupAttribs,'<%=MorphologicalSpecieGroup.CLASS%>', mosquitoGroup);
+
+    var mosquitoAttribs = ["CollectionId","sampleId","specie","identificationMethod","sex","generation","isofemale","testDate","SpecieRatio"];
+    var mosquitoColumns =  mapAttribs(mosquitoAttribs,'<%=MosquitoDTO.CLASS%>', mosquitoView);
 
     var assays = [];
-    assays.push(mapAttribs(<%=getAssayColumns(mosquitoView,InfectivityAssayTestResult.class,requestIF)%>));
-    assays.push(mapAttribs(<%=getAssayColumns(mosquitoView,TargetSiteAssayTestResult.class,requestIF)%>));
-    assays.push(mapAttribs(<%=getAssayColumns(mosquitoView,MetabolicAssayTestResult.class,requestIF)%>));
 
-    var query = new MDSS.QueryEntomology(mosquitoColumns, assays, queryList);
+    var infectivityColumns = <%=getAssayColumns(mosquitoView,InfectivityAssayTestResult.class,requestIF)%>;
+    infectivityColumns = infectivityColumns.concat(infectivityColumns.map(function(a){return a + 'Method'}));
+    infectivityColumns.sort();
+
+    var targetSiteColumns = <%=getAssayColumns(mosquitoView,TargetSiteAssayTestResult.class,requestIF)%>;
+    targetSiteColumns = targetSiteColumns.concat(targetSiteColumns.map(function(a){return a + 'Method'}));
+    targetSiteColumns.sort();
+
+    var metabolicColumns = <%=getAssayColumns(mosquitoView,MetabolicAssayTestResult.class,requestIF)%>;
+    metabolicColumns.sort();
+
+    assays.push(mapAttribs(infectivityColumns ,'<%=MosquitoDTO.CLASS%>', mosquitoView));
+    assays.push(mapAttribs(targetSiteColumns ,'<%=MosquitoDTO.CLASS%>', mosquitoView));
+    assays.push(mapAttribs(metabolicColumns ,'<%=MosquitoDTO.CLASS%>', mosquitoView));
+
+    var query = new MDSS.QueryEntomology(groupColumns,mosquitoColumns, assays, queryList);
     query.render();
 
   });

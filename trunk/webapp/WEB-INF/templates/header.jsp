@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
+<%@ page import="dss.vector.solutions.util.Halp"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -11,13 +12,12 @@
 <script>document.cookie = "PrevLoadTime=;path=/;expires=Thu, 01-Jan-1970 00:00:01 GMT";</script>
 <jwr:style src="/bundles/yuiStyle.css" useRandomParam="false"/>
 <jwr:style src="/bundles/mdssScreen.css" media="all" useRandomParam="false"/>
-
 <jwr:script src="/bundles/yuiBundle.js" useRandomParam="false"/>
 <jwr:script src="/bundles/Mojo.js" useRandomParam="false"/>
 <script type="text/javascript" src="js/Localized.js.jsp"></script>
 <jwr:script src="/bundles/mdssBundle.js" useRandomParam="false"/>
-
-
+<jsp:include page="/WEB-INF/geoEntityTreeComponent.jsp"/>
+<script type="text/javascript" src="js/getClass.js.jsp?${GeoEntityUniversialTypes}"></script>
 <c:choose>
   <c:when test='${window_title != null}'>
     <title><fmt:message key="${window_title}"/></title>
