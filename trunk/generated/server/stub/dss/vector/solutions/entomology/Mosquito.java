@@ -9,6 +9,7 @@ import com.terraframe.mojo.query.GeneratedBusinessQuery;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
@@ -155,12 +156,18 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     GeoHierarchy.addGeoHierarchyJoinConditions(valueQuery, queryMap);
 
+    if(xml.indexOf("DATEGROUP_MONTH") > 0)
+    {
+      SelectableSQLCharacter dateGroup =  (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
+      dateGroup.setSQL("to_char(testdate,'YYYY-MM')");
+    }
+
+
     MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
 
     // join Mosquito with mosquito collection
     MosquitoCollectionQuery collectionQuery = new MosquitoCollectionQuery(queryFactory);
     valueQuery.WHERE(mosquitoQuery.getCollection().EQ(collectionQuery));
-    String sql = valueQuery.getSQL();
 
     //join collection with geo entity and select that entity type's geometry
     if (geoEntityType != null && geoEntityType.trim().length() > 0)
@@ -170,6 +177,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(businessQuery));
     }
 
+    String sql = valueQuery.getSQL();
     return valueQuery;
   }
 
@@ -228,12 +236,12 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
     return layers;
   }
-  
+
   @Override
   public MosquitoView lockView()
   {
     this.lock();
-    
+
     return this.getView();
   }
 
@@ -241,12 +249,12 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   public MosquitoView unlockView()
   {
     this.unlock();
-    
+
     return this.getView();
   }
-  
+
   public static MosquitoView getView(String id)
   {
     return Mosquito.get(id).getView();
-  }  
+  }
 }

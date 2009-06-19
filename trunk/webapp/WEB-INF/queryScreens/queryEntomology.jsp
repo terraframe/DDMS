@@ -112,9 +112,8 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
           }
         }else{
           row.attributeName = attribName;
-          row.type = 'java.lang.String';
+          row.type = 'sqlcharacter';
           row.displayLabel = attribName;
-          row.calculated = true;
         }
         return row;
       });
