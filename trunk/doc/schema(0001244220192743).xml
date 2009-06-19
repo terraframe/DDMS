@@ -109,6 +109,17 @@
           </mdMethod>
         </create>
       </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.GeoHierarchy">
+        <mdMethod
+          name="getAllGeoHierarchyViews"
+          label="Gets all GeoHierarchyViews"
+          description="Gets views to represent GeoEntity Hierarchies"
+          returnType="dss.vector.solutions.geo.GeoHierarchyViewQuery"
+          static="true">
+        </mdMethod>
+      </mdBusiness>
       </update>
   </doIt>
   <undoIt>
