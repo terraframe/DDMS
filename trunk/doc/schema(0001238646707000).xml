@@ -339,7 +339,7 @@
             label="Display Label" />
           <char
             name="description"
-            required="true"
+            required="false"
             size="255"
             label="Description" />
           <virtual
