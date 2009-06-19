@@ -19,10 +19,10 @@ MDSS.QueryXML = {
   },
 
   DateGroupOpts: {
-  	EPIWEEK:'Epi Week',
-  	MONTH:'Month',
-  	QUARTER:'Quarter',
-  	SEASON:'Season'
+  	DATEGROUP_EPIWEEK:'Epi Week',
+  	DATEGROUP_MONTH:'Month',
+  	DATEGROUP_QUARTER:'Quarter',
+  	DATEGROUP_SEASON:'Season'
   },
 
   GROUP_BY_FUNCTION : 'GB',
@@ -462,6 +462,35 @@ MDSS.QueryXML.Attribute.prototype = {
     return obj;
   }
 }
+
+MDSS.QueryXML.Sqlcharacter = function(entityAlias, name, userAlias)
+{
+  this._entityAlias = entityAlias;
+  this._name = name;
+  this._userAlias = arguments.length == 3 ? userAlias : '';
+}
+MDSS.QueryXML.Sqlcharacter.prototype = {
+
+  getName : function() { return this._name; },
+
+  getEntityAlias : function() { return this._entityAlias; },
+
+  getUserAlias : function() { return this._userAlias; },
+
+  build : function()
+  {
+    var obj = {
+      'sqlcharacter': {
+        'name': this._name,
+        'userAlias': this._userAlias,
+      }
+    };
+
+    return obj;
+  }
+}
+
+
 
 MDSS.QueryXML.SUM = function(selectable, userAlias)
 {

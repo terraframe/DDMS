@@ -15,6 +15,8 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    this._startDate = null;
 	    this._endDate = null;
+	    this._dateGroup = null;
+
 
 	    this._specieGroupSelectables = {};
 	    this._visibleSelectables = {};
@@ -29,6 +31,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    // this._thematicSearchList.push(this._gridSelectables);
 	    // this._thematicSearchList.push(this._gridAggregateSelectables);
 	    // this._thematicSearchList.push(this._gridGroupBySelectables);
+
 
 	    // END: query objects
 
@@ -480,8 +483,61 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       }
 	  },
 
+	  _toggleCount : function(e, attribute)
+	  {
+	    var check = e.target;
+
+	    if(check.checked)
+	    {
+	      var selectable = attribute.getSelectable();
+
+	      var count = new MDSS.QueryXML.COUNT(selectable, attribute.getKey());
+	      var aggSelectable = new MDSS.QueryXML.Selectable(count);
+	      this._countSelectable = aggSelectable;
+
+	      this._queryPanel.insertColumn(attribute.getColumnObject());
+
+	      // ADD THEMATIC VARIABLE
+	      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
+	    }
+	    else
+	    {
+	      var column = this._queryPanel.getColumn(attribute.getKey());
+	      this._queryPanel.removeColumn(column);
+
+	      this._countSelectable = null;
+
+	      this._queryPanel.removeThematicVariable(attribute.getKey());
+	    }
+	  },
 
 
+	  _dateGroupHandler : function(e, attrib)
+	  {
+	    var select = e.target;
+
+      if(this._dateGroup){
+        var column = this._queryPanel.getColumn(this._dateGroup);
+      	this._queryPanel.removeColumn(column);
+	      this._visibleSelectables[this._dateGroup] = null;
+	      this._dateGroup = null;
+      	//this._queryPanel.removeThematicVariable(attribute.getKey());
+      }
+	    if(select.value.length > 0)
+	    {
+	    	this._dateGroup = select.value;
+	    	var attribute = new MDSS.QueryXML.Sqlcharacter('',select.value, select.value);
+	      var selectable = new MDSS.QueryXML.Selectable(attribute);
+	      this._visibleSelectables[this._dateGroup] = selectable;
+	      this._queryPanel.insertColumn({
+	    	  key: this._dateGroup,
+	    	  label: MDSS.QueryXML.DateGroupOpts[select.value]
+	    	});
+
+	      // ADD THEMATIC VARIABLE
+	      // this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
+	    }
+	  },
 
 	  /**
 	   * Handler when a new grid attribute is checked/unchecked.
@@ -617,6 +673,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    for(var i=0; i<visibleAttributes.length; i++)
 	    {
 	      var visibleObj = visibleAttributes[i];
+
 	      var attribute = new MDSS.VisibleAttribute(visibleObj);
 
 	      var li = document.createElement('li');
@@ -939,6 +996,8 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      id: 'Biochemical_Assays'
 	    });
 
+
+
 	  },
 
 	  /**
@@ -1028,5 +1087,8 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      var column = this._preconfiguredColumns[i];
 	      this._addVisibleAttribute(column);
 	    }
+
+	    //YAHOO.util.Event.on(countCheck, 'click', this._toggleCount, countAttribute, this);
+	    YAHOO.util.Event.on(this._queryPanel._dateGroupBy, 'change', this._dateGroupHandler, '',this);
 	  }
 	});
