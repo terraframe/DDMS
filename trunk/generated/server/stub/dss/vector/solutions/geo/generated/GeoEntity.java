@@ -48,6 +48,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
+import dss.vector.solutions.geo.NoCompatibleTypesException;
 
 public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -826,12 +827,20 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     types.remove(type);
 
+    if(types.isEmpty())
+    {
+      NoCompatibleTypesException ex = new NoCompatibleTypesException();
+      //ex.setEntityName(this.getEntityName());
+      //ex.setGeoId(this.getGeoId());
+      throw ex;
+    }
+
     return types.toArray(new String[types.size()]);
   }
 
   @Override
   @Transaction
-  public void changeUniversalType(String newType)
+  public GeoEntity changeUniversalType(String newType)
   {
     Class<?> newClass = LoaderDecorator.load(newType);
     try
@@ -874,6 +883,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       {
         copy.addContainsGeoEntity(child).apply();
       }
+
+      return copy;
     }
     catch (Throwable e)
     {

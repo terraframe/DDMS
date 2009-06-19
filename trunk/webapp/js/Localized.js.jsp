@@ -138,10 +138,3 @@ MDSS.localize = function(key){
   if( !s ) return(  "???" + key + "???"  );
   return s;
 }
-
-
-<jsp:include page="/WEB-INF/geoEntityTreeComponent.jsp"/>
-//Load the geo stuff
-MDSS.GeoTreeSelectables = ${GeoTreeSelectables};
-MDSS.GeoEntityTreeRootId = '${GeoEntityTreeRootId}';
-MDSS.SelectSearchRootId = '${GeoEntityTreeRootId}';

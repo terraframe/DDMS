@@ -362,6 +362,115 @@ MDSS.GeoEntityTree = (function(){
   }
 
   /**
+   * Changes the currently selected node to the given type.
+   */
+  function _changeType(e, type)
+  {
+    var geoEntityView = _getGeoEntityView(_selectedNode);
+
+    var request = new MDSS.Request({
+      oldId : geoEntityView.getGeoEntityId(),
+      onSuccess : function(geoEntity){
+
+      	var div = _selectedNode.getContentEl().innerHTML;
+        var view = _copyEntityToView(geoEntity);
+      	var span = _createContentSpan(view);
+      	div = div.replace(/(<div class=["']\w*["']>).*?(<\/div>)/, '$1'+span+'$2');
+
+        var newId = view.getGeoEntityId();
+
+      	// update selected node and all copies
+        var nodeIds = _geoEntityIdToNodeIdMap[this.oldId];
+        for(var i=0; i<nodeIds.length; i++)
+        {
+          var id = nodeIds[i];
+          var el = document.getElementById(id);
+          el.innerHTML = div;
+        }
+
+        // delete the old cached object
+        delete _geoEntityViewCache[this.oldId];
+
+        // copy node mappings to new id
+  	    var nodeIds = _geoEntityIdToNodeIdMap[this.oldId];
+  	    delete _geoEntityIdToNodeIdMap[this.oldId];
+  	    _geoEntityIdToNodeIdMap[newId] = nodeIds;
+  	    for(var i=0; i<nodeIds.length; i++)
+  	    {
+  	      var nodeId = nodeIds[i];
+  	      _nodeToGeoEntityMap[nodeId] = newId;
+  	    }
+
+        _setMapping(_selectedNode, view);
+
+        _modal.destroy();
+      }
+    });
+
+    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.changeUniversalType(request, geoEntityView.getGeoEntityId(), type);
+  }
+
+  /**
+   * Handler to change a node's type.
+   */
+  function _changeTypeHandler()
+  {
+    var request = new MDSS.Request({
+      onSuccess : function(types){
+
+        var ul = document.createElement('ul');
+        YAHOO.util.Dom.addClass(ul, 'selectableList');
+        YAHOO.util.Event.on(ul, 'mouseover', function(e, obj){
+
+          var li = e.target;
+          var ul = e.currentTarget;
+          if(li.nodeName !== 'LI')
+          {
+            return;
+          }
+
+          // clear all lis of their current class
+          var lis = YAHOO.util.Selector.query('li.currentSelection', ul);
+          for(var i=0; i<lis.length; i++)
+          {
+            YAHOO.util.Dom.removeClass(lis[i], 'currentSelection');
+          }
+
+          YAHOO.util.Dom.addClass(e.target, 'currentSelection');
+        });
+
+        for(var i=0; i<types.length; i++)
+        {
+          var type = types[i];
+
+          var li = document.createElement('li');
+          li.innerHTML = MDSS.GeoTreeSelectables.types[type].label;
+
+          YAHOO.util.Event.on(li, 'click', _changeType, type, this);
+
+          ul.appendChild(li);
+        }
+
+        var outer = document.createElement('div');
+
+        var header = document.createElement('div');
+        header.innerHTML = '<h3>'+MDSS.Localized.Change_Type+'</h3><hr />';
+        outer.appendChild(header);
+
+        var listDiv = document.createElement('div');
+        YAHOO.util.Dom.addClass(listDiv, 'innerContentModal');
+        listDiv.appendChild(ul);
+        outer.appendChild(listDiv);
+
+        _createModal(outer);
+      }
+    });
+
+    var geoEntityView = _getGeoEntityView(_selectedNode);
+    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getCompatibleTypes(request, geoEntityView.getGeoEntityId());
+  }
+
+  /**
    * Handler for new node request.
    */
   function _addNodeHandler()
@@ -976,6 +1085,10 @@ MDSS.GeoEntityTree = (function(){
     var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Create);
     createMenuItem.subscribe("click", _addNodeHandler);
     itemData.push(createMenuItem);
+
+    var changeTypeMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Change_Type);
+    changeTypeMenuItem.subscribe("click", _changeTypeHandler);
+    itemData.push(changeTypeMenuItem);
 
     var editMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Edit);
     editMenuItem.subscribe("click", _editNodeHandler);

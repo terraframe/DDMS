@@ -11,13 +11,8 @@
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.EarthDTO"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
-<%@page import="dss.vector.solutions.geo.GeoHierarchyViewDTO"%>
-<%
-  /*****************************************************************
-    This file sets up request varibles for geo tree stuff
-    It does not and should not print anything out.
-  ******************************************************************/
 
+<%
   ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
   if (request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID) == null)
@@ -30,21 +25,10 @@
   }
   String rootId = (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID);
   String tree = GeoHierarchyDTO.defineAllowedTree(requestIF, rootId);
-  JSONObject obj = new JSONObject(tree);
-  JSONArray imports = obj.getJSONArray("imports");
-
-  int length = imports.length()+1;
-  String[] types = new String[length];
-  for(int i=0; i<types.length-4; i++)
-  {
-    types[i] = imports.getString(i);
-  }
-  types[length-4] = GeoEntityViewDTO.CLASS;
-  types[length-3] = GeoHierarchyDTO.CLASS;
-  types[length-2] = GeoHierarchyViewDTO.CLASS;
-  types[length-1] = GeoEntityTreeController.CLASS;
-
-  request.setAttribute("GeoTreeSelectables",tree);
-  request.setAttribute("GeoEntityTreeRootId",rootId);
-  request.setAttribute("GeoEntityUniversialTypes",Halp.join((List<String>) Arrays.asList(types),"&"));
 %>
+<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{GeoEntityViewDTO.CLASS}))%>
+
+<script type="text/javascript">
+  MDSS.GeoTreeSelectables = <%= tree %>;
+  MDSS.GeoEntityTreeRootId = '<%= rootId %>';
+</script>

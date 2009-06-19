@@ -50,6 +50,26 @@
         </attributes>
       </mdException>
 
+      <mdException
+        name="dss.vector.solutions.geo.NoCompatibleTypesException"
+        label="No Compatible Types Exception"
+        description="Thrown when a user tries to change an entity's type but there are no other compatible types available.">
+        <attributes>
+          <!-- FIXME These attributes are not being imported correctly.
+          <virtual
+            name="entityName"
+            concrete="entityName"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="true" />
+          <virtual
+            name="geoId"
+            concrete="geoId"
+            type="dss.vector.solutions.geo.generated.GeoEntity"
+            required="false" />
+           -->
+        </attributes>
+      </mdException>
+
     </create>
     <update>
       <mdView
@@ -72,7 +92,7 @@
             label="Change Universal Type"
             static="false"
             description="Allows a GeoEntity to have its underlying class changed."
-            returnType="void">
+            returnType="dss.vector.solutions.geo.generated.GeoEntity">
             <mdParameter
               name="newType"
               label="New Type"

@@ -1,3 +1,9 @@
+<%@page import="dss.vector.solutions.MDSSInfo"%>
+<%@page import="dss.vector.solutions.geo.GeoHierarchyViewDTO"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="dss.vector.solutions.geo.GeoHierarchyViewQueryDTO"%>
+<%@page import="com.terraframe.mojo.system.metadata.MdBusinessDTO"%>
+<%@page import="dss.vector.solutions.geo.GeoHierarchyDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%><%@page import="com.ibm.icu.text.SimpleDateFormat"%>
@@ -21,7 +27,30 @@ response.setHeader("Expires","0");
 session.getId();
 
 //parse the input
-String[] types_to_load = request.getQueryString().split("&");
+String includeUniversalTypes = request.getParameter("includeUniversalTypes");
+String[] types_to_load;
+if(includeUniversalTypes != null)
+{
+  GeoHierarchyViewQueryDTO query = GeoHierarchyDTO.getAllGeoHierarchyViews(clientRequest);
+  List<? extends GeoHierarchyViewDTO> results = query.getResultSet();
+  List<String> toLoad = new LinkedList<String>();
+
+  for(int i=0; i<results.size(); i++)
+  {
+	String type = MDSSInfo.GENERATED_GEO_PACKAGE+"."+query.getResultSet().get(i).getTypeName();
+    toLoad.add(type);
+    toLoad.add(type+"Controller");
+  }
+
+  types_to_load = toLoad.toArray(new String[toLoad.size()]);
+}
+else
+{
+  types_to_load = request.getQueryString().split("&");
+}
+
+
+
 
 //set last update to far in the future incase something goes wrong
 Date  lastUpdate    = new Date();

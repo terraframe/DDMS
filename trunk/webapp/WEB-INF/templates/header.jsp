@@ -16,8 +16,7 @@
 <jwr:script src="/bundles/Mojo.js" useRandomParam="false"/>
 <script type="text/javascript" src="js/Localized.js.jsp"></script>
 <jwr:script src="/bundles/mdssBundle.js" useRandomParam="false"/>
-<jsp:include page="/WEB-INF/geoEntityTreeComponent.jsp"/>
-<script type="text/javascript" src="js/getClass.js.jsp?${GeoEntityUniversialTypes}"></script>
+<script type="text/javascript" src="js/getClass.js.jsp?includeUniversalTypes=true"></script>
 <c:choose>
   <c:when test='${window_title != null}'>
     <title><fmt:message key="${window_title}"/></title>
