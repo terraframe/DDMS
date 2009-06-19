@@ -1,3 +1,6 @@
+<%@page import="org.json.JSONArray"%>
+<%@page import="org.json.JSONObject"%>
+<%@page import="dss.vector.solutions.geo.generated.EarthDTO"%>
 <%@page import="dss.vector.solutions.MDSSInfo"%>
 <%@page import="dss.vector.solutions.geo.GeoHierarchyViewDTO"%>
 <%@page import="java.util.LinkedList"%>
@@ -31,15 +34,19 @@ String includeUniversalTypes = request.getParameter("includeUniversalTypes");
 String[] types_to_load;
 if(includeUniversalTypes != null)
 {
-  GeoHierarchyViewQueryDTO query = GeoHierarchyDTO.getAllGeoHierarchyViews(clientRequest);
-  List<? extends GeoHierarchyViewDTO> results = query.getResultSet();
+  EarthDTO earth = EarthDTO.getEarthInstance(clientRequest);
+  String tree = GeoHierarchyDTO.defineAllowedTree(clientRequest, earth.getId());
+  JSONObject obj = new JSONObject(tree);
+  JSONArray imports = obj.getJSONArray("imports");
+
+  //GeoHierarchyViewQueryDTO query = GeoHierarchyDTO.getAllGeoHierarchyViews(clientRequest);
+  //List<? extends GeoHierarchyViewDTO> results = query.getResultSet();
   List<String> toLoad = new LinkedList<String>();
 
-  for(int i=0; i<results.size(); i++)
+  for(int i=0; i<imports.length(); i++)
   {
-	String type = MDSSInfo.GENERATED_GEO_PACKAGE+"."+query.getResultSet().get(i).getTypeName();
+	String type = imports.getString(i);
     toLoad.add(type);
-    toLoad.add(type+"Controller");
   }
 
   types_to_load = toLoad.toArray(new String[toLoad.size()]);

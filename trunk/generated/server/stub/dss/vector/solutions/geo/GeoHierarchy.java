@@ -329,26 +329,36 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    */
   public static Set<String> getIsAHierarchy(String type)
   {
-    Set<String> types = new LinkedHashSet<String>();
+	    Set<String> types = new LinkedHashSet<String>();
 
-    MdBusiness start = MdBusiness.getMdBusiness(type);
+	    MdBusiness current = MdBusiness.getMdBusiness(type);
 
-    MdBusiness parent = start.getSuperMdBusiness();
-    while(parent != null)
-    {
-      if(!parent.getIsAbstract())
-      {
-        types.add(parent.definesType());
-      }
+	    MdBusiness parent = current.getSuperMdBusiness();
+	    MdBusiness start;
+	    if(parent != null && !parent.definesType().equals(GeoEntity.CLASS))
+	    {
+	      start = parent;
+	    }
+	    else
+	    {
+	      start = current;
+	    }
 
-      parent = parent.getSuperMdBusiness();
-    }
+	    while(parent != null)
+	    {
+	      if(!parent.getIsAbstract())
+	      {
+	        types.add(parent.definesType());
+	      }
 
-    types.add(type);
+	      parent = parent.getSuperMdBusiness();
+	    }
 
-    getIsAChildren(types, start);
 
-    return types;
+
+	    getIsAChildren(types, start);
+
+	    return types;
   }
 
   private static void getIsAChildren(Set<String> types, MdBusiness parent)
