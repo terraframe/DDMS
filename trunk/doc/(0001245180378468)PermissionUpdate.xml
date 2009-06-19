@@ -1316,7 +1316,11 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>    
+        <mdBusinessPermission type="com.terraframe.mojo.system.Assignments">
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
+                    
         
         <!-- ENTOMOLOGIST GEO ENTITY CRUD -->
         
@@ -2244,6 +2248,9 @@
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
         </mdBusinessPermission>                
+        <mdBusinessPermission type="com.terraframe.mojo.system.Assignments">
+          <operation name="DELETE"/>
+        </mdBusinessPermission>
         
         <!-- OPERATIONAL MANAGER IRS CRUD -->
             
