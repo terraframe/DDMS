@@ -111,7 +111,7 @@
       </mdBusiness>
 
       <mdBusiness
-        name="dss.vector.solutions.GeoHierarchy">
+        name="dss.vector.solutions.geo.GeoHierarchy">
         <mdMethod
           name="getAllGeoHierarchyViews"
           label="Gets all GeoHierarchyViews"
