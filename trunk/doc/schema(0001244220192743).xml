@@ -112,6 +112,7 @@
 
       <mdBusiness
         name="dss.vector.solutions.geo.GeoHierarchy">
+        <create>
         <mdMethod
           name="getAllGeoHierarchyViews"
           label="Gets all GeoHierarchyViews"
@@ -119,6 +120,7 @@
           returnType="dss.vector.solutions.geo.GeoHierarchyViewQuery"
           static="true">
         </mdMethod>
+        </create>
       </mdBusiness>
       </update>
   </doIt>
