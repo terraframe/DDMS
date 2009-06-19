@@ -8,6 +8,12 @@
         id="MDSSPersonAdmin"
         type="dss.vector.solutions.Person"
         key="dss.vector.solutions.MDSSPersonAdmin">
+        <valueAttribute
+          name="firstName"
+          value="MDSS"/>
+        <valueAttribute
+          name="lastName"
+          value="User"/>
       </object>
 
       <object
