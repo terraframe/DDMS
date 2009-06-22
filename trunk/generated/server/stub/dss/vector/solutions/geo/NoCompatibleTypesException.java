@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 public class NoCompatibleTypesException extends NoCompatibleTypesExceptionBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1245434545302L;
+  private static final long serialVersionUID = 1245395200441L;
   
   public NoCompatibleTypesException()
   {

@@ -12,12 +12,17 @@ import java.util.Set;
 
 import com.terraframe.mojo.business.Business;
 import com.terraframe.mojo.business.BusinessFacade;
+import com.terraframe.mojo.constants.ComponentInfo;
+import com.terraframe.mojo.constants.RelationshipInfo;
 import com.terraframe.mojo.dataaccess.InvalidIdException;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
+import com.terraframe.mojo.dataaccess.MdClassDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.ValueObject;
+import com.terraframe.mojo.dataaccess.database.DuplicateDataDatabaseException;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
+import com.terraframe.mojo.dataaccess.metadata.MdClassDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
@@ -37,8 +42,10 @@ import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 import com.terraframe.mojo.system.metadata.MdBusinessQuery;
 import com.terraframe.mojo.system.metadata.MdClass;
+import com.terraframe.mojo.util.IdParser;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.ConfirmDeleteEntityException;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
 import dss.vector.solutions.geo.DuplicateParentException;
@@ -49,6 +56,7 @@ import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.NoCompatibleTypesException;
+import dss.vector.solutions.util.GeoEntityImporter;
 
 public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -133,29 +141,6 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     {
       iterator.close();
     }
-
-    // Heads up: clean up
-    // GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
-    //
-    // query.WHERE(query.getGeoId().EQ(geoId));
-    //
-    // OIterator<? extends GeoEntity> iterator = query.getIterator();
-    // try
-    // {
-    // if (iterator.hasNext())
-    // {
-    // return iterator.next();
-    // }
-    // else
-    // {
-    // String msg = "A GeoEntity with the geoId [" + geoId + "] does not exist";
-    // throw new InvalidIdException(msg, geoId);
-    // }
-    // }
-    // finally
-    // {
-    // iterator.close();
-    // }
   }
 
   /**
@@ -730,14 +715,22 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   public LocatedIn addContainsGeoEntity(GeoEntity geoEntity)
   {
     validateHierarchy(geoEntity.getType(), this.getType());
-    return super.addContainsGeoEntity(geoEntity);
+    LocatedIn locatedIn = super.addContainsGeoEntity(geoEntity);
+
+    updateAllPathForGeoEntity(locatedIn.getChildId());
+
+    return locatedIn;
   }
 
   @Override
   public LocatedIn addLocatedInGeoEntity(GeoEntity geoEntity)
   {
     validateHierarchy(this.getType(), geoEntity.getType());
-    return super.addLocatedInGeoEntity(geoEntity);
+    LocatedIn locatedIn = super.addLocatedInGeoEntity(geoEntity);
+
+    updateAllPathForGeoEntity(locatedIn.getChildId());
+
+    return locatedIn;
   }
 
   /**
@@ -1008,5 +1001,120 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     }
   }
 
+  @Transaction
+  public static void updateAllPaths()
+  {
+    QueryFactory qf = new QueryFactory();
 
+    GeoEntityQuery geoEntityQ = new GeoEntityQuery(qf);
+
+    ValueQuery q = new ValueQuery(qf);
+    q.SELECT(geoEntityQ.getId(ComponentInfo.ID));
+
+    OIterator<ValueObject> i = q.getIterator();
+
+    try
+    {
+      int applyCount = 0;
+
+      for (ValueObject valueObject : i)
+      {
+        String childId = valueObject.getValue(ComponentInfo.ID);
+
+        applyCount = updateAllPathForGeoEntity(childId, true, applyCount);
+      }
+    }
+    finally
+    {
+      i.close();
+    }
+  }
+
+
+  private static void updateAllPathForGeoEntity(String childId)
+  {
+    updateAllPathForGeoEntity(childId, false, 0);
+  }
+
+  @Transaction
+  public static int updateAllPathForGeoEntity(String childId, boolean showTicker, int applyCount)
+  {
+    MdClassDAOIF childMdClassIF = MdClassDAO.getMdClassByRootId(IdParser.parseMdTypeRootIdFromId(childId));
+
+    createPath(childId, childMdClassIF.getId(), childId, childMdClassIF.getId());
+
+    if (showTicker)
+    {
+      applyCount = updateAllPathsTicker(applyCount);
+    }
+
+    List<String> parentIdList = getParentIds(childId);
+
+    for (String parentId : parentIdList)
+    {
+      MdClassDAOIF parentMdClassIF = MdClassDAO.getMdClassByRootId(IdParser.parseMdTypeRootIdFromId(parentId));
+      createPath(parentId, parentMdClassIF.getId(), childId, childMdClassIF.getId());
+      if (showTicker)
+      {
+        applyCount = updateAllPathsTicker(applyCount);
+      }
+    }
+
+    return applyCount;
+  }
+
+  private static List<String> getParentIds(String childId)
+  {
+    QueryFactory queryFactory = new QueryFactory();
+
+    LocatedInQuery locatedInQuery = new LocatedInQuery(queryFactory);
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    valueQuery.SELECT(locatedInQuery.parentId(RelationshipInfo.PARENT_ID));
+    valueQuery.WHERE(locatedInQuery.childId().EQ(childId));
+
+    List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
+
+    List<String> parentIdList = new LinkedList<String>();
+
+    for (ValueObject valueObject : valueObjectList)
+    {
+      String parentId = valueObject.getValue(RelationshipInfo.PARENT_ID);
+      parentIdList.add(parentId);
+      parentIdList.addAll(getParentIds(parentId));
+    }
+
+    return parentIdList;
+  }
+
+  private static void createPath(String parentId, String parentMdBusiness, String childId, String childMdBusiness)
+  {
+    try
+    {
+      AllPaths allPaths = new AllPaths();
+      allPaths.setValue(AllPaths.PARENTGEOENTITY, parentId);
+      allPaths.setValue(AllPaths.PARENTUNIVERSAL, parentMdBusiness);
+      allPaths.setValue(AllPaths.CHILDGEOENTITY, childId);
+      allPaths.setValue(AllPaths.CHILDUNIVERSAL, childMdBusiness);
+      allPaths.apply();
+    }
+    catch(DuplicateDataDatabaseException ex)
+    {
+      // This might happen.  Relationship already exists.
+    }
+  }
+
+
+  private static int updateAllPathsTicker(int applyCount)
+  {
+    System.out.print(".");
+    applyCount++;
+
+    if (applyCount % GeoEntityImporter.feedbackMod == 0)
+    {
+      System.out.println();
+    }
+    return applyCount;
+  }
 }

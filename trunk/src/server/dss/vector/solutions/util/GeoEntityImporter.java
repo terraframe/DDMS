@@ -84,7 +84,7 @@ public class GeoEntityImporter
 
   private Map<Integer, GeoHierarchy> geoHierarchyMap;
 
-  private static final int           feedbackMod                   = 50;
+  public static final int            feedbackMod                   = 50;
 
   /**
    * @param args
@@ -327,7 +327,6 @@ public class GeoEntityImporter
 
         // if (resultSet.getObject(GEOM_CENTRIOD) != null)
         // {
-        // // Heads up:
         // System.out.println("--------------------------------------------------------");
         //
         // org.postgis.PGgeometry pgGeometry =
