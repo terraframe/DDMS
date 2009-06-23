@@ -1,5 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
 <c:set var="page_title" value="Resistance_Methodology_View_All" scope="request"/>
 <mjl:messages>
   <mjl:message />
@@ -71,4 +72,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Assay Method" action="dss.vector.solutions.mo.ResistanceMethodologyController.newInstance.mojo" name="ResistanceMethodologyController.newInstance" />
+<mjl:commandLink action="dss.vector.solutions.mo.ResistanceMethodologyController.newInstance.mojo" name="ResistanceMethodologyController.newInstance"><fmt:message key="Resistance_Methodology_Create_link" /></mjl:commandLink>
