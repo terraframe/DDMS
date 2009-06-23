@@ -3,6 +3,8 @@
 xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
   name="dss.vector.solutions.intervention.monitor.NetProblem">
   <!--
+    - {id} id
+    - {netName} netName
     -->
-  <locale language="en">The value cannot be set when the household has zero nets</locale>
+  <locale language="en">The amount of [{netName}] nets cannot be set when the household has zero nets</locale>
 </exception>
