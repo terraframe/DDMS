@@ -1,5 +1,6 @@
 package dss.vector.solutions.irs;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -213,5 +214,40 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
     }
 
     return sprayTeam;
+  }
+  
+  public static SprayTeam[] findByLocation(String geoId)
+  {    
+    List<SprayTeam> list = new LinkedList<SprayTeam>();
+    GeoEntity location = GeoEntity.searchByGeoId(geoId);
+    
+    List<GeoEntity> zones = location.getPrunedParents(Arrays.asList(new String[]{SprayZone.CLASS}));
+    zones.addAll(location.getPrunedChildren(Arrays.asList(new String[]{SprayZone.CLASS})));
+    
+    SprayTeamQuery query = new SprayTeamQuery(new QueryFactory());
+    query.WHERE(query.getSprayZone().EQ(location));
+    
+    for(GeoEntity geoEntity : zones)
+    {
+      query.OR(query.getSprayZone().EQ(geoEntity));
+    }    
+    
+    query.ORDER_BY_ASC(query.getTeamId());
+
+    OIterator<? extends SprayTeam> it = query.getIterator();
+
+    try
+    {
+      while(it.hasNext())
+      {
+        list.add(it.next());
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    return list.toArray(new SprayTeam[list.size()]);
   }
 }

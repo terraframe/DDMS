@@ -2,7 +2,7 @@ package dss.vector.solutions.surveillance;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-public interface CaseGrid extends Reloadable
+public interface ChildOption extends Reloadable
 {
-  public AbstractGrid getChild();
+  public OptionIF getChild();
 }

@@ -26,7 +26,7 @@ public abstract class PersonCRUDPermissions extends TestCase
     dto.setLastName("Test");
     dto.setDateOfBirth(new Date());
     dto.setIsMDSSUser(true);
-    dto.setUsername("Test");
+    dto.setUsername("Testy2");
     dto.setPassword("test");
     dto.setIsIPTRecipient(true);
     dto.setIsITNRecipient(true);

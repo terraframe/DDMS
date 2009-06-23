@@ -116,7 +116,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
     return null;
   }
-
+  
   public static MalariaSeason getSeasonByDate(Date date)
   {
 

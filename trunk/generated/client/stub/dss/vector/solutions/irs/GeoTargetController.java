@@ -1,16 +1,22 @@
 package dss.vector.solutions.irs;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
-import dss.vector.solutions.general.MalariaSeasonDTO;
-import dss.vector.solutions.geo.generated.DistrictDTO;
-import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.geo.generated.ProvinceDTO;
-import dss.vector.solutions.geo.generated.SprayZoneDTO;
+import javax.servlet.ServletException;
 
-public class GeoTargetController extends GeoTargetControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
+import com.terraframe.mojo.constants.ClientRequestIF;
+
+import dss.vector.solutions.general.MalariaSeasonDTO;
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.util.ErrorUtility;
+
+public class GeoTargetController extends GeoTargetControllerBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/GeoTarget/";
 
@@ -18,185 +24,95 @@ public class GeoTargetController extends GeoTargetControllerBase implements com.
 
   private static final long  serialVersionUID = 1240267414799L;
 
-  public GeoTargetController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public GeoTargetController(javax.servlet.http.HttpServletRequest req,
+      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void view(GeoEntityDTO geoEntinty, MalariaSeasonDTO season, Boolean showChildren) throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-
-    GeoTargetDTO item = new GeoTargetDTO(clientRequest);
-    String filterType = req.getParameter("filterType");
-
-    // set this as if show_children is false , we will change it if needed
-    List<String> geoEntityIds = new ArrayList<String>();
-
-    if (showChildren && filterType != SprayZoneDTO.CLASS)
-    {
-      if (filterType.equals(ProvinceDTO.CLASS))
-      {
-        geoEntityIds.addAll(Arrays.asList(geoEntinty.getAllChildIds("dss.vector.solutions.geo.generated.District")));
-      }
-      if (filterType.equals(DistrictDTO.CLASS))
-      {
-        geoEntityIds.addAll(Arrays.asList(geoEntinty.getAllChildIds("dss.vector.solutions.geo.generated.SprayZone")));
-      }
-    }
-
-    geoEntityIds.add(geoEntinty.getId());
-    item.setSeason(season);
-    item.setGeoEntity(geoEntinty);
-    // item.apply();
-
-    GeoTargetViewDTO[] geoTargetViews = GeoTargetViewDTO.getGeoTargets(clientRequest,(String[])geoEntityIds.toArray(new String[geoEntityIds.size()]), season);
-    // geoTargetViews = GeoTargetViewDTO.lockAll(clientRequest,geoTargetViews);
-
-    req.setAttribute("item", item);
-    req.setAttribute("geoTargetViews", geoTargetViews);
-    render("viewComponent.jsp");
-  }
-
-  public void failView(GeoEntityDTO geoEntinty, Integer year, Boolean showChildren) throws java.io.IOException, javax.servlet.ServletException
-  {
-    this.viewAll();
-
-  }
-
-
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("seasons", MalariaSeasonDTO.getAllInstances(super.getClientSession().getRequest(), "endDate", true, 0, 0).getResultSet());
-    render("viewAllComponent.jsp");
-  }
-
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-
-
-
-  /*
-
-  public void create(dss.vector.solutions.irs.GeoTargetDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void view(GeoEntityDTO geoEntity, MalariaSeasonDTO season, Boolean showChildren)
+      throws IOException, ServletException
   {
     try
     {
-      dto.apply();
-      // this.view(dto.getId());
-    }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failCreate(dto);
-    }
-  }
+      validateParameters(geoEntity, season);
 
-  public void failCreate(dss.vector.solutions.irs.GeoTargetDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("dss_vector_solutions_irs_GeoTarget_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create GeoTargetController");
-    render("createComponent.jsp");
-  }
+      ClientRequestIF clientRequest = super.getClientRequest();
 
-  public void delete(dss.vector.solutions.irs.GeoTargetDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
+      List<String> geoEntityIds = new ArrayList<String>();
+
+      // set this as if show_children is false , we will change it if needed
+      for (GeoEntityDTO child : geoEntity.getImmediateSprayChildren())
+      {
+        geoEntityIds.add(child.getId());
+      }
+
+      geoEntityIds.add(geoEntity.getId());
+
+      String[] array = geoEntityIds.toArray(new String[geoEntityIds.size()]);
+
+      GeoTargetDTO item = new GeoTargetDTO(clientRequest);
+      item.setSeason(season);
+      item.setGeoEntity(geoEntity);
+
+      GeoTargetViewDTO[] geoTargetViews = GeoTargetViewDTO.getGeoTargets(clientRequest, array, season);
+
+      req.setAttribute("item", item);
+      req.setAttribute("geoTargetViews", geoTargetViews);
+      render("viewComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
     {
-      dto.delete();
+      ErrorUtility.prepareProblems(e, req);
+
       this.viewAll();
     }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (Throwable t)
     {
-      this.failDelete(dto);
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.viewAll();
     }
   }
 
-  public void failDelete(dss.vector.solutions.irs.GeoTargetDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  private void validateParameters(GeoEntityDTO geoEntity, MalariaSeasonDTO season)
   {
-    req.setAttribute("dss_vector_solutions_irs_GeoTarget_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit GeoTargetController");
-    render("editComponent.jsp");
+    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+
+    if (geoEntity == null)
+    {
+      problems.add(new RequiredGeoIdProblemDTO(this.getClientRequest(), req.getLocale()));
+    }
+
+    if (season == null)
+    {
+      problems.add(new RequiredSeasonProblemDTO(this.getClientRequest(), req.getLocale()));
+    }
+
+    if (problems.size() > 0)
+    {
+      throw new ProblemExceptionDTO("", problems);
+    }
   }
 
-  public void cancel(dss.vector.solutions.irs.GeoTargetDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dto.unlock();
-    // this.view(dto.getId());
-  }
-
-  public void failCancel(dss.vector.solutions.irs.GeoTargetDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    resp.sendError(500);
-  }
-
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    dss.vector.solutions.irs.GeoTargetDTO dto = dss.vector.solutions.irs.GeoTargetDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("dss_vector_solutions_irs_GeoTarget_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit GeoTargetController");
-    render("editComponent.jsp");
-  }
-
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
-  {
-    // this.view(id);
-  }
-
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
-  {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.irs.GeoTargetDTO dto = new dss.vector.solutions.irs.GeoTargetDTO(clientRequest);
-    req.setAttribute("dss_vector_solutions_irs_GeoTarget_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create GeoTargetController");
-    render("createComponent.jsp");
-  }
-
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failView(GeoEntityDTO geoEntinty, Integer year, Boolean showChildren) throws IOException,
+      ServletException
   {
     this.viewAll();
+
   }
 
-
-
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.irs.GeoTargetQueryDTO query = dss.vector.solutions.irs.GeoTargetDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
-    req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All GeoTargetController Objects");
+    ClientRequestIF request = super.getClientSession().getRequest();
+
+    req.setAttribute("seasons", MalariaSeasonDTO.getAllInstances(request, "endDate", true, 0, 0)
+        .getResultSet());
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
-
-  public void update(dss.vector.solutions.irs.GeoTargetDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    try
-    {
-      dto.apply();
-      // this.view(dto.getId());
-    }
-    catch (com.terraframe.mojo.ProblemExceptionDTO e)
-    {
-      this.failUpdate(dto);
-    }
-  }
-
-  public void failUpdate(dss.vector.solutions.irs.GeoTargetDTO dto) throws java.io.IOException, javax.servlet.ServletException
-  {
-    req.setAttribute("dss_vector_solutions_irs_GeoTarget_geoEntity", dss.vector.solutions.geo.generated.GeoEntityDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update GeoTargetController");
-    render("editComponent.jsp");
-  }
-  */
 }

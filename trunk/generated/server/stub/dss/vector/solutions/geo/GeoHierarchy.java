@@ -1074,14 +1074,56 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(type);
 
     List<GeoHierarchyView> hierarchy = new LinkedList<GeoHierarchyView>();
-    treeRecurse(hierarchy, earthH);
+    recursePoliticalHierarchy(hierarchy, earthH);
 
     return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
   }
-
-  private static void treeRecurse(List<GeoHierarchyView> hierarchy, GeoHierarchy parent)
+  
+  /**
+   * Returns all political GeoHierarchy views starting with the GeoHierarchy
+   * that represents the given GeoEntity.
+   *
+   * @param geoEntityId
+   * @return
+   */
+  public static GeoHierarchyView[] getSprayHierarchies(GeoEntity geoEntity)
   {
-    if (parent.getPolitical())
+    return getSprayHierarchiesByType(geoEntity.getType());
+  }
+  
+  /**
+   * Returns all political GeoHierarchies under and including the given type.
+   *
+   * @param type
+   * @return
+   */
+  public static GeoHierarchyView[] getSprayHierarchiesByType(String type)
+  {
+    GeoHierarchy earthH = GeoHierarchy.getGeoHierarchyFromType(type);
+
+    List<GeoHierarchyView> hierarchy = new LinkedList<GeoHierarchyView>();
+    recurseSprayHierarchy(hierarchy, earthH);
+
+    return hierarchy.toArray(new GeoHierarchyView[hierarchy.size()]);
+  }
+  
+  private static void recursePoliticalHierarchy(List<GeoHierarchyView> hierarchy, GeoHierarchy parent)
+  {
+    treeRecurse(hierarchy, parent, true, false);
+  }
+
+  private static void recurseSprayHierarchy(List<GeoHierarchyView> hierarchy, GeoHierarchy parent)
+  {
+    treeRecurse(hierarchy, parent, false, true);
+  }
+  
+  private static void treeRecurse(List<GeoHierarchyView> hierarchy, GeoHierarchy parent, boolean political, boolean spray)
+  {
+    if (political && parent.getPolitical())
+    {
+      hierarchy.add(parent.getViewForGeoHierarchy());
+    }
+    else if(spray && parent.getSprayTargetAllowed())
     {
       hierarchy.add(parent.getViewForGeoHierarchy());
     }
@@ -1089,9 +1131,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     List<GeoHierarchy> children = parent.getImmediateChildren();
     for (GeoHierarchy childH : children)
     {
-      treeRecurse(hierarchy, childH);
+      treeRecurse(hierarchy, childH, political, spray);
     }
-
   }
 
   /**

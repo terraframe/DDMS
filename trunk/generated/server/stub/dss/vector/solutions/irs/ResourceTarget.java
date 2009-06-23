@@ -30,11 +30,10 @@ public class ResourceTarget extends ResourceTargetBase implements
     {
       SprayTeam st = (SprayTeam) targeter;
 
-      String leader_name = "";
       if(! st.getAllTeamLeader().getAll().isEmpty())
       {
         Person leader = st.getAllTeamLeader().getAll().get(0).getPerson();
-        leader_name = " - " + leader.getFirstName() + " " + leader.getLastName();
+        String leader_name = " - " + leader.getFirstName() + " " + leader.getLastName();
       }
 
       return (st.getTeamId() + "");
@@ -54,8 +53,6 @@ public class ResourceTarget extends ResourceTargetBase implements
     view.setSeason(this.getSeason());
     view.setTargetId(this.getId());
     view.setTargeterName(this.getTargeterName());
-
-
 
     for (int i = 0; i < 53; i++)
     {

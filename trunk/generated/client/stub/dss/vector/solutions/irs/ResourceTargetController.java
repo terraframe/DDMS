@@ -1,13 +1,24 @@
 package dss.vector.solutions.irs;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.ServletException;
+
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.business.ProblemDTOIF;
+import com.terraframe.mojo.constants.ClientRequestIF;
+
 import dss.vector.solutions.general.MalariaSeasonDTO;
+import dss.vector.solutions.util.ErrorUtility;
 
-//TODO: delete unused methods from metadata
+// TODO: delete unused methods from metadata
 
-public class ResourceTargetController extends ResourceTargetControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class ResourceTargetController extends ResourceTargetControllerBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/ResourceTarget/";
 
@@ -15,70 +26,115 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
   private static final long  serialVersionUID = 1240257007714L;
 
-  public ResourceTargetController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public ResourceTargetController(javax.servlet.http.HttpServletRequest req,
+      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  @SuppressWarnings("unchecked")
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    ClientRequestIF request = super.getClientSession().getRequest();
 
-    List<SprayTeamDTO> sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(clientRequest, SprayTeamDTO.TEAMID, true, 0, 0).getResultSet();
-
-    req.setAttribute("sprayTeams", sprayTeams);
-
-    req.setAttribute("seasons", MalariaSeasonDTO.getAllInstances(super.getClientSession().getRequest(), "endDate", true, 0, 0).getResultSet());
+    req.setAttribute("sprayTeams", new LinkedList<SprayTeamDTO>());
+    req.setAttribute("seasons", MalariaSeasonDTO.getAllInstances(request, "endDate", true, 0, 0).getResultSet());
 
     render("viewAllComponent.jsp");
   }
 
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
-
-  @SuppressWarnings("unchecked")
-  public void view(java.lang.String id, MalariaSeasonDTO season) throws java.io.IOException, javax.servlet.ServletException
+  
+  public void view(String id, MalariaSeasonDTO season, String geoId) throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-
-    List<SprayTeamDTO> sprayTeams = new ArrayList<SprayTeamDTO>();
-    List<SprayOperatorDTO> sprayOperators = new ArrayList<SprayOperatorDTO>();
-    if (id.equals("ALL"))
+    try
     {
-      sprayTeams = (List<SprayTeamDTO>) SprayTeamDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet();
-      req.setAttribute("sumLastRow", false);
+      validateParameters(id, season, geoId);
+
+      ClientRequestIF request = super.getClientRequest();
+
+      List<SprayTeamDTO> sprayTeams = new ArrayList<SprayTeamDTO>();
+      List<SprayOperatorDTO> sprayOperators = new ArrayList<SprayOperatorDTO>();
+
+      if (id.equals("ALL"))
+      {
+        //Get the GeoEntity which corresponds to the GeoId
+        sprayTeams.addAll(Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));
+        req.setAttribute("sumLastRow", false);
+      }
+      else
+      {
+        SprayTeamDTO team = SprayTeamDTO.get(request, id);
+        sprayTeams.add(team);
+        
+        sprayOperators.addAll(team.getAllSprayTeamMembers());
+
+        req.setAttribute("sumLastRow", true);
+      }
+
+      List<String> targetIds = new ArrayList<String>();
+      // add all the team members
+      for (SprayOperatorDTO teamMember : sprayOperators)
+      {
+        targetIds.add(teamMember.getId());
+      }
+
+      // add the member's Team or All Teams
+      for (SprayTeamDTO team : sprayTeams)
+      {
+        targetIds.add(team.getId());
+      }
+
+      String[] array = targetIds.toArray(new String[targetIds.size()]);
+
+      ResourceTargetViewDTO[] targets = ResourceTargetViewDTO.getResourceTargets(request, array, season);
+
+      req.setAttribute("resourceTargetViews", targets);
+      render("viewComponent.jsp");
     }
-    else
+    catch (ProblemExceptionDTO e)
     {
-      SprayTeamDTO team = SprayTeamDTO.get(clientRequest, id);
-      sprayTeams.add(team);
-      sprayOperators = (List<SprayOperatorDTO>) team.getAllSprayTeamMembers();
-      req.setAttribute("sumLastRow", true);
-    }
+      ErrorUtility.prepareProblems(e, req);
 
-    List<String> targetIds = new ArrayList<String>();
-    // add all the team members
-    for (SprayOperatorDTO teamMember : sprayOperators)
+      this.viewAll();
+    }
+    catch (Throwable t)
     {
-      targetIds.add(teamMember.getId());
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.viewAll();
     }
 
-    // add the member's Team or All Teams
-    for (SprayTeamDTO team : sprayTeams)
-    {
-      targetIds.add(team.getId());
-    }
-
-    ResourceTargetViewDTO[] resourceTargetViews = ResourceTargetViewDTO.getResourceTargets(clientRequest, (String[]) targetIds.toArray(new String[targetIds.size()]), season);
-
-    req.setAttribute("resourceTargetViews", resourceTargetViews);
-    render("viewComponent.jsp");
   }
 
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  private void validateParameters(String teamId, MalariaSeasonDTO season, String geoId)
+  {
+    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
+
+    if (teamId == null)
+    {
+      problems.add(new RequiredSprayTeamProblemDTO(this.getClientRequest(), req.getLocale()));
+    }
+
+    if (season == null)
+    {
+      problems.add(new RequiredSeasonProblemDTO(this.getClientRequest(), req.getLocale()));
+    }
+    
+    if(geoId == null)
+    {
+      problems.add(new RequiredGeoIdProblemDTO(this.getClientRequest(), req.getLocale()));
+    }
+
+    if (problems.size() > 0)
+    {
+      throw new ProblemExceptionDTO("", problems);
+    }
+  }
+
+  public void failView(java.lang.String id) throws IOException, ServletException
   {
     this.viewAll();
   }

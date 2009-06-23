@@ -52,6 +52,7 @@ import dss.vector.solutions.geo.DuplicateParentException;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoEntityViewQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
@@ -462,7 +463,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     return geoEntityIdList.toArray(new String[geoEntityIdList.size()]);
   }
-
+  
   /**
    * Recursive function to collect {@link LocatedIn} children.
    *
@@ -509,7 +510,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       getAllParents(allParents, parent);
     }
   }
-
+  
   /**
    * Returns all the children of this GeoEntity up to one level.
    *
@@ -533,6 +534,43 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     return children;
   }
+    
+  /**
+   * Returns the first level of children which belong to the spray hierarchy.
+   *
+   * @return
+   */
+  public GeoEntity[] getImmediateSprayChildren()
+  {
+    List<GeoEntity> children = this.getPrunedChildren(GeoHierarchy.getSprayHierarchies(this));
+
+    return children.toArray(new GeoEntity[children.size()]);
+  }  
+
+  /**
+   * Gets all children of a GeoEntity, but stops its breadth-first decent
+   * when it finds a child which belongs to the given fully qualified types.
+   */
+  private List<GeoEntity> getPrunedChildren(GeoHierarchyView... types)
+  {
+    List<String> list = new LinkedList<String>();
+    
+    for(GeoHierarchyView view : types)
+    {
+      list.add(MDSSInfo.GENERATED_GEO_PACKAGE+ "." + view.getTypeName());
+    }
+    
+    return this.getPrunedChildren(list);
+  }
+
+  /**
+   * Gets all children of a GeoEntity, but stops its breadth-first decent
+   * when it finds a child which belongs to the given fully qualified types.
+   */
+  public List<GeoEntity> getPrunedChildren(String... types)
+  {
+    return this.getPrunedChildren(Arrays.asList(types));
+  }
 
   /**
    * Gets all children of a GeoEntity, but stops its breadth-first decent
@@ -554,6 +592,33 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       else
       {
         queue.addAll(child.getImmediateChildren());
+      }
+    }
+
+    return list;
+  }
+  
+  public List<GeoEntity> getPrunedParents(String... types)
+  {
+    return this.getPrunedParents(Arrays.asList(types));
+  }
+
+  public List<GeoEntity> getPrunedParents(List<String> types)
+  {
+    List<GeoEntity> list = new LinkedList<GeoEntity>();
+    Queue<GeoEntity> queue = new LinkedList<GeoEntity>(this.getImmediateParents());
+
+    while(!queue.isEmpty())
+    {
+      GeoEntity parent = queue.poll();
+
+      if(types.contains(parent.getType()))
+      {
+        list.add(parent);
+      }
+      else
+      {
+        queue.addAll(parent.getImmediateParents());
       }
     }
 

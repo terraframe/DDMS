@@ -6,7 +6,9 @@ import java.util.List;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-public class Net extends NetBase implements com.terraframe.mojo.generation.loader.Reloadable
+import dss.vector.solutions.surveillance.OptionIF;
+
+public class Net extends NetBase implements com.terraframe.mojo.generation.loader.Reloadable, OptionIF
 {
   private static final long serialVersionUID = 1239641263464L;
 
@@ -19,6 +21,11 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
   protected String buildKey()
   {
     return this.getMdClass().getTypeName() + "_" + this.getNetName();
+  }
+  
+  public String getOptionName()
+  {
+    return this.getNetName();
   }
 
   public static Net[] getAll()

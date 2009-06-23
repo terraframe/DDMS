@@ -3,13 +3,11 @@ package dss.vector.solutions.surveillance;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-import dss.vector.solutions.mo.AbstractTerm;
-import dss.vector.solutions.mo.AbstractTermQuery;
-
-public abstract class AbstractGrid extends AbstractGridBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class AbstractGrid extends AbstractGridBase implements Reloadable, OptionIF
 {
   private static final long serialVersionUID = 1238693165534L;
 

@@ -2,9 +2,9 @@ package dss.vector.solutions.intervention.monitor;
 
 import com.terraframe.mojo.generation.loader.Reloadable;
 
-import dss.vector.solutions.surveillance.CaseGrid;
+import dss.vector.solutions.surveillance.ChildOption;
 
-public class IPTDose extends IPTDoseBase implements CaseGrid, Reloadable
+public class IPTDose extends IPTDoseBase implements ChildOption, Reloadable
 {
   private static final long serialVersionUID = 1244737040224L;
 
