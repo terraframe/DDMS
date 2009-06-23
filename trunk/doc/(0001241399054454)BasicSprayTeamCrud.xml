@@ -90,10 +90,10 @@
             returnType="dss.vector.solutions.irs.SprayTeam[]"
             description="Returns a list of all teams which are active in a given location">
             <mdParameter
-              name="location"
-              label="Location"
+              name="id"
+              label="Geo Entity Id"
               order="0"
-              type="dss.vector.solutions.geo.generated.GeoEntity" />
+              type="java.lang.String" />
           </mdMethod>
         </create>
       </mdBusiness>

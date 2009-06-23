@@ -14,17 +14,17 @@
             required="true"
             unique="true"
             size="255"
-            description="The name or display label for this season"/>
+            description="The name or display label for this season" />
           <date
             name="startDate"
             required="true"
             label="Start Date"
-            description="The first day of this season, inclusive"/>
+            description="The first day of this season, inclusive" />
           <date
             name="endDate"
             required="true"
             label="End Date"
-            description="The last day of this season, inclusive"/>
+            description="The last day of this season, inclusive" />
         </attributes>
 
         <mdMethod
@@ -38,9 +38,14 @@
             description="Date to search for"
             label="date"
             order="0"
-            type="java.util.Date"/>
+            type="java.util.Date" />
         </mdMethod>
-
+        <mdMethod
+          name="getAll"
+          label="Get All"
+          returnType="dss.vector.solutions.general.MalariaSeason[]"
+          static="true"
+          description="Returns an array of all of the seasons, with the nearest season first"/>
       </mdBusiness>
 
       <mdProblem
@@ -52,7 +57,7 @@
             size="256"
             name="overlap"
             label="Overlaping Season"
-            required="true"/>
+            required="true" />
         </attributes>
       </mdProblem>
 
@@ -75,15 +80,15 @@
           <virtual
             name="seasonName"
             concrete="seasonName"
-            type="dss.vector.solutions.general.MalariaSeason"/>
+            type="dss.vector.solutions.general.MalariaSeason" />
           <virtual
             name="startDate"
             concrete="startDate"
-            type="dss.vector.solutions.general.MalariaSeason"/>
+            type="dss.vector.solutions.general.MalariaSeason" />
           <virtual
             name="endDate"
             concrete="endDate"
-            type="dss.vector.solutions.general.MalariaSeason"/>
+            type="dss.vector.solutions.general.MalariaSeason" />
         </attributes>
       </mdView>
 

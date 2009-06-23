@@ -79,6 +79,12 @@
             type="java.lang.String" />
         </mdMethod>
         <mdMethod
+          name="getImmediateSprayChildren"
+          label="Get Immediate Spray Children"
+          returnType="dss.vector.solutions.geo.generated.GeoEntity[]"
+          static="false"
+          description="Returns an array of the first children which belong to the spray hierarchy" />
+        <mdMethod
           name="applyWithParent"
           label="Apply Within GeoEntity"
           description="Applies GeoEntity as being located within another GeoEntity."

@@ -212,8 +212,12 @@
             order="0"
             type="java.lang.String" />
         </mdMethod>
-
       </mdBusiness>
+
+      <mdProblem
+        name="dss.vector.solutions.irs.RequiredSeasonProblem"
+        label="Required Season Problem"
+        description="Malaria season requires a value"/>
 
       <mdView
         name="dss.vector.solutions.irs.ResourceTargetView"

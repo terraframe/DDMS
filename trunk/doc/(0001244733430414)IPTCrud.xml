@@ -45,7 +45,6 @@
         </structAttribute>
       </object>
 
-
       <mdBusiness
         name="dss.vector.solutions.intervention.monitor.VisitGrid"
         label="Visit Grid"

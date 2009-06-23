@@ -62,13 +62,19 @@
         <mdAction
           name="view"
           isPost="true">
-          <create>
+          <create>                    
             <mdParameter
               name="season"
               label="Target Season"
               description="The Season (year) to set targets for"
               order="1"
               type="dss.vector.solutions.general.MalariaSeason"/>
+            <mdParameter
+              name="geoId"
+              label="Geo Id"
+              description="The Geo Id from which to retrieve Spray Teams from"
+              order="2"
+              type="java.lang.String"/>
           </create>
         </mdAction>
       </mdController>
