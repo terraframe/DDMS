@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="page_title" value="View_Target_Group_Grid"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -39,24 +41,7 @@
     <dd>
       ${item.optionName}
     </dd>
+    <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.TargetGroupGridController.edit.mojo" name="dss.vector.solutions.intervention.monitor.TargetGroupGrid.form.edit.button" />
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.TargetGroupGridController.edit.mojo" name="dss.vector.solutions.intervention.monitor.TargetGroupGrid.form.edit.button" />
-  <br />
 </mjl:form>
-<dl>
-  <dt>
-    <label>
-      Child Relationships
-    </label>
-  </dt>
-  <dd>
-    <ul>
-      <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.intervention.monitor.ITNTargetGroupController.childQuery.mojo" name="dss.vector.solutions.intervention.monitor.ITNTargetGroup.childQuery.link">
-          <mjl:property value="${item.id}" name="childId" />
-        </mjl:commandLink>
-      </li>
-    </ul>
-  </dd>
-</dl>
 <mjl:commandLink display="View All" action="dss.vector.solutions.intervention.monitor.TargetGroupGridController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.TargetGroupGrid.viewAll.link" />

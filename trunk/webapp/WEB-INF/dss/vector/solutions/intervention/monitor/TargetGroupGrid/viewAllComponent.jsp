@@ -1,30 +1,20 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="page_title" value="View_All_Target_Group_Grid"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}">
+<mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.intervention.monitor.TargetGroupGridController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="active">
-      <mjl:header>
-        Active
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:structColumn attributeName="displayLabel">
-      <mjl:header>
-        Display Label
-      </mjl:header>
       <mjl:attributeColumn attributeName="defaultLocale">
-        <mjl:header>
-          Default Locale
-        </mjl:header>
       </mjl:attributeColumn>
     </mjl:structColumn>
     <mjl:attributeColumn attributeName="optionName">
-      <mjl:header>
-        Name
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
