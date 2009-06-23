@@ -100,6 +100,16 @@
   <dt><fmt:message key="Configurable_Intervention_Monitoring_Grids"/></dt>
   <dd>
     <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.ServiceGrid"
+      action="dss.vector.solutions.intervention.monitor.ServiceGridController.viewAll.mojo">
+      <fmt:message key="Service_Grid_Label"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.TargetGroupGrid"
+      action="dss.vector.solutions.intervention.monitor.TargetGroupGridController.viewAll.mojo">
+      <fmt:message key="Target_Group_Grid_Label"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
       name="dss.vector.solutions.intervention.monitor.DoseGrid"
       action="dss.vector.solutions.intervention.monitor.DoseGridController.viewAll.mojo">
       <fmt:message key="Dose_Grid_Label"/>
