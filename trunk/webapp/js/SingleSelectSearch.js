@@ -126,7 +126,9 @@ YAHOO.util.Event.onDOMReady(function(){
         {
             YAHOO.util.Dom.removeClass(geoInfo,'alert');
             geoId.value = selected.getGeoId();
-            if(geoEntityId) geoEntityId.value = selected.getGeoEntityId();
+            if(geoEntityId) {
+            	geoEntityId.value = selected.getGeoEntityId();
+            }
             geoInfo.innerHTML = selected.getEntityName() + ' (' + selected.getTypeDisplayLabel()+ ')';
         }
         else
@@ -134,7 +136,9 @@ YAHOO.util.Event.onDOMReady(function(){
             YAHOO.util.Dom.addClass(geoInfo,'alert');
             geoId.value = '';
             geoInfo.innerHTML = selected.getEntityName() + ' (' + selected.getTypeDisplayLabel()+ ') is not a valid Geo Entity Type for this Field';
-            if(geoEntityId) geoEntityId.value = selected.getGeoEntityId();
+            if(geoEntityId) {
+            	geoEntityId.value = selected.getGeoEntityId();
+            }
         }
       }
       else
@@ -143,6 +147,15 @@ YAHOO.util.Event.onDOMReady(function(){
         geoInput.value = '';
         geoInfo.innerHTML = '';
         if(geoEntityId) geoEntityId.value ='';
+      }
+      
+      try
+      {
+    	  onValidGeoEntitySelected();
+      }
+      catch(e)
+      {
+    	  //Do nothing.  This method may not exist.
       }
     }
 
