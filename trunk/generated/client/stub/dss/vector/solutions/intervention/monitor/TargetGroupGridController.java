@@ -1,135 +1,204 @@
 package dss.vector.solutions.intervention.monitor;
 
-public class TargetGroupGridController extends TargetGroupGridControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
+
+import dss.vector.solutions.util.ErrorUtility;
+
+public class TargetGroupGridController extends TargetGroupGridControllerBase implements Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/intervention/monitor/TargetGroupGrid/";
-  public static final String LAYOUT = "/layout.jsp";
-  
-  private static final long serialVersionUID = 1245774420235L;
-  
-  public TargetGroupGridController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/intervention/monitor/TargetGroupGrid/";
+
+  public static final String LAYOUT           = "/layout.jsp";
+
+  private static final long  serialVersionUID = 1245774420235L;
+
+  public TargetGroupGridController(HttpServletRequest req, HttpServletResponse resp,
+      Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
-  public void cancel(dss.vector.solutions.intervention.monitor.TargetGroupGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void cancel(TargetGroupGridDTO dto) throws IOException, ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
-  public void failCancel(dss.vector.solutions.intervention.monitor.TargetGroupGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCancel(TargetGroupGridDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
   }
-  public void create(dss.vector.solutions.intervention.monitor.TargetGroupGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void create(TargetGroupGridDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failCreate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failCreate(dto);
     }
   }
-  public void failCreate(dss.vector.solutions.intervention.monitor.TargetGroupGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCreate(TargetGroupGridDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create TargetGroupGrid");
     render("createComponent.jsp");
   }
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+      throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.intervention.monitor.TargetGroupGridQueryDTO query = dss.vector.solutions.intervention.monitor.TargetGroupGridDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    TargetGroupGridQueryDTO query = TargetGroupGridDTO.getAllInstances(clientRequest, sortAttribute,
+        isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All TargetGroupGrid Objects");
     render("viewAllComponent.jsp");
   }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber)
+      throws IOException, ServletException
   {
     resp.sendError(500);
   }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+
+  public void newInstance() throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.intervention.monitor.TargetGroupGridDTO dto = new dss.vector.solutions.intervention.monitor.TargetGroupGridDTO(clientRequest);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    TargetGroupGridDTO dto = new TargetGroupGridDTO(clientRequest);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create TargetGroupGrid");
     render("createComponent.jsp");
   }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+
+  public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();
   }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+
+  public void viewAll() throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.intervention.monitor.TargetGroupGridQueryDTO query = dss.vector.solutions.intervention.monitor.TargetGroupGridDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    if (!req.getRequestURI().contains(this.getClass().getName() + ".viewAll.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".viewAll.mojo");
+
+      resp.sendRedirect(path);
+      return;
+    }
+    
+    ClientRequestIF clientRequest = super.getClientRequest();
+    TargetGroupGridQueryDTO query = TargetGroupGridDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All TargetGroupGrid Objects");
     render("viewAllComponent.jsp");
   }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+
+  public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
-  public void update(dss.vector.solutions.intervention.monitor.TargetGroupGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void update(TargetGroupGridDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failUpdate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(dss.vector.solutions.intervention.monitor.TargetGroupGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failUpdate(TargetGroupGridDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update TargetGroupGrid");
     render("editComponent.jsp");
   }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void view(String id) throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", dss.vector.solutions.intervention.monitor.TargetGroupGridDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View TargetGroupGrid");
+    if (!req.getRequestURI().contains(this.getClass().getName() + ".view.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".view.mojo");
+      path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + id);
+
+      resp.sendRedirect(path);
+      return;
+    }
+    
+    ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("item", TargetGroupGridDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
-  public void delete(dss.vector.solutions.intervention.monitor.TargetGroupGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void delete(TargetGroupGridDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failDelete(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failDelete(dto);
     }
   }
-  public void failDelete(dss.vector.solutions.intervention.monitor.TargetGroupGridDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failDelete(TargetGroupGridDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit TargetGroupGrid");
     render("editComponent.jsp");
   }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void edit(String id) throws IOException, ServletException
   {
-    dss.vector.solutions.intervention.monitor.TargetGroupGridDTO dto = dss.vector.solutions.intervention.monitor.TargetGroupGridDTO.lock(super.getClientRequest(), id);
+    TargetGroupGridDTO dto = TargetGroupGridDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit TargetGroupGrid");
     render("editComponent.jsp");
   }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }
