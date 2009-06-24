@@ -8,24 +8,12 @@
   <mjl:context action="dss.vector.solutions.surveillance.TreatmentMethodGridController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="active">
-      <mjl:header>
-        Active
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:structColumn attributeName="displayLabel">
-      <mjl:header>
-        Display Label
-      </mjl:header>
       <mjl:attributeColumn attributeName="defaultLocale">
-        <mjl:header>
-          displayLabel default locale
-        </mjl:header>
       </mjl:attributeColumn>
     </mjl:structColumn>
     <mjl:attributeColumn attributeName="optionName">
-      <mjl:header>
-        Name
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>

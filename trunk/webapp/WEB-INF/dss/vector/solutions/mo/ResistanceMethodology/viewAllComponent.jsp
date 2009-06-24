@@ -9,49 +9,22 @@
   <mjl:context action="dss.vector.solutions.mo.ResistanceMethodologyController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="definition">
-      <mjl:header>
-        Definition
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:structColumn attributeName="displayLabel">
-      <mjl:header>
-        Display Label
-      </mjl:header>
       <mjl:attributeColumn attributeName="defaultLocale">
-        <mjl:header>
-          displayLabel default locale
-        </mjl:header>
       </mjl:attributeColumn>
     </mjl:structColumn>
     <mjl:attributeColumn attributeName="enabled">
-      <mjl:header>
-        Enabled
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="inheritsTerm">
-      <mjl:header>
-        Inherits Term
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="inheritsTermName">
-      <mjl:header>
-        Inherits Term Name
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="oboNamespace">
-      <mjl:header>
-        Namespace
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="termId">
-      <mjl:header>
-        Term Id
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="termName">
-      <mjl:header>
-        Term Name
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
