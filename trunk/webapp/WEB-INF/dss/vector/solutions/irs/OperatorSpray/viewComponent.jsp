@@ -23,7 +23,9 @@
 <%@page import="dss.vector.solutions.irs.HouseholdSprayStatusViewDTO"%>
 <%@page import="dss.vector.solutions.irs.OperatorSprayViewDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
-<%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%><mjl:messages>
+<%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%>
+<c:set var="page_title" value="View_Operator_Spray" scope="request" />
+<mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.irs.OperatorSpray.form.name" id="dss.vector.solutions.irs.OperatorSpray.form.id" method="POST">

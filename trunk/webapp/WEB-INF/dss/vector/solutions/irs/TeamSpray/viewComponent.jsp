@@ -26,7 +26,9 @@
 
 <%@page import="com.terraframe.mojo.business.ViewDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%>
-<%@page import="dss.vector.solutions.irs.ActorSprayStatusViewDTO"%><mjl:messages>
+<%@page import="dss.vector.solutions.irs.ActorSprayStatusViewDTO"%>
+<c:set var="page_title" value="View_Team_Spray" scope="request" />
+<mjl:messages>
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.irs.TeamSpray.form.name" id="dss.vector.solutions.irs.TeamSpray.form.id" method="POST">
