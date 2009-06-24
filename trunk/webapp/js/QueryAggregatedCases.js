@@ -1202,6 +1202,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 MDSS.AbstractAttribute = function(obj)
 {
   	this._type = obj.type;
+  	this._dtoType = obj.dtoType;
   	this._displayLabel = obj.displayLabel;
   	this._attributeName = obj.attributeName;
     this._whereValues = [];
@@ -1224,6 +1225,11 @@ MDSS.AbstractAttribute.prototype = {
   getType : function()
   {
   	return this._type;
+  },
+
+  getDtoType : function()
+  {
+  	return this._dtoType;
   },
 
   getWhereValues : function()
@@ -1270,6 +1276,7 @@ MDSS.VisibleAttribute.prototype = {
     var selectable = new MDSS.QueryXML.Selectable(attribute);
     return selectable;
   }
+	
 };
 
 MDSS.GridAttribute = function(obj, meta)

@@ -17,6 +17,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._endDate = null;
 	    this._dateGroup = null;
 
+	    this._countSelectable = null;
 
 	    this._specieGroupSelectables = {};
 	    this._visibleSelectables = {};
@@ -25,6 +26,8 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._visibleGroupBySelectables = {};
 
 	    this._thematicSearchList = [];
+
+	    this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
 
 	    // list of map to search for thematic variable.
 	    // this._thematicSearchList.push(this._gridEntities);
@@ -163,7 +166,9 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	          {
 	            var column = columns[j];
 	            var attr = column.getKey();
+	            try{
 	            entry[attr] = result.getAttributeDTO(attr).getValue();
+	            }catch(err){}
 	          }
 
 	          jsonData.push(entry);
@@ -176,20 +181,9 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      }
 	    });
 
-	    var dateGroupPeriod = document.getElementById(this._queryPanel.DATE_GROUP_ID);
-	    if(dateGroupPeriod.value.length > 0)
-	    {
-	    	xml = xml + '<!--GROUP_BY_' + dateGroupPeriod.value + '-->';
-	    }
-
 	    $('debug_xml').value = xml;
 	    xml = $('debug_xml').value;
 
-	    // $('xml_go').onclick = function(){
-	    	// var xml = $('debug_xml').value;
-	    	// Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request,
-				// xml, this._geoEntityQueryType);
-	    // };
 	    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, this._geoEntityQueryType);
 	  },
 
@@ -223,9 +217,13 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  {
 	  	var queryXML = MDSS.QueryBase.prototype._constructQuery.call(this); // super
 
-	    var mosquito = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
+	    var mosquito = this._mainQueryClass;
 	    var mosquitoQuery = new MDSS.QueryXML.Entity(mosquito, mosquito);
 	    queryXML.addEntity(mosquitoQuery);
+	    var mosquitoCollection = Mojo.$.dss.vector.solutions.entomology.MosquitoCollection.CLASS;
+	    var collectionQuery = new MDSS.QueryXML.Entity(mosquitoCollection, mosquitoCollection);
+	    queryXML.addEntity(collectionQuery);
+
 	    var conditions = [];
 	    var groupBy = queryXML.getGroupBy();
 
@@ -235,20 +233,37 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    {
 	      var name = selNames[i];
 	      var selectable = this._visibleSelectables[name];
+
 	      queryXML.addSelectable(mosquitoQuery.getAlias()+'_'+name, selectable);
 
 	      // darrell
 	      if(selectable.attribute)
 	      {
-	      	var whereConds = selectable.attribute._whereValues.filter(
-	      			function(a){
-	      				return a.checked;
-	      			}).map(
-	      					function(a){
-	      						var condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, a.uuid);
-	      		        conditions.push(condition);
-	      						return a.id;
-	      						});
+	      	 var t =  selectable.attribute.getType();
+	      	 var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'');
+	      	 var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'');
+	         var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
+
+	      	if(selectable.attribute.getDtoType() == 'AttributeEnumerationDTO')
+	      	{
+		      	var enumIds = selectable.attribute._whereValues.filter(
+		      			function(a){return a.checked;}).map(function(a){return a.uuid;}).join(',');
+		      	if  (enumIds.length > 0)
+		      	{
+		      		var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.CONTAINS_ANY, enumIds);
+		      		conditions.push(condition);
+		      	}
+	      	}else{
+	      		var whereConds = selectable.attribute._whereValues.filter(
+		      			function(a){
+		      				return a.checked;
+		      			}).map(
+		      					function(a){
+		      						var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, a.uuid);
+		      		        conditions.push(condition);
+		      						return a.id;
+		      						});
+	      	}
 	      }
 	    }
 
@@ -270,8 +285,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      groupBy.addSelectable(name, selectable);
 	    }
 
-
-
 	    // start and end dates
 
 	    if(this._startDate != null)
@@ -282,6 +295,18 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    if(this._endDate != null)
 	    {
 	      conditions.push(this._endDate);
+	    }
+
+	    if(this._dateGroup != null)
+	    {
+	    	var attribute = new MDSS.QueryXML.Sqlcharacter('', this._dateGroup, this._dateGroup);
+	      var selectable = new MDSS.QueryXML.Selectable(attribute);
+	      queryXML.addSelectable(this._dateGroup, selectable);
+	    }
+
+	    if(this._countSelectable != null)
+	    {
+	      queryXML.addSelectable(mosquitoQuery.getAlias()+'_globalCount', this._countSelectable);
 	    }
 
 	    var where = null;
@@ -308,13 +333,23 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	   */
 	  _addVisibleAttribute : function(attribute)
 	  {
-	    var column = new YAHOO.widget.Column(attribute.getColumnObject());
-	    column.attribute = attribute;
-	    column = this._queryPanel.insertColumn(column);
-
 	    var attributeName = attribute.getAttributeName();
-	    var selectable = attribute.getSelectable();
-	    selectable.attribute = attribute;
+
+	    if(attribute.getType() == 'sqlcharacter'){
+	    	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attributeName));
+	    	selectable.attribute = attribute;
+	    	var column = new YAHOO.widget.Column({ key: attributeName,label: attributeName});
+	 	    column.attribute = attribute;
+	    }
+	    else
+	    {
+		    var selectable = attribute.getSelectable();
+		    selectable.attribute = attribute;
+	    	var column = new YAHOO.widget.Column(attribute.getColumnObject());
+	 	    column.attribute = attribute;
+	    }
+
+	    column = this._queryPanel.insertColumn(column);
 
 	    this._visibleSelectables[attribute.getKey()] = selectable;
 
@@ -450,10 +485,12 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      // check.contextMenu.suscribe('beforeHideEvent',_addSelectedColumn)
 	      if(YAHOO.util.Dom.hasClass(check, 'specieGroupCheck'))
 	      {
+	      	this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroup.CLASS;
 	      	this._uncheckAllByClass('individualMosquitoCheck');
 	      }
 	      if(YAHOO.util.Dom.hasClass(check, 'individualMosquitoCheck'))
 	      {
+	      	this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
 	      	this._uncheckAllByClass('specieGroupCheck');
 	      }
 
@@ -519,16 +556,12 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       if(this._dateGroup){
         var column = this._queryPanel.getColumn(this._dateGroup);
       	this._queryPanel.removeColumn(column);
-	      this._visibleSelectables[this._dateGroup] = null;
 	      this._dateGroup = null;
       	//this._queryPanel.removeThematicVariable(attribute.getKey());
       }
 	    if(select.value.length > 0)
 	    {
 	    	this._dateGroup = select.value;
-	    	var attribute = new MDSS.QueryXML.Sqlcharacter('',select.value, select.value);
-	      var selectable = new MDSS.QueryXML.Selectable(attribute);
-	      this._visibleSelectables[this._dateGroup] = selectable;
 	      this._queryPanel.insertColumn({
 	    	  key: this._dateGroup,
 	    	  label: MDSS.QueryXML.DateGroupOpts[select.value]
@@ -684,7 +717,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      YAHOO.util.Event.on(check, 'click', that._visibleAttributeHandler, attribute, that);
 	      li.appendChild(check);
 
-	      if(visibleObj.numeric)
+	      if(visibleObj.isNumeric)
 	      {
 	      	var select = document.createElement('select');
 		      var options = [''];
@@ -786,7 +819,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      YAHOO.util.Event.on(check, 'click', that._visibleAttributeHandler, attribute, that);
 	      li.appendChild(check);
 
-	      if(visibleObj.numeric)
+	      if(visibleObj.isNumeric)
 	      {
 	      	var select = document.createElement('select');
 		      var options = [''];
@@ -948,10 +981,11 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 			 */
 
 	    var mosquitoView = Mojo.$.dss.vector.solutions.entomology.Mosquito;
+	    var mosquitoType = mosquitoView.CLASS;
 	    var countAttribute = new MDSS.VisibleAttribute({
-	      type: mosquitoView.CLASS,
+	      type: mosquitoType,
 	      displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
-	      attributeName: mosquitoView.ID
+	      attributeName: 'id'
 	    });
 
 	    var countCheck = document.createElement('input');
@@ -969,11 +1003,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._queryPanel.addQueryItem({
 	      html: countDiv,
 	      id: 'globalCount'
-	    });
-
-	    this._queryPanel.addQueryItem({
-	      html: this._getGroupDiv(this,specieGroups, "Groups", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS),
-	      id: 'specieGroupsItem'
 	    });
 
 	    this._queryPanel.addQueryItem({
@@ -996,7 +1025,10 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      id: 'Biochemical_Assays'
 	    });
 
-
+	    this._queryPanel.addQueryItem({
+	      html: this._getGroupDiv(this,specieGroups, "Groups", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS),
+	      id: 'specieGroupsItem'
+	    });
 
 	  },
 
@@ -1088,7 +1120,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      this._addVisibleAttribute(column);
 	    }
 
-	    //YAHOO.util.Event.on(countCheck, 'click', this._toggleCount, countAttribute, this);
 	    YAHOO.util.Event.on(this._queryPanel._dateGroupBy, 'change', this._dateGroupHandler, '',this);
 	  }
 	});

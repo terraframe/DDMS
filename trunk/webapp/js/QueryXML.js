@@ -8,14 +8,15 @@ MDSS.QueryXML = {
     GT: 'GT',
     GE: 'GE',
     LT: 'LT',
-    LE: 'LE'
+    LE: 'LE',
+    CONTAINS_ANY: 'containsAny'
   },
 
   Functions : {
   	SUM: 'SUM',
   	MIN: 'MIN',
   	MAX: 'MAX',
-  	AVG: 'AVG',
+  	AVG: 'AVG'
   },
 
   DateGroupOpts: {
