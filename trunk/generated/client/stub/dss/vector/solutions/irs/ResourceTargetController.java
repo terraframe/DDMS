@@ -37,7 +37,7 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
     ClientRequestIF request = super.getClientSession().getRequest();
 
     req.setAttribute("sprayTeams", new LinkedList<SprayTeamDTO>());
-    req.setAttribute("seasons", MalariaSeasonDTO.getAllInstances(request, "endDate", true, 0, 0).getResultSet());
+    req.setAttribute("seasons", Arrays.asList(MalariaSeasonDTO.getAll(request)));
 
     render("viewAllComponent.jsp");
   }

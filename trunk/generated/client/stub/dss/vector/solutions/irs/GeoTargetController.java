@@ -2,6 +2,7 @@ package dss.vector.solutions.irs;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -106,8 +107,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements
   {
     ClientRequestIF request = super.getClientSession().getRequest();
 
-    req.setAttribute("seasons", MalariaSeasonDTO.getAllInstances(request, "endDate", true, 0, 0)
-        .getResultSet());
+    req.setAttribute("seasons", Arrays.asList(MalariaSeasonDTO.getAll(request)));
     render("viewAllComponent.jsp");
   }
 
