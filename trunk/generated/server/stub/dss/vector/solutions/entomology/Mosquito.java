@@ -66,14 +66,14 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     super.apply();
 
-    // Create a relationship the Collection-Mosquito relationship used for querying
-    if(first)
+    // Create a relationship the Collection-Mosquito relationship used for
+    // querying
+    if (first)
     {
       CollectionMosquito rel = new CollectionMosquito(this.getCollection(), this);
       rel.apply();
     }
   }
-
 
   @Transaction
   public void delete()
@@ -116,8 +116,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    * @param xml
    * @return
    */
-  private static ValueQuery xmlToValueQuery(String xml, String geoEntityType, boolean includeGeometry,
-      ThematicLayer thematicLayer)
+  private static ValueQuery xmlToValueQuery(String xml, String geoEntityType, boolean includeGeometry, ThematicLayer thematicLayer)
   {
     QueryFactory queryFactory = new QueryFactory();
 
@@ -148,28 +147,54 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       String attributeName = mdAttrGeo.getAttributeName();
 
       valueQueryParser.addAttributeSelectable(geoEntityType, attributeName, "", "");
-      valueQueryParser.addAttributeSelectable(geoEntityType, GeoEntity.ENTITYNAME, "",
-          QueryConstants.ENTITY_NAME_COLUMN);
+      valueQueryParser.addAttributeSelectable(geoEntityType, GeoEntity.ENTITYNAME, "", QueryConstants.ENTITY_NAME_COLUMN);
     }
 
     Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
 
     GeoHierarchy.addGeoHierarchyJoinConditions(valueQuery, queryMap);
 
-    if(xml.indexOf("DATEGROUP_MONTH") > 0)
+    MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
+    MorphologicalSpecieGroupQuery groupQuery = (MorphologicalSpecieGroupQuery) queryMap.get(MorphologicalSpecieGroup.CLASS);
+
+    if (xml.indexOf("DATEGROUP_SEASON") > 0)
     {
-      SelectableSQLCharacter dateGroup =  (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
+      String td = mosquitoQuery.getTestDate().getQualifiedName();
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
+      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + td + " and ms.enddate > " + td);
+    }
+
+    if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
+      dateGroup.setSQL("to_char(testdate,'YYYY-IW')");
+    }
+
+    if (xml.indexOf("DATEGROUP_MONTH") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
       dateGroup.setSQL("to_char(testdate,'YYYY-MM')");
     }
 
+    if (xml.indexOf("DATEGROUP_QUARTER") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_QUARTER");
+      dateGroup.setSQL("to_char(testdate,'YYYY-Q')");
+    }
 
-    MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
+    MosquitoCollectionQuery collectionQuery = new MosquitoCollectionQuery(queryFactory);
 
     // join Mosquito with mosquito collection
-    MosquitoCollectionQuery collectionQuery = new MosquitoCollectionQuery(queryFactory);
-    valueQuery.WHERE(mosquitoQuery.getCollection().EQ(collectionQuery));
+    if (mosquitoQuery != null)
+    {
+      //valueQuery.WHERE(mosquitoQuery.getCollection().EQ(collectionQuery));
+    }
+    if (groupQuery != null)
+    {
+      //valueQuery.WHERE(groupQuery.getCollection().EQ(collectionQuery));
+    }
 
-    //join collection with geo entity and select that entity type's geometry
+    // join collection with geo entity and select that entity type's geometry
     if (geoEntityType != null && geoEntityType.trim().length() > 0)
     {
       GeneratedBusinessQuery businessQuery = (GeneratedBusinessQuery) queryMap.get(geoEntityType);
@@ -177,7 +202,16 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(businessQuery));
     }
 
+    if (xml.indexOf("SpecieRatio") > 0)
+    {
+      SelectableSQLCharacter specieRatio = (SelectableSQLCharacter) valueQuery.getSelectable("SpecieRatio");
+      // valueQuery.valueQuery.g
+
+      specieRatio.setSQL("''");
+    }
+
     String sql = valueQuery.getSQL();
+    System.out.println(sql);
     return valueQuery;
   }
 
@@ -199,8 +233,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    * @return
    */
   @Transaction
-  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers,
-      String savedSearchId)
+  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers, String savedSearchId)
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
@@ -211,7 +244,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     SavedSearch search = SavedSearch.get(savedSearchId);
 
-    if(thematicLayerType == null || thematicLayerType.trim().length() == 0)
+    if (thematicLayerType == null || thematicLayerType.trim().length() == 0)
     {
       String error = "Cannot create a map for search [] without having restricted by a GeoEntity(s).";
       MapWithoutGeoEntityException ex = new MapWithoutGeoEntityException(error);
@@ -220,13 +253,13 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     // Create the thematic layer if it does not exist
     ThematicLayer thematicLayer = search.getThematicLayer();
-    if(thematicLayer == null)
+    if (thematicLayer == null)
     {
       thematicLayer = ThematicLayer.newInstance(thematicLayerType);
       search.setThematicLayer(thematicLayer);
     }
     // Update ThematicLayer if the thematic layer type has changed.
-    else if(!thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
+    else if (!thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
     {
       thematicLayer.changeLayerType(thematicLayerType);
     }

@@ -38,6 +38,7 @@ import com.terraframe.mojo.business.ComponentDTO;
 import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.Constants;
+import com.terraframe.mojo.system.EnumerationMasterDTO;
 import com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeDateMdDTO;
@@ -257,6 +258,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return ( Halp.join(dropdownbuff, "\n") );
   }
 
+  @SuppressWarnings("unchecked")
   public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest) throws JSONException
   {
     ArrayList<String> arr = new ArrayList<String>();
@@ -292,12 +294,15 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         {
           AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
           String map = "{";
-          for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
+          /*for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
           {
              map += "'" + e.getKey() + "':'" + e.getValue() + "',";
+          }*/
+          for (EnumerationMasterDTO e : (List<EnumerationMasterDTO>) clientRequest.getAllEnumerations(enumMd.getReferencedMdEnumeration()))
+          {
+             map += "'" + e.getId() + "':'" + e.getDisplayLabel() + "',";
           }
           map += "}";
-          //JSONObject map = new JSONObject((JSONTokener) ( (AttributeEnumerationMdDTO) md ).getEnumItems().entrySet());
           dropdownbuff.add(attrib + " : " + map + ",");
         }
         if (md instanceof AttributeBooleanMdDTO)
