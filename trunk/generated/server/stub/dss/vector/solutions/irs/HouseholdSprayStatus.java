@@ -97,15 +97,6 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
     Integer value = this.getSprayedHouseholds();
     if(value != null)
     {
-      if(method.equals(SprayMethod.MOP_UP))
-      {
-        String msg = "Value is not applicable on a mop-up spray";
-        ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
-        p.setNotification(this, SPRAYEDHOUSEHOLDS);
-        p.apply();
-        p.throwIt();
-      }
-
       if(value != 1 && value != 0)
       {
         String msg = "Sprayed Household value may only be 0 or 1";
