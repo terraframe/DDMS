@@ -18,9 +18,6 @@
 <%
   request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
   request.setAttribute("NonSentinelSiteClass", NonSentinelSiteDTO.CLASS);
-  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-  MosquitoCollectionDTO item = new MosquitoCollectionDTO(clientRequest);
-  request.setAttribute("item",item);
 %>
 
 <script type="text/javascript">
@@ -37,11 +34,11 @@
       <input type="radio" name="filterType" value="${SentinelSiteClass}" class="filterType"/>&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp;
       <input type="radio" name="filterType" value="${NonSentinelSiteClass}" class="filterType" />&nbsp;<fmt:message key="Non_Sentinel_Site"/>
     </dd>
-    <dt> <label> ${item.geoEntityMd.displayLabel}</label></dt>
+    <dt> <label> <fmt:message key="Geo_Entity"/> </label></dt>
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" maxlength="16" classes="geoInput"/></dd>
-    <dt> <label> ${item.dateCollectedMd.displayLabel}</label></dt>
+    <dt> <label> <fmt:message key="Date_Collected"/> </label></dt>
     <dd> <mjl:input param="collectionDate" type="text" classes="DatePick NoFuture" id="collectionDate"/></dd>
-    <dt> <label> ${item.collectionMethodMd.displayLabel}</label> </dt>
+    <dt> <label> <fmt:message key="Collection_Method"/> </label> </dt>
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${MosquitoCollection_collectionMethod}" param="collectionMethod.componentId" >
         <mjl:option>
