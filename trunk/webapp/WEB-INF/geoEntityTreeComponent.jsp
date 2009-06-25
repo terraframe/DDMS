@@ -29,18 +29,7 @@
 %>
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{GeoEntityViewDTO.CLASS, AllPathsDTO.CLASS}))%>
 
-<input type="button" value="Regenerate Paths" id="regeneratePaths" />
-
 <script type="text/javascript">
   MDSS.GeoTreeSelectables = <%= tree %>;
   MDSS.GeoEntityTreeRootId = '<%= rootId %>';
-  
-  YAHOO.util.Event.on('regeneratePaths', 'click', function(){
-    
-    var request = new MDSS.Request({
-      onSuccess : function(){ /*success*/} 
-    });
-    
-    Mojo.$.dss.vector.solutions.geo.AllPaths.regeneratePaths(request);
-  });
 </script>

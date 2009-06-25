@@ -2,6 +2,19 @@
 
 <jsp:include page="geoEntityTreeComponent.jsp"></jsp:include>
 
+<input type="button" value="Regenerate Paths" id="regeneratePaths" />
+
+<script type="text/javascript">
+  YAHOO.util.Event.on('regeneratePaths', 'click', function(){
+    
+    var request = new MDSS.Request({
+      onSuccess : function(){ /*success*/} 
+    });
+    
+    Mojo.$.dss.vector.solutions.geo.AllPaths.regeneratePaths(request);
+  });
+</script>
+
 <script type="text/javascript">
   YAHOO.util.Event.onDOMReady(function(){
 
