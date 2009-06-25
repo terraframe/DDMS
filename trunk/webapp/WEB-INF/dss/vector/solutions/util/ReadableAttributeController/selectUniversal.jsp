@@ -307,4 +307,16 @@
     </dd>
     
   </dl>
+
+  <dl>
+    <dt><label><f:message key="ITN_Data_Distribution"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="ITNData"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNDataView">
+        <f:message key="ITN_Data_Distribution"/>
+      </mjl:commandLink>
+    </dd>
+    
+  </dl>
   
