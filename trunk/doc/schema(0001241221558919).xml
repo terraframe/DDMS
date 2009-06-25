@@ -66,9 +66,14 @@
               order="3"
               type="java.lang.String" />
             <mdParameter
+              name="teamId"
+              label="Team Id"
+              order="4"
+              type="java.lang.String" />
+            <mdParameter
               name="operator"
               label="Operator"
-              order="4"
+              order="5"
               type="dss.vector.solutions.irs.SprayOperator" />
           </mdAction>
         </create>

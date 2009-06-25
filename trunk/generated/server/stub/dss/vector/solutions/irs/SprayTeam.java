@@ -85,6 +85,12 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
   }
   
   @Override
+  public SprayOperatorView[] getTeamMemberViews()
+  {
+    return SprayOperatorView.getAllForTeam(this);
+  }  
+  
+  @Override
   @Transaction
   public void edit(String geoId, String leaderId, String[] operatorIds, String[] removedIds)
   {

@@ -58,7 +58,6 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("operators", getTeamMembers(dto.getSprayOperator()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Operator Sprays");
 
     render("createComponent.jsp");
   }
@@ -91,7 +90,6 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("operators", getTeamMembers(dto.getSprayOperator()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update Operator Sprays");
     render("editComponent.jsp");
   }
 
@@ -114,7 +112,6 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     dto.setModified(TeamSprayViewDTO.SPRAYID, true);
     req.setAttribute("status", dto.getStatus());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "View Operator Sprays");
     render("viewComponent.jsp");
   }
 
@@ -130,7 +127,6 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("operators", getTeamMembers(dto.getSprayOperator()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Operator Sprays");
     render("editComponent.jsp");
   }
 
@@ -171,29 +167,36 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("operators", getTeamMembers(dto.getSprayOperator()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Operator Sprays");
     render("editComponent.jsp");
   }
 
   public void search() throws IOException, ServletException
   {
+    if (!req.getRequestURI().contains(this.getClass().getName() + ".search.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".search.mojo");
+
+      resp.sendRedirect(path);
+      return;
+    }
+
+    
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
     
     InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
-    SprayOperatorViewDTO[] operators = SprayOperatorViewDTO.getAll(clientRequest);
 
     req.setAttribute("methods", methods);
     req.setAttribute("method", SprayMethodDTO.MAIN_SPRAY.getName());
     req.setAttribute("brands", Arrays.asList(brands));
-    req.setAttribute("operators", Arrays.asList(operators));
-    req.setAttribute("page_title", "Search for an Operator Spray");
+    req.setAttribute("teams", new LinkedList<SprayTeamDTO>());
+    req.setAttribute("operators", new LinkedList<SprayOperatorViewDTO>());
 
     render("searchComponent.jsp");
   }
-
-  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod,
-      SprayOperatorDTO operator) throws IOException, ServletException
+  
+  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod, String teamId, SprayOperatorDTO operator) throws IOException, ServletException
   {
     try
     {
@@ -210,7 +213,6 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
       }
       else
       {
-        req.setAttribute("page_title", "New Operator Spray ");
         req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
         req.setAttribute("operators", getTeamMembers(operator));
         req.setAttribute("item", dto);
@@ -223,7 +225,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
       String failDate = ( date == null ? null : date.toString() );
 
-      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, operator);
+      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, teamId, operator);
     }
     catch (Throwable t)
     {
@@ -231,7 +233,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
       String failDate = ( date == null ? null : date.toString() );
 
-      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, operator);
+      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, teamId, operator);
     }
   }
 
@@ -288,26 +290,23 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     }
   }
 
-  public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date,
-      String method, SprayOperatorDTO operator) throws IOException, ServletException
+  public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date, String method, String teamId, SprayOperatorDTO operator) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
     InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
-    SprayOperatorViewDTO[] operators = SprayOperatorViewDTO.getAll(clientRequest);
 
     req.setAttribute("methods", methods);
     req.setAttribute("brands", Arrays.asList(brands));
-    req.setAttribute("operators", Arrays.asList(operators));
-    req.setAttribute("page_title", "Search for an Operator Spray");
-
+    req.setAttribute("operators", new LinkedList<SprayOperatorViewDTO>());
+    req.setAttribute("teams", new LinkedList<SprayTeamDTO>());
     req.setAttribute("brand", brand);
     req.setAttribute("date", date);
     req.setAttribute("geoId", geoId);
     req.setAttribute("method", method);
+    req.setAttribute("teamId", teamId);
     req.setAttribute("operator", operator);
-    req.setAttribute("page_title", "Search for an Operator Spray");
 
     render("searchComponent.jsp");
   }
