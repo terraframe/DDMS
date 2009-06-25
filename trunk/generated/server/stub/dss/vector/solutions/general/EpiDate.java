@@ -41,11 +41,11 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     super.setPeriod(period);
     super.setEpiYear(year);
     super.addPeriodType(periodType);
-        
+
     if (periodType.equals(PeriodType.WEEK))
     {
       Calendar calendar = makeEpiCalendar(year);
-      
+
       calendar.add(Calendar.WEEK_OF_YEAR, period);
       super.setStartDate(calendar.getTime());
       calendar.add(Calendar.WEEK_OF_YEAR, 1);
@@ -55,7 +55,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     else if (periodType.equals(PeriodType.MONTH))
     {
       Calendar calendar = makeRegularCalendar(year);
-      
+
       calendar.set(Calendar.MONTH, period);
       super.setStartDate(calendar.getTime());
       calendar.add(Calendar.MONTH, 1);
@@ -66,7 +66,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     {
       Calendar calendar = makeRegularCalendar(year);
 
-      calendar.set(Calendar.MONTH, 3 * (period-1) + 1);
+      calendar.set(Calendar.MONTH, 3 * ( period - 1 ) + 1);
       super.setStartDate(calendar.getTime());
       calendar.add(Calendar.MONTH, 3);
       calendar.add(Calendar.DAY_OF_MONTH, -1);
@@ -80,14 +80,14 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
     super.clearPeriodType();
     super.setStartDate(startDate);
-    super.setEndDate(endDate);    
+    super.setEndDate(endDate);
     super.setEpiYear(calendar.get(Calendar.YEAR));
-    
+
     if (plusOneWeek(startDate).equals(endDate))
     {
       calendar = makeEpiCalendar(getEpiYear());
       calendar.setTime(startDate);
-      
+
       super.addPeriodType(PeriodType.WEEK);
       super.setPeriod(calendar.get(Calendar.WEEK_OF_YEAR));
     }
@@ -102,7 +102,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     {
       int month = calendar.get(Calendar.MONTH);
 
-      super.setPeriod((month-1)/3 + 1);
+      super.setPeriod( ( month - 1 ) / 3 + 1);
       super.addPeriodType(PeriodType.QUARTER);
     }
   }
@@ -122,12 +122,27 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     return cal;
   }
 
+  private static GregorianCalendar getEpiCalendar(int year)
+  {
+    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+    GregorianCalendar cal = new GregorianCalendar();
+    cal.clear();
+    cal.setFirstDayOfWeek(startDay);
+    // The last day of the first epi week is the first SAT in Jan provided it is
+    // 4 or more days in.
+    cal.setMinimalDaysInFirstWeek(4 + startDay);
+    cal.set(Calendar.YEAR, year);
+    cal.set(Calendar.WEEK_OF_YEAR, 1);
+    cal.add(Calendar.DAY_OF_WEEK, 1);
+    return cal;
+  }
+
   private GregorianCalendar makeRegularCalendar(int year)
   {
     GregorianCalendar cal = new GregorianCalendar();
     cal.clear();
     cal.set(year, 0, 1);
-    
+
     return cal;
   }
 
@@ -161,7 +176,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     return c1.getTime();
   }
 
-  public  Integer getNumberOfEpiWeeks()
+  public Integer getNumberOfEpiWeeks()
   {
     Calendar thisYear = makeEpiCalendar(this.getEpiYear());
     Calendar nextYear = makeEpiCalendar(this.getEpiYear() + 1);
@@ -176,6 +191,102 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     {
       return 52;
     }
+  }
+
+  public static Date snapToEpiWeek(Date startDate)
+  {
+    int period = Calendar.DAY_OF_WEEK;
+
+    Calendar cal = new GregorianCalendar();
+    cal.setTime(startDate);
+    cal = getEpiCalendar(cal.get(Calendar.YEAR));
+    cal.setTime(startDate);
+
+    int piviot = cal.get(period);
+    int min = cal.getActualMinimum(period);
+    int max = cal.getActualMaximum(period);
+
+    int days_before_piviot = piviot - min;
+    int days_after_piviot = max - piviot;
+
+    // beginning of week wins in case of tie
+    if (days_before_piviot < days_after_piviot)
+    {
+      cal.set(period, min);
+    }
+    else
+    {
+      cal.set(period, max);
+    }
+    return cal.getTime();
+  }
+
+  public static Date snapToMonth(Date startDate)
+  {
+    int period = Calendar.DAY_OF_MONTH;
+
+    Calendar cal = new GregorianCalendar();
+    cal.setTime(startDate);
+    cal = getEpiCalendar(cal.get(Calendar.YEAR));
+    cal.setTime(startDate);
+
+    int piviot = cal.get(period);
+    int max = cal.getActualMaximum(period);
+    int min = cal.getActualMinimum(period);
+
+    int days_before_piviot = piviot - min;
+    int days_after_piviot = max - piviot;
+    // begining of month wins in case of tie
+    if (days_before_piviot < days_after_piviot)
+    {
+      cal.set(period, min);
+    }
+    else
+    {
+      cal.set(period, max-1);
+    }
+    return cal.getTime();
+  }
+
+  public static Date snapToQuarter(Date startDate)
+  {
+    int period = Calendar.DAY_OF_YEAR;
+
+    Calendar cal = new GregorianCalendar();
+    cal.setTime(startDate);
+    cal = getEpiCalendar(cal.get(Calendar.YEAR));
+    cal.setTime(startDate);
+
+    int quarter = ( ( cal.get(Calendar.MONTH) - 1 ) / 3 );
+    Calendar startOfQuarter = new GregorianCalendar(cal.get(Calendar.YEAR), quarter * 3, 1);
+    Calendar endOfQuarter = (Calendar) startOfQuarter.clone();
+    endOfQuarter.add(Calendar.MONTH, 3);
+    endOfQuarter.add(Calendar.DAY_OF_YEAR, -1);
+
+    Date quarterStartDate = startOfQuarter.getTime();
+    Date quarterEndDate = endOfQuarter.getTime();
+
+    int piviot = cal.get(period);
+    int min = startOfQuarter.get(period);
+    int max = endOfQuarter.get(period);
+
+    int days_before_piviot = piviot - min;
+    int days_after_piviot = max - piviot;
+
+    // begining of month wins in case of tie
+    if (days_before_piviot < days_after_piviot)
+    {
+      return quarterStartDate;
+    }
+    else
+    {
+      return quarterEndDate;
+    }
+  }
+
+  public static Date snapToSeason(Date snapable)
+  {
+    return snapable;
   }
 
   public PeriodType getEpiPeriodType()

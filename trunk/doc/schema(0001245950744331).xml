@@ -1,0 +1,44 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.general.EpiDate">
+        <create>
+          <mdMethod
+            name="snapToEpiWeek"
+            label="getInstance"
+            description="Accepts a date and returns the begining or ending of the epiWeek, whichever is closer"
+            static="true"
+            returnType="java.util.Date">
+          </mdMethod>
+          <mdMethod
+            name="snapToMonth"
+            label="getInstance"
+            description="Accepts a date and returns the begining or ending of the month, whichever is closer"
+            static="true"
+            returnType="java.util.Date">
+          </mdMethod>
+          <mdMethod
+            name="snapToQuarter"
+            label="getInstance"
+            description="Accepts a date and returns the begining or ending of the quarter, whichever is closer"
+            static="true"
+            returnType="java.util.Date">
+          </mdMethod>
+          <mdMethod
+            name="snapToSeason"
+            label="getInstance"
+            description="Accepts a date and returns the begining or ending of the season, whichever is closer"
+            static="true"
+            returnType="java.util.Date">
+          </mdMethod>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
