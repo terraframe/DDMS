@@ -11,7 +11,7 @@
   TeamSprayStatusViewDTO[] rows = (TeamSprayStatusViewDTO[]) request.getAttribute("status");
 
   String[] attributes = {"StatusId", "Spray", "SprayData", "SprayTeam", "TeamLabel", "TeamLeader",
-       "TeamSprayWeek", "Received", "Refills", "Returned", "Used", "Households", "Structures",
+       "TeamSprayWeek", "Target", "Received", "Refills", "Returned", "Used", "Households", "Structures",
        "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
        "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
 
@@ -83,6 +83,8 @@ data = {
          data_type: "Mojo.$.<%=TeamSprayStatusViewDTO.CLASS%>",
          saveFunction:"applyAll",
          width:"65em",
+         addButton:false,
+         excelButtons:false,
          after_row_load:function(record){
              var teamId = record.getData('SprayTeam');
              var leaderId = record.getData('TeamLeader');

@@ -101,7 +101,7 @@
       </dd>
     </c:if>
 
-    <c:if test="${item.isDisplayTargetGroupsReadable}">
+    <c:if test="${item.isDisplayNetsReadable}">
       <dt>
     
       </dt>
