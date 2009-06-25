@@ -31,19 +31,19 @@
         ${item.batchNumber}
       </mjl:dt>
       <mjl:dt attribute="receivedForTargetGroups">      
-        ${item.batchNumber}
+        ${item.receivedForTargetGroups}
       </mjl:dt>      
       <mjl:dt attribute="receivedForCommunityResponse">      
-        ${item.batchNumber}
+        ${item.receivedForCommunityResponse}
       </mjl:dt>      
       <mjl:dt attribute="numberDistributed">      
-        ${item.batchNumber}
+        ${item.numberDistributed}
       </mjl:dt>     
       <mjl:dt attribute="numberSold">      
-        ${item.batchNumber}
+        ${item.numberSold}
       </mjl:dt>      
       <mjl:dt attribute="currencyReceived">      
-        ${item.batchNumber}
+        ${item.currencyReceived}
       </mjl:dt>
       
     </mjl:component>    
