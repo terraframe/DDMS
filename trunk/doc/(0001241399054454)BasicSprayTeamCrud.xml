@@ -84,6 +84,11 @@
             returnType="dss.vector.solutions.irs.SprayOperator[]"
             static="false" />
           <mdMethod
+            name="getTeamMemberViews"
+            label="Get Team Members"
+            returnType="dss.vector.solutions.irs.SprayOperatorView[]"
+            static="false" />
+          <mdMethod
             name="findByLocation"
             label="Find by Location"
             static="true"

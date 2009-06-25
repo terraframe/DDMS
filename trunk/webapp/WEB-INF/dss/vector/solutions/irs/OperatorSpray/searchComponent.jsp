@@ -20,7 +20,9 @@
 <%@page import="dss.vector.solutions.irs.SprayOperatorViewDTO"%>
 
 
-<%@page import="dss.vector.solutions.irs.SprayOperatorDTO"%><c:set var="page_title" value="Search_for_an_Operator_Spray" scope="request" />
+<%@page import="dss.vector.solutions.irs.SprayOperatorDTO"%>
+
+<c:set var="page_title" value="Search_for_an_Operator_Spray" scope="request" />
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
