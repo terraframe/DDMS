@@ -10,6 +10,7 @@
   OperatorSprayViewDTO spray = ((OperatorSprayViewDTO) request.getAttribute("item"));
   HouseholdSprayStatusViewDTO[] rows = (HouseholdSprayStatusViewDTO[]) request.getAttribute("status");
 
+  // If the order of these attributes are changed, you need to change the javascript indexes at the bottom!
   String[] attributes = {"StatusId", "Spray", "HouseholdId", "StructureId", "Households", "Structures",
        "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
        "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
@@ -72,7 +73,15 @@
     %>
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 
-
+	var indexHouseholds = 4;
+	var indexStructures = 5;
+	var indexSprayedHouseholds = 6;
+	var indexSprayedStructures = 7;
+	var indexPrevSprayedHouseholds = 8;
+	var indexPrevSprayedStructures = 9;
+	var indexRooms = 10;
+	var isMainSpray = <%= (spray.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
+	
     data = {
               rows:<%=Halp.getDataMap(rows, attributes, view)%>,
               columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 2)%>,
@@ -82,6 +91,20 @@
               saveFunction:"applyAll",
               width:"65em"              
           };
+
+    if (isMainSpray) {
+    	//delete data.columnDefs[indexHouseholds].editor;
+    	//delete data.columnDefs[indexStructures].editor;
+    	data.defaults.Households = 1;
+    	data.defaults.Structures = 1;
+    } else {
+    	delete data.columnDefs[indexHouseholds].editor;
+    	delete data.columnDefs[indexStructures].editor;
+    	delete data.columnDefs[indexPrevSprayedHouseholds].editor;
+    	delete data.columnDefs[indexPrevSprayedStructures].editor;
+    	delete data.columnDefs[indexRooms].editor;
+    }
+    
     document.addEventListener('load', MojoGrid.createDataTable(data), false);
 
 </script>
