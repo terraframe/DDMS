@@ -10,10 +10,11 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
-<jsp:include page="geoEntityTreeComponent.jsp"/>
+
+<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%><jsp:include page="geoEntityTreeComponent.jsp"/>
 <%ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 String rootId = (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID);
-String[] types = new String[] { GeoHierarchyDTO.CLASS, GeoHierarchyViewDTO.CLASS, GeoEntityTreeController.CLASS };
+String[] types = new String[] { GeoHierarchyDTO.CLASS, GeoHierarchyViewDTO.CLASS, GeoEntityTreeController.CLASS, GeoEntityViewDTO.CLASS };
 //String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 // out.print(js);%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(types))%>
