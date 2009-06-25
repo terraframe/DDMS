@@ -58,7 +58,41 @@
 
 
     </create>
-    <update></update>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.MDSSUser">
+        <create>
+        <attributes>
+          <reference
+            name="rootGeoEntity"
+            description="The root geo entity for this user"
+            label="Root Geo Entity"
+            required="false"
+            type="dss.vector.solutions.geo.generated.GeoEntity" />
+        </attributes>
+        </create>
+      </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.MDSSUser">
+        <create>
+        <mdMethod
+          name="changeRootGeoEntity"
+          label="Change Root Geo Entity"
+          description="Change Roo Geo Entity"
+          returnType="void"
+          static="true">
+          <mdParameter
+            name="geoEntityId"
+            label="Geo Entity Id"
+            order="0"
+            description="Geo Entity Id"
+            type="java.lang.String" />
+        </mdMethod>
+        </create>
+      </mdBusiness> 
+    
+    </update>
   </doIt>
   <undoIt>
     <delete></delete>

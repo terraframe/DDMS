@@ -5,12 +5,15 @@ import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.business.rbac.RoleDAO;
 import com.terraframe.mojo.business.rbac.RoleDAOIF;
 import com.terraframe.mojo.business.rbac.UserDAO;
+import com.terraframe.mojo.business.rbac.UserDAOIF;
 import com.terraframe.mojo.session.CreatePermissionException;
 import com.terraframe.mojo.session.DeletePermissionException;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.session.SessionIF;
 import com.terraframe.mojo.system.Assignments;
 import com.terraframe.mojo.system.Roles;
+
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class MDSSUser extends MDSSUserBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -71,5 +74,17 @@ public class MDSSUser extends MDSSUserBase implements com.terraframe.mojo.genera
 
       RoleDAO.findRole(roleName).getBusinessDAO().deassignMember(userDAO);
     }
+  }
+
+  public static void changeRootGeoEntity(String geoEntityId)
+  {
+    GeoEntity geoEntity = GeoEntity.get(geoEntityId);
+
+    UserDAOIF user = Session.getCurrentSession().getUser();
+    MDSSUser mdssUser = MDSSUser.get(user.getId());
+
+    mdssUser.appLock();
+    mdssUser.setRootGeoEntity(geoEntity);
+    mdssUser.apply();
   }
 }

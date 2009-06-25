@@ -47,6 +47,7 @@ var Mojo = {
     IS_DATE_TO_STRING : Object.prototype.toString.call(new Date()),
     IS_STRING_TO_STRING : Object.prototype.toString.call(''),
     IS_NUMBER_TO_STRING : Object.prototype.toString.call(0),
+    IS_BOOLEAN_TO_STRING : Object.prototype.toString.call(true),
 
     isObject : function(o)
     {
@@ -76,6 +77,11 @@ var Mojo = {
     isNumber : function(o)
     {
       return o != null && Object.prototype.toString.call(o) === this.IS_NUMBER_TO_STRING;
+    },
+    
+    isBoolean : function(o)
+    {
+      return o != null && Object.prototype.toString.call(o) === this.IS_BOOLEAN_TO_STRING;
     },
 
     hasMethod : function(obj, method)

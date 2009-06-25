@@ -31,18 +31,14 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._startDate = null;
     this._endDate = null;
 
-    //this._startAgeGroupBySel = null;
-    //this._endAgeGroupBySel = null;
     this._ageGroupCriteria = {};
 
     this._visibleSelectables = {};
     this._visibleAggregateSelectables = {};
-    //this._visibleGroupBySelectables = {};
 
     this._gridEntities = {};
     this._gridSelectables = {};
     this._gridAggregateSelectables = {};
-    //this._gridGroupBySelectables = {};
 
     this._countSelectable = null;
 
@@ -52,20 +48,26 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     {
       this._queryPanel.addAvailableQuery(queryList[i]);
     }
+    
+    // array of checkboxes that must be checked after the DOM has been rendered
+    this._defaultAgeGroups = [];
 
     this._buildQueryItems(ageGroups, visibleAttributes, orderedGrids);
-
-    //this._buildColumns();
   },
-
-  /*
-  _containsGroupBy : function()
+  
+  /**
+   * Checks all the age group check boxes, meaning
+   * all age groups are allowed by default.
+   */
+  postRender : function()
   {
-    return this._startAgeGroupBySel != null || this._endAgeGroupBySel != null ||
-      Mojo.util.getValues(this._visibleGroupBySelectables).length > 0 ||
-      Mojo.util.getValues(this._gridGroupBySelectables).length > 0;
+    for(var i=0; i<this._defaultAgeGroups.length; i++)
+    {
+      this._defaultAgeGroups[i].click();
+    }
+    
+    this._defaultAgeGroups = null;
   },
-  */
 
   /**
    * Returns the method to save this AggregatedCase search.
@@ -187,39 +189,14 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       thisRef : this,
       onSuccess : function(query)
       {
-        // column key is selectable alias name
-        var columnSet = this.thisRef._queryPanel.getColumnSet();
-        var columns = columnSet.keys;
-
-        // add query results to table
-        var resultSet = query.getResultSet();
-        var jsonData = [];
-        for(var i=0; i<resultSet.length; i++)
-        {
-          var result = resultSet[i];
-
-          var entry = {};
-          for(var j=0; j<columns.length; j++)
-          {
-            var column = columns[j];
-            var attr = column.getKey();
-            entry[attr] = result.getAttributeDTO(attr).getValue();
-          }
-
-          jsonData.push(entry);
-        }
-
-        // clear previous records
-        this.thisRef._queryPanel.clearAllRecords();
-
-        this.thisRef._queryPanel.setRowData(jsonData);
+        this.thisRef.resetQueryResults(query);
       }
     });
 
-
-    Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, this._geoEntityQueryType);
+    var page = this.getCurrentPage();
+    Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, this._geoEntityQueryType, '', true, page, this.PAGE_SIZE);
   },
-
+  
   /**
    * Handler called to generate a map with a thematic variable.
    */
@@ -894,19 +871,19 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       var check = document.createElement('input');
       YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
       YAHOO.util.Dom.setAttribute(check, 'value', group.id);
-      YAHOO.util.Dom.setAttribute(check, 'checked', true);
       YAHOO.util.Event.on(check, 'click', this._ageGroupCheckHandler, group, this);
 
       li.appendChild(check);
       li.appendChild(span);
 
       groups.appendChild(li);
+      this._defaultAgeGroups.push(check);
     }
 
     ageGroupDiv.appendChild(ageDiv);
     ageGroupDiv.appendChild(show);
     ageGroupDiv.appendChild(groups);
-
+    
     this._queryPanel.addQueryItem({
       html: ageGroupDiv,
       id:"ageGroupItem"

@@ -410,6 +410,18 @@ MDSS.GeoEntityTree = (function(){
     Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.changeUniversalType(request, geoEntityView.getGeoEntityId(), type);
   }
 
+  function _changeRootGeoEntity()
+  {
+    var request = new MDSS.Request({
+      onSuccess : function(){
+        // TODO highlight the node
+      }
+    });
+
+    var geoEntityView = _getGeoEntityView(_selectedNode);
+    Mojo.$.dss.vector.solutions.MDSSUser.changeRootGeoEntity(request, geoEntityView.getGeoEntityId());
+  }
+
   /**
    * Handler to change a node's type.
    */
@@ -1086,6 +1098,12 @@ MDSS.GeoEntityTree = (function(){
     createMenuItem.subscribe("click", _addNodeHandler);
     itemData.push(createMenuItem);
 
+    /*
+    var changeRootItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Set_As_Root);
+    changeRootItem.subscribe("click", _changeRootGeoEntity);
+    itemData.push(changeRootItem);
+    */
+    
     var changeTypeMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Change_Type);
     changeTypeMenuItem.subscribe("click", _changeTypeHandler);
     itemData.push(changeTypeMenuItem);

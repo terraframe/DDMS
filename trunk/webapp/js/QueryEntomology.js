@@ -29,13 +29,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
 
-	    // list of map to search for thematic variable.
-	    // this._thematicSearchList.push(this._gridEntities);
-	    // this._thematicSearchList.push(this._gridSelectables);
-	    // this._thematicSearchList.push(this._gridAggregateSelectables);
-	    // this._thematicSearchList.push(this._gridGroupBySelectables);
-
-
 	    // END: query objects
 
 	    for(var i=0; i<queryList.length; i++)
@@ -150,34 +143,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      thisRef : this,
 	      onSuccess : function(query)
 	      {
-	        // column key is selectable alias name
-	        var columnSet = this.thisRef._queryPanel.getColumnSet();
-	        var columns = columnSet.keys;
-
-	        // add query results to table
-	        var resultSet = query.getResultSet();
-	        var jsonData = [];
-	        for(var i=0; i<resultSet.length; i++)
-	        {
-	          var result = resultSet[i];
-
-	          var entry = {};
-	          for(var j=0; j<columns.length; j++)
-	          {
-	            var column = columns[j];
-	            var attr = column.getKey();
-	            try{
-	            entry[attr] = result.getAttributeDTO(attr).getValue();
-	            }catch(err){}
-	          }
-
-	          jsonData.push(entry);
-	        }
-
-	        // clear previous records
-	        this.thisRef._queryPanel.clearAllRecords();
-
-	        this.thisRef._queryPanel.setRowData(jsonData);
+            this.thisRef.resetQueryResults(query);
 	      }
 	    });
 

@@ -221,7 +221,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    * @param xml
    */
   @Transaction
-  public static com.terraframe.mojo.query.ValueQuery queryEntomology(String xml, String geoEntityType)
+  public static com.terraframe.mojo.query.ValueQuery queryEntomology(String xml, String geoEntityType, String sortBy, Boolean ascending, Integer pageNumber)
   {
     return xmlToValueQuery(xml, geoEntityType, false, null);
   }

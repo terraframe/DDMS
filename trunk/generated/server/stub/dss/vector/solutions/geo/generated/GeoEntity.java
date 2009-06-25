@@ -1,5 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -154,18 +155,28 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   public static ValueQuery searchByEntityName(String type, String name)
   {
     QueryFactory f = new QueryFactory();
-    GeoEntityQuery q = new GeoEntityQuery(f);
+
+    Class<?> klass = LoaderDecorator.load(type + "Query");
+    GeoEntityQuery q;
+    try
+    {
+      Constructor<?> constructor = klass.getConstructor(QueryFactory.class);
+      q = (GeoEntityQuery) constructor.newInstance(f);
+    }
+    catch (Throwable t)
+    {
+      throw new ProgrammingErrorException(t);
+    }
+
     ValueQuery valueQuery = new ValueQuery(f);
 
     Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME) };
     valueQuery.SELECT(selectables);
 
-    valueQuery.WHERE(q.getType().EQ(type));
-
     String searchable = name + "%";
     valueQuery.WHERE(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable));
 
-    // FIXME how to limit result set?
+    valueQuery.restrictRows(20, 1);
 
     return valueQuery;
   }
@@ -200,7 +211,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       valueQuery.WHERE(or);
     }
 
-    // FIXME how to limit result set?
+    valueQuery.restrictRows(20, 1);
+
     return valueQuery;
   }
 

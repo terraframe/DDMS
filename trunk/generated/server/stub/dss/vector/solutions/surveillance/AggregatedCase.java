@@ -35,6 +35,7 @@ import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -574,6 +575,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
         valueQuery.AND(ctmq.hasChild(treatmentMethodGridQuery));
       }
     }
+    
+    valueQuery.restrictRows(20, 1);
 
     return valueQuery;
   }
@@ -596,9 +599,14 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * @param xml
    */
   @Transaction
-  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String geoEntityType)
+  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String geoEntityType, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
-    return xmlToValueQuery(xml, geoEntityType, false, null);
+    ValueQuery valueQuery = xmlToValueQuery(xml, geoEntityType, false, null);
+    
+    valueQuery.restrictRows(pageSize, pageNumber); 
+    
+    
+    return valueQuery;
   }
 
   /**

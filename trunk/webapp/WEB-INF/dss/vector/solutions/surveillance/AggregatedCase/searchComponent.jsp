@@ -17,15 +17,15 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Arrays"%>
 
-<%@page import="dss.vector.solutions.geo.generated.FacilityDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.AbstractSite"%>
+<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.CollectionSite"%>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 <script type="text/javascript">
 MDSS.AbstractSelectSearch.Political = true;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= AbstractSite.CLASS %>');
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= FacilityDTO.CLASS %>*');
+MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= CollectionSite.CLASS %>*');
+MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*');
 </script>
 
 <mjl:form name="search" method="POST" id ="searchAggregatedCase">

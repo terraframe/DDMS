@@ -267,9 +267,17 @@ MDSS.AbstractSelectSearch.prototype = {
    * and an option for the select element that represents
    * the GeoEntity's type.
    */
-  _setEntityOption : function(geoEntityView)
+  _setEntityOption : function(geoEntityView, overrideIndex)
   {
-    var select = document.getElementById(geoEntityView.getEntityType());
+    var select;
+    if(overrideIndex != null)
+    {
+      select = this._selectLists[overrideIndex];
+    }
+    else
+    {
+      select = document.getElementById(geoEntityView.getEntityType());
+    }
 
     if(select && !this._geoEntityViewCache[geoEntityView.getGeoEntityId()])
     {
@@ -588,7 +596,7 @@ MDSS.AbstractSelectSearch.prototype = {
    * Clears all select lists and adds the given results
    * as new select list options.
    */
-  _clearAndAddAll : function(selectIndex, results)
+  _clearAndAddAll : function(selectIndex, results, entityOrGeoId)
   {
     // clear all select lists
     this._clearSelectLists(0);
@@ -596,7 +604,9 @@ MDSS.AbstractSelectSearch.prototype = {
     for(var i=0; i<results.length; i++)
     {
       var childView = results[i];
-      this._setEntityOption(childView);
+      var overrideIndex = childView.getGeoEntityId() == entityOrGeoId || childView.getGeoId() == entityOrGeoId ? selectIndex : null;
+
+      this._setEntityOption(childView, overrideIndex);
     }
 
     for(var i=selectIndex; i>=0; i--)
@@ -634,7 +644,7 @@ MDSS.AbstractSelectSearch.prototype = {
 
         var selectIndex = this.searchRef._typeAndSelectMap[this.type];
 
-        this.searchRef._clearAndAddAll(selectIndex, results);
+        this.searchRef._clearAndAddAll(selectIndex, results, geoEntityId);
       }
     });
 
@@ -661,7 +671,7 @@ MDSS.AbstractSelectSearch.prototype = {
         this.input.value = "";
 
         var selectIndex = this.searchRef._typeAndSelectMap[this.type];
-        this.searchRef._clearAndAddAll(selectIndex, results);
+        this.searchRef._clearAndAddAll(selectIndex, results, geoId);
       }
     });
 
@@ -699,7 +709,7 @@ MDSS.AbstractSelectSearch.prototype = {
       for(var i=0; i<geoEntities.length; i++)
       {
         var childView = geoEntities[i];
-        this.searchRef._setEntityOption(childView);
+        this.searchRef._setEntityOption(childView, null);
       }
 
       this.searchRef._notifySelectHandler(this.parentEntityView, true);

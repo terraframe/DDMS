@@ -7,7 +7,7 @@ import com.terraframe.mojo.query.QueryFactory;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQuery;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery;
-import dss.vector.solutions.geo.generated.AbstractSite;
+import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.mo.CollectionMethod;
 
 public class MosquitoCollection extends MosquitoCollectionBase implements
@@ -34,7 +34,7 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
   {
     super.validateGeoEntity();
 
-    if (! ( this.getGeoEntity() instanceof AbstractSite ))
+    if (! ( this.getGeoEntity() instanceof CollectionSite ))
     {
       String msg = "The geoEntity of a mosquito collection must be a (non)sentinel site";
 
@@ -85,27 +85,27 @@ public class MosquitoCollection extends MosquitoCollectionBase implements
       }
     }
   }
-  
+
   public AdultDiscriminatingDoseAssayQuery getAdultDoseAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     AdultDiscriminatingDoseAssayQuery query = new AdultDiscriminatingDoseAssayQuery(new QueryFactory());
     query.WHERE(query.getCollection().EQ(this));
-    
+
     Entity.getAllInstances(query, sortAttribute, isAscending, pageSize, pageNumber);
-    
+
     return query;
   }
-  
+
   public LarvaeDiscriminatingDoseAssayQuery getLarvaeDoseAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     LarvaeDiscriminatingDoseAssayQuery query = new LarvaeDiscriminatingDoseAssayQuery(new QueryFactory());
     query.WHERE(query.getCollection().EQ(this));
 
     Entity.getAllInstances(query, sortAttribute, isAscending, pageSize, pageNumber);
-    
+
     return query;
   }
-  
+
   @Override
   public KnockDownAssayQuery getKnockDownAssays(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {

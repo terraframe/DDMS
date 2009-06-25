@@ -20,6 +20,8 @@ MDSS.QueryBase.prototype = {
       exportCSV : MDSS.util.bind(this, this.exportCSV),
       exportReport : MDSS.util.bind(this, this.exportReport),
       toggleDates : MDSS.util.bind(this, this.toggleDates),
+      paginationHandler : MDSS.util.bind(this, this.paginationHandler),
+      postRender : MDSS.util.bind(this, this.postRender),
     });
 
     // Set of GeoEntity subclasses that will be used for the query/mapping
@@ -28,6 +30,20 @@ MDSS.QueryBase.prototype = {
     this._geoEntityTypes = {};
     this._geoEntitySelectables = {};
     this._geoIdConditions = {};
+    
+    this._currentPage = 1;
+    
+    this.PAGE_SIZE = 1;
+  },
+  
+  getCurrentPage : function()
+  {
+    return this._currentPage;
+  },
+  
+  setCurrentPage : function(page)
+  {
+    this._currentPage = page;
   },
 
   exportCSV : function(form, xmlInput, geoEntityTypeInput, searchIdInput)
@@ -84,7 +100,55 @@ MDSS.QueryBase.prototype = {
     searchIdInput.value = savedSearchId;
     form.submit();
   },
+  
+  /**
+   * Resets the query panel with the result contents of the query.
+   */
+  resetQueryResults : function(query)
+  {
+     // column key is selectable alias name
+     var columnSet = this._queryPanel.getColumnSet();
+     var columns = columnSet.keys;
 
+     // add query results to table
+     var resultSet = query.getResultSet();
+     var jsonData = [];
+     for(var i=0; i<resultSet.length; i++)
+     {
+       var result = resultSet[i];
+
+       var entry = {};
+       for(var j=0; j<columns.length; j++)
+       {
+         var column = columns[j];
+         var attr = column.getKey();
+         entry[attr] = result.getAttributeDTO(attr).getValue();
+       }
+
+       jsonData.push(entry);
+     }
+     
+     this._queryPanel.clearAllRecords();
+     this._queryPanel.setRowData(jsonData);
+     this._queryPanel.setPagination(query.getCount(), this.getCurrentPage(), this.PAGE_SIZE);
+  },
+  
+  /**
+   * Called after the QueryPanel has performed all of its rendering operations.
+   */
+  postRender : function()
+  {
+  },
+  
+  /**
+   * Called when a user clicks a page number in the query panel.
+   */
+  paginationHandler : function(pageNumber)
+  {
+    this.setCurrentPage(pageNumber);
+    this.executeQuery();
+  },
+  
   /**
    * Called when a user toggles the value in the checkbox next
    * to the start and end date fields. This generally means the user
@@ -656,5 +720,4 @@ MDSS.QueryBase.prototype = {
 
     controller.editThematicLayer(request, thematicLayerId, thematicVars);
   }
-
 };

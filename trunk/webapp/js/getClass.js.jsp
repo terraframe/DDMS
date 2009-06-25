@@ -34,19 +34,15 @@ String includeUniversalTypes = request.getParameter("includeUniversalTypes");
 String[] types_to_load;
 if(includeUniversalTypes != null)
 {
-  EarthDTO earth = EarthDTO.getEarthInstance(clientRequest);
-  String tree = GeoHierarchyDTO.defineAllowedTree(clientRequest, earth.getId());
-  JSONObject obj = new JSONObject(tree);
-  JSONArray imports = obj.getJSONArray("imports");
-
-  //GeoHierarchyViewQueryDTO query = GeoHierarchyDTO.getAllGeoHierarchyViews(clientRequest);
-  //List<? extends GeoHierarchyViewDTO> results = query.getResultSet();
+  GeoHierarchyViewQueryDTO query = GeoHierarchyDTO.getAllGeoHierarchyViews(clientRequest);
+  List<? extends GeoHierarchyViewDTO> results = query.getResultSet();
   List<String> toLoad = new LinkedList<String>();
 
-  for(int i=0; i<imports.length(); i++)
+  for(GeoHierarchyViewDTO view : results)
   {
-	String type = imports.getString(i);
+	String type = MDSSInfo.GENERATED_GEO_PACKAGE+"."+view.getTypeName();
     toLoad.add(type);
+    toLoad.add(type+"Controller");
   }
 
   types_to_load = toLoad.toArray(new String[toLoad.size()]);

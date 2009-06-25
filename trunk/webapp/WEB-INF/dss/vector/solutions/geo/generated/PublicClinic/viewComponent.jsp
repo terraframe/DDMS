@@ -8,7 +8,7 @@
   <dl>
     <dt>
       <label>
-        ${item.pointMd.displayLabel}
+        ${item.multiPointMd.displayLabel}
       </label>
     </dt>
     <dd>

@@ -607,6 +607,32 @@ div.scrollable {
 	width:6em;
 }
 
+#queryDataTable
+{
+	height: 93%;	
+	width: 100%;
+}
+
+#paginationSection
+{
+	border-top: 1px solid black;
+	height: 7%;
+	width: 100%;
+	background-color: white;
+	font-weight: bold;
+}
+
+#paginationSection .page
+{
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+#paginationSection .currentPage
+{
+  text-decoration: underline;
+}
+
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/

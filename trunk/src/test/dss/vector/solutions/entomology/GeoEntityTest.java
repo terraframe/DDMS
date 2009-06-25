@@ -78,7 +78,7 @@ public class GeoEntityTest extends GeoTest
     try
     {
       new Earth().apply();
-      
+
       fail("Was able to duplicate Earth, which simply cannot happen, you big silly goose.");
     }
     catch (DuplicateEarthException e)
@@ -155,10 +155,10 @@ public class GeoEntityTest extends GeoTest
         {
           GeoEntity child = iter.next();
           assertEquals(province.getId(), child.getId());
-          
+
           childCount++;
         }
-        
+
         assertEquals(childCount, 1);
       }
       finally
@@ -171,7 +171,7 @@ public class GeoEntityTest extends GeoTest
       deleteAll(testEntities);
     }
   }
-  
+
   /**
    * Tests putting a GeoEntity as a child not
    * allowed by the GeoHierarhy.
@@ -198,7 +198,7 @@ public class GeoEntityTest extends GeoTest
       country.setGeoId(genGeoId());
       country.applyWithParent(province.getId(), false);
       testEntities.add(country);
-      
+
       fail("Was able to create a Country within a Province.");
     }
     catch(LocatedInException e)
@@ -210,17 +210,17 @@ public class GeoEntityTest extends GeoTest
       deleteAll(testEntities);
     }
   }
-  
+
   /**
    * Tests that a GeoEntity cannot be located in itself.
    */
   public void testEntityNotLocatedInSelf()
   {
     List<GeoEntity> testEntities = new LinkedList<GeoEntity>();
-    
+
     Country country = null;
     Province province = null;
-    
+
     try
     {
       country = new Country();
@@ -236,9 +236,9 @@ public class GeoEntityTest extends GeoTest
       province.setGeoId(genGeoId());
       province.applyWithParent(country.getId(), false);
       testEntities.add(province);
-      
+
       province.applyWithParent(province.getId(), false);
-      
+
       fail("Able to add the same province as its own parent.");
     }
     catch(LocatedInException e)
@@ -250,7 +250,7 @@ public class GeoEntityTest extends GeoTest
       deleteAll(testEntities);
     }
   }
-  
+
   /**
    * Tests that a parent cannot have the same child twice as immediate
    * children. Immediate children are the first level of the AllowedIn
@@ -278,9 +278,9 @@ public class GeoEntityTest extends GeoTest
       province.setGeoId(genGeoId());
       province.applyWithParent(country.getId(), false);
       testEntities.add(province);
-      
+
       province.applyWithParent(country.getId(), true);
-      
+
       fail("A parent was able to have two immediate children.");
     }
     catch(DuplicateParentException e)
@@ -290,7 +290,7 @@ public class GeoEntityTest extends GeoTest
     finally
     {
       deleteAll(testEntities);
-    }    
+    }
   }
 
   /**
@@ -299,7 +299,7 @@ public class GeoEntityTest extends GeoTest
   public void testChildDeleteWithParent()
   {
     List<GeoEntity> testEntities = new LinkedList<GeoEntity>();
-    
+
     Country country = null;
     Province province = null;
     District district = null;
@@ -319,7 +319,7 @@ public class GeoEntityTest extends GeoTest
       province.setGeoId(genGeoId());
       province.applyWithParent(country.getId(), false);
       testEntities.add(province);
-      
+
       district = new District();
       district.setActivated(true);
       district.setEntityName("District 1");
@@ -328,7 +328,7 @@ public class GeoEntityTest extends GeoTest
       testEntities.add(district);
 
       country.delete();
-      
+
       assertEquals(false, exists(country));
       assertEquals(false, exists(province));
       assertEquals(false, exists(district));
@@ -366,7 +366,7 @@ public class GeoEntityTest extends GeoTest
       province.setGeoId(genGeoId());
       province.applyWithParent(country.getId(), false);
       testEntities.add(province);
-      
+
       district = new District();
       district.setActivated(true);
       district.setEntityName("District 1");
@@ -382,7 +382,7 @@ public class GeoEntityTest extends GeoTest
       Country cRef = Country.get(country.getId());
       Province pRef = Province.get(province.getId());
       District dRef = District.get(district.getId());
-      
+
       assertEquals(Boolean.FALSE, cRef.getActivated());
       assertEquals(Boolean.FALSE, pRef.getActivated());
       assertEquals(Boolean.FALSE, dRef.getActivated());
@@ -425,27 +425,27 @@ public class GeoEntityTest extends GeoTest
       province.lock();
       province.setActivated(false);
       province.apply();
-      
+
       district = new District(); // starts under Country
       district.setActivated(true);
       district.setEntityName("District 1");
       district.setGeoId(genGeoId());
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
-      
+
       adminPost = new AdminPost();
       adminPost.setActivated(true);
       adminPost.setEntityName("Admin Post 1");
       adminPost.setGeoId(genGeoId());
       adminPost.applyWithParent(district.getId(), false);
-      
+
       district.applyWithParent(province.getId(), false);
 
       Country cRef = Country.get(country.getId());
       Province pRef = Province.get(province.getId());
       District dRef = District.get(district.getId());
       AdminPost aRef = AdminPost.get(adminPost.getId());
-      
+
       assertEquals(Boolean.TRUE, cRef.getActivated());
       assertEquals(Boolean.FALSE, pRef.getActivated());
       assertEquals(Boolean.FALSE, dRef.getActivated());
@@ -456,7 +456,7 @@ public class GeoEntityTest extends GeoTest
       deleteAll(testEntities);
     }
   }
-  
+
   /**
    * Tests that an entity's activated status will change when copied to a new
    * parent with a different status. The status change should be valid
@@ -486,24 +486,24 @@ public class GeoEntityTest extends GeoTest
       province.setGeoId(genGeoId());
       province.applyWithParent(country.getId(), false);
       testEntities.add(province);
-      
+
       province.lock();
       province.setActivated(true);
       province.apply();
-      
+
       district = new District(); // starts under Country
       district.setActivated(false);
       district.setEntityName("District 1");
       district.setGeoId(genGeoId());
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
-      
+
       adminPost = new AdminPost();
       adminPost.setActivated(false);
       adminPost.setEntityName("Admin Post 1");
       adminPost.setGeoId(genGeoId());
       adminPost.applyWithParent(district.getId(), false);
-      
+
       // now copy the District under the province whose activates status is true
       district.applyWithParent(province.getId(), true);
 
@@ -511,7 +511,7 @@ public class GeoEntityTest extends GeoTest
       Province pRef = Province.get(province.getId());
       District dRef = District.get(district.getId());
       AdminPost aRef = AdminPost.get(adminPost.getId());
-      
+
       assertEquals(Boolean.FALSE, cRef.getActivated());
       assertEquals(Boolean.TRUE, pRef.getActivated());
       assertEquals(Boolean.TRUE, dRef.getActivated());
@@ -522,7 +522,7 @@ public class GeoEntityTest extends GeoTest
       deleteAll(testEntities);
     }
   }
-  
+
   /**
    * Tests that an entity's activated status will not change when copied to a new
    * parent with a different status. The status should not change because
@@ -552,31 +552,31 @@ public class GeoEntityTest extends GeoTest
       province.setGeoId(genGeoId());
       province.applyWithParent(country.getId(), false);
       testEntities.add(province);
-      
+
       province.lock();
       province.setActivated(false);
       province.apply();
-      
+
       district = new District(); // starts under Country
       district.setActivated(true);
       district.setEntityName("District 1");
       district.setGeoId(genGeoId());
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
-      
+
       adminPost = new AdminPost();
       adminPost.setActivated(true);
       adminPost.setEntityName("Admin Post 1");
       adminPost.setGeoId(genGeoId());
       adminPost.applyWithParent(district.getId(), false);
-      
+
       district.applyWithParent(province.getId(), true);
 
       Country cRef = Country.get(country.getId());
       Province pRef = Province.get(province.getId());
       District dRef = District.get(district.getId());
       AdminPost aRef = AdminPost.get(adminPost.getId());
-      
+
       assertEquals(Boolean.TRUE, cRef.getActivated());
       assertEquals(Boolean.FALSE, pRef.getActivated());
       assertEquals(Boolean.TRUE, dRef.getActivated());
@@ -587,7 +587,7 @@ public class GeoEntityTest extends GeoTest
       deleteAll(testEntities);
     }
   }
-  
+
   /**
    * Tests that an entity's activated status will change when
    * its parent's status is changed.
@@ -616,34 +616,34 @@ public class GeoEntityTest extends GeoTest
       province.setGeoId(genGeoId());
       province.applyWithParent(country.getId(), false);
       testEntities.add(province);
-      
+
       district = new District(); // starts under Country
       district.setActivated(false);
       district.setEntityName("District 1");
       district.setGeoId(genGeoId());
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
-      
+
       adminPost = new AdminPost();
       adminPost.setActivated(false);
       adminPost.setEntityName("Admin Post 1");
       adminPost.setGeoId(genGeoId());
       adminPost.applyWithParent(district.getId(), false);
-      
+
       district.applyWithParent(province.getId(), true);
-      
+
       // change the Province's status to true, which should
       // flip its children's status too.
       province.appLock();
       province.setActivated(true);
       province.apply();
-      
+
 
       Country cRef = Country.get(country.getId());
       Province pRef = Province.get(province.getId());
       District dRef = District.get(district.getId());
       AdminPost aRef = AdminPost.get(adminPost.getId());
-      
+
       assertEquals(Boolean.FALSE, cRef.getActivated());
       assertEquals(Boolean.TRUE, pRef.getActivated());
       assertEquals(Boolean.TRUE, dRef.getActivated());
@@ -654,7 +654,7 @@ public class GeoEntityTest extends GeoTest
       deleteAll(testEntities);
     }
   }
-  
+
   /**
    * Tests that an entity's activated status will not change when
    * its parent's status is changed.
@@ -662,12 +662,12 @@ public class GeoEntityTest extends GeoTest
   public void testActivatedWithExistingMultipleParentsInvalid()
   {
     List<GeoEntity> testEntities = new LinkedList<GeoEntity>();
-    
+
     Country country = null;
     Province province = null;
     District district = null;
     AdminPost adminPost = null;
-    
+
     try
     {
       country = new Country();
@@ -676,41 +676,41 @@ public class GeoEntityTest extends GeoTest
       country.setGeoId(genGeoId());
       country.apply();
       testEntities.add(country);
-      
+
       province = new Province();
       province.setActivated(true);
       province.setEntityName("Province 1");
       province.setGeoId(genGeoId());
       province.applyWithParent(country.getId(), false);
       testEntities.add(province);
-      
+
       district = new District(); // starts under Country
       district.setActivated(true);
       district.setEntityName("District 1");
       district.setGeoId(genGeoId());
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
-      
+
       adminPost = new AdminPost();
       adminPost.setActivated(true);
       adminPost.setEntityName("Admin Post 1");
       adminPost.setGeoId(genGeoId());
       adminPost.applyWithParent(district.getId(), false);
-      
+
       district.applyWithParent(province.getId(), true);
-      
+
       // change the Province's status to false, which
       // should not flip its children's status
       province.appLock();
       province.setActivated(false);
       province.apply();
-      
-      
+
+
       Country cRef = Country.get(country.getId());
       Province pRef = Province.get(province.getId());
       District dRef = District.get(district.getId());
       AdminPost aRef = AdminPost.get(adminPost.getId());
-      
+
       assertEquals(Boolean.TRUE, cRef.getActivated());
       assertEquals(Boolean.FALSE, pRef.getActivated());
       assertEquals(Boolean.TRUE, dRef.getActivated());
@@ -721,7 +721,7 @@ public class GeoEntityTest extends GeoTest
       deleteAll(testEntities);
     }
   }
-  
+
   /**
    * Tests that an entity cannot be its own parent/child
    * in the LocatedIn relationship.
@@ -730,7 +730,7 @@ public class GeoEntityTest extends GeoTest
   {
     List<GeoEntity> testEntities = new LinkedList<GeoEntity>();
     Country country = null;
-    
+
     try
     {
       country = new Country();
@@ -739,9 +739,9 @@ public class GeoEntityTest extends GeoTest
       country.setGeoId(genGeoId());
       country.apply();
       testEntities.add(country);
-      
+
       country.applyWithParent(country.getId(), false);
-      
+
       fail("Able to add an entity as its own parent/child.");
     }
     catch(LocatedInException e)
@@ -753,7 +753,7 @@ public class GeoEntityTest extends GeoTest
       deleteAll(testEntities);
     }
   }
-  
+
   /**
    * Tests that getting immediate ordered children of an entity.
    */
@@ -765,31 +765,31 @@ public class GeoEntityTest extends GeoTest
     Province province = null;
     District district = null;
     AdminPost adminPost = null;
-    
+
     try
     {
-      
+
       country = new Country();
       country.setActivated(true);
       country.setEntityName("Country 1");
       country.setGeoId(genGeoId());
       country.apply();
       testEntities.add(country);
-      
+
       province = new Province();
       province.setActivated(true);
       province.setEntityName("Province 1");
       province.setGeoId(genGeoId());
       province.applyWithParent(country.getId(), false);
       testEntities.add(province);
-      
+
       district = new District(); // starts under Country
       district.setActivated(true);
       district.setEntityName("District 1");
       district.setGeoId(genGeoId());
       district.applyWithParent(country.getId(), false);
       testEntities.add(district);
-      
+
       adminPost = new AdminPost();
       adminPost.setActivated(true);
       adminPost.setEntityName("Admin Post 1");
@@ -800,14 +800,14 @@ public class GeoEntityTest extends GeoTest
       ordered.add(adminPost);
       ordered.add(district);
       ordered.add(province);
-      
+
       GeoEntityViewQuery query = country.getOrderedChildren("");
-      
+
       assertEquals(query.getCount(), 3L);
-      
+
       // make sure the entities are in order
       OIterator<? extends GeoEntityView> iter = query.getIterator();
-      
+
       try
       {
         int count = 0;
@@ -815,7 +815,7 @@ public class GeoEntityTest extends GeoTest
         {
           GeoEntityView view = iter.next();
           GeoEntity entity = ordered.get(count);
-          
+
           assertEquals(entity.getId(), view.getGeoEntityId());
           assertEquals(entity.getGeoId(), view.getGeoId());
           assertEquals(entity.getActivated(), view.getActivated());

@@ -28,46 +28,46 @@
       <role roleName="GUIVisibility">
         <mdBusinessPermission type="com.terraframe.mojo.system.Roles">
           <operation name="READ"/>
-          <operation name="READ_ALL"/>          
-        </mdBusinessPermission>      
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.AbstractSpray">
           <operation name="READ"/>
           <attributePermission attributeName="sprayData">
             <operation name="READ"/>
           </attributePermission>
         </mdBusinessPermission>
-      
+
         <!-- DEFINE ALL READ PERMISSIONS FOR SURVEYS -->
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.Wall">
           <operation name="READ" />
           <operation name="READ_ALL" />
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.Roof">
           <operation name="READ" />
           <operation name="READ_ALL" />
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.FeverTreatment">
           <operation name="READ" />
           <operation name="READ_ALL" />
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.SurveyPoint">
           <operation name="READ" />
           <operation name="READ_ALL" />
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.BloodslideResponseMaster">
           <operation name="READ" />
           <operation name="READ_ALL" />
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.Person">
           <operation name="READ" />
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdViewPermission type="dss.vector.solutions.intervention.monitor.PersonView">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
           <operation name="CREATE"/>
           <operation name="WRITE_ALL"/>
           <operation name="WRITE_ALL"/>
-        </mdViewPermission>                
+        </mdViewPermission>
 
 
         <!-- DEFINE ALL READ PERMISSIONS FOR IRS -->
@@ -78,7 +78,7 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
         </mdViewPermission>
-                
+
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayLeader">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
@@ -100,14 +100,14 @@
           <operation name="READ_CHILD" />
           <operation name="READ_PARENT" />
         </mdRelationshipPermission>
-        
+
         <mdRelationshipPermission type="dss.vector.solutions.irs.InTeam">
           <operation name="READ" />
           <operation name="READ_ALL" />
           <operation name="READ_CHILD" />
           <operation name="READ_PARENT" />
         </mdRelationshipPermission>
-        
+
 
         <!-- DEFINE ALL READ PERMISSIONS FOR ENTOMOLOGY -->
         <mdBusinessPermission type="dss.vector.solutions.general.Insecticide">
@@ -142,193 +142,468 @@
         </mdBusinessPermission>
 
         <mdBusinessPermission type="dss.vector.solutions.geo.generated.GeoEntity">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AbstractSite">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NonSentinelSite">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SentinelSite">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AdminPost">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BreedingSite">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PermanentWaterBody">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Country">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.District">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+          <operation name="READ" />
+          <operation name="READ_ALL" />
         </mdBusinessPermission>
 
         <mdBusinessPermission type="dss.vector.solutions.geo.generated.Earth">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+          <operation name="READ" />
+          <operation name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Facility">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Clinic">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.MobileClinic">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateClinic">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicClinic">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthCenter">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthWorker">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Hospital">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateHospital">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicHospital">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivatePractice">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Locality">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Country">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
         </mdBusinessPermission>
 
         <mdBusinessPermission type="dss.vector.solutions.geo.generated.NationalRoad">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PopulatedArea">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.City">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Town">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Village">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Province">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Railway">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Reserve">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.River">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+          <operation name="READ" />
+          <operation name="READ_ALL" />
         </mdBusinessPermission>
 
         <mdBusinessPermission type="dss.vector.solutions.geo.generated.Road">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+          <operation name="READ" />
+          <operation name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SprayArea">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Railway">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.River">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Province">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.District">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
         </mdBusinessPermission>
 
         <mdBusinessPermission type="dss.vector.solutions.geo.generated.SprayZone">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+          <operation name="READ" />
+          <operation name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Surface">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SprayArea">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Roof">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AdminPost">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Wall">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Locality">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PopulatedArea">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.City">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Town">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Village">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Farm">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.IndustrialSite">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Lodge">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Reserve">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.HealthFacility">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Hospital">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateHospital">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicHospital">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Clinic">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicClinic">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateClinic">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.MobileClinic">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthCenter">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthWorker">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivatePractice">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CollectionSite">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SentinelSite">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NonSentinelSite">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PointCollection">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
         </mdBusinessPermission>
 
         <mdBusinessPermission type="dss.vector.solutions.geo.generated.Trap">
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PermanentWaterBody">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BreedingSite">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NaturalHabitat">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.FreshwaterSwamp">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.MangroveSwamp">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Marsh">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RiverBed">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Seepage">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AgriculturalArtificialHabitat">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RidgeAndFurrow">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RicePaddy">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherAgriculture">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NonAgriculturalArtificialHabitat">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Construction">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Drain">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Puddle">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.TyreTrack">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WaterStorageContainer">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Surface">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Material">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Net">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ITN">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.LLITN">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Curtain">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherMaterial">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Wall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NaturalWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RudimentaryWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BambooWoodWithMudWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.StoneWithMudWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.UncoveredAdobe">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PlywoodWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CartonWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.FinishedWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CementWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.StoneWithLimeWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BrickWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CementBlockWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CoveredAdobe">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WoodPlansShingles">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherWall">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Roof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NaturalRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ThatchLeafRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.StickAndMudRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RudimentaryRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RusticMatPlasticSheetRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ReedBambooRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WoodPlankRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.FinishedRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CorrugatedIronRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WoodRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CalamineCementFibreRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CementConcreteRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ShingleRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherRoof">
+          <operation name="READ" />
+          <operation name="READ_ALL" />
         </mdBusinessPermission>
 
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdType">
@@ -336,13 +611,13 @@
           <attributePermission attributeName="displayLabel">
             <operation name="READ"/>
           </attributePermission>
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
 
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdAttributeConcrete">
           <operation name="READ"/>
           <operation name="READ_ALL"/>
-        </mdBusinessPermission>        
-        
+        </mdBusinessPermission>
+
         <mdViewPermission type="dss.vector.solutions.geo.GeoEntityDefinition">
           <operation name="CREATE"/>
           <operation name="READ"/>
@@ -350,7 +625,7 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdViewPermission>        
+        </mdViewPermission>
 
         <mdViewPermission type="dss.vector.solutions.geo.GeoHierarchy">
           <operation name="CREATE" />
@@ -360,7 +635,7 @@
           <operation name="READ_ALL" />
           <operation name="DELETE" />
         </mdViewPermission>
-        
+
         <!--DEFINE ALL READ PERMISSIONS FOR AGGREGATED IPT CRUD -->
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.PatientGrid">
           <operation name="READ"/>
@@ -403,7 +678,7 @@
           <operation name="READ_ALL"/>
           <operation name="WRITE_ALL"/>
           <operation name="WRITE"/>
-        </mdViewPermission>        
+        </mdViewPermission>
       </role>
       <role roleName="dataCapturer">
         <mdBusinessPermission
@@ -561,7 +836,7 @@
           <operation
             name="DELETE" />
         </mdRelationshipPermission>
-      
+
         <mdBusinessPermission
           type="dss.vector.solutions.entomology.AbstractMosquitoCollection">
           <operation
@@ -1236,7 +1511,7 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.IPTPatients">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -1271,7 +1546,7 @@
         </mdRelationshipPermission>
 
       </role>
-      
+
       <role roleName="entomologist">
         <!-- ENTOMOLOGIST USER CREATION CRUD -->
 
@@ -1280,7 +1555,7 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.MDSSUser">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -1292,118 +1567,118 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.ITNRecipient">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>          
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayLeader">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayOperator">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                              
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.Patient">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>    
+        </mdBusinessPermission>
         <mdBusinessPermission type="com.terraframe.mojo.system.Assignments">
           <operation name="DELETE"/>
         </mdBusinessPermission>
-                    
-        
+
+
         <!-- ENTOMOLOGIST GEO ENTITY CRUD -->
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdBusiness">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdAttributeConcrete">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdRelationshipPermission type="com.terraframe.mojo.system.metadata.BusinessInheritance">
           <operation name="DELETE"/>
         </mdRelationshipPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.ClassAttributeConcrete">
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdRelationshipPermission type="com.terraframe.mojo.system.TypePermission">
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdRelationshipPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributeLineString">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributeMultiLineString">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPoint">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPolygon">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributePoint">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributePolygon">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="dss.vector.solutions.geo.SpatialMaster">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="dss.vector.solutions.geo.GeoEntityDefinition">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
 
         <mdRelationshipPermission type="dss.vector.solutions.geo.AllowedIn">
@@ -1414,7 +1689,7 @@
           <operation name="WRITE_PARENT" />
           <operation name="DELETE" />
         </mdRelationshipPermission>
-        
+
         <mdRelationshipPermission type="dss.vector.solutions.geo.LocatedIn">
           <operation name="CREATE" />
           <operation name="WRITE" />
@@ -1423,64 +1698,8 @@
           <operation name="WRITE_PARENT" />
           <operation name="DELETE" />
         </mdRelationshipPermission>
-        
+
         <mdBusinessPermission type="dss.vector.solutions.geo.generated.GeoEntity">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AbstractSite">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NonSentinelSite">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SentinelSite">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AdminPost">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BreedingSite">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PermanentWaterBody">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Country">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.District">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -1494,84 +1713,7 @@
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Facility">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Clinic">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.MobileClinic">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateClinic">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicClinic">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthCenter">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthWorker">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Hospital">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateHospital">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicHospital">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivatePractice">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Locality">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Country">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -1579,6 +1721,69 @@
         </mdBusinessPermission>
 
         <mdBusinessPermission type="dss.vector.solutions.geo.generated.NationalRoad">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Road">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Railway">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.River">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Province">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.District">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SprayZone">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SprayArea">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AdminPost">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Locality">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -1613,14 +1818,21 @@
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Province">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Farm">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Railway">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.IndustrialSite">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Lodge">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -1634,28 +1846,238 @@
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.River">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.HealthFacility">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Road">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Hospital">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SprayArea">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateHospital">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SprayZone">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicHospital">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Clinic">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicClinic">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateClinic">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.MobileClinic">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthCenter">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthWorker">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivatePractice">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CollectionSite">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SentinelSite">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NonSentinelSite">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PointCollection">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Trap">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PermanentWaterBody">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BreedingSite">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NaturalHabitat">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.FreshwaterSwamp">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.MangroveSwamp">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Marsh">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RiverBed">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Seepage">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AgriculturalArtificialHabitat">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RidgeAndFurrow">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RicePaddy">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherAgriculture">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NonAgriculturalArtificialHabitat">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Construction">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Drain">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Puddle">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.TyreTrack">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WaterStorageContainer">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -1669,7 +2091,42 @@
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Roof">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Material">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Net">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ITN">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.LLITN">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Curtain">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherMaterial">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -1683,7 +2140,210 @@
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Trap">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NaturalWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RudimentaryWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BambooWoodWithMudWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.StoneWithMudWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.UncoveredAdobe">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PlywoodWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CartonWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.FinishedWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CementWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.StoneWithLimeWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BrickWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CementBlockWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CoveredAdobe">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WoodPlansShingles">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Roof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NaturalRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ThatchLeafRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.StickAndMudRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RudimentaryRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RusticMatPlasticSheetRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ReedBambooRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WoodPlankRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.FinishedRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CorrugatedIronRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WoodRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CalamineCementFibreRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CementConcreteRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ShingleRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherRoof">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -2201,9 +2861,9 @@
             name="DELETE" />
         </mdBusinessPermission>
       </role>
-      
+
       <role roleName="operationalManager">
-      
+
         <!-- OPERATIONAL MANAGER PERSON CRUD -->
 
         <mdBusinessPermission type="dss.vector.solutions.Person">
@@ -2211,7 +2871,7 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.MDSSUser">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -2223,44 +2883,44 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.ITNRecipient">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>          
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayLeader">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayOperator">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                              
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.Patient">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="com.terraframe.mojo.system.Assignments">
           <operation name="DELETE"/>
         </mdBusinessPermission>
-        
+
         <!-- OPERATIONAL MANAGER IRS CRUD -->
-            
+
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayTeam">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
         </mdBusinessPermission>
-        
+
         <mdRelationshipPermission type="dss.vector.solutions.irs.LeadTeam">
           <operation name="CREATE" />
           <operation name="WRITE" />
@@ -2269,7 +2929,7 @@
           <operation name="WRITE_PARENT" />
           <operation name="DELETE" />
         </mdRelationshipPermission>
-        
+
         <mdRelationshipPermission type="dss.vector.solutions.irs.InTeam">
           <operation name="CREATE" />
           <operation name="WRITE" />
@@ -2278,8 +2938,8 @@
           <operation name="WRITE_PARENT" />
           <operation name="DELETE" />
         </mdRelationshipPermission>
-        
-        
+
+
         <mdBusinessPermission
           type="dss.vector.solutions.irs.Targeter">
           <operation
@@ -2445,13 +3105,13 @@
           <operation
             name="DELETE" />
         </mdBusinessPermission>
-      
+
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.AggregatedIPT">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.IPTPatients">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -2586,13 +3246,13 @@
           <attributePermission attributeName="displayLabel">
             <operation name="WRITE"/>
           </attributePermission>
-        </mdBusinessPermission>           
+        </mdBusinessPermission>
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdAttributeConcrete">
           <operation name="WRITE"/>
           <attributePermission attributeName="displayLabel">
             <operation name="WRITE"/>
           </attributePermission>
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdAttributeVirtual">
           <operation name="WRITE"/>
           <attributePermission attributeName="displayLabel">
@@ -2608,55 +3268,55 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.general.MalariaSeason">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.mo.AbstractTermDisplayLabel">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.mo.AbstractTerm">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.mo.ActiveIngredient">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.mo.CollectionMethod">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.mo.Generation">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.mo.IdentificationMethod">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.mo.InfectivityMethodology">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.mo.InsecticideMethodology">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -2668,145 +3328,145 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.mo.MolecularAssayResult">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.mo.ResistanceMethodology">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.mo.Specie">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.surveillance.AbstractGridDisplayLabel">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.surveillance.AbstractGrid">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.surveillance.DiagnosticGrid">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.surveillance.ReferralGrid">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.surveillance.TreatmentGrid">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.surveillance.TreatmentMethodGrid">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.DoseGrid">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.VisitGrid">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.PatientGrid">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.Net">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.NetDisplayLabel">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.NetHeiarchy">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.Wall">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.WallDisplayLabel">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.WallHeiarchy">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.Roof">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.RoofDisplayLabel">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.RoofHeiarchy">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.FeverTreatment">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.Person">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.MDSSUser">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -2818,39 +3478,39 @@
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.ITNRecipient">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>          
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayLeader">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayOperator">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                              
+        </mdBusinessPermission>
         <mdBusinessPermission type="dss.vector.solutions.Patient">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>                
-                
+        </mdBusinessPermission>
+
         <!-- DEFINE WRITE PERMISSIONS FOR AGGREGATED IPT INFORMATION -->
         <mdBusinessPermission type="dss.vector.solutions.intervention.monitor.AggregatedIPT">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
-        </mdBusinessPermission>        
+        </mdBusinessPermission>
         <mdRelationshipPermission type="dss.vector.solutions.intervention.monitor.IPTPatients">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
@@ -3462,89 +4122,89 @@
           <operation
             name="DELETE" />
         </mdBusinessPermission>
-        
-        <!-- GEO ENTITY PERMISSIONS  -->        
-                
+
+        <!-- GEO ENTITY PERMISSIONS  -->
+
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdBusiness">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.MdAttributeConcrete">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdRelationshipPermission type="com.terraframe.mojo.system.metadata.BusinessInheritance">
           <operation name="DELETE"/>
         </mdRelationshipPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.metadata.ClassAttributeConcrete">
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdRelationshipPermission type="com.terraframe.mojo.system.TypePermission">
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdRelationshipPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributeLineString">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributeMultiLineString">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPoint">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributeMultiPolygon">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributePoint">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="com.terraframe.mojo.system.gis.metadata.MdAttributePolygon">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="dss.vector.solutions.geo.SpatialMaster">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
-        
+
         <mdBusinessPermission type="dss.vector.solutions.geo.GeoEntityDefinition">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
-          <operation name="DELETE" />          
+          <operation name="DELETE" />
         </mdBusinessPermission>
 
         <mdRelationshipPermission type="dss.vector.solutions.geo.AllowedIn">
@@ -3555,7 +4215,7 @@
           <operation name="WRITE_PARENT" />
           <operation name="DELETE" />
         </mdRelationshipPermission>
-        
+
         <mdRelationshipPermission type="dss.vector.solutions.geo.LocatedIn">
           <operation name="CREATE" />
           <operation name="WRITE" />
@@ -3564,64 +4224,8 @@
           <operation name="WRITE_PARENT" />
           <operation name="DELETE" />
         </mdRelationshipPermission>
-        
+
         <mdBusinessPermission type="dss.vector.solutions.geo.generated.GeoEntity">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AbstractSite">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NonSentinelSite">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SentinelSite">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AdminPost">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BreedingSite">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PermanentWaterBody">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Country">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.District">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -3635,84 +4239,7 @@
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Facility">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Clinic">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.MobileClinic">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateClinic">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicClinic">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthCenter">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthWorker">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Hospital">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateHospital">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicHospital">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivatePractice">
-          <operation name="CREATE" />
-          <operation name="WRITE" />
-          <operation name="WRITE_ALL" />
-          <operation name="DELETE" />
-        </mdBusinessPermission>
-
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Locality">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Country">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -3720,6 +4247,69 @@
         </mdBusinessPermission>
 
         <mdBusinessPermission type="dss.vector.solutions.geo.generated.NationalRoad">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Road">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Railway">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.River">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Province">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.District">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SprayZone">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SprayArea">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AdminPost">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Locality">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -3754,14 +4344,21 @@
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Province">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Farm">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Railway">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.IndustrialSite">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Lodge">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -3775,28 +4372,238 @@
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.River">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.HealthFacility">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Road">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Hospital">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SprayArea">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateHospital">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SprayZone">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicHospital">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Clinic">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PublicClinic">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivateClinic">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.MobileClinic">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthCenter">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CommunityHealthWorker">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PrivatePractice">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CollectionSite">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.SentinelSite">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NonSentinelSite">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PointCollection">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Trap">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PermanentWaterBody">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BreedingSite">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NaturalHabitat">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.FreshwaterSwamp">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.MangroveSwamp">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Marsh">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RiverBed">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Seepage">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.AgriculturalArtificialHabitat">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RidgeAndFurrow">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RicePaddy">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherAgriculture">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NonAgriculturalArtificialHabitat">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Construction">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Drain">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Puddle">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.TyreTrack">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WaterStorageContainer">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -3810,7 +4617,42 @@
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Roof">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Material">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Net">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ITN">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.LLITN">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Curtain">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherMaterial">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
@@ -3824,23 +4666,226 @@
           <operation name="DELETE" />
         </mdBusinessPermission>
 
-        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Trap">
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NaturalWall">
           <operation name="CREATE" />
           <operation name="WRITE" />
           <operation name="WRITE_ALL" />
           <operation name="DELETE" />
         </mdBusinessPermission>
-        
-        
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RudimentaryWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BambooWoodWithMudWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.StoneWithMudWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.UncoveredAdobe">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.PlywoodWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CartonWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.FinishedWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CementWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.StoneWithLimeWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.BrickWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CementBlockWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CoveredAdobe">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WoodPlansShingles">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherWall">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.Roof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.NaturalRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ThatchLeafRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.StickAndMudRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RudimentaryRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.RusticMatPlasticSheetRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ReedBambooRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WoodPlankRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.FinishedRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CorrugatedIronRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.WoodRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CalamineCementFibreRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.CementConcreteRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.ShingleRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+        <mdBusinessPermission type="dss.vector.solutions.geo.generated.OtherRoof">
+          <operation name="CREATE" />
+          <operation name="WRITE" />
+          <operation name="WRITE_ALL" />
+          <operation name="DELETE" />
+        </mdBusinessPermission>
+
+
         <!-- IRS CRUD PERMISSIONS -->
-        
+
         <mdBusinessPermission type="dss.vector.solutions.irs.SprayTeam">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>
           <operation name="DELETE"/>
         </mdBusinessPermission>
-        
+
         <mdRelationshipPermission type="dss.vector.solutions.irs.LeadTeam">
           <operation name="CREATE" />
           <operation name="WRITE" />
@@ -3849,7 +4894,7 @@
           <operation name="WRITE_PARENT" />
           <operation name="DELETE" />
         </mdRelationshipPermission>
-        
+
         <mdRelationshipPermission type="dss.vector.solutions.irs.InTeam">
           <operation name="CREATE" />
           <operation name="WRITE" />
@@ -3858,8 +4903,8 @@
           <operation name="WRITE_PARENT" />
           <operation name="DELETE" />
         </mdRelationshipPermission>
-        
-        
+
+
         <mdBusinessPermission
           type="dss.vector.solutions.irs.Targeter">
           <operation
@@ -4187,7 +5232,7 @@
         </mdRelationshipPermission>
 
       </role>
-      
+
     </permissions>
   </doIt>
   <undoIt>

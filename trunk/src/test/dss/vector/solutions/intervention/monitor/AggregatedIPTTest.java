@@ -7,7 +7,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
-import dss.vector.solutions.geo.generated.Facility;
+import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.surveillance.PeriodType;
 import dss.vector.solutions.surveillance.TreatmentGrid;
@@ -57,12 +57,12 @@ public class AggregatedIPTTest extends TestCase
 
   protected static void classSetUp()
   {
-    geoEntity = new Facility();
+    geoEntity = new HealthFacility();
     geoEntity.setGeoId("9");
     geoEntity.setEntityName("Facility");
     geoEntity.apply();
   }
-  
+
   public void testCreateAggregatedIPT()
   {
     Integer care = new Integer(50);
@@ -132,7 +132,7 @@ public class AggregatedIPTTest extends TestCase
 
       for (IPTDose t : test.getAllDosesRel())
         assertEquals(new Integer(25), t.getAmount());
-      
+
       for (IPTTreatment r : test.getAllTreatmentsRel())
         assertEquals(new Integer(15), r.getAmount());
     }
@@ -161,7 +161,7 @@ public class AggregatedIPTTest extends TestCase
     view.setNumberPregnantITN(itn);
     view.setTotalITN(totalItn);
     view.apply();
-    
+
     IPTPatients[] patients = view.getIPTPatients();
     IPTANCVisit[] visits = view.getIPTANCVisits();
     IPTDose[] doses = view.getIPTDoses();
@@ -207,7 +207,7 @@ public class AggregatedIPTTest extends TestCase
       assertEquals(view.getNumberPregnantIron(), test.getNumberPregnantIron());
       assertEquals(view.getNumberPregnantITN(), test.getNumberPregnantITN());
       assertEquals(view.getTotalITN(), test.getTotalITN());
-      
+
       for (IPTPatients s : test.getIPTPatients())
         assertEquals(new Integer(50), s.getAmount());
 
@@ -216,7 +216,7 @@ public class AggregatedIPTTest extends TestCase
 
       for (IPTDose t : test.getIPTDoses())
         assertEquals(new Integer(25), t.getAmount());
-      
+
       for (IPTTreatment r : test.getIPTTreatments())
         assertEquals(new Integer(15), r.getAmount());
     }
@@ -225,7 +225,7 @@ public class AggregatedIPTTest extends TestCase
       view.deleteConcrete();
     }
   }
-  
+
   public void testApplyAll()
   {
     Integer care = new Integer(50);
@@ -244,7 +244,7 @@ public class AggregatedIPTTest extends TestCase
     view.setNumberPregnantIron(iron);
     view.setNumberPregnantITN(itn);
     view.setTotalITN(totalItn);
-    
+
     IPTPatients[] patients = view.getIPTPatients();
     IPTANCVisit[] visits = view.getIPTANCVisits();
     IPTDose[] doses = view.getIPTDoses();
@@ -269,7 +269,7 @@ public class AggregatedIPTTest extends TestCase
     {
       rel.setAmount(new Integer(15));
     }
-    
+
     view.applyAll(patients, visits, doses, treatments);
 
     try
@@ -287,7 +287,7 @@ public class AggregatedIPTTest extends TestCase
       assertEquals(view.getNumberPregnantIron(), test.getNumberPregnantIron());
       assertEquals(view.getNumberPregnantITN(), test.getNumberPregnantITN());
       assertEquals(view.getTotalITN(), test.getTotalITN());
-      
+
       for (IPTPatients s : test.getIPTPatients())
         assertEquals(new Integer(50), s.getAmount());
 
@@ -296,16 +296,16 @@ public class AggregatedIPTTest extends TestCase
 
       for (IPTDose t : test.getIPTDoses())
         assertEquals(new Integer(25), t.getAmount());
-      
+
       for (IPTTreatment r : test.getIPTTreatments())
         assertEquals(new Integer(15), r.getAmount());
     }
     finally
     {
       view.deleteConcrete();
-    }    
+    }
   }
-  
+
   public void testSearchAggregatedCase()
   {
     Integer care = new Integer(50);
@@ -324,7 +324,7 @@ public class AggregatedIPTTest extends TestCase
     view.setNumberPregnantIron(iron);
     view.setNumberPregnantITN(itn);
     view.setTotalITN(totalItn);
-    
+
     IPTPatients[] patients = view.getIPTPatients();
     IPTANCVisit[] visits = view.getIPTANCVisits();
     IPTDose[] doses = view.getIPTDoses();
@@ -349,7 +349,7 @@ public class AggregatedIPTTest extends TestCase
     {
       rel.setAmount(new Integer(15));
     }
-    
+
     view.applyAll(patients, visits, doses, treatments);
 
     try
@@ -368,7 +368,7 @@ public class AggregatedIPTTest extends TestCase
       assertEquals(view.getNumberPregnantIron(), test.getNumberPregnantIron());
       assertEquals(view.getNumberPregnantITN(), test.getNumberPregnantITN());
       assertEquals(view.getTotalITN(), test.getTotalITN());
-      
+
       for (IPTPatients s : test.getIPTPatients())
         assertEquals(new Integer(50), s.getAmount());
 
@@ -377,14 +377,14 @@ public class AggregatedIPTTest extends TestCase
 
       for (IPTDose t : test.getIPTDoses())
         assertEquals(new Integer(25), t.getAmount());
-      
+
       for (IPTTreatment r : test.getIPTTreatments())
         assertEquals(new Integer(15), r.getAmount());
     }
     finally
     {
       view.deleteConcrete();
-    }    
+    }
   }
 
   public void testUnknownCase()

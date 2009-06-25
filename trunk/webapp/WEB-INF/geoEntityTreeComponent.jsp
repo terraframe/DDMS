@@ -11,6 +11,7 @@
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.EarthDTO"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
+<%@page import="dss.vector.solutions.geo.AllPathsDTO"%>
 
 <%
   ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
@@ -26,9 +27,20 @@
   String rootId = (String) request.getAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID);
   String tree = GeoHierarchyDTO.defineAllowedTree(requestIF, rootId);
 %>
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{GeoEntityViewDTO.CLASS}))%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{GeoEntityViewDTO.CLASS, AllPathsDTO.CLASS}))%>
+
+<input type="button" value="Regenerate Paths" id="regeneratePaths" />
 
 <script type="text/javascript">
   MDSS.GeoTreeSelectables = <%= tree %>;
   MDSS.GeoEntityTreeRootId = '<%= rootId %>';
+  
+  YAHOO.util.Event.on('regeneratePaths', 'click', function(){
+    
+    var request = new MDSS.Request({
+      onSuccess : function(){ /*success*/} 
+    });
+    
+    Mojo.$.dss.vector.solutions.geo.AllPaths.regeneratePaths(request);
+  });
 </script>

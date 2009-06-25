@@ -371,8 +371,9 @@ public class GeoEntityImporter
         {
           if (pontField != null)
           {
-            businessClass.getMethod("setPoint", Point.class).invoke(geoEntity,
-                (Point) pontField.getGeometry());
+            MultiPoint mp = new MultiPoint(new Point[]{(Point)pontField.getGeometry()}, pontField.getGeometry().getFactory());
+
+            businessClass.getMethod("setMultiPoint", MultiPoint.class).invoke(geoEntity, mp);
           }
           else if (lineStringField != null)
           {
@@ -404,6 +405,7 @@ public class GeoEntityImporter
             {
               multiPolygon = (MultiPolygon) geometry;
             }
+
 
             businessClass.getMethod("setMultiPolygon", MultiPolygon.class).invoke(geoEntity,
                 multiPolygon);

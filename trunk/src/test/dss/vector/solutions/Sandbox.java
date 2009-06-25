@@ -2,9 +2,12 @@ package dss.vector.solutions;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.ClientSession;
 import com.terraframe.mojo.business.BusinessQuery;
+import com.terraframe.mojo.constants.CommonProperties;
 import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.constants.RelationshipInfo;
+import com.terraframe.mojo.constants.ServerConstants;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ValueObject;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
@@ -15,10 +18,13 @@ import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.StartSession;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.surveillance.AggregatedCase;
+import dss.vector.solutions.surveillance.AggregatedCaseQuery;
 
 
 public class Sandbox
@@ -40,7 +46,9 @@ public class Sandbox
 //
 //    System.out.println(firstIndex+"  "+secondIndex+"  "+relString);
 
-//    ClientSession session = ClientSession.createUserSession(ServerConstants.SYSTEM_USER_NAME, "mdsstest2", CommonProperties.getDefaultLocale());
+    ClientSession session = ClientSession.createUserSession("MDSS", "mdsstest2", CommonProperties.getDefaultLocale());
+    test(session.getSessionId());
+    
 //
 //    String s = "dss.vector.solutions.geo.generated.CountryController&dss.vector.solutions.geo.generated.DistrictController&dss.vector.solutions.geo.generated.VillageController&dss.vector.solutions.geo.generated.LocalityController&dss.vector.solutions.geo.generated.AdminPostController&dss.vector.solutions.geo.generated.Trap&dss.vector.solutions.geo.generated.RoadController&dss.vector.solutions.geo.generated.Reserve&dss.vector.solutions.geo.generated.EarthController&dss.vector.solutions.geo.generated.CityController&dss.vector.solutions.geo.generated.Town&dss.vector.solutions.geo.generated.District&dss.vector.solutions.geo.generated.Village&dss.vector.solutions.geo.generated.RoofController&dss.vector.solutions.geo.generated.NonSentinelSiteController&dss.vector.solutions.geo.generated.Earth&dss.vector.solutions.geo.generated.SentinelSite&dss.vector.solutions.geo.generated.RiverController&dss.vector.solutions.geo.generated.Wall&dss.vector.solutions.geo.generated.SprayZoneController&dss.vector.solutions.geo.generated.WallController&dss.vector.solutions.geo.generated.PermanentWaterBodyController&dss.vector.solutions.geo.generated.BreedingSiteController&dss.vector.solutions.geo.generated.PopulatedArea&dss.vector.solutions.geo.generated.FacilityController&dss.vector.solutions.geo.generated.Railway&dss.vector.solutions.geo.generated.Locality&dss.vector.solutions.geo.generated.SentinelSiteController&dss.vector.solutions.geo.generated.NationalRoadController&dss.vector.solutions.geo.generated.Road&dss.vector.solutions.geo.generated.Facility&dss.vector.solutions.geo.generated.Province&dss.vector.solutions.geo.generated.PopulatedAreaController&dss.vector.solutions.geo.generated.ProvinceController&dss.vector.solutions.geo.generated.ReserveController&dss.vector.solutions.geo.generated.TrapController&dss.vector.solutions.geo.generated.BreedingSite&dss.vector.solutions.geo.generated.AdminPost&dss.vector.solutions.geo.generated.Roof&dss.vector.solutions.geo.generated.SprayZone&dss.vector.solutions.geo.generated.River&dss.vector.solutions.geo.generated.NationalRoad&dss.vector.solutions.geo.generated.City&dss.vector.solutions.geo.generated.Country&dss.vector.solutions.geo.generated.PermanentWaterBody&dss.vector.solutions.geo.generated.RailwayController&dss.vector.solutions.geo.generated.TownController&dss.vector.solutions.geo.generated.NonSentinelSite&dss.vector.solutions.geo.GeoEntityView";
 //
@@ -70,7 +78,26 @@ public class Sandbox
 
 //    queryAggregatedCases();
 
-    testAllPaths();
+//    testAllPaths();
+  }
+  
+  @StartSession
+  public static void test(String sessionId)
+  {
+    QueryFactory f = new QueryFactory(); 
+    
+    String parentId = "zjnyu2oyuhv7rexvn5kfg7710juwobdjxtt04v97tqe41g6vfbatdjz2o8jhrofy"; // Mocambique
+    
+    AggregatedCaseQuery caseQ = new AggregatedCaseQuery(f);
+    AllPathsQuery pathsQ = new AllPathsQuery(f);
+    GeoEntityQuery geoQ = new GeoEntityQuery(f);
+    
+    geoQ.WHERE(pathsQ.getChildGeoEntity().EQ(geoQ));
+    geoQ.AND(pathsQ.getParentGeoEntity().EQ(parentId));
+    caseQ.WHERE(caseQ.getGeoEntity().containsGeoEntity(geoQ));
+    
+    
+    System.out.println(caseQ.getCount());
   }
 
   @StartSession

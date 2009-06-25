@@ -8,11 +8,11 @@
     <dl>
       <dt>
         <label>
-          ${item.pointMd.displayLabel}
+          ${item.multiPointMd.displayLabel}
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="point" />
+        <mjl:input type="text" param="multiPoint" />
         <mjl:messages attribute="point">
           <mjl:message />
         </mjl:messages>
