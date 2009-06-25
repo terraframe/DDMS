@@ -68,8 +68,8 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
       return;
     }
     
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    EfficacyAssayQueryDTO query = EfficacyAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    EfficacyAssayViewQueryDTO query = EfficacyAssayViewDTO.getPage(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
@@ -186,8 +186,9 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    EfficacyAssayQueryDTO query = EfficacyAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    ClientRequestIF clientRequest = super.getClientRequest();
+
+    EfficacyAssayViewQueryDTO query = EfficacyAssayViewDTO.getPage(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");

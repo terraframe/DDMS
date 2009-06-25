@@ -8,7 +8,9 @@ import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectablePrimitive;
 
+import dss.vector.solutions.MDSSUserViewQuery;
 import dss.vector.solutions.SurfacePosition;
 import dss.vector.solutions.entomology.AssaySex;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -195,4 +197,33 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
       iterator.close();
     }
   }
+  
+  public static EfficacyAssayViewQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  {
+    EfficacyAssayViewQuery query = new EfficacyAssayViewQuery(new QueryFactory());
+
+    if (sortAttribute==null)
+    {
+      sortAttribute = COLONYNAME;
+    }
+    
+    SelectablePrimitive selectable = (SelectablePrimitive)query.getComponentQuery().getSelectable(sortAttribute);
+
+    if (isAscending)
+    {
+      query.ORDER_BY_ASC(selectable);
+    }
+    else
+    {
+      query.ORDER_BY_DESC(selectable);
+    }
+    
+    if (pageSize != 0 && pageNumber != 0)
+    {
+       query.restrictRows(pageSize, pageNumber);
+    }
+    
+    return query;
+  }
+
 }

@@ -1,12 +1,18 @@
-<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
       <mdProblem
         name="dss.vector.solutions.intervention.monitor.NetProblem"
         label="Net Quantity Problem"
-        description="The value cannot be set when the household has zero nets" >
+        description="The value cannot be set when the household has zero nets">
         <attributes>
-          <char name="netName" label="Name" size="255" required="true"/>
+          <char
+            name="netName"
+            label="Name"
+            size="255"
+            required="true" />
         </attributes>
       </mdProblem>
       <mdProblem
@@ -29,7 +35,7 @@
         name="dss.vector.solutions.intervention.monitor.WindowTypeProblem"
         label="Net Quantity Problem"
         extends="dss.vector.solutions.NotificationProblem"
-        description="A window type cannot be select when the household does not have windows" />    
+        description="A window type cannot be select when the household does not have windows" />
       <mdView
         name="dss.vector.solutions.intervention.monitor.SurveyPointView"
         label="Survey Point">
@@ -151,7 +157,7 @@
             name="concreteId"
             label="Concrete Id"
             size="255"
-            required="true" />            
+            required="true" />
           <char
             name="geoId"
             label="Surface"
@@ -228,6 +234,32 @@
             type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
         </attributes>
         <mdMethod
+          name="getPage"
+          returnType="dss.vector.solutions.entomology.assay.EfficacyAssayViewQuery"
+          label="getPage"
+          static="true">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+        <mdMethod
           name="getOverallMortalityRate"
           label="Get Overall Mortality Rate"
           returnType="java.lang.Float"
@@ -245,12 +277,12 @@
             label="Geo Id"
             type="java.lang.String"
             order="0"
-            description="Geo Id"/>
+            description="Geo Id" />
           <mdParameter
             name="collectionDate"
             label="Colllection Date"
             type="java.util.Date"
-            order="1"/>
+            order="1" />
         </mdMethod>
         <mdMethod
           name="deleteConcrete"
@@ -322,7 +354,7 @@
             type="dss.vector.solutions.entomology.assay.EfficacyAssayView" />
         </mdAction>
       </mdController>
-    </update>    
+    </update>
   </doIt>
   <undoIt>
     <delete></delete>

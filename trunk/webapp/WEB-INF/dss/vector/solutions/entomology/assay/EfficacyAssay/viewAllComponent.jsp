@@ -43,22 +43,20 @@
     </mjl:attributeColumn>
 
     <mjl:structColumn attributeName="ageRange">
-      <mjl:header>
-        Age Range
-      </mjl:header>
       <mjl:attributeColumn attributeName="startPoint">
-        <mjl:header>
-          From
-        </mjl:header>
       </mjl:attributeColumn>
       <mjl:attributeColumn attributeName="endPoint">
-        <mjl:header>
-          To
-        </mjl:header>
       </mjl:attributeColumn>
     </mjl:structColumn>
 
-     <mjl:attributeColumn attributeName="sex">
+    <mjl:attributeColumn attributeName="sex">
+      <mjl:row>
+         <ul>
+          <c:forEach var="enumName" items="${item.sexEnumNames}">
+            <li>${item.sexMd.enumItems[enumName]}</li>
+          </c:forEach>
+        </ul>      
+      </mjl:row>         
     </mjl:attributeColumn>
 
     <mjl:attributeColumn attributeName="gravid">
@@ -77,6 +75,13 @@
     </mjl:attributeColumn>
 
     <mjl:attributeColumn attributeName="surfacePostion">
+      <mjl:row>
+         <ul>
+          <c:forEach var="enumName" items="${item.surfacePostionEnumNames}">
+            <li>${item.surfacePostionMd.enumItems[enumName]}</li>
+          </c:forEach>
+        </ul>      
+      </mjl:row>    
     </mjl:attributeColumn>
 
    <mjl:attributeColumn attributeName="timeOnSurface">
@@ -100,7 +105,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.view.mojo" name="view.link">
-          <mjl:property value="${item.id}" name="id" />
+          <mjl:property value="${item.concreteId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
