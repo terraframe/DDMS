@@ -29,6 +29,10 @@ MojoGrid.createDataTable = function(table_data) {
 		table_data.addButton = "allreadyThere";
 	}
 
+	if (typeof table_data.copy_from_above === 'undefined') {
+		table_data.copy_from_above = {};
+	}
+
 	table_data.dirty = false;
 
 	// load the data
