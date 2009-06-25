@@ -14,12 +14,12 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="startDate">
       <mjl:row>
-        <fmt:formatDate value="${item.startDate}" dateStyle="SHORT" />
+        <fmt:formatDate value="${item.startDate}" pattern="${dateFormatPattern}"  />
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="endDate">
       <mjl:row>
-        <fmt:formatDate value="${item.endDate}" dateStyle="SHORT" />
+        <fmt:formatDate value="${item.endDate}" pattern="${dateFormatPattern}"  />
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>

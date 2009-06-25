@@ -63,7 +63,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     Locale locale = request.getLocale();
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
     SimpleDateFormat formatter = (SimpleDateFormat) df;
-    return formatter.toPattern();
+    String pattern = formatter.toPattern();
+    pattern = pattern.replace("yy","yyyy");
+    request.setAttribute("dateFormatPattern" , pattern);
+
+    return pattern;
   }
 
   public static String getFormatedDate(HttpServletRequest request, Date date)

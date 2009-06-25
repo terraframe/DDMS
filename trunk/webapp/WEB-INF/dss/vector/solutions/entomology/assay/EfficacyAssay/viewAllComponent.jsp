@@ -23,7 +23,7 @@
     </mjl:attributeColumn>
    <mjl:attributeColumn attributeName="testDate">
       <mjl:row>
-        <fmt:formatDate value="${item.testDate}" dateStyle="SHORT" />
+        <fmt:formatDate value="${item.testDate}" pattern="${dateFormatPattern}"  />
       </mjl:row>
     </mjl:attributeColumn>
 

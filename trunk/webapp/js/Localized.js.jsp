@@ -25,7 +25,6 @@ JSONArray months = new JSONArray(month_list);
 List<String> day_list = new ArrayList<String>(Arrays.asList(formatter.getDateFormatSymbols().getShortWeekdays()));
 day_list.removeAll(Arrays.asList(""));
 JSONArray short_days = new JSONArray(day_list);
-request.setAttribute("dateFormatPattern" ,formatter.toPattern());
 
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 Map<String,String> roleMap =  clientRequest.getSessionUserRoles();
@@ -39,7 +38,7 @@ locale : "<%=request.getLocale().toString()%>"
 
 MDSS.DateSettings =
 {
-java_date_format:'${dateFormatPattern}',
+java_date_format:'<%=Halp.getDateFormatString(request)%>',
 db_datetime_format:'<%=Constants.DATETIME_FORMAT%>',
 db_date_format:'<%=Constants.DATE_FORMAT%>',
 DATE_FIELD_DELIMITER:'/',

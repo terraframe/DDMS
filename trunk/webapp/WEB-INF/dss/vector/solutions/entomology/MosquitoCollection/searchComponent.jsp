@@ -72,7 +72,7 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="dateCollected">
       <mjl:row>
-        <fmt:formatDate value="${item.dateCollected}" dateStyle="SHORT" />
+        <fmt:formatDate value="${item.dateCollected}" pattern="${dateFormatPattern}"  />
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoEntity">

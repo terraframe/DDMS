@@ -17,7 +17,7 @@
     <mjl:attributeColumn attributeName="surveyDate">
       <mjl:header />
       <mjl:row>
-        <fmt:formatDate value="${item.surveyDate}" dateStyle="SHORT" />
+        <fmt:formatDate value="${item.surveyDate}" pattern="${dateFormatPattern}"  />
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>

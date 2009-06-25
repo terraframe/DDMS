@@ -103,8 +103,7 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<fmt:formatDate value="${newPerson.dateOfBirth}" pattern="<%=Constants.DATETIME_FORMAT%>" var="formatedBirthday" />
-<fmt:formatDate value="${newPerson.dateOfBirth}" dateStyle="SHORT" var="formatedBirthday" />
+<fmt:formatDate value="${newPerson.dateOfBirth}" pattern="${dateFormatPattern}" var="formatedBirthday" />
 <mjl:form name="dss.vector.solutions.Person.form.name" id="dss.vector.solutions.Person.form.id" method="POST">
   <mjl:component item="${newPerson}" param="person">
     <mjl:input type="hidden" param="personId" value="${newPerson.personId}" />

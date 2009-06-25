@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@ page import="dss.vector.solutions.util.Halp"%>
+<% Halp.getDateFormatString(request);%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
