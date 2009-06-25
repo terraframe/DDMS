@@ -12,7 +12,11 @@
       ${item.geoId}
     </mjl:dt>
     <mjl:dt attribute="periodType">
-      ${item.periodTypeEnumNames[0]}
+      <ul>
+        <c:forEach var="enumName" items="${item.periodTypeEnumNames}">
+          <li>${item.periodTypeMd.enumItems[enumName]}</li>
+        </c:forEach>
+      </ul>      
     </mjl:dt>
     <mjl:dt attribute="period">
       ${item.period}
