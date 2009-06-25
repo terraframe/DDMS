@@ -178,8 +178,8 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
   public void search() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
-
-    InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+    
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
     SprayOperatorViewDTO[] operators = SprayOperatorViewDTO.getAll(clientRequest);
 
@@ -293,7 +293,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
     SprayOperatorViewDTO[] operators = SprayOperatorViewDTO.getAll(clientRequest);
 

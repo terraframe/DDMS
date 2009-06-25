@@ -199,7 +199,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
 
     req.setAttribute("methods", methods);
@@ -290,7 +290,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
 
     req.setAttribute("methods", methods);

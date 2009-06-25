@@ -26,7 +26,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
     <dd> <mjl:input id="geoIdEl" param="geoId" type="text" value="${geoId}" maxlength="16" classes="geoInput"/></dd>
     <dt> <fmt:message key="Insecticide_Brand"/> </dt>
     <dd>
-      <mjl:select var="current" valueAttribute="id" items="${brands}" param="brand.componentId" >
+      <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="brand.componentId" >
        <mjl:option selected="${brand != null && current.id == brand.id ? 'selected' : 'false'}">
           ${current.brandName}
        </mjl:option>

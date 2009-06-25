@@ -175,7 +175,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
     List<? extends SprayTeamDTO> teams = SprayTeamDTO.getAllInstances(clientRequest,
         SprayTeamDTO.TEAMID, true, 0, 0).getResultSet();
@@ -289,7 +289,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    InsecticideBrandDTO[] brands = InsecticideBrandDTO.getAll(clientRequest);
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
     List<? extends SprayTeamDTO> teams = SprayTeamDTO.getAllInstances(clientRequest,
         SprayTeamDTO.TEAMID, true, 0, 0).getResultSet();

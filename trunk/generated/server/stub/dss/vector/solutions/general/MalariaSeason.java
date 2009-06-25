@@ -12,7 +12,8 @@ import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.surveillance.PeriodType;
 
-public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class MalariaSeason extends MalariaSeasonBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242259530708L;
 
@@ -34,8 +35,9 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
     super.apply();
   }
 
-  public EpiDate[] getEpiWeeks() {
-    //Date epiStart = Property.getDate(PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START);
+  public EpiDate[] getEpiWeeks()
+  {
+    // Date epiStart = Property.getDate(PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START);
     long seasonStart = this.getStartDate().getTime();
     long seasonEnd = this.getEndDate().getTime();
     GregorianCalendar cal = new GregorianCalendar();
@@ -44,15 +46,14 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
     ArrayList<EpiDate> weeks = new ArrayList<EpiDate>();
 
-    for(Integer i = 0;i<=800;i++)
+    for (Integer i = 0; i <= 800; i++)
     {
-      EpiDate  epiWeek = EpiDate.getInstanceByPeriod(PeriodType.WEEK,i,seasonStartYear);
+      EpiDate epiWeek = EpiDate.getInstanceByPeriod(PeriodType.WEEK, i, seasonStartYear);
       long weekStart = epiWeek.getStartDate().getTime();
 
-      if(weekStart > seasonStart && weekStart < seasonEnd )
+      if (weekStart > seasonStart && weekStart < seasonEnd)
       {
-       weeks.add(epiWeek);
-
+        weeks.add(epiWeek);
 
       }
     }
@@ -86,8 +87,8 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
   {
     GregorianCalendar calendar = new GregorianCalendar();
     calendar.setTime(this.getStartDate());
-    calendar.add(Calendar.YEAR,1);
-    if(this.getEndDate().getTime() > calendar.getTime().getTime())
+    calendar.add(Calendar.YEAR, 1);
+    if (this.getEndDate().getTime() > calendar.getTime().getTime())
     {
       String msg = "The season may not be longer then one year";
       MalariaSeasonTooLongProblem e = new MalariaSeasonTooLongProblem(msg);
@@ -96,7 +97,6 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
     }
 
   }
-
 
   private MalariaSeason getOverlap()
   {
@@ -109,14 +109,14 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
     MalariaSeason endOverlap = MalariaSeason.getSeasonByDate(this.getEndDate());
 
-    if (endOverlap != null && ! endOverlap.getId().equals(this.getId()))
+    if (endOverlap != null && !endOverlap.getId().equals(this.getId()))
     {
       return endOverlap;
     }
 
     return null;
   }
-  
+
   public static MalariaSeason getSeasonByDate(Date date)
   {
 
@@ -146,7 +146,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
 
     return malariaSeason;
   }
-  
+
   /**
    * @return A list of all malaria seasons with the most recent one first
    */
@@ -155,34 +155,34 @@ public class MalariaSeason extends MalariaSeasonBase implements com.terraframe.m
     Date today = new Date();
     MalariaSeasonQuery query = new MalariaSeasonQuery(new QueryFactory());
     query.ORDER_BY_ASC(query.getStartDate());
- 
+
     LinkedList<MalariaSeason> seasons = new LinkedList<MalariaSeason>();
     seasons.addAll(query.getIterator().getAll());
 
     MalariaSeason initial = null;
-    
-    for(MalariaSeason season : seasons)
+
+    for (MalariaSeason season : seasons)
     {
-      if(season.getStartDate().after(today))
+      if (season.getStartDate().after(today))
       {
-        if(initial == null)
+        if (initial == null)
         {
           initial = season;
         }
-        
-        if(season.getStartDate().before(initial.getStartDate()))
+
+        if (season.getStartDate().before(initial.getStartDate()))
         {
           initial = season;
         }
       }
     }
-        
-    if(initial != null)
+
+    if (initial != null)
     {
       seasons.remove(initial);
       seasons.addFirst(initial);
     }
-    
+
     return seasons.toArray(new MalariaSeason[seasons.size()]);
   }
 }
