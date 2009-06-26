@@ -150,7 +150,20 @@ MDSS.QueryBase.prototype = {
        {
          var column = columns[j];
          var attr = column.getKey();
-         entry[attr] = result.getAttributeDTO(attr).getValue();
+         var dto = result.getAttributeDTO(attr);
+         var value = dto.getValue();
+         if(dto.dtoType === 'AttributeDateDTO'){
+        	 value = MDSS.Calendar.getLocalizedString(value);
+         }
+         if(dto.dtoType === 'AttributeBooleanDTO'){
+        	 try{
+        	 value = this._visibleSelectables[dto.attributeName].attribute._whereValues.filter(function(v){return v.uuid == value.toString();})[0].text;
+        	 }catch(e){
+        		 //could not find display label so just use true or false
+        	 }
+         }
+
+         entry[attr] = value;
        }
 
        jsonData.push(entry);
