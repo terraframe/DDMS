@@ -107,13 +107,55 @@
             return oData;
         }
     }
-        
 
+    var loadUnusedOperators = function(e){
+        var column = data.myDataTable.getColumn('SprayOperator');
+        var cell = e.editor.getTdEl();
+
+        // Get a list of operators which already have data set for them
+	    var usedOperators = data.myDataTable.getRecordSet().getRecords().map( function(record) {
+		    return record.getData('SprayOperator');
+	    });
+
+        // Filter the list of possible operators by operators which have already been used
+	    var filteredLabels = SprayOperatorLabels.filter(function(operator){
+		    return (usedOperators.indexOf(operator) === -1);
+	    });
+
+        // Update the editor to use the list of valid operators
+        e.editor.dropdownOptions = filteredLabels;
+
+        selectEl = e.editor.dropdown;
+        selectEl.innerHTML = "";
+        selectedValue = e.editor.getRecord().getData('SprayOperator');
+
+        // We have options to populate
+        if(filteredLabels.length > 0) {
+            // Create OPTION elements
+            for(var i=0; i < filteredLabels.length; i++) {
+                var option = filteredLabels[i];
+                var optionEl = document.createElement("option");
+
+                optionEl.value = option;
+                optionEl.innerHTML = option;
+                optionEl = selectEl.appendChild(optionEl);
+
+                if (optionEl.value == selectedValue) {
+                    optionEl.selected = true;
+                }
+            }
+        }
+        else {
+          selectEl.innerHTML = "<option selected value=\"\"></option>";             
+        }
+	 }
+    
     SprayOperatorLabels=Mojo.util.getValues(operators);   
     SprayOperatorIds=Mojo.util.getKeys(operators);   
      
     data.columnDefs[2].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayOperatorLabels,disableBtns:true,validator:validateSprayOperator});
     data.columnDefs[2].save_as_id = true;
-    MojoGrid.createDataTable(data);
-   
+    data.columnDefs[2].editor.subscribe('showEvent', loadUnusedOperators);     
+
+    MojoGrid.createDataTable(data);   
 </script>
