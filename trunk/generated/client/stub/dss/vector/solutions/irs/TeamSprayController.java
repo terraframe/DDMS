@@ -103,10 +103,11 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     {
       String path = req.getRequestURL().toString();
       path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getSprayId());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id="
+          + dto.getSprayId());
       return;
     }
-    
+
     // FIXME: This is a hack to ensure the dto is dirty when its sent back to
     // the server. Remove when nathan has submitted his fix.
     dto.setModified(true);
@@ -177,13 +178,11 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
     InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
-    List<? extends SprayTeamDTO> teams = SprayTeamDTO.getAllInstances(clientRequest,
-        SprayTeamDTO.TEAMID, true, 0, 0).getResultSet();
 
     req.setAttribute("methods", methods);
     req.setAttribute("method", SprayMethodDTO.MAIN_SPRAY.getName());
     req.setAttribute("brands", Arrays.asList(brands));
-    req.setAttribute("teams", teams);
+    req.setAttribute("teams", new LinkedList<SprayTeamDTO>());
     req.setAttribute("page_title", "Search for an Team Spray");
 
     render("searchComponent.jsp");
@@ -232,16 +231,15 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
       this.failSearchByParameters(brand, geoId, failDate, sprayMethod, team);
     }
   }
-  
+
   private List<SprayOperatorDTO> getTeamMembers(SprayTeamDTO team)
   {
     List<SprayOperatorDTO> operators = new LinkedList<SprayOperatorDTO>();
-    
+
     operators.addAll(team.getAllSprayTeamMembers());
-    
+
     return operators;
   }
-
 
   private void validateParameters(InsecticideBrandDTO brand, String geoId, Date date,
       String sprayMethod, SprayTeamDTO team)
@@ -285,26 +283,27 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
   }
 
   public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date,
-      String method, SprayTeamDTO operator) throws IOException, ServletException
+      String method, SprayTeamDTO team) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
     InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
-    List<? extends SprayTeamDTO> teams = SprayTeamDTO.getAllInstances(clientRequest,
-        SprayTeamDTO.TEAMID, true, 0, 0).getResultSet();
 
     req.setAttribute("methods", methods);
     req.setAttribute("brands", Arrays.asList(brands));
-    req.setAttribute("teams", teams);
+    req.setAttribute("teams", new LinkedList<SprayTeamDTO>());
     req.setAttribute("page_title", "Search for an Team Spray");
 
     req.setAttribute("brand", brand);
     req.setAttribute("date", date);
     req.setAttribute("geoId", geoId);
     req.setAttribute("method", method);
-    req.setAttribute("team", operator);
-    req.setAttribute("page_title", "Search for an Team Spray");
+
+    if (team != null)
+    {
+      req.setAttribute("team", team.getId());
+    }
 
     render("searchComponent.jsp");
   }

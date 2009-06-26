@@ -13,7 +13,12 @@
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 
-<c:set var="page_title" value="Search_for_a_Team_Spray" scope="request" />
+
+<%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.List"%>
+<%@page import="dss.vector.solutions.util.Halp"%><c:set var="page_title" value="Search_for_a_Team_Spray" scope="request" />
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
@@ -46,16 +51,78 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
     </dd>
     <dt> <fmt:message key="Spray_Team"/> </dt>
     <dd>
-      <mjl:select var="current" valueAttribute="id" items="${teams}" param="team.componentId" >
+      <mjl:select var="current" valueAttribute="id" items="${teams}" id="teamSelect" disabled="true" param="team.componentId" >
        <mjl:option selected="${team != null && current.id == team.id ? 'selected' : 'false'}">
           ${current.teamId}
        </mjl:option>
       </mjl:select>
     </dd>
+    <mjl:command classes="submitButton" action="dss.vector.solutions.irs.TeamSprayController.searchByParameters.mojo" name="search.button" value="Search" />
   </dl>
-  <br>
-  <mjl:command classes="submitButton" action="dss.vector.solutions.irs.TeamSprayController.searchByParameters.mojo" name="search.button" value="Search" />
 </mjl:form>
 
+<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{GeoEntityDTO.CLASS}))%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayTeamDTO.CLASS}))%>
+
+<script type="text/javascript" defer="defer">
+
+onValidGeoEntitySelected = function(){
+    var geoId = document.getElementById('geoIdEl');
+    var teamSelect = document.getElementById('teamSelect');    
+
+    if(geoId.value != '')
+    {
+      var request = new MDSS.Request({
+          onSend: function(){},
+          onComplete: function(){},
+          onFailure : function(){
+          	teamSelect.disabled=true;            
+          },
+          onProblemExceptionDTO : function(){
+            teamSelect.disabled=true;
+          },          
+          onSuccess : function(teams){
+        	// Remove all of the current options in the select list
+            Selectbox.removeAllOptions(teamSelect);
+
+            Selectbox.addOption(teamSelect, 'Select Team', '', false);
+        	
+            // Add the new options retrieved from the AJAX call
+        	for(var i=0; i< teams.length; i++) {
+              Selectbox.addOption(teamSelect, teams[i].getTeamId(), teams[i].getId(), false);
+        	}        	
+
+        	// Enable the select list
+        	teamSelect.disabled=false;
+        	populatedSprayTeams = true;
+        	
+          }
+  		});
+
+      Mojo.$.dss.vector.solutions.irs.SprayTeam.findByLocation(request, geoId.value);
+    }
+    else {
+      Selectbox.removeAllOptions(teamSelect);        
+   	  teamSelect.disabled=true;
+    }
+  }
+
+onSprayTeamLoaded = function(){
+	if(populatedSprayTeams) {		
+	  document.getElementById('teamSelect').value = '${team}';	
+	}
+	else {
+		setTimeout('onSprayTeamLoaded();',200);
+	}
+  }
+
+populatedSprayTeams = false;
+
+//On page load if a valid GeoId is supplied then load the teams for that geo Id
+onValidGeoEntitySelected();
+
+onSprayTeamLoaded();
+</script>
+
+
 <div id="cal1Container" class="yui-skin-sam"></div>
-<%//out.flush();%>
