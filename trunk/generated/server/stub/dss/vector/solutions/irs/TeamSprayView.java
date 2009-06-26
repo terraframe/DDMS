@@ -85,15 +85,11 @@ public class TeamSprayView extends TeamSprayViewBase implements
     for (SprayOperator operator : members)
     {
       OperatorSprayStatusView view = OperatorSprayStatusView.search(data, operator);
-
-      if (view == null)
+     
+      if(view != null)
       {
-        view = new OperatorSprayStatusView();
-        view.setSprayData(data);
-        view.populate(operator);
+        list.add(view);
       }
-
-      list.add(view);
     }
     
     spray.populateView(this);

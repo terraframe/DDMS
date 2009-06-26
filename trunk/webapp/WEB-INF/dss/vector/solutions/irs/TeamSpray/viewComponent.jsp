@@ -10,12 +10,12 @@
   TeamSprayViewDTO spray = ((TeamSprayViewDTO) request.getAttribute("item"));  
   OperatorSprayStatusViewDTO[] rows = (OperatorSprayStatusViewDTO[]) request.getAttribute("status");
   
-  String[] attributes = {"StatusId", "Spray", "SprayData", "SprayOperator", "OperatorLabel", "OperatorSprayWeek", "Received",
+  String[] attributes = {"StatusId", "SprayData", "SprayOperator", "OperatorSprayWeek", "Received",
        "Refills", "Returned", "Used",   "Households", "Structures",
        "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
        "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
 
-  String deleteColumn = "";
+  String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 %>
 
 <%@page import="com.terraframe.mojo.constants.ClientRequestIF"%>
@@ -70,36 +70,50 @@
 
 <h2><fmt:message key="Operator_Sprays"/></h2>
 <div id="Status"></div>
-<div id="buttons" class="noprint">
-  <span id="StatusSaverows" class="yui-button yui-push-button">
-    <span class="first-child">
-      <button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-    </span>
-  </span>
-  <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
-</div>
 
-<script type="text/javascript">
+<script type="text/javascript" defer="defer">
 
     <%
      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{SprayStatusViewDTO.CLASS}, true));
      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{ActorSprayStatusViewDTO.CLASS}, true));
      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{OperatorSprayStatusViewDTO.CLASS}, true));
     %>
+    operators = <%=request.getAttribute("operators")%>;
+    
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 
 
     data = {
               rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-              columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 4)%>,
-              defaults: {"Spray":'<%=spray.getSprayId()%>'},
+              columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 2)%>,
+              defaults: {"SprayData":'<%= spray.getDataId()%>'},
               div_id: "Status",
               data_type: "Mojo.$.<%=OperatorSprayStatusViewDTO.CLASS%>",
               saveFunction:"applyAll",
-              width:"65em"              
+              width:"65em",
+              excelButtons:false
           };
-    document.addEventListener('load', MojoGrid.createDataTable(data), false);
 
+    var validateSprayOperator = function(oData) {
+        // Validate
+	    var selectedValues = data.myDataTable.getRecordSet().getRecords().map( function(record) {
+		    return record.getData('SprayOperator');
+	    });
+        
+        if(selectedValues.indexOf(oData) !== -1) {
+            return undefined;
+        }
+        else {
+            return oData;
+        }
+    }
+        
+
+    SprayOperatorLabels=Mojo.util.getValues(operators);   
+    SprayOperatorIds=Mojo.util.getKeys(operators);   
+     
+    data.columnDefs[2].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayOperatorLabels,disableBtns:true,validator:validateSprayOperator});
+    data.columnDefs[2].save_as_id = true;
+    MojoGrid.createDataTable(data);
+   
 </script>
-
-

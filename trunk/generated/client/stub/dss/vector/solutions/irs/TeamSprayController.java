@@ -3,18 +3,23 @@ package dss.vector.solutions.irs;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
+import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class TeamSprayController extends TeamSprayControllerBase implements Reloadable
@@ -57,7 +62,6 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("operators", getTeamMembers(dto.getSprayTeam()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create Team Sprays");
 
     render("createComponent.jsp");
   }
@@ -88,7 +92,6 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("operators", getTeamMembers(dto.getSprayTeam()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update Team Sprays");
     render("editComponent.jsp");
   }
 
@@ -115,8 +118,29 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
     req.setAttribute("item", dto);
     req.setAttribute("status", dto.getStatus());
-    req.setAttribute("page_title", "View Team Sprays");
+    req.setAttribute("operators", this.buildOperatorsMap(dto));
     render("viewComponent.jsp");
+  }
+
+  private JSONObject buildOperatorsMap(TeamSprayViewDTO view)
+  {
+    // Map between an entities id and display label
+    Map<String, String> map = new HashMap<String, String>();
+
+    SprayTeamDTO team = view.getSprayTeam();
+    SprayOperatorDTO[] members = team.getTeamMembers();
+
+    for (SprayOperatorDTO operator : members)
+    {
+      PersonDTO person = operator.getPerson();
+      String key = operator.getId();
+      String label = operator.getOperatorId() + " - " + person.getFirstName() + ", " + person.getLastName();
+
+      map.put(key, label);
+    }
+
+    return new JSONObject(map);
+
   }
 
   public void failView(String id) throws IOException, ServletException
@@ -131,7 +155,6 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("operators", getTeamMembers(dto.getSprayTeam()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Team Sprays");
     render("editComponent.jsp");
   }
 
@@ -168,7 +191,6 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
     req.setAttribute("operators", getTeamMembers(dto.getSprayTeam()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Team Sprays");
     render("editComponent.jsp");
   }
 
@@ -183,7 +205,6 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     req.setAttribute("method", SprayMethodDTO.MAIN_SPRAY.getName());
     req.setAttribute("brands", Arrays.asList(brands));
     req.setAttribute("teams", new LinkedList<SprayTeamDTO>());
-    req.setAttribute("page_title", "Search for an Team Spray");
 
     render("searchComponent.jsp");
   }
@@ -207,7 +228,6 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
       }
       else
       {
-        req.setAttribute("page_title", "New Team Spray ");
         req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
         req.setAttribute("operators", getTeamMembers(team));
         req.setAttribute("item", dto);
@@ -293,7 +313,6 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     req.setAttribute("methods", methods);
     req.setAttribute("brands", Arrays.asList(brands));
     req.setAttribute("teams", new LinkedList<SprayTeamDTO>());
-    req.setAttribute("page_title", "Search for an Team Spray");
 
     req.setAttribute("brand", brand);
     req.setAttribute("date", date);
