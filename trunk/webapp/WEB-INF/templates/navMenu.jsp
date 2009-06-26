@@ -28,6 +28,7 @@
                   <a class="yuimenubaritemlabel" href="#"><fmt:message key="GIS"/></a>
               </li>
               <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="com.terraframe.mojo.defaults.LoginController.logout.mojo"><fmt:message key="Log_Out"/></a></li>
+              <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="about.jsp"><fmt:message key="About"/></a></li>
           </ul>
       </div>
   </div>
