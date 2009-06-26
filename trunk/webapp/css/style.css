@@ -581,6 +581,12 @@ ul.draglist li {
 	clear: both;
 }
 
+span.roleLink {
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 div.queryItemLabel {
 }
 

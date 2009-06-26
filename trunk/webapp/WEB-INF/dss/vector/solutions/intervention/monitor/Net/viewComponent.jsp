@@ -6,17 +6,57 @@
 <mjl:form name="dss.vector.solutions.intervention.monitor.Net.form.name" id="dss.vector.solutions.intervention.monitor.Net.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
-    <mjl:dt attribute="displayLabel">
-      ${item.displayLabel}
-</mjl:dt>
-    <mjl:dt attribute="netName">
+    <dt>
+      <label>
+        ${item.displayLabelMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      <dl>
+        <dt>
+          <label>
+            ${item.displayLabel.defaultLocaleMd.displayLabel}
+          </label>
+        </dt>
+        <dd>
+          ${item.displayLabel.defaultLocale}
+        </dd>
+      </dl>
+    </dd>
+    <dt>
+      <label>
+        ${item.enabledMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.enabled}
+    </dd>
+    <dt>
+      <label>
+        ${item.isAbstractMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.isAbstract}
+    </dd>
+    <dt>
+      <label>
+        ${item.netNameMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
       ${item.netName}
-</mjl:dt>
-    <mjl:dt attribute="parentNet">
+    </dd>
+    <dt>
+      <label>
+        ${item.parentNetMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
       <mjl:commandLink display="${item.parentNet.keyName}" action="dss.vector.solutions.intervention.monitor.NetController.view.mojo" name="dss.vector.solutions.intervention.monitor.Net.form.view.link">
         <mjl:property value="${item.parentNet.id}" name="id" />
       </mjl:commandLink>
-</mjl:dt>
+    </dd>
   </dl>
   <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.NetController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Net.form.edit.button" />
   <br />
@@ -44,12 +84,12 @@
   <dd>
     <ul>
       <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.intervention.monitor.NetHeiarchyController.childQuery.mojo" name="dss.vector.solutions.intervention.monitor.NetHeiarchy.childQuery.link">
+        <mjl:commandLink display="" action="dss.vector.solutions.intervention.monitor.HouseholdNetController.childQuery.mojo" name="dss.vector.solutions.intervention.monitor.HouseholdNet.childQuery.link">
           <mjl:property value="${item.id}" name="childId" />
         </mjl:commandLink>
       </li>
       <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.intervention.monitor.HouseholdNetController.childQuery.mojo" name="dss.vector.solutions.intervention.monitor.HouseholdNet.childQuery.link">
+        <mjl:commandLink display="" action="dss.vector.solutions.intervention.monitor.NetHeiarchyController.childQuery.mojo" name="dss.vector.solutions.intervention.monitor.NetHeiarchy.childQuery.link">
           <mjl:property value="${item.id}" name="childId" />
         </mjl:commandLink>
       </li>

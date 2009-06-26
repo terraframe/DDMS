@@ -12,7 +12,16 @@
       </label>
     </dt>
     <dd>
-      ${item.displayLabel}
+      <dl>
+        <dt>
+          <label>
+            ${item.displayLabel.defaultLocaleMd.displayLabel}
+          </label>
+        </dt>
+        <dd>
+          ${item.displayLabel.defaultLocale}
+        </dd>
+      </dl>
     </dd>
     <dt>
       <label>

@@ -3,12 +3,27 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}">
+<mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.intervention.monitor.NetController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:attributeColumn attributeName="displayLabel">
+    <mjl:structColumn attributeName="displayLabel">
       <mjl:header>
         displayLabel
+      </mjl:header>
+      <mjl:attributeColumn attributeName="defaultLocale">
+        <mjl:header>
+          Default Locale
+        </mjl:header>
+      </mjl:attributeColumn>
+    </mjl:structColumn>
+    <mjl:attributeColumn attributeName="enabled">
+      <mjl:header>
+        Enabled
+      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="isAbstract">
+      <mjl:header>
+        Abstract
       </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="netName">

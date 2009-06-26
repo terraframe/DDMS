@@ -12,10 +12,21 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="displayLabel" />
-        <mjl:messages attribute="displayLabel">
-          <mjl:message />
-        </mjl:messages>
+        <dl>
+          <mjl:struct param="displayLabel">
+            <dt>
+              <label>
+                ${item.displayLabel.defaultLocaleMd.displayLabel}
+              </label>
+            </dt>
+            <dd>
+              <mjl:input type="text" param="defaultLocale" />
+              <mjl:messages attribute="defaultLocale">
+                <mjl:message />
+              </mjl:messages>
+            </dd>
+          </mjl:struct>
+        </dl>
       </dd>
       <dt>
         <label>
@@ -25,6 +36,21 @@
       <dd>
         <mjl:input type="text" param="roofName" />
         <mjl:messages attribute="roofName">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
+          ${item.parentNetMd.displayLabel}
+        </label>
+      </dt>
+      <dd>
+        <mjl:select var="current" valueAttribute="id" items="${parentRoofs}" param="parentRoof">
+          <mjl:option>
+            ${current.keyName}
+          </mjl:option>
+        </mjl:select>
+        <mjl:messages attribute="parentNet">
           <mjl:message />
         </mjl:messages>
       </dd>
