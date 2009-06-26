@@ -157,49 +157,55 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
     MorphologicalSpecieGroupQuery groupQuery = (MorphologicalSpecieGroupQuery) queryMap.get(MorphologicalSpecieGroup.CLASS);
 
-    if (xml.indexOf("DATEGROUP_SEASON") > 0)
-    {
-      String td = mosquitoQuery.getTestDate().getQualifiedName();
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
-      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + td + " and ms.enddate > " + td);
-    }
+    MosquitoCollectionQuery collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
 
-    if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
+    if(collectionQuery == null)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
-      dateGroup.setSQL("to_char(testdate,'YYYY-IW')");
+       collectionQuery = new MosquitoCollectionQuery(queryFactory);
     }
-
-    if (xml.indexOf("DATEGROUP_MONTH") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
-      dateGroup.setSQL("to_char(testdate,'YYYY-MM')");
-    }
-
-    if (xml.indexOf("DATEGROUP_QUARTER") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_QUARTER");
-      dateGroup.setSQL("to_char(testdate,'YYYY-Q')");
-    }
-
-    MosquitoCollectionQuery collectionQuery = new MosquitoCollectionQuery(queryFactory);
+    String dateAttribute = "";
 
     // join Mosquito with mosquito collection
     if (mosquitoQuery != null)
     {
-      //valueQuery.WHERE(mosquitoQuery.getCollection().EQ(collectionQuery));
+      // valueQuery.WHERE(mosquitoQuery.getCollection().EQ(collectionQuery));
+      dateAttribute = mosquitoQuery.getTestDate().getQualifiedName();
     }
     if (groupQuery != null)
     {
-      //valueQuery.WHERE(groupQuery.getCollection().EQ(collectionQuery));
+      // valueQuery.WHERE(groupQuery.getCollection().EQ(collectionQuery));
+      dateAttribute = collectionQuery.getDateCollected().getQualifiedName();
     }
 
     // join collection with geo entity and select that entity type's geometry
     if (geoEntityType != null && geoEntityType.trim().length() > 0)
     {
       GeneratedBusinessQuery businessQuery = (GeneratedBusinessQuery) queryMap.get(geoEntityType);
-
       valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(businessQuery));
+    }
+
+    if (xml.indexOf("DATEGROUP_SEASON") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
+      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + dateAttribute + " and ms.enddate > " + dateAttribute);
+    }
+
+    if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
+      dateGroup.setSQL("to_char(" + dateAttribute + ",'YYYY-IW')");
+    }
+
+    if (xml.indexOf("DATEGROUP_MONTH") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
+      dateGroup.setSQL("to_char(" + dateAttribute + ",'YYYY-MM')");
+    }
+
+    if (xml.indexOf("DATEGROUP_QUARTER") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_QUARTER");
+      dateGroup.setSQL("to_char(" + dateAttribute + ",'YYYY-Q')");
     }
 
     if (xml.indexOf("SpecieRatio") > 0)
@@ -221,7 +227,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    * @param xml
    */
   @Transaction
-  public static com.terraframe.mojo.query.ValueQuery queryEntomology(String xml, String geoEntityType, String sortBy, Boolean ascending, Integer pageNumber)
+  public static com.terraframe.mojo.query.ValueQuery queryEntomology(String xml, String geoEntityType, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
     return xmlToValueQuery(xml, geoEntityType, false, null);
   }

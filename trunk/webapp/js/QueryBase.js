@@ -30,17 +30,21 @@ MDSS.QueryBase.prototype = {
     this._geoEntityTypes = {};
     this._geoEntitySelectables = {};
     this._geoIdConditions = {};
-    
+
     this._currentPage = 1;
-    
+
+    this._startDate = null;
+    this._endDate = null;
+    this._dateGroup = null;
+
     this.PAGE_SIZE = 1;
   },
-  
+
   getCurrentPage : function()
   {
     return this._currentPage;
   },
-  
+
   setCurrentPage : function(page)
   {
     this._currentPage = page;
@@ -61,6 +65,30 @@ MDSS.QueryBase.prototype = {
     geoEntityTypeInput.value = this._geoEntityQueryType; // FIXME
     searchIdInput.value = savedSearchId;
     form.submit();
+  },
+
+
+  _dateGroupHandler : function(e, attrib)
+  {
+    var select = e.target;
+
+    if(this._dateGroup){
+      var column = this._queryPanel.getColumn(this._dateGroup);
+    	this._queryPanel.removeColumn(column);
+      this._dateGroup = null;
+    	//this._queryPanel.removeThematicVariable(attribute.getKey());
+    }
+    if(select.value.length > 0)
+    {
+    	this._dateGroup = select.value;
+      this._queryPanel.insertColumn({
+    	  key: this._dateGroup,
+    	  label: MDSS.QueryXML.DateGroupOpts[select.value]
+    	});
+
+      // ADD THEMATIC VARIABLE
+      // this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
+    }
   },
 
 
@@ -100,7 +128,7 @@ MDSS.QueryBase.prototype = {
     searchIdInput.value = savedSearchId;
     form.submit();
   },
-  
+
   /**
    * Resets the query panel with the result contents of the query.
    */
@@ -127,19 +155,19 @@ MDSS.QueryBase.prototype = {
 
        jsonData.push(entry);
      }
-     
+
      this._queryPanel.clearAllRecords();
      this._queryPanel.setRowData(jsonData);
      this._queryPanel.setPagination(query.getCount(), this.getCurrentPage(), this.PAGE_SIZE);
   },
-  
+
   /**
    * Called after the QueryPanel has performed all of its rendering operations.
    */
   postRender : function()
   {
   },
-  
+
   /**
    * Called when a user clicks a page number in the query panel.
    */
@@ -148,7 +176,7 @@ MDSS.QueryBase.prototype = {
     this.setCurrentPage(pageNumber);
     this.executeQuery();
   },
-  
+
   /**
    * Called when a user toggles the value in the checkbox next
    * to the start and end date fields. This generally means the user

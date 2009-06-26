@@ -13,10 +13,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    // START: query objects that dictate state of the query.
 
-	    this._startDate = null;
-	    this._endDate = null;
-	    this._dateGroup = null;
-
 	    this._countSelectable = null;
 
 	    this._specieGroupSelectables = {};
@@ -27,6 +23,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    this._thematicSearchList = [];
 
+	    //this screen can query two diffrent classes, so we have a place to store the selected class
 	    this._mainQueryClass = Mojo.$.dss.vector.solutions.entomology.Mosquito.CLASS;
 
 	    // END: query objects
@@ -149,8 +146,9 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    $('debug_xml').value = xml;
 	    xml = $('debug_xml').value;
+	    var page = this.getCurrentPage();
+	    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, this._geoEntityQueryType, '', true, page, this.PAGE_SIZE);
 
-	    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, this._geoEntityQueryType);
 	  },
 
 	  /**
@@ -511,30 +509,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      this._countSelectable = null;
 
 	      this._queryPanel.removeThematicVariable(attribute.getKey());
-	    }
-	  },
-
-
-	  _dateGroupHandler : function(e, attrib)
-	  {
-	    var select = e.target;
-
-      if(this._dateGroup){
-        var column = this._queryPanel.getColumn(this._dateGroup);
-      	this._queryPanel.removeColumn(column);
-	      this._dateGroup = null;
-      	//this._queryPanel.removeThematicVariable(attribute.getKey());
-      }
-	    if(select.value.length > 0)
-	    {
-	    	this._dateGroup = select.value;
-	      this._queryPanel.insertColumn({
-	    	  key: this._dateGroup,
-	    	  label: MDSS.QueryXML.DateGroupOpts[select.value]
-	    	});
-
-	      // ADD THEMATIC VARIABLE
-	      // this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
 	    }
 	  },
 
