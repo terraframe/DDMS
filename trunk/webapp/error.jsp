@@ -3,7 +3,7 @@
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.io.PrintWriter"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%
 try
