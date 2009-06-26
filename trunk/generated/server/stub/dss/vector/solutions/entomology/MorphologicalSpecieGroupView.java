@@ -19,14 +19,14 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
 
     if (this.hasConcreteId())
     {
-      group = MorphologicalSpecieGroup.get(this.getGroupId());
+      group = MorphologicalSpecieGroup.lock(this.getGroupId());
     }
-    
+
     this.populateConcrete(group);
-    
+
     group.apply();
-    
-    this.populateView(group);    
+
+    this.populateView(group);
   }
 
   public void populateView(MorphologicalSpecieGroup group)
@@ -71,7 +71,7 @@ public class MorphologicalSpecieGroupView extends MorphologicalSpecieGroupViewBa
       MorphologicalSpecieGroup.get(this.getGroupId()).delete();
     }
   }
-  
+
   @Override
   public void deleteConcrete()
   {
