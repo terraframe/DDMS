@@ -48,13 +48,13 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     {
       this._queryPanel.addAvailableQuery(queryList[i]);
     }
-    
+
     // array of checkboxes that must be checked after the DOM has been rendered
     this._defaultAgeGroups = [];
 
     this._buildQueryItems(ageGroups, visibleAttributes, orderedGrids);
   },
-  
+
   /**
    * Checks all the age group check boxes, meaning
    * all age groups are allowed by default.
@@ -65,7 +65,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     {
       this._defaultAgeGroups[i].click();
     }
-    
+
     this._defaultAgeGroups = null;
   },
 
@@ -196,7 +196,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var page = this.getCurrentPage();
     Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, this._geoEntityQueryType, '', true, page, this.PAGE_SIZE);
   },
-  
+
   /**
    * Handler called to generate a map with a thematic variable.
    */
@@ -309,6 +309,13 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     if(this._endDate != null)
     {
       conditions.push(this._endDate);
+    }
+
+    if(this._dateGroup != null)
+    {
+    	var attribute = new MDSS.QueryXML.Sqlcharacter('', this._dateGroup, this._dateGroup);
+      var selectable = new MDSS.QueryXML.Selectable(attribute);
+      queryXML.addSelectable(this._dateGroup, selectable);
     }
 
     var dateAndOr = null;
@@ -883,7 +890,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     ageGroupDiv.appendChild(ageDiv);
     ageGroupDiv.appendChild(show);
     ageGroupDiv.appendChild(groups);
-    
+
     this._queryPanel.addQueryItem({
       html: ageGroupDiv,
       id:"ageGroupItem"
@@ -1173,6 +1180,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._addVisibleAttribute(column);
     }
     */
+    YAHOO.util.Event.on(this._queryPanel._dateGroupBy, 'change', this._dateGroupHandler, '',this);
   }
 });
 
@@ -1253,7 +1261,7 @@ MDSS.VisibleAttribute.prototype = {
     var selectable = new MDSS.QueryXML.Selectable(attribute);
     return selectable;
   }
-	
+
 };
 
 MDSS.GridAttribute = function(obj, meta)

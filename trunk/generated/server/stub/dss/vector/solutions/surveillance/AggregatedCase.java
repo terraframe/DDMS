@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import org.xml.sax.SAXParseException;
 
 import com.terraframe.mojo.business.rbac.Operation;
@@ -23,6 +24,7 @@ import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
@@ -35,7 +37,6 @@ import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
-import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -575,9 +576,53 @@ public class AggregatedCase extends AggregatedCaseBase implements
         valueQuery.AND(ctmq.hasChild(treatmentMethodGridQuery));
       }
     }
-    
+
     valueQuery.restrictRows(20, 1);
 
+    if (xml.indexOf("DATEGROUP_SEASON") > 0)
+    {
+      String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
+      String ed = aggregatedCaseQuery.getStartDate().getQualifiedName();
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
+      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + sd + " and ms.enddate > " + ed);
+    }
+
+    if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
+      String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
+      String ed = aggregatedCaseQuery.getStartDate().getQualifiedName();
+      //TODO: make this work for non-standard epi weeks
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN 'LONGER THEN DATE GROUP'"
+        + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
+        + "THEN to_char(" + sd + ",'YYYY-IW')"
+        + "ELSE to_char(" + ed + ",'YYYY-IW') END";
+      dateGroup.setSQL(dateGroupSql);
+    }
+
+    if (xml.indexOf("DATEGROUP_MONTH") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
+      String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
+      String ed = aggregatedCaseQuery.getStartDate().getQualifiedName();
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN 'LONGER THEN DATE GROUP'"
+        + "WHEN (extract(Day FROM " + sd + ") - extract(day FROM date_trunc('month'," + ed + "))) > extract(Day FROM " + ed + ")"
+        + "THEN to_char(" + sd + ",'YYYY-MM')"
+        + "ELSE to_char(" + ed + ",'YYYY-MM') END";
+      dateGroup.setSQL(dateGroupSql);
+    }
+
+    if (xml.indexOf("DATEGROUP_QUARTER") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_QUARTER");
+      String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
+      String ed = aggregatedCaseQuery.getStartDate().getQualifiedName();
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN 'LONGER THEN DATE GROUP'"
+        + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + "))) > extract(DOY FROM " + ed + ")"
+        + "THEN to_char(" + sd + ",'YYYY-Q')"
+        + "ELSE to_char(" + ed + ",'YYYY-Q') END";
+      dateGroup.setSQL(dateGroupSql);
+    }
     return valueQuery;
   }
 
@@ -602,10 +647,10 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String geoEntityType, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
     ValueQuery valueQuery = xmlToValueQuery(xml, geoEntityType, false, null);
-    
-    valueQuery.restrictRows(pageSize, pageNumber); 
-    
-    
+
+    valueQuery.restrictRows(pageSize, pageNumber);
+
+
     return valueQuery;
   }
 
