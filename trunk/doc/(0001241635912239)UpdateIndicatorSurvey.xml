@@ -13,8 +13,7 @@
     <create>
       <mdBusiness
         name="dss.vector.solutions.intervention.monitor.Roof"
-        label="Roof"
-        generateController="false">
+        label="Roof">
         <attributes>
           <char
             name="roofName"
@@ -49,8 +48,7 @@
       </mdTree>
       <mdBusiness
         name="dss.vector.solutions.intervention.monitor.Wall"
-        label="Roof"
-        generateController="false">
+        label="Roof">
         <attributes>
           <char
             name="wallName"

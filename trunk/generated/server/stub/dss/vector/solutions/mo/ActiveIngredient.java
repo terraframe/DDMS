@@ -28,5 +28,10 @@ public class ActiveIngredient extends ActiveIngredientBase implements com.terraf
     List<ActiveIngredient> list = AbstractTerm.getAllActive(query, ActiveIngredient.class);
 
     return list.toArray(new ActiveIngredient[list.size()]);
-  }  
+  }
+  
+  public static ActiveIngredient validateByDisplayLabel(String displayLabel)
+  {
+    return (ActiveIngredient) AbstractTerm.validateByDisplayLabel(displayLabel);
+  }
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import javax.servlet.ServletException;
 
+import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.system.metadata.MdClassQueryDTO;
 
 public class ReadableAttributeController extends ReadableAttributeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -21,9 +22,11 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
   @Override
   public void getUniversal(String actor) throws IOException, ServletException
   {
-    MdClassQueryDTO classes = FacadeDTO.getMDSSClasses(super.getClientRequest());
+    ClientRequestIF clientRequest = super.getClientRequest();
+    MdClassQueryDTO classes = FacadeDTO.getMDSSClasses(clientRequest);
     req.setAttribute("page_title", "Select_Class");
     req.setAttribute("actor", actor);
+    req.setAttribute("actorOptions", FacadeDTO.getMDSSRoles(clientRequest));
     req.setAttribute("query", classes);
     req.setAttribute("universals", classes.getResultSet());
     render("selectUniversal.jsp");

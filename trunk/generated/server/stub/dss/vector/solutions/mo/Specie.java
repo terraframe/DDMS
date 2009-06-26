@@ -34,5 +34,10 @@ public class Specie extends SpecieBase implements com.terraframe.mojo.generation
     List<Specie> list = AbstractTerm.getAllActive(query, Specie.class);
 
     return list.toArray(new Specie[list.size()]);
-  }  
+  }
+  
+  public static Specie validateByDisplayLabel(String displayLabel)
+  {
+    return (Specie) AbstractTerm.validateByDisplayLabel(displayLabel);
+  }
 }

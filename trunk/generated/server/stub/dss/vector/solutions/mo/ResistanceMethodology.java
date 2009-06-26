@@ -28,5 +28,10 @@ public class ResistanceMethodology extends ResistanceMethodologyBase implements 
     List<ResistanceMethodology> list = AbstractTerm.getAllActive(query, ResistanceMethodology.class);
 
     return list.toArray(new ResistanceMethodology[list.size()]);
-  } 
+  }
+  
+  public static ResistanceMethodology validateByDisplayLabel(String displayLabel)
+  {
+    return (ResistanceMethodology) AbstractTerm.validateByDisplayLabel(displayLabel);
+  }
 }

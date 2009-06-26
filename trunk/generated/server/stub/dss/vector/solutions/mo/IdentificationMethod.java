@@ -35,4 +35,9 @@ public class IdentificationMethod extends IdentificationMethodBase implements co
 
     return list.toArray(new IdentificationMethod[list.size()]);
   }
+  
+  public static IdentificationMethod validateByDisplayLabel(String displayLabel)
+  {
+    return (IdentificationMethod) AbstractTerm.validateByDisplayLabel(displayLabel);
+  }
 }

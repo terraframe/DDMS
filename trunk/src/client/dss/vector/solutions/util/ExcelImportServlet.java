@@ -1,6 +1,7 @@
 package dss.vector.solutions.util;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -15,6 +16,9 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientConstants;
@@ -50,8 +54,15 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
     try
     {
       List<FileItem> items = upload.parseRequest(req);
-      InputStream inputStream = new BufferedInputStream(items.get(0).getInputStream());
-      InputStream errorStream = clientRequest.importExcelFile(inputStream, null, null, new String[]{});
+      
+      InputStream sourceStream = items.get(0).getInputStream();
+      int available = sourceStream.available();
+      byte[] bytes = new byte[available];
+      sourceStream.read(bytes);
+      sourceStream.close();
+      
+      String type = getTypeFromFile(new ByteArrayInputStream(bytes));
+      InputStream errorStream = clientRequest.importExcelFile(new ByteArrayInputStream(bytes), type, "setupImportListener", new String[]{});
       if (errorStream.available()>0)
       {
         res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
@@ -71,6 +82,14 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
     req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req, res);
   }
   
+  private String getTypeFromFile(InputStream inputStream) throws IOException
+  {
+    POIFSFileSystem fileSystem = new POIFSFileSystem(inputStream);
+    HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
+    HSSFSheet sheet = workbook.getSheetAt(0);
+    return sheet.getRow(0).getCell(0).getRichStringCellValue().getString();
+  }
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
   {

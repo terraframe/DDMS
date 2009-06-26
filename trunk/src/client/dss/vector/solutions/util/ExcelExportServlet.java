@@ -28,7 +28,7 @@ public class ExcelExportServlet extends HttpServlet implements Reloadable
 
     String[] split = type.split("\\.");
     String fileName = split[split.length-1];
-    InputStream inputStream = clientRequest.exportExcelFile(type, "setupExcelListener", new String[]{});
+    InputStream inputStream = clientRequest.exportExcelFile(type, "setupExportListener", new String[]{});
 
     FileDownloadUtil.writeXLS(res, fileName, inputStream);
   }

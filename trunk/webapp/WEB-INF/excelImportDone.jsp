@@ -3,10 +3,7 @@
 
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 <c:choose>
-  <c:when test="${empty problems}">
-    <div class="pageTitle"><fmt:message key="Excel_Import_Success" /></div>
-  </c:when>
-  <c:otherwise>
+  <c:when test="${!(empty problems)}">
     <div class="pageTitle"><fmt:message key="Excel_Import_Fail" /></div>
     <table class="displayTable">
       <tr>
@@ -24,6 +21,13 @@
         </tr>
       </c:forEach>
     </table>
+  </c:when>
+  <c:when test="${!(empty errorMessage)}">
+    <div class="pageTitle"><fmt:message key="Excel_Import_Fail" /></div>
+    ${errorMessage}
+  </c:when>
+  <c:otherwise>
+    <div class="pageTitle"><fmt:message key="Excel_Import_Success" /></div>
   </c:otherwise>
 </c:choose>
 <jsp:include page="/WEB-INF/templates/footer.jsp" />

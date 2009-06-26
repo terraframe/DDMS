@@ -28,5 +28,10 @@ public class Generation extends GenerationBase implements com.terraframe.mojo.ge
     List<Generation> list = AbstractTerm.getAllActive(query, Generation.class);
 
     return list.toArray(new Generation[list.size()]);
-  }  
+  }
+  
+  public static Generation validateByDisplayLabel(String displayLabel)
+  {
+    return (Generation) AbstractTerm.validateByDisplayLabel(displayLabel);
+  }
 }

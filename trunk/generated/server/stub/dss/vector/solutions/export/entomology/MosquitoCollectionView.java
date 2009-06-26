@@ -9,8 +9,11 @@ import java.util.Map;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
+import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.PoliticalHierarchyLengthException;
@@ -19,7 +22,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.CollectionMethod;
-import dss.vector.solutions.util.ColumnListener;
+import dss.vector.solutions.util.GeoColumnListener;
 import dss.vector.solutions.util.GenericHierarchySearcher;
 import dss.vector.solutions.util.GeoEntitySearcher;
 import dss.vector.solutions.util.SearchableHierarchy;
@@ -57,6 +60,34 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     collection.apply();
 
     this.populateView(collection);
+  }
+  
+  public MosquitoCollection findMatch()
+  {
+    CollectionMethod method = null;
+    List<SearchableHierarchy> hierarchy = MosquitoCollectionView.getHierarchy();
+            
+    GeoEntitySearcher searcher = new GeoEntitySearcher(hierarchy);    
+    GeoEntity entity = searcher.getGeoEntity(this.getGeoEntityNames());   
+    
+    if(this.hasCollectionMethod())
+    {
+      method = (CollectionMethod) CollectionMethod.validateByDisplayLabel(this.getCollectionMethod());     
+    }
+    
+    MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
+    query.WHERE(query.getGeoEntity().EQ(entity));
+    query.WHERE(query.getDateCollected().EQ(this.getDateCollected()));
+    query.WHERE(query.getCollectionMethod().EQ(method));
+    
+    OIterator<? extends MosquitoCollection> iterator = query.getIterator();
+    MosquitoCollection match = null;
+    if (iterator.hasNext())
+    {
+      match = iterator.next();
+    }
+    iterator.close();
+    return match;
   }
 
   private boolean hasCollectionMethod()
@@ -117,7 +148,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     return this.concreteId != null && !this.concreteId.equals("");
   }
   
-  private static List<SearchableHierarchy> getHierarchy()
+  public static List<SearchableHierarchy> getHierarchy()
   {
     List<GeoHierarchyView> political = Arrays.asList(GeoHierarchy.getPoliticalGeoHierarchiesByType(Country.CLASS));    
 
@@ -178,6 +209,6 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       map.put(key, displayLabel);
     }
     
-    exporter.addListener(new ColumnListener(map));    
+    exporter.addListener(new GeoColumnListener(map));    
   }
 }
