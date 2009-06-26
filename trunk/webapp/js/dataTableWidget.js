@@ -30,7 +30,7 @@ MojoGrid.createDataTable = function(table_data) {
 	}
 
 	if (typeof table_data.copy_from_above === 'undefined') {
-		table_data.copy_from_above = {};
+		table_data.copy_from_above = [];
 	}
 
 	table_data.dirty = false;
