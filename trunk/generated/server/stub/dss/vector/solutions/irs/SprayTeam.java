@@ -53,34 +53,30 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
   {
     Set<SprayOperator> set = new TreeSet<SprayOperator>(new OperatorCompator());
     
-    OIterator<? extends SprayOperator> teamMembers = this.getAllSprayTeamMembers();
-    OIterator<? extends SprayLeader> sprayLeaders = this.getAllTeamLeader();
+    List<? extends SprayOperator> members = this.getAllSprayTeamMembers().getAll();
+    OIterator<? extends SprayLeader> leaders = this.getAllTeamLeader();
     
     try
     {
-      while(sprayLeaders.hasNext())
+      while(leaders.hasNext())
       {
-        SprayLeader leader = sprayLeaders.next();
+        SprayLeader leader = leaders.next();
         Person person = leader.getPerson();
         SprayOperator operator = person.getSprayOperatorDelegate();
         
-        if(operator != null)
+        if(operator != null && members.contains(operator))
         {
           set.add(operator);
         }
       }
 
-      while(teamMembers.hasNext())
-      {
-        set.add(teamMembers.next());
-      }
+      set.addAll(members);
             
       return set.toArray(new SprayOperator[set.size()]);
     }
     finally
     {
-      teamMembers.close();
-      sprayLeaders.close();
+      leaders.close();
     }
   }
   
