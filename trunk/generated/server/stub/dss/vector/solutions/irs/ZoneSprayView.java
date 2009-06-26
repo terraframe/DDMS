@@ -71,7 +71,7 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
 
     ZoneSpray spray = ZoneSpray.get(this.getSprayId());
     SprayData data = spray.getSprayData();
-    SprayTeam[] teams = SprayTeam.search(data.getGeoEntity());
+    SprayTeam[] teams = SprayTeam.findByLocation(data.getGeoEntity().getGeoId());
 
     for (SprayTeam team : teams)
     {
