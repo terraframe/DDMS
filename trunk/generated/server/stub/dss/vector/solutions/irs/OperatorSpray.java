@@ -59,6 +59,11 @@ public class OperatorSpray extends OperatorSprayBase implements com.terraframe.m
   
   public static OperatorSpray find(SprayData data, SprayOperator operator)
   {
+    if(data == null || operator == null)
+    {
+      return null;
+    }
+    
     OperatorSprayQuery query = new OperatorSprayQuery(new QueryFactory());
     query.WHERE(query.getSprayData().EQ(data));
     query.AND(query.getSprayOperator().EQ(operator));

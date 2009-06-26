@@ -28,7 +28,6 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
   public void populate(SprayOperator operator)
   {
     this.setSprayOperator(operator);
-    this.setOperatorLabel(operator.getOperatorId() + "-" + operator.getPerson().getFirstName() + " " + operator.getPerson().getLastName());    
   }
 
   protected void populateSpray(OperatorSpray spray)
