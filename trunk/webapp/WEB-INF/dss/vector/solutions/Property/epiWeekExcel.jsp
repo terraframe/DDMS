@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="application/force-download; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="dss.vector.solutions.surveillance.PeriodType"%>

@@ -1,6 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@page import="dss.vector.solutions.geo.GeoHierarchyDTO"%>
 <%@page import="com.terraframe.mojo.constants.ClientConstants"%>
@@ -44,9 +44,8 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
         </mjl:radioOption>
       </mjl:radioGroup>
     </dd>
+    <mjl:command classes="submitButton" action="dss.vector.solutions.irs.ZoneSprayController.searchByParameters.mojo" name="search.button" value="Search" />
   </dl>
-  <br>
-  <mjl:command classes="submitButton" action="dss.vector.solutions.irs.ZoneSprayController.searchByParameters.mojo" name="search.button" value="Search" />
 </mjl:form>
 
 <div id="cal1Container" class="yui-skin-sam"></div>

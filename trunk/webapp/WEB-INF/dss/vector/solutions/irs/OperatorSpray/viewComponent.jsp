@@ -1,6 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
@@ -34,6 +34,22 @@
     <mjl:input value="${item.sprayId}" type="hidden" param="id" />
 
     <mjl:component item="${item}" param="dto">
+      <mjl:dt attribute="geoEntity"> ${item.geoEntity.geoId} </mjl:dt>
+      <mjl:dt attribute="brand"> ${item.brand.brandName} </mjl:dt>
+      <mjl:dt attribute="sprayDate">
+        <span id="testDateSpan" class="formatDate">${item.sprayDate}</span>
+      </mjl:dt>
+      <mjl:dt attribute="sprayMethod">
+        <ul>
+          <c:forEach var="enumName" items="${item.sprayMethodEnumNames}">
+            <li>${item.sprayMethodMd.enumItems[enumName]}</li>
+          </c:forEach>
+        </ul>            
+      </mjl:dt>
+      <mjl:dt attribute="sprayOperator">
+        ${item.sprayOperator.person.lastName}, ${item.sprayOperator.person.firstName}
+      </mjl:dt>
+                
       <mjl:dt attribute="teamLeader">
         ${item.teamLeader.person.lastName}, ${item.teamLeader.person.firstName}
       </mjl:dt>
