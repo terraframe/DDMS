@@ -8,31 +8,51 @@
         <create>
           <mdMethod
             name="snapToEpiWeek"
-            label="getInstance"
+            label="snapToEpiWeek"
             description="Accepts a date and returns the begining or ending of the epiWeek, whichever is closer"
             static="true"
             returnType="java.util.Date">
+            <mdParameter
+              name="startDate"
+              label="Start Date"
+              type="java.util.Date"
+              order="0"/>
           </mdMethod>
           <mdMethod
             name="snapToMonth"
-            label="getInstance"
+            label="snapToMonth"
             description="Accepts a date and returns the begining or ending of the month, whichever is closer"
             static="true"
             returnType="java.util.Date">
+            <mdParameter
+              name="startDate"
+              label="Start Date"
+              type="java.util.Date"
+              order="0"/>
           </mdMethod>
           <mdMethod
             name="snapToQuarter"
-            label="getInstance"
+            label="snapToQuarter"
             description="Accepts a date and returns the begining or ending of the quarter, whichever is closer"
             static="true"
             returnType="java.util.Date">
+            <mdParameter
+              name="startDate"
+              label="Start Date"
+              type="java.util.Date"
+              order="0"/>
           </mdMethod>
           <mdMethod
             name="snapToSeason"
-            label="getInstance"
+            label="snapToSeason"
             description="Accepts a date and returns the begining or ending of the season, whichever is closer"
             static="true"
             returnType="java.util.Date">
+            <mdParameter
+              name="startDate"
+              label="Start Date"
+              type="java.util.Date"
+              order="0"/>
           </mdMethod>
         </create>
       </mdView>

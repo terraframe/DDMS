@@ -236,7 +236,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
 
     int days_before_piviot = piviot - min;
     int days_after_piviot = max - piviot;
-    // begining of month wins in case of tie
+    // beginning of month wins in case of tie
     if (days_before_piviot < days_after_piviot)
     {
       cal.set(period, min);

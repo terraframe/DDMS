@@ -582,7 +582,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     if (xml.indexOf("DATEGROUP_SEASON") > 0)
     {
       String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
-      String ed = aggregatedCaseQuery.getStartDate().getQualifiedName();
+      String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
       dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + sd + " and ms.enddate > " + ed);
     }
@@ -591,9 +591,9 @@ public class AggregatedCase extends AggregatedCaseBase implements
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
       String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
-      String ed = aggregatedCaseQuery.getStartDate().getQualifiedName();
+      String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
       //TODO: make this work for non-standard epi weeks
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN 'LONGER THEN DATE GROUP'"
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN 'INTERVAL NOT VALID'"
         + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
         + "THEN to_char(" + sd + ",'YYYY-IW')"
         + "ELSE to_char(" + ed + ",'YYYY-IW') END";
@@ -604,9 +604,9 @@ public class AggregatedCase extends AggregatedCaseBase implements
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
       String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
-      String ed = aggregatedCaseQuery.getStartDate().getQualifiedName();
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN 'LONGER THEN DATE GROUP'"
-        + "WHEN (extract(Day FROM " + sd + ") - extract(day FROM date_trunc('month'," + ed + "))) > extract(Day FROM " + ed + ")"
+      String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN 'INTERVAL NOT VALID'"
+        + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
         + "THEN to_char(" + sd + ",'YYYY-MM')"
         + "ELSE to_char(" + ed + ",'YYYY-MM') END";
       dateGroup.setSQL(dateGroupSql);
@@ -616,9 +616,10 @@ public class AggregatedCase extends AggregatedCaseBase implements
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_QUARTER");
       String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
-      String ed = aggregatedCaseQuery.getStartDate().getQualifiedName();
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN 'LONGER THEN DATE GROUP'"
-        + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + "))) > extract(DOY FROM " + ed + ")"
+      String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN 'INTERVAL NOT VALID'"
+        + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))"
+        + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))"
         + "THEN to_char(" + sd + ",'YYYY-Q')"
         + "ELSE to_char(" + ed + ",'YYYY-Q') END";
       dateGroup.setSQL(dateGroupSql);
