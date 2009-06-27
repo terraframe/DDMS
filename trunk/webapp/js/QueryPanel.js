@@ -105,7 +105,7 @@ MDSS.QueryPanel.prototype = {
   AVAILABLE_LAYERS_LIST : "availableLayersList",
 
   QUERY_DATA_TABLE : "queryDataTable",
-  
+
   PAGINATION_SECTION : "paginationSection",
 
   DATE_RANGE_DIV : "dateRange",
@@ -431,9 +431,9 @@ MDSS.QueryPanel.prototype = {
     this._buildContentGrid();
 
     this._buildQuerySummary();
-    
+
     YAHOO.util.Event.on(this.PAGINATION_SECTION, 'click', this._paginationHandler, null, this);
-    
+
     // let the query panels perform their own post-render logic
     if(Mojo.util.isFunction(this._config.postRender))
     {
@@ -1135,9 +1135,14 @@ MDSS.QueryPanel.prototype = {
       fields: []
     };
 
-    this._dataTable = new YAHOO.widget.DataTable(this.QUERY_DATA_TABLE, [], dataSource);
+    this._dataTable = new YAHOO.widget.DataTable(this.QUERY_DATA_TABLE, [], dataSource,{draggableColumns:true});
 
     this._dataTable.render();
+
+    this._dataTable.subscribe("columnReorderEvent", function(){
+    //can handle column order here
+    }, this, true);
+
 
     // add context menu to table
     var menu = new YAHOO.widget.ContextMenu(this.QUERY_DATA_TABLE+"_menu", {
@@ -1455,29 +1460,29 @@ MDSS.QueryPanel.prototype = {
       this._config.executeQuery();
     }
   },
-  
+
   /**
    * Creates new pagination settings with the given configuration.
    */
   setPagination : function(count, pageNumber, pageSize)
   {
-    var pagination = new MDSS.Pagination(pageNumber, pageSize, count);  
+    var pagination = new MDSS.Pagination(pageNumber, pageSize, count);
     var pages = pagination.getPages();
-    
+
     var section = document.getElementById(this.PAGINATION_SECTION);
     section.innerHTML = '';
-    
-    
+
+
     var frag = document.createDocumentFragment();
-    
+
     for(var i=0; i<pages.length; i++)
     {
-    
+
       var page = pages[i];
-    
+
       var span = document.createElement('span');
-      YAHOO.util.Dom.addClass(span, 'page'); 
-      
+      YAHOO.util.Dom.addClass(span, 'page');
+
       if(page.isLeft())
       {
         span.innerHTML = '...';
@@ -1495,13 +1500,13 @@ MDSS.QueryPanel.prototype = {
       {
         span.innerHTML = page.getPageNumber();
       }
-      
+
       frag.appendChild(span);
     }
-    
+
     section.appendChild(frag);
   },
-  
+
   _paginationHandler : function(e)
   {
     if(e.target.nodeName === 'SPAN' && Mojo.util.isFunction(this._config.paginationHandler))
@@ -1619,7 +1624,7 @@ MDSS.Pagination = function(pageNumber, pageSize, count)
   this._pageSize = pageSize;
   this._count = count;
   this._pages = [];
-  
+
   this.calculate();
 };
 
@@ -1640,12 +1645,12 @@ MDSS.Pagination.prototype = {
     }
 
     var totalPages = parseInt(Math.ceil(this._count / this._pageSize ));
-    
+
     var l = Math.max(this._pageNumber - 4, 1);
     var u = Math.min(this._pageNumber + 4, totalPages);
     var lowerBound = Math.max(1, Math.min(this._pageNumber-4, u-totalPages));
     var upperBound = Math.min(Math.max(this._pageNumber+4, l+totalPages), totalPages);
-    
+
     if (lowerBound != 1)
     {
       // Generate the first page
@@ -1678,8 +1683,8 @@ MDSS.Pagination.prototype = {
       // Generate last page
       this._pages.push(new MDSS.Pagination.Page(false, totalPages));
     }
-  },  
-  
+  },
+
   getPages : function()
   {
     return this._pages;
@@ -1693,18 +1698,18 @@ MDSS.Pagination.Page = function(isCurrent, pageNumber)
   this._isLeft = false;
   this._isRight = false;
 };
-  
+
 MDSS.Pagination.Page.prototype = {
   markLeft : function() { this._isLeft = true; },
-  
+
   markRight : function() { this._isRight = true; },
-  
+
   isLeft : function() { return this._isLeft; },
-  
+
   isRight : function() { return this._isRight; },
-  
+
   isCurrentPage : function() { return this._isCurrent; },
-  
+
   getPageNumber : function() { return this._pageNumber; },
-  
+
 };

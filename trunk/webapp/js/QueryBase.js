@@ -86,9 +86,53 @@ MDSS.QueryBase.prototype = {
     	  label: MDSS.QueryXML.DateGroupOpts[select.value]
     	});
 
+	    var dateEl = this._queryPanel.getStartDate();
+	    this._snapDate(dateEl.get('value'), dateEl,this._dateGroup);
+
+	    dateEl = this._queryPanel.getEndDate();
+	    this._snapDate(dateEl.get('value'), dateEl,this._dateGroup);
+
       // ADD THEMATIC VARIABLE
       // this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
     }
+  },
+
+  _snapDate : function(date,targetEl,dateGroupPeriod){
+
+  	date = MDSS.util.stripWhitespace(date);
+
+    if(date.length == 0){return;}
+
+  	date = MDSS.Calendar.parseDate(date);
+
+  	var request = new MDSS.Request({
+  		el: targetEl,
+      onSend: function(){},
+      onComplete: function(){},
+      onSuccess : function(result){
+      this.el.set('value',MDSS.Calendar.getLocalizedString(result));
+    }
+  	});
+
+  	switch(dateGroupPeriod)
+  	{
+  	case 'DATEGROUP_EPIWEEK':
+  		Mojo.$.dss.vector.solutions.general.EpiDate.snapToEpiWeek(request,date);
+  	  break;
+  	case 'DATEGROUP_MONTH':
+  		Mojo.$.dss.vector.solutions.general.EpiDate.snapToMonth(request,date);
+  	  break;
+  	case 'DATEGROUP_QUARTER':
+  		Mojo.$.dss.vector.solutions.general.EpiDate.snapToQuarter(request,date);
+  	  break;
+  	case 'DATEGROUP_SEASON':
+  		Mojo.$.dss.vector.solutions.general.EpiDate.snapToSeason(request,date);
+  	  break;
+  	default:
+  		targetEl.set('value',MDSS.Calendar.getLocalizedString(result));
+  	}
+
+
   },
 
 
@@ -179,6 +223,7 @@ MDSS.QueryBase.prototype = {
    */
   postRender : function()
   {
+  	 YAHOO.util.Event.on(this._queryPanel._dateGroupBy, 'change', this._dateGroupHandler, '',this);
   },
 
   /**
