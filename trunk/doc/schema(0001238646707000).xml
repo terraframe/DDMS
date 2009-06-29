@@ -2575,6 +2575,12 @@
           label="Get All Terms"
           static="true"
           description="Returns all term of a MO subcatagory" />
+        <mdMethod
+          name="getAllActive"
+          returnType="dss.vector.solutions.mo.CollectionMethod[]"
+          label="Get All Terms"
+          static="true"
+          description="Returns all term of a MO subcatagory" />
       </mdBusiness>
 
       <mdBusiness
@@ -2584,6 +2590,12 @@
         extends="dss.vector.solutions.mo.AbstractTerm">
         <mdMethod
           name="getAll"
+          returnType="dss.vector.solutions.mo.Generation[]"
+          label="Get All Terms"
+          static="true"
+          description="Returns all terms of a MO subcatagory" />
+        <mdMethod
+          name="getAllActive"
           returnType="dss.vector.solutions.mo.Generation[]"
           label="Get All Terms"
           static="true"
@@ -2601,6 +2613,12 @@
           label="Get All Terms"
           static="true"
           description="Returns all terms of a MO subcatagory" />
+        <mdMethod
+          name="getAllActive"
+          returnType="dss.vector.solutions.mo.Specie[]"
+          label="Get All Terms"
+          static="true"
+          description="Returns all terms of a MO subcatagory" />
       </mdBusiness>
 
       <mdBusiness
@@ -2610,6 +2628,12 @@
         extends="dss.vector.solutions.mo.AbstractTerm">
         <mdMethod
           name="getAll"
+          returnType="dss.vector.solutions.mo.IdentificationMethod[]"
+          label="Get All Terms"
+          static="true"
+          description="Returns all terms of a MO subcatagory" />
+        <mdMethod
+          name="getAllActive"
           returnType="dss.vector.solutions.mo.IdentificationMethod[]"
           label="Get All Terms"
           static="true"
@@ -2770,6 +2794,12 @@
           label="Get All Terms"
           static="true"
           description="Returns all terms of a MO subcatagory" />
+        <mdMethod
+          name="getAllActive"
+          returnType="dss.vector.solutions.mo.ActiveIngredient[]"
+          label="Get All Terms"
+          static="true"
+          description="Returns all terms of a MO subcatagory" />
       </mdBusiness>
 
       <mdBusiness
@@ -2779,6 +2809,12 @@
         extends="dss.vector.solutions.mo.AbstractTerm">
         <mdMethod
           name="getAll"
+          returnType="dss.vector.solutions.mo.ResistanceMethodology[]"
+          label="Get All Terms"
+          static="true"
+          description="Returns all term names of a MO subcatagory" />
+        <mdMethod
+          name="getAllActive"
           returnType="dss.vector.solutions.mo.ResistanceMethodology[]"
           label="Get All Terms"
           static="true"
@@ -2903,6 +2939,12 @@
         extends="dss.vector.solutions.mo.AbstractTerm">
         <mdMethod
           name="getAll"
+          returnType="dss.vector.solutions.mo.LarvaeAge[]"
+          label="Get All Terms"
+          static="true"
+          description="Returns all term names of a MO subcatagory" />
+        <mdMethod
+          name="getAllActive"
           returnType="dss.vector.solutions.mo.LarvaeAge[]"
           label="Get All Terms"
           static="true"
@@ -4513,6 +4555,12 @@
           label="Get All Terms"
           static="true"
           description="Returns all term of a MO subcatagory" />
+        <mdMethod
+          name="getAllActive"
+          returnType="dss.vector.solutions.mo.MolecularAssayResult[]"
+          label="Get All Terms"
+          static="true"
+          description="Returns all term of a MO subcatagory" />
       </mdBusiness>
 
       <mdBusiness
@@ -4526,6 +4574,12 @@
           label="Get All Terms"
           static="true"
           description="Returns all term of a MO subcatagory" />
+        <mdMethod
+          name="getAllActive"
+          returnType="dss.vector.solutions.mo.InfectivityMethodology[]"
+          label="Get All Terms"
+          static="true"
+          description="Returns all term of a MO subcatagory" />
       </mdBusiness>
 
       <mdBusiness
@@ -4535,6 +4589,12 @@
         extends="dss.vector.solutions.mo.AbstractTerm">
         <mdMethod
           name="getAll"
+          returnType="dss.vector.solutions.mo.InsecticideMethodology[]"
+          label="Get All Terms"
+          static="true"
+          description="Returns all term of a MO subcatagory" />
+        <mdMethod
+          name="getAllActive"
           returnType="dss.vector.solutions.mo.InsecticideMethodology[]"
           label="Get All Terms"
           static="true"
