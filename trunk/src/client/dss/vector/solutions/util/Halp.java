@@ -581,6 +581,9 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
   // rendering
   public static String renderJspToString(HttpServletRequest request, HttpServletResponse response, String jsp_to_render)
   {
+    //we are rendering inside out, so we have to set the date format here, because the header has not been rendered yet.
+    Halp.getDateFormatString(request);
+
     try
     {
       return renderJspToByteArray(request, response, jsp_to_render).toString("UTF-8");
