@@ -77,14 +77,10 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.terraframe.m
     {
       TeamSprayStatusView view = TeamSprayStatusView.search(data, team);
 
-      if (view == null)
+      if (view != null)
       {
-        view = new TeamSprayStatusView();
-        view.setSprayData(data);
-        view.configureSprayTeam(team);
+        list.add(view);
       }
-
-      list.add(view);
     }
     
     spray.populateView(this);

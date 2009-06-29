@@ -107,28 +107,57 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
       return;
     }
     
-    TeamSprayStatusViewDTO[] status = dto.getStatus();
+    ClientRequestIF request = this.getClientRequest();
     
-    JSONObject operators = buildOperatorsMap(status);
+    TeamSprayStatusViewDTO[] status = dto.getStatus();
+    SprayTeamDTO[] teams = SprayTeamDTO.findByLocation(request, dto.getGeoEntity().getGeoId());
 
+    JSONObject teamMap = buildTeamsMap(teams);
+    JSONObject operators = buildOperatorsMap(teams);
+
+    req.setAttribute("teams", teamMap);
     req.setAttribute("operators", operators);
     req.setAttribute("status", status);
     req.setAttribute("item", dto);
     
     render("viewComponent.jsp");
   }
+  
+  private JSONObject buildTeamsMap(SprayTeamDTO[] teams)
+  {
+    // Map between an entities id and display label
+    Map<String, String> map = new HashMap<String, String>();
 
-  private JSONObject buildOperatorsMap(TeamSprayStatusViewDTO[] status)
+    for (SprayTeamDTO team : teams)
+    {      
+      String label = team.getTeamId();
+      
+      List<? extends SprayLeaderDTO> leaders = team.getAllTeamLeader();
+      
+      if(leaders.size() > 0)
+      {
+        PersonDTO person = leaders.get(0).getPerson();
+        
+        label = label.concat(" - " + person.getLastName() + ", " + person.getFirstName());
+      }
+      
+      map.put(team.getId(), label);
+    }
+
+    return new JSONObject(map);
+  }
+
+
+  private JSONObject buildOperatorsMap(SprayTeamDTO[] teams)
   {
     //Build the map of possible team leaders for every spray team
     Map<String, JSONObject> operators = new HashMap<String, JSONObject>();
     
-    for(TeamSprayStatusViewDTO s : status)
+    for(SprayTeamDTO team : teams)
     {
       //Map between an entities id and display label
       Map<String, String> map = new HashMap<String, String>();
 
-      SprayTeamDTO team = s.getSprayTeam();
       SprayOperatorDTO[] members = team.getTeamMembers();
 
       for(SprayOperatorDTO operator : members)
