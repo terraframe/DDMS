@@ -5,8 +5,8 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.mo.IdentificationMethod.form.name" id="dss.vector.solutions.mo.IdentificationMethod.form.id" method="POST">
-  <mjl:component item="${item}" param="dto">
-    <dl>
+  <dl>
+    <mjl:component item="${item}" param="dto">
       <dt>
         <label>
           ${item.definitionMd.displayLabel}
@@ -106,9 +106,9 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-    </dl>
-  </mjl:component>
-  <mjl:command value="Update" action="dss.vector.solutions.mo.IdentificationMethodController.update.mojo" name="dss.vector.solutions.mo.IdentificationMethod.form.update.button" />
-  <mjl:command value="Delete" action="dss.vector.solutions.mo.IdentificationMethodController.delete.mojo" name="dss.vector.solutions.mo.IdentificationMethod.form.delete.button" />
-  <mjl:command value="Cancel" action="dss.vector.solutions.mo.IdentificationMethodController.cancel.mojo" name="dss.vector.solutions.mo.IdentificationMethod.form.cancel.button" />
+    </mjl:component>
+    <mjl:command value="Update" action="dss.vector.solutions.mo.IdentificationMethodController.update.mojo" name="dss.vector.solutions.mo.IdentificationMethod.form.update.button" />
+    <mjl:command value="Delete" action="dss.vector.solutions.mo.IdentificationMethodController.delete.mojo" name="dss.vector.solutions.mo.IdentificationMethod.form.delete.button" />
+    <mjl:command value="Cancel" action="dss.vector.solutions.mo.IdentificationMethodController.cancel.mojo" name="dss.vector.solutions.mo.IdentificationMethod.form.cancel.button" />
+  </dl>
 </mjl:form>

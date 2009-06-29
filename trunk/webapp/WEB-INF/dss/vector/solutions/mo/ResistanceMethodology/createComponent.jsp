@@ -5,8 +5,8 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.mo.ResistanceMethodology.form.name" id="dss.vector.solutions.mo.ResistanceMethodology.form.id" method="POST">
-  <mjl:component item="${item}" param="dto">
-    <dl>
+  <dl>
+    <mjl:component item="${item}" param="dto">
       <dt>
         <label>
           ${item.definitionMd.displayLabel}
@@ -106,7 +106,7 @@
           <mjl:message />
         </mjl:messages>
       </dd>
-    </dl>
-  </mjl:component>
-  <mjl:command value="Create" action="dss.vector.solutions.mo.ResistanceMethodologyController.create.mojo" name="dss.vector.solutions.mo.ResistanceMethodology.form.create.button" />
+    </mjl:component>
+    <mjl:command value="Create" action="dss.vector.solutions.mo.ResistanceMethodologyController.create.mojo" name="dss.vector.solutions.mo.ResistanceMethodology.form.create.button" />
+  </dl>
 </mjl:form>

@@ -80,10 +80,7 @@
     <dd>
       ${item.termName}
     </dd>
+    <mjl:command value="Edit" action="dss.vector.solutions.mo.ActiveIngredientController.edit.mojo" name="dss.vector.solutions.mo.ActiveIngredient.form.edit.button" />
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.mo.ActiveIngredientController.edit.mojo" name="dss.vector.solutions.mo.ActiveIngredient.form.edit.button" />
-  <br />
 </mjl:form>
-<dl>
-</dl>
 <mjl:commandLink display="View All" action="dss.vector.solutions.mo.ActiveIngredientController.viewAll.mojo" name="dss.vector.solutions.mo.ActiveIngredient.viewAll.link" />

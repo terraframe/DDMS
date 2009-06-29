@@ -5,8 +5,8 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.mo.IdentificationMethod.form.name" id="dss.vector.solutions.mo.IdentificationMethod.form.id" method="POST">
-  <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
+  <mjl:input value="${item.id}" type="hidden" param="id" />
     <dt>
       <label>
         ${item.definitionMd.displayLabel}
@@ -80,10 +80,7 @@
     <dd>
       ${item.termName}
     </dd>
+    <mjl:command value="Edit" action="dss.vector.solutions.mo.IdentificationMethodController.edit.mojo" name="dss.vector.solutions.mo.IdentificationMethod.form.edit.button" />
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.mo.IdentificationMethodController.edit.mojo" name="dss.vector.solutions.mo.IdentificationMethod.form.edit.button" />
-  <br />
 </mjl:form>
-<dl>
-</dl>
 <mjl:commandLink display="View All" action="dss.vector.solutions.mo.IdentificationMethodController.viewAll.mojo" name="dss.vector.solutions.mo.IdentificationMethod.viewAll.link" />

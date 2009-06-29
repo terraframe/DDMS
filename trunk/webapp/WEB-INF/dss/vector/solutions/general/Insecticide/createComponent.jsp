@@ -14,7 +14,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_general_Insecticide_activeIngredient}" param="activeIngredient">
+        <mjl:select var="current" valueAttribute="id" items="${ingredients}" param="activeIngredient">
           <mjl:option>
             ${current.displayLabel}
           </mjl:option>
@@ -37,7 +37,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:select var="current" valueAttribute="enumName" items="${dss_vector_solutions_general_Insecticide_units}" param="units">
+        <mjl:select var="current" valueAttribute="enumName" items="${units}" param="units">
           <c:choose>
             <c:when test="${mjl:contains(item.unitsEnumNames, current.enumName)}">
               <mjl:option selected="selected">
