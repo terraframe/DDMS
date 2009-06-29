@@ -148,7 +148,7 @@
             label="Confirm Delete Entity"
             description="Throws exception with confirmation information to delete a GeoHierarchy with more than one parent."
             static="false"
-            returnType="void">
+            returnType="java.lang.String[]">
             <mdParameter
               name="parentId"
               label="Parent Id"

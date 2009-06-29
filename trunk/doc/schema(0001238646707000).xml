@@ -2347,7 +2347,7 @@
             name="pageNumber"
             label="Page Number"
             type="java.lang.Integer"
-            order="4" />
+            order="4" />  
         </mdMethod>
         <mdMethod
           name="mapQuery"
@@ -5173,6 +5173,11 @@
             label="Saved Search Id"
             order="2"
             type="java.lang.String" />
+          <mdParameter
+            name="restrictingEntities"
+            label="Restricting Entities"
+            type="java.lang.String[]"
+            order="3" /> 
         </mdAction>
       </mdController>
     </create>

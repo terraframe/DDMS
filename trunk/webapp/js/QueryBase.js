@@ -26,6 +26,9 @@ MDSS.QueryBase.prototype = {
 
     // Set of GeoEntity subclasses that will be used for the query/mapping
     this._geoEntityQueryType = '';
+    this._selectedUniversals = [];
+    
+    this._allPathsQuery = null;
 
     this._geoEntityTypes = {};
     this._geoEntitySelectables = {};
@@ -37,7 +40,7 @@ MDSS.QueryBase.prototype = {
     this._endDate = null;
     this._dateGroup = null;
 
-    this.PAGE_SIZE = 1;
+    this.PAGE_SIZE = 15;
   },
 
   getCurrentPage : function()
@@ -62,7 +65,7 @@ MDSS.QueryBase.prototype = {
     form.action = action;
 
     xmlInput.innerHTML = xml;
-    geoEntityTypeInput.value = this._geoEntityQueryType; // FIXME
+    geoEntityTypeInput.value = Mojo.util.getJSON(this._selectedUniversals); // FIXME rename 
     searchIdInput.value = savedSearchId;
     form.submit();
   },
@@ -148,7 +151,7 @@ MDSS.QueryBase.prototype = {
     form.action = action;
 
     xmlInput.innerHTML = xml;
-    geoEntityTypeInput.value = this._geoEntityQueryType; // FIXME
+    geoEntityTypeInput.value = Mojo.util.getJSON(this._selectedUniversals); // FIXME
     searchIdInput.value = savedSearchId;
     form.submit();
   },
@@ -168,7 +171,7 @@ MDSS.QueryBase.prototype = {
     form.action = action;
 
     xmlInput.innerHTML = xml;
-    geoEntityTypeInput.value = this._geoEntityQueryType; // FIXME
+    geoEntityTypeInput.value = Mojo.util.getJSON(this._selectedUniversals); // FIXME
     searchIdInput.value = savedSearchId;
     form.submit();
   },
@@ -332,7 +335,7 @@ MDSS.QueryBase.prototype = {
     var view = new Mojo.$.dss.vector.solutions.query.SavedSearchView();
     view.setQueryName(params['savedQueryView.queryName']);
     view.setQueryXml(xml);
-    view.setThematicLayer(this._geoEntityQueryType);
+    view.setThematicLayer(/*this._geoEntityQueryType*/''); // FIXME this needs to be changed
 
     var request = new MDSS.Request({
       thisRef: this,
@@ -384,15 +387,21 @@ MDSS.QueryBase.prototype = {
   {
   	var queryXML = new MDSS.QueryXML.Query();
 
+    if(this._allPathsQuery != null)
+    {
+      queryXML.addEntity(this._allPathsQuery);
+    }
+
     // geo entity
+    /*
+     * Don't add the GeoEntity queries. ValueQuery object
+     * will be used on the backend instead to map to the selectables.
     var entities = Mojo.util.getValues(this._geoEntityTypes);
     for(var i=0; i<entities.length; i++)
     {
      var entity = entities[i];
      queryXML.addEntity(entity);
-    }
-
-    //var groupBy = this._containsGroupBy() ? queryXML.getGroupBy() : null;
+    }*/
 
     var geoSelectables = Mojo.util.getKeys(this._geoEntitySelectables);
     for(var i=0; i<geoSelectables.length; i++)
@@ -401,13 +410,6 @@ MDSS.QueryBase.prototype = {
      var selectable = this._geoEntitySelectables[name];
 
      queryXML.addSelectable(name, selectable);
-
-     /*
-     if(groupBy != null)
-     {
-       groupBy.addSelectable(name, selectable);
-     }
-     */
     }
 
     // geo id restrictions (WHERE clause)
@@ -415,23 +417,16 @@ MDSS.QueryBase.prototype = {
     if(conditions.length > 0)
     {
       var or = new MDSS.QueryXML.Or();
-      var entityAlias = null; // all will be of same type
       for(var i=0; i<conditions.length; i++)
       {
         var condition = conditions[i];
-
-      	if(i==0)
-      	{
-      	  entityAlias = condition.getSelectable().getComponent().getEntityAlias();
-      	}
 
         or.addCondition('geoIdCondition_'+i, condition);
       }
 
       var compositeCondition = new MDSS.QueryXML.CompositeCondition(or);
 
-      var geoEntityQuery = queryXML.getEntity(entityAlias);
-      geoEntityQuery.setCondition(compositeCondition);
+      this._allPathsQuery.setCondition(compositeCondition);
     }
 
 
@@ -478,7 +473,8 @@ MDSS.QueryBase.prototype = {
         var column = new YAHOO.widget.Column(obj);
         this._queryPanel.insertColumn(column);
 
-        var entityNameAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getEntityNameMd().getName(), entityNameColumn);
+        var entityNameAttr = new MDSS.QueryXML.Attribute(type, geoEntityView.getEntityNameMd().getName(), entityNameColumn);
+        //var entityNameAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getEntityNameMd().getName(), entityNameColumn);
         var entityNameSel = new MDSS.QueryXML.Selectable(entityNameAttr);
         this._geoEntitySelectables[type+'_'+entityNameAttr.getName()] = entityNameSel;
       }
@@ -494,7 +490,8 @@ MDSS.QueryBase.prototype = {
         var column = new YAHOO.widget.Column(obj);
         this._queryPanel.insertColumn(column);
 
-        var geoIdAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getGeoIdMd().getName(), geoIdColumn);
+        var geoIdAttr = new MDSS.QueryXML.Attribute(type, geoEntityView.getGeoIdMd().getName(), geoIdColumn);
+        //var geoIdAttr = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getGeoIdMd().getName(), geoIdColumn);
         var geoIdSel = new MDSS.QueryXML.Selectable(geoIdAttr);
         this._geoEntitySelectables[type+'_'+geoIdAttr.getName()] = geoIdSel;
       }
@@ -535,9 +532,11 @@ MDSS.QueryBase.prototype = {
    * Uses the given GeoEntityView objects to add
    * restrictions to the GeoEntity query.
    */
-  _hideHandler : function(criteriaEntities, selectedEntities, restrictingType)
+  _hideHandler : function(criteriaEntities, selectedEntities)
   {
     this._queryPanel.clearAllRecords();
+
+    this._selectedUniversals = [];
 
     // remove existing columns
     var types = Mojo.util.getKeys(this._geoEntityTypes);
@@ -552,30 +551,32 @@ MDSS.QueryBase.prototype = {
     {
       var geoEntityView = selectedEntities[keys[i]];
       this._addUniversalEntity(geoEntityView, true);
+      
+      this._selectedUniversals.push(geoEntityView.getEntityType());
     }
+    
+    this._queryPanel.setAvailableThematicLayers(this._selectedUniversals);
 
     // remove all prior conditions
     this._geoIdConditions = {};
-    this._geoEntityQueryType = restrictingType;
 
     for(var i=0; i<criteriaEntities.length; i++)
     {
       var geoEntityView = criteriaEntities[i];
 
-      var type = geoEntityView.getEntityType();
-
       // add the type as a selectable if it does not exist
-      if(!Mojo.util.isObject(this._geoEntityTypes[type]))
+      if(this._allPathsQuery == null)
       {
-        this._addUniversalEntity(geoEntityView, false);
+        var allPaths = "dss.vector.solutions.geo.AllPaths";
+        this._allPathsQuery = new MDSS.QueryXML.Entity(allPaths, allPaths);
       }
-
-      var geoEntityQuery = this._geoEntityTypes[type];
-
+      
       // add restriction based on geoId
-      var attribute = new MDSS.QueryXML.Attribute(geoEntityQuery.getAlias(), geoEntityView.getGeoIdMd().getName());
+      //this._selectedUniversals.push(geoEntityView.getGeoEntityId());
+      
+      var attribute = new MDSS.QueryXML.Attribute(this._allPathsQuery.getAlias(), 'parentGeoEntity');
       var selectable = new MDSS.QueryXML.Selectable(attribute);
-      var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, geoEntityView.getGeoId());
+      var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, geoEntityView.getGeoEntityId());
 
       this._geoIdConditions[geoEntityView.getGeoId()] = geoIdCondition;
     }

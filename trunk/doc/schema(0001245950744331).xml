@@ -56,6 +56,18 @@
           </mdMethod>
         </create>
       </mdView>
+      
+      <mdBusiness name="dss.vector.solutions.geo.AllPaths">
+        <create>
+          <mdMethod
+            name="regeneratePaths"
+            label="Regenerate Paths"
+            description="Regenerates all GeoEntity paths."
+            static="true"
+            returnType="void">
+          </mdMethod>
+        </create> 
+      </mdBusiness>
     </update>
   </doIt>
   <undoIt>

@@ -183,10 +183,15 @@ YAHOO.util.Event.onDOMReady(function(){
     var selectSearch = new MDSS.SingleSelectSearch();
     selectSearch.setSelectHandler(selectHandler);
     selectSearch.setTreeSelectHandler(selectHandler);
-    selectSearch.setFilter('');
 
+    var defaultFilter = '';
     for each (radio in radios)
     {
+      if(radio.checked)
+      {
+        defaultFilter = radio.value;
+      }
+    
       YAHOO.util.Event.on(radio, 'click', function(e, obj){
         var radio = e.target;
         if(radio.checked)
@@ -197,6 +202,8 @@ YAHOO.util.Event.onDOMReady(function(){
 
       }, null, selectSearch);
     }
+    
+    selectSearch.setFilter(defaultFilter);   
 
     opener.on("click", function(){
 

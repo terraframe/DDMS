@@ -17,6 +17,14 @@
         </mdMethod>
       </mdBusiness>
     </update>
+    
+    <create>
+      <mdException
+        name="dss.vector.solutions.geo.DuplicateMapDataException"
+        label="Duplicate Map Data Exception"
+        description="Thrown when a user tries to create a map with duplicate geo entities.">
+      </mdException>
+    </create>
   </doIt>
   <undoIt>
     <delete></delete>

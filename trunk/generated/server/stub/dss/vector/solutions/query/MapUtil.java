@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,6 +35,7 @@ import com.terraframe.mojo.system.gis.metadata.MdAttributePoint;
 import com.terraframe.mojo.system.gis.metadata.MdAttributePolygon;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.geo.DuplicateMapDataException;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoServerReloadException;
 import dss.vector.solutions.global.CredentialsSingleton;
@@ -69,6 +72,39 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    }
 
    Database.createView(viewName, sql);
+   
+   
+   // make sure there are no duplicate geo entities
+   String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + viewName;
+   countSQL += " GROUP BY "+QueryConstants.ENTITY_NAME_COLUMN + " HAVING COUNT(*) > 1";
+   
+   ResultSet resultSet = Database.query(countSQL);
+   
+   try
+   {
+     if(resultSet.next())
+     {
+       DuplicateMapDataException ex = new DuplicateMapDataException();
+       throw ex;
+     }
+   }
+   catch (SQLException sqlEx1)
+   {
+     Database.throwDatabaseException(sqlEx1);
+   }
+   finally
+   {
+     try
+     {
+       java.sql.Statement statement = resultSet.getStatement();
+       resultSet.close();
+       statement.close();
+     }
+     catch (SQLException sqlEx2)
+     {
+       Database.throwDatabaseException(sqlEx2);
+     }
+   }
 
    thematicLayer.appLock();
    thematicLayer.setViewCreated(true);

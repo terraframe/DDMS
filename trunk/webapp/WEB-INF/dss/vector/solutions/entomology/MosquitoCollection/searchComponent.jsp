@@ -6,6 +6,7 @@
 <%@page import="org.json.JSONArray"%>
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
+<%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.NonSentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
@@ -16,13 +17,13 @@
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
 <%
+  request.setAttribute("CollectionSiteClass", CollectionSiteDTO.CLASS);
   request.setAttribute("SentinelSiteClass", SentinelSiteDTO.CLASS);
   request.setAttribute("NonSentinelSiteClass", NonSentinelSiteDTO.CLASS);
 %>
 
 <script type="text/javascript">
-  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= SentinelSiteDTO.CLASS %>');
-  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= NonSentinelSiteDTO.CLASS %>');
+  MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= CollectionSiteDTO.CLASS %>*');
 </script>
 
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.search" method="POST" id ="searchMosquitoCollections">
@@ -30,7 +31,7 @@
   <dl>
     <dt><fmt:message key="Filter"/></dt>
     <dd>
-      <input type="radio" name="filterType" class="filterType" value="" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
+      <input type="radio" name="filterType" class="filterType" value="${CollectionSiteClass}" checked="checked" />&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;
       <input type="radio" name="filterType" value="${SentinelSiteClass}" class="filterType"/>&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp;
       <input type="radio" name="filterType" value="${NonSentinelSiteClass}" class="filterType" />&nbsp;<fmt:message key="Non_Sentinel_Site"/>
     </dd>

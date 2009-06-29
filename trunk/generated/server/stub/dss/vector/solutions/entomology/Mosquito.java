@@ -4,12 +4,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.xml.sax.SAXParseException;
+
+import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
+import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.GeneratedBusinessQuery;
+import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.OR;
+import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
+import com.terraframe.mojo.query.SelectableSingle;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
@@ -17,13 +28,13 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
+import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.query.MapUtil;
-import dss.vector.solutions.query.MapWithoutGeoEntityException;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
-import dss.vector.solutions.query.SavedSearch;
-import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.query.ThematicVariable;
 
@@ -116,13 +127,32 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    * @param xml
    * @return
    */
-  private static ValueQuery xmlToValueQuery(String xml, String geoEntityType, boolean includeGeometry, ThematicLayer thematicLayer)
+  private static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, boolean includeGeometry, ThematicLayer thematicLayer)
   {
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
-    ValueQueryParser valueQueryParser = new ValueQueryParser(xml, valueQuery);
+    ValueQueryParser valueQueryParser;
+
+    try
+    {
+      valueQueryParser = new ValueQueryParser(xml, valueQuery);
+    }
+    catch(QueryException e)
+    {
+      // Check if the error was because no selectables were added.
+      Throwable t = e.getCause();
+      if(t != null && t instanceof SAXParseException && t.getMessage().contains("{selectable}"))
+      {
+        NoColumnsAddedException ex = new NoColumnsAddedException();
+        throw ex;
+      }
+      else
+      {
+        throw e;
+      }
+    }
 
     // include the thematic layer (if applicable).
     if (thematicLayer != null)
@@ -140,24 +170,70 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     // include the geometry of the GeoEntity
     if (includeGeometry)
     {
-      MdBusiness geoEntityMd = MdBusiness.getMdBusiness(geoEntityType);
+      thematicLayer.getGeoHierarchy().getGeoEntityClass();
+      MdBusiness geoEntityMd = thematicLayer.getGeoHierarchy().getGeoEntityClass();
 
       MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
 
       String attributeName = mdAttrGeo.getAttributeName();
 
-      valueQueryParser.addAttributeSelectable(geoEntityType, attributeName, "", "");
-      valueQueryParser.addAttributeSelectable(geoEntityType, GeoEntity.ENTITYNAME, "", QueryConstants.ENTITY_NAME_COLUMN);
+      // FIXME might need a ValueQuery and might need to go after the code below
+      String type = geoEntityMd.definesType();
+      valueQueryParser.addAttributeSelectable(type, attributeName, "", "");
+      valueQueryParser.addAttributeSelectable(type, GeoEntity.ENTITYNAME, "",
+          QueryConstants.ENTITY_NAME_COLUMN);
     }
 
+    List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
+    for(String selectedGeoEntityType : selectedUniversals)
+    {
+      GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
+        
+      AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
+      ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
+      MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
+      
+      Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName()+"_entityName");
+      Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName()+"_geoId");
+        
+      List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
+      Condition[] geoConditions = new Condition[allClasses.size()];
+      for(int i=0; i<allClasses.size(); i++)
+      {
+        geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
+      }
+      
+      geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
+      geoEntityVQ.WHERE(OR.get(geoConditions));
+      geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
+      
+      leftJoinValueQueries.add(geoEntityVQ);
+      
+      valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
+    }
+    
     Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
-
-    GeoHierarchy.addGeoHierarchyJoinConditions(valueQuery, queryMap);
-
+    
+    AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
+    MosquitoCollectionQuery collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
+    
+    if(allPathsQuery != null)
+    {
+      List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
+      for(ValueQuery leftJoinVQ : leftJoinValueQueries)
+      {
+        leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
+      }
+      
+      valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[leftJoinSelectables.size()])));
+      
+      // Join Collection to GeoEntity
+      valueQuery.AND(collectionQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
+    }
+    
     MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
     MorphologicalSpecieGroupQuery groupQuery = (MorphologicalSpecieGroupQuery) queryMap.get(MorphologicalSpecieGroup.CLASS);
 
-    MosquitoCollectionQuery collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
 
     if(collectionQuery == null)
     {
@@ -175,13 +251,6 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     {
       // valueQuery.WHERE(groupQuery.getCollection().EQ(collectionQuery));
       dateAttribute = collectionQuery.getDateCollected().getQualifiedName();
-    }
-
-    // join collection with geo entity and select that entity type's geometry
-    if (geoEntityType != null && geoEntityType.trim().length() > 0)
-    {
-      GeneratedBusinessQuery businessQuery = (GeneratedBusinessQuery) queryMap.get(geoEntityType);
-      valueQuery.WHERE(collectionQuery.getGeoEntity().EQ(businessQuery));
     }
 
     if (xml.indexOf("DATEGROUP_SEASON") > 0)
@@ -227,9 +296,29 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    * @param xml
    */
   @Transaction
-  public static com.terraframe.mojo.query.ValueQuery queryEntomology(String queryXML, String geoEntityType, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
+  public static com.terraframe.mojo.query.ValueQuery queryEntomology(String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
-    return xmlToValueQuery(queryXML, geoEntityType, false, null);
+    // FIXME put parsing into common place
+    String selectedUniversals[];
+    try
+    {
+      JSONArray arr = new JSONArray(config);
+      selectedUniversals = new String[arr.length()];
+      for(int i=0; i<selectedUniversals.length; i++)
+      {
+        selectedUniversals[i] = arr.getString(i);
+      }
+    }
+    catch(JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }    
+    
+    ValueQuery valueQuery =  xmlToValueQuery(queryXML, selectedUniversals, false, null);
+
+    valueQuery.restrictRows(pageSize, pageNumber);
+    
+    return valueQuery;
   }
 
   /**
@@ -237,7 +326,6 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    *
    * @param xml
    * @return
-   */
   @Transaction
   public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers, String savedSearchId)
   {
@@ -275,6 +363,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
     return layers;
   }
+   */
 
   @Override
   public MosquitoView lockView()

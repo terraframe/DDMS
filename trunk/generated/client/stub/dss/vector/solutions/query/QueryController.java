@@ -354,12 +354,12 @@ public class QueryController extends QueryControllerBase implements
 
 
   @Override
-  public void exportQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
+  public void exportQueryToCSV(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
       throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
+      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -373,11 +373,11 @@ public class QueryController extends QueryControllerBase implements
 
   @Override
   public void exportAggregatedCaseQueryToExcel(String queryXML, String geoEntityType,
-      String savedSearchId) throws IOException, ServletException
+      String savedSearchId, String[] restrictingEntities) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
+      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 

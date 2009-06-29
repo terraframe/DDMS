@@ -47,6 +47,7 @@ import com.terraframe.mojo.util.IdParser;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.ConfirmDeleteEntityException;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
 import dss.vector.solutions.geo.DuplicateParentException;
@@ -291,6 +292,25 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     {
       child.delete();
     }
+    
+    // clean up the paths table. This will invalidate the paths table
+    QueryFactory f = new QueryFactory();
+    AllPathsQuery pathsQuery = new AllPathsQuery(f);
+    
+    pathsQuery.WHERE(OR.get(pathsQuery.getChildGeoEntity().EQ(this), pathsQuery.getParentGeoEntity().EQ(this)));
+    
+    OIterator<? extends AllPaths> iter = pathsQuery.getIterator();
+    try
+    {
+      while(iter.hasNext())
+      {
+        iter.next().delete();
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
 
     super.delete();
   }
@@ -350,21 +370,29 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     // and filter out all unallowed types.
     List<GeoEntityView> finalList = new LinkedList<GeoEntityView>();
 
-    Set<String> filteredTypes = null;
+    Set<String> filteredTypes = new HashSet<String>();
     if (filter != null && filter.trim().length() > 0)
     {
       String types[] = filteredTypes(filter);
-      filteredTypes = new HashSet<String>(Arrays.asList(types));
+      filteredTypes.addAll(Arrays.asList(types));
     }
 
     for (GeoEntity geoEntity : collected)
     {
-      if (filteredTypes != null && !filteredTypes.contains(geoEntity.getType()))
+      boolean match = filteredTypes.size() == 0 ? true : false;
+      for(String filterType : filteredTypes)
       {
-        continue;
+        // allow is_a children
+        if(LoaderDecorator.load(filterType).isAssignableFrom(geoEntity.getClass()))
+        {
+          match = true;
+        }
       }
-
-      finalList.add(geoEntity.getViewFromGeoEntity());
+      
+      if(match)
+      {
+        finalList.add(geoEntity.getViewFromGeoEntity());
+      }
     }
 
     Collections.sort(finalList, new GeoEntityViewSorter());

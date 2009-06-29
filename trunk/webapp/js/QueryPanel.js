@@ -86,6 +86,7 @@ MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
 
   // a map of ThematicVariable objects
   this._thematicVariables = {};
+  this._thematicLayers = [];
 };
 
 MDSS.QueryPanel.prototype = {
@@ -121,6 +122,8 @@ MDSS.QueryPanel.prototype = {
   COLUMNS_LIST : "columnsList",
 
   QUERY_SUMMARY : "querySummary",
+  
+  THEMATIC_LAYERS_SELECT : "thematicLayersSelect",
 
   /**
    *
@@ -454,6 +457,53 @@ MDSS.QueryPanel.prototype = {
     var querySummary = document.getElementById(this.QUERY_SUMMARY);
     querySummary.innerHTML = html;
   },
+  
+  setAvailableThematicLayers : function(layers)
+  {
+    this._thematicLayers = layers;
+    this._resetThematicOptions();
+  },
+  
+  _resetThematicOptions : function()
+  {
+    var select = document.getElementById(this.THEMATIC_LAYERS_SELECT);
+    if(select)
+    {
+      var oldSelected = select.selectedIndex != -1 ? select.options[select.selectedIndex].value : null;
+      var selectIndex = 0;
+      select.innerHTML = '';
+      for(var i=0; i<this._thematicLayers.length; i++)
+      {
+        var layer = this._thematicLayers[i];
+      
+        var option = document.createElement('option');
+        option.value = layer;
+        option.innerHTML = MDSS.GeoTreeSelectables.types[layer].label;
+        
+        select.appendChild(option);
+
+        if(oldSelected != null && oldSelected === layer)
+        {
+          selectIndex = i;
+        }
+      }
+      
+      select.selectedIndex = selectIndex;
+    }
+  },
+  
+  getThematicLayer : function()
+  {
+    var select = document.getElementById(this.THEMATIC_LAYERS_SELECT);
+    if(select)
+    {
+      return select.options[select.selectedIndex].value;
+    }
+    else
+    {
+      return null;
+    }
+  },
 
   /**
    * Builds a list of possible universal layers
@@ -464,8 +514,12 @@ MDSS.QueryPanel.prototype = {
     // list thematic variables
     var thematicDiv = new YAHOO.util.Element(document.createElement('div'));
 
-    var thematicSpan = document.createElement('div');
-    thematicSpan.innerHTML = MDSS.Localized.Thematic.Layer;
+    var thematicLayerDiv = document.createElement('div');
+    
+    var html = MDSS.Localized.Thematic.Layer+"<br />";
+    html += "<select style='margin: 3px 0px; min-width: 220px;' id='"+this.THEMATIC_LAYERS_SELECT+"'>";
+    html += "</select>";
+    thematicLayerDiv.innerHTML = html;
 
     var thematicLayerId = this._currentSavedSearch.getThematicLayerId();
 
@@ -480,7 +534,7 @@ MDSS.QueryPanel.prototype = {
     editVariableStyles.set('value', MDSS.Localized.Thematic.Edit_Variable_Styles);
     editVariableStyles.on('click', this._editVariableStyles, thematicLayerId, this);
 
-    thematicDiv.appendChild(thematicSpan);
+    thematicDiv.appendChild(thematicLayerDiv);
     thematicDiv.appendChild(editDefaultStyle);
     thematicDiv.appendChild(editVariableStyles);
 
@@ -550,6 +604,8 @@ MDSS.QueryPanel.prototype = {
     this._mLeftUnit.body.innerHTML = '';
     var body = new YAHOO.util.Element(this._mLeftUnit.body);
     body.appendChild(wrapper);
+    
+    this._resetThematicOptions();
   },
 
   /**
@@ -1624,7 +1680,7 @@ MDSS.Pagination = function(pageNumber, pageSize, count)
   this._pageSize = pageSize;
   this._count = count;
   this._pages = [];
-
+  this.MAX_DISPLAY_PAGES = 10;
   this.calculate();
 };
 
@@ -1648,8 +1704,8 @@ MDSS.Pagination.prototype = {
 
     var l = Math.max(this._pageNumber - 4, 1);
     var u = Math.min(this._pageNumber + 4, totalPages);
-    var lowerBound = Math.max(1, Math.min(this._pageNumber-4, u-totalPages));
-    var upperBound = Math.min(Math.max(this._pageNumber+4, l+totalPages), totalPages);
+    var lowerBound = Math.max(1, Math.min(this._pageNumber-4, u-this.MAX_DISPLAY_PAGES));
+    var upperBound = Math.min(Math.max(this._pageNumber+4, l+this.MAX_DISPLAY_PAGES), totalPages);
 
     if (lowerBound != 1)
     {

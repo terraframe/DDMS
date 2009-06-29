@@ -637,6 +637,11 @@
             description="The id of the SavedSearch for which the map will be generated."
             order="3"
             type="java.lang.String" />
+          <mdParameter
+            name="restrictingEntities"
+            label="Restricting Entities"
+            type="java.lang.String[]"
+            order="4" /> 
         </mdAction>
         <mdAction
           name="mapEntomologyQuery"
@@ -844,6 +849,11 @@
               label="Saved Search Id"
               order="2"
               type="java.lang.String" />
+          <mdParameter
+            name="restrictingEntities"
+            label="Restricting Entities"
+            type="java.lang.String[]"
+            order="3" />
           </mdAction>
           <mdAction
             name="exportAggregatedCaseQueryToExcel"
@@ -866,6 +876,11 @@
               label="Saved Search Id"
               order="2"
               type="java.lang.String" />
+          <mdParameter
+            name="restrictingEntities"
+            label="Restricting Entities"
+            type="java.lang.String[]"
+            order="3" /> 
           </mdAction>
           <mdAction
             name="queryAggregatedCases"

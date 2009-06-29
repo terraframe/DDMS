@@ -14,7 +14,6 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     // map of currently selected objects
     this._criteriaMap = {};
     this._CURRENT_SELECTIONS = 'currentSelections';
-    this._restrictingType = null;
   },
 
   /**
@@ -67,12 +66,6 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     var span = document.createElement('span');
     span.innerHTML = geoEntityView.getEntityName() + ' ('+geoEntityView.getGeoId()+')';
 
-    // add * to denote select all if geo entity type does not match query type
-    if(geoEntityView.getEntityType() !== this._restrictingType)
-    {
-      span.innerHTML += '<span style="font-weight: bold"> *</span>';
-    }
-
     var div = document.createElement('div');
     div.appendChild(del);
     div.appendChild(span);
@@ -122,7 +115,7 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
         }
       }
 
-      this._hideHandler(entities, selected, this._restrictingType);
+      this._hideHandler(entities, selected);
     }
   },
 
@@ -177,24 +170,6 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
    */
   _postRender : function()
   {
-  	// attach event to the select box where the user chooses the query/map type
-    YAHOO.util.Event.on('restrictingType', 'change', this._restrictType, null, this);
-
-    // attach event handlers to all Select All options
-    var selects = YAHOO.util.Selector.query('select.typeSelect', this._SELECT_CONTAINER_ID);
-    for(var i=0; i<selects.length; i++)
-    {
-      var select = selects[i];
-
-      // root select list will not have a default option, so filter that out.
-      if(select.options.length > 1)
-      {
-      	var selectAll = select.options[1];
-
-        YAHOO.util.Event.on(selectAll, 'click', this._selectAll, null, this);
-      }
-    }
-
     // create toggle events to display selectable types
     var toggles = YAHOO.util.Selector.query('input.selectUniversalType', this._SELECT_CONTAINER_ID);
     for(var i=0; i<toggles.length; i++)

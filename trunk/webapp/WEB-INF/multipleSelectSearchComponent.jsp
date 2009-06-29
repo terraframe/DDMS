@@ -41,15 +41,8 @@
   </dl>
 </div>
 <div id="searchSelection">
-    Query Type:<br />
-    <select id="restrictingType" name="restrictingType">
-    <option value=""><f:message key="Select_One" /></option>
-    <c:forEach items="${views}" var="view" varStatus="status">
-      <option value="<%= MDSSInfo.GENERATED_GEO_PACKAGE %>.${view.typeName}">${view.displayLabel}</option>
-    </c:forEach>
-    </select>
+    <h3 style="style: margin-bottom: 5px;"><f:message key="Current_Selection" /></h3>
     <hr />
-    <h3 style="style: margin-bottom: 5px;"><f:message key="Current_Selection" /> (* <f:message key="Select_All" />):</h3>
     <ul id="currentSelections">
     </ul>
 </div>

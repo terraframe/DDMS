@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -399,33 +398,24 @@ public class GeoHierarchy extends GeoHierarchyBase implements
    * Static accessor to delete the given GeoHierarchy.
    *
    * @param geoHierarchyId
+   * @return An array of ids for all GeoHierarchies that were deleted.
    */
+  @Transaction
   public static String[] deleteGeoHierarchy(String geoHierarchyId)
   {
+    Set<String> ids = new HashSet<String>();
+    
     GeoHierarchy geoHierarchy = GeoHierarchy.get(geoHierarchyId);
 
     List<GeoHierarchy> children = geoHierarchy.getImmediateChildren();
     for (GeoHierarchy child : children)
     {
-      // FIXME Don't delete children with more than one parent.
-      child.delete();
+      child.deleteInternal(ids);
     }
+    
+    geoHierarchy.deleteInternal(ids);
 
-    // FIXME delete is_a children as well
-    // FIXME, this method should return a list of all univeral ids that need
-    // to be deleted from the tree (recursively)
-
-    geoHierarchy.delete();
-
-    // Update the Earth class which will force a reload
-    // of the cached javascript universal definitions.
-
-    MdBusiness earthMd = MdBusiness.getMdBusiness(Earth.CLASS);
-    earthMd.appLock();
-    earthMd.setLastUpdateDate(new Date());
-    earthMd.apply();
-
-    return new String[] {};
+    return ids.toArray(new String[ids.size()]);
   }
 
   @Transaction
@@ -437,16 +427,24 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   /**
    * Deletes this GeoHierarchy and it's associated MdBusiness that defines a
    * GeoEntity subtype. All children are deleted recursively.
-   */
-  @Override
-  @Transaction
-  public void delete()
+   */ 
+  private void deleteInternal(Set<String> ids)
   {
+    ids.add(this.getId()); 
+    
     MdBusiness geoEntityClass = this.getGeoEntityClass();
 
+    // delete is_a hierarchy
+    for (MdBusiness child : geoEntityClass.getAllSubClass().getAll())
+    {
+      GeoHierarchy.getGeoHierarchyFromType(child).deleteInternal(ids);
+    }
+    
     super.delete();
 
-    geoEntityClass.delete();
+    geoEntityClass.delete();    
+    
+    super.delete();
   }
 
   /**
@@ -656,7 +654,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   }
 
   @Override
-  public void confirmDeleteHierarchy(String parentId)
+  public String[] confirmDeleteHierarchy(String parentId)
   {
     List<GeoHierarchy> parents = this.getImmediateParents();
     if (parents.size() > 1)
@@ -671,7 +669,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     }
     else
     {
-      this.delete();
+      return deleteGeoHierarchy(this.getId());
     }
   }
 
@@ -1264,7 +1262,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   }
 
   @SuppressWarnings("unchecked")
-  public static void addGeoHierarchyJoinConditions(ValueQuery valueQuery,
+  public static boolean addGeoHierarchyJoinConditions(ValueQuery valueQuery,
       Map<String, GeneratedEntityQuery> queryParserMap)
   {
     QueryFactory queryFactory = valueQuery.getQueryFactory();
@@ -1288,7 +1286,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     // Move along folks, there's nothing to see here (or join).
     if (geoHierarchyMap.size() == 0)
     {
-      return;
+      return false;
     }
 
     // Get all children of Earth
@@ -1384,7 +1382,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements
         break;
       }
     }
-
+    
+    return true;
   }
 
   public String toString()

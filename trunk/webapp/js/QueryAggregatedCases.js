@@ -196,7 +196,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     });
 
     var page = this.getCurrentPage();
-    Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, this._geoEntityQueryType, '', true, page, this.PAGE_SIZE);
+    Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, Mojo.util.getJSON(this._selectedUniversals), '', true, page, this.PAGE_SIZE, []);
   },
 
   /**
@@ -219,7 +219,8 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var savedSearchView = this._queryPanel.getCurrentSavedSearch();
     var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
 
-    Mojo.$.dss.vector.solutions.query.MappingController.mapAggregatedCaseQuery(request, xml, this._geoEntityQueryType, layerIds, savedSearchId);
+    var thematicLayer = this._queryPanel.getThematicLayer(); // FIXME not working right now
+    Mojo.$.dss.vector.solutions.query.MappingController.mapAggregatedCaseQuery(request, xml, Mojo.util.getJSON(this._selectedUniversals), layerIds, savedSearchId, []);
   },
 
   /**

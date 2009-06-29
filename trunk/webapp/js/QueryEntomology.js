@@ -147,8 +147,9 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    $('debug_xml').value = xml;
 	    xml = $('debug_xml').value;
 	    var page = this.getCurrentPage();
-	    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, this._geoEntityQueryType, '', true, page, this.PAGE_SIZE);
-
+	    
+        // FIXME json conversion below is temporary 
+	    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, Mojo.util.getJSON(this._selectedUniversals), '', true, page, this.PAGE_SIZE);
 	  },
 
 	  /**
@@ -171,7 +172,8 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    var savedSearchView = this._queryPanel.getCurrentSavedSearch();
 	    var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
 
-	    Mojo.$.dss.vector.solutions.query.MappingController.mapEntomologyQuery(request, xml, this._geoEntityQueryType, layerIds, savedSearchId);
+        // FIXME json conversion below is temporary
+	    Mojo.$.dss.vector.solutions.query.MappingController.mapEntomologyQuery(request, xml, Mojo.util.getJSON(this._selectedUniversals), layerIds, savedSearchId);
 	  },
 
 	  /**

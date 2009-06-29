@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.xml.sax.SAXParseException;
 
 import com.terraframe.mojo.business.rbac.Operation;
@@ -15,16 +17,20 @@ import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.MdRelationshipDAOIF;
 import com.terraframe.mojo.dataaccess.MdViewDAOIF;
+import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdRelationshipDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.GeneratedBusinessQuery;
+import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
+import com.terraframe.mojo.query.SelectableSingle;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
@@ -38,10 +44,11 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.EpiDate;
+import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.query.MapUtil;
-import dss.vector.solutions.query.MapWithoutGeoEntityException;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
@@ -455,7 +462,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * @param xml
    * @return
    */
-  private static ValueQuery xmlToValueQuery(String xml, String geoEntityType, boolean includeGeometry,
+  private static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, boolean includeGeometry,
       ThematicLayer thematicLayer)
   {
     QueryFactory queryFactory = new QueryFactory();
@@ -499,31 +506,69 @@ public class AggregatedCase extends AggregatedCaseBase implements
     // include the geometry of the GeoEntity
     if (includeGeometry)
     {
-      MdBusiness geoEntityMd = MdBusiness.getMdBusiness(geoEntityType);
+      thematicLayer.getGeoHierarchy().getGeoEntityClass();
+      MdBusiness geoEntityMd = thematicLayer.getGeoHierarchy().getGeoEntityClass();
 
       MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
 
       String attributeName = mdAttrGeo.getAttributeName();
 
-      valueQueryParser.addAttributeSelectable(geoEntityType, attributeName, "", "");
-      valueQueryParser.addAttributeSelectable(geoEntityType, GeoEntity.ENTITYNAME, "",
+      // FIXME might need a ValueQuery and might need to go after the code below
+      String type = geoEntityMd.definesType();
+      valueQueryParser.addAttributeSelectable(type, attributeName, "", "");
+      valueQueryParser.addAttributeSelectable(type, GeoEntity.ENTITYNAME, "",
           QueryConstants.ENTITY_NAME_COLUMN);
     }
 
-    Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
 
-    GeoHierarchy.addGeoHierarchyJoinConditions(valueQuery, queryMap);
-
-    AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
-
-    // join collection with geo entity and select that entity type's geometry
-    if (geoEntityType != null && geoEntityType.trim().length() > 0)
+    List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
+    for(String selectedGeoEntityType : selectedUniversals)
     {
-      GeneratedBusinessQuery businessQuery = (GeneratedBusinessQuery) queryMap.get(geoEntityType);
-
-      valueQuery.WHERE(aggregatedCaseQuery.getGeoEntity().EQ(businessQuery));
+      GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
+        
+      AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
+      ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
+      MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
+      
+      Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName()+"_entityName");
+      Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName()+"_geoId");
+        
+      List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
+      Condition[] geoConditions = new Condition[allClasses.size()];
+      for(int i=0; i<allClasses.size(); i++)
+      {
+        geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
+      }
+      
+      geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
+      geoEntityVQ.WHERE(OR.get(geoConditions));
+      geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
+      
+      leftJoinValueQueries.add(geoEntityVQ);
+      
+      valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
+    }
+    
+    Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
+    
+    AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
+    AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
+    
+    if(allPathsQuery != null)
+    {
+      List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
+      for(ValueQuery leftJoinVQ : leftJoinValueQueries)
+      {
+        leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
+      }
+      
+      valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[leftJoinSelectables.size()])));
+      
+      // Join AggregatedCase to GeoEntity
+      valueQuery.AND(aggregatedCaseQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
     }
 
+    
     MdRelationshipDAOIF caseTreatmentStockRel = MdRelationshipDAO
         .getMdRelationshipDAO(CaseTreatmentStock.CLASS);
 
@@ -645,12 +690,28 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * @param xml
    */
   @Transaction
-  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String geoEntityType, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
+  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize, String[] restrictingEntities)
   {
-    ValueQuery valueQuery = xmlToValueQuery(xml, geoEntityType, false, null);
+    // FIXME put parsing into common place
+    String selectedUniversals[];
+    try
+    {
+      JSONArray arr = new JSONArray(config);
+      selectedUniversals = new String[arr.length()];
+      for(int i=0; i<selectedUniversals.length; i++)
+      {
+        selectedUniversals[i] = arr.getString(i);
+      }
+    }
+    catch(JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    
+    
+    ValueQuery valueQuery = xmlToValueQuery(xml, selectedUniversals, false, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
-
 
     return valueQuery;
   }
@@ -660,10 +721,9 @@ public class AggregatedCase extends AggregatedCaseBase implements
    *
    * @param xml
    * @return
-   */
   @Transaction
   public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers,
-      String savedSearchId)
+      String savedSearchId, String[] restrictingEntities)
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
@@ -693,15 +753,35 @@ public class AggregatedCase extends AggregatedCaseBase implements
       thematicLayer.changeLayerType(thematicLayerType);
     }
 
+    
+    
     ValueQuery query = xmlToValueQuery(xml, thematicLayerType, true, thematicLayer);
 
     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
+    
     return layers;
   }
+   */
 
   @Transaction
-  public static InputStream exportQueryToExcel(String queryXML, String geoEntityType, String savedSearchId)
+  public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId,String[] restrictingEntities)
   {
+    // FIXME put parsing into common place
+    String selectedUniversals[];
+    try
+    {
+      JSONArray arr = new JSONArray(config);
+      selectedUniversals = new String[arr.length()];
+      for(int i=0; i<selectedUniversals.length; i++)
+      {
+        selectedUniversals[i] = arr.getString(i);
+      }
+    }
+    catch(JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to Excel without a current SavedSearch instance.";
@@ -710,16 +790,32 @@ public class AggregatedCase extends AggregatedCaseBase implements
     }
 
     SavedSearch search = SavedSearch.get(savedSearchId);
-
-    ValueQuery query = xmlToValueQuery(queryXML, geoEntityType, false, null);
+    
+    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
     return exporter.exportStream();
   }
 
   @Transaction
-  public static InputStream exportQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
+  public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId, String[] restrictingEntities)
   {
+    // FIXME put parsing into common place
+    String selectedUniversals[];
+    try
+    {
+      JSONArray arr = new JSONArray(config);
+      selectedUniversals = new String[arr.length()];
+      for(int i=0; i<selectedUniversals.length; i++)
+      {
+        selectedUniversals[i] = arr.getString(i);
+      }
+    }
+    catch(JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to CSV without a current SavedSearch instance.";
@@ -727,7 +823,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
       throw ex;
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, geoEntityType, false, null);
+    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null);
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();

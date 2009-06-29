@@ -293,24 +293,36 @@ MDSS.GeoHierarchyTree = (function(){
    * be removed from all parent nodes (as opposed
    * to the current parent).
    */
-  function _postDeleteCleanup(deleteAll)
+  function _postDeleteCleanup(deleteAll, ids)
   {
   	if(deleteAll)
   	{
-  	   var getHierarchyView = _getGeoHierarchyView(_selectedNode);
-  	   var nodeIds = _geoHierarchyIdToNodeIdMap[getHierarchyView.getGeoHierarchyId()];
-  	   for(var i=nodeIds.length-1; i>=0; i--)
+  	   function deleteNodeFromTree(geoHierarchyId)
   	   {
-  	     var nodeId = nodeIds[i];
-  	     var nodeEl = document.getElementById(nodeId);
-         var node = _hierarchyTree.getNodeByElement(nodeEl);
+   	     var nodeIds = _geoHierarchyIdToNodeIdMap[geoHierarchyId];
+   	     if(!nodeIds) return;
+  	     for(var i=nodeIds.length-1; i>=0; i--)
+  	     {
+  	       var nodeId = nodeIds[i];
+  	       var nodeEl = document.getElementById(nodeId);
+           var node = _hierarchyTree.getNodeByElement(nodeEl);
 
-         _removeMapping(node);
+           _removeMapping(node);
 
-         var parent = node.parent;
-         _hierarchyTree.removeNode(node);
+           var parent = node.parent;
+           _hierarchyTree.removeNode(node);
 
-         parent.refresh();
+           parent.refresh();
+  	     } 	   
+  	   } 
+  	   
+   	   // remove is_a children entries (this happens after a full deletion
+  	   // of a parent. Remove the parent itself
+//  	   var getHierarchyView = _getGeoHierarchyView(_selectedNode);
+//  	   ids.push(getHierarchyView.getGeoHierarchyId());
+  	   for(var i=0; i<ids.length; i++)
+  	   {
+  	     deleteNodeFromTree(ids[i]);
   	   }
   	}
   	else
@@ -337,11 +349,11 @@ MDSS.GeoHierarchyTree = (function(){
   	  // the child must delete the child node.
   	  deleteAll: obj.deleteHierarchy,
   	  modal:obj.modal,
-  	  onSuccess: function()
+  	  onSuccess: function(ids)
   	  {
   	  	this.modal.destroy();
 
-  	  	_postDeleteCleanup(this.deleteAll);
+  	  	_postDeleteCleanup(this.deleteAll, ids);
   	  }
   	});
 
@@ -370,14 +382,14 @@ MDSS.GeoHierarchyTree = (function(){
       destroyModal:destroyModal,
       childHierarchy : geoHierarchyView,
       parentId : parentId,
-      onSuccess: function(){
+      onSuccess: function(ids){
 
         if(this.destroyModal)
         {
           _modal.destroy();
         }
 
-        _postDeleteCleanup(true);
+        _postDeleteCleanup(true, ids);
       },
       onConfirmDeleteHierarchyException: function(e){
 

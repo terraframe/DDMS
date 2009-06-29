@@ -227,4 +227,11 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 
 </textarea>
 </div>
+
+<div style="display: none" id="XLSFormContainer"></div>
+<div style="display: none" id="CSVFormContainer"></div>
+<div style="display: none" id="ReportFormContainer"></div>
+<iframe id="messageFrame" name="messageFrame" style="display: none; width: 1px; height: 1px;"></iframe>
+
+
 <jsp:include page="../templates/footer.jsp"></jsp:include>

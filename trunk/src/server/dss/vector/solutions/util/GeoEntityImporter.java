@@ -14,6 +14,7 @@ import org.postgresql.PGConnection;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.postgresql.ds.common.BaseDataSource;
 
+import com.terraframe.mojo.business.BusinessFacade;
 import com.terraframe.mojo.constants.DatabaseProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -32,6 +33,7 @@ import com.vividsolutions.jts.geom.Polygon;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
+import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -248,7 +250,9 @@ public class GeoEntityImporter
           System.out.println();
         }
 
-        childGeoEntity.addLocatedInGeoEntity(parentGeoEntity).apply();
+        childGeoEntity.addParent(parentGeoEntity, LocatedIn.CLASS).apply();
+        
+//        childGeoEntity.addLocatedInGeoEntity(parentGeoEntity).apply();
       }
     }
     finally
