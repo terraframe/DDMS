@@ -24,7 +24,7 @@
 <script type="text/javascript">
 MDSS.AbstractSelectSearch.Political = true;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= CollectionSite.CLASS %>');
+MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= CollectionSite.CLASS %>*');
 MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*');
 </script>
 
