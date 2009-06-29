@@ -39,6 +39,15 @@
 <%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
+<%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
+<%@page import="com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF"%>
+<%@page import="com.terraframe.mojo.dataaccess.metadata.MdAttributeConcreteDAO"%>
+<%@page import="com.terraframe.mojo.dataaccess.MdBusinessDAOIF"%>
+<%@page import="com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO"%>
+<%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
+
+
+
 <c:set var="page_title" value="Query_Entomology"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
@@ -57,7 +66,20 @@
       {
         acc =  md.getAttributeName();
       }
-      s += "'"+ acc + "',";
+
+      String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
+      MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
+
+      MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete
+          .getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
+
+
+      s += "{";
+      s += "attributeName:'testResult.displayLabel.currentValue',";
+      s += "type:'"+ mdClass.definesType() + "',";
+      s += "dtoType:'" + md.getMdAttributeConcrete().getType() + "',";
+      s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + "'";
+      s += "},\n";
   }
   return s + "]";
 }%>
@@ -129,41 +151,17 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
       delete obj;
     }
 
-    function mapAttribs(arr, type, obj){
-      tmpType = type;
-      obj = obj;
-      return arr.map(function(attribName){
-        var attrib = obj.attributeMap[attribName];
-        var row = {};
-        if(attrib){
-          row.attributeName = attrib.attributeName;
-          if(attrib.dtoType === 'AttributeReferenceDTO')
-          {
-            row.attributeName += '.displayLabel.currentValue';
+
+
+    function mapAssayAttribs(arr){
+      return arr.map(function(row){
+          if(dropDownMaps[row.attributeName]){
+            row.dropDownMap = dropDownMaps[row.attributeName];
           }
-          if(attrib.dtoType === 'AttributeEnumerationDTO')
-          {
-            row.attributeName += '.displayLabel.currentValue';
-          }
-          if(attrib.dtoType === 'AttributeIntegerDTO')
-          {
-            row.numeric = true;
-          }
-          row.type = tmpType;
-          row.dtoType = attrib.dtoType;
-          row.displayLabel = attrib.attributeMdDTO.displayLabel;
-          if(dropDownMaps[attrib.attributeName]){
-            row.dropDownMap = dropDownMaps[attrib.attributeName];
-          }
-        }else{
-          row.attributeName = attribName;
-          row.type = 'sqlcharacter';
-          row.displayLabel = attribName;
-        }
-        return row;
+          var splitType = row.dtoType.split('.');
+          row.dtoType = splitType[splitType.length - 1];
+          return row;
       });
-      delete tmpType;
-      delete obj;
     }
 
 
@@ -184,19 +182,19 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     var assays = [];
 
     var infectivityColumns = <%=getAssayColumns(mosquitoView,InfectivityAssayTestResult.class,requestIF)%>;
-    infectivityColumns = infectivityColumns.concat(infectivityColumns.map(function(a){return a + 'Method'}));
-    infectivityColumns.sort();
+    //infectivityColumns = infectivityColumns.concat(infectivityColumns.map(function(a){return a + 'Method'}));
+    //infectivityColumns.sort();
 
     var targetSiteColumns = <%=getAssayColumns(mosquitoView,TargetSiteAssayTestResult.class,requestIF)%>;
-    targetSiteColumns = targetSiteColumns.concat(targetSiteColumns.map(function(a){return a + 'Method'}));
-    targetSiteColumns.sort();
+    //targetSiteColumns = targetSiteColumns.concat(targetSiteColumns.map(function(a){return a + 'Method'}));
+    //targetSiteColumns.sort();
 
     var metabolicColumns = <%=getAssayColumns(mosquitoView,MetabolicAssayTestResult.class,requestIF)%>;
-    metabolicColumns.sort();
+    //metabolicColumns.sort();
 
-    assays.push(mapAttribs(infectivityColumns ,'<%=MosquitoDTO.CLASS%>', mosquitoView));
-    assays.push(mapAttribs(targetSiteColumns ,'<%=MosquitoDTO.CLASS%>', mosquitoView));
-    assays.push(mapAttribs(metabolicColumns ,'<%=MosquitoDTO.CLASS%>', mosquitoView));
+    assays.push(mapAssayAttribs(infectivityColumns));
+    assays.push(mapAssayAttribs(targetSiteColumns));
+    assays.push(mapAssayAttribs(metabolicColumns));
 
     var query = new MDSS.QueryEntomology(groupColumns,mosquitoColumns, assays, queryList);
     query.render();

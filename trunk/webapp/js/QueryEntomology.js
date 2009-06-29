@@ -147,8 +147,8 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    $('debug_xml').value = xml;
 	    xml = $('debug_xml').value;
 	    var page = this.getCurrentPage();
-	    
-        // FIXME json conversion below is temporary 
+
+        // FIXME json conversion below is temporary
 	    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, Mojo.util.getJSON(this._selectedUniversals), '', true, page, this.PAGE_SIZE);
 	  },
 
@@ -193,6 +193,8 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    var conditions = [];
 	    var groupBy = queryXML.getGroupBy();
 
+	    //var mosqutoIdSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(mosquito,'id','id'));
+
 	    // Visible Attributes
 	    var selNames = Mojo.util.getKeys(this._visibleSelectables);
 	    for(var i=0; i<selNames.length; i++)
@@ -205,10 +207,21 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      // darrell
 	      if(selectable.attribute)
 	      {
+
 	      	 var t =  selectable.attribute.getType();
 	      	 var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'');
 	      	 var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'');
 	         var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
+
+	         //add entity for assay if this selectable is an assay
+	         if(t.indexOf('.assay.') > 0 )
+	         {
+	        	 queryXML.addEntity(new MDSS.QueryXML.Entity(t,t));
+	        	 //var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, mosqutoIdSelectable);
+ 		         //conditions.push(condition);
+
+	         }
+
 
 	      	if(selectable.attribute.getDtoType() == 'AttributeEnumerationDTO')
 	      	{
