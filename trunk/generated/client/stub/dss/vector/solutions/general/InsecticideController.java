@@ -1,22 +1,35 @@
 package dss.vector.solutions.general;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
+import java.io.IOException;
+import java.util.Arrays;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
+
+import dss.vector.solutions.entomology.assay.UnitDTO;
+import dss.vector.solutions.mo.ActiveIngredientDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
-public class InsecticideController extends InsecticideControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class InsecticideController extends InsecticideControllerBase implements Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/general/Insecticide/";
-  public static final String LAYOUT = "/layout.jsp";
+  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/general/Insecticide/";
 
-  private static final long serialVersionUID = 1237396167095L;
+  public static final String LAYOUT           = "/layout.jsp";
 
-  public InsecticideController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  private static final long  serialVersionUID = 1237396167095L;
+
+  public InsecticideController(HttpServletRequest req, HttpServletResponse resp,
+      Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void create(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(InsecticideDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -36,27 +49,31 @@ public class InsecticideController extends InsecticideControllerBase implements 
       this.failCreate(dto);
     }
   }
-  public void failCreate(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCreate(InsecticideDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    this.setupRequest();
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
   }
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+
+  public void viewPage(String sortAttribute, Boolean isAscending,
+      Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.general.InsecticideQueryDTO query = dss.vector.solutions.general.InsecticideDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    InsecticideQueryDTO query = InsecticideDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
   }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+
+  public void viewAll() throws IOException, ServletException
   {
     if (!req.getRequestURI().contains(".viewAll.mojo"))
     {
@@ -65,61 +82,75 @@ public class InsecticideController extends InsecticideControllerBase implements 
       resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
       return;
     }
-    
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.general.InsecticideQueryDTO query = dss.vector.solutions.general.InsecticideDTO.getAllInstances(clientRequest, null, true, 20, 1);
+
+    ClientRequestIF clientRequest = super.getClientRequest();
+    InsecticideQueryDTO query = InsecticideDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
   }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+
+  public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+
+  public void newInstance() throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.general.InsecticideDTO dto = new dss.vector.solutions.general.InsecticideDTO(clientRequest);
-    req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    ClientRequestIF clientRequest = super.getClientRequest();
+    InsecticideDTO dto = new InsecticideDTO(clientRequest);
+    this.setupRequest();
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
   }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+
+  private void setupRequest()
+  {
+    ClientRequestIF request = super.getClientSession().getRequest();
+
+    req.setAttribute("ingredients", Arrays.asList(ActiveIngredientDTO.getAllActive(request)));
+    req.setAttribute("units", UnitDTO.allItems(request));
+  }
+
+  public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();
   }
-  public void update(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void update(InsecticideDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (com.terraframe.mojo.ProblemExceptionDTO e)
     {
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failUpdate(InsecticideDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    this.setupRequest();
     req.setAttribute("item", dto);
 
     render("updateComponent.jsp");
   }
-  public void cancel(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void cancel(InsecticideDTO dto) throws IOException, ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
-  public void failCancel(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCancel(InsecticideDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
   }
-  public void delete(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void delete(InsecticideDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -139,15 +170,16 @@ public class InsecticideController extends InsecticideControllerBase implements 
       this.viewAll();
     }
   }
-  public void failDelete(dss.vector.solutions.general.InsecticideDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failDelete(InsecticideDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
+    this.setupRequest();
     req.setAttribute("item", dto);
 
     render("editComponent.jsp");
   }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void view(String id) throws IOException, ServletException
   {
     if (!req.getRequestURI().contains(".view.mojo"))
     {
@@ -156,28 +188,28 @@ public class InsecticideController extends InsecticideControllerBase implements 
       resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
       return;
     }
-    
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("item", dss.vector.solutions.general.InsecticideDTO.get(clientRequest, id));
+
+    this.setupRequest();
+    req.setAttribute("item", InsecticideDTO.get(super.getClientRequest(), id));
 
     render("viewComponent.jsp");
   }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void edit(String id) throws IOException, ServletException
   {
-    dss.vector.solutions.general.InsecticideDTO dto = dss.vector.solutions.general.InsecticideDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("dss_vector_solutions_general_Insecticide_activeIngredient", dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_general_Insecticide_units", dss.vector.solutions.entomology.assay.UnitDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("item", dto);
+    this.setupRequest();
+    
+    req.setAttribute("item", InsecticideDTO.lock(super.getClientRequest(), id));
 
     render("editComponent.jsp");
   }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }

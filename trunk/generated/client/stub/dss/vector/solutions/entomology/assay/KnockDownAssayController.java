@@ -216,11 +216,11 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
     req.setAttribute("sex", AssaySexDTO.allItems(request));
     req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(request, "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("generation", Arrays.asList(GenerationDTO.getAll(request)));
-    req.setAttribute("identificationMethod", Arrays.asList(IdentificationMethodDTO.getAll(request)));
-    req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAll(request)));
+    req.setAttribute("generation", Arrays.asList(GenerationDTO.getAllActive(request)));
+    req.setAttribute("identificationMethod", Arrays.asList(IdentificationMethodDTO.getAllActive(request)));
+    req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAllActive(request)));
     req.setAttribute("insecticide", InsecticideDTO.getAll(request));
-    req.setAttribute("specie", Arrays.asList(SpecieDTO.getAll(request)));
+    req.setAttribute("specie", Arrays.asList(SpecieDTO.getAllActive(request)));
   }
 
 }

@@ -59,7 +59,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failDelete(MosquitoCollectionDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(super.getClientSession().getRequest());
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
@@ -72,7 +72,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     ClientRequestIF clientRequest = super.getClientRequest();
 
     MosquitoCollectionDTO dto = new MosquitoCollectionDTO(clientRequest);
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(super.getClientSession().getRequest());
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
@@ -110,7 +110,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failUpdate(MosquitoCollectionDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(super.getClientSession().getRequest());
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
@@ -258,7 +258,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     MosquitoCollectionDTO dto = MosquitoCollectionDTO.lock(super.getClientRequest(), id);
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(super.getClientSession().getRequest());
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
@@ -296,7 +296,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   public void failCreate(MosquitoCollectionDTO dto) throws java.io.IOException,
       javax.servlet.ServletException
   {
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(super.getClientSession().getRequest());
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("item", dto);
@@ -336,7 +336,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void failSearchByGeoIdAndDate(String geoId, String collectionDate, CollectionMethodDTO collectionMethod) throws java.io.IOException, javax.servlet.ServletException
   {
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll( super.getClientSession().getRequest());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive( super.getClientSession().getRequest());
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
 
     this.search();
@@ -353,13 +353,11 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     }
     
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+    CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(super.getClientSession().getRequest());
     MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, "createDate", false, 10, 1);
 
     req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
     req.setAttribute("query", query);
-
-
 
     render("searchComponent.jsp");
   }
@@ -368,7 +366,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     try
     {
-      CollectionMethodDTO[] methods = CollectionMethodDTO.getAll(super.getClientSession().getRequest());
+      CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(super.getClientSession().getRequest());
       MosquitoCollectionDTO collection = MosquitoCollectionDTO.searchByGeoEntityAndDateAndCollectionMethod(super.getClientRequest(), geoEntity, collectionDate, collectionMethod);
       String jsp = "viewComponent.jsp";
 

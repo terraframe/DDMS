@@ -253,10 +253,10 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
   {
     req.setAttribute("insecticide", InsecticideDTO.getAll(super.getClientSession().getRequest()));
     req.setAttribute("surfacePostion", SurfacePositionDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("generation", Arrays.asList(GenerationDTO.getAll(super.getClientSession().getRequest())));
-    req.setAttribute("identificationMethod", Arrays.asList(IdentificationMethodDTO.getAll(super.getClientSession().getRequest())));
+    req.setAttribute("generation", Arrays.asList(GenerationDTO.getAllActive(super.getClientSession().getRequest())));
+    req.setAttribute("identificationMethod", Arrays.asList(IdentificationMethodDTO.getAllActive(super.getClientSession().getRequest())));
     req.setAttribute("sex", AssaySexDTO.allItems(super.getClientSession().getRequest()));
-    req.setAttribute("specie", Arrays.asList(SpecieDTO.getAll(super.getClientSession().getRequest())));
+    req.setAttribute("specie", Arrays.asList(SpecieDTO.getAllActive(super.getClientSession().getRequest())));
     req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAll(super.getClientSession().getRequest())));
   }
 
