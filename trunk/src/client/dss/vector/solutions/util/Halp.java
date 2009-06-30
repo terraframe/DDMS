@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -38,6 +39,7 @@ import com.terraframe.mojo.business.ComponentDTO;
 import com.terraframe.mojo.business.ViewDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.constants.Constants;
+import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.system.EnumerationMasterDTO;
 import com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO;
@@ -124,7 +126,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     JSONObject map = new JSONObject();
     for (LabeledDTO term : terms)
     {
-      map.put(term.getId(),term.getLabel());
+      map.put(term.getOptionId(),term.getLabel());
     }
     return map.toString();
   }
@@ -136,7 +138,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
     for (LabeledDTO term : terms)
     {
-      ids.put(term.getId());
+      ids.put(term.getOptionId());
       labels.put(term.getLabel().replaceAll("'", "\\'"));
     }
 
@@ -218,8 +220,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows, ClientRequestIF clientRequest) throws JSONException
   {
-    ArrayList<String> arr = new ArrayList<String>();
-    int colnum = 0;
+    return Halp.getDropdownSetup(view, attribs, extra_rows, clientRequest, new HashMap<String, String>());
+  }
+  
+  public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows, ClientRequestIF clientRequest, Map<String, String> map) throws JSONException
+  {
     Class<?> v = view.getClass();
     ArrayList<String> ordered_attribs = new ArrayList<String>(Arrays.asList(attribs));
 
@@ -241,9 +246,15 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         if (md instanceof AttributeReferenceMdDTO)
         {
           Class<?> clazz = md.getJavaType();
+
+          if(map.containsKey(attrib))
+          {
+            clazz = LoaderDecorator.load(map.get(attrib));
+          }
+          
           if (LabeledDTO.class.isAssignableFrom(clazz))
           {
-            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAll", new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
+            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAllActive", new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
             dropdownbuff.add(getDisplayLabels(terms, attrib));
           }
         }
@@ -251,21 +262,16 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       }
       catch (Exception x)
       {
-        System.out.println("Other exception on " + attrib + " " + x.getMessage());
+        throw new RuntimeException(x);
       }
-      colnum++;
     }
-    if (extra_rows.length() > 0)
-    {
-      arr.add(extra_rows);
-    }
+    
     return ( Halp.join(dropdownbuff, "\n") );
   }
 
   @SuppressWarnings("unchecked")
   public static String getDropDownMaps(ViewDTO view, ClientRequestIF clientRequest) throws JSONException
   {
-    ArrayList<String> arr = new ArrayList<String>();
     int colnum = 0;
     Class<?> v = view.getClass();
     ArrayList<String> ordered_attribs = new ArrayList<String>();
@@ -290,7 +296,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
           Class<?> clazz = md.getJavaType();
           if (LabeledDTO.class.isAssignableFrom(clazz))
           {
-            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAll", new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
+            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAllActive", new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
             dropdownbuff.add(attrib + " : " + getDropDownMap(terms) + ",");
           }
         }
@@ -317,7 +323,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       }
       catch (Exception x)
       {
-        System.out.println("Other exception on " + attrib + " " + x.getMessage());
+        throw new RuntimeException(x);
       }
       colnum++;
     }

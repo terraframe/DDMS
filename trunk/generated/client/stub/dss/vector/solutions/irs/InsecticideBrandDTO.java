@@ -34,4 +34,9 @@ public class InsecticideBrandDTO extends InsecticideBrandDTOBase implements Relo
   {
     return this.getBrandName();
   }
+
+  public String getOptionId()
+  {
+    return this.getId();
+  }
 }

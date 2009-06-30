@@ -33,4 +33,9 @@ public abstract class AbstractTermDTO extends AbstractTermDTOBase implements Rel
   {
     return this.getDisplayLabel().getValue();
   }
+  
+  public String getOptionId()
+  {
+    return this.getId();
+  }
 }

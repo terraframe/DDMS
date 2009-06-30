@@ -2,13 +2,15 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
+
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%><c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
 
 <%
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
   InsecticideBrandViewDTO brandDTO = new InsecticideBrandViewDTO(clientRequest);
-  InsecticideBrandViewDTO[] brandRows = InsecticideBrandViewDTO.getAll(clientRequest);
+  InsecticideBrandViewDTO[] brandRows = InsecticideBrandViewDTO.getAllActive(clientRequest);
   String[] brandAttributes = {"InsecticdeId", "BrandName", "ActiveIngredient", "Amount", "Weight", "SachetsPerRefill", "Enabled"};
 
   NozzleViewDTO nozzleDTO = new NozzleViewDTO(clientRequest);
@@ -18,6 +20,10 @@
   InsecticideNozzleViewDTO insecticideNozzleDTO = new InsecticideNozzleViewDTO(clientRequest);
   InsecticideNozzleViewDTO[] insecticideNozzleRows = InsecticideNozzleViewDTO.getAll(clientRequest);
   String[] insecticideNozzleAttributes = {"InsecticideNozzleId", "Brand", "Nozzle", "Enabled"};
+  
+  Map<String, String> map = new HashMap<String, String>();
+  map.put("Brand", InsecticideBrandViewDTO.CLASS + "DTO");
+  map.put("Nozzle", NozzleViewDTO.CLASS + "DTO");
 
   String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 %>
@@ -118,7 +124,7 @@
               after_save:function(){window.location.reload( false );}
           };
 
-    <%=Halp.getDropdownSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, clientRequest)%>
+    <%=Halp.getDropdownSetup(insecticideNozzleDTO, insecticideNozzleAttributes, deleteColumn, clientRequest, map)%>
 
     MDSS.Calendar.init()
 

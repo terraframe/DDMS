@@ -34,4 +34,9 @@ public class NozzleDTO extends NozzleDTOBase implements Reloadable, LabeledDTO
     return this.getDisplayLabel();
   }
 
+  public String getOptionId()
+  {
+    return this.getId();
+  }
+
 }

@@ -4,8 +4,13 @@ package dss.vector.solutions.entomology;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.query.AND;
+import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.OrderBy.SortOrder;
 
 public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollectionBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -78,5 +83,33 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
     }
         
     super.delete();
+  }
+  
+  public static ValueQuery searchByCollectionId(String collectionId, String type)
+  {
+    QueryFactory f = new QueryFactory();
+
+    ConcreteMosquitoCollectionQuery q = new ConcreteMosquitoCollectionQuery(f);
+    ValueQuery valueQuery = new ValueQuery(f);
+        
+    Selectable[] selectables = new Selectable[] { q.getId(), q.getCollectionId(), q.getGeoEntity().getGeoId(), q.getGeoEntity().getEntityName(), q.getDateCollected(), q.getType()};
+    valueQuery.SELECT(selectables);
+
+    String statement = collectionId + "%";
+        
+    Condition or = OR.get(q.getCollectionId().LIKE(statement), q.getGeoEntity().getGeoId().LIKE(statement), q.getGeoEntity().getEntityName().LIKE(statement));
+
+    if (type != null && type.length() > 0)
+    {
+      valueQuery.WHERE(AND.get(or, q.getType().EQ(type)));
+    }
+    else
+    {
+      valueQuery.WHERE(or);
+    }
+
+    valueQuery.restrictRows(20, 1);
+
+    return valueQuery;
   }
 }

@@ -1,8 +1,10 @@
 package dss.vector.solutions;
 
-public interface LabeledDTO
+import com.terraframe.mojo.generation.loader.Reloadable;
+
+public interface LabeledDTO extends Reloadable
 {
-  public String getId();
+  public String getOptionId();
 
   public String getLabel();
 }

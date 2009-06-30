@@ -17,13 +17,13 @@ import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.PoliticalHierarchyLengthException;
-import dss.vector.solutions.geo.generated.Country;
+import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.mo.CollectionMethod;
-import dss.vector.solutions.util.GeoColumnListener;
 import dss.vector.solutions.util.GenericHierarchySearcher;
+import dss.vector.solutions.util.GeoColumnListener;
 import dss.vector.solutions.util.GeoEntitySearcher;
 import dss.vector.solutions.util.SearchableHierarchy;
 
@@ -150,7 +150,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   
   public static List<SearchableHierarchy> getHierarchy()
   {
-    List<GeoHierarchyView> political = Arrays.asList(GeoHierarchy.getPoliticalGeoHierarchiesByType(Country.CLASS));    
+    List<GeoHierarchyView> political = Arrays.asList(GeoHierarchy.getPoliticalGeoHierarchiesByType(Earth.CLASS));    
 
     //Ensure that the Political Hierarhcy length is 10 or less
     if(political.size() > 10)
