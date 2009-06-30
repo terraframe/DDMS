@@ -22,8 +22,8 @@
   String[] insecticideNozzleAttributes = {"InsecticideNozzleId", "Brand", "Nozzle", "Enabled"};
   
   Map<String, String> map = new HashMap<String, String>();
-  map.put("Brand", InsecticideBrandViewDTO.CLASS + "DTO");
-  map.put("Nozzle", NozzleViewDTO.CLASS + "DTO");
+  map.put("Brand", InsecticideBrandViewDTO.class.getName());
+  map.put("Nozzle", NozzleViewDTO.class.getName());
 
   String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 %>
