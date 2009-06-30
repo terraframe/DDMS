@@ -29,7 +29,6 @@ import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.gis.dataaccess.AttributeGeometryIF;
 import com.terraframe.mojo.gis.dataaccess.MdAttributeGeometryDAOIF;
-import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.GeneratedViewQuery;
@@ -47,7 +46,6 @@ import com.terraframe.mojo.util.IdParser;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.AllPaths;
-import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.ConfirmDeleteEntityException;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
 import dss.vector.solutions.geo.DuplicateParentException;
@@ -192,25 +190,27 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   public static ValueQuery searchByEntityNameOrGeoId(String type, String name)
   {
     QueryFactory f = new QueryFactory();
-    GeoEntityQuery q = new GeoEntityQuery(f);
+    Class<?> klass = LoaderDecorator.load(type + "Query");
+    GeoEntityQuery q;
+    try
+    {
+      Constructor<?> constructor = klass.getConstructor(QueryFactory.class);
+      q = (GeoEntityQuery) constructor.newInstance(f);
+    }
+    catch (Throwable t)
+    {
+      throw new ProgrammingErrorException(t);
+    }
     ValueQuery valueQuery = new ValueQuery(f);
 
-    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE) };
+    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE)};
     valueQuery.SELECT(selectables);
 
     String searchable = name + "%";
 
     Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
 
-    if (type != null && type.length() > 0)
-    {
-      Condition and = AND.get(or, q.getType().EQ(type));
-      valueQuery.WHERE(and);
-    }
-    else
-    {
-      valueQuery.WHERE(or);
-    }
+    valueQuery.WHERE(or);
 
     valueQuery.restrictRows(20, 1);
 
@@ -293,6 +293,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       child.delete();
     }
     
+    /*
+    // DO NO CLEANUP FOR V1 AND LET A REQUIRED REFERENCE ERROR BE THROWN 
     // clean up the paths table. This will invalidate the paths table
     QueryFactory f = new QueryFactory();
     AllPathsQuery pathsQuery = new AllPathsQuery(f);
@@ -311,6 +313,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     {
       iter.close();
     }
+    */
 
     super.delete();
   }
