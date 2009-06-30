@@ -61,9 +61,9 @@
 
 
   <mjl:form name="standards.form.name" id="standards.form" method="POST">
-    <mjl:component item="${dto}" param="dto">
-    <h2><fmt:message key="Area"/></h2>
-     <dl>
+   <h2><fmt:message key="Area"/></h2>
+   <dl>
+      <mjl:component item="${dto}" param="dto">
       <mjl:input type="hidden" param="areaStandardsId" value="${dto.areaStandardsId}"/>
       <mjl:dt attribute="targetUnit">
         <mjl:select var="current" valueAttribute="enumName" items="${targetUnits}" param="targetUnit">
@@ -76,10 +76,10 @@
       <mjl:dt attribute="room" type="text" />
       <mjl:dt attribute="structureArea" type="text" />
       <mjl:dt attribute="household" type="text" />
-     </dl>
-    </mjl:component>
-    <mjl:command value="Update" id="update.id" action="dss.vector.solutions.irs.ApplicationRateController.update.mojo" name="update.button" />
-    <mjl:command value="Create" id="create.id" action="dss.vector.solutions.irs.ApplicationRateController.create.mojo" name="create.button" />
+      </mjl:component>
+      <mjl:command value="Update" id="update.id" action="dss.vector.solutions.irs.ApplicationRateController.update.mojo" name="update.button" />
+      <mjl:command value="Create" id="create.id" action="dss.vector.solutions.irs.ApplicationRateController.create.mojo" name="create.button" />
+   </dl>
   </mjl:form>
 
 
