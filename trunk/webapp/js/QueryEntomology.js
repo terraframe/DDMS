@@ -208,20 +208,16 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      if(selectable.attribute)
 	      {
 
-	      	 var t =  selectable.attribute.getType();
-	      	 var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'');
-	      	 var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'');
-	         var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
+	      	var t =  selectable.attribute.getType();
+	      	var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'');
+	      	var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'');
+	        var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
 
-	         //add entity for assay if this selectable is an assay
-	         if(t.indexOf('.assay.') > 0 )
-	         {
-	        	 queryXML.addEntity(new MDSS.QueryXML.Entity(t,t));
-	        	 //var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, mosqutoIdSelectable);
- 		         //conditions.push(condition);
-
-	         }
-
+	        //add entity for assay if this selectable is an assay
+	        if(t.indexOf('.assay.') > 0 )
+	        {
+	          queryXML.addEntity(new MDSS.QueryXML.Entity(t,t));
+	        }
 
 	      	if(selectable.attribute.getDtoType() == 'AttributeEnumerationDTO')
 	      	{

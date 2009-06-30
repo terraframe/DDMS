@@ -2347,7 +2347,7 @@
             name="pageNumber"
             label="Page Number"
             type="java.lang.Integer"
-            order="4" />  
+            order="4" />
         </mdMethod>
         <mdMethod
           name="mapQuery"
@@ -4631,7 +4631,7 @@
             type="dss.vector.solutions.mo.InsecticideMethodology"
             name="testMethod"
             label="Test Methodology"
-            required="true"
+            required="false"
             description="The test methodology use for the gene mutation assay" />
         </attributes>
       </mdBusiness>
@@ -4646,7 +4646,7 @@
           <reference
             name="testResult"
             label="Kdr L104F (west)"
-            required="true"
+            required="false"
             description="Molecular assay result"
             type="dss.vector.solutions.mo.MolecularAssayResult" />
         </attributes>
@@ -4662,7 +4662,7 @@
           <reference
             name="testResult"
             label="Kdr L104S (east)"
-            required="true"
+            required="false"
             description="Molecular assay result"
             type="dss.vector.solutions.mo.MolecularAssayResult" />
         </attributes>
@@ -4678,7 +4678,7 @@
           <reference
             name="testResult"
             label="Insensitive AChE"
-            required="true"
+            required="false"
             description="Molecular assay result"
             type="dss.vector.solutions.mo.MolecularAssayResult" />
         </attributes>
@@ -4694,7 +4694,7 @@
           <reference
             name="testResult"
             label="AChE F290V"
-            required="true"
+            required="false"
             description="Molecular assay result"
             type="dss.vector.solutions.mo.MolecularAssayResult" />
         </attributes>
@@ -4710,7 +4710,7 @@
           <reference
             name="testResult"
             label="AChE F331W"
-            required="true"
+            required="false"
             description="Molecular assay result"
             type="dss.vector.solutions.mo.MolecularAssayResult" />
         </attributes>
@@ -4726,7 +4726,7 @@
           <reference
             name="testResult"
             label="AChE G119S"
-            required="true"
+            required="false"
             description="Molecular assay result"
             type="dss.vector.solutions.mo.MolecularAssayResult" />
         </attributes>
@@ -4742,7 +4742,7 @@
           <reference
             name="testResult"
             label="GABA Rdl A296G"
-            required="true"
+            required="false"
             description="Molecular assay result"
             type="dss.vector.solutions.mo.MolecularAssayResult" />
         </attributes>
@@ -4758,7 +4758,7 @@
           <reference
             name="testResult"
             label="GABA Rdl A296S"
-            required="true"
+            required="false"
             description="Molecular assay result"
             type="dss.vector.solutions.mo.MolecularAssayResult" />
         </attributes>
@@ -4783,7 +4783,7 @@
           <boolean
             name="testResult"
             label="α-napthyl acetate assay"
-            required="true"
+            required="false"
             description="assay result"
             negativeLabel="Not Elevated"
             positiveLabel="Elevated" />
@@ -4800,7 +4800,7 @@
           <boolean
             name="testResult"
             label="β-napthyl acetate assay"
-            required="true"
+            required="false"
             description="assay result"
             negativeLabel="Not Elevated"
             positiveLabel="Elevated" />
@@ -4817,7 +4817,7 @@
           <boolean
             name="testResult"
             label="pNPA assay"
-            required="true"
+            required="false"
             description="assay result"
             negativeLabel="Not Elevated"
             positiveLabel="Elevated" />
@@ -4834,7 +4834,7 @@
           <boolean
             name="testResult"
             label="GST CDNB rate reaction assay"
-            required="true"
+            required="false"
             description="assay result"
             negativeLabel="Not Elevated"
             positiveLabel="Elevated" />
@@ -4851,7 +4851,7 @@
           <boolean
             name="testResult"
             label="GST DCNB rate reaction assay"
-            required="true"
+            required="false"
             description="assay result"
             negativeLabel="Not Elevated"
             positiveLabel="Elevated" />
@@ -4868,7 +4868,7 @@
           <boolean
             name="testResult"
             label="heme content"
-            required="true"
+            required="false"
             description="assay result"
             negativeLabel="Not Elevated"
             positiveLabel="Elevated" />
@@ -4885,7 +4885,7 @@
           <boolean
             name="testResult"
             label="p450 activity assay"
-            required="true"
+            required="false"
             description="p450 activity assay result"
             negativeLabel="Not Elevated"
             positiveLabel="Elevated" />
@@ -4904,7 +4904,7 @@
             type="dss.vector.solutions.mo.InfectivityMethodology"
             name="testMethod"
             label="Test Methodology"
-            required="true"
+            required="false"
             description="The test methodologyd use for the infectivity assay" />
         </attributes>
         <mdMethod
@@ -4925,7 +4925,7 @@
           <boolean
             name="testResult"
             label="P. falciparum"
-            required="true"
+            required="false"
             description="assay result"
             positiveLabel="Positive"
             negativeLabel="Negative" />
@@ -4942,7 +4942,7 @@
           <boolean
             name="testResult"
             label="P. Ovale"
-            required="true"
+            required="false"
             description="assay result"
             positiveLabel="Positive"
             negativeLabel="Negative" />
@@ -4959,7 +4959,7 @@
           <boolean
             name="testResult"
             label="P. Malariae"
-            required="true"
+            required="false"
             description="assay result"
             positiveLabel="Positive"
             negativeLabel="Negative" />
@@ -4976,7 +4976,7 @@
           <boolean
             name="testResult"
             label="P. Vivax"
-            required="true"
+            required="false"
             description="assay result"
             positiveLabel="Positive"
             negativeLabel="Negative" />
@@ -5237,7 +5237,7 @@
             name="restrictingEntities"
             label="Restricting Entities"
             type="java.lang.String[]"
-            order="3" /> 
+            order="3" />
         </mdAction>
       </mdController>
     </create>

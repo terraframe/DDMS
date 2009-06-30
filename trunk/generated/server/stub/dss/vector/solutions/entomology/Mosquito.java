@@ -3,11 +3,13 @@ package dss.vector.solutions.entomology;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.xml.sax.SAXParseException;
 
+import com.terraframe.mojo.dataaccess.MdAttributeVirtualDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
@@ -139,11 +141,11 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     {
       valueQueryParser = new ValueQueryParser(xml, valueQuery);
     }
-    catch(QueryException e)
+    catch (QueryException e)
     {
       // Check if the error was because no selectables were added.
       Throwable t = e.getCause();
-      if(t != null && t instanceof SAXParseException && t.getMessage().contains("{selectable}"))
+      if (t != null && t instanceof SAXParseException && t.getMessage().contains("{selectable}"))
       {
         NoColumnsAddedException ex = new NoColumnsAddedException();
         throw ex;
@@ -180,77 +182,90 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       // FIXME might need a ValueQuery and might need to go after the code below
       String type = geoEntityMd.definesType();
       valueQueryParser.addAttributeSelectable(type, attributeName, "", "");
-      valueQueryParser.addAttributeSelectable(type, GeoEntity.ENTITYNAME, "",
-          QueryConstants.ENTITY_NAME_COLUMN);
+      valueQueryParser.addAttributeSelectable(type, GeoEntity.ENTITYNAME, "", QueryConstants.ENTITY_NAME_COLUMN);
     }
 
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
-    for(String selectedGeoEntityType : selectedUniversals)
+    for (String selectedGeoEntityType : selectedUniversals)
     {
       GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
-        
+
       AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
       ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
       MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
-      
-      Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName()+"_entityName");
-      Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName()+"_geoId");
-        
+
+      Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName() + "_entityName");
+      Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName() + "_geoId");
+
       List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
       Condition[] geoConditions = new Condition[allClasses.size()];
-      for(int i=0; i<allClasses.size(); i++)
+      for (int i = 0; i < allClasses.size(); i++)
       {
         geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
       }
-      
+
       geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
       geoEntityVQ.WHERE(OR.get(geoConditions));
       geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
-      
+
       leftJoinValueQueries.add(geoEntityVQ);
-      
+
       valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
     }
-    
+
     Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
-    
+
     AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
     MosquitoCollectionQuery collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
-    
-    if(allPathsQuery != null)
+
+    if (allPathsQuery != null)
     {
       List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
-      for(ValueQuery leftJoinVQ : leftJoinValueQueries)
+      for (ValueQuery leftJoinVQ : leftJoinValueQueries)
       {
         leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
       }
-      
+
       valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[leftJoinSelectables.size()])));
-      
+
       // Join Collection to GeoEntity
       valueQuery.AND(collectionQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
     }
-    
+
     MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
     MorphologicalSpecieGroupQuery groupQuery = (MorphologicalSpecieGroupQuery) queryMap.get(MorphologicalSpecieGroup.CLASS);
 
-
-    if(collectionQuery == null)
+    if (collectionQuery == null)
     {
-       collectionQuery = new MosquitoCollectionQuery(queryFactory);
+      collectionQuery = new MosquitoCollectionQuery(queryFactory);
     }
     String dateAttribute = "";
 
     // join Mosquito with mosquito collection
     if (mosquitoQuery != null)
     {
-      // valueQuery.WHERE(mosquitoQuery.getCollection().EQ(collectionQuery));
       dateAttribute = mosquitoQuery.getTestDate().getQualifiedName();
+      valueQuery.WHERE(mosquitoQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
+
+    for (Entry<Class<AssayTestResult>, MdAttributeVirtualDAOIF> e : MosquitoView.getAssayMap().entrySet())
+    {
+      String assayClassName = e.getKey().getCanonicalName();
+      AssayTestResultQuery assayQuery = (AssayTestResultQuery) queryMap.get(assayClassName);
+      if (assayQuery != null)
+      {
+        //this is an implicit natural join
+        valueQuery.WHERE(assayQuery.getMosquito().getId().EQ(mosquitoQuery.getId()));
+        // Left Join the assay Query
+       // valueQuery.AND(assayQuery.getMosquito().LEFT_JOIN_EQ(mosquitoQuery.));
+      }
+
+    }
+
     if (groupQuery != null)
     {
-      // valueQuery.WHERE(groupQuery.getCollection().EQ(collectionQuery));
       dateAttribute = collectionQuery.getDateCollected().getQualifiedName();
+      valueQuery.WHERE(groupQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
     if (xml.indexOf("DATEGROUP_SEASON") > 0)
@@ -304,20 +319,20 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     {
       JSONArray arr = new JSONArray(config);
       selectedUniversals = new String[arr.length()];
-      for(int i=0; i<selectedUniversals.length; i++)
+      for (int i = 0; i < selectedUniversals.length; i++)
       {
         selectedUniversals[i] = arr.getString(i);
       }
     }
-    catch(JSONException e)
+    catch (JSONException e)
     {
       throw new ProgrammingErrorException(e);
-    }    
-    
-    ValueQuery valueQuery =  xmlToValueQuery(queryXML, selectedUniversals, false, null);
+    }
+
+    ValueQuery valueQuery = xmlToValueQuery(queryXML, selectedUniversals, false, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
-    
+
     return valueQuery;
   }
 
@@ -326,43 +341,37 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    *
    * @param xml
    * @return
-  @Transaction
-  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers, String savedSearchId)
-  {
-    if (savedSearchId == null || savedSearchId.trim().length() == 0)
-    {
-      String error = "Cannot map a query without a current SavedSearch instance.";
-      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
-      throw ex;
-    }
-
-    SavedSearch search = SavedSearch.get(savedSearchId);
-
-    if (thematicLayerType == null || thematicLayerType.trim().length() == 0)
-    {
-      String error = "Cannot create a map for search [] without having restricted by a GeoEntity(s).";
-      MapWithoutGeoEntityException ex = new MapWithoutGeoEntityException(error);
-      throw ex;
-    }
-
-    // Create the thematic layer if it does not exist
-    ThematicLayer thematicLayer = search.getThematicLayer();
-    if (thematicLayer == null)
-    {
-      thematicLayer = ThematicLayer.newInstance(thematicLayerType);
-      search.setThematicLayer(thematicLayer);
-    }
-    // Update ThematicLayer if the thematic layer type has changed.
-    else if (!thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
-    {
-      thematicLayer.changeLayerType(thematicLayerType);
-    }
-
-    ValueQuery query = xmlToValueQuery(xml, thematicLayerType, true, thematicLayer);
-
-    String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
-    return layers;
-  }
+   * @Transaction public static String mapQuery(String xml, String
+   *              thematicLayerType, String[] universalLayers, String
+   *              savedSearchId) { if (savedSearchId == null ||
+   *              savedSearchId.trim().length() == 0) { String error =
+   *              "Cannot map a query without a current SavedSearch instance.";
+   *              SavedSearchRequiredException ex = new
+   *              SavedSearchRequiredException(error); throw ex; }
+   *
+   *              SavedSearch search = SavedSearch.get(savedSearchId);
+   *
+   *              if (thematicLayerType == null ||
+   *              thematicLayerType.trim().length() == 0) { String error =
+   *              "Cannot create a map for search [] without having restricted by a GeoEntity(s)."
+   *              ; MapWithoutGeoEntityException ex = new
+   *              MapWithoutGeoEntityException(error); throw ex; }
+   *
+   *              // Create the thematic layer if it does not exist
+   *              ThematicLayer thematicLayer = search.getThematicLayer(); if
+   *              (thematicLayer == null) { thematicLayer =
+   *              ThematicLayer.newInstance(thematicLayerType);
+   *              search.setThematicLayer(thematicLayer); } // Update
+   *              ThematicLayer if the thematic layer type has changed. else if
+   *              (!thematicLayer.getGeoHierarchy().getQualifiedType().equals(
+   *              thematicLayerType)) {
+   *              thematicLayer.changeLayerType(thematicLayerType); }
+   *
+   *              ValueQuery query = xmlToValueQuery(xml, thematicLayerType,
+   *              true, thematicLayer);
+   *
+   *              String layers = MapUtil.generateLayers(universalLayers, query,
+   *              search, thematicLayer); return layers; }
    */
 
   @Override

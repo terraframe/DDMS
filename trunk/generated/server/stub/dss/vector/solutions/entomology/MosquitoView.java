@@ -77,7 +77,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     this.setSampleId(mosquito.getSampleId());
     this.clearSex();
 
-    for(Sex sex : mosquito.getSex())
+    for (Sex sex : mosquito.getSex())
     {
       this.addSex(sex);
     }
@@ -103,7 +103,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     mosquito.setSampleId(this.getSampleId());
     mosquito.clearSex();
 
-    for(Sex sex : this.getSex())
+    for (Sex sex : this.getSex())
     {
       mosquito.addSex(sex);
     }
@@ -145,8 +145,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
         String concreteId = virtual.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
         MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
 
-        MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete
-            .getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
+        MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
 
         Class<?> c = LoaderDecorator.load(mdClass.definesType());
 
@@ -163,8 +162,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     return map;
   }
 
-  private void applyAssays(Mosquito mosquito) throws InstantiationException, IllegalAccessException,
-      IllegalArgumentException, SecurityException, InvocationTargetException, NoSuchMethodException
+  private void applyAssays(Mosquito mosquito) throws InstantiationException, IllegalAccessException, IllegalArgumentException, SecurityException, InvocationTargetException, NoSuchMethodException
   {
     Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = MosquitoView.getAssayMap();
 
@@ -190,33 +188,34 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
         testMethod = null;
       }
 
+      if (result == null)
+      {
+        result = c.newInstance();
+      }
+      else
+      {
+        c.getMethod("lock").invoke(result);
+      }
+
+      c.getMethod("setMosquito", Mosquito.class).invoke(result, mosquito);
+
       if (testResult != null)
       {
-        if (result == null)
-        {
-          result = c.newInstance();
-        }
-        else
-        {
-          c.getMethod("lock").invoke(result);
-        }
-
-        c.getMethod("setMosquito", Mosquito.class).invoke(result, mosquito);
 
         c.getMethod("setTestResult", testResult.getClass()).invoke(result, testResult);
-
-        if (testMethod != null)
-        {
-          c.getMethod("setTestMethod", testMethod.getClass()).invoke(result, testMethod);
-        }
-
-        c.getMethod("apply").invoke(result);
       }
+
+      if (testMethod != null)
+      {
+        c.getMethod("setTestMethod", testMethod.getClass()).invoke(result, testMethod);
+      }
+
+      c.getMethod("apply").invoke(result);
+
     }
   }
 
-  public void setAssays(AssayTestResult[] results) throws IllegalArgumentException, SecurityException,
-      IllegalAccessException, InvocationTargetException, NoSuchMethodException
+  public void setAssays(AssayTestResult[] results) throws IllegalArgumentException, SecurityException, IllegalAccessException, InvocationTargetException, NoSuchMethodException
   {
     Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> assayMap = MosquitoView.getAssayMap();
 
@@ -233,13 +232,17 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
         AbstractTerm testMethod = result.getTestMethod();
 
         String resultName = "set" + attributeName;
-
+        try {
         MosquitoView.class.getMethod(resultName, testResult.getClass()).invoke(this, testResult);
 
         if (result.hasTestMethod())
         {
           String methodName = "set" + attributeName + "Method";
           MosquitoView.class.getMethod(methodName, testMethod.getClass()).invoke(this, testMethod);
+        }
+        }
+        catch (Exception e) {
+          // TODO: handle exception
         }
       }
     }
@@ -256,24 +259,21 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     return array;
   }
 
-
-
   public static MdAttributeVirtual[] getAccessors(String className)
   {
     List<MdAttributeVirtual> list = new LinkedList<MdAttributeVirtual>();
     Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> map = MosquitoView.getAssayMap();
     Class<?> assayClass = LoaderDecorator.load(className);
 
-    for(Class<AssayTestResult> key : map.keySet())
+    for (Class<AssayTestResult> key : map.keySet())
     {
 
-      if(assayClass.isAssignableFrom(key))
+      if (assayClass.isAssignableFrom(key))
       {
         list.add(MdAttributeVirtual.get(map.get(key).getId()));
       }
     }
     return list.toArray(new MdAttributeVirtual[list.size()]);
   }
-
 
 }
