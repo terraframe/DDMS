@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.terraframe.mojo.constants.ClientRequestIF;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.entomology.AssaySexDTO;
 import dss.vector.solutions.entomology.MosquitoCollectionController;
@@ -16,8 +19,7 @@ import dss.vector.solutions.mo.IdentificationMethodDTO;
 import dss.vector.solutions.mo.ResistanceMethodologyDTO;
 import dss.vector.solutions.mo.SpecieDTO;
 
-public class KnockDownAssayController extends KnockDownAssayControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class KnockDownAssayController extends KnockDownAssayControllerBase implements Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/entomology/assay/KnockDownAssay/";
 
@@ -25,13 +27,13 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
   private static final long  serialVersionUID = 1237230661615L;
 
-  public KnockDownAssayController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public KnockDownAssayController(HttpServletRequest req, HttpServletResponse resp,
+      Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
-  public void create(KnockDownAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -44,8 +46,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     }
   }
 
-  public void failCreate(KnockDownAssayDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failCreate(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
     req.setAttribute("item", dto);
@@ -53,7 +54,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     render("createComponent.jsp");
   }
 
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws IOException, ServletException
   {
     if (!req.getRequestURI().contains(".viewAll.mojo"))
     {
@@ -70,24 +71,23 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     render("viewAllComponent.jsp");
   }
 
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void cancel(KnockDownAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
 
-  public void failCancel(KnockDownAssayDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failCancel(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
   }
 
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(String id) throws IOException, ServletException
   {
     KnockDownAssayDTO dto = KnockDownAssayDTO.lock(super.getClientRequest(), id);
 
@@ -97,12 +97,12 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     render("editComponent.jsp");
   }
 
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }
 
-  public void delete(KnockDownAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void delete(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -115,8 +115,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     }
   }
 
-  public void failDelete(KnockDownAssayDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failDelete(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
     req.setAttribute("item", dto);
@@ -124,26 +123,23 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     render("editComponent.jsp");
   }
 
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending,
-      java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+      throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    KnockDownAssayQueryDTO query = KnockDownAssayDTO.getAllInstances(clientRequest, sortAttribute,
-        isAscending, pageSize, pageNumber);
+    KnockDownAssayQueryDTO query = KnockDownAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending,
-      java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber)
+      throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance() throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     KnockDownAssayDTO dto = new KnockDownAssayDTO(clientRequest);
@@ -159,12 +155,12 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     render("createComponent.jsp");
   }
 
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();
   }
 
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void view(String id) throws IOException, ServletException
   {
     view(KnockDownAssayDTO.get(super.getClientRequest(), id));
   }
@@ -183,12 +179,12 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     render("viewComponent.jsp");
   }
 
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
 
-  public void update(KnockDownAssayDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -201,8 +197,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     }
   }
 
-  public void failUpdate(KnockDownAssayDTO dto) throws java.io.IOException,
-      javax.servlet.ServletException
+  public void failUpdate(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
     req.setAttribute("item", dto);
@@ -215,7 +210,6 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     ClientRequestIF request = super.getClientSession().getRequest();
 
     req.setAttribute("sex", AssaySexDTO.allItems(request));
-    req.setAttribute("collection", MosquitoCollectionDTO.getAllInstances(request, "keyName", true, 0, 0).getResultSet());
     req.setAttribute("generation", Arrays.asList(GenerationDTO.getAllActive(request)));
     req.setAttribute("identificationMethod", Arrays.asList(IdentificationMethodDTO.getAllActive(request)));
     req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAllActive(request)));

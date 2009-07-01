@@ -2,13 +2,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+    
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="collection">
-        <mjl:select var="current" valueAttribute="id" items="${collection}" param="collection">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
-        </mjl:select>
+        <mjl:input id="collectionInput" param="collectionInput" type="text" value="${item.collection != null ? item.collection.collectionId : ''}"/>
+        <mjl:input id="collectionId" param="collection" type="hidden" value="${item.collection != null ? item.collection.id : ''}" />        
       </mjl:dt>
       <mjl:dt attribute="testDate">
         <mjl:input type="text" param="testDate" id="testDate" classes="DatePick NoFuture" />
@@ -84,3 +87,11 @@
         <mjl:input type="text" param="quantityTested" />
       </mjl:dt>
     </mjl:component>
+
+<%=Halp.loadTypes(Arrays.asList(new String[]{AbstractMosquitoCollectionDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{ConcreteMosquitoCollectionDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionDTO.CLASS}))%>
+
+<script type="text/javascript" defer="defer">  
+  MDSS.collectionSearch('<%=MosquitoCollectionDTO.CLASS%>');
+</script>        

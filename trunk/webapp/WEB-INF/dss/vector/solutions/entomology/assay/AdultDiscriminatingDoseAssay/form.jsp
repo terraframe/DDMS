@@ -2,13 +2,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-    <mjl:component item="${item}" param="dto">
+    
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.entomology.AbstractMosquitoCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
+  
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionPointDTO"%><mjl:component item="${item}" param="dto">
       <mjl:dt attribute="collection">
-        <mjl:select var="current" valueAttribute="id" items="${collection}" param="collection">
-          <mjl:option>
-                ${current.displayLabel}
-              </mjl:option>
-        </mjl:select>
+        <mjl:input id="collectionInput" param="collectionInput" type="text" value="${item.collection != null ? item.collection.collectionId : ''}"/>
+        <mjl:input id="collectionId" param="collection" type="hidden" value="${item.collection != null ? item.collection.id : ''}" />        
       </mjl:dt>
       <mjl:dt attribute="testDate" type="text" classes="DatePick" />
       <mjl:dt attribute="testMethod">
@@ -101,3 +105,11 @@
         <mjl:input type="text" param="intervalTime" />
       </mjl:dt>
     </mjl:component>
+
+<%=Halp.loadTypes(Arrays.asList(new String[]{AbstractMosquitoCollectionDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{ConcreteMosquitoCollectionDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionDTO.CLASS}))%>
+
+<script type="text/javascript" defer="defer">  
+  MDSS.collectionSearch('<%=MosquitoCollectionDTO.CLASS%>');
+</script>    

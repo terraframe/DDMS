@@ -114,4 +114,24 @@ public abstract class ConcreteMosquitoCollection extends ConcreteMosquitoCollect
     }
   }
 
+  public static dss.vector.solutions.entomology.ConcreteMosquitoCollection getByCollectionId(java.lang.String collectionId)
+  {
+    ConcreteMosquitoCollectionQuery query = new ConcreteMosquitoCollectionQuery(new QueryFactory());
+    query.WHERE(query.getCollectionId().EQ(collectionId));
+    OIterator<? extends ConcreteMosquitoCollection> it = query.getIterator();
+    
+    try
+    {
+      if(it.hasNext())
+      {
+        return it.next();
+      }
+      
+      return null;      
+    }
+    finally
+    {
+      it.close();
+    }
+  }
 }
