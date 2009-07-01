@@ -467,23 +467,28 @@
           <char
             name="areaStandardsId"
             label="Area Standards Id"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="room"
             concrete="room"
-            type="dss.vector.solutions.irs.AreaStandards" />
+            type="dss.vector.solutions.irs.AreaStandards"
+            required="true" />
           <virtual
             name="structureArea"
             concrete="structureArea"
-            type="dss.vector.solutions.irs.AreaStandards" />
+            type="dss.vector.solutions.irs.AreaStandards"
+            required="true" />
           <virtual
             name="household"
             concrete="household"
-            type="dss.vector.solutions.irs.AreaStandards" />
+            type="dss.vector.solutions.irs.AreaStandards"
+            required="true" />
           <virtual
             name="unitNozzleAreaCoverage"
             concrete="unitNozzleAreaCoverage"
-            type="dss.vector.solutions.irs.AreaStandards" />
+            type="dss.vector.solutions.irs.AreaStandards"
+            required="true" />
         </attributes>
         <mdMethod
           name="deleteConcrete"

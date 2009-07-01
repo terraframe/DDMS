@@ -77,7 +77,8 @@
             <virtual
               name="targetUnit"
               concrete="targetUnit"
-              type="dss.vector.solutions.irs.AreaStandards" />
+              type="dss.vector.solutions.irs.AreaStandards"
+              required="true" />
           </attributes>
         </create>
       </mdView>
