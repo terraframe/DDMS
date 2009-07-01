@@ -217,7 +217,7 @@
       <mdProblem
         name="dss.vector.solutions.irs.RequiredSeasonProblem"
         label="Required Season Problem"
-        description="Malaria season requires a value"/>
+        description="Malaria season requires a value" />
 
       <mdView
         name="dss.vector.solutions.irs.ResourceTargetView"
@@ -227,231 +227,288 @@
           <char
             name="targetId"
             label="Target Id"
-            size="255" />
+            size="255"
+            required="true" />
           <char
             name="targeterName"
             label="Name"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="season"
             type="dss.vector.solutions.irs.ResourceTarget"
-            concrete="season" />
+            concrete="season"
+            required="true" />
           <virtual
             name="targeter"
             type="dss.vector.solutions.irs.ResourceTarget"
-            concrete="targeter" />
+            concrete="targeter"
+            required="true" />
           <virtual
             concrete="target_0"
             name="target_0"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_1"
             name="target_1"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_2"
             name="target_2"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_3"
             name="target_3"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_4"
             name="target_4"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_5"
             name="target_5"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_6"
             name="target_6"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_7"
             name="target_7"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_8"
             name="target_8"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_9"
             name="target_9"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_10"
             name="target_10"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_11"
             name="target_11"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_12"
             name="target_12"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_13"
             name="target_13"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_14"
             name="target_14"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_15"
             name="target_15"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_16"
             name="target_16"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_17"
             name="target_17"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_18"
             name="target_18"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_19"
             name="target_19"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_20"
             name="target_20"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_21"
             name="target_21"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_22"
             name="target_22"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_23"
             name="target_23"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_24"
             name="target_24"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_25"
             name="target_25"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_26"
             name="target_26"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_27"
             name="target_27"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_28"
             name="target_28"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_29"
             name="target_29"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_30"
             name="target_30"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_31"
             name="target_31"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_32"
             name="target_32"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_33"
             name="target_33"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_34"
             name="target_34"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_35"
             name="target_35"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_36"
             name="target_36"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_37"
             name="target_37"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_38"
             name="target_38"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_39"
             name="target_39"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_40"
             name="target_40"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_41"
             name="target_41"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_42"
             name="target_42"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_43"
             name="target_43"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_44"
             name="target_44"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_45"
             name="target_45"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_46"
             name="target_46"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_47"
             name="target_47"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_48"
             name="target_48"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_49"
             name="target_49"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_50"
             name="target_50"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_51"
             name="target_51"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
           <virtual
             concrete="target_52"
             name="target_52"
-            type="dss.vector.solutions.irs.ResourceTarget" />
+            type="dss.vector.solutions.irs.ResourceTarget"
+            required="true" />
         </attributes>
         <mdMethod
           name="sum"
@@ -726,231 +783,288 @@
           <char
             name="targetId"
             label="Target Id"
-            size="255" />
+            size="255"
+            required="true" />
           <virtual
             name="geoEntity"
             type="dss.vector.solutions.irs.GeoTarget"
-            concrete="geoEntity" />
+            concrete="geoEntity"
+            required="true" />
           <virtual
             name="entityName"
             type="dss.vector.solutions.geo.generated.GeoEntity"
-            concrete="entityName" />
+            concrete="entityName"
+            required="true" />
           <virtual
             name="season"
             type="dss.vector.solutions.irs.GeoTarget"
-            concrete="season" />
+            concrete="season"
+            required="true" />
           <virtual
             concrete="target_0"
             name="target_0"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_1"
             name="target_1"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_2"
             name="target_2"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_3"
             name="target_3"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_4"
             name="target_4"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_5"
             name="target_5"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_6"
             name="target_6"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_7"
             name="target_7"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_8"
             name="target_8"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_9"
             name="target_9"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_10"
             name="target_10"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_11"
             name="target_11"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_12"
             name="target_12"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_13"
             name="target_13"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_14"
             name="target_14"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_15"
             name="target_15"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_16"
             name="target_16"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_17"
             name="target_17"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_18"
             name="target_18"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_19"
             name="target_19"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_20"
             name="target_20"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_21"
             name="target_21"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_22"
             name="target_22"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_23"
             name="target_23"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_24"
             name="target_24"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_25"
             name="target_25"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_26"
             name="target_26"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_27"
             name="target_27"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_28"
             name="target_28"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_29"
             name="target_29"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_30"
             name="target_30"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_31"
             name="target_31"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_32"
             name="target_32"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_33"
             name="target_33"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_34"
             name="target_34"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_35"
             name="target_35"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_36"
             name="target_36"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_37"
             name="target_37"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_38"
             name="target_38"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_39"
             name="target_39"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_40"
             name="target_40"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_41"
             name="target_41"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_42"
             name="target_42"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_43"
             name="target_43"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_44"
             name="target_44"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_45"
             name="target_45"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_46"
             name="target_46"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_47"
             name="target_47"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_48"
             name="target_48"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_49"
             name="target_49"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_50"
             name="target_50"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_51"
             name="target_51"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
           <virtual
             concrete="target_52"
             name="target_52"
-            type="dss.vector.solutions.irs.GeoTarget" />
+            type="dss.vector.solutions.irs.GeoTarget"
+            required="true" />
         </attributes>
         <mdMethod
           name="sum"
