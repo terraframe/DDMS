@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="java.util.ResourceBundle"%>
 <%@page import="org.apache.taglibs.standard.tag.common.fmt.BundleSupport"%>
 <%@page import="java.util.Enumeration"%>
