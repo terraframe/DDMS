@@ -14,7 +14,7 @@
         <mjl:input id="collectionInput" param="collectionInput" type="text" value="${item.collection != null ? item.collection.collectionId : ''}"/>
         <mjl:input id="collectionId" param="collection" type="hidden" value="${item.collection != null ? item.collection.id : ''}" />        
       </mjl:dt>
-      <mjl:dt attribute="testDate" type="text" classes="DatePick" />
+      <mjl:dt attribute="testDate" type="text" classes="DatePick NoFuture" />
       <mjl:dt attribute="testMethod">
         <mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
           <mjl:option>

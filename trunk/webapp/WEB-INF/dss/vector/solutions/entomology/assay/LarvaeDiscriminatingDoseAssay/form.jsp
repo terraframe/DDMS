@@ -13,7 +13,7 @@
         <mjl:input id="collectionId" param="collection" type="hidden" value="${item.collection != null ? item.collection.id : ''}" />        
       </mjl:dt>
       <mjl:dt attribute="testDate">
-        <mjl:input type="text" param="testDate" classes="DatePick" id="testDate" />
+        <mjl:input type="text" param="testDate" classes="DatePick NoFuture" id="testDate" />
       </mjl:dt>
       <mjl:dt attribute="specie">
         <mjl:select var="current" valueAttribute="id" items="${specie}" param="specie" includeBlank="true">

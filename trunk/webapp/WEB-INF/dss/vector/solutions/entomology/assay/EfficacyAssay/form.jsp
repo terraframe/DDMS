@@ -8,7 +8,7 @@
         <mjl:input id="geoIdEl" param="geoId" type="text" value="${item.geoId}" maxlength="16" classes="geoInput"/>
       </mjl:dt>
       <mjl:dt attribute="testDate">
-        <mjl:input type="text" param="testDate" classes="DatePick" id="testDate" />
+        <mjl:input type="text" param="testDate" classes="DatePick NoFuture" id="testDate" />
       </mjl:dt>
       <mjl:dt attribute="testMethod">
         <mjl:select var="current" valueAttribute="id" items="${testMethod}" param="testMethod">
