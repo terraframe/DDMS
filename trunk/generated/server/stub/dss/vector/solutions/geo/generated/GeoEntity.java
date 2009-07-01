@@ -59,7 +59,8 @@ import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.NoCompatibleTypesException;
 import dss.vector.solutions.util.GeoEntityImporter;
 
-public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.mojo.generation.loader.Reloadable
+public abstract class GeoEntity extends GeoEntityBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234288139462L;
 
@@ -77,7 +78,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   /**
    * Applies this GeoEntity and recursively sets the activated status of all
    * children if the status has changed on the parent.
-   *
+   * 
    * @return
    */
   @Transaction
@@ -100,7 +101,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   /**
    * Updates this GeoEntity and its children if its activated attribute has been
    * modified.
-   *
+   * 
    * @return
    */
   @Override
@@ -146,7 +147,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   /**
    * Searches for a GeoEntity based on the entity name and type.
-   *
+   * 
    * @param type
    * @param name
    * @return
@@ -155,21 +156,29 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   {
     QueryFactory f = new QueryFactory();
 
-    Class<?> klass = LoaderDecorator.load(type + "Query");
     GeoEntityQuery q;
-    try
+    if (type == null || type.trim().length() == 0)
     {
-      Constructor<?> constructor = klass.getConstructor(QueryFactory.class);
-      q = (GeoEntityQuery) constructor.newInstance(f);
+      q = new GeoEntityQuery(f);
     }
-    catch (Throwable t)
+    else
     {
-      throw new ProgrammingErrorException(t);
+      Class<?> klass = LoaderDecorator.load(type + "Query");
+      try
+      {
+        Constructor<?> constructor = klass.getConstructor(QueryFactory.class);
+        q = (GeoEntityQuery) constructor.newInstance(f);
+      }
+      catch (Throwable t)
+      {
+        throw new ProgrammingErrorException(t);
+      }
     }
 
     ValueQuery valueQuery = new ValueQuery(f);
 
-    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME) };
+    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID),
+        q.getEntityName(GeoEntity.ENTITYNAME) };
     valueQuery.SELECT(selectables);
 
     String searchable = name + "%";
@@ -182,7 +191,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   /**
    * Searches for a GeoEntity based on the entity name and type.
-   *
+   * 
    * @param type
    * @param name
    * @return
@@ -190,25 +199,36 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   public static ValueQuery searchByEntityNameOrGeoId(String type, String name)
   {
     QueryFactory f = new QueryFactory();
-    Class<?> klass = LoaderDecorator.load(type + "Query");
     GeoEntityQuery q;
-    try
+
+    if (type == null || type.trim().length() == 0)
     {
-      Constructor<?> constructor = klass.getConstructor(QueryFactory.class);
-      q = (GeoEntityQuery) constructor.newInstance(f);
+      q = new GeoEntityQuery(f);
     }
-    catch (Throwable t)
+    else
     {
-      throw new ProgrammingErrorException(t);
+      Class<?> klass = LoaderDecorator.load(type + "Query");
+      try
+      {
+        Constructor<?> constructor = klass.getConstructor(QueryFactory.class);
+        q = (GeoEntityQuery) constructor.newInstance(f);
+      }
+      catch (Throwable t)
+      {
+        throw new ProgrammingErrorException(t);
+      }
     }
+    
     ValueQuery valueQuery = new ValueQuery(f);
 
-    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID), q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE)};
+    Selectable[] selectables = new Selectable[] { q.getId(GeoEntity.ID),
+        q.getEntityName(GeoEntity.ENTITYNAME), q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE) };
     valueQuery.SELECT(selectables);
 
     String searchable = name + "%";
 
-    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(searchable));
+    Condition or = OR.get(q.getEntityName(GeoEntity.ENTITYNAME).LIKEi(searchable), q.getGeoId().LIKEi(
+        searchable));
 
     valueQuery.WHERE(or);
 
@@ -292,28 +312,20 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     {
       child.delete();
     }
-    
+
     /*
-    // DO NO CLEANUP FOR V1 AND LET A REQUIRED REFERENCE ERROR BE THROWN 
-    // clean up the paths table. This will invalidate the paths table
-    QueryFactory f = new QueryFactory();
-    AllPathsQuery pathsQuery = new AllPathsQuery(f);
-    
-    pathsQuery.WHERE(OR.get(pathsQuery.getChildGeoEntity().EQ(this), pathsQuery.getParentGeoEntity().EQ(this)));
-    
-    OIterator<? extends AllPaths> iter = pathsQuery.getIterator();
-    try
-    {
-      while(iter.hasNext())
-      {
-        iter.next().delete();
-      }
-    }
-    finally
-    {
-      iter.close();
-    }
-    */
+     * // DO NO CLEANUP FOR V1 AND LET A REQUIRED REFERENCE ERROR BE THROWN //
+     * clean up the paths table. This will invalidate the paths table
+     * QueryFactory f = new QueryFactory(); AllPathsQuery pathsQuery = new
+     * AllPathsQuery(f);
+     * 
+     * pathsQuery.WHERE(OR.get(pathsQuery.getChildGeoEntity().EQ(this),
+     * pathsQuery.getParentGeoEntity().EQ(this)));
+     * 
+     * OIterator<? extends AllPaths> iter = pathsQuery.getIterator(); try {
+     * while(iter.hasNext()) { iter.next().delete(); } } finally { iter.close();
+     * }
+     */
 
     super.delete();
   }
@@ -338,7 +350,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   /**
    * Searches for the GeoEntity with the given geoId and returns itself and its
    * children and parents.
-   *
+   * 
    * @param geoId
    * @param filter
    * @return
@@ -383,16 +395,16 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     for (GeoEntity geoEntity : collected)
     {
       boolean match = filteredTypes.size() == 0 ? true : false;
-      for(String filterType : filteredTypes)
+      for (String filterType : filteredTypes)
       {
         // allow is_a children
-        if(LoaderDecorator.load(filterType).isAssignableFrom(geoEntity.getClass()))
+        if (LoaderDecorator.load(filterType).isAssignableFrom(geoEntity.getClass()))
         {
           match = true;
         }
       }
-      
-      if(match)
+
+      if (match)
       {
         finalList.add(geoEntity.getViewFromGeoEntity());
       }
@@ -405,7 +417,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   /**
    * Converts a GeoEntity id into a view representation.
-   *
+   * 
    * @return
    */
 
@@ -416,18 +428,18 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   /**
    * Converts a GeoEntity id into a view representation.
-   *
+   * 
    * @return
    */
 
   public static GeoEntityView getViewByGeoId(String id)
   {
-    return  GeoEntity.searchByGeoId(id).getViewFromGeoEntity();
+    return GeoEntity.searchByGeoId(id).getViewFromGeoEntity();
   }
 
   /**
    * Converts this GeoEntity into a view representation.
-   *
+   * 
    * @return
    */
   private GeoEntityView getViewFromGeoEntity()
@@ -448,7 +460,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   /**
    * Returns all parents of this GeoEntity up to one level.
-   *
+   * 
    * @return
    */
   public List<GeoEntity> getImmediateParents()
@@ -472,7 +484,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   /**
    * Recursively collects all children with the {@link LocatedIn} relationship.
-   *
+   * 
    * @return
    */
   public List<GeoEntity> getAllChildren()
@@ -484,7 +496,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   /**
    * Recursively collects all child ids with the {@link LocatedIn} relationship.
-   *
+   * 
    * @param filter
    *          Return only children with this class
    * @return Array of child Ids sorted by name
@@ -506,10 +518,10 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     return geoEntityIdList.toArray(new String[geoEntityIdList.size()]);
   }
-  
+
   /**
    * Recursive function to collect {@link LocatedIn} children.
-   *
+   * 
    * @param children
    * @param parent
    */
@@ -525,7 +537,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   /**
    * Recursively collects all parents of the LocatedIn relationship.
-   *
+   * 
    * @return
    */
   public List<GeoEntity> getAllParents()
@@ -539,7 +551,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   /**
    * Recursive method that collects all parents for the given parent.
-   *
+   * 
    * @param allChildren
    * @param parent
    * @return
@@ -553,10 +565,10 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       getAllParents(allParents, parent);
     }
   }
-  
+
   /**
    * Returns all the children of this GeoEntity up to one level.
-   *
+   * 
    * @return
    */
   public List<GeoEntity> getImmediateChildren()
@@ -577,10 +589,10 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     return children;
   }
-    
+
   /**
    * Returns the first level of children which belong to the spray hierarchy.
-   *
+   * 
    * @return
    */
   public GeoEntity[] getImmediateSprayChildren()
@@ -588,27 +600,27 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     List<GeoEntity> children = this.getPrunedChildren(GeoHierarchy.getSprayHierarchies(this));
 
     return children.toArray(new GeoEntity[children.size()]);
-  }  
+  }
 
   /**
-   * Gets all children of a GeoEntity, but stops its breadth-first decent
-   * when it finds a child which belongs to the given fully qualified types.
+   * Gets all children of a GeoEntity, but stops its breadth-first decent when
+   * it finds a child which belongs to the given fully qualified types.
    */
   private List<GeoEntity> getPrunedChildren(GeoHierarchyView... types)
   {
     List<String> list = new LinkedList<String>();
-    
-    for(GeoHierarchyView view : types)
+
+    for (GeoHierarchyView view : types)
     {
-      list.add(MDSSInfo.GENERATED_GEO_PACKAGE+ "." + view.getTypeName());
+      list.add(MDSSInfo.GENERATED_GEO_PACKAGE + "." + view.getTypeName());
     }
-    
+
     return this.getPrunedChildren(list);
   }
 
   /**
-   * Gets all children of a GeoEntity, but stops its breadth-first decent
-   * when it finds a child which belongs to the given fully qualified types.
+   * Gets all children of a GeoEntity, but stops its breadth-first decent when
+   * it finds a child which belongs to the given fully qualified types.
    */
   public List<GeoEntity> getPrunedChildren(String... types)
   {
@@ -616,19 +628,19 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   }
 
   /**
-   * Gets all children of a GeoEntity, but stops its breadth-first decent
-   * when it finds a child which belongs to the given fully qualified types.
+   * Gets all children of a GeoEntity, but stops its breadth-first decent when
+   * it finds a child which belongs to the given fully qualified types.
    */
   public List<GeoEntity> getPrunedChildren(List<String> types)
   {
     List<GeoEntity> list = new LinkedList<GeoEntity>();
     Queue<GeoEntity> queue = new LinkedList<GeoEntity>(this.getImmediateChildren());
 
-    while(!queue.isEmpty())
+    while (!queue.isEmpty())
     {
       GeoEntity child = queue.poll();
 
-      if(types.contains(child.getType()))
+      if (types.contains(child.getType()))
       {
         list.add(child);
       }
@@ -640,7 +652,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     return list;
   }
-  
+
   public List<GeoEntity> getPrunedParents(String... types)
   {
     return this.getPrunedParents(Arrays.asList(types));
@@ -651,11 +663,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     List<GeoEntity> list = new LinkedList<GeoEntity>();
     Queue<GeoEntity> queue = new LinkedList<GeoEntity>(this.getImmediateParents());
 
-    while(!queue.isEmpty())
+    while (!queue.isEmpty())
     {
       GeoEntity parent = queue.poll();
 
-      if(types.contains(parent.getType()))
+      if (types.contains(parent.getType()))
       {
         list.add(parent);
       }
@@ -671,7 +683,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   /**
    * Sets all children of the parent GeoEntity to the given activated status. If
    * a child has more than one parent then nothing is changed for that child.
-   *
+   * 
    * @param activated
    * @param parent
    * @return A list of ids for each updated child.
@@ -703,7 +715,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
    * Checks if this GoeEntity is eligible to have its active status changed. The
    * general rule is as follows: A child with more than one parent set to active
    * cannot be deactivated. All other cases are allowed.
-   *
+   * 
    * @param activated
    *          The active status of the parent.
    * @return
@@ -734,7 +746,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
    * Adds this GeoEntity as a child of the given parent for the
    * {@link LocatedIn} relationship. If this is not for a clone operation then
    * all prior parent relationships will be removed.
-   *
+   * 
    */
   @Override
   @Transaction
@@ -790,7 +802,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
         String childDL = this.getEntityName();
         String parentDL = parent.getEntityName();
 
-        String error = "The child [" + childDL + "] is already located in the parent [" + parentDL + "].";
+        String error = "The child [" + childDL + "] is already located in the parent [" + parentDL
+            + "].";
         DuplicateParentException e = new DuplicateParentException(error);
         e.setChildEntityName(childDL);
         e.setParentEntityName(parentDL);
@@ -843,7 +856,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   /**
    * Validates that this GeoEntity is allowed in the given parent GeoEntity.
-   *
+   * 
    * @param parentGeoEntityId
    * @return
    */
@@ -887,7 +900,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
   /**
    * Recursively checks if the child GeoHierarcy is allowed in the parent.
-   *
+   * 
    * @param parent
    * @param child
    * @return
@@ -928,11 +941,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     types.remove(type);
 
-    if(types.isEmpty())
+    if (types.isEmpty())
     {
       NoCompatibleTypesException ex = new NoCompatibleTypesException();
-      //ex.setEntityName(this.getEntityName());
-      //ex.setGeoId(this.getGeoId());
+      // ex.setEntityName(this.getEntityName());
+      // ex.setGeoId(this.getGeoId());
       throw ex;
     }
 
@@ -950,15 +963,16 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
       // copy all attributes from the old object to the new
       MdBusinessDAOIF oldMd = MdBusinessDAO.getMdBusinessDAO(newType);
-      for(MdAttributeConcreteDAOIF mdAttr : oldMd.getAllDefinedMdAttributes())
+      for (MdAttributeConcreteDAOIF mdAttr : oldMd.getAllDefinedMdAttributes())
       {
-        if(!mdAttr.isSystem())
+        if (!mdAttr.isSystem())
         {
           String attrName = mdAttr.definesAttribute();
 
-          if(mdAttr instanceof MdAttributeGeometryDAOIF)
+          if (mdAttr instanceof MdAttributeGeometryDAOIF)
           {
-            AttributeGeometryIF geoAttr = (AttributeGeometryIF) BusinessFacade.getAttribute(copy, attrName);
+            AttributeGeometryIF geoAttr = (AttributeGeometryIF) BusinessFacade.getAttribute(copy,
+                attrName);
             copy.setValue(attrName, geoAttr.getGeometry());
           }
           else
@@ -975,12 +989,12 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       this.delete();
       copy.apply();
 
-      for(GeoEntity parent : parents)
+      for (GeoEntity parent : parents)
       {
         copy.addLocatedInGeoEntity(parent).apply();
       }
 
-      for(GeoEntity child : children)
+      for (GeoEntity child : children)
       {
         copy.addContainsGeoEntity(child).apply();
       }
@@ -1052,7 +1066,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       vQuery.WHERE(this.locatedInQuery.parentId().EQ(geoEntity.getId()));
       vQuery.WHERE(this.geoEntityQuery.locatedInGeoEntity(this.locatedInQuery));
 
-      vQuery.WHERE(F.CONCAT(mdBusinessQuery.getPackageName(), F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
+      vQuery.WHERE(F.CONCAT(mdBusinessQuery.getPackageName(),
+          F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
 
       // filter by type if possible (and all of type's child subclasses)
       if (filter != null && filter.trim().length() > 0)
@@ -1068,7 +1083,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   /**
    * Given a filter (a GeoEntity class), this method returns all parents and
    * children and the filter type itself that's allowed in the hierarchy.
-   *
+   * 
    * @param type
    * @return
    */
@@ -1138,7 +1153,6 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     }
   }
 
-
   private static void updateAllPathForGeoEntity(String childId)
   {
     updateAllPathForGeoEntity(childId, false, 0);
@@ -1147,7 +1161,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
   @Transaction
   public static int updateAllPathForGeoEntity(String childId, boolean showTicker, int applyCount)
   {
-    MdClassDAOIF childMdClassIF = MdClassDAO.getMdClassByRootId(IdParser.parseMdTypeRootIdFromId(childId));
+    MdClassDAOIF childMdClassIF = MdClassDAO.getMdClassByRootId(IdParser
+        .parseMdTypeRootIdFromId(childId));
 
     createPath(childId, childMdClassIF.getId(), childId, childMdClassIF.getId());
 
@@ -1160,7 +1175,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
 
     for (String parentId : parentIdList)
     {
-      MdClassDAOIF parentMdClassIF = MdClassDAO.getMdClassByRootId(IdParser.parseMdTypeRootIdFromId(parentId));
+      MdClassDAOIF parentMdClassIF = MdClassDAO.getMdClassByRootId(IdParser
+          .parseMdTypeRootIdFromId(parentId));
       createPath(parentId, parentMdClassIF.getId(), childId, childMdClassIF.getId());
       if (showTicker)
       {
@@ -1196,7 +1212,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
     return parentIdList;
   }
 
-  private static void createPath(String parentId, String parentMdBusiness, String childId, String childMdBusiness)
+  private static void createPath(String parentId, String parentMdBusiness, String childId,
+      String childMdBusiness)
   {
     try
     {
@@ -1207,12 +1224,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.terraframe.
       allPaths.setValue(AllPaths.CHILDUNIVERSAL, childMdBusiness);
       allPaths.apply();
     }
-    catch(DuplicateDataDatabaseException ex)
+    catch (DuplicateDataDatabaseException ex)
     {
-      // This might happen.  Relationship already exists.
+      // This might happen. Relationship already exists.
     }
   }
-
 
   private static int updateAllPathsTicker(int applyCount)
   {
