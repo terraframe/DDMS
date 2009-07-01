@@ -25,9 +25,11 @@ import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
 import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
+import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.entomology.assay.AbstractAssayDTO;
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
+import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.surveillance.AbstractGridDTO;
 import dss.vector.solutions.surveillance.AbstractGridQueryDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
@@ -49,6 +51,8 @@ public class QueryController extends QueryControllerBase implements
   private static final long   serialVersionUID       = 1237863171352L;
 
   private static final String QUERY_ENTOMOLOGY       = "/WEB-INF/queryScreens/queryEntomology.jsp";
+
+  private static final String QUERY_IRS = "/WEB-INF/queryScreens/queryIRS.jsp";
 
   private static final String QUERY_AGGREGATED_CASES = "/WEB-INF/queryScreens/queryAggregatedCases.jsp";
 
@@ -352,9 +356,45 @@ public class QueryController extends QueryControllerBase implements
   }
 
 
+  /**
+   * Creates the screen to query for Entomology (mosquitos).
+   */
+
+  public void queryIRS() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = EntomologySearchDTO.getEntomologyQueries(this.getClientRequest());
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+
+      req.setAttribute("queryList", queries.toString());
+
+      req.getRequestDispatcher(QUERY_IRS).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+
+
 
   @Override
-  public void exportQueryToCSV(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
+  public void exportAggregatedCaseQueryToCSV(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
       throws IOException, ServletException
   {
     try
@@ -378,6 +418,78 @@ public class QueryController extends QueryControllerBase implements
     try
     {
       InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+
+  @Override
+  public void exportIRSQueryToCSV(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
+      throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+
+  @Override
+  public void exportIRSQueryToExcel(String queryXML, String geoEntityType,
+      String savedSearchId, String[] restrictingEntities) throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = AbstractSprayDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+
+  @Override
+  public void exportEntomologyQueryToCSV(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
+      throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
+
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+
+      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+
+  @Override
+  public void exportEntomologyQueryToExcel(String queryXML, String geoEntityType,
+      String savedSearchId, String[] restrictingEntities) throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = MosquitoDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -534,7 +646,7 @@ public class QueryController extends QueryControllerBase implements
 
 
   /**
-   * Creates the sceen to query for IndicatorSurvey.
+   * Creates the screen to query for IndicatorSurvey.
    */
   public void queryIndicatorSurvey() throws IOException, ServletException
   {

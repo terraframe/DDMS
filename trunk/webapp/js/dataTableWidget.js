@@ -35,6 +35,26 @@ MojoGrid.createDataTable = function(table_data) {
 
 	table_data.dirty = false;
 
+	if(table_data.compressHeaders)
+	{
+	  table_data.columnDefs.map(function(col){
+	    var maxLength = 0;
+	    var words = col.label.split(' ');
+	    words.map(function(w){if(w.length>maxLength)maxLength=w.length;})
+	    var buff = '';
+	    var lineLength = 0;
+	    words.map(function(w){
+	      if(lineLength + w.length > maxLength){
+	       buff += '<br>';
+	       lineLength = 0;
+	      }
+	       buff += w + ' ';
+	       lineLength += w.length;
+	      });
+	    col.label = buff;
+	  });
+	}
+
 	// load the data
 	myDataSource = new YAHOO.util.DataSource(table_data.rows);
 	myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;

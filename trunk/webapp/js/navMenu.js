@@ -127,6 +127,7 @@ var aSubmenuData = [
             },
             { text: "Aggregated_IPT_Information(069)", url: "dss.vector.solutions.intervention.monitor.AggregatedIPTController.search.mojo", visibileTo:'Administrator'},
             { text: "ITN_Data_Distribution(080)", url: "dss.vector.solutions.intervention.monitor.ITNDataController.search.mojo", visibileTo:'Administrator'},
+            { text: "Query_IRS(132)", url: "dss.vector.solutions.query.QueryController.queryIRS.mojo" , visibleTo:'Administrator'},
         ]
     },
     {

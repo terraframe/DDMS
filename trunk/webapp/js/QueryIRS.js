@@ -1,5 +1,5 @@
-MDSS.QueryEntomology = Mojo.Class.create();
-MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
+MDSS.QueryIRS = Mojo.Class.create();
+MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	  initialize : function(groupAttributes,individualAttributes, orderedGrids, queryList)
 	  {
@@ -62,7 +62,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	  _getExportCSVAction : function()
 	  {
-	  	return 'dss.vector.solutions.query.QueryController.exportEntomologyQueryToCSV.mojo';
+	  	return 'dss.vector.solutions.query.QueryController.exportQueryToCSV.mojo';
 	  },
 
 	  /**

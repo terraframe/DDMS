@@ -1,5 +1,6 @@
 package dss.vector.solutions.entomology;
 
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,8 @@ import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.SelectableSingle;
 import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.query.ValueQueryCSVExporter;
+import com.terraframe.mojo.query.ValueQueryExcelExporter;
 import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
@@ -37,6 +40,8 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.SavedSearch;
+import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.query.ThematicVariable;
 
@@ -334,6 +339,72 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     valueQuery.restrictRows(pageSize, pageNumber);
 
     return valueQuery;
+  }
+
+  @Transaction
+  public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId,String[] restrictingEntities)
+  {
+    // FIXME put parsing into common place
+    String selectedUniversals[];
+    try
+    {
+      JSONArray arr = new JSONArray(config);
+      selectedUniversals = new String[arr.length()];
+      for(int i=0; i<selectedUniversals.length; i++)
+      {
+        selectedUniversals[i] = arr.getString(i);
+      }
+    }
+    catch(JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot export to Excel without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    SavedSearch search = SavedSearch.get(savedSearchId);
+
+    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null);
+
+    ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
+    return exporter.exportStream();
+  }
+
+  @Transaction
+  public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId, String[] restrictingEntities)
+  {
+    // FIXME put parsing into common place
+    String selectedUniversals[];
+    try
+    {
+      JSONArray arr = new JSONArray(config);
+      selectedUniversals = new String[arr.length()];
+      for(int i=0; i<selectedUniversals.length; i++)
+      {
+        selectedUniversals[i] = arr.getString(i);
+      }
+    }
+    catch(JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+
+    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    {
+      String error = "Cannot export to CSV without a current SavedSearch instance.";
+      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+      throw ex;
+    }
+
+    ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null);
+
+    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
+    return exporter.exportStream();
   }
 
   /**
