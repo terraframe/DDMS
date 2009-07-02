@@ -23,7 +23,8 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   @Override
   public void validateOperatorId()
   {
-    if(this.getOperatorId() != null && this.getLeaderId() != null)
+    if(this.getOperatorId() != null && !this.getOperatorId().equals("") &&
+       this.getLeaderId() != null && !this.getLeaderId().equals(""))
     {
       if(this.getOperatorId().equals(this.getLeaderId()))
       {
