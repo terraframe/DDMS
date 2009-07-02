@@ -134,6 +134,16 @@
           <operation name="READ"/>
           <operation name="READ_ALL"/>
         </mdBusinessPermission>
+        
+        <mdBusinessPermission type="dss.vector.solutions.entomology.MosquitoCollectionPoint">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdBusinessPermission>
+        
+        <mdViewPermission type="dss.vector.solutions.entomology.MosquitoCollectionPointView">
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdViewPermission>
 
         <!-- DEFINE ALL READ PERMISSIONS FOR GEO ENTITIES -->
         <mdBusinessPermission type="dss.vector.solutions.geo.SpatialMaster">
@@ -679,6 +689,15 @@
           <operation name="WRITE_ALL"/>
           <operation name="WRITE"/>
         </mdViewPermission>
+        <!-- Define all READ permissions for Administration -->
+        <mdViewPermission type="dss.vector.solutions.MDSSUserView">
+          <operation name="CREATE"/>
+          <operation name="WRITE"/>
+          <operation name="WRITE_ALL"/>
+          <operation name="DELETE"/>
+          <operation name="READ"/>
+          <operation name="READ_ALL"/>
+        </mdViewPermission>        
       </role>
       <role roleName="dataCapturer">
         <mdBusinessPermission
@@ -3218,14 +3237,6 @@
       <role roleName="mdssCoordinator">
         <!-- DEFINE WRITE PERMISSIONS FOR ADMINISTRATION -->
         <mdViewPermission type="dss.vector.solutions.util.ReadableAttributeView">
-          <operation name="CREATE"/>
-          <operation name="WRITE"/>
-          <operation name="WRITE_ALL"/>
-          <operation name="DELETE"/>
-          <operation name="READ"/>
-          <operation name="READ_ALL"/>
-        </mdViewPermission>
-        <mdViewPermission type="dss.vector.solutions.MDSSUserView">
           <operation name="CREATE"/>
           <operation name="WRITE"/>
           <operation name="WRITE_ALL"/>

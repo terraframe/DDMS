@@ -53,8 +53,6 @@
         <mjl:message/>
       </mjl:messages>
     </dd>
+    <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionPointController.searchByGeoIdAndDate.mojo" name="search.button"  value="Search"/>
   </dl>
-  <br>
-  <br>
-  <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionPointController.searchByGeoIdAndDate.mojo" name="search.button"  value="Search"/>
 </mjl:form>

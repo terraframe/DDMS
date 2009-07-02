@@ -111,7 +111,8 @@ MALAWI</div>
 var checkForFF = function () {
 // Define private vars here.
   var downloadLink = "http://www.getfirefox.com";
-  var is_firefox = /Firefox.3/i.test(navigator.userAgent); // is IE6??
+  var agent = navigator.userAgent;
+  var is_firefox = /Firefox.3/i.test(agent) || /Shiretoko.3/i.test(agent); // is IE6??
   var overlayColor  = "#000000";  // Change these to fit your color scheme.
   var lightboxColor = "#ffffff";  // " "
   var borderColor   = "#ff0000";  // " "
