@@ -19,7 +19,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/OperatorSpray/";
 
-  public static final String LAYOUT           = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT           = "/layout.jsp";
 
   private static final long  serialVersionUID = 1240853382362L;
 
