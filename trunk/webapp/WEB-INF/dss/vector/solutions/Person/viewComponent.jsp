@@ -123,8 +123,7 @@
         </fieldset>
       </dd>
     </c:if>
+    <mjl:command value="Edit" action="dss.vector.solutions.PersonController.edit.mojo" name="dss.vector.solutions.Person.form.edit.button" />
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.PersonController.edit.mojo" name="dss.vector.solutions.Person.form.edit.button" />
-  <br />
 </mjl:form>
 <mjl:commandLink display="View All" action="dss.vector.solutions.PersonController.viewAll.mojo" name="dss.vector.solutions.Person.viewAll.link" />

@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
   <mjl:component item="${item}" param="person">
     <mjl:input type="hidden" param="personId" value="${item.personId}" />
-    <dl>
       <dt>
         <label>
           ${item.firstNameMd.displayLabel}
@@ -202,5 +201,4 @@
           </fieldset>
         </div>
       </dd>
-    </dl>
   </mjl:component>

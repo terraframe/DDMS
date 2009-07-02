@@ -1,0 +1,22 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.DelegateIdException"
+        label="Delegate Id Exception"
+        description="The Operator Id cannot match the Spray Leader Id"/>
+      <mdException
+        name="dss.vector.solutions.UniqueOperatorIdException"
+        label="Operator Id Exception"
+        description="The Operator Id is already used"/>
+      <mdException
+        name="dss.vector.solutions.UniqueLeaderIdException"
+        label="Leader Id Exception"
+        description="The Spray Leader Id is already used"/>
+    </create>
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>

@@ -23,9 +23,10 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.Person.form.name" id="dss.vector.solutions.Person.form.id" method="POST">
+  <dl> 
+    <jsp:include page="personFields.jsp" />
 
-<jsp:include page="personFields.jsp" />
-
-  <mjl:command value="Search" action="dss.vector.solutions.PersonController.search.mojo" name="dss.vector.solutions.Person.form.search.button" />
-  <mjl:command value="Create" action="dss.vector.solutions.PersonController.createFromView.mojo" name="dss.vector.solutions.Person.form.create.button" />
+    <mjl:command value="Search" action="dss.vector.solutions.PersonController.search.mojo" name="dss.vector.solutions.Person.form.search.button" />
+    <mjl:command value="Create" action="dss.vector.solutions.PersonController.createFromView.mojo" name="dss.vector.solutions.Person.form.create.button" />
+  </dl>
 </mjl:form>

@@ -23,11 +23,12 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.Person.form.name" id="dss.vector.solutions.Person.form.id" method="POST">
+  <dl>
+    <jsp:include page="personFields.jsp" />
 
-<jsp:include page="personFields.jsp" />
-
-  <mjl:input type="hidden" param="dto.componentId" value="${item.personId}"/>
-  <mjl:command value="Update" action="dss.vector.solutions.PersonController.updateFromView.mojo" name="dss.vector.solutions.Person.form.updateFromView.button" />
-  <mjl:command value="Delete" action="dss.vector.solutions.PersonController.deleteFromView.mojo" name="dss.vector.solutions.Person.form.deleteFromView.button" />
-  <mjl:command value="Cancel" action="dss.vector.solutions.PersonController.cancel.mojo" name="dss.vector.solutions.Person.form.cancel.button" />
+    <mjl:input type="hidden" param="dto.componentId" value="${item.personId}"/>
+    <mjl:command value="Update" action="dss.vector.solutions.PersonController.updateFromView.mojo" name="dss.vector.solutions.Person.form.updateFromView.button" />
+    <mjl:command value="Delete" action="dss.vector.solutions.PersonController.deleteFromView.mojo" name="dss.vector.solutions.Person.form.deleteFromView.button" />
+    <mjl:command value="Cancel" action="dss.vector.solutions.PersonController.cancel.mojo" name="dss.vector.solutions.Person.form.cancel.button" />
+  </dl>
 </mjl:form>

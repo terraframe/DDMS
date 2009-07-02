@@ -14,33 +14,6 @@
 <div id="ResourceTargets"></div>
 <br/>
 
-<div id="buttons" class="noprint">
-
-<span id="ResourceTargetsSaverows" class="yui-button yui-push-button">
-<span class="first-child">
-<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-</span> </span>
-
-<form method="get" action="excelimport" style="display:inline;">
-       <span class="yui-button yui-push-button">
-       <span class="first-child">
-        <button type="submit"><fmt:message key="Excel_Import_Header" /></button>
-        </span>
-        </span>
-</form>
-<form method="post" action="excelexport" style="display:inline;">
-        <input type="hidden" name="type" value="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"/>
-        <span class="yui-button yui-push-button">
-        <span class="first-child">
-        <button type="submit"><fmt:message key="Excel_Export_Header" /></button>
-        </span>
-        </span>
-</form>
-<a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
-
-</div>
-
-
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 ResourceTargetViewDTO[] rows = (ResourceTargetViewDTO[]) request.getAttribute("resourceTargetViews");
@@ -71,7 +44,9 @@ ResourceTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
               div_id: "ResourceTargets",
               data_type: "Mojo.$.dss.vector.solutions.irs.ResourceTargetView",
               saveFunction: "applyAll",
-              width:"75em"
+              width:"75em",
+              addButton:false,
+              excelButtons:false
           };
     //YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(ResourceTargetData));
     window.addEventListener('load', MojoGrid.createDataTable(ResourceTargetData) , false);

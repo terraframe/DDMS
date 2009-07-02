@@ -88,18 +88,6 @@ KnockDownAssayDTO adda = (KnockDownAssayDTO) request.getAttribute("item");
 
 <div id="intervals"></div>
 
-<div id="buttons" class="noprint">
- <span id="intervalsSaverows" class="yui-button yui-push-button">
- <span class="first-child">
-<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-</span>
-</span>
-
-
-<a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
-
-</div>
-
 <%
     String[] types =
     {
@@ -125,6 +113,7 @@ table_data = {
             defaults: {IntervalId:"",Period:"",IntervalTime:"",KnockedDown:"",Percent:""},
             div_id: "intervals",
             addButton:false,
+            excelButtons:false,
             data_type: "Mojo.$.dss.vector.solutions.entomology.assay.AdultTestIntervalView",
             after_row_load:function(record){this.myDataTable.updateCell(record, 'Percent', calculate_percent(record))},
             after_row_edit:function(record){this.myDataTable.updateCell(record, 'Percent', calculate_percent(record))},

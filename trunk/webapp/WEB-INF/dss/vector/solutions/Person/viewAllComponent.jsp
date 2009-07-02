@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -7,27 +9,18 @@
   <mjl:context action="dss.vector.solutions.PersonController.viewPage.mojo" />
   <mjl:columns>
     <mjl:attributeColumn attributeName="firstName">
-      <mjl:header>
-        First Name
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="lastName">
-      <mjl:header>
-        Last Name / Surname
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="sex">
-      <mjl:header>
-        Sex
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="dateOfBirth">
-      <mjl:header>
-        Date of Birth
-      </mjl:header>
+      <mjl:row>
+        <span class="formatDate"> ${item.dateOfBirth} </span>
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
-      <mjl:header>User</mjl:header>
+      <mjl:header><fmt:message key="User"/></mjl:header>
       <mjl:row>
         <c:choose>
           <c:when test="${item.userDelegate != null}">Yes</c:when>
@@ -36,7 +29,7 @@
       </mjl:row>
     </mjl:freeColumn>
     <mjl:freeColumn>
-      <mjl:header>Patient</mjl:header>
+      <mjl:header><fmt:message key="Patient"/></mjl:header>
       <mjl:row>
         <c:choose>
           <c:when test="${item.patientDelegate != null}">Yes</c:when>
@@ -45,7 +38,7 @@
       </mjl:row>
     </mjl:freeColumn>
     <mjl:freeColumn>
-      <mjl:header>ITN Recipient</mjl:header>
+      <mjl:header><fmt:message key="ITN_Recipient"/></mjl:header>
       <mjl:row>
         <c:choose>
           <c:when test="${item.itnRecipientDelegate != null}">Yes</c:when>
@@ -54,7 +47,7 @@
       </mjl:row>
     </mjl:freeColumn>
     <mjl:freeColumn>
-      <mjl:header>IPT Recipient</mjl:header>
+      <mjl:header><fmt:message key="IPT_Recipient"/></mjl:header>
       <mjl:row>
         <c:choose>
           <c:when test="${item.iptRecipientDelegate != null}">Yes</c:when>
@@ -73,7 +66,7 @@
     </mjl:freeColumn>
     <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
     <mjl:freeColumn>
-      <mjl:header>Spray Leader</mjl:header>
+      <mjl:header><fmt:message key="Spray_Leader"/></mjl:header>
       <mjl:row>
         <c:choose>
           <c:when test="${item.sprayLeaderDelegate != null}">Yes</c:when>

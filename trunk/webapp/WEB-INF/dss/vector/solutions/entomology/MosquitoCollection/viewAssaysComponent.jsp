@@ -105,11 +105,6 @@
 <div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,"Infectivity Assays",InfectivityAssayTestResult.class,clientRequest)%></div>
 </div>
 <div id="Mosquitos"></div>
-<div id="buttons" class="noprint"><span id="MosquitosAddrow" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="New_Row"/></button>
-</span> </span> <span id="MosquitosSaverows" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-</span> </span> <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a></div>
 
 <script type="text/javascript">
 function showCol(key,checked)
@@ -137,7 +132,8 @@ table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
           copy_from_above: ["IdentificationMethod"],
           div_id: "Mosquitos",
           data_type: "Mojo.$.dss.vector.solutions.entomology.MosquitoView",
-            width:"65em"
+            width:"65em",
+            excelButtons:false
       };
 YAHOO.util.Event.addListener(window, 'load', MojoGrid.createDataTable(table_data));
 //YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));

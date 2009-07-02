@@ -40,13 +40,13 @@
   <dl>
     <dt><label><f:message key="IRS_Team_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.irs.SprayTeam" class="roleLink"><f:message key="Spray Team"/></span>
+      <span id="dss.vector.solutions.irs.SprayTeam" class="roleLink"><f:message key="Spray_Team"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.SprayLeader" class="roleLink"><f:message key="Spray Leader"/></span>
+      <span id="dss.vector.solutions.irs.SprayLeader" class="roleLink"><f:message key="Spray_Leader"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.SprayOperator" class="roleLink"><f:message key="Spray Operator"/></span>
+      <span id="dss.vector.solutions.irs.SprayOperator" class="roleLink"><f:message key="Spray_Operator"/></span>
     </dd>
   </dl>
   <dl>

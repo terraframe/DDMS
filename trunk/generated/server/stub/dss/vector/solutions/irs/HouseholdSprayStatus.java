@@ -214,6 +214,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   @Override
   public void apply()
   {
+    this.appLock();
+    
     SprayMethod method = this.getSprayMethod();
 
     validateHouseholds(method);
@@ -224,7 +226,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
     validateSprayedStructures();
     validatePrevSprayedStructures();
 
-    super.apply();
+    super.apply();    
   }
 
   private static HouseholdSprayStatus searchByHousehold(String householdId, Integer household)

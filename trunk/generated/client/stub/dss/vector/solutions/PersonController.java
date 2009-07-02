@@ -58,15 +58,17 @@ public class PersonController extends PersonControllerBase implements com.terraf
       person.apply();
       this.view(person.getPersonId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
 
-      renderCreate(person);
+      this.renderCreate(person);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
-      req.setAttribute(ErrorUtility.ERROR_MESSAGE, t.getLocalizedMessage());
-      renderCreate(person);
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.renderCreate(person);
     }
   }
 
@@ -99,11 +101,17 @@ public class PersonController extends PersonControllerBase implements com.terraf
       person.apply();
       this.view(person.getPersonId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
 
-      renderEdit(person);
+      this.renderEdit(person);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.renderEdit(person);
     }
   }
 

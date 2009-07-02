@@ -67,38 +67,6 @@
 <dl>
 <div id="MorphologicalSpecieGroups"></div>
 <br/>
-
-
-<div id="buttons" class="noprint">
-
-<span id="MorphologicalSpecieGroupsAddrow" class="yui-button yui-push-button">
-<span class="first-child">
-<button type="button"><fmt:message key="New_Row"/></button>
- </span>
- </span>
-<span id="MorphologicalSpecieGroupsSaverows" class="yui-button yui-push-button">
-<span class="first-child">
-<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-</span> </span>
-
-<form method="get" action="excelimport" style="display:inline;">
-       <span class="yui-button yui-push-button">
-       <span class="first-child">
-        <button type="submit"><fmt:message key="Excel_Import_Header" /></button>
-        </span>
-        </span>
-</form>
-<form method="post" action="excelexport" style="display:inline;">
-        <input type="hidden" name="type" value="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"/>
-        <span class="yui-button yui-push-button">
-        <span class="first-child">
-        <button type="submit"><fmt:message key="Excel_Export_Header" /></button>
-        </span>
-        </span>
-</form>
-<a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
-
-</div>
 </dl>
 
 <h2><fmt:message key="Collection_Assays"/></h2>
@@ -248,6 +216,7 @@ String delete_row = "{key:'delete', label:' ', className: 'delete-button', actio
        columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false, 2)%>,
               defaults: {GroupId:"",Collection:"<%=mosquito_collection.getId()%>", Specie:"",IdentificationMethod:"",QuantityMale:"",QuantityFemale:"",Quantity:""},
               div_id: "MorphologicalSpecieGroups",
+              excelButtons:false,
               copy_from_above: ["IdentificationMethod"],
               //collection_setter: "setCollection('${item.id}')",
               data_type: "Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroupView"

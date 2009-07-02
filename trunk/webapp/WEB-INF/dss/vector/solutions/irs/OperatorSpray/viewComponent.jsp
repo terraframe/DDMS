@@ -74,11 +74,7 @@
 
 <h2><fmt:message key="Households_Sprayed"/></h2>
 <div id="Status"></div>
-<div id="buttons" class="noprint"><span id="StatusAddrow" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="New_Row"/></button>
-</span> </span> <span id="StatusSaverows" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-</span> </span> <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a></div>
+
 <mjl:commandLink action="dss.vector.solutions.irs.OperatorSprayController.search.mojo" name="OperatorSprayController.search"><fmt:message key="Operator_Spray_Create_link" /></mjl:commandLink>
 
 <script type="text/javascript">
@@ -105,7 +101,8 @@
               div_id: "Status",
               data_type: "Mojo.$.<%=HouseholdSprayStatusViewDTO.CLASS%>",
               saveFunction:"applyAll",
-              width:"65em"              
+              width:"65em",
+              excelButtons:false              
           };
 
     if (isMainSpray) {

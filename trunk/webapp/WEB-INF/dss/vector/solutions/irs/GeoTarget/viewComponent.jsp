@@ -48,33 +48,8 @@
   </dl>
 <br/>
 <div id="GeoTargets"></div>
-<br/>
-
-<div id="buttons" class="noprint">
-
-<span id="GeoTargetsSaverows" class="yui-button yui-push-button">
-<span class="first-child">
-<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-</span> </span>
-
-<form method="get" action="excelimport" style="display:inline;">
-       <span class="yui-button yui-push-button">
-       <span class="first-child">
-        <button type="submit"><fmt:message key="Excel_Import_Header" /></button>
-        </span>
-        </span>
-</form>
-<form method="post" action="excelexport" style="display:inline;">
-        <input type="hidden" name="type" value="dss.vector.solutions.entomology.MorphologicalSpecieGroupView"/>
-        <span class="yui-button yui-push-button">
-        <span class="first-child">
-        <button type="submit"><fmt:message key="Excel_Export_Header" /></button>
-        </span>
-        </span>
-</form>
-<a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a>
-
-</div>
+<br />
+<mjl:commandLink display="Back_To_Search" action="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" name="dss.vector.solutions.irs.GeoTarget.viewAll.link" />
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 GeoTargetViewDTO[] rows = (GeoTargetViewDTO[]) request.getAttribute("geoTargetViews");
@@ -127,8 +102,9 @@ GeoTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
               div_id: "GeoTargets",
               data_type: "Mojo.$.dss.vector.solutions.irs.GeoTargetView",
               saveFunction: "applyAll",
-              width:"75em"
+              width:"75em",
+              addButton:false,
+              excelButtons:false
           };
     YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(GeoTargetData));
 </script>
-<mjl:commandLink display="Back_To_Search" action="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" name="dss.vector.solutions.irs.GeoTarget.viewAll.link" />

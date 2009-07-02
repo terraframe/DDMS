@@ -37,27 +37,12 @@
 
 <h2><fmt:message key="Insecticide_Brand"/></h2>
 <div id="InsecticideBrand"></div>
-<div id="buttons" class="noprint"><span id="InsecticideBrandAddrow" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="New_Row"/></button>
-</span> </span> <span id="InsecticideBrandSaverows" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-</span> </span> <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a></div>
 
 <h2><fmt:message key="Nozzle"/></h2>
 <div id="Nozzle"></div>
-<div id="buttons" class="noprint"><span id="NozzleAddrow" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="New_Row"/></button>
-</span> </span> <span id="NozzleSaverows" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-</span> </span> <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a></div>
 
 <h2><fmt:message key="InsecticideNozzle"/></h2>
 <div id="InsecticideNozzle"></div>
-<div id="buttons" class="noprint"><span id="InsecticideNozzleAddrow" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="New_Row"/></button>
-</span> </span> <span id="InsecticideNozzleSaverows" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-</span> </span> <a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a></div>
 
 
   <mjl:form name="standards.form.name" id="standards.form" method="POST">
@@ -106,6 +91,7 @@
               div_id: "InsecticideBrand",
               data_type: "Mojo.$.<%=InsecticideBrandViewDTO.CLASS%>",
               saveFunction:"applyAll",
+              excelButtons:false,
               after_save:function(){window.location.reload( false );}
           };
 
@@ -121,6 +107,7 @@
               div_id: "Nozzle",
               data_type: "Mojo.$.<%=NozzleViewDTO.CLASS%>",
               saveFunction:"applyAll",
+              excelButtons:false,
               after_save:function(){window.location.reload( false );}
           };
 
@@ -134,6 +121,7 @@
               defaults: {"Enabled":"true"},
               copy_from_above: [],
               div_id: "InsecticideNozzle",
+              excelButtons:false,
               data_type: "Mojo.$.<%=InsecticideNozzleViewDTO.CLASS%>",
               saveFunction:"applyAll"
           };

@@ -21,9 +21,24 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
   }
   
   @Override
+  public void validateOperatorId()
+  {
+    if(this.getOperatorId() != null && this.getLeaderId() != null)
+    {
+      if(this.getOperatorId().equals(this.getLeaderId()))
+      {
+        String msg = "Operator Id and Leader Id cannot be the same";
+        throw new DelegateIdException(msg);
+      }
+    }
+  }
+  
+  @Override
   @Transaction
   public void apply()
   {
+    validateOperatorId();
+    
     //Update the person data
     Person person = Person.get(this.getPersonId());
 
