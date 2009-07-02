@@ -22,7 +22,9 @@
           <char
             name="operatorId"
             label="Operator Id"
-            size="255" />
+            size="255"
+            required="true"
+            indexType="unique index" />
           <reference
             name="person"
             label="Person"
@@ -287,7 +289,9 @@
           <char
             name="leaderId"
             label="Leader Id"
-            size="255" />
+            size="255"
+            required="true"
+            indexType="unique index" />
         </attributes>
       </mdBusiness>
       <mdBusiness
