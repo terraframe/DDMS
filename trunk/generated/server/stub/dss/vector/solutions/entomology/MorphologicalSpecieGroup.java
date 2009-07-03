@@ -94,7 +94,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
       }
       else if (this.getCollection() instanceof MosquitoCollectionPoint)
       {
-        if (this.getQuantity() == 0 && this.getIdentificationMethod() != null)
+        if (this.getQuantity() != null && this.getQuantity() == 0 && this.getIdentificationMethod() != null)
         {
           String msg = "Morphological groups of a MosquitoCollectionPoint cannot have an IdentificationMethod when the quantity is zero";
 
@@ -123,7 +123,7 @@ public class MorphologicalSpecieGroup extends MorphologicalSpecieGroupBase imple
       }
       else if (this.getCollection() instanceof MosquitoCollectionPoint)
       {
-        if (this.getQuantity() == 0 && this.getSpecie() != null)
+        if (this.getQuantity() != null && this.getQuantity() == 0 && this.getSpecie() != null)
         {
           String msg = "Morphological groups of a MosquitoCollectionPoint cannot have a Specie when the quantity is zero";
 
