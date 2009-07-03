@@ -15,7 +15,7 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
 
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/ApplicationRate/";
 
-  public static final String LAYOUT           = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT           = "/layout.jsp";
 
   public ApplicationRateController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
