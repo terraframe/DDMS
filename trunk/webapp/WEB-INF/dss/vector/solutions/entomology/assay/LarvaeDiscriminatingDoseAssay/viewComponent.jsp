@@ -9,6 +9,9 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="dss.vector.solutions.entomology.assay.LarvaeTestIntervalViewDTO"%>
+<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 
 
 
@@ -98,11 +101,13 @@ LarvaeDiscriminatingDoseAssayDTO adda = (LarvaeDiscriminatingDoseAssayDTO) reque
     String[] attribs = { "IntervalId","Assay","Period","IntervalTime","QuantityDead"};
     String last_column = "{key:'Percent',label:'%',resizeable:true}";
 
-    Integer[] no_show_arr = {0,1};
-    List no_show_list = Arrays.asList(no_show_arr);
-    Integer[] no_edit_arr = {0,1,2,3};
-    List no_edit_list = Arrays.asList(no_edit_arr);
+    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+    map.put("IntervalId", new ColumnSetup(true, false, null, null, null));
+    map.put("Assay", new ColumnSetup(true, false, null, null, null));
+    map.put("Period", new ColumnSetup(false, false, null, null, null));
+    map.put("IntervalTime", new ColumnSetup(false, false, null, null, null));
 %>
+
 <%=Halp.loadTypes((List<String>) Arrays.asList(types))%>
 <script type="text/javascript" defer="defer">
 calculate_percent = function(record){
@@ -110,7 +115,7 @@ calculate_percent = function(record){
 }
 table_data = {
         rows:<%=Halp.getDataMap(adda.getTestIntervals(),attribs,adda.getTestIntervals()[0])%>,
-            columnDefs:<%=Halp.getColumnSetup(adda.getTestIntervals()[0],attribs,last_column,false,no_show_list,no_edit_list)%>,
+            columnDefs:<%=Halp.getColumnSetup(adda.getTestIntervals()[0],attribs,last_column,false,map)%>,
             div_id: "intervals",
             addButton:false,
             excelButtons:false,

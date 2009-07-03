@@ -37,7 +37,8 @@ public class SprayTeamController extends SprayTeamControllerBase implements com.
     try
     {
       team.create(geoId, leaderId, operatorIDs);
-      renderView(team);
+
+      this.view(team.getId());
       return;
     }
     catch (ProblemExceptionDTO p)
@@ -117,7 +118,8 @@ public class SprayTeamController extends SprayTeamControllerBase implements com.
     try
     {
       team.edit(geoId, leaderId, operatorIds, removedIds);
-      renderView(team);
+      this.view(team.getId());
+      
       return;
     }
     catch (ProblemExceptionDTO p)

@@ -4,7 +4,6 @@
 <%@page import="dss.vector.solutions.geo.generated.SprayZoneDTO"%>
 
 
-  <dl>
     <dt><label> ${item.teamIdMd.displayLabel} </label></dt>
     <dd>
     <mjl:component item="${item}" param="team">
@@ -85,4 +84,3 @@
       </tr>
     </table>
     </dd>
-  </dl>

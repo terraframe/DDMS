@@ -18,7 +18,11 @@
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionPointViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoCollectionPointDTO"%><c:set var="page_title" value="View_Mosquito_Collection_Points"  scope="request"/>
+<%@page import="dss.vector.solutions.entomology.MosquitoCollectionPointDTO"%>
+<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
+<c:set var="page_title" value="View_Mosquito_Collection_Points"  scope="request"/>
 <fmt:setLocale value="<%=request.getLocale()%>" />
 <div id="cal1Container" class="yui-skin-sam"></div>
 <mjl:messages>
@@ -67,11 +71,11 @@ MosquitoCollectionPointViewDTO mdView = new MosquitoCollectionPointViewDTO(clien
 
 String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 
-Integer[] no_show_arr = {0,1,8};
-List no_show_list = Arrays.asList(no_show_arr);
-Integer[] no_edit_arr = {8,9};
-List no_edit_list = Arrays.asList(no_edit_arr);
-
+Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+map.put("GroupId", new ColumnSetup(true, true, null, null, null));
+map.put("GeoEntity", new ColumnSetup(true, true, null, null, null));
+map.put("Total", new ColumnSetup(true, false, null, null, null));
+map.put("Collection", new ColumnSetup(false, false, null, null, null));
 %>
 
 <script type="text/javascript" defer="defer">
@@ -85,7 +89,7 @@ List no_edit_list = Arrays.asList(no_edit_arr);
   <%=Halp.getDropdownSetup(mdView,attribs,delete_row,clientRequest)%>
 
     table_data = { rows:<%=Halp.getDataMap(rows,attribs,mdView)%>,
-       columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false,no_show_list,no_edit_list)%>,
+       columnDefs: <%=Halp.getColumnSetup(mdView,attribs,delete_row,false,map)%>,
        defaults: {GroupId:"",GeoEntity:"${geoEntity.id}",Specie:"",DateCollected:"<fmt:formatDate value="${startDate}" pattern="<%=Halp.getDateFormatString(request)%>"/>"},
        div_id: "MorphologicalSpecieGroups",
        copy_from_above: ["DateCollected","IdentificationMethod"],

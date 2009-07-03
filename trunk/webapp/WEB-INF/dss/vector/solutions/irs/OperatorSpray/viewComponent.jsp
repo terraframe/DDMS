@@ -25,7 +25,10 @@
 <%@page import="dss.vector.solutions.irs.OperatorSprayViewDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%>
-<c:set var="page_title" value="View_Operator_Spray" scope="request" />
+
+<%@page import="java.util.Map"%>
+<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="java.util.HashMap"%><c:set var="page_title" value="View_Operator_Spray" scope="request" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -80,11 +83,34 @@
 <script type="text/javascript">
 
     <%
+      Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+      map.put("StatusId", new ColumnSetup(true, false, null, null, null));
+      map.put("Spray", new ColumnSetup(true, false, null, null, null));
+      map.put("Households", new ColumnSetup(false, true, "validateValue", null, null));    
+      map.put("Structures", new ColumnSetup(false, true, "validateValue", null, null));    
+      map.put("SprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
+      map.put("SprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));    
+      map.put("PrevSprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
+      map.put("PrevSprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));    
+    
       out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{SprayStatusViewDTO.CLASS}, true));
       out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{HouseholdSprayStatusViewDTO.CLASS}, true));
     %>
     <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 
+    var validateValue = function(oData) {
+        var re = /^[0-1]$/;
+        
+        // Validate
+        if(re.test(oData) || oData === "") {
+            return oData;
+        }
+        else {
+            alert(MDSS.localize("Value_Not_0_1"));
+            return undefined;
+        }
+    }
+    
 	var indexHouseholds = 4;
 	var indexStructures = 5;
 	var indexSprayedHouseholds = 6;
@@ -96,7 +122,7 @@
 	
     data = {
               rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-              columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 2)%>,
+              columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
               defaults: {"Spray":'<%=spray.getSprayId()%>'},
               div_id: "Status",
               data_type: "Mojo.$.<%=HouseholdSprayStatusViewDTO.CLASS%>",

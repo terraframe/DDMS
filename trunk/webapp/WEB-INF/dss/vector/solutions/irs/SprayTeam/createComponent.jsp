@@ -16,8 +16,10 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
 </mjl:messages>
 
 <mjl:form name="dss.vector.solutions.irs.SprayTeam.form.name" id="dss.vector.solutions.irs.SprayTeam.form.id" method="POST">
-  <%@ include file="form.jsp"%>
-  <mjl:command value="Create" id="updateTeam" action="dss.vector.solutions.irs.SprayTeamController.createAndAssign.mojo" name="dss.vector.solutions.irs.SprayTeam.form.createAndAssign.button" />
+  <dl>
+    <%@ include file="form.jsp"%>
+    <mjl:command value="Create" id="updateTeam" action="dss.vector.solutions.irs.SprayTeamController.createAndAssign.mojo" name="dss.vector.solutions.irs.SprayTeam.form.createAndAssign.button" />
+  </dl>
 </mjl:form>
 
 <script type='text/javascript'>

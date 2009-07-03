@@ -349,8 +349,41 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
     return getColumnSetup(view, attribs, extra_rows, autoload, no_edit_cols,no_show_cols );
   }
-
+  
   public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, List<Integer> no_show, List<Integer> no_edit) throws JSONException
+  {
+    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+    
+    for (Integer i : no_show)
+    {
+      String key = attribs[i];
+
+      ColumnSetup setup = new ColumnSetup();
+      setup.setHidden(true);
+      
+      map.put(key, setup);
+    }
+    
+    for (Integer i : no_edit)
+    {
+      String key = attribs[i];
+
+      ColumnSetup setup = new ColumnSetup();
+
+      if(map.containsKey(key))
+      {
+        setup = map.get(key);
+      }
+            
+      setup.setEditable(false);
+      
+      map.put(attribs[i], setup);
+    }
+
+    return getColumnSetup(view, attribs, extra_rows, autoload, map);    
+  }
+  
+  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, Map<String, ColumnSetup> map) throws JSONException
   {
     ArrayList<String> arr = new ArrayList<String>();
     Integer colnum = 0;
@@ -376,6 +409,13 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     {
       try
       {
+        ColumnSetup setup = new ColumnSetup();
+        
+        if(map.containsKey(attrib))
+        {
+          setup = map.get(attrib);
+        }
+        
         ArrayList<String> buff = new ArrayList<String>();
 
         buff.add("key:'" + attrib + "'");
@@ -386,7 +426,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();
         buff.add("label:'" + label.replaceAll("'", "\\\\'") + "'");
 
-        if (no_show.contains(colnum) )
+        if (setup.isHidden())
         {
           buff.add("hidden:true");
         }
@@ -447,8 +487,13 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
             }
 
           }
-          if( view.isWritable(md.getAccessorName()) && ! no_edit.contains(colnum) )
+          if( view.isWritable(md.getAccessorName()) && setup.isEditable())
           {
+            if(setup.getValidator() != null)
+            {
+              editor = editor.replaceFirst("\\}\\)", ",validator:" + setup.getValidator() + "})");
+            }
+            
             buff.add("editor:" + editor);
           }
 
