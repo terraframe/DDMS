@@ -26,6 +26,25 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.terraf
     view.setInsecticdeId(this.getId());
     view.setEnabled(this.getEnabled());
   }
+  
+  public static InsecticideBrand getByName(String name)
+  {
+    InsecticideBrandQuery query = new InsecticideBrandQuery(new QueryFactory());
+    query.WHERE(query.getBrandName().EQ(name));
+    OIterator<? extends InsecticideBrand> iterator = query.getIterator();
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+    return null;
+  }
 
   public InsecticideBrandView getView()
   {
