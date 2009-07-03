@@ -1,0 +1,65 @@
+<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+
+      <mdProblem
+        name="dss.vector.solutions.irs.HouseholdValueNotApplicableProblem"
+        label="Value not Applicable Problem"
+        description="Household value is not applicable on a mop-up spray"
+        extends="dss.vector.solutions.irs.ValueNotApplicableProblem"/>
+
+      <mdProblem
+        name="dss.vector.solutions.irs.PrevSprayedHouseholdValueNotApplicableProblem"
+        label="Value not Applicable Problem"
+        description="Household value is not applicable on a mop-up spray"
+        extends="dss.vector.solutions.irs.ValueNotApplicableProblem"/>
+
+      <mdProblem
+        name="dss.vector.solutions.irs.RoomValueNotApplicableProblem"
+        label="Value not Applicable Problem"
+        description="Household value is not applicable on a mop-up spray"
+        extends="dss.vector.solutions.irs.ValueNotApplicableProblem"/>
+
+      <mdProblem
+        name="dss.vector.solutions.irs.HouseholdValueProblem"
+        label="Total Problem"
+        description="The value may only be a 0 or 1"
+        extends="dss.vector.solutions.irs.ValueProblem" />
+
+      <mdProblem
+        name="dss.vector.solutions.irs.StructureValueProblem"
+        label="Total Problem"
+        description="The value may only be a 0 or 1"
+        extends="dss.vector.solutions.irs.ValueProblem" />
+
+      <mdProblem
+        name="dss.vector.solutions.irs.SprayedHouseholdValueProblem"
+        label="Total Problem"
+        description="The value may only be a 0 or 1"
+        extends="dss.vector.solutions.irs.ValueProblem" />
+
+      <mdProblem
+        name="dss.vector.solutions.irs.SprayedStructureValueProblem"
+        label="Total Problem"
+        description="The value may only be a 0 or 1"
+        extends="dss.vector.solutions.irs.ValueProblem" />
+
+      <mdProblem
+        name="dss.vector.solutions.irs.PrevSprayedHouseholdValueProblem"
+        label="Total Problem"
+        description="The value may only be a 0 or 1"
+        extends="dss.vector.solutions.irs.ValueProblem" />
+
+      <mdProblem
+        name="dss.vector.solutions.irs.PrevSprayedStructureValueProblem"
+        label="Total Problem"
+        description="The value may only be a 0 or 1"
+        extends="dss.vector.solutions.irs.ValueProblem" />
+
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

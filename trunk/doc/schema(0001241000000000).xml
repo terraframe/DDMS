@@ -33,13 +33,38 @@
       <mdProblem
         name="dss.vector.solutions.irs.ValueNotApplicableProblem"
         label="Value not Applicable Problem"
-        extends="dss.vector.solutions.NotificationProblem" />
+        extends="dss.vector.solutions.NotificationProblem"
+        description="Value is not applicable on a mop-up spray"
+        isAbstract="true" >
+        <attributes>
+          <char
+            name="householdId"
+            label="Household Id"
+            size="255" />
+          <char
+            name="structureId"
+            label="Structure Id"
+            size="255" />                    
+        </attributes>
+      </mdProblem>
 
       <mdProblem
         name="dss.vector.solutions.irs.ValueProblem"
         label="Total Problem"
         description="The value may only be a 0 or 1"
-        extends="dss.vector.solutions.NotificationProblem" />
+        extends="dss.vector.solutions.NotificationProblem"
+        isAbstract="true" >
+        <attributes>
+          <char
+            name="householdId"
+            label="Household Id"
+            size="255" />
+          <char
+            name="structureId"
+            label="Structure Id"
+            size="255" />                    
+        </attributes>        
+      </mdProblem>
 
       <mdProblem
         name="dss.vector.solutions.irs.CountProblem"
