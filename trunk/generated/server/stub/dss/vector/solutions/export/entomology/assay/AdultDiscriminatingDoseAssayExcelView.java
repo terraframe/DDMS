@@ -77,19 +77,7 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
     adda.setExposureTime(this.getExposureTime());
     adda.setHoldingTime(this.getHoldingTime());
     
-    ActiveIngredient activeIngredient = ActiveIngredient.validateByDisplayLabel(this.getInsecticideActiveIngredient());
-    Unit unit = getUnitByLabel(this.getInsecticideUnits());
-    InsecticideQuery insecticideQuery = new InsecticideQuery(new QueryFactory());
-    insecticideQuery.WHERE(insecticideQuery.getActiveIngredient().EQ(activeIngredient));
-    insecticideQuery.WHERE(insecticideQuery.getUnits().containsExactly(unit));
-    insecticideQuery.WHERE(insecticideQuery.getAmount().EQ(this.getInsecticideAmount()));
-    
-    OIterator<? extends Insecticide> iterator = insecticideQuery.getIterator();
-    if (iterator.hasNext())
-    {
-      adda.setInsecticide(iterator.next());
-    }
-    iterator.close();
+    adda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));
     
     adda.setQuantityTested(this.getQuantityTested());
     adda.setQuantityDead(this.getQuantityDead());
@@ -102,18 +90,6 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
   public static AssaySex getAssaySexByLabel(String label)
   {
     for (AssaySex e : AssaySex.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    return null;
-  }
-  
-  public static Unit getUnitByLabel(String label)
-  {
-    for (Unit e : Unit.values())
     {
       if (e.getDisplayLabel().equals(label))
       {

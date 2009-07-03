@@ -15,9 +15,10 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.PoliticalHierarchyLengthException;
-import dss.vector.solutions.geo.generated.Country;
-import dss.vector.solutions.geo.generated.NonSentinelSite;
+import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.geo.generated.Locality;
 import dss.vector.solutions.geo.generated.SentinelSite;
+import dss.vector.solutions.geo.generated.Surface;
 
 public class GeoColumnListener implements ExcelExportListener, Reloadable
 {
@@ -46,9 +47,29 @@ public class GeoColumnListener implements ExcelExportListener, Reloadable
     }
   }
   
-  public static List<SearchableHierarchy> getHierarchy()
+  public static List<SearchableHierarchy> getSprayHierarchy()
   {
-    List<GeoHierarchyView> political = Arrays.asList(GeoHierarchy.getPoliticalGeoHierarchiesByType(Country.CLASS));    
+    List<GeoHierarchyView> spray = Arrays.asList(GeoHierarchy.getSprayHierarchiesByType(Earth.CLASS));    
+    
+    //Ensure that the Spray Hierarhcy length is 10 or less
+    if(spray.size() > 10)
+    {
+      String msg = "The spray hierarchy is longer than the number of allocated spots for the geo entity attribute.";
+      
+      PoliticalHierarchyLengthException e = new PoliticalHierarchyLengthException(msg);
+      e.setSlots(10);
+      e.setHierarchyLength(spray.size());
+      e.apply();
+      
+      throw e;
+    }
+    
+    return new LinkedList<SearchableHierarchy>(spray);
+  }
+  
+  public static List<GeoHierarchyView> getPoliticalHierarchy()
+  {
+    List<GeoHierarchyView> political = Arrays.asList(GeoHierarchy.getPoliticalGeoHierarchiesByType(Earth.CLASS));    
 
     //Ensure that the Political Hierarhcy length is 10 or less
     if(political.size() > 10)
@@ -62,13 +83,36 @@ public class GeoColumnListener implements ExcelExportListener, Reloadable
       
       throw e;
     }
-
     
-    List<SearchableHierarchy> hierarchy = new LinkedList<SearchableHierarchy>(political);
-
-    //Sentinel and Non-Sentinel Sites are not part of the political hierarchy so I must add them manually,
-    //This only works if Sentinel and Non-Sentinel Sites are not part of the political hierarchy.
-    hierarchy.add(new GenericHierarchySearcher(new String[]{SentinelSite.CLASS, NonSentinelSite.CLASS}));
+    return political;
+  }
+  
+  public static List<SearchableHierarchy> getLocalityHierarchy()
+  {
+    List<SearchableHierarchy> hierarchy = new LinkedList<SearchableHierarchy>(getPoliticalHierarchy());
+    
+    // Append Locality to the Political Hierarchy
+    hierarchy.add(new GenericHierarchySearcher(Locality.CLASS));
+    
+    return hierarchy;
+  }
+  
+  public static List<SearchableHierarchy> getSentinelSiteHierarchy()
+  {
+    List<SearchableHierarchy> hierarchy = new LinkedList<SearchableHierarchy>(getPoliticalHierarchy());
+    
+    // Append Sentinal Site to the Political Hierarchy
+    hierarchy.add(new GenericHierarchySearcher(SentinelSite.CLASS));
+    
+    return hierarchy;
+  }
+  
+  public static List<SearchableHierarchy> getSurfaceHierarchy()
+  {
+    List<SearchableHierarchy> hierarchy = new LinkedList<SearchableHierarchy>(getSentinelSiteHierarchy());
+    
+    // Append Surface to the Sentinel Site Hierarchy
+    hierarchy.add(new GenericHierarchySearcher(Surface.CLASS));
     
     return hierarchy;
   }

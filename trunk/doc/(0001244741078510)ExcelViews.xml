@@ -692,6 +692,588 @@
             type="dss.vector.solutions.entomology.MorphologicalSpecieGroup"/>
         </attributes>
       </mdView>
+      <mdView
+        name="dss.vector.solutions.export.PersonExcelView"
+        label="Person Excel View"
+        description="Excel View for people">
+        <attributes>
+          <!-- Residential GeoEntity -->
+          <char
+            name="geoEntity_0"
+            label="Geo Entity 0"
+            size="255" />
+          <char
+            name="geoEntity_01"
+            label="Geo Entity 1"
+            size="255" />
+          <char
+            name="geoEntity_02"
+            label="Geo Entity 2"
+            size="255" />
+          <char
+            name="geoEntity_03"
+            label="Geo Entity 3"
+            size="255" />
+          <char
+            name="geoEntity_04"
+            label="Geo Entity 4"
+            size="255" />
+          <char
+            name="geoEntity_05"
+            label="Geo Entity 5"
+            size="255" />
+          <char
+            name="geoEntity_06"
+            label="Geo Entity 6"
+            size="255" />
+          <char
+            name="geoEntity_07"
+            label="Geo Entity 7"
+            size="255" />
+          <char
+            name="geoEntity_08"
+            label="Geo Entity 8"
+            size="255" />
+          <char
+            name="geoEntity_09"
+            label="Geo Entity 9"
+            size="255" />
+          <char
+            name="geoEntity_10"
+            label="Geo Entity 10"
+            size="255" />
+          <!-- Display Label for the Sex enumeration -->
+          <char
+            name="sex"
+            label="Sex"
+            size="255" />
+          <!-- Virtual Attributes -->
+          <virtual
+            name="firstName"
+            concrete="firstName"
+            type="dss.vector.solutions.Person" />
+          <virtual
+            name="lastName"
+            concrete="lastName"
+            type="dss.vector.solutions.Person" />
+          <virtual
+            name="dateOfBirth"
+            concrete="dateOfBirth"
+            type="dss.vector.solutions.Person" />
+          <virtual
+            name="residentialGeoEntity"
+            concrete="residentialGeoEntity"
+            type="dss.vector.solutions.Person" />
+          <virtual
+            name="isMDSSUser"
+            concrete="isMDSSUser"
+            type="dss.vector.solutions.PersonView"/>
+          <virtual
+            name="username"
+            concrete="uzername"
+            type="dss.vector.solutions.PersonView"/>
+          <virtual
+            name="password"
+            concrete="pazzword"
+            type="dss.vector.solutions.PersonView"/>
+          <virtual
+            name="isPatient"
+            concrete="isPatient"
+            type="dss.vector.solutions.PersonView"/>
+          <virtual
+            name="isITNRecipient"
+            concrete="isITNRecipient"
+            type="dss.vector.solutions.PersonView"/>
+          <virtual
+            name="isIPTRecipient"
+            concrete="isIPTRecipient"
+            type="dss.vector.solutions.PersonView"/>
+          <virtual
+            name="isSprayOperator"
+            concrete="isSprayOperator"
+            type="dss.vector.solutions.PersonView"/>
+          <virtual
+            name="operatorId"
+            concrete="operatorId"
+            type="dss.vector.solutions.irs.SprayOperator"/>
+          <virtual
+            name="isSprayLeader"
+            concrete="isSprayLeader"
+            type="dss.vector.solutions.PersonView"/>
+          <virtual
+            name="leaderId"
+            concrete="leaderId"
+            type="dss.vector.solutions.irs.SprayLeader"/>
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.EfficacyAssayExcelView"
+        label="Efficacy Assay Excel View"
+        description="Excel View for Efficacy Assays">
+        <attributes>
+          <!-- Surface GeoEntity -->
+          <char
+            name="geoEntity_0"
+            label="Geo Entity 0"
+            size="255" />
+          <char
+            name="geoEntity_01"
+            label="Geo Entity 1"
+            size="255" />
+          <char
+            name="geoEntity_02"
+            label="Geo Entity 2"
+            size="255" />
+          <char
+            name="geoEntity_03"
+            label="Geo Entity 3"
+            size="255" />
+          <char
+            name="geoEntity_04"
+            label="Geo Entity 4"
+            size="255" />
+          <char
+            name="geoEntity_05"
+            label="Geo Entity 5"
+            size="255" />
+          <char
+            name="geoEntity_06"
+            label="Geo Entity 6"
+            size="255" />
+          <char
+            name="geoEntity_07"
+            label="Geo Entity 7"
+            size="255" />
+          <char
+            name="geoEntity_08"
+            label="Geo Entity 8"
+            size="255" />
+          <char
+            name="geoEntity_09"
+            label="Geo Entity 9"
+            size="255" />
+          <char
+            name="geoEntity_10"
+            label="Geo Entity 10"
+            size="255" />
+          <!-- EffecacyAssay Attributes -->
+          <virtual
+            name="testDate"
+            concrete="testDate"
+            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+          <char
+            name="testMethod"
+            label="Test Method"
+            size="255"/>
+          <char
+            name="specie"
+            label="Species"
+            size="255"/>
+          <virtual
+            name="colonyName"
+            concrete="colonyName"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="ageRange"
+            concrete="ageRange"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <char
+            name="sex"
+            label="Sex"
+            size="255"/>
+          <virtual
+            name="gravid"
+            concrete="gravid"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="fed"
+            concrete="fed"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="timeOnSurface"
+            concrete="timeOnSurface"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <char
+            name="surfacePosition"
+            label="Surface Position"
+            size="255"/>
+          <virtual
+            name="exposureTime"
+            concrete="exposureTime"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="holdingTime"
+            concrete="holdingTime"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="quantityTested"
+            concrete="quantityTested"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <virtual
+            name="quantityDead"
+            concrete="quantityDead"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          <!-- Insecticide -->
+          <char
+            name="insecticideActiveIngredient"
+            label="Insecticide Active Ingredient"
+            size="255"/>
+          <virtual
+            name="insecticideAmount"
+            label="Insecticide Amount"
+            concrete="amount"
+            type="dss.vector.solutions.general.Insecticide"/>
+          <char
+            name="insecticideUnits"
+            label="Insecticide Units"
+            size="255"/>
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.AggregatedCaseExcelView"
+        label="Aggregated Case Excel View"
+        description="Excel View for Aggregated Cases">
+        <attributes>
+          <!-- GeoEntity -->
+          <char
+            name="geoEntity_0"
+            label="Geo Entity 0"
+            size="255" />
+          <char
+            name="geoEntity_01"
+            label="Geo Entity 1"
+            size="255" />
+          <char
+            name="geoEntity_02"
+            label="Geo Entity 2"
+            size="255" />
+          <char
+            name="geoEntity_03"
+            label="Geo Entity 3"
+            size="255" />
+          <char
+            name="geoEntity_04"
+            label="Geo Entity 4"
+            size="255" />
+          <char
+            name="geoEntity_05"
+            label="Geo Entity 5"
+            size="255" />
+          <char
+            name="geoEntity_06"
+            label="Geo Entity 6"
+            size="255" />
+          <char
+            name="geoEntity_07"
+            label="Geo Entity 7"
+            size="255" />
+          <char
+            name="geoEntity_08"
+            label="Geo Entity 8"
+            size="255" />
+          <char
+            name="geoEntity_09"
+            label="Geo Entity 9"
+            size="255" />
+          <char
+            name="geoEntity_10"
+            label="Geo Entity 10"
+            size="255" />
+          <!-- EpiWeek -->
+          <char
+            name="periodType"
+            label="Period Type"
+            size="255" />
+          <virtual
+            name="period"
+            concrete="period"
+            type="dss.vector.solutions.general.EpiDate"/>
+          <virtual
+            name="epiYear"
+            concrete="epiYear"
+            type="dss.vector.solutions.general.EpiDate"/>
+          <char
+            name="aggregatedAgeGroup"
+            label="Aggregated Age Group"
+            size="255" />
+          <!-- AggregatedCase Attributes -->
+          <integer
+            name="cases"
+            label="Cases"/>
+          <integer
+            name="casesFemale"
+            label="Cases Female"/>
+          <integer
+            name="casesMale"
+            label="Cases Male"/>
+          <integer
+            name="casesPregnant"
+            label="Cases Pregnant"/>
+          <integer
+            name="deaths"
+            label="Deaths"/>
+          <integer
+            name="deathsMale"
+            label="Deaths Male"/>
+          <integer
+            name="deathsFemale"
+            label="Deaths Female"/>
+          <integer
+            name="deathsPregnant"
+            label="Deaths Pregnant"/>
+          <integer
+            name="inPatients"
+            label="In Patients"/>
+          <integer
+            name="outPatients"
+            label="Out Patients"/>
+          <integer
+            name="referralsReceived"
+            label="Referrals Received"/>
+          <integer
+            name="referralsSent"
+            label="Referrals Sent"/>
+          <integer
+            name="pregnantReferralsReceived"
+            label="Pregnant Referrals Received"/>
+          <integer
+            name="pregnantDiagnosis"
+            label="Pregnant Diagnosis"/>
+          <integer
+            name="pregnantDiagnosisDeath"
+            label="Pregnant Diagnosis Death"/>
+          <integer
+            name="clinicallyDiagnosed"
+            label="Clinically Diagnosed"/>
+          <integer
+            name="definitivelyDiagnosed"
+            label="Definitively Diagnosed"/>
+          <integer
+            name="clinicallyDiagnosedDeath"
+            label="Clinically Diagnosed Death"/>
+          <integer
+            name="definitivelyDiagnosedDeath"
+            label="Definitively Diagnosed Death"/>
+          <integer
+            name="inPatientsTotal"
+            label="In Patients Total"/>
+          <integer
+            name="inPatientsAnemia"
+            label="In Patients Anemia"/>
+          <integer
+            name="inPatientsPregnantAnemia"
+            label="In Patients Pregnant Anemia"/>
+          <integer
+            name="inPatientsPregnantDianosis"
+            label="In Patients Pregnant Dianosis"/>
+          <integer
+            name="inPatientsFemale"
+            label="In Patients Female"/>
+          <integer
+            name="inPatientsMale"
+            label="In Patients Male"/>
+          <integer
+            name="inPatientsDefinitive"
+            label="In Patients Definitive"/>
+          <integer
+            name="inPatientsClinically"
+            label="In Patients Clinically"/>
+          <integer
+            name="inPatientsDischarged"
+            label="In Patients Discharged"/>
+          <integer
+            name="inPatientsNotTreated"
+            label="In Patients Not Treated"/>
+          <integer
+            name="outPatientsTotal"
+            label="Out Patients Total"/>
+          <integer
+            name="outPatientsFemale"
+            label="Out Patients Female"/>
+          <integer
+            name="outPatientsMale"
+            label="Out Patients Male"/>
+          <integer
+            name="patientsNotTreated"
+            label="Patients Not Treated"/>
+          <integer
+            name="outPatientsNotTreated"
+            label="Out Patients Not Treated"/>
+          <integer
+            name="stillBirths"
+            label="Still Births"/>
+          <integer
+            name="daysOutOfStock"
+            label="Days Out Of Stock"/>
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.AbstractSprayExcelView"
+        label="Abstract Spray Excel View"
+        description="Abstract Excel View for sprays">
+        <attributes>
+          <!-- Geo Id -->
+          <char
+            name="geoEntity_0"
+            label="Geo Entity 0"
+            size="255" />
+          <char
+            name="geoEntity_01"
+            label="Geo Entity 1"
+            size="255" />
+          <char
+            name="geoEntity_02"
+            label="Geo Entity 2"
+            size="255" />
+          <char
+            name="geoEntity_03"
+            label="Geo Entity 3"
+            size="255" />
+          <char
+            name="geoEntity_04"
+            label="Geo Entity 4"
+            size="255" />
+          <char
+            name="geoEntity_05"
+            label="Geo Entity 5"
+            size="255" />
+          <char
+            name="geoEntity_06"
+            label="Geo Entity 6"
+            size="255" />
+          <char
+            name="geoEntity_07"
+            label="Geo Entity 7"
+            size="255" />
+          <char
+            name="geoEntity_08"
+            label="Geo Entity 8"
+            size="255" />
+          <char
+            name="geoEntity_09"
+            label="Geo Entity 9"
+            size="255" />
+          <char
+            name="geoEntity_10"
+            label="Geo Entity 10"
+            size="255" />
+          <!-- Insecticide Brand -->
+          <virtual
+            name="brandName"
+            concrete="brandName"
+            type="dss.vector.solutions.irs.InsecticideBrand"/>
+          <!-- Spray Data -->
+          <virtual
+            name="sprayDate"
+            concrete="sprayDate"
+            type="dss.vector.solutions.irs.SprayData"/>
+          <char
+            name="sprayMethod"
+            label="Spray Method"
+            size="255" />
+          <char
+            name="surfaceType"
+            label="Spray Operator Last Name"
+            size="255" />
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.ActorSprayExcelView"
+        label="Actor Spray Excel View"
+        description="Abstract Excel View for actor sprays"
+        isAbstract="true"
+        extends="dss.vector.solutions.export.AbstractSprayExcelView">
+        <attributes>
+          <char
+            name="sprayTeam"
+            label="Spray Team"
+            size="255" />
+          <char
+            name="leaderFirstName"
+            label="Spray Leader First Name"
+            size="255" />
+          <char
+            name="leaderLastName"
+            label="Spray Leader Last Name"
+            size="255" />
+          <virtual
+            name="teamSprayWeek"
+            concrete="teamSprayWeek"
+            type="dss.vector.solutions.irs.ActorSpray"/>
+          <virtual
+            name="target"
+            concrete="target"
+            type="dss.vector.solutions.irs.ActorSpray"/>
+          <virtual
+            name="received"
+            concrete="received"
+            type="dss.vector.solutions.irs.ActorSpray"/>
+          <virtual
+            name="refills"
+            concrete="refills"
+            type="dss.vector.solutions.irs.ActorSpray"/>
+          <virtual
+            name="returned"
+            concrete="returned"
+            type="dss.vector.solutions.irs.ActorSpray"/>
+          <virtual
+            name="used"
+            concrete="used"
+            type="dss.vector.solutions.irs.ActorSpray"/>
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.OperatorSprayExcelView"
+        label="Operator Spray Excel View"
+        description="Excel View for operator sprays"
+        extends="dss.vector.solutions.export.ActorSprayExcelView">
+        <attributes>
+          <char
+            name="operatorFirstName"
+            label="Spray Operator First Name"
+            size="255" />
+          <char
+            name="operatorLastName"
+            label="Spray Operator Last Name"
+            size="255" />
+          <virtual
+            name="operatorSprayWeek"
+            concrete="operatorSprayWeek"
+            type="dss.vector.solutions.irs.OperatorSpray"/>
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.TeamSprayExcelView"
+        label="Team Spray Excel View"
+        description="Excel View for team sprays"
+        extends="dss.vector.solutions.export.ActorSprayExcelView">
+        <attributes>
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.ZoneSprayExcelView"
+        label="Zone Spray Excel View"
+        description="Excel View for zone sprays"
+        extends="dss.vector.solutions.export.AbstractSprayExcelView">
+        <attributes>
+          <virtual
+            name="sprayWeek"
+            concrete="sprayWeek"
+            type="dss.vector.solutions.irs.ZoneSpray"/>
+          <virtual
+            name="supervisorName"
+            concrete="supervisorName"
+            type="dss.vector.solutions.irs.ZoneSpray"/>
+          <virtual
+            name="supervisorSurname"
+            concrete="supervisorSurname"
+            type="dss.vector.solutions.irs.ZoneSpray"/>
+          <virtual
+            name="target"
+            concrete="target"
+            type="dss.vector.solutions.irs.ZoneSpray"/>
+        </attributes>
+      </mdView>
     </create>
   </doIt>
   <undoIt>
@@ -710,6 +1292,30 @@
         type="com.terraframe.mojo.system.metadata.MdView"/>
       <object
         key="dss.vector.solutions.export.MorphologicalSpecieGroupExcelView"
+        type="com.terraframe.mojo.system.metadata.MdView"/>
+      <object
+        key="dss.vector.solutions.export.PersonExcelView"
+        type="com.terraframe.mojo.system.metadata.MdView"/>
+      <object
+        key="dss.vector.solutions.export.EfficacyAssayExcelView"
+        type="com.terraframe.mojo.system.metadata.MdView"/>
+      <object
+        key="dss.vector.solutions.export.AggregatedCaseExcelView"
+        type="com.terraframe.mojo.system.metadata.MdView"/>
+      <object
+        key="dss.vector.solutions.export.OperatorSprayExcelView"
+        type="com.terraframe.mojo.system.metadata.MdView"/>
+      <object
+        key="dss.vector.solutions.export.TeamSprayExcelView"
+        type="com.terraframe.mojo.system.metadata.MdView"/>
+      <object
+        key="dss.vector.solutions.export.ZoneSprayExcelView"
+        type="com.terraframe.mojo.system.metadata.MdView"/>
+      <object
+        key="dss.vector.solutions.export.ActorSprayExcelView"
+        type="com.terraframe.mojo.system.metadata.MdView"/>
+      <object
+        key="dss.vector.solutions.export.AbstractSprayExcelView"
         type="com.terraframe.mojo.system.metadata.MdView"/>
     </delete>
   </undoIt>

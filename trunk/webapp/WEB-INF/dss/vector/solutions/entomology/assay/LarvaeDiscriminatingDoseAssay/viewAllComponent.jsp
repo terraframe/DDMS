@@ -78,3 +78,7 @@
 </mjl:table>
 <br />
 <mjl:commandLink display="Create a new Larvae Discriminating Dose Assay" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" name="LarvaeDiscriminatingDoseAssayController.newInstance" />
+
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView" name="excelType"/>
+</jsp:include>

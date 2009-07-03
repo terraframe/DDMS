@@ -57,6 +57,9 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
     <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.selectAgeGroup.mojo" name="search.button" value="Search" />
   </dl>
 </mjl:form>
+<jsp:include page="WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.AggregatedCaseExcelView" name="excelType"/>
+</jsp:include>
 
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{AggregatedCaseViewDTO.CLASS}))%>
 

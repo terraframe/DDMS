@@ -12,10 +12,14 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.entomology.MorphologicalSpecieGroup;
 import dss.vector.solutions.entomology.MosquitoCollectionPoint;
+import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.PermanentWaterBody;
+import dss.vector.solutions.geo.generated.Trap;
 import dss.vector.solutions.intervention.monitor.SurveyPoint;
 import dss.vector.solutions.mo.IdentificationMethod;
 import dss.vector.solutions.mo.Specie;
+import dss.vector.solutions.util.GenericHierarchySearcher;
 import dss.vector.solutions.util.GeoColumnListener;
 import dss.vector.solutions.util.GeoEntitySearcher;
 import dss.vector.solutions.util.SearchableHierarchy;
@@ -46,7 +50,7 @@ public class MorphologicalSpecieGroupExcelView extends MorphologicalSpecieGroupE
   
   public MosquitoCollectionPoint getMosquitoCollectionPoint()
   {
-    GeoEntitySearcher searcher = new GeoEntitySearcher(GeoColumnListener.getHierarchy());
+    GeoEntitySearcher searcher = new GeoEntitySearcher(getHierarchy());
     
     List<String> geoEntityNames = new LinkedList<String>();
     geoEntityNames.add(this.getGeoEntity_0());
@@ -65,10 +69,17 @@ public class MorphologicalSpecieGroupExcelView extends MorphologicalSpecieGroupE
     return MosquitoCollectionPoint.findOrCreate(entity, this.getDateCollected());
   }
 
+  private static List<SearchableHierarchy> getHierarchy()
+  {
+    List<SearchableHierarchy> hierarchy = new LinkedList<SearchableHierarchy>(GeoColumnListener.getPoliticalHierarchy());
+    hierarchy.add(new GenericHierarchySearcher(Trap.CLASS, PermanentWaterBody.CLASS));
+    return hierarchy;
+  }
+
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
     Map<String, String> map = new HashMap<String, String>();
-    List<SearchableHierarchy> hierarchy = GeoColumnListener.getHierarchy();
+    List<SearchableHierarchy> hierarchy = getHierarchy();
     List<MdAttributeDAOIF> attributes = getGeoEntityAttributes();
 
     int size = Math.min(hierarchy.size(), attributes.size());

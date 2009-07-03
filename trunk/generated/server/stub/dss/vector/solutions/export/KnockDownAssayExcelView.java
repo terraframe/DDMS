@@ -8,17 +8,12 @@ import java.util.Map;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.KnockDownAssay;
-import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.export.entomology.MosquitoCollectionView;
 import dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView;
 import dss.vector.solutions.general.Insecticide;
-import dss.vector.solutions.general.InsecticideQuery;
-import dss.vector.solutions.mo.ActiveIngredient;
 import dss.vector.solutions.mo.Generation;
 import dss.vector.solutions.mo.IdentificationMethod;
 import dss.vector.solutions.mo.ResistanceMethodology;
@@ -76,19 +71,7 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     kda.setIntervalTime(this.getIntervalTime());
     kda.setQuantityTested(this.getQuantityTested());
     
-    ActiveIngredient activeIngredient = ActiveIngredient.validateByDisplayLabel(this.getInsecticideActiveIngredient());
-    Unit unit = AdultDiscriminatingDoseAssayExcelView.getUnitByLabel(this.getInsecticideUnits());
-    InsecticideQuery insecticideQuery = new InsecticideQuery(new QueryFactory());
-    insecticideQuery.WHERE(insecticideQuery.getActiveIngredient().EQ(activeIngredient));
-    insecticideQuery.WHERE(insecticideQuery.getUnits().containsExactly(unit));
-    insecticideQuery.WHERE(insecticideQuery.getAmount().EQ(this.getInsecticideAmount()));
-    
-    OIterator<? extends Insecticide> iterator = insecticideQuery.getIterator();
-    if (iterator.hasNext())
-    {
-      kda.setInsecticide(iterator.next());
-    }
-    iterator.close();
+    kda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));
     
     kda.apply();
   }

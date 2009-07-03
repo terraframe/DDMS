@@ -74,3 +74,7 @@
 </mjl:table>
 <br />
 <mjl:commandLink display="Create a new Knock Down Assay" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" name="KnockDownAssayController.newInstance" />
+
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.KnockDownAssayExcelView" name="excelType"/>
+</jsp:include>

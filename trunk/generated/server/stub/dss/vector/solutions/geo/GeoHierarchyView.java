@@ -35,7 +35,7 @@ public class GeoHierarchyView extends GeoHierarchyViewBase implements Searchable
   public List<GeoEntity> searchGeoEntity(String entityName, GeoEntity parent)
   {
     MdBusiness mdBusiness = MdBusiness.get(this.getReferenceId());
-    GenericHierarchySearcher searcher = new GenericHierarchySearcher(new String[]{mdBusiness.definesType()});
+    GenericHierarchySearcher searcher = new GenericHierarchySearcher(mdBusiness.definesType());
 
     return searcher.searchGeoEntity(entityName, parent);
   }

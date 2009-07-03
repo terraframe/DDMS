@@ -119,3 +119,7 @@
 </mjl:table>
 <br />
 <mjl:commandLink display="Create a new Efficacy Assay" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.newInstance.mojo" name="EfficacyAssayController.newInstance" />
+
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.EfficacyAssayExcelView" name="excelType"/>
+</jsp:include>

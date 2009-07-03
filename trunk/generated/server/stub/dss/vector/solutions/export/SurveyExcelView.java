@@ -140,7 +140,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
     Map<String, String> map = new HashMap<String, String>();
-    List<SearchableHierarchy> hierarchy = GeoColumnListener.getHierarchy();
+    List<SearchableHierarchy> hierarchy = GeoColumnListener.getSentinelSiteHierarchy();
     List<MdAttributeDAOIF> attributes = SurveyExcelView.getGeoEntityAttributes();
 
     int size = Math.min(hierarchy.size(), attributes.size());
@@ -177,7 +177,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   
   public SurveyPoint getSurveyPoint()
   {
-    GeoEntitySearcher searcher = new GeoEntitySearcher(GeoColumnListener.getHierarchy());
+    GeoEntitySearcher searcher = new GeoEntitySearcher(GeoColumnListener.getSentinelSiteHierarchy());
     
     List<String> geoEntityNames = new LinkedList<String>();
     geoEntityNames.add(this.getGeoEntity_0());

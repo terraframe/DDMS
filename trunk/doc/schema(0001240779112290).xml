@@ -89,6 +89,11 @@
             label="Spray Leader Delegate"
             description="Associates this person with the Spray Leader Delegate"
             type="dss.vector.solutions.irs.SprayLeader" />
+          <reference
+            name="residentialGeoEntity"
+            label="Residential Geo Entity"
+            description="Geo Entity that is nearest to the person's residence"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
         </attributes>
         <mdMethod
           name="searchForDuplicates"
@@ -136,6 +141,10 @@
           <virtual
             name="dateOfBirth"
             concrete="dateOfBirth"
+            type="dss.vector.solutions.Person" />
+          <virtual
+            name="residentialGeoEntity"
+            concrete="residentialGeoEntity"
             type="dss.vector.solutions.Person" />
           <virtual
             name="sex"

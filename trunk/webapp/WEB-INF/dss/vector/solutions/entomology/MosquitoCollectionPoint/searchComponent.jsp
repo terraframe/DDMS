@@ -56,3 +56,6 @@
     <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionPointController.searchByGeoIdAndDate.mojo" name="search.button"  value="Search"/>
   </dl>
 </mjl:form>
+<jsp:include page="WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.MorphologicalSpecieGroupExcelView" name="excelType"/>
+</jsp:include>

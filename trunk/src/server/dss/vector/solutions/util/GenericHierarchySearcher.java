@@ -20,7 +20,7 @@ public class GenericHierarchySearcher implements SearchableHierarchy, Reloadable
     this.types = new LinkedList<String>();
   }
     
-  public GenericHierarchySearcher(String[] types)
+  public GenericHierarchySearcher(String... types)
   {
     this.types = Arrays.asList(types);
   }

@@ -1,5 +1,10 @@
 package dss.vector.solutions.general;
 
+import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryFactory;
+
+import dss.vector.solutions.entomology.assay.Unit;
+
 public class Insecticide extends InsecticideBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -23,5 +28,38 @@ public class Insecticide extends InsecticideBase implements
     
     return this.getId();
   }
-
+  
+  public static Insecticide get(String activeIngredient, String unit, Integer amount)
+  {
+    InsecticideQuery insecticideQuery = new InsecticideQuery(new QueryFactory());
+    insecticideQuery.WHERE(insecticideQuery.getActiveIngredient().EQ(activeIngredient));
+    insecticideQuery.WHERE(insecticideQuery.getUnits().containsExactly(getUnitByLabel(unit)));
+    insecticideQuery.WHERE(insecticideQuery.getAmount().EQ(amount));
+    
+    OIterator<? extends Insecticide> iterator = insecticideQuery.getIterator();
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      return null;
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
+  public static Unit getUnitByLabel(String label)
+  {
+    for (Unit e : Unit.values())
+    {
+      if (e.getDisplayLabel().equals(label))
+      {
+        return e;
+      }
+    }
+    return null;
+  }
 }

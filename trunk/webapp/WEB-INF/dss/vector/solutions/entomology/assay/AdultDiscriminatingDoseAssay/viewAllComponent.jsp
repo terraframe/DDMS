@@ -78,3 +78,6 @@
 <br />
 <mjl:commandLink display="Enter New Data" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo"
   name="AdultDiscriminatingDoseAssayController.newInstance" />
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView" name="excelType"/>
+</jsp:include>

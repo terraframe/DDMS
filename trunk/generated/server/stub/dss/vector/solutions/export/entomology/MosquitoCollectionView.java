@@ -1,6 +1,5 @@
 package dss.vector.solutions.export.entomology;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,10 +13,6 @@ import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.GeoHierarchyView;
-import dss.vector.solutions.geo.PoliticalHierarchyLengthException;
-import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.NonSentinelSite;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -150,27 +145,11 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
   
   public static List<SearchableHierarchy> getHierarchy()
   {
-    List<GeoHierarchyView> political = Arrays.asList(GeoHierarchy.getPoliticalGeoHierarchiesByType(Earth.CLASS));    
-
-    //Ensure that the Political Hierarhcy length is 10 or less
-    if(political.size() > 10)
-    {
-      String msg = "The political hierarchy is longer than the number of allocated spots for the geo entity attribute.";
-      
-      PoliticalHierarchyLengthException e = new PoliticalHierarchyLengthException(msg);
-      e.setSlots(10);
-      e.setHierarchyLength(political.size());
-      e.apply();
-      
-      throw e;
-    }
-
-    
-    List<SearchableHierarchy> hierarchy = new LinkedList<SearchableHierarchy>(political);
+    List<SearchableHierarchy> hierarchy = new LinkedList<SearchableHierarchy>(GeoColumnListener.getPoliticalHierarchy());
 
     //Sentinel and Non-Sentinel Sites are not part of the political hierarchy so I must add them manually,
     //This only works if Sentinel and Non-Sentinel Sites are not part of the political hierarchy.
-    hierarchy.add(new GenericHierarchySearcher(new String[]{SentinelSite.CLASS, NonSentinelSite.CLASS}));
+    hierarchy.add(new GenericHierarchySearcher(SentinelSite.CLASS, NonSentinelSite.CLASS));
     
     return hierarchy;
   }
@@ -193,7 +172,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     return list;
   }
   
-  public static void setupExcelListener(ExcelExporter exporter, String...params)
+  public static void setupExportListener(ExcelExporter exporter, String...params)
   {
     Map<String, String> map = new HashMap<String, String>(); 
     List<SearchableHierarchy> hierarchy = MosquitoCollectionView.getHierarchy();
