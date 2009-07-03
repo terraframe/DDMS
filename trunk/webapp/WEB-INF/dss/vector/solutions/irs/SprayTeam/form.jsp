@@ -18,7 +18,7 @@
     <%-- 5.13.09 - Marlize says we don't need Spray Leaders --%>
     <dt><label> <fmt:message key="Spray_Team_Leader" /> </label></dt>
     <dd><mjl:select var="leader" valueAttribute="id" items="${leaders}" param="leaderId" includeBlank="true">
-      <mjl:option selected="${leader.id==leaderId?'selected':'false'}">
+      <mjl:option selected="${(leaderId!=null && leader.id==leaderId)?'selected':'false'}">
           ${leader.person.firstName} ${leader.person.lastName}
         </mjl:option>
     </mjl:select>

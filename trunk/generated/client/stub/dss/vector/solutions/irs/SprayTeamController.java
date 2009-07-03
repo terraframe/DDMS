@@ -104,6 +104,13 @@ public class SprayTeamController extends SprayTeamControllerBase implements com.
         availableOperators.add(operator);
       }
     }
+    
+    List<? extends SprayLeaderDTO> leader = team.getAllTeamLeader();
+    
+    if(leader.size() > 0)
+    {
+      req.setAttribute("leaderId", leader.get(0).getId());      
+    }
 
     req.setAttribute("current", currentOperators);
     req.setAttribute("available", availableOperators);
