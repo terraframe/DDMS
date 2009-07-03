@@ -95,6 +95,6 @@
 <br />
 <mjl:commandLink display="Create a new Person" action="dss.vector.solutions.PersonController.newInstance.mojo" name="PersonController.newInstance" />
 
-<jsp:include page="WEB-INF/excelButtons.jsp">
+<jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.PersonExcelView" name="excelType"/>
 </jsp:include>

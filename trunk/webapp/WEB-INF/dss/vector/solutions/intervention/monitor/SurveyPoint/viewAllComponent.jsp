@@ -41,6 +41,6 @@
 <br />
 <mjl:commandLink display="Create a new Survey Point" action="dss.vector.solutions.intervention.monitor.SurveyPointController.newInstance.mojo" name="SurveyPointController.newInstance" />
 
-<jsp:include page="WEB-INF/excelButtons.jsp">
+<jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.SurveyExcelView" name="excelType"/>
 </jsp:include>

@@ -47,7 +47,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = true;
     <mjl:command classes="submitButton" action="dss.vector.solutions.irs.ZoneSprayController.searchByParameters.mojo" name="search.button" value="Search" />
   </dl>
 </mjl:form>
-<jsp:include page="WEB-INF/excelButtons.jsp">
+<jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.ZoneSprayExcelView" name="excelType"/>
 </jsp:include>
 
