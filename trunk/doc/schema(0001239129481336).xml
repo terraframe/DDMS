@@ -304,21 +304,11 @@
             order="0"
             type="java.lang.String" />
           <mdParameter
-            name="geoEntityType"
-            label="GeoEntity type"
-            description="The type on which to gather spatial data"
+            name="config"
+            label="config"
+            description="JSON config"
             order="1"
             type="java.lang.String" />
-          <mdParameter
-            name="sortBy"
-            label="Sort By"
-            type="java.lang.String"
-            order="2" />
-          <mdParameter
-            name="ascending"
-            label="Ascending"
-            type="java.lang.Boolean"
-            order="3" />
           <mdParameter
             name="pageNumber"
             label="Page Number"
@@ -329,11 +319,6 @@
             label="Page Size"
             type="java.lang.Integer"
             order="5" />           
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="6" />
         </mdMethod>
         <mdMethod
           name="exportQueryToExcel"
@@ -347,21 +332,16 @@
             order="0"
             type="java.lang.String"/>
           <mdParameter
-            name="geoEntityType"
-            label="GeoEntity type"
-            description="The type on which to gather spatial data"
+            name="config"
+            label="config"
+            description="JSON config"
             order="1"
-            type="java.lang.String"/>
+            type="java.lang.String" />
            <mdParameter
              name="savedSearchId"
              label="Saved Search Id"
              order="2"
              type="java.lang.String"/>
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="3" />
         </mdMethod>
         <mdMethod
           name="exportQueryToCSV"
@@ -375,21 +355,16 @@
             order="0"
             type="java.lang.String"/>
           <mdParameter
-            name="geoEntityType"
-            label="GeoEntity type"
-            description="The type on which to gather spatial data"
+            name="config"
+            label="config"
+            description="JSON config"
             order="1"
-            type="java.lang.String"/>
+            type="java.lang.String" />
            <mdParameter
              name="savedSearchId"
              label="Saved Search Id"
              order="2"
              type="java.lang.String"/>
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="3" />
         </mdMethod>
 
         <mdMethod
@@ -435,11 +410,6 @@
             description="The id of the SavedSearch for which the map will be generated."
             order="3"
             type="java.lang.String" />
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="4" />
         </mdMethod>
         <mdMethod
           name="applyAll"

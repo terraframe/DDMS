@@ -14,6 +14,40 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     // map of currently selected objects
     this._criteriaMap = {};
     this._CURRENT_SELECTIONS = 'currentSelections';
+    
+    this._initSelectedUniversals = [];
+  },
+  
+  setSelectedUniversals : function(selected)
+  {
+    if(this._rendered)
+    {
+      var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
+      for(var i=0; i<checkboxes.length; i++)
+      {
+        var check = checkboxes[i];
+        if(check.checked)
+        {
+          check.checked = false;
+        }
+      }
+    }
+    else
+    {
+      this._initSelectedUniversals = [];
+    }
+  
+    for(var i=0; i<selected.length; i++)
+    {
+      if(this._rendered)
+      {
+        document.getElementById(selected[i]+'_selectUniversalType').checked = true;
+      }
+      else
+      {
+        this._initSelectedUniversals.push(selected[i]);
+      }
+    }
   },
 
   /**
@@ -33,18 +67,39 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
         return;
       }
 
-      this._updateSelection(geoEntityView);
+      this._updateSelection(geoEntityView, true);
     }
     else
     {
       MDSS.AbstractSelectSearch.prototype._getChildren.call(this, e);
     }
   },
+  
+  /**
+   * Sets the query criteria on this search. The criteria
+   * are the geo entities by which the user is restricting the
+   * query. This will clear any prior selected options.
+   */
+  setCriteria : function(criteria)
+  {
+    this._criteriaMap = {};
+    
+    if(this._rendered)
+    {
+      var selections = document.getElementById(this._CURRENT_SELECTIONS);
+      selections.innerHTML = '';
+    }
+  
+    for(var i=0; i<criteria.length; i++)
+    {
+      this._updateSelection(criteria[i], this._rendered);
+    }
+  },
 
   /**
    * Adds the given GeoEntity to the list of current selections.
    */
-  _updateSelection : function(geoEntityView)
+  _updateSelection : function(geoEntityView, updateList)
   {
     var id = geoEntityView.getGeoEntityId();
 
@@ -53,7 +108,22 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     {
       return;
     }
+    else
+    {
+      this._criteriaMap[id] = geoEntityView;
+    }
 
+    if(updateList)
+    {
+      this._updateSelectionList(geoEntityView);
+    }
+  },
+  
+  /**
+   * 
+   */
+  _updateSelectionList : function(geoEntityView)
+  {
     var liId = geoEntityView.getGeoEntityId()+"_selected";
 
     var li = document.createElement('li');
@@ -74,10 +144,8 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
 
     var selections = document.getElementById(this._CURRENT_SELECTIONS);
     selections.appendChild(li);
-
-    this._criteriaMap[id] = geoEntityView;
   },
-
+  
   /**
    * Deletes the li element from the current selection list.
    * The GeoEntity associated with that selection will no longer
@@ -99,19 +167,14 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     {
       var entities = Mojo.util.getValues(this._criteriaMap);
       var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
-      var selected = {};
+      var selected = [];
       for(var i=0; i<checkboxes.length; i++)
       {
       	var check = checkboxes[i];
       	if(check.checked)
       	{
           var type = check.value;
-
-  	      var construct = Mojo.util.getType(type);
-    	  var geoEntity = new construct();
-          var geoEntityView = this._copyEntityToView(geoEntity);
-
-          selected[type] = geoEntityView;
+          selected.push(type);
         }
       }
 
@@ -176,6 +239,17 @@ MDSS.MultipleSelectSearch.prototype = Mojo.Class.extend(MDSS.AbstractSelectSearc
     {
       var toggle = toggles[i];
       YAHOO.util.Event.on(toggle, 'click', this._notifySelectUniversalTypeHandler, toggle.value, this);
+    }
+    
+    var views = Mojo.util.getValues(this._criteriaMap);
+    for(var i=0; i<views.length; i++)
+    {
+      this._updateSelectionList(views[i]);
+    }
+    
+    for(var i=0; i<this._initSelectedUniversals.length; i++)
+    {
+      document.getElementById(this._initSelectedUniversals[i]+"_selectUniversalType").checked = true;
     }
   },
 

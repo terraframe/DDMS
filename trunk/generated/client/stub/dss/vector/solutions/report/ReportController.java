@@ -63,10 +63,10 @@ public class ReportController extends ReportControllerBase implements
   }
 
   @Override
-  public void generateReport(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
+  public void generateReport(String queryXML, String config, String savedSearchId)
       throws IOException, ServletException
   {
-    buildReport(queryXML, geoEntityType, savedSearchId, restrictingEntities);
+    buildReport(queryXML, config, savedSearchId);
   }
 
   private void validateParameters(String queryXML, String geoEntityType, String savedSearchId)
@@ -77,14 +77,14 @@ public class ReportController extends ReportControllerBase implements
     }
   }
 
-  private void buildReport(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
+  private void buildReport(String queryXML, String config, String savedSearchId)
       throws ServletException, IOException
   {
     String tempDir = null;
 
     try
     {
-      validateParameters(queryXML, geoEntityType, savedSearchId);
+      validateParameters(queryXML, config, savedSearchId);
 
       ClientRequestIF request = this.getClientRequest();
       SavedSearchDTO search = SavedSearchDTO.get(request, savedSearchId);
@@ -93,8 +93,8 @@ public class ReportController extends ReportControllerBase implements
       // Get report name and launch the engine
       ServletContext sc = req.getSession().getServletContext();
       IReportEngine engine = BirtEngine.getBirtEngine(sc, request);
-      InputStream input = AggregatedCaseDTO.exportQueryToCSV(request, queryXML, geoEntityType,
-        savedSearchId, restrictingEntities);
+      InputStream input = AggregatedCaseDTO.exportQueryToCSV(request, queryXML, config,
+        savedSearchId);
 
       tempDir = this.generateTempCSVFile(input, TEMP_FILE_NAME);
 

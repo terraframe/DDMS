@@ -11,6 +11,7 @@ MDSS.QueryBase.prototype = {
       executeQuery: MDSS.util.bind(this, this.executeQuery),
       mapQuery: MDSS.util.bind(this, this.mapQuery),
       saveQuery: MDSS.util.bind(this, this.saveQuery),
+      saveQueryAs: MDSS.util.bind(this, this.saveQueryAs),
       loadQuery: MDSS.util.bind(this, this.loadQuery),
       addLayer: MDSS.util.bind(this, this.addLayer),
       editLayer: MDSS.util.bind(this, this.editLayer),
@@ -24,10 +25,6 @@ MDSS.QueryBase.prototype = {
       postRender : MDSS.util.bind(this, this.postRender),
     });
 
-    // Set of GeoEntity subclasses that will be used for the query/mapping
-    this._geoEntityQueryType = '';
-    this._selectedUniversals = [];
-    
     this._allPathsQuery = null;
 
     this._geoEntityTypes = {};
@@ -39,8 +36,21 @@ MDSS.QueryBase.prototype = {
     this._startDate = null;
     this._endDate = null;
     this._dateGroup = null;
+    
+    this._config = new MDSS.Query.Config();
 
     this.PAGE_SIZE = 15;
+    
+    this.ALL_PATHS = "dss.vector.solutions.geo.AllPaths";
+    
+    var hideBound = MDSS.util.bind(this, this._hideHandler);
+
+    this._selectSearch = new MDSS.MultipleSelectSearch();
+    this._selectSearch.setHideHandler(hideBound);
+    this._selectSearch.setFilter('');
+    
+    // list of all elements and default settings
+    this._defaults = [];
   },
 
   getCurrentPage : function()
@@ -65,15 +75,15 @@ MDSS.QueryBase.prototype = {
     form.action = action;
 
     xmlInput.innerHTML = xml;
-    geoEntityTypeInput.value = Mojo.util.getJSON(this._selectedUniversals); // FIXME rename 
+    geoEntityTypeInput.value = this._config.getJSON();
     searchIdInput.value = savedSearchId;
     form.submit();
   },
 
 
-  _dateGroupHandler : function(e, attrib)
+  _dateGroupHandler : function(e)
   {
-    var select = e.target;
+    var option = e.target;
 
     if(this._dateGroup){
       var column = this._queryPanel.getColumn(this._dateGroup);
@@ -81,19 +91,19 @@ MDSS.QueryBase.prototype = {
       this._dateGroup = null;
     	//this._queryPanel.removeThematicVariable(attribute.getKey());
     }
-    if(select.value.length > 0)
+    if(option.value !== '')
     {
-    	this._dateGroup = select.value;
+    	this._dateGroup = option.value;
       this._queryPanel.insertColumn({
     	  key: this._dateGroup,
-    	  label: MDSS.QueryXML.DateGroupOpts[select.value]
+    	  label: MDSS.QueryXML.DateGroupOpts[option.value]
     	});
 
 	    var dateEl = this._queryPanel.getStartDate();
-	    this._snapDate(dateEl.get('value'), dateEl,this._dateGroup);
+	    this._snapDate(dateEl.value, dateEl,this._dateGroup);
 
 	    dateEl = this._queryPanel.getEndDate();
-	    this._snapDate(dateEl.get('value'), dateEl,this._dateGroup);
+	    this._snapDate(dateEl.value, dateEl,this._dateGroup);
 
       // ADD THEMATIC VARIABLE
       // this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
@@ -113,7 +123,7 @@ MDSS.QueryBase.prototype = {
       onSend: function(){},
       onComplete: function(){},
       onSuccess : function(result){
-      this.el.set('value',MDSS.Calendar.getLocalizedString(result));
+      this.el.value = MDSS.Calendar.getLocalizedString(result);
     }
   	});
 
@@ -151,7 +161,7 @@ MDSS.QueryBase.prototype = {
     form.action = action;
 
     xmlInput.innerHTML = xml;
-    geoEntityTypeInput.value = Mojo.util.getJSON(this._selectedUniversals); // FIXME
+    geoEntityTypeInput.value = this._config.getJSON();
     searchIdInput.value = savedSearchId;
     form.submit();
   },
@@ -171,7 +181,7 @@ MDSS.QueryBase.prototype = {
     form.action = action;
 
     xmlInput.innerHTML = xml;
-    geoEntityTypeInput.value = Mojo.util.getJSON(this._selectedUniversals); // FIXME
+    geoEntityTypeInput.value = this._config.getJSON();
     searchIdInput.value = savedSearchId;
     form.submit();
   },
@@ -226,7 +236,14 @@ MDSS.QueryBase.prototype = {
    */
   postRender : function()
   {
-  	 YAHOO.util.Event.on(this._queryPanel._dateGroupBy, 'change', this._dateGroupHandler, '',this);
+  	 //YAHOO.util.Event.on(this._queryPanel._dateGroupBy, 'change', this._delegateToOption, '',this);
+  	 var options = this._queryPanel._dateGroupBy.options;
+  	 for(var i=0; i<options.length; i++)
+  	 {
+  	   YAHOO.util.Event.on(options[i], 'click', this._dateGroupHandler, '',this);
+  	 }
+  	 
+  	 this._defaults.push({element:this._queryPanel._dateGroupBy, index: 0, active:true});
   },
 
   /**
@@ -288,13 +305,12 @@ MDSS.QueryBase.prototype = {
   {
     // Abstract
   },
-
-  /**
-   * Called when a user tries to save a query.
-   */
-  saveQuery : function()
+  
+  _delegateToOption : function(e, attribute)
   {
-  	// Abstract
+    var select = e.target;
+    var option = select.options[select.selectedIndex];
+    this._fireClickOnOption(option);
   },
 
   /**
@@ -303,17 +319,41 @@ MDSS.QueryBase.prototype = {
   loadQuery : function(savedSearchId)
   {
     var request = new MDSS.Request({
+      thisRef : this,
       onSuccess: function(savedSearchView){
 
-        this._queryPanel.setCurrentSavedSearch(savedSearchView);
+        this.thisRef._resetToDefault();
+
+        this.thisRef._queryPanel.setCurrentSavedSearch(savedSearchView);
 
         // set the XML
+        this.thisRef._loadQueryState(savedSearchView);
+
+        // set the config
 
         // set the layers
       }
     });
 
-    Mojo.$.dss.vector.solutions.query.SavedSearch.getAsView(request, savedSearchId, true);
+    Mojo.$.dss.vector.solutions.query.SavedSearch.getAsView(request, savedSearchId, true, true);
+  },
+  
+  _resetToDefault : function()
+  {
+    // abstract
+  },
+  
+  _loadQueryState : function()
+  {
+    // abstract
+  },
+  
+  _fireClickOnOption : function(option)
+  {
+    // FIXME add IE version of this
+    var evObj = document.createEvent('UIEvents');
+    evObj.initUIEvent('click', true, true, window, 1);
+    option.dispatchEvent(evObj);
   },
 
   /**
@@ -323,19 +363,60 @@ MDSS.QueryBase.prototype = {
   {
     modal.destroy();
   },
+  
+ /**
+   * Saves the current state of the QueryXML.
+   */
+  saveQuery : function()
+  {
+    var view = this._queryPanel.getCurrentSavedSearch();
+    
+    if(view != null)
+    {
+      this._populateSearch(null, view);
+    }
+  
+    var request = new MDSS.Request({
+      onSuccess : function()
+      {
+        // nothing to do
+      } 
+    });
+    
+    Mojo.$.dss.vector.solutions.query.SavedSearch.updateSearch(request, view);
+  }, 
+  
+  /**
+   * Saves the current state of the QueryXML.
+   */
+  saveQueryAs : function()
+  {
+    var controller = Mojo.$.dss.vector.solutions.query.QueryController;
+    var request = new MDSS.Request({
+      thisRef: this,
+      controller: controller,
+      onSuccess: function(html)
+      {
+        var modal = this.thisRef._createModal(html, MDSS.Localized.Query.Save);
+
+        var saved = MDSS.util.bind(this.thisRef, this.thisRef._saveQueryListener, modal);
+        var canceled = MDSS.util.bind(this.thisRef, this.thisRef._cancelQueryListener, modal);
+
+        this.controller.setSaveQueryListener(saved);
+        this.controller.setCancelQueryListener(canceled);
+      }
+    });
+
+    controller.newQuery(request);
+  },
 
   /**
    * Saves the current state of the query.
    */
   _saveQueryListener : function(modal, params, action)
   {
-    var queryXML = this._constructQuery();
-    var xml = queryXML.getXML();
-
     var view = new Mojo.$.dss.vector.solutions.query.SavedSearchView();
-    view.setQueryName(params['savedQueryView.queryName']);
-    view.setQueryXml(xml);
-    view.setThematicLayer(/*this._geoEntityQueryType*/''); // FIXME this needs to be changed
+    this._populateSearch(params, view);
 
     var request = new MDSS.Request({
       thisRef: this,
@@ -354,26 +435,31 @@ MDSS.QueryBase.prototype = {
       }
     });
 
-    var method = this._getSaveQueryMethod();
-    method(request, view);
+    Mojo.$.dss.vector.solutions.query.SavedSearch.saveSearch(request, view);
+  },
+  
+  _populateSearch : function(params, view)
+  {
+    var queryXML = this._constructQuery();
+    var xml = queryXML.getXML();
+    var queryType = this._getQueryType();
+
+    if(params != null)
+    {
+      view.setQueryName(params['savedQueryView.queryName']);
+    }
+    
+    view.setQueryXml(xml);
+    view.setConfig(Mojo.util.getJSON(this._config));
+    view.setThematicLayer(/*this._geoEntityQueryType*/''); // FIXME this needs to be changed
+    view.setQueryType(queryType);   
   },
 
   /**
    * Subclasses must override this to return the controller method
    * that will be executed to save a search.
    */
-  _getSaveQueryMethod : function()
-  {
-  	// Abstract
-  },
-
-  /**
-   * Subclasses must override this and return true
-   * if there is any group by clauses in the query.
-   * This is necessary to auto-group by the GeoEntity
-   * attributes.
-   */
-  _containsGroupBy : function()
+  _getQueryType: function()
   {
   	// Abstract
   },
@@ -532,11 +618,12 @@ MDSS.QueryBase.prototype = {
    * Uses the given GeoEntityView objects to add
    * restrictions to the GeoEntity query.
    */
-  _hideHandler : function(criteriaEntities, selectedEntities)
+  _hideHandler : function(criteriaEntities, selectedUniversals)
   {
     this._queryPanel.clearAllRecords();
 
-    this._selectedUniversals = [];
+    // clear any prior selected universals
+    this._config.clearSelectedUniversals();
 
     // remove existing columns
     var types = Mojo.util.getKeys(this._geoEntityTypes);
@@ -546,16 +633,20 @@ MDSS.QueryBase.prototype = {
     }
 
     // add new columns
-    var keys = Mojo.util.getKeys(selectedEntities);
-    for(var i=0; i<keys.length; i++)
+    for(var i=0; i<selectedUniversals.length; i++)
     {
-      var geoEntityView = selectedEntities[keys[i]];
+      var universal = selectedUniversals[i];
+  	  
+  	  var construct = Mojo.util.getType(universal);
+      var geoEntity = new construct();
+      var geoEntityView = this._selectSearch._copyEntityToView(geoEntity);  
+    
       this._addUniversalEntity(geoEntityView, true);
       
-      this._selectedUniversals.push(geoEntityView.getEntityType());
+      this._config.addSelectedUniversal(geoEntityView.getEntityType());
     }
     
-    this._queryPanel.setAvailableThematicLayers(this._selectedUniversals);
+    this._queryPanel.setAvailableThematicLayers(this._config.getSelectedUniversals());
 
     // remove all prior conditions
     this._geoIdConditions = {};
@@ -567,12 +658,8 @@ MDSS.QueryBase.prototype = {
       // add the type as a selectable if it does not exist
       if(this._allPathsQuery == null)
       {
-        var allPaths = "dss.vector.solutions.geo.AllPaths";
-        this._allPathsQuery = new MDSS.QueryXML.Entity(allPaths, allPaths);
+        this._allPathsQuery = new MDSS.QueryXML.Entity(this.ALL_PATHS, this.ALL_PATHS);
       }
-      
-      // add restriction based on geoId
-      //this._selectedUniversals.push(geoEntityView.getGeoEntityId());
       
       var attribute = new MDSS.QueryXML.Attribute(this._allPathsQuery.getAlias(), 'parentGeoEntity');
       var selectable = new MDSS.QueryXML.Selectable(attribute);
@@ -595,11 +682,6 @@ MDSS.QueryBase.prototype = {
     }
     else
     {
-      var hideBound = MDSS.util.bind(this, this._hideHandler);
-
-      this._selectSearch = new MDSS.MultipleSelectSearch();
-      this._selectSearch.setHideHandler(hideBound);
-      this._selectSearch.setFilter('');
       this._selectSearch.render();
     }
   },

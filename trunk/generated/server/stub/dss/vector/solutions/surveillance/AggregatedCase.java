@@ -7,8 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.xml.sax.SAXParseException;
 
 import com.terraframe.mojo.business.rbac.Operation;
@@ -17,7 +15,6 @@ import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.MdRelationshipDAOIF;
 import com.terraframe.mojo.dataaccess.MdViewDAOIF;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdRelationshipDAO;
 import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
@@ -55,6 +52,7 @@ import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.query.ThematicVariable;
+import dss.vector.solutions.util.QueryConfig;
 
 public class AggregatedCase extends AggregatedCaseBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -562,7 +560,11 @@ public class AggregatedCase extends AggregatedCaseBase implements
         leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
       }
       
-      valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[leftJoinSelectables.size()])));
+      int size = leftJoinSelectables.size();
+      if(size > 0)
+      {
+        valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
+      }
       
       // Join AggregatedCase to GeoEntity
       valueQuery.AND(aggregatedCaseQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
@@ -690,23 +692,10 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * @param xml
    */
   @Transaction
-  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize, String[] restrictingEntities)
+  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config, Integer pageNumber, Integer pageSize)
   {
-    // FIXME put parsing into common place
-    String selectedUniversals[];
-    try
-    {
-      JSONArray arr = new JSONArray(config);
-      selectedUniversals = new String[arr.length()];
-      for(int i=0; i<selectedUniversals.length; i++)
-      {
-        selectedUniversals[i] = arr.getString(i);
-      }
-    }
-    catch(JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
+    QueryConfig queryConfig = new QueryConfig(config);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
     
     
     ValueQuery valueQuery = xmlToValueQuery(xml, selectedUniversals, false, null);
@@ -723,7 +712,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * @return
   @Transaction
   public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers,
-      String savedSearchId, String[] restrictingEntities)
+      String savedSearchId)
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
@@ -764,23 +753,10 @@ public class AggregatedCase extends AggregatedCaseBase implements
    */
 
   @Transaction
-  public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId,String[] restrictingEntities)
+  public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
   {
-    // FIXME put parsing into common place
-    String selectedUniversals[];
-    try
-    {
-      JSONArray arr = new JSONArray(config);
-      selectedUniversals = new String[arr.length()];
-      for(int i=0; i<selectedUniversals.length; i++)
-      {
-        selectedUniversals[i] = arr.getString(i);
-      }
-    }
-    catch(JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
+    QueryConfig queryConfig = new QueryConfig(config);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
     
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
@@ -798,23 +774,10 @@ public class AggregatedCase extends AggregatedCaseBase implements
   }
 
   @Transaction
-  public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId, String[] restrictingEntities)
+  public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId)
   {
-    // FIXME put parsing into common place
-    String selectedUniversals[];
-    try
-    {
-      JSONArray arr = new JSONArray(config);
-      selectedUniversals = new String[arr.length()];
-      for(int i=0; i<selectedUniversals.length; i++)
-      {
-        selectedUniversals[i] = arr.getString(i);
-      }
-    }
-    catch(JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
+    QueryConfig queryConfig = new QueryConfig(config);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
     
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {

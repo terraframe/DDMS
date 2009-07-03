@@ -281,30 +281,29 @@ MDSS.QueryPanel.prototype = {
     var startLabel = document.createElement('span');
     startLabel.innerHTML = MDSS.Localized.Query.Start_Date;
 
-    this._startDate = new YAHOO.util.Element(document.createElement('input'));
-    this._startDate.set('type', 'text');
-    this._startDate.set('id', this.START_DATE_RANGE);
-    this._startDate.addClass('DatePick');
+    this._startDate = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(this._startDate, 'type', 'text');
+    this._startDate.id = this.START_DATE_RANGE;
+    YAHOO.util.Dom.addClass(this._startDate, 'DatePick');
 
     var endLabel = document.createElement('span');
     endLabel.innerHTML = MDSS.Localized.Query.End_Date;
 
-    this._endDate = new YAHOO.util.Element(document.createElement('input'));
-    this._endDate.set('type', 'text');
-    this._endDate.set('id', this.END_DATE_RANGE);
-    this._endDate.addClass('DatePick');
+    this._endDate = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(this._endDate, 'type', 'text');
+    this._endDate.id = this.END_DATE_RANGE;
+    YAHOO.util.Dom.addClass(this._endDate, 'DatePick');
 
-    var toggleDatesCheck = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(toggleDatesCheck, 'type', 'checkbox');
-    YAHOO.util.Event.on(toggleDatesCheck, 'click', this._toggleDates, null, this);
+    this._toggleDatesCheck = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(this._toggleDatesCheck, 'type', 'checkbox');
+    YAHOO.util.Event.on(this._toggleDatesCheck, 'click', this._toggleDates, null, this);
 
     var toggleDatesSpan = document.createElement('span');
     toggleDatesSpan.innerHTML = MDSS.Localized.Toggle_Show;
 
     // add the date fields
 
-//    dateRange.appendChild(toggleDatesSpan);
-    dateRange.appendChild(toggleDatesCheck);
+    dateRange.appendChild(this._toggleDatesCheck);
     dateRange.appendChild(startLabel);
     dateRange.appendChild(this._startDate);
     dateRange.appendChild(endLabel);
@@ -325,6 +324,7 @@ MDSS.QueryPanel.prototype = {
       var optionEl = document.createElement('option');
       optionEl.innerHTML = options[j];
       YAHOO.util.Dom.setAttribute(optionEl, 'value', keys[j]);
+      optionEl.id = keys[j];
       //YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
       this._dateGroupBy.appendChild(optionEl);
     }
@@ -334,6 +334,12 @@ MDSS.QueryPanel.prototype = {
     var body = new YAHOO.util.Element(this._qTopUnit.body);
     body.appendChild(dateRange);
 
+  },
+  
+  
+  getToggleDatesCheck : function()
+  {
+    return this._toggleDatesCheck;
   },
 
   /**
@@ -949,7 +955,7 @@ MDSS.QueryPanel.prototype = {
       this._uploadModal.show();
     }
   },
-
+  
   /**
    * Builds the buttons to perform acions in the QueryPanel.
    */
@@ -968,6 +974,13 @@ MDSS.QueryPanel.prototype = {
     saveButton.set('id', "saveQueryButton");
     saveButton.addClass('queryButton');
     saveButton.on('click', this._saveQuery, {}, this);
+
+    var saveAsButton = new YAHOO.util.Element(document.createElement('input'));
+    saveAsButton.set('type', 'button');
+    saveAsButton.set('value', MDSS.Localized.Query_Save_As);
+    saveAsButton.set('id', "saveAsQueryButton");
+    saveAsButton.addClass('queryButton');
+    saveAsButton.on('click', this._saveQueryAs, {}, this);
 
     var loadButton = new YAHOO.util.Element(document.createElement('input'));
     loadButton.set('type', 'button');
@@ -1005,9 +1018,9 @@ MDSS.QueryPanel.prototype = {
     runButton.addClass('queryButton');
     runButton.on('click', this._executeQuery, {}, this);
 
-
     var rightDiv = new YAHOO.util.Element(document.createElement('div'));
     rightDiv.setStyle('float', 'right');
+    rightDiv.appendChild(uploadTemplate);
     rightDiv.appendChild(exportReportButton);
     rightDiv.appendChild(exportCSVButton);
     rightDiv.appendChild(exportXLSButton);
@@ -1018,7 +1031,7 @@ MDSS.QueryPanel.prototype = {
     leftDiv.appendChild(this._queryList);
     leftDiv.appendChild(loadButton);
     leftDiv.appendChild(saveButton);
-    leftDiv.appendChild(uploadTemplate);
+    leftDiv.appendChild(saveAsButton);
 
     var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
     qBottom.appendChild(leftDiv);
@@ -1493,6 +1506,17 @@ MDSS.QueryPanel.prototype = {
       this._config.saveQuery();
     }
   },
+  
+  /**
+   * Saves a new query.
+   */
+  _saveQueryAs : function()
+  {
+    if(Mojo.util.isFunction(this._config.saveQueryAs))
+    {
+      this._config.saveQueryAs();
+    }
+  }, 
 
   /**
    * Creates the map

@@ -50,8 +50,10 @@ MDSS.AbstractSelectSearch.prototype = {
     this._political = true;
 
     this._sprayTargetAllowed = false;
+    
+    this._rendered = false;
   },
-
+  
   /**
    * Copies a GeoEntity to a GeoEntityView (used for caching).
    */
@@ -244,6 +246,8 @@ MDSS.AbstractSelectSearch.prototype = {
         }
 
         this.searchRef._postRender();
+
+        this.searchRef._rendered = true;
 
         this.searchRef._createRoot();
       }

@@ -18,5 +18,5 @@
     </dl>
   </mjl:component>
   <mjl:command value="Cancel" action="dss.vector.solutions.query.QueryController.cancelQuery.mojo" name="dss.vector.solutions.query.QueryController.cancelQuery.button" />
-  <mjl:command value="Create" action="dss.vector.solutions.query.QueryController.saveAggregatedCasesQuery.mojo" name="dss.vector.solutions.query.QueryController.saveQuery.button" />
+  <mjl:command value="Create" action="dss.vector.solutions.query.QueryController.saveQuery.mojo" name="dss.vector.solutions.query.QueryController.saveQuery.button" />
 </mjl:form>

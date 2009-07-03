@@ -25,11 +25,9 @@ import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
 import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
-import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.entomology.assay.AbstractAssayDTO;
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
-import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.surveillance.AbstractGridDTO;
 import dss.vector.solutions.surveillance.AbstractGridQueryDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
@@ -56,11 +54,7 @@ public class QueryController extends QueryControllerBase implements
 
   private static final String QUERY_AGGREGATED_CASES = "/WEB-INF/queryScreens/queryAggregatedCases.jsp";
 
-  private static final String QUERY_INDICATOR_SURVEY = "/WEB-INF/queryScreens/queryIndicatorSurveys.jsp";
-
-  private static final String NEW_ENTOMOLOGY_QUERY              = "/WEB-INF/queryScreens/newEntomologyQuery.jsp";
-
-  private static final String NEW_AGGREGATED_CASES_QUERY              = "/WEB-INF/queryScreens/newAggregatedCasesQuery.jsp";
+  private static final String NEW_QUERY = "/WEB-INF/queryScreens/newQuery.jsp";
 
   public QueryController(javax.servlet.http.HttpServletRequest req,
       javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
@@ -139,8 +133,7 @@ public class QueryController extends QueryControllerBase implements
     }
     catch (Throwable e)
     {
-      e.printStackTrace(this.getResponse().getWriter());
-//      message = localized.getString("File_Upload_Failure");
+      this.getResponse().getWriter().write(e.getLocalizedMessage());
     }
     finally
     {
@@ -163,7 +156,7 @@ public class QueryController extends QueryControllerBase implements
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
 
       // Available queries
-      SavedSearchViewQueryDTO query = AggregatedCasesSearchDTO.getAggregatedCasesQueries(this.getClientRequest());
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_AGGREGATED_CASE);
       JSONArray queries = new JSONArray();
       for (SavedSearchViewDTO view : query.getResultSet())
       {
@@ -294,18 +287,6 @@ public class QueryController extends QueryControllerBase implements
         gridType.getJSONArray("options").put(option);
       }
 
-      /*
-      List<String> keysList = new LinkedList<String>();
-      Iterator<?> keys = diagnostic.keys();
-      while(keys.hasNext())
-      {
-        keysList.add((String) keys.next());
-      }
-      JSONObject amountPositive = new JSONObject(diagnostic, keysList.toArray(new String[keysList.size()]));
-      amountPositive.put("relAttribute", CaseDiagnosticDTO.AMOUNTPOSITIVE);
-      ordered.put(2, amountPositive); // insert right after Diagnostic with AMOUNT attribute
-      */
-
       req.setAttribute("orderedGrids", ordered.toString());
 
       req.getRequestDispatcher(QUERY_AGGREGATED_CASES).forward(req, resp);
@@ -313,6 +294,22 @@ public class QueryController extends QueryControllerBase implements
     catch (Throwable t)
     {
       throw new ApplicationException(t);
+    }
+  }
+  
+  @Override
+  public void newQuery() throws IOException, ServletException
+  {
+    try
+    {
+      this.req.setAttribute("savedSearch", new SavedSearchViewDTO(this.getClientRequest()));
+      this.req.getRequestDispatcher(NEW_QUERY).forward(this.req, this.resp);
+    }
+    catch(Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
     }
   }
 
@@ -332,7 +329,7 @@ public class QueryController extends QueryControllerBase implements
 
       req.setAttribute("assayTree", json);
 
-      SavedSearchViewQueryDTO query = EntomologySearchDTO.getEntomologyQueries(this.getClientRequest());
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_ENTOMOLOGY);
       JSONArray queries = new JSONArray();
       // Available queries
       for (SavedSearchViewDTO view : query.getResultSet())
@@ -368,7 +365,7 @@ public class QueryController extends QueryControllerBase implements
       EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
 
-      SavedSearchViewQueryDTO query = EntomologySearchDTO.getEntomologyQueries(this.getClientRequest());
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_IRS);
       JSONArray queries = new JSONArray();
       // Available queries
       for (SavedSearchViewDTO view : query.getResultSet())
@@ -393,13 +390,12 @@ public class QueryController extends QueryControllerBase implements
 
 
 
-  @Override
-  public void exportAggregatedCaseQueryToCSV(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
+  public void exportAggregatedCaseQueryToCSV(String queryXML, String config, String savedSearchId, String[] restrictingEntities)
       throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
+      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -412,12 +408,12 @@ public class QueryController extends QueryControllerBase implements
   }
 
   @Override
-  public void exportAggregatedCaseQueryToExcel(String queryXML, String geoEntityType,
-      String savedSearchId, String[] restrictingEntities) throws IOException, ServletException
+  public void exportAggregatedCaseQueryToExcel(String queryXML, String config,
+      String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
+      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -429,6 +425,7 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
+  /*
   @Override
   public void exportIRSQueryToCSV(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
       throws IOException, ServletException
@@ -500,118 +497,7 @@ public class QueryController extends QueryControllerBase implements
       resp.getWriter().write(t.getLocalizedMessage());
     }
   }
-
-  public void newEntomologyQuery() throws IOException, ServletException
-  {
-    try
-    {
-      SavedSearchViewDTO savedSearch = new SavedSearchViewDTO(this.getClientRequest());
-      req.setAttribute("savedSearch", savedSearch);
-
-      req.getRequestDispatcher(NEW_ENTOMOLOGY_QUERY).forward(req, resp);
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-  }
-
-  public void newAggregatedCasesQuery() throws IOException, ServletException
-  {
-    try
-    {
-      SavedSearchViewDTO savedSearch = new SavedSearchViewDTO(this.getClientRequest());
-      req.setAttribute("savedSearch", savedSearch);
-
-      req.getRequestDispatcher(NEW_AGGREGATED_CASES_QUERY).forward(req, resp);
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-  }
-
-  @Override
-  public void saveEntomologyQuery(SavedSearchViewDTO savedQueryView) throws IOException, ServletException
-  {
-    /*
-    try
-    {
-      SavedSearchDTO search = EntomologySearchDTO.saveSearch(this.getClientRequest(), savedQueryView);
-
-      // add the thematic layer
-      ThematicLayerDTO layer = search.getThematicLayer();
-
-      SLDWriter sldWriter = SLDWriter.getSLDWriter(layer);
-      sldWriter.write();
-
-      // return a simple json object with the search id and search name. This
-      // will
-      // be used to update the available query list.
-      JSONObject savedSearchJSON = new JSONObject();
-      savedSearchJSON.put("savedSearchId", search.getId());
-      savedSearchJSON.put("queryName", search.getQueryName());
-      savedSearchJSON.put("thematicLayerId", layer.getId());
-
-      resp.getWriter().write(savedSearchJSON.toString());
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    */
-  }
-
-  @Override
-  public void saveAggregatedCasesQuery(SavedSearchViewDTO savedQueryView) throws IOException, ServletException
-  {
-    /*
-    try
-    {
-      SavedSearchDTO search = AggregatedCasesSearchDTO.saveSearch(this.getClientRequest(), savedQueryView);
-
-      // add the thematic layer
-      ThematicLayerDTO layer = search.getThematicLayer();
-
-      SLDWriter sldWriter = SLDWriter.getSLDWriter(layer);
-      sldWriter.write();
-
-      // return a simple json object with the search id and search name. This
-      // will
-      // be used to update the available query list.
-      JSONObject savedSearchJSON = new JSONObject();
-      savedSearchJSON.put("savedSearchId", search.getId());
-      savedSearchJSON.put("queryName", search.getQueryName());
-      savedSearchJSON.put("thematicLayerId", layer.getId());
-
-      resp.getWriter().write(savedSearchJSON.toString());
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    */
-  }
+  */
 
   @Override
   public void cancelQuery(SavedSearchViewDTO savedQueryView) throws IOException, ServletException
@@ -627,6 +513,7 @@ public class QueryController extends QueryControllerBase implements
     super.deleteQuery(savedQueryView);
   }
 
+  /*
   public void newIndicatorSurvey() throws IOException, ServletException
   {
     try
@@ -643,6 +530,7 @@ public class QueryController extends QueryControllerBase implements
       resp.getWriter().print(jsonE.getJSON());
     }
   }
+  */
 
 
   /**
@@ -657,7 +545,7 @@ public class QueryController extends QueryControllerBase implements
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
 
       // Available queries
-      SavedSearchViewQueryDTO query = AggregatedCasesSearchDTO.getAggregatedCasesQueries(this.getClientRequest());
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_INDICATOR_SURVEY);
       JSONArray queries = new JSONArray();
       for (SavedSearchViewDTO view : query.getResultSet())
       {
@@ -781,9 +669,5 @@ public class QueryController extends QueryControllerBase implements
     {
       throw new ApplicationException(t);
     }
-  }
-  public void saveIndicatorSurveyQuery(SavedSearchViewDTO savedQueryView) throws IOException, ServletException
-  {
-
   }
 }

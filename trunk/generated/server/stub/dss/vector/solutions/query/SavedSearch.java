@@ -11,7 +11,7 @@ import com.terraframe.mojo.vault.VaultFileDAOIF;
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.report.UndefinedTemplateException;
 
-public abstract class SavedSearch extends SavedSearchBase implements
+public class SavedSearch extends SavedSearchBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1241158161320L;
@@ -51,6 +51,41 @@ public abstract class SavedSearch extends SavedSearchBase implements
       throw ex;
     }
   }
+  
+  /**
+   * Creates a new SavedSearch object.
+   * 
+   * @param view
+   * @return
+   */
+  public static SavedSearchView saveSearch(SavedSearchView view)
+  {
+    SavedSearch search = new SavedSearch();
+    search.create(view);
+    
+    return search.getAsView(false, false);
+  }
+  
+  public static SavedSearchView updateSearch(SavedSearchView view)
+  {
+    if(view == null || view.getSavedQueryId() == null || view.getSavedQueryId().trim().length() == 0)
+    {
+      NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
+      throw ex;
+    }
+    
+    SavedSearch search = SavedSearch.get(view.getSavedQueryId());
+    search.update(view);
+    
+    return search.getAsView(false, false);
+  }
+  
+  public static SavedSearchViewQuery getSearchesForType(String type)
+  {
+    QueryFactory f = new QueryFactory();
+    SavedSearchViewQuery q = new SavedSearchViewQuery(f, type, false, false);
+    return q;
+  }
 
   /**
    * Updates this SavedSearch with the given view.
@@ -60,8 +95,13 @@ public abstract class SavedSearch extends SavedSearchBase implements
   protected void update(SavedSearchView view)
   {
     String xml = view.getQueryXml();
-
+    String config = view.getConfig();
+    
+    this.appLock();
+    
     this.setQueryXml(xml);
+    this.setConfig(config);
+    
     this.apply();
   }
 
@@ -90,12 +130,14 @@ public abstract class SavedSearch extends SavedSearchBase implements
 
     this.setQueryName(name);
     this.setQueryXml(xml);
+    this.setQueryType(view.getQueryType());
+    this.setConfig(view.getConfig());
     this.apply();
 
     mdssUser.addPersistedQueries(this).apply();
   }
-
-  protected SavedSearchView getAsView(boolean includeXML)
+  
+  public SavedSearchView getAsView(Boolean includeXML, Boolean includeConfig)
   {
     SavedSearchView view = new SavedSearchView();
 
@@ -111,6 +153,11 @@ public abstract class SavedSearch extends SavedSearchBase implements
     if(includeXML)
     {
       view.setQueryXml(this.getQueryXml());
+    }
+    
+    if(includeConfig)
+    {
+      view.setConfig(this.getConfig());
     }
 
     return view;

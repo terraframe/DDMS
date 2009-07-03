@@ -7,7 +7,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   initialize : function(ageGroups, visibleAttributes, orderedGrids, queryList)
   {
   	MDSS.QueryBase.prototype.initialize.call(this);
-
+  	
     // list of columns that have been added before a call to render()
     //this._preconfiguredColumns = [];
 
@@ -43,7 +43,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._countSelectable = null;
 
     // END: query objects
-
+    
     for(var i=0; i<queryList.length; i++)
     {
       this._queryPanel.addAvailableQuery(queryList[i]);
@@ -61,22 +61,29 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
    */
   postRender : function()
   {
+    MDSS.QueryBase.prototype.postRender.call(this); 
+  
     for(var i=0; i<this._defaultAgeGroups.length; i++)
     {
       this._defaultAgeGroups[i].click();
     }
 
-    this._defaultAgeGroups = null;
-
-    YAHOO.util.Event.on(this._queryPanel._dateGroupBy, 'change', this._dateGroupHandler, '',this);
+    // set the default for the date searching
+    var datesCheck = this._queryPanel.getToggleDatesCheck();
+    var startDate = this._queryPanel.getStartDate();
+    var endDate = this._queryPanel.getEndDate();
+    
+    this._defaults.push({element: datesCheck, checked:false});
+    this._defaults.push({element: startDate, value: ''});
+    this._defaults.push({element: endDate, value: ''});
   },
 
   /**
    * Returns the method to save this AggregatedCase search.
    */
-  _getSaveQueryMethod : function()
+  _getQueryType: function()
   {
-  	return Mojo.$.dss.vector.solutions.query.AggregatedCasesSearch.saveSearch;
+  	return 'QueryAggregatedCase';
   },
 
   /**
@@ -95,6 +102,207 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   _getExportReportAction : function()
   {
   	return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
+  },
+  
+  _resetToDefault : function()
+  {
+    for(var i=0; i<this._defaults.length; i++)
+    {
+      var obj = this._defaults[i];
+      var element = obj.element;
+      if(element.nodeName === 'INPUT' && element.type === 'checkbox')
+      {
+        var checked = obj.checked;
+        if(element.checked !== checked)
+        {
+          if(obj.bypass)
+          {
+            element.checked = checked;
+          }
+          else
+          {
+            element.click();
+          }
+        }
+      }
+      else if(element.nodeName === 'INPUT' && element.type === 'text')
+      {
+        var value = obj.value;
+        
+        element.value = value;
+      }
+      else if(element.nodeName === 'SELECT')
+      {
+        var index = obj.index;
+        if(!element.disabled)
+        {
+          element.selectedIndex = index;
+          this._fireClickOnOption(element.options[index]);
+        }
+        
+        if(!obj.active && index === 0)
+        {
+          element.disabled = true;
+        }
+      }
+    }
+  },
+  
+  _loadQueryState : function(view)
+  {
+    var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
+    var thisRef = this;
+  
+    function uncheckBox(check)
+    {
+      check = Mojo.util.isString(check) ? document.getElementById(check) : check;
+      if(check != null && check.checked)
+      {
+        check.click();
+      }
+    }
+  
+    function checkBox(check)
+    {
+      check = Mojo.util.isString(check) ? document.getElementById(check) : check;
+      if(check != null && !check.checked)
+      {
+        check.click();
+      }
+    }
+  
+    function chooseOption(option)
+    {
+      option = Mojo.util.isString(option) ? document.getElementById(option) : option;
+      if(option == null)
+      {
+        return;
+      }
+      
+      var select = option.parentNode;
+      var options = select.options;
+      for(var i=0; i<options.length; i++)
+      {
+        if(options[i].id === option.id)
+        {
+          select.selectedIndex = i;
+          break;
+        }
+      }
+
+      thisRef._fireClickOnOption(option);
+    }
+  
+    var xml = view.getQueryXml();
+    var parser = new MDSS.Query.Parser(xml);
+    
+    parser.parseSelectables({
+      attribute : function(entityAlias, attributeName, userAlias){
+        
+        // Start/end date/age share the same checkbox, so only
+        // check the box if one is found.
+        if(attributeName === aggregatedCase.STARTDATE)
+        {
+          var check = thisRef._queryPanel.getToggleDatesCheck();
+          checkBox(check);
+        }
+        else if(attributeName !== aggregatedCase.ENDDATE && attributeName !== aggregatedCase.ENDAGE)
+        {
+          checkBox(userAlias);
+        }
+      },
+      sum: function(entityAlias, attributeName, userAlias){
+      
+        checkBox(userAlias);
+        chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
+      },
+      min: function(entityAlias, attributeName, userAlias){
+      
+        checkBox(userAlias);
+        chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN);
+      },
+      max: function(entityAlias, attributeName, userAlias){
+      
+        checkBox(userAlias);
+        chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX);
+      },
+      avg: function(entityAlias, attributeName, userAlias){
+      
+        checkBox(userAlias);
+        chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG);
+      },
+      count: function(entityAlias, attributeName, userAlias){
+      
+        checkBox(userAlias);
+      },
+      sqlcharacter : function(entityAlias, attributeName, userAlias){
+        
+        chooseOption(userAlias);
+      }
+    });
+    
+    var entities = [];
+    
+    // uncheck all age groups (even though they are checked by default,
+    // we want only to check those in the saved query).
+    for(var i=0; i<this._defaultAgeGroups.length; i++)
+    {
+      uncheckBox(this._defaultAgeGroups[i]);
+    }
+    
+    parser.parseCriteria({
+      attribute : function(entityAlias, attributeName, userAlias, operator, value){
+        
+        // restricting geo entities
+        if(entityAlias === thisRef.ALL_PATHS)
+        {
+          entities.push(value);
+        }
+        // start date
+        else if(userAlias === aggregatedCase.STARTDATE)
+        {
+          thisRef._queryPanel.getStartDate().value = value;
+        }
+        // end date
+        else if(userAlias === aggregatedCase.ENDDATE)
+        {
+          thisRef._queryPanel.getEndDate().value = value;
+        }
+        // age group criteria
+        else if(/^group_/.test(userAlias))
+        {
+          checkBox(userAlias);
+        }
+      }
+    });
+    
+    // check all selected universals
+    var configRaw = view.getConfig();
+    var config = new MDSS.Query.Config(configRaw);
+    var selectedUniversals = config.getSelectedUniversals();
+    this._selectSearch.setSelectedUniversals(selectedUniversals);
+    
+    // Load the GeoEntities as WHERE criteria
+    if(entities.length > 0)
+    {
+      var request = new MDSS.Request({
+        thisRef : this,
+        onSuccess : function(query)
+        {
+          var results = query.getResultSet();
+          
+          this.thisRef._selectSearch.setCriteria(results);
+          
+          this.thisRef._hideHandler(results, selectedUniversals);
+        }
+      });
+      
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getAsViews(request, entities);
+    }
+    else
+    {
+      this._hideHandler([], selectedUniversals);
+    }
   },
 
   /**
@@ -117,72 +325,12 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   },
 
   /**
-   * Saves the current state of the QueryXML.
-   */
-  saveQuery : function()
-  {
-    var controller = Mojo.$.dss.vector.solutions.query.QueryController;
-    var request = new MDSS.Request({
-      thisRef: this,
-      controller: controller,
-      onSuccess: function(html)
-      {
-        var modal = this.thisRef._createModal(html, MDSS.Localized.Query.Save);
-
-        var saved = MDSS.util.bind(this.thisRef, this.thisRef._saveQueryListener, modal);
-        var canceled = MDSS.util.bind(this.thisRef, this.thisRef._cancelQueryListener, modal);
-
-        this.controller.setSaveAggregatedCasesQueryListener(saved);
-        this.controller.setCancelQueryListener(canceled);
-      }
-    });
-
-    controller.newAggregatedCasesQuery(request);
-  },
-
-  /**
    * Final function called before query is executed.
    * Any last minute cleanup is done here. The this
    * reference is that of the QueryPanel.
    */
   executeQuery : function()
   {
-  	var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
-
-    // calculate the date criteria
-    var startDateEl = this._queryPanel.getStartDate();
-    var startDate = MDSS.util.stripWhitespace(startDateEl.get('value'));
-    if(startDate.length > 0)
-    {
-      var formatted = MDSS.Calendar.getMojoDateString(startDate);
-
-      var attribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTDATE);
-      var selectable = new MDSS.QueryXML.Selectable(attribute);
-      var startDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.GE, formatted);
-      this._startDate = startDateCondition;
-    }
-    else
-    {
-      this._startDate = null;
-    }
-
-    var endDateEl = this._queryPanel.getEndDate();
-    var endDate = MDSS.util.stripWhitespace(endDateEl.get('value'));
-    if(endDate.length > 0)
-    {
-      var formatted = MDSS.Calendar.getMojoDateString(endDate);
-
-      var attribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.ENDDATE);
-      var selectable = new MDSS.QueryXML.Selectable(attribute);
-      var endDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, formatted);
-
-      this._endDate = endDateCondition;
-    }
-    else
-    {
-      this._endDate = null;
-    }
-
     // execute the query
     var queryXML = this._constructQuery();
     var xml = queryXML.getXML();
@@ -196,7 +344,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     });
 
     var page = this.getCurrentPage();
-    Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, Mojo.util.getJSON(this._selectedUniversals), '', true, page, this.PAGE_SIZE, []);
+    Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, this._config.getJSON(), page, this.PAGE_SIZE);
   },
 
   /**
@@ -220,7 +368,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
 
     var thematicLayer = this._queryPanel.getThematicLayer(); // FIXME not working right now
-    Mojo.$.dss.vector.solutions.query.MappingController.mapAggregatedCaseQuery(request, xml, Mojo.util.getJSON(this._selectedUniversals), layerIds, savedSearchId, []);
+    Mojo.$.dss.vector.solutions.query.MappingController.mapAggregatedCaseQuery(request, xml, this._config.getJSON(), layerIds, savedSearchId);
   },
 
   /**
@@ -234,7 +382,41 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var aggregatedCaseQuery = new MDSS.QueryXML.Entity(aggregatedCase, aggregatedCase);
     queryXML.addEntity(aggregatedCaseQuery);
 
-    //var groupBy = queryXML.getGroupBy();
+  	var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
+
+    // calculate the date criteria
+    var startDateEl = this._queryPanel.getStartDate();
+    var startDate = MDSS.util.stripWhitespace(startDateEl.value);
+    if(startDate.length > 0)
+    {
+      var formatted = MDSS.Calendar.getMojoDateString(startDate);
+
+      var attribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTDATE, aggregatedCase.STARTDATE);
+      var selectable = new MDSS.QueryXML.Selectable(attribute);
+      var startDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.GE, formatted);
+      this._startDate = startDateCondition;
+    }
+    else
+    {
+      this._startDate = null;
+    }
+
+    var endDateEl = this._queryPanel.getEndDate();
+    var endDate = MDSS.util.stripWhitespace(endDateEl.value);
+    if(endDate.length > 0)
+    {
+      var formatted = MDSS.Calendar.getMojoDateString(endDate);
+
+      var attribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.ENDDATE, aggregatedCase.ENDDATE);
+      var selectable = new MDSS.QueryXML.Selectable(attribute);
+      var endDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, formatted);
+
+      this._endDate = endDateCondition;
+    }
+    else
+    {
+      this._endDate = null;
+    }
 
     // count
     if(this._countSelectable != null)
@@ -432,7 +614,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     {
       var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
 
-      var leftSide = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTAGE, aggregatedCase.STARTAGE);
+      var leftSide = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTAGE, 'group_'+ageGroup.id);
       var leftSelectable = new MDSS.QueryXML.Selectable(leftSide);
       var leftCondition = new MDSS.QueryXML.BasicCondition(leftSelectable, MDSS.QueryXML.Operator.GE, ageGroup.startAge);
 
@@ -680,11 +862,9 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   _visibleAggregateHandler : function(e, attribute)
   {
     var func = e.target.value;
+    
     var attributeName = attribute.getAttributeName();
     var key = attribute.getKey();
-
-
-    var option = e.target;
 
     var selectable = attribute.getSelectable();
 
@@ -813,6 +993,8 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var countCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
     YAHOO.util.Event.on(countCheck, 'click', this._toggleCount, countAttribute, this);
+    countCheck.id = countAttribute.getKey();
+    this._defaults.push({element:countCheck, checked:false});
 
     var countSpan = document.createElement('span');
     countSpan.innerHTML = countAttribute.getDisplayLabel();
@@ -858,7 +1040,9 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     var showCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(showCheck, 'type', 'checkbox');
+    showCheck.id = startAgeAttribute.getKey();
     YAHOO.util.Event.on(showCheck, 'click', this._showAgeGroupAttributes, [startAgeAttribute, endAgeAttribute], this);
+    this._defaults.push({element:showCheck, checked:false});
 
     showSpan.innerHTML = MDSS.Localized.Toggle_Show;
 
@@ -881,7 +1065,9 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       var check = document.createElement('input');
       YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
       YAHOO.util.Dom.setAttribute(check, 'value', group.id);
+      check.id = 'group_'+group.id;
       YAHOO.util.Event.on(check, 'click', this._ageGroupCheckHandler, group, this);
+      this._defaults.push({element:check, checked:true});
 
       li.appendChild(check);
       li.appendChild(span);
@@ -939,18 +1125,23 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
       var check = document.createElement('input');
       YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+      check.id = attribute.getKey();
       YAHOO.util.Event.on(check, 'click', this._visibleAttributeHandler, attribute, this);
+      this._defaults.push({element:check, checked:false});
 
       var select = document.createElement('select');
+      //YAHOO.util.Event.on(select, 'change', this._delegateToOption, attribute, this);
+      this._defaults.push({element:select, index:0});
+      
       var options = [''];
       options = options.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
-
 
       for(var j=0; j<options.length; j++)
       {
       	var option = options[j];
         var optionEl = document.createElement('option');
         optionEl.innerHTML = option;
+        optionEl.id = attribute.getKey() + '-' + option;
         YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
 
         YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
@@ -1017,9 +1208,12 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 
         var check = document.createElement('input');
+        check.id = attribute.getKey();
         YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+        this._defaults.push({element:check, checked:false});
 
         // Diagnostic Method adds two columns
+        var second = null;
         if(attribute.getType() === 'dss.vector.solutions.surveillance.DiagnosticGrid')
         {
           attribute._displayLabel += ' ('+MDSS.Localized.Total_Tests+')';
@@ -1033,7 +1227,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
           gridCopy.relAttribute = gridCopy.relAttributeTwo;
 
-          var second = new MDSS.GridAttribute(optionCopy, gridCopy);
+          second = new MDSS.GridAttribute(optionCopy, gridCopy);
           second._displayLabel += ' ('+MDSS.Localized.Positive+')';
           YAHOO.util.Event.on(check, 'click', this._gridAttributeHandler, second, this);
         }
@@ -1043,6 +1237,8 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         }
 
         var select = document.createElement('select');
+        //YAHOO.util.Event.on(select, 'change', this._delegateToOption, attribute, this);
+        this._defaults.push({element:select, index:0});
         var aggOptions = [''];
         aggOptions = aggOptions.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
 
@@ -1050,11 +1246,16 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         {
           var aggOption = aggOptions[k];
           var optionEl = document.createElement('option');
+          optionEl.id = attribute.getKey()+'-'+aggOption;
           optionEl.innerHTML = aggOption;
           YAHOO.util.Dom.setAttribute(optionEl, 'value', aggOption);
 
-          // Diagnostic Method adds two columns
           YAHOO.util.Event.on(optionEl, 'click', this._gridAggregateHandler, attribute, this);
+          
+          if(second != null)
+          {
+            YAHOO.util.Event.on(optionEl, 'click', this._gridAggregateHandler, second, this);
+          }
 
           select.appendChild(optionEl);
         }
@@ -1084,6 +1285,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var check = document.createElement('input');
     YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
     YAHOO.util.Event.on(check, 'click', this._toggleSelectAll, ul, this);
+    this._defaults.push({element:check, checked:false, bypass:true});
 
     var span = document.createElement('span');
     span.innerHTML = MDSS.Localized.Select_All;
@@ -1193,11 +1395,15 @@ MDSS.AbstractAttribute = function(obj)
   	this._displayLabel = obj.displayLabel;
   	this._attributeName = obj.attributeName;
     this._whereValues = [];
-    var s = new String(Math.random());
-    var r = s.substring(s.length-6);
-  	this._key = this._type.substring(this._type.lastIndexOf('.')+1) +'_'+this._attributeName+'_'+r;
+    
+    this._genKey(); 
 };
 MDSS.AbstractAttribute.prototype = {
+
+  _genKey : function()
+  {
+  	this._key = this._type.replace(/\./g, '_')+'__'+this._attributeName;
+  },
 
   /**
    * Unique key used with YUI Column
@@ -1278,6 +1484,9 @@ MDSS.GridAttribute = function(obj, meta)
 
   this._relAlias = this._getGridRelAlias(relType, this._optionName);
   this._busAlias = this._getGridBusAlias(relType, this._optionName, busType);
+  
+  // Append the option name to the key to make it truly unique (this is a special case)
+  this._key += '_'+this._optionName+'_'+this._meta.relAttribute;
 };
 MDSS.GridAttribute.prototype = {
 

@@ -16,4 +16,13 @@ public class QueryConstants implements Reloadable
   public static final String ENTITY_NAME_COLUMN = "entityname_v";
 
   public static final String VIEW_NAME_SUFFIX = "_view";
+
+  // Query types
+  public static final String QUERY_AGGREGATED_CASE = "QueryAggregatedCase";
+  
+  public static final String QUERY_ENTOMOLOGY = "QueryEntomology";
+  
+  public static final String QUERY_INDICATOR_SURVEY ="QueryIndicatorSurvey";
+  
+  public static final String QUERY_IRS ="QueryIndicatorSurvey";
 }

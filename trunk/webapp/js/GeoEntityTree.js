@@ -528,10 +528,15 @@ MDSS.GeoEntityTree = (function(){
     }
 
     collectSubtypes(allowedTypes, type);
+    
+    var set = new MDSS.Set();
+    set.addAll(allowedTypes);
+    var ordered = set.values();
+    ordered.sort();
 
-    for(var i=0; i<allowedTypes.length; i++)
+    for(var i=0; i<ordered.length; i++)
     {
-      var allowedType = allowedTypes[i];
+      var allowedType = ordered[i];
 
       var liRaw = document.createElement('li');
       var li = new YAHOO.util.Element(liRaw);

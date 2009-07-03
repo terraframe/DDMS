@@ -2328,9 +2328,9 @@
             order="0"
             type="java.lang.String" />
           <mdParameter
-            name="geoEntityType"
-            label="GeoEntity type"
-            description="The type on which to gather spatial data"
+            name="config"
+            label="config"
+            description="JSON config"
             order="1"
             type="java.lang.String" />
           <mdParameter
@@ -5223,9 +5223,9 @@
             order="0"
             type="java.lang.String" />
           <mdParameter
-            name="geoEntityType"
-            label="GeoEntity type"
-            description="The type on which to gather spatial data"
+            name="config"
+            label="config"
+            description="JSON config"
             order="1"
             type="java.lang.String" />
           <mdParameter
@@ -5233,11 +5233,6 @@
             label="Saved Search Id"
             order="2"
             type="java.lang.String" />
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="3" />
         </mdAction>
       </mdController>
     </create>

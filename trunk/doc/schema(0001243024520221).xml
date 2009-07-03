@@ -11,21 +11,6 @@
           label="Query Indicator Surveys"
           isPost="false">
         </mdAction>
-        <mdAction
-          name="newIndicatorSurveyQuery"
-          label="New Query"
-          isPost="false">
-        </mdAction>
-        <mdAction
-          name="saveIndicatorSurveyQuery"
-          label="Save Query"
-          isPost="true">
-          <mdParameter
-            name="savedQueryView"
-            label="Saved Query View"
-            order="0"
-            type="dss.vector.solutions.query.SavedSearchView" />
-        </mdAction>
         </create>
       </mdController>
     </update>

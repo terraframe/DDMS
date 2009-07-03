@@ -8,8 +8,7 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
-<%@page import="dss.vector.solutions.query.EntomologySearch"%>
-<%@page import="dss.vector.solutions.query.EntomologySearchDTO"%>
+<%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
 <%@page import="dss.vector.solutions.query.MappingController"%>
 <%@page import="dss.vector.solutions.query.RangeCategoryDTO"%>
@@ -19,10 +18,10 @@
 <%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
-<%@page import="dss.vector.solutions.query.AggregatedCasesSearchDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.CollectionSite"%>
+<%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <jsp:include page="../templates/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 <jwr:script src="/bundles/queryBundle.js"/>
@@ -32,7 +31,7 @@
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-    String[] types = new String[]{ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, AggregatedCasesSearchDTO.CLASS, AggregatedCaseDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] types = new String[]{EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, AggregatedCaseDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
     String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 
     out.print(js);

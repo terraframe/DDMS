@@ -1,8 +1,6 @@
 package dss.vector.solutions.query;
 
 import com.terraframe.mojo.business.rbac.UserDAOIF;
-import com.terraframe.mojo.query.CONCAT;
-import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.session.Session;
 
 /**
@@ -16,6 +14,8 @@ private static final long serialVersionUID = 1240879208564L;
   private SavedSearchQuery searchQuery;
   private PersistsSearchQuery persistQuery;
   private boolean includeXML;
+  private boolean includeConfig;
+  private String queryType;
 
   public SavedSearchViewQuery(com.terraframe.mojo.query.QueryFactory queryFactory)
   {
@@ -23,12 +23,14 @@ private static final long serialVersionUID = 1240879208564L;
     this.buildQuery(new DefaultSavedSearchViewBuilder(queryFactory));
   }
 
-  public SavedSearchViewQuery(com.terraframe.mojo.query.QueryFactory queryFactory, SavedSearchQuery searchQuery, boolean includeXML)
+  public SavedSearchViewQuery(com.terraframe.mojo.query.QueryFactory queryFactory, String queryType, boolean includeXML, boolean includeConfig)
   {
     super(queryFactory);
-    this.searchQuery = searchQuery;
+    this.searchQuery = new SavedSearchQuery(queryFactory);
     this.persistQuery = new PersistsSearchQuery(queryFactory);
     this.includeXML = includeXML;
+    this.includeConfig = includeConfig;
+    this.queryType = queryType;
     this.buildQuery(new DefaultSavedSearchViewBuilder(queryFactory));
   }
 
@@ -58,10 +60,16 @@ private static final long serialVersionUID = 1240879208564L;
 
       viewQuery.map(SavedSearchView.QUERYNAME, searchQuery.getQueryName());
       viewQuery.map(SavedSearchView.SAVEDQUERYID, searchQuery.getId());
+      viewQuery.map(SavedSearchView.QUERYTYPE, searchQuery.getQueryType());
 
       if(includeXML)
       {
         viewQuery.map(SavedSearchView.QUERYXML, searchQuery.getQueryXml());
+      }
+      
+      if(includeConfig)
+      {
+        viewQuery.map(SavedSearchView.CONFIG, searchQuery.getConfig());
       }
 
       // FIXME, is this ever needed when simply loading views to display available queries?
@@ -81,6 +89,8 @@ private static final long serialVersionUID = 1240879208564L;
       UserDAOIF user = Session.getCurrentSession().getUser();
       viewQuery.WHERE(persistQuery.parentId().EQ(user.getId()));
       viewQuery.WHERE(searchQuery.persistedBy(persistQuery));
+      
+      viewQuery.WHERE(searchQuery.getQueryType().EQ(queryType));
 
       viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
     }

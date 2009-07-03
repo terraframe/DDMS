@@ -38,18 +38,12 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._buildColumns();
 	  },
 
-	  _containsGroupBy : function()
-	  {
-	    return  Mojo.util.getValues(this._visibleGroupBySelectables).length > 0 ||
-	      Mojo.util.getValues(this._gridGroupBySelectables).length > 0;
-	  },
-
 	  /**
-	   * Returns the method to save this Entomology search.
+	   * Returns the type of query.
 	   */
-	  _getSaveQueryMethod : function()
+	  _getQueryType: function()
 	  {
-	  	return Mojo.$.dss.vector.solutions.query.EntomologySearch.saveSearch;
+	  	return 'QueryEntomology';
 	  },
 
 	  /**
@@ -66,30 +60,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  },
 
 	  /**
-	   * Saves the current state of the QueryXML.
-	   */
-	  saveQuery : function()
-	  {
-	    var controller = Mojo.$.dss.vector.solutions.query.QueryController;
-	    var request = new MDSS.Request({
-	      thisRef: this,
-	      controller: controller,
-	      onSuccess: function(html)
-	      {
-	        var modal = this.thisRef._createModal(html, MDSS.Localized.Query.Save);
-
-	        var saved = MDSS.util.bind(this.thisRef, this.thisRef._saveQueryListener, modal);
-	        var canceled = MDSS.util.bind(this.thisRef, this.thisRef._cancelQueryListener, modal);
-
-	        this.controller.setSaveEntomologyQueryListener(saved);
-	        this.controller.setCancelQueryListener(canceled);
-	      }
-	    });
-
-	    controller.newEntomologyQuery(request);
-	  },
-
-	  /**
 	   * Final function called before query is executed.
 	   * Any last minute cleanup is done here. The this
 	   * reference is that of the QueryPanel.
@@ -100,12 +70,12 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	    // calculate the date criteria
 	    var startDateEl = this._queryPanel.getStartDate();
-	    var startDate = MDSS.util.stripWhitespace(startDateEl.get('value'));
+	    var startDate = MDSS.util.stripWhitespace(startDateEl.value);
 	    if(startDate.length > 0)
 	    {
 	      var formatted = MDSS.Calendar.getMojoDateString(startDate);
 
-	      var attribute = new MDSS.QueryXML.Attribute(mosquito.CLASS, mosquito.TESTDATE);
+	      var attribute = new MDSS.QueryXML.Attribute(mosquito.CLASS, mosquito.TESTDATE, mosquito.TESTDATE);
 	      var selectable = new MDSS.QueryXML.Selectable(attribute);
 	      var startDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.GE, formatted);
 	      this._startDate = startDateCondition;
@@ -116,12 +86,12 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    }
 
 	    var endDateEl = this._queryPanel.getEndDate();
-	    var endDate = MDSS.util.stripWhitespace(endDateEl.get('value'));
+	    var endDate = MDSS.util.stripWhitespace(endDateEl.value);
 	    if(endDate.length > 0)
 	    {
 	      var formatted = MDSS.Calendar.getMojoDateString(endDate);
 
-	      var attribute = new MDSS.QueryXML.Attribute(mosquito.CLASS, mosquito.TESTDATE);
+	      var attribute = new MDSS.QueryXML.Attribute(mosquito.CLASS, mosquito.TESTDATE, mosquito.TESTDATE);
 	      var selectable = new MDSS.QueryXML.Selectable(attribute);
 	      var endDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, formatted);
 
@@ -144,12 +114,12 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      }
 	    });
 
-	    //$('debug_xml').value = xml;
-	    //xml = $('debug_xml').value;
+	    $('debug_xml').value = xml;
+	    xml = $('debug_xml').value;
 	    var page = this.getCurrentPage();
 
         // FIXME json conversion below is temporary
-	    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, Mojo.util.getJSON(this._selectedUniversals), '', true, page, this.PAGE_SIZE);
+	    Mojo.$.dss.vector.solutions.entomology.Mosquito.queryEntomology(request, xml, this._config.getJSON(), '', true, page, this.PAGE_SIZE);
 	  },
 
 	  /**
@@ -173,7 +143,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
 
         // FIXME json conversion below is temporary
-	    Mojo.$.dss.vector.solutions.query.MappingController.mapEntomologyQuery(request, xml, Mojo.util.getJSON(this._selectedUniversals), layerIds, savedSearchId);
+	    Mojo.$.dss.vector.solutions.query.MappingController.mapEntomologyQuery(request, xml, this._config.getJSON(), layerIds, savedSearchId);
 	  },
 
 	  /**

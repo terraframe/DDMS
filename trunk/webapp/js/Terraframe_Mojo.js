@@ -794,7 +794,7 @@ var Mojo = {
       }
 
       var that = this;
-      this.xmlHttp.onreadystatechange = function (){
+      var readyStateChangeCB = function (){
 
         var cb = function()
         {
@@ -831,7 +831,7 @@ var Mojo = {
       if(this.requestOptions.method == 'post')
       {
         this.xmlHttp.open(this.requestOptions.method, url, this.requestOptions.asynchronous);
-
+        this.xmlHttp.onreadystatechange = readyStateChangeCB;
         this.xmlHttp.setRequestHeader("Content-type", this.requestOptions.contentType + "; charset="+this.requestOptions.encoding);
         this.xmlHttp.setRequestHeader("Content-length", paramStr.length);
         this.xmlHttp.setRequestHeader("Connection", "close");
@@ -841,6 +841,7 @@ var Mojo = {
       else
       {
         this.xmlHttp.open(this.requestOptions.method, url+"?"+paramStr, this.requestOptions.asynchronous);
+        this.xmlHttp.onreadystatechange = readyStateChangeCB;
         this.xmlHttp.send(null);
       }
     };

@@ -73,8 +73,9 @@
 
       <mdBusiness
         name="dss.vector.solutions.query.SavedSearch"
-        isAbstract="true"
+        isAbstract="false"
         label="Saved Query"
+        extendable="false"
         description="Representation of a saved query.">
         <attributes>
           <char
@@ -87,6 +88,17 @@
             label="Query XML"
             description="The query in XML format."
             required="true" />
+          <text
+            name="config"
+            label="Config"
+            description="JSON Configuration"
+            required="false" />
+          <char
+            name="queryType"
+            required="true"
+            label="Query Type"
+            description="Descriptor of what query screen this search belongs to."
+            size="50"/>
           <reference
             name="thematicLayer"
             type="dss.vector.solutions.query.ThematicLayer"
@@ -124,32 +136,14 @@
             type="java.lang.Boolean"
             negativeLabel="No"
             positiveLabel="Yes" />
-        </mdMethod>
-      </mdBusiness>
-
-      <mdBusiness
-        name="dss.vector.solutions.query.AggregatedCasesSearch"
-        label="Aggregated Cases Query"
-        description="A saved Aggregated Cases query"
-        extends="dss.vector.solutions.query.SavedSearch">
-        <mdMethod
-          name="getAggregatedCasesQueries"
-          label="Get Aggregated Cases Queries"
-          description="Returns all Aggregated Cases Queries for the current user."
-          static="true"
-          returnType="dss.vector.solutions.query.SavedSearchViewQuery">
-        </mdMethod>
-        <mdMethod
-          name="saveSearch"
-          label="Save Query"
-          description="Saves a query."
-          static="true"
-          returnType="dss.vector.solutions.query.SavedSearchView">
           <mdParameter
-            name="savedQueryView"
-            label="Saved Query View"
-            order="0"
-            type="dss.vector.solutions.query.SavedSearchView" />
+            name="includeConfig"
+            label="Include Config"
+            description="The JSON Config may be large so this param disables/enables it"
+            order="1"
+            type="java.lang.Boolean"
+            negativeLabel="No"
+            positiveLabel="Yes" />
         </mdMethod>
       </mdBusiness>
 
@@ -228,6 +222,16 @@
             concrete="queryXml"
             type="dss.vector.solutions.query.SavedSearch"
             required="false" />
+          <virtual
+            name="config"
+            concrete="config"
+            type="dss.vector.solutions.query.SavedSearch"
+            required="false" />
+          <virtual
+            name="queryType"
+            concrete="queryType"
+            type="dss.vector.solutions.query.SavedSearch"
+            required="true" />
           <char
             name="thematicLayer"
             required="false"
@@ -240,32 +244,6 @@
             size="64" />
         </attributes>
       </mdView>
-
-      <mdBusiness
-        name="dss.vector.solutions.query.EntomologySearch"
-        label="Entomology Query"
-        description="A saved entomology query"
-        extends="dss.vector.solutions.query.SavedSearch">
-        <mdMethod
-          name="getEntomologyQueries"
-          label="Get Entomology Queries"
-          description="Returns all Entomology Queries for the current user."
-          static="true"
-          returnType="dss.vector.solutions.query.SavedSearchViewQuery">
-        </mdMethod>
-        <mdMethod
-          name="saveSearch"
-          label="Save Query"
-          description="Saves a query."
-          static="true"
-          returnType="dss.vector.solutions.query.SavedSearchView">
-          <mdParameter
-            name="savedQueryView"
-            label="Saved Query View"
-            order="0"
-            type="dss.vector.solutions.query.SavedSearchView" />
-        </mdMethod>
-      </mdBusiness>
 
       <mdRelationship
         name="dss.vector.solutions.query.PersistsSearch"
@@ -637,11 +615,6 @@
             description="The id of the SavedSearch for which the map will be generated."
             order="3"
             type="java.lang.String" />
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="4" /> 
         </mdAction>
         <mdAction
           name="mapEntomologyQuery"
@@ -838,22 +811,17 @@
               description="Query XML"
               order="0"
               type="java.lang.String" />
-            <mdParameter
-              name="geoEntityType"
-              label="GeoEntity type"
-              description="The type on which to gather spatial data"
-              order="1"
-              type="java.lang.String" />
+          <mdParameter
+            name="config"
+            label="config"
+            description="JSON config"
+            order="1"
+            type="java.lang.String" />
             <mdParameter
               name="savedSearchId"
               label="Saved Search Id"
               order="2"
               type="java.lang.String" />
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="3" />
           </mdAction>
           <mdAction
             name="exportAggregatedCaseQueryToExcel"
@@ -865,57 +833,22 @@
               description="Query XML"
               order="0"
               type="java.lang.String" />
-            <mdParameter
-              name="geoEntityType"
-              label="GeoEntity type"
-              description="The type on which to gather spatial data"
-              order="1"
-              type="java.lang.String" />
+          <mdParameter
+            name="config"
+            label="config"
+            description="JSON config"
+            order="1"
+            type="java.lang.String" />
             <mdParameter
               name="savedSearchId"
               label="Saved Search Id"
               order="2"
               type="java.lang.String" />
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="3" /> 
           </mdAction>
           <mdAction
             name="queryAggregatedCases"
             label="Query Aggregated Cases"
             isPost="false">
-          </mdAction>
-          <mdAction
-            name="newEntomologyQuery"
-            label="New Query"
-            isPost="false">
-          </mdAction>
-          <mdAction
-            name="newAggregatedCasesQuery"
-            label="New Query"
-            isPost="false">
-          </mdAction>
-          <mdAction
-            name="saveEntomologyQuery"
-            label="Save Query"
-            isPost="true">
-            <mdParameter
-              name="savedQueryView"
-              label="Saved Query View"
-              order="0"
-              type="dss.vector.solutions.query.SavedSearchView" />
-          </mdAction>
-          <mdAction
-            name="saveAggregatedCasesQuery"
-            label="Save Query"
-            isPost="true">
-            <mdParameter
-              name="savedQueryView"
-              label="Saved Query View"
-              order="0"
-              type="dss.vector.solutions.query.SavedSearchView" />
           </mdAction>
           <mdAction
             name="cancelQuery"

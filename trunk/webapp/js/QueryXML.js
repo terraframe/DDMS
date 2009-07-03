@@ -664,3 +664,134 @@ MDSS.QueryXML.OrderBy.prototype = {
     return obj;
   }
 }
+
+MDSS.Query = {};
+MDSS.Query.Config = function(configJSON)
+{
+  this._config = {
+    selectedUniversals : []
+  };
+  
+  if(configJSON != null)
+  {
+    var config = Mojo.util.getObject(configJSON);
+    Mojo.util.copy(config._config, this._config);
+  }
+};
+
+MDSS.Query.Config.prototype = {
+
+  addSelectedUniversal : function(universal)
+  {
+    this._config.selectedUniversals.push(universal);
+  },
+
+  setSelectedUniversals : function(universals)
+  {
+    this._config.selectedUniversals = universals;
+  },
+  
+  getSelectedUniversals : function()
+  {
+    return this._config.selectedUniversals;
+  },
+  
+  clearSelectedUniversals : function()
+  {
+    this._config.selectedUniversals = [];
+  },
+  
+  setProperty : function(key, value)
+  {
+    this._config.key = value;
+  },
+  
+  getProperty : function(key)
+  {
+    return this._config.key;
+  },
+
+  getJSON : function()
+  {
+    return Mojo.util.getJSON(this._config);
+  }
+};
+
+
+MDSS.Query.Parser = function(xml)
+{
+  this._xmlDoc;
+  /*
+  try //Internet Explorer
+  {
+    this._xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+    this._xmlDoc.async="false";
+    this._xmlDoc.loadXML(xml);
+  }
+  catch(e)
+  {
+  */
+    var p =new DOMParser();
+    this._xmlDoc = p.parseFromString(xml,"text/xml");
+  /*
+  }
+  */
+};
+
+MDSS.Query.Parser.prototype = {
+
+  _getValue : function(parent, tagName)
+  {
+    var nodes = parent.getElementsByTagName(tagName) 
+    var value = (nodes != null && nodes.length > 0 && nodes[0].firstChild) ? nodes[0].firstChild.nodeValue : '';
+    return value;
+  },
+    
+  parseSelectables : function(handlers)
+  {
+    var select = this._xmlDoc.getElementsByTagName('select')[0];
+    var children = select.childNodes;
+    
+    for(var i=0; i<children.length; i++)
+    {
+      var child = children[i];
+      if(child.nodeName !== 'selectable')
+      {
+        continue;
+      }
+    
+      var first = child.firstChild;
+      if(Mojo.util.isFunction(handlers[first.nodeName]))
+      {
+        var entityAlias = this._getValue(first, 'entityAlias');
+        var attributeName = this._getValue(first, 'name');
+        var userAlias = this._getValue(first, 'userAlias');
+        handlers[first.nodeName](entityAlias, attributeName, userAlias);
+      }
+    }
+  },
+  
+  parseCriteria : function(handlers)
+  {
+    var criteria = this._xmlDoc.getElementsByTagName('criteria')[0];
+    var selectables = criteria.getElementsByTagName('selectable');
+    
+    for(var i=0; i<selectables.length; i++)
+    {
+      var selectable = selectables[i];
+      var attribute = selectable.firstChild;
+      if(Mojo.util.isFunction(handlers[attribute.nodeName]))
+      {
+        var entityAlias = this._getValue(selectable, 'entityAlias');
+        var attributeName = this._getValue(selectable, 'name');
+        var userAlias = this._getValue(selectable, 'userAlias');
+        
+        var parent = selectable.parentNode;
+        var operator = this._getValue(parent, 'operator');
+        var value = this._getValue(parent, 'value');
+        handlers[attribute.nodeName](entityAlias, attributeName, userAlias, operator, value);
+      }
+    }
+  }
+
+};

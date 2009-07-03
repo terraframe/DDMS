@@ -1,30 +1,29 @@
-<jsp:include page="/WEB-INF/templates/header.jsp" />
+<%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
+<jwr:script src="/bundles/yuiBundle.js" useRandomParam="false"/>
 
-<select id='roleSelectList'>
-  <option value="admin">Admin</option>
+<select id='s'>
+  <option id=''></option>
+  <option id='a'>A</option>
 </select>
-<span class="roleLink" id="dss.vector.solutions.Person">Go</span>
+
 
 <script type="text/javascript">
 
-(function(){
-  YAHOO.util.Event.onDOMReady(function(){
+var evt = new YAHOO.util.CustomEvent('My Event');
+evt.subscribe(function(type, args){
+  alert(type+' : '+args[0]);
+});
+evt.subscribe(function(type, args){
+  alert(type+' : '+args[0]);
+});
 
-    YAHOO.util.Event.on(document.body, 'click', function(e){
-      var target = e.target;
-      if(target.nodeName === 'SPAN' && YAHOO.util.Dom.hasClass(target, 'roleLink'))
-      {
-        var select = document.getElementById('roleSelectList');
-        var actor = select.options[select.selectedIndex].value;
+var s = document.getElementById('s');
+s.addEventListener('change', function(e){
 
-        var newLocation = 'dss.vector.solutions.util.ReadableAttributeController.getAttributes.mojo?'
-        newLocation += 'actor='+actor+'&universal='+target.id;
+  evt.fire(e);
 
-        window.location = newLocation;
-      }
-    });
-  });
-})();
+}, false);
+
+s.selectedIndex = 1;
 
 </script>
-<jsp:include page="/WEB-INF/templates/footer.jsp" />

@@ -49,31 +49,7 @@ MDSS.QueryIndicatorSurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	   */
 	  _getSaveQueryMethod : function()
 	  {
-	  	return Mojo.$.dss.vector.solutions.query.AggregatedCasesSearch.saveSearch;
-	  },
-
-	  /**
-	   * Saves the current state of the QueryXML.
-	   */
-	  saveQuery : function()
-	  {
-	    var controller = Mojo.$.dss.vector.solutions.query.QueryController;
-	    var request = new MDSS.Request({
-	      thisRef: this,
-	      controller: controller,
-	      onSuccess: function(html)
-	      {
-	        var modal = this.thisRef._createModal(html, MDSS.Localized.Query.Save);
-
-	        var saved = MDSS.util.bind(this.thisRef, this.thisRef._saveQueryListener, modal);
-	        var canceled = MDSS.util.bind(this.thisRef, this.thisRef._cancelQueryListener, modal);
-
-	        this.controller.setSaveAggregatedCasesQueryListener(saved);
-	        this.controller.setCancelQueryListener(canceled);
-	      }
-	    });
-
-	    controller.newAggregatedCasesQuery(request);
+	  	return 'QueryIndicatorSurvey';
 	  },
 
 	  /**

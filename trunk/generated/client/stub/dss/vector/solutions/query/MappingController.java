@@ -61,7 +61,7 @@ public class MappingController extends MappingControllerBase implements
 
   @Override
   public void mapAggregatedCaseQuery(String queryXML, String thematicLayerType,
-      String[] universalLayers, String savedSearchId, String[] restrictingEntities) throws IOException, ServletException
+      String[] universalLayers, String savedSearchId) throws IOException, ServletException
   {
     try
     {
@@ -74,8 +74,7 @@ public class MappingController extends MappingControllerBase implements
       }
 
       String layers = AggregatedCaseDTO.mapQuery(this.getClientRequest(), queryXML, thematicLayerType,
-          universalLayers, savedSearchId, restrictingEntities);
-
+          universalLayers, savedSearchId);
 
       resp.getWriter().print(layers);
     }

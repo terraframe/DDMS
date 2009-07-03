@@ -10,8 +10,7 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
-<%@page import="dss.vector.solutions.query.EntomologySearch"%>
-<%@page import="dss.vector.solutions.query.EntomologySearchDTO"%>
+<%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
 <%@page import="dss.vector.solutions.query.MappingController"%>
 <%@page import="dss.vector.solutions.query.RangeCategoryDTO"%>
@@ -21,7 +20,6 @@
 <%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
-<%@page import="dss.vector.solutions.query.AggregatedCasesSearchDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoDTO"%>
 <%@page import="dss.vector.solutions.mo.SpecieDTO"%>
@@ -87,8 +85,8 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ MosquitoDTO.CLASS, SpecieDTO.CLASS, EntomologySearchDTO.CLASS, MosquitoViewDTO.CLASS, MorphologicalSpecieGroupDTO.CLASS,MosquitoCollectionDTO.CLASS};
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] mosquitoTypes = new String[]{ MosquitoDTO.CLASS, SpecieDTO.CLASS, MosquitoViewDTO.CLASS, MorphologicalSpecieGroupDTO.CLASS,MosquitoCollectionDTO.CLASS};
+    String[] queryTypes = new String[]{EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
     MosquitoDTO mosquito = new MosquitoDTO(requestIF);
     MosquitoViewDTO mosquitoView = new MosquitoViewDTO(requestIF);
     JSONArray mosquitoAttribs = new JSONArray(mosquito.getAttributeNames());

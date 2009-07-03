@@ -1020,7 +1020,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
     return query;
   }
-
+  
   private class OrderedGeoEntityQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
 
@@ -1079,7 +1079,14 @@ public abstract class GeoEntity extends GeoEntityBase implements
       vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
     }
   }
-
+  
+  public static GeoEntityViewQuery getAsViews(String[] entities)
+  {
+    QueryFactory f = new QueryFactory();
+    GeoEntityViewQuery q = new GeoEntityViewQuery(f, entities);
+    return q;
+  }
+  
   /**
    * Given a filter (a GeoEntity class), this method returns all parents and
    * children and the filter type itself that's allowed in the hierarchy.

@@ -44,6 +44,7 @@ import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.query.ThematicVariable;
+import dss.vector.solutions.util.QueryConfig;
 
 public class Mosquito extends MosquitoBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -231,7 +232,11 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
         leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
       }
 
-      valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[leftJoinSelectables.size()])));
+      int size = leftJoinSelectables.size();
+      if(size > 0)
+      {
+        valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
+      }
 
       // Join Collection to GeoEntity
       valueQuery.AND(collectionQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
@@ -318,21 +323,8 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   @Transaction
   public static com.terraframe.mojo.query.ValueQuery queryEntomology(String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
-    // FIXME put parsing into common place
-    String selectedUniversals[];
-    try
-    {
-      JSONArray arr = new JSONArray(config);
-      selectedUniversals = new String[arr.length()];
-      for (int i = 0; i < selectedUniversals.length; i++)
-      {
-        selectedUniversals[i] = arr.getString(i);
-      }
-    }
-    catch (JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
+    QueryConfig queryConfig = new QueryConfig(config);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
 
     ValueQuery valueQuery = xmlToValueQuery(queryXML, selectedUniversals, false, null);
 
