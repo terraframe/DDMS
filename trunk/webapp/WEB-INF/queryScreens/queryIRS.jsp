@@ -71,28 +71,220 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     }
 
     selectableGroups = [
-                        {title:"SG1",
-                         values:{
-                           type:"test",
-                           dtoType:"test",
-                           displayLabel:"test",
-                           attributeName:"test",
-                          }
-                        },
-                        {title:"SG2",
-                          values:{
-                          type:"test",
-                          dtoType:"test",
-                          displayLabel:"test",
-                          attributeName:"test",
-                         }
-                       },
+                        {title:"Planed_Targets",
+                        	values:[
+                                  {
+                                    displayLabel:"Spray Area Target",
+                                    dtoType:"test",
+                                    type:"test",
+                                    attributeName:"test",
+                                  },
+                                  {
+                                    displayLabel:"Oprator Target",
+                                    dtoType:"test",
+                                    type:"test",
+                                    attributeName:"test",
+                                  },
+                                  {
+                                    displayLabel:"Team Target",
+                                    dtoType:"test",
+                                    type:"test",
+                                    attributeName:"test",
+                                  }
+                                  ]},
+                        {title:"Actual_Targets",
+                        	values:[
+                                  {
+                                    displayLabel:"Oprator Target",
+                                    dtoType:"test",
+                                    type:"test",
+                                    attributeName:"test",
+                                  },
+                                  {
+                                    displayLabel:"Team Target",
+                                    dtoType:"test",
+                                    type:"test",
+                                    attributeName:"test",
+                                  }
+                                  ]},
+                         {title:"Spray_Details",
+                        	 values:[
+                                   {
+                                     displayLabel:"Spray Method",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Total Structures",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Total Households",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Total Rooms",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Reason Locked",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Reason Refused",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Reason Other",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Insectcide Active Ingredint",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Instecticde Brand Name",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Insectcide Refills",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Insecticde Sachets Used",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Unsprayed Strucures",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Unsprayed Households",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Unsprayed Rooms",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   }
+                                   ]},
+                         {title:"Coverege",
+                         	values:[
+                                   {
+                                     displayLabel:"Operational Coverage",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Planned Coverage",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Application Rate",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Application Ratio",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   }
+                                   ]},
+                         {title:"HouseHold_Structure_Detail",
+                         	values:[
+                                   {
+                                     displayLabel:"Number Of People Protected",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Number Of Rooms With Bed Nets",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Total Number Of Bed Nets",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"Structures Sprayed Last Year",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   },
+                                   {
+                                     displayLabel:"HouseHolds Sprayed Last Year",
+                                     dtoType:"test",
+                                     type:"test",
+                                     attributeName:"test",
+                                   }
+                                   ]},
+                          {title:"Spray_Team_Detail",
+                          	 values:[
+                                     {
+                                       displayLabel:"Spray Team",
+                                       dtoType:"test",
+                                        type:"test",
+                                       attributeName:"test",
+                                     },
+                                     {
+                                       displayLabel:"Spray Team Week",
+                                       dtoType:"test",
+                                       type:"test",
+                                       attributeName:"test",
+                                     },
+                                     {
+                                       displayLabel:"Operator",
+                                       dtoType:"test",
+                                       type:"test",
+                                       attributeName:"test",
+                                     },
+                                     {
+                                       displayLabel:"Oporator Spray Week",
+                                       dtoType:"test",
+                                       type:"test",
+                                       attributeName:"test",
+                                     }
+                             ]}
     ];
 
+
     var query = new MDSS.QueryIRS(selectableGroups, queryList);
-
-
-
     query.render();
 
   });

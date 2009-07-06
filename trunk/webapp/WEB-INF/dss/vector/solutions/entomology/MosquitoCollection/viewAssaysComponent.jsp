@@ -142,21 +142,9 @@ YAHOO.util.Event.addListener(window, 'load', MojoGrid.createDataTable(table_data
 
 <h2>UninterestingSpecieGroups</h2>
 <div class="fldContainer">
-<div id="UninterestingSpecieGroups"></div>
-<div class="noprint"><span id="UninterestingSpecieGroupsAddrow" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="New_Row"/></button>
-</span> </span> <span id="UninterestingSpecieGroupsSaverows" class="yui-button yui-push-button"> <span class="first-child">
-<button type="button"><fmt:message key="Save_Rows_To_DB"/></button>
-</span> </span>
+  <div id="UninterestingSpecieGroups">
+</div>
 
-<form method="get" action="excelimport" style="display: inline;"><span class="yui-button yui-push-button"> <span class="first-child">
-<button type="submit"><fmt:message key="Excel_Import_Header" /></button>
-</span> </span></form>
-<form method="post" action="excelexport" style="display: inline;"><input type="hidden" name="type" value="dss.vector.solutions.entomology.MorphologicalSpecieGroupView" /> <span
-  class="yui-button yui-push-button"> <span class="first-child">
-<button type="submit"><fmt:message key="Excel_Export_Header" /></button>
-</span> </span></form>
-<a href="javascript:window.print()"><img src="./imgs/icons/printer.png"></a></div>
 <%
 	UninterestingSpecieGroupViewDTO[] unint_rows = mosquito_collection.getUninterestingSpecieGroups();
 	UninterestingSpecieGroupViewDTO mdUnIntView = new UninterestingSpecieGroupViewDTO(clientRequest);

@@ -25,7 +25,6 @@
 <%@page import="dss.vector.solutions.mo.SpecieDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
-
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoViewDTO"%>
 <%@page import="org.json.JSONArray"%>
@@ -44,10 +43,7 @@
 <%@page import="com.terraframe.mojo.dataaccess.MdBusinessDAOIF"%>
 <%@page import="com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
-
-
-
-<c:set var="page_title" value="Query_Entomology"  scope="request"/>
+<%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%><c:set var="page_title" value="Query_Entomology"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -74,11 +70,34 @@
 
 
       s += "{";
+      s += "viewAccessor:'"+acc+"',";
       s += "attributeName:'testResult.displayLabel.currentValue',";
       s += "type:'"+ mdClass.definesType() + "',";
-      s += "dtoType:'" + md.getMdAttributeConcrete().getType() + "',";
+//    s += "dtoType:'" + md.getMdAttributeConcrete().getType() + "',";
+//    s += "dtoType:'" + md.getType() + "',";
       s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + "'";
       s += "},\n";
+
+      try
+      {
+        Class<?> c = view.getClass();
+        String testMdGetter = "get" + acc.substring(0, 1).toUpperCase() + acc.substring(1) + "MethodMd";
+        AttributeReferenceMdDTO testMd = (AttributeReferenceMdDTO) c.getMethod(testMdGetter).invoke(view);
+        s += "{";
+        s += "viewAccessor:'"+acc+"Method',";
+        s += "attributeName:'testMethod.displayLabel.currentValue',";
+        s += "type:'"+ mdClass.definesType() + "',";
+//      s += "dtoType:'" + testMd.getJavaType() + "',";
+        s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " " + testMd.getDisplayLabel() +"'";
+        s += "},\n";
+
+      }
+      catch(Exception e)
+      {
+        System.out.print(e);
+      }
+
+
   }
   return s + "]";
 }%>
@@ -129,10 +148,6 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
           {
             row.attributeName += '.displayLabel.currentValue';
           }
-          if(attrib.dtoType === 'AttributeIntegerDTO')
-          {
-          	row.numeric = true;
-          }
           row.type = tmpType;
           row.dtoType = attrib.dtoType;
           row.displayLabel = attrib.attributeMdDTO.displayLabel;
@@ -151,13 +166,13 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     }
 
 
-    function mapAssayAttribs(arr){
+    function mapAssayAttribs(arr,obj){
       return arr.map(function(row){
-          if(dropDownMaps[row.attributeName]){
-            row.dropDownMap = dropDownMaps[row.attributeName];
+          if(dropDownMaps[row.viewAccessor]){
+            row.dropDownMap = dropDownMaps[row.viewAccessor];
           }
-          var splitType = row.dtoType.split('.');
-          row.dtoType = splitType[splitType.length - 1];
+          var attrib = mosquitoView.attributeMap[row.viewAccessor];
+          row.dtoType = attrib.dtoType;
           return row;
       });
     }
@@ -179,15 +194,10 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     var assays = [];
 
     var infectivityColumns = <%=getAssayColumns(mosquitoView,InfectivityAssayTestResult.class,requestIF)%>;
-    //infectivityColumns = infectivityColumns.concat(infectivityColumns.map(function(a){return a + 'Method'}));
-    //infectivityColumns.sort();
 
     var targetSiteColumns = <%=getAssayColumns(mosquitoView,TargetSiteAssayTestResult.class,requestIF)%>;
-    //targetSiteColumns = targetSiteColumns.concat(targetSiteColumns.map(function(a){return a + 'Method'}));
-    //targetSiteColumns.sort();
 
     var metabolicColumns = <%=getAssayColumns(mosquitoView,MetabolicAssayTestResult.class,requestIF)%>;
-    //metabolicColumns.sort();
 
     assays.push(mapAssayAttribs(infectivityColumns));
     assays.push(mapAssayAttribs(targetSiteColumns));

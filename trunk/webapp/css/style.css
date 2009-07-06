@@ -615,7 +615,7 @@ div.scrollable {
 
 #queryDataTable
 {
-	height: 93%;	
+	height: 93%;
 	width: 100%;
 }
 
@@ -639,6 +639,12 @@ div.scrollable {
   text-decoration: underline;
 }
 
+#columnsList LI LI
+{
+  list-style-type: disc;
+  list-style-position:inside;
+  padding-left:3px;
+}
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/

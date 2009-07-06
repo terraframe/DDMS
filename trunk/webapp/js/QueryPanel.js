@@ -185,7 +185,7 @@ MDSS.QueryPanel.prototype = {
 
     if(column.attribute){
     	var whereFilters = column.attribute._whereValues.filter(function(a){return a.checked;}).map(
-    			function(a){return('<li id= "'+a.uuid+'_summary">&nbsp;●&nbsp;'+a.text+'</li>');
+    			function(a){return('<li id= "'+a.uuid+'_summary" >'+a.text+'</li>');
     			});
     	li.innerHTML = "<span></span>"+ column.label + '<ul id="'+column.getKey()+'_whereValues">'+whereFilters.join('')+'</ul>';
   	}else{

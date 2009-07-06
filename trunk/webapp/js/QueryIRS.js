@@ -580,7 +580,7 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  /**
 	   * Builds the query items for the left column.
 	   */
-	  _buildQueryItems : function(visibleAttributes)
+	  _buildQueryItems : function(checkBoxGroups)
 	  {
 	  	/*
 	  	 * Target
@@ -593,43 +593,19 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      id: "areaItem"
 	    });
 
-	  	/*
-			 * Global COUNT, causes implicit group by on all selected attributes
-			 */
-
-	    var countAttribute = new MDSS.VisibleAttribute({
-	      type: Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS,
-	      displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
-	      attributeName: 'id'
-	    });
-
-	    var countCheck = document.createElement('input');
-	    YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
-	    YAHOO.util.Event.on(countCheck, 'click', this._toggleCount, countAttribute, this);
-
-	    var countSpan = document.createElement('span');
-	    countSpan.innerHTML = countAttribute.getDisplayLabel();
-
-	    var countDiv = document.createElement('div');
-
-	    countDiv.appendChild(countCheck);
-	    countDiv.appendChild(countSpan);
-
 	    this._queryPanel.addQueryItem({
-	      html: countDiv,
+	      html: this._getCountDiv(this,"Group_By",Mojo.$.dss.vector.solutions.irs.AbstractSpray),
 	      id: 'globalCount'
 	    });
 
-
-	    for(var i=0; i<visibleAttributes.length; i++)
+	    for(var i=0; i<checkBoxGroups.length; i++)
 	    {
-	    	group = visibleAttributes[i];
+	    	group = checkBoxGroups[i];
 	    	this._queryPanel.addQueryItem({
-		      html: this._getVizDiv(this,group, group.title, Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS),
+		      html: this._getVizDiv(this,group.values, group.title, Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS),
 		      id: group.title
 		    });
 	    }
-
 
 	  },
 

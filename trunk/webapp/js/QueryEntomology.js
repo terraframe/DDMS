@@ -414,6 +414,12 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  {
 	    var check = e.target;
 
+	    attribute = new MDSS.VisibleAttribute({
+	      type: this._mainQueryClass,
+	      displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
+	      attributeName: 'id'
+	    });
+
 	    if(check.checked)
 	    {
 	      var selectable = attribute.getSelectable();
@@ -435,6 +441,77 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      this._countSelectable = null;
 
 	      this._queryPanel.removeThematicVariable(attribute.getKey());
+	    }
+	  },
+
+	  /**
+	   * Handler when someone selects an aggregate function
+	   * on a visible attribute.
+	   */
+	  _visibleAggregateHandler : function(e, attribute)
+	  {
+	    var func = e.target.value;
+
+	    var attributeName = attribute.getAttributeName();
+	    var key = attribute.getKey();
+
+	    var selectable = attribute.getSelectable();
+
+	    this._queryPanel.updateColumnLabel(key, func);
+
+	    // special cases
+	    if(func === '')
+	    {
+	      // Use regular selectable (this is just here for clarity).
+	  	  this._removeVisibleAttribute(attribute, false, true, false);
+	      this._visibleSelectables[attribute.getKey()] = selectable;
+
+	      return;
+	    }
+
+	    // aggregate functions
+	    var aggFunc = null;
+	    if(func === MDSS.QueryXML.Functions.SUM)
+	    {
+	      aggFunc = new MDSS.QueryXML.SUM(selectable, key);
+	    }
+	    else if(func === MDSS.QueryXML.Functions.MIN)
+	    {
+	      aggFunc = new MDSS.QueryXML.MIN(selectable, key);
+	    }
+	    else if(func === MDSS.QueryXML.Functions.MAX)
+	    {
+	      aggFunc = new MDSS.QueryXML.MAX(selectable, key);
+	    }
+	    else if(func === MDSS.QueryXML.Functions.AVG)
+	    {
+	      aggFunc = new MDSS.QueryXML.AVG(selectable, key);
+	    }
+
+	  	this._removeVisibleAttribute(attribute, false, true, false);
+
+	    var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
+	    this._visibleAggregateSelectables[attribute.getKey()] = aggSelectable;
+	  },
+
+
+	  _whereValueHandler: function(e,ee,obj){
+	    obj.checked = ! obj.checked;
+	    this.cfg.setProperty('checked', ! this.cfg.getProperty('checked'));
+	    var listId = obj.attribute.getKey() + '_whereValues';
+	    var list = document.getElementById(listId);
+	    var liId = obj.uuid + "_summary";
+	    if(obj.checked)
+	    {
+		    var li = document.createElement('li');
+		    li.id = liId;
+		    li.innerHTML = obj.text;
+		    list.appendChild(li);
+	    }
+	    else
+	    {
+	    	var li = document.getElementById(liId);
+	    	list.removeChild(li);
 	    }
 	  },
 
@@ -482,7 +559,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      YAHOO.util.Event.on(check, 'click', that._visibleAttributeHandler, attribute, that);
 	      li.appendChild(check);
 
-	      if(visibleObj.isNumeric)
+	      if(visibleObj.dtoType === 'AttributeIntegerDTO')
 	      {
 	      	var select = document.createElement('select');
 		      var options = [''];
@@ -541,84 +618,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    return visibleDiv;
     },
 
-    _getCountDiv : function(that,divName){
-
-
-	    var visibleDiv = document.createElement('div');
-
-	    var labelDiv = document.createElement('div');
-	    YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
-	    labelDiv.innerHTML = MDSS.localize(divName);
-
-	    var toggleDiv = document.createElement('div');
-	    YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
-	    YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
-	    toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
-
-	    visibleDiv.appendChild(labelDiv);
-	    visibleDiv.appendChild(toggleDiv);
-
-	    var visibleUl = document.createElement('ul');
-	    visibleUl.id =  "countDivLi";
-	    YAHOO.util.Dom.addClass(visibleUl, 'gridList');
-	    YAHOO.util.Dom.setStyle(visibleUl, 'clear', 'both');
-	    YAHOO.util.Dom.setStyle(visibleUl, 'display', 'none');
-
-	    that._toggleVisibility(toggleDiv, visibleUl);
-
-	    visibleDiv.appendChild(visibleUl);
-
-    	/*
-			 * Global COUNT, causes implicit group by on all selected attributes
-			 */
-
-	    var mosquitoView = Mojo.$.dss.vector.solutions.entomology.Mosquito;
-	    var mosquitoType = mosquitoView.CLASS;
-	    var countAttribute = new MDSS.VisibleAttribute({
-	      type: mosquitoType,
-	      displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
-	      attributeName: 'id'
-	    });
-
-	    var countCheck = document.createElement('input');
-	    YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
-	    YAHOO.util.Event.on(countCheck, 'click', that._toggleCount, countAttribute, that);
-
-	    var countSpan = document.createElement('span');
-	    countSpan.innerHTML = countAttribute.getDisplayLabel();
-
-	    var li = document.createElement('li');
-
-	    li.appendChild(countCheck);
-	    li.appendChild(countSpan);
-
-	    visibleUl.appendChild(li);
-
-	    var options = Mojo.util.getValues(MDSS.QueryXML.DateGroupOpts);
-	    var keys = Mojo.util.getKeys(MDSS.QueryXML.DateGroupOpts);
-	    for(var j=0; j<options.length; j++)
-	    {
-	    	var countCheck = document.createElement('input');
-		    YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
-	      YAHOO.util.Dom.setAttribute(countCheck, 'value', keys[j]);
-	      YAHOO.util.Event.on(countCheck, 'click', that._dateGroupHandler, keys[j],that);
-
-		    var countSpan = document.createElement('span');
-		    countSpan.innerHTML = options[j];
-
-		    var li = document.createElement('li');
-
-		    li.appendChild(countCheck);
-		    li.appendChild(countSpan);
-
-		    visibleUl.appendChild(li);
-	    }
-
-
-	    return visibleDiv;
-
-    },
-
 	  /**
 	   * Builds the query items for the left column.
 	   */
@@ -637,7 +636,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 
 	    this._queryPanel.addQueryItem({
-	      html: this._getCountDiv(this,"Group_By"),
+	      html: this._getCountDiv(this,"Group_By",Mojo.$.dss.vector.solutions.entomology.Mosquito),
 	      id: 'globalCount'
 	    });
 
