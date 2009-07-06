@@ -29,6 +29,8 @@
               </li>
               <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="com.terraframe.mojo.defaults.LoginController.logout.mojo"><fmt:message key="Log_Out"/></a></li>
               <li class="yuimenubaritem"><a class="yuimenubaritemlabel" href="about.jsp"><fmt:message key="About"/></a></li>
+              <a href="javascript:window.print()" style="margin-left:10px;"><img src="./imgs/icons/printer.png"></a>
+
           </ul>
       </div>
   </div>

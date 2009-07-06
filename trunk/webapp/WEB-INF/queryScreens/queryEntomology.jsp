@@ -34,7 +34,7 @@
 <%@page import="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"%>
 <%@page import="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"%>
 <%@page import="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"%>
-<%@page import="dss.vector.solutions.entomology.MorphologicalSpecieGroupDTO"%>
+<%@page import="dss.vector.solutions.entomology.UninterestingSpecieGroupDTO"%>
 <%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
@@ -85,7 +85,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ MosquitoDTO.CLASS, SpecieDTO.CLASS, MosquitoViewDTO.CLASS, MorphologicalSpecieGroupDTO.CLASS,MosquitoCollectionDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ MosquitoDTO.CLASS, SpecieDTO.CLASS, MosquitoViewDTO.CLASS, UninterestingSpecieGroupDTO.CLASS,MosquitoCollectionDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
     MosquitoDTO mosquito = new MosquitoDTO(requestIF);
     MosquitoViewDTO mosquitoView = new MosquitoViewDTO(requestIF);
@@ -164,14 +164,14 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 
 
     var mosquitoView = new Mojo.$.dss.vector.solutions.entomology.MosquitoView();
-    var mosquitoGroup = new  Mojo.$.dss.vector.solutions.entomology.MorphologicalSpecieGroup();
+    var mosquitoGroup = new  Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroup();
     var mosquitoCollection = new Mojo.$.dss.vector.solutions.entomology.MosquitoCollection();
 
-    var collectionAttribs = ["collectionId"];
+    var collectionAttribs = ["collectionId","dateCollected"];
     collectionColumns =  mapAttribs(collectionAttribs,'<%=MosquitoCollectionDTO.CLASS%>', mosquitoCollection);
 
-    var groupAttribs = ["specie","identificationMethod","quantityFemale","quantityMale","quantity"];
-    var groupColumns =  collectionColumns.concat(mapAttribs(groupAttribs,'<%=MorphologicalSpecieGroupDTO.CLASS%>', mosquitoGroup));
+    var groupAttribs = ["sampleId","specie","identificationMethod","quantity"];
+    var groupColumns =  collectionColumns.concat(mapAttribs(groupAttribs,'<%=UninterestingSpecieGroupDTO.CLASS%>', mosquitoGroup));
 
     var mosquitoAttribs = ["sampleId","specie","identificationMethod","sex","generation","isofemale","testDate"];
     var mosquitoColumns = collectionColumns.concat(mapAttribs(mosquitoAttribs,'<%=MosquitoDTO.CLASS%>', mosquitoView));

@@ -23,6 +23,7 @@ MDSS.QueryXML = {
   	DATEGROUP_EPIWEEK:'Epi Week',
   	DATEGROUP_MONTH:'Month',
   	DATEGROUP_QUARTER:'Quarter',
+  	DATEGROUP_YEAR:'Year',
   	DATEGROUP_SEASON:'Season'
   },
 
@@ -671,7 +672,7 @@ MDSS.Query.Config = function(configJSON)
   this._config = {
     selectedUniversals : []
   };
-  
+
   if(configJSON != null)
   {
     var config = Mojo.util.getObject(configJSON);
@@ -690,22 +691,22 @@ MDSS.Query.Config.prototype = {
   {
     this._config.selectedUniversals = universals;
   },
-  
+
   getSelectedUniversals : function()
   {
     return this._config.selectedUniversals;
   },
-  
+
   clearSelectedUniversals : function()
   {
     this._config.selectedUniversals = [];
   },
-  
+
   setProperty : function(key, value)
   {
     this._config.key = value;
   },
-  
+
   getProperty : function(key)
   {
     return this._config.key;
@@ -742,16 +743,16 @@ MDSS.Query.Parser.prototype = {
 
   _getValue : function(parent, tagName)
   {
-    var nodes = parent.getElementsByTagName(tagName) 
+    var nodes = parent.getElementsByTagName(tagName)
     var value = (nodes != null && nodes.length > 0 && nodes[0].firstChild) ? nodes[0].firstChild.nodeValue : '';
     return value;
   },
-    
+
   parseSelectables : function(handlers)
   {
     var select = this._xmlDoc.getElementsByTagName('select')[0];
     var children = select.childNodes;
-    
+
     for(var i=0; i<children.length; i++)
     {
       var child = children[i];
@@ -759,7 +760,7 @@ MDSS.Query.Parser.prototype = {
       {
         continue;
       }
-    
+
       var first = child.firstChild;
       if(Mojo.util.isFunction(handlers[first.nodeName]))
       {
@@ -770,12 +771,12 @@ MDSS.Query.Parser.prototype = {
       }
     }
   },
-  
+
   parseCriteria : function(handlers)
   {
     var criteria = this._xmlDoc.getElementsByTagName('criteria')[0];
     var selectables = criteria.getElementsByTagName('selectable');
-    
+
     for(var i=0; i<selectables.length; i++)
     {
       var selectable = selectables[i];
@@ -785,7 +786,7 @@ MDSS.Query.Parser.prototype = {
         var entityAlias = this._getValue(selectable, 'entityAlias');
         var attributeName = this._getValue(selectable, 'name');
         var userAlias = this._getValue(selectable, 'userAlias');
-        
+
         var parent = selectable.parentNode;
         var operator = this._getValue(parent, 'operator');
         var value = this._getValue(parent, 'value');

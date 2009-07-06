@@ -35,20 +35,20 @@ MDSS.QueryBase.prototype = {
 
     this._startDate = null;
     this._endDate = null;
-    this._dateGroup = null;
-    
+    this._dateGroupSelectables = [];
+
     this._config = new MDSS.Query.Config();
 
     this.PAGE_SIZE = 15;
-    
+
     this.ALL_PATHS = "dss.vector.solutions.geo.AllPaths";
-    
+
     var hideBound = MDSS.util.bind(this, this._hideHandler);
 
     this._selectSearch = new MDSS.MultipleSelectSearch();
     this._selectSearch.setHideHandler(hideBound);
     this._selectSearch.setFilter('');
-    
+
     // list of all elements and default settings
     this._defaults = [];
   },
@@ -80,34 +80,43 @@ MDSS.QueryBase.prototype = {
     form.submit();
   },
 
+  _dateGroupHandler : function(e,group)
+  {
+    var check = e.target;
+    //var group = check.value;
+    if(check.checked)
+    {
+      var attribute = new MDSS.QueryXML.Sqlcharacter('', group, group);
+	    var selectable = new MDSS.QueryXML.Selectable(attribute);
+      this._dateGroupSelectables[group] = selectable;
+      this._queryPanel.insertColumn({
+    	  key: group,
+    	  label: MDSS.QueryXML.DateGroupOpts[group]
+    	});
+    }
+    else
+    {
+      var column = this._queryPanel.getColumn(group);
+      this._queryPanel.removeColumn(column);
+      this._dateGroupSelectables[group] = null;
+    }
+  },
 
-  _dateGroupHandler : function(e)
+
+  _dateSnapHandler : function(e)
   {
     var option = e.target;
+    var group = option.value;
 
-    if(this._dateGroup){
-      var column = this._queryPanel.getColumn(this._dateGroup);
-    	this._queryPanel.removeColumn(column);
-      this._dateGroup = null;
-    	//this._queryPanel.removeThematicVariable(attribute.getKey());
-    }
     if(option.value !== '')
     {
-    	this._dateGroup = option.value;
-      this._queryPanel.insertColumn({
-    	  key: this._dateGroup,
-    	  label: MDSS.QueryXML.DateGroupOpts[option.value]
-    	});
-
 	    var dateEl = this._queryPanel.getStartDate();
-	    this._snapDate(dateEl.value, dateEl,this._dateGroup);
+	    this._snapDate(dateEl.value, dateEl,group);
 
 	    dateEl = this._queryPanel.getEndDate();
-	    this._snapDate(dateEl.value, dateEl,this._dateGroup);
-
-      // ADD THEMATIC VARIABLE
-      // this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
+	    this._snapDate(dateEl.value, dateEl,group);
     }
+
   },
 
   _snapDate : function(date,targetEl,dateGroupPeriod){
@@ -240,10 +249,13 @@ MDSS.QueryBase.prototype = {
   	 var options = this._queryPanel._dateGroupBy.options;
   	 for(var i=0; i<options.length; i++)
   	 {
-  	   YAHOO.util.Event.on(options[i], 'click', this._dateGroupHandler, '',this);
+  	   YAHOO.util.Event.on(options[i], 'click', this._dateSnapHandler, '',this);
   	 }
-  	 
-  	 this._defaults.push({element:this._queryPanel._dateGroupBy, index: 0, active:true});
+
+  	YAHOO.util.Event.on(this._queryPanel._startDateRangeCheck, 'click', this.toggleDates, 'START_DATE_RANGE', this);
+  	YAHOO.util.Event.on(this._queryPanel._endDateRangeCheck, 'click', this.toggleDates, 'END_DATE_RANGE', this);
+
+  	 //this._defaults.push({element:this._queryPanel._dateGroupBy, index: 0, active:true});
   },
 
   /**
@@ -261,9 +273,26 @@ MDSS.QueryBase.prototype = {
    * wants to add the respective dates to the select clause in the result
    * set.
    */
-  toggleDates : function()
+  toggleDates : function(e,range)
   {
-    // abstract
+  	var check = e.target;
+    if(check.checked)
+    {
+      var attribute = new MDSS.QueryXML.Sqlcharacter('', range, range);
+	    var selectable = new MDSS.QueryXML.Selectable(attribute);
+      this._dateGroupSelectables[range] = selectable;
+      this._queryPanel.insertColumn({
+    	  key: range,
+    	  label: MDSS.localize(range),
+    	});
+    }
+    else
+    {
+      var column = this._queryPanel.getColumn(range);
+      this._queryPanel.removeColumn(column);
+      this._dateGroupSelectables[range] = null;
+    }
+
   },
 
   _getExportXLSAction : function()
@@ -305,7 +334,7 @@ MDSS.QueryBase.prototype = {
   {
     // Abstract
   },
-  
+
   _delegateToOption : function(e, attribute)
   {
     var select = e.target;
@@ -337,17 +366,17 @@ MDSS.QueryBase.prototype = {
 
     Mojo.$.dss.vector.solutions.query.SavedSearch.getAsView(request, savedSearchId, true, true);
   },
-  
+
   _resetToDefault : function()
   {
     // abstract
   },
-  
+
   _loadQueryState : function()
   {
     // abstract
   },
-  
+
   _fireClickOnOption : function(option)
   {
     // FIXME add IE version of this
@@ -363,29 +392,29 @@ MDSS.QueryBase.prototype = {
   {
     modal.destroy();
   },
-  
+
  /**
    * Saves the current state of the QueryXML.
    */
   saveQuery : function()
   {
     var view = this._queryPanel.getCurrentSavedSearch();
-    
+
     if(view != null)
     {
       this._populateSearch(null, view);
     }
-  
+
     var request = new MDSS.Request({
       onSuccess : function()
       {
         // nothing to do
-      } 
+      }
     });
-    
+
     Mojo.$.dss.vector.solutions.query.SavedSearch.updateSearch(request, view);
-  }, 
-  
+  },
+
   /**
    * Saves the current state of the QueryXML.
    */
@@ -437,7 +466,7 @@ MDSS.QueryBase.prototype = {
 
     Mojo.$.dss.vector.solutions.query.SavedSearch.saveSearch(request, view);
   },
-  
+
   _populateSearch : function(params, view)
   {
     var queryXML = this._constructQuery();
@@ -448,11 +477,11 @@ MDSS.QueryBase.prototype = {
     {
       view.setQueryName(params['savedQueryView.queryName']);
     }
-    
+
     view.setQueryXml(xml);
     view.setConfig(Mojo.util.getJSON(this._config));
     view.setThematicLayer(/*this._geoEntityQueryType*/''); // FIXME this needs to be changed
-    view.setQueryType(queryType);   
+    view.setQueryType(queryType);
   },
 
   /**
@@ -636,16 +665,16 @@ MDSS.QueryBase.prototype = {
     for(var i=0; i<selectedUniversals.length; i++)
     {
       var universal = selectedUniversals[i];
-  	  
+
   	  var construct = Mojo.util.getType(universal);
       var geoEntity = new construct();
-      var geoEntityView = this._selectSearch._copyEntityToView(geoEntity);  
-    
+      var geoEntityView = this._selectSearch._copyEntityToView(geoEntity);
+
       this._addUniversalEntity(geoEntityView, true);
-      
+
       this._config.addSelectedUniversal(geoEntityView.getEntityType());
     }
-    
+
     this._queryPanel.setAvailableThematicLayers(this._config.getSelectedUniversals());
 
     // remove all prior conditions
@@ -660,7 +689,7 @@ MDSS.QueryBase.prototype = {
       {
         this._allPathsQuery = new MDSS.QueryXML.Entity(this.ALL_PATHS, this.ALL_PATHS);
       }
-      
+
       var attribute = new MDSS.QueryXML.Attribute(this._allPathsQuery.getAlias(), 'parentGeoEntity');
       var selectable = new MDSS.QueryXML.Selectable(attribute);
       var geoIdCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, geoEntityView.getGeoEntityId());

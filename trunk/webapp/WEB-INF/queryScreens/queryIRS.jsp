@@ -10,8 +10,6 @@
 <%@page import="com.terraframe.mojo.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
-<%@page import="dss.vector.solutions.query.EntomologySearch"%>
-<%@page import="dss.vector.solutions.query.EntomologySearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
 <%@page import="dss.vector.solutions.query.MappingController"%>
 <%@page import="dss.vector.solutions.query.RangeCategoryDTO"%>
@@ -19,34 +17,13 @@
 <%@page import="dss.vector.solutions.query.RangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
-<%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
-<%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
-<%@page import="dss.vector.solutions.query.AggregatedCasesSearchDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoDTO"%>
 <%@page import="dss.vector.solutions.mo.SpecieDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.List"%>
-
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoViewDTO"%>
-<%@page import="org.json.JSONArray"%>
-<%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
-<%@page import="org.json.JSONException"%>
-<%@page import="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"%>
-<%@page import="dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult"%>
-<%@page import="dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult"%>
-<%@page import="dss.vector.solutions.entomology.MorphologicalSpecieGroupDTO"%>
-<%@page import="dss.vector.solutions.entomology.ConcreteMosquitoCollectionDTO"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
-<%@page import="com.terraframe.mojo.constants.MdAttributeConcreteInfo"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdAttributeConcreteDAO"%>
-<%@page import="com.terraframe.mojo.dataaccess.MdBusinessDAOIF"%>
-<%@page import="com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO"%>
-<%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
-
+<%@page import="dss.vector.solutions.irs.*"%>
 
 
 <c:set var="page_title" value="Query_IRS"  scope="request"/>
@@ -56,17 +33,12 @@
 <jwr:script src="/bundles/queryBundle.js" useRandomParam="false"/>
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
-
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ MosquitoDTO.CLASS, SpecieDTO.CLASS, EntomologySearchDTO.CLASS, MosquitoViewDTO.CLASS, MorphologicalSpecieGroupDTO.CLASS,MosquitoCollectionDTO.CLASS};
+    String[] types = new String[]{ AbstractSprayDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
-    MosquitoDTO mosquito = new MosquitoDTO(requestIF);
-    MosquitoViewDTO mosquitoView = new MosquitoViewDTO(requestIF);
-    JSONArray mosquitoAttribs = new JSONArray(mosquito.getAttributeNames());
 %>
-
-<%=Halp.loadTypes((List<String>) Arrays.asList(mosquitoTypes))%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(types))%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(queryTypes))%>
 <script type="text/javascript">
 // Setting both values to false will select *all* univerals
@@ -83,9 +55,8 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     var queryList = <%= (String) request.getAttribute("queryList") %>;
     var assayTree = <%= (String) request.getAttribute("assayTree") %>;
 
-     dropDownMaps = {<%=Halp.getDropDownMaps(mosquitoView,  requestIF)%>};
+    dropDownMaps = {<%//=Halp.getDropDownMaps(mosquitoView,  requestIF)%>};
 
-    //var mosquitoAttribs = <%=mosquitoAttribs%>
 
 
     function mapAssayAttribs(arr){
@@ -99,10 +70,29 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
       });
     }
 
+    selectableGroups = [
+                        {title:"SG1",
+                         values:{
+                           type:"test",
+                           dtoType:"test",
+                           displayLabel:"test",
+                           attributeName:"test",
+                          }
+                        },
+                        {title:"SG2",
+                          values:{
+                          type:"test",
+                          dtoType:"test",
+                          displayLabel:"test",
+                          attributeName:"test",
+                         }
+                       },
+    ];
+
+    var query = new MDSS.QueryIRS(selectableGroups, queryList);
 
 
 
-    var query = new MDSS.QueryEntomology(columns, queryList);
     query.render();
 
   });

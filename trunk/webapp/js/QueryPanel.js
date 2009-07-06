@@ -122,7 +122,7 @@ MDSS.QueryPanel.prototype = {
   COLUMNS_LIST : "columnsList",
 
   QUERY_SUMMARY : "querySummary",
-  
+
   THEMATIC_LAYERS_SELECT : "thematicLayersSelect",
 
   /**
@@ -286,6 +286,9 @@ MDSS.QueryPanel.prototype = {
     this._startDate.id = this.START_DATE_RANGE;
     YAHOO.util.Dom.addClass(this._startDate, 'DatePick');
 
+    this._startDateRangeCheck = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'type', 'checkbox');
+
     var endLabel = document.createElement('span');
     endLabel.innerHTML = MDSS.Localized.Query.End_Date;
 
@@ -294,23 +297,23 @@ MDSS.QueryPanel.prototype = {
     this._endDate.id = this.END_DATE_RANGE;
     YAHOO.util.Dom.addClass(this._endDate, 'DatePick');
 
-    this._toggleDatesCheck = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(this._toggleDatesCheck, 'type', 'checkbox');
-    YAHOO.util.Event.on(this._toggleDatesCheck, 'click', this._toggleDates, null, this);
+    this._endDateRangeCheck = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'type', 'checkbox');
 
     var toggleDatesSpan = document.createElement('span');
     toggleDatesSpan.innerHTML = MDSS.Localized.Toggle_Show;
 
     // add the date fields
 
-    dateRange.appendChild(this._toggleDatesCheck);
     dateRange.appendChild(startLabel);
+    dateRange.appendChild(this._startDateRangeCheck);
     dateRange.appendChild(this._startDate);
     dateRange.appendChild(endLabel);
+    dateRange.appendChild(this._endDateRangeCheck);
     dateRange.appendChild(this._endDate);
 
     var dateGroupLabel = document.createElement('span');
-    dateGroupLabel.innerHTML = MDSS.localize("Group_By");
+    dateGroupLabel.innerHTML = MDSS.localize("Snap_To_Nearest");
 
     this._dateGroupBy = document.createElement('select');
     this._dateGroupBy.id = this.DATE_GROUP_ID;
@@ -335,8 +338,8 @@ MDSS.QueryPanel.prototype = {
     body.appendChild(dateRange);
 
   },
-  
-  
+
+
   getToggleDatesCheck : function()
   {
     return this._toggleDatesCheck;
@@ -463,13 +466,13 @@ MDSS.QueryPanel.prototype = {
     var querySummary = document.getElementById(this.QUERY_SUMMARY);
     querySummary.innerHTML = html;
   },
-  
+
   setAvailableThematicLayers : function(layers)
   {
     this._thematicLayers = layers;
     this._resetThematicOptions();
   },
-  
+
   _resetThematicOptions : function()
   {
     var select = document.getElementById(this.THEMATIC_LAYERS_SELECT);
@@ -481,11 +484,11 @@ MDSS.QueryPanel.prototype = {
       for(var i=0; i<this._thematicLayers.length; i++)
       {
         var layer = this._thematicLayers[i];
-      
+
         var option = document.createElement('option');
         option.value = layer;
         option.innerHTML = MDSS.GeoTreeSelectables.types[layer].label;
-        
+
         select.appendChild(option);
 
         if(oldSelected != null && oldSelected === layer)
@@ -493,11 +496,11 @@ MDSS.QueryPanel.prototype = {
           selectIndex = i;
         }
       }
-      
+
       select.selectedIndex = selectIndex;
     }
   },
-  
+
   getThematicLayer : function()
   {
     var select = document.getElementById(this.THEMATIC_LAYERS_SELECT);
@@ -521,7 +524,7 @@ MDSS.QueryPanel.prototype = {
     var thematicDiv = new YAHOO.util.Element(document.createElement('div'));
 
     var thematicLayerDiv = document.createElement('div');
-    
+
     var html = MDSS.Localized.Thematic.Layer+"<br />";
     html += "<select style='margin: 3px 0px; min-width: 220px;' id='"+this.THEMATIC_LAYERS_SELECT+"'>";
     html += "</select>";
@@ -610,7 +613,7 @@ MDSS.QueryPanel.prototype = {
     this._mLeftUnit.body.innerHTML = '';
     var body = new YAHOO.util.Element(this._mLeftUnit.body);
     body.appendChild(wrapper);
-    
+
     this._resetThematicOptions();
   },
 
@@ -955,7 +958,7 @@ MDSS.QueryPanel.prototype = {
       this._uploadModal.show();
     }
   },
-  
+
   /**
    * Builds the buttons to perform acions in the QueryPanel.
    */
@@ -1506,7 +1509,7 @@ MDSS.QueryPanel.prototype = {
       this._config.saveQuery();
     }
   },
-  
+
   /**
    * Saves a new query.
    */
@@ -1516,7 +1519,7 @@ MDSS.QueryPanel.prototype = {
     {
       this._config.saveQueryAs();
     }
-  }, 
+  },
 
   /**
    * Creates the map
