@@ -1,6 +1,6 @@
 /**
  * Terraframe Mojo Javascript library.
- *
+ * 
  * (c) 2009
  */
 var Mojo = {
@@ -98,6 +98,65 @@ var Mojo = {
     {
       return method in obj && !obj.hasOwnProperty(method) && Mojo.util.isFunction(obj[method]);
     },
+    
+    setISO8601 : function (date, string)
+    {
+        var regexp = "([0-9]{4})(-([0-9]{2})(-([0-9]{2})" +
+            "(T([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?" +
+            "(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?";
+        var d = string.match(new RegExp(regexp));
+
+        var offset = 0;
+        var tempDate = new Date(d[1], 0, 1);
+
+        if (d[3]) { tempDate.setMonth(d[3] - 1); }
+        if (d[5]) { tempDate.setDate(d[5]); }
+        if (d[7]) { tempDate.setHours(d[7]); }
+        if (d[8]) { tempDate.setMinutes(d[8]); }
+        if (d[10]) { tempDate.setSeconds(d[10]); }
+        if (d[12]) { tempDate.setMilliseconds(Number("0." + d[12]) * 1000); }
+        if (d[14]) {
+            offset = (Number(d[16]) * 60) + Number(d[17]);
+            offset *= ((d[15] == '-') ? 1 : -1);
+        }
+
+        offset -= tempDate.getTimezoneOffset();
+        time = (Number(tempDate) + (offset * 60 * 1000));
+        date.setTime(Number(time));
+    },
+
+    toISO8601 : function (date)
+    {
+        /* 
+           ISO8601 format:
+           Complete date plus hours, minutes, seconds and a decimal
+           fraction of a second
+           YYYY-MM-DDThh:mm:ssZ (eg 1997-07-16T19:20:30.45-0100)
+        */
+        var format = 6;
+        var offset = date.getTimezoneOffset()/60;
+        
+        var tempDate = date;
+           
+        var zeropad = function (num) { return ((num < 10) ? '0' : '') + num; }
+
+        var str = "";
+
+        // Set YYYY
+        str += tempDate.getUTCFullYear();
+        // Set MM
+        str += "-" + zeropad(tempDate.getUTCMonth() + 1);
+        // Set DD
+        str += "-" + zeropad(tempDate.getUTCDate());
+        // Set Thh:mm
+        str += "T" + zeropad(tempDate.getUTCHours()) + ":" + zeropad(tempDate.getUTCMinutes());
+        // Set ss
+        str += ":" + zeropad(tempDate.getUTCSeconds());        
+        // Set TZD
+        str += '-' + zeropad(offset) + '00';
+        return str;
+    },
+    
 
     /**
      * This JSON object is based on the reference code provided by Douglas Crockford.
@@ -154,7 +213,7 @@ var Mojo = {
           // Mojo change: A date specific check (server expects timestamps).
           if(Mojo.util.isDate(value))
           {
-            return String(value.getTime());
+            return quote(Mojo.util.toISO8601(value));
           }
 
           switch (typeof value) {
@@ -1686,7 +1745,8 @@ Mojo.dto.ComponentQueryDTO.prototype = {
         var attributeDTO = new Mojo.dto[attribute.dtoType](attribute);
         obj.definedAttributes[attributeName] = attributeDTO;
       }
-      this.definedAttributes = obj.definedAttributes;  // keep reference (trick for structs)
+      this.definedAttributes = obj.definedAttributes;  // keep reference (trick
+                            // for structs)
 
       // now convert the result set
       this.resultSet = [];
@@ -2360,7 +2420,7 @@ Mojo.dto.SystemAttributeProblemDTO.prototype = Mojo.Class.extend(Mojo.dto.Attrib
 
 /**
  * Exception
- *
+ * 
  * This is the actual exception that can be thrown and caught.
  */
 Mojo.dto.Exception = Mojo.Class.create();
@@ -2416,7 +2476,7 @@ Mojo.dto.Exception.prototype = {
 
 /**
  * SmartExceptionDTO
- *
+ * 
  * (delegates to an ExceptionDTO)
  */
 Mojo.dto.SmartExceptionDTO = Mojo.Class.create();
@@ -2456,7 +2516,7 @@ Mojo.dto.SmartExceptionDTO.prototype = Mojo.Class.extend(Mojo.dto.Exception, {
 
 /**
  * MojoExceptionDTO
- *
+ * 
  * (for hard-coded exceptions)
  */
 Mojo.dto.MojoExceptionDTO = Mojo.Class.create();
@@ -3104,7 +3164,11 @@ Mojo.dto.AttributeMomentDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeDTO,
       // set internal value as a date
       if(this.value != null && this.value !== '')
       {
-        this.value = new Date(this.value);
+        var date = new Date();
+          
+        Mojo.util.setISO8601(date, this.value);
+
+        this.value = date;
       }
       else
       {
@@ -3119,7 +3183,18 @@ Mojo.dto.AttributeMomentDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeDTO,
     {
       if(value != null)
       {
-        this.value = Mojo.util.isDate(value) ? value : new Date(value);
+        if(Mojo.util.isDate(value))
+        {
+          this.value = value;          
+        }
+        else
+        {
+          var date = new Date();
+          
+          Mojo.util.setISO8601(date, value);
+
+          this.value = date;
+        }
       }
       else
       {
