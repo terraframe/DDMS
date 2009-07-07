@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.xml.sax.SAXParseException;
 
@@ -523,35 +525,35 @@ public class AggregatedCase extends AggregatedCaseBase implements
     for(String selectedGeoEntityType : selectedUniversals)
     {
       GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
-        
+
       AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
       ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
       MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
-      
+
       Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName()+"_entityName");
       Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName()+"_geoId");
-        
+
       List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
       Condition[] geoConditions = new Condition[allClasses.size()];
       for(int i=0; i<allClasses.size(); i++)
       {
         geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
       }
-      
+
       geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
       geoEntityVQ.WHERE(OR.get(geoConditions));
       geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
-      
+
       leftJoinValueQueries.add(geoEntityVQ);
-      
+
       valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
     }
-    
+
     Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
-    
+
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
     AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
-    
+
     if(allPathsQuery != null)
     {
       List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
@@ -559,18 +561,18 @@ public class AggregatedCase extends AggregatedCaseBase implements
       {
         leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
       }
-      
+
       int size = leftJoinSelectables.size();
       if(size > 0)
       {
         valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
       }
-      
+
       // Join AggregatedCase to GeoEntity
       valueQuery.AND(aggregatedCaseQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
     }
 
-    
+
     MdRelationshipDAOIF caseTreatmentStockRel = MdRelationshipDAO
         .getMdRelationshipDAO(CaseTreatmentStock.CLASS);
 
@@ -671,6 +673,31 @@ public class AggregatedCase extends AggregatedCaseBase implements
         + "ELSE to_char(" + ed + ",'YYYY-Q') END";
       dateGroup.setSQL(dateGroupSql);
     }
+
+    if (xml.indexOf("START_DATE_RANGE") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("START_DATE_RANGE");
+      dateGroup.setSQL("''");
+      Pattern pattern = Pattern.compile("<!--START_DATE=([0-9/\\-]{5,10})-->");
+      Matcher matcher = pattern.matcher(xml);
+      if (matcher.find())
+      {
+        dateGroup.setSQL("'"+matcher.group(1)+"'");
+      }
+    }
+
+    if (xml.indexOf("END_DATE_RANGE") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("END_DATE_RANGE");
+      dateGroup.setSQL("''");
+      Pattern pattern = Pattern.compile("<!--END_DATE=([0-9/\\-]{5,10})-->");
+      Matcher matcher = pattern.matcher(xml);
+      if (matcher.find())
+      {
+        dateGroup.setSQL("'"+matcher.group(1)+"'");
+      }
+    }
+
     return valueQuery;
   }
 
@@ -696,8 +723,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
   {
     QueryConfig queryConfig = new QueryConfig(config);
     String[] selectedUniversals = queryConfig.getSelectedUniversals();
-    
-    
+
+
     ValueQuery valueQuery = xmlToValueQuery(xml, selectedUniversals, false, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
@@ -742,12 +769,12 @@ public class AggregatedCase extends AggregatedCaseBase implements
       thematicLayer.changeLayerType(thematicLayerType);
     }
 
-    
-    
+
+
     ValueQuery query = xmlToValueQuery(xml, thematicLayerType, true, thematicLayer);
 
     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
-    
+
     return layers;
   }
    */
@@ -757,7 +784,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   {
     QueryConfig queryConfig = new QueryConfig(config);
     String[] selectedUniversals = queryConfig.getSelectedUniversals();
-    
+
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to Excel without a current SavedSearch instance.";
@@ -766,7 +793,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     }
 
     SavedSearch search = SavedSearch.get(savedSearchId);
-    
+
     ValueQuery query = xmlToValueQuery(queryXML, selectedUniversals, false, null);
 
     ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
@@ -778,7 +805,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   {
     QueryConfig queryConfig = new QueryConfig(config);
     String[] selectedUniversals = queryConfig.getSelectedUniversals();
-    
+
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
       String error = "Cannot export to CSV without a current SavedSearch instance.";
