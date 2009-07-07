@@ -16,18 +16,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     // START: query objects that dictate state of the query.
 
-    this._startDateAttribute = new MDSS.VisibleAttribute({
-      type: this._aggregatedCase.getType(),
-      attributeName : this._aggregatedCase.getStartDateMd().getName(),
-      displayLabel: this._aggregatedCase.getStartDateMd().getDisplayLabel(),
-    });
-
-    this._endDateAttribute = new MDSS.VisibleAttribute({
-      type: this._aggregatedCase.getType(),
-      attributeName : this._aggregatedCase.getEndDateMd().getName(),
-      displayLabel: this._aggregatedCase.getEndDateMd().getDisplayLabel(),
-    });
-
     this._startDate = null;
     this._endDate = null;
 
@@ -74,8 +62,8 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var endDate = this._queryPanel.getEndDate();
 
     //this._defaults.push({element: datesCheck, checked:false});
-    this._defaults.push({element: startDate, value: ''});
-    this._defaults.push({element: endDate, value: ''});
+    //this._defaults.push({element: startDate, value: ''});
+    //this._defaults.push({element: endDate, value: ''});
   },
 
   /**
@@ -262,12 +250,12 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         // start date
         else if(userAlias === aggregatedCase.STARTDATE)
         {
-          thisRef._queryPanel.getStartDate().value = value;
+          //thisRef._queryPanel.getStartDate().value = value;
         }
         // end date
         else if(userAlias === aggregatedCase.ENDDATE)
         {
-          thisRef._queryPanel.getEndDate().value = value;
+          //thisRef._queryPanel.getEndDate().value = value;
         }
         // age group criteria
         else if(/^group_/.test(userAlias))
@@ -326,6 +314,21 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         this.thisRef.resetQueryResults(query);
       }
     });
+
+    var startDateEl = this._queryPanel.getStartDate();
+    var startDate = MDSS.util.stripWhitespace(startDateEl.value);
+    if(startDate.length > 0)
+    {
+    	xml += "<!--START_DATE="+startDate+"-->\n";
+    }
+
+    var endDateEl = this._queryPanel.getEndDate();
+    var endDate = MDSS.util.stripWhitespace(endDateEl.value);
+    if(endDate.length > 0)
+    {
+    	xml += "<!--END_DATE="+endDate+"-->";
+    }
+
 
     var page = this.getCurrentPage();
     Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, this._config.getJSON(), page, this.PAGE_SIZE);
@@ -479,12 +482,23 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     {
       conditions.push(this._endDate);
     }
-
+/*
     if(this._dateGroup != null)
     {
     	var attribute = new MDSS.QueryXML.Sqlcharacter('', this._dateGroup, this._dateGroup);
       var selectable = new MDSS.QueryXML.Selectable(attribute);
       queryXML.addSelectable(this._dateGroup, selectable);
+    }*/
+
+
+    var keys = Mojo.util.getKeys(this._dateGroupSelectables);
+    for(var i=0; i < keys.length; i++)
+    {
+    	var selectable = this._dateGroupSelectables[keys[i]];
+    	if(selectable != null)
+    	{
+    		queryXML.addSelectable(keys[i], selectable);
+    	}
     }
 
     var dateAndOr = null;
