@@ -1,5 +1,8 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="page_title" value="View_Fever_Treatment"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -39,10 +42,7 @@
     <dd>
       ${item.treatmentName}
     </dd>
+    <mjl:command value="Edit" action="dss.vector.solutions.intervention.FeverTreatmentController.edit.mojo" name="dss.vector.solutions.intervention.FeverTreatment.form.edit.button" />
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.intervention.FeverTreatmentController.edit.mojo" name="dss.vector.solutions.intervention.FeverTreatment.form.edit.button" />
-  <br />
 </mjl:form>
-<dl>
-</dl>
 <mjl:commandLink display="View All" action="dss.vector.solutions.intervention.FeverTreatmentController.viewAll.mojo" name="dss.vector.solutions.intervention.FeverTreatment.viewAll.link" />

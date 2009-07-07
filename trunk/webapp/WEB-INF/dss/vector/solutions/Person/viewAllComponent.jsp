@@ -1,6 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="page_title" value="View_All_People" scope="request" />
 
 <mjl:messages>
   <mjl:message />
@@ -56,7 +57,7 @@
       </mjl:row>
     </mjl:freeColumn>
     <mjl:freeColumn>
-      <mjl:header>Spray Operator</mjl:header>
+      <mjl:header><fmt:message key="Spray_Operator"/></mjl:header>
       <mjl:row>
         <c:choose>
           <c:when test="${item.sprayOperatorDelegate != null}">Yes</c:when>

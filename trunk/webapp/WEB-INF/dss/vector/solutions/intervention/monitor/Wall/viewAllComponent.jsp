@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="page_title" value="View_All_Wall"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -7,19 +9,17 @@
   <mjl:context action="dss.vector.solutions.intervention.monitor.WallController.viewPage.mojo" />
   <mjl:columns>
     <mjl:structColumn attributeName="displayLabel">
-      <mjl:header>
-        Display Label
-      </mjl:header>
       <mjl:attributeColumn attributeName="defaultLocale">
-        <mjl:header>
-          Default Locale
-        </mjl:header>
       </mjl:attributeColumn>
     </mjl:structColumn>
     <mjl:attributeColumn attributeName="wallName">
-      <mjl:header>
-        Wall Name
-      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="enabled">
+    </mjl:attributeColumn>        
+    <mjl:attributeColumn attributeName="parentWall">
+      <mjl:row>
+        ${item.parentWall != null ? item.parentWall.displayLabel : ''}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
@@ -40,4 +40,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink display="Create a new Roof" action="dss.vector.solutions.intervention.monitor.WallController.newInstance.mojo" name="WallController.newInstance" />
+<mjl:commandLink display="Create a new Wall" action="dss.vector.solutions.intervention.monitor.WallController.newInstance.mojo" name="WallController.newInstance" />

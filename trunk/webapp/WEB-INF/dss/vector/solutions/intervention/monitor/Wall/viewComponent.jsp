@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="page_title" value="View_Wall"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -30,39 +32,24 @@
     </dt>
     <dd>
       ${item.wallName}
+    </dd>    
+    <dt>
+      <label>
+        ${item.enabledMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.enabled}
+    </dd>        
+    <dt>
+      <label>
+        ${item.parentWallMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.parentWall.displayLabel}
     </dd>
+    <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.WallController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Wall.form.edit.button" />
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.WallController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Wall.form.edit.button" />
-  <br />
 </mjl:form>
-<dl>
-  <dt>
-    <label>
-      Parent Relationships
-    </label>
-  </dt>
-  <dd>
-    <ul>
-      <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.intervention.monitor.WallHeiarchyController.parentQuery.mojo" name="dss.vector.solutions.intervention.monitor.WallHeiarchy.parentQuery.link">
-          <mjl:property value="${item.id}" name="parentId" />
-        </mjl:commandLink>
-      </li>
-    </ul>
-  </dd>
-  <dt>
-    <label>
-      Child Relationships
-    </label>
-  </dt>
-  <dd>
-    <ul>
-      <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.intervention.monitor.WallHeiarchyController.childQuery.mojo" name="dss.vector.solutions.intervention.monitor.WallHeiarchy.childQuery.link">
-          <mjl:property value="${item.id}" name="childId" />
-        </mjl:commandLink>
-      </li>
-    </ul>
-  </dd>
-</dl>
 <mjl:commandLink display="View All" action="dss.vector.solutions.intervention.monitor.WallController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.Wall.viewAll.link" />

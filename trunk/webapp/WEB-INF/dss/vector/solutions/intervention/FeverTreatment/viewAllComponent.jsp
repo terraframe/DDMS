@@ -1,30 +1,21 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="page_title" value="View_All_Fever_Treatment"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}">
+<mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.intervention.FeverTreatmentController.viewPage.mojo" />
   <mjl:columns>
     <mjl:structColumn attributeName="displayLabel">
-      <mjl:header>
-        Display Label
-      </mjl:header>
       <mjl:attributeColumn attributeName="defaultLocale">
-        <mjl:header>
-          displayLabel default locale
-        </mjl:header>
       </mjl:attributeColumn>
     </mjl:structColumn>
     <mjl:attributeColumn attributeName="enabled">
-      <mjl:header>
-        Enabled
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="treatmentName">
-      <mjl:header>
-        Name
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>

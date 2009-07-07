@@ -82,7 +82,6 @@ public class PersonController extends PersonControllerBase implements com.terraf
   {
     req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", view);
-    req.setAttribute("page_title", "Create_Person");
     render("createComponent.jsp");
   }
 
@@ -125,7 +124,6 @@ public class PersonController extends PersonControllerBase implements com.terraf
   {
     req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit_Person");
     render("editComponent.jsp");
   }
 
@@ -154,7 +152,6 @@ public class PersonController extends PersonControllerBase implements com.terraf
 
     req.setAttribute("sexes", SexDTO.allItems(super.getClientSession().getRequest()));
     req.setAttribute("item", view);
-    req.setAttribute("page_title", "View_Person");
     render("viewComponent.jsp");
   }
 
@@ -163,7 +160,6 @@ public class PersonController extends PersonControllerBase implements com.terraf
     ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.PersonQueryDTO query = PersonDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All PersonController Objects");
     render("viewAllComponent.jsp");
   }
   public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws java.io.IOException, javax.servlet.ServletException
@@ -175,7 +171,6 @@ public class PersonController extends PersonControllerBase implements com.terraf
     ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.PersonQueryDTO query = PersonDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View_All_People");
     render("viewAllComponent.jsp");
   }
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
@@ -219,7 +214,6 @@ public class PersonController extends PersonControllerBase implements com.terraf
     req.setAttribute("dss_vector_solutions_Person_sprayOperatorDelegate", SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_Person_userDelegate", dss.vector.solutions.MDSSUserDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create PersonController");
     render("createComponent.jsp");
   }
   public void failEdit(String id) throws java.io.IOException, javax.servlet.ServletException
@@ -248,7 +242,6 @@ public class PersonController extends PersonControllerBase implements com.terraf
     req.setAttribute("dss_vector_solutions_Person_sprayOperatorDelegate", SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_Person_userDelegate", dss.vector.solutions.MDSSUserDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update PersonController");
     render("editComponent.jsp");
   }
   public void cancel(PersonDTO dto) throws java.io.IOException, javax.servlet.ServletException
@@ -282,7 +275,6 @@ public class PersonController extends PersonControllerBase implements com.terraf
     req.setAttribute("dss_vector_solutions_Person_sprayOperatorDelegate", SprayOperatorDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("dss_vector_solutions_Person_userDelegate", dss.vector.solutions.MDSSUserDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit PersonController");
     render("editComponent.jsp");
   }
   public void failSearch(PersonDTO person) throws java.io.IOException, javax.servlet.ServletException

@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="page_title" value="View_All_Net"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -7,34 +9,19 @@
   <mjl:context action="dss.vector.solutions.intervention.monitor.NetController.viewPage.mojo" />
   <mjl:columns>
     <mjl:structColumn attributeName="displayLabel">
-      <mjl:header>
-        displayLabel
-      </mjl:header>
       <mjl:attributeColumn attributeName="defaultLocale">
-        <mjl:header>
-          Default Locale
-        </mjl:header>
       </mjl:attributeColumn>
     </mjl:structColumn>
     <mjl:attributeColumn attributeName="enabled">
-      <mjl:header>
-        Enabled
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="isAbstract">
-      <mjl:header>
-        Abstract
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="netName">
-      <mjl:header>
-        name
-      </mjl:header>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="parentNet">
-      <mjl:header>
-        Parent
-      </mjl:header>
+      <mjl:row>
+        ${item.parentNet != null ? item.parentNet.displayLabel : ''}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>

@@ -17,8 +17,8 @@ public class WallView extends WallViewBase implements com.terraframe.mojo.genera
 
   public void populate(Wall wall)
   {
-    OIterator<? extends Wall> childrenIt = wall.getAllChildRoofs();
-    OIterator<? extends Wall> parentIt = wall.getAllParentRoofs();
+    OIterator<? extends Wall> childrenIt = wall.getAllChildWalls();
+    OIterator<? extends Wall> parentIt = wall.getAllParentWalls();
     
     try
     {
@@ -49,7 +49,7 @@ public class WallView extends WallViewBase implements com.terraframe.mojo.genera
     {
       Wall wall = stack.pop();
 
-      for(Wall child : wall.getAllChildRoofs())
+      for(Wall child : wall.getAllChildWalls())
       {
         stack.push(child);
       }

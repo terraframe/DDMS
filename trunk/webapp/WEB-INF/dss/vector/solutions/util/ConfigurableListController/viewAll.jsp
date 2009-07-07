@@ -98,7 +98,7 @@
     </mjl:commandLink><br />
   </dd>
   <dt><fmt:message key="Configurable_Intervention_Monitoring_Grids"/></dt>
-  <dd>
+  <dd>  
     <mjl:commandLink
       name="dss.vector.solutions.intervention.monitor.ServiceGrid"
       action="dss.vector.solutions.intervention.monitor.ServiceGridController.viewAll.mojo">
@@ -131,16 +131,32 @@
     </mjl:commandLink><br />
   </dd>
   <dt><fmt:message key="Configurable_Other"/></dt>
-  <dd>
+  <dd>  
     <mjl:commandLink
       name="dss.vector.solutions.surveillance.TreatmentGrid"
       action="dss.vector.solutions.surveillance.TreatmentGridController.viewAll.mojo"
       >
       <fmt:message key="Drug_Label"/>
       </mjl:commandLink><br />
-    (Incomplete)<mjl:commandLink name="dss.vector.solutions.intervention.monitor.Net" action="dss.vector.solutions.intervention.monitor.NetController.viewAll.mojo" >dss.vector.solutions.intervention.monitor.Net</mjl:commandLink><br />
-    (Incomplete)<mjl:commandLink name="dss.vector.solutions.intervention.monitor.Wall" action="dss.vector.solutions.intervention.monitor.WallController.viewAll.mojo" >dss.vector.solutions.intervention.monitor.Wall</mjl:commandLink><br />
-    (Incomplete)<mjl:commandLink name="dss.vector.solutions.intervention.monitor.Roof" action="dss.vector.solutions.intervention.monitor.RoofController.viewAll.mojo" >dss.vector.solutions.intervention.monitor.Roof</mjl:commandLink><br />
-    (Incomplete)<mjl:commandLink name="dss.vector.solutions.intervention.FeverTreatment" action="dss.vector.solutions.intervention.FeverTreatmentController.viewAll.mojo" >dss.vector.solutions.intervention.FeverTreatment</mjl:commandLink><br />
+    <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.Net"
+      action="dss.vector.solutions.intervention.monitor.NetController.viewAll.mojo" >
+      <fmt:message key="Net"/>
+    </mjl:commandLink><br />  
+    <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.Wall"
+      action="dss.vector.solutions.intervention.monitor.WallController.viewAll.mojo" >
+      <fmt:message key="Wall"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
+      name="dss.vector.solutions.intervention.monitor.Roof"
+      action="dss.vector.solutions.intervention.monitor.RoofController.viewAll.mojo" >
+      <fmt:message key="Roof"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
+      name="dss.vector.solutions.intervention.FeverTreatment"
+      action="dss.vector.solutions.intervention.FeverTreatmentController.viewAll.mojo" >
+      <fmt:message key="Fever_Treatment"/>
+    </mjl:commandLink><br />
   </dd>
 </dl>

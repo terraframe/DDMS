@@ -3,6 +3,7 @@ package dss.vector.solutions.intervention.monitor;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -15,6 +16,48 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
   public Net()
   {
     super();
+  }
+  
+  @Transaction
+  public void apply()
+  {
+    super.apply();
+    
+    List<? extends Net> parents = this.getAllParentNets().getAll();
+    
+    if(this.getParentNet() == null)
+    {
+      if(parents.size() > 0)
+      {
+        this.deleteAllParents();        
+      }
+    }
+    else if(!parents.contains(this.getParentNet()))
+    {
+      deleteAllParents();
+
+      Net parent = this.getParentNet();
+      
+      NetHeiarchy heiarchy = new NetHeiarchy(parent, this);
+      heiarchy.apply();
+      
+      if(!parent.getIsAbstract())
+      {
+        parent.setIsAbstract(true);
+        parent.apply();
+      }
+    }
+  }
+
+  @Transaction
+  private void deleteAllParents()
+  {
+    List<? extends NetHeiarchy> hierarchy = this.getAllParentNetsRel().getAll();
+    
+    for(NetHeiarchy h : hierarchy)
+    {
+      h.delete();
+    }
   }
 
   @Override

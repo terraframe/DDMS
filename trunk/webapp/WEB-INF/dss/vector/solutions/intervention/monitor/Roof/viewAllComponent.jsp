@@ -1,5 +1,8 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="page_title" value="View_All_Roofs"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -7,19 +10,17 @@
   <mjl:context action="dss.vector.solutions.intervention.monitor.RoofController.viewPage.mojo" />
   <mjl:columns>
     <mjl:structColumn attributeName="displayLabel">
-      <mjl:header>
-        Display Label
-      </mjl:header>
       <mjl:attributeColumn attributeName="defaultLocale">
-        <mjl:header>
-          Default Locale
-        </mjl:header>
       </mjl:attributeColumn>
     </mjl:structColumn>
     <mjl:attributeColumn attributeName="roofName">
-      <mjl:header>
-        Roof Name
-      </mjl:header>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="enabled">
+    </mjl:attributeColumn>    
+    <mjl:attributeColumn attributeName="parentRoof">
+      <mjl:row>
+        ${item.parentRoof.displayLabel}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
