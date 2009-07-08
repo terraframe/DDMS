@@ -678,7 +678,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("START_DATE_RANGE");
       dateGroup.setSQL("''");
-      Pattern pattern = Pattern.compile("<!--START_DATE=([0-9/\\-]{5,10})-->");
+      Pattern pattern = Pattern.compile("<operator>GE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {
@@ -690,7 +690,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("END_DATE_RANGE");
       dateGroup.setSQL("''");
-      Pattern pattern = Pattern.compile("<!--END_DATE=([0-9/\\-]{5,10})-->");
+
+      Pattern pattern = Pattern.compile("<operator>LE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {

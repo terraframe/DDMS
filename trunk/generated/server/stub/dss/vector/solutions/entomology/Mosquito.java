@@ -266,9 +266,9 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       if (assayQuery != null)
       {
         // this is an implicit natural join
-        valueQuery.WHERE(assayQuery.getMosquito().getId().EQ(mosquitoQuery.getId()));
-        // Left Join the assay Query
-        // valueQuery.AND(assayQuery.getMosquito().LEFT_JOIN_EQ(mosquitoQuery.));
+         valueQuery.WHERE(assayQuery.getMosquito().getId().EQ(mosquitoQuery.getId()));
+        //Left Join the assay Query
+        //valueQuery.AND(assayQuery.getMosquito().LEFT_JOIN_EQ(mosquitoQuery));
       }
 
     }
@@ -313,7 +313,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("START_DATE_RANGE");
       dateGroup.setSQL("''");
-      Pattern pattern = Pattern.compile("<!--START_DATE=([0-9/\\-]{5,10})-->");
+      Pattern pattern = Pattern.compile("<operator>GE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {
@@ -326,7 +326,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("END_DATE_RANGE");
       dateGroup.setSQL("''");
 
-      Pattern pattern = Pattern.compile("<!--END_DATE=([0-9/\\-]{5,10})-->");
+      Pattern pattern = Pattern.compile("<operator>LE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {
@@ -430,44 +430,6 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query);
     return exporter.exportStream();
   }
-
-  /**
-   *
-   *
-   * @param xml
-   * @return
-   * @Transaction public static String mapQuery(String xml, String
-   *              thematicLayerType, String[] universalLayers, String
-   *              savedSearchId) { if (savedSearchId == null ||
-   *              savedSearchId.trim().length() == 0) { String error =
-   *              "Cannot map a query without a current SavedSearch instance.";
-   *              SavedSearchRequiredException ex = new
-   *              SavedSearchRequiredException(error); throw ex; }
-   *
-   *              SavedSearch search = SavedSearch.get(savedSearchId);
-   *
-   *              if (thematicLayerType == null ||
-   *              thematicLayerType.trim().length() == 0) { String error =
-   *              "Cannot create a map for search [] without having restricted by a GeoEntity(s)."
-   *              ; MapWithoutGeoEntityException ex = new
-   *              MapWithoutGeoEntityException(error); throw ex; }
-   *
-   *              // Create the thematic layer if it does not exist
-   *              ThematicLayer thematicLayer = search.getThematicLayer(); if
-   *              (thematicLayer == null) { thematicLayer =
-   *              ThematicLayer.newInstance(thematicLayerType);
-   *              search.setThematicLayer(thematicLayer); } // Update
-   *              ThematicLayer if the thematic layer type has changed. else if
-   *              (!thematicLayer.getGeoHierarchy().getQualifiedType().equals(
-   *              thematicLayerType)) {
-   *              thematicLayer.changeLayerType(thematicLayerType); }
-   *
-   *              ValueQuery query = xmlToValueQuery(xml, thematicLayerType,
-   *              true, thematicLayer);
-   *
-   *              String layers = MapUtil.generateLayers(universalLayers, query,
-   *              search, thematicLayer); return layers; }
-   */
 
   @Override
   public MosquitoView lockView()

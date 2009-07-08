@@ -315,21 +315,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       }
     });
 
-    var startDateEl = this._queryPanel.getStartDate();
-    var startDate = MDSS.util.stripWhitespace(startDateEl.value);
-    if(startDate.length > 0)
-    {
-    	xml += "<!--START_DATE="+startDate+"-->\n";
-    }
-
-    var endDateEl = this._queryPanel.getEndDate();
-    var endDate = MDSS.util.stripWhitespace(endDateEl.value);
-    if(endDate.length > 0)
-    {
-    	xml += "<!--END_DATE="+endDate+"-->";
-    }
-
-
     var page = this.getCurrentPage();
     Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, this._config.getJSON(), page, this.PAGE_SIZE);
   },

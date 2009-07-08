@@ -117,8 +117,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      }
 	    });
 
-	    xml += "<!--START_DATE="+startDate+"-->\n";
-	    xml += "<!--END_DATE="+endDate+"-->";
 
 	    $('debug_xml').value = xml;
 	    xml = $('debug_xml').value;
