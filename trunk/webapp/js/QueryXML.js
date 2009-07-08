@@ -492,6 +492,33 @@ MDSS.QueryXML.Sqlcharacter.prototype = {
   }
 }
 
+MDSS.QueryXML.Sqldate = function(entityAlias, name, userAlias)
+{
+  this._entityAlias = entityAlias;
+  this._name = name;
+  this._userAlias = arguments.length == 3 ? userAlias : '';
+}
+MDSS.QueryXML.Sqldate.prototype = {
+
+  getName : function() { return this._name; },
+
+  getEntityAlias : function() { return this._entityAlias; },
+
+  getUserAlias : function() { return this._userAlias; },
+
+  build : function()
+  {
+    var obj = {
+      'sqldate': {
+        'name': this._name,
+        'userAlias': this._userAlias,
+      }
+    };
+
+    return obj;
+  }
+}
+
 
 
 MDSS.QueryXML.SUM = function(selectable, userAlias)

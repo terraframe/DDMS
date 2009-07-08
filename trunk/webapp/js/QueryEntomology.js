@@ -19,7 +19,13 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._visibleSelectables = {};
 	    this._whereOptions = {};
 	    this._visibleAggregateSelectables = {};
-	    this._visibleGroupBySelectables = {};
+	    this._visibleGroupBySelectables= {};
+
+	    var concerteMosquitoCollection = Mojo.$.dss.vector.solutions.entomology.ConcreteMosquitoCollection;
+	    var mosquitoCollection = Mojo.$.dss.vector.solutions.entomology.MosquitoCollection;
+      var attribute = new MDSS.QueryXML.Attribute(mosquitoCollection.CLASS, concerteMosquitoCollection.DATECOLLECTED, concerteMosquitoCollection.DATECOLLECTED);
+      this._startDateSelectable = new MDSS.QueryXML.Selectable(attribute);
+      this._endDateSelectable = new MDSS.QueryXML.Selectable(attribute);
 
 	    this._thematicSearchList = [];
 
@@ -71,39 +77,6 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       var dateAttrib = concerteMosquitoCollection.DATECOLLECTED;
       var mosquitoCollection = Mojo.$.dss.vector.solutions.entomology.MosquitoCollection;
 
-	    // calculate the date criteria
-	    var startDateEl = this._queryPanel.getStartDate();
-	    var startDate = MDSS.util.stripWhitespace(startDateEl.value);
-	    if(startDate.length > 0)
-	    {
-	      var formatted = MDSS.Calendar.getMojoDateString(startDate);
-
-	      var attribute = new MDSS.QueryXML.Attribute(mosquitoCollection.CLASS, dateAttrib, dateAttrib);
-	      var selectable = new MDSS.QueryXML.Selectable(attribute);
-	      var startDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.GE, formatted);
-	      this._startDate = startDateCondition;
-	    }
-	    else
-	    {
-	      this._startDate = null;
-	    }
-
-	    var endDateEl = this._queryPanel.getEndDate();
-	    var endDate = MDSS.util.stripWhitespace(endDateEl.value);
-	    if(endDate.length > 0)
-	    {
-	      var formatted = MDSS.Calendar.getMojoDateString(endDate);
-
-	      var attribute = new MDSS.QueryXML.Attribute(mosquitoCollection.CLASS, dateAttrib, dateAttrib);
-	      var selectable = new MDSS.QueryXML.Selectable(attribute);
-	      var endDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, formatted);
-
-	      this._endDate = endDateCondition;
-	    }
-	    else
-	    {
-	      this._endDate = null;
-	    }
 
 	    // execute the query
 	    var queryXML = this._constructQuery();

@@ -29,6 +29,7 @@ import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
+import com.terraframe.mojo.query.SelectableSQLDate;
 import com.terraframe.mojo.query.SelectableSingle;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
@@ -676,7 +677,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     if (xml.indexOf("START_DATE_RANGE") > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("START_DATE_RANGE");
+      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("START_DATE_RANGE");
       dateGroup.setSQL("''");
       Pattern pattern = Pattern.compile("<operator>GE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
       Matcher matcher = pattern.matcher(xml);
@@ -688,7 +689,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     if (xml.indexOf("END_DATE_RANGE") > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("END_DATE_RANGE");
+      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("END_DATE_RANGE");
       dateGroup.setSQL("''");
 
       Pattern pattern = Pattern.compile("<operator>LE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");

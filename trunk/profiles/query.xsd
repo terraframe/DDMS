@@ -85,6 +85,17 @@
     <xs:complexType>
       <xs:choice minOccurs="1" maxOccurs="unbounded">
         <xs:element name="attribute" type="attribute" />
+        <xs:element name="sqlcharacter" type="sqlcharacter" />
+        <xs:element name="sqltext" type="sqltext" />
+        <xs:element name="sqlboolean" type="sqlboolean" />
+        <xs:element name="sqldate" type="sqldate" />
+        <xs:element name="sqldatetime" type="sqldatetime" />
+        <xs:element name="sqltime" type="sqltime" />
+        <xs:element name="sqlinteger" type="sqlinteger" />
+        <xs:element name="sqllong" type="sqllong" />
+        <xs:element name="sqldecimal" type="sqldecimal" />
+        <xs:element name="sqlfloat" type="sqlfloat" />
+        <xs:element name="sqldouble" type="sqldouble" />
         <xs:element name="avg" type="avg"/>
         <xs:element name="count" type="count"/>
         <xs:element name="max" type="max"/>
@@ -191,6 +202,92 @@
       </xs:choice>
     </xs:complexType>
   </xs:element>
+
+  <xs:complexType name="sql">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+      <xs:element name="userAlias" type="xs:string" />
+      <xs:element name="isaggregate" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="data" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sqlboolean">
+    <xs:complexContent>
+      <xs:extension base="sql">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sqlcharacter">
+    <xs:complexContent>
+      <xs:extension base="sql">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sqltext">
+    <xs:complexContent>
+      <xs:extension base="sql">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sqldate">
+    <xs:complexContent>
+      <xs:extension base="sql">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sqldatetime">
+    <xs:complexContent>
+      <xs:extension base="sql">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sqltime">
+    <xs:complexContent>
+      <xs:extension base="sql">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sqldecimal">
+    <xs:complexContent>
+      <xs:extension base="sql">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sqldouble">
+    <xs:complexContent>
+      <xs:extension base="sql">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sqlfloat">
+    <xs:complexContent>
+      <xs:extension base="sql">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sqlinteger">
+    <xs:complexContent>
+      <xs:extension base="sql">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="sqllong">
+    <xs:complexContent>
+      <xs:extension base="sql">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
 
   <!-- basic definitions -->
   <xs:complexType name="attribute">

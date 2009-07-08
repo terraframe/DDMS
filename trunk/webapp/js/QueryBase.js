@@ -278,7 +278,7 @@ MDSS.QueryBase.prototype = {
   	var check = e.target;
     if(check.checked)
     {
-      var attribute = new MDSS.QueryXML.Sqlcharacter('', range, range);
+      var attribute = new MDSS.QueryXML.Sqldate('', range, range);
 	    var selectable = new MDSS.QueryXML.Selectable(attribute);
       this._dateGroupSelectables[range] = selectable;
       this._queryPanel.insertColumn({
@@ -618,6 +618,33 @@ MDSS.QueryBase.prototype = {
       var compositeCondition = new MDSS.QueryXML.CompositeCondition(or);
 
       this._allPathsQuery.setCondition(compositeCondition);
+    }
+
+    // calculate the date criteria
+    var startDateEl = this._queryPanel.getStartDate();
+    var startDate = MDSS.util.stripWhitespace(startDateEl.value);
+    if(startDate.length > 0)
+    {
+      var formatted = MDSS.Calendar.getMojoDateString(startDate);
+      var startDateCondition = new MDSS.QueryXML.BasicCondition(this._startDateSelectable, MDSS.QueryXML.Operator.GE, formatted);
+      this._startDate = startDateCondition;
+    }
+    else
+    {
+      this._startDate = null;
+    }
+
+    var endDateEl = this._queryPanel.getEndDate();
+    var endDate = MDSS.util.stripWhitespace(endDateEl.value);
+    if(endDate.length > 0)
+    {
+      var formatted = MDSS.Calendar.getMojoDateString(endDate);
+      var endDateCondition = new MDSS.QueryXML.BasicCondition(this._endDateSelectable, MDSS.QueryXML.Operator.LE, formatted);
+      this._endDate = endDateCondition;
+    }
+    else
+    {
+      this._endDate = null;
     }
 
 
