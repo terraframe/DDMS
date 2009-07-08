@@ -1,25 +1,21 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="page_title" value="View_All_Age_Group"  scope="request"/>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:table var="item" query="${query}">
+<mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:attributeColumn attributeName="active">
-      <mjl:header>
-        active
-      </mjl:header>
+    <mjl:attributeColumn attributeName="displayLabel">
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="endAge">
-      <mjl:header>
-        to
-      </mjl:header>
+    <mjl:attributeColumn attributeName="active">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="startAge">
-      <mjl:header>
-        from
-      </mjl:header>
+    </mjl:attributeColumn>    
+    <mjl:attributeColumn attributeName="endAge">
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
@@ -39,5 +35,3 @@
     <mjl:page />
   </mjl:pagination>
 </mjl:table>
-<br />
-<mjl:commandLink display="Create a new Age Group" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.newInstance.mojo" name="AggregatedAgeGroupController.newInstance" />

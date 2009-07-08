@@ -10,7 +10,6 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectablePrimitive;
 
-import dss.vector.solutions.MDSSUserViewQuery;
 import dss.vector.solutions.SurfacePosition;
 import dss.vector.solutions.entomology.AssaySex;
 import dss.vector.solutions.geo.generated.GeoEntity;

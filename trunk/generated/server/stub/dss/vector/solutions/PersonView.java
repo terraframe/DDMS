@@ -2,6 +2,7 @@ package dss.vector.solutions;
 
 import java.util.Date;
 
+import com.terraframe.mojo.dataaccess.transaction.AttributeNotificationMap;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -51,7 +52,9 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     {
       person.lock();
     }
-    
+
+    new AttributeNotificationMap(person, Person.DATEOFBIRTH, this, PersonView.DATEOFBIRTH);
+
     person.setFirstName(this.getFirstName());
     person.setLastName(this.getLastName());
     person.setDateOfBirth(this.getDateOfBirth());

@@ -25,6 +25,17 @@
             label="Display Label"
             required="true"
             size="255" />
+          <boolean
+            name="enabled"
+            label="Enabled"
+            required="true"
+            default_value="true"
+            negativeLabel="false"
+            positiveLabel="true" />            
+          <reference
+            name="parentRoof"
+            label="Parent"
+            type="dss.vector.solutions.intervention.monitor.Roof" />
         </attributes>
         <mdMethod
           name="getAll"
@@ -48,7 +59,7 @@
       </mdTree>
       <mdBusiness
         name="dss.vector.solutions.intervention.monitor.Wall"
-        label="Roof">
+        label="Wall">
         <attributes>
           <char
             name="wallName"
@@ -60,6 +71,17 @@
             label="Display Label"
             required="true"
             size="255" />
+          <boolean
+            name="enabled"
+            label="Enabled"
+            required="true"
+            default_value="true"
+            negativeLabel="false"
+            positiveLabel="true" />
+          <reference
+            name="parentWall"
+            label="Parent"
+            type="dss.vector.solutions.intervention.monitor.Wall" />
         </attributes>
         <mdMethod
           name="getAll"
@@ -73,13 +95,13 @@
         label="Wall Heiarchy"
         generateController="false">
         <parent
-          cardinality="*"
+          cardinality="1"
           name="dss.vector.solutions.intervention.monitor.Wall"
-          method="ParentRoofs" />
+          method="ParentWalls" />
         <child
           cardinality="*"
           name="dss.vector.solutions.intervention.monitor.Wall"
-          method="ChildRoofs" />
+          method="ChildWalls" />
       </mdTree>
 
       <object
@@ -116,6 +138,9 @@
             name="defaultLocale"
             value="Thatch/Leaf" />
         </structAttribute>
+        <referenceAttribute
+          name="parentRoof"
+          id="Natural_Roof" />
       </object>
 
       <relationship
@@ -137,6 +162,9 @@
             name="defaultLocale"
             value="Sticks and mud" />
         </structAttribute>
+        <referenceAttribute
+          name="parentRoof"
+          id="Natural_Roof" />
       </object>
 
       <relationship
@@ -173,6 +201,9 @@
             name="defaultLocale"
             value="Rustic mat/plastic sheet" />
         </structAttribute>
+        <referenceAttribute
+          name="parentRoof"
+          id="RUDIMENTARY_ROOF" />
       </object>
 
       <relationship
@@ -194,6 +225,9 @@
             name="defaultLocale"
             value="Reed/bamboo" />
         </structAttribute>
+        <referenceAttribute
+          name="parentRoof"
+          id="RUDIMENTARY_ROOF" />
       </object>
 
       <relationship
@@ -215,6 +249,9 @@
             name="defaultLocale"
             value="Wood planks" />
         </structAttribute>
+        <referenceAttribute
+          name="parentRoof"
+          id="RUDIMENTARY_ROOF" />
       </object>
 
       <relationship
@@ -251,6 +288,9 @@
             name="defaultLocale"
             value="Corrugated iron" />
         </structAttribute>
+        <referenceAttribute
+          name="parentRoof"
+          id="FINISHED_ROOF" />
       </object>
 
       <relationship
@@ -272,6 +312,9 @@
             name="defaultLocale"
             value="Wood" />
         </structAttribute>
+        <referenceAttribute
+          name="parentRoof"
+          id="FINISHED_ROOF" />
       </object>
 
       <relationship
@@ -293,6 +336,9 @@
             name="defaultLocale"
             value="Calamine/cement fiber" />
         </structAttribute>
+        <referenceAttribute
+          name="parentRoof"
+          id="FINISHED_ROOF" />
       </object>
 
       <relationship
@@ -314,6 +360,9 @@
             name="defaultLocale"
             value="Roofing shingles" />
         </structAttribute>
+        <referenceAttribute
+          name="parentRoof"
+          id="FINISHED_ROOF" />
       </object>
 
       <relationship
@@ -365,6 +414,9 @@
             name="defaultLocale"
             value="No walls" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="NATURAL_WALLS" />
       </object>
 
       <relationship
@@ -386,6 +438,9 @@
             name="defaultLocale"
             value="Cane/sticks/bamboo/reed" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="NATURAL_WALLS" />
       </object>
 
       <relationship
@@ -422,6 +477,9 @@
             name="defaultLocale"
             value="Bamboo/wood with mud" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="RUDIMENTARY_WALLS" />
       </object>
 
       <relationship
@@ -443,6 +501,9 @@
             name="defaultLocale"
             value="Stone with mud" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="RUDIMENTARY_WALLS" />
       </object>
 
       <relationship
@@ -464,6 +525,9 @@
             name="defaultLocale"
             value="Uncovered abode" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="RUDIMENTARY_WALLS" />
       </object>
 
       <relationship
@@ -485,6 +549,9 @@
             name="defaultLocale"
             value="Plywood" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="RUDIMENTARY_WALLS" />
       </object>
 
       <relationship
@@ -506,6 +573,9 @@
             name="defaultLocale"
             value="Carton" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="RUDIMENTARY_WALLS" />
       </object>
 
       <relationship
@@ -542,6 +612,9 @@
             name="defaultLocale"
             value="Cement" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="FINISHED_WALLS" />
       </object>
 
       <relationship
@@ -563,6 +636,9 @@
             name="defaultLocale"
             value="Stone with lime/cement" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="FINISHED_WALLS" />
       </object>
 
       <relationship
@@ -584,6 +660,9 @@
             name="defaultLocale"
             value="Bricks" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="FINISHED_WALLS" />
       </object>
 
       <relationship
@@ -605,6 +684,9 @@
             name="defaultLocale"
             value="Cement blocks" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="FINISHED_WALLS" />
       </object>
 
       <relationship
@@ -626,6 +708,9 @@
             name="defaultLocale"
             value="Covered Adobe" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="FINISHED_WALLS" />
       </object>
 
       <relationship
@@ -647,6 +732,9 @@
             name="defaultLocale"
             value="Wood planks/shingles" />
         </structAttribute>
+        <referenceAttribute
+          name="parentWall"
+          id="FINISHED_WALLS" />
       </object>
 
       <relationship

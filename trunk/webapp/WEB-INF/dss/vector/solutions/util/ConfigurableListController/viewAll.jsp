@@ -73,9 +73,13 @@
   <dt><fmt:message key="Configurable_Surveillance_Grids"/></dt>
   <dd>
     <mjl:commandLink
+      name="dss.vector.solutions.surveillance.AggregatedAgeGroup"
+      action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.viewAll.mojo">
+      <fmt:message key="Age_Group"/>
+    </mjl:commandLink><br />
+    <mjl:commandLink
       name="dss.vector.solutions.surveillance.DiagnosticGrid"
-      action="dss.vector.solutions.surveillance.DiagnosticGridController.viewAll.mojo"
-      >
+      action="dss.vector.solutions.surveillance.DiagnosticGridController.viewAll.mojo">
       <fmt:message key="Diagnostic_Grid_Label"/>
     </mjl:commandLink><br />
     <mjl:commandLink

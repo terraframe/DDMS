@@ -1,128 +1,177 @@
 package dss.vector.solutions.surveillance;
 
-public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
+
+import dss.vector.solutions.util.ErrorUtility;
+
+public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/surveillance/AggregatedAgeGroup/";
-  public static final String LAYOUT = "/layout.jsp";
-  
-  private static final long serialVersionUID = 1238693160988L;
-  
-  public AggregatedAgeGroupController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/surveillance/AggregatedAgeGroup/";
+
+  public static final String LAYOUT           = "/layout.jsp";
+
+  private static final long  serialVersionUID = 1238693160988L;
+
+  public AggregatedAgeGroupController(HttpServletRequest req, HttpServletResponse resp,
+      Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+
+  public void newInstance() throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto = new dss.vector.solutions.surveillance.AggregatedAgeGroupDTO(clientRequest);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    AggregatedAgeGroupDTO dto = new AggregatedAgeGroupDTO(clientRequest);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create AggregatedAgeGroupController");
     render("createComponent.jsp");
   }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+
+  public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();
   }
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+      throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.surveillance.AggregatedAgeGroupQueryDTO query = dss.vector.solutions.surveillance.AggregatedAgeGroupDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All AggregatedAgeGroupController Objects");
     render("viewAllComponent.jsp");
   }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber)
+      throws IOException, ServletException
   {
     resp.sendError(500);
   }
-  public void cancel(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void cancel(AggregatedAgeGroupDTO dto) throws IOException, ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
-  public void failCancel(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCancel(AggregatedAgeGroupDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
   }
-  public void update(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void update(AggregatedAgeGroupDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failUpdate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failUpdate(AggregatedAgeGroupDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Update AggregatedAgeGroupController");
     render("updateComponent.jsp");
   }
-  public void create(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void create(AggregatedAgeGroupDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failCreate(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failCreate(dto);
     }
   }
-  public void failCreate(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failCreate(AggregatedAgeGroupDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Create AggregatedAgeGroupController");
     render("createComponent.jsp");
   }
-  public void delete(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void delete(AggregatedAgeGroupDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.delete();
       this.viewAll();
     }
-    catch(com.terraframe.mojo.ProblemExceptionDTO e)
+    catch (ProblemExceptionDTO e)
     {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failDelete(dto);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
       this.failDelete(dto);
     }
   }
-  public void failDelete(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failDelete(AggregatedAgeGroupDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit AggregatedAgeGroupController");
     render("editComponent.jsp");
   }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void edit(String id) throws IOException, ServletException
   {
-    dss.vector.solutions.surveillance.AggregatedAgeGroupDTO dto = dss.vector.solutions.surveillance.AggregatedAgeGroupDTO.lock(super.getClientRequest(), id);
+    AggregatedAgeGroupDTO dto = AggregatedAgeGroupDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit AggregatedAgeGroupController");
     render("editComponent.jsp");
   }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+
+  public void viewAll() throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.surveillance.AggregatedAgeGroupQueryDTO query = dss.vector.solutions.surveillance.AggregatedAgeGroupDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
-    req.setAttribute("page_title", "View All AggregatedAgeGroupController Objects");
     render("viewAllComponent.jsp");
   }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+
+  public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void view(String id) throws IOException, ServletException
   {
     if (!req.getRequestURI().contains(".view.mojo"))
     {
@@ -131,13 +180,13 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
       resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
       return;
     }
-    
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", dss.vector.solutions.surveillance.AggregatedAgeGroupDTO.get(clientRequest, id));
-    req.setAttribute("page_title", "View AggregatedAgeGroupController");
+
+    ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("item", AggregatedAgeGroupDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+
+  public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }

@@ -58,10 +58,10 @@
         label="Survey Point Index">
         <attribute
           name="geoEntity"
-          indexOrder="0"/>
+          indexOrder="0" />
         <attribute
           name="surveyDate"
-          indexOrder="1"/>
+          indexOrder="1" />
       </mdIndex>
 
       <mdBusiness
@@ -71,13 +71,13 @@
         <attributes>
           <char
             name="netName"
-            label="name"
+            label="Name"
             indexType="unique index"
             required="true"
             size="255" />
           <localChar
             name="displayLabel"
-            label="displayLabel"
+            label="Display Label"
             required="true"
             size="255" />
           <reference
@@ -161,6 +161,9 @@
             name="defaultLocale"
             value="Permanet" />
         </structAttribute>
+        <referenceAttribute
+          name="parentNet"
+          id="Net_Permanent_Net" />
       </object>
 
       <relationship
@@ -184,6 +187,9 @@
             name="defaultLocale"
             value="Olyset" />
         </structAttribute>
+        <referenceAttribute
+          name="parentNet"
+          id="Net_Permanent_Net" />        
       </object>
 
       <relationship
@@ -207,6 +213,9 @@
             name="defaultLocale"
             value="Other/Don't Know brand" />
         </structAttribute>
+        <referenceAttribute
+          name="parentNet"
+          id="Net_Permanent_Net" />        
       </object>
 
       <relationship
@@ -248,6 +257,9 @@
             name="defaultLocale"
             value="Salam Enkilfe" />
         </structAttribute>
+        <referenceAttribute
+          name="parentNet"
+          id="Net_Pretreated_Net" />
       </object>
 
       <relationship
@@ -271,6 +283,9 @@
             name="defaultLocale"
             value="Fennet" />
         </structAttribute>
+        <referenceAttribute
+          name="parentNet"
+          id="Net_Pretreated_Net" />
       </object>
 
       <relationship
@@ -294,6 +309,9 @@
             name="defaultLocale"
             value="KO Net" />
         </structAttribute>
+        <referenceAttribute
+          name="parentNet"
+          id="Net_Pretreated_Net" />
       </object>
 
       <relationship
@@ -317,6 +335,9 @@
             name="defaultLocale"
             value="Iconet" />
         </structAttribute>
+        <referenceAttribute
+          name="parentNet"
+          id="Net_Pretreated_Net" />
       </object>
 
       <relationship
@@ -340,6 +361,9 @@
             name="defaultLocale"
             value="Safinet" />
         </structAttribute>
+        <referenceAttribute
+          name="parentNet"
+          id="Net_Pretreated_Net" />
       </object>
 
       <relationship
@@ -363,6 +387,9 @@
             name="defaultLocale"
             value="Other - Don't Know" />
         </structAttribute>
+        <referenceAttribute
+          name="parentNet"
+          id="Net_Pretreated_Net" />
       </object>
 
       <relationship
@@ -592,7 +619,7 @@
 
       <mdTree
         name="dss.vector.solutions.intervention.monitor.HouseholdNet"
-        label="Househodl Net"
+        label="Household Net"
         generateController="false">
         <parent
           cardinality="*"
