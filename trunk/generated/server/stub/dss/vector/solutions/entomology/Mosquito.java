@@ -279,6 +279,23 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       valueQuery.WHERE(groupQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
+
+    if (xml.indexOf("SpecieRatio") > 0)
+    {
+      SelectableSQLCharacter specieRatio = (SelectableSQLCharacter) valueQuery.getSelectable("SpecieRatio");
+      // valueQuery.valueQuery.g
+
+      specieRatio.setSQL("''");
+    }
+
+    String sql = valueQuery.getSQL();
+    System.out.println(sql);
+
+    return setQueryDates(xml,valueQuery,dateAttribute);
+  }
+
+  private static ValueQuery setQueryDates(String xml , ValueQuery valueQuery, String dateAttribute)
+  {
     if (xml.indexOf("DATEGROUP_SEASON") > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
@@ -335,20 +352,9 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       }
     }
 
-    if (xml.indexOf("SpecieRatio") > 0)
-    {
-      SelectableSQLCharacter specieRatio = (SelectableSQLCharacter) valueQuery.getSelectable("SpecieRatio");
-      // valueQuery.valueQuery.g
-
-      specieRatio.setSQL("''");
-    }
-
-    String sql = valueQuery.getSQL();
-    System.out.println(sql);
     return valueQuery;
-  }
 
-  /**
+  }  /**
    * Queries for Mosquitos.
    *
    * @param xml

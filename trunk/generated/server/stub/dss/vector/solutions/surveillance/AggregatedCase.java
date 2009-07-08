@@ -681,8 +681,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN 'INTERVAL NOT VALID'"
         + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))"
         + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('year'," + ed + ")))"
-        + "THEN to_char(" + sd + ",'Y')"
-        + "ELSE to_char(" + ed + ",'Y') END";
+        + "THEN to_char(" + sd + ",'YYYY')"
+        + "ELSE to_char(" + ed + ",'YYYY') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
