@@ -87,7 +87,7 @@
       map.put("StatusId", new ColumnSetup(true, false, null, null, null));
       map.put("Spray", new ColumnSetup(true, false, null, null, null));
       map.put("Households", new ColumnSetup(false, true, "validateValue", null, null));    
-      map.put("Structures", new ColumnSetup(false, true, "validateValue", null, null));    
+      map.put("Structures", new ColumnSetup(false, true, "validateStructure", null, null));    
       map.put("SprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
       map.put("SprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));    
       map.put("PrevSprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
@@ -107,6 +107,19 @@
         }
         else {
             alert(MDSS.localize("Value_Not_0_1"));
+            return undefined;
+        }
+    }
+
+    var validateStructure = function(oData) {
+        var re = /^[1]$/;
+        
+        // Validate
+        if(re.test(oData) || oData === "") {
+            return oData;
+        }
+        else {
+            alert(MDSS.localize("Value_Not_1"));
             return undefined;
         }
     }
