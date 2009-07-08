@@ -933,7 +933,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     });
 
     // global count
-    var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
+    /*var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
     var countAttribute = new MDSS.VisibleAttribute({
       type: aggregatedCase.CLASS,
       displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
@@ -958,6 +958,9 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       html: countDiv,
       id: 'globalCount'
     });
+*/
+
+
 
     /*
      * Age Group
@@ -1035,11 +1038,17 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       id:"ageGroupItem"
     });
 
+
+    this._queryPanel.addQueryItem({
+      html: this._getCountDiv(this,"Group_By",Mojo.$.dss.vector.solutions.surveillance.AggregatedCase),
+      id: 'globalCount'
+    });
+
     /*
      * Visible Attributes
      */
     var visibleDiv = document.createElement('div');
-    YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
+    //YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
 
     var labelDiv = document.createElement('div');
     YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
@@ -1122,7 +1131,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       var grid = orderedGrids[i];
 
       var gridDiv = document.createElement('div');
-      YAHOO.util.Dom.addClass(gridDiv, 'scrollable');
+      //YAHOO.util.Dom.addClass(gridDiv, 'scrollable');
 
       var labelDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
