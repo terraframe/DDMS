@@ -101,6 +101,11 @@ var Mojo = {
     
     setISO8601 : function (date, string)
     {
+    	if(string === undefined || string === null || string === "")
+    	{
+    	  return;
+    	}
+    	
         var regexp = "([0-9]{4})(-([0-9]{2})(-([0-9]{2})" +
             "(T([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?" +
             "(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?";
