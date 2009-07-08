@@ -12,9 +12,17 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     //this._preconfiguredColumns = [];
 
     // Ref to instance of AggregatedCase (used as template for display labels)
-    this._aggregatedCase = new Mojo.$.dss.vector.solutions.surveillance.AggregatedCase();;
+    this._aggregatedCase = new Mojo.$.dss.vector.solutions.surveillance.AggregatedCase();
+
+
 
     // START: query objects that dictate state of the query.
+
+    var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
+    var startAttribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTDATE, aggregatedCase.STARTDATE);
+    this._startDateSelectable = new MDSS.QueryXML.Selectable(startAttribute);
+    var endAttribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.ENDDATE, aggregatedCase.ENDDATE);
+    this._endDateSelectable = new MDSS.QueryXML.Selectable(endAttribute);
 
     this._startDate = null;
     this._endDate = null;
@@ -250,12 +258,12 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         // start date
         else if(userAlias === aggregatedCase.STARTDATE)
         {
-          //thisRef._queryPanel.getStartDate().value = value;
+          thisRef._queryPanel.getStartDate().value = value;
         }
         // end date
         else if(userAlias === aggregatedCase.ENDDATE)
         {
-          //thisRef._queryPanel.getEndDate().value = value;
+          thisRef._queryPanel.getEndDate().value = value;
         }
         // age group criteria
         else if(/^group_/.test(userAlias))
@@ -356,40 +364,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
   	var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
 
-    // calculate the date criteria
-    var startDateEl = this._queryPanel.getStartDate();
-    var startDate = MDSS.util.stripWhitespace(startDateEl.value);
-    if(startDate.length > 0)
-    {
-      var formatted = MDSS.Calendar.getMojoDateString(startDate);
-
-      var attribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTDATE, aggregatedCase.STARTDATE);
-      var selectable = new MDSS.QueryXML.Selectable(attribute);
-      var startDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.GE, formatted);
-      this._startDate = startDateCondition;
-    }
-    else
-    {
-      this._startDate = null;
-    }
-
-    var endDateEl = this._queryPanel.getEndDate();
-    var endDate = MDSS.util.stripWhitespace(endDateEl.value);
-    if(endDate.length > 0)
-    {
-      var formatted = MDSS.Calendar.getMojoDateString(endDate);
-
-      var attribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.ENDDATE, aggregatedCase.ENDDATE);
-      var selectable = new MDSS.QueryXML.Selectable(attribute);
-      var endDateCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, formatted);
-
-      this._endDate = endDateCondition;
-    }
-    else
-    {
-      this._endDate = null;
-    }
-
     // count
     if(this._countSelectable != null)
     {
@@ -467,13 +441,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     {
       conditions.push(this._endDate);
     }
-/*
-    if(this._dateGroup != null)
-    {
-    	var attribute = new MDSS.QueryXML.Sqlcharacter('', this._dateGroup, this._dateGroup);
-      var selectable = new MDSS.QueryXML.Selectable(attribute);
-      queryXML.addSelectable(this._dateGroup, selectable);
-    }*/
 
 
     var keys = Mojo.util.getKeys(this._dateGroupSelectables);
