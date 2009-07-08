@@ -1,13 +1,18 @@
 package dss.vector.solutions.irs;
 
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
-public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1240860647013L;
+  private static final long    serialVersionUID = 1240860647013L;
+
+  private static ReentrantLock lock             = new ReentrantLock();
 
   public HouseholdSprayStatus()
   {
@@ -27,7 +32,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   {
     List<SprayMethod> method = this.getSpray().getSprayData().getSprayMethod();
 
-    if(method.size() > 0)
+    if (method.size() > 0)
     {
       return method.get(0);
     }
@@ -39,9 +44,9 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   {
     Integer value = this.getHouseholds();
 
-    if(value != null)
+    if (value != null)
     {
-      if(method.equals(SprayMethod.MOP_UP))
+      if (method.equals(SprayMethod.MOP_UP))
       {
         String msg = "Household value is not applicable on a mop-up spray";
         HouseholdValueNotApplicableProblem p = new HouseholdValueNotApplicableProblem(msg);
@@ -52,22 +57,22 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
         p.throwIt();
       }
 
-      if(value != 1 && value != 0)
+      if (value != 1 && value != 0)
       {
         String msg = "Household value may only be 0 or 1";
         HouseholdValueProblem p = new HouseholdValueProblem(msg);
         p.setHouseholdId(this.getHouseholdId());
-        p.setStructureId(this.getStructureId());        
+        p.setStructureId(this.getStructureId());
         p.setNotification(this, HOUSEHOLDS);
         p.apply();
         p.throwIt();
       }
-      
-      if(value == 1)
+
+      if (value == 1)
       {
         HouseholdSprayStatus status = HouseholdSprayStatus.searchByHousehold(this.getHouseholdId(), value);
 
-        if(status != null && !status.getId().equals(this.getId()))
+        if (status != null && !status.getId().equals(this.getId()))
         {
           String msg = "A spray status of this household has already been set to 1";
           CountProblem p = new CountProblem(msg);
@@ -77,15 +82,30 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
           p.throwIt();
         }
       }
+      else if (value == 0)
+      {
+        HouseholdSprayStatus status = HouseholdSprayStatus.searchByHousehold(this.getHouseholdId(), 1);
+
+        if (status == null)
+        {
+          String msg = "A spray status of this household has already been not been set to 1";
+          UncountedProblem p = new UncountedProblem(msg);
+          p.setNotification(this, HOUSEHOLDS);
+          p.setHouseholdId(this.getHouseholdId());
+          p.apply();
+          p.throwIt();
+        }
+
+      }
     }
   }
 
   @Override
   public void validateStructures()
   {
-    if(this.getStructures() != null)
+    if (this.getStructures() != null)
     {
-      if(this.getStructures() != 1 && this.getStructures() != 0)
+      if (this.getStructures() != 1 && this.getStructures() != 0)
       {
         String msg = "Structure value may only be 0 or 1";
         StructureValueProblem p = new StructureValueProblem(msg);
@@ -101,9 +121,9 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   public void validateSprayedHouseholds(SprayMethod method)
   {
     Integer value = this.getSprayedHouseholds();
-    if(value != null)
+    if (value != null)
     {
-      if(value != 1 && value != 0)
+      if (value != 1 && value != 0)
       {
         String msg = "Sprayed Household value may only be 0 or 1";
         SprayedHouseholdValueProblem p = new SprayedHouseholdValueProblem(msg);
@@ -113,12 +133,13 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
         p.apply();
         p.throwIt();
       }
-      
-      if(value == 1)
-      {
-        HouseholdSprayStatus status = HouseholdSprayStatus.serachBySprayedHousehold(this.getHouseholdId(), 1);
 
-        if(status != null && !status.getId().equals(this.getId()))
+      if (value == 1)
+      {
+        HouseholdSprayStatus status = HouseholdSprayStatus.serachBySprayedHousehold(this
+            .getHouseholdId(), 1);
+
+        if (status != null && !status.getId().equals(this.getId()))
         {
           String msg = "A spray status of this household has already been set to 1";
           SprayedCountProblem p = new SprayedCountProblem(msg);
@@ -135,15 +156,15 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   @Override
   public void validateSprayedStructures()
   {
-    if(this.getSprayedStructures() != null)
+    if (this.getSprayedStructures() != null)
     {
-      if(this.getSprayedStructures() != 1 && this.getSprayedStructures() != 0)
+      if (this.getSprayedStructures() != 1 && this.getSprayedStructures() != 0)
       {
         String msg = "Sprayed Structure value may only be 0 or 1";
         SprayedStructureValueProblem p = new SprayedStructureValueProblem(msg);
         p.setNotification(this, SPRAYEDSTRUCTURES);
         p.setHouseholdId(this.getHouseholdId());
-        p.setStructureId(this.getStructureId());        
+        p.setStructureId(this.getStructureId());
         p.apply();
         p.throwIt();
       }
@@ -153,35 +174,36 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   public void validatePrevSprayedHouseholds(SprayMethod method)
   {
     Integer value = this.getPrevSprayedHouseholds();
-    if(value != null)
+    if (value != null)
     {
-      if(method.equals(SprayMethod.MOP_UP))
+      if (method.equals(SprayMethod.MOP_UP))
       {
         String msg = "Value is not applicable on a mop-up spray";
-        PrevSprayedHouseholdValueNotApplicableProblem p = new PrevSprayedHouseholdValueNotApplicableProblem(msg);
+        PrevSprayedHouseholdValueNotApplicableProblem p = new PrevSprayedHouseholdValueNotApplicableProblem(
+            msg);
         p.setNotification(this, PREVSPRAYEDHOUSEHOLDS);
         p.setHouseholdId(this.getHouseholdId());
-        p.setStructureId(this.getStructureId());        
+        p.setStructureId(this.getStructureId());
         p.apply();
         p.throwIt();
       }
 
-      if(value != 1 && value != 0)
+      if (value != 1 && value != 0)
       {
         String msg = "Previously Sprayed Household value may only be 0 or 1";
         PrevSprayedHouseholdValueProblem p = new PrevSprayedHouseholdValueProblem(msg);
         p.setNotification(this, PREVSPRAYEDHOUSEHOLDS);
         p.setHouseholdId(this.getHouseholdId());
-        p.setStructureId(this.getStructureId());        
+        p.setStructureId(this.getStructureId());
         p.apply();
         p.throwIt();
       }
-      
-      if(value == 1)
+
+      if (value == 1)
       {
         HouseholdSprayStatus status = HouseholdSprayStatus.searchByPrevSprayed(this.getHouseholdId(), 1);
 
-        if(status != null && !status.getId().equals(this.getId()))
+        if (status != null && !status.getId().equals(this.getId()))
         {
           String msg = "A previous spray status of this household has already been set to 1";
           PrevSprayedCountProblem p = new PrevSprayedCountProblem(msg);
@@ -197,15 +219,15 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   @Override
   public void validatePrevSprayedStructures()
   {
-    if(this.getPrevSprayedStructures() != null)
+    if (this.getPrevSprayedStructures() != null)
     {
-      if(this.getPrevSprayedStructures() != 1 && this.getPrevSprayedStructures() != 0)
+      if (this.getPrevSprayedStructures() != 1 && this.getPrevSprayedStructures() != 0)
       {
         String msg = "Previously Sprayed Structure value may only be 0 or 1";
         PrevSprayedStructureValueProblem p = new PrevSprayedStructureValueProblem(msg);
         p.setNotification(this, PREVSPRAYEDSTRUCTURES);
         p.setHouseholdId(this.getHouseholdId());
-        p.setStructureId(this.getStructureId());        
+        p.setStructureId(this.getStructureId());
         p.apply();
         p.throwIt();
       }
@@ -214,9 +236,9 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
 
   public void validateRooms(SprayMethod method)
   {
-    if(this.getRooms() != null)
+    if (this.getRooms() != null)
     {
-      if(method.equals(SprayMethod.MOP_UP))
+      if (method.equals(SprayMethod.MOP_UP))
       {
         String msg = "Value is not applicable on a mop-up spray";
         RoomValueNotApplicableProblem p = new RoomValueNotApplicableProblem(msg);
@@ -229,20 +251,29 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
     }
   }
 
-  @Override
+  @Transaction
   public void apply()
   {
-    SprayMethod method = this.getSprayMethod();
+    lock.lock();
 
-    validateHouseholds(method);
-    validateSprayedHouseholds(method);
-    validatePrevSprayedHouseholds(method);
-    validateRooms(method);
-    validateStructures();
-    validateSprayedStructures();
-    validatePrevSprayedStructures();
+    try
+    {
+      SprayMethod method = this.getSprayMethod();
 
-    super.apply();    
+      validateHouseholds(method);
+      validateSprayedHouseholds(method);
+      validatePrevSprayedHouseholds(method);
+      validateRooms(method);
+      validateStructures();
+      validateSprayedStructures();
+      validatePrevSprayedStructures();
+
+      super.apply();
+    }
+    finally
+    {
+      lock.unlock();
+    }
   }
 
   private static HouseholdSprayStatus searchByHousehold(String householdId, Integer household)
@@ -254,7 +285,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
     return query(query);
   }
 
-  private static HouseholdSprayStatus serachBySprayedHousehold(String householdId, Integer sprayedHousehold)
+  private static HouseholdSprayStatus serachBySprayedHousehold(String householdId,
+      Integer sprayedHousehold)
   {
     HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
     query.WHERE(query.getHouseholdId().EQ(householdId));
@@ -263,7 +295,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
     return query(query);
   }
 
-  private static HouseholdSprayStatus searchByPrevSprayed(String householdId, Integer prevSprayedHousehold)
+  private static HouseholdSprayStatus searchByPrevSprayed(String householdId,
+      Integer prevSprayedHousehold)
   {
     HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
     query.WHERE(query.getHouseholdId().EQ(householdId));
@@ -278,7 +311,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
 
     try
     {
-      if(it.hasNext())
+      if (it.hasNext())
       {
         return it.next();
       }
