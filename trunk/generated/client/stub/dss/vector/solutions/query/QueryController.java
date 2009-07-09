@@ -25,6 +25,7 @@ import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
 import com.terraframe.mojo.transport.attributes.AttributeStructDTO;
 import com.terraframe.mojo.web.json.JSONMojoExceptionDTO;
 
+import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.entomology.assay.AbstractAssayDTO;
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
@@ -296,7 +297,7 @@ public class QueryController extends QueryControllerBase implements
       throw new ApplicationException(t);
     }
   }
-  
+
   @Override
   public void newQuery() throws IOException, ServletException
   {
@@ -388,8 +389,6 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
-
-
   public void exportAggregatedCaseQueryToCSV(String queryXML, String config, String savedSearchId, String[] restrictingEntities)
       throws IOException, ServletException
   {
@@ -425,7 +424,7 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
-  /*
+/*
   @Override
   public void exportIRSQueryToCSV(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
       throws IOException, ServletException
@@ -461,6 +460,7 @@ public class QueryController extends QueryControllerBase implements
       resp.getWriter().write(t.getLocalizedMessage());
     }
   }
+  */
 
   @Override
   public void exportEntomologyQueryToCSV(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
@@ -497,7 +497,6 @@ public class QueryController extends QueryControllerBase implements
       resp.getWriter().write(t.getLocalizedMessage());
     }
   }
-  */
 
   @Override
   public void cancelQuery(SavedSearchViewDTO savedQueryView) throws IOException, ServletException
