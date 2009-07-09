@@ -12,7 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.xml.sax.SAXParseException;
 
-import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
 import com.terraframe.mojo.dataaccess.MdAttributeVirtualDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
@@ -20,6 +19,8 @@ import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.InnerJoin;
+import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryException;
@@ -38,6 +39,8 @@ import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
+import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultQuery;
+import dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultQuery;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -232,8 +235,6 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     {
       collectionQuery = new MosquitoCollectionQuery(queryFactory);
     }
-/*
-    */
 
 
     if (allPathsQuery != null)
@@ -276,6 +277,38 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
          valueQuery.WHERE(assayQuery.getMosquito().getId().EQ(mosquitoQuery.getId()));
         //Left Join the assay Query
         //valueQuery.AND(assayQuery.getMosquito().LEFT_JOIN_EQ(mosquitoQuery));
+
+         String tableName = assayQuery.getId().getDefiningTableName();
+         String tableAlias = assayQuery.getId().getDefiningTableAlias();
+         String testMethodAlias = tableName.replace("testresult", "_TESTMETHOD");
+
+         String assayType = null;
+         String testMethodType = null;
+
+         if(assayQuery instanceof InfectivityAssayTestResultQuery)
+         {
+           assayType = "infectivityassaytestresult";
+           testMethodType = "infectivitymethodology";
+         }
+
+         if(assayQuery instanceof TargetSiteAssayTestResultQuery)
+         {
+           assayType = "targetsiteassaytestresult";
+           testMethodType = "insecticidemethodology";
+         }
+
+         if (xml.indexOf(testMethodAlias) > 0)
+         {
+           SelectableSQLCharacter testMethod = (SelectableSQLCharacter) valueQuery.getSelectable(testMethodAlias);
+           {
+             testMethod.setSQL("SELECT label.defaultLocale \n" +
+                     "     FROM " + assayType + "  tr LEFT JOIN " + testMethodType + " im on tr.testMethod = im.id\n" +
+                     "     LEFT JOIN abstractterm term ON im.id = term.id \n" +
+                     "     LEFT JOIN abstracttermdisplaylabel label ON term.displayLabel = label.id\n" +
+                     "     WHERE tr.id = " + tableAlias + ".id");
+           }
+         }
+
       }
 
     }
@@ -285,29 +318,23 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       valueQuery.WHERE(groupQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
-
     if (xml.indexOf("SpecieRatio") > 0)
     {
       SelectableSQLCharacter specieRatio = (SelectableSQLCharacter) valueQuery.getSelectable("SpecieRatio");
-      // valueQuery.valueQuery.g
-
       specieRatio.setSQL("''");
     }
 
-
     SelectableMoment dateAttribute = collectionQuery.getDateCollected();
     ConcreteMosquitoCollectionQuery concreteCollectionQuery = (ConcreteMosquitoCollectionQuery) queryMap.get(ConcreteMosquitoCollection.CLASS);
-
+    //this ensures that the date attribute is joined correctly
     if (concreteCollectionQuery == null)
     {
       valueQuery.FROM(dateAttribute.getDefiningTableName(), dateAttribute.getDefiningTableAlias());
-      //valueQuery.AND(condition)
-      //valueQuery.FROM(dateAttribute.getRootQuery());
-      //Set<Join> joinStatements = dateAttribute.getJoinStatements();
-      //valueQuery.WHERE(joinStatements);
-
+      for(Join join: dateAttribute.getJoinStatements())
+      {
+        valueQuery.WHERE((InnerJoin) join);
+      }
     }
-
 
     return setQueryDates(xml,valueQuery,dateAttribute);
   }
@@ -317,50 +344,35 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     String da = dateAttribute.getQualifiedName();
 
-    List<MdAttributeConcreteDAOIF> allEntityMdAttributes = dateAttribute.getAllEntityMdAttributes();
     if (xml.indexOf("DATEGROUP_SEASON") > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
-      dateGroup.setAdditionalEntityMdAttributes(allEntityMdAttributes);
       dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + da + " and ms.enddate > " + da);
     }
 
     if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
-      /*
-      dateGroup.setAdditionalEntityMdAttributes(allEntityMdAttributes);
-      Map dgm = dateGroup.getFromTableMap();
-      System.out.println(dgm.toString());
-      Map dgm2 = dateAttribute.getFromTableMap();
-      System.out.println(dgm2.toString());*/
-
-
-
-      dateGroup.setSQL("to_char(" + dateAttribute.getQualifiedName() + ",'IW')");
+      dateGroup.setSQL("to_char(" + da + ",'IW')");
     }
 
     if (xml.indexOf("DATEGROUP_MONTH") > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
       dateGroup.setSQL("to_char(" + da + ",'MM')");
-      dateGroup.setAdditionalEntityMdAttributes(allEntityMdAttributes);
     }
 
     if (xml.indexOf("DATEGROUP_QUARTER") > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_QUARTER");
       dateGroup.setSQL("to_char(" + da + ",'Q')");
-      dateGroup.setAdditionalEntityMdAttributes(allEntityMdAttributes);
     }
 
     if (xml.indexOf("DATEGROUP_YEAR") > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_YEAR");
       dateGroup.setSQL("to_char(" + da + ",'YYYY')");
-      dateGroup.setAdditionalEntityMdAttributes(allEntityMdAttributes);
     }
-
 
     if (xml.indexOf("START_DATE_RANGE") > 0)
     {
