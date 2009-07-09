@@ -83,11 +83,19 @@
         Class<?> c = view.getClass();
         String testMdGetter = "get" + acc.substring(0, 1).toUpperCase() + acc.substring(1) + "MethodMd";
         AttributeReferenceMdDTO testMd = (AttributeReferenceMdDTO) c.getMethod(testMdGetter).invoke(view);
+/*
         s += "{";
         s += "viewAccessor:'"+acc+"Method',";
-        s += "attributeName:'testMethod.displayLabel.currentValue',";
+        s += "attributeName:'testMethod',";
         s += "type:'"+ mdClass.definesType() + "',";
-//      s += "dtoType:'" + testMd.getJavaType() + "',";
+        s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " " + testMd.getDisplayLabel() +"'";
+        s += "},\n";
+*/
+
+        s += "{";
+        s += "viewAccessor:'"+acc+"Method',";
+        s += "attributeName:'"+acc.toLowerCase()+"_TESTMETHOD',";
+        s += "type:'sqlcharacter',";
         s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " " + testMd.getDisplayLabel() +"'";
         s += "},\n";
 
@@ -186,7 +194,9 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     collectionColumns =  mapAttribs(collectionAttribs,'<%=MosquitoCollectionDTO.CLASS%>', mosquitoCollection);
 
     var groupAttribs = ["sampleId","specie","identificationMethod","quantity"];
-    var groupColumns =  collectionColumns.concat(mapAttribs(groupAttribs,'<%=UninterestingSpecieGroupDTO.CLASS%>', mosquitoGroup));
+    //var groupColumns =  collectionColumns.concat(mapAttribs(groupAttribs,'<%=UninterestingSpecieGroupDTO.CLASS%>', mosquitoGroup));
+    var groupColumns =  mapAttribs(groupAttribs,'<%=UninterestingSpecieGroupDTO.CLASS%>', mosquitoGroup);
+
 
     var mosquitoAttribs = ["sampleId","specie","identificationMethod","sex","generation","isofemale","testDate"];
     var mosquitoColumns = collectionColumns.concat(mapAttribs(mosquitoAttribs,'<%=MosquitoDTO.CLASS%>', mosquitoView));

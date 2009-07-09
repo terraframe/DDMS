@@ -1361,7 +1361,14 @@ MDSS.AbstractAttribute.prototype = {
 
   _genKey : function()
   {
-  	this._key = this._type.replace(/\./g, '_')+'__'+this._attributeName;
+		if(this._type  == 'sqlcharacter' )
+		{
+			this._key = this._attributeName;
+		}
+		else
+		{
+			this._key = this._type.replace(/\./g, '_')+'__'+this._attributeName;
+		}
   },
 
   /**

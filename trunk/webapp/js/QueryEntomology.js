@@ -270,7 +270,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    if(attribute.getType() == 'sqlcharacter'){
 	    	var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attributeName));
 	    	selectable.attribute = attribute;
-	    	var column = new YAHOO.widget.Column({ key: attributeName,label: attributeName});
+	    	var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
 	 	    column.attribute = attribute;
 	    }
 	    else
