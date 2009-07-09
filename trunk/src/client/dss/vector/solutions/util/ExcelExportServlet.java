@@ -24,7 +24,7 @@ public class ExcelExportServlet extends HttpServlet implements Reloadable
   protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException
   {
     ClientRequestIF clientRequest = (ClientRequestIF)req.getAttribute(ClientConstants.CLIENTREQUEST);
-    String type = req.getParameter("type");
+    String type = req.getParameter(ExcelImportServlet.TYPE);
 
     String[] split = type.split("\\.");
     String fileName = split[split.length-1];

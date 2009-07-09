@@ -18,7 +18,7 @@
     <td>${class.packageName}.${class.typeName}</td>
     <td>
       <form method="post" action="excelexport">
-        <input type="hidden" name="type" value="${class.packageName}.${class.typeName}"/>
+        <input type="hidden" name="excelType" value="${class.packageName}.${class.typeName}"/>
         <input class="submitButton" type="submit" value="Export" style="margin-left: 0px; top: 0px;" />
       </form>
     </td>

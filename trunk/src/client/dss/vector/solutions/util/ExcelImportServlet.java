@@ -31,12 +31,15 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
    * 
    */
   private static final long serialVersionUID = 0L;
+  
+  public static final String TYPE = "excelType";
 
   @SuppressWarnings("unchecked")
   protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
   {
     if (!ServletFileUpload.isMultipartContent(req))
     {
+      req.setAttribute(TYPE, req.getParameter(TYPE));
       req.getRequestDispatcher("/WEB-INF/excelImport.jsp").forward(req, res);
       return;
     }
@@ -76,7 +79,7 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
       sourceStream.close();
       
       InputStream errorStream;
-      String type = fields.get("type");
+      String type = fields.get(TYPE);
       if (type.equals(GeoEntityExcelViewDTO.CLASS))
       {
         errorStream = clientRequest.importExcelFile(new ByteArrayInputStream(bytes), type, "setupImportListener", fields.get("parentGeoEntityId"));

@@ -9,7 +9,7 @@
     
     <form method="post" enctype="multipart/form-data" action="excelimport">
   XLS File: <br />
-  <input type="hidden" name="testes" value="cookie" />
+  <input type="hidden" name="excelType" value="${type}" />
   <input type="file" name="upfile"/> <br />
   <input class="submitButton" type="submit" value="Import" style="margin-left: 0px; top: 0px;" />
 </form>
