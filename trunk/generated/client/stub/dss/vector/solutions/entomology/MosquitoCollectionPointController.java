@@ -91,6 +91,16 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
       problems.add(new RequiredEndDateProblemDTO(request, req.getLocale()));
     }
 
+    if (startDate != null && endDate != null && endDate.before(startDate)) 
+    {
+        ClientRequestIF request = this.getClientSession().getRequest();
+    
+    	InvalidStartAndEndDatesProblemDTO problem = new InvalidStartAndEndDatesProblemDTO(request, req.getLocale());
+    	problem.setStartDate(startDate);
+    	problem.setEndDate(endDate);
+    	problems.add(problem);
+    }
+    
     if (problems.size() > 0)
     {
       throw new ProblemExceptionDTO("", problems);

@@ -48,7 +48,7 @@
     </dd>
     <dt> <fmt:message key="End_Date" /> </dt>
     <dd>
-      <mjl:input param="endDate" type="text" classes="DatePick" id="endDate" value="${endDate}"/>
+      <mjl:input param="endDate" type="text" classes="DatePick NoFuture" id="endDate" value="${endDate}"/>
       <mjl:messages attribute="endDate">
         <mjl:message/>
       </mjl:messages>

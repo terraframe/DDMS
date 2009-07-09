@@ -1,0 +1,30 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+		<mdProblem
+        	name="dss.vector.solutions.entomology.InvalidStartAndEndDatesProblem"
+        	label="Invalid Start and End Dates Problem"
+        	description="The end date may not be before the start date">
+        	<attributes>
+	          	<date
+		            name="startDate"
+	            	label="Start Date"
+	            	required="true" />
+	          	<date
+		            name="endDate"
+	            	label="End Date"
+	            	required="true" />
+        	</attributes>
+		</mdProblem>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.entomology.InvalidStartAndEndDatesProblem"
+        type="com.terraframe.mojo.system.metadata.MdProblem" />
+    </delete>
+  </undoIt>
+</version>
