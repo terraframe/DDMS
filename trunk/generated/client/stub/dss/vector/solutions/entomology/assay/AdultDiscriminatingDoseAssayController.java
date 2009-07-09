@@ -11,7 +11,6 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.AssaySexDTO;
-import dss.vector.solutions.entomology.MosquitoCollectionController;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.mo.GenerationDTO;
@@ -136,7 +135,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     try
     {
       dto.apply();
-      new MosquitoCollectionController(req, resp, false).view(dto.getCollection());
+      this.view(dto);
     }
     catch (ProblemExceptionDTO e)
     {

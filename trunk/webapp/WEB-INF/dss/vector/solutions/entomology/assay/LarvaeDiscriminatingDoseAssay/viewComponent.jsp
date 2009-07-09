@@ -27,7 +27,10 @@ LarvaeDiscriminatingDoseAssayDTO adda = (LarvaeDiscriminatingDoseAssayDTO) reque
     <mjl:input value="${item.id}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="collection">
-        ${item.collection.collectionId} ${item.collection.displayLabel}
+        <mjl:commandLink name="collection.link" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" >
+          <mjl:property name="id" value="${item.collection.id}"/>
+          ${item.collection.collectionId}
+        </mjl:commandLink>
       </mjl:dt>
       <mjl:dt attribute="testDate">
         <span class="formatDate">${item.testDate}</span>
@@ -86,9 +89,23 @@ LarvaeDiscriminatingDoseAssayDTO adda = (LarvaeDiscriminatingDoseAssayDTO) reque
   </dl>
 </mjl:form>
 
-<mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo"
-  name="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.viewAll.link" />
-
+<ul>
+  <li> 
+    <mjl:commandLink name="collection.link" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" >
+      <mjl:property name="id" value="${item.collection.id}"/>
+      <fmt:message key="Return_to_Collection"/>
+    </mjl:commandLink>
+  </li>
+  <li>
+    <mjl:commandLink action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" name="newWiththisCollection">
+      <mjl:property value="${item.collection.id}" name="collection_id" />
+      <fmt:message key="Create_Another_Larvae_Diagnostic_Assay_With_This_Collection"/>
+    </mjl:commandLink>   
+  </li>
+  <li> 
+    <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo" name="viewAll.link" />
+  </li>
+</ul>
 
 <div id="intervals"></div>
 
