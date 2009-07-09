@@ -1,6 +1,9 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+        <mjl:messages>
+          <mjl:message />
+        </mjl:messages>
   <mjl:component item="${item}" param="person">
     <mjl:input type="hidden" param="personId" value="${item.personId}" />
       <dt>
@@ -31,7 +34,7 @@
         </label>
       </dt>
       <dd>
-        <mjl:input type="text" param="dateOfBirth" id="dateOfBirth" classes="DatePick"/>
+        <mjl:input type="text" param="dateOfBirth" id="dateOfBirth" classes="DatePick NoFuture"/>
         <mjl:messages attribute="dateOfBirth">
           <mjl:message />
         </mjl:messages>

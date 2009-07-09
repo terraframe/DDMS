@@ -19,6 +19,36 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
   {
     super();
   }
+
+  @Override
+  public void apply()
+  {
+    validateDateOfBirth();
+    super.apply();
+  }
+
+  @Override
+  public void validateDateOfBirth()
+  {
+    if (this.getDateOfBirth() != null)
+    {
+      super.validateDateOfBirth();
+
+      Date current = new Date();
+
+      if (current.before(this.getDateOfBirth()))
+      {
+        String msg = "It is impossible to have a birth date after the current date";
+
+        CurrentDateProblem p = new CurrentDateProblem(msg);
+        p.setGivenDate(this.getDateOfBirth());
+        p.setCurrentDate(current);
+        p.setNotification(this, DATEOFBIRTH);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
   
   @Transaction
   public void deleteDelegates()
