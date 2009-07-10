@@ -327,7 +327,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
           s += "type:'sqlcharacter',";
           //FIXME
           //s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " " + testMethodMd.getDisplayLabel() + "'";
-          s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " TestMethod";
+          s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " Test Method'";
           s += "},\n";
 
         }
