@@ -1,8 +1,12 @@
 package dss.vector.solutions.query;
 
 import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.terraframe.mojo.business.rbac.UserDAOIF;
+import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.vault.VaultFileDAO;
@@ -61,7 +65,7 @@ public class SavedSearch extends SavedSearchBase implements
   public static SavedSearchView saveSearch(SavedSearchView view)
   {
     SavedSearch search = new SavedSearch();
-    search.create(view);
+    search.create(view, false);
     
     return search.getAsView(false, false);
   }
@@ -69,6 +73,15 @@ public class SavedSearch extends SavedSearchBase implements
   public static SavedSearchView updateSearch(SavedSearchView view)
   {
     if(view == null || view.getSavedQueryId() == null || view.getSavedQueryId().trim().length() == 0)
+    {
+      NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
+      throw ex;
+    }
+    
+    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
+    SavedSearch defaultSearch = mdssUser.getDefaultSearch();
+    if(defaultSearch != null && defaultSearch.getId().equals(view.getSavedQueryId()))
     {
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
       throw ex;
@@ -112,11 +125,21 @@ public class SavedSearch extends SavedSearchBase implements
    * @param view
    * @param savedQuery
    */
-  protected void create(SavedSearchView view)
+  protected void create(SavedSearchView view, boolean asDefault)
   {
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
+    if(asDefault)
+    {
+      // Always replace the old default search.
+      SavedSearch search = mdssUser.getDefaultSearch();
+      if(search != null)
+      {
+        search.delete();
+      }
+    }
+    
     String name = view.getQueryName();
 
     checkUniqueness(name, mdssUser);
@@ -134,7 +157,16 @@ public class SavedSearch extends SavedSearchBase implements
     this.setConfig(view.getConfig());
     this.apply();
 
-    mdssUser.addPersistedQueries(this).apply();
+    if(asDefault)
+    {
+      mdssUser.appLock();
+      mdssUser.setDefaultSearch(this);
+      mdssUser.apply();
+    }
+    else
+    {
+      mdssUser.addPersistedQueries(this).apply();
+    }
   }
   
   public SavedSearchView getAsView(Boolean includeXML, Boolean includeConfig)
@@ -163,6 +195,34 @@ public class SavedSearch extends SavedSearchBase implements
     return view;
   }
   
+  public LayerView[] getAllLayers()
+  {
+    List<LayerView> views = new LinkedList<LayerView>();
+    
+    OIterator<? extends UniversalLayer> iter = this.getAllDefinesLayers();
+    
+    try
+    {
+      while(iter.hasNext())
+      {
+        views.add(iter.next().getAsView());
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+    
+    
+    ThematicLayer thematicLayer = this.getThematicLayer();
+    if(thematicLayer != null)
+    {
+      views.add(thematicLayer.getAsView());
+    }
+    
+    return views.toArray(new LayerView[views.size()]);
+  }
+  
   public InputStream getTemplateStream()
   {
     String template = this.getTemplateFile();
@@ -180,5 +240,35 @@ public class SavedSearch extends SavedSearchBase implements
     VaultFileDAOIF file = VaultFileDAO.get(template);
     
     return file.getFile();
+  }
+  
+  public static SavedSearchView loadSearch(String searchId)
+  {
+    if(searchId == null || searchId.trim().length() == 0)
+    {
+      NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
+      throw ex;
+    }
+    
+    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
+    SavedSearch search = mdssUser.getDefaultSearch();
+    if(search != null && search.getId().equals(searchId))
+    {
+      NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
+      throw ex;
+    }
+    
+    return getAsView(searchId, true, true);
+  }
+  
+  @Transaction
+  public static SavedSearchView loadDefaultSearch(SavedSearchView view)
+  {
+    SavedSearch search = new SavedSearch();
+    view.setQueryName("__DEFAULT__");
+    search.create(view, true);
+    
+    return search.getAsView(false, false);
   }
 }

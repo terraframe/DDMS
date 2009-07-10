@@ -23,6 +23,7 @@ import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.business.rbac.RoleDAO;
 import com.terraframe.mojo.constants.ComponentInfo;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
@@ -476,17 +477,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements
   {
     return getGeometry(this.getGeoEntityClass());
   }
-
-  /**
-   * Checks the given MdBusiness and its parents for an MdAttributeGeometry and
-   * returns it. If no MdAttributeGeometry is defined this method returns null.
-   *
-   * @param mdBusiness
-   * @return
-   */
-  public static MdAttributeGeometry getGeometry(MdBusiness mdBusiness)
+  
+  public static MdAttributeGeometry getGeometry(MdBusinessDAOIF mdBusinessDAO)
   {
-    MdBusinessDAO mdBusinessDAO = (MdBusinessDAO) BusinessFacade.getEntityDAO(mdBusiness);
     List<? extends MdAttributeDAOIF> attributeDAOs = mdBusinessDAO.getAllDefinedMdAttributes();
 
     for (MdAttributeDAOIF attributeDAO : attributeDAOs)
@@ -498,6 +491,19 @@ public class GeoHierarchy extends GeoHierarchyBase implements
     }
 
     return null;
+  }
+
+  /**
+   * Checks the given MdBusiness and its parents for an MdAttributeGeometry and
+   * returns it. If no MdAttributeGeometry is defined this method returns null.
+   *
+   * @param mdBusiness
+   * @return
+   */
+  public static MdAttributeGeometry getGeometry(MdBusiness mdBusiness)
+  {
+    MdBusinessDAO mdBusinessDAO = (MdBusinessDAO) BusinessFacade.getEntityDAO(mdBusiness);
+    return getGeometry(mdBusinessDAO);
   }
 
   /**
@@ -838,7 +844,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements
       throw e;
     }
 
-    validateModifyGeoHierarchy(childGeoHierarchy);
+    if(!cloneOperation)
+    {
+      validateModifyGeoHierarchy(childGeoHierarchy);
+    }
 
     if (!cloneOperation)
     {

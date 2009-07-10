@@ -27,6 +27,78 @@ MDSS.GeoEntityTree = (function(){
 
   // callback function for selecting a node in the tree
   var _selectCallback = null;
+  
+  var _uploadModal = null;
+  
+  /**
+   * Action to upload a template file.
+   */
+  function _uploadImport()
+  {
+    if(_uploadModal == null)
+    {
+      var formId = 'importUploadForm';
+      var action = 'excelimport';
+      
+
+      var html = MDSS.Localized.File_Upload_Status+":<br />";
+      html += "<iframe name='importIframe' id='importIframe' style='height:65px; width:350px; margin-bottom: 15px'></iframe>";
+      html += "<form action='"+action+"' enctype='multipart/form-data' target='importIframe' id='"+formId+"' method='post'>";
+      html += "<input type='hidden' name='parentGeoEntityId' id='parentGeoEntityId' value='' />";
+      html += "<input type='hidden' name='excelType' id='excelType' value='dss.vector.solutions.export.GeoEntityExcelView' />";
+      html += "<input type='file' name='importFile' id='importFile' /><br />";
+      html += "<input type='submit' name='import' value='"+MDSS.Localized.Submit+"' />"
+      html += "</form>";
+
+      _uploadModal = new YAHOO.widget.Panel("uploadTemplateModal", {
+        width:"400px",
+        height: "400px",
+        fixedcenter:true,
+        close: true,
+        draggable:false,
+        zindex:8,
+        modal:true,
+        visible:true
+      });
+
+      // wrap content in divs
+      var outer = document.createElement('div');
+
+      var header = document.createElement('div');
+      header.innerHTML = '<h3>'+MDSS.Localized.Upload_Template+'</h3><hr />';
+      outer.appendChild(header);
+
+      var contentDiv = document.createElement('div');
+      YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+      contentDiv.innerHTML = html;
+      outer.appendChild(contentDiv);
+
+      _uploadModal.subscribe('hide', function(){
+        
+        _selectedNode.collapse();
+        _selectedNode.dynamicLoadComplete = false;
+        _selectedNode.expanded = false;
+        _selectedNode.expand();
+      });
+      _uploadModal.setBody(outer);
+      _uploadModal.render(document.body);
+      _uploadModal.bringToTop();
+
+      YAHOO.util.Event.on(formId, 'submit', _uploadImportOnSubmit, null, this);
+    }
+    else
+    {
+      _uploadModal.show();
+    }
+  }
+  
+  function _uploadImportOnSubmit(e)
+  {
+    var input = document.getElementById('parentGeoEntityId');
+    input.value = _getGeoEntityView(_selectedNode).getGeoEntityId();
+    
+    return true;
+  }
 
   /**
    * Removes everything from the current Tree
@@ -1098,6 +1170,10 @@ MDSS.GeoEntityTree = (function(){
       selectMenuItem.subscribe("click", _customSelectHandler);
       itemData.push(selectMenuItem);
     }
+    
+    var importMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Import_Button);
+    importMenuItem.subscribe("click", _uploadImport);
+    itemData.push(importMenuItem);
 
     var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Create);
     createMenuItem.subscribe("click", _addNodeHandler);

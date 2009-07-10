@@ -2362,9 +2362,9 @@
             order="0"
             type="java.lang.String" />
           <mdParameter
-            name="thematicLayerType"
-            label="Thematic Layer Type"
-            description="The GeoEntity type for the base layer with thematic variables."
+            name="config"
+            label="Query Configuration"
+            description="The query configuration"
             order="1"
             type="java.lang.String" />
           <mdParameter

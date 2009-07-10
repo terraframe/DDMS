@@ -124,6 +124,10 @@ MDSS.QueryPanel.prototype = {
   QUERY_SUMMARY : "querySummary",
 
   THEMATIC_LAYERS_SELECT : "thematicLayersSelect",
+  
+  EDIT_VARIABLE_STYLE : "editVariableStyle",
+  
+  EDIT_DEFAULT_STYLE : "editDefaultStyle",
 
   /**
    *
@@ -131,8 +135,7 @@ MDSS.QueryPanel.prototype = {
   setCurrentSavedSearch : function(savedSearch)
   {
     this._currentSavedSearch = savedSearch;
-
-    this._buildUniversalList();
+    this._resetThematicOptions();
   },
 
   /**
@@ -260,6 +263,11 @@ MDSS.QueryPanel.prototype = {
   {
     return this._startDate;
   },
+  
+  getStartDateCheck : function()
+  {
+    return this._startDateRangeCheck;
+  },
 
   /**
    * Returns the end date element wrapped
@@ -268,6 +276,11 @@ MDSS.QueryPanel.prototype = {
   getEndDate : function()
   {
     return this._endDate;
+  },
+  
+  getEndDateCheck : function()
+  {
+    return this._endDateRangeCheck;
   },
 
   /**
@@ -337,12 +350,6 @@ MDSS.QueryPanel.prototype = {
     var body = new YAHOO.util.Element(this._qTopUnit.body);
     body.appendChild(dateRange);
 
-  },
-
-
-  getToggleDatesCheck : function()
-  {
-    return this._toggleDatesCheck;
   },
 
   /**
@@ -445,6 +452,8 @@ MDSS.QueryPanel.prototype = {
     this._buildQuerySummary();
 
     YAHOO.util.Event.on(this.PAGINATION_SECTION, 'click', this._paginationHandler, null, this);
+    
+    this._buildUniversalList();
 
     // let the query panels perform their own post-render logic
     if(Mojo.util.isFunction(this._config.postRender))
@@ -466,6 +475,27 @@ MDSS.QueryPanel.prototype = {
     var querySummary = document.getElementById(this.QUERY_SUMMARY);
     querySummary.innerHTML = html;
   },
+  
+  /**
+   * Sets the selected thematic layer. Note that this should be called
+   * after this.setAvailableThematicLayers().
+   */
+  setSelectedThematicLayer : function(layer)
+  {
+    var select = document.getElementById(this.THEMATIC_LAYERS_SELECT);
+    var options = select.options;
+    
+    for(var i=0; i<options.length; i++)
+    {
+    
+      var option = options[i];
+      if(option.value === layer)
+      {
+        select.selectedIndex = i;
+        break;
+      }
+    }
+  },
 
   setAvailableThematicLayers : function(layers)
   {
@@ -480,7 +510,7 @@ MDSS.QueryPanel.prototype = {
     {
       var oldSelected = select.selectedIndex != -1 ? select.options[select.selectedIndex].value : null;
       var selectIndex = 0;
-      select.innerHTML = '';
+      select.innerHTML = '<option value="">&nbsp;</value>';
       for(var i=0; i<this._thematicLayers.length; i++)
       {
         var layer = this._thematicLayers[i];
@@ -496,22 +526,36 @@ MDSS.QueryPanel.prototype = {
           selectIndex = i;
         }
       }
-
+      
       select.selectedIndex = selectIndex;
     }
   },
 
-  getThematicLayer : function()
+  _thematicLayerSelected : function(e)
+  {
+    if(Mojo.util.isFunction(this._config.thematicLayerSelected))
+    {
+      var select = e.target;
+      var option = select.options[select.selectedIndex];
+      
+      this._config.thematicLayerSelected(option.value);
+    } 
+  },
+  
+  toggleThematicSettings : function(enabled)
+  {
+    document.getElementById(this.EDIT_DEFAULT_STYLE).disabled = !enabled;
+    document.getElementById(this.EDIT_VARIABLE_STYLE).disabled = !enabled;
+  },
+  
+  /**
+   * Returns the currently selected thematic layer in the drop down list
+   * of available thematic layers.
+   */
+  getCurrentThematicLayer : function()
   {
     var select = document.getElementById(this.THEMATIC_LAYERS_SELECT);
-    if(select)
-    {
-      return select.options[select.selectedIndex].value;
-    }
-    else
-    {
-      return null;
-    }
+    return select.options[select.selectedIndex].value;
   },
 
   /**
@@ -527,21 +571,28 @@ MDSS.QueryPanel.prototype = {
 
     var html = MDSS.Localized.Thematic.Layer+"<br />";
     html += "<select style='margin: 3px 0px; min-width: 220px;' id='"+this.THEMATIC_LAYERS_SELECT+"'>";
+    html += "<option value=''></option>";
     html += "</select>";
     thematicLayerDiv.innerHTML = html;
-
-    var thematicLayerId = this._currentSavedSearch.getThematicLayerId();
 
     // edit default style
     var editDefaultStyle = new YAHOO.util.Element(document.createElement('input'));
     editDefaultStyle.set('type', 'button');
+    editDefaultStyle.set('id', this.EDIT_DEFAULT_STYLE);
+    editDefaultStyle.set('disabled', true);
     editDefaultStyle.set('value', MDSS.Localized.Thematic.Edit_Default_Style);
-    editDefaultStyle.on('click', this._editDefinedLayer, thematicLayerId, this);
+    editDefaultStyle.on('click', function(e){
+      var search = this._currentSavedSearch;
+      var layerId = search != null ? search.getThematicLayerId() : '';
+      this._editDefinedLayer(e, {layerId:layerId});
+    }, null, this);
 
     var editVariableStyles = new YAHOO.util.Element(document.createElement('input'));
     editVariableStyles.set('type', 'button');
+    editVariableStyles.set('id', this.EDIT_VARIABLE_STYLE);
+    editVariableStyles.set('disabled', true);
     editVariableStyles.set('value', MDSS.Localized.Thematic.Edit_Variable_Styles);
-    editVariableStyles.on('click', this._editVariableStyles, thematicLayerId, this);
+    editVariableStyles.on('click', this._editVariableStyles, null, this);
 
     thematicDiv.appendChild(thematicLayerDiv);
     thematicDiv.appendChild(editDefaultStyle);
@@ -614,13 +665,16 @@ MDSS.QueryPanel.prototype = {
     var body = new YAHOO.util.Element(this._mLeftUnit.body);
     body.appendChild(wrapper);
 
-    this._resetThematicOptions();
+    var thematicSelect = document.getElementById(this.THEMATIC_LAYERS_SELECT);
+    thematicSelect.selectedIndex = 0;
+    
+    YAHOO.util.Event.on(thematicSelect, 'change', this._thematicLayerSelected, null, this);
   },
 
   /**
    * Adds a thematic variable to the map.
    */
-  _editVariableStyles : function(e, obj)
+  _editVariableStyles : function(e)
   {
     if(Mojo.util.isFunction(this._config.editVariableStyles))
     {
@@ -642,17 +696,47 @@ MDSS.QueryPanel.prototype = {
   /**
    * Called when a user makes a request to edit a layer.
    */
-  _editDefinedLayer : function(e, layerId)
+  _editDefinedLayer : function(e, obj)
   {
     if(Mojo.util.isFunction(this._config.editLayer))
     {
-      this._config.editLayer(layerId);
+      this._config.editLayer(obj.layerId);
     }
   },
 
   _deleteDefinedLayer : function(e, obj)
   {
-
+    if(Mojo.util.isFunction(this._config.deleteLayer))
+    {
+      this._config.deleteLayer(obj.layerId, obj.type);
+    }
+  },
+  
+  /**
+   * Removes all currently defined layers (from the DOM, it doesn't
+   * delete them), and also re-enables all disabled options in the
+   * available layers list.
+   */
+  clearAllDefinedLayers : function()
+  {
+    var ul = document.getElementById(this.DEFINED_LAYERS_LIST);
+    ul.innerHTML = '';
+    
+    var select = document.getElementById(this.AVAILABLE_LAYERS_LIST);
+    var options = select.options;
+    for(var i=0; i<options.length; i++)
+    {
+      options[i].disabled = false;
+    }
+  },
+  
+  removeDefinedLayer : function(layerId, type)
+  {
+    var li = document.getElementById(layerId+'_defined');
+    li.parentNode.removeChild(li);    
+    
+    // enable the option in the available list
+    document.getElementById(type+"_available").disabled = false;
   },
 
   /**
@@ -666,18 +750,18 @@ MDSS.QueryPanel.prototype = {
     var li = document.createElement('li');
     YAHOO.util.Dom.setAttribute(li, 'id', layerId+"_defined")
 
-    var delObj = {
+    var layerObj = {
       layerId: layerId,
       type: type
     }
 
     var del = document.createElement('img');
     YAHOO.util.Dom.setAttribute(del, 'src', 'imgs/icons/delete.png');
-    YAHOO.util.Event.on(del, 'click', this._deleteDefinedLayer, delObj, this);
+    YAHOO.util.Event.on(del, 'click', this._deleteDefinedLayer, layerObj, this);
 
     var edit = document.createElement('img');
     YAHOO.util.Dom.setAttribute(edit, 'src', 'imgs/icons/wand.png');
-    YAHOO.util.Event.on(edit, 'click', this._editDefinedLayer, layerId, this);
+    YAHOO.util.Event.on(edit, 'click', this._editDefinedLayer, layerObj, this);
 
     var check = document.createElement('input');
     YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
@@ -696,8 +780,7 @@ MDSS.QueryPanel.prototype = {
     ul.appendChild(li);
 
     // disable the option in the available list (can't have duplicate layers)
-    var option = document.getElementById(type+"_available");
-    YAHOO.util.Dom.setAttribute(option, 'disabled', true);
+    document.getElementById(type+"_available").disabled = true;
   },
 
   /**
@@ -1281,11 +1364,12 @@ MDSS.QueryPanel.prototype = {
    * Adds to the list of possible thematic variables a user can
    * choose from.
    */
-  addThematicVariable : function(entityAlias, attributeName, displayLabel)
+  addThematicVariable : function(entityAlias, attributeName, userAlias, displayLabel)
   {
     var thematicVar = new Mojo.$.dss.vector.solutions.query.ThematicVariable();
     thematicVar.setEntityAlias(entityAlias);
     thematicVar.setAttributeName(attributeName);
+    thematicVar.setUserAlias(userAlias);
     thematicVar.setDisplayLabel(displayLabel);
 
   	this._thematicVariables[attributeName] = thematicVar;
@@ -1500,12 +1584,8 @@ MDSS.QueryPanel.prototype = {
       var queries = document.getElementById(this.AVAILABLE_QUERY_LIST);
 
       // ignore the default, empty option
-      var index = queries.selectedIndex;
-      if(index > 0)
-      {
-        var savedSearchId = queries.options[index].value;
-        this._config.loadQuery(savedSearchId);
-      }
+      var savedSearchId = queries.options[queries.selectedIndex].value;
+      this._config.loadQuery(savedSearchId);
     }
   },
 

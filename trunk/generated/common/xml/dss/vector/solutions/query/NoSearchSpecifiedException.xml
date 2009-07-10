@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
+  name="dss.vector.solutions.query.NoSearchSpecifiedException">
+  <!--
+    - {id} id
+    -->
+  <locale language="en">Cannot perform the operation without having first specified a saved search.</locale>
+</exception>

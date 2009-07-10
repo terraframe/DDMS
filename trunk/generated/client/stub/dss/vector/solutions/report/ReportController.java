@@ -88,11 +88,11 @@ public class ReportController extends ReportControllerBase implements Reloadable
     }
     else if(type.equals(QueryTypeDTO.ENTOMOLOGY))
     {
-      return MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId, new String[]{});
+      return MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
     }
     else if(type.equals(QueryTypeDTO.IRS))
     {
-      return AbstractSprayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId, new String[]{});
+      return AbstractSprayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
     }
 
     throw new RuntimeException("Query Type does not have a CSV exporter defined");

@@ -44,7 +44,7 @@ public class MappingController extends MappingControllerBase implements
     ThematicLayerDTO thematicLayerDTO = search.getThematicLayer();
     if(thematicLayerDTO.getGeometryStyle() == null)
     {
-      MapWithoutGeoEntityExceptionDTO ex = new MapWithoutGeoEntityExceptionDTO(this.getClientRequest(), this.req.getLocale());
+      NoThematicLayerExceptionDTO ex = new NoThematicLayerExceptionDTO(this.getClientRequest(), this.req.getLocale());
       throw ex;
     }
 
@@ -60,7 +60,7 @@ public class MappingController extends MappingControllerBase implements
   }
 
   @Override
-  public void mapAggregatedCaseQuery(String queryXML, String thematicLayerType,
+  public void mapAggregatedCaseQuery(String queryXML, String config,
       String[] universalLayers, String savedSearchId) throws IOException, ServletException
   {
     try
@@ -73,7 +73,7 @@ public class MappingController extends MappingControllerBase implements
         writeLayers(savedSearchId);
       }
 
-      String layers = AggregatedCaseDTO.mapQuery(this.getClientRequest(), queryXML, thematicLayerType,
+      String layers = AggregatedCaseDTO.mapQuery(this.getClientRequest(), queryXML, config,
           universalLayers, savedSearchId);
 
       resp.getWriter().print(layers);
@@ -87,7 +87,7 @@ public class MappingController extends MappingControllerBase implements
   }
 
   @Override
-  public void mapEntomologyQuery(String queryXML, String thematicLayerType, String[] universalLayers,
+  public void mapEntomologyQuery(String queryXML, String config, String[] universalLayers,
       String savedSearchId) throws IOException, ServletException
   {
     try
@@ -100,7 +100,7 @@ public class MappingController extends MappingControllerBase implements
         writeLayers(savedSearchId);
       }
 
-      String layers = MosquitoDTO.mapQuery(this.getClientRequest(), queryXML, thematicLayerType,
+      String layers = MosquitoDTO.mapQuery(this.getClientRequest(), queryXML, config,
           universalLayers, savedSearchId);
 
 
@@ -301,8 +301,18 @@ public class MappingController extends MappingControllerBase implements
   @Override
   public void deleteLayer(String layerId) throws IOException, ServletException
   {
-    // TODO Auto-generated method stub
-    super.deleteLayer(layerId);
+    try
+    {
+      // TODO clean up SLD file 
+      LayerDTO layer = LayerDTO.get(this.getClientRequest(), layerId);
+      layer.delete();
+    }
+    catch (Throwable t)
+    {
+      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
   }
 
   @Override

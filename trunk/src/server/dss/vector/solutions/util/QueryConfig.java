@@ -14,6 +14,8 @@ public class QueryConfig implements com.terraframe.mojo.generation.loader.Reload
   
   private static final String SELECTED_UNIVERSALS = "selectedUniversals";
 
+//  private static final String THEMATIC_LAYER_TYPE = "thematicLayerType";
+  
   public QueryConfig(String configJSON)
   {
     try
@@ -25,6 +27,20 @@ public class QueryConfig implements com.terraframe.mojo.generation.loader.Reload
       throw new ProgrammingErrorException(e);
     }
   }
+  
+  /*
+  public String getThematicLayerType()
+  {
+    try
+    {
+      return config.getString(THEMATIC_LAYER_TYPE);
+    }
+    catch(JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }  
+  }
+  */
   
   public String[] getSelectedUniversals()
   {

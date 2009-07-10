@@ -29,6 +29,8 @@ import dss.vector.solutions.entomology.MosquitoDTO;
 import dss.vector.solutions.entomology.assay.AbstractAssayDTO;
 import dss.vector.solutions.geo.GeoEntityTreeController;
 import dss.vector.solutions.geo.generated.EarthDTO;
+import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
+import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.surveillance.AbstractGridDTO;
 import dss.vector.solutions.surveillance.AbstractGridQueryDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
@@ -55,12 +57,44 @@ public class QueryController extends QueryControllerBase implements
 
   private static final String QUERY_AGGREGATED_CASES = "/WEB-INF/queryScreens/queryAggregatedCases.jsp";
 
+  private static final String QUERY_SURVEY = "/WEB-INF/queryScreens/querySurvey.jsp";
+  
   private static final String NEW_QUERY = "/WEB-INF/queryScreens/newQuery.jsp";
 
   public QueryController(javax.servlet.http.HttpServletRequest req,
       javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
+  }
+  
+  @Override
+  public void querySurvey() throws IOException, ServletException
+  {
+    try
+    {
+      
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_INDICATOR_SURVEY);
+      JSONArray queries = new JSONArray();
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+      
+      SurveyPointDTO surveyPointDTO = new SurveyPointDTO(this.getClientRequest());
+
+      req.setAttribute("queryList", queries.toString());     
+      
+      
+      req.getRequestDispatcher(QUERY_SURVEY).forward(req, resp); 
+    }
+    catch(Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
   }
 
   @SuppressWarnings("unchecked")
@@ -389,15 +423,15 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
-  public void exportAggregatedCaseQueryToCSV(String queryXML, String config, String savedSearchId, String[] restrictingEntities)
-      throws IOException, ServletException
+  public void exportAggregatedCaseQueryToCSV(String queryXML, String config, String savedSearchId)
+  throws IOException, ServletException
   {
     try
     {
       InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
-
+      
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
+      
       FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
     }
     catch (Throwable t)
@@ -405,17 +439,53 @@ public class QueryController extends QueryControllerBase implements
       resp.getWriter().write(t.getLocalizedMessage());
     }
   }
-
+  
   @Override
   public void exportAggregatedCaseQueryToExcel(String queryXML, String config,
+      String savedSearchId) throws IOException, ServletException
+      {
+    try
+    {
+      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config, savedSearchId);
+      
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+      
+      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+  
+  @Override
+  public void exportSurveyQueryToCSV(String queryXML, String config, String savedSearchId)
+  throws IOException, ServletException
+  {
+    try
+    {
+      InputStream stream = SurveyPointDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
+      
+      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+      
+      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
+  }
+  
+  @Override
+  public void exportSurveyQueryToExcel(String queryXML, String config,
       String savedSearchId) throws IOException, ServletException
   {
     try
     {
       InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config, savedSearchId);
-
+      
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
+      
       FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
     }
     catch (Throwable t)
@@ -424,14 +494,13 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
-/*
   @Override
-  public void exportIRSQueryToCSV(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
+  public void exportIRSQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
       throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
+      InputStream stream = AbstractSprayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -445,11 +514,11 @@ public class QueryController extends QueryControllerBase implements
 
   @Override
   public void exportIRSQueryToExcel(String queryXML, String geoEntityType,
-      String savedSearchId, String[] restrictingEntities) throws IOException, ServletException
+      String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AbstractSprayDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
+      InputStream stream = AbstractSprayDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -460,15 +529,14 @@ public class QueryController extends QueryControllerBase implements
       resp.getWriter().write(t.getLocalizedMessage());
     }
   }
-  */
 
   @Override
-  public void exportEntomologyQueryToCSV(String queryXML, String geoEntityType, String savedSearchId, String[] restrictingEntities)
+  public void exportEntomologyQueryToCSV(String queryXML, String geoEntityType, String savedSearchId)
       throws IOException, ServletException
   {
     try
     {
-      InputStream stream = MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
+      InputStream stream = MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -482,11 +550,11 @@ public class QueryController extends QueryControllerBase implements
 
   @Override
   public void exportEntomologyQueryToExcel(String queryXML, String geoEntityType,
-      String savedSearchId, String[] restrictingEntities) throws IOException, ServletException
+      String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = MosquitoDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId, restrictingEntities);
+      InputStream stream = MosquitoDTO.exportQueryToExcel(this.getClientRequest(), queryXML, geoEntityType, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -511,26 +579,6 @@ public class QueryController extends QueryControllerBase implements
     // TODO Auto-generated method stub
     super.deleteQuery(savedQueryView);
   }
-
-  /*
-  public void newIndicatorSurvey() throws IOException, ServletException
-  {
-    try
-    {
-      SavedSearchViewDTO savedSearch = new SavedSearchViewDTO(this.getClientRequest());
-      req.setAttribute("savedSearch", savedSearch);
-
-      req.getRequestDispatcher(NEW_AGGREGATED_CASES_QUERY).forward(req, resp);
-    }
-    catch (Throwable t)
-    {
-      JSONMojoExceptionDTO jsonE = new JSONMojoExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-  }
-  */
-
 
   /**
    * Creates the screen to query for IndicatorSurvey.

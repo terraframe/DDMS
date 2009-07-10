@@ -8,13 +8,10 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.xml.sax.SAXParseException;
 
 import com.terraframe.mojo.dataaccess.MdAttributeVirtualDAOIF;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.Condition;
@@ -424,23 +421,10 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   }
 
   @Transaction
-  public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId, String[] restrictingEntities)
+  public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
   {
-    // FIXME put parsing into common place
-    String selectedUniversals[];
-    try
-    {
-      JSONArray arr = new JSONArray(config);
-      selectedUniversals = new String[arr.length()];
-      for (int i = 0; i < selectedUniversals.length; i++)
-      {
-        selectedUniversals[i] = arr.getString(i);
-      }
-    }
-    catch (JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
+    QueryConfig queryConfig = new QueryConfig(config);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
 
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
@@ -458,23 +442,10 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
   }
 
   @Transaction
-  public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId, String[] restrictingEntities)
+  public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId)
   {
-    // FIXME put parsing into common place
-    String selectedUniversals[];
-    try
-    {
-      JSONArray arr = new JSONArray(config);
-      selectedUniversals = new String[arr.length()];
-      for (int i = 0; i < selectedUniversals.length; i++)
-      {
-        selectedUniversals[i] = arr.getString(i);
-      }
-    }
-    catch (JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
+    QueryConfig queryConfig = new QueryConfig(config);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
 
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {

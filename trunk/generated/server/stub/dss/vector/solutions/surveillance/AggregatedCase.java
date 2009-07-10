@@ -49,7 +49,9 @@ import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.query.MapUtil;
 import dss.vector.solutions.query.NoColumnsAddedException;
+import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
@@ -113,11 +115,11 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * Returns true if the given attribute is defined by a
    * <code>MdAttributeDAOIF</code> in the given map and the current user has
    * permission to view the attribute, false otherwise.
-   *
+   * 
    * <br>
    * Precondition:</br> <code>Session.getCurrentSession()</code> does not return
    * null.
-   *
+   * 
    * @param attributeName
    * @param viewCaseAttributeMap
    * @return true if the given attribute is defined by a
@@ -459,12 +461,12 @@ public class AggregatedCase extends AggregatedCaseBase implements
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   *
+   * 
    * @param xml
    * @return
    */
-  private static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, boolean includeGeometry,
-      ThematicLayer thematicLayer)
+  private static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals,
+      boolean includeGeometry, ThematicLayer thematicLayer)
   {
     QueryFactory queryFactory = new QueryFactory();
 
@@ -476,11 +478,11 @@ public class AggregatedCase extends AggregatedCaseBase implements
     {
       valueQueryParser = new ValueQueryParser(xml, valueQuery);
     }
-    catch(QueryException e)
+    catch (QueryException e)
     {
       // Check if the error was because no selectables were added.
       Throwable t = e.getCause();
-      if(t != null && t instanceof SAXParseException && t.getMessage().contains("{selectable}"))
+      if (t != null && t instanceof SAXParseException && t.getMessage().contains("{selectable}"))
       {
         NoColumnsAddedException ex = new NoColumnsAddedException();
         throw ex;
@@ -491,88 +493,106 @@ public class AggregatedCase extends AggregatedCaseBase implements
       }
     }
 
-    // include the thematic layer (if applicable).
+    // include the thematic variable (if applicable).
     if (thematicLayer != null)
     {
       ThematicVariable thematicVariable = thematicLayer.getThematicVariable();
       if (thematicVariable != null)
       {
         String entityAlias = thematicVariable.getEntityAlias();
-        String attributeName = thematicVariable.getAttributeName();
+        String userAlias = thematicVariable.getUserAlias();
 
-        valueQueryParser.setColumnAlias(entityAlias, attributeName, QueryConstants.THEMATIC_DATA_COLUMN);
+        valueQueryParser.setColumnAlias(entityAlias, userAlias, QueryConstants.THEMATIC_DATA_COLUMN);
       }
     }
 
-    // include the geometry of the GeoEntity
+    Map<String, GeneratedEntityQuery> queryMap;
+    AggregatedCaseQuery aggregatedCaseQuery;
+
     if (includeGeometry)
     {
+      /* 
+       * Note that the mapping query does not need to perform the complex left join logic.
+       * This is because the entity name, geo id selectables on different universal types
+       * will not affect the mapping result, so they are omitted.
+       */
+      
       thematicLayer.getGeoHierarchy().getGeoEntityClass();
       MdBusiness geoEntityMd = thematicLayer.getGeoHierarchy().getGeoEntityClass();
+      String thematicLayerType = geoEntityMd.definesType();
 
       MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
-
       String attributeName = mdAttrGeo.getAttributeName();
 
-      // FIXME might need a ValueQuery and might need to go after the code below
-      String type = geoEntityMd.definesType();
-      valueQueryParser.addAttributeSelectable(type, attributeName, "", "");
-      valueQueryParser.addAttributeSelectable(type, GeoEntity.ENTITYNAME, "",
-          QueryConstants.ENTITY_NAME_COLUMN);
-    }
+      valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName, "", "");
+      valueQueryParser.addAttributeSelectable(thematicLayerType, GeoEntity.ENTITYNAME, "", QueryConstants.ENTITY_NAME_COLUMN);
+      
+      queryMap = valueQueryParser.parse();
 
-
-    List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
-    for(String selectedGeoEntityType : selectedUniversals)
-    {
-      GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
-
-      AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
-      ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
-      MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
-
-      Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName()+"_entityName");
-      Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName()+"_geoId");
-
-      List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
-      Condition[] geoConditions = new Condition[allClasses.size()];
-      for(int i=0; i<allClasses.size(); i++)
-      {
-        geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
-      }
-
-      geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
-      geoEntityVQ.WHERE(OR.get(geoConditions));
-      geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
-
-      leftJoinValueQueries.add(geoEntityVQ);
-
-      valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
-    }
-
-    Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
-
-    AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
-    AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
-
-    if(allPathsQuery != null)
-    {
-      List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
-      for(ValueQuery leftJoinVQ : leftJoinValueQueries)
-      {
-        leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
-      }
-
-      int size = leftJoinSelectables.size();
-      if(size > 0)
-      {
-        valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
-      }
-
-      // Join AggregatedCase to GeoEntity
+      aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
+      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
+      GeoEntityQuery geoEntityQuery = (GeoEntityQuery) queryMap.get(thematicLayerType);
+      
+      valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
+      
       valueQuery.AND(aggregatedCaseQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
     }
+    else
+    {
+      // Normal query (non-mapping)
+      List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
+      for (String selectedGeoEntityType : selectedUniversals)
+      {
+        GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
 
+        AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
+        ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
+        MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
+
+        Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName() + "_entityName");
+        Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName() + "_geoId");
+
+        geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
+
+        List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
+        Condition[] geoConditions = new Condition[allClasses.size()];
+        for (int i = 0; i < allClasses.size(); i++)
+        {
+          geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
+        }
+
+        geoEntityVQ.WHERE(OR.get(geoConditions));
+        geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
+
+        leftJoinValueQueries.add(geoEntityVQ);
+
+        valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
+      }
+
+      queryMap = valueQueryParser.parse();
+
+      aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
+      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
+
+      if (allPathsQuery != null)
+      {
+        List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
+        for (ValueQuery leftJoinVQ : leftJoinValueQueries)
+        {
+          leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
+        }
+
+        int size = leftJoinSelectables.size();
+        if (size > 0)
+        {
+          valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(
+              leftJoinSelectables.toArray(new SelectableSingle[size])));
+        }
+        
+        // Join AggregatedCase to GeoEntity
+        valueQuery.AND(aggregatedCaseQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
+      }
+    }
 
     MdRelationshipDAOIF caseTreatmentStockRel = MdRelationshipDAO
         .getMdRelationshipDAO(CaseTreatmentStock.CLASS);
@@ -639,14 +659,17 @@ public class AggregatedCase extends AggregatedCaseBase implements
   {
     if (xml.indexOf("DATEGROUP_SEASON") > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
-      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + sd + " and ms.enddate > " + ed);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectable("DATEGROUP_SEASON");
+      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + sd
+          + " and ms.enddate > " + ed);
     }
 
     if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
-      //TODO: make this work for non-standard epi weeks
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectable("DATEGROUP_EPIWEEK");
+
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN 'INTERVAL NOT VALID'"
         + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
         + "THEN to_char(" + sd + ",'IW')"
@@ -656,7 +679,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     if (xml.indexOf("DATEGROUP_MONTH") > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectable("DATEGROUP_MONTH");
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN 'INTERVAL NOT VALID'"
         + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
         + "THEN to_char(" + sd + ",'MM')"
@@ -666,7 +690,9 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     if (xml.indexOf("DATEGROUP_QUARTER") > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_QUARTER");
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectable("DATEGROUP_QUARTER");
+
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN 'INTERVAL NOT VALID'"
         + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))"
         + " >  (extract(DOY FROM " + ed + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))"
@@ -694,7 +720,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {
-        dateGroup.setSQL("'"+matcher.group(1)+"'");
+        dateGroup.setSQL("'" + matcher.group(1) + "'");
       }
     }
 
@@ -707,7 +733,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {
-        dateGroup.setSQL("'"+matcher.group(1)+"'");
+        dateGroup.setSQL("'" + matcher.group(1) + "'");
       }
     }
 
@@ -729,15 +755,15 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   /**
    * Queries for AggregatedCases.
-   *
+   * 
    * @param xml
    */
   @Transaction
-  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config, Integer pageNumber, Integer pageSize)
+  public static com.terraframe.mojo.query.ValueQuery queryAggregatedCase(String xml, String config,
+      Integer pageNumber, Integer pageSize)
   {
     QueryConfig queryConfig = new QueryConfig(config);
     String[] selectedUniversals = queryConfig.getSelectedUniversals();
-
 
     ValueQuery valueQuery = xmlToValueQuery(xml, selectedUniversals, false, null);
 
@@ -748,12 +774,12 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   /**
    * Creates a
-   *
+   * 
    * @param xml
    * @return
+   */
   @Transaction
-  public static String mapQuery(String xml, String thematicLayerType, String[] universalLayers,
-      String savedSearchId)
+  public static String mapQuery(String xml, String config, String[] universalLayers, String savedSearchId)
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
@@ -763,35 +789,34 @@ public class AggregatedCase extends AggregatedCaseBase implements
     }
 
     SavedSearch search = SavedSearch.get(savedSearchId);
+    QueryConfig queryConfig = new QueryConfig(config);
 
-    if (thematicLayerType == null || thematicLayerType.trim().length() == 0)
+    ThematicLayer thematicLayer = search.getThematicLayer();
+
+    if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
     {
       String error = "Cannot create a map for search [" + search.getQueryName()
-          + "] without having restricted by a GeoEntity(s).";
-      MapWithoutGeoEntityException ex = new MapWithoutGeoEntityException(error);
+          + "] without having selected a thematic layer.";
+      NoThematicLayerException ex = new NoThematicLayerException(error);
       throw ex;
     }
 
-    // Create the thematic layer if it does not exist
-    ThematicLayer thematicLayer = search.getThematicLayer();
-
     // Update ThematicLayer if the thematic layer type has changed or
     // if one has not yet been defined.
+    String thematicLayerType = thematicLayer.getGeoHierarchy().getGeoEntityClass().definesType();
     if (thematicLayer.getGeometryStyle() == null
         || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
     {
       thematicLayer.changeLayerType(thematicLayerType);
     }
 
-
-
-    ValueQuery query = xmlToValueQuery(xml, thematicLayerType, true, thematicLayer);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
+    ValueQuery query = xmlToValueQuery(xml, selectedUniversals, true, thematicLayer);
 
     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
 
     return layers;
   }
-   */
 
   @Transaction
   public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
@@ -835,7 +860,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   /**
    * Returns all AbstractGrid subclass instances relative to Aggregated Cases.
-   *
+   * 
    * @return
    */
   public static AbstractGridQuery getGridInstances()
@@ -843,8 +868,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
     QueryFactory f = new QueryFactory();
     AbstractGridQuery q = new AbstractGridQuery(f);
 
-    String[] types = new String[]{CaseTreatmentStock.CLASS, TreatmentGrid.CLASS,
-        TreatmentMethodGrid.CLASS, DiagnosticGrid.CLASS, ReferralGrid.CLASS};
+    String[] types = new String[] { CaseTreatmentStock.CLASS, TreatmentGrid.CLASS,
+        TreatmentMethodGrid.CLASS, DiagnosticGrid.CLASS, ReferralGrid.CLASS };
 
     q.WHERE(q.getType().IN(types));
 

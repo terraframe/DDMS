@@ -697,7 +697,8 @@ MDSS.Query = {};
 MDSS.Query.Config = function(configJSON)
 {
   this._config = {
-    selectedUniversals : []
+    selectedUniversals : [],
+//    thematicLayerType : ''
   };
 
   if(configJSON != null)
@@ -708,6 +709,18 @@ MDSS.Query.Config = function(configJSON)
 };
 
 MDSS.Query.Config.prototype = {
+
+/*
+  getThematicLayerType : function()
+  {
+    return this._config.thematicLayerType;
+  },
+  
+  setThematicLayerType : function(type)
+  {
+    this._config.thematicLayerType = type;
+  },
+*/
 
   addSelectedUniversal : function(universal)
   {
@@ -801,25 +814,35 @@ MDSS.Query.Parser.prototype = {
 
   parseCriteria : function(handlers)
   {
-    var criteria = this._xmlDoc.getElementsByTagName('criteria')[0];
-    var selectables = criteria.getElementsByTagName('selectable');
-
-    for(var i=0; i<selectables.length; i++)
+    var criteria = this._xmlDoc.getElementsByTagName('criteria');
+    if(criteria == null || criteria.length == 0)
     {
-      var selectable = selectables[i];
-      var attribute = selectable.firstChild;
-      if(Mojo.util.isFunction(handlers[attribute.nodeName]))
+      return;
+    }
+    
+    for(var i=0; i<criteria.length; i++)
+    {
+      var criteriaNode = criteria[i];
+      var selectables = criteriaNode.getElementsByTagName('selectable');
+  
+      for(var j=0; j<selectables.length; j++)
       {
-        var entityAlias = this._getValue(selectable, 'entityAlias');
-        var attributeName = this._getValue(selectable, 'name');
-        var userAlias = this._getValue(selectable, 'userAlias');
-
-        var parent = selectable.parentNode;
-        var operator = this._getValue(parent, 'operator');
-        var value = this._getValue(parent, 'value');
-        handlers[attribute.nodeName](entityAlias, attributeName, userAlias, operator, value);
+        var selectable = selectables[j];
+        var attribute = selectable.firstChild;
+        if(Mojo.util.isFunction(handlers[attribute.nodeName]))
+        {
+          var entityAlias = this._getValue(selectable, 'entityAlias');
+          var attributeName = this._getValue(selectable, 'name');
+          var userAlias = this._getValue(selectable, 'userAlias');
+  
+          var parent = selectable.parentNode;
+          var operator = this._getValue(parent, 'operator');
+          var value = this._getValue(parent, 'value');
+          handlers[attribute.nodeName](entityAlias, attributeName, userAlias, operator, value);
+        }
       }
     }
+    
   }
 
 };

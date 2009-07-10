@@ -15,13 +15,10 @@
 <%@page import="dss.vector.solutions.query.NonRangeCategoryDTO"%>
 <%@page import="dss.vector.solutions.query.RangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
+<%@page import="dss.vector.solutions.intervention.monitor.SurveyPointDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
-<%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
-<%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
-<%@page import="dss.vector.solutions.geo.generated.CollectionSite"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <jsp:include page="../templates/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
@@ -32,7 +29,7 @@
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-    String[] types = new String[]{EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, LayerViewDTO.CLASS, ThematicVariableDTO.CLASS, AggregatedCaseDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] types = new String[]{SurveyPointDTO.CLASS, EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, LayerViewDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
     String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 
     out.print(js);
@@ -40,8 +37,6 @@
 
 MDSS.AbstractSelectSearch.Political = true;
 MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= CollectionSite.CLASS %>*');
-MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*');
 
 (function(){
 
@@ -51,12 +46,8 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
-    var ageGroups = <%= (String) request.getAttribute("ageGroups") %>;
-    var visibleAttributes = <%= (String) request.getAttribute("visibleAttributes") %>;
 
-    var orderedGrids = <%= (String) request.getAttribute("orderedGrids") %>;
-
-    var query = new MDSS.QueryAggregatedCases(ageGroups, visibleAttributes, orderedGrids, queryList);
+    var query = new MDSS.QuerySurvey(queryList);
     query.render();
 
     // attach load listener to Iframe to receive message when error occurs during

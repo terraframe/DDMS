@@ -63,7 +63,7 @@ public class ThematicLayer extends ThematicLayerBase implements
       iter.close();
     }
   }
-
+  
   /**
    * Updates a ThematicLayer with the given information.
    *
@@ -210,18 +210,47 @@ public class ThematicLayer extends ThematicLayerBase implements
    * Changes the underlying styles to reflect the thematic layer type.
    *
    */
+  @Override
+  @Transaction
   public void changeLayerType(String thematicLayerType)
   {
-    GeoHierarchy thematicGeoH = GeoHierarchy.getGeoHierarchyFromType(thematicLayerType);
-    MdAttributeGeometry geoAttr = thematicGeoH.getGeometry();
-
     // Geo Style
-    GeometryStyle geoStyle = GeometryStyle.convertAttributeGeometryToStyle(geoAttr);
-
     this.appLock();
-    this.setGeoHierarchy(thematicGeoH);
-    this.setGeometryStyle(geoStyle);
+
+    if (thematicLayerType != null && thematicLayerType.trim().length() > 0)
+    {
+      GeoHierarchy thematicGeoH = GeoHierarchy.getGeoHierarchyFromType(thematicLayerType);
+      MdAttributeGeometry geoAttr = thematicGeoH.getGeometry();
+
+      this.setGeoHierarchy(thematicGeoH);
+
+      // Geo Style
+      GeometryStyle geoStyle = GeometryStyle.convertAttributeGeometryToStyle(geoAttr);
+      this.setGeometryStyle(geoStyle);
+    }
+    else
+    {
+      this.setGeoHierarchy(null);
+      this.setGeometryStyle(null);
+    }    
+    
+
     this.apply();
   }
+  
+  public LayerView getAsView()
+  {
+    LayerView view = super.getAsView();
+    
+    view.setIsThematic(true);
+    
+    GeoHierarchy geo = this.getGeoHierarchy();
+    if(geo != null)
+    {
+      view.setThematicType(geo.getGeoEntityClass().definesType());
+    }
+    
+    return view;
+  } 
 
 }

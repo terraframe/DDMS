@@ -30,11 +30,6 @@
               label="Saved Search Id"
               order="2"
               type="java.lang.String" />
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="3" />
           </mdAction>
 
           <mdAction
@@ -58,11 +53,6 @@
               label="Saved Search Id"
               order="2"
               type="java.lang.String" />
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="3" />
           </mdAction>
           <mdAction
             name="exportEntomologyQueryToExcel"
@@ -85,11 +75,6 @@
               label="Saved Search Id"
               order="2"
               type="java.lang.String" />
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="3" />
           </mdAction>
           <mdAction
             name="exportIRSQueryToCSV"
@@ -102,9 +87,9 @@
               order="0"
               type="java.lang.String" />
             <mdParameter
-              name="geoEntityType"
-              label="GeoEntity type"
-              description="The type on which to gather spatial data"
+              name="config"
+              label="JSON config"
+              description="The query configuration"
               order="1"
               type="java.lang.String" />
             <mdParameter
@@ -112,11 +97,6 @@
               label="Saved Search Id"
               order="2"
               type="java.lang.String" />
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="3" />
           </mdAction>
           <mdAction
             name="exportIRSQueryToExcel"
@@ -139,11 +119,6 @@
               label="Saved Search Id"
               order="2"
               type="java.lang.String" />
-          <mdParameter
-            name="restrictingEntities"
-            label="Restricting Entities"
-            type="java.lang.String[]"
-            order="3" />
           </mdAction>
 
         </create>

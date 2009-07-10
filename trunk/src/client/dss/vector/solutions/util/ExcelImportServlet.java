@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -37,6 +38,8 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
   @SuppressWarnings("unchecked")
   protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
   {
+    ResourceBundle localized = ResourceBundle.getBundle("MDSS");
+    
     if (!ServletFileUpload.isMultipartContent(req))
     {
       req.setAttribute(TYPE, req.getParameter(TYPE));
@@ -53,11 +56,13 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
     ServletFileUpload upload = new ServletFileUpload(factory);
 
     // Parse the request
+    boolean isGeoImport = false;
     try
     {
       List<FileItem> items = upload.parseRequest(req);
       HashMap<String, String> fields = new HashMap<String, String>();
       InputStream sourceStream = null;
+      long size = 0;
       
       for (FileItem item : items)
       {
@@ -69,6 +74,7 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
         }
         else
         {
+          size = item.getSize();
           sourceStream = item.getInputStream();
         }
       }
@@ -80,8 +86,19 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
       
       InputStream errorStream;
       String type = fields.get(TYPE);
-      if (type.equals(GeoEntityExcelViewDTO.CLASS))
+      isGeoImport = type.equals(GeoEntityExcelViewDTO.CLASS);
+      
+      if (isGeoImport)
       {
+        if(size == 0)
+        {
+          res.setContentType("text/html;charset=UTF-8");
+          res.setCharacterEncoding("UTF-8");
+          res.getWriter().write(localized.getString("File_Required"));
+          
+          return; // error case
+        }
+        
         errorStream = clientRequest.importExcelFile(new ByteArrayInputStream(bytes), type, "setupImportListener", fields.get("parentGeoEntityId"));
       }
       else
@@ -105,7 +122,17 @@ public class ExcelImportServlet extends HttpServlet implements Reloadable
     {
       ErrorUtility.prepareThrowable(e, req);
     }
-    req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req, res);
+    
+    if(isGeoImport)
+    {
+      res.setContentType("text/html;charset=UTF-8");
+      res.setCharacterEncoding("UTF-8");
+      res.getWriter().write(localized.getString("File_Upload_Success"));
+    }
+    else
+    {
+      req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req, res);
+    }
   }
   
   @Override

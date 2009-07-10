@@ -8,6 +8,13 @@ MDSS.QueryIndicatorSurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  {
 	  	MDSS.QueryBase.prototype.initialize.call(this);
 
+	    if(arguments.length === 1 && arguments[0] == null)
+        {
+           // FIXME used for inheritance optimization
+          return;
+        }
+    
+
 	    // list of columns that have been added before a call to render()
 	    this._preconfiguredColumns = [];
 

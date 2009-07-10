@@ -186,7 +186,7 @@
             name="attributeName"
             label="Attribute Name"
             description="The attribute name of the thematic variable."
-            size="50"
+            size="60"
             required="true" />
           <char
             name="entityAlias"

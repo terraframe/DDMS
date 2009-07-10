@@ -18,7 +18,35 @@
 	            	required="true" />
         	</attributes>
 		</mdProblem>
+		
+      <mdException
+        name="dss.vector.solutions.query.NoThematicLayerException"
+        label="No Thematic Layer Exception"
+        description="Thrown when a user tries to render a map without having first selected a thematic layer.">
+      </mdException>
     </create>
+    
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.query.ThematicVariable">
+        <create>
+        <attributes>
+          <char
+            name="userAlias"
+            size="255"
+            label="User Alias"
+            required="true"
+            description="The User Alias used in the XML value query." />
+        </attributes>
+        </create>
+      </mdBusiness>
+    </update>
+    
+    <delete>
+      <object key="dss.vector.solutions.query.MapWithoutGeoEntityException"
+        type="com.terraframe.mojo.system.metadata.MdException"/>
+    </delete>
+    
   </doIt>
   <undoIt>
     <delete>

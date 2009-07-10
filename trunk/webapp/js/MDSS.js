@@ -3,6 +3,8 @@
  */
 var MDSS = {
 
+  wait_for_ajax : null,
+
   util : {
     /**
      * Extracts all script tag contents and returns
@@ -126,7 +128,14 @@ var MDSS = {
   	this.onSend = function()
   	{
         //Show a modal wait screen to prevent user from clicking an ajax link twice
-  		MDSS.util.wait_for_ajax =
+        if(MDSS.util.wait_for_ajax != null)
+        {
+          MDSS.util.wait_for_ajax.show();
+          MDSS.util.wait_for_ajax.bringToTop();
+        }
+        else
+        {
+  		  MDSS.util.wait_for_ajax =
   				new YAHOO.widget.Panel("wait_for_ajax",
   					{ width:"240px",
   					  fixedcenter:true,
@@ -138,10 +147,11 @@ var MDSS = {
   					}
   				);
 
-  		MDSS.util.wait_for_ajax.setHeader(MDSS.Localized.Ajax_Loading);
-  		MDSS.util.wait_for_ajax.setBody('<img src="imgs/rel_interstitial_loading.gif" />');
-  		MDSS.util.wait_for_ajax.render(document.body);
-  		MDSS.util.wait_for_ajax.bringToTop();
+  		  MDSS.util.wait_for_ajax.setHeader(MDSS.Localized.Ajax_Loading);
+  		  MDSS.util.wait_for_ajax.setBody('<img src="imgs/rel_interstitial_loading.gif" />');
+  		  MDSS.util.wait_for_ajax.render(document.body);
+  		  MDSS.util.wait_for_ajax.bringToTop();
+  		}
   	}
 
   	this.onComplete = function()

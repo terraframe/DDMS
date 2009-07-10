@@ -6,7 +6,12 @@ MDSS.QueryBase.prototype = {
 
   initialize : function()
   {
-
+    if(arguments.length === 1 && arguments[0] == null)
+    {
+      // FIXME used for inheritance optimization
+      return;
+    }
+  
     this._queryPanel = new MDSS.QueryPanel('queryPanel', 'mapPanel', {
       executeQuery: MDSS.util.bind(this, this.executeQuery),
       mapQuery: MDSS.util.bind(this, this.mapQuery),
@@ -23,6 +28,7 @@ MDSS.QueryBase.prototype = {
       toggleDates : MDSS.util.bind(this, this.toggleDates),
       paginationHandler : MDSS.util.bind(this, this.paginationHandler),
       postRender : MDSS.util.bind(this, this.postRender),
+      thematicLayerSelected :MDSS.util.bind(this, this.thematicLayerSelected)
     });
 
     this._allPathsQuery = null;
@@ -241,6 +247,24 @@ MDSS.QueryBase.prototype = {
      this._queryPanel.setRowData(jsonData);
      this._queryPanel.setPagination(query.getCount(), this.getCurrentPage(), this.PAGE_SIZE);
   },
+  
+  _loadDefaultSearch : function()
+  {
+    var view = new Mojo.$.dss.vector.solutions.query.SavedSearchView();
+    this._populateSearch(null, view);
+
+    var request = new MDSS.Request({
+      thisRef : this,
+      onSuccess: function(savedSearchView){
+      
+        // the default will be the current saved search but
+        // it will not be visible in the query list
+        this.thisRef._queryPanel.setCurrentSavedSearch(savedSearchView);
+      }
+    });
+
+    Mojo.$.dss.vector.solutions.query.SavedSearch.loadDefaultSearch(request, view);
+  },
 
   /**
    * Called after the QueryPanel has performed all of its rendering operations.
@@ -418,6 +442,29 @@ MDSS.QueryBase.prototype = {
     // Abstract
   },
 
+  /**
+   * Handler for when a new thematic layer type is selected.
+   */
+  thematicLayerSelected : function(layerType)
+  {
+    // Update the thematic layer for mapping. This is the only forced
+    // save due to required artifact dependencies.
+    var request = new MDSS.Request({
+      thisRef : this,
+      layerType : layerType,
+      onSuccess : function()
+      {
+        var enable = this.layerType != null && this.layerType !== '';
+        this.thisRef._queryPanel.toggleThematicSettings(enable);
+      }
+    });
+    
+    var savedSearchView = this._queryPanel.getCurrentSavedSearch();
+    var thematicLayerId = (savedSearchView != null ? savedSearchView.getThematicLayerId() : "");    
+    
+    Mojo.$.dss.vector.solutions.query.ThematicLayer.changeLayerType(request, thematicLayerId, layerType);
+  },
+  
   _delegateToOption : function(e, attribute)
   {
     var select = e.target;
@@ -432,22 +479,54 @@ MDSS.QueryBase.prototype = {
   {
     var request = new MDSS.Request({
       thisRef : this,
+      savedSearchId : savedSearchId,
       onSuccess: function(savedSearchView){
 
         this.thisRef._resetToDefault();
+        this.thisRef._queryPanel.clearAllDefinedLayers();
 
         this.thisRef._queryPanel.setCurrentSavedSearch(savedSearchView);
 
-        // set the XML
+        // set the XML and config
         this.thisRef._loadQueryState(savedSearchView);
 
-        // set the config
-
         // set the layers
+        var request2 = new MDSS.Request({
+          thisRef : this.thisRef,
+          onSuccess : function(layerViews){
+          
+            for(var i=0; i<layerViews.length; i++)
+            {
+              var layerView = layerViews[i];
+              
+              if(layerView.getIsThematic())
+              {
+                var type = layerView.getThematicType();
+                var valid = type != null && type !== '';
+                if(valid)
+                {
+                  // set the selected thematic layer (the list will be populatd by now)
+                  this.thisRef._queryPanel.setSelectedThematicLayer(type);
+                }
+                
+                this.thisRef._queryPanel.toggleThematicSettings(valid);
+              }
+              else
+              {
+                var layerId = layerView.getLayerId();
+                var type = layerView.getUniversalType();
+                
+                this.thisRef._queryPanel.addDefinedLayer(layerId, type);
+              }
+            }
+          }
+        });
+        
+        Mojo.$.dss.vector.solutions.query.SavedSearch.getAllLayers(request2, this.savedSearchId);
       }
     });
 
-    Mojo.$.dss.vector.solutions.query.SavedSearch.getAsView(request, savedSearchId, true, true);
+    Mojo.$.dss.vector.solutions.query.SavedSearch.loadSearch(request, savedSearchId);
   },
 
   _resetToDefault : function()
@@ -528,7 +607,7 @@ MDSS.QueryBase.prototype = {
   _saveQueryListener : function(modal, params, action)
   {
     var view = new Mojo.$.dss.vector.solutions.query.SavedSearchView();
-    this._populateSearch(params, view);
+    this._populateSearch(params != null ? params['savedQueryView.queryName'] : null, view);
 
     var request = new MDSS.Request({
       thisRef: this,
@@ -550,20 +629,20 @@ MDSS.QueryBase.prototype = {
     Mojo.$.dss.vector.solutions.query.SavedSearch.saveSearch(request, view);
   },
 
-  _populateSearch : function(params, view)
+  _populateSearch : function(queryName, view)
   {
     var queryXML = this._constructQuery();
     var xml = queryXML.getXML();
     var queryType = this._getQueryType();
 
-    if(params != null)
+    if(queryName != null)
     {
-      view.setQueryName(params['savedQueryView.queryName']);
+      view.setQueryName(queryName);
     }
 
     view.setQueryXml(xml);
     view.setConfig(Mojo.util.getJSON(this._config));
-    view.setThematicLayer(/*this._geoEntityQueryType*/''); // FIXME this needs to be changed
+    view.setThematicLayer(this._queryPanel.getCurrentThematicLayer());
     view.setQueryType(queryType);
   },
 
@@ -581,8 +660,10 @@ MDSS.QueryBase.prototype = {
    * Subclasses must override this method and use the returned
    * object according their specific use case.
    */
-  _constructQuery : function()
+  _constructQuery : function(forMapping)
   {
+    forMapping = forMapping || false; 
+  
   	var queryXML = new MDSS.QueryXML.Query();
 
     if(this._allPathsQuery != null)
@@ -590,24 +671,29 @@ MDSS.QueryBase.prototype = {
       queryXML.addEntity(this._allPathsQuery);
     }
 
-    // geo entity
-    /*
-     * Don't add the GeoEntity queries. ValueQuery object
-     * will be used on the backend instead to map to the selectables.
-    var entities = Mojo.util.getValues(this._geoEntityTypes);
-    for(var i=0; i<entities.length; i++)
+    if(forMapping)
     {
-     var entity = entities[i];
-     queryXML.addEntity(entity);
-    }*/
-
-    var geoSelectables = Mojo.util.getKeys(this._geoEntitySelectables);
-    for(var i=0; i<geoSelectables.length; i++)
+      // only include the thematic layer as an entity in the query.
+      // The selectables (data column and entity name) will be provided
+      // by a ValueQuery in the business layer
+      
+      var layer = this._queryPanel.getCurrentThematicLayer();
+      if(layer != null && layer != '')
+      {
+        var entity = new MDSS.QueryXML.Entity(layer, layer);
+        queryXML.addEntity(entity);
+      }
+    }
+    else
     {
-     var name = geoSelectables[i];
-     var selectable = this._geoEntitySelectables[name];
+      var geoSelectables = Mojo.util.getKeys(this._geoEntitySelectables);
+      for(var i=0; i<geoSelectables.length; i++)
+      {
+        var name = geoSelectables[i];
+        var selectable = this._geoEntitySelectables[name];
 
-     queryXML.addSelectable(name, selectable);
+        queryXML.addSelectable(name, selectable);
+      }
     }
 
     // geo id restrictions (WHERE clause)
@@ -785,20 +871,20 @@ MDSS.QueryBase.prototype = {
       this._config.addSelectedUniversal(geoEntityView.getEntityType());
     }
 
-    this._queryPanel.setAvailableThematicLayers(this._config.getSelectedUniversals());
+    this._queryPanel.setAvailableThematicLayers(selectedUniversals);
 
     // remove all prior conditions
     this._geoIdConditions = {};
+    this._allPathsQuery = null;
+
+    if(criteriaEntities.length > 0)
+    {
+      this._allPathsQuery = new MDSS.QueryXML.Entity(this.ALL_PATHS, this.ALL_PATHS);
+    }
 
     for(var i=0; i<criteriaEntities.length; i++)
     {
       var geoEntityView = criteriaEntities[i];
-
-      // add the type as a selectable if it does not exist
-      if(this._allPathsQuery == null)
-      {
-        this._allPathsQuery = new MDSS.QueryXML.Entity(this.ALL_PATHS, this.ALL_PATHS);
-      }
 
       var attribute = new MDSS.QueryXML.Attribute(this._allPathsQuery.getAlias(), 'parentGeoEntity');
       var selectable = new MDSS.QueryXML.Selectable(attribute);
@@ -941,9 +1027,19 @@ MDSS.QueryBase.prototype = {
   /**
    *
    */
-  deleteLayer : function()
+  deleteLayer : function(layerId, type)
   {
-
+    var request = new MDSS.Request({
+      thisRef : this,
+      layerId : layerId,
+      type : type,
+      onSuccess : function()
+      {
+        this.thisRef._queryPanel.removeDefinedLayer(this.layerId, this.type);
+      }
+    });
+    
+    Mojo.$.dss.vector.solutions.query.MappingController.deleteLayer(request, layerId);
   },
 
   /**
@@ -979,10 +1075,12 @@ MDSS.QueryBase.prototype = {
     var thematicVar;
     if(thematicVarStr !== '')
     {
+      // The string values are set in editVariableStyles.jsp
       thematicVar = new Mojo.$.dss.vector.solutions.query.ThematicVariable();
-      var pieces = thematicVarStr.split('-');
+      var pieces = thematicVarStr.split(',');
       thematicVar.setEntityAlias(pieces[0]);
       thematicVar.setAttributeName(pieces[1]);
+      thematicVar.setUserAlias(pieces[2]);
     }
     else
     {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-public abstract class SavedSearchDTO extends SavedSearchDTOBase
+public class SavedSearchDTO extends SavedSearchDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
   private static final long serialVersionUID = 1240901012205L;
   

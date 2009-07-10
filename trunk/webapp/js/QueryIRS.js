@@ -3,7 +3,14 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
 	  initialize : function(queryItemGroups, queryList)
 	  {
+	  
 	  	MDSS.QueryBase.prototype.initialize.call(this);
+
+        if(arguments.length === 1 && arguments[0] == null)
+        {
+          // FIXME used for inheritance optimization
+          return;
+        }
 
 	    // list of columns that have been added before a call to render()
 	    this._preconfiguredColumns = [];
@@ -28,13 +35,13 @@ MDSS.QueryIRS.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._buildColumns();
 	  },
 
-	  /**
-	   * Returns the method to save this Entomology search.
-	   */
-	  _getSaveQueryMethod : function()
-	  {
-	  	return Mojo.$.dss.vector.solutions.query.EntomologySearch.saveSearch;
-	  },
+      /**
+       * Returns the method to save this IRS search.
+       */
+      _getQueryType: function()
+      {
+      	return 'QueryIRS';
+      },
 
 	  /**
 	   * Returns the controller action to invoke when exporting the query to XML.

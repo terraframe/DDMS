@@ -24,5 +24,5 @@ public class QueryConstants implements Reloadable
   
   public static final String QUERY_INDICATOR_SURVEY ="QueryIndicatorSurvey";
   
-  public static final String QUERY_IRS ="QueryIndicatorSurvey";
+  public static final String QUERY_IRS ="QueryIRS";
 }

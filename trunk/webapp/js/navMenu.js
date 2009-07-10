@@ -142,7 +142,7 @@ var aSubmenuData = [
         id: "Surveys",
         itemdata: [
                    	{ text: "View_Surveys(026)", url: "dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" , visibleTo:'Administrator'},
-                 	//	{ text: "Query_Indicator_Surveys(140)", url: "dss.vector.solutions.query.QueryController.queryIndicatorSurvey.mojo" , visibleTo:'Administrator'},
+                 	{ text: "Query_Indicator_Surveys(140)", url: "dss.vector.solutions.query.QueryController.querySurvey.mojo" , visibleTo:'Administrator'},
 
         ]
     },

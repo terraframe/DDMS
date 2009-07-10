@@ -64,5 +64,14 @@ public abstract class Layer extends LayerBase implements com.terraframe.mojo.gen
     layer.unlock();
     return layer;
   }
+  
+  public LayerView getAsView()
+  {
+    LayerView view = new LayerView();
+    
+    view.setLayerId(this.getId());
+    
+    return view;
+  }
 
 }

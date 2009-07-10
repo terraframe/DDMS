@@ -51,4 +51,14 @@ public class UniversalLayer extends UniversalLayerBase implements com.terraframe
     return layer;
   }
 
+  public LayerView getAsView()
+  {
+    LayerView view = super.getAsView();
+    
+    view.setIsThematic(false);
+    view.setUniversalType(this.getGeoHierarchy().getGeoEntityClass().definesType());
+    
+    return view;
+  }  
+  
 }
