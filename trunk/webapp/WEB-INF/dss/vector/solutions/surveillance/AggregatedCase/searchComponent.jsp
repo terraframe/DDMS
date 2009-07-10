@@ -54,7 +54,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
         <mjl:message/>
       </mjl:messages>
     </dd>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.selectAgeGroup.mojo" name="search.button" value="Search" />
+    <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.selectAgeGroup.mojo" name="search.button" id="button.id" value="Search" />
   </dl>
 </mjl:form>
 <jsp:include page="/WEB-INF/excelButtons.jsp">
@@ -65,6 +65,8 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
 
 <script type="text/javascript">
   var validate = function(e, obj){
+	var button = document.getElementById('button.id').disabled=true;
+	  
     var year = document.getElementById('year');
     var period = document.getElementById('period');
     var periodType;
@@ -92,7 +94,9 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
       var request = new MDSS.Request({
           onSend: function(){},
           onComplete: function(){},
-          onSuccess : function(){},
+          onSuccess : function(){
+        	  var button = document.getElementById('button.id').disabled=false;              
+          },
           onFailure : function(){},
           onProblemExceptionDTO : function(e){
               var problems = e.getProblems();
@@ -116,6 +120,9 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
       Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView.validateEpiDate(request, periodType, parseInt(period.value), parseInt(year.value));
     }
   }
+
+  // Initially disable the search button
+  var button = document.getElementById('button.id').disabled=true;
 
   var form = document.getElementById('searchAggregatedCase');
   var periodType = form.periodType;

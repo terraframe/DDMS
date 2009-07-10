@@ -833,11 +833,20 @@ MDSS.QueryPanel.prototype = {
    YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
    YAHOO.util.Dom.setAttribute(searchIdInput, 'name', 'savedSearchId');
 
+   var queryTypeInput = document.createElement('input');
+   YAHOO.util.Dom.setAttribute(queryTypeInput, 'type', 'hidden');
+   YAHOO.util.Dom.setAttribute(queryTypeInput, 'name', 'queryType');
+   
+   var queryTypeInput = document.createElement('input');
+   YAHOO.util.Dom.setAttribute(queryTypeInput, 'type', 'hidden');
+   YAHOO.util.Dom.setAttribute(queryTypeInput, 'name', 'type');   
+
    var obj = {
      form: form,
      xmlInput: xmlInput,
      geoEntityTypeInput : geoEntityTypeInput,
-     searchIdInput : searchIdInput
+     searchIdInput : searchIdInput,
+     queryTypeInput : queryTypeInput
    };
 
    var exportReportButton = document.createElement('input');
@@ -849,6 +858,7 @@ MDSS.QueryPanel.prototype = {
    form.appendChild(xmlInput);
    form.appendChild(geoEntityTypeInput);
    form.appendChild(searchIdInput);
+   form.appendChild(queryTypeInput);
 
    document.getElementById('ReportFormContainer').appendChild(form);
 

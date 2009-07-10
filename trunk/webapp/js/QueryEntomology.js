@@ -64,6 +64,16 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  {
 	  	return 'dss.vector.solutions.query.QueryController.exportEntomologyQueryToCSV.mojo';
 	  },
+	  
+	  _getExportReportAction : function()
+	  {
+	  	return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
+	  },
+	  
+	  _getReportQueryType : function()
+	  {
+		  return 'ENTOMOLOGY';
+	  },
 
 	  /**
 	   * Final function called before query is executed.

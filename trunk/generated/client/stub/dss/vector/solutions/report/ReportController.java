@@ -16,6 +16,8 @@ import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.birt.report.engine.api.EngineConstants;
 import org.eclipse.birt.report.engine.api.EngineException;
@@ -38,15 +40,18 @@ import au.com.bytecode.opencsv.CSVReader;
 import com.terraframe.mojo.constants.ClientProperties;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.dataaccess.database.IDGenerator;
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.util.FileIO;
 
+import dss.vector.solutions.QueryTypeDTO;
+import dss.vector.solutions.entomology.MosquitoDTO;
+import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.query.SavedSearchDTO;
 import dss.vector.solutions.query.SavedSearchRequiredExceptionDTO;
 import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 import dss.vector.solutions.util.BirtEngine;
 
-public class ReportController extends ReportControllerBase implements
-    com.terraframe.mojo.generation.loader.Reloadable
+public class ReportController extends ReportControllerBase implements Reloadable
 {
   private static final long serialVersionUID    = 1236706138416L;
 
@@ -56,19 +61,43 @@ public class ReportController extends ReportControllerBase implements
 
   private String            FLAT_FILE_EXTENSION = "org.eclipse.datatools.connectivity.oda.flatfile";
 
-  public ReportController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public ReportController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
   }
-
-  @Override
-  public void generateReport(String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
+  
+  public void generateReport(String queryXML, String config, String savedSearchId, String type) throws IOException, ServletException
   {
-    buildReport(queryXML, config, savedSearchId);
+    try
+    {
+      validateParameters(queryXML, config, savedSearchId);
+            
+      buildReport(savedSearchId, this.getCSV(queryXML, config, savedSearchId, QueryTypeDTO.valueOf(type)));
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }        
   }
 
+  private InputStream getCSV(String queryXML, String config, String savedSearchId, QueryTypeDTO type)
+  {
+    if(type.equals(QueryTypeDTO.AGGREGATED_CASES))
+    {
+      return AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
+    }
+    else if(type.equals(QueryTypeDTO.ENTOMOLOGY))
+    {
+      return MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId, new String[]{});
+    }
+    else if(type.equals(QueryTypeDTO.IRS))
+    {
+      return AbstractSprayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId, new String[]{});
+    }
+
+    throw new RuntimeException("Query Type does not have a CSV exporter defined");
+  }
+  
   private void validateParameters(String queryXML, String geoEntityType, String savedSearchId)
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
@@ -77,24 +106,18 @@ public class ReportController extends ReportControllerBase implements
     }
   }
 
-  private void buildReport(String queryXML, String config, String savedSearchId)
-      throws ServletException, IOException
+  private void buildReport(String savedSearchId, InputStream input) throws ServletException, IOException, SemanticException
   {
     String tempDir = null;
 
     try
     {
-      validateParameters(queryXML, config, savedSearchId);
-
       ClientRequestIF request = this.getClientRequest();
       SavedSearchDTO search = SavedSearchDTO.get(request, savedSearchId);
-
 
       // Get report name and launch the engine
       ServletContext sc = req.getSession().getServletContext();
       IReportEngine engine = BirtEngine.getBirtEngine(sc, request);
-      InputStream input = AggregatedCaseDTO.exportQueryToCSV(request, queryXML, config,
-        savedSearchId);
 
       tempDir = this.generateTempCSVFile(input, TEMP_FILE_NAME);
 
@@ -124,17 +147,12 @@ public class ReportController extends ReportControllerBase implements
     catch (EngineException e)
     {
       String msg = "The provided design is not a valid BIRT design";
-      TemplateExceptionDTO ex = new TemplateExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
-      resp.getWriter().write(ex.getLocalizedMessage());
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
+      throw new TemplateExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
     }
     finally
     {
       // Delete the temp file
-      if(tempDir != null)
+      if (tempDir != null)
       {
         this.deleteTempDirectory(tempDir);
       }
@@ -192,7 +210,7 @@ public class ReportController extends ReportControllerBase implements
       List<String> headers = new LinkedList<String>();
       CSVReader in = new CSVReader(new FileReader(new File(dir + "/" + TEMP_FILE_NAME)), ',', '\"');
 
-      for(String token : in.readNext())
+      for (String token : in.readNext())
       {
         headers.add(token.replaceAll("\"", "").trim());
       }
@@ -267,7 +285,7 @@ public class ReportController extends ReportControllerBase implements
     {
       File directory = new File(file);
 
-      if(directory.exists())
+      if (directory.exists())
       {
         FileIO.deleteDirectory(directory);
       }

@@ -99,7 +99,12 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   {
   	return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
   },
-
+  
+  _getReportQueryType : function()
+  {
+	  return 'AGGREGATED_CASES';
+  },
+  
   _resetToDefault : function()
   {
     for(var i=0; i<this._defaults.length; i++)

@@ -2760,6 +2760,12 @@
             label="Search"
             isQuery="false" />
           <mdAction
+            name="searchAssays"
+            label="Search Assays"
+            isPost="false"
+            isQuery="false"
+            description="Action which forwards the user to a page where they enter in a collection id to use for view mosquito assays"/>
+          <mdAction
             name="viewAssays"
             description="Shows all the assays for this Mosquito collection"
             isPost="false"

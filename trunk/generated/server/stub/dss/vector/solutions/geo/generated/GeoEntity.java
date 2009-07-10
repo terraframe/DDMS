@@ -8,7 +8,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Set;
 
 import com.terraframe.mojo.business.Business;
@@ -29,6 +28,7 @@ import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.gis.dataaccess.AttributeGeometryIF;
 import com.terraframe.mojo.gis.dataaccess.MdAttributeGeometryDAOIF;
+import com.terraframe.mojo.query.AND;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.F;
 import com.terraframe.mojo.query.GeneratedViewQuery;
@@ -46,6 +46,7 @@ import com.terraframe.mojo.util.IdParser;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.ConfirmDeleteEntityException;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
 import dss.vector.solutions.geo.DuplicateParentException;
@@ -633,22 +634,25 @@ public abstract class GeoEntity extends GeoEntityBase implements
    */
   public List<GeoEntity> getPrunedChildren(List<String> types)
   {
-    List<GeoEntity> list = new LinkedList<GeoEntity>();
-    Queue<GeoEntity> queue = new LinkedList<GeoEntity>(this.getImmediateChildren());
-
-    while (!queue.isEmpty())
+    List<Condition> conditions = new LinkedList<Condition>();
+    
+    QueryFactory factory = new QueryFactory();
+    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(factory);    
+    AllPathsQuery query = new AllPathsQuery(factory);
+    
+    for(String type : types)
     {
-      GeoEntity child = queue.poll();
-
-      if (types.contains(child.getType()))
-      {
-        list.add(child);
-      }
-      else
-      {
-        queue.addAll(child.getImmediateChildren());
-      }
+      conditions.add(query.getChildUniversal().EQ(MdClass.getMdClass(type)));
     }
+    
+    Condition[] array = conditions.toArray(new Condition[conditions.size()]);
+    Condition and = AND.get(query.getParentGeoEntity().EQ(this), OR.get(array));
+    
+    query.WHERE(and);
+    
+    geoEntityQuery.WHERE(geoEntityQuery.getId().EQ(query.getChildGeoEntity().getId()));
+
+    List<GeoEntity> list = new LinkedList<GeoEntity>(geoEntityQuery.getIterator().getAll());
 
     return list;
   }
@@ -660,22 +664,25 @@ public abstract class GeoEntity extends GeoEntityBase implements
 
   public List<GeoEntity> getPrunedParents(List<String> types)
   {
-    List<GeoEntity> list = new LinkedList<GeoEntity>();
-    Queue<GeoEntity> queue = new LinkedList<GeoEntity>(this.getImmediateParents());
-
-    while (!queue.isEmpty())
+    List<Condition> conditions = new LinkedList<Condition>();
+    
+    QueryFactory factory = new QueryFactory();
+    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(factory);    
+    AllPathsQuery query = new AllPathsQuery(factory);
+    
+    for(String type : types)
     {
-      GeoEntity parent = queue.poll();
-
-      if (types.contains(parent.getType()))
-      {
-        list.add(parent);
-      }
-      else
-      {
-        queue.addAll(parent.getImmediateParents());
-      }
+      conditions.add(query.getParentUniversal().EQ(MdClass.getMdClass(type)));
     }
+    
+    Condition[] array = conditions.toArray(new Condition[conditions.size()]);
+    Condition and = AND.get(query.getChildGeoEntity().EQ(this), OR.get(array));
+    
+    query.WHERE(and);
+    
+    geoEntityQuery.WHERE(geoEntityQuery.getId().EQ(query.getParentGeoEntity().getId()));
+
+    List<GeoEntity> list = new LinkedList<GeoEntity>(geoEntityQuery.getIterator().getAll());
 
     return list;
   }

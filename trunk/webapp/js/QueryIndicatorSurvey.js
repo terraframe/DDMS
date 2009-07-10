@@ -52,6 +52,16 @@ MDSS.QueryIndicatorSurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  	return 'QueryIndicatorSurvey';
 	  },
 
+	  _getExportReportAction : function()
+	  {
+	  	return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
+	  },
+	  
+	  _getReportQueryType : function()
+	  {
+		  return 'INDICATOR_SURVEY';
+	  },
+
 	  /**
 	   * Final function called before query is executed.
 	   * Any last minute cleanup is done here. The this

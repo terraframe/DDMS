@@ -158,7 +158,7 @@ MDSS.QueryBase.prototype = {
   },
 
 
-  exportReport : function(form, xmlInput, geoEntityTypeInput, searchIdInput)
+  exportReport : function(form, xmlInput, geoEntityTypeInput, searchIdInput, queryTypeInput)
   {
     var queryXML = this._constructQuery();
     var xml = queryXML.getXML();
@@ -167,11 +167,13 @@ MDSS.QueryBase.prototype = {
     var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
 
   	var action = this._getExportReportAction();
+  	    
     form.action = action;
 
     xmlInput.innerHTML = xml;
     geoEntityTypeInput.value = this._config.getJSON();
     searchIdInput.value = savedSearchId;
+    queryTypeInput.value = this._getReportQueryType();
     form.submit();
   },
 
@@ -306,6 +308,11 @@ MDSS.QueryBase.prototype = {
   },
 
   _getExportReportAction : function()
+  {
+    // abstract
+  },
+
+  _getReportQueryType : function()
   {
     // abstract
   },

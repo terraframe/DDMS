@@ -104,7 +104,7 @@ public class MosquitoCollectionPointController extends MosquitoCollectionPointCo
     if (problems.size() > 0)
     {
       throw new ProblemExceptionDTO("", problems);
-    }
+    }    
   }
 
   public void failSearchByGeoIdAndDate(String geoId, String startDate, String endDate)
