@@ -43,79 +43,21 @@
 <%@page import="com.terraframe.mojo.dataaccess.MdBusinessDAOIF"%>
 <%@page import="com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO"%>
 <%@page import="com.terraframe.mojo.constants.MdAttributeVirtualInfo"%>
-<%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%><c:set var="page_title" value="Query_Entomology"  scope="request"/>
+<%@page import="com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO"%>
+<%@page import="dss.vector.solutions.entomology.MosquitoView"%>
+<%@page import="java.util.Locale"%><c:set var="page_title" value="Query_Entomology"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
 <jwr:script src="/bundles/queryBundle.js" useRandomParam="false"/>
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
-<%!static String getAssayColumns(MosquitoViewDTO view, Class superAssayClass , ClientRequestIF clientRequest) throws JSONException{
-  String s = "[";
-  Class viewClass = view.getClass();
-  MdAttributeVirtualDTO[] mdArray = MosquitoViewDTO.getAccessors(clientRequest,superAssayClass.getCanonicalName());
-  for (MdAttributeVirtualDTO md : mdArray)
-  {
-    String acc = md.getAccessor();
-      if(acc.length() == 0)
-      {
-        acc =  md.getAttributeName();
-      }
-
-      String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
-      MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
-
-      MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete
-          .getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
-
-
-      s += "{";
-      s += "viewAccessor:'"+acc+"',";
-      s += "attributeName:'testResult.displayLabel.currentValue',";
-      s += "type:'"+ mdClass.definesType() + "',";
-//    s += "dtoType:'" + md.getMdAttributeConcrete().getType() + "',";
-//    s += "dtoType:'" + md.getType() + "',";
-      s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + "'";
-      s += "},\n";
-
-      try
-      {
-        Class<?> c = view.getClass();
-        String testMdGetter = "get" + acc.substring(0, 1).toUpperCase() + acc.substring(1) + "MethodMd";
-        AttributeReferenceMdDTO testMd = (AttributeReferenceMdDTO) c.getMethod(testMdGetter).invoke(view);
-/*
-        s += "{";
-        s += "viewAccessor:'"+acc+"Method',";
-        s += "attributeName:'testMethod',";
-        s += "type:'"+ mdClass.definesType() + "',";
-        s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " " + testMd.getDisplayLabel() +"'";
-        s += "},\n";
-*/
-
-        s += "{";
-        s += "viewAccessor:'"+acc+"Method',";
-        s += "attributeName:'"+acc.toLowerCase()+"_TESTMETHOD',";
-        s += "type:'sqlcharacter',";
-        s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " " + testMd.getDisplayLabel() +"'";
-        s += "},\n";
-
-      }
-      catch(Exception e)
-      {
-        System.out.print(e);
-      }
-
-
-  }
-  return s + "]";
-}%>
-
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     String[] mosquitoTypes = new String[]{ MosquitoDTO.CLASS, SpecieDTO.CLASS, MosquitoViewDTO.CLASS, UninterestingSpecieGroupDTO.CLASS,MosquitoCollectionDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
     MosquitoDTO mosquito = new MosquitoDTO(requestIF);
-    MosquitoViewDTO mosquitoView = new MosquitoViewDTO(requestIF);
+    MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
     JSONArray mosquitoAttribs = new JSONArray(mosquito.getAttributeNames());
 %>
 
@@ -136,7 +78,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     var queryList = <%= (String) request.getAttribute("queryList") %>;
     var assayTree = <%= (String) request.getAttribute("assayTree") %>;
 
-     dropDownMaps = {<%=Halp.getDropDownMaps(mosquitoView,  requestIF)%>};
+     dropDownMaps = {<%=Halp.getDropDownMaps(mosquitoViewDTO,  requestIF)%>};
 
     //var mosquitoAttribs = <%=mosquitoAttribs%>
 
@@ -203,11 +145,11 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 
     var assays = [];
 
-    var infectivityColumns = <%=getAssayColumns(mosquitoView,InfectivityAssayTestResult.class,requestIF)%>;
+    var infectivityColumns = <%=MosquitoViewDTO.getAssayColumns(requestIF,InfectivityAssayTestResult.class.getCanonicalName())%>;
 
-    var targetSiteColumns = <%=getAssayColumns(mosquitoView,TargetSiteAssayTestResult.class,requestIF)%>;
+    var targetSiteColumns = <%=MosquitoViewDTO.getAssayColumns(requestIF,TargetSiteAssayTestResult.class.getCanonicalName())%>;
 
-    var metabolicColumns = <%=getAssayColumns(mosquitoView,MetabolicAssayTestResult.class,requestIF)%>;
+    var metabolicColumns = <%=MosquitoViewDTO.getAssayColumns(requestIF,MetabolicAssayTestResult.class.getCanonicalName())%>;
 
     assays.push(mapAssayAttribs(infectivityColumns));
     assays.push(mapAssayAttribs(targetSiteColumns));

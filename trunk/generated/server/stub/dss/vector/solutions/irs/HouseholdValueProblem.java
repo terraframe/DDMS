@@ -2,7 +2,7 @@ package dss.vector.solutions.irs;
 
 public class HouseholdValueProblem extends HouseholdValueProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1246576832106L;
+  private static final long serialVersionUID = 1246651831930L;
   
   public HouseholdValueProblem()
   {

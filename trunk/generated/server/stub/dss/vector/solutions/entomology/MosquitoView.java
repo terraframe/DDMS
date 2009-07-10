@@ -276,4 +276,69 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     return list.toArray(new MdAttributeVirtual[list.size()]);
   }
 
+  // This function is to get the column definitions for the query.
+  public static String getAssayColumns(String superAssayClass){
+    MosquitoView view = new MosquitoView();
+    String s = "[";
+    MdAttributeVirtual[] mdArray = MosquitoView.getAccessors(superAssayClass);
+    for (MdAttributeVirtual md : mdArray)
+    {
+      String acc = md.getAccessor();
+        if(acc.length() == 0)
+        {
+          acc =  md.getAttributeName();
+        }
+
+        String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
+        MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
+
+        MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
+
+        s += "{";
+        s += "viewAccessor:'"+acc+"',";
+        s += "attributeName:'testResult.displayLabel.currentValue',";
+        s += "type:'"+ mdClass.definesType() + "',";
+//      s += "dtoType:'" + md.getMdAttributeConcrete().getType() + "',";
+//      s += "dtoType:'" + md.getType() + "',";
+        s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + "'";
+        s += "},\n";
+
+        try
+        {
+          Class<?> c = view.getClass();
+          String testMdGetter =  acc + "Method";
+          //AttributeReference testMd = (AttributeReference) c.getMethod(testMdGetter).invoke(view);
+          String testMethodID = view.getMdAttributeDAO(testMdGetter).getId();
+          MdAttributeVirtual testMethodMd = MdAttributeVirtual.get(testMethodID);
+
+
+  /*
+          s += "{";
+          s += "viewAccessor:'"+acc+"Method',";
+          s += "attributeName:'testMethod',";
+          s += "type:'"+ mdClass.definesType() + "',";
+          s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " " + testMd.getDisplayLabel() +"'";
+          s += "},\n";
+  */
+
+          s += "{";
+          s += "viewAccessor:'"+acc+"Method',";
+          s += "attributeName:'"+acc.toLowerCase()+"_TESTMETHOD',";
+          s += "type:'sqlcharacter',";
+          //FIXME
+          //s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " " + testMethodMd.getDisplayLabel() + "'";
+          s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " TestMethod";
+          s += "},\n";
+
+        }
+        catch(Exception e)
+        {
+          System.out.print(e);
+        }
+
+
+    }
+    return s + "]";
+  }
+
 }

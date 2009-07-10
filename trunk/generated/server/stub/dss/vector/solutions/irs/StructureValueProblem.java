@@ -2,7 +2,7 @@ package dss.vector.solutions.irs;
 
 public class StructureValueProblem extends StructureValueProblemBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1246576874196L;
+  private static final long serialVersionUID = 1246651916623L;
   
   public StructureValueProblem()
   {
