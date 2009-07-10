@@ -70,11 +70,6 @@ public class ReportController extends ReportControllerBase implements Reloadable
   {
     try
     {
-      if(true)
-      {
-        return;
-      }
-      
       validateParameters(queryXML, config, savedSearchId);
             
       buildReport(savedSearchId, this.getCSV(queryXML, config, savedSearchId, QueryTypeDTO.valueOf(type)));
@@ -132,7 +127,9 @@ public class ReportController extends ReportControllerBase implements Reloadable
       this.configureDataSet(tempDir, design);
 
       // set output options
-      resp.setHeader("Content-Disposition", "attachment;filename=" + search.getQueryName() + ".pdf");
+      String queryName = search.getQueryName().replaceAll(" ", "");
+      
+      resp.setHeader("Content-Disposition", "attachment;filename=" + queryName + ".pdf");
       IRenderOption options = new RenderOption();
       options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
       options.setOutputStream(resp.getOutputStream());

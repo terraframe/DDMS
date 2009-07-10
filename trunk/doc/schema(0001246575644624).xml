@@ -259,8 +259,8 @@
               order="0"
               type="java.lang.String" />
             <mdParameter
-              name="geoEntityType"
-              label="GeoEntity type"
+              name="config"
+              label="Config"
               description="The type on which to gather spatial data"
               order="1"
               type="java.lang.String" />
