@@ -78,7 +78,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  
 	  _getReportQueryType : function()
 	  {
-		  return 'ENTOMOLOGY';
+		return 'ENTOMOLOGY';
 	  },
 
 	  /**
@@ -302,7 +302,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._visibleSelectables[attribute.getKey()] = selectable;
 
 	    // ADD THEMATIC VARIABLE
-	    this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
+	    this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
 	  },
 
 
@@ -418,7 +418,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      this._queryPanel.insertColumn(attribute.getColumnObject());
 
 	      // ADD THEMATIC VARIABLE
-	      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
+	      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
 	    }
 	    else
 	    {

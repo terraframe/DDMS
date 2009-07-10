@@ -866,9 +866,9 @@ MDSS.QueryPanel.prototype = {
     var xmlInput = document.createElement('textarea');
     YAHOO.util.Dom.setAttribute(xmlInput, 'name', 'queryXML');
 
-    var geoEntityTypeInput = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(geoEntityTypeInput, 'type', 'hidden');
-    YAHOO.util.Dom.setAttribute(geoEntityTypeInput, 'name', 'geoEntityType');
+    var config = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(config, 'type', 'hidden');
+    YAHOO.util.Dom.setAttribute(config, 'name', 'config');
 
     var searchIdInput = document.createElement('input');
     YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
@@ -877,7 +877,7 @@ MDSS.QueryPanel.prototype = {
     var obj = {
       form: form,
       xmlInput: xmlInput,
-      geoEntityTypeInput : geoEntityTypeInput,
+      config : config,
       searchIdInput : searchIdInput
     };
 
@@ -888,7 +888,7 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Event.on(exportCSVButton, 'click', this._exportCSV, obj, this);
 
     form.appendChild(xmlInput);
-    form.appendChild(geoEntityTypeInput);
+    form.appendChild(config);
     form.appendChild(searchIdInput);
 
     document.getElementById('CSVFormContainer').appendChild(form);
@@ -908,9 +908,9 @@ MDSS.QueryPanel.prototype = {
    var xmlInput = document.createElement('textarea');
    YAHOO.util.Dom.setAttribute(xmlInput, 'name', 'queryXML');
 
-   var geoEntityTypeInput = document.createElement('input');
-   YAHOO.util.Dom.setAttribute(geoEntityTypeInput, 'type', 'hidden');
-   YAHOO.util.Dom.setAttribute(geoEntityTypeInput, 'name', 'geoEntityType');
+   var config = document.createElement('input');
+   YAHOO.util.Dom.setAttribute(config, 'type', 'hidden');
+   YAHOO.util.Dom.setAttribute(config, 'name', 'config');
 
    var searchIdInput = document.createElement('input');
    YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
@@ -927,7 +927,7 @@ MDSS.QueryPanel.prototype = {
    var obj = {
      form: form,
      xmlInput: xmlInput,
-     geoEntityTypeInput : geoEntityTypeInput,
+     config : config,
      searchIdInput : searchIdInput,
      queryTypeInput : queryTypeInput
    };
@@ -939,7 +939,7 @@ MDSS.QueryPanel.prototype = {
    YAHOO.util.Event.on(exportReportButton, 'click', this._exportReport, obj, this);
 
    form.appendChild(xmlInput);
-   form.appendChild(geoEntityTypeInput);
+   form.appendChild(config);
    form.appendChild(searchIdInput);
    form.appendChild(queryTypeInput);
 
@@ -962,9 +962,9 @@ MDSS.QueryPanel.prototype = {
     var xmlInput = document.createElement('textarea');
     YAHOO.util.Dom.setAttribute(xmlInput, 'name', 'queryXML');
 
-    var geoEntityTypeInput = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(geoEntityTypeInput, 'type', 'hidden');
-    YAHOO.util.Dom.setAttribute(geoEntityTypeInput, 'name', 'geoEntityType');
+    var config = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(config, 'type', 'hidden');
+    YAHOO.util.Dom.setAttribute(config, 'name', 'config');
 
     var searchIdInput = document.createElement('input');
     YAHOO.util.Dom.setAttribute(searchIdInput, 'type', 'hidden');
@@ -973,7 +973,7 @@ MDSS.QueryPanel.prototype = {
     var obj = {
       form: form,
       xmlInput: xmlInput,
-      geoEntityTypeInput : geoEntityTypeInput,
+      config : config,
       searchIdInput : searchIdInput
     };
 
@@ -984,7 +984,7 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Event.on(exportXLSButton, 'click', this._exportXLS, obj, this);
 
     form.appendChild(xmlInput);
-    form.appendChild(geoEntityTypeInput);
+    form.appendChild(config);
     form.appendChild(searchIdInput);
 
     document.getElementById('XLSFormContainer').appendChild(form);

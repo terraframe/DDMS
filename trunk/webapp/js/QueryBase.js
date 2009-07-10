@@ -69,7 +69,7 @@ MDSS.QueryBase.prototype = {
     this._currentPage = page;
   },
 
-  exportCSV : function(form, xmlInput, geoEntityTypeInput, searchIdInput)
+  exportCSV : function(form, xmlInput, config, searchIdInput)
   {
     var queryXML = this._constructQuery();
     var xml = queryXML.getXML();
@@ -81,7 +81,7 @@ MDSS.QueryBase.prototype = {
     form.action = action;
 
     xmlInput.innerHTML = xml;
-    geoEntityTypeInput.value = this._config.getJSON();
+    config.value = this._config.getJSON();
     searchIdInput.value = savedSearchId;
     form.submit();
   },
@@ -164,7 +164,7 @@ MDSS.QueryBase.prototype = {
   },
 
 
-  exportReport : function(form, xmlInput, geoEntityTypeInput, searchIdInput, queryTypeInput)
+  exportReport : function(form, xmlInput, config, searchIdInput, queryTypeInput)
   {
     var queryXML = this._constructQuery();
     var xml = queryXML.getXML();
@@ -177,7 +177,7 @@ MDSS.QueryBase.prototype = {
     form.action = action;
 
     xmlInput.innerHTML = xml;
-    geoEntityTypeInput.value = this._config.getJSON();
+    config.value = this._config.getJSON();
     searchIdInput.value = savedSearchId;
     queryTypeInput.value = this._getReportQueryType();
     form.submit();
@@ -186,7 +186,7 @@ MDSS.QueryBase.prototype = {
   /**
    * Handler to export the current query to an Excel file as a download.
    */
-  exportXLS : function(form, xmlInput, geoEntityTypeInput, searchIdInput)
+  exportXLS : function(form, xmlInput, config, searchIdInput)
   {
     var queryXML = this._constructQuery();
     var xml = queryXML.getXML();
@@ -198,7 +198,7 @@ MDSS.QueryBase.prototype = {
     form.action = action;
 
     xmlInput.innerHTML = xml;
-    geoEntityTypeInput.value = this._config.getJSON();
+    config.value = this._config.getJSON();
     searchIdInput.value = savedSearchId;
     form.submit();
   },

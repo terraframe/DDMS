@@ -126,16 +126,16 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.ter
       }
     }
 
-    // include the thematic layer (if applicable).
+    // include the thematic variable (if applicable).
     if (thematicLayer != null)
     {
       ThematicVariable thematicVariable = thematicLayer.getThematicVariable();
       if (thematicVariable != null)
       {
         String entityAlias = thematicVariable.getEntityAlias();
-        String attributeName = thematicVariable.getAttributeName();
+        String userAlias = thematicVariable.getUserAlias();
 
-        valueQueryParser.setColumnAlias(entityAlias, attributeName, QueryConstants.THEMATIC_DATA_COLUMN);
+        valueQueryParser.setColumnAlias(entityAlias, userAlias, QueryConstants.THEMATIC_DATA_COLUMN);
       }
     }
 

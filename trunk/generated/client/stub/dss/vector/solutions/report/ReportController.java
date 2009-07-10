@@ -70,6 +70,11 @@ public class ReportController extends ReportControllerBase implements Reloadable
   {
     try
     {
+      if(true)
+      {
+        return;
+      }
+      
       validateParameters(queryXML, config, savedSearchId);
             
       buildReport(savedSearchId, this.getCSV(queryXML, config, savedSearchId, QueryTypeDTO.valueOf(type)));

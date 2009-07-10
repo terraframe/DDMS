@@ -167,89 +167,104 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       }
     }
 
-    // include the thematic layer (if applicable).
+    // include the thematic variable (if applicable).
     if (thematicLayer != null)
     {
       ThematicVariable thematicVariable = thematicLayer.getThematicVariable();
       if (thematicVariable != null)
       {
         String entityAlias = thematicVariable.getEntityAlias();
-        String attributeName = thematicVariable.getAttributeName();
+        String userAlias = thematicVariable.getUserAlias();
 
-        valueQueryParser.setColumnAlias(entityAlias, attributeName, QueryConstants.THEMATIC_DATA_COLUMN);
+        valueQueryParser.setColumnAlias(entityAlias, userAlias, QueryConstants.THEMATIC_DATA_COLUMN);
       }
     }
 
-    // include the geometry of the GeoEntity
+    Map<String, GeneratedEntityQuery> queryMap;
+    MosquitoCollectionQuery collectionQuery;
     if (includeGeometry)
     {
+      /* 
+       * Note that the mapping query does not need to perform the complex left join logic.
+       * This is because the entity name, geo id selectables on different universal types
+       * will not affect the mapping result, so they are omitted.
+       */
+      
       thematicLayer.getGeoHierarchy().getGeoEntityClass();
       MdBusiness geoEntityMd = thematicLayer.getGeoHierarchy().getGeoEntityClass();
+      String thematicLayerType = geoEntityMd.definesType();
 
       MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
-
       String attributeName = mdAttrGeo.getAttributeName();
 
-      // FIXME might need a ValueQuery and might need to go after the code below
-      String type = geoEntityMd.definesType();
-      valueQueryParser.addAttributeSelectable(type, attributeName, "", "");
-      valueQueryParser.addAttributeSelectable(type, GeoEntity.ENTITYNAME, "", QueryConstants.ENTITY_NAME_COLUMN);
-    }
+      valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName, "", "");
+      valueQueryParser.addAttributeSelectable(thematicLayerType, GeoEntity.ENTITYNAME, "", QueryConstants.ENTITY_NAME_COLUMN);
+      
+      queryMap = valueQueryParser.parse();
 
-    List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
-    for (String selectedGeoEntityType : selectedUniversals)
-    {
-      GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
-
-      AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
-      ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
-      MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
-
-      Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName() + "_entityName");
-      Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName() + "_geoId");
-
-      List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
-      Condition[] geoConditions = new Condition[allClasses.size()];
-      for (int i = 0; i < allClasses.size(); i++)
-      {
-        geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
-      }
-
-      geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
-      geoEntityVQ.WHERE(OR.get(geoConditions));
-      geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
-
-      leftJoinValueQueries.add(geoEntityVQ);
-
-      valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
-    }
-
-    Map<String, GeneratedEntityQuery> queryMap = valueQueryParser.parse();
-
-    AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
-    MosquitoCollectionQuery collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
-    if (collectionQuery == null)
-    {
-      collectionQuery = new MosquitoCollectionQuery(queryFactory);
-    }
-
-
-    if (allPathsQuery != null)
-    {
-      List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
-      for (ValueQuery leftJoinVQ : leftJoinValueQueries)
-      {
-        leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
-      }
-
-      int size = leftJoinSelectables.size();
-      if (size > 0)
-      {
-        valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
-      }
-
-      // Join Collection to GeoEntity
+      collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
+      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
+      GeoEntityQuery geoEntityQuery = (GeoEntityQuery) queryMap.get(thematicLayerType);
+      
+      valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
+      
       valueQuery.AND(collectionQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
+    }
+    else
+    {
+      // Normal query (non-mapping)
+      List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
+      for (String selectedGeoEntityType : selectedUniversals)
+      {
+        GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
+
+        AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
+        ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
+        MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
+
+        Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName() + "_entityName");
+        Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName() + "_geoId");
+
+        geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
+
+        List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
+        Condition[] geoConditions = new Condition[allClasses.size()];
+        for (int i = 0; i < allClasses.size(); i++)
+        {
+          geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
+        }
+
+        geoEntityVQ.WHERE(OR.get(geoConditions));
+        geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
+
+        leftJoinValueQueries.add(geoEntityVQ);
+
+        valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
+      }
+
+      queryMap = valueQueryParser.parse();
+
+      collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
+      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
+
+      if (allPathsQuery != null)
+      {
+        List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
+        for (ValueQuery leftJoinVQ : leftJoinValueQueries)
+        {
+          leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
+        }
+
+        int size = leftJoinSelectables.size();
+        if (size > 0)
+        {
+          valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(
+              leftJoinSelectables.toArray(new SelectableSingle[size])));
+        }
+        
+        // Join AggregatedCase to GeoEntity
+        valueQuery.AND(collectionQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
+      }
     }
 
     MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
