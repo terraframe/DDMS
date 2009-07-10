@@ -7,8 +7,9 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import com.terraframe.mojo.business.Mutable;
 import com.terraframe.mojo.dataaccess.io.excel.ExcelColumn;
 import com.terraframe.mojo.dataaccess.io.excel.ImportListener;
+import com.terraframe.mojo.generation.loader.Reloadable;
 
-public class GeoParentListener implements ImportListener
+public class GeoParentListener implements ImportListener, Reloadable
 {
   private String parentGeoEntityId;
   
