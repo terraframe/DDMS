@@ -14,9 +14,14 @@
     </mjl:structColumn>
     <mjl:attributeColumn attributeName="enabled">
     </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="isAbstract">
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="netName">
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="parentLabel">
+    <mjl:attributeColumn attributeName="parentNet">
+      <mjl:row>
+        ${item.parentNet != null ? item.parentNet.displayLabel : ''}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
@@ -24,7 +29,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink display="View" action="dss.vector.solutions.intervention.monitor.NetController.view.mojo" name="view.link">
-          <mjl:property value="${item.concreteId}" name="id" />
+          <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
       <mjl:footer>
