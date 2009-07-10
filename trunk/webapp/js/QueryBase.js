@@ -380,7 +380,9 @@ MDSS.QueryBase.prototype = {
 
     var countCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
+    YAHOO.util.Dom.setAttribute(countCheck, 'id', countAttribute.getKey());
     YAHOO.util.Event.on(countCheck, 'click', that._toggleCount, countAttribute, that);
+    this._defaults.push({element: countCheck, checked:false});
 
     var countSpan = document.createElement('span');
     countSpan.innerHTML = countAttribute.getDisplayLabel() + ' (GB)';
@@ -399,7 +401,9 @@ MDSS.QueryBase.prototype = {
     	var countCheck = document.createElement('input');
 	    YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
       YAHOO.util.Dom.setAttribute(countCheck, 'value', keys[j]);
+      YAHOO.util.Dom.setAttribute(countCheck, 'id', keys[j]);
       YAHOO.util.Event.on(countCheck, 'click', that._dateGroupHandler, keys[j],that);
+      this._defaults.push({element: countCheck, checked: false});
 
 	    var countSpan = document.createElement('span');
 	    countSpan.innerHTML = options[j];

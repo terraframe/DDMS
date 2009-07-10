@@ -301,6 +301,7 @@ MDSS.QueryPanel.prototype = {
 
     this._startDateRangeCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'type', 'checkbox');
+    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'id', 'START_DATE_RANGE');
 
     var endLabel = document.createElement('span');
     endLabel.innerHTML = MDSS.Localized.Query.End_Date;
@@ -312,6 +313,7 @@ MDSS.QueryPanel.prototype = {
 
     this._endDateRangeCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'type', 'checkbox');
+    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id', 'END_DATE_RANGE');
 
     var toggleDatesSpan = document.createElement('span');
     toggleDatesSpan.innerHTML = MDSS.Localized.Toggle_Show;
@@ -340,7 +342,6 @@ MDSS.QueryPanel.prototype = {
       var optionEl = document.createElement('option');
       optionEl.innerHTML = options[j];
       YAHOO.util.Dom.setAttribute(optionEl, 'value', keys[j]);
-      optionEl.id = keys[j];
       //YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
       this._dateGroupBy.appendChild(optionEl);
     }

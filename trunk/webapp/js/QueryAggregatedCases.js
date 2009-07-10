@@ -68,8 +68,9 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     }
 
     // set the default for the date searching
-    var startDate = this._queryPanel.getStartDate();
+    var startDate = this._queryPanel.getStartDate();    
     var startCheck = this._queryPanel.getStartDateCheck();
+    
     var endDate = this._queryPanel.getEndDate();
     var endCheck = this._queryPanel.getEndDateCheck();
     
@@ -241,8 +242,13 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       },
       sqlcharacter : function(entityAlias, attributeName, userAlias){
 
-        chooseOption(userAlias);
-      }
+        checkBox(userAlias);
+      },
+      
+      sqldate : function(entityAlias, attributeName, userAlias){
+
+        checkBox(userAlias);
+      },
     });
 
     var entities = [];
