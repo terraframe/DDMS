@@ -7,7 +7,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   initialize : function(ageGroups, visibleAttributes, orderedGrids, queryList)
   {
   	MDSS.QueryBase.prototype.initialize.call(this);
-
+  	
     if(arguments.length === 1 && arguments[0] == null)
     {
       // FIXME used for inheritance optimization
@@ -16,8 +16,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   	
     // Ref to instance of AggregatedCase (used as template for display labels)
     this._aggregatedCase = new Mojo.$.dss.vector.solutions.surveillance.AggregatedCase();
-
-
 
     // START: query objects that dictate state of the query.
 
@@ -113,94 +111,10 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  return 'AGGREGATED_CASES';
   },
   
-  _resetToDefault : function()
-  {
-    for(var i=0; i<this._defaults.length; i++)
-    {
-      var obj = this._defaults[i];
-      var element = obj.element;
-      if(element.nodeName === 'INPUT' && element.type === 'checkbox')
-      {
-        var checked = obj.checked;
-        if(element.checked !== checked)
-        {
-          if(obj.bypass)
-          {
-            element.checked = checked;
-          }
-          else
-          {
-            element.click();
-          }
-        }
-      }
-      else if(element.nodeName === 'INPUT' && element.type === 'text')
-      {
-        var value = obj.value;
-
-        element.value = value;
-      }
-      else if(element.nodeName === 'SELECT')
-      {
-        var index = obj.index;
-        if(!element.disabled)
-        {
-          element.selectedIndex = index;
-          this._fireClickOnOption(element.options[index]);
-        }
-
-        if(!obj.active && index === 0)
-        {
-          element.disabled = true;
-        }
-      }
-    }
-  },
-
   _loadQueryState : function(view)
   {
     var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
     var thisRef = this;
-
-    function uncheckBox(check)
-    {
-      check = Mojo.util.isString(check) ? document.getElementById(check) : check;
-      if(check != null && check.checked)
-      {
-        check.click();
-      }
-    }
-
-    function checkBox(check)
-    {
-      check = Mojo.util.isString(check) ? document.getElementById(check) : check;
-      if(check != null && !check.checked)
-      {
-        check.click();
-      }
-    }
-
-    function chooseOption(option)
-    {
-      option = Mojo.util.isString(option) ? document.getElementById(option) : option;
-      if(option == null)
-      {
-        return;
-      }
-
-      var select = option.parentNode;
-      var options = select.options;
-      for(var i=0; i<options.length; i++)
-      {
-        if(options[i].id === option.id)
-        {
-          select.selectedIndex = i;
-          break;
-        }
-      }
-
-      thisRef._fireClickOnOption(option);
-    }
 
     var xml = view.getQueryXml();
     var parser = new MDSS.Query.Parser(xml);
@@ -213,41 +127,41 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         // represents two selectables.
         if(attributeName !== aggregatedCase.ENDAGE)
         {
-          checkBox(userAlias);
+          thisRef._checkBox(userAlias);
         }
       },
       sum: function(entityAlias, attributeName, userAlias){
 
-        checkBox(userAlias);
-        chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
+        thisRef._checkBox(userAlias);
+        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
       },
       min: function(entityAlias, attributeName, userAlias){
 
-        checkBox(userAlias);
-        chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN);
+        thisRef._checkBox(userAlias);
+        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN);
       },
       max: function(entityAlias, attributeName, userAlias){
 
-        checkBox(userAlias);
-        chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX);
+        thisRef._checkBox(userAlias);
+        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX);
       },
       avg: function(entityAlias, attributeName, userAlias){
 
-        checkBox(userAlias);
-        chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG);
+        thisRef._checkBox(userAlias);
+        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG);
       },
       count: function(entityAlias, attributeName, userAlias){
 
-        checkBox(userAlias);
+        thisRef._checkBox(userAlias);
       },
       sqlcharacter : function(entityAlias, attributeName, userAlias){
 
-        checkBox(userAlias);
+        thisRef._checkBox(userAlias);
       },
       
       sqldate : function(entityAlias, attributeName, userAlias){
 
-        checkBox(userAlias);
+        thisRef._checkBox(userAlias);
       },
     });
 
@@ -257,7 +171,7 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     // we want only to check those in the saved query).
     for(var i=0; i<this._defaultAgeGroups.length; i++)
     {
-      uncheckBox(this._defaultAgeGroups[i]);
+      this._uncheckBox(this._defaultAgeGroups[i]);
     }
 
     parser.parseCriteria({
@@ -281,38 +195,12 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         // age group criteria
         else if(/^group_/.test(userAlias))
         {
-          checkBox(userAlias);
+          thisRef._checkBox(userAlias);
         }
       }
     });
-
-    // check all selected universals
-    var configRaw = view.getConfig();
-    var config = new MDSS.Query.Config(configRaw);
-    var selectedUniversals = config.getSelectedUniversals();
-    this._selectSearch.setSelectedUniversals(selectedUniversals);
-
-    // Load the GeoEntities as WHERE criteria
-    if(entities.length > 0)
-    {
-      var request = new MDSS.Request({
-        thisRef : this,
-        onSuccess : function(query)
-        {
-          var results = query.getResultSet();
-
-          this.thisRef._selectSearch.setCriteria(results);
-
-          this.thisRef._hideHandler(results, selectedUniversals);
-        }
-      });
-
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getAsViews(request, entities);
-    }
-    else
-    {
-      this._hideHandler([], selectedUniversals);
-    }
+    
+    this._reconstructSearch(entities, view);
   },
 
 

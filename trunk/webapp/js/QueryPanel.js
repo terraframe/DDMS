@@ -1,10 +1,13 @@
 /**
  * Class to create a Query Panel.
  */
-MDSS.QueryPanel = function(queryPanelId, mapPanelId, config)
+MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
 {
-	var minWidth = 1270;
-	var minHeight = 500;
+  
+  this._queryClass = queryClass;
+
+  var minWidth = 1270;
+  var minHeight = 500;
 
   var pWidth =  (window.innerWidth - 30) > minWidth ? (window.innerWidth - 30) : minWidth;
   var pHeight = (window.innerHeight * 0.6) > minHeight ? (window.innerHeight * 0.6) : minHeight;
@@ -459,7 +462,7 @@ MDSS.QueryPanel.prototype = {
     // let the query panels perform their own post-render logic
     if(Mojo.util.isFunction(this._config.postRender))
     {
-      this._config.postRender();
+      this._config.postRender.call(this._queryClass);
     }
   },
 
@@ -539,7 +542,7 @@ MDSS.QueryPanel.prototype = {
       var select = e.target;
       var option = select.options[select.selectedIndex];
       
-      this._config.thematicLayerSelected(option.value);
+      this._config.thematicLayerSelected.call(this._queryClass, option.value);
     } 
   },
   
@@ -679,7 +682,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.editVariableStyles))
     {
-      this._config.editVariableStyles();
+      this._config.editVariableStyles.call(this._queryClass);
     }
   },
 
@@ -690,7 +693,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.toggleDates))
     {
-      this._config.toggleDates(e);
+      this._config.toggleDates.call(this._queryClass, e);
     }
   },
 
@@ -701,7 +704,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.editLayer))
     {
-      this._config.editLayer(obj.layerId);
+      this._config.editLayer.call(this._queryClass, obj.layerId);
     }
   },
 
@@ -709,7 +712,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.deleteLayer))
     {
-      this._config.deleteLayer(obj.layerId, obj.type);
+      this._config.deleteLayer.call(this._queryClass, obj.layerId, obj.type);
     }
   },
   
@@ -819,7 +822,7 @@ MDSS.QueryPanel.prototype = {
       if(selected && selected.value)
       {
         var type = selected.value;
-        this._config.addLayer(type);
+        this._config.addLayer.call(this._queryClass, type);
       }
     }
   },
@@ -830,7 +833,7 @@ MDSS.QueryPanel.prototype = {
     {
       // pass in the form element so the calling process
       // can modify its action.
-      this._config.exportXLS.apply(this, Mojo.util.getValues(obj));
+      this._config.exportXLS.apply(this._queryClass, Mojo.util.getValues(obj));
     }
   },
 
@@ -840,7 +843,7 @@ MDSS.QueryPanel.prototype = {
     {
       // pass in the form element so the calling process
       // can modify its action.
-      this._config.exportCSV.apply(this, Mojo.util.getValues(obj));
+      this._config.exportCSV.apply(this._queryClass, Mojo.util.getValues(obj));
     }
   },
 
@@ -850,7 +853,7 @@ MDSS.QueryPanel.prototype = {
     {
       // pass in the form element so the calling process
       // can modify its action.
-      this._config.exportReport.apply(this, Mojo.util.getValues(obj));
+      this._config.exportReport.apply(this._queryClass, Mojo.util.getValues(obj));
     }
   },
 
@@ -1586,7 +1589,7 @@ MDSS.QueryPanel.prototype = {
 
       // ignore the default, empty option
       var savedSearchId = queries.options[queries.selectedIndex].value;
-      this._config.loadQuery(savedSearchId);
+      this._config.loadQuery.call(this._queryClass, savedSearchId);
     }
   },
 
@@ -1597,7 +1600,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.saveQuery))
     {
-      this._config.saveQuery();
+      this._config.saveQuery.call(this._queryClass);
     }
   },
 
@@ -1608,7 +1611,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.saveQueryAs))
     {
-      this._config.saveQueryAs();
+      this._config.saveQueryAs.call(this._queryClass);
     }
   },
 
@@ -1619,7 +1622,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.mapQuery))
     {
-      this._config.mapQuery();
+      this._config.mapQuery.call(this._queryClass);
     }
   },
 
@@ -1631,7 +1634,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.util.isFunction(this._config.executeQuery))
     {
-      this._config.executeQuery();
+      this._config.executeQuery.call(this._queryClass);
     }
   },
 
@@ -1686,7 +1689,7 @@ MDSS.QueryPanel.prototype = {
     if(e.target.nodeName === 'SPAN' && Mojo.util.isFunction(this._config.paginationHandler))
     {
       var pageNumber = e.target.innerHTML;
-      this._config.paginationHandler(pageNumber);
+      this._config.paginationHandler.call(this._queryClass, pageNumber);
     }
   },
 

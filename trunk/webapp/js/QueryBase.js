@@ -12,23 +12,23 @@ MDSS.QueryBase.prototype = {
       return;
     }
   
-    this._queryPanel = new MDSS.QueryPanel('queryPanel', 'mapPanel', {
-      executeQuery: MDSS.util.bind(this, this.executeQuery),
-      mapQuery: MDSS.util.bind(this, this.mapQuery),
-      saveQuery: MDSS.util.bind(this, this.saveQuery),
-      saveQueryAs: MDSS.util.bind(this, this.saveQueryAs),
-      loadQuery: MDSS.util.bind(this, this.loadQuery),
-      addLayer: MDSS.util.bind(this, this.addLayer),
-      editLayer: MDSS.util.bind(this, this.editLayer),
-      deleteLayer: MDSS.util.bind(this, this.deleteLayer),
-      editVariableStyles: MDSS.util.bind(this, this.editVariableStyles),
-      exportXLS : MDSS.util.bind(this, this.exportXLS),
-      exportCSV : MDSS.util.bind(this, this.exportCSV),
-      exportReport : MDSS.util.bind(this, this.exportReport),
-      toggleDates : MDSS.util.bind(this, this.toggleDates),
-      paginationHandler : MDSS.util.bind(this, this.paginationHandler),
-      postRender : MDSS.util.bind(this, this.postRender),
-      thematicLayerSelected :MDSS.util.bind(this, this.thematicLayerSelected)
+    this._queryPanel = new MDSS.QueryPanel(this, 'queryPanel', 'mapPanel', {
+      executeQuery: this.executeQuery,
+      mapQuery: this.mapQuery,
+      saveQuery: this.saveQuery,
+      saveQueryAs: this.saveQueryAs,
+      loadQuery: this.loadQuery,
+      addLayer: this.addLayer,
+      editLayer: this.editLayer,
+      deleteLayer: this.deleteLayer,
+      editVariableStyles: this.editVariableStyles,
+      exportXLS : this.exportXLS,
+      exportCSV : this.exportCSV,
+      exportReport : this.exportReport,
+      toggleDates : this.toggleDates,
+      paginationHandler : this.paginationHandler,
+      postRender : this.postRender,
+      thematicLayerSelected :this.thematicLayerSelected
     });
 
     this._allPathsQuery = null;
@@ -271,7 +271,6 @@ MDSS.QueryBase.prototype = {
    */
   postRender : function()
   {
-  	 //YAHOO.util.Event.on(this._queryPanel._dateGroupBy, 'change', this._delegateToOption, '',this);
   	 var options = this._queryPanel._dateGroupBy.options;
   	 for(var i=0; i<options.length; i++)
   	 {
@@ -280,8 +279,6 @@ MDSS.QueryBase.prototype = {
 
   	YAHOO.util.Event.on(this._queryPanel._startDateRangeCheck, 'click', this.toggleDates, 'START_DATE_RANGE', this);
   	YAHOO.util.Event.on(this._queryPanel._endDateRangeCheck, 'click', this.toggleDates, 'END_DATE_RANGE', this);
-
-  	 //this._defaults.push({element:this._queryPanel._dateGroupBy, index: 0, active:true});
   },
 
   /**
@@ -469,11 +466,130 @@ MDSS.QueryBase.prototype = {
     Mojo.$.dss.vector.solutions.query.ThematicLayer.changeLayerType(request, thematicLayerId, layerType);
   },
   
+  _reconstructSearch : function(entities, view)
+  {
+    // check all selected universals
+    var configRaw = view.getConfig();
+    var config = new MDSS.Query.Config(configRaw);
+    var selectedUniversals = config.getSelectedUniversals();
+    this._selectSearch.setSelectedUniversals(selectedUniversals);
+
+    // Load the GeoEntities as WHERE criteria
+    if(entities.length > 0)
+    {
+      var request = new MDSS.Request({
+        thisRef : this,
+        onSuccess : function(query)
+        {
+          var results = query.getResultSet();
+
+          this.thisRef._selectSearch.setCriteria(results);
+
+          this.thisRef._hideHandler(results, selectedUniversals);
+        }
+      });
+
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getAsViews(request, entities);
+    }
+    else
+    {
+      this._hideHandler([], selectedUniversals);
+    }
+  },
+  
   _delegateToOption : function(e, attribute)
   {
     var select = e.target;
     var option = select.options[select.selectedIndex];
     this._fireClickOnOption(option);
+  },
+  
+  _uncheckBox : function(check)
+  {
+    check = Mojo.util.isString(check) ? document.getElementById(check) : check;
+    if(check != null && check.checked)
+    {
+      check.click();
+    }
+  },
+
+  _checkBox : function(check)
+  {
+    check = Mojo.util.isString(check) ? document.getElementById(check) : check;
+    if(check != null && !check.checked)
+    {
+      check.click();
+    }
+  },
+
+  _chooseOption : function(option)
+  {
+    option = Mojo.util.isString(option) ? document.getElementById(option) : option;
+    if(option == null)
+    {
+      return;
+    }
+
+    var select = option.parentNode;
+    var options = select.options;
+    for(var i=0; i<options.length; i++)
+    {
+      if(options[i].id === option.id)
+      {
+        select.selectedIndex = i;
+        break;
+      }
+    }
+
+    this._fireClickOnOption(option);
+  },
+  
+  /**
+   * Loops through all the default settings in this._defaults
+   * and applies the necessary logic depending on the input type.
+   */
+  _resetToDefault : function()
+  {
+    for(var i=0; i<this._defaults.length; i++)
+    {
+      var obj = this._defaults[i];
+      var element = obj.element;
+      if(element.nodeName === 'INPUT' && element.type === 'checkbox')
+      {
+        var checked = obj.checked;
+        if(element.checked !== checked)
+        {
+          if(obj.bypass)
+          {
+            element.checked = checked;
+          }
+          else
+          {
+            element.click();
+          }
+        }
+      }
+      else if(element.nodeName === 'INPUT' && element.type === 'text')
+      {
+        var value = obj.value;
+
+        element.value = value;
+      }
+      else if(element.nodeName === 'SELECT')
+      {
+        var index = obj.index;
+        if(!element.disabled)
+        {
+          element.selectedIndex = index;
+          this._fireClickOnOption(element.options[index]);
+        }
+
+        if(!obj.active && index === 0)
+        {
+          element.disabled = true;
+        }
+      }
+    }
   },
 
   /**
@@ -531,11 +647,6 @@ MDSS.QueryBase.prototype = {
     });
 
     Mojo.$.dss.vector.solutions.query.SavedSearch.loadSearch(request, savedSearchId);
-  },
-
-  _resetToDefault : function()
-  {
-    // abstract
   },
 
   _loadQueryState : function()
