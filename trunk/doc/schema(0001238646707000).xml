@@ -6141,25 +6141,140 @@
 
       <object
         type="dss.vector.solutions.mo.LarvaeAge"
-        id="MIRO_99900063">
+        id="LarvaeAge_Egg">
         <valueAttribute
           name="termId"
-          value="MIRO_99900063" />
+          value="LarvaeAge_Egg" />
         <valueAttribute
           name="termName"
-          value="Test Lavae Age" />
+          value="0_Egg" />
         <structAttribute
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="Test Lavae Age" />
+            value="Egg" />
         </structAttribute>
         <valueAttribute
           name="oboNamespace"
           value="" />
         <valueAttribute
           name="definition"
-          value="A chemical substance which is being used as insecticide. [PT:PT]" />
+          value="Larvae Age: Egg" />
+      </object>
+      
+      <object
+        type="dss.vector.solutions.mo.LarvaeAge"
+        id="LarvaeAge_1st_Instar">
+        <valueAttribute
+          name="termId"
+          value="LarvaeAge_1st_Instar" />
+        <valueAttribute
+          name="termName"
+          value="1st_Instar" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="1st Instar" />
+        </structAttribute>
+        <valueAttribute
+          name="oboNamespace"
+          value="" />
+        <valueAttribute
+          name="definition"
+          value="Larvae Age: 1st Instar" />
+      </object>
+      
+      <object
+        type="dss.vector.solutions.mo.LarvaeAge"
+        id="LarvaeAge_2nd_Instar">
+        <valueAttribute
+          name="termId"
+          value="LarvaeAge_2nd_Instar" />
+        <valueAttribute
+          name="termName"
+          value="2nd_Instar" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="2nd Instar" />
+        </structAttribute>
+        <valueAttribute
+          name="oboNamespace"
+          value="" />
+        <valueAttribute
+          name="definition"
+          value="Larvae Age: 2nd Instar" />
+      </object>
+      
+      <object
+        type="dss.vector.solutions.mo.LarvaeAge"
+        id="LarvaeAge_3rd_Instar">
+        <valueAttribute
+          name="termId"
+          value="LarvaeAge_3rd_Instar" />
+        <valueAttribute
+          name="termName"
+          value="3rd_Instar" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="3rd Instar" />
+        </structAttribute>
+        <valueAttribute
+          name="oboNamespace"
+          value="" />
+        <valueAttribute
+          name="definition"
+          value="Larvae Age: 3rd Instar" />
+      </object>
+      
+      <object
+        type="dss.vector.solutions.mo.LarvaeAge"
+        id="LarvaeAge_4th_Instar">
+        <valueAttribute
+          name="termId"
+          value="LarvaeAge_4th_Instar" />
+        <valueAttribute
+          name="termName"
+          value="4th_Instar" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="4th Instar" />
+        </structAttribute>
+        <valueAttribute
+          name="oboNamespace"
+          value="" />
+        <valueAttribute
+          name="definition"
+          value="Larvae Age: 4th Instar" />
+      </object>
+      
+      <object
+        type="dss.vector.solutions.mo.LarvaeAge"
+        id="LarvaeAge_Pupae">
+        <valueAttribute
+          name="termId"
+          value="LarvaeAge_Pupae" />
+        <valueAttribute
+          name="termName"
+          value="5_Pupae" />
+        <structAttribute
+          name="displayLabel">
+          <valueAttribute
+            name="defaultLocale"
+            value="Pupae" />
+        </structAttribute>
+        <valueAttribute
+          name="oboNamespace"
+          value="" />
+        <valueAttribute
+          name="definition"
+          value="Larvae Age: Pupae" />
       </object>
 
     </create>
