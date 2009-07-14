@@ -43,11 +43,9 @@ import com.terraframe.mojo.constants.Constants;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.system.EnumerationMasterDTO;
 import com.terraframe.mojo.transport.metadata.AttributeBooleanMdDTO;
-import com.terraframe.mojo.transport.metadata.AttributeCharacterMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeDateMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeEnumerationMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeMdDTO;
-import com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO;
 
 import dss.vector.solutions.LabeledDTO;
@@ -94,6 +92,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     }
   }
 
+  public static String join(List<String> s)
+  {
+    return Halp.join(s, ",");
+  }
+  
   public static String join(List<String> s, String delimiter)
   {
     StringBuilder builder = new StringBuilder();
@@ -516,11 +519,10 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       {
         buff.add(Halp.generateFormatter(md));
         buff.add(Halp.generateSaveFlag(md));
-        buff.add(Halp.generateEditor(attrib, md));
-        buff.add(Halp.generateValidator(view, md, setup));
+        buff.add(Halp.generateEditor(view, attrib, md, setup));
       }
 
-      return Halp.join(buff, ",");
+      return Halp.join(buff);
     }
     catch (Exception e)
     {
@@ -567,59 +569,69 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return null;
   }
 
-  private static String generateEditor(String attrib, AttributeMdDTO md)
+  private static String generateEditor(ViewDTO view, String attrib, AttributeMdDTO md, ColumnSetup setup)
   {
-    String editor = "null";
+    String DROPDOWN_EDITOR = "new YAHOO.widget.DropdownCellEditor";
+    String TEXTBOX_EDITOR = "new YAHOO.widget.TextboxCellEditor";
+    String DATE_EDITOR = "new YAHOO.widget.DateCellEditor";
 
-    if (md instanceof AttributeNumberMdDTO)
+    // Default to a text box editor
+    String editor = TEXTBOX_EDITOR;
+    List<String> options = new LinkedList<String>();
+
+
+    if (md instanceof AttributeBooleanMdDTO)
     {
-      editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
-    }
-    else if (md instanceof AttributeBooleanMdDTO)
-    {
-      editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'"
-          + ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'", "\\\\'")
-          + "', value:'true'}, {label:'"
-          + ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'", "\\\\'")
-          + "', value:'false'}],disableBtns:true})";
-    }
-    else if (md instanceof AttributeCharacterMdDTO)
-    {
-      editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+      String positiveLabel = ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'", "\\\\'");
+      String negativeLabel = ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'", "\\\\'");
+
+      List<String> radioOptions = new LinkedList<String>();
+      radioOptions.add("{label:'" + positiveLabel + "', value:'true'}");
+      radioOptions.add("{label:'" + negativeLabel + "', value:'false'}");
+      
+      options.add("dropdownOptions:[" + Halp.join(radioOptions) + "]");
+     
+      editor = DROPDOWN_EDITOR;
     }
     else if (md instanceof AttributeDateMdDTO)
     {
-      editor = "new YAHOO.widget.DateCellEditor({calendar:MDSS.Calendar.init(),disableBtns:true})";
-    }
-    else if (md instanceof AttributeEnumerationMdDTO)
-    {
-      AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
-      editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[";
-      String comma = "";
-      for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
-      {
-        editor += comma + "{label:'" + e.getValue() + "', value:'" + e.getKey() + "'}";
-        comma = ",";
-      }
-      editor += "],disableBtns:true})";
+      options.add("calendar:MDSS.Calendar.init()");
+      
+      editor = DATE_EDITOR;
     }
     else
     {
-      Class<?> refrenced_class = md.getJavaType();
+      if (md instanceof AttributeEnumerationMdDTO)
+      {                       
+        List<String> dropdownOptions = new LinkedList<String>();
+        AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
 
-      if (LabeledDTO.class.isAssignableFrom(refrenced_class))
-      {
-        editor = "new YAHOO.widget.DropdownCellEditor({dropdownOptions:" + attrib
-            + "Labels,disableBtns:true})";
+        for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
+        {
+          dropdownOptions.add("{label:'" + e.getValue() + "', value:'" + e.getKey() + "'}");
+        }
+        
+        options.add("dropdownOptions:[" + Halp.join(dropdownOptions) + "]");
+
+        editor = DROPDOWN_EDITOR;
       }
       else
       {
-        editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+        Class<?> refrenced_class = md.getJavaType();
+
+        if (LabeledDTO.class.isAssignableFrom(refrenced_class))
+        {
+          options.add("dropdownOptions:" + attrib + "Labels");
+
+          editor = DROPDOWN_EDITOR;
+        }
       }
-
     }
+    
+    options.add(generateValidator(view, md, setup));
+    options.add("disableBtns:true");
 
-    return "editor:" + editor;
+    return "editor:" + editor + "({" + Halp.join(options) + "})";
   }
 
   public static void sendErrorMail(Throwable exception, HttpServletRequest request, String text)
