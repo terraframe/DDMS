@@ -35,13 +35,14 @@ public class ColumnSetup implements Reloadable
   
   public ColumnSetup()
   {
-    this.hidden = false;
-    this.editable = true;
-    this.validator = null;
-    this.type = null;
-    this.method = null;
+    this(false, true);
   }
 
+  public ColumnSetup(boolean hidden, boolean editable)
+  {
+    this(hidden, editable, null, null, null);
+  }
+  
   public ColumnSetup(boolean hidden, boolean editable, String validator, String type, String method)
   {
     this.hidden = hidden;
