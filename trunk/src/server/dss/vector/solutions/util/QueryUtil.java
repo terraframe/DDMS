@@ -3,6 +3,8 @@ package dss.vector.solutions.util;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.xml.sax.SAXParseException;
 
@@ -14,6 +16,9 @@ import com.terraframe.mojo.query.OR;
 import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableMoment;
+import com.terraframe.mojo.query.SelectableSQLCharacter;
+import com.terraframe.mojo.query.SelectableSQLDate;
 import com.terraframe.mojo.query.SelectableSingle;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryParser;
@@ -39,7 +44,7 @@ public class QueryUtil
    * Joins the ValueQuery with any selected/restricting geo entity information.
    * This method does not perform the final join between the AllPathsQuery and
    * the GeneratedEntityQuery that exists in the calling code.
-   * 
+   *
    * @param queryFactory
    * @param valueQuery
    * @param xml
@@ -114,7 +119,7 @@ public class QueryUtil
       GeoEntityQuery geoEntityQuery = (GeoEntityQuery) queryMap.get(thematicLayerType);
 
       valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
-      
+
       GeneratedEntityQuery generatedEntityQuery = queryMap.get(AggregatedCase.CLASS);
       valueQuery.AND(((GeoEntityQueryReferenceIF)generatedEntityQuery.aAttribute(geoEntityAttribute)).EQ(allPathsQuery.getChildGeoEntity()));
     }
@@ -168,12 +173,169 @@ public class QueryUtil
           valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(
               leftJoinSelectables.toArray(new SelectableSingle[size])));
         }
-        
+
         GeneratedEntityQuery generatedEntityQuery = queryMap.get(AggregatedCase.CLASS);
         valueQuery.AND(((GeoEntityQueryReferenceIF)generatedEntityQuery.aAttribute(geoEntityAttribute)).EQ(allPathsQuery.getChildGeoEntity()));
       }
     }
-    
+
     return queryMap;
+  }
+
+  public static ValueQuery setQueryDates(String xml , ValueQuery valueQuery,  SelectableMoment dateAttribute)
+  {
+
+    String da = dateAttribute.getQualifiedName();
+
+    if (xml.indexOf("DATEGROUP_SEASON") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
+      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + da + " and ms.enddate > " + da);
+    }
+
+    if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
+      dateGroup.setSQL("to_char(" + da + ",'IW')");
+    }
+
+    if (xml.indexOf("DATEGROUP_MONTH") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
+      dateGroup.setSQL("to_char(" + da + ",'MM')");
+    }
+
+    if (xml.indexOf("DATEGROUP_QUARTER") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_QUARTER");
+      dateGroup.setSQL("to_char(" + da + ",'Q')");
+    }
+
+    if (xml.indexOf("DATEGROUP_YEAR") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_YEAR");
+      dateGroup.setSQL("to_char(" + da + ",'YYYY')");
+    }
+
+    if (xml.indexOf("START_DATE_RANGE") > 0)
+    {
+      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("START_DATE_RANGE");
+      dateGroup.setSQL("''");
+      Pattern pattern = Pattern.compile("<operator>GE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
+      Matcher matcher = pattern.matcher(xml);
+      if (matcher.find())
+      {
+        dateGroup.setSQL("'"+matcher.group(1)+"'");
+      }
+    }
+
+    if (xml.indexOf("END_DATE_RANGE") > 0)
+    {
+      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("END_DATE_RANGE");
+      dateGroup.setSQL("''");
+
+      Pattern pattern = Pattern.compile("<operator>LE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
+      Matcher matcher = pattern.matcher(xml);
+      if (matcher.find())
+      {
+        dateGroup.setSQL("'"+matcher.group(1)+"'");
+      }
+    }
+
+
+    String sql = valueQuery.getSQL();
+    System.out.println(sql);
+
+    return valueQuery;
+
+  }
+
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, String sd, String ed)
+  {
+    if (xml.indexOf("DATEGROUP_SEASON") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectable("DATEGROUP_SEASON");
+      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + sd
+          + " and ms.enddate > " + ed);
+    }
+
+    if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectable("DATEGROUP_EPIWEEK");
+
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed
+          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(Day FROM " + sd
+          + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
+          + "THEN to_char(" + sd + ",'IW')" + "ELSE to_char(" + ed + ",'IW') END";
+      dateGroup.setSQL(dateGroupSql);
+    }
+
+    if (xml.indexOf("DATEGROUP_MONTH") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectable("DATEGROUP_MONTH");
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed
+          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(DAY FROM " + sd
+          + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
+          + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed + ",'MM') END";
+      dateGroup.setSQL(dateGroupSql);
+    }
+
+    if (xml.indexOf("DATEGROUP_QUARTER") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectable("DATEGROUP_QUARTER");
+
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed
+          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(DOY FROM " + sd
+          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + "THEN to_char(" + sd + ",'Q')"
+          + "ELSE to_char(" + ed + ",'Q') END";
+      dateGroup.setSQL(dateGroupSql);
+    }
+
+    if (xml.indexOf("DATEGROUP_YEAR") > 0)
+    {
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectable("DATEGROUP_YEAR");
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed
+          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(DOY FROM " + sd
+          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN to_char(" + sd + ",'YYYY')"
+          + "ELSE to_char(" + ed + ",'YYYY') END";
+      dateGroup.setSQL(dateGroupSql);
+    }
+
+    if (xml.indexOf("START_DATE_RANGE") > 0)
+    {
+      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("START_DATE_RANGE");
+      dateGroup.setSQL("''");
+      Pattern pattern = Pattern
+          .compile("<operator>GE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
+      Matcher matcher = pattern.matcher(xml);
+      if (matcher.find())
+      {
+        dateGroup.setSQL("'" + matcher.group(1) + "'");
+      }
+    }
+
+    if (xml.indexOf("END_DATE_RANGE") > 0)
+    {
+      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("END_DATE_RANGE");
+      dateGroup.setSQL("''");
+
+      Pattern pattern = Pattern
+          .compile("<operator>LE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
+      Matcher matcher = pattern.matcher(xml);
+      if (matcher.find())
+      {
+        dateGroup.setSQL("'" + matcher.group(1) + "'");
+      }
+    }
+
+    return valueQuery;
+
   }
 }
