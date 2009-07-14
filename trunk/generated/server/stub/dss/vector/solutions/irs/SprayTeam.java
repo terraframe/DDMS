@@ -223,13 +223,17 @@ public class SprayTeam extends SprayTeamBase implements Reloadable
     List<SprayTeam> list = new LinkedList<SprayTeam>();
     GeoEntity location = GeoEntity.searchByGeoId(geoId);
     
-    List<GeoEntity> zones = location.getPrunedParents(Arrays.asList(new String[]{SprayZone.CLASS}));
-    zones.addAll(location.getPrunedChildren(Arrays.asList(new String[]{SprayZone.CLASS})));
+    List<GeoEntity> parents = location.getPrunedParents(Arrays.asList(new String[]{SprayZone.CLASS}));
+    List<GeoEntity> children = location.getPrunedChildren(Arrays.asList(new String[]{SprayZone.CLASS}));
+    List<GeoEntity> geoEntities = new LinkedList<GeoEntity>();
+
+    geoEntities.addAll(parents);
+    geoEntities.addAll(children);
     
     SprayTeamQuery query = new SprayTeamQuery(new QueryFactory());
     query.WHERE(query.getSprayZone().EQ(location));
     
-    for(GeoEntity geoEntity : zones)
+    for(GeoEntity geoEntity : geoEntities)
     {
       query.OR(query.getSprayZone().EQ(geoEntity));
     }    

@@ -845,8 +845,6 @@ public abstract class GeoEntity extends GeoEntityBase implements
     validateHierarchy(geoEntity.getType(), this.getType());
     LocatedIn locatedIn = super.addContainsGeoEntity(geoEntity);
 
-    updateAllPathForGeoEntity(locatedIn.getChildId());
-
     return locatedIn;
   }
 
@@ -855,8 +853,6 @@ public abstract class GeoEntity extends GeoEntityBase implements
   {
     validateHierarchy(this.getType(), geoEntity.getType());
     LocatedIn locatedIn = super.addLocatedInGeoEntity(geoEntity);
-
-    updateAllPathForGeoEntity(locatedIn.getChildId());
 
     return locatedIn;
   }
@@ -1167,7 +1163,7 @@ public abstract class GeoEntity extends GeoEntityBase implements
     }
   }
 
-  private static void updateAllPathForGeoEntity(String childId)
+  public static void updateAllPathForGeoEntity(String childId)
   {
     updateAllPathForGeoEntity(childId, false, 0);
   }

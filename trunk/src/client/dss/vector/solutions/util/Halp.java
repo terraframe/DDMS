@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -50,7 +51,6 @@ import com.terraframe.mojo.transport.metadata.AttributeNumberMdDTO;
 import com.terraframe.mojo.transport.metadata.AttributeReferenceMdDTO;
 
 import dss.vector.solutions.LabeledDTO;
-import dss.vector.solutions.entomology.assay.AssayTestResultDTO;
 
 public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -59,15 +59,14 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   public final static String EMAIL_ERRORS_TO = "dtaylor@terraframe.com";
 
-
   public static String getDateFormatString(HttpServletRequest request)
   {
     Locale locale = request.getLocale();
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
     SimpleDateFormat formatter = (SimpleDateFormat) df;
     String pattern = formatter.toPattern();
-    pattern = pattern.replace("yy","yyyy");
-    request.setAttribute("dateFormatPattern" , pattern);
+    pattern = pattern.replace("yy", "yyyy");
+    request.setAttribute("dateFormatPattern", pattern);
 
     return pattern;
   }
@@ -84,7 +83,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     {
       try
       {
-        attributeType = attributeType.substring(attributeType.lastIndexOf(".MdAttribute") + 12).toUpperCase();
+        attributeType = attributeType.substring(attributeType.lastIndexOf(".MdAttribute") + 12)
+            .toUpperCase();
         return valueOf(attributeType);
       }
       catch (Exception ex)
@@ -97,16 +97,27 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
   public static String join(List<String> s, String delimiter)
   {
     StringBuilder builder = new StringBuilder();
-    Iterator<String> iter = s.iterator();
+    List<String> list = new LinkedList<String>();
 
-    while (iter.hasNext())
+    for (String string : s)
     {
-      builder.append(iter.next());
-      if (iter.hasNext())
+      if (string != null)
+      {
+        list.add(string);
+      }
+    }
+
+    Iterator<String> iterator = list.iterator();
+
+    while (iterator.hasNext())
+    {
+      builder.append(iterator.next());
+      if (iterator.hasNext())
       {
         builder.append(delimiter);
       }
     }
+
     return builder.toString();
   }
 
@@ -126,7 +137,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     JSONObject map = new JSONObject();
     for (LabeledDTO term : terms)
     {
-      map.put(term.getOptionId(),term.getLabel());
+      map.put(term.getOptionId(), term.getLabel());
     }
     return map.toString();
   }
@@ -169,7 +180,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         {
           String value = (String) c.getMethod("get" + attrib).invoke(row).toString();
 
-          String attributeType = view.getAttributeType(attrib.substring(0, 1).toLowerCase() + attrib.substring(1));
+          String attributeType = view.getAttributeType(attrib.substring(0, 1).toLowerCase()
+              + attrib.substring(1));
 
           SimpleDateFormat df = new SimpleDateFormat(Constants.DATETIME_FORMAT);
 
@@ -218,12 +230,15 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return map.toString();// .replaceAll(",", ",\n");
   }
 
-  public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows, ClientRequestIF clientRequest) throws JSONException
+  public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows,
+      ClientRequestIF clientRequest) throws JSONException
   {
-    return Halp.getDropdownSetup(view, attribs, extra_rows, clientRequest, new HashMap<String, String>());
+    return Halp
+        .getDropdownSetup(view, attribs, extra_rows, clientRequest, new HashMap<String, String>());
   }
-  
-  public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows, ClientRequestIF clientRequest, Map<String, String> map) throws JSONException
+
+  public static String getDropdownSetup(ViewDTO view, String[] attribs, String extra_rows,
+      ClientRequestIF clientRequest, Map<String, String> map) throws JSONException
   {
     Class<?> v = view.getClass();
     ArrayList<String> ordered_attribs = new ArrayList<String>(Arrays.asList(attribs));
@@ -247,14 +262,15 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         {
           Class<?> clazz = md.getJavaType();
 
-          if(map.containsKey(attrib))
+          if (map.containsKey(attrib))
           {
             clazz = LoaderDecorator.load(map.get(attrib));
           }
-          
+
           if (LabeledDTO.class.isAssignableFrom(clazz))
           {
-            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAllActive", new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
+            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAllActive",
+                new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
             dropdownbuff.add(getDisplayLabels(terms, attrib));
           }
         }
@@ -265,7 +281,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         throw new RuntimeException(x);
       }
     }
-    
+
     return ( Halp.join(dropdownbuff, "\n") );
   }
 
@@ -289,14 +305,16 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     {
       try
       {
-        AttributeMdDTO md = (AttributeMdDTO) v.getMethod("get" + attrib.substring(0, 1).toUpperCase() + attrib.substring(1) + "Md").invoke(view);
+        AttributeMdDTO md = (AttributeMdDTO) v.getMethod(
+            "get" + attrib.substring(0, 1).toUpperCase() + attrib.substring(1) + "Md").invoke(view);
 
         if (md instanceof AttributeReferenceMdDTO)
         {
           Class<?> clazz = md.getJavaType();
           if (LabeledDTO.class.isAssignableFrom(clazz))
           {
-            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAllActive", new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
+            LabeledDTO[] terms = (LabeledDTO[]) clazz.getMethod("getAllActive",
+                new Class[] { ClientRequestIF.class }).invoke(null, clientRequest);
             dropdownbuff.add(attrib + " : " + getDropDownMap(terms) + ",");
           }
         }
@@ -304,20 +322,25 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
         {
           AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
           String map = "{";
-          /*for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
+          /*
+           * for (Map.Entry<String, String> e :
+           * enumMd.getEnumItems().entrySet()) { map += "'" + e.getKey() + "':'"
+           * + e.getValue() + "',"; }
+           */
+          for (EnumerationMasterDTO e : (List<EnumerationMasterDTO>) clientRequest
+              .getAllEnumerations(enumMd.getReferencedMdEnumeration()))
           {
-             map += "'" + e.getKey() + "':'" + e.getValue() + "',";
-          }*/
-          for (EnumerationMasterDTO e : (List<EnumerationMasterDTO>) clientRequest.getAllEnumerations(enumMd.getReferencedMdEnumeration()))
-          {
-             map += "'" + e.getId() + "':'" + e.getDisplayLabel() + "',";
+            map += "'" + e.getId() + "':'" + e.getDisplayLabel() + "',";
           }
           map += "}";
           dropdownbuff.add(attrib + " : " + map + ",");
         }
         if (md instanceof AttributeBooleanMdDTO)
         {
-          dropdownbuff.add(attrib + ":{'true':'" + ((AttributeBooleanMdDTO)md).getPositiveDisplayLabel().replaceAll("'", "\\'") + "', 'false':'" + ((AttributeBooleanMdDTO)md).getNegativeDisplayLabel().replaceAll("'", "\\'") + "'},");
+          dropdownbuff.add(attrib + ":{'true':'"
+              + ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'", "\\'")
+              + "', 'false':'"
+              + ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'", "\\'") + "'},");
         }
 
       }
@@ -331,12 +354,14 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     return ( Halp.join(dropdownbuff, "\n") );
   }
 
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload) throws JSONException
+  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload)
+      throws JSONException
   {
     return getColumnSetup(view, attribs, extra_rows, autoload, 1);
   }
 
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, int num_to_hide) throws JSONException
+  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows,
+      boolean autoload, int num_to_hide) throws JSONException
   {
     ArrayList<Integer> no_edit_cols = new ArrayList<Integer>();
     ArrayList<Integer> no_show_cols = new ArrayList<Integer>();
@@ -347,186 +372,254 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
       no_show_cols.add(i);
     }
 
-    return getColumnSetup(view, attribs, extra_rows, autoload, no_edit_cols,no_show_cols );
+    return getColumnSetup(view, attribs, extra_rows, autoload, no_edit_cols, no_show_cols);
   }
-  
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, List<Integer> no_show, List<Integer> no_edit) throws JSONException
+
+  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows,
+      boolean autoload, List<Integer> no_show, List<Integer> no_edit) throws JSONException
   {
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-    
+
     for (Integer i : no_show)
     {
       String key = attribs[i];
 
       ColumnSetup setup = new ColumnSetup();
       setup.setHidden(true);
-      
+
       map.put(key, setup);
     }
-    
+
     for (Integer i : no_edit)
     {
       String key = attribs[i];
 
       ColumnSetup setup = new ColumnSetup();
 
-      if(map.containsKey(key))
+      if (map.containsKey(key))
       {
         setup = map.get(key);
       }
-            
+
       setup.setEditable(false);
-      
+
       map.put(attribs[i], setup);
     }
 
-    return getColumnSetup(view, attribs, extra_rows, autoload, map);    
+    return getColumnSetup(view, attribs, extra_rows, autoload, map);
   }
-  
-  public static String getColumnSetup(ViewDTO view, String[] attribs, String extra_rows, boolean autoload, Map<String, ColumnSetup> map) throws JSONException
-  {
-    ArrayList<String> arr = new ArrayList<String>();
-    Integer colnum = 0;
-    Class<?> v = view.getClass();
-    ArrayList<String> ordered_attribs = new ArrayList<String>(Arrays.asList(attribs));
 
+  public static String getColumnSetup(ViewDTO view, String[] attributes, String extra_rows,
+      boolean autoload, Map<String, ColumnSetup> map) throws JSONException
+  {
+    List<String> list = Arrays.asList(attributes);
+
+    List<String> columns = new ArrayList<String>();
+    List<String> ordered = new ArrayList<String>(list);
 
     for (String accessorName : view.getAccessorNames())
     {
       String upcased_attrib = accessorName.substring(0, 1).toUpperCase() + accessorName.substring(1);
-      if (!ordered_attribs.contains(upcased_attrib) && accessorName.length() >= 3 && autoload)
+      if (!ordered.contains(upcased_attrib) && accessorName.length() >= 3 && autoload)
       {
-        ordered_attribs.add(upcased_attrib);
+        ordered.add(upcased_attrib);
       }
 
-      if(! view.isReadable(accessorName))
+      if (!view.isReadable(accessorName))
       {
-        ordered_attribs.remove(upcased_attrib);
+        ordered.remove(upcased_attrib);
       }
     }
 
-    for (String attrib : ordered_attribs)
+    for (String attribute : ordered)
     {
-      try
+      ColumnSetup setup = new ColumnSetup();
+
+      if (map.containsKey(attribute))
       {
-        ColumnSetup setup = new ColumnSetup();
-        
-        if(map.containsKey(attrib))
-        {
-          setup = map.get(attrib);
-        }
-        
-        ArrayList<String> buff = new ArrayList<String>();
-
-        buff.add("key:'" + attrib + "'");
-
-        AttributeMdDTO md = (AttributeMdDTO) v.getMethod("get" + attrib + "Md").invoke(view);
-        Class<?> mdClass = md.getClass();
-
-        String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();
-        buff.add("label:'" + label.replaceAll("'", "\\\\'") + "'");
-
-        if (setup.isHidden())
-        {
-          buff.add("hidden:true");
-        }
-        else
-        {
-          if (!Arrays.asList(attribs).contains(attrib))
-          {
-            buff.add("hidden:true");
-          }
-          String editor = "null";
-
-          if (md instanceof AttributeNumberMdDTO)
-          {
-            editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
-          }
-          if (md instanceof AttributeBooleanMdDTO)
-          {
-              editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'" + ((AttributeBooleanMdDTO)md).getPositiveDisplayLabel().replaceAll("'", "\\\\'") + "', value:'true'}, {label:'" + ((AttributeBooleanMdDTO)md).getNegativeDisplayLabel().replaceAll("'", "\\\\'") + "', value:'false'}],disableBtns:true})";
-          }
-          if (md instanceof AttributeCharacterMdDTO)
-          {
-            editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
-          }
-          if (md instanceof AttributeDateMdDTO)
-          {
-            buff.add("formatter:YAHOO.widget.DataTable.formatDate");
-            editor = "new YAHOO.widget.DateCellEditor({calendar:MDSS.Calendar.init(),disableBtns:true})";
-          }
-          if (md instanceof AttributeEnumerationMdDTO)
-          {
-            AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
-            editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[";
-            String comma = "";
-            for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
-            {
-              editor += comma + "{label:'" + e.getValue() + "', value:'" + e.getKey() + "'}";
-              comma = ",";
-            }
-            editor += "],disableBtns:true})";
-          }
-          if (md instanceof AttributeReferenceMdDTO)
-          {
-            Class<?> refrenced_class = md.getJavaType();
-
-            if (AssayTestResultDTO.class.isAssignableFrom(refrenced_class))
-            {
-              editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
-            }
-
-            if (LabeledDTO.class.isAssignableFrom(refrenced_class))
-            {
-              editor = "new YAHOO.widget.DropdownCellEditor({dropdownOptions:" + attrib + "Labels,disableBtns:true})";
-              buff.add("save_as_id:true");
-            }
-            else
-            {
-              editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
-            }
-
-          }
-          if( view.isWritable(md.getAccessorName()) && setup.isEditable())
-          {
-            if(setup.getValidator() != null)
-            {
-              editor = editor.replaceFirst("\\}\\)", ",validator:" + setup.getValidator() + "})");
-            }
-            
-            buff.add("editor:" + editor);
-          }
-
-        }
-        arr.add("{" + Halp.join(buff, ",") + "}");
+        setup = map.get(attribute);
       }
-      catch (IllegalAccessException x)
-      {
-        System.out.println("IllegalAccessException on " + attrib + " " + x.getMessage());
-      }
-      catch (IllegalArgumentException x)
-      {
-        System.out.println("IllegalArgumentException on " + attrib + " " + x.getMessage());
-      }
-      catch (InvocationTargetException x)
-      {
-        System.out.println("InvocationTargetException on " + attrib + " " + x.getMessage());
-      }
-      catch (NoSuchMethodException x)
-      {
-        System.out.println("No such method on " + attrib + x.getMessage());
-      }
-      catch (Exception x)
-      {
-        System.out.println("Other exception on " + attrib + " " + x.getMessage());
-      }
-      colnum++;
+
+      String buffer = Halp.generateColumnMap(view, setup, attribute);
+
+      columns.add("{" + buffer + "}");
     }
+
     if (extra_rows.length() > 0)
     {
-      arr.add(extra_rows);
+      columns.add(extra_rows);
     }
-    return ( "[" + Halp.join(arr, ",\n") + "]" );
+    return ( "[" + Halp.join(columns, ",\n") + "]" );
+  }
+
+  public static String getHiddenColumns(ViewDTO view, String[] attributes, Map<String, ColumnSetup> map)
+      throws JSONException
+  {
+    List<String> list = Arrays.asList(attributes);
+
+    List<String> columns = new ArrayList<String>();
+    List<String> ordered = new ArrayList<String>();
+
+    for (String accessorName : view.getAccessorNames())
+    {
+      String attributeName = accessorName.substring(0, 1).toUpperCase() + accessorName.substring(1);
+
+      if (!list.contains(attributeName) && accessorName.length() >= 3)
+      {
+        ordered.add(attributeName);
+      }
+
+      if (!view.isReadable(accessorName))
+      {
+        ordered.remove(attributeName);
+      }
+    }
+
+    for (String attribute : ordered)
+    {
+      ColumnSetup setup = new ColumnSetup();
+
+      if (map.containsKey(attribute))
+      {
+        setup = map.get(attribute);
+      }
+
+      String buffer = Halp.generateColumnMap(view, setup, attribute);
+
+      columns.add("{" + buffer + "}");
+    }
+
+    return ( "[" + Halp.join(columns, ",\n") + "]" );
+  }
+
+  private static String generateColumnMap(ViewDTO view, ColumnSetup setup, String attrib)
+  {
+    try
+    {
+      Class<?> clazz = view.getClass();
+
+      ArrayList<String> buff = new ArrayList<String>();
+
+      buff.add("key:'" + attrib + "'");
+
+      AttributeMdDTO md = (AttributeMdDTO) clazz.getMethod("get" + attrib + "Md").invoke(view);
+      Class<?> mdClass = md.getClass();
+
+      String label = (String) mdClass.getMethod("getDisplayLabel").invoke(md).toString();
+      buff.add("label:'" + label.replaceAll("'", "\\\\'") + "'");
+
+      if (setup.isHidden())
+      {
+        buff.add("hidden:true");
+      }
+      else
+      {
+        buff.add(Halp.generateFormatter(md));
+        buff.add(Halp.generateSaveFlag(md));
+        buff.add(Halp.generateEditor(attrib, md));
+        buff.add(Halp.generateValidator(view, md, setup));
+      }
+
+      return Halp.join(buff, ",");
+    }
+    catch (Exception e)
+    {
+      // TODO fix exception handling
+      throw new RuntimeException(e);
+    }
+  }
+
+  private static String generateValidator(ViewDTO view, AttributeMdDTO md, ColumnSetup setup)
+  {
+    if (view.isWritable(md.getAccessorName()) && setup.isEditable())
+    {
+      if (setup.getValidator() != null)
+      {
+        return "validator:" + setup.getValidator();
+      }
+    }
+
+    return null;
+  }
+
+  private static String generateSaveFlag(AttributeMdDTO md)
+  {
+    if (md instanceof AttributeReferenceMdDTO)
+    {
+      Class<?> refrenced_class = md.getJavaType();
+
+      if (LabeledDTO.class.isAssignableFrom(refrenced_class))
+      {
+        return "save_as_id:true";
+      }
+    }
+
+    return null;
+  }
+
+  private static String generateFormatter(AttributeMdDTO md)
+  {
+    if (md instanceof AttributeDateMdDTO)
+    {
+      return "formatter:YAHOO.widget.DataTable.formatDate";
+    }
+
+    return null;
+  }
+
+  private static String generateEditor(String attrib, AttributeMdDTO md)
+  {
+    String editor = "null";
+
+    if (md instanceof AttributeNumberMdDTO)
+    {
+      editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+    }
+    else if (md instanceof AttributeBooleanMdDTO)
+    {
+      editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[{label:'"
+          + ( (AttributeBooleanMdDTO) md ).getPositiveDisplayLabel().replaceAll("'", "\\\\'")
+          + "', value:'true'}, {label:'"
+          + ( (AttributeBooleanMdDTO) md ).getNegativeDisplayLabel().replaceAll("'", "\\\\'")
+          + "', value:'false'}],disableBtns:true})";
+    }
+    else if (md instanceof AttributeCharacterMdDTO)
+    {
+      editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+    }
+    else if (md instanceof AttributeDateMdDTO)
+    {
+      editor = "new YAHOO.widget.DateCellEditor({calendar:MDSS.Calendar.init(),disableBtns:true})";
+    }
+    else if (md instanceof AttributeEnumerationMdDTO)
+    {
+      AttributeEnumerationMdDTO enumMd = (AttributeEnumerationMdDTO) md;
+      editor = "new YAHOO.widget.RadioCellEditor({radioOptions:[";
+      String comma = "";
+      for (Map.Entry<String, String> e : enumMd.getEnumItems().entrySet())
+      {
+        editor += comma + "{label:'" + e.getValue() + "', value:'" + e.getKey() + "'}";
+        comma = ",";
+      }
+      editor += "],disableBtns:true})";
+    }
+    else
+    {
+      Class<?> refrenced_class = md.getJavaType();
+
+      if (LabeledDTO.class.isAssignableFrom(refrenced_class))
+      {
+        editor = "new YAHOO.widget.DropdownCellEditor({dropdownOptions:" + attrib
+            + "Labels,disableBtns:true})";
+      }
+      else
+      {
+        editor = "new YAHOO.widget.TextboxCellEditor({disableBtns:true})";
+      }
+
+    }
+
+    return "editor:" + editor;
   }
 
   public static void sendErrorMail(Throwable exception, HttpServletRequest request, String text)
@@ -534,7 +627,7 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     String from = "MDSSS-no-reply@terraframe.com";
     String to = EMAIL_ERRORS_TO;
     String subject = "MDSS has produced an uncaught exception";
-    if(text == null)
+    if (text == null)
     {
       text = "Requested url: ";
       text += request.getAttribute("javax.servlet.forward.request_uri") + "\n\n";
@@ -585,7 +678,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     }
   }
 
-  public static ByteArrayOutputStream renderJspToByteArray(HttpServletRequest request, HttpServletResponse response, String jsp_to_render) throws ServletException, IOException
+  public static ByteArrayOutputStream renderJspToByteArray(HttpServletRequest request,
+      HttpServletResponse response, String jsp_to_render) throws ServletException, IOException
   {
 
     // create an output stream - to file, to memory...
@@ -598,7 +692,8 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
     dummyResponse = new RedirectingServletResponse(response, out);
 
     // get the path to the calling jsp's folder
-    String current_path = request.getServletPath().substring(0, request.getServletPath().lastIndexOf("/") + 1);
+    String current_path = request.getServletPath().substring(0,
+        request.getServletPath().lastIndexOf("/") + 1);
 
     // in same folder jsp_to_render.contains(current_path)
     if (jsp_to_render.contains("/") && !jsp_to_render.startsWith("/"))
@@ -630,9 +725,11 @@ public class Halp implements com.terraframe.mojo.generation.loader.Reloadable
 
   // This renders a jsp to a string, usefull for emails and inside out
   // rendering
-  public static String renderJspToString(HttpServletRequest request, HttpServletResponse response, String jsp_to_render)
+  public static String renderJspToString(HttpServletRequest request, HttpServletResponse response,
+      String jsp_to_render)
   {
-    //we are rendering inside out, so we have to set the date format here, because the header has not been rendered yet.
+    // we are rendering inside out, so we have to set the date format here,
+    // because the header has not been rendered yet.
     Halp.getDateFormatString(request);
 
     try

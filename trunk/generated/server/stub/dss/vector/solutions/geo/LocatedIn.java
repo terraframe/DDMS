@@ -1,6 +1,7 @@
 package dss.vector.solutions.geo;
 
 import dss.vector.solutions.geo.LocatedInBase;
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class LocatedIn extends LocatedInBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -16,4 +17,11 @@ public class LocatedIn extends LocatedInBase implements com.terraframe.mojo.gene
     this(parent.getId(), child.getId());
   }
   
+  @Override
+  public void apply()
+  {
+    super.apply();
+    
+    GeoEntity.updateAllPathForGeoEntity(this.getChildId());
+  }
 }
