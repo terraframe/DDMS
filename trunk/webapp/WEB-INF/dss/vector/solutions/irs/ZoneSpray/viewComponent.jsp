@@ -32,7 +32,32 @@
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.irs.SprayTeamDTO"%>
-<c:set var="page_title" value="View_Zone_Spray"  scope="request"/>
+
+<%@page import="java.util.Map"%>
+<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="java.util.HashMap"%><c:set var="page_title" value="View_Zone_Spray"  scope="request"/>
+
+<style type="text/css">
+.yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
+{
+vertical-align:bottom;
+background-color:#DDDDDD;
+background:none;
+}
+
+.yui-dt-label{
+/*writing-mode: tb-rl;*/
+-moz-transform: rotate(-90deg);
+width:10px;
+height:170px;
+display:block;
+position:relative;
+top:75px;
+left:75px;
+}
+
+</style>
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -85,18 +110,25 @@
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{SprayStatusViewDTO.CLASS}))%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{ActorSprayStatusViewDTO.CLASS}))%>
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{TeamSprayStatusViewDTO.CLASS}))%>
+<%
+Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+map.put("StatusId", new ColumnSetup(true, false));
+map.put("SprayData", new ColumnSetup(true, false));
+map.put("Spray", new ColumnSetup(true, false));
+map.put("TeamLabel", new ColumnSetup(true, false));
+%>
+
 <script type="text/javascript" defer="defer">
 teams = <%=request.getAttribute("teams")%>;
 operators = <%=request.getAttribute("operators")%>;
 <%=Halp.getDropdownSetup(view, attributes, deleteColumn, clientRequest)%>
 data = {
          rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-         columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 2)%>,
+         columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
          defaults: {"SprayData":'<%= spray.getDataId()%>'},
          div_id: "Status",
          data_type: "Mojo.$.<%=TeamSprayStatusViewDTO.CLASS%>",
          saveFunction:"applyAll",
-         width:"65em",
          excelButtons:false,
          after_row_load:function(record){
              var team = record.getData('SprayTeam');

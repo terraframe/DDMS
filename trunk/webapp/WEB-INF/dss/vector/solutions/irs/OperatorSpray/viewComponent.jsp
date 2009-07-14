@@ -28,7 +28,31 @@
 
 <%@page import="java.util.Map"%>
 <%@page import="dss.vector.solutions.util.ColumnSetup"%>
-<%@page import="java.util.HashMap"%><c:set var="page_title" value="View_Operator_Spray" scope="request" />
+<%@page import="java.util.HashMap"%>
+
+<style type="text/css">
+.yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
+{
+  vertical-align:bottom;
+  background-color:#DDDDDD;
+  background:none;
+}
+
+.yui-dt-label
+{
+  /*writing-mode: tb-rl;*/
+  -moz-transform: rotate(-90deg);
+  width:10px;
+  height:170px;
+  display:block;
+  position:relative;
+  top:75px;
+  left:75px;
+}
+</style>
+
+
+<c:set var="page_title" value="View_Operator_Spray" scope="request" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -84,15 +108,16 @@
 
     <%
       Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-      map.put("StatusId", new ColumnSetup(true, false, null, null, null));
-      map.put("Spray", new ColumnSetup(true, false, null, null, null));
+      map.put("StatusId", new ColumnSetup(true, false));
+      map.put("Spray", new ColumnSetup(true, false));
+      map.put("SprayData", new ColumnSetup(true, false));
       map.put("Households", new ColumnSetup(false, true, "validateValue", null, null));    
       map.put("Structures", new ColumnSetup(false, true, "validateStructure", null, null));    
       map.put("SprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
       map.put("SprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));    
       map.put("PrevSprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
       map.put("PrevSprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));    
-    
+
       out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{SprayStatusViewDTO.CLASS}, true));
       out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{HouseholdSprayStatusViewDTO.CLASS}, true));
     %>
@@ -140,7 +165,6 @@
               div_id: "Status",
               data_type: "Mojo.$.<%=HouseholdSprayStatusViewDTO.CLASS%>",
               saveFunction:"applyAll",
-              width:"65em",
               excelButtons:false              
           };
 

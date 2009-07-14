@@ -27,6 +27,33 @@
 <%@page import="com.terraframe.mojo.business.ViewDTO"%>
 <%@page import="dss.vector.solutions.irs.SprayStatusViewDTO"%>
 <%@page import="dss.vector.solutions.irs.ActorSprayStatusViewDTO"%>
+
+
+<%@page import="java.util.Map"%>
+<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="java.util.HashMap"%>
+
+<style type="text/css">
+.yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
+{
+  vertical-align:bottom;
+  background-color:#DDDDDD;
+  background:none;
+}
+
+.yui-dt-label
+{
+  /*writing-mode: tb-rl;*/
+  -moz-transform: rotate(-90deg);
+  width:10px;
+  height:170px;
+  display:block;
+  position:relative;
+  top:75px;
+  left:75px;
+}
+</style>
+
 <c:set var="page_title" value="View_Team_Spray" scope="request" />
 <mjl:messages>
   <mjl:message />
@@ -78,6 +105,12 @@
      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{SprayStatusViewDTO.CLASS}, true));
      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{ActorSprayStatusViewDTO.CLASS}, true));
      out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), new String[]{OperatorSprayStatusViewDTO.CLASS}, true));
+     
+     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
+     map.put("StatusId", new ColumnSetup(true, false));
+     map.put("SprayData", new ColumnSetup(true, false));
+     map.put("Spray", new ColumnSetup(true, false));
+     map.put("OperatorLabel", new ColumnSetup(true, false));
     %>
     operators = <%=request.getAttribute("operators")%>;
     
@@ -86,12 +119,11 @@
 
     data = {
               rows:<%=Halp.getDataMap(rows, attributes, view)%>,
-              columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, 2)%>,
+              columnDefs:<%=Halp.getColumnSetup(view, attributes, deleteColumn, true, map)%>,
               defaults: {"SprayData":'<%= spray.getDataId()%>'},
               div_id: "Status",
               data_type: "Mojo.$.<%=OperatorSprayStatusViewDTO.CLASS%>",
               saveFunction:"applyAll",
-              width:"65em",
               excelButtons:false
           };
 
