@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.terraframe.mojo.dataaccess.MdAttributeVirtualDAOIF;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
@@ -17,7 +15,6 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
-import com.terraframe.mojo.query.SelectableSQLDate;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
@@ -212,76 +209,10 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       }
     }
 
-    return setQueryDates(xml,valueQuery,dateAttribute);
+    return QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
   }
 
-  private static ValueQuery setQueryDates(String xml , ValueQuery valueQuery,  SelectableMoment dateAttribute)
-  {
-
-    String da = dateAttribute.getQualifiedName();
-
-    if (xml.indexOf("DATEGROUP_SEASON") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
-      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + da + " and ms.enddate > " + da);
-    }
-
-    if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
-      dateGroup.setSQL("to_char(" + da + ",'IW')");
-    }
-
-    if (xml.indexOf("DATEGROUP_MONTH") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
-      dateGroup.setSQL("to_char(" + da + ",'MM')");
-    }
-
-    if (xml.indexOf("DATEGROUP_QUARTER") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_QUARTER");
-      dateGroup.setSQL("to_char(" + da + ",'Q')");
-    }
-
-    if (xml.indexOf("DATEGROUP_YEAR") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_YEAR");
-      dateGroup.setSQL("to_char(" + da + ",'YYYY')");
-    }
-
-    if (xml.indexOf("START_DATE_RANGE") > 0)
-    {
-      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("START_DATE_RANGE");
-      dateGroup.setSQL("''");
-      Pattern pattern = Pattern.compile("<operator>GE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
-      Matcher matcher = pattern.matcher(xml);
-      if (matcher.find())
-      {
-        dateGroup.setSQL("'"+matcher.group(1)+"'");
-      }
-    }
-
-    if (xml.indexOf("END_DATE_RANGE") > 0)
-    {
-      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("END_DATE_RANGE");
-      dateGroup.setSQL("''");
-
-      Pattern pattern = Pattern.compile("<operator>LE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
-      Matcher matcher = pattern.matcher(xml);
-      if (matcher.find())
-      {
-        dateGroup.setSQL("'"+matcher.group(1)+"'");
-      }
-    }
-
-
-    String sql = valueQuery.getSQL();
-    System.out.println(sql);
-
-    return valueQuery;
-
-  }  /**
+   /**
    * Queries for Mosquitos.
    *
    * @param xml

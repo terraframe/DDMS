@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.terraframe.mojo.business.rbac.Operation;
 import com.terraframe.mojo.dataaccess.MdAttributeConcreteDAOIF;
@@ -22,8 +20,6 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.SelectableSQLCharacter;
-import com.terraframe.mojo.query.SelectableSQLDate;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
@@ -99,11 +95,11 @@ public class AggregatedCase extends AggregatedCaseBase implements
    * Returns true if the given attribute is defined by a
    * <code>MdAttributeDAOIF</code> in the given map and the current user has
    * permission to view the attribute, false otherwise.
-   * 
+   *
    * <br>
    * Precondition:</br> <code>Session.getCurrentSession()</code> does not return
    * null.
-   * 
+   *
    * @param attributeName
    * @param viewCaseAttributeMap
    * @return true if the given attribute is defined by a
@@ -445,7 +441,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
-   * 
+   *
    * @param xml
    * @return
    */
@@ -464,7 +460,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
         .getMdRelationshipDAO(CaseTreatmentStock.CLASS);
 
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
-    
+
     for (String gridAlias : queryMap.keySet())
     {
       GeneratedEntityQuery generatedQuery = queryMap.get(gridAlias);
@@ -520,97 +516,10 @@ public class AggregatedCase extends AggregatedCaseBase implements
     String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
     String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
 
-    return setQueryDates(xml, valueQuery, sd, ed);
+    return QueryUtil.setQueryDates(xml, valueQuery, sd, ed);
   }
 
-  private static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, String sd, String ed)
-  {
-    if (xml.indexOf("DATEGROUP_SEASON") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable("DATEGROUP_SEASON");
-      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + sd
-          + " and ms.enddate > " + ed);
-    }
 
-    if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable("DATEGROUP_EPIWEEK");
-
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed
-          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(Day FROM " + sd
-          + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
-          + "THEN to_char(" + sd + ",'IW')" + "ELSE to_char(" + ed + ",'IW') END";
-      dateGroup.setSQL(dateGroupSql);
-    }
-
-    if (xml.indexOf("DATEGROUP_MONTH") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable("DATEGROUP_MONTH");
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed
-          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(DAY FROM " + sd
-          + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
-          + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed + ",'MM') END";
-      dateGroup.setSQL(dateGroupSql);
-    }
-
-    if (xml.indexOf("DATEGROUP_QUARTER") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable("DATEGROUP_QUARTER");
-
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed
-          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(DOY FROM " + sd
-          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed
-          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + "THEN to_char(" + sd + ",'Q')"
-          + "ELSE to_char(" + ed + ",'Q') END";
-      dateGroup.setSQL(dateGroupSql);
-    }
-
-    if (xml.indexOf("DATEGROUP_YEAR") > 0)
-    {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable("DATEGROUP_YEAR");
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed
-          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(DOY FROM " + sd
-          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
-          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN to_char(" + sd + ",'YYYY')"
-          + "ELSE to_char(" + ed + ",'YYYY') END";
-      dateGroup.setSQL(dateGroupSql);
-    }
-
-    if (xml.indexOf("START_DATE_RANGE") > 0)
-    {
-      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("START_DATE_RANGE");
-      dateGroup.setSQL("''");
-      Pattern pattern = Pattern
-          .compile("<operator>GE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
-      Matcher matcher = pattern.matcher(xml);
-      if (matcher.find())
-      {
-        dateGroup.setSQL("'" + matcher.group(1) + "'");
-      }
-    }
-
-    if (xml.indexOf("END_DATE_RANGE") > 0)
-    {
-      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("END_DATE_RANGE");
-      dateGroup.setSQL("''");
-
-      Pattern pattern = Pattern
-          .compile("<operator>LE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
-      Matcher matcher = pattern.matcher(xml);
-      if (matcher.find())
-      {
-        dateGroup.setSQL("'" + matcher.group(1) + "'");
-      }
-    }
-
-    return valueQuery;
-
-  }
 
   /**
    * Returns the alias for the relationship query that maps to the grid query
@@ -626,7 +535,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   /**
    * Queries for AggregatedCases.
-   * 
+   *
    * @param xml
    */
   @Transaction
@@ -645,7 +554,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   /**
    * Creates a
-   * 
+   *
    * @param xml
    * @return
    */
@@ -731,7 +640,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
   /**
    * Returns all AbstractGrid subclass instances relative to Aggregated Cases.
-   * 
+   *
    * @return
    */
   public static AbstractGridQuery getGridInstances()
