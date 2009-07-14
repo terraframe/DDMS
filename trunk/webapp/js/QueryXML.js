@@ -9,7 +9,7 @@ MDSS.QueryXML = {
     GE: 'GE',
     LT: 'LT',
     LE: 'LE',
-    CONTAINS_ANY: 'containsAny'
+    CONTAINS_ANY: MDSS.Localized.CONTAINS_ANY
   },
 
   Functions : {
@@ -20,11 +20,11 @@ MDSS.QueryXML = {
   },
 
   DateGroupOpts: {
-  	DATEGROUP_EPIWEEK:'Epi Week',
-  	DATEGROUP_MONTH:'Month',
-  	DATEGROUP_QUARTER:'Quarter',
-  	DATEGROUP_YEAR:'Year',
-  	DATEGROUP_SEASON:'Season'
+  	DATEGROUP_EPIWEEK:MDSS.Localized.DATEGROUP_EPIWEEK,
+  	DATEGROUP_MONTH:MDSS.Localized.DATEGROUP_MONTH,
+  	DATEGROUP_QUARTER:MDSS.Localized.DATEGROUP_QUARTER,
+  	DATEGROUP_YEAR:MDSS.Localized.DATEGROUP_YEAR,
+  	DATEGROUP_SEASON:MDSS.Localized.DATEGROUP_SEASON
   },
 
   GROUP_BY_FUNCTION : 'GB',
@@ -715,7 +715,7 @@ MDSS.Query.Config.prototype = {
   {
     return this._config.thematicLayerType;
   },
-  
+
   setThematicLayerType : function(type)
   {
     this._config.thematicLayerType = type;
@@ -819,12 +819,12 @@ MDSS.Query.Parser.prototype = {
     {
       return;
     }
-    
+
     for(var i=0; i<criteria.length; i++)
     {
       var criteriaNode = criteria[i];
       var selectables = criteriaNode.getElementsByTagName('selectable');
-  
+
       for(var j=0; j<selectables.length; j++)
       {
         var selectable = selectables[j];
@@ -834,7 +834,7 @@ MDSS.Query.Parser.prototype = {
           var entityAlias = this._getValue(selectable, 'entityAlias');
           var attributeName = this._getValue(selectable, 'name');
           var userAlias = this._getValue(selectable, 'userAlias');
-  
+
           var parent = selectable.parentNode;
           var operator = this._getValue(parent, 'operator');
           var value = this._getValue(parent, 'value');
@@ -842,7 +842,7 @@ MDSS.Query.Parser.prototype = {
         }
       }
     }
-    
+
   }
 
 };

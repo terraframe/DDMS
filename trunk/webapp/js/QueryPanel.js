@@ -3,7 +3,7 @@
  */
 MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
 {
-  
+
   this._queryClass = queryClass;
 
   var minWidth = 1270;
@@ -127,9 +127,9 @@ MDSS.QueryPanel.prototype = {
   QUERY_SUMMARY : "querySummary",
 
   THEMATIC_LAYERS_SELECT : "thematicLayersSelect",
-  
+
   EDIT_VARIABLE_STYLE : "editVariableStyle",
-  
+
   EDIT_DEFAULT_STYLE : "editDefaultStyle",
 
   /**
@@ -266,7 +266,7 @@ MDSS.QueryPanel.prototype = {
   {
     return this._startDate;
   },
-  
+
   getStartDateCheck : function()
   {
     return this._startDateRangeCheck;
@@ -280,7 +280,7 @@ MDSS.QueryPanel.prototype = {
   {
     return this._endDate;
   },
-  
+
   getEndDateCheck : function()
   {
     return this._endDateRangeCheck;
@@ -301,10 +301,12 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.setAttribute(this._startDate, 'type', 'text');
     this._startDate.id = this.START_DATE_RANGE;
     YAHOO.util.Dom.addClass(this._startDate, 'DatePick');
+    YAHOO.util.Event.addListener(this._startDate, "blur", this._disableDateCheck, this, true);
 
     this._startDateRangeCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'type', 'checkbox');
     YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'id', 'START_DATE_RANGE');
+    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'disabled', true);
 
     var endLabel = document.createElement('span');
     endLabel.innerHTML = MDSS.Localized.Query.End_Date;
@@ -313,10 +315,12 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.setAttribute(this._endDate, 'type', 'text');
     this._endDate.id = this.END_DATE_RANGE;
     YAHOO.util.Dom.addClass(this._endDate, 'DatePick');
+    YAHOO.util.Event.addListener(this._endDate, "blur", this._disableDateCheck, this, true);
 
     this._endDateRangeCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'type', 'checkbox');
     YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id', 'END_DATE_RANGE');
+    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
 
     var toggleDatesSpan = document.createElement('span');
     toggleDatesSpan.innerHTML = MDSS.Localized.Toggle_Show;
@@ -355,6 +359,38 @@ MDSS.QueryPanel.prototype = {
     body.appendChild(dateRange);
 
   },
+
+  /**
+   */
+  _disableDateCheck : function(e)
+  {
+  	if(this._startDate.value.length == 0)
+  	{
+      if(this._startDateRangeCheck.checked)
+      {
+      	this._startDateRangeCheck.click();
+      }
+      this._startDateRangeCheck.disabled = true;
+  	}
+  	else
+  	{
+      this._startDateRangeCheck.disabled = false;
+  	}
+
+  	if(this._endDate.value.length == 0)
+  	{
+      if(this._endDateRangeCheck.checked)
+      {
+      	this._endDateRangeCheck.click();
+      }
+      this._endDateRangeCheck.disabled = true;
+  	}
+  	else
+  	{
+      this._endDateRangeCheck.disabled = false;
+  	}
+  },
+
 
   /**
    * Builds the query items/attributes and adds them
@@ -456,7 +492,7 @@ MDSS.QueryPanel.prototype = {
     this._buildQuerySummary();
 
     YAHOO.util.Event.on(this.PAGINATION_SECTION, 'click', this._paginationHandler, null, this);
-    
+
     this._buildUniversalList();
 
     // let the query panels perform their own post-render logic
@@ -479,7 +515,7 @@ MDSS.QueryPanel.prototype = {
     var querySummary = document.getElementById(this.QUERY_SUMMARY);
     querySummary.innerHTML = html;
   },
-  
+
   /**
    * Sets the selected thematic layer. Note that this should be called
    * after this.setAvailableThematicLayers().
@@ -488,10 +524,10 @@ MDSS.QueryPanel.prototype = {
   {
     var select = document.getElementById(this.THEMATIC_LAYERS_SELECT);
     var options = select.options;
-    
+
     for(var i=0; i<options.length; i++)
     {
-    
+
       var option = options[i];
       if(option.value === layer)
       {
@@ -530,7 +566,7 @@ MDSS.QueryPanel.prototype = {
           selectIndex = i;
         }
       }
-      
+
       select.selectedIndex = selectIndex;
     }
   },
@@ -541,17 +577,17 @@ MDSS.QueryPanel.prototype = {
     {
       var select = e.target;
       var option = select.options[select.selectedIndex];
-      
+
       this._config.thematicLayerSelected.call(this._queryClass, option.value);
-    } 
+    }
   },
-  
+
   toggleThematicSettings : function(enabled)
   {
     document.getElementById(this.EDIT_DEFAULT_STYLE).disabled = !enabled;
     document.getElementById(this.EDIT_VARIABLE_STYLE).disabled = !enabled;
   },
-  
+
   /**
    * Returns the currently selected thematic layer in the drop down list
    * of available thematic layers.
@@ -671,7 +707,7 @@ MDSS.QueryPanel.prototype = {
 
     var thematicSelect = document.getElementById(this.THEMATIC_LAYERS_SELECT);
     thematicSelect.selectedIndex = 0;
-    
+
     YAHOO.util.Event.on(thematicSelect, 'change', this._thematicLayerSelected, null, this);
   },
 
@@ -715,7 +751,7 @@ MDSS.QueryPanel.prototype = {
       this._config.deleteLayer.call(this._queryClass, obj.layerId, obj.type);
     }
   },
-  
+
   /**
    * Removes all currently defined layers (from the DOM, it doesn't
    * delete them), and also re-enables all disabled options in the
@@ -725,7 +761,7 @@ MDSS.QueryPanel.prototype = {
   {
     var ul = document.getElementById(this.DEFINED_LAYERS_LIST);
     ul.innerHTML = '';
-    
+
     var select = document.getElementById(this.AVAILABLE_LAYERS_LIST);
     var options = select.options;
     for(var i=0; i<options.length; i++)
@@ -733,12 +769,12 @@ MDSS.QueryPanel.prototype = {
       options[i].disabled = false;
     }
   },
-  
+
   removeDefinedLayer : function(layerId, type)
   {
     var li = document.getElementById(layerId+'_defined');
-    li.parentNode.removeChild(li);    
-    
+    li.parentNode.removeChild(li);
+
     // enable the option in the available list
     document.getElementById(type+"_available").disabled = false;
   },
@@ -923,10 +959,10 @@ MDSS.QueryPanel.prototype = {
    var queryTypeInput = document.createElement('input');
    YAHOO.util.Dom.setAttribute(queryTypeInput, 'type', 'hidden');
    YAHOO.util.Dom.setAttribute(queryTypeInput, 'name', 'queryType');
-   
+
    var queryTypeInput = document.createElement('input');
    YAHOO.util.Dom.setAttribute(queryTypeInput, 'type', 'hidden');
-   YAHOO.util.Dom.setAttribute(queryTypeInput, 'name', 'type');   
+   YAHOO.util.Dom.setAttribute(queryTypeInput, 'name', 'type');
 
    var obj = {
      form: form,
