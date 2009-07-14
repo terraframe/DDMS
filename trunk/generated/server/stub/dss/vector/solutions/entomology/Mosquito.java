@@ -8,48 +8,29 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.xml.sax.SAXParseException;
-
 import com.terraframe.mojo.dataaccess.MdAttributeVirtualDAOIF;
-import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
-import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoin;
 import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.OR;
-import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
-import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableMoment;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.SelectableSQLDate;
-import com.terraframe.mojo.query.SelectableSingle;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
-import com.terraframe.mojo.query.ValueQueryParser;
-import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
-import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
 import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultQuery;
 import dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultQuery;
-import dss.vector.solutions.geo.AllPaths;
-import dss.vector.solutions.geo.AllPathsQuery;
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.query.NoColumnsAddedException;
-import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
-import dss.vector.solutions.query.ThematicVariable;
 import dss.vector.solutions.util.QueryConfig;
+import dss.vector.solutions.util.QueryUtil;
 
 public class Mosquito extends MosquitoBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -146,132 +127,15 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
-    ValueQueryParser valueQueryParser;
-
-    try
-    {
-      valueQueryParser = new ValueQueryParser(xml, valueQuery);
-    }
-    catch (QueryException e)
-    {
-      // Check if the error was because no selectables were added.
-      Throwable t = e.getCause();
-      if (t != null && t instanceof SAXParseException && t.getMessage().contains("{selectable}"))
-      {
-        NoColumnsAddedException ex = new NoColumnsAddedException();
-        throw ex;
-      }
-      else
-      {
-        throw e;
-      }
-    }
-
-    // include the thematic variable (if applicable).
-    if (thematicLayer != null)
-    {
-      ThematicVariable thematicVariable = thematicLayer.getThematicVariable();
-      if (thematicVariable != null)
-      {
-        String entityAlias = thematicVariable.getEntityAlias();
-        String userAlias = thematicVariable.getUserAlias();
-
-        valueQueryParser.setColumnAlias(entityAlias, userAlias, QueryConstants.THEMATIC_DATA_COLUMN);
-      }
-    }
-
-    Map<String, GeneratedEntityQuery> queryMap;
-    MosquitoCollectionQuery collectionQuery;
-    if (includeGeometry)
-    {
-      /* 
-       * Note that the mapping query does not need to perform the complex left join logic.
-       * This is because the entity name, geo id selectables on different universal types
-       * will not affect the mapping result, so they are omitted.
-       */
-      
-      thematicLayer.getGeoHierarchy().getGeoEntityClass();
-      MdBusiness geoEntityMd = thematicLayer.getGeoHierarchy().getGeoEntityClass();
-      String thematicLayerType = geoEntityMd.definesType();
-
-      MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
-      String attributeName = mdAttrGeo.getAttributeName();
-
-      valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName, "", "");
-      valueQueryParser.addAttributeSelectable(thematicLayerType, GeoEntity.ENTITYNAME, "", QueryConstants.ENTITY_NAME_COLUMN);
-      
-      queryMap = valueQueryParser.parse();
-
-      collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
-      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
-      GeoEntityQuery geoEntityQuery = (GeoEntityQuery) queryMap.get(thematicLayerType);
-      
-      valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
-      
-      valueQuery.AND(collectionQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
-    }
-    else
-    {
-      // Normal query (non-mapping)
-      List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
-      for (String selectedGeoEntityType : selectedUniversals)
-      {
-        GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
-
-        AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
-        ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
-        MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
-
-        Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName() + "_entityName");
-        Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName() + "_geoId");
-
-        geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
-
-        List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
-        Condition[] geoConditions = new Condition[allClasses.size()];
-        for (int i = 0; i < allClasses.size(); i++)
-        {
-          geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
-        }
-
-        geoEntityVQ.WHERE(OR.get(geoConditions));
-        geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
-
-        leftJoinValueQueries.add(geoEntityVQ);
-
-        valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
-      }
-
-      queryMap = valueQueryParser.parse();
-
-      collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
-      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
-
-      if (allPathsQuery != null)
-      {
-        List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
-        for (ValueQuery leftJoinVQ : leftJoinValueQueries)
-        {
-          leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
-        }
-
-        int size = leftJoinSelectables.size();
-        if (size > 0)
-        {
-          valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(
-              leftJoinSelectables.toArray(new SelectableSingle[size])));
-        }
-        
-        // Join AggregatedCase to GeoEntity
-        valueQuery.AND(collectionQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
-      }
-    }
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
+        valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, MosquitoCollection.CLASS, MosquitoCollection.GEOENTITY);
 
     MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
     UninterestingSpecieGroupQuery groupQuery = (UninterestingSpecieGroupQuery) queryMap.get(UninterestingSpecieGroup.CLASS);
 
-
     // join Mosquito with mosquito collection
+    MosquitoCollectionQuery collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     if (mosquitoQuery != null)
     {
       valueQuery.WHERE(mosquitoQuery.getCollection().getId().EQ(collectionQuery.getId()));

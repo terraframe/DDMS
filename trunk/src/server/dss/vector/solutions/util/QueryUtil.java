@@ -1,0 +1,179 @@
+package dss.vector.solutions.util;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import org.xml.sax.SAXParseException;
+
+import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
+import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
+import com.terraframe.mojo.query.Condition;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.OR;
+import com.terraframe.mojo.query.QueryException;
+import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectableSingle;
+import com.terraframe.mojo.query.ValueQuery;
+import com.terraframe.mojo.query.ValueQueryParser;
+import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
+import com.terraframe.mojo.system.metadata.MdBusiness;
+
+import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.geo.AllPathsQuery;
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF;
+import dss.vector.solutions.query.NoColumnsAddedException;
+import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.ThematicLayer;
+import dss.vector.solutions.query.ThematicVariable;
+import dss.vector.solutions.surveillance.AggregatedCase;
+
+public class QueryUtil
+{
+
+  /**
+   * Joins the ValueQuery with any selected/restricting geo entity information.
+   * This method does not perform the final join between the AllPathsQuery and
+   * the GeneratedEntityQuery that exists in the calling code.
+   * 
+   * @param queryFactory
+   * @param valueQuery
+   * @param xml
+   * @param thematicLayer
+   * @param includeGeometry
+   * @param selectedUniversals
+   * @return
+   */
+  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory,
+      ValueQuery valueQuery, String xml, ThematicLayer thematicLayer, boolean includeGeometry,
+      String[] selectedUniversals, String generatedQueryClass, String geoEntityAttribute)
+  {
+    ValueQueryParser valueQueryParser;
+    Map<String, GeneratedEntityQuery> queryMap;
+
+    try
+    {
+      valueQueryParser = new ValueQueryParser(xml, valueQuery);
+    }
+    catch (QueryException e)
+    {
+      // Check if the error was because no selectables were added.
+      Throwable t = e.getCause();
+      if (t != null && t instanceof SAXParseException && t.getMessage().contains("{selectable}"))
+      {
+        NoColumnsAddedException ex = new NoColumnsAddedException();
+        throw ex;
+      }
+      else
+      {
+        throw e;
+      }
+    }
+
+    // include the thematic variable (if applicable).
+    if (thematicLayer != null)
+    {
+      ThematicVariable thematicVariable = thematicLayer.getThematicVariable();
+      if (thematicVariable != null)
+      {
+        String entityAlias = thematicVariable.getEntityAlias();
+        String userAlias = thematicVariable.getUserAlias();
+
+        valueQueryParser.setColumnAlias(entityAlias, userAlias, QueryConstants.THEMATIC_DATA_COLUMN);
+      }
+    }
+
+
+    if (includeGeometry)
+    {
+      /*
+       * Note that the mapping query does not need to perform the complex left
+       * join logic. This is because the entity name, geo id selectables on
+       * different universal types will not affect the mapping result, so they
+       * are omitted.
+       */
+
+      thematicLayer.getGeoHierarchy().getGeoEntityClass();
+      MdBusiness geoEntityMd = thematicLayer.getGeoHierarchy().getGeoEntityClass();
+      String thematicLayerType = geoEntityMd.definesType();
+
+      MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
+      String attributeName = mdAttrGeo.getAttributeName();
+
+      valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName, "", "");
+      valueQueryParser.addAttributeSelectable(thematicLayerType, GeoEntity.ENTITYNAME, "",
+          QueryConstants.ENTITY_NAME_COLUMN);
+
+      queryMap = valueQueryParser.parse();
+
+      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
+      GeoEntityQuery geoEntityQuery = (GeoEntityQuery) queryMap.get(thematicLayerType);
+
+      valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
+      
+      GeneratedEntityQuery generatedEntityQuery = queryMap.get(AggregatedCase.CLASS);
+      valueQuery.AND(((GeoEntityQueryReferenceIF)generatedEntityQuery.aAttribute(geoEntityAttribute)).EQ(allPathsQuery.getChildGeoEntity()));
+    }
+    else
+    {
+      // Normal query (non-mapping)
+      List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
+      for (String selectedGeoEntityType : selectedUniversals)
+      {
+        GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
+
+        AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
+        ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
+        MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
+
+        Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName() + "_entityName");
+        Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName() + "_geoId");
+
+        geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
+
+        List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
+        Condition[] geoConditions = new Condition[allClasses.size()];
+        for (int i = 0; i < allClasses.size(); i++)
+        {
+          geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
+        }
+
+        geoEntityVQ.WHERE(OR.get(geoConditions));
+        geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
+
+        leftJoinValueQueries.add(geoEntityVQ);
+
+        valueQueryParser.setValueQuery(selectedGeoEntityType, geoEntityVQ);
+      }
+
+      queryMap = valueQueryParser.parse();
+
+      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
+
+      if (allPathsQuery != null)
+      {
+        List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
+        for (ValueQuery leftJoinVQ : leftJoinValueQueries)
+        {
+          leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
+        }
+
+        int size = leftJoinSelectables.size();
+        if (size > 0)
+        {
+          valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(
+              leftJoinSelectables.toArray(new SelectableSingle[size])));
+        }
+        
+        GeneratedEntityQuery generatedEntityQuery = queryMap.get(AggregatedCase.CLASS);
+        valueQuery.AND(((GeoEntityQueryReferenceIF)generatedEntityQuery.aAttribute(geoEntityAttribute)).EQ(allPathsQuery.getChildGeoEntity()));
+      }
+    }
+    
+    return queryMap;
+  }
+}

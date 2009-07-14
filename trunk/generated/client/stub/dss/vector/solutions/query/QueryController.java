@@ -84,10 +84,10 @@ public class QueryController extends QueryControllerBase implements
         queries.put(idAndName);
       }
       
-      SurveyPointDTO surveyPointDTO = new SurveyPointDTO(this.getClientRequest());
 
       req.setAttribute("queryList", queries.toString());     
       
+      SurveyPointDTO surveyPointDTO = new SurveyPointDTO(this.getClientRequest());
       
       req.getRequestDispatcher(QUERY_SURVEY).forward(req, resp); 
     }
@@ -580,141 +580,4 @@ public class QueryController extends QueryControllerBase implements
     super.deleteQuery(savedQueryView);
   }
 
-  /**
-   * Creates the screen to query for IndicatorSurvey.
-   */
-  public void queryIndicatorSurvey() throws IOException, ServletException
-  {
-    try
-    {
-      // The Earth is the root. FIXME use country's default root
-      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
-      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
-
-      // Available queries
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_INDICATOR_SURVEY);
-      JSONArray queries = new JSONArray();
-      for (SavedSearchViewDTO view : query.getResultSet())
-      {
-        JSONObject idAndName = new JSONObject();
-        idAndName.put("id", view.getSavedQueryId());
-        idAndName.put("name", view.getQueryName());
-
-        queries.put(idAndName);
-      }
-
-      req.setAttribute("queryList", queries.toString());
-
-      // Age groups
-      AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientRequest());
-      JSONArray groups = new JSONArray();
-      for(AggregatedAgeGroupDTO ageGroup : ageGroups)
-      {
-        JSONObject group = new JSONObject();
-        group.put("id", ageGroup.getId());
-        group.put("startAge", ageGroup.getStartAge().intValue());
-        group.put("endAge", ageGroup.getEndAge().intValue());
-
-        groups.put(group);
-      }
-
-      req.setAttribute("ageGroups", groups.toString());
-
-      // Visible attributes
-      String[] visibleAttributes = AggregatedCaseDTO.getVisibleAttributeNames(this.getClientRequest());
-      JSONArray visible = new JSONArray();
-      for(String visibleAttribute : visibleAttributes)
-      {
-        visible.put(visibleAttribute);
-      }
-
-      req.setAttribute("visibleAttributes", visible.toString());
-
-
-      ResourceBundle localized = ResourceBundle.getBundle("MDSS");
-      JSONArray ordered = new JSONArray();
-
-      Map<String, JSONObject> orderedMap = new HashMap<String, JSONObject>();
-
-      // Referral
-      JSONObject referral = new JSONObject();
-      referral.put("type", ReferralGridDTO.CLASS);
-      referral.put("label", localized.getObject("Facility_referred"));
-      referral.put("relType", CaseReferralDTO.CLASS);
-      referral.put("relAttribute", CaseReferralDTO.AMOUNT);
-      referral.put("options", new JSONArray());
-      ordered.put(referral);
-      orderedMap.put(ReferralGridDTO.CLASS, referral);
-
-      // Diagnostic
-      JSONObject diagnostic = new JSONObject();
-      diagnostic.put("type", DiagnosticGridDTO.CLASS);
-      diagnostic.put("label", localized.getObject("Diagnostic_methods"));
-      diagnostic.put("relType", CaseDiagnosticDTO.CLASS);
-      diagnostic.put("relAttribute", CaseDiagnosticDTO.AMOUNT);
-      //diagnostic.put("relAttribute2", CaseDiagnosticDTO.AMOUNTPOSITIVE);
-      diagnostic.put("options", new JSONArray());
-      ordered.put(diagnostic);
-      orderedMap.put(DiagnosticGridDTO.CLASS, diagnostic);
-
-      // TreatmentMethod
-      JSONObject treatmentMethod = new JSONObject();
-      treatmentMethod.put("type", TreatmentMethodGridDTO.CLASS);
-      treatmentMethod.put("label", localized.getObject("Treatment_methods"));
-      treatmentMethod.put("relType", CaseTreatmentMethodDTO.CLASS);
-      treatmentMethod.put("relAttribute", CaseTreatmentMethodDTO.AMOUNT);
-      treatmentMethod.put("options", new JSONArray());
-      ordered.put(treatmentMethod);
-      orderedMap.put(TreatmentMethodGridDTO.CLASS, treatmentMethod);
-
-      // Treatment
-      JSONObject treatment = new JSONObject();
-      treatment.put("type", TreatmentGridDTO.CLASS);
-      treatment.put("label", localized.getObject("Treatments"));
-      treatment.put("relType", CaseTreatmentDTO.CLASS);
-      treatment.put("relAttribute", CaseTreatmentDTO.AMOUNT);
-      treatment.put("options", new JSONArray());
-      ordered.put(treatment);
-      orderedMap.put(TreatmentGridDTO.CLASS, treatment);
-
-      // CaseTreatmentStock
-      JSONObject caseTreatmentStock = new JSONObject();
-      caseTreatmentStock.put("type", CaseTreatmentStockDTO.CLASS);
-      caseTreatmentStock.put("label", localized.getObject("Treatment_out_of_Stock"));
-      caseTreatmentStock.put("relType", CaseTreatmentStockDTO.CLASS);
-      caseTreatmentStock.put("relAttribute", CaseTreatmentStockDTO.OUTOFSTOCK);
-      caseTreatmentStock.put("options", new JSONArray());
-      ordered.put(caseTreatmentStock);
-      orderedMap.put(CaseTreatmentStockDTO.CLASS, caseTreatmentStock);
-
-      AbstractGridQueryDTO gridQuery = AbstractGridDTO.getAllInstances(this.getClientRequest(), null, null, null, null);
-
-      for(AbstractGridDTO grid : gridQuery.getResultSet())
-      {
-        JSONObject option = new JSONObject();
-        option.put("optionName", grid.getOptionName());
-        option.put("display", grid.getDisplayLabel());
-        option.put("attributeName", AbstractGridDTO.OPTIONNAME);
-        option.put("type", grid.getType());
-
-        if(grid.getType().equals(TreatmentGridDTO.CLASS))
-        {
-          // CaseTreatmentStock (a relationship) gets a copy of all
-          // attributes in Treatment. Yes, this is hacky.
-          caseTreatmentStock.getJSONArray("options").put(option);
-        }
-
-        JSONObject gridType = orderedMap.get(grid.getType());
-        gridType.getJSONArray("options").put(option);
-      }
-
-      req.setAttribute("orderedGrids", ordered.toString());
-
-      req.getRequestDispatcher(QUERY_AGGREGATED_CASES).forward(req, resp);
-    }
-    catch (Throwable t)
-    {
-      throw new ApplicationException(t);
-    }
-  }
 }

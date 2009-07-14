@@ -3,13 +3,19 @@ package dss.vector.solutions.intervention.monitor;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.query.ThematicLayer;
+import dss.vector.solutions.util.QueryConfig;
+import dss.vector.solutions.util.QueryUtil;
 
 public class SurveyPoint extends SurveyPointBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -25,7 +31,7 @@ public class SurveyPoint extends SurveyPointBase implements
   public void apply()
   {
     validateSurveyDate();
-    
+
     super.apply();
   }
 
@@ -131,5 +137,47 @@ public class SurveyPoint extends SurveyPointBase implements
     {
       it.close();
     }
+  }
+
+  private static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals,
+      boolean includeGeometry, ThematicLayer thematicLayer)
+  {
+    QueryFactory queryFactory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+    // IMPORTANT: Required call for all query screens.
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
+        valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, SurveyPoint.CLASS, SurveyPoint.GEOENTITY);
+    
+    SurveyPointQuery surveyPointQuery = (SurveyPointQuery) queryMap.get(SurveyPoint.CLASS);
+    HouseholdQuery householdQuery = (HouseholdQuery) queryMap.get(Household.CLASS);
+    
+    valueQuery.WHERE(surveyPointQuery.households(householdQuery));
+    
+    return valueQuery;
+  }
+
+  /**
+   * Queries Survey points.
+   * 
+   * @param queryXML
+   * @param config
+   * @param sortBy
+   * @param ascending
+   * @param pageNumber
+   * @return
+   */
+  public static com.terraframe.mojo.query.ValueQuery querySurvey(String xml, String config,
+      Integer pageNumber, Integer pageSize)
+  {
+    QueryConfig queryConfig = new QueryConfig(config);
+    String[] selectedUniversals = queryConfig.getSelectedUniversals();
+
+    ValueQuery valueQuery = xmlToValueQuery(xml, selectedUniversals, false, null);
+
+    valueQuery.restrictRows(pageSize, pageNumber);
+
+    return valueQuery;
   }
 }

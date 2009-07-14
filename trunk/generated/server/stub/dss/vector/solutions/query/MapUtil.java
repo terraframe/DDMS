@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import com.terraframe.mojo.constants.LocalProperties;
 import com.terraframe.mojo.dataaccess.ProgrammingErrorException;
 import com.terraframe.mojo.dataaccess.database.Database;
+import com.terraframe.mojo.dataaccess.database.DatabaseException;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.session.Session;
 import com.terraframe.mojo.system.WebFile;
@@ -66,12 +67,21 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
    // reload the view for the thematic layer
    String viewName = thematicLayer.getViewName();
 
-   if(thematicLayer.getViewCreated().booleanValue())
+   try
    {
      Database.dropView(viewName, sql, false);
    }
-
-   Database.createView(viewName, sql);
+   catch(DatabaseException e)
+   {
+     // View doesn't exist, but that's okay. It may have never
+	 // been created or a cleanup task has removed.
+   }
+   finally
+   {
+	 // Create a new view that will reflect the current state of the query.
+     Database.createView(viewName, sql);
+   }
+   
    
    
    // make sure there are no duplicate geo entities
@@ -106,9 +116,9 @@ public class MapUtil extends MapUtilBase implements com.terraframe.mojo.generati
      }
    }
 
-   thematicLayer.appLock();
-   thematicLayer.setViewCreated(true);
-   thematicLayer.apply();
+//   thematicLayer.appLock();
+//   thematicLayer.setViewCreated(true);
+//   thematicLayer.apply();
 
    String sessionId = Session.getCurrentSession().getId();
 
