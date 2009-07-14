@@ -42,6 +42,7 @@ MDSS.Calendar = {};
             cur_field.value = calDate.format(java_date_format);
             over_cal = false;
             hideCal();
+            fireOnblur(cur_field);
     }
 
     var var_to_date = function(date_str) {
@@ -110,7 +111,21 @@ MDSS.Calendar = {};
         if(ev){
         	validate(ev);
         }
+
     }
+
+    function fireOnblur(target) {
+    	//var target=document.getElementById(objID);
+    	if(document.dispatchEvent) { // W3C
+    	    var oEvent = document.createEvent( "MouseEvents" );
+    	    oEvent.initMouseEvent("blur", true, true,window, 1, 1, 1, 1, 1, false, false, false, false, 0, target);
+    	    target.dispatchEvent( oEvent );
+    	    }
+    	else if(document.fireEvent) { // IE
+    	    target.fireEvent("onblur");
+    	    }
+    	}
+
 
     var validate = function(ev) {
         var tar = Event.getTarget(ev);
@@ -136,6 +151,8 @@ MDSS.Calendar = {};
         {
         	addError(tar, MDSS.localize('Future_Dates_Not_Allowed'));
         }
+
+
 
     }
 
