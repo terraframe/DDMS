@@ -45,4 +45,4 @@
   </mjl:pagination>
 </mjl:table>
 <br />
-<mjl:commandLink action="dss.vector.solutions.mo.ResistanceMethodologyController.newInstance.mojo" name="ResistanceMethodologyController.newInstance"><fmt:message key="Resistance_Methodology_Create_link" /></mjl:commandLink>
+<mjl:commandLink action="dss.vector.solutions.mo.ResistanceMethodologyController.newInstance.mojo" name="ResistanceMethodologyController.newInstance"><fmt:message key="Create_New_Resistance_Methodology_Link" /></mjl:commandLink>

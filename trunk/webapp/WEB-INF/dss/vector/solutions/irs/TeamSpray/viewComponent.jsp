@@ -65,6 +65,7 @@
       <mjl:dt attribute="target"> ${item.target} </mjl:dt>     
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.irs.TeamSprayController.edit.mojo" name="dss.vector.solutions.irs.TeamSpray.form.edit.button" />
+    <mjl:command value="Create_New_Team_Spray_Button" action="dss.vector.solutions.irs.TeamSprayController.search.mojo" name="TeamSprayController.search" />
   </dl>  
 </mjl:form>
 

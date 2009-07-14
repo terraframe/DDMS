@@ -75,6 +75,7 @@
     </mjl:component>
     
     <mjl:command value="Edit" action="dss.vector.solutions.irs.ZoneSprayController.edit.mojo" name="dss.vector.solutions.irs.ZoneSpray.form.edit.button" />
+    <mjl:command value="Create_New_Zone_Spray_Button" action="dss.vector.solutions.irs.ZoneSprayController.search.mojo" name="ZoneSprayController.search" />
   </dl>
 </mjl:form>
 

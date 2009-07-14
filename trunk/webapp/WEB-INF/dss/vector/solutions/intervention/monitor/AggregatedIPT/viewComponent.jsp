@@ -151,5 +151,6 @@
       </dd>
     </c:if>
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.AggregatedIPTController.edit.mojo" name="dss.vector.solutions.intervention.monitor.AggregatedIPT.form.edit.button" />
-  </dl>
+    <mjl:command value="Create_New_Aggregated_IPT_Button" action="dss.vector.solutions.intervention.monitor.AggregatedIPTController.search.mojo" name="AggregatedIPTController.search" />
+ </dl>
 </mjl:form>
