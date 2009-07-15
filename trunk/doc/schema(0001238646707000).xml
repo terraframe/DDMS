@@ -3151,13 +3151,13 @@
         <attributes>
           <struct
             name="ageRange"
-            label="Age Range"
+            label="Age Range (Days)"
             required="false"
-            description="The age range of the mosquitos tested"
+            description="The age range (in days) of the mosquitos tested"
             type="dss.vector.solutions.entomology.assay.AdultAgeRange" />
           <integer
             name="fed"
-            label="Number Fed"
+            label="Number Blood-fed"
             description="Fed value (Only applicable when females are present)."
             rejectNegative="true"
             required="false" />
@@ -3203,7 +3203,7 @@
             required="true"
             rejectNegative="true"
             description="The amount of time the mosquitos were held before exposure in hours"
-            default_value="24" />
+            default_value="23" />
           <integer
             name="quantityDead"
             label="Number Dead"
