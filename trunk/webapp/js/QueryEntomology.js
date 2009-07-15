@@ -9,7 +9,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         {
           // FIXME used for inheritance optimization
           return;
-        }	  
+        }
 
 	    // list of columns that have been added before a call to render()
 	    this._preconfiguredColumns = [];
@@ -70,12 +70,12 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  {
 	  	return 'dss.vector.solutions.query.QueryController.exportEntomologyQueryToCSV.mojo';
 	  },
-	  
+
 	  _getExportReportAction : function()
 	  {
 	  	return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
 	  },
-	  
+
 	  _getReportQueryType : function()
 	  {
 		return 'ENTOMOLOGY';
@@ -191,15 +191,25 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 		      		conditions.push(condition);
 		      	}
 	      	}else{
-	      		var whereConds = selectable.attribute._whereValues.filter(
-		      			function(a){
-		      				return a.checked;
-		      			}).map(
-		      					function(a){
-		      						var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, a.uuid);
-		      		        conditions.push(condition);
-		      						return a.id;
-		      						});
+
+	      		var whereIds = selectable.attribute._whereValues.filter(function(a){return a.checked;}).map(function(a){return a.uuid;});
+	      		if(whereIds.length == 1)
+	      		{
+	      		  var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, whereIds[0]);
+	    	      conditions.push(condition);
+	      		}
+	      		if(whereIds.length > 1)
+	      		{
+	      			//We OR the selected filter values together inside a CompositeCondition because nothing can be 'true' AND 'false'
+	      			var orConds = new MDSS.QueryXML.Or();
+	      			for(var idNum=0; idNum<whereIds.length; idNum++)
+	    		    {
+	      				var condition = new MDSS.QueryXML.BasicCondition(whereSelectable, MDSS.QueryXML.Operator.EQ, whereIds[idNum]);
+    						orConds.addCondition(('orCond' + i + idNum), condition);
+	    		    }
+	    	      var composite = new MDSS.QueryXML.CompositeCondition(orConds);
+	    	      conditions.push(composite);
+	      		}
 	      	}
 	      }
 	    }
