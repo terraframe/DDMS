@@ -243,7 +243,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     }
     else
     {
-      cal.set(period, max-1);
+      cal.set(period, max);
     }
     return cal.getTime();
   }
