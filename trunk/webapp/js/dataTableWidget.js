@@ -2,6 +2,7 @@
 
 // setting up mojo  namespace
 var MojoGrid = YAHOO.namespace('MojoGrid');
+MojoGrid.cellLock = false;
 
 
 
@@ -195,6 +196,7 @@ MojoGrid.createDataTable = function(table_data) {
   myDataTable.subscribe("cellClickEvent", onCellClick);
 //  myDataTable.subscribe("cellSelectEvent", myDataTable.clearTextSelection);
   //myDataTable.subscribe("cellSelectEvent", onCellClick);
+  /*
   myDataTable.subscribe("cellSelectEvent", function(o) {
 	  this.showCellEditor(o.el);
 	  });
@@ -206,6 +208,7 @@ MojoGrid.createDataTable = function(table_data) {
 	  myDataTable.subscribe("editorCancelEvent", function(o) {
 	  this.focusTbodyEl();
 	  });
+	  */
 
 
   //myDT.subscribe("cellSelectEvent", function(o) {
@@ -224,69 +227,123 @@ MojoGrid.createDataTable = function(table_data) {
    * new cell editor on the newly focused cell */
 
   var editorKeyEvent = function(obj) {
+  
     // 9 = tab, 13 = enter
     var e = obj.event;
 
-    function findNext(cell) {
-      var newCell = null;
-      if (e.shiftKey) {
-        newCell = myDataTable.getPreviousTdEl(cell);
-      } else {
-        newCell = myDataTable.getNextTdEl(cell);
-      }
-      while (newCell !== null && (myDataTable.getColumn(newCell).editor === null || myDataTable.getColumn(newCell).hidden === true)) {
-        if (e.shiftKey) {
-          newCell = myDataTable.getPreviousTdEl(newCell);
-        } else {
-          newCell = myDataTable.getNextTdEl(newCell);
-        }
-      }
-      return (newCell);
-    }
 
     if (e.keyCode === 9) {
-
-      var cell = myDataTable.getCellEditor().getTdEl();
-      var nextCell = findNext(cell);
-      var nextRow = null;
-
-      YAHOO.log("Tabbed Key Press on Cell:" + cell.headers, "warn", "Widget");
-
-      // No editable cell found on this row, go to the next row and search for
-      // editable cell
-      if (nextCell === null) {
+    
+      if(MojoGrid.cellLock)
+      {
+        return;
+      }
+      else
+      {
+        MojoGrid.cellLock = true;
+        YAHOO.util.Event.stopEvent(e);
+      }    
+    
+      function findNext(cell) {
+        var newCell = null;
         if (e.shiftKey) {
-          nextRow = myDataTable.getPreviousTrEl(cell);
+          newCell = myDataTable.getPreviousTdEl(cell);
         } else {
-          nextRow = myDataTable.getNextTrEl(cell);
+          newCell = myDataTable.getNextTdEl(cell);
         }
-
-        // No next cell, make a new row and open the editor for that one
-        if (nextRow === null) {
-          if (table_data.addButton !== false) {
-            addRow();
-            nextRow = myDataTable.getLastTrEl();
+        while (newCell !== null && (myDataTable.getColumn(newCell).editor === null || myDataTable.getColumn(newCell).hidden === true)) {
+          if (e.shiftKey) {
+            newCell = myDataTable.getPreviousTdEl(newCell);
           } else {
-            // wrap around
-            // nextRow = myDataTable.getFirstTrEl();
+            newCell = myDataTable.getNextTdEl(newCell);
           }
         }
-        if (e.shiftKey) {
-          nextCell = findNext(myDataTable.getLastTdEl(nextRow));
-        } else {
-          nextCell = findNext(myDataTable.getFirstTdEl(nextRow));
+        return (newCell);
+      }
+
+      try
+      {
+        //YAHOO.log("Tabbed Key Press on Cell:" + cell.headers, "warn", "Widget");
+  
+        var cell = myDataTable.getCellEditor().getTdEl();
+        var nextCell = findNext(cell);
+        var nextRow = null;  
+  
+        // No editable cell found on this row, go to the next row and search for
+        // editable cell
+        if (nextCell === null) {
+          if (e.shiftKey) {
+            nextRow = myDataTable.getPreviousTrEl(cell);
+          } else {
+            nextRow = myDataTable.getNextTrEl(cell);
+          }
+  
+          // No next cell, make a new row and open the editor for that one
+          if (nextRow === null) {
+            if (table_data.addButton !== false) {
+              addRow();
+              nextRow = myDataTable.getLastTrEl();
+            } else {
+              // wrap around
+              // nextRow = myDataTable.getFirstTrEl();
+            }
+          }
+          if (e.shiftKey) {
+            nextCell = findNext(myDataTable.getLastTdEl(nextRow));
+          } else {
+            nextCell = findNext(myDataTable.getFirstTdEl(nextRow));
+          }
+        }
+  
+
+        myDataTable.saveCellEditor();
+        //YAHOO.log("Saved Cell Editor:" + cell.headers, "warn", "Widget");
+        
+        if (nextCell) {
+          //YAHOO.log("Selecting Cell Editor:" + nextCell.headers, "warn", "Widget");
+          
+          myDataTable.unselectAllCells();
+          
+          // Use delays to allow a proper reflow before letting YUI
+          // complete the selection and editor processes. This fixes
+          // faulty tabbing.
+          setTimeout((function(table, cell){
+            
+            return function(){
+              try
+              {
+                table.selectCell(cell);
+              }
+              catch(e)
+              {
+                // Something bad happened. Release the lock for the next attempt
+                MojoGrid.cellLock = false;
+              }
+              
+              setTimeout(function(){
+              
+                try
+                {
+                  table.showCellEditor(cell);
+                }
+                finally
+                {
+                  // All operations are done, release the lock
+                  MojoGrid.cellLock = false;
+                }
+              
+              }, 15);
+            }
+          })(myDataTable, nextCell), 15);
+            
+          //YAHOO.log("Showing Cell Editor:" + nextCell.headers, "warn", "Widget");
+          
         }
       }
-       YAHOO.util.Event.stopEvent(e);
-       YAHOO.log("Saving Cell Editor:" + cell.headers, "warn", "Widget");
-       myDataTable.saveCellEditor();
-       YAHOO.log("Saved Cell Editor:" + cell.headers, "warn", "Widget");
-      if (nextCell) {
-    	  YAHOO.log("Selecting Cell Editor:" + nextCell.headers, "warn", "Widget");
-          myDataTable.selectCell(nextCell);
-
-    	  YAHOO.log("Showing Cell Editor:" + nextCell.headers, "warn", "Widget");
-    	  myDataTable.showCellEditor(nextCell);
+      catch(e)
+      {
+        // Something bad happened. Release the lock for the next attempt
+        MojoGrid.cellLock = false;
       }
     }
 
@@ -297,6 +354,7 @@ MojoGrid.createDataTable = function(table_data) {
 
   // Save edits back to the original data array
   var saveSomeData = function(oArgs) {
+  
     var record = oArgs.editor.getRecord();
     var editor = oArgs.editor;
     var index = myDataTable.getRecordIndex(record);
