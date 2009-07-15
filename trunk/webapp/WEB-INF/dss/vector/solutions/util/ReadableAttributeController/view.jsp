@@ -11,7 +11,7 @@
             ${view.attributeRequired == true ? "*" : ""}
             </td>
             <td>
-              <mjl:input type="text" param="displayLabel"/>
+              <mjl:input type="text" param="displayLabel" size="70"/>
             </td>
             <td>
               <c:choose >
