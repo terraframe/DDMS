@@ -85,26 +85,31 @@ MojoGrid.createDataTable = function(table_data) {
   // the data comes from the server as ids, we need to set the labels
   myDataTable.getRecordSet().getRecords().map( function(record) {
     table_data.columnDefs.map( function(feild) {
+      var editor = myDataTable.getColumn(feild.key).editor;
+
       if (feild.save_as_id) {
         var label = getLabelFromId(feild.key, record.getData(feild.key));
         record.setData(feild.key, label);
+      }else{
+	      if (editor && editor instanceof YAHOO.widget.DropdownCellEditor){
+	        //data comes in as value instead of label, so we fix this.
+	        for( var i = 0; i < editor.dropdownOptions.length; i++) {
+	          if (record.getData(feild.key) === editor.dropdownOptions[i].value){
+	          	record.setData(feild.key, editor.dropdownOptions[i].label);
+	            //myDataTable.updateCell(record, editor.getColumn(), editor.dropdownOptions[i].label);
+	          }
+	        }
+	      }
       }
+      if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
+        var date = MDSS.Calendar.parseDate(record.getData(feild.key));
+        myDataTable.updateCell(record, feild.key, date);
+      }
+
       if (feild.title) {
         myDataTable.getThEl(myDataTable.getColumn(feild.key)).title = feild.title;
       }
-      //now we set the labels for bools
-        var editor = myDataTable.getColumn(feild.key).editor;
-        if (editor && editor instanceof YAHOO.widget.RadioCellEditor) {
-          editor.radioOptions.map( function(radioOpt) {
-            if (record.getData(feild.key) === radioOpt.value) {
-              myDataTable.updateCell(record, feild.key, radioOpt.label);
-            }
-          });
-        }
-        if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
-          var date = MDSS.Calendar.parseDate(record.getData(feild.key));
-          myDataTable.updateCell(record, feild.key, date);
-        }
+
       });
     if (table_data.after_row_load) {
       table_data.after_row_load(record);
