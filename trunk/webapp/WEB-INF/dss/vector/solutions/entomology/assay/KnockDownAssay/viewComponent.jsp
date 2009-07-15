@@ -107,9 +107,6 @@ KnockDownAssayDTO adda = (KnockDownAssayDTO) request.getAttribute("item");
 </ul>
 
 
-
-
-
 <div id="intervals"></div>
 
 <%
@@ -119,7 +116,8 @@ KnockDownAssayDTO adda = (KnockDownAssayDTO) request.getAttribute("item");
     "dss.vector.solutions.entomology.assay.AdultTestIntervalView"
     };
     String[] attribs = { "IntervalId","Assay","Period","IntervalTime","KnockedDown"};
-    String last_column = "{key:'Percent',label:'%',resizeable:true}";
+    ResourceBundle localized = ResourceBundle.getBundle("MDSS");
+    String last_column = "{key:'Percent',label:'" + localized.getString("Knock_Down_Percentage_Heading") + "',resizeable:true}";
     
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
     map.put("IntervalId", new ColumnSetup(true, false, null, null, null));

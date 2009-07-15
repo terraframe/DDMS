@@ -3689,7 +3689,7 @@
           <integer
             name="knockedDown"
             rejectNegative="true"
-            label="Knocked Down"
+            label="# Knocked Down"
             required="true"
             default_value="0" />
         </attributes>
