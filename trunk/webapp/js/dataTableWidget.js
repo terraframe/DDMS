@@ -244,7 +244,7 @@ MojoGrid.createDataTable = function(table_data) {
       var cell = myDataTable.getCellEditor().getTdEl();
       var nextCell = findNext(cell);
       var nextRow = null;
-      
+
       YAHOO.log("Tabbed Key Press on Cell:" + cell.headers, "warn", "Widget");
 
       // No editable cell found on this row, go to the next row and search for
@@ -279,7 +279,7 @@ MojoGrid.createDataTable = function(table_data) {
       if (nextCell) {
     	  YAHOO.log("Selecting Cell Editor:" + nextCell.headers, "warn", "Widget");
           myDataTable.selectCell(nextCell);
-          
+
     	  YAHOO.log("Showing Cell Editor:" + nextCell.headers, "warn", "Widget");
     	  myDataTable.showCellEditor(nextCell);
       }
@@ -295,29 +295,26 @@ MojoGrid.createDataTable = function(table_data) {
     var record = oArgs.editor.getRecord();
     var editor = oArgs.editor;
     var index = myDataTable.getRecordIndex(record);
-    var save_now = "";
-    
-    if (editor instanceof YAHOO.widget.DropdownCellEditor)
-    {
-      var i = window[oArgs.editor.getColumn().key + "Labels"].indexOf(oArgs.newData);
-      var id = window[oArgs.editor.getColumn().key + "Ids"][i];
-      save_now = 'table_data.rows[' + index + '].' + oArgs.editor.getColumn().key + ' = "' + id + '"';
 
+    if (editor instanceof YAHOO.widget.DropdownCellEditor && window[oArgs.editor.getColumn().key + "Labels"])
+    {
+      	var i = window[oArgs.editor.getColumn().key + "Labels"].indexOf(oArgs.newData);
+        var id = window[oArgs.editor.getColumn().key + "Ids"][i];
+        table_data.rows[index][oArgs.editor.getColumn().key]  = id;
     }
     else
     {
-      save_now = 'table_data.rows[' + index + '].' + oArgs.editor.getColumn().key + ' = "' + oArgs.newData + '"';
-      if (editor instanceof YAHOO.widget.RadioCellEditor) {
+    	table_data.rows[index][oArgs.editor.getColumn().key] = oArgs.newData ;
+      if (editor instanceof YAHOO.widget.DropdownCellEditor) {
         //When an item is selected YUI displays the value instead of the label, so we fix this.
-        editor.radioOptions.map( function(radioOpt) {
-          if (oArgs.newData == radioOpt.value) {
-            myDataTable.updateCell(record, editor.getColumn(), radioOpt.label);
+        editor.dropdownOptions.map( function(opt) {
+          if (oArgs.newData === opt.value){
+            myDataTable.updateCell(record, editor.getColumn(), opt.label);
           }
         });
       }
 
     }
-    eval(save_now);
 
     table_data.dirty = true;
     btnSaveRows.set("disabled", false);
@@ -367,8 +364,8 @@ MojoGrid.createDataTable = function(table_data) {
   };
 
   MojoGrid.saveHandler = saveSomeData;
-  myDataTable.subscribe("editorSaveEvent", saveSomeData);  
-  
+  myDataTable.subscribe("editorSaveEvent", saveSomeData);
+
   if (YAHOO.util.Dom.get('buttons') === null) {
     var tableDiv = YAHOO.util.Dom.get(table_data.div_id);
     var buttons = document.createElement('span');
@@ -498,7 +495,7 @@ MojoGrid.createDataTable = function(table_data) {
     btnAddRow.on("click", addRow);
 
   }
-  myLogReader = new YAHOO.widget.LogReader();
+  //myLogReader = new YAHOO.widget.LogReader();
   return {
     oDS : myDataSource,
     oDT : myDataTable
