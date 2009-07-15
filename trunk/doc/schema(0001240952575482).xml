@@ -975,59 +975,59 @@
             type="dss.vector.solutions.irs.AbstractSpray" />
           <integer
             name="households"
-            label="Total # of households"
+            label="Households #"
             rejectNegative="true" />
           <integer
             name="structures"
-            label="Total # of structures"
+            label="Structures #"
             rejectNegative="true" />
           <integer
             name="sprayedHouseholds"
-            label="Total # of households sprayed"
+            label="Households sprayed #"
             rejectNegative="true" />
           <integer
             name="sprayedStructures"
-            label="Total # of structures sprayed"
+            label="Structures sprayed #"
             rejectNegative="true" />
           <integer
             name="prevSprayedHouseholds"
-            label="Households sprayed last year"
+            label="Households sprayed last year #"
             rejectNegative="true" />
           <integer
             name="prevSprayedStructures"
-            label="Structures sprayed last year"
+            label="Structures sprayed last year #"
             rejectNegative="true" />
           <integer
             name="rooms"
-            label="Total # of rooms"
+            label="Rooms #"
             rejectNegative="true" />
           <integer
             name="sprayedRooms"
-            label="Total # of rooms sprayed"
+            label="Rooms sprayed #"
             rejectNegative="true" />
           <integer
             name="people"
-            label="Number of people protected"
+            label="People protected #"
             rejectNegative="true" />
           <integer
             name="roomsWithBedNets"
-            label="Total number of rooms with ITN's"
+            label="Rooms with ITN's #"
             rejectNegative="true" />
           <integer
             name="bedNets"
-            label="Total number of ITN's"
+            label="ITN's #"
             rejectNegative="true" />
           <integer
             name="locked"
-            label="Totals for reasons for not spraying (locked)"
+            label="Not sprayed (locked) #"
             rejectNegative="true" />
           <integer
             name="refused"
-            label="Totals for reasons for not spraying (refused)"
+            label="Not sprayed (refused) #"
             rejectNegative="true" />
           <integer
             name="other"
-            label="Totals for reasons for not spraying (other)"
+            label="Not sprayed (other) #"
             rejectNegative="true" />
         </attributes>
         <mdMethod
