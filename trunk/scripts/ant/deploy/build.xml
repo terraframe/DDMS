@@ -103,6 +103,19 @@
 		</java>
 	</target>
 
+	<target name="develop_update_db_source_and_classes" depends="" description="Deploy Step 4 - Update DB Source and Classes">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy Update DB Source and Classes">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Dprofile.name=develop" />
+			<arg value="update_db_source_and_classes" />
+		</java>
+	</target>
+
 
 	<!-- Deploy Incremental Schema Update -->
 	<target name="deploy_incremental_schema_update" depends="deploy_all_application_files, deploy_import_schema, deploy_update_db_source_and_classes" description="Deploy - Incremental Schema Update">
@@ -401,7 +414,6 @@
 			</classpath>
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
-
 			<arg value="-Droot.user=${root.user}" />
 			<arg value="-Droot.pass=${root.pass}" />
 			<arg value="-Dgeodata.db=${geodata.db}" />
