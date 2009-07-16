@@ -110,7 +110,8 @@
   <xs:complexType name="function">
     <xs:sequence>
       <xs:element ref="selectable"/>
-      <xs:element name="userAlias" type="xs:string" />
+      <xs:element name="userAlias" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="userDisplayLabel" type="xs:string" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -206,8 +207,9 @@
   <xs:complexType name="sql">
     <xs:sequence>
       <xs:element name="name" type="xs:string" />
-      <xs:element name="userAlias" type="xs:string" />
+      <xs:element name="userAlias" type="xs:string" minOccurs="0" maxOccurs="1" />
       <xs:element name="isaggregate" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="userDisplayLabel" type="xs:string" minOccurs="0" maxOccurs="1"/>
       <xs:element name="data" type="xs:string" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
@@ -294,7 +296,8 @@
     <xs:sequence>
       <xs:element name="entityAlias" type="xs:string" />
       <xs:element name="name" type="xs:string" />
-      <xs:element name="userAlias" type="xs:string" />
+      <xs:element name="userAlias" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="userDisplayLabel" type="xs:string" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 
