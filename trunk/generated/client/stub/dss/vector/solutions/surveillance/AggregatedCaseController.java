@@ -61,7 +61,8 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       CaseDiagnosticDTO[] diagnosticMethods, CaseReferralDTO[] referrals) throws IOException,
       ServletException
   {
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
+        .getRequest());
 
     req.setAttribute("diagnostics", Arrays.asList(diagnosticMethods));
     req.setAttribute("referrals", Arrays.asList(referrals));
@@ -162,7 +163,8 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   {
     AggregatedCaseViewDTO c = AggregatedCaseDTO.lockView(this.getClientRequest(), id);
 
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
+        .getRequest());
 
     // Load all of the corresponding grid values
     req.setAttribute("ageGroups", Arrays.asList(ageGroups));
@@ -192,12 +194,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     {
       String path = req.getRequestURL().toString();
       path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getCaseId());
+      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id="
+          + dto.getCaseId());
       return;
     }
 
     // Load all of the corresponding grid values
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
+        .getRequest());
 
     req.setAttribute("ageGroups", Arrays.asList(ageGroups));
     req.setAttribute("diagnostics", Arrays.asList(dto.getDiagnosticMethods()));
@@ -232,7 +236,8 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   {
     ClientRequestIF request = this.getClientSession().getRequest();
 
-    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(), geoEntity, date.getPeriodType().get(0), date.getPeriod(), date.getEpiYear(), ageGroup);
+    AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(),
+        geoEntity, date.getPeriodType().get(0), date.getPeriod(), date.getEpiYear(), ageGroup);
     AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
 
     String jsp = "createComponent.jsp";
@@ -257,15 +262,44 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       throws IOException, ServletException
   {
     ClientRequestIF request = this.getClientSession().getRequest();
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
 
-    req.setAttribute("geoId", geoId);
-    req.setAttribute("periodType", periodType);
-    req.setAttribute("period", period);
-    req.setAttribute("year", year);
-    req.setAttribute("ageGroups", Arrays.asList(ageGroups));
+    try
+    {
+      AggregatedCaseViewDTO.validateSearchCriteria(request, geoId, periodType, period, year);
 
-    render("selectComponent.jsp");
+      AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
+
+      req.setAttribute("geoId", geoId);
+      req.setAttribute("periodType", periodType);
+      req.setAttribute("period", period);
+      req.setAttribute("year", year);
+      req.setAttribute("ageGroups", Arrays.asList(ageGroups));
+
+      render("selectComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+      
+      String failPeriod = period == null ? null : period.toString();
+      String failYear = year == null ? null : year.toString();
+
+      this.failSelectAgeGroup(geoId, periodType, failPeriod, failYear);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      String failPeriod = period == null ? null : period.toString();
+      String failYear = year == null ? null : year.toString();
+
+      this.failSelectAgeGroup(geoId, periodType, failPeriod, failYear);
+    }
+  }
+  
+  public void failSelectAgeGroup(String geoId, String periodType, String period, String year) throws IOException, ServletException
+  {
+    this.search();
   }
 
   public void searchByGeoIdAndEpiWeek(String geoId, String periodType, Integer period, Integer year,

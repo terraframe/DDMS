@@ -66,10 +66,11 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
 
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{AggregatedCaseViewDTO.CLASS}))%>
 
-<script type="text/javascript">
+<script type="text/javascript" defer="defer">
   var validate = function(e, obj){
 	var button = document.getElementById('button.id').disabled=true;
 	  
+    var geoId = document.getElementById('geoIdEl');
     var year = document.getElementById('year');
     var period = document.getElementById('period');
     var periodType;
@@ -92,7 +93,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
 	  return;
 	}
 
-    if(year.value != '' && period.value != '' && periodType != '')
+    if(geoId.value != '' && year.value != '' && period.value != '' && periodType != '')
     {
       var request = new MDSS.Request({
           onSend: function(){},
@@ -100,7 +101,9 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
           onSuccess : function(){
         	  var button = document.getElementById('button.id').disabled=false;              
           },
-          onFailure : function(){},
+          onFailure : function(e){
+          	MDSS.Calendar.addError(geoId,e.getLocalizedMessage());            
+          },
           onProblemExceptionDTO : function(e){
               var problems = e.getProblems();
     		  for each (p in problems)
@@ -117,11 +120,16 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
     		}
   		});
 
+  	  MDSS.Calendar.removeError(geoId);
   	  MDSS.Calendar.removeError(year);
 	  MDSS.Calendar.removeError(period);
 
-      Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView.validateEpiDate(request, periodType, parseInt(period.value), parseInt(year.value));
+      Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView.validateSearchCriteria(request, geoId.value, periodType, parseInt(period.value), parseInt(year.value));
     }
+  }
+
+  onValidGeoEntitySelected = function() {
+	  validate();	  
   }
 
   // Initially disable the search button
@@ -130,6 +138,7 @@ MDSS.AbstractSelectSearch.ExtraUniversals.push('<%= HealthFacilityDTO.CLASS %>*'
   var form = document.getElementById('searchAggregatedCase');
   var periodType = form.periodType;
 
+  YAHOO.util.Event.on('geoIdEl', 'blur', validate);
   YAHOO.util.Event.on(periodType, 'click', validate);
   YAHOO.util.Event.on('period', 'blur', validate);
   YAHOO.util.Event.on('year', 'blur', validate);

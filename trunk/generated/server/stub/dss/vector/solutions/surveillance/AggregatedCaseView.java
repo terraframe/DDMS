@@ -9,6 +9,7 @@ import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.FuturePeriodProblem;
 import dss.vector.solutions.general.EpiDate;
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 public abstract class AggregatedCaseView extends AggregatedCaseViewBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -455,4 +456,15 @@ public abstract class AggregatedCaseView extends AggregatedCaseViewBase implemen
       p.throwIt();
     }
   }
+  
+  @Transaction
+  public static void validateSearchCriteria(String geoId, String periodType, Integer period, Integer year)
+  {
+    // Validate that the geo id references a real geo entity by retreving the Geo Entity
+    GeoEntity.searchByGeoId(geoId);
+    
+    // Validate the epi date
+    validateEpiDate(periodType, period, year);
+  }
+
 }
