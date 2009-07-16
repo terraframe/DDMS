@@ -69,7 +69,7 @@
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="1st" />
+            value="1st Visit" />
         </structAttribute>
       </object>
 
@@ -84,7 +84,7 @@
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="2nd" />
+            value="2nd Visit" />
         </structAttribute>
       </object>
 
@@ -99,7 +99,7 @@
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="3rd" />
+            value="3rd Visit" />
         </structAttribute>
       </object>
 
@@ -127,7 +127,7 @@
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="1st" />
+            value="1st Dose" />
         </structAttribute>
       </object>
 
@@ -141,7 +141,7 @@
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="2nd" />
+            value="2nd Dose" />
         </structAttribute>
       </object>
 
@@ -155,7 +155,7 @@
           name="displayLabel">
           <valueAttribute
             name="defaultLocale"
-            value="3rd" />
+            value="3rd Dose" />
         </structAttribute>
       </object>
 
