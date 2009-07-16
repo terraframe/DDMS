@@ -125,10 +125,16 @@ KnockDownAssayDTO adda = (KnockDownAssayDTO) request.getAttribute("item");
     "dss.vector.solutions.entomology.assay.AdultTestIntervalView"
     };
     String[] attribs = { "IntervalId","Assay","Period","IntervalTime","KnockedDown"};
-    
-    ResourceBundle localized = BundleSupport.getLocalizationContext(pageContext).getResourceBundle();
-    String last_column = "{key:'Percent',label:'" + localized.getString("Knock_Down_Percentage_Heading") + "',resizeable:true}";
-    
+
+    String lastColumnHeader = "%";
+    try {
+        ResourceBundle localized = BundleSupport.getLocalizationContext(pageContext).getResourceBundle();
+    	lastColumnHeader = localized.getString("Knock_Down_Percentage_Heading");
+    } catch (Exception e) {
+    	// Do nothing--keep default header of %
+    }
+    String last_column = "{key:'Percent',label:'" + lastColumnHeader + "',resizeable:true}";
+
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
     map.put("IntervalId", new ColumnSetup(true, false, null, null, null));
     map.put("Assay", new ColumnSetup(true, false, null, null, null));
