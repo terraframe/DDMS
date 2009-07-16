@@ -4,7 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@page import="java.util.Map"%>
-<%@page import="java.util.HashMap"%><c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
+<%@page import="dss.vector.solutions.util.ColumnSetup"%>
+<%@page import="java.util.HashMap"%>
+
+<c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
 
 <%
   ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
@@ -12,7 +15,15 @@
   InsecticideBrandViewDTO brandDTO = new InsecticideBrandViewDTO(clientRequest);
   InsecticideBrandViewDTO[] brandRows = InsecticideBrandViewDTO.getAllActive(clientRequest);
   String[] brandAttributes = {"InsecticdeId", "BrandName", "ActiveIngredient", "Amount", "Weight", "SachetsPerRefill", "Enabled"};
-
+  Map<String, ColumnSetup> brandMap = new HashMap<String, ColumnSetup>();
+  brandMap.put("InsecticdeId", new ColumnSetup(true, false));
+  brandMap.put("BrandName", new ColumnSetup(false, false, null, null, null));
+  brandMap.put("ActiveIngredient", new ColumnSetup(false, false, null, null, null));
+  brandMap.put("Amount", new ColumnSetup(false, true, "validateAmount", null, null));    
+  brandMap.put("Weight", new ColumnSetup(false, false, null, null, null));
+  brandMap.put("SachetsPerRefill", new ColumnSetup(false, false, null, null, null));   
+  brandMap.put("Enabled", new ColumnSetup(false, false, null, null, null));
+  
   NozzleViewDTO nozzleDTO = new NozzleViewDTO(clientRequest);
   NozzleViewDTO[] nozzleRows = NozzleViewDTO.getAll(clientRequest);
   String[] nozzleAttributes = {"NozzleId", "DisplayLabel", "Ratio", "Enabled"};
@@ -69,7 +80,20 @@
 
 
 <script type="text/javascript">
+	var validateAmount = function(oData) {
+	    var re = /^(100|[0-9]?[0-9])$/;
+	    
+	    // Validate
+	    if(re.test(oData) || oData === "") {
+	        return oData;
+	    }
+	    else {
+	        alert(MDSS.localize("Value_Not_Between_0_and_100"));
+	        return undefined;
+	    }
+	}
 
+	
     <%
       String[] types_to_load =
         {
@@ -85,7 +109,7 @@
 
     brandData = {
               rows:<%=Halp.getDataMap(brandRows, brandAttributes, brandDTO)%>,
-              columnDefs:<%=Halp.getColumnSetup(brandDTO, brandAttributes, deleteColumn, true)%>,
+              columnDefs:<%=Halp.getColumnSetup(brandDTO, brandAttributes, deleteColumn, true, brandMap)%>,
               defaults: {"Enabled":"true"},
               copy_from_above: [],
               div_id: "InsecticideBrand",
