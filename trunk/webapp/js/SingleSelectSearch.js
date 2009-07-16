@@ -148,15 +148,11 @@ YAHOO.util.Event.onDOMReady(function(){
         geoInfo.innerHTML = '';
         if(geoEntityId) geoEntityId.value ='';
       }
-      
-      try
+
+      if(typeof onValidGeoEntitySelected !== 'undefined' && Mojo.util.isFunction(onValidGeoEntitySelected))
       {
     	  onValidGeoEntitySelected();
-      }
-      catch(e)
-      {
-    	  //Do nothing.  This method may not exist.
-      }
+      }      
     }
 
     function checkManualEntry(selected)
