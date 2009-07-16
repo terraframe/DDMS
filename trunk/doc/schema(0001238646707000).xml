@@ -3028,6 +3028,7 @@
             name="units"
             label="Units"
             required="true"
+            default_value="PERCENT"
             type="dss.vector.solutions.entomology.assay.Unit"
             selectMultiple="false" />
         </attributes>
