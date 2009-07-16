@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <c:set var="page_title" value="View_All_Knockdown_Assay"  scope="request"/>
 <mjl:messages>
   <mjl:message />
@@ -14,7 +16,10 @@
       </mjl:row>
     </mjl:attributeColumn>
 
-      <mjl:attributeColumn attributeName="testDate">
+    <mjl:attributeColumn attributeName="testDate">
+      <mjl:row>
+        <fmt:formatDate value="${item.testDate}" pattern="${dateFormatPattern}"  />
+      </mjl:row>    
     </mjl:attributeColumn>
 
      <mjl:attributeColumn attributeName="testMethod">
@@ -32,19 +37,24 @@
     <mjl:attributeColumn attributeName="exposureTime">
     </mjl:attributeColumn>
 
-     <mjl:attributeColumn attributeName="specie">
+   <mjl:attributeColumn attributeName="specie">
       <mjl:row >
-        ${item.specie.termName}
+        ${item.specie.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
 
-     <mjl:attributeColumn attributeName="identificationMethod">
+    <mjl:attributeColumn attributeName="identificationMethod">
       <mjl:row >
-        ${item.identificationMethod.termName}
+        ${item.identificationMethod.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
 
     <mjl:attributeColumn attributeName="sex">
+      <mjl:row>
+        <c:forEach var="enumName" items="${item.sexEnumNames}">
+          ${item.sexMd.enumItems[enumName]}
+        </c:forEach>
+      </mjl:row>        
     </mjl:attributeColumn>
 
     <mjl:attributeColumn attributeName="quantityTested">

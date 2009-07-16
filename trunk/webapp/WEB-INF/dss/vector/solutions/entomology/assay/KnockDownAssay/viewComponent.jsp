@@ -17,7 +17,8 @@
 KnockDownAssayDTO adda = (KnockDownAssayDTO) request.getAttribute("item");
 %>
 
-<c:set var="page_title" value="View_Knockdown_Assay"  scope="request"/>
+
+<%@page import="org.apache.taglibs.standard.tag.common.fmt.BundleSupport"%><c:set var="page_title" value="View_Knockdown_Assay"  scope="request"/>
 
 <mjl:messages>
   <mjl:message />
@@ -83,10 +84,18 @@ KnockDownAssayDTO adda = (KnockDownAssayDTO) request.getAttribute("item");
       <mjl:dt attribute="intervalTime">
         ${item.intervalTime}
       </mjl:dt>
+      <mjl:dt attribute="kd50">
+        ${item.kd50}
+      </mjl:dt>
+      <mjl:dt attribute="kd95">
+        ${item.kd95}
+      </mjl:dt>      
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.edit.button" classes="submitButton" />
   </dl>
 </mjl:form>
+
+<div id="intervals"></div>
 
 <ul>
   <li>
@@ -102,12 +111,12 @@ KnockDownAssayDTO adda = (KnockDownAssayDTO) request.getAttribute("item");
     </mjl:commandLink>  
   </li>
   <li>
-    <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo" name="viewAll.link" />  
+    <mjl:commandLink action="dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo" name="viewAll.link" >
+      <fmt:message key="View_All_KDA"/>
+    </mjl:commandLink>      
   </li>
 </ul>
 
-
-<div id="intervals"></div>
 
 <%
     String[] types =
@@ -116,7 +125,8 @@ KnockDownAssayDTO adda = (KnockDownAssayDTO) request.getAttribute("item");
     "dss.vector.solutions.entomology.assay.AdultTestIntervalView"
     };
     String[] attribs = { "IntervalId","Assay","Period","IntervalTime","KnockedDown"};
-    ResourceBundle localized = ResourceBundle.getBundle("MDSS");
+    
+    ResourceBundle localized = BundleSupport.getLocalizationContext(pageContext).getResourceBundle();
     String last_column = "{key:'Percent',label:'" + localized.getString("Knock_Down_Percentage_Heading") + "',resizeable:true}";
     
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
@@ -130,6 +140,7 @@ KnockDownAssayDTO adda = (KnockDownAssayDTO) request.getAttribute("item");
 calculate_percent = function(record){
   return ((parseInt(record.getData('KnockedDown'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%";
 }
+
 table_data = {
         rows:<%=Halp.getDataMap(adda.getTestIntervals(),attribs,adda.getTestIntervals()[0])%>,
             columnDefs:<%=Halp.getColumnSetup(adda.getTestIntervals()[0],attribs,last_column,false,map)%>,

@@ -3,9 +3,9 @@ package dss.vector.solutions.entomology;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.terraframe.mojo.business.generation.GenerationUtil;
 import com.terraframe.mojo.constants.MdAttributeConcreteInfo;
@@ -22,6 +22,7 @@ import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
 
+import dss.vector.solutions.entomology.assay.AssayComparator;
 import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.mo.AbstractTerm;
 
@@ -261,7 +262,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
 
   public static MdAttributeVirtual[] getAccessors(String className)
   {
-    List<MdAttributeVirtual> list = new LinkedList<MdAttributeVirtual>();
+    Set<MdAttributeVirtual> list = new TreeSet<MdAttributeVirtual>(new AssayComparator());
     Map<Class<AssayTestResult>, MdAttributeVirtualDAOIF> map = MosquitoView.getAssayMap();
     Class<?> assayClass = LoaderDecorator.load(className);
 

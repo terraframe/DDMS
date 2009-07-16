@@ -95,19 +95,31 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
       <mjl:dt attribute="mortality">
         ${item.mortality}
       </mjl:dt>
+      <mjl:dt attribute="intervalTime">
+        ${item.intervalTime}
+      </mjl:dt>
+
       <dt><label> <fmt:message key="KD50"/> </label></dt>
       <dd><fmt:formatNumber pattern="##.##">${item.KD50}</fmt:formatNumber></dd>
       <dt><label> <fmt:message key="KD95"/> </label></dt>
       <dd><fmt:formatNumber pattern="##.##">${item.KD95}</fmt:formatNumber></dd>
-      <mjl:dt attribute="intervalTime">
-        ${item.intervalTime}
+
+      <mjl:dt attribute="kd50">
+        ${item.kd50}
       </mjl:dt>
+
+      <mjl:dt attribute="kd95">
+        ${item.kd95}
+      </mjl:dt>
+      
     </mjl:component>
 
     <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.edit.mojo"
       name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
   </dl>
 </mjl:form>
+
+<div id="intervals"></div>
 
 <ul>
   <li>
@@ -123,11 +135,12 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
     </mjl:commandLink>
   </li>
   <li>
-    <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo" name="viewAll.link" />
+    <mjl:commandLink action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo" name="viewAll.link" >
+      <fmt:message key="View_All_ADA"/>
+    </mjl:commandLink>
   </li>
 </ul>
 
-<div id="intervals"></div>
 
 <%
     String[] types =
@@ -147,9 +160,11 @@ AdultDiscriminatingDoseAssayDTO adda = (AdultDiscriminatingDoseAssayDTO) request
 %>
 <%=Halp.loadTypes((List<String>) Arrays.asList(types))%>
 <script type="text/javascript" defer="defer">
+
 calculate_percent = function(record){
   return ((parseInt(record.getData('KnockedDown'))*100.0)/<%=adda.getQuantityTested()%>).toFixed(1)+"%";
 }
+
 table_data = {
 		    rows:<%=Halp.getDataMap(adda.getTestIntervals(),attribs,adda.getTestIntervals()[0])%>,
             columnDefs:<%=Halp.getColumnSetup(adda.getTestIntervals()[0],attribs,last_column,false,map)%>,

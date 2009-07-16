@@ -83,11 +83,19 @@ LarvaeDiscriminatingDoseAssayDTO adda = (LarvaeDiscriminatingDoseAssayDTO) reque
       <mjl:dt attribute="mortality">
         ${item.mortality}
       </mjl:dt>
+      <mjl:dt attribute="lt50">
+        ${item.lt50}
+      </mjl:dt>
+      <mjl:dt attribute="lt95">
+        ${item.lt95}
+      </mjl:dt>     
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.edit.mojo"
       name="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
   </dl>
 </mjl:form>
+
+<div id="intervals"></div>
 
 <ul>
   <li> 
@@ -103,11 +111,11 @@ LarvaeDiscriminatingDoseAssayDTO adda = (LarvaeDiscriminatingDoseAssayDTO) reque
     </mjl:commandLink>   
   </li>
   <li> 
-    <mjl:commandLink display="View All" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo" name="viewAll.link" />
+    <mjl:commandLink action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo" name="viewAll.link" >
+      <fmt:message key="View_All_LDA"/>
+    </mjl:commandLink>
   </li>
 </ul>
-
-<div id="intervals"></div>
 
 <%
     String[] types =

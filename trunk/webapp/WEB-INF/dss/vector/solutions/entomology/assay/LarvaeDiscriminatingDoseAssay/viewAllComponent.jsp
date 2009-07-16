@@ -40,13 +40,13 @@
 
      <mjl:attributeColumn attributeName="specie">
       <mjl:row >
-        ${item.specie.termName}
+        ${item.specie.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
 
      <mjl:attributeColumn attributeName="identificationMethod">
       <mjl:row >
-        ${item.identificationMethod.termName}
+        ${item.identificationMethod.displayLabel}
       </mjl:row>
     </mjl:attributeColumn>
 

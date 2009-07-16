@@ -86,6 +86,12 @@
       <mjl:dt attribute="controlTestMortality">
         <mjl:input type="text" param="controlTestMortality" />
       </mjl:dt>
+      <mjl:dt attribute="lt50">
+        <mjl:input type="text" param="lt50" />
+      </mjl:dt>
+      <mjl:dt attribute="lt95">
+        <mjl:input type="text" param="lt95" />
+      </mjl:dt>      
     </mjl:component>
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{AbstractMosquitoCollectionDTO.CLASS}))%>

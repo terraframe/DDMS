@@ -104,6 +104,14 @@
       <mjl:dt attribute="intervalTime">
         <mjl:input type="text" param="intervalTime" />
       </mjl:dt>
+
+      <mjl:dt attribute="kd50">
+        <mjl:input type="text" param="kd50" />
+      </mjl:dt>
+
+      <mjl:dt attribute="kd95">
+        <mjl:input type="text" param="kd95" />
+      </mjl:dt>
     </mjl:component>
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{AbstractMosquitoCollectionDTO.CLASS}))%>
