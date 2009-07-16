@@ -19,7 +19,10 @@
 
 <%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.CollectionSite"%>
-<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
+
+<c:set var="page_title" value="Search_Aggregated_Case"  scope="request"/>
+
+<jsp:include page="/WEB-INF/selectSearch.jsp" />
 
 <script type="text/javascript">
 MDSS.AbstractSelectSearch.Political = true;

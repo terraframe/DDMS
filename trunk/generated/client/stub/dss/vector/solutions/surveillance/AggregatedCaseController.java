@@ -20,7 +20,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/surveillance/AggregatedCase/";
 
-  public static final String LAYOUT           = JSP_DIR + "layout.jsp";
+  public static final String LAYOUT           = "/layout.jsp";
 
   private static final long  serialVersionUID = 1239022146651L;
 
@@ -70,7 +70,6 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     req.setAttribute("stock", Arrays.asList(stock));
     req.setAttribute("ageGroups", Arrays.asList(ageGroups));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Error Creating Aggregated Case");
     render("createComponent.jsp");
   }
 
@@ -109,7 +108,6 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     req.setAttribute("treatmentMethods", Arrays.asList(treatmentMethods));
     req.setAttribute("stock", Arrays.asList(stock));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Error Updating Aggregated Case");
     render("editComponent.jsp");
   }
 
@@ -157,18 +155,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     req.setAttribute("treatmentMethods", Arrays.asList(dto.getTreatmentMethods()));
     req.setAttribute("stock", Arrays.asList(dto.getTreatmentStocks()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Aggregated Case");
     render("editComponent.jsp");
   }
 
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     AggregatedCaseViewDTO c = AggregatedCaseDTO.lockView(this.getClientRequest(), id);
-    ClientRequestIF request = this.getClientSession().getRequest();
 
-    EpiDateDTO epiDate = EpiDateDTO.getInstanceByPeriod(request,c.getPeriodType().get(0), c.getPeriod(), c.getPeriodYear());
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
-        .getRequest());
+    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession().getRequest());
 
     // Load all of the corresponding grid values
     req.setAttribute("ageGroups", Arrays.asList(ageGroups));
@@ -178,7 +172,6 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     req.setAttribute("treatmentMethods", Arrays.asList(c.getTreatmentMethods()));
     req.setAttribute("stock", Arrays.asList(c.getTreatmentStocks()));
     req.setAttribute("item", c);
-    req.setAttribute("page_title", "Edit Aggregated Case " + epiDate.getDisplayLabel(this.getClientRequest()));
     render("editComponent.jsp");
   }
 
@@ -213,7 +206,6 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     req.setAttribute("treatmentMethods", Arrays.asList(dto.getTreatmentMethods()));
     req.setAttribute("stock", Arrays.asList(dto.getTreatmentStocks()));
     req.setAttribute("item", dto);
-    req.setAttribute("page_title", "View an Aggregated Case");
     render("viewComponent.jsp");
   }
 
@@ -231,7 +223,6 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 
     req.setAttribute("periodType", allItems);
     req.setAttribute("checkedType", PeriodTypeDTO.MONTH.getName());
-    req.setAttribute("page_title", "Search for an Aggregated Case");
 
     render("searchComponent.jsp");
   }
@@ -240,18 +231,15 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       AggregatedAgeGroupDTO ageGroup) throws IOException, ServletException
   {
     ClientRequestIF request = this.getClientSession().getRequest();
-    String label = date.getDisplayLabel(request);
 
     AggregatedCaseViewDTO c = AggregatedCaseDTO.searchByGeoEntityAndEpiDate(this.getClientRequest(), geoEntity, date.getPeriodType().get(0), date.getPeriod(), date.getEpiYear(), ageGroup);
     AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
 
     String jsp = "createComponent.jsp";
-    req.setAttribute("page_title", "New Aggregated Case " + label);
 
     if (c.hasCaseId())
     {
       jsp = "viewComponent.jsp";
-      req.setAttribute("page_title", "Aggregated Case " + label);
     }
 
     // Load all of the corresponding grid values
@@ -367,7 +355,6 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     req.setAttribute("geoId", geoId);
     req.setAttribute("checkedType", periodType);
     req.setAttribute("ageGroup", ageGroup);
-    req.setAttribute("page_title", "Search for an Aggregated Case");
 
     render("searchComponent.jsp");
   }

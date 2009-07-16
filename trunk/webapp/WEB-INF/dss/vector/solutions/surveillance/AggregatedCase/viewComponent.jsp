@@ -6,6 +6,9 @@
   <mjl:message />
 </mjl:messages>
 
+<c:set var="page_title" value="View_Aggregated_Case"  scope="request"/>
+
+
 <%@ include file="form.jsp"%>
 
 <div class="pageTitle"> <fmt:message key="Enter_data_for_ages"/> ${item.ageGroup.displayLabel} </div> 
@@ -14,6 +17,26 @@
   <dl>
     <mjl:input value="${item.caseId}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
+      <mjl:dt attribute="geoEntity">
+        ${item.geoEntity.geoId}
+      </mjl:dt>
+      <mjl:dt attribute="periodType">
+        <ul>
+          <c:forEach var="enumName" items="${item.periodTypeEnumNames}">
+            <li>${item.periodTypeMd.enumItems[enumName]}</li>
+          </c:forEach>
+        </ul>      
+      </mjl:dt>
+      <mjl:dt attribute="period">
+        ${item.period}
+      </mjl:dt>
+      <mjl:dt attribute="periodYear">
+        ${item.periodYear}
+      </mjl:dt>          
+      <mjl:dt attribute="ageGroup">
+        ${item.ageGroup.displayLabel}
+      </mjl:dt>          
+    
       <mjl:dt attribute="cases"> ${item.cases} </mjl:dt>
       <mjl:dt attribute="casesFemale"> ${item.casesFemale} </mjl:dt>
       <mjl:dt attribute="casesMale"> ${item.casesMale} </mjl:dt>

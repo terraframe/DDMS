@@ -6,6 +6,8 @@
   <mjl:message />
 </mjl:messages>
 
+<c:set var="page_title" value="Create_Aggregated_Case"  scope="request"/>
+
 <%@ include file="form.jsp"%>
 
 <div class="pageTitle"> <fmt:message key="Enter_data_for_ages"/> ${item.ageGroup.displayLabel} </div> 

@@ -10,7 +10,27 @@
       <mjl:input type="hidden" param="periodType" value="${item.periodTypeEnumNames[0]}"/>
       <mjl:input type="hidden" param="periodYear" value="${item.periodYear}"/>
       <mjl:input type="hidden" param="caseId" value="${item.caseId}" />
-     
+
+      <mjl:dt attribute="geoEntity">
+        ${item.geoEntity.geoId}
+      </mjl:dt>
+      <mjl:dt attribute="periodType">
+        <ul>
+          <c:forEach var="enumName" items="${item.periodTypeEnumNames}">
+            <li>${item.periodTypeMd.enumItems[enumName]}</li>
+          </c:forEach>
+        </ul>      
+      </mjl:dt>
+      <mjl:dt attribute="period">
+        ${item.period}
+      </mjl:dt>
+      <mjl:dt attribute="periodYear">
+        ${item.periodYear}
+      </mjl:dt>          
+      <mjl:dt attribute="ageGroup">
+        ${item.ageGroup.displayLabel}
+      </mjl:dt>          
+           
       <mjl:dt attribute="cases" type="text" />
       <mjl:dt attribute="casesFemale" type="text"/>
       <mjl:dt attribute="casesMale" type="text"/>

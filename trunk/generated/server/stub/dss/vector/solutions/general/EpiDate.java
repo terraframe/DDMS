@@ -49,27 +49,29 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
       calendar.add(Calendar.WEEK_OF_YEAR, period);
       super.setStartDate(calendar.getTime());
       calendar.add(Calendar.WEEK_OF_YEAR, 1);
-      calendar.add(Calendar.DAY_OF_MONTH, -1);
+      calendar.add(Calendar.DAY_OF_YEAR, -1);
       super.setEndDate(calendar.getTime());
     }
     else if (periodType.equals(PeriodType.MONTH))
     {
+      // January == 0, December == 11
       Calendar calendar = makeRegularCalendar(year);
 
-      calendar.set(Calendar.MONTH, period);
+      calendar.set(Calendar.MONTH, period - 1);
       super.setStartDate(calendar.getTime());
       calendar.add(Calendar.MONTH, 1);
-      calendar.add(Calendar.DAY_OF_MONTH, -1);
+      calendar.add(Calendar.DAY_OF_YEAR, -1);
       super.setEndDate(calendar.getTime());
     }
     else if (periodType.equals(PeriodType.QUARTER))
     {
+      // January == 0, December == 11
       Calendar calendar = makeRegularCalendar(year);
 
-      calendar.set(Calendar.MONTH, 3 * ( period - 1 ) + 1);
+      calendar.set(Calendar.MONTH, 3 * ( period - 1 ));
       super.setStartDate(calendar.getTime());
       calendar.add(Calendar.MONTH, 3);
-      calendar.add(Calendar.DAY_OF_MONTH, -1);
+      calendar.add(Calendar.DAY_OF_YEAR, -1);
       super.setEndDate(calendar.getTime());
     }
   }
@@ -93,16 +95,20 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     }
     else if (plusOneMonth(startDate).equals(endDate))
     {
-      int month = calendar.get(Calendar.MONTH);
-
+      // January == 0, December == 11, Valid Quarter months are 1 - 12
+      int month = calendar.get(Calendar.MONTH) + 1;
+      
+      // Calendar.month is zero indexed, while period is 1 indexed
       super.setPeriod(month);
       super.addPeriodType(PeriodType.MONTH);
     }
     else
     {
+      // January == 0, December == 11, Valid Quarter Periods are 1 - 4
       int month = calendar.get(Calendar.MONTH);
 
-      super.setPeriod( ( month - 1 ) / 3 + 1);
+      // Calendar.month is zero indexed, while period is 1 indexed
+      super.setPeriod((month / 3) + 1);
       super.addPeriodType(PeriodType.QUARTER);
     }
   }
