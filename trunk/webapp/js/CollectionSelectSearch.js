@@ -156,7 +156,8 @@
             li.id = valueObj.getValue(idAttr);
             li.collectionId = valueObj.getValue(collectionIdAttr);
 
-            var displayStr = valueObj.getValue(entityNameAttr) + '('+ valueObj.getValue(geoIdAttr) + ') - ' + valueObj.getValue(collectionIdAttr);
+            var formattedDate = MDSS.Calendar.getLocalizedString(valueObj.getValue(dateAttr));
+            var displayStr = valueObj.getValue(entityNameAttr) + '('+ valueObj.getValue(geoIdAttr) + '), ' + formattedDate + ' - ' + valueObj.getValue(collectionIdAttr);
             var matched = displayStr.replace(new RegExp("(.*?)("+this.searchValue+")(.*?)", "gi"), "$1<span class='searchMatch'>$2</span>$3");
             li.innerHTML = matched;
             
