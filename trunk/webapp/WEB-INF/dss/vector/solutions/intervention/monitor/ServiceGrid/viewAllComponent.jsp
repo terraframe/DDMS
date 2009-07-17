@@ -10,10 +10,8 @@
   <mjl:columns>
     <mjl:attributeColumn attributeName="active">
     </mjl:attributeColumn>
-    <mjl:structColumn attributeName="displayLabel">
-      <mjl:attributeColumn attributeName="defaultLocale">
-      </mjl:attributeColumn>
-    </mjl:structColumn>
+    <mjl:attributeColumn attributeName="displayLabel">
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="optionName">
     </mjl:attributeColumn>
     <mjl:freeColumn>

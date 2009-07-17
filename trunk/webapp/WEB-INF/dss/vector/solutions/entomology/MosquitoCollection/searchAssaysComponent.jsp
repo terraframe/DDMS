@@ -13,7 +13,7 @@
 
 <c:set var="page_title" value="Select_Collection"  scope="request"/>
 
-<mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.search" method="POST" id ="searchMosquitoCollections">
+<mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.search" method="GET" id ="searchMosquitoCollections">
   <dl>
 
     <dt><label><fmt:message key="Enter_Collection_Id" /></label></dt>

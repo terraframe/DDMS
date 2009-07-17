@@ -9,10 +9,8 @@
   <mjl:columns>
     <mjl:attributeColumn attributeName="definition">
     </mjl:attributeColumn>
-    <mjl:structColumn attributeName="displayLabel">
-      <mjl:attributeColumn attributeName="defaultLocale">
-      </mjl:attributeColumn>
-    </mjl:structColumn>
+    <mjl:attributeColumn attributeName="displayLabel">
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="enabled">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="inheritsTerm">

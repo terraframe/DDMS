@@ -9,10 +9,8 @@
 <mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.intervention.monitor.RoofController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:structColumn attributeName="displayLabel">
-      <mjl:attributeColumn attributeName="defaultLocale">
-      </mjl:attributeColumn>
-    </mjl:structColumn>
+    <mjl:attributeColumn attributeName="displayLabel">
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="roofName">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="enabled">

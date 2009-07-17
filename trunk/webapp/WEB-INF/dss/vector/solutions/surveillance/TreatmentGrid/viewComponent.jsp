@@ -40,29 +40,7 @@
     <dd>
       ${item.optionName}
     </dd>
+    <mjl:command value="Edit" action="dss.vector.solutions.surveillance.TreatmentGridController.edit.mojo" name="dss.vector.solutions.surveillance.TreatmentGrid.form.edit.button" />
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.surveillance.TreatmentGridController.edit.mojo" name="dss.vector.solutions.surveillance.TreatmentGrid.form.edit.button" />
-  <br />
 </mjl:form>
-<dl>
-  <dt>
-    <label>
-      Child Relationships
-    </label>
-  </dt>
-  <dd>
-    <ul>
-      <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.surveillance.CaseTreatmentController.childQuery.mojo" name="dss.vector.solutions.surveillance.CaseTreatment.childQuery.link">
-          <mjl:property value="${item.id}" name="childId" />
-        </mjl:commandLink>
-      </li>
-      <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.surveillance.CaseTreatmentStockController.childQuery.mojo" name="dss.vector.solutions.surveillance.CaseTreatmentStock.childQuery.link">
-          <mjl:property value="${item.id}" name="childId" />
-        </mjl:commandLink>
-      </li>
-    </ul>
-  </dd>
-</dl>
 <mjl:commandLink display="View All" action="dss.vector.solutions.surveillance.TreatmentGridController.viewAll.mojo" name="dss.vector.solutions.surveillance.TreatmentGrid.viewAll.link" />
