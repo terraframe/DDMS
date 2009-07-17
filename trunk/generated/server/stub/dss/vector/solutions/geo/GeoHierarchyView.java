@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.util.GenericHierarchySearcher;
 import dss.vector.solutions.util.SearchableHierarchy;
@@ -43,5 +44,10 @@ public class GeoHierarchyView extends GeoHierarchyViewBase implements Searchable
   public String toString()
   {
     return this.getTypeName();
+  }
+  
+  public String getGeneratedType()
+  {
+    return MDSSInfo.GENERATED_GEO_PACKAGE + "." + this.getTypeName();
   }
 }

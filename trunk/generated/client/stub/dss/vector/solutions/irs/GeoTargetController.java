@@ -42,7 +42,8 @@ public class GeoTargetController extends GeoTargetControllerBase implements
 
       List<String> geoEntityIds = new ArrayList<String>();
 
-      // set this as if show_children is false , we will change it if needed
+      // Get Immediate Spray Children returns all of the immediate children which can
+      // have spray targets associated, and the individual target
       for (GeoEntityDTO child : geoEntity.getImmediateSprayChildren())
       {
         geoEntityIds.add(child.getId());

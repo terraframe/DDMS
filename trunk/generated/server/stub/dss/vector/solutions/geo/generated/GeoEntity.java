@@ -598,7 +598,21 @@ public abstract class GeoEntity extends GeoEntityBase implements
    */
   public GeoEntity[] getImmediateSprayChildren()
   {
-    List<GeoEntity> children = this.getPrunedChildren(GeoHierarchy.getSprayHierarchies(this));
+    List<String> list = new LinkedList<String>();
+    List<GeoEntity> children = new LinkedList<GeoEntity>();
+    
+    for(GeoHierarchyView view : GeoHierarchy.getSprayHierarchies(this))
+    {
+      list.add(view.getGeneratedType());
+    }
+
+    for(GeoEntity geoEntity : this.getImmediateChildren())
+    {
+      if(list.contains(geoEntity.getType()))
+      {
+        children.add(geoEntity);
+      }
+    }
 
     return children.toArray(new GeoEntity[children.size()]);
   }
@@ -607,13 +621,13 @@ public abstract class GeoEntity extends GeoEntityBase implements
    * Gets all children of a GeoEntity, but stops its breadth-first decent when
    * it finds a child which belongs to the given fully qualified types.
    */
-  private List<GeoEntity> getPrunedChildren(GeoHierarchyView... types)
+  public List<GeoEntity> getPrunedChildren(GeoHierarchyView... types)
   {
     List<String> list = new LinkedList<String>();
 
     for (GeoHierarchyView view : types)
     {
-      list.add(MDSSInfo.GENERATED_GEO_PACKAGE + "." + view.getTypeName());
+      list.add(view.getGeneratedType());
     }
 
     return this.getPrunedChildren(list);
