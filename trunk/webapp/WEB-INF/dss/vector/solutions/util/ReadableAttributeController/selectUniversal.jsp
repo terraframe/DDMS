@@ -52,19 +52,19 @@
   <dl>
     <dt><label><f:message key="Mosquito_Collection_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.MosquitoCollection" class="roleLink"><f:message key="Mosquito Collection"/></span>
+      <span id="dss.vector.solutions.entomology.MosquitoCollection" class="roleLink"><f:message key="Mosquito_Collection"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.entomology.MorphologicalSpecieGroupView" class="roleLink"><f:message key="Morphological Specie Group"/></span>
+      <span id="dss.vector.solutions.entomology.MorphologicalSpecieGroupView" class="roleLink"><f:message key="Morphological_Specie_Group"/></span>
     </dd>
   </dl>
   <dl>
     <dt><label><f:message key="Mosquito_Collection_Point_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.MosquitoCollectionPoint" class="roleLink"><f:message key="Mosquito Collection Point"/></span>
+      <span id="dss.vector.solutions.entomology.MosquitoCollectionPoint" class="roleLink"><f:message key="Mosquito_Collection_Point"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.entomology.MorphologicalSpecieGroupView" class="roleLink"><f:message key="Morphological Specie Group"/></span>
+      <span id="dss.vector.solutions.entomology.MorphologicalSpecieGroupView" class="roleLink"><f:message key="Morphological_Specie_Group"/></span>
     </dd>
   </dl>
   <dl>
@@ -73,13 +73,13 @@
       <span id="dss.vector.solutions.entomology.MosquitoView" class="roleLink"><f:message key="Mosquito"/></span>
     </dd>
     <dd>        
-      <span id="dss.vector.solutions.entomology.UninterestingSpecieGroupView" class="roleLink"><f:message key="Uninteresting Specie Group"/></span>
+      <span id="dss.vector.solutions.entomology.UninterestingSpecieGroupView" class="roleLink"><f:message key="Uninteresting_Specie_Group"/></span>
     </dd>
   </dl>
   <dl>
     <dt><label><f:message key="Adult_Diagnostic_Assay_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay" class="roleLink"><f:message key="Adult Diagnostic Assay"/></span>
+      <span id="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay" class="roleLink"><f:message key="Adult_Diagnostic_Assay"/></span>
     </dd>
     <dd>
       <span id="dss.vector.solutions.general.Insecticide" class="roleLink"><f:message key="Insecticide"/></span>
@@ -88,7 +88,7 @@
   <dl>
     <dt><label><f:message key="Larvae_Diagnostic_Assay_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay" class="roleLink"><f:message key="Larvae Diagnostic Assay"/></span>
+      <span id="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay" class="roleLink"><f:message key="Larvae_Diagnostic_Assay"/></span>
     </dd>
     <dd>
       <span id="dss.vector.solutions.general.Insecticide" class="roleLink"><f:message key="Insecticide"/></span>
@@ -97,7 +97,7 @@
   <dl>
     <dt><label><f:message key="Time_Response_Test_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.assay.KnockDownAssay" class="roleLink"><f:message key="Time Response Test"/></span>
+      <span id="dss.vector.solutions.entomology.assay.KnockDownAssay" class="roleLink"><f:message key="Time_Response_Test"/></span>
     </dd>
     <dd>
       <span id="dss.vector.solutions.general.Insecticide" class="roleLink"><f:message key="Insecticide"/></span>
@@ -106,7 +106,7 @@
   <dl>
     <dt><label><f:message key="Efficacy_Bioassay_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.entomology.assay.EfficacyAssayView" class="roleLink"><f:message key="Efficacy Bioassay"/></span>
+      <span id="dss.vector.solutions.entomology.assay.EfficacyAssayView" class="roleLink"><f:message key="Efficacy_Bioassay"/></span>
     </dd>
     <dd>
       <span id="dss.vector.solutions.general.Insecticide" class="roleLink"><f:message key="Insecticide"/></span>
@@ -115,90 +115,90 @@
   <dl>
     <dt><label><f:message key="Aggregated_Cases_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.surveillance.InfiantCaseView" class="roleLink"><f:message key="Aggregated Cases 1"/></span>
+      <span id="dss.vector.solutions.surveillance.InfiantCaseView" class="roleLink"><f:message key="Aggregated_Cases_1"/> (<c:out value="${ageGroups[0].displayLabel}"/>)</span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.surveillance.ChildCaseView" class="roleLink"><f:message key="Aggregated Cases 2"/></span>
+      <span id="dss.vector.solutions.surveillance.ChildCaseView" class="roleLink"><f:message key="Aggregated_Cases_2"/> (<c:out value="${ageGroups[1].displayLabel}"/>)</span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.surveillance.TeenCaseView" class="roleLink"><f:message key="Aggregated Cases 3"/></span>
+      <span id="dss.vector.solutions.surveillance.TeenCaseView" class="roleLink"><f:message key="Aggregated_Cases_3"/> (<c:out value="${ageGroups[2].displayLabel}"/>)</span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.surveillance.AdultCaseView" class="roleLink"><f:message key="Aggregated Cases 4"/></span>
+      <span id="dss.vector.solutions.surveillance.AdultCaseView" class="roleLink"><f:message key="Aggregated_Cases_4"/> (<c:out value="${ageGroups[3].displayLabel}"/>)</span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.surveillance.ElderCaseView" class="roleLink"><f:message key="Aggregated Cases 5"/></span>
+      <span id="dss.vector.solutions.surveillance.ElderCaseView" class="roleLink"><f:message key="Aggregated_Cases_5"/> (<c:out value="${ageGroups[4].displayLabel}"/>)</span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.surveillance.AncientCaseView" class="roleLink"><f:message key="Aggregated Cases 6"/></span>
+      <span id="dss.vector.solutions.surveillance.AncientCaseView" class="roleLink"><f:message key="Aggregated_Cases_6"/> (<c:out value="${ageGroups[5].displayLabel}"/>)</span>
     </dd>    
     <dd>
-      <span id="dss.vector.solutions.general.EpiDate" class="roleLink"><f:message key="Aggregated Cases 6"/></span>
+      <span id="dss.vector.solutions.general.EpiDate" class="roleLink"><f:message key="Epi_Date"/></span>
     </dd>    
     
   </dl>
   <dl>
     <dt><label><f:message key="Indicator_Survey_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.intervention.monitor.SurveyPointView" class="roleLink"><f:message key="Survey Point"/></span>
+      <span id="dss.vector.solutions.intervention.monitor.SurveyPointView" class="roleLink"><f:message key="Survey_Point"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.intervention.monitor.Household" class="roleLink"><f:message key="House Hold"/></span>
+      <span id="dss.vector.solutions.intervention.monitor.Household" class="roleLink"><f:message key="Household"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.intervention.monitor.PersonView" class="roleLink"><f:message key="Surveyed Person"/></span>
+      <span id="dss.vector.solutions.intervention.monitor.PersonView" class="roleLink"><f:message key="Surveyed_Person"/></span>
     </dd>
     <dd>
       <span id="dss.vector.solutions.intervention.monitor.WallView" class="roleLink"><f:message key="Wall"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.intervention.monitor.RoofView" class="roleLink"><f:message key="Surveyed Person"/></span>
+      <span id="dss.vector.solutions.intervention.monitor.RoofView" class="roleLink"><f:message key="Surveyed_Person"/></span>
     </dd>
 
   </dl>
   <dl>
     <dt><label><f:message key="Configure_Application_Rate_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.irs.InsecticideBrandView" class="roleLink"><f:message key="Insecticide Brand"/></span>
+      <span id="dss.vector.solutions.irs.InsecticideBrandView" class="roleLink"><f:message key="Insecticide_Brand"/></span>
     </dd>
     <dd>
       <span id="dss.vector.solutions.irs.NozzleView" class="roleLink"><f:message key="Nozzle"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.InsecticideNozzleView" class="roleLink"><f:message key="InsecticideNozzle"/></span>
+      <span id="dss.vector.solutions.irs.InsecticideNozzleView" class="roleLink"><f:message key="Insecticide_Nozzle"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.AreaStandardsView" class="roleLink"><f:message key="Area Standards"/></span>
+      <span id="dss.vector.solutions.irs.AreaStandardsView" class="roleLink"><f:message key="Area_Standards"/></span>
     </dd>
   </dl>
   <dl>
     <dt><label><f:message key="Target_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.irs.ResourceTargetView" class="roleLink"><f:message key="Resource Target"/></span>
+      <span id="dss.vector.solutions.irs.ResourceTargetView" class="roleLink"><f:message key="Resource_Target"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.GeoTargetView" class="roleLink"><f:message key="Geo Target"/></span>
+      <span id="dss.vector.solutions.irs.GeoTargetView" class="roleLink"><f:message key="Geo_Target"/></span>
     </dd>
   </dl>
   <dl>
     <dt><label><f:message key="IRS_CRUD_Management"/></label></dt>
     <dd>
-      <span id="dss.vector.solutions.irs.OperatorSprayView" class="roleLink"><f:message key="Operator Spray"/></span>
+      <span id="dss.vector.solutions.irs.OperatorSprayView" class="roleLink"><f:message key="Operator_Spray"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.TeamSprayView" class="roleLink"><f:message key="Team Spray"/></span>
+      <span id="dss.vector.solutions.irs.TeamSprayView" class="roleLink"><f:message key="Team_Spray"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.ZoneSprayView" class="roleLink"><f:message key="Area Spray"/></span>
+      <span id="dss.vector.solutions.irs.ZoneSprayView" class="roleLink"><f:message key="Area_Spray"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.HouseholdSprayStatusView" class="roleLink"><f:message key="Household Spray Status"/></span>
+      <span id="dss.vector.solutions.irs.HouseholdSprayStatusView" class="roleLink"><f:message key="Household_Spray_Status"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.OperatorSprayStatusView" class="roleLink"><f:message key="Operator Spray Status"/></span>
+      <span id="dss.vector.solutions.irs.OperatorSprayStatusView" class="roleLink"><f:message key="Operator_Spray_Status"/></span>
     </dd>
     <dd>
-      <span id="dss.vector.solutions.irs.TeamSprayStatusView" class="roleLink"><f:message key="Team Spray Status"/></span>
+      <span id="dss.vector.solutions.irs.TeamSprayStatusView" class="roleLink"><f:message key="Team_Spray_Status"/></span>
     </dd>
     
   </dl>

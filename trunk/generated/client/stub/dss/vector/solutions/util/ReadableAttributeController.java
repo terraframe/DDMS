@@ -8,6 +8,9 @@ import javax.servlet.ServletException;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.system.metadata.MdClassQueryDTO;
 
+import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
+import dss.vector.solutions.surveillance.AggregatedAgeGroupQueryDTO;
+
 public class ReadableAttributeController extends ReadableAttributeControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1239296298324L;
@@ -19,7 +22,7 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
     this.layout = this.dir + "layout.jsp";
   }
 
-  @Override
+@Override
   public void getUniversal(String actor) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
@@ -29,6 +32,10 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
     req.setAttribute("actorOptions", FacadeDTO.getMDSSRoles(clientRequest));
     req.setAttribute("query", classes);
     req.setAttribute("universals", classes.getResultSet());
+    
+    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    req.setAttribute("ageGroups", query.getResultSet());
+
     render("selectUniversal.jsp");
   }
   
