@@ -129,10 +129,6 @@ public abstract class AbstractMosquitoCollection extends AbstractMosquitoCollect
 
     valueQuery.restrictRows(20, 1);
     
-    List<ValueObject> list = valueQuery.getIterator().getAll();
-    
-    System.out.println(list.size());
-
     return valueQuery;
   }
 }

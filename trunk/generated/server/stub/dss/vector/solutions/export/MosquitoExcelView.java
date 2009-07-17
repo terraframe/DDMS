@@ -84,6 +84,8 @@ public class MosquitoExcelView extends MosquitoExcelViewBase implements com.terr
     view.setPFalciparumMethod(InfectivityMethodology.validateByDisplayLabel(this.getPFalciparumMethod()));
     view.setPVivax(getTestResultByDisplayLabel(this.getPVivax()));
     view.setPVivaxMethod(InfectivityMethodology.validateByDisplayLabel(this.getPVivaxMethod()));
+    view.setUnknown(getTestResultByDisplayLabel(this.getUnknownAssay()));
+    view.setUnknownMethod(InfectivityMethodology.validateByDisplayLabel(this.getUnknownMethod()));
     
     view.apply();
   }

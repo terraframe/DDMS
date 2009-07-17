@@ -35,28 +35,25 @@
 <%@page import="com.terraframe.mojo.system.metadata.MdAttributeVirtualDTO"%>
 
 <%!static String buildChekboxTable(MosquitoViewDTO view, String title, Class<?> superAssayClass , ClientRequestIF clientRequest) throws JSONException{
-	String s = "<table><tr><th colspan=\"2\">"+ title;
-	//s += superAssayClass.getSimpleName().substring(0,superAssayClass.getSimpleName().indexOf("Assay")) +"</th></tr>";
+  String s = "<table><tr><th colspan=\"2\">"+ title;
+  //s += superAssayClass.getSimpleName().substring(0,superAssayClass.getSimpleName().indexOf("Assay")) +"</th></tr>";
 
-  	Class<?> viewClass = view.getClass();
+    Class<?> viewClass = view.getClass();
 
-  	MdAttributeVirtualDTO[] mdArray = MosquitoViewDTO.getAccessors(clientRequest,superAssayClass.getCanonicalName());
+    MdAttributeVirtualDTO[] mdArray = MosquitoViewDTO.getAccessors(clientRequest,superAssayClass.getCanonicalName());
 
     for (MdAttributeVirtualDTO md : mdArray)
     {
- 	    String acc = md.getAccessor();
-        if(acc != null && acc.length() == 0)
-        {
-          acc =  md.getAttributeName();
-        }
+       String acc =  md.getAttributeName();
+       acc = acc.substring(0, 1).toUpperCase() + acc.substring(1);
 
-        s += "<tr><td><input type=\"checkbox\" id =\""+ acc + "\" onclick=\"";
+        s += "<tr><td><input class=\"results\" + type=\"checkbox\" id =\""+ acc + "\" onclick=\"";
         s += "showCol('"+ acc + "',this.checked)";
         s += "\"/></td><td>" ;
- 		s += md.getMdAttributeConcrete().getDisplayLabel()+ "</td></tr>";
-  	}
+     s += md.getMdAttributeConcrete().getDisplayLabel()+ "</td></tr>";
+    }
 
-	return s + "</table>";
+  return s + "</table>";
 }%>
 
 
@@ -68,7 +65,7 @@
   <mjl:message />
 </mjl:messages>
 
-<h2>Mosquito Collection</h2>
+<h2><fmt:message key="Collection"/></h2>
 <mjl:form name="dss.vector.solutions.entomology.MosquitoCollection.form.name" id="dss.vector.solutions.entomology.MosquitoCollection.form.id" method="POST">
 
   <mjl:input value="${item.id}" type="hidden" param="id" />
@@ -85,19 +82,17 @@
 </mjl:form>
 
 <%
-	ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-	ConcreteMosquitoCollectionDTO mosquito_collection = (ConcreteMosquitoCollectionDTO) request.getAttribute("item");
-	MosquitoViewDTO[] rows = mosquito_collection.getMosquitos();
-	MosquitoViewDTO mdView = new MosquitoViewDTO(clientRequest);
-	String[] attribs = {"MosquitoId","Collection", "SampleId", "Specie",
-			"IdentificationMethod", "Generation", "Isofemale", "Sex",
-			"TestDate"};
+  ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+  ConcreteMosquitoCollectionDTO mosquito_collection = (ConcreteMosquitoCollectionDTO) request.getAttribute("item");
+  MosquitoViewDTO[] rows = mosquito_collection.getMosquitos();
+  MosquitoViewDTO mdView = new MosquitoViewDTO(clientRequest);
+  String[] attribs = {"MosquitoId","Collection", "SampleId", "Specie", "IdentificationMethod", "Generation", "Isofemale", "Sex", "TestDate"};
 
-	String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
+  String delete_row = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 %>
 
 
-<h2>Mosquitos</h2>
+<h2><fmt:message key="Mosquitos"/></h2>
 <div class="fldContainer"><br>
 <div id="checkBoxContanier" style="height: 12em;">
 <div style="float: left; margin-left: 3em;"><%=buildChekboxTable(mdView,"Biochemical Assays",MetabolicAssayTestResult.class,clientRequest)%></div>
@@ -109,50 +104,61 @@
 <script type="text/javascript">
 function showCol(key,checked)
 {
-  key=key.substring(0, 1).toUpperCase() + key.substring(1);
-  if(checked)
+  var className = "yui-dt-col-" + key;
+  var methodName = "yui-dt-col-" + key + "Method";
+  var resultColumn = YAHOO.util.Selector.query("." + className);
+  var methodColumn = YAHOO.util.Selector.query("." + methodName);
+  var elements = resultColumn.concat(methodColumn);
+
+  for (var e = 0; e < elements.length; e++)
   {
-    table_data.myDataTable.showColumn(key);
-    table_data.myDataTable.showColumn(key+'Method');
+    if(checked)
+    {
+      table_data.myDataTable.showColumn(key);
+      table_data.myDataTable.showColumn(key+'Method');
+//      elements[e].style.display = '';
+    }
+    else
+    {        
+      table_data.myDataTable.hideColumn(key);
+      table_data.myDataTable.hideColumn(key+'Method');
+//      elements[e].style.display = 'none';
+    }
   }
-  else
-  {
-    table_data.myDataTable.hideColumn(key);
-    table_data.myDataTable.hideColumn(key+'Method');
-  }
+
+//  table_data.myDataTable.render();  
 }
 
-<%String[] types_to_load = {"dss.vector.solutions.entomology.MosquitoView","dss.vector.solutions.entomology.UninterestingSpecieGroupView"};
-	//out.println(com.terraframe.mojo.web.json.JSONController.importTypes(clientRequest.getSessionId(), types_to_load,true));%>
+<%String[] types_to_load = {MosquitoViewDTO.CLASS, UninterestingSpecieGroupViewDTO.CLASS}; %>
 <%=Halp.getDropdownSetup(mdView, attribs, delete_row,clientRequest)%>
+
 MDSS.Calendar.init()
 table_data = {rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
-            columnDefs:<%=Halp.getColumnSetup(mdView, attribs, delete_row, true,2)%>,
+          columnDefs:<%=Halp.getColumnSetup(mdView, attribs, delete_row, true,2)%>,
           defaults: {Collection:'${item.id}'},
           copy_from_above: ["IdentificationMethod"],
           div_id: "Mosquitos",
           data_type: "Mojo.$.dss.vector.solutions.entomology.MosquitoView",
-            width:"65em",
-            excelButtons:false
+          width:"1200px",
+          excelButtons:false          
       };
 YAHOO.util.Event.addListener(window, 'load', MojoGrid.createDataTable(table_data));
-//YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(table_data));
 </script></div>
 <%=Halp.loadTypes((List<String>) Arrays.asList(types_to_load))%>
 
-<h2>UninterestingSpecieGroups</h2>
+<h2><fmt:message key="Uninteresting_Specie_Groups"/></h2>
 <div class="fldContainer">
   <div id="UninterestingSpecieGroups">
 </div>
 
 <%
-	UninterestingSpecieGroupViewDTO[] unint_rows = mosquito_collection.getUninterestingSpecieGroups();
-	UninterestingSpecieGroupViewDTO mdUnIntView = new UninterestingSpecieGroupViewDTO(clientRequest);
-	String[] unint_attribs = {"GroupId","Collection", "SampleId", "Specie",
-			"IdentificationMethod", "Quantity"};
-%> <script type="text/javascript">
-<%=Halp.getDropdownSetup(mdUnIntView, unint_attribs,
-							delete_row, clientRequest)%>
+  UninterestingSpecieGroupViewDTO[] unint_rows = mosquito_collection.getUninterestingSpecieGroups();
+  UninterestingSpecieGroupViewDTO mdUnIntView = new UninterestingSpecieGroupViewDTO(clientRequest);
+  String[] unint_attribs = {"GroupId","Collection", "SampleId", "Specie", "IdentificationMethod", "Quantity"};
+%>
+
+<script type="text/javascript">
+<%=Halp.getDropdownSetup(mdUnIntView, unint_attribs, delete_row, clientRequest)%>
 
 UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows, unint_attribs, mdUnIntView)%>,
        columnDefs: <%=Halp.getColumnSetup(mdUnIntView, unint_attribs, delete_row, false,2)%>,
@@ -161,8 +167,27 @@ UninterestingSpecieGroupData = { rows:<%=Halp.getDataMap(unint_rows, unint_attri
               copy_from_above: ["IdentificationMethod"],
               //collection_setter: "setCollection()",
               data_type: "Mojo.$.dss.vector.solutions.entomology.UninterestingSpecieGroupView"
-
           };
 YAHOO.util.Event.addListener(window, 'load', MojoGrid.createDataTable(UninterestingSpecieGroupData));
-   // YAHOO.util.Event.onDOMReady(MojoGrid.createDataTable(UninterestingSpecieGroupData));
 </script></div>
+
+
+<script type="text/javascript" defer="defer">
+
+//Toggle all of the result columns
+var reloadColumns = function()
+{
+  var checkboxes = YAHOO.util.Selector.query(".results");
+    
+  for (var i = 0; i < checkboxes.length; i++)
+  {
+    showCol(checkboxes[i].id,checkboxes[i].checked);  
+  }  
+}
+
+//table_data.myDataTable.subscribe("postRenderEvent", reloadColumns);     
+//table_data.myDataTable.subscribe("rowAddEvent", reloadColumns);     
+//table_data.myDataTable.subscribe("tableSaveEvent", reloadColumns);     
+
+reloadColumns();
+</script>

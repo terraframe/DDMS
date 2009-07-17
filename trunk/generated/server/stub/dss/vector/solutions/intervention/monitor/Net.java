@@ -6,6 +6,9 @@ import java.util.List;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
+import com.terraframe.mojo.query.Selectable;
+import com.terraframe.mojo.query.SelectablePrimitive;
+import com.terraframe.mojo.query.ValueQuery;
 
 import dss.vector.solutions.surveillance.OptionIF;
 
@@ -143,4 +146,50 @@ public class Net extends NetBase implements com.terraframe.mojo.generation.loade
       it.close();
     }
   }
+  
+  public static ValueQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  {
+    QueryFactory factory = new QueryFactory();
+    
+    NetQuery netQuery = new NetQuery(factory);
+    ValueQuery valueQuery = new ValueQuery(factory);
+    
+    Selectable[] selectables = new Selectable[] {
+        netQuery.getId(),
+        netQuery.getDisplayLabel(),
+        netQuery.getEnabled(),
+        netQuery.getIsAbstract(),
+        netQuery.getParentNet().getDisplayLabel(Net.PARENTNET, Net.PARENTNET)
+    };
+    
+    valueQuery.SELECT(selectables);
+
+    SelectablePrimitive selectablePrimitive = (SelectablePrimitive) netQuery.aAttributePrimitive("id");
+
+    if(sortAttribute.equals(Net.PARENTNET))
+    {
+      selectablePrimitive = netQuery.getParentNet(Net.PARENTNET, Net.PARENTNET).getDisplayLabel().currentLocale();
+    }
+    else
+    {
+      selectablePrimitive = (SelectablePrimitive) netQuery.aAttributePrimitive(sortAttribute);
+    }
+
+    if (isAscending)
+    {
+      valueQuery.ORDER_BY_ASC(selectablePrimitive);
+    }
+    else
+    {
+      valueQuery.ORDER_BY_DESC(selectablePrimitive);
+    }
+
+    if (pageSize != 0 && pageNumber != 0)
+    {
+      valueQuery.restrictRows(pageSize, pageNumber);
+    }    
+    return valueQuery;
+
+  }
+
 }

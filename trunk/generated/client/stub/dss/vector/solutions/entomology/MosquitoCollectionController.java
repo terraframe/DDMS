@@ -224,8 +224,19 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void viewAssays(String id) throws IOException, ServletException
   {
+    if (!req.getRequestURI().contains(this.getClass().getName() + ".viewAssays.mojo"))
+    {
+      String path = req.getRequestURL().toString();
+      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".viewAssays.mojo");
+      path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + id);
+
+      resp.sendRedirect(path);
+      return;
+    }
+    
     try
     {
+      
       ClientRequestIF request = super.getClientRequest();
       try
       {

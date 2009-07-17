@@ -1,0 +1,92 @@
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.entomology.assay.infectivity.UnknownTestResult"
+        label="Unknown"
+        extends="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
+        description="Unknown assay"
+        generateController="false">
+        <attributes>
+          <boolean
+            name="testResult"
+            label="Unknown"
+            required="false"
+            description="assay result"
+            positiveLabel="Positive"
+            negativeLabel="Negative" />
+        </attributes>
+      </mdBusiness>
+    </create>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.Net">
+        <create>
+          <mdMethod
+            name="getPage"
+            label="getPage"
+            static="true"
+            returnType="com.terraframe.mojo.query.ValueQuery">
+            <mdParameter
+              name="sortAttribute"
+              label="Sort Attribute"
+              type="java.lang.String"
+              order="0" />
+            <mdParameter
+              name="isAscending"
+              label="Is Ascending"
+              type="java.lang.Boolean"
+              order="1" />
+            <mdParameter
+              name="pageSize"
+              label="Page Size"
+              type="java.lang.Integer"
+              order="2" />
+            <mdParameter
+              name="pageNumber"
+              label="Page Number"
+              type="java.lang.Integer"
+              order="3" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.export.MosquitoExcelView">
+        <create>
+          <attributes>
+            <char
+              name="unknownAssay"
+              label="Unknown"
+              size="255" />
+            <char
+              name="unknownMethod"
+              label="Unknown Method"
+              size="255" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.entomology.MosquitoView">
+        <create>
+          <attributes>
+            <virtual
+              name="unknown"
+              type="dss.vector.solutions.entomology.assay.infectivity.UnknownTestResult"
+              concrete="testResult"
+              required="false" />
+            <virtual
+              name="unknownMethod"
+              type="dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult"
+              concrete="testMethod"
+              required="false" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
