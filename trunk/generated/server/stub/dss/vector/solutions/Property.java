@@ -31,6 +31,14 @@ public class Property extends PropertyBase implements com.terraframe.mojo.genera
 
     return query;
   }
+  
+  public static PropertyQuery getAllEditable()
+  {
+    PropertyQuery query = new PropertyQuery(new QueryFactory());
+    query.WHERE(query.getPropertyPackage().NE("dss.vector.solutions.entomology.ResistantanceCutOff"));
+    query.WHERE(query.getEditable().EQ(true));
+    return query;
+  }
 
   public static dss.vector.solutions.Property getByPackageAndName(java.lang.String pkg,
       java.lang.String name)

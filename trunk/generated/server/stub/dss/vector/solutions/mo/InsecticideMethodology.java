@@ -28,5 +28,10 @@ public class InsecticideMethodology extends InsecticideMethodologyBase implement
     List<InsecticideMethodology> list = AbstractTerm.getAllActive(query, InsecticideMethodology.class);
 
     return list.toArray(new InsecticideMethodology[list.size()]);
-  }  
+  }
+  
+  public static InsecticideMethodology validateByDisplayLabel(String displayLabel)
+  {
+    return (InsecticideMethodology)AbstractTerm.validateByDisplayLabel(displayLabel);
+  }
 }

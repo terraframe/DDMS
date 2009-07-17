@@ -28,5 +28,10 @@ public class InfectivityMethodology extends InfectivityMethodologyBase implement
     List<InfectivityMethodology> list = AbstractTerm.getAllActive(query, InfectivityMethodology.class);
 
     return list.toArray(new InfectivityMethodology[list.size()]);
-  }  
+  }
+  
+  public static InfectivityMethodology validateByDisplayLabel(String displayLabel)
+  {
+    return (InfectivityMethodology)AbstractTerm.validateByDisplayLabel(displayLabel);
+  }
 }

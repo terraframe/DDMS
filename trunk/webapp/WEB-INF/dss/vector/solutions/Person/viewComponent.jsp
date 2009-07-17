@@ -26,6 +26,14 @@
     </dd>
     <dt>
       <label>
+        ${item.residentialGeoIdMd.displayLabel}
+      </label>
+    </dt>
+    <dd>
+      ${item.residentialGeoId}
+    </dd>
+    <dt>
+      <label>
         ${item.sexMd.displayLabel}
       </label>
     </dt>

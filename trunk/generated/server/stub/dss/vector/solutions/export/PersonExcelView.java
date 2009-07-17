@@ -42,7 +42,7 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
     GeoEntity entity = searcher.getGeoEntity(this.getGeoEntityNames());
     
     PersonView personView = new PersonView();
-    personView.setResidentialGeoEntity(entity);
+    personView.setResidentialGeoId(entity.getGeoId());
     personView.addSex(getSexByLabel(this.getSex()));
     
     personView.apply();

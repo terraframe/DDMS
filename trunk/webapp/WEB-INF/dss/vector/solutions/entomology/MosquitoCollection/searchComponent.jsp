@@ -48,10 +48,12 @@
       </mjl:select>
     </dd>
     <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.MosquitoCollectionController.searchByGeoIdAndDate.mojo" name="search.button" value="Search"/>
-    <mjl:command classes="submitButton" action="excelexport" name="export.button" value="Excel_Export_Header"/>
-    <mjl:command classes="submitButton" action="excelimport" name="import.button" value="Excel_Import_Header"/>
   </dl>
 </mjl:form>
+
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.entomology.MosquitoCollectionView" name="excelType"/>
+</jsp:include>
 
 
 <mjl:messages>

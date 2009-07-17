@@ -142,10 +142,10 @@
             name="dateOfBirth"
             concrete="dateOfBirth"
             type="dss.vector.solutions.Person" />
-          <virtual
-            name="residentialGeoEntity"
-            concrete="residentialGeoEntity"
-            type="dss.vector.solutions.Person" />
+          <char
+            name="residentialGeoId"
+            label="Residential Geo ID"
+            size="16" />
           <virtual
             name="sex"
             concrete="sex"

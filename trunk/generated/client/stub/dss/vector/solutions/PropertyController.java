@@ -1,8 +1,14 @@
 package dss.vector.solutions;
 
-import com.terraframe.mojo.ProblemExceptionDTO;
+import java.io.IOException;
 
-import dss.vector.solutions.PropertyControllerBase;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.terraframe.mojo.ProblemExceptionDTO;
+import com.terraframe.mojo.constants.ClientRequestIF;
+
 import dss.vector.solutions.util.ErrorUtility;
 
 public class PropertyController extends PropertyControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
@@ -12,22 +18,32 @@ public class PropertyController extends PropertyControllerBase implements com.te
 
   private static final long serialVersionUID = 1236023121846L;
 
-  public PropertyController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public PropertyController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-
-  public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  
+  @Override
+  public void viewPackage(String propertyPackage) throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", dss.vector.solutions.PropertyDTO.get(clientRequest, id));
+    ClientRequestIF clientRequest = super.getClientRequest();
+    PropertyQueryDTO query = PropertyDTO.getAllByPackage(clientRequest, propertyPackage);
+    req.setAttribute("query", query);
+    req.setAttribute("page_title", "View All Properties");
+    render("viewAllComponent.jsp");
+  }
+
+  public void view(String id) throws IOException, ServletException
+  {
+    ClientRequestIF clientRequest = super.getClientRequest();
+    req.setAttribute("item", PropertyDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
-  public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
-  public void create(dss.vector.solutions.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void create(PropertyDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -47,45 +63,46 @@ public class PropertyController extends PropertyControllerBase implements com.te
       this.failCreate(dto);
     }
   }
-  public void failCreate(dss.vector.solutions.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCreate(PropertyDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
     render("epiWeekComponent.jsp");
   }
 
-  public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    ClientRequestIF clientRequest = super.getClientRequest();
     PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START_DAY);
     req.setAttribute("item", dto);
     req.getRequestDispatcher(dir+"epiWeekExcel.jsp").forward(req, resp);
   }
-  public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
   {
     resp.sendError(500);
   }
-  public void cancel(dss.vector.solutions.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void cancel(PropertyDTO dto) throws IOException, ServletException
   {
     dto.unlock();
     this.viewAll();
   }
-  public void failCancel(dss.vector.solutions.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failCancel(PropertyDTO dto) throws IOException, ServletException
   {
     resp.sendError(500);
   }
-  public void viewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void viewAll() throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
-    dss.vector.solutions.PropertyQueryDTO query = dss.vector.solutions.PropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    ClientRequestIF clientRequest = super.getClientRequest();
+    PropertyQueryDTO query = PropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    query = PropertyDTO.getAllEditable(clientRequest);
     req.setAttribute("query", query);
     req.setAttribute("page_title", "View All Properties");
     render("viewAllComponent.jsp");
   }
-  public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
+  public void failViewAll() throws IOException, ServletException
   {
     resp.sendError(500);
   }
-  public void update(dss.vector.solutions.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void update(PropertyDTO dto) throws IOException, ServletException
   {
     try
     {
@@ -105,33 +122,33 @@ public class PropertyController extends PropertyControllerBase implements com.te
       this.failUpdate(dto);
     }
   }
-  public void failUpdate(dss.vector.solutions.PropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  public void failUpdate(PropertyDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
-  public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void edit(String id) throws IOException, ServletException
   {
-    dss.vector.solutions.PropertyDTO dto = dss.vector.solutions.PropertyDTO.lock(super.getClientRequest(), id);
+    PropertyDTO dto = PropertyDTO.lock(super.getClientRequest(), id);
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
-  public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  public void failEdit(String id) throws IOException, ServletException
   {
     this.view(id);
   }
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void newInstance() throws IOException, ServletException
   {
-    com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
+    ClientRequestIF clientRequest = super.getClientRequest();
     /*
-    dss.vector.solutions.PropertyDTO dto = new dss.vector.solutions.PropertyDTO(clientRequest);
+    PropertyDTO dto = new PropertyDTO(clientRequest);
     */
     PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE,PropertyInfo.EPI_START_DAY);
     dto.lock();
     req.setAttribute("item", dto);
     render("epiWeekComponent.jsp");
   }
-  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
+  public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();
   }

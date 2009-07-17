@@ -7,6 +7,7 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.entomology.Sex;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.ITNRecipient;
 import dss.vector.solutions.irs.SprayLeader;
@@ -59,6 +60,7 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     person.setLastName(this.getLastName());
     person.setDateOfBirth(this.getDateOfBirth());
     person.addSex(this.getSex().get(0));
+    person.setResidentialGeoEntity(GeoEntity.searchByGeoId(this.getResidentialGeoId()));
     person.apply();
     
     // Update the delegates

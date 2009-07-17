@@ -4,6 +4,8 @@
   <doIt>
     <create>
 
+<!--
+Removing this value in accordance with ticket #344
       <object
         type="dss.vector.solutions.Property"
         id="8002">
@@ -29,6 +31,7 @@
           name="description"
           value="Average amount of square meters that can typically be covered by a full can of insecticide using the unit nozzle." />
       </object>
+-->
 
       <mdProblem
         name="dss.vector.solutions.irs.ValueNotApplicableProblem"

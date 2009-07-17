@@ -1,9 +1,16 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-        <mjl:messages>
-          <mjl:message />
-        </mjl:messages>
+
+<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
+
+<script type="text/javascript">
+MDSS.AbstractSelectSearch.Political = true;
+MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
+</script>
+  <mjl:messages>
+    <mjl:message />
+  </mjl:messages>
   <mjl:component item="${item}" param="person">
     <mjl:input type="hidden" param="personId" value="${item.personId}" />
       <dt>
@@ -25,6 +32,17 @@
       <dd>
         <mjl:input type="text" param="lastName" />
         <mjl:messages attribute="lastName">
+          <mjl:message />
+        </mjl:messages>
+      </dd>
+      <dt>
+        <label>
+          <fmt:message key="Geo_Id"/>
+        </label>
+      </dt>
+      <dd>
+        <mjl:input id="geoIdEl" param="residentialGeoId" type="text" value="${item.residentialGeoId}" maxlength="16" classes="geoInput"/>
+        <mjl:messages attribute="residentialGeoId">
           <mjl:message />
         </mjl:messages>
       </dd>

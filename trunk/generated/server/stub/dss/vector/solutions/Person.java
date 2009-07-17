@@ -185,6 +185,7 @@ public class Person extends PersonBase implements com.terraframe.mojo.generation
     view.setPersonId(this.getId());
     view.setFirstName(this.getFirstName());
     view.setLastName(this.getLastName());
+    view.setResidentialGeoId(this.getResidentialGeoEntity().getGeoId());
     view.setDateOfBirth(this.getDateOfBirth());
     view.addSex(this.getSex().get(0));
 

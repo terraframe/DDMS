@@ -4082,6 +4082,13 @@
             required="false"
             label="Description"
             size="255" />
+          <boolean
+            name="editable"
+            label="Editable"
+            required="true"
+            default_value="true"
+            negativeLabel="Not Editable"
+            positiveLabel="Editable"/>
         </attributes>
         <mdMethod
           name="getStr"
@@ -4179,6 +4186,13 @@
           description="Gets the next ShortId for this install, increments SHORT_ID_COUNTER"
           static="true"
           returnType="java.lang.String">
+        </mdMethod>
+        <mdMethod
+          name="getAllEditable"
+          label="Get all editable properties"
+          description="Gets all editable properties"
+          static="true"
+          returnType="dss.vector.solutions.PropertyQuery">
         </mdMethod>
       </mdBusiness>
 
@@ -4361,6 +4375,9 @@
         <valueAttribute
           name="description"
           value="Number of address space segments(installs), NOT EDITABLE" />
+        <valueAttribute
+          name="editable"
+          value="false" />
       </object>
       <object
         type="dss.vector.solutions.Property"
@@ -4412,6 +4429,9 @@
         <valueAttribute
           name="description"
           value="How many ids have we generated in this install's address space" />
+        <valueAttribute
+          name="editable"
+          value="false" />
       </object>
       <!--
         <object type="dss.vector.solutions.Property" id="dateFormat">

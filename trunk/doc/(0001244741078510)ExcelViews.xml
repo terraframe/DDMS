@@ -761,10 +761,6 @@
             concrete="dateOfBirth"
             type="dss.vector.solutions.Person" />
           <virtual
-            name="residentialGeoEntity"
-            concrete="residentialGeoEntity"
-            type="dss.vector.solutions.Person" />
-          <virtual
             name="isMDSSUser"
             concrete="isMDSSUser"
             type="dss.vector.solutions.PersonView"/>

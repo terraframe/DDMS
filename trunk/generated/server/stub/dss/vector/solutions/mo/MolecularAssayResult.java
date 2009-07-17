@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.terraframe.mojo.query.QueryFactory;
 
+import dss.vector.solutions.entomology.AbstractMosquitoCollection;
+
 public class MolecularAssayResult extends MolecularAssayResultBase implements
     com.terraframe.mojo.generation.loader.Reloadable
 {
@@ -28,5 +30,10 @@ public class MolecularAssayResult extends MolecularAssayResultBase implements
     List<MolecularAssayResult> list = AbstractTerm.getAllActive(query, MolecularAssayResult.class);
 
     return list.toArray(new MolecularAssayResult[list.size()]);
+  }
+  
+  public static MolecularAssayResult validateByDisplayLabel(String displayLabel)
+  {
+    return (MolecularAssayResult)AbstractTerm.validateByDisplayLabel(displayLabel);
   }
 }
