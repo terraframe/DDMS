@@ -249,7 +249,7 @@ data = {
      
      var column = data.myDataTable.getColumn('TeamLeader');
 
-     column.editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:[],disableBtns:false});
+     column.editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:[],disableBtns:true});
      column.editor.subscribe('showEvent', swap);     
      column.editor.subscribe('saveEvent', MojoGrid.saveHandler);
 
