@@ -5019,7 +5019,8 @@
             name="mosquitoId"
             size="255"
             label="Mosquito Id"
-            description="The id of the mosquito, if the Id is blank then it is assumed the mosquito is new" />
+            description="The id of the mosquito, if the Id is blank then it is assumed the mosquito is new"
+            required="true" />
           <virtual
             name="sampleId"
             type="dss.vector.solutions.entomology.TrueSpecieEntity"
