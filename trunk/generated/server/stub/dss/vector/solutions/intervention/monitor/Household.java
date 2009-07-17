@@ -33,6 +33,20 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
   }
   
   @Override
+  public void validateNets()
+  {
+    if(this.getNets() != null && this.getNets() != this.getNetSum())
+    {
+      String msg = "The sum of all individual nets does not sum up to the total number of nets";
+      NetSumProblem p = new NetSumProblem(msg);      
+      p.setNotification(this, NETS);
+      p.apply();
+      p.throwIt();      
+    }
+  }
+  
+  
+  @Override
   public void validateNetsUsed()
   {
     if(this.getNets() != null && this.getNetsUsed() != null)
@@ -82,6 +96,18 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
         p.throwIt();
       }
     }
+  }
+  
+  private int getNetSum()
+  {
+    int sum = 0;
+    
+    for(HouseholdNet net : this.getHouseholdNets())
+    {
+      sum += net.getAmount();
+    }
+    
+    return sum;
   }
 
   @Override
@@ -230,5 +256,8 @@ public class Household extends HouseholdBase implements com.terraframe.mojo.gene
         net.apply();
       }
     }
+    
+    //  Validate the sum of all the nets
+    this.validateNets();
   }
 }
