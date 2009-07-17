@@ -2,7 +2,9 @@ package dss.vector.solutions.irs;
 
 import java.lang.reflect.Method;
 
+import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
+import com.terraframe.mojo.session.Session;
 
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -21,9 +23,8 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
   {
     GeoTarget target = new GeoTarget();
 
-    if (this.getTargetId() != null && !this.getTargetId().equals(""))
+    if (hasConcrete())
     {
-      //FIXME: find  a better place to lock this
       target = GeoTarget.lock(this.getTargetId());
     }
 
@@ -44,19 +45,58 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
       }
       catch (Exception e)
       {
-        e.printStackTrace();
+        throw new ApplicationException(e);
       }
     }
 
     target.apply();
 
-    this.setTargetId(target.getId());
+    populateView(target);
+  }
+
+  private boolean hasConcrete()
+  {
+    return this.getTargetId() != null && !this.getTargetId().equals("");
+  }
+  
+  public void setEntityName(GeoEntity entity)
+  {
+    String universal = entity.getMdClass().getDisplayLabel(Session.getCurrentLocale());
+    String geoEntityName = entity.getEntityName();
+    
+    this.setEntityName(geoEntityName + " (" + universal + ")");    
+  }
+  
+  public void populateView(GeoTarget target)
+  {
+    this.setTargetId(target.getId());    
+    this.setGeoEntity(target.getGeoEntity());
+    this.setEntityName(target.getGeoEntity());
+    this.setSeason(target.getSeason());
+
+    for (int i = 0; i < 53; i++)
+    {
+      String setterName = "setTarget_" + i;
+      String getterName = "getTarget_" + i;
+
+      try
+      {
+        Method setter = GeoTargetView.class.getMethod(setterName, Integer.class);
+        Method getter = GeoTarget.class.getMethod(getterName);
+
+        setter.invoke(this, (Integer) getter.invoke(target));
+      }
+      catch (Exception e)
+      {
+        throw new ApplicationException(e);
+      }
+    }
   }
 
   @Override
   public void deleteConcrete()
   {
-    if (this.getTargetId() != null && !this.getTargetId().equals(""))
+    if (hasConcrete())
     {
       GeoTarget.get(this.getTargetId()).delete();
     }
@@ -129,52 +169,6 @@ public class GeoTargetView extends GeoTargetViewBase implements com.terraframe.m
 
     return array;
   }
-
-
-  @Transaction
-  public static GeoTargetView sum(GeoEntity resource, GeoTargetView[] views)
-  {
-    GeoTargetView newView = new GeoTargetView();
-    newView.setGeoEntity(resource);
-
-    try
-    {
-      for (int i = 0; i < 53; i++)
-      {
-        String setterName = "setTarget_" + i;
-        String getterName = "getTarget_" + i;
-        Integer sum = 0;
-
-        for (GeoTargetView view : views)
-        {
-          sum += (Integer) GeoTargetView.class.getMethod(getterName).invoke(view);
-        }
-
-        GeoTargetView.class.getMethod(setterName, Integer.class).invoke(newView, sum);
-      }
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-
-    return newView;
-  }
-
-  /*
-  @Transaction
-  public static GeoTargetView[] getGeoTargets(GeoEntity[] geoEntities,Integer year)
-  {
-    GeoTargetView[] views = new GeoTargetView[geoEntities.length];
-
-    for(int i = 0; i < geoEntities.length; i++)
-    {
-      views[i] = GeoTarget.findByGeoEntityAndSeason(geoEntities[i],year);
-    }
-
-    return views;
-  }
-  */
 
   @Transaction
   public static GeoTargetView[] getGeoTargets(String[] geoEntityIds, MalariaSeason season)

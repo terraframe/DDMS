@@ -1,7 +1,5 @@
 package dss.vector.solutions.irs;
 
-import java.lang.reflect.Method;
-
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
@@ -18,31 +16,11 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
   }
 
   public GeoTargetView getView()
-  {
+  {    
     GeoTargetView view = new GeoTargetView();
-    view.setGeoEntity(this.getGeoEntity());
-    view.setEntityName(this.getGeoEntity().getEntityName());
-    view.setSeason(this.getSeason());
-    view.setTargetId(this.getId());
-
-    for (int i = 0; i < 53; i++)
-    {
-      String setterName = "setTarget_" + i;
-      String getterName = "getTarget_" + i;
-
-      try
-      {
-        Method setter = GeoTargetView.class.getMethod(setterName, Integer.class);
-        Method getter = GeoTarget.class.getMethod(getterName);
-
-        setter.invoke(view, (Integer) getter.invoke(this));
-      }
-      catch (Exception e)
-      {
-        e.printStackTrace();
-      }
-    }
-
+    
+    view.populateView(this);
+    
     return view;
   }
 
@@ -77,36 +55,7 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
       it.close();
     }
   }
-  /*
-  public static GeoTargetView findByGeoEntityAndYear(GeoEntity resource, Integer year)
-  {
-    GeoTargetQuery query = new GeoTargetQuery(new QueryFactory());
-    query.WHERE(query.getGeoEntity().EQ(resource));
-    query.AND(query.getTargetYear().EQ(year));
 
-    OIterator<? extends GeoTarget> it = query.getIterator();
-
-    try
-    {
-      if (it.hasNext())
-      {
-        return it.next().getView();
-      }
-      else
-      {
-        GeoTargetView view = new GeoTargetView();
-        view.setGeoEntity(resource);
-        view.setEntityName(resource.getEntityName());
-        view.setTargetYear(year);
-
-        return view;
-      }
-    }
-    finally
-    {
-      it.close();
-    }
-  }*/
   public static GeoTargetView findByGeoEntityIdAndSeason(String resource, MalariaSeason season)
   {
     GeoTargetQuery query = new GeoTargetQuery(new QueryFactory());
@@ -123,11 +72,13 @@ public class GeoTarget extends GeoTargetBase implements com.terraframe.mojo.gene
       }
       else
       {
-        GeoTargetView view = new GeoTargetView();
         GeoEntity ge = GeoEntity.get(resource);
+
+        GeoTargetView view = new GeoTargetView();
         view.setGeoEntity(ge);
-        view.setEntityName(ge.getEntityName());
+        view.setEntityName(ge);
         view.setSeason(season);
+        
         return view;
       }
     }
