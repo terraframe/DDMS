@@ -4,25 +4,29 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import com.terraframe.mojo.dataaccess.MdAttributeVirtualDAOIF;
+import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.InnerJoin;
+import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.OIterator;
+import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.SelectableMoment;
+import com.terraframe.mojo.query.SelectableSQL;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.ValueQuery;
 import com.terraframe.mojo.query.ValueQueryCSVExporter;
 import com.terraframe.mojo.query.ValueQueryExcelExporter;
+import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
 
 import dss.vector.solutions.entomology.assay.AssayTestResult;
 import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
-import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResultQuery;
-import dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResultQuery;
+import dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult;
+import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult;
+import dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
@@ -120,6 +124,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
    */
   private static ValueQuery xmlToValueQuery(String xml, String[] selectedUniversals, boolean includeGeometry, ThematicLayer thematicLayer)
   {
+
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
@@ -138,54 +143,6 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       valueQuery.WHERE(mosquitoQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
-
-
-    for (Entry<Class<AssayTestResult>, MdAttributeVirtualDAOIF> e : MosquitoView.getAssayMap().entrySet())
-    {
-      String assayClassName = e.getKey().getCanonicalName();
-      AssayTestResultQuery assayQuery = (AssayTestResultQuery) queryMap.get(assayClassName);
-      if (assayQuery != null)
-      {
-        // this is an implicit natural join
-         valueQuery.WHERE(assayQuery.getMosquito().getId().EQ(mosquitoQuery.getId()));
-        //Left Join the assay Query
-        //valueQuery.AND(assayQuery.getMosquito().LEFT_JOIN_EQ(mosquitoQuery));
-
-         String tableName = assayQuery.getId().getDefiningTableName();
-         String tableAlias = assayQuery.getId().getDefiningTableAlias();
-         String testMethodAlias = tableName.replace("testresult", "_TESTMETHOD");
-
-         String assayType = null;
-         String testMethodType = null;
-
-         if(assayQuery instanceof InfectivityAssayTestResultQuery)
-         {
-           assayType = "infectivityassaytestresult";
-           testMethodType = "infectivitymethodology";
-         }
-
-         if(assayQuery instanceof TargetSiteAssayTestResultQuery)
-         {
-           assayType = "targetsiteassaytestresult";
-           testMethodType = "insecticidemethodology";
-         }
-
-         if (xml.indexOf(testMethodAlias) > 0)
-         {
-           SelectableSQLCharacter testMethod = (SelectableSQLCharacter) valueQuery.getSelectable(testMethodAlias);
-           {
-             testMethod.setSQL("SELECT label.defaultLocale \n" +
-                     "     FROM " + assayType + "  tr LEFT JOIN " + testMethodType + " im on tr.testMethod = im.id\n" +
-                     "     LEFT JOIN abstractterm term ON im.id = term.id \n" +
-                     "     LEFT JOIN abstracttermdisplaylabel label ON term.displayLabel = label.id\n" +
-                     "     WHERE tr.id = " + tableAlias + ".id");
-           }
-         }
-
-      }
-
-    }
-
     if (groupQuery != null)
     {
       valueQuery.WHERE(groupQuery.getCollection().getId().EQ(collectionQuery.getId()));
@@ -198,6 +155,8 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     }
 
     SelectableMoment dateAttribute = collectionQuery.getDateCollected();
+
+
     ConcreteMosquitoCollectionQuery concreteCollectionQuery = (ConcreteMosquitoCollectionQuery) queryMap.get(ConcreteMosquitoCollection.CLASS);
     //this ensures that the date attribute is joined correctly
     if (concreteCollectionQuery == null)
@@ -209,8 +168,49 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       }
     }
 
+    valueQuery = joinAssays(valueQuery, mosquitoQuery, "InfectivityAssaysSnapshot", InfectivityAssayTestResult.CLASS);
+    valueQuery = joinAssays(valueQuery, mosquitoQuery, "TargetSiteAssaysSnapshot", TargetSiteAssayTestResult.CLASS);
+    valueQuery = joinAssays(valueQuery, mosquitoQuery, "MetabolicAssaysSnapshot",MetabolicAssayTestResult.CLASS);
+
     return QueryUtil.setQueryDates(xml,valueQuery,dateAttribute);
+
   }
+
+   public static ValueQuery joinAssays(ValueQuery valueQuery,MosquitoQuery mosquitoQuery,String tableName, String klass)
+   {
+     MdAttributeVirtual[] accessors = MosquitoView.getAccessors(klass);
+     boolean joinAssays = false;
+     for (MdAttributeVirtual attrib : accessors)
+     {
+       String acc = attrib.getAttributeName().toLowerCase();
+       String result = acc + "_defaultLocale";
+       try
+       {
+         SelectableSQL s =  (SelectableSQL) valueQuery.getSelectable(result);
+         s.setSQL(result);
+         joinAssays=true;
+       }
+       catch (QueryException e){}
+
+       String method = acc + "testmethod_defualtLocale";
+       try
+       {
+         SelectableSQL s =  (SelectableSQL) valueQuery.getSelectable(method);
+         s.setSQL(method);
+         joinAssays=true;
+       }
+       catch (QueryException e){}
+     }
+     if(joinAssays)
+     {
+       String sql = MosquitoView.getTempTableSQL(klass,tableName);
+       System.out.println(sql);
+       Database.parseAndExecute(sql);
+       valueQuery.FROM(tableName,tableName);
+       valueQuery.WHERE(new InnerJoinEq("id","mosquito",mosquitoQuery.getTableAlias(),"mosquito_id",tableName,tableName));
+     }
+     return valueQuery;
+   }
 
    /**
    * Queries for Mosquitos.
@@ -226,6 +226,8 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     ValueQuery valueQuery = xmlToValueQuery(queryXML, selectedUniversals, false, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
+
+    System.out.println(valueQuery.getSQL());
 
     return valueQuery;
   }

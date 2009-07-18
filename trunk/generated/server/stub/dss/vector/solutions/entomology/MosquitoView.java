@@ -21,14 +21,23 @@ import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
+import com.terraframe.mojo.system.metadata.MdBusiness;
 
 import dss.vector.solutions.entomology.assay.AssayComparator;
 import dss.vector.solutions.entomology.assay.AssayTestResult;
+import dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult;
+import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult;
+import dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult;
 import dss.vector.solutions.mo.AbstractTerm;
+import dss.vector.solutions.mo.InfectivityMethodology;
+import dss.vector.solutions.mo.InsecticideMethodology;
+import dss.vector.solutions.mo.MolecularAssayResult;
 
 public class MosquitoView extends MosquitoViewBase implements Reloadable
 {
   private static final long serialVersionUID = 1235599942174L;
+
+  private static boolean    viewGenerated    = false;
 
   public MosquitoView()
   {
@@ -233,16 +242,18 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
         AbstractTerm testMethod = result.getTestMethod();
 
         String resultName = "set" + attributeName;
-        try {
-        MosquitoView.class.getMethod(resultName, testResult.getClass()).invoke(this, testResult);
-
-        if (result.hasTestMethod())
+        try
         {
-          String methodName = "set" + attributeName + "Method";
-          MosquitoView.class.getMethod(methodName, testMethod.getClass()).invoke(this, testMethod);
+          MosquitoView.class.getMethod(resultName, testResult.getClass()).invoke(this, testResult);
+
+          if (result.hasTestMethod())
+          {
+            String methodName = "set" + attributeName + "Method";
+            MosquitoView.class.getMethod(methodName, testMethod.getClass()).invoke(this, testMethod);
+          }
         }
-        }
-        catch (Exception e) {
+        catch (Exception e)
+        {
           // TODO: handle exception
         }
       }
@@ -278,68 +289,229 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
   }
 
   // This function is to get the column definitions for the query.
-  public static String getAssayColumns(String superAssayClass){
+  public static String getAssayColumns(String superAssayClass)
+  {
+
+    // MosquitoView.createDatabaseView();
+
     MosquitoView view = new MosquitoView();
     String s = "[";
     MdAttributeVirtual[] mdArray = MosquitoView.getAccessors(superAssayClass);
     for (MdAttributeVirtual md : mdArray)
     {
-      String acc = md.getAccessor();
-        if(acc.length() == 0)
-        {
-          acc =  md.getAttributeName();
-        }
 
-        String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
-        MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
+      String acc = md.getAttributeName();
+      String result = acc.toLowerCase() + "_defaultLocale";
+      String method = acc.toLowerCase() + "testmethod_defualtLocale";
 
-        MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
+      String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
+      MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
+
+      MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
+
+      s += "{";
+      s += "viewAccessor:'" + acc + "',";
+      s += "attributeName:'" + result + "',";
+      s += "type:'sqlcharacter',";
+      // s += "dtoType:'" + md.getMdAttributeConcrete().getType() + "',";
+      s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + "'";
+      s += "},\n";
+
+      try
+      {
+        String testMdGetter = acc + "Method";
+        String testMethodID = view.getMdAttributeDAO(testMdGetter).getId();
 
         s += "{";
-        s += "viewAccessor:'"+acc+"',";
-        s += "attributeName:'testResult.displayLabel.currentValue',";
-        s += "type:'"+ mdClass.definesType() + "',";
-//      s += "dtoType:'" + md.getMdAttributeConcrete().getType() + "',";
-//      s += "dtoType:'" + md.getType() + "',";
-        s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + "'";
+        s += "viewAccessor:'" + testMdGetter + "',";
+        s += "attributeName:'" + method + "',";
+        s += "type:'sqlcharacter',";
+        // FIXME
+        // s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel()
+        s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " Test Method'";
         s += "},\n";
 
-        try
-        {
-          Class<?> c = view.getClass();
-          String testMdGetter =  acc + "Method";
-          //AttributeReference testMd = (AttributeReference) c.getMethod(testMdGetter).invoke(view);
-          String testMethodID = view.getMdAttributeDAO(testMdGetter).getId();
-          MdAttributeVirtual testMethodMd = MdAttributeVirtual.get(testMethodID);
-
-
-  /*
-          s += "{";
-          s += "viewAccessor:'"+acc+"Method',";
-          s += "attributeName:'testMethod',";
-          s += "type:'"+ mdClass.definesType() + "',";
-          s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " " + testMd.getDisplayLabel() +"'";
-          s += "},\n";
-  */
-
-          s += "{";
-          s += "viewAccessor:'"+acc+"Method',";
-          s += "attributeName:'"+acc.toLowerCase()+"_TESTMETHOD',";
-          s += "type:'sqlcharacter',";
-          //FIXME
-          //s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " " + testMethodMd.getDisplayLabel() + "'";
-          s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + " Test Method'";
-          s += "},\n";
-
-        }
-        catch(Exception e)
-        {
-          System.out.print(e);
-        }
-
+      }
+      catch (Exception e)
+      {
+        System.out.print(e);
+      }
 
     }
     return s + "]";
+  }
+
+  @Transaction
+  /*
+   * public static void createDatabaseView() { if(!MosquitoView.viewGenerated) {
+   * Database.parseAndExecute(getAssayViewSQL()); MosquitoView.viewGenerated =
+   * true; } }
+   *
+   * public static void createAssaySnapshot() { String sql =
+   * "CREATE OR REPLACE TABLE MOSQUITO_ASSAY_SNAPSHOT AS SELECT * FROM MOSQUITO_ASSAY_VIEW"
+   * ; Database.query(sql); }
+   *
+   * public static String getAssayViewSQL() { String sql =
+   * "CREATE OR REPLACE VIEW MOSQUITO_ASSAY_VIEW AS SELECT A.*, B.*, C.* FROM\n"
+   * ; sql += "(" + MosquitoView.getInfectivityAssayViewSQL() + ")AS A,\n"; sql
+   * += "(" + MosquitoView.getTargetSiteAssayViewSQL() + ")AS B,\n"; sql += "("
+   * + MosquitoView.getMetabolicAssayViewSQL() + ")AS C\n"; sql +=
+   * "WHERE infectivity_mosquito_id = targetsite_mosquito_id AND targetsite_mosquito_id = metabolic_mosquito_id"
+   * ;
+   *
+   * return sql; }
+   */
+  public static String getTempTableSQL(String klass, String tableName)
+  {
+    String sql = "DROP TABLE IF EXISTS "+tableName+";\n";
+    sql += "CREATE TEMP TABLE "+tableName+" AS " + MosquitoView.getAssayViewSQL(klass) + ";\n";
+    return sql;
+  }
+
+  public static String getAssayViewSQL(String klass)
+  {
+    if(klass.equals(InfectivityAssayTestResult.CLASS)) return MosquitoView.getInfectivityAssayViewSQL();
+    if(klass.equals(TargetSiteAssayTestResult.CLASS)) return MosquitoView.getTargetSiteAssayViewSQL();
+    if(klass.equals(MetabolicAssayTestResult.CLASS)) return MosquitoView.getMetabolicAssayViewSQL();
+    return "";
+  }
+
+  public static String getInfectivityAssayViewSQL()
+  {
+    String select = "SELECT mosquito.id AS mosquito_id,";
+    String from = "FROM  " + MdBusiness.getMdBusiness(Mosquito.CLASS).getTableName() + " mosquito, ";
+    String where = "";
+    MdAttributeVirtual[] mdArray = MosquitoView.getAccessors(InfectivityAssayTestResult.CLASS);
+    int i = 0;
+
+    for (MdAttributeVirtual md : mdArray)
+    {
+      String acc = md.getAttributeName();
+      String result = acc.toLowerCase() + "_defaultLocale";
+      String method = acc.toLowerCase() + "testmethod_defualtLocale";
+
+      String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
+      MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
+      MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
+
+      String testResultTable = MdBusiness.getMdBusiness(InfectivityAssayTestResult.CLASS).getTableName();
+      String testMethodTable = MdBusiness.getMdBusiness(InfectivityMethodology.CLASS).getTableName();
+      String abstractTermTable = MdBusiness.getMdBusiness(AbstractTerm.CLASS).getTableName();
+      String abstractTermDisplayLabelTable = "abstracttermdisplaylabel";
+
+      select += "" + mdClass.getTableName() + ".testresult AS " + result + ",\n";
+
+      //select += "(SELECT tr.testmethod  \n";
+      //select += "FROM " + testResultTable + " tr LEFT JOIN \n";
+      //select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + acc.toLowerCase() +"testmethodddd ,\n";
+
+      select += "(SELECT label.defaultLocale \n";
+      select += "FROM " + testResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
+      select += "LEFT JOIN " + abstractTermTable + " term ON tm.id = term.id \n";
+      select += "LEFT JOIN " + abstractTermDisplayLabelTable + " label ON term.displayLabel = label.id\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method + ",\n";
+
+      from += mdClass.getTableName() + ",\n";
+      from += MdBusiness.getMdBusiness(AssayTestResult.CLASS).getTableName() + " assaytestresult_" + i + ",\n";
+
+      where += "AND assaytestresult_" + i + ".mosquito = mosquito.id \n";
+      where += "AND assaytestresult_" + i + ".id = " + mdClass.getTableName() + ".id \n";
+      i++;
+    }
+
+    select = select.substring(0, select.length() - 2);
+    where = "WHERE " + where.substring(3, where.length() - 2);
+    from = from.substring(0, from.length() - 2);
+
+    return select + "\n" + from + "\n" + where;
+  }
+
+  public static String getTargetSiteAssayViewSQL()
+  {
+    String select = "SELECT mosquito.id AS mosquito_id,";
+    String from = "FROM  " + MdBusiness.getMdBusiness(Mosquito.CLASS).getTableName() + " mosquito, ";
+    String where = "";
+    MdAttributeVirtual[] mdArray =  MosquitoView.getAccessors(TargetSiteAssayTestResult.CLASS);
+    int i = 0;
+
+    for (MdAttributeVirtual md : mdArray)
+    {
+      String acc = md.getAttributeName();
+      String result = acc.toLowerCase() + "_defaultLocale";
+      String method = acc.toLowerCase() + "testmethod_defualtLocale";
+
+      String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
+      MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
+      MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
+
+      String targetSiteTestResultTable = MdBusiness.getMdBusiness(TargetSiteAssayTestResult.CLASS).getTableName();
+      String testMethodTable = MdBusiness.getMdBusiness(InsecticideMethodology.CLASS).getTableName();
+      String abstractTermTable = MdBusiness.getMdBusiness(AbstractTerm.CLASS).getTableName();
+      String abstractTermDisplayLabelTable = "abstracttermdisplaylabel";
+      String molecularAssayResultTable = MdBusiness.getMdBusiness(MolecularAssayResult.CLASS).getTableName();
+
+      //select += "" + mdClass.getTableName() + ".testresult AS "+acc.toLowerCase()+",\n";
+      //select += "" + mdClass.getTableName() + ".testmethod AS "+acc.toLowerCase()+"testmethod,\n";
+
+      select += "(SELECT label.defaultLocale \n";
+      select += "FROM " + targetSiteTestResultTable + "   tr LEFT JOIN " + molecularAssayResultTable + " mt on " + mdClass.getTableName() + ".testresult = mt.id\n";
+      select += "LEFT JOIN " + abstractTermTable + " term ON mt.id = term.id \n";
+      select += "LEFT JOIN " + abstractTermDisplayLabelTable + " label ON term.displayLabel = label.id\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + result + ",\n";
+
+      select += "(SELECT label.defaultLocale \n";
+      select += "FROM " + targetSiteTestResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
+      select += "LEFT JOIN " + abstractTermTable + " term ON tm.id = term.id \n";
+      select += "LEFT JOIN " + abstractTermDisplayLabelTable + " label ON term.displayLabel = label.id\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method + ",\n";
+
+      from += mdClass.getTableName() + ",\n";
+      from += "assaytestresult  assaytestresult_" + i + ",\n";
+
+      where += "AND assaytestresult_" + i + ".mosquito = mosquito.id \n";
+      where += "AND assaytestresult_" + i + ".id = " + mdClass.getTableName() + ".id \n";
+      i++;
+    }
+
+    select = select.substring(0, select.length() - 2);
+    where = "WHERE " + where.substring(3, where.length() - 2);
+    from = from.substring(0, from.length() - 2);
+
+    return select + "\n" + from + "\n" + where;
+  }
+
+  public static String getMetabolicAssayViewSQL()
+  {
+    String select = "SELECT mosquito.id AS mosquito_id,";
+    String from = "FROM  " + MdBusiness.getMdBusiness(Mosquito.CLASS).getTableName() + " mosquito, ";
+    String where = "";
+    MdAttributeVirtual[] mdArray = MosquitoView.getAccessors(MetabolicAssayTestResult.CLASS);
+    int i = 0;
+    for (MdAttributeVirtual md : mdArray)
+    {
+      String acc = md.getAttributeName();
+      String result = acc.toLowerCase() + "_defaultLocale";
+
+      String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
+      MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
+      MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
+
+      select += "" + mdClass.getTableName() + ".testResult AS " + result + ",\n";
+      //select += "" + mdClass.getTableName() + ".testResult AS " + acc.toLowerCase() + ",\n";
+
+      from += mdClass.getTableName() + ", \n";
+      from += "assaytestresult  assaytestresult_" + i + ",\n";
+
+      where += "AND assaytestresult_" + i + ".mosquito = mosquito.id \n";
+      where += "AND assaytestresult_" + i + ".id = " + mdClass.getTableName() + ".id \n";
+      i++;
+    }
+
+    select = select.substring(0, select.length() - 2);
+    where = "WHERE " + where.substring(3, where.length() - 2);
+    from = from.substring(0, from.length() - 2);
+
+    return select + "\n" + from + "\n" + where;
   }
 
 }
