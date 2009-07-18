@@ -4,71 +4,57 @@
 MDSS.QuerySurvey= Mojo.Class.create();
 MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
-  initialize : function(queryList)
+  initialize : function(queryList, householdMenuItems, personMenuItems)
   {
-  	MDSS.QueryBase.prototype.initialize.call(this);
+    MDSS.QueryBase.prototype.initialize.call(this);
 
     if(arguments.length === 1 && arguments[0] == null)
     {
       // FIXME used for inheritance optimization
       return;
-    }  
-  	
-    // Ref to instance of AggregatedCase (used as template for display labels)
-    this._surveyPoint= new Mojo.$.dss.vector.solutions.intervention.monitor.SurveyPoint();
+    }
+    
+    // Ref to instances (used as template for display labels/metadata)
+    this._SurveyPoint = Mojo.$.dss.vector.solutions.intervention.monitor.SurveyPoint;
+    this._surveyPoint= new this._SurveyPoint();
+    
+    this._Household = Mojo.$.dss.vector.solutions.intervention.monitor.Household;
+    this._household = new this._Household();
+    
+    this._Person = Mojo.$.dss.vector.solutions.intervention.monitor.Person
+    this._person = new this._Person();
 
     // START: query objects that dictate state of the query.
 
-    this._startDate = null;
-    this._endDate = null;
-
-    this._visibleSelectables = {};
-    this._visibleAggregateSelectables = {};
-
-    this._gridEntities = {};
-    this._gridSelectables = {};
-    this._gridAggregateSelectables = {};
-
-    this._countSelectable = null;
-
+    this._householdSelectables = {};
+    this._householdCriteria = {};
+    this._householdAggregateSelectables = {};
+    
+    this._personSelectables = {};
+    this._personCriteria = {};
+    this._personAggregateSelectables = {};
+    
     // END: query objects
+
+    // Key/value where key is attribute.getKey() + "_li"
+    // (which is the id of the relevant LI node,
+    // and value is an array of ContextMenuItems.
+    this._personMenus = {};
+    this._householdMenus = {};
+    
+    // Map of criteria ids and associated ContextMenuItems.
+    this._personItems = {};
+    this._householdItems = {};
 
     for(var i=0; i<queryList.length; i++)
     {
       this._queryPanel.addAvailableQuery(queryList[i]);
     }
-
-    // array of checkboxes that must be checked after the DOM has been rendered
-    this._defaultAgeGroups = [];
-
-//    this._buildQueryItems(ageGroups, visibleAttributes, orderedGrids);
-  },
-
-  /**
-   * Checks all the age group check boxes, meaning
-   * all age groups are allowed by default.
-   */
-  postRender : function()
-  {
-    MDSS.QueryBase.prototype.postRender.call(this);
-
-    for(var i=0; i<this._defaultAgeGroups.length; i++)
-    {
-      this._defaultAgeGroups[i].click();
-    }
-
-    // set the default for the date searching
-    var startDate = this._queryPanel.getStartDate();
-    var startCheck = this._queryPanel.getStartDateCheck();
-    var endDate = this._queryPanel.getEndDate();
-    var endCheck = this._queryPanel.getEndDateCheck();
     
-    this._defaults.push({element: startCheck, checked:false});
-    this._defaults.push({element: endCheck, checked:false});
-    this._defaults.push({element: startDate, value: ''});
-    this._defaults.push({element: endDate, value: ''});
+    // Criteria for Person.DOB
+    this._config.setProperty('dobCriteria', null);
 
-    this._loadDefaultSearch();
+    this._buildQueryItems(householdMenuItems, personMenuItems);
   },
 
   /**
@@ -76,7 +62,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
    */
   _getQueryType: function()
   {
-  	return 'QueryAggregatedCase';
+    return 'QueryIndicatorSurvey';
   },
 
   /**
@@ -84,65 +70,61 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
    */
   _getExportXLSAction : function()
   {
-  	return 'dss.vector.solutions.query.QueryController.exportSurveyQueryToExcel.mojo';
+    return 'dss.vector.solutions.query.QueryController.exportSurveyQueryToExcel.mojo';
   },
 
   _getExportCSVAction : function()
   {
-  	return 'dss.vector.solutions.query.QueryController.exportSurveyQueryToCSV.mojo';
+    return 'dss.vector.solutions.query.QueryController.exportSurveyQueryToCSV.mojo';
   },
 
   _getExportReportAction : function()
   {
-  	return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
-  },
-
-  _resetToDefault : function()
-  {
-    for(var i=0; i<this._defaults.length; i++)
-    {
-      var obj = this._defaults[i];
-      var element = obj.element;
-      if(element.nodeName === 'INPUT' && element.type === 'checkbox')
-      {
-        var checked = obj.checked;
-        if(element.checked !== checked)
-        {
-          if(obj.bypass)
-          {
-            element.checked = checked;
-          }
-          else
-          {
-            element.click();
-          }
-        }
-      }
-      else if(element.nodeName === 'INPUT' && element.type === 'text')
-      {
-        var value = obj.value;
-
-        element.value = value;
-      }
-      else if(element.nodeName === 'SELECT')
-      {
-        var index = obj.index;
-        if(!element.disabled)
-        {
-          element.selectedIndex = index;
-          this._fireClickOnOption(element.options[index]);
-        }
-
-        if(!obj.active && index === 0)
-        {
-          element.disabled = true;
-        }
-      }
-    }
+    return 'dss.vector.solutions.report.ReportController.generateReport.mojo';
   },
 
   _loadQueryState : function(view)
   {
+    var thisRef = this;
+
+    var xml = view.getQueryXml();
+    var parser = new MDSS.Query.Parser(xml);
+
+    parser.parseSelectables({
+      attribute : function(entityAlias, attributeName, userAlias){
+      
+        thisRef._checkBox(userAlias);
+      },
+      sum: function(entityAlias, attributeName, userAlias){
+
+        thisRef._checkBox(userAlias);
+        thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
+      },
+      sqlinteger: function(entityAlias, attributeName, userAlias){
+
+        thisRef._checkBox(userAlias);
+      },
+      sqldate : function(entityAlias, attributeName, userAlias){
+
+        thisRef._checkBox(userAlias);
+      },
+    });
+
+    var entities = [];
+
+    parser.parseCriteria({
+      attribute : function(entityAlias, attributeName, userAlias, operator, value){
+
+        // restricting geo entities
+        if(entityAlias === thisRef.ALL_PATHS)
+        {
+          entities.push(value);
+        }
+        // FIXME restore date
+      }
+    });
+    
+    this._reconstructSearch(entities, view);
   },
 
 
@@ -166,23 +148,8 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       }
     });
 
-    var startDateEl = this._queryPanel.getStartDate();
-    var startDate = MDSS.util.stripWhitespace(startDateEl.value);
-    if(startDate.length > 0)
-    {
-    	xml += "<!--START_DATE="+startDate+"-->\n";
-    }
-
-    var endDateEl = this._queryPanel.getEndDate();
-    var endDate = MDSS.util.stripWhitespace(endDateEl.value);
-    if(endDate.length > 0)
-    {
-    	xml += "<!--END_DATE="+endDate+"-->";
-    }
-
-
     var page = this.getCurrentPage();
-    Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.queryAggregatedCase(request, xml, this._config.getJSON(), page, this.PAGE_SIZE);
+    Mojo.$.dss.vector.solutions.intervention.monitor.SurveyPoint.querySurvey(request, xml, this._config.getJSON(), page, this.PAGE_SIZE);
   },
 
   /**
@@ -211,123 +178,513 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   /**
    * Constructs the query with all the subcomponents.
    */
-  _constructQuery : function()
+  _constructQuery : function(forMapping)
   {
-  	var queryXML = MDSS.QueryBase.prototype._constructQuery.call(this); // super
-  	
-  	
-  	return queryXML;
+    var queryXML = MDSS.QueryBase.prototype._constructQuery.call(this, forMapping); // super
+    
+    // Entity queries
+    var surveyPointType = this._surveyPoint.getType();
+    var surveyPointQuery = new MDSS.QueryXML.Entity(surveyPointType, surveyPointType);
+    queryXML.addEntity(surveyPointQuery);
+
+    var householdType = this._household.getType();
+    var householdQuery = new MDSS.QueryXML.Entity(householdType, householdType);
+    queryXML.addEntity(householdQuery);
+
+    var personType = this._person.getType();
+    var personQuery = new MDSS.QueryXML.Entity(personType, personType);
+    queryXML.addEntity(personQuery);
+    
+    // Household selectables
+    var householdSel = Mojo.util.getKeys(this._householdSelectables);
+    for(var i=0; i<householdSel.length; i++)
+    {
+      var name = householdSel[i];
+      var selectable = this._householdSelectables[name];
+      queryXML.addSelectable(householdQuery.getAlias()+'-'+name, selectable);
+    }
+    
+    // Household Aggregates
+    var aggNames = Mojo.util.getKeys(this._householdAggregateSelectables);
+    for(var i=0; i<aggNames.length; i++)
+    {
+      var name = aggNames[i];
+      var selectable = this._householdAggregateSelectables[name];
+
+      queryXML.addSelectable(householdQuery.getAlias()+'_'+name, selectable);
+    }
+    
+    // Household criteria
+    var householdCrit = Mojo.util.getKeys(this._householdCriteria);
+    var and = new MDSS.QueryXML.And();
+    for(var i=0; i<householdCrit.length; i++)
+    {
+      var name = householdCrit[i];
+      var condition = this._householdCriteria[name];
+      and.addCondition(name, condition);
+    }
+    
+    if(and.getSize() > 0)
+    {
+      var composite = new MDSS.QueryXML.CompositeCondition(and);
+      householdQuery.setCondition(composite);
+    }
+    
+   // Person selectables
+    var personSel = Mojo.util.getKeys(this._personSelectables);
+    for(var i=0; i<personSel.length; i++)
+    {
+      var name = personSel[i];
+      var selectable = this._personSelectables[name];
+      queryXML.addSelectable(personQuery.getAlias()+'-'+name, selectable);
+    }
+    
+    // Person Aggregates
+    var aggNames = Mojo.util.getKeys(this._personAggregateSelectables);
+    for(var i=0; i<aggNames.length; i++)
+    {
+      var name = aggNames[i];
+      var selectable = this._personAggregateSelectables[name];
+
+      queryXML.addSelectable(personQuery.getAlias()+'_'+name, selectable);
+    }
+    
+    // Person criteria
+    var personCrit = Mojo.util.getKeys(this._personCriteria);
+    var and = new MDSS.QueryXML.And();
+    for(var i=0; i<personCrit.length; i++)
+    {
+      var name = personCrit[i];
+      var condition = this._personCriteria[name];
+      and.addCondition(name, condition);
+    }
+    
+    if(and.getSize() > 0)
+    {
+      var composite = new MDSS.QueryXML.CompositeCondition(and);
+      personQuery.setCondition(composite);
+    }
+    
+    return queryXML;
+  },
+  
+  /**
+   * Sets criteria on household
+   */
+  _setHouseholdCriteria : function(e, attribute)
+  {
+    var value = e.target.value;
+    var display = e.target.innerHTML;
+
+    this._setHouseholdCriteriaConcrete(attribute, value, display, true);
+  },
+  
+  _setHouseholdCriteriaConcrete : function(attribute, value, display, addCriteria)
+  {
+    var key = attribute.getKey();
+    var selectable = attribute.getSelectable(false); 
+  
+    if(value === '')
+    {
+      delete this._householdCriteria[key];
+      
+      // Criterion of an empty string means the criteria should be cleared.
+      // This is generally used with mutually exclusive select list options.
+      this._queryPanel.clearWhereCriteria(key);
+    }
+    else
+    {
+      var attrDTO = this._household.getAttributeDTO(attribute.getAttributeName());
+      var condition;
+      if(attribute.getAttributeName() === this._Household.LASTSPRAYED)
+      {
+        condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, value);
+        
+        // There can only be one LTE condition at a time for Household.LASTSPRAYED
+        this._queryPanel.clearWhereCriteria(key);
+        this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+      }
+      else if(attribute.getAttributeName() === this._Household.WINDOWTYPE)
+      {
+        var existing = this._householdCriteria[key];
+        var enumIds = existing != null ? existing.getValue().split(',') : [];
+        var set = new MDSS.Set();
+        set.addAll(enumIds);
+      
+        if(addCriteria)
+        {
+          set.set(value);
+          this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+        }
+        else
+        {
+          set.remove(value);
+          this._queryPanel.removeWhereCriteria(key, value);
+        }
+        
+        var finalEnumIds = set.values();
+        if(finalEnumIds.length == 0)
+        {
+          // No conditions left.
+          delete this._householdCriteria[key];
+          this._queryPanel.clearWhereCriteria(key);
+          return;
+        }
+
+        condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.CONTAINS_ANY, finalEnumIds.join(','));
+      }
+      else if(attrDTO instanceof Mojo.dto.AttributeReferenceDTO ||
+        attrDTO instanceof Mojo.dto.AttributeBooleanDTO)
+      {
+        var existing = this._householdCriteria[key];
+        
+        var or;
+        if(existing != null)
+        {
+          // Grab the old Or criteria.
+          or = existing.getComponent();
+        }
+        else
+        {
+          or = new MDSS.QueryXML.Or(); 
+        }
+  
+        if(addCriteria)
+        {
+          var basicCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+          or.addCondition(value, basicCondition);
+
+          this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+        }
+        else
+        {
+          or.removeCondition(value);
+          this._queryPanel.removeWhereCriteria(key, value);
+        }
+        
+        if(or.getSize() === 0)
+        {
+          // No conditions left.
+          delete this._householdCriteria[key];
+          this._queryPanel.clearWhereCriteria(key);
+          return;
+        }
+        
+        condition = new MDSS.QueryXML.CompositeCondition(or);
+      }
+      else
+      {
+        condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+      }
+      
+      this._householdCriteria[attribute.getKey()] = condition;
+    }
+  },
+  
+  _setPersonCriteria : function(attribute, value, display, addCriteria)
+  {
+    var key = attribute.getKey();
+  
+    if(value === '')
+    {
+      delete this._personCriteria[key];
+      
+      // Criterion of an empty string means the criteria should be cleared.
+      // This is generally used with mutually exclusive select list options.
+      this._queryPanel.clearWhereCriteria(key);
+    }
+    else
+    {
+      var condition;
+      
+      var attrDTO = this._person.getAttributeDTO(attribute.getAttributeName());
+      if(attrDTO instanceof Mojo.dto.AttributeEnumerationDTO)
+      {
+        var existing = this._personCriteria[key];
+        var enumIds = existing != null ? existing.getValue().split(',') : [];
+        var set = new MDSS.Set();
+        set.addAll(enumIds);
+      
+        if(addCriteria)
+        {
+          set.set(value);
+          this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+        }
+        else
+        {
+          set.remove(value);
+          this._queryPanel.removeWhereCriteria(key, value);
+        }
+        
+        var finalEnumIds = set.values();
+        if(finalEnumIds.length == 0)
+        {
+          // No conditions left.
+          delete this._personCriteria[key];
+          this._queryPanel.clearWhereCriteria(key);
+          return;
+        }
+
+        var selectable = attribute.getSelectable(false);  
+        condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.CONTAINS_ANY, finalEnumIds.join(','));
+      }
+      else if(attrDTO instanceof Mojo.dto.AttributeReferenceDTO ||
+        attrDTO instanceof Mojo.dto.AttributeBooleanDTO)
+      {
+        var existing = this._personCriteria[key];
+        
+        var or;
+        if(existing != null)
+        {
+          // Grab the old Or criteria.
+          or = existing.getComponent();
+        }
+        else
+        {
+          or = new MDSS.QueryXML.Or(); 
+        }
+  
+        if(addCriteria)
+        {
+          var selectable = attribute.getSelectable(false);  
+          var basicCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+        
+          or.addCondition(value, basicCondition);
+          
+          this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+        }
+        else
+        {
+          or.removeCondition(value);
+          this._queryPanel.removeWhereCriteria(key, value);
+        }
+        
+        if(or.getSize() === 0)
+        {
+          // No conditions left.
+          delete this._personCriteria[key];
+          this._queryPanel.clearWhereCriteria(key);
+          return;
+        }
+        
+        condition = new MDSS.QueryXML.CompositeCondition(or);
+      }
+      else if(attrDTO.getAttributeMdDTO().getName() === this._Person.HAEMOGLOBIN)
+      {
+        // always clear the range criteria to avoid having to juggle different ids
+        // for different ranges.
+        this._queryPanel.clearWhereCriteria(key);
+        
+        if(!addCriteria || value === '-' || value === '')
+        {
+          // No conditions left.
+          delete this._personCriteria[key];
+          return;
+        }
+        else
+        {
+          this._queryPanel.addWhereCriteria(attribute.getKey(), value, display); // value == display 
+        }
+      
+        // check for either exact or range matches
+        var selectable = attribute.getSelectable(false);  
+        if(value.indexOf('-') != -1)
+        {
+          var range = value.split('-');
+          var range1 = range[0];
+          var range2 = range[1];
+          
+          var cond1 = null;
+          if(range1 !== '')
+          {
+            cond1 = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.GE, range1);
+          }
+          
+          var cond2 = null;
+          if(range2 !== '')
+          {
+            cond2 = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, range2);
+          }
+          
+          if(cond1 != null && cond2 != null)
+          {
+            var and = new MDSS.QueryXML.And();
+            and.addCondition(attribute.getAttributeName()+'_range1', cond1);
+            and.addCondition(attribute.getAttributeName()+'_range2', cond2);
+            
+            condition = new MDSS.QueryXML.CompositeCondition(and);
+          }
+          else if(cond1 != null)
+          {
+            condition = cond1;
+          }
+          else if(cond2 != null)
+          {
+            condition = cond2;
+          }
+        }
+        else
+        {
+          condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+        }
+      }
+      else
+      {
+        if(addCriteria)
+        {
+          var selectable = attribute.getSelectable(false);  
+          condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+        }
+        else
+        {
+          delete this._personCriteria[key];
+          this._queryPanel.clearWhereCriteria(key);
+          return;
+        }
+      }
+      
+      this._personCriteria[key] = condition;
+    }
+  },
+  
+  /**
+   * Resets all defaults, including clearing all criteria and unchecking
+   * all context menu items.
+   */
+  _resetToDefault : function()
+  {
+    MDSS.QueryBase.prototype._resetToDefault.call(this); // super
+  
+    // uncheck all menu items
+    var keys = Mojo.util.getKeys(this._personItems);
+    for(var i=0; i<keys.length; i++)
+    {
+      var item = this._personItems[keys[i]];
+      item.checked = false;
+      
+      // clear any exact/range input fields
+      if(item.onclick)
+      {
+        this._toggleExact(item.onclick.obj.attribute, true);
+        this._toggleRange(item.onclick.obj.attribute, true);
+      }
+    }
+    
+    keys = Mojo.util.getKeys(this._householdItems);
+    for(var i=0; i<keys.length; i++)
+    {
+      var item = this._householdItems[keys[i]];
+      item.checked = false;
+      
+      // clear any exact/range input fields
+      if(item.onclick)
+      {
+        this._toggleExact(item.onclick.obj.attribute, true);
+        this._toggleRange(item.onclick.obj.attribute, true);
+      }
+    }
+    
+    // criteria maps
+    this._personCriteria = {};
+    this._householdCriteria = {};
+    
+    // json config
+    this._config.setProperty('dobCriteria', null);
+    this._queryPanel.clearWhereCriteria(this._Person.DOB);
   },
 
   /**
-   * Handler for when an age group checkbox is selected as WHERE criteria.
+   * Helper method to add Household attributes to selectables and as a column.
    */
-  _ageGroupCheckHandler : function(e, ageGroup)
-  {
-    var check = e.target;
-
-    if(check.checked)
-    {
-      var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
-
-      var leftSide = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTAGE, 'group_'+ageGroup.id);
-      var leftSelectable = new MDSS.QueryXML.Selectable(leftSide);
-      var leftCondition = new MDSS.QueryXML.BasicCondition(leftSelectable, MDSS.QueryXML.Operator.GE, ageGroup.startAge);
-
-      var rightSide = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.ENDAGE, aggregatedCase.ENDAGE);
-      var rightSelectable = new MDSS.QueryXML.Selectable(rightSide);
-      var rightCondition = new MDSS.QueryXML.BasicCondition(rightSelectable, MDSS.QueryXML.Operator.LE, ageGroup.endAge);
-
-      var and = new MDSS.QueryXML.And();
-      and.addCondition('startAge', leftCondition);
-      and.addCondition('endAge', rightCondition);
-      var andCondition = new MDSS.QueryXML.CompositeCondition(and);
-
-      this._ageGroupCriteria[ageGroup.id] = andCondition;
-    }
-    else if(ageGroup != null)
-    {
-      delete this._ageGroupCriteria[ageGroup.id];
-    }
-  },
-
-  /**
-   * Helper method to add AggregatedCase attributes to selectables and as a column.
-   */
-  _addVisibleAttribute : function(attribute)
+  _addHouseholdAttribute : function(attribute)
   {
     var column = new YAHOO.widget.Column(attribute.getColumnObject());
     column = this._queryPanel.insertColumn(column);
 
     var attributeName = attribute.getAttributeName();
-    var selectable = attribute.getSelectable();
+    
+    var selectable = attribute.getSelectable(true);
 
-    this._visibleSelectables[attribute.getKey()] = selectable;
-
-    // ADD THEMATIC VARIABLE
-    this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
-  },
-
-  /**
-   * Adds a grid attribute as a selectable.
-   */
-  _addGridAttribute : function(attribute)
-  {
-    var column = new YAHOO.widget.Column(attribute.getColumnObject());
-    column = this._queryPanel.insertColumn(column);
-
-    var optionName = attribute.getOptionName();
-
-    /*
-     * Relationship
-     */
-    var relationshipType = attribute.getRelationshipType();
-    var relationshipAlias = attribute.getRelationshipAlias();
-
-    var relEntity = new MDSS.QueryXML.Entity(relationshipType, relationshipAlias);
-
-    this._gridEntities[relationshipAlias] = relEntity;
-
-    // selectable
-    var rSelectable = attribute.getRelationshipSelectable();
-    this._gridSelectables[attribute.getKey()] = rSelectable;
-
-    /*
-     * Business
-     */
-    var type = attribute.getType();
-    var businessAlias = attribute.getBusinessAlias();
-
-    // entity and criteria
-    var entity = new MDSS.QueryXML.Entity(type, businessAlias);
-    var bSelectable = attribute.getBusinessSelectable();
-
-    var condition = new MDSS.QueryXML.BasicCondition(bSelectable, MDSS.QueryXML.Operator.EQ, optionName);
-    entity.setCondition(condition);
-
-    this._gridEntities[businessAlias] = entity;
+    this._householdSelectables[attribute.getKey()] = selectable;
 
     // ADD THEMATIC VARIABLE
-    this._queryPanel.addThematicVariable(relationshipAlias, attribute.getKey(), attribute.getDisplayLabel());
+    this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
   },
-
 
   /**
    * Removes an attribute as a selectable and column.
    */
-  _removeVisibleAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
+  _removeHouseholdAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
   {
-  	var attributeName = attribute.getAttributeName();
-  	var key = attribute.getKey();
+    var attributeName = attribute.getAttributeName();
+    var key = attribute.getKey();
 
-  	if(removeSelectable)
-  	{
-      delete this._visibleSelectables[attribute.getKey()];
-  	}
+    if(removeSelectable)
+    {
+      delete this._householdSelectables[attribute.getKey()];
+      
+      // Clear any criteria since criteria cannot exist
+      // without the attribute as a selectable.
+      delete this._householdCriteria[attribute.getKey()];
+    }
 
-  	// remove all possible query references
-    delete this._visibleAggregateSelectables[attribute.getKey()];
-    //delete this._visibleGroupBySelectables[attribute.getKey()];
+    // remove all possible query references
+    delete this._householdAggregateSelectables[attribute.getKey()];
+
+    if(removeColumn)
+    {
+      var column = this._queryPanel.getColumn(key);
+      this._queryPanel.removeColumn(column);
+    }
+
+   if(removeThematic)
+   {
+      this._queryPanel.removeThematicVariable(attribute.getKey());
+   }
+  },
+  
+  /**
+   * Helper method to add Person attributes to selectables and as a column.
+   */
+  _addPersonAttribute : function(attribute)
+  {
+    var column = new YAHOO.widget.Column(attribute.getColumnObject());
+    column = this._queryPanel.insertColumn(column);
+
+    var attributeName = attribute.getAttributeName();
+    
+    // Date of birth requires SQL pass through to convert a date into an int
+    if(attributeName === this._Person.DOB)
+    {
+      selectable = attribute.getSelectable(true, MDSS.QueryXML.Sqlinteger);
+    }
+    else
+    {
+      selectable = attribute.getSelectable(true);
+    }
+    
+
+    this._personSelectables[attribute.getKey()] = selectable;
+
+    // ADD THEMATIC VARIABLE
+    this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+  },
+
+  /**
+   * Removes an attribute as a selectable and column.
+   */
+  _removePersonAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
+  {
+    var attributeName = attribute.getAttributeName();
+    var key = attribute.getKey();
+
+    if(removeSelectable)
+    {
+      delete this._personSelectables[attribute.getKey()];
+    }
+
+    // remove all possible query references
+    delete this._personAggregateSelectables[attribute.getKey()];
 
     if(removeColumn)
     {
@@ -342,170 +699,85 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   },
 
   /**
-   * Removes a grid attribute from the selectables and column.
+   * Handler to toggle household attributes as selectables.
    */
-  _removeGridAttribute : function(attribute, removeColumn, removeSelectable, removeThematic)
-  {
-  	var relAlias = attribute.getRelationshipAlias();
-
-  	if(removeSelectable)
-  	{
-      delete this._gridSelectables[attribute.getKey()];
-  	}
-
-  	// remove all possible query references
-    delete this._gridAggregateSelectables[attribute.getKey()];
-    //delete this._gridGroupBySelectables[attribute.getKey()];
-
-    if(removeColumn)
-    {
-      var column = this._queryPanel.getColumn(attribute.getKey());
-      this._queryPanel.removeColumn(column);
-
-      delete this._gridEntities[attribute.getBusinessAlias()];
-    }
-
-    if(removeThematic)
-    {
-      this._queryPanel.removeThematicVariable(attribute.getKey());
-    }
-  },
-
-  /**
-   * Handler to toggle visible attributes as selectables
-   * to the AggregatedCase query.
-   */
-  _visibleAttributeHandler : function(e, attribute)
+  _householdAttributeHandler : function(e, attribute)
   {
     var check = e.target;
     if(check.checked)
     {
-      this._addVisibleAttribute(attribute);
-      check.nextSibling.disabled = false;
+      this._addHouseholdAttribute(attribute);
+      
+      var select = check.nextSibling;
+      if(select && select.nodeName == 'SELECT' && select.disabled === true)
+      {
+        select.disabled = false;
+      }
     }
     else
     {
-      this._removeVisibleAttribute(attribute, true, true, true);
+      this._removeHouseholdAttribute(attribute, true, true, true);
 
       var select = check.nextSibling;
-      select.selectedIndex = 0;
-      select.disabled = true;
+      if(select && select.nodeName == 'SELECT' && select.disabled === false)
+      {
+        select.selectedIndex = 0;
+        select.disabled = true;
+      }
     }
   },
-
+  
   /**
-   * Handler when a new grid attribute is checked/unchecked.
+   * Handler to toggle person attributes as selectables.
    */
-  _gridAttributeHandler : function(e, attribute)
+  _personAttributeHandler : function(e, attribute)
   {
     var check = e.target;
     if(check.checked)
     {
-      this._addGridAttribute(attribute);
-      check.nextSibling.disabled = false;
+      this._addPersonAttribute(attribute);
+      
+      var select = check.nextSibling;
+      if(select && select.nodeName == 'SELECT' && select.disabled === true)
+      {
+        select.disabled = false;
+      }
     }
     else
     {
-      this._removeGridAttribute(attribute, true, true, true);
+      this._removePersonAttribute(attribute, true, true, true);
 
       var select = check.nextSibling;
-      select.selectedIndex = 0;
-      select.disabled = true;
+      if(select && select.nodeName == 'SELECT' && select.disabled === false)
+      {
+        select.selectedIndex = 0;
+        select.disabled = true;
+      }
     }
-  },
-
-  _gridAggregateHandler : function(e, attribute)
-  {
-    var func = e.target.value;
-
-    var optionName = attribute.getOptionName();
-    var attributeName = attribute.getAttributeName();
-    var relationshipAlias = attribute.getRelationshipAlias();
-    var key = attribute.getKey();
-
-    var selectable = attribute.getRelationshipSelectable();
-
-    this._queryPanel.updateColumnLabel(key, func);
-
-    // special cases
-    /*
-    if(func === MDSS.QueryXML.Functions.GB)
-    {
-  	  this._removeGridAttribute(attribute, false, false, false);
-      this._gridSelectables[key] = selectable;
-      this._gridGroupBySelectables[key] = selectable;
-      return;
-    }
-    */
-
-    if(func === '')
-    {
-      // Use regular selectable (this is just here for clarity).
-  	  this._removeGridAttribute(attribute, false, true, false);
-      this._gridSelectables[key] = selectable;
-      return;
-    }
-
-    // aggregate functions
-    var aggFunc = null;
-    if(func === MDSS.QueryXML.Functions.SUM)
-    {
-      aggFunc = new MDSS.QueryXML.SUM(selectable, key);
-    }
-    else if(func === MDSS.QueryXML.Functions.MIN)
-    {
-      aggFunc = new MDSS.QueryXML.MIN(selectable, key);
-    }
-    else if(func === MDSS.QueryXML.Functions.MAX)
-    {
-      aggFunc = new MDSS.QueryXML.MAX(selectable, key);
-    }
-    else if(func === MDSS.QueryXML.Functions.AVG)
-    {
-      aggFunc = new MDSS.QueryXML.AVG(selectable, key);
-    }
-
-  	this._removeGridAttribute(attribute, false, true, false);
-
-    var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
-    this._gridAggregateSelectables[key] = aggSelectable;
   },
 
   /**
    * Handler when someone selects an aggregate function
-   * on a visible attribute.
+   * on a household attribute.
    */
-  _visibleAggregateHandler : function(e, attribute)
+  _householdAggregateHandler : function(e, attribute)
   {
     var func = e.target.value;
 
     var attributeName = attribute.getAttributeName();
     var key = attribute.getKey();
 
-    var selectable = attribute.getSelectable();
+    var selectable = attribute.getSelectable(true);
 
     this._queryPanel.updateColumnLabel(key, func);
 
     // special cases
 
-    /*
-    if(func === MDSS.QueryXML.Functions.GB)
-    {
-  	  this._removeVisibleAttribute(attribute, false, false, false);
-      this._visibleSelectables[attribute.getKey()] = selectable;
-      this._visibleGroupBySelectables[attribute.getKey()] = selectable;
-
-      this._queryPanel.updateColumnLabel(key, MDSS.QueryXML.Functions.GB);
-
-      return;
-    }
-    */
-
     if(func === '')
     {
       // Use regular selectable (this is just here for clarity).
-  	  this._removeVisibleAttribute(attribute, false, true, false);
-      this._visibleSelectables[attribute.getKey()] = selectable;
+      this._removeHouseholdAttribute(attribute, false, true, false);
+      this._householdSelectables[attribute.getKey()] = selectable;
 
 
       return;
@@ -517,443 +789,785 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     {
       aggFunc = new MDSS.QueryXML.SUM(selectable, key);
     }
-    else if(func === MDSS.QueryXML.Functions.MIN)
-    {
-      aggFunc = new MDSS.QueryXML.MIN(selectable, key);
-    }
-    else if(func === MDSS.QueryXML.Functions.MAX)
-    {
-      aggFunc = new MDSS.QueryXML.MAX(selectable, key);
-    }
-    else if(func === MDSS.QueryXML.Functions.AVG)
-    {
-      aggFunc = new MDSS.QueryXML.AVG(selectable, key);
-    }
 
-  	this._removeVisibleAttribute(attribute, false, true, false);
+    this._removeHouseholdAttribute(attribute, false, true, false);
 
     var aggSelectable = new MDSS.QueryXML.Selectable(aggFunc);
-    this._visibleAggregateSelectables[attribute.getKey()] = aggSelectable;
-  },
-
-  _toggleCount : function(e, attribute)
-  {
-    var check = e.target;
-
-    if(check.checked)
-    {
-      var selectable = attribute.getSelectable();
-
-      var count = new MDSS.QueryXML.COUNT(selectable, attribute.getKey());
-      var aggSelectable = new MDSS.QueryXML.Selectable(count);
-      this._countSelectable = aggSelectable;
-
-      this._queryPanel.insertColumn(attribute.getColumnObject());
-
-      // ADD THEMATIC VARIABLE
-      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getKey(), attribute.getDisplayLabel());
-    }
-    else
-    {
-      var column = this._queryPanel.getColumn(attribute.getKey());
-      this._queryPanel.removeColumn(column);
-
-      this._countSelectable = null;
-
-      this._queryPanel.removeThematicVariable(attribute.getKey());
-    }
-  },
-
-  _showAgeGroupAttributes : function(e, attributes)
-  {
-    var check = e.target;
-
-    for(var i=0; i<attributes.length; i++)
-    {
-      var attribute = attributes[i];
-      if(check.checked)
-      {
-        this._addVisibleAttribute(attribute);
-      }
-      else
-      {
-        this._removeVisibleAttribute(attribute, true, true, true);
-      }
-    }
+    this._householdAggregateSelectables[attribute.getKey()] = aggSelectable;
   },
 
   /**
    * Builds the query items for the left column.
    */
-  _buildQueryItems : function(ageGroups, visibleAttributes, orderedGrids)
+  _buildQueryItems : function(householdMenuItems, personMenuItems)
   {
-  	/*
-  	 * Target
-  	 */
-    // area (geo entity search)
+    /*
+     * Target
+     */
+    // 3. area (geo entity search)
     var boundSearch = MDSS.util.bind(this, this._displaySearch);
     this._queryPanel.addQueryItem({
       html: MDSS.Localized.Target_Search+' <img src="./imgs/icons/world.png"/>',
       onclick: {handler: boundSearch},
       id: "areaItem"
     });
-
-    // global count
-    var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
-    var countAttribute = new MDSS.VisibleAttribute({
-      type: aggregatedCase.CLASS,
-      displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
-      attributeName: aggregatedCase.ID
-    });
-
-    var countCheck = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
-    YAHOO.util.Event.on(countCheck, 'click', this._toggleCount, countAttribute, this);
-    countCheck.id = countAttribute.getKey();
-    this._defaults.push({element:countCheck, checked:false});
-
-    var countSpan = document.createElement('span');
-    countSpan.innerHTML = countAttribute.getDisplayLabel();
-
-    var countDiv = document.createElement('div');
-
-    countDiv.appendChild(countCheck);
-    countDiv.appendChild(countSpan);
-
-    this._queryPanel.addQueryItem({
-      html: countDiv,
-      id: 'globalCount'
-    });
-
+    
     /*
-     * Age Group
+     * Household attributes
      */
-    var ageGroupDiv = document.createElement('div');
-
-    var ageDiv = document.createElement('div');
-    ageDiv	.innerHTML = MDSS.Localized.Age_Group;
-
-    // startAge
-    var startAge = this._aggregatedCase.getStartAgeMd().getName();
-    var startAgeAttribute = new MDSS.VisibleAttribute({
-      type: this._aggregatedCase.getType(),
-      attributeName : startAge,
-      displayLabel: this._aggregatedCase.getStartAgeMd().getDisplayLabel(),
-    });
-
-    // endAge
-    var endAge = this._aggregatedCase.getEndAgeMd().getName();
-    var endAgeAttribute = new MDSS.VisibleAttribute({
-      type: this._aggregatedCase.getType(),
-      displayLabel: this._aggregatedCase.getEndAgeMd().getDisplayLabel(),
-      attributeName: endAge
-    });
-
-    // toggle to show the attributes
-    var show = document.createElement('ul');
-    var showLi = document.createElement('li');
-    var showSpan = document.createElement('span');
-
-    var showCheck = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(showCheck, 'type', 'checkbox');
-    showCheck.id = startAgeAttribute.getKey();
-    YAHOO.util.Event.on(showCheck, 'click', this._showAgeGroupAttributes, [startAgeAttribute, endAgeAttribute], this);
-    this._defaults.push({element:showCheck, checked:false});
-
-    showSpan.innerHTML = MDSS.Localized.Toggle_Show;
-
-    showLi.appendChild(showCheck);
-    showLi.appendChild(showSpan);
-    show.appendChild(showLi);
-
-
-    var groups = document.createElement('ul');
-    YAHOO.util.Dom.setAttribute(groups, 'id', 'ageGroupsList');
-
-    for(var i=0; i<ageGroups.length; i++)
-    {
-      var group = ageGroups[i];
-
-      var li = document.createElement('li');
-      var span = document.createElement('span');
-      span.innerHTML = group.startAge + " - " + group.endAge;
-
-      var check = document.createElement('input');
-      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-      YAHOO.util.Dom.setAttribute(check, 'value', group.id);
-      check.id = 'group_'+group.id;
-      YAHOO.util.Event.on(check, 'click', this._ageGroupCheckHandler, group, this);
-      this._defaults.push({element:check, checked:true});
-
-      li.appendChild(check);
-      li.appendChild(span);
-
-      groups.appendChild(li);
-      this._defaultAgeGroups.push(check);
-    }
-
-    ageGroupDiv.appendChild(ageDiv);
-    ageGroupDiv.appendChild(show);
-    ageGroupDiv.appendChild(groups);
-
-    this._queryPanel.addQueryItem({
-      html: ageGroupDiv,
-      id:"ageGroupItem"
-    });
-
-    /*
-     * Visible Attributes
-     */
-    var visibleDiv = document.createElement('div');
-    YAHOO.util.Dom.addClass(visibleDiv, 'scrollable');
-
+    var householdDiv = document.createElement('div');
+     
     var labelDiv = document.createElement('div');
     YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
-    labelDiv.innerHTML = MDSS.Localized.Aggregated_Case;
+    labelDiv.innerHTML = this._household.getTypeMd().getDisplayLabel();
+    
+    var householdUl = document.createElement('ul');
+    YAHOO.util.Dom.addClass(householdUl, 'gridList');
+    YAHOO.util.Dom.setStyle(householdUl, 'clear', 'both');
+    //YAHOO.util.Dom.setStyle(householdUl, 'display', 'none');
 
-    var toggleDiv = document.createElement('div');
-    YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
-    YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
-    toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
-
-    visibleDiv.appendChild(labelDiv);
-    visibleDiv.appendChild(toggleDiv);
-
-    var visibleUl = document.createElement('ul');
-    YAHOO.util.Dom.setStyle(visibleUl, 'clear', 'both');
-    YAHOO.util.Dom.setStyle(visibleUl, 'display', 'none');
-
-    this._toggleVisibility(toggleDiv, visibleUl);
-
-    this._attachSelectAll(visibleUl);
-
-    var type = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase.CLASS;
-    for(var i=0; i<visibleAttributes.length; i++)
-    {
-      var visibleObj = visibleAttributes[i];
-      var attribute = new MDSS.VisibleAttribute(visibleObj);
-
-      var li = document.createElement('li');
-
-      var span = document.createElement('span');
-      span.innerHTML = attribute.getDisplayLabel();
-
-
-      var check = document.createElement('input');
-      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-      check.id = attribute.getKey();
-      YAHOO.util.Event.on(check, 'click', this._visibleAttributeHandler, attribute, this);
-      this._defaults.push({element:check, checked:false});
-
-      var select = document.createElement('select');
-      //YAHOO.util.Event.on(select, 'change', this._delegateToOption, attribute, this);
-      this._defaults.push({element:select, index:0});
-
-      var options = [''];
-      options = options.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
-
-      for(var j=0; j<options.length; j++)
-      {
-      	var option = options[j];
-        var optionEl = document.createElement('option');
-        optionEl.innerHTML = option;
-        optionEl.id = attribute.getKey() + '-' + option;
-        YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
-
-        YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
-
-        select.appendChild(optionEl);
-      }
-      select.disabled = true; // default (must be checked to enabled)
-
-      li.appendChild(check);
-      li.appendChild(select);
-      li.appendChild(span);
-
-      visibleUl.appendChild(li);
-    }
-
-    visibleDiv.appendChild(visibleUl);
-
-    this._queryPanel.addQueryItem({
-      html: visibleDiv,
-      id: 'visibleAttributesItem'
+    householdDiv.appendChild(labelDiv);
+    householdDiv.appendChild(householdUl);
+    
+    // 4. Household
+    var attribute = new MDSS.HouseholdAttribute({
+      type: this._household.getType(),
+      displayLabel: this._household.getHouseholdNameMd().getDisplayLabel(),
+      attributeName: this._household.getHouseholdNameMd().getName()
     });
 
-    /*
-     * Grids
-     */
-    for(var i=0; i<orderedGrids.length; i++)
-    {
-      var grid = orderedGrids[i];
-
-      var gridDiv = document.createElement('div');
-      YAHOO.util.Dom.addClass(gridDiv, 'scrollable');
-
-      var labelDiv = document.createElement('div');
-      YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
-      labelDiv.innerHTML = grid.label;
-
-      var toggleDiv = document.createElement('div');
-      YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
-      YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
-      toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
-
-      gridDiv.appendChild(labelDiv);
-      gridDiv.appendChild(toggleDiv);
-
-      var ul = document.createElement('ul');
-      YAHOO.util.Dom.addClass(ul, 'gridList');
-      YAHOO.util.Dom.setStyle(ul, 'clear', 'both');
-      YAHOO.util.Dom.setStyle(ul, 'display', 'none');
-
-      this._toggleVisibility(toggleDiv, ul);
-
-      this._attachSelectAll(ul);
-
-      var options = grid.options;
-      for(var j=0; j<options.length; j++)
-      {
-      	var option = options[j];
-        var attribute = new MDSS.GridAttribute(option, grid);
-
-        var li = document.createElement('li');
-
-        var span = document.createElement('span');
-        span.innerHTML = attribute.getDisplayLabel();
-
-
-        var check = document.createElement('input');
-        check.id = attribute.getKey();
-        YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-        this._defaults.push({element:check, checked:false});
-
-        // Diagnostic Method adds two columns
-        var second = null;
-        if(attribute.getType() === 'dss.vector.solutions.surveillance.DiagnosticGrid')
-        {
-          attribute._displayLabel += ' ('+MDSS.Localized.Total_Tests+')';
-          YAHOO.util.Event.on(check, 'click', this._gridAttributeHandler, attribute, this);
-
-          // copy the object and set the attribute name to that of the second column
-          var optionCopy = {};
-          var gridCopy = {};
-          Mojo.util.copy(option, optionCopy);
-          Mojo.util.copy(grid, gridCopy);
-
-          gridCopy.relAttribute = gridCopy.relAttributeTwo;
-
-          second = new MDSS.GridAttribute(optionCopy, gridCopy);
-          second._displayLabel += ' ('+MDSS.Localized.Positive+')';
-          YAHOO.util.Event.on(check, 'click', this._gridAttributeHandler, second, this);
-        }
-        else
-        {
-          YAHOO.util.Event.on(check, 'click', this._gridAttributeHandler, attribute, this);
-        }
-
-        var select = document.createElement('select');
-        //YAHOO.util.Event.on(select, 'change', this._delegateToOption, attribute, this);
-        this._defaults.push({element:select, index:0});
-        var aggOptions = [''];
-        aggOptions = aggOptions.concat(Mojo.util.getValues(MDSS.QueryXML.Functions));
-
-        for(var k=0; k<aggOptions.length; k++)
-        {
-          var aggOption = aggOptions[k];
-          var optionEl = document.createElement('option');
-          optionEl.id = attribute.getKey()+'-'+aggOption;
-          optionEl.innerHTML = aggOption;
-          YAHOO.util.Dom.setAttribute(optionEl, 'value', aggOption);
-
-          YAHOO.util.Event.on(optionEl, 'click', this._gridAggregateHandler, attribute, this);
-
-          if(second != null)
-          {
-            YAHOO.util.Event.on(optionEl, 'click', this._gridAggregateHandler, second, this);
-          }
-
-          select.appendChild(optionEl);
-        }
-        select.disabled = true; // default (must be checked to enabled)
-
-        li.appendChild(check);
-        li.appendChild(select);
-        li.appendChild(span);
-
-        ul.appendChild(li);
-      }
-
-      gridDiv.appendChild(ul);
-
-      this._queryPanel.addQueryItem({
-        html: gridDiv,
-        id: "gridItem_"+1
-      });
-    }
-  },
-
-  /**
-   * Attaches an option to select all items in the given list.
-   */
-  _attachSelectAll : function(ul)
-  {
-    var check = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-    YAHOO.util.Event.on(check, 'click', this._toggleSelectAll, ul, this);
-    this._defaults.push({element:check, checked:false, bypass:true});
-
-    var span = document.createElement('span');
-    span.innerHTML = MDSS.Localized.Select_All;
-
     var li = document.createElement('li');
+    var check = document.createElement('input');
+    check.id = attribute.getKey();
+    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+    this._defaults.push({element: check, checked: false});
+    YAHOO.util.Event.on(check, 'click', this._householdAttributeHandler, attribute, this);
+    var span = document.createElement('span');
+    span.innerHTML = attribute.getDisplayLabel();
+    
     li.appendChild(check);
     li.appendChild(span);
+    householdUl.appendChild(li);
 
-    ul.appendChild(li);
-  },
-
-  /**
-   *
-   */
-  _toggleSelectAll : function(e, ul)
-  {
-  	var check = e.target;
-  	var checks = YAHOO.util.Selector.query('input[type="checkbox"]', ul);
-  	var doCheck = check.checked;
-
-    for(var i=0; i<checks.length; i++)
+    var Household = Mojo.$.dss.vector.solutions.intervention.monitor.Household;
+    
+    // 5. Status
+    this._createHouseholdMenu(householdUl, Household.URBAN, householdMenuItems);
+    
+    // 6. # People
+    attribute = new MDSS.HouseholdAttribute({
+      type: this._household.getType(),
+      displayLabel: this._household.getPeopleMd().getDisplayLabel(),
+      attributeName: this._household.getPeopleMd().getName()
+    });
+    
+    this._createHouseholdInt(householdUl, attribute);
+    
+    // 7. Wall
+    this._createHouseholdMenu(householdUl, Household.WALL, householdMenuItems);
+    
+    // 7. Roof
+    this._createHouseholdMenu(householdUl, Household.ROOF, householdMenuItems);    
+    
+    // 9. windows
+    this._createHouseholdMenu(householdUl, Household.WINDOWTYPE, householdMenuItems);
+    
+    // 10. # rooms
+    attribute = new MDSS.HouseholdAttribute({
+      type: this._household.getType(),
+      displayLabel: this._household.getRoomsMd().getDisplayLabel(),
+      attributeName: this._household.getRoomsMd().getName()
+    });
+    
+    this._createHouseholdInt(householdUl, attribute);
+    
+    // 11. Last sprayed
+    attribute = new MDSS.HouseholdAttribute({
+      type: this._household.getType(),
+      displayLabel: this._household.getLastSprayedMd().getDisplayLabel(),
+      attributeName: this._household.getLastSprayedMd().getName()
+    });
+    
+    li = document.createElement('li');
+    check = document.createElement('input');
+    check.id = attribute.getKey();
+    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+    this._defaults.push({element: check, checked: false});
+    YAHOO.util.Event.on(check, 'click', this._householdAttributeHandler, attribute, this);
+    
+    var select = document.createElement('select');
+    select.disabled = true; // default (must be checked to enabled)
+    this._defaults.push({element:select, disabled:true, index:0});
+    
+    // default value (no criteria)
+    var noLTE = document.createElement('option');
+    noLTE.value = '';
+    select.appendChild(noLTE);
+    YAHOO.util.Event.on(noLTE, 'click', this._setHouseholdCriteria, attribute, this);
+    
+    // provide LTE criteria for # months since last spray
+    for(var i=1; i<=12; i++)
     {
-      var check = checks[i];
-      if(doCheck !== check.checked)
+      var option = document.createElement('option');
+      option.value = i;
+      option.innerHTML = '<= '+ i;
+      select.appendChild(option);
+      
+      YAHOO.util.Event.on(option, 'click', this._setHouseholdCriteria, attribute, this);
+    }
+    
+    
+    var span = document.createElement('span');
+    span.innerHTML = attribute.getDisplayLabel();
+    
+    li.appendChild(check);
+    li.appendChild(select);
+    li.appendChild(span);
+    householdUl.appendChild(li);    
+    
+    
+    // 12. # nets
+    attribute = new MDSS.HouseholdAttribute({
+      type: this._household.getType(),
+      displayLabel: this._household.getNetsMd().getDisplayLabel(),
+      attributeName: this._household.getNetsMd().getName()
+    });
+    
+    this._createHouseholdInt(householdUl, attribute);
+    
+    // ?? Household nets (grabs HouseholdNet.AMOUNT, an attr on rel between Household and Net.
+    
+
+    // 13. # people slept under a net
+    attribute = new MDSS.HouseholdAttribute({
+      type: this._household.getType(),
+      displayLabel: this._household.getSleptUnderNetsMd().getDisplayLabel(),
+      attributeName: this._household.getSleptUnderNetsMd().getName()
+    });
+    
+    this._createHouseholdInt(householdUl, attribute);
+    
+    
+    // 14. # nets slept under
+    attribute = new MDSS.HouseholdAttribute({
+      type: this._household.getType(),
+      displayLabel: this._household.getNetsUsedMd().getDisplayLabel(),
+      attributeName: this._household.getNetsUsedMd().getName()
+    });
+    
+    this._createHouseholdInt(householdUl, attribute);
+    
+    this._queryPanel.addQueryItem({
+      html : householdDiv,
+      id: 'householdItems',
+      menuBuilder : MDSS.util.bind(this, this._householdMenuBuilder)
+    });
+    
+    
+    /*
+     * Person attributes
+     */
+    
+    var personDiv = document.createElement('div');
+     
+    labelDiv = document.createElement('div');
+    YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
+    labelDiv.innerHTML = this._person.getTypeMd().getDisplayLabel();
+    
+    var personUl = document.createElement('ul');
+    YAHOO.util.Dom.addClass(personUl, 'gridList');
+    YAHOO.util.Dom.setStyle(personUl, 'clear', 'both');
+    //YAHOO.util.Dom.setStyle(householdUl, 'display', 'none');
+
+    personDiv.appendChild(labelDiv);
+    personDiv.appendChild(personUl);
+
+    // 15. Person Id
+    attribute = new MDSS.HouseholdAttribute({
+      type: this._person.getType(),
+      displayLabel: this._person.getPersonIdMd().getDisplayLabel(),
+      attributeName: this._person.getPersonIdMd().getName()
+    });
+    
+    li = document.createElement('li');
+    check = document.createElement('input');
+    check.id = attribute.getKey();
+    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+    this._defaults.push({element:check, checked:false});
+    YAHOO.util.Event.on(check, 'click', this._personAttributeHandler, attribute, this);
+    span = document.createElement('span');
+    span.innerHTML = attribute.getDisplayLabel();
+    
+    li.appendChild(check);
+    li.appendChild(span);
+    personUl.appendChild(li);
+    
+    // 16. Age
+    // FIXME reperesent as age and add WHERE
+    attribute = new MDSS.HouseholdAttribute({
+      type: this._person.getType(),
+      displayLabel: this._person.getDobMd().getDisplayLabel(),
+      attributeName: this._person.getDobMd().getName()
+    });
+    attribute.setKey(this._Person.DOB);// overwrite key for use with SQL pass-through
+    
+    this._createPersonMenu(personUl, attribute, personMenuItems);
+
+    var Person = Mojo.$.dss.vector.solutions.intervention.monitor.Person;
+
+    // 17. Sex
+    this._createPersonMenu(personUl, Person.SEX, personMenuItems); 
+    
+    // 18. Pregnant
+    this._createPersonMenu(personUl, Person.PREGNANT, personMenuItems);   
+    
+    // 19. slept under net
+    this._createPersonMenu(personUl, Person.SLEPTUNDERNET, personMenuItems);   
+
+    // ??. hemoglobin measured
+    this._createPersonMenu(personUl, Person.HAEMOGLOBIN, personMenuItems);
+     
+    // 20. hemoglobin measured
+    this._createPersonMenu(personUl, Person.HAEMOGLOBINMEASURED, personMenuItems);   
+    
+    // 21. Anemia Treatment
+    this._createPersonMenu(personUl, Person.ANAEMIATREATMENT, personMenuItems);    
+
+    // 22. Iron given
+    this._createPersonMenu(personUl, Person.IRON, personMenuItems);    
+
+    // 23. RDT Treatment
+    this._createPersonMenu(personUl, Person.RDTTREATMENT, personMenuItems);   
+    
+    // 24. RDT Result
+    this._createPersonMenu(personUl, Person.RDTRESULT, personMenuItems);
+
+    // 27. Bloodslide
+    this._createPersonMenu(personUl, Person.BLOODSLIDE, personMenuItems);   
+    
+    // 28. Fever
+    this._createPersonMenu(personUl, Person.FEVER, personMenuItems);   
+    
+    // 29. Fever Treatment
+    this._createPersonMenu(personUl, Person.FEVERTREATMENT, personMenuItems);   
+    
+    // 30. malaria
+    this._createPersonMenu(personUl, Person.MALARIA, personMenuItems);   
+    
+    // 31. Malaria Treatment
+    this._createPersonMenu(personUl, Person.MALARIATREATMENT, personMenuItems);   
+    
+    // 32. Payment
+    this._createPersonMenu(personUl, Person.PAYMENT, personMenuItems);   
+    
+    this._queryPanel.addQueryItem({
+      html : personDiv,
+      id: 'personItems',
+      menuBuilder : MDSS.util.bind(this, this._personMenuBuilder)
+    });
+  },
+  
+  _menuBuilder : function(outerLi, targetEl, menuMap)
+  {
+    var li = null;
+    if(targetEl.nodeName === 'LI')
+    {
+      li = targetEl;
+    }
+    else
+    {
+      var parent = YAHOO.util.Dom.getAncestorByTagName(targetEl, "LI");
+      if(parent != null)
       {
-        check.click();
+        li = parent;
       }
     }
+    
+    // make sure the attribute is selected before
+    // showing the context menu
+    if(li == null || !li.firstChild.checked)
+    {
+      return [];
+    }
+    
+    var items = menuMap[li.id];
+    if(items != null)
+    {
+      return items;
+    }
+    else
+    {
+      return [];
+    }
   },
-
+  
   /**
-   * Handler to toggle the visibility of a list.
+   * Menu builder function to dynamically populate a menu for 
+   * specific Person attributes.
    */
-  _toggleVisibility : function(toggle, element)
+  _personMenuBuilder : function(outerLi, targetEl)
   {
-    YAHOO.util.Event.on(toggle, 'click', function(e, obj){
-      var el = obj.element;
-      var toggle = obj.toggle;
+    return this._menuBuilder(outerLi, targetEl, this._personMenus);
+  },
+  
+  /**
+   * Menu builder function to dynamically populate a menu for 
+   * specific Household attributes.
+   */
+  _householdMenuBuilder : function(outerLi, targetEl)
+  {
+    return this._menuBuilder(outerLi, targetEl, this._householdMenus);
+  },
+  
+  _personMenuItemHandler : function(eventType, event, obj)
+  {
+    var attribute = obj.attribute;
+    var value = obj.value;
+    var display = obj.display;
+    
+    var item = this._personItems[attribute.getAttributeName()+'-'+value];
+    item.checked = !item.checked;
+    
+    this._setPersonCriteria(attribute, value, display, item.checked);
+  },
+  
+  _householdMenuItemHandler : function(eventType, event, obj)
+  {
+    var attribute = obj.attribute;
+    var value = obj.value;
+    var display = obj.display;
+    
+    var item = this._householdItems[attribute.getAttributeName()+'-'+value];
+    item.checked = !item.checked;
+    
+    this._setHouseholdCriteriaConcrete(attribute, value, display, item.checked);
+  },
+  
+  _createHouseholdMenu : function(householdUl, attributeName, householdMenuItems)
+  {
+    var attrDTO = this._household.getAttributeDTO(attributeName);
+    var dereference = (attrDTO instanceof Mojo.dto.AttributeEnumerationDTO ||
+       attrDTO instanceof Mojo.dto.AttributeReferenceDTO) ? true : false;
+  
+    var attrDTOMd = attrDTO.getAttributeMdDTO();
+  
+    var attribute = new MDSS.HouseholdAttribute({
+      type: this._household.getType(),
+      displayLabel: attrDTOMd.getDisplayLabel(),
+      attributeName: attrDTOMd.getName()
+    }, dereference);  
+  
+    var li = document.createElement('li');
+    li.id = attribute.getKey()+"_li";
+    
+    var check = document.createElement('input');
+    check.id = attribute.getKey();
+    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+    this._defaults.push({element:check, checked:false});
+    YAHOO.util.Event.on(check, 'click', this._householdAttributeHandler, attribute, this);
 
-      if(YAHOO.util.Dom.getStyle(el, 'display') === 'block')
+    // Use the JSON object sent from the server to build objects
+    // compatible with YUI's context menu constructor.    
+    var rawItems = householdMenuItems[attribute.getAttributeName()];
+    var items = [];
+    for(var i=0; i<rawItems.length; i++)
+    {
+      var rawItem = rawItems[i];
+
+      var item = {
+        text: rawItem.displayLabel,
+        checked: false,
+      };
+      
+      if(!rawItem.isAbstract)
       {
-        YAHOO.util.Dom.setStyle(el, 'display', 'none');
-        toggle.innerHTML = MDSS.Localized.Toggle_Show;
+        item.onclick = {
+          fn: this._householdMenuItemHandler,
+          obj: {attribute: attribute, value: rawItem.value, display: rawItem.displayLabel}, 
+          scope: this
+        };
+      }
+      
+      if(rawItem.isAbstract)
+      {
+        item.text = "<strong>"+rawItem.displayLabel+"</strong>";
+      }
+      else if(rawItem.isAbstract === false)
+      {
+        item.text = "&nbsp;&nbsp;&nbsp;&nbsp;"+rawItem.displayLabel;
       }
       else
       {
-        YAHOO.util.Dom.setStyle(el, 'display', 'block');
-        toggle.innerHTML = MDSS.Localized.Toggle_Hide;
+        // isAbstract doesn't even exist on the item, meaning it
+        // is not part of a Grid or Configurable List
+        item.text = rawItem.displayLabel;
       }
+      
+      this._householdItems[attribute.getAttributeName()+'-'+rawItem.value] = item;
+      items.push(item);
+    }
+    
+    // map the menu items to the LI node that contains the attribute data
+    this._householdMenus[li.id] = items;
+    
+    var span = document.createElement('span');
+    span.innerHTML = attribute.getDisplayLabel();
+    
+    li.appendChild(check);
+    li.appendChild(span);
+    householdUl.appendChild(li);
+  },
+  
+  /**
+   * Creates an entry for an attribute on person that can
+   * be added as a selectable and with a context menu for 
+   * criteria restriction.
+   */
+  _createPersonMenu : function(personUl, attributeInput, personMenuItems)
+  {
+    // The attribute param can either be a string, used to create an
+    // PersonAttribute, or it can be an already created PersonAttribute.
+    var attribute;
+    if(Mojo.util.isString(attributeInput))
+    {
+      var attrDTO = this._person.getAttributeDTO(attributeInput);
+      var dereference = (attrDTO instanceof Mojo.dto.AttributeEnumerationDTO ||
+        attrDTO instanceof Mojo.dto.AttributeReferenceDTO) ? true : false;
+  
+      var attrDTOMd = attrDTO.getAttributeMdDTO();
+  
+      var attribute = new MDSS.PersonAttribute({
+        type: this._person.getType(),
+        displayLabel: attrDTOMd.getDisplayLabel(),
+        attributeName: attrDTOMd.getName()
+      }, dereference);  
+    }
+    else
+    {
+      attribute = attributeInput;
+    }
+  
+    var li = document.createElement('li');
+    li.id = attribute.getKey()+"_li";
+    
+    var check = document.createElement('input');
+    check.id = attribute.getKey();
+    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+    this._defaults.push({element:check, checked:false});
+    YAHOO.util.Event.on(check, 'click', this._personAttributeHandler, attribute, this);
+    li.appendChild(check);
 
-    }, {toggle: toggle, element: element}, this);
+    var items = [];
+    if(attribute.getAttributeName() === this._Person.DOB)
+    {
+      // Add exact match and range
+      var exact = this._createExactItem(li, attribute);
+      var range = this._createRangeItem(li, attribute);
+      
+      this._personItems[attribute.getAttributeName()+'-exact'] = exact;        
+      this._personItems[attribute.getAttributeName()+'-range'] = range;
+          
+      items.push(exact);
+      items.push(range);
+    }
+    // Hemoglobin requires a menu item to enable range criteria.
+    else if(attribute.getAttributeName() === this._Person.HAEMOGLOBIN)
+    {
+      // Add exact match and range
+      var range = this._createRangeItem(li, attribute);
+      
+      this._personItems[attribute.getAttributeName()+'-range'] = range;
+          
+      items.push(range);
+    }
+    else
+    {
+      // Use the JSON object sent from the server to build objects
+      // compatible with YUI's context menu constructor.    
+      var rawItems = personMenuItems[attribute.getAttributeName()];
+      for(var i=0; i<rawItems.length; i++)
+      {
+        var rawItem = rawItems[i];
+  
+        var item = {
+          text: rawItem.displayLabel,
+          checked: false,
+          onclick : {
+            fn: this._personMenuItemHandler,
+            obj: {attribute: attribute, value: rawItem.value, display: rawItem.displayLabel}, 
+            scope: this
+          }
+        };
+        
+        this._personItems[attribute.getAttributeName()+'-'+rawItem.value] = item;
+        items.push(item);
+      }
+    }
+    
+    
+    // map the menu items to the LI node that contains the attribute data
+    this._personMenus[li.id] = items;
+    
+    var span = document.createElement('span');
+    span.innerHTML = attribute.getDisplayLabel();
+    
+    li.appendChild(span);
+    personUl.appendChild(li);
+  },
+  
+  _toggleExact : function(attribute, clear)
+  {
+    var item = this._personItems[attribute.getAttributeName()+'-exact'];
+    // The exact criteria is optional, so return if null
+    if(item == null)
+    {
+      return;
+    }
+    
+    item.checked = clear ? false : !item.checked;   
+  
+    var exact = document.getElementById(attribute.getKey()+"-exact");
+    if(item.checked)
+    {
+      YAHOO.util.Dom.setStyle(exact, 'display', 'inline');
+    }
+    else
+    {
+      exact.value = '';
+      YAHOO.util.Dom.setStyle(exact, 'display', 'none');
+    }
+    
+    return item.checked;
+  },
+  
+  _toggleRange : function(attribute, clear)
+  {
+    var item = this._personItems[attribute.getAttributeName()+'-range'];
+    // The range criteria is optional, so return if null
+    if(item == null)
+    {
+      return;
+    }
+    
+    item.checked = clear ? false : !item.checked;
+    
+    var range1 = document.getElementById(attribute.getKey()+"-range1");
+    var rangeSign = document.getElementById(attribute.getKey()+"-rangeSign");
+    var range2 = document.getElementById(attribute.getKey()+"-range2");
+    
+    if(item.checked)
+    {
+      YAHOO.util.Dom.setStyle(range1, 'display', 'inline');
+      YAHOO.util.Dom.setStyle(rangeSign, 'display', 'inline');
+      YAHOO.util.Dom.setStyle(range2, 'display', 'inline');
+    }
+    else
+    {
+      range1.value = '';
+      range2.value = '';
 
+      YAHOO.util.Dom.setStyle(range1, 'display', 'none');
+      YAHOO.util.Dom.setStyle(rangeSign, 'display', 'none');
+      YAHOO.util.Dom.setStyle(range2, 'display', 'none');
+    }
+    
+    return item.checked;
+  },
+  
+  /**
+   * Sets number restriction criteria by showing/hiding
+   * input fields for exact value matching and range.
+   */
+  _toggleNumberInputs : function(eventType, event, obj)
+  {
+    var attribute = obj.attribute;
+    
+    var that = this;
+    var checked;
+    if(obj.type === 'exact')
+    {
+      this._toggleRange(attribute, true);
+      checked = this._toggleExact(attribute);
+    }
+    else
+    {
+      this._toggleExact(attribute, true);
+      checked = this._toggleRange(attribute);
+    }
+    
+    // Always clear the criteria as there's no reason to
+    // preserve it when toggling exact/range inputs.
+    this._queryPanel.clearWhereCriteria(attribute.getKey());
+    
+    if(!checked && attribute.getAttributeName() === this._Person.DOB)
+    {
+      this._config.setProperty('dobCriteria', null);
+    }
+    else if(!checked)
+    {
+      // no criteria specified, so clear the mapping
+      this._setPersonCriteria(attribute, null, null, false);
+    }  
+  },
+  
+  /**
+   * Sets number criteria on a Person attribute.
+   */
+  _setPersonNumberCriteria : function(e, obj)
+  {
+    var attribute = obj.attribute;
+    var value;
+    if(obj.type === 'exact')
+    {
+      var exact = document.getElementById(attribute.getKey()+"-exact");
+      value = exact.value;
+    }
+    else
+    {
+      var range1 = document.getElementById(attribute.getKey()+"-range1");
+      var range2 = document.getElementById(attribute.getKey()+"-range2");
+      value = range1.value+'-'+range2.value; // Will be split up in this._setPersonCriteria
+    }
+    
+    // DOB uses the json config because WHERE criteria is not easily passed
+    // between a date and sql integer.
+    if(attribute.getAttributeName() === this._Person.DOB)
+    {
+      if(value === '' || value === '-')
+      {
+        value = null;
+      }
+    
+      this._config.setProperty('dobCriteria', value);
+      this._queryPanel.clearWhereCriteria(attribute.getKey());
+      
+      if(value != null)
+      {
+        this._queryPanel.addWhereCriteria(attribute.getKey(), value, value);
+      }
+    }
+    else
+    {
+      this._setPersonCriteria(attribute, value, value, true);
+    }    
+  },
+  
+  /**
+   * Creates the JSON necessary to let a user specify an exact
+   * match on an attribute.
+   */
+  _createExactItem : function(li, attribute)
+  {
+    var exactInput = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(exactInput, 'type', 'text');
+    YAHOO.util.Dom.setStyle(exactInput, 'display', 'none');
+    YAHOO.util.Dom.addClass(exactInput, 'queryNumberCriteria');
+    exactInput.id = attribute.getKey()+"-exact";
+    
+    var obj = {
+      attribute: attribute,
+      type: 'exact'
+    };
+    
+    YAHOO.util.Event.on(exactInput, 'keyup', this._setPersonNumberCriteria, obj, this);
+
+    li.appendChild(exactInput);
+
+    return item = {
+      text: MDSS.Localized.Exact_Value,
+      checked: false,
+      onclick : {
+        fn: this._toggleNumberInputs,
+        obj: {attribute: attribute, type:'exact'}, 
+        scope: this
+      }
+    };
+  },
+  
+  /**
+   * Creates the JSON necessary to let a user specify an exact
+   * match on an attribute.
+   */
+  _createRangeItem : function(li, attribute)
+  {
+    var rangeInput1 = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(rangeInput1, 'type', 'text');
+    YAHOO.util.Dom.setStyle(rangeInput1, 'display', 'none');
+    YAHOO.util.Dom.addClass(rangeInput1, 'queryNumberCriteria');
+    rangeInput1.id = attribute.getKey()+"-range1";
+
+    var obj = {
+      attribute: attribute,
+      type: 'range'
+    };
+
+    YAHOO.util.Event.on(rangeInput1, 'keyup', this._setPersonNumberCriteria, obj, this);
+
+    var rangeSign = document.createElement('span');
+    rangeSign.innerHTML = '-';
+    YAHOO.util.Dom.setStyle(rangeSign, 'display', 'none');
+    rangeSign.id = attribute.getKey()+"-rangeSign";
+
+    var rangeInput2 = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(rangeInput2, 'type', 'text');
+    YAHOO.util.Dom.setStyle(rangeInput2, 'display', 'none');
+    YAHOO.util.Dom.addClass(rangeInput2, 'queryNumberCriteria');
+    rangeInput2.id = attribute.getKey()+"-range2";
+
+    YAHOO.util.Event.on(rangeInput2, 'keyup', this._setPersonNumberCriteria, obj, this);
+    
+    li.appendChild(rangeInput1);
+    li.appendChild(rangeSign);
+    li.appendChild(rangeInput2);  
+
+    return item = {
+      text: MDSS.Localized.Set_Range,
+      checked: false,
+      onclick : {
+        fn: this._toggleNumberInputs,
+        obj: {attribute: attribute, type:'range'}, 
+        scope: this
+      }
+    };
+  },
+  
+  /**
+   * Creates an attribute entry for an integer
+   * on household, along with a SUM option.
+   */
+  _createHouseholdInt : function(householdUl, attribute)
+  {
+    var li = document.createElement('li');
+    var check = document.createElement('input');
+    check.id = attribute.getKey();
+    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+    this._defaults.push({element:check, checked:false});
+    YAHOO.util.Event.on(check, 'click', this._householdAttributeHandler, attribute, this);
+    
+    var select = document.createElement('select');
+    select.disabled = true; // default (must be checked to enabled)
+    this._defaults.push({element:select, disabled:true, index:0});
+    
+    var noAgg = document.createElement('option');
+    noAgg.value = '';
+    YAHOO.util.Event.on(noAgg, 'click', this._householdAggregateHandler, attribute, this);
+    select.appendChild(noAgg);
+    
+    var sum = document.createElement('option');
+    sum.value = MDSS.QueryXML.Functions.SUM;
+    sum.innerHTML = MDSS.QueryXML.Functions.SUM;
+    sum.id = attribute.getKey() + '-' + MDSS.QueryXML.Functions.SUM;
+    YAHOO.util.Event.on(sum, 'click', this._householdAggregateHandler, attribute, this);
+    select.appendChild(sum);
+
+    
+    var span = document.createElement('span');
+    span.innerHTML = attribute.getDisplayLabel();
+    
+    li.appendChild(check);
+    li.appendChild(select);
+    li.appendChild(span);
+    householdUl.appendChild(li);
   },
 
   /**
@@ -966,171 +1580,18 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   }
 });
 
-MDSS.AbstractAttribute = function(obj)
+MDSS.HouseholdAttribute = function(obj, dereference)
 {
-  	this._type = obj.type;
-  	this._dtoType = obj.dtoType;
-  	this._displayLabel = obj.displayLabel;
-  	this._attributeName = obj.attributeName;
-    this._whereValues = [];
-
-    this._genKey();
+  Mojo.util.copy(new MDSS.AbstractAttribute(obj, dereference), this);
 };
-MDSS.AbstractAttribute.prototype = {
+MDSS.HouseholdAttribute.prototype = {
 
-  _genKey : function()
-  {
-  	this._key = this._type.replace(/\./g, '_')+'__'+this._attributeName;
-  },
-
-  /**
-   * Unique key used with YUI Column
-   * and as the user alias for the attribute
-   * in a ValueObject.
-   */
-  getKey : function()
-  {
-  	return this._key;
-  },
-
-  getType : function()
-  {
-  	return this._type;
-  },
-
-  getDtoType : function()
-  {
-  	return this._dtoType;
-  },
-
-  getWhereValues : function()
-  {
-  	return this._type;
-  },
-
-  getAttributeName : function()
-  {
-  	return this._attributeName;
-  },
-
-  getDisplayLabel : function()
-  {
-  	return this._displayLabel;
-  },
-
-  /**
-   * Returns an object compatible with YUI Column's
-   * constructor.
-   */
-  getColumnObject : function()
-  {
-  	return {
-  	  key: this._key,
-  	  label: this._displayLabel
-  	};
-  }
 };
 
-MDSS.VisibleAttribute = function(obj)
+MDSS.PersonAttribute = function(obj, dereference)
 {
-  Mojo.util.copy(new MDSS.AbstractAttribute(obj), this);
+  Mojo.util.copy(new MDSS.AbstractAttribute(obj, dereference), this);
 };
-MDSS.VisibleAttribute.prototype = {
+MDSS.PersonAttribute.prototype = {
 
-  /**
-   * Returns a basic selectable object that represents this
-   * attribute.
-   */
-  getSelectable : function()
-  {
-    var attribute = new MDSS.QueryXML.Attribute(this._type, this._attributeName, this._key);
-    var selectable = new MDSS.QueryXML.Selectable(attribute);
-    return selectable;
-  }
-
-};
-
-MDSS.GridAttribute = function(obj, meta)
-{
-  Mojo.util.copy(new MDSS.AbstractAttribute(obj), this);
-
-  this._optionName = obj.optionName;
-  this._meta = meta;
-
-  var busType = this._type;
-  var relType = this._meta.relType;
-
-  this._relAlias = this._getGridRelAlias(relType, this._optionName);
-  this._busAlias = this._getGridBusAlias(relType, this._optionName, busType);
-
-  // Append the option name to the key to make it truly unique (this is a special case)
-  this._key += '_'+this._optionName+'_'+this._meta.relAttribute;
-};
-MDSS.GridAttribute.prototype = {
-
-  getOptionName : function()
-  {
-  	return this._optionName;
-  },
-
-  /**
-   * Returns the namespaced business alias for this attribute.
-   */
-  getBusinessAlias : function()
-  {
-    return this._busAlias;
-  },
-
-  /**
-   * Returns the namespaced relationship alias for this attribute.
-   */
-  getRelationshipAlias : function()
-  {
-    return this._relAlias;
-  },
-
-  getRelationshipType : function()
-  {
-  	return this._meta.relType;
-  },
-
-  getRelationshipSelectable : function()
-  {
-  	var attribute = new MDSS.QueryXML.Attribute(this._relAlias, this._meta.relAttribute, this._key);
-    var selectable = new MDSS.QueryXML.Selectable(attribute);
-    return selectable;
-  },
-
-  getBusinessSelectable : function()
-  {
-    var attribute = new MDSS.QueryXML.Attribute(this._busAlias, this._attributeName);
-    var selectable = new MDSS.QueryXML.Selectable(attribute);
-    return selectable;
-  },
-
-  /**
-   * Returns the alias for a grid relationship.
-   */
-  _getGridRelAlias : function(relType, optionName)
-  {
-    var relTypeName = this._extractTypeName(relType);
-    return relTypeName+'_'+optionName;
-  },
-
-  /**
-   * Returns the alias for a grid business.
-   */
-  _getGridBusAlias : function(relType, optionName, busType)
-  {
-    var relTypeName = this._extractTypeName(relType);
-    var busTypeName = this._extractTypeName(busType);
-    return relTypeName+'_'+optionName+'_'+busTypeName;
-  },
-
-  _extractTypeName : function(type)
-  {
-    var ind = type.lastIndexOf('.');
-    var typeName = type.substring(ind+1);
-    return typeName;
-  },
 };

@@ -20,10 +20,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     // START: query objects that dictate state of the query.
 
     var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
-    var startAttribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTDATE, aggregatedCase.STARTDATE);
-    this._startDateSelectable = new MDSS.QueryXML.Selectable(startAttribute);
-    var endAttribute = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.ENDDATE, aggregatedCase.ENDDATE);
-    this._endDateSelectable = new MDSS.QueryXML.Selectable(endAttribute);
 
     this._startDate = null;
     this._endDate = null;
@@ -56,28 +52,12 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
    * Checks all the age group check boxes, meaning
    * all age groups are allowed by default.
    */
-  postRender : function()
+  _customPostRender : function()
   {
-    MDSS.QueryBase.prototype.postRender.call(this);
-
     for(var i=0; i<this._defaultAgeGroups.length; i++)
     {
       this._defaultAgeGroups[i].click();
     }
-
-    // set the default for the date searching
-    var startDate = this._queryPanel.getStartDate();    
-    var startCheck = this._queryPanel.getStartDateCheck();
-    
-    var endDate = this._queryPanel.getEndDate();
-    var endCheck = this._queryPanel.getEndDateCheck();
-    
-    this._defaults.push({element: startCheck, checked:false});
-    this._defaults.push({element: endCheck, checked:false});
-    this._defaults.push({element: startDate, value: ''});
-    this._defaults.push({element: endDate, value: ''});
-
-    this._loadDefaultSearch();
   },
 
   /**
@@ -965,7 +945,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._defaults.push({element:check, checked:false});
 
       var select = document.createElement('select');
-      //YAHOO.util.Event.on(select, 'change', this._delegateToOption, attribute, this);
       this._defaults.push({element:select, index:0});
 
       var options = [''];
@@ -1185,94 +1164,11 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   }
 });
 
-MDSS.AbstractAttribute = function(obj)
-{
-  	this._type = obj.type;
-  	this._dtoType = obj.dtoType;
-  	this._displayLabel = obj.displayLabel;
-  	this._attributeName = obj.attributeName;
-    this._whereValues = [];
-
-    this._genKey();
-};
-MDSS.AbstractAttribute.prototype = {
-
-  _genKey : function()
-  {
-		if(this._type  == 'sqlcharacter' )
-		{
-			this._key = this._attributeName;
-		}
-		else
-		{
-			this._key = this._type.replace(/\./g, '_')+'__'+this._attributeName;
-		}
-  },
-
-  /**
-   * Unique key used with YUI Column
-   * and as the user alias for the attribute
-   * in a ValueObject.
-   */
-  getKey : function()
-  {
-  	return this._key;
-  },
-
-  getType : function()
-  {
-  	return this._type;
-  },
-
-  getDtoType : function()
-  {
-  	return this._dtoType;
-  },
-
-  getWhereValues : function()
-  {
-  	return this._type;
-  },
-
-  getAttributeName : function()
-  {
-  	return this._attributeName;
-  },
-
-  getDisplayLabel : function()
-  {
-  	return this._displayLabel;
-  },
-
-  /**
-   * Returns an object compatible with YUI Column's
-   * constructor.
-   */
-  getColumnObject : function()
-  {
-  	return {
-  	  key: this._key,
-  	  label: this._displayLabel
-  	};
-  }
-};
-
 MDSS.VisibleAttribute = function(obj)
 {
   Mojo.util.copy(new MDSS.AbstractAttribute(obj), this);
 };
 MDSS.VisibleAttribute.prototype = {
-
-  /**
-   * Returns a basic selectable object that represents this
-   * attribute.
-   */
-  getSelectable : function()
-  {
-    var attribute = new MDSS.QueryXML.Attribute(this._type, this._attributeName, this._key);
-    var selectable = new MDSS.QueryXML.Selectable(attribute);
-    return selectable;
-  }
 
 };
 

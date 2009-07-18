@@ -233,11 +233,24 @@ MDSS.QueryBase.prototype = {
         	 value = MDSS.Calendar.getLocalizedString(value);
          }
          if(dto.dtoType === 'AttributeBooleanDTO'){
-        	 try{
-        	 value = this._visibleSelectables[dto.attributeName].attribute._whereValues.filter(function(v){return v.uuid == value.toString();})[0].text;
-        	 }catch(e){
-        		 //could not find display label so just use true or false
+        	  
+        	 var displayValue = null;
+        	 if(value === true)
+        	 { 
+        	   displayValue = query.getAttributeDTO(attr).getAttributeMdDTO().getPositiveDisplayLabel();
         	 }
+        	 else
+        	 {
+        	   displayValue = query.getAttributeDTO(attr).getAttributeMdDTO().getNegativeDisplayLabel();
+        	 }
+        	 
+        	 // make sure a meaningful was given (otherwise, the default will be used)
+        	 if(Mojo.util.isString(displayValue) && displayValue !== '') 
+        	 {
+        	   value = displayValue;
+        	 }
+        	   
+        	 //value = this._visibleSelectables[dto.attributeName].attribute._whereValues.filter(function(v){return v.uuid == value.toString();})[0].text;
          }
 
          entry[attr] = value;
@@ -282,6 +295,28 @@ MDSS.QueryBase.prototype = {
 
   	YAHOO.util.Event.on(this._queryPanel._startDateRangeCheck, 'click', this.toggleDates, 'START_DATE_RANGE', this);
   	YAHOO.util.Event.on(this._queryPanel._endDateRangeCheck, 'click', this.toggleDates, 'END_DATE_RANGE', this);
+  	
+    // set the default for the date searching
+    var startDate = this._queryPanel.getStartDate();
+    var startCheck = this._queryPanel.getStartDateCheck();
+    var endDate = this._queryPanel.getEndDate();
+    var endCheck = this._queryPanel.getEndDateCheck();
+    
+    this._defaults.push({element: startCheck, checked:false});
+    this._defaults.push({element: endCheck, checked:false});
+    this._defaults.push({element: startDate, value: ''});
+    this._defaults.push({element: endDate, value: ''});
+
+    this._customPostRender();
+    
+    this._loadDefaultSearch();
+  },
+  
+  _customPostRender : function()
+  {
+    // A subclass should override this method to perform
+    // any post render cleanup that may be required before
+    // loading the default search.
   },
 
   /**
@@ -1243,5 +1278,108 @@ MDSS.QueryBase.prototype = {
     var thematicVars = this._queryPanel.getThematicVariables();
 
     controller.editThematicLayer(request, thematicLayerId, thematicVars);
+  }
+};
+
+MDSS.AbstractAttribute = function(obj, dereference)
+{
+    this._type = obj.type;
+    this._dtoType = obj.dtoType;
+    this._displayLabel = obj.displayLabel;
+    this._attributeName = obj.attributeName;
+    this._whereValues = [];
+    this._dereference = dereference || false;
+
+    if(obj.key)
+    {
+      this._key=obj.key;
+    }
+    else
+    {
+      this._genKey();
+    }
+};
+MDSS.AbstractAttribute.prototype = {
+
+  _genKey : function()
+  {
+    this._key = this._type.replace(/\./g, '_')+'__'+this._attributeName;
+  },
+
+  /**
+   * Unique key used with YUI Column
+   * and as the user alias for the attribute
+   * in a ValueObject.
+   */
+  getKey : function()
+  {
+    return this._key;
+  },
+  
+  setKey : function(key)
+  {
+    this._key = key;
+  },
+
+  getType : function()
+  {
+    return this._type;
+  },
+
+  getDtoType : function()
+  {
+    return this._dtoType;
+  },
+
+  getWhereValues : function()
+  {
+    return this._type;
+  },
+
+  getAttributeName : function()
+  {
+    return this._attributeName;
+  },
+  
+  getDisplayLabel : function()
+  {
+    return this._displayLabel;
+  },
+
+  /**
+   * Returns an object compatible with YUI Column's
+   * constructor.
+   */
+  getColumnObject : function()
+  {
+    return {
+      key: this._key,
+      label: this._displayLabel
+    };
+  },
+  
+  /**
+   * Returns a basic selectable object that represents this
+   * attribute.
+   */
+  getSelectable : function(derefence, asClass)
+  {
+    var attrName = this._attributeName;
+    if(this._dereference && derefence)
+    {
+      attrName = attrName + '.displayLabel.currentValue';
+    }
+  
+    var attribute;
+    if(asClass != null)
+    {
+      attribute = new asClass(this._type, attrName, this._key);
+    }
+    else
+    {
+      attribute = new MDSS.QueryXML.Attribute(this._type, attrName, this._key);
+    }
+    var selectable = new MDSS.QueryXML.Selectable(attribute);
+    return selectable;
   }
 };
