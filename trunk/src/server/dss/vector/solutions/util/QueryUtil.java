@@ -25,6 +25,7 @@ import com.terraframe.mojo.query.ValueQueryParser;
 import com.terraframe.mojo.system.gis.metadata.MdAttributeGeometry;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
+import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -190,7 +191,10 @@ public class QueryUtil
     if (xml.indexOf("DATEGROUP_SEASON") > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
-      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + da + " and ms.enddate > " + da);
+      String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
+      dateGroup.setSQL("SELECT "+MalariaSeason.SEASONNAME+" FROM " + table + " AS ms "
+          + " WHERE ms." + MalariaSeason.STARTDATE + " < " + da
+          + " AND ms." + MalariaSeason.ENDDATE + " > " + da);
     }
 
     if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
@@ -242,10 +246,6 @@ public class QueryUtil
       }
     }
 
-
-    String sql = valueQuery.getSQL();
-    System.out.println(sql);
-
     return valueQuery;
 
   }
@@ -256,8 +256,11 @@ public class QueryUtil
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
           .getSelectable("DATEGROUP_SEASON");
-      dateGroup.setSQL("SELECT seasonName FROM malariaseason as ms WHERE ms.startdate < " + sd
-          + " and ms.enddate > " + ed);
+
+      String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
+      dateGroup.setSQL("SELECT "+MalariaSeason.SEASONNAME+" FROM " + table + " AS ms"
+          + " WHERE ms." + MalariaSeason.STARTDATE + " < " + sd
+          + " AND ms." + MalariaSeason.ENDDATE + " > " + ed);
     }
 
     if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
