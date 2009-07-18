@@ -3,6 +3,7 @@
  */
 MDSS.QueryXML = {
   DEBUG: true,
+  
   Operator : {
     EQ: 'EQ',
     GT: 'GT',
@@ -268,6 +269,8 @@ MDSS.QueryXML.BasicCondition.prototype = {
 
   getSelectable : function() { return this._selectable; },
 
+  getValue : function() { return this._value; },
+
   build : function()
   {
     var selectableObj = this._selectable.build();
@@ -292,6 +295,13 @@ MDSS.QueryXML.Or = function()
   this._conditions = {};
 }
 MDSS.QueryXML.Or.prototype = {
+
+  getConditions : function() { return this._conditions; },
+
+  getSize : function()
+  {
+    return Mojo.util.getKeys(this._conditions).length;
+  },
 
   addCondition : function(key, condition)
   {
@@ -333,6 +343,11 @@ MDSS.QueryXML.And = function()
   this._conditions = {};
 }
 MDSS.QueryXML.And.prototype = {
+
+  getSize : function()
+  {
+    return Mojo.util.getKeys(this._conditions).length;
+  },
 
   addCondition : function(key, condition)
   {
@@ -456,6 +471,33 @@ MDSS.QueryXML.Attribute.prototype = {
     var obj = {
       'attribute': {
         'entityAlias': this._entityAlias,
+        'name': this._name,
+        'userAlias': this._userAlias,
+      }
+    };
+
+    return obj;
+  }
+}
+
+MDSS.QueryXML.Sqlinteger = function(entityAlias, name, userAlias)
+{
+  this._entityAlias = entityAlias;
+  this._name = name;
+  this._userAlias = arguments.length == 3 ? userAlias : '';
+}
+MDSS.QueryXML.Sqlinteger.prototype = {
+
+  getName : function() { return this._name; },
+
+  getEntityAlias : function() { return this._entityAlias; },
+
+  getUserAlias : function() { return this._userAlias; },
+
+  build : function()
+  {
+    var obj = {
+      'sqlinteger': {
         'name': this._name,
         'userAlias': this._userAlias,
       }
@@ -744,12 +786,12 @@ MDSS.Query.Config.prototype = {
 
   setProperty : function(key, value)
   {
-    this._config.key = value;
+    this._config[key] = value;
   },
 
   getProperty : function(key)
   {
-    return this._config.key;
+    return this._config[key];
   },
 
   getJSON : function()

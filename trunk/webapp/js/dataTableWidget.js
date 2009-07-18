@@ -234,14 +234,16 @@ MojoGrid.createDataTable = function(table_data) {
 
     if (e.keyCode === 9) {
     
+      YAHOO.util.Event.stopEvent(e);
+
       if(MojoGrid.cellLock)
       {
+        // Avoids multiple Tabs in rapid succession.
         return;
       }
       else
       {
         MojoGrid.cellLock = true;
-        YAHOO.util.Event.stopEvent(e);
       }    
     
       function findNext(cell) {
@@ -422,7 +424,8 @@ MojoGrid.createDataTable = function(table_data) {
       }
 
     }
-    myDataTable.unselectCell(editor.getTdEl());
+    
+    //myDataTable.unselectCell(editor.getTdEl());
     YAHOO.log("Saved Cell:" + editor._oColumn.label, "warn", "Widget");
   };
 

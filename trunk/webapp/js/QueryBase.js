@@ -407,7 +407,7 @@ MDSS.QueryBase.prototype = {
 		 * Global COUNT, causes implicit group by on all selected attributes
 		 */
 
-    var countAttribute = new MDSS.VisibleAttribute({
+    var countAttribute = new MDSS.BasicAttribute({
       type: klass.CLASS,
       displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
       attributeName: 'id'
@@ -1382,4 +1382,12 @@ MDSS.AbstractAttribute.prototype = {
     var selectable = new MDSS.QueryXML.Selectable(attribute);
     return selectable;
   }
+};
+
+MDSS.BasicAttribute = function(obj, dereference)
+{
+  Mojo.util.copy(new MDSS.AbstractAttribute(obj, dereference), this);
+};
+MDSS.BasicAttribute.prototype = {
+
 };

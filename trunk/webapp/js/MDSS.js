@@ -207,6 +207,11 @@ MDSS.Set.prototype = {
       this.set(array[i]);
     }
   },
+  
+  remove : function(value)
+  {
+    delete this._set[value];
+  },
 
   contains : function(value)
   {

@@ -51,6 +51,10 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._queryPanel.addAvailableQuery(queryList[i]);
     }
     
+    var attribute = new MDSS.QueryXML.Attribute(this._SurveyPoint.CLASS, this._SurveyPoint.SURVEYDATE, this._SurveyPoint.SURVEYDATE);
+    this._startDateSelectable = new MDSS.QueryXML.Selectable(attribute);
+    this._endDateSelectable = new MDSS.QueryXML.Selectable(attribute);
+    
     // Criteria for Person.DOB
     this._config.setProperty('dobCriteria', null);
 
@@ -120,14 +124,22 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         {
           entities.push(value);
         }
-        // FIXME restore date
+        else if(userAlias === this._SurveyPoint.SURVEYDATE)
+        {
+          if(operator === MDSS.QueryXML.Operator.GE)
+          {
+            thisRef._queryPanel.getStartDate().value = value;
+          }
+          else
+          {
+            thisRef._queryPanel.getEndDate().value = value;
+          }
+        }
       }
     });
     
     this._reconstructSearch(entities, view);
   },
-
-
 
   /**
    * Final function called before query is executed.

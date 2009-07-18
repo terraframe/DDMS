@@ -37,6 +37,12 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
     // END: query objects
 
+    var startDateAttr = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.STARTDATE, aggregatedCase.STARTDATE);
+    this._startDateSelectable = new MDSS.QueryXML.Selectable(startDateAttr);
+    
+    var endDateAttr = new MDSS.QueryXML.Attribute(aggregatedCase.CLASS, aggregatedCase.ENDDATE, aggregatedCase.ENDDATE);
+    this._endDateSelectable = new MDSS.QueryXML.Selectable(endDateAttr);
+
     for(var i=0; i<queryList.length; i++)
     {
       this._queryPanel.addAvailableQuery(queryList[i]);
@@ -787,36 +793,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       onclick: {handler: boundSearch},
       id: "areaItem"
     });
-
-    // global count
-    /*var aggregatedCase = Mojo.$.dss.vector.solutions.surveillance.AggregatedCase;
-    var countAttribute = new MDSS.VisibleAttribute({
-      type: aggregatedCase.CLASS,
-      displayLabel: MDSS.QueryXML.COUNT_FUNCTION,
-      attributeName: aggregatedCase.ID
-    });
-
-    var countCheck = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
-    YAHOO.util.Event.on(countCheck, 'click', this._toggleCount, countAttribute, this);
-    countCheck.id = countAttribute.getKey();
-    this._defaults.push({element:countCheck, checked:false});
-
-    var countSpan = document.createElement('span');
-    countSpan.innerHTML = countAttribute.getDisplayLabel();
-
-    var countDiv = document.createElement('div');
-
-    countDiv.appendChild(countCheck);
-    countDiv.appendChild(countSpan);
-
-    this._queryPanel.addQueryItem({
-      html: countDiv,
-      id: 'globalCount'
-    });
-*/
-
-
 
     /*
      * Age Group

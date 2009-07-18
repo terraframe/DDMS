@@ -200,7 +200,51 @@ MDSS.QueryPanel.prototype = {
 
     ul.appendChild(li);
   },
-
+  
+  clearWhereCriteria : function(key)
+  {
+    var whereValues = document.getElementById(key+"_whereValues");
+    if(whereValues)
+    {
+      whereValues.innerHTML = '';
+    }
+  },
+  
+  /**
+   * Adds a WHERE criteria label to the attribute with
+   * the given key.
+   */
+  addWhereCriteria : function(key, value, display)
+  {
+    var id = key+'-'+value+'-where';
+    var li = document.getElementById(id);
+    if(li)
+    {
+      return;
+    }
+  
+    var whereValues = document.getElementById(key+"_whereValues");
+    li = document.createElement('li');
+    li.id = id;
+    li.innerHTML = display;
+    
+    whereValues.appendChild(li);
+  },
+  
+  /**
+   * Removes a single entry in the WHERE criteria for
+   * an attribute with the given key.
+   */
+  removeWhereCriteria : function(key, value)
+  {
+    var id = key+'-'+value+'-where';
+    var li = document.getElementById(id);
+    if(li)
+    {
+      li.parentNode.removeChild(li);
+    }
+  },
+  
   /**
    * Removes a column from the query summary in
    * the right panel.
@@ -433,6 +477,7 @@ MDSS.QueryPanel.prototype = {
       if(Mojo.util.isFunction(queryItem.menuBuilder))
       {
         this._queryMenuBuilders[queryItem.id] = queryItem.menuBuilder;
+        liE.addClass('contextMenuContainer'); 
       }
     }
 
@@ -1251,14 +1296,14 @@ MDSS.QueryPanel.prototype = {
   {
     var nodeName = oTarget.nodeName.toUpperCase();
 
-    if(nodeName === 'LI')
+    if(YAHOO.util.Dom.hasClass(nodeName, 'contextMenuContainer'))
     {
       return oTarget;
     }
     else
     {
-      // check he nodes parents for a TH
-      var parent = YAHOO.util.Dom.getAncestorByTagName(oTarget, "LI");
+      // check the node's parents for a TH
+      var parent = YAHOO.util.Dom.getAncestorByClassName(oTarget, "contextMenuContainer");
       if(parent != null)
       {
         return parent;
@@ -1315,7 +1360,7 @@ MDSS.QueryPanel.prototype = {
       if(liEntry != null)
       {
         var builder = c.thisRef._queryMenuBuilders[liEntry.id];
-        var menuItems = builder != null ? builder(liEntry) : [];
+        var menuItems = builder != null ? builder(liEntry, cet) : [];
         this.addItems(menuItems);
       }
       else

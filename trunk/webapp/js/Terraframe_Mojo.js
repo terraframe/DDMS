@@ -101,65 +101,65 @@ var Mojo = {
     
     setISO8601 : function (date, string)
     {
-    	if(string === undefined || string === null || string === "")
-    	{
-    	  return;
-    	}
-    	
-        var regexp = "([0-9]{4})(-([0-9]{2})(-([0-9]{2})" +
-            "(T([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?" +
-            "(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?";
-        var d = string.match(new RegExp(regexp));
+      if(!Mojo.util.isString(string) || string === '')
+      {
+        return;
+      }
+      
+      var regexp = "([0-9]{4})(-([0-9]{2})(-([0-9]{2})" +
+          "(T([0-9]{2}):([0-9]{2})(:([0-9]{2})(\.([0-9]+))?)?" +
+          "(Z|(([-+])([0-9]{2}):([0-9]{2})))?)?)?)?";
+      var d = string.match(new RegExp(regexp));
 
-        var offset = 0;
-        var tempDate = new Date(d[1], 0, 1);
+      var offset = 0;
+      var tempDate = new Date(d[1], 0, 1);
 
-        if (d[3]) { tempDate.setMonth(d[3] - 1); }
-        if (d[5]) { tempDate.setDate(d[5]); }
-        if (d[7]) { tempDate.setHours(d[7]); }
-        if (d[8]) { tempDate.setMinutes(d[8]); }
-        if (d[10]) { tempDate.setSeconds(d[10]); }
-        if (d[12]) { tempDate.setMilliseconds(Number("0." + d[12]) * 1000); }
-        if (d[14]) {
-            offset = (Number(d[16]) * 60) + Number(d[17]);
-            offset *= ((d[15] == '-') ? 1 : -1);
-        }
+      if (d[3]) { tempDate.setMonth(d[3] - 1); }
+      if (d[5]) { tempDate.setDate(d[5]); }
+      if (d[7]) { tempDate.setHours(d[7]); }
+      if (d[8]) { tempDate.setMinutes(d[8]); }
+      if (d[10]) { tempDate.setSeconds(d[10]); }
+      if (d[12]) { tempDate.setMilliseconds(Number("0." + d[12]) * 1000); }
+      if (d[14]) {
+          offset = (Number(d[16]) * 60) + Number(d[17]);
+          offset *= ((d[15] == '-') ? 1 : -1);
+      }
 
-        offset -= tempDate.getTimezoneOffset();
-        time = (Number(tempDate) + (offset * 60 * 1000));
-        date.setTime(Number(time));
+      offset -= tempDate.getTimezoneOffset();
+      time = (Number(tempDate) + (offset * 60 * 1000));
+      date.setTime(Number(time));
     },
 
     toISO8601 : function (date)
     {
-        /* 
-           ISO8601 format:
-           Complete date plus hours, minutes, seconds and a decimal
-           fraction of a second
-           YYYY-MM-DDThh:mm:ssZ (eg 1997-07-16T19:20:30.45-0100)
-        */
-        var format = 6;
-        var offset = date.getTimezoneOffset()/60;
-        
-        var tempDate = date;
-           
-        var zeropad = function (num) { return ((num < 10) ? '0' : '') + num; }
+      /* 
+         ISO8601 format:
+         Complete date plus hours, minutes, seconds and a decimal
+         fraction of a second
+         YYYY-MM-DDThh:mm:ssZ (eg 1997-07-16T19:20:30.45-0100)
+      */
+      var format = 6;
+      var offset = date.getTimezoneOffset()/60;
+      
+      var tempDate = date;
+         
+      var zeropad = function (num) { return ((num < 10) ? '0' : '') + num; }
 
-        var str = "";
+      var str = "";
 
-        // Set YYYY
-        str += tempDate.getUTCFullYear();
-        // Set MM
-        str += "-" + zeropad(tempDate.getUTCMonth() + 1);
-        // Set DD
-        str += "-" + zeropad(tempDate.getUTCDate());
-        // Set Thh:mm
-        str += "T" + zeropad(tempDate.getUTCHours()) + ":" + zeropad(tempDate.getUTCMinutes());
-        // Set ss
-        str += ":" + zeropad(tempDate.getUTCSeconds());        
-        // Set TZD
-        str += '-' + zeropad(offset) + '00';
-        return str;
+      // Set YYYY
+      str += tempDate.getUTCFullYear();
+      // Set MM
+      str += "-" + zeropad(tempDate.getUTCMonth() + 1);
+      // Set DD
+      str += "-" + zeropad(tempDate.getUTCDate());
+      // Set Thh:mm
+      str += "T" + zeropad(tempDate.getUTCHours()) + ":" + zeropad(tempDate.getUTCMinutes());
+      // Set ss
+      str += ":" + zeropad(tempDate.getUTCSeconds());        
+      // Set TZD
+      str += '-' + zeropad(offset) + '00';
+      return str;
     },
     
 
@@ -3118,7 +3118,17 @@ Mojo.dto.AttributeBooleanMdDTO.prototype = Mojo.Class.extend(Mojo.dto.AttributeM
   initialize : function(obj)
   {
     Mojo.dto.AttributeMdDTO.prototype.initialize.call(this,obj);
-  }
+    
+    if(obj)
+    {
+      this._positiveDisplayLabel = obj.positiveDisplayLabel;
+      this._negativeDisplayLabel = obj.negativeDisplayLabel;
+    }
+  },
+  
+  getPositiveDisplayLabel : function() { return this._positiveDisplayLabel; },
+
+  getNegativeDisplayLabel : function() { return this._negativeDisplayLabel; }
 });
 
 // struct
