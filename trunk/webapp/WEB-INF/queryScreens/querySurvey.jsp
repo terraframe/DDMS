@@ -16,6 +16,8 @@
 <%@page import="dss.vector.solutions.query.RangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
 <%@page import="dss.vector.solutions.intervention.monitor.SurveyPointDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.HouseholdDTO"%>
+<%@page import="dss.vector.solutions.intervention.monitor.PersonDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicLayerDTO"%>
 <%@page import="dss.vector.solutions.query.LayerViewDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
@@ -29,7 +31,7 @@
   <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-    String[] types = new String[]{SurveyPointDTO.CLASS, EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, LayerViewDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
+    String[] types = new String[]{SurveyPointDTO.CLASS, HouseholdDTO.CLASS, PersonDTO.CLASS, EpiDateDTO.CLASS, ThematicLayerDTO.CLASS, LayerViewDTO.CLASS, ThematicVariableDTO.CLASS, RangeCategoryDTO.CLASS, RangeCategoryController.CLASS, NonRangeCategoryDTO.CLASS, NonRangeCategoryController.CLASS, MappingController.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
     String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 
     out.print(js);
@@ -46,8 +48,10 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
 	var tabs = new YAHOO.widget.TabView("tabSet");
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
+    var householdMenuItems = <%= (String) request.getAttribute("householdMenuItems") %>;
+    var personMenuItems = <%= (String) request.getAttribute("personMenuItems") %>;
 
-    var query = new MDSS.QuerySurvey(queryList);
+    var query = new MDSS.QuerySurvey(queryList, householdMenuItems, personMenuItems);
     query.render();
 
     // attach load listener to Iframe to receive message when error occurs during

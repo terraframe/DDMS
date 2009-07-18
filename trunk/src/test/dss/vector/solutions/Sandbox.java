@@ -50,9 +50,7 @@ public class Sandbox
     //
     // System.out.println(firstIndex+"  "+secondIndex+"  "+relString);
 
-    ClientSession session = ClientSession.createUserSession("MDSS", "mdsstest2", CommonProperties
-        .getDefaultLocale());
-    test(session.getSessionId());
+System.out.println(",2".split(",").length);
 
     //
     // String s =

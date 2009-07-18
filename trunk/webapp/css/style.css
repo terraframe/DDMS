@@ -645,6 +645,11 @@ div.scrollable {
   list-style-position:inside;
   padding-left:3px;
 }
+
+input.queryNumberCriteria {
+  width: 30px;
+}
+
 /*---------------------------------------------------------------*/
 /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
 /*---------------------------------------------------------------*/

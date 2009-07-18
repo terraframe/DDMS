@@ -244,7 +244,7 @@ MDSS.QueryBase.prototype = {
         	   displayValue = query.getAttributeDTO(attr).getAttributeMdDTO().getNegativeDisplayLabel();
         	 }
         	 
-        	 // make sure a meaningful was given (otherwise, the default will be used)
+        	 // make sure a meaningful label was given (otherwise, the default true/false/"" will be used)
         	 if(Mojo.util.isString(displayValue) && displayValue !== '') 
         	 {
         	   value = displayValue;

@@ -42,6 +42,28 @@ public class QueryConfig implements com.terraframe.mojo.generation.loader.Reload
   }
   */
   
+  public boolean has(String key)
+  {
+    return config.has(key);
+  }
+  
+  public boolean isNull(String key)
+  {
+    return config.isNull(key);
+  }
+  
+  public String getString(String key)
+  {
+    try
+    {
+      return config.getString(key);
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+  
   public String[] getSelectedUniversals()
   {
     return (String[]) toArray(String.class, SELECTED_UNIVERSALS);

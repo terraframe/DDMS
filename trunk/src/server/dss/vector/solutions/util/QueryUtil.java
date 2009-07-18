@@ -10,6 +10,7 @@ import org.xml.sax.SAXParseException;
 
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
+import com.terraframe.mojo.generation.loader.Reloadable;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OR;
@@ -38,7 +39,7 @@ import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.query.ThematicVariable;
 import dss.vector.solutions.surveillance.AggregatedCase;
 
-public class QueryUtil
+public class QueryUtil implements Reloadable
 {
 
   /**
