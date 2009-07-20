@@ -43,12 +43,20 @@ public class QueryUtil implements Reloadable
 {
 
   private static final String DATEGROUP_EPIWEEK = "dategroup_epiweek";
-  private static final String DATEGROUP_MONTH = "dategroup_month";
+
+  private static final String DATEGROUP_MONTH   = "dategroup_month";
+
   private static final String DATEGROUP_QUARTER = "dategroup_quarter";
-  private static final String DATEGROUP_YEAR = "dategroup_year";
-  private static final String DATEGROUP_SEASON = "dategroup_season";
-  private static final String START_DATE_RANGE = "start_date_range";
-  private static final String END_DATE_RANGE = "end_date_range";
+
+  private static final String DATEGROUP_YEAR    = "dategroup_year";
+
+  private static final String DATEGROUP_SEASON  = "dategroup_season";
+
+  private static final String START_DATE_RANGE  = "start_date_range";
+
+  private static final String END_DATE_RANGE    = "end_date_range";
+
+  private static final String DATE_REGEX        = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
   /**
    * Joins the ValueQuery with any selected/restricting geo entity information.
@@ -63,9 +71,8 @@ public class QueryUtil implements Reloadable
    * @param selectedUniversals
    * @return
    */
-  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory,
-      ValueQuery valueQuery, String xml, ThematicLayer thematicLayer, boolean includeGeometry,
-      String[] selectedUniversals, String generatedQueryClass, String geoEntityAttribute)
+  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, ThematicLayer thematicLayer, boolean includeGeometry, String[] selectedUniversals, String generatedQueryClass,
+      String geoEntityAttribute)
   {
     ValueQueryParser valueQueryParser;
     Map<String, GeneratedEntityQuery> queryMap;
@@ -102,7 +109,6 @@ public class QueryUtil implements Reloadable
       }
     }
 
-
     if (includeGeometry)
     {
       /*
@@ -120,8 +126,7 @@ public class QueryUtil implements Reloadable
       String attributeName = mdAttrGeo.getAttributeName();
 
       valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName, "", "");
-      valueQueryParser.addAttributeSelectable(thematicLayerType, GeoEntity.ENTITYNAME, "",
-          QueryConstants.ENTITY_NAME_COLUMN);
+      valueQueryParser.addAttributeSelectable(thematicLayerType, GeoEntity.ENTITYNAME, "", QueryConstants.ENTITY_NAME_COLUMN);
 
       queryMap = valueQueryParser.parse();
 
@@ -131,7 +136,7 @@ public class QueryUtil implements Reloadable
       valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
 
       GeneratedEntityQuery generatedEntityQuery = queryMap.get(AggregatedCase.CLASS);
-      valueQuery.AND(((GeoEntityQueryReferenceIF)generatedEntityQuery.aAttribute(geoEntityAttribute)).EQ(allPathsQuery.getChildGeoEntity()));
+      valueQuery.AND( ( (GeoEntityQueryReferenceIF) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
     }
     else
     {
@@ -180,19 +185,18 @@ public class QueryUtil implements Reloadable
         int size = leftJoinSelectables.size();
         if (size > 0)
         {
-          valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(
-              leftJoinSelectables.toArray(new SelectableSingle[size])));
+          valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
         }
 
         GeneratedEntityQuery generatedEntityQuery = queryMap.get(AggregatedCase.CLASS);
-        valueQuery.AND(((GeoEntityQueryReferenceIF)generatedEntityQuery.aAttribute(geoEntityAttribute)).EQ(allPathsQuery.getChildGeoEntity()));
+        valueQuery.AND( ( (GeoEntityQueryReferenceIF) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
       }
     }
 
     return queryMap;
   }
 
-  public static ValueQuery setQueryDates(String xml , ValueQuery valueQuery,  SelectableMoment dateAttribute)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, SelectableMoment dateAttribute)
   {
 
     String da = dateAttribute.getQualifiedName();
@@ -201,9 +205,8 @@ public class QueryUtil implements Reloadable
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_SEASON);
       String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
-      dateGroup.setSQL("SELECT "+MalariaSeason.SEASONNAME+" FROM " + table + " AS ms "
-          + " WHERE ms." + MalariaSeason.STARTDATE + " < " + da
-          + " AND ms." + MalariaSeason.ENDDATE + " > " + da);
+      dateGroup.setSQL("SELECT " + MalariaSeason.SEASONNAME + " FROM " + table + " AS ms "
+      + " WHERE ms." + MalariaSeason.STARTDATE + " < " + da + " AND ms." + MalariaSeason.ENDDATE + " > " + da);
     }
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
@@ -230,102 +233,71 @@ public class QueryUtil implements Reloadable
       dateGroup.setSQL("to_char(" + da + ",'YYYY')");
     }
 
-    if (xml.indexOf(START_DATE_RANGE) > 0)
-    {
-      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(START_DATE_RANGE);
-      dateGroup.setSQL("''");
-      Pattern pattern = Pattern.compile("<operator>GE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
-      Matcher matcher = pattern.matcher(xml);
-      if (matcher.find())
-      {
-        dateGroup.setSQL("'"+matcher.group(1)+"'");
-      }
-    }
-
-    if (xml.indexOf(END_DATE_RANGE) > 0)
-    {
-      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(END_DATE_RANGE);
-      dateGroup.setSQL("''");
-
-      Pattern pattern = Pattern.compile("<operator>LE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
-      Matcher matcher = pattern.matcher(xml);
-      if (matcher.find())
-      {
-        dateGroup.setSQL("'"+matcher.group(1)+"'");
-      }
-    }
-
-    return valueQuery;
-
+    return setQueryDates(xml, valueQuery);
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, String sd, String ed)
   {
+    String intervalNotValid = "INTERVAL NOT VALID";
+
     if (xml.indexOf(DATEGROUP_SEASON) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable(DATEGROUP_SEASON);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_SEASON);
 
       String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
-      dateGroup.setSQL("SELECT "+MalariaSeason.SEASONNAME+" FROM " + table + " AS ms"
-          + " WHERE ms." + MalariaSeason.STARTDATE + " < " + sd
-          + " AND ms." + MalariaSeason.ENDDATE + " > " + ed);
+      dateGroup.setSQL("SELECT " + MalariaSeason.SEASONNAME + " FROM " + table + " AS ms"
+      + " WHERE ms." + MalariaSeason.STARTDATE + " < " + sd + " AND ms." + MalariaSeason.ENDDATE + " > " + ed);
     }
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable("DATEGROUP_EPIWEEK");
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
 
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed
-          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(Day FROM " + sd
-          + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
-          + "THEN to_char(" + sd + ",'IW')" + "ELSE to_char(" + ed + ",'IW') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'"
+      + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
+      + "THEN to_char(" + sd + ",'IW')" + "ELSE to_char(" + ed + ",'IW') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
     if (xml.indexOf(DATEGROUP_MONTH) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable("DATEGROUP_MONTH");
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed
-          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(DAY FROM " + sd
-          + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
-          + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed + ",'MM') END";
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN '" + intervalNotValid + "'"
+      + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
+      + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed + ",'MM') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
     if (xml.indexOf(DATEGROUP_QUARTER) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable(DATEGROUP_QUARTER);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_QUARTER);
 
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed
-          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(DOY FROM " + sd
-          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed
-          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + "THEN to_char(" + sd + ",'Q')"
-          + "ELSE to_char(" + ed + ",'Q') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN '" + intervalNotValid + "'"
+      + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+      + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + "THEN to_char(" + sd + ",'Q')" + "ELSE to_char(" + ed + ",'Q') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
     if (xml.indexOf(DATEGROUP_YEAR) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable(DATEGROUP_YEAR);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed
-          + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(DOY FROM " + sd
-          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
-          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN to_char(" + sd + ",'YYYY')"
-          + "ELSE to_char(" + ed + ",'YYYY') END";
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_YEAR);
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'"
+      + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+      + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
       dateGroup.setSQL(dateGroupSql);
     }
+
+    return setQueryDates(xml, valueQuery);
+  }
+
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery)
+  {
 
     if (xml.indexOf(START_DATE_RANGE) > 0)
     {
       SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(START_DATE_RANGE);
       dateGroup.setSQL("''");
-      Pattern pattern = Pattern
-          .compile("<operator>GE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
+      Pattern pattern = Pattern.compile("<operator>GE</operator>\\n<value>(" + DATE_REGEX + ")</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {
@@ -338,8 +310,7 @@ public class QueryUtil implements Reloadable
       SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(END_DATE_RANGE);
       dateGroup.setSQL("''");
 
-      Pattern pattern = Pattern
-          .compile("<operator>LE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
+      Pattern pattern = Pattern.compile("<operator>LE</operator>\\n<value>(" + DATE_REGEX + ")</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {
