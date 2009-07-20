@@ -37,7 +37,6 @@ import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.ThematicLayer;
 import dss.vector.solutions.query.ThematicVariable;
-import dss.vector.solutions.surveillance.AggregatedCase;
 
 public class QueryUtil implements Reloadable
 {
@@ -135,7 +134,7 @@ public class QueryUtil implements Reloadable
 
       valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
 
-      GeneratedEntityQuery generatedEntityQuery = queryMap.get(AggregatedCase.CLASS);
+      GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
       valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
     }
     else
@@ -188,7 +187,7 @@ public class QueryUtil implements Reloadable
           valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
         }
 
-        GeneratedEntityQuery generatedEntityQuery = queryMap.get(AggregatedCase.CLASS);
+        GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
         valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
       }
     }
