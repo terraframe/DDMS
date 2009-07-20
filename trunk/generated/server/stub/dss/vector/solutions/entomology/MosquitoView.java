@@ -406,9 +406,6 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       String positveLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getPositiveDisplayLabel().getDefaultLocale();
       String negativeLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getNegativeDisplayLabel().getDefaultLocale();
 
-
-      //select += "" + mdClass.getTableName() + ".testresult AS " + acc.toLowerCase() + ",\n";
-
       select +=  "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN 'true'\n";
       select +=  "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN 'false'\n";
       select +=  "ELSE '' END) AS " + result + ",\n";
@@ -421,14 +418,11 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       select +=  "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN '" + negativeLabel + "'\n";
       select +=  "ELSE '' END) AS " + resultLocalized + ",\n";
 
-      // select += "" + mdClass.getTableName() + ".testmethod AS "+acc+",\n";
       select += "(SELECT label.defaultLocale \n";
       select += "FROM " + testResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
       select += "LEFT JOIN " + abstractTermTable + " term ON tm.id = term.id \n";
       select += "LEFT JOIN " + abstractTermDisplayLabelTable + " label ON term.displayLabel = label.id\n";
       select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + methodLocalized + ",\n";
-
-
 
       from += mdClass.getTableName() + ",\n";
       from += MdBusiness.getMdBusiness(AssayTestResult.CLASS).getTableName() + " assaytestresult_" + i + ",\n";
