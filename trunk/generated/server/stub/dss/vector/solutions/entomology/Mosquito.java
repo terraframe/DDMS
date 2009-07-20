@@ -8,7 +8,6 @@ import java.util.Map;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
-import com.terraframe.mojo.query.InnerJoin;
 import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.OIterator;
@@ -140,11 +139,15 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     MosquitoCollectionQuery collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     if (mosquitoQuery != null)
     {
+      //TODO: do from in additation to where
+      valueQuery.FROM(mosquitoQuery);
       valueQuery.WHERE(mosquitoQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
     if (groupQuery != null)
     {
+      //TODO: do from and where
+      valueQuery.FROM(groupQuery);
       valueQuery.WHERE(groupQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
@@ -164,7 +167,7 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
       valueQuery.FROM(dateAttribute.getDefiningTableName(), dateAttribute.getDefiningTableAlias());
       for(Join join: dateAttribute.getJoinStatements())
       {
-        valueQuery.WHERE((InnerJoin) join);
+        //valueQuery.WHERE((InnerJoin) join);
       }
     }
 
@@ -193,6 +196,24 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
        catch (QueryException e){}
 
        String method = acc + "testmethod_defualtLocale";
+       try
+       {
+         SelectableSQL s =  (SelectableSQL) valueQuery.getSelectable(method);
+         s.setSQL(method);
+         joinAssays=true;
+       }
+       catch (QueryException e){}
+
+       result = acc + "";
+       try
+       {
+         SelectableSQL s =  (SelectableSQL) valueQuery.getSelectable(result);
+         s.setSQL(result);
+         joinAssays=true;
+       }
+       catch (QueryException e){}
+
+       method = acc + "testmethod";
        try
        {
          SelectableSQL s =  (SelectableSQL) valueQuery.getSelectable(method);

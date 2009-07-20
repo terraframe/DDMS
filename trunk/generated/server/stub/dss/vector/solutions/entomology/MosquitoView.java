@@ -20,6 +20,7 @@ import com.terraframe.mojo.dataaccess.metadata.MdViewDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.generation.loader.LoaderDecorator;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.system.metadata.MdAttributeBoolean;
 import com.terraframe.mojo.system.metadata.MdAttributeVirtual;
 import com.terraframe.mojo.system.metadata.MdBusiness;
 
@@ -303,6 +304,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       String acc = md.getAttributeName();
       String result = acc.toLowerCase() + "_defaultLocale";
       String method = acc.toLowerCase() + "testmethod_defualtLocale";
+      String type = "sqlcharacter";
 
       String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
       MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
@@ -312,7 +314,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       s += "{";
       s += "viewAccessor:'" + acc + "',";
       s += "attributeName:'" + result + "',";
-      s += "type:'sqlcharacter',";
+      s += "type:'"+type+"',";
       // s += "dtoType:'" + md.getMdAttributeConcrete().getType() + "',";
       s += "displayLabel:'" + md.getMdAttributeConcrete().getDisplayLabel() + "'";
       s += "},\n";
@@ -378,7 +380,7 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
 
   public static String getInfectivityAssayViewSQL()
   {
-    String select = "SELECT mosquito.id AS mosquito_id,";
+    String select = "SELECT mosquito.id AS mosquito_id,\n";
     String from = "FROM  " + MdBusiness.getMdBusiness(Mosquito.CLASS).getTableName() + " mosquito, ";
     String where = "";
     MdAttributeVirtual[] mdArray = MosquitoView.getAccessors(InfectivityAssayTestResult.CLASS);
@@ -387,8 +389,10 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     for (MdAttributeVirtual md : mdArray)
     {
       String acc = md.getAttributeName();
-      String result = acc.toLowerCase() + "_defaultLocale";
-      String method = acc.toLowerCase() + "testmethod_defualtLocale";
+      String result = acc.toLowerCase();
+      String resultLocalized = acc.toLowerCase() + "_defaultLocale";
+      String method = acc.toLowerCase() + "testmethod";
+      String methodLocalized = acc.toLowerCase() + "testmethod_defualtLocale";
 
       String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
       MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
@@ -399,17 +403,32 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       String abstractTermTable = MdBusiness.getMdBusiness(AbstractTerm.CLASS).getTableName();
       String abstractTermDisplayLabelTable = "abstracttermdisplaylabel";
 
-      select += "" + mdClass.getTableName() + ".testresult AS " + result + ",\n";
+      String positveLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getPositiveDisplayLabel().getDefaultLocale();
+      String negativeLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getNegativeDisplayLabel().getDefaultLocale();
 
-      //select += "(SELECT tr.testmethod  \n";
-      //select += "FROM " + testResultTable + " tr LEFT JOIN \n";
-      //select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + acc.toLowerCase() +"testmethodddd ,\n";
 
+      //select += "" + mdClass.getTableName() + ".testresult AS " + acc.toLowerCase() + ",\n";
+
+      select +=  "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN 'true'\n";
+      select +=  "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN 'false'\n";
+      select +=  "ELSE '' END) AS " + result + ",\n";
+
+      select += "(SELECT tr.testmethod  \n";
+      select += "FROM " + testResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method +" ,\n";
+
+      select +=  "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN '" + positveLabel + "'\n";
+      select +=  "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN '" + negativeLabel + "'\n";
+      select +=  "ELSE '' END) AS " + resultLocalized + ",\n";
+
+      // select += "" + mdClass.getTableName() + ".testmethod AS "+acc+",\n";
       select += "(SELECT label.defaultLocale \n";
       select += "FROM " + testResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
       select += "LEFT JOIN " + abstractTermTable + " term ON tm.id = term.id \n";
       select += "LEFT JOIN " + abstractTermDisplayLabelTable + " label ON term.displayLabel = label.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method + ",\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + methodLocalized + ",\n";
+
+
 
       from += mdClass.getTableName() + ",\n";
       from += MdBusiness.getMdBusiness(AssayTestResult.CLASS).getTableName() + " assaytestresult_" + i + ",\n";
@@ -437,9 +456,10 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     for (MdAttributeVirtual md : mdArray)
     {
       String acc = md.getAttributeName();
-      String result = acc.toLowerCase() + "_defaultLocale";
-      String method = acc.toLowerCase() + "testmethod_defualtLocale";
-
+      String result = acc.toLowerCase();
+      String resultLocalized = acc.toLowerCase() + "_defaultLocale";
+      String method = acc.toLowerCase() + "testmethod";
+      String methodLocalized = acc.toLowerCase() + "testmethod_defualtLocale";
       String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
       MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
       MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
@@ -450,20 +470,25 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
       String abstractTermDisplayLabelTable = "abstracttermdisplaylabel";
       String molecularAssayResultTable = MdBusiness.getMdBusiness(MolecularAssayResult.CLASS).getTableName();
 
-      //select += "" + mdClass.getTableName() + ".testresult AS "+acc.toLowerCase()+",\n";
-      //select += "" + mdClass.getTableName() + ".testmethod AS "+acc.toLowerCase()+"testmethod,\n";
+      select += "(SELECT " + mdClass.getTableName() + ".testresult  \n";
+      select += "FROM " + targetSiteTestResultTable + "   tr LEFT JOIN " + molecularAssayResultTable + " mt on " + mdClass.getTableName() + ".testresult = mt.id\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + result +" ,\n";
+
+      select += "(SELECT tr.testmethod  \n";
+      select += "FROM " + targetSiteTestResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method +" ,\n";
 
       select += "(SELECT label.defaultLocale \n";
       select += "FROM " + targetSiteTestResultTable + "   tr LEFT JOIN " + molecularAssayResultTable + " mt on " + mdClass.getTableName() + ".testresult = mt.id\n";
       select += "LEFT JOIN " + abstractTermTable + " term ON mt.id = term.id \n";
       select += "LEFT JOIN " + abstractTermDisplayLabelTable + " label ON term.displayLabel = label.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + result + ",\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + resultLocalized + ",\n";
 
       select += "(SELECT label.defaultLocale \n";
       select += "FROM " + targetSiteTestResultTable + "  tr LEFT JOIN " + testMethodTable + " tm on tr.testmethod = tm.id\n";
       select += "LEFT JOIN " + abstractTermTable + " term ON tm.id = term.id \n";
       select += "LEFT JOIN " + abstractTermDisplayLabelTable + " label ON term.displayLabel = label.id\n";
-      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + method + ",\n";
+      select += "WHERE tr.id = " + mdClass.getTableName() + ".id) AS " + methodLocalized + ",\n";
 
       from += mdClass.getTableName() + ",\n";
       from += "assaytestresult  assaytestresult_" + i + ",\n";
@@ -490,14 +515,24 @@ public class MosquitoView extends MosquitoViewBase implements Reloadable
     for (MdAttributeVirtual md : mdArray)
     {
       String acc = md.getAttributeName();
-      String result = acc.toLowerCase() + "_defaultLocale";
+      String result = acc.toLowerCase() + "";
+      String resultLocalized = acc.toLowerCase() + "_defaultLocale";
 
       String concreteId = md.getValue(MdAttributeVirtualInfo.MD_ATTRIBUTE_CONCRETE);
+
       MdAttributeConcreteDAOIF concrete = MdAttributeConcreteDAO.get(concreteId);
       MdBusinessDAOIF mdClass = MdBusinessDAO.get(concrete.getValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS));
 
-      select += "" + mdClass.getTableName() + ".testResult AS " + result + ",\n";
-      //select += "" + mdClass.getTableName() + ".testResult AS " + acc.toLowerCase() + ",\n";
+      String positveLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getPositiveDisplayLabel().getDefaultLocale();
+      String negativeLabel = ( (MdAttributeBoolean) md.getMdAttributeConcrete() ).getNegativeDisplayLabel().getDefaultLocale();
+
+      select +=  "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN 'true'\n";
+      select +=  "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN 'false'\n";
+      select +=  "ELSE '' END) AS " + result + ",\n";
+
+      select +=  "(CASE WHEN (" + mdClass.getTableName() + ".testresult = 1) THEN '" + positveLabel + "'\n";
+      select +=  "WHEN (" + mdClass.getTableName() + ".testresult = 0) THEN '" + negativeLabel + "'\n";
+      select +=  "ELSE '' END) AS " + resultLocalized + ",\n";
 
       from += mdClass.getTableName() + ", \n";
       from += "assaytestresult  assaytestresult_" + i + ",\n";
