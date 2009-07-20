@@ -191,7 +191,7 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
 
     InsecticideDTO insecticide = new InsecticideDTO(systemRequest);
     insecticide.setActiveIngredient(ingredients[0]);
-    insecticide.setAmount(30);
+    insecticide.setAmount(new Double(30.0));
     insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
     insecticide.apply();
 
@@ -245,7 +245,7 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
 
     InsecticideDTO insecticide = new InsecticideDTO(systemRequest);
     insecticide.setActiveIngredient(ingredients[0]);
-    insecticide.setAmount(30);
+    insecticide.setAmount(new Double(30.0));
     insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
     insecticide.apply();
 
@@ -296,7 +296,7 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
 
     InsecticideDTO insecticide = new InsecticideDTO(systemRequest);
     insecticide.setActiveIngredient(ingredients[0]);
-    insecticide.setAmount(30);
+    insecticide.setAmount(new Double(30.0));
     insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
     insecticide.apply();
 
@@ -335,7 +335,7 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
 
     InsecticideDTO insecticide = new InsecticideDTO(systemRequest);
     insecticide.setActiveIngredient(ingredients[0]);
-    insecticide.setAmount(30);
+    insecticide.setAmount(new Double(30.0));
     insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
     insecticide.apply();
 
@@ -364,7 +364,7 @@ public abstract class EntomologyNoPermissions extends TestCase implements DoNotW
 
     InsecticideDTO insecticide = new InsecticideDTO(systemRequest);
     insecticide.setActiveIngredient(ingredients[0]);
-    insecticide.setAmount(30);
+    insecticide.setAmount(new Double(30.0));
     insecticide.addUnits(UnitDTO.MICROGRAM_PER_LITER);
     insecticide.apply();
 

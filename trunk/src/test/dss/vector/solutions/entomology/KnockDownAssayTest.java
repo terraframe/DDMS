@@ -147,7 +147,7 @@ public class KnockDownAssayTest extends TestCase
 
       insecticide = new Insecticide();
       insecticide.setActiveIngredient(activeIngredient);
-      insecticide.setAmount(40);
+      insecticide.setAmount(new Double(40.0));
       insecticide.addUnits(Unit.PERCENT);
       insecticide.apply();
     }

@@ -65,7 +65,7 @@ public class InsecticideTest extends TestCase
   {
     Insecticide insecticide = new Insecticide();
     insecticide.setActiveIngredient(ingredient);
-    insecticide.setAmount(40);
+    insecticide.setAmount(new Double(40.0));
     insecticide.addUnits(Unit.PERCENT);
     insecticide.apply();
     
@@ -89,7 +89,7 @@ public class InsecticideTest extends TestCase
   {
     Insecticide insecticide = new Insecticide();
     insecticide.setActiveIngredient(ingredient);
-    insecticide.setAmount(40);
+    insecticide.setAmount(new Double(40.0));
     insecticide.addUnits(Unit.PERCENT);
     insecticide.apply();
     
@@ -97,7 +97,7 @@ public class InsecticideTest extends TestCase
     {
       Insecticide insecticide2 = new Insecticide();
       insecticide2.setActiveIngredient(ingredient);
-      insecticide2.setAmount(40);
+      insecticide2.setAmount(new Double(40.0));
       insecticide2.addUnits(Unit.PERCENT);
       insecticide2.apply();      
       
@@ -117,13 +117,13 @@ public class InsecticideTest extends TestCase
   {
     Insecticide insecticide = new Insecticide();
     insecticide.setActiveIngredient(ingredient);
-    insecticide.setAmount(40);
+    insecticide.setAmount(new Double(40.0));
     insecticide.addUnits(Unit.PERCENT);
     insecticide.apply();
 
     Insecticide insecticide2 = new Insecticide();
     insecticide2.setActiveIngredient(ingredient);
-    insecticide2.setAmount(20);
+    insecticide2.setAmount(new Double(20.0));
     insecticide2.addUnits(Unit.PERCENT);
     insecticide2.apply();      
     
@@ -156,13 +156,13 @@ public class InsecticideTest extends TestCase
   {
     Insecticide insecticide = new Insecticide();
     insecticide.setActiveIngredient(ingredient);
-    insecticide.setAmount(40);
+    insecticide.setAmount(new Double(40.0));
     insecticide.addUnits(Unit.PERCENT);
     insecticide.apply();
 
     Insecticide insecticide2 = new Insecticide();
     insecticide2.setActiveIngredient(ingredient);
-    insecticide2.setAmount(40);
+    insecticide2.setAmount(new Double(40.0));
     insecticide2.addUnits(Unit.MILLIGRAM_PER_LITER);
     insecticide2.apply();      
     
@@ -195,13 +195,13 @@ public class InsecticideTest extends TestCase
   {
     Insecticide insecticide = new Insecticide();
     insecticide.setActiveIngredient(ingredient);
-    insecticide.setAmount(40);
+    insecticide.setAmount(new Double(40.0));
     insecticide.addUnits(Unit.PERCENT);
     insecticide.apply();
 
     Insecticide insecticide2 = new Insecticide();
     insecticide2.setActiveIngredient(ingredient2);
-    insecticide2.setAmount(40);
+    insecticide2.setAmount(new Double(40.0));
     insecticide2.addUnits(Unit.PERCENT);
     insecticide2.apply();      
     

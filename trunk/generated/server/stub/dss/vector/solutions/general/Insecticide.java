@@ -29,7 +29,7 @@ public class Insecticide extends InsecticideBase implements
     return this.getId();
   }
   
-  public static Insecticide get(String activeIngredient, String unit, Integer amount)
+  public static Insecticide get(String activeIngredient, String unit, Double amount)
   {
     InsecticideQuery insecticideQuery = new InsecticideQuery(new QueryFactory());
     insecticideQuery.WHERE(insecticideQuery.getActiveIngredient().EQ(activeIngredient));

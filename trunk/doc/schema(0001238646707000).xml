@@ -3018,12 +3018,14 @@
             label="Active Ingredient"
             type="dss.vector.solutions.mo.ActiveIngredient"
             required="true" />
-          <integer
+          <double
             name="amount"
             label="Concentration"
             rejectZero="true"
             rejectNegative="true"
-            required="true" />
+            required="true"
+            length="15"
+            decimal="4" />
           <enumeration
             name="units"
             label="Units"
