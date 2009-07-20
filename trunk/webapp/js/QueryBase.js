@@ -92,7 +92,7 @@ MDSS.QueryBase.prototype = {
     //var group = check.value;
     if(check.checked)
     {
-      var attribute = new MDSS.QueryXML.Sqlcharacter('', group, group);
+      var attribute = new MDSS.QueryXML.Sqlcharacter('', group , group.toLowerCase());
 	    var selectable = new MDSS.QueryXML.Selectable(attribute);
       this._dateGroupSelectables[group] = selectable;
       this._queryPanel.insertColumn({
@@ -233,23 +233,23 @@ MDSS.QueryBase.prototype = {
         	 value = MDSS.Calendar.getLocalizedString(value);
          }
          if(dto.dtoType === 'AttributeBooleanDTO'){
-        	  
+
         	 var displayValue = null;
         	 if(value === true)
-        	 { 
+        	 {
         	   displayValue = query.getAttributeDTO(attr).getAttributeMdDTO().getPositiveDisplayLabel();
         	 }
         	 else
         	 {
         	   displayValue = query.getAttributeDTO(attr).getAttributeMdDTO().getNegativeDisplayLabel();
         	 }
-        	 
+
         	 // make sure a meaningful label was given (otherwise, the default true/false/"" will be used)
-        	 if(Mojo.util.isString(displayValue) && displayValue !== '') 
+        	 if(Mojo.util.isString(displayValue) && displayValue !== '')
         	 {
         	   value = displayValue;
         	 }
-        	   
+
         	 //value = this._visibleSelectables[dto.attributeName].attribute._whereValues.filter(function(v){return v.uuid == value.toString();})[0].text;
          }
 
@@ -295,23 +295,23 @@ MDSS.QueryBase.prototype = {
 
   	YAHOO.util.Event.on(this._queryPanel._startDateRangeCheck, 'click', this.toggleDates, 'START_DATE_RANGE', this);
   	YAHOO.util.Event.on(this._queryPanel._endDateRangeCheck, 'click', this.toggleDates, 'END_DATE_RANGE', this);
-  	
+
     // set the default for the date searching
     var startDate = this._queryPanel.getStartDate();
     var startCheck = this._queryPanel.getStartDateCheck();
     var endDate = this._queryPanel.getEndDate();
     var endCheck = this._queryPanel.getEndDateCheck();
-    
+
     this._defaults.push({element: startCheck, checked:false});
     this._defaults.push({element: endCheck, checked:false});
     this._defaults.push({element: startDate, value: ''});
     this._defaults.push({element: endDate, value: ''});
 
     this._customPostRender();
-    
+
     this._loadDefaultSearch();
   },
-  
+
   _customPostRender : function()
   {
     // A subclass should override this method to perform
@@ -339,7 +339,7 @@ MDSS.QueryBase.prototype = {
   	var check = e.target;
     if(check.checked)
     {
-      var attribute = new MDSS.QueryXML.Sqldate('', range, range);
+      var attribute = new MDSS.QueryXML.Sqldate('', range, range.toLowerCase());
 	    var selectable = new MDSS.QueryXML.Selectable(attribute);
       this._dateGroupSelectables[range] = selectable;
       this._queryPanel.insertColumn({
@@ -1315,7 +1315,7 @@ MDSS.AbstractAttribute.prototype = {
   {
     return this._key;
   },
-  
+
   setKey : function(key)
   {
     this._key = key;
@@ -1340,7 +1340,7 @@ MDSS.AbstractAttribute.prototype = {
   {
     return this._attributeName;
   },
-  
+
   getDisplayLabel : function()
   {
     return this._displayLabel;
@@ -1357,7 +1357,7 @@ MDSS.AbstractAttribute.prototype = {
       label: this._displayLabel
     };
   },
-  
+
   /**
    * Returns a basic selectable object that represents this
    * attribute.
@@ -1369,7 +1369,7 @@ MDSS.AbstractAttribute.prototype = {
     {
       attrName = attrName + '.displayLabel.currentValue';
     }
-  
+
     var attribute;
     if(asClass != null)
     {
