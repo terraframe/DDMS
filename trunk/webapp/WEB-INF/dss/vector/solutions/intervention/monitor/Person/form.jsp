@@ -10,7 +10,7 @@
       <mjl:input param="concreteId" type="hidden" value="${item.concreteId}" />
       <mjl:input param="household" type="hidden" value="${item.household.id}" />
       <mjl:dt attribute="personId">
-        <mjl:input type="text" param="personId"  id="personId"/><a href="#" id="getUniqueId">Get_Unique_Id</a>
+        <mjl:input type="text" param="personId"  id="personId"/><a href="#" id="getUniqueId"> <fmt:message key="Get_Unique_Id"/> </a>
       </mjl:dt>
       <mjl:dt attribute="dob">
         <mjl:input type="text" param="dob" id="dob" classes="DatePick NoFuture" />

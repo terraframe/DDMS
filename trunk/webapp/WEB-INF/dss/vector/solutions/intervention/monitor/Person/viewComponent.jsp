@@ -1,5 +1,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <c:set var="page_title" value="View_Person"  scope="request"/>
 <mjl:messages>
   <mjl:message />
@@ -97,7 +99,10 @@
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.PersonController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Person.form.edit.button" />
   </dl>
 </mjl:form>
-<mjl:commandLink display="Back_To_Household" action="dss.vector.solutions.intervention.monitor.HouseholdController.view.mojo" name="Household.view.link">
+
+<mjl:commandLink action="dss.vector.solutions.intervention.monitor.HouseholdController.view.mojo" name="Household.view.link">
+  <fmt:message key="Back_To_Household"/>
   <mjl:property name="id" value="${item.household.id}" />
 </mjl:commandLink>
+
 <div id="cal1Container" class="yui-skin-sam"></div>

@@ -124,6 +124,7 @@
     <mjl:property name="householdId" value="${item.id}"/>
   </mjl:commandLink>
 </dl>
-<mjl:commandLink display="Back_To_Survey_Point" action="dss.vector.solutions.intervention.monitor.SurveyPointController.view.mojo" name="Household.view.link">
+<mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyPointController.view.mojo" name="Household.view.link">
+  <fmt:message key="Back_To_Survey_Point"/>
   <mjl:property name="id" value="${item.surveyPoint.id}" />
 </mjl:commandLink>
