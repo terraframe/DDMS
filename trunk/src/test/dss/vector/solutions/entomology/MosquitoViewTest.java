@@ -88,15 +88,15 @@ public class MosquitoViewTest extends TestCase
     String sql = "";
 
     sql = MosquitoView.getTempTableSQL(InfectivityAssayTestResult.CLASS,"test");
-    System.out.println(sql);
+    //System.out.println(sql);
     Database.parseAndExecute(sql);
 
     sql = MosquitoView.getTempTableSQL(TargetSiteAssayTestResult.CLASS,"test");
-    System.out.println(sql);
+    //System.out.println(sql);
     Database.parseAndExecute(sql);
 
     sql = MosquitoView.getTempTableSQL(MetabolicAssayTestResult.CLASS,"test");
-    System.out.println(sql);
+    //System.out.println(sql);
     Database.parseAndExecute(sql);
 
   }
