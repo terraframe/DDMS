@@ -173,8 +173,16 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      	var t =  selectable.attribute.getType();
 	      	var n = selectable.attribute.getAttributeName().replace(/.displayLabel.currentValue/,'');
 	      	var k = selectable.attribute.getKey().replace(/.displayLabel.currentValue/,'');
-	        var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
-
+	      	if(t == 'sqlcharacter')
+	      	{
+		      	n = selectable.attribute.getAttributeName().replace(/_defaultLocale/,'');
+		      	k = selectable.attribute.getKey().replace(/_defaultLocale/,'');
+	      		var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', n, k));
+	      	}
+	      	else
+	      	{
+	      		var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
+	      	}
 	        //add entity for assay if this selectable is an assay
 	        if(t.indexOf('.assay.') > 0 )
 	        {
