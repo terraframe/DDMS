@@ -4,6 +4,7 @@ import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.entomology.assay.Unit;
+import dss.vector.solutions.mo.ActiveIngredient;
 
 public class Insecticide extends InsecticideBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -31,9 +32,12 @@ public class Insecticide extends InsecticideBase implements
   
   public static Insecticide get(String activeIngredient, String unit, Double amount)
   {
+    ActiveIngredient ingredient = ActiveIngredient.validateByDisplayLabel(activeIngredient);
+    Unit u = getUnitByLabel(unit);
+
     InsecticideQuery insecticideQuery = new InsecticideQuery(new QueryFactory());
-    insecticideQuery.WHERE(insecticideQuery.getActiveIngredient().EQ(activeIngredient));
-    insecticideQuery.WHERE(insecticideQuery.getUnits().containsExactly(getUnitByLabel(unit)));
+    insecticideQuery.WHERE(insecticideQuery.getActiveIngredient().EQ(ingredient));
+    insecticideQuery.WHERE(insecticideQuery.getUnits().containsExactly(u));
     insecticideQuery.WHERE(insecticideQuery.getAmount().EQ(amount));
     
     OIterator<? extends Insecticide> iterator = insecticideQuery.getIterator();

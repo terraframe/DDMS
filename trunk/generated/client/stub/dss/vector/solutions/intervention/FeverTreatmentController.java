@@ -10,6 +10,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class FeverTreatmentController extends FeverTreatmentControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -66,9 +67,25 @@ public class FeverTreatmentController extends FeverTreatmentControllerBase imple
 
   public void edit(String id) throws IOException, ServletException
   {
-    FeverTreatmentDTO dto = FeverTreatmentDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    try
+    {
+      FeverTreatmentDTO dto = FeverTreatmentDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -118,13 +135,9 @@ public class FeverTreatmentController extends FeverTreatmentControllerBase imple
 
   public void view(String id) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", id);
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", FeverTreatmentDTO.get(clientRequest, id));
@@ -165,13 +178,7 @@ public class FeverTreatmentController extends FeverTreatmentControllerBase imple
 
   public void viewAll() throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".viewAll.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
-      return;
-    }
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
     FeverTreatmentQueryDTO query = FeverTreatmentDTO.getAllInstances(clientRequest, null, true, 20, 1);

@@ -12,6 +12,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class NetController extends NetControllerBase implements Reloadable
 {
@@ -33,15 +34,9 @@ public class NetController extends NetControllerBase implements Reloadable
 
   public void view(NetDTO dto) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(this.getClass().getName() + ".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".view.mojo");
-      path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + dto.getId());
-
-      resp.sendRedirect(path);
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     this.setupRequest();
 
@@ -56,10 +51,26 @@ public class NetController extends NetControllerBase implements Reloadable
 
   public void edit(String id) throws IOException, ServletException
   {
-    NetDTO dto = NetDTO.lock(super.getClientRequest(), id);
-    this.setupRequest();
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    try
+    {
+      NetDTO dto = NetDTO.lock(super.getClientRequest(), id);
+      this.setupRequest();
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -136,13 +147,7 @@ public class NetController extends NetControllerBase implements Reloadable
 
   public void viewAll() throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".viewAll.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
-      return;
-    }
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
     NetQueryDTO query = NetDTO.getAllInstances(clientRequest, null, true, 20, 1);

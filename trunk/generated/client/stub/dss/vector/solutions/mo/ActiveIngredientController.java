@@ -1,5 +1,7 @@
 package dss.vector.solutions.mo;
 
+import dss.vector.solutions.util.RedirectUtility;
+
 public class ActiveIngredientController extends ActiveIngredientControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
 {
   public static final String JSP_DIR = "/WEB-INF/dss/vector/solutions/mo/ActiveIngredient/";
@@ -14,13 +16,9 @@ public class ActiveIngredientController extends ActiveIngredientControllerBase i
   
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", id);
+    utility.checkURL(this.getClass().getSimpleName(), "view");
     
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", dss.vector.solutions.mo.ActiveIngredientDTO.get(clientRequest, id));
@@ -69,13 +67,7 @@ public class ActiveIngredientController extends ActiveIngredientControllerBase i
   }
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    if (!req.getRequestURI().contains(".viewAll.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
-      return;
-    }
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
     
     com.terraframe.mojo.constants.ClientRequestIF clientRequest = super.getClientRequest();
     dss.vector.solutions.mo.ActiveIngredientQueryDTO query = dss.vector.solutions.mo.ActiveIngredientDTO.getAllInstances(clientRequest, null, true, 20, 1);

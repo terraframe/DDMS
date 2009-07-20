@@ -10,6 +10,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class TreatmentGridController extends TreatmentGridControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -20,8 +21,7 @@ public class TreatmentGridController extends TreatmentGridControllerBase impleme
 
   private static final long  serialVersionUID = 1243484795492L;
 
-  public TreatmentGridController(HttpServletRequest req, HttpServletResponse resp,
-      Boolean isAsynchronous)
+  public TreatmentGridController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -79,6 +79,8 @@ public class TreatmentGridController extends TreatmentGridControllerBase impleme
 
   public void viewAll() throws IOException, ServletException
   {
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
+
     ClientRequestIF clientRequest = super.getClientRequest();
     TreatmentGridQueryDTO query = TreatmentGridDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
@@ -120,6 +122,14 @@ public class TreatmentGridController extends TreatmentGridControllerBase impleme
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
       throws IOException, ServletException
   {
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("sortAttriubte", sortAttribute);
+    utility.put("isAscending", isAscending);
+    utility.put("pageSize", pageSize);
+    utility.put("pageNumber", pageNumber);    
+
+    utility.checkURL(this.getClass().getSimpleName(), "viewPage");
+
     ClientRequestIF clientRequest = super.getClientRequest();
     TreatmentGridQueryDTO query = TreatmentGridDTO.getAllInstances(clientRequest, sortAttribute,
         isAscending, pageSize, pageNumber);
@@ -135,24 +145,11 @@ public class TreatmentGridController extends TreatmentGridControllerBase impleme
 
   public void view(String id) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {      
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      path = path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id;      
-      
-      path = ErrorUtility.prepareURL(path, req, false);
-      
-      resp.sendRedirect(path);
-      return;
-    }
-    
-    String message = req.getParameter(ErrorUtility.ERROR_MESSAGE);
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", id);
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    System.out.println(message);
-
-    ClientRequestIF clientRequest = super.getClientRequest();
-    req.setAttribute("item", TreatmentGridDTO.get(clientRequest, id));
+    req.setAttribute("item", TreatmentGridDTO.get(super.getClientRequest(), id));
     render("viewComponent.jsp");
   }
 
@@ -192,9 +189,9 @@ public class TreatmentGridController extends TreatmentGridControllerBase impleme
   {
     try
     {
-    TreatmentGridDTO dto = TreatmentGridDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+      TreatmentGridDTO dto = TreatmentGridDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
     {

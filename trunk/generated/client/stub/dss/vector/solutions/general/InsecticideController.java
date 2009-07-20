@@ -14,6 +14,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 import dss.vector.solutions.entomology.assay.UnitDTO;
 import dss.vector.solutions.mo.ActiveIngredientDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class InsecticideController extends InsecticideControllerBase implements Reloadable
 {
@@ -23,8 +24,7 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   private static final long  serialVersionUID = 1237396167095L;
 
-  public InsecticideController(HttpServletRequest req, HttpServletResponse resp,
-      Boolean isAsynchronous)
+  public InsecticideController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -58,30 +58,26 @@ public class InsecticideController extends InsecticideControllerBase implements 
     render("createComponent.jsp");
   }
 
-  public void viewPage(String sortAttribute, Boolean isAscending,
-      Integer pageSize, Integer pageNumber) throws IOException, ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+      throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    InsecticideQueryDTO query = InsecticideDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    InsecticideQueryDTO query = InsecticideDTO.getAllInstances(clientRequest, sortAttribute,
+        isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber)
+      throws IOException, ServletException
   {
     resp.sendError(500);
   }
 
   public void viewAll() throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".viewAll.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
-      return;
-    }
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
     InsecticideQueryDTO query = InsecticideDTO.getAllInstances(clientRequest, null, true, 20, 1);
@@ -181,13 +177,9 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public void view(String id) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", id);
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     this.setupRequest();
     req.setAttribute("item", InsecticideDTO.get(super.getClientRequest(), id));
@@ -202,11 +194,27 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public void edit(String id) throws IOException, ServletException
   {
-    this.setupRequest();
-    
-    req.setAttribute("item", InsecticideDTO.lock(super.getClientRequest(), id));
+    try
+    {
+      this.setupRequest();
 
-    render("editComponent.jsp");
+      req.setAttribute("item", InsecticideDTO.lock(super.getClientRequest(), id));
+
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException

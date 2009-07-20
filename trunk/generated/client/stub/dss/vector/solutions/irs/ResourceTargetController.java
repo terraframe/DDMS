@@ -14,6 +14,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 // TODO: delete unused methods from metadata
 
@@ -34,6 +35,8 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
   public void viewAll() throws IOException, ServletException
   {
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
+
     ClientRequestIF request = super.getClientSession().getRequest();
 
     req.setAttribute("sprayTeams", new LinkedList<SprayTeamDTO>());

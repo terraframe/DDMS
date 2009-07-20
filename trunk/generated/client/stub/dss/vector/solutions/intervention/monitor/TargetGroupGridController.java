@@ -11,6 +11,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class TargetGroupGridController extends TargetGroupGridControllerBase implements Reloadable
 {
@@ -95,15 +96,8 @@ public class TargetGroupGridController extends TargetGroupGridControllerBase imp
 
   public void viewAll() throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(this.getClass().getName() + ".viewAll.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".viewAll.mojo");
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
-      resp.sendRedirect(path);
-      return;
-    }
-    
     ClientRequestIF clientRequest = super.getClientRequest();
     TargetGroupGridQueryDTO query = TargetGroupGridDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
@@ -144,16 +138,10 @@ public class TargetGroupGridController extends TargetGroupGridControllerBase imp
 
   public void view(String id) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(this.getClass().getName() + ".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".view.mojo");
-      path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + id);
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", id);
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
-      resp.sendRedirect(path);
-      return;
-    }
-    
     ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", TargetGroupGridDTO.get(clientRequest, id));
     render("viewComponent.jsp");
@@ -193,9 +181,25 @@ public class TargetGroupGridController extends TargetGroupGridControllerBase imp
 
   public void edit(String id) throws IOException, ServletException
   {
-    TargetGroupGridDTO dto = TargetGroupGridDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    try
+    {
+      TargetGroupGridDTO dto = TargetGroupGridDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException

@@ -15,15 +15,19 @@ import dss.vector.solutions.intervention.RDTResultDTO;
 import dss.vector.solutions.intervention.ResponseMasterDTO;
 import dss.vector.solutions.surveillance.TreatmentGridDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
-public class PersonController extends PersonControllerBase implements com.terraframe.mojo.generation.loader.Reloadable
+public class PersonController extends PersonControllerBase implements
+    com.terraframe.mojo.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/intervention/monitor/Person/";
-  public static final String LAYOUT = "/layout.jsp";
+  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/intervention/monitor/Person/";
 
-  private static final long serialVersionUID = 1239641308081L;
+  public static final String LAYOUT           = "/layout.jsp";
 
-  public PersonController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  private static final long  serialVersionUID = 1239641308081L;
+
+  public PersonController(javax.servlet.http.HttpServletRequest req,
+      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -49,13 +53,9 @@ public class PersonController extends PersonControllerBase implements com.terraf
 
   public void view(PersonViewDTO person) throws java.io.IOException, javax.servlet.ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", "PersonController");
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + person.getConcreteId());
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", person.getConcreteId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     req.setAttribute("item", person);
     req.setAttribute("page_title", "View Person");
@@ -64,18 +64,34 @@ public class PersonController extends PersonControllerBase implements com.terraf
 
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    //This should never happen
+    // This should never happen
     this.viewAll();
   }
 
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    PersonViewDTO dto = PersonDTO.lockView(super.getClientRequest(), id);
+    try
+    {
+      PersonViewDTO dto = PersonDTO.lockView(super.getClientRequest(), id);
 
-    this.setupRequest();
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit Person");
-    render("editComponent.jsp");
+      this.setupRequest();
+      req.setAttribute("item", dto);
+      req.setAttribute("page_title", "Edit Person");
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -187,18 +203,19 @@ public class PersonController extends PersonControllerBase implements com.terraf
     render("createComponent.jsp");
   }
 
-  public void failNewInstance(String householdId) throws java.io.IOException, javax.servlet.ServletException
+  public void failNewInstance(String householdId) throws java.io.IOException,
+      javax.servlet.ServletException
   {
     new HouseholdController(req, resp, isAsynchronous).view(householdId);
   }
-  
+
   private void setupRequest()
   {
     ClientRequestIF request = super.getClientSession().getRequest();
     List<TreatmentGridDTO> drugs = Arrays.asList(TreatmentGridDTO.getAll(request));
     List<FeverTreatmentDTO> treatments = Arrays.asList(FeverTreatmentDTO.getAllActive(request));
     List<ResponseMasterDTO> response = FeverResponseDTO.allItems(request);
-    
+
     req.setAttribute("anaemiaTreatment", drugs);
     req.setAttribute("bloodslide", BloodslideResponseDTO.allItems(request));
     req.setAttribute("fever", response);

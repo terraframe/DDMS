@@ -10,6 +10,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -43,7 +44,8 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
       throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest,
+        sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
@@ -148,9 +150,25 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
 
   public void edit(String id) throws IOException, ServletException
   {
-    AggregatedAgeGroupDTO dto = AggregatedAgeGroupDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    try
+    {
+      AggregatedAgeGroupDTO dto = AggregatedAgeGroupDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -160,8 +178,11 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
 
   public void viewAll() throws IOException, ServletException
   {
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
+
     ClientRequestIF clientRequest = super.getClientRequest();
-    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, null, true,
+        20, 1);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
@@ -173,13 +194,9 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
 
   public void view(String id) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + id);
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", id);
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", AggregatedAgeGroupDTO.get(clientRequest, id));

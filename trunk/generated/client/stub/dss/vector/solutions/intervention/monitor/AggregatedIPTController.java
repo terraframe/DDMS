@@ -19,6 +19,7 @@ import dss.vector.solutions.surveillance.RequiredPeriodProblemDTO;
 import dss.vector.solutions.surveillance.RequiredPeriodTypeProblemDTO;
 import dss.vector.solutions.surveillance.RequiredYearProblemDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class AggregatedIPTController extends AggregatedIPTControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -132,11 +133,27 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
 
   public void edit(String id) throws IOException, ServletException
   {
-    AggregatedIPTViewDTO dto = AggregatedIPTDTO.lockView(super.getClientRequest(), id);
+    try
+    {
+      AggregatedIPTViewDTO dto = AggregatedIPTDTO.lockView(super.getClientRequest(), id);
 
-    this.prepareRelationships(dto);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+      this.prepareRelationships(dto);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -176,15 +193,9 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
 
   public void view(AggregatedIPTViewDTO dto) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(this.getClass().getName() + ".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".view.mojo");
-      path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + dto.getConcreteId());
-
-      resp.sendRedirect(path);
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getConcreteId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     this.prepareRelationships(dto);
     req.setAttribute("item", dto);

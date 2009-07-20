@@ -9,6 +9,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class HouseholdController extends HouseholdControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -51,10 +52,10 @@ public class HouseholdController extends HouseholdControllerBase implements
       javax.servlet.ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    
+
     req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
     req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
-    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));    
+    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Create Households");
     req.setAttribute("nets", Arrays.asList(nets));
@@ -90,7 +91,7 @@ public class HouseholdController extends HouseholdControllerBase implements
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
     req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
     req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
-    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));    
+    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
     req.setAttribute("item", dto);
     req.setAttribute("nets", Arrays.asList(dto.getHouseholdNets()));
     req.setAttribute("page_title", "Edit Households");
@@ -105,15 +106,9 @@ public class HouseholdController extends HouseholdControllerBase implements
   public void view(HouseholdDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     // go back to household view after entering person
-    String uri = req.getRequestURI();
-    
-    if (!uri.contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", "HouseholdController");
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     req.setAttribute("item", dto);
     req.setAttribute("people", dto.getAllPersons());
@@ -209,7 +204,7 @@ public class HouseholdController extends HouseholdControllerBase implements
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
     req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
     req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
-    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));    
+    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Update Households");
     req.setAttribute("nets", Arrays.asList(nets));
@@ -219,7 +214,22 @@ public class HouseholdController extends HouseholdControllerBase implements
 
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    edit(HouseholdDTO.lock(super.getClientRequest(), id));
+    try
+    {
+      edit(HouseholdDTO.lock(super.getClientRequest(), id));
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
   }
 
   private void edit(HouseholdDTO dto) throws IOException, ServletException
@@ -227,7 +237,7 @@ public class HouseholdController extends HouseholdControllerBase implements
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
     req.setAttribute("windowType", WindowTypeDTO.allItems(clientRequest));
     req.setAttribute("walls", Arrays.asList(WallViewDTO.getAll(clientRequest)));
-    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));    
+    req.setAttribute("roofs", Arrays.asList(RoofViewDTO.getAll(clientRequest)));
     req.setAttribute("nets", Arrays.asList(HouseholdDTO.getHouseholdNets(clientRequest, dto.getId())));
     req.setAttribute("item", dto);
     req.setAttribute("page_title", "Edit Households");
@@ -241,14 +251,8 @@ public class HouseholdController extends HouseholdControllerBase implements
 
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
-    if (!req.getRequestURI().contains(".viewAll.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
-      return;
-    }
-    
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
+
     ClientRequestIF clientRequest = super.getClientRequest();
     HouseholdQueryDTO query = HouseholdDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);

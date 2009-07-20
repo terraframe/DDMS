@@ -21,6 +21,7 @@ import com.terraframe.mojo.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class TeamSprayController extends TeamSprayControllerBase implements Reloadable
 {
@@ -102,14 +103,9 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
   public void view(TeamSprayViewDTO dto) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id="
-          + dto.getSprayId());
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getSprayId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     // FIXME: This is a hack to ensure the dto is dirty when its sent back to
     // the server. Remove when nathan has submitted his fix.
@@ -134,7 +130,8 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     {
       PersonDTO person = operator.getPerson();
       String key = operator.getId();
-      String label = operator.getOperatorId() + " - " + person.getFirstName() + ", " + person.getLastName();
+      String label = operator.getOperatorId() + " - " + person.getFirstName() + ", "
+          + person.getLastName();
 
       map.put(key, label);
     }
@@ -150,12 +147,28 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
   public void edit(String id) throws IOException, ServletException
   {
-    TeamSprayViewDTO dto = TeamSprayDTO.lockView(super.getClientRequest(), id);
+    try
+    {
+      TeamSprayViewDTO dto = TeamSprayDTO.lockView(super.getClientRequest(), id);
 
-    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
-    req.setAttribute("operators", getTeamMembers(dto.getSprayTeam()));
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+      req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+      req.setAttribute("operators", getTeamMembers(dto.getSprayTeam()));
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException

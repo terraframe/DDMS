@@ -22,6 +22,7 @@ import dss.vector.solutions.surveillance.RequiredPeriodProblemDTO;
 import dss.vector.solutions.surveillance.RequiredPeriodTypeProblemDTO;
 import dss.vector.solutions.surveillance.RequiredYearProblemDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class ITNDataController extends ITNDataControllerBase implements Reloadable
 {
@@ -43,15 +44,9 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
 
   public void view(ITNDataViewDTO dto) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(this.getClass().getName() + ".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".view.mojo");
-      path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + dto.getConcreteId());
-
-      resp.sendRedirect(path);
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getConcreteId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     this.prepareRelationships(dto);
     req.setAttribute("item", dto);
@@ -105,7 +100,8 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     render("editComponent.jsp");
   }
 
-  public void create(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups, ITNServiceDTO[] services) throws IOException, ServletException
+  public void create(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups,
+      ITNServiceDTO[] services) throws IOException, ServletException
   {
     try
     {
@@ -126,7 +122,8 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     }
   }
 
-  public void failCreate(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups, ITNServiceDTO[] services) throws IOException, ServletException
+  public void failCreate(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups,
+      ITNServiceDTO[] services) throws IOException, ServletException
   {
     this.prepareRelationships(services, targetGroups, nets);
 
@@ -134,7 +131,8 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     render("createComponent.jsp");
   }
 
-  public void update(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups, ITNServiceDTO[] services) throws IOException, ServletException
+  public void update(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups,
+      ITNServiceDTO[] services) throws IOException, ServletException
   {
     try
     {
@@ -155,10 +153,11 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     }
   }
 
-  public void failUpdate(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups, ITNServiceDTO[] services) throws IOException, ServletException
+  public void failUpdate(ITNDataViewDTO dto, ITNNetDTO[] nets, ITNTargetGroupDTO[] targetGroups,
+      ITNServiceDTO[] services) throws IOException, ServletException
   {
     this.prepareRelationships(services, targetGroups, nets);
-    
+
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -193,11 +192,27 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
 
   public void edit(String id) throws IOException, ServletException
   {
-    ITNDataViewDTO dto = ITNDataDTO.lockView(super.getClientRequest(), id);
+    try
+    {
+      ITNDataViewDTO dto = ITNDataDTO.lockView(super.getClientRequest(), id);
 
-    this.prepareRelationships(dto);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+      this.prepareRelationships(dto);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -216,7 +231,8 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
       PeriodTypeDTO type = PeriodTypeDTO.valueOf(periodType);
       GeoEntityDTO geoEntity = GeoEntityDTO.searchByGeoId(this.getClientRequest(), geoId);
 
-      ITNDataViewDTO dto = ITNDataDTO.searchByGeoEntityAndEpiDate(request, geoEntity, type, period, year);
+      ITNDataViewDTO dto = ITNDataDTO
+          .searchByGeoEntityAndEpiDate(request, geoEntity, type, period, year);
 
       String jsp = "createComponent.jsp";
 

@@ -15,6 +15,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class GeoTargetController extends GeoTargetControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -106,6 +107,8 @@ public class GeoTargetController extends GeoTargetControllerBase implements
 
   public void viewAll() throws IOException, ServletException
   {
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
+
     ClientRequestIF request = super.getClientSession().getRequest();
 
     req.setAttribute("seasons", Arrays.asList(MalariaSeasonDTO.getAll(request)));

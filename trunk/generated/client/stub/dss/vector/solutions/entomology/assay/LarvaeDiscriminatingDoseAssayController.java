@@ -19,8 +19,10 @@ import dss.vector.solutions.mo.LarvaeAgeDTO;
 import dss.vector.solutions.mo.ResistanceMethodologyDTO;
 import dss.vector.solutions.mo.SpecieDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
-public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatingDoseAssayControllerBase implements Reloadable
+public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatingDoseAssayControllerBase
+    implements Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/entomology/assay/LarvaeDiscriminatingDoseAssay/";
 
@@ -36,11 +38,28 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
   public void edit(String id) throws IOException, ServletException
   {
-    LarvaeDiscriminatingDoseAssayDTO dto = LarvaeDiscriminatingDoseAssayDTO.lock(super.getClientRequest(), id);
-    this.setupRequest();
-    req.setAttribute("item", dto);
+    try
+    {
+      LarvaeDiscriminatingDoseAssayDTO dto = LarvaeDiscriminatingDoseAssayDTO.lock(super
+          .getClientRequest(), id);
+      this.setupRequest();
+      req.setAttribute("item", dto);
 
-    render("editComponent.jsp");
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -52,7 +71,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   {
     ClientRequestIF clientRequest = super.getClientRequest();
     LarvaeDiscriminatingDoseAssayDTO dto = new LarvaeDiscriminatingDoseAssayDTO(clientRequest);
-    
+
     if (req.getParameter("collection_id") != null)
     {
       dto.setCollection(MosquitoCollectionDTO.get(clientRequest, req.getParameter("collection_id")));
@@ -71,16 +90,11 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
   public void viewAll() throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".viewAll.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
-      return;
-    }
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    LarvaeDiscriminatingDoseAssayQueryDTO query = LarvaeDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    LarvaeDiscriminatingDoseAssayQueryDTO query = LarvaeDiscriminatingDoseAssayDTO.getAllInstances(
+        clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
@@ -95,7 +109,8 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
       throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    LarvaeDiscriminatingDoseAssayQueryDTO query = LarvaeDiscriminatingDoseAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    LarvaeDiscriminatingDoseAssayQueryDTO query = LarvaeDiscriminatingDoseAssayDTO.getAllInstances(
+        clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
@@ -193,13 +208,9 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
   public void view(LarvaeDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     req.setAttribute("item", dto);
 
@@ -228,7 +239,8 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
     req.setAttribute("ageRange", Arrays.asList(LarvaeAgeDTO.getAllActive(request)));
     req.setAttribute("generation", Arrays.asList(GenerationDTO.getAllActive(request)));
-    req.setAttribute("identificationMethod", Arrays.asList(IdentificationMethodDTO.getAllActive(request)));
+    req.setAttribute("identificationMethod", Arrays
+        .asList(IdentificationMethodDTO.getAllActive(request)));
     req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAllActive(request)));
     req.setAttribute("insecticide", InsecticideDTO.getAll(request));
     req.setAttribute("specie", Arrays.asList(SpecieDTO.getAllActive(request)));

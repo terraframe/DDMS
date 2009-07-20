@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.generation.loader.Reloadable;
 
@@ -17,6 +18,8 @@ import dss.vector.solutions.mo.GenerationDTO;
 import dss.vector.solutions.mo.IdentificationMethodDTO;
 import dss.vector.solutions.mo.ResistanceMethodologyDTO;
 import dss.vector.solutions.mo.SpecieDTO;
+import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class KnockDownAssayController extends KnockDownAssayControllerBase implements Reloadable
 {
@@ -55,13 +58,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
   public void viewAll() throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".viewAll.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
-      return;
-    }
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
     KnockDownAssayQueryDTO query = KnockDownAssayDTO.getAllInstances(clientRequest, null, true, 20, 1);
@@ -88,12 +85,28 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
   public void edit(String id) throws IOException, ServletException
   {
-    KnockDownAssayDTO dto = KnockDownAssayDTO.lock(super.getClientRequest(), id);
+    try
+    {
+      KnockDownAssayDTO dto = KnockDownAssayDTO.lock(super.getClientRequest(), id);
 
-    this.setupRequest();
-    req.setAttribute("item", dto);
+      this.setupRequest();
+      req.setAttribute("item", dto);
 
-    render("editComponent.jsp");
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -126,7 +139,8 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
       throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    KnockDownAssayQueryDTO query = KnockDownAssayDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    KnockDownAssayQueryDTO query = KnockDownAssayDTO.getAllInstances(clientRequest, sortAttribute,
+        isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
@@ -166,13 +180,9 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
   private void view(KnockDownAssayDTO dto) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
@@ -210,7 +220,8 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
     req.setAttribute("sex", AssaySexDTO.allItems(request));
     req.setAttribute("generation", Arrays.asList(GenerationDTO.getAllActive(request)));
-    req.setAttribute("identificationMethod", Arrays.asList(IdentificationMethodDTO.getAllActive(request)));
+    req.setAttribute("identificationMethod", Arrays
+        .asList(IdentificationMethodDTO.getAllActive(request)));
     req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAllActive(request)));
     req.setAttribute("insecticide", InsecticideDTO.getAll(request));
     req.setAttribute("specie", Arrays.asList(SpecieDTO.getAllActive(request)));

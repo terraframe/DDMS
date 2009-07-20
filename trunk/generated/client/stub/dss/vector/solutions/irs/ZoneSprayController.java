@@ -18,6 +18,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class ZoneSprayController extends ZoneSprayControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -99,16 +100,12 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
   public void view(ZoneSprayViewDTO dto) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getSprayId());
-      return;
-    }
-    
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getSprayId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
+
     ClientRequestIF request = this.getClientRequest();
-    
+
     TeamSprayStatusViewDTO[] status = dto.getStatus();
     SprayTeamDTO[] teams = SprayTeamDTO.findByLocation(request, dto.getGeoEntity().getGeoId());
 
@@ -119,48 +116,47 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
     req.setAttribute("operators", operators);
     req.setAttribute("status", status);
     req.setAttribute("item", dto);
-    
+
     render("viewComponent.jsp");
   }
-  
+
   private JSONObject buildTeamsMap(SprayTeamDTO[] teams)
   {
     // Map between an entities id and display label
     Map<String, String> map = new HashMap<String, String>();
 
     for (SprayTeamDTO team : teams)
-    {      
+    {
       String label = team.getTeamId();
-      
+
       List<? extends SprayLeaderDTO> leaders = team.getAllTeamLeader();
-      
-      if(leaders.size() > 0)
+
+      if (leaders.size() > 0)
       {
         PersonDTO person = leaders.get(0).getPerson();
-        
+
         label = label.concat(" - " + person.getLastName() + ", " + person.getFirstName());
       }
-      
+
       map.put(team.getId(), label);
     }
 
     return new JSONObject(map);
   }
 
-
   private JSONObject buildOperatorsMap(SprayTeamDTO[] teams)
   {
-    //Build the map of possible team leaders for every spray team
+    // Build the map of possible team leaders for every spray team
     Map<String, JSONObject> operators = new HashMap<String, JSONObject>();
-    
-    for(SprayTeamDTO team : teams)
+
+    for (SprayTeamDTO team : teams)
     {
-      //Map between an entities id and display label
+      // Map between an entities id and display label
       Map<String, String> map = new HashMap<String, String>();
 
       SprayOperatorDTO[] members = team.getTeamMembers();
 
-      for(SprayOperatorDTO operator : members)
+      for (SprayOperatorDTO operator : members)
       {
         PersonDTO person = operator.getPerson();
         String key = operator.getId();
@@ -168,7 +164,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
         map.put(key, label);
       }
-      
+
       operators.put(team.getId(), new JSONObject(map));
     }
 
@@ -182,11 +178,27 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements
 
   public void edit(String id) throws IOException, ServletException
   {
-    ZoneSprayViewDTO dto = ZoneSprayDTO.lockView(super.getClientRequest(), id);
+    try
+    {
+      ZoneSprayViewDTO dto = ZoneSprayDTO.lockView(super.getClientRequest(), id);
 
-    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+      req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException

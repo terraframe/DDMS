@@ -13,6 +13,7 @@ import com.terraframe.mojo.system.RolesDTO;
 
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FacadeDTO;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class RoleController extends RoleControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -30,6 +31,8 @@ public class RoleController extends RoleControllerBase implements
   @Override
   public void viewAll() throws IOException, ServletException
   {
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
+
     ClientRequestIF clientRequest = super.getClientRequest();
     MDSSUserViewQueryDTO query = MDSSUserViewDTO.getPage(clientRequest, null, true, 10, 1);
     req.setAttribute("query", query);

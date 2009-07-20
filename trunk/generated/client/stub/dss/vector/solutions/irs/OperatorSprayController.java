@@ -13,6 +13,7 @@ import com.terraframe.mojo.business.ProblemDTOIF;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class OperatorSprayController extends OperatorSprayControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -100,14 +101,10 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
   public void view(OperatorSprayViewDTO dto) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getSprayId());
-      return;
-    }
-    
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getSprayId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
+
     dto.setModified(true);
     dto.setModified(TeamSprayViewDTO.SPRAYID, true);
     req.setAttribute("status", dto.getStatus());
@@ -122,12 +119,27 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    OperatorSprayViewDTO dto = OperatorSprayDTO.lockView(super.getClientRequest(), id);
+    try
+    {
+      OperatorSprayViewDTO dto = OperatorSprayDTO.lockView(super.getClientRequest(), id);
 
-    req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
-    req.setAttribute("operators", getTeamMembers(dto.getSprayOperator()));
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+      req.setAttribute("surfaceTypes", SurfaceTypeDTO.allItems(this.getClientSession().getRequest()));
+      req.setAttribute("operators", getTeamMembers(dto.getSprayOperator()));
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
   }
 
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -181,9 +193,8 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
       return;
     }
 
-    
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    
+
     InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
 
@@ -195,8 +206,9 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
     render("searchComponent.jsp");
   }
-  
-  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod, String teamId, SprayOperatorDTO operator) throws IOException, ServletException
+
+  public void searchByParameters(InsecticideBrandDTO brand, String geoId, Date date, String sprayMethod,
+      String teamId, SprayOperatorDTO operator) throws IOException, ServletException
   {
     try
     {
@@ -241,8 +253,8 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
   {
     List<? extends SprayTeamDTO> teams = operator.getAllSprayTeam();
     List<SprayOperatorDTO> operators = new LinkedList<SprayOperatorDTO>();
-    
-    for(SprayTeamDTO team : teams)
+
+    for (SprayTeamDTO team : teams)
     {
       operators.addAll(team.getAllSprayTeamMembers());
     }
@@ -290,7 +302,8 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     }
   }
 
-  public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date, String method, String teamId, SprayOperatorDTO operator) throws IOException, ServletException
+  public void failSearchByParameters(InsecticideBrandDTO brand, String geoId, String date,
+      String method, String teamId, SprayOperatorDTO operator) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 

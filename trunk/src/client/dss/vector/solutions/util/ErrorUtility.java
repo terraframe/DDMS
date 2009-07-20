@@ -76,51 +76,83 @@ public class ErrorUtility implements Reloadable
     }
   }
 
-  @SuppressWarnings("deprecation")
-  public static String getMessages(HttpServletRequest req)
+  private static String getErrorMessage(HttpServletRequest req)
   {
-    String messages = new String();
-
     Object errorMessage = req.getAttribute(ErrorUtility.ERROR_MESSAGE);
 
     if (errorMessage != null && errorMessage instanceof String)
     {
-      try
-      {
-        String encode = URLEncoder.encode((String)errorMessage, "UTF-8");
-
-        messages = ErrorUtility.ERROR_MESSAGE + "=" + encode;
-      }
-      catch (UnsupportedEncodingException e)
-      {
-        return URLEncoder.encode(messages);
-      }
+      return ErrorUtility.encodeMessage((String) errorMessage);
     }
 
-    if (messages.equals(""))
+    return null;
+  }
+  
+  private static String getErrorMessageArray(HttpServletRequest req)
+  {
+    Object errorMessage = req.getAttribute(ErrorUtility.ERROR_MESSAGE_ARRAY);
+    
+    if (errorMessage != null && errorMessage instanceof String[])
     {
-      return null;
+      StringBuffer buffer = new StringBuffer();
+      
+      for(String msg : (String[]) errorMessage)
+      {
+        buffer.append(msg + "\n");
+      }
+      
+      return ErrorUtility.encodeMessage(buffer.toString());
     }
+    
+    return null;
+    
+  }
+  
 
-    return messages;
+  @SuppressWarnings("deprecation")
+  private static String encodeMessage(String errorMessage)
+  {
+    try
+    {
+      return URLEncoder.encode(errorMessage, "UTF-8");
+    }
+    catch (UnsupportedEncodingException e)
+    {
+      return URLEncoder.encode(errorMessage);
+    }
   }
 
-  public static String prepareURL(String path, HttpServletRequest req, boolean firstAttribute)
+  public static void addErrorMessages(HttpServletRequest req, URLUtility utility)
   {
-    String message = ErrorUtility.getMessages(req);
-
-    if (message != null)
+    String errorMessage = ErrorUtility.getErrorMessage(req);
+    String errorMessageArray = ErrorUtility.getErrorMessageArray(req);
+    
+    if (errorMessage != null)
     {
-      if (firstAttribute)
-      {
-        return path += "?" + message;
-      }
-      else
-      {
-        return path += "&" + message;
-      }
+      utility.addParameter(ERROR_MESSAGE, errorMessage);
+    }
+    
+    if(errorMessageArray != null)
+    {
+      utility.addParameter(ERROR_MESSAGE_ARRAY, errorMessageArray);
+    }
+  }
+
+  public static void prepareMessages(HttpServletRequest req)
+  {
+    String errorMessage = req.getParameter(ErrorUtility.ERROR_MESSAGE);
+    String errorMessageArray = req.getParameter(ErrorUtility.ERROR_MESSAGE_ARRAY);
+
+    if(errorMessage != null)
+    {
+      req.setAttribute(ERROR_MESSAGE, errorMessage);
     }
 
-    return path;
+    if(errorMessageArray != null)
+    {
+      String[] array = errorMessageArray.split("\\n");
+
+      req.setAttribute(ERROR_MESSAGE_ARRAY, array);
+    }
   }
 }

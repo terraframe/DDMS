@@ -18,6 +18,8 @@ public class ConfigurableListController extends ConfigurableListControllerBase i
   @Override
   public void viewAll() throws IOException, ServletException
   {
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
+
 //    ClientRequestIF clientRequest = super.getClientRequest();
     render("viewAll.jsp");
   }

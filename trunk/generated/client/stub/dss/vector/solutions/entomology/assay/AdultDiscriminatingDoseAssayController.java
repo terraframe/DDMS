@@ -18,6 +18,7 @@ import dss.vector.solutions.mo.IdentificationMethodDTO;
 import dss.vector.solutions.mo.ResistanceMethodologyDTO;
 import dss.vector.solutions.mo.SpecieDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingDoseAssayControllerBase
     implements com.terraframe.mojo.generation.loader.Reloadable
@@ -48,13 +49,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
   public void viewAll() throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".viewAll.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
-      return;
-    }
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
     AdultDiscriminatingDoseAssayQueryDTO query = AdultDiscriminatingDoseAssayDTO.getAllInstances(
@@ -81,13 +76,9 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     // if this method is being accessed from create or edit, redirect so the url
     // will be correct and refresh will
     // not create a new object
-    if (!req.getRequestURI().contains(".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id=" + dto.getId());
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     this.setupRequest();
 
@@ -228,12 +219,28 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
   public void edit(String id) throws IOException, ServletException
   {
-    AdultDiscriminatingDoseAssayDTO dto = AdultDiscriminatingDoseAssayDTO.lock(super.getClientRequest(),
-        id);
-    this.setupRequest();
-    req.setAttribute("item", dto);
+    try
+    {
+      AdultDiscriminatingDoseAssayDTO dto = AdultDiscriminatingDoseAssayDTO.lock(super
+          .getClientRequest(), id);
+      this.setupRequest();
+      req.setAttribute("item", dto);
 
-    render("editComponent.jsp");
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -247,7 +254,8 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
     req.setAttribute("sex", AssaySexDTO.allItems(request));
     req.setAttribute("generation", Arrays.asList(GenerationDTO.getAllActive(request)));
-    req.setAttribute("identificationMethod", Arrays.asList(IdentificationMethodDTO.getAllActive(request)));
+    req.setAttribute("identificationMethod", Arrays
+        .asList(IdentificationMethodDTO.getAllActive(request)));
     req.setAttribute("testMethod", Arrays.asList(ResistanceMethodologyDTO.getAllActive(request)));
     req.setAttribute("insecticide", InsecticideDTO.getAll(request));
     req.setAttribute("specie", Arrays.asList(SpecieDTO.getAllActive(request)));

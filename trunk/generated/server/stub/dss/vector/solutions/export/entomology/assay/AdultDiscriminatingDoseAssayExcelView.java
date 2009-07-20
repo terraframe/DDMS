@@ -8,17 +8,12 @@ import java.util.Map;
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
-import com.terraframe.mojo.query.OIterator;
-import com.terraframe.mojo.query.QueryFactory;
 
 import dss.vector.solutions.entomology.AssaySex;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
-import dss.vector.solutions.entomology.assay.Unit;
 import dss.vector.solutions.export.entomology.MosquitoCollectionView;
 import dss.vector.solutions.general.Insecticide;
-import dss.vector.solutions.general.InsecticideQuery;
-import dss.vector.solutions.mo.ActiveIngredient;
 import dss.vector.solutions.mo.Generation;
 import dss.vector.solutions.mo.IdentificationMethod;
 import dss.vector.solutions.mo.ResistanceMethodology;

@@ -1,5 +1,8 @@
 package dss.vector.solutions.query;
 
+import com.terraframe.mojo.ProblemExceptionDTO;
+
+import dss.vector.solutions.util.ErrorUtility;
 
 public class LayerController extends LayerControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -89,23 +92,38 @@ public class LayerController extends LayerControllerBase implements
     this.viewAll();
   }
 
-
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    dss.vector.solutions.query.LayerDTO dto = dss.vector.solutions.query.LayerDTO.lock(super
-        .getClientRequest(), id);
-    req.setAttribute("dss_vector_solutions_query_Layer_geoHierarchy",
-        dss.vector.solutions.geo.GeoHierarchyDTO.getAllInstances(super.getClientSession().getRequest(),
-            "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_query_Layer_geometryStyle",
-        dss.vector.solutions.query.GeometryStyleDTO.getAllInstances(
-            super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("dss_vector_solutions_query_Layer_textStyle",
-        dss.vector.solutions.query.TextStyleDTO.getAllInstances(super.getClientSession().getRequest(),
-            "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    req.setAttribute("page_title", "Edit LayerController");
-    render("editComponent.jsp");
+    try
+    {
+      dss.vector.solutions.query.LayerDTO dto = dss.vector.solutions.query.LayerDTO.lock(super
+          .getClientRequest(), id);
+      req.setAttribute("dss_vector_solutions_query_Layer_geoHierarchy",
+          dss.vector.solutions.geo.GeoHierarchyDTO.getAllInstances(
+              super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+      req.setAttribute("dss_vector_solutions_query_Layer_geometryStyle",
+          dss.vector.solutions.query.GeometryStyleDTO.getAllInstances(
+              super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+      req.setAttribute("dss_vector_solutions_query_Layer_textStyle",
+          dss.vector.solutions.query.TextStyleDTO.getAllInstances(super.getClientSession().getRequest(),
+              "keyName", true, 0, 0).getResultSet());
+      req.setAttribute("item", dto);
+      req.setAttribute("page_title", "Edit LayerController");
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException

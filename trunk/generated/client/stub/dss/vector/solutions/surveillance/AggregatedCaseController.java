@@ -14,6 +14,7 @@ import com.terraframe.mojo.constants.ClientRequestIF;
 import dss.vector.solutions.general.EpiDateDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class AggregatedCaseController extends AggregatedCaseControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -161,20 +162,36 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
-    AggregatedCaseViewDTO c = AggregatedCaseDTO.lockView(this.getClientRequest(), id);
+    try
+    {
+      AggregatedCaseViewDTO c = AggregatedCaseDTO.lockView(this.getClientRequest(), id);
 
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
-        .getRequest());
+      AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
+          .getRequest());
 
-    // Load all of the corresponding grid values
-    req.setAttribute("ageGroups", Arrays.asList(ageGroups));
-    req.setAttribute("diagnostics", Arrays.asList(c.getDiagnosticMethods()));
-    req.setAttribute("referrals", Arrays.asList(c.getReferrals()));
-    req.setAttribute("treatments", Arrays.asList(c.getTreatments()));
-    req.setAttribute("treatmentMethods", Arrays.asList(c.getTreatmentMethods()));
-    req.setAttribute("stock", Arrays.asList(c.getTreatmentStocks()));
-    req.setAttribute("item", c);
-    render("editComponent.jsp");
+      // Load all of the corresponding grid values
+      req.setAttribute("ageGroups", Arrays.asList(ageGroups));
+      req.setAttribute("diagnostics", Arrays.asList(c.getDiagnosticMethods()));
+      req.setAttribute("referrals", Arrays.asList(c.getReferrals()));
+      req.setAttribute("treatments", Arrays.asList(c.getTreatments()));
+      req.setAttribute("treatmentMethods", Arrays.asList(c.getTreatmentMethods()));
+      req.setAttribute("stock", Arrays.asList(c.getTreatmentStocks()));
+      req.setAttribute("item", c);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -190,27 +207,24 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
 
   public void view(AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-    if (!req.getRequestURI().contains(".view.mojo"))
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getCaseId());
+
+    if (!utility.checkURL(this.getClass().getSimpleName(), "view"))
     {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".view.mojo") + "?id="
-          + dto.getCaseId());
-      return;
+      // Load all of the corresponding grid values
+      AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
+          .getRequest());
+
+      req.setAttribute("ageGroups", Arrays.asList(ageGroups));
+      req.setAttribute("diagnostics", Arrays.asList(dto.getDiagnosticMethods()));
+      req.setAttribute("referrals", Arrays.asList(dto.getReferrals()));
+      req.setAttribute("treatments", Arrays.asList(dto.getTreatments()));
+      req.setAttribute("treatmentMethods", Arrays.asList(dto.getTreatmentMethods()));
+      req.setAttribute("stock", Arrays.asList(dto.getTreatmentStocks()));
+      req.setAttribute("item", dto);
+      render("viewComponent.jsp");
     }
-
-    // Load all of the corresponding grid values
-    AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientSession()
-        .getRequest());
-
-    req.setAttribute("ageGroups", Arrays.asList(ageGroups));
-    req.setAttribute("diagnostics", Arrays.asList(dto.getDiagnosticMethods()));
-    req.setAttribute("referrals", Arrays.asList(dto.getReferrals()));
-    req.setAttribute("treatments", Arrays.asList(dto.getTreatments()));
-    req.setAttribute("treatmentMethods", Arrays.asList(dto.getTreatmentMethods()));
-    req.setAttribute("stock", Arrays.asList(dto.getTreatmentStocks()));
-    req.setAttribute("item", dto);
-    render("viewComponent.jsp");
   }
 
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
@@ -240,22 +254,22 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
         geoEntity, date.getPeriodType().get(0), date.getPeriod(), date.getEpiYear(), ageGroup);
     AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(request);
 
-    String jsp = "createComponent.jsp";
-
     if (c.hasCaseId())
     {
-      jsp = "viewComponent.jsp";
+      this.view(c);
     }
-
-    // Load all of the corresponding grid values
-    req.setAttribute("diagnostics", Arrays.asList(c.getDiagnosticMethods()));
-    req.setAttribute("referrals", Arrays.asList(c.getReferrals()));
-    req.setAttribute("treatments", Arrays.asList(c.getTreatments()));
-    req.setAttribute("treatmentMethods", Arrays.asList(c.getTreatmentMethods()));
-    req.setAttribute("stock", Arrays.asList(c.getTreatmentStocks()));
-    req.setAttribute("ageGroups", Arrays.asList(ageGroups));
-    req.setAttribute("item", c);
-    render(jsp);
+    else
+    {
+      // Load all of the corresponding grid values
+      req.setAttribute("diagnostics", Arrays.asList(c.getDiagnosticMethods()));
+      req.setAttribute("referrals", Arrays.asList(c.getReferrals()));
+      req.setAttribute("treatments", Arrays.asList(c.getTreatments()));
+      req.setAttribute("treatmentMethods", Arrays.asList(c.getTreatmentMethods()));
+      req.setAttribute("stock", Arrays.asList(c.getTreatmentStocks()));
+      req.setAttribute("ageGroups", Arrays.asList(ageGroups));
+      req.setAttribute("item", c);
+      render("createComponent.jsp");
+    }
   }
 
   public void selectAgeGroup(String geoId, String periodType, Integer period, Integer year)
@@ -280,7 +294,7 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     catch (ProblemExceptionDTO e)
     {
       ErrorUtility.prepareProblems(e, req);
-      
+
       String failPeriod = period == null ? null : period.toString();
       String failYear = year == null ? null : year.toString();
 
@@ -296,8 +310,9 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       this.failSelectAgeGroup(geoId, periodType, failPeriod, failYear);
     }
   }
-  
-  public void failSelectAgeGroup(String geoId, String periodType, String period, String year) throws IOException, ServletException
+
+  public void failSelectAgeGroup(String geoId, String periodType, String period, String year)
+      throws IOException, ServletException
   {
     this.search();
   }

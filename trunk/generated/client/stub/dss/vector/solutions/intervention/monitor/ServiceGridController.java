@@ -10,6 +10,7 @@ import com.terraframe.mojo.ProblemExceptionDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class ServiceGridController extends ServiceGridControllerBase implements
     com.terraframe.mojo.generation.loader.Reloadable
@@ -20,17 +21,32 @@ public class ServiceGridController extends ServiceGridControllerBase implements
 
   private static final long  serialVersionUID = 1245774420092L;
 
-  public ServiceGridController(HttpServletRequest req, HttpServletResponse resp,
-      Boolean isAsynchronous)
+  public ServiceGridController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
   public void edit(String id) throws IOException, ServletException
   {
-    ServiceGridDTO dto = ServiceGridDTO.lock(super.getClientRequest(), id);
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    try
+    {
+      ServiceGridDTO dto = ServiceGridDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
+
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -40,16 +56,10 @@ public class ServiceGridController extends ServiceGridControllerBase implements
 
   public void view(String id) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(this.getClass().getName() + ".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".view.mojo");
-      path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + id);
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", id);
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
-      resp.sendRedirect(path);
-      return;
-    }
-    
     ClientRequestIF clientRequest = super.getClientRequest();
     req.setAttribute("item", ServiceGridDTO.get(clientRequest, id));
     render("viewComponent.jsp");
@@ -89,15 +99,8 @@ public class ServiceGridController extends ServiceGridControllerBase implements
 
   public void viewAll() throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(this.getClass().getName() + ".viewAll.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".viewAll.mojo");
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
-      resp.sendRedirect(path);
-      return;
-    }
-    
     ClientRequestIF clientRequest = super.getClientRequest();
     ServiceGridQueryDTO query = ServiceGridDTO.getAllInstances(clientRequest, null, true, 20, 1);
     req.setAttribute("query", query);
@@ -109,16 +112,18 @@ public class ServiceGridController extends ServiceGridControllerBase implements
     resp.sendError(500);
   }
 
-  public void viewPage(String sortAttribute, Boolean isAscending,
-      Integer pageSize, Integer pageNumber) throws IOException, ServletException
+  public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+      throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    ServiceGridQueryDTO query = ServiceGridDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    ServiceGridQueryDTO query = ServiceGridDTO.getAllInstances(clientRequest, sortAttribute,
+        isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
 
-  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber) throws IOException, ServletException
+  public void failViewPage(String sortAttribute, String isAscending, String pageSize, String pageNumber)
+      throws IOException, ServletException
   {
     resp.sendError(500);
   }

@@ -25,6 +25,7 @@ import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryD
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.mo.CollectionMethodDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.RedirectUtility;
 
 public class MosquitoCollectionController extends MosquitoCollectionControllerBase implements Reloadable
 {
@@ -140,15 +141,9 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void view(MosquitoCollectionDTO dto) throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(this.getClass().getName() + ".view.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".view.mojo");
-      path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + dto.getId());
-
-      resp.sendRedirect(path);
-      return;
-    }
+    RedirectUtility utility = new RedirectUtility(req, resp);
+    utility.put("id", dto.getId());
+    utility.checkURL(this.getClass().getSimpleName(), "view");
 
     AdultDiscriminatingDoseAssayQueryDTO ada = dto.getAdultDoseAssays(
         AdultDiscriminatingDoseAssayDTO.TESTDATE, true, 5, 1);
@@ -227,16 +222,17 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     if (!req.getRequestURI().contains(this.getClass().getName() + ".viewAssays.mojo"))
     {
       String path = req.getRequestURL().toString();
-      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName() + ".viewAssays.mojo");
+      path = path.replaceFirst(req.getServletPath(), "/" + this.getClass().getName()
+          + ".viewAssays.mojo");
       path = path.replaceFirst("mojo\\?*.*", "mojo" + "?id=" + id);
 
       resp.sendRedirect(path);
       return;
     }
-    
+
     try
     {
-      
+
       ClientRequestIF request = super.getClientRequest();
       try
       {
@@ -287,13 +283,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void viewAll() throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".viewAll.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".viewAll.mojo"));
-      return;
-    }
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
     MosquitoCollectionQueryDTO query = MosquitoCollectionDTO.getAllInstances(clientRequest, null, true,
@@ -327,14 +317,29 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void edit(String id) throws IOException, ServletException
   {
-    MosquitoCollectionDTO dto = MosquitoCollectionDTO.lock(super.getClientRequest(), id);
-    CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(super.getClientSession()
-        .getRequest());
+    try
+    {
+      MosquitoCollectionDTO dto = MosquitoCollectionDTO.lock(super.getClientRequest(), id);
+      CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(super.getClientSession()
+          .getRequest());
 
-    req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
-    req.setAttribute("item", dto);
+      req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
+      req.setAttribute("item", dto);
 
-    render("editComponent.jsp");
+      render("editComponent.jsp");
+    }
+    catch (ProblemExceptionDTO e)
+    {
+      ErrorUtility.prepareProblems(e, req);
+
+      this.failEdit(id);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareThrowable(t, req);
+
+      this.failEdit(id);
+    }
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -417,13 +422,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void search() throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".search.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".search.mojo"));
-      return;
-    }
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
 
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
     CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(super.getClientSession()
@@ -439,13 +438,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
   public void searchAssays() throws IOException, ServletException
   {
-    if (!req.getRequestURI().contains(".searchAssays.mojo"))
-    {
-      String path = req.getRequestURL().toString();
-      path = path.replaceFirst("(\\w+)Controller", this.getClass().getSimpleName());
-      resp.sendRedirect(path.replaceFirst("\\.[a-zA-Z]+\\.mojo", ".searchAssays.mojo"));
-      return;
-    }
+    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "searchAssays");
 
     render("searchAssaysComponent.jsp");
   }
@@ -455,27 +448,30 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     try
     {
-      CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(super.getClientSession()
-          .getRequest());
+      ClientRequestIF request = super.getClientRequest();
       MosquitoCollectionDTO collection = MosquitoCollectionDTO
-          .searchByGeoEntityAndDateAndCollectionMethod(super.getClientRequest(), geoEntity,
-              collectionDate, collectionMethod);
-      String jsp = "viewComponent.jsp";
+          .searchByGeoEntityAndDateAndCollectionMethod(request, geoEntity, collectionDate,
+              collectionMethod);
 
       if (collection == null)
       {
-        collection = new MosquitoCollectionDTO(super.getClientRequest());
+        ClientRequestIF clientRequest = super.getClientSession().getRequest();
+        CollectionMethodDTO[] methods = CollectionMethodDTO.getAllActive(clientRequest);
+        req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
+
+        collection = new MosquitoCollectionDTO(request);
         collection.setDateCollected(collectionDate);
         collection.setGeoEntity(geoEntity);
         collection.setCollectionMethod(collectionMethod);
 
-        jsp = "createComponent.jsp";
+        req.setAttribute("item", collection);
+        render("createComponent.jsp");
       }
-
-      req.setAttribute("MosquitoCollection_collectionMethod", Arrays.asList(methods));
-      req.setAttribute("item", collection);
-
-      render(jsp);
+      else
+      {
+        req.setAttribute("item", collection);
+        render("viewComponent.jsp");
+      }
     }
     catch (ProblemExceptionDTO e)
     {
@@ -493,7 +489,12 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
       this.failSearchByGeoEntityAndDate(geoEntity, failDate, collectionMethod);
     }
-
+  }
+  
+  @Override
+  public void failSearchByGeoEntityAndDate(GeoEntityDTO geoEntity, String collectionDate, CollectionMethodDTO collectionMethod) throws IOException, ServletException
+  {
+    this.search();
   }
 
   private void validateParameters(String geoId, Date collectionDate, CollectionMethodDTO collectionMethod)
