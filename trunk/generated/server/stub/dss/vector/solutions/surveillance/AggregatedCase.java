@@ -511,8 +511,6 @@ public class AggregatedCase extends AggregatedCaseBase implements
       }
     }
 
-    valueQuery.restrictRows(20, 1);
-
     String sd = aggregatedCaseQuery.getStartDate().getQualifiedName();
     String ed = aggregatedCaseQuery.getEndDate().getQualifiedName();
 

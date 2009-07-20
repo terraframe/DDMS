@@ -452,11 +452,12 @@ MDSS.QueryXML.Selectable.prototype = {
   }
 }
 
-MDSS.QueryXML.Attribute = function(entityAlias, name, userAlias)
+MDSS.QueryXML.Attribute = function(entityAlias, name, userAlias, userDisplayLabel)
 {
   this._entityAlias = entityAlias;
   this._name = name;
-  this._userAlias = arguments.length == 3 ? userAlias : '';
+  this._userAlias = userAlias || '';
+  this._userDisplayLabel = userDisplayLabel || '';
 }
 MDSS.QueryXML.Attribute.prototype = {
 
@@ -473,6 +474,7 @@ MDSS.QueryXML.Attribute.prototype = {
         'entityAlias': this._entityAlias,
         'name': this._name,
         'userAlias': this._userAlias,
+        'userDisplayLabel': this._userDisplayLabel
       }
     };
 
@@ -480,11 +482,12 @@ MDSS.QueryXML.Attribute.prototype = {
   }
 }
 
-MDSS.QueryXML.Sqlinteger = function(entityAlias, name, userAlias)
+MDSS.QueryXML.Sqlinteger = function(entityAlias, name, userAlias, userDisplayLabel)
 {
   this._entityAlias = entityAlias;
   this._name = name;
-  this._userAlias = arguments.length == 3 ? userAlias : '';
+  this._userAlias = userAlias || '';
+  this._userDisplayLabel = userDisplayLabel || '';
 }
 MDSS.QueryXML.Sqlinteger.prototype = {
 
@@ -500,6 +503,7 @@ MDSS.QueryXML.Sqlinteger.prototype = {
       'sqlinteger': {
         'name': this._name,
         'userAlias': this._userAlias,
+        'userDisplayLabel': this._userDisplayLabel
       }
     };
 
@@ -507,11 +511,12 @@ MDSS.QueryXML.Sqlinteger.prototype = {
   }
 }
 
-MDSS.QueryXML.Sqlcharacter = function(entityAlias, name, userAlias)
+MDSS.QueryXML.Sqlcharacter = function(entityAlias, name, userAlias, userDisplayLabel)
 {
   this._entityAlias = entityAlias;
   this._name = name;
-  this._userAlias = arguments.length == 3 ? userAlias : '';
+  this._userAlias = userAlias || '';
+  this._userDisplayLabel = userDisplayLabel || '';
 }
 MDSS.QueryXML.Sqlcharacter.prototype = {
 
@@ -527,6 +532,7 @@ MDSS.QueryXML.Sqlcharacter.prototype = {
       'sqlcharacter': {
         'name': this._name,
         'userAlias': this._userAlias,
+        'userDisplayLabel': this._userDisplayLabel
       }
     };
 
@@ -534,11 +540,12 @@ MDSS.QueryXML.Sqlcharacter.prototype = {
   }
 }
 
-MDSS.QueryXML.Sqldate = function(entityAlias, name, userAlias)
+MDSS.QueryXML.Sqldate = function(entityAlias, name, userAlias, userDisplayLabel)
 {
   this._entityAlias = entityAlias;
   this._name = name;
-  this._userAlias = arguments.length == 3 ? userAlias : '';
+  this._userAlias = userAlias || '';
+  this._userDisplayLabel = userDisplayLabel || '';
 }
 MDSS.QueryXML.Sqldate.prototype = {
 
@@ -554,6 +561,7 @@ MDSS.QueryXML.Sqldate.prototype = {
       'sqldate': {
         'name': this._name,
         'userAlias': this._userAlias,
+        'userDisplayLabel': this._userDisplayLabel
       }
     };
 

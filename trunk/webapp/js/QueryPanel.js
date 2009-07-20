@@ -345,12 +345,12 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.setAttribute(this._startDate, 'type', 'text');
     this._startDate.id = this.START_DATE_RANGE;
     YAHOO.util.Dom.addClass(this._startDate, 'DatePick');
-    YAHOO.util.Event.addListener(this._startDate, "blur", this._disableDateCheck, this, true);
+    YAHOO.util.Event.addListener(this._startDate, "blur", this.disableDateCheck, null, this);
 
     this._startDateRangeCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'type', 'checkbox');
-    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'id', 'START_DATE_RANGE');
-    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'disabled', true);
+    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'id', 'start_date_range');
+    //YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'disabled', true);
 
     var endLabel = document.createElement('span');
     endLabel.innerHTML = MDSS.Localized.Query.End_Date;
@@ -359,12 +359,12 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.setAttribute(this._endDate, 'type', 'text');
     this._endDate.id = this.END_DATE_RANGE;
     YAHOO.util.Dom.addClass(this._endDate, 'DatePick');
-    YAHOO.util.Event.addListener(this._endDate, "blur", this._disableDateCheck, this, true);
+    YAHOO.util.Event.addListener(this._endDate, "blur", this.disableDateCheck, null, this);
 
     this._endDateRangeCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'type', 'checkbox');
-    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id', 'END_DATE_RANGE');
-    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
+    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id', 'end_date_range');
+//    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
 
     var toggleDatesSpan = document.createElement('span');
     toggleDatesSpan.innerHTML = MDSS.Localized.Toggle_Show;
@@ -403,10 +403,10 @@ MDSS.QueryPanel.prototype = {
     body.appendChild(dateRange);
 
   },
-
+  
   /**
    */
-  _disableDateCheck : function(e)
+  disableDateCheck : function()
   {
   	if(this._startDate.value.length == 0)
   	{
@@ -764,17 +764,6 @@ MDSS.QueryPanel.prototype = {
     if(Mojo.util.isFunction(this._config.editVariableStyles))
     {
       this._config.editVariableStyles.call(this._queryClass);
-    }
-  },
-
-  /**
-   * Called when a user clicks the checkbox next to the date ranges.
-   */
-  _toggleDates : function(e)
-  {
-    if(Mojo.util.isFunction(this._config.toggleDates))
-    {
-      this._config.toggleDates.call(this._queryClass, e);
     }
   },
 
@@ -1457,15 +1446,15 @@ MDSS.QueryPanel.prototype = {
     thematicVar.setUserAlias(userAlias);
     thematicVar.setDisplayLabel(displayLabel);
 
-  	this._thematicVariables[attributeName] = thematicVar;
+  	this._thematicVariables[userAlias] = thematicVar;
   },
 
   /**
    * Removes the given thematic variable.
    */
-  removeThematicVariable : function(attributeName)
+  removeThematicVariable : function(userAlias)
   {
-    delete this._thematicVariables[attributeName];
+    delete this._thematicVariables[userAlias];
   },
 
   getThematicVariables : function()

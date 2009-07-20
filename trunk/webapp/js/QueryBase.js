@@ -25,7 +25,6 @@ MDSS.QueryBase.prototype = {
       exportXLS : this.exportXLS,
       exportCSV : this.exportCSV,
       exportReport : this.exportReport,
-      toggleDates : this.toggleDates,
       paginationHandler : this.paginationHandler,
       postRender : this.postRender,
       thematicLayerSelected :this.thematicLayerSelected
@@ -166,7 +165,6 @@ MDSS.QueryBase.prototype = {
 
   },
 
-
   exportReport : function(form, xmlInput, config, searchIdInput, queryTypeInput)
   {
     var queryXML = this._constructQuery();
@@ -293,17 +291,21 @@ MDSS.QueryBase.prototype = {
   	   YAHOO.util.Event.on(options[i], 'click', this._dateSnapHandler, '',this);
   	 }
 
-  	YAHOO.util.Event.on(this._queryPanel._startDateRangeCheck, 'click', this.toggleDates, 'START_DATE_RANGE', this);
-  	YAHOO.util.Event.on(this._queryPanel._endDateRangeCheck, 'click', this.toggleDates, 'END_DATE_RANGE', this);
+    var startCheck = this._queryPanel.getStartDateCheck();
+    var endCheck = this._queryPanel.getEndDateCheck();
+
+  	YAHOO.util.Event.on(startCheck, 'click', this.toggleDates, 'START_DATE_RANGE', this);
+  	YAHOO.util.Event.on(endCheck, 'click', this.toggleDates, 'END_DATE_RANGE', this);
+  	
+  	startCheck.disabled = true;
+  	endCheck.disabled = true;
 
     // set the default for the date searching
     var startDate = this._queryPanel.getStartDate();
-    var startCheck = this._queryPanel.getStartDateCheck();
     var endDate = this._queryPanel.getEndDate();
-    var endCheck = this._queryPanel.getEndDateCheck();
 
-    this._defaults.push({element: startCheck, checked:false});
-    this._defaults.push({element: endCheck, checked:false});
+    this._defaults.push({element: startCheck, checked:false, disabled:true});
+    this._defaults.push({element: endCheck, checked:false, disabled:true});
     this._defaults.push({element: startDate, value: ''});
     this._defaults.push({element: endDate, value: ''});
 
@@ -544,42 +546,42 @@ MDSS.QueryBase.prototype = {
 
   _uncheckBox : function(check)
   {
-    check = Mojo.util.isString(check) ? document.getElementById(check) : check;
-    if(check != null && check.checked)
+    var checkEl = Mojo.util.isString(check) ? document.getElementById(check) : check;
+    if(checkEl != null && checkEl.checked)
     {
-      check.click();
+      checkEl.click();
     }
   },
 
   _checkBox : function(check)
   {
-    check = Mojo.util.isString(check) ? document.getElementById(check) : check;
-    if(check != null && !check.checked)
+    var checkEl = Mojo.util.isString(check) ? document.getElementById(check) : check;
+    if(checkEl != null && !checkEl.checked)
     {
-      check.click();
+      checkEl.click();
     }
   },
 
   _chooseOption : function(option)
   {
-    option = Mojo.util.isString(option) ? document.getElementById(option) : option;
-    if(option == null)
+    var optionEl = Mojo.util.isString(option) ? document.getElementById(option) : option;
+    if(optionEl == null)
     {
       return;
     }
 
-    var select = option.parentNode;
+    var select = optionEl.parentNode;
     var options = select.options;
     for(var i=0; i<options.length; i++)
     {
-      if(options[i].id === option.id)
+      if(options[i].id === optionEl.id)
       {
         select.selectedIndex = i;
         break;
       }
     }
 
-    this._fireClickOnOption(option);
+    this._fireClickOnOption(optionEl);
   },
 
   /**
@@ -605,6 +607,11 @@ MDSS.QueryBase.prototype = {
           {
             element.click();
           }
+        }
+        
+        if(obj.disabled)
+        {
+          element.disabled = true;
         }
       }
       else if(element.nodeName === 'INPUT' && element.type === 'text')
@@ -638,6 +645,7 @@ MDSS.QueryBase.prototype = {
     var request = new MDSS.Request({
       thisRef : this,
       savedSearchId : savedSearchId,
+      onComplete : function(){},
       onSuccess: function(savedSearchView){
 
         this.thisRef._resetToDefault();
@@ -651,6 +659,7 @@ MDSS.QueryBase.prototype = {
         // set the layers
         var request2 = new MDSS.Request({
           thisRef : this.thisRef,
+          onSend : function(){},
           onSuccess : function(layerViews){
 
             for(var i=0; i<layerViews.length; i++)
@@ -923,7 +932,9 @@ MDSS.QueryBase.prototype = {
 
     if(addColumn)
     {
-      var typeName = type.substring(type.lastIndexOf('.')+1);
+    
+      // use the type name and lowercase it so it adheres to attribute naming conventions
+      var typeName = type.substring(type.lastIndexOf('.')+1).toLowerCase();
 
       // only add the column if it does not exist
       if(this._geoEntitySelectables[type+'_'+geoEntityView.getEntityNameMd().getName()] == null)
@@ -976,7 +987,7 @@ MDSS.QueryBase.prototype = {
 
     // the columns may not exist because the type exists only
     // for restricting criteria, not selection.
-    var typeName = type.substring(type.lastIndexOf('.')+1);
+    var typeName = type.substring(type.lastIndexOf('.')+1).toLowerCase(); // lowercase to force attribute naming convention
     var entityNameColumn = this._queryPanel.getColumn(typeName+entityNameSuffix);
     if(entityNameColumn != null)
     {
@@ -1287,6 +1298,7 @@ MDSS.AbstractAttribute = function(obj, dereference)
     this._dtoType = obj.dtoType;
     this._displayLabel = obj.displayLabel;
     this._attributeName = obj.attributeName;
+    this._entityAlias = obj.entityAlias || this._type;
     this._whereValues = [];
     this._dereference = dereference || false;
 
@@ -1345,6 +1357,11 @@ MDSS.AbstractAttribute.prototype = {
   {
     return this._displayLabel;
   },
+  
+  getEntityAlias : function()
+  {
+    return this._entityAlias;
+  },
 
   /**
    * Returns an object compatible with YUI Column's
@@ -1373,11 +1390,11 @@ MDSS.AbstractAttribute.prototype = {
     var attribute;
     if(asClass != null)
     {
-      attribute = new asClass(this._type, attrName, this._key);
+      attribute = new asClass(this._entityAlias, attrName, this._key);
     }
     else
     {
-      attribute = new MDSS.QueryXML.Attribute(this._type, attrName, this._key);
+      attribute = new MDSS.QueryXML.Attribute(this._entityAlias, attrName, this._key, this._displayLabel);
     }
     var selectable = new MDSS.QueryXML.Selectable(attribute);
     return selectable;

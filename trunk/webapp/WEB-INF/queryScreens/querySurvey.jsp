@@ -50,8 +50,9 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
     var queryList = <%= (String) request.getAttribute("queryList") %>;
     var householdMenuItems = <%= (String) request.getAttribute("householdMenuItems") %>;
     var personMenuItems = <%= (String) request.getAttribute("personMenuItems") %>;
+    var nets = <%= (String) request.getAttribute("nets") %>;
 
-    var query = new MDSS.QuerySurvey(queryList, householdMenuItems, personMenuItems);
+    var query = new MDSS.QuerySurvey(queryList, householdMenuItems, personMenuItems, nets);
     query.render();
 
     // attach load listener to Iframe to receive message when error occurs during

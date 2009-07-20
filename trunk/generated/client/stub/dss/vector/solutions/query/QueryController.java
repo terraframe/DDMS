@@ -41,6 +41,8 @@ import dss.vector.solutions.intervention.RDTResultDTO;
 import dss.vector.solutions.intervention.RDTResultMasterDTO;
 import dss.vector.solutions.intervention.ResponseMasterDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
+import dss.vector.solutions.intervention.monitor.HouseholdNetDTO;
+import dss.vector.solutions.intervention.monitor.NetDTO;
 import dss.vector.solutions.intervention.monitor.PersonDTO;
 import dss.vector.solutions.intervention.monitor.RoofViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
@@ -177,6 +179,20 @@ public class QueryController extends QueryControllerBase implements
       
       req.setAttribute("householdMenuItems", householdMenuItems.toString());
       
+      // All available net options (not abstract)
+      JSONArray nets = new JSONArray();
+      for(NetDTO netDTO : NetDTO.getAllLeafs(this.getClientRequest()))
+      {
+        JSONObject net = new JSONObject();
+        net.put("entityAlias", NetDTO.CLASS+"_"+netDTO.getNetName());
+        net.put("displayLabel", netDTO.getDisplayLabel().getDefaultLocale());
+        net.put("attributeName", HouseholdNetDTO.AMOUNT);
+        net.put("type", HouseholdNetDTO.CLASS);
+        
+        nets.put(net);
+      }
+      
+      req.setAttribute("nets", nets.toString());
       
       
       // Map of menu items. Key/Value where key is the attribute name

@@ -157,8 +157,21 @@ public class SurveyPoint extends SurveyPointBase implements
     HouseholdQuery householdQuery = (HouseholdQuery) queryMap.get(Household.CLASS);
     PersonQuery personQuery = (PersonQuery) queryMap.get(Person.CLASS);
     
-    valueQuery.WHERE(surveyPointQuery.households(householdQuery));
-    valueQuery.WHERE(householdQuery.persons(personQuery));
+    if(householdQuery != null)
+    {
+      valueQuery.WHERE(surveyPointQuery.households(householdQuery));
+    }
+    
+    if(personQuery != null)
+    {
+      if(householdQuery == null)
+      {
+        householdQuery = new HouseholdQuery(queryFactory);
+        valueQuery.WHERE(surveyPointQuery.households(householdQuery));
+      }
+      
+      valueQuery.WHERE(householdQuery.persons(personQuery));
+    }
     
     // Convert Person.DOB into an integer
     try
@@ -166,7 +179,7 @@ public class SurveyPoint extends SurveyPointBase implements
       SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectable(Person.DOB);
       
       String personTable = personQuery.getTableAlias();
-      String sql = "EXTRACT(year from AGE(NOW(), (SELECT dob from person "+personTable+")))";
+      String sql = "EXTRACT(year from AGE(NOW(), "+personTable+".dob))";
       dobSel.setSQL(sql);
 
       valueQuery.FROM("person", personTable);
@@ -209,7 +222,10 @@ public class SurveyPoint extends SurveyPointBase implements
     catch(QueryException e)
     {
       // Person.DOB not included in query.
+      
     }
+    
+    QueryUtil.setQueryDates(xml, valueQuery, surveyPointQuery.getSurveyDate());
     
     return valueQuery;
   }

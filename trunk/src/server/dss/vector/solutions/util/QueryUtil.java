@@ -11,6 +11,7 @@ import org.xml.sax.SAXParseException;
 import com.terraframe.mojo.dataaccess.MdBusinessDAOIF;
 import com.terraframe.mojo.dataaccess.metadata.MdBusinessDAO;
 import com.terraframe.mojo.generation.loader.Reloadable;
+import com.terraframe.mojo.query.AttributeReference;
 import com.terraframe.mojo.query.Condition;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
 import com.terraframe.mojo.query.OR;
@@ -125,8 +126,8 @@ public class QueryUtil implements Reloadable
       MdAttributeGeometry mdAttrGeo = GeoHierarchy.getGeometry(geoEntityMd);
       String attributeName = mdAttrGeo.getAttributeName();
 
-      valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName, "", "");
-      valueQueryParser.addAttributeSelectable(thematicLayerType, GeoEntity.ENTITYNAME, "", QueryConstants.ENTITY_NAME_COLUMN);
+      valueQueryParser.addAttributeSelectable(thematicLayerType, attributeName, attributeName, "");
+      valueQueryParser.addAttributeSelectable(thematicLayerType, GeoEntity.ENTITYNAME, GeoEntity.ENTITYNAME, QueryConstants.ENTITY_NAME_COLUMN);
 
       queryMap = valueQueryParser.parse();
 
@@ -136,7 +137,7 @@ public class QueryUtil implements Reloadable
       valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
 
       GeneratedEntityQuery generatedEntityQuery = queryMap.get(AggregatedCase.CLASS);
-      valueQuery.AND( ( (GeoEntityQueryReferenceIF) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
+      valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
     }
     else
     {
@@ -150,10 +151,10 @@ public class QueryUtil implements Reloadable
         ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
         MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
 
-        Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName() + "_entityName");
-        Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName() + "_geoId");
+        Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName().toLowerCase() + "_entityName");
+        Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName().toLowerCase() + "_geoId");
 
-        geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("CHILD_ID"));
+        geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("child_id"));
 
         List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
         Condition[] geoConditions = new Condition[allClasses.size()];
@@ -179,7 +180,7 @@ public class QueryUtil implements Reloadable
         List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
         for (ValueQuery leftJoinVQ : leftJoinValueQueries)
         {
-          leftJoinSelectables.add(leftJoinVQ.aReference("CHILD_ID"));
+          leftJoinSelectables.add(leftJoinVQ.aReference("child_id"));
         }
 
         int size = leftJoinSelectables.size();
@@ -189,7 +190,7 @@ public class QueryUtil implements Reloadable
         }
 
         GeneratedEntityQuery generatedEntityQuery = queryMap.get(AggregatedCase.CLASS);
-        valueQuery.AND( ( (GeoEntityQueryReferenceIF) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
+        valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
       }
     }
 

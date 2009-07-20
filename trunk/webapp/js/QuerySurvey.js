@@ -4,7 +4,7 @@
 MDSS.QuerySurvey= Mojo.Class.create();
 MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
-  initialize : function(queryList, householdMenuItems, personMenuItems)
+  initialize : function(queryList, householdMenuItems, personMenuItems, nets)
   {
     MDSS.QueryBase.prototype.initialize.call(this);
 
@@ -34,17 +34,20 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._personCriteria = {};
     this._personAggregateSelectables = {};
     
+    this._nets = {};
+    
     // END: query objects
 
     // Key/value where key is attribute.getKey() + "_li"
     // (which is the id of the relevant LI node,
     // and value is an array of ContextMenuItems.
-    this._personMenus = {};
-    this._householdMenus = {};
+    this._menus = {};
     
     // Map of criteria ids and associated ContextMenuItems.
-    this._personItems = {};
-    this._householdItems = {};
+    this._menuItems = {};
+    
+    // List of attributes that can be used to specify numeric single and range criteria
+    this._singleAndRangeAttributes = [];
 
     for(var i=0; i<queryList.length; i++)
     {
@@ -58,7 +61,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     // Criteria for Person.DOB
     this._config.setProperty('dobCriteria', null);
 
-    this._buildQueryItems(householdMenuItems, personMenuItems);
+    this._buildQueryItems(householdMenuItems, personMenuItems, nets);
   },
 
   /**
@@ -94,6 +97,9 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var xml = view.getQueryXml();
     var parser = new MDSS.Query.Parser(xml);
 
+    var selectStart = false;
+    var selectEnd = false;
+    
     parser.parseSelectables({
       attribute : function(entityAlias, attributeName, userAlias){
       
@@ -110,10 +116,17 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       },
       sqldate : function(entityAlias, attributeName, userAlias){
 
-        thisRef._checkBox(userAlias);
+        if(userAlias === thisRef._queryPanel.getStartDateCheck().id)
+        {
+          selectStart = true;
+        }
+        else if(userAlias === thisRef._queryPanel.getEndDateCheck().id)
+        {
+          selectEnd = true;
+        }
       },
     });
-
+    
     var entities = [];
 
     parser.parseCriteria({
@@ -124,19 +137,95 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         {
           entities.push(value);
         }
-        else if(userAlias === this._SurveyPoint.SURVEYDATE)
+        else if(userAlias === thisRef._SurveyPoint.SURVEYDATE)
         {
+          var formatted = MDSS.Calendar.getLocalizedString(value);
+        
           if(operator === MDSS.QueryXML.Operator.GE)
           {
-            thisRef._queryPanel.getStartDate().value = value;
+            var start = thisRef._queryPanel.getStartDate();
+            start.value = formatted;
           }
           else
           {
-            thisRef._queryPanel.getEndDate().value = value;
+            var end = thisRef._queryPanel.getEndDate();
+            end.value = formatted;
+          }
+        }
+        else
+        {
+          // Set all attribute criteria with single or numeric ranges.
+          if(attributeName === thisRef._Person.DOB ||
+             attributeName === thisRef._Person.HAEMOGLOBIN ||
+             attributeName === thisRef._Household.LASTSPRAYED)
+          {
+            if(operator === MDSS.QueryXML.Operator.GE)
+            {
+              var item = thisRef._menuItems[userAlias+'-range'];
+              var obj = item.onclick.obj;
+              
+              thisRef._setNumberInputValues(obj, value, null);
+              thisRef._toggleRange(obj.attribute, true);
+            }
+            // LastSprayed uses LE, but it is only for the single
+            // value criteria, not the range.
+            else if(operator === MDSS.QueryXML.Operator.LE
+              && attributeName !== thisRef._Household.LASTSPRAYED)
+            {
+              var item = thisRef._menuItems[userAlias+'-range'];
+              var obj = item.onclick.obj;
+
+              thisRef._setNumberInputValues(obj, null, value);
+              thisRef._toggleRange(obj.attribute, true);
+            }
+            else
+            {
+              var item = thisRef._menuItems[userAlias+'-single'];
+              var obj = item.onclick.obj;
+
+              thisRef._setNumberInputValues(obj, value, null);
+              thisRef._toggleSingle(obj.attribute, true);
+            }
+            
+            thisRef._setNumberCriteria(null, obj);
+          }
+          else
+          {
+            // Handle all other attribute criteria.
+            var item = thisRef._menuItems[userAlias+'-'+value];
+            item.checked = true;         
+            
+            // Re-use the onclick object, which contains all information
+            // needed to rebuild the criteria.
+            var obj = item.onclick.obj;
+
+            var attribute = item.onclick.obj.attribute;
+            var display = item.onclick.obj.display;
+            
+            if(entityAlias === thisRef._Person.CLASS)
+            {
+              thisRef._setPersonCriteria(attribute, value, display, true);
+            }
+            else if(entityAlias === thisRef._Household.CLASS)
+            {
+              thisRef._setHouseholdCriteria(attribute, value, display, true);
+            }
           }
         }
       }
     });
+    
+    this._queryPanel.disableDateCheck();
+    
+    if(selectStart)
+    {
+      this._checkBox(this._queryPanel.getStartDateCheck());
+    }
+    
+    if(selectEnd)
+    {
+      this._checkBox(this._queryPanel.getEndDateCheck());
+    }
     
     this._reconstructSearch(entities, view);
   },
@@ -199,31 +288,28 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var surveyPointQuery = new MDSS.QueryXML.Entity(surveyPointType, surveyPointType);
     queryXML.addEntity(surveyPointQuery);
 
-    var householdType = this._household.getType();
-    var householdQuery = new MDSS.QueryXML.Entity(householdType, householdType);
-    queryXML.addEntity(householdQuery);
-
-    var personType = this._person.getType();
-    var personQuery = new MDSS.QueryXML.Entity(personType, personType);
-    queryXML.addEntity(personQuery);
-    
     // Household selectables
+    var addedHousehold = false;
     var householdSel = Mojo.util.getKeys(this._householdSelectables);
     for(var i=0; i<householdSel.length; i++)
     {
+      addedHousehold = true;
+    
       var name = householdSel[i];
       var selectable = this._householdSelectables[name];
-      queryXML.addSelectable(householdQuery.getAlias()+'-'+name, selectable);
+      queryXML.addSelectable(this._Household.CLASS+'-'+name, selectable);
     }
     
     // Household Aggregates
     var aggNames = Mojo.util.getKeys(this._householdAggregateSelectables);
     for(var i=0; i<aggNames.length; i++)
     {
+      addedHousehold = true;
+
       var name = aggNames[i];
       var selectable = this._householdAggregateSelectables[name];
 
-      queryXML.addSelectable(householdQuery.getAlias()+'_'+name, selectable);
+      queryXML.addSelectable(this._Household.CLASS+'_'+name, selectable);
     }
     
     // Household criteria
@@ -231,332 +317,364 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var and = new MDSS.QueryXML.And();
     for(var i=0; i<householdCrit.length; i++)
     {
+      addedHousehold = true;
+
       var name = householdCrit[i];
       var condition = this._householdCriteria[name];
       and.addCondition(name, condition);
     }
     
-    if(and.getSize() > 0)
+    if(addedHousehold)
     {
-      var composite = new MDSS.QueryXML.CompositeCondition(and);
-      householdQuery.setCondition(composite);
+      var householdType = this._household.getType();
+      var householdQuery = new MDSS.QueryXML.Entity(householdType, householdType);
+      queryXML.addEntity(householdQuery);
+      
+      if(and.getSize() > 0)
+      {
+        var composite = new MDSS.QueryXML.CompositeCondition(and);
+        householdQuery.setCondition(composite);
+      }
     }
     
    // Person selectables
+    var addedPerson = false;
     var personSel = Mojo.util.getKeys(this._personSelectables);
     for(var i=0; i<personSel.length; i++)
     {
+      addedPerson = true;
+    
       var name = personSel[i];
       var selectable = this._personSelectables[name];
-      queryXML.addSelectable(personQuery.getAlias()+'-'+name, selectable);
+      queryXML.addSelectable(this._Person.CLASS+'-'+name, selectable);
     }
     
     // Person Aggregates
     var aggNames = Mojo.util.getKeys(this._personAggregateSelectables);
     for(var i=0; i<aggNames.length; i++)
     {
+      addedPerson = true;
+
       var name = aggNames[i];
       var selectable = this._personAggregateSelectables[name];
 
-      queryXML.addSelectable(personQuery.getAlias()+'_'+name, selectable);
+      queryXML.addSelectable(this._Person.CLASS+'_'+name, selectable);
     }
     
     // Person criteria
     var personCrit = Mojo.util.getKeys(this._personCriteria);
-    var and = new MDSS.QueryXML.And();
+    and = new MDSS.QueryXML.And();
     for(var i=0; i<personCrit.length; i++)
     {
+      addedPerson = true;
+
       var name = personCrit[i];
       var condition = this._personCriteria[name];
       and.addCondition(name, condition);
     }
     
-    if(and.getSize() > 0)
+    if(addedPerson)
     {
-      var composite = new MDSS.QueryXML.CompositeCondition(and);
-      personQuery.setCondition(composite);
+      var personType = this._person.getType();
+      var personQuery = new MDSS.QueryXML.Entity(personType, personType);
+      queryXML.addEntity(personQuery);
+      
+      if(and.getSize() > 0)
+      {
+        var composite = new MDSS.QueryXML.CompositeCondition(and);
+        personQuery.setCondition(composite);
+      }
     }
     
+    // Date selectables/criteria
+    var conditions = [];
+    if(this._startDate != null)
+    {
+      conditions.push(this._startDate);
+    }
+
+    if(this._endDate != null)
+    {
+      conditions.push(this._endDate);
+    }    
+    
+    var keys = Mojo.util.getKeys(this._dateGroupSelectables);
+    for(var i=0; i < keys.length; i++)
+    {
+    	var selectable = this._dateGroupSelectables[keys[i]];
+    	if(selectable != null)
+    	{
+    		queryXML.addSelectable(keys[i], selectable);
+    	}
+    }
+
+    var dateAndOr = null;
+    if(conditions.length === 2)
+    {
+      dateAndOr = new MDSS.QueryXML.And();
+      dateAndOr.addCondition('date1', conditions[0]);
+      dateAndOr.addCondition('date2', conditions[1]);
+    }
+    else if(conditions.length === 1)
+    {
+      dateAndOr = new MDSS.QueryXML.Or();
+      dateAndOr.addCondition('date1', conditions[0]);
+    }
+
+    // now all possible criteria, both age group and date
+    if(dateAndOr != null)
+    {
+      var composite = new MDSS.QueryXML.CompositeCondition(dateAndOr);
+      surveyPointQuery.setCondition(composite);
+    }
+
     return queryXML;
   },
   
-  /**
-   * Sets criteria on household
-   */
-  _setHouseholdCriteria : function(e, attribute)
-  {
-    var value = e.target.value;
-    var display = e.target.innerHTML;
-
-    this._setHouseholdCriteriaConcrete(attribute, value, display, true);
-  },
-  
-  _setHouseholdCriteriaConcrete : function(attribute, value, display, addCriteria)
+  _setHouseholdCriteria : function(attribute, value, display, addCriteria)
   {
     var key = attribute.getKey();
     var selectable = attribute.getSelectable(false); 
-  
-    if(value === '')
+
+    var attrDTO = this._household.getAttributeDTO(attribute.getAttributeName());
+    var condition;
+    if(attribute.getAttributeName() === this._Household.LASTSPRAYED)
     {
-      delete this._householdCriteria[key];
+      condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, value);
       
-      // Criterion of an empty string means the criteria should be cleared.
-      // This is generally used with mutually exclusive select list options.
+      // There can only be one LTE condition at a time for Household.LASTSPRAYED
       this._queryPanel.clearWhereCriteria(key);
+      this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
     }
-    else
+    else if(attribute.getAttributeName() === this._Household.WINDOWTYPE)
     {
-      var attrDTO = this._household.getAttributeDTO(attribute.getAttributeName());
-      var condition;
-      if(attribute.getAttributeName() === this._Household.LASTSPRAYED)
+      var existing = this._householdCriteria[key];
+      var enumIds = existing != null ? existing.getValue().split(',') : [];
+      var set = new MDSS.Set();
+      set.addAll(enumIds);
+    
+      if(addCriteria)
       {
-        condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, value);
-        
-        // There can only be one LTE condition at a time for Household.LASTSPRAYED
-        this._queryPanel.clearWhereCriteria(key);
+        set.set(value);
         this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
-      }
-      else if(attribute.getAttributeName() === this._Household.WINDOWTYPE)
-      {
-        var existing = this._householdCriteria[key];
-        var enumIds = existing != null ? existing.getValue().split(',') : [];
-        var set = new MDSS.Set();
-        set.addAll(enumIds);
-      
-        if(addCriteria)
-        {
-          set.set(value);
-          this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
-        }
-        else
-        {
-          set.remove(value);
-          this._queryPanel.removeWhereCriteria(key, value);
-        }
-        
-        var finalEnumIds = set.values();
-        if(finalEnumIds.length == 0)
-        {
-          // No conditions left.
-          delete this._householdCriteria[key];
-          this._queryPanel.clearWhereCriteria(key);
-          return;
-        }
-
-        condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.CONTAINS_ANY, finalEnumIds.join(','));
-      }
-      else if(attrDTO instanceof Mojo.dto.AttributeReferenceDTO ||
-        attrDTO instanceof Mojo.dto.AttributeBooleanDTO)
-      {
-        var existing = this._householdCriteria[key];
-        
-        var or;
-        if(existing != null)
-        {
-          // Grab the old Or criteria.
-          or = existing.getComponent();
-        }
-        else
-        {
-          or = new MDSS.QueryXML.Or(); 
-        }
-  
-        if(addCriteria)
-        {
-          var basicCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
-          or.addCondition(value, basicCondition);
-
-          this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
-        }
-        else
-        {
-          or.removeCondition(value);
-          this._queryPanel.removeWhereCriteria(key, value);
-        }
-        
-        if(or.getSize() === 0)
-        {
-          // No conditions left.
-          delete this._householdCriteria[key];
-          this._queryPanel.clearWhereCriteria(key);
-          return;
-        }
-        
-        condition = new MDSS.QueryXML.CompositeCondition(or);
       }
       else
       {
-        condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+        set.remove(value);
+        this._queryPanel.removeWhereCriteria(key, value);
       }
       
-      this._householdCriteria[attribute.getKey()] = condition;
+      var finalEnumIds = set.values();
+      if(finalEnumIds.length == 0)
+      {
+        // No conditions left.
+        delete this._householdCriteria[key];
+        this._queryPanel.clearWhereCriteria(key);
+        return;
+      }
+
+      condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.CONTAINS_ANY, finalEnumIds.join(','));
     }
+    else if(attrDTO instanceof Mojo.dto.AttributeReferenceDTO ||
+      attrDTO instanceof Mojo.dto.AttributeBooleanDTO)
+    {
+      var existing = this._householdCriteria[key];
+      
+      var or;
+      if(existing != null)
+      {
+        // Grab the old Or criteria.
+        or = existing.getComponent();
+      }
+      else
+      {
+        or = new MDSS.QueryXML.Or(); 
+      }
+
+      if(addCriteria)
+      {
+        var basicCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+        or.addCondition(value, basicCondition);
+
+        this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+      }
+      else
+      {
+        or.removeCondition(value);
+        this._queryPanel.removeWhereCriteria(key, value);
+      }
+      
+      if(or.getSize() === 0)
+      {
+        // No conditions left.
+        delete this._householdCriteria[key];
+        this._queryPanel.clearWhereCriteria(key);
+        return;
+      }
+      
+      condition = new MDSS.QueryXML.CompositeCondition(or);
+    }
+    else
+    {
+      condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+    }
+    
+    this._householdCriteria[attribute.getKey()] = condition;
   },
   
   _setPersonCriteria : function(attribute, value, display, addCriteria)
   {
     var key = attribute.getKey();
   
-    if(value === '')
+    var condition;
+    
+    var attrDTO = this._person.getAttributeDTO(attribute.getAttributeName());
+    if(attrDTO instanceof Mojo.dto.AttributeEnumerationDTO)
     {
-      delete this._personCriteria[key];
-      
-      // Criterion of an empty string means the criteria should be cleared.
-      // This is generally used with mutually exclusive select list options.
-      this._queryPanel.clearWhereCriteria(key);
-    }
-    else
-    {
-      var condition;
-      
-      var attrDTO = this._person.getAttributeDTO(attribute.getAttributeName());
-      if(attrDTO instanceof Mojo.dto.AttributeEnumerationDTO)
+      var existing = this._personCriteria[key];
+      var enumIds = existing != null ? existing.getValue().split(',') : [];
+      var set = new MDSS.Set();
+      set.addAll(enumIds);
+    
+      if(addCriteria)
       {
-        var existing = this._personCriteria[key];
-        var enumIds = existing != null ? existing.getValue().split(',') : [];
-        var set = new MDSS.Set();
-        set.addAll(enumIds);
-      
-        if(addCriteria)
-        {
-          set.set(value);
-          this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
-        }
-        else
-        {
-          set.remove(value);
-          this._queryPanel.removeWhereCriteria(key, value);
-        }
-        
-        var finalEnumIds = set.values();
-        if(finalEnumIds.length == 0)
-        {
-          // No conditions left.
-          delete this._personCriteria[key];
-          this._queryPanel.clearWhereCriteria(key);
-          return;
-        }
-
-        var selectable = attribute.getSelectable(false);  
-        condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.CONTAINS_ANY, finalEnumIds.join(','));
+        set.set(value);
+        this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
       }
-      else if(attrDTO instanceof Mojo.dto.AttributeReferenceDTO ||
-        attrDTO instanceof Mojo.dto.AttributeBooleanDTO)
+      else
       {
-        var existing = this._personCriteria[key];
-        
-        var or;
-        if(existing != null)
-        {
-          // Grab the old Or criteria.
-          or = existing.getComponent();
-        }
-        else
-        {
-          or = new MDSS.QueryXML.Or(); 
-        }
-  
-        if(addCriteria)
-        {
-          var selectable = attribute.getSelectable(false);  
-          var basicCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
-        
-          or.addCondition(value, basicCondition);
-          
-          this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
-        }
-        else
-        {
-          or.removeCondition(value);
-          this._queryPanel.removeWhereCriteria(key, value);
-        }
-        
-        if(or.getSize() === 0)
-        {
-          // No conditions left.
-          delete this._personCriteria[key];
-          this._queryPanel.clearWhereCriteria(key);
-          return;
-        }
-        
-        condition = new MDSS.QueryXML.CompositeCondition(or);
+        set.remove(value);
+        this._queryPanel.removeWhereCriteria(key, value);
       }
-      else if(attrDTO.getAttributeMdDTO().getName() === this._Person.HAEMOGLOBIN)
+      
+      var finalEnumIds = set.values();
+      if(finalEnumIds.length == 0)
       {
-        // always clear the range criteria to avoid having to juggle different ids
-        // for different ranges.
+        // No conditions left.
+        delete this._personCriteria[key];
         this._queryPanel.clearWhereCriteria(key);
-        
-        if(!addCriteria || value === '-' || value === '')
-        {
-          // No conditions left.
-          delete this._personCriteria[key];
-          return;
-        }
-        else
-        {
-          this._queryPanel.addWhereCriteria(attribute.getKey(), value, display); // value == display 
-        }
+        return;
+      }
+
+      var selectable = attribute.getSelectable(false);  
+      condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.CONTAINS_ANY, finalEnumIds.join(','));
+    }
+    else if(attrDTO instanceof Mojo.dto.AttributeReferenceDTO ||
+      attrDTO instanceof Mojo.dto.AttributeBooleanDTO)
+    {
+      var existing = this._personCriteria[key];
       
-        // check for either exact or range matches
+      var or;
+      if(existing != null)
+      {
+        // Grab the old Or criteria.
+        or = existing.getComponent();
+      }
+      else
+      {
+        or = new MDSS.QueryXML.Or(); 
+      }
+
+      if(addCriteria)
+      {
         var selectable = attribute.getSelectable(false);  
-        if(value.indexOf('-') != -1)
+        var basicCondition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+      
+        or.addCondition(value, basicCondition);
+        
+        this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+      }
+      else
+      {
+        or.removeCondition(value);
+        this._queryPanel.removeWhereCriteria(key, value);
+      }
+      
+      if(or.getSize() === 0)
+      {
+        // No conditions left.
+        delete this._personCriteria[key];
+        this._queryPanel.clearWhereCriteria(key);
+        return;
+      }
+      
+      condition = new MDSS.QueryXML.CompositeCondition(or);
+    }
+    else if(attrDTO.getAttributeMdDTO().getName() === this._Person.HAEMOGLOBIN)
+    {
+      // always clear the range criteria to avoid having to juggle different ids
+      // for different ranges.
+      this._queryPanel.clearWhereCriteria(key);
+      
+      if(!addCriteria || value === '-' || value === '')
+      {
+        // No conditions left.
+        delete this._personCriteria[key];
+        return;
+      }
+      else
+      {
+        this._queryPanel.addWhereCriteria(attribute.getKey(), value, display); // value == display 
+      }
+    
+      // check for either single or range matches
+      var selectable = attribute.getSelectable(false);  
+      if(value.indexOf('-') != -1)
+      {
+        var range = value.split('-');
+        var range1 = range[0];
+        var range2 = range[1];
+        
+        var cond1 = null;
+        if(range1 !== '')
         {
-          var range = value.split('-');
-          var range1 = range[0];
-          var range2 = range[1];
-          
-          var cond1 = null;
-          if(range1 !== '')
-          {
-            cond1 = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.GE, range1);
-          }
-          
-          var cond2 = null;
-          if(range2 !== '')
-          {
-            cond2 = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, range2);
-          }
-          
-          if(cond1 != null && cond2 != null)
-          {
-            var and = new MDSS.QueryXML.And();
-            and.addCondition(attribute.getAttributeName()+'_range1', cond1);
-            and.addCondition(attribute.getAttributeName()+'_range2', cond2);
-            
-            condition = new MDSS.QueryXML.CompositeCondition(and);
-          }
-          else if(cond1 != null)
-          {
-            condition = cond1;
-          }
-          else if(cond2 != null)
-          {
-            condition = cond2;
-          }
+          cond1 = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.GE, range1);
         }
-        else
+        
+        var cond2 = null;
+        if(range2 !== '')
         {
-          condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+          cond2 = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.LE, range2);
+        }
+        
+        if(cond1 != null && cond2 != null)
+        {
+          var and = new MDSS.QueryXML.And();
+          and.addCondition(attribute.getAttributeName()+'_range1', cond1);
+          and.addCondition(attribute.getAttributeName()+'_range2', cond2);
+          
+          condition = new MDSS.QueryXML.CompositeCondition(and);
+        }
+        else if(cond1 != null)
+        {
+          condition = cond1;
+        }
+        else if(cond2 != null)
+        {
+          condition = cond2;
         }
       }
       else
       {
-        if(addCriteria)
-        {
-          var selectable = attribute.getSelectable(false);  
-          condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
-        }
-        else
-        {
-          delete this._personCriteria[key];
-          this._queryPanel.clearWhereCriteria(key);
-          return;
-        }
+        condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
       }
-      
-      this._personCriteria[key] = condition;
     }
+    else
+    {
+      if(addCriteria)
+      {
+        var selectable = attribute.getSelectable(false);  
+        condition = new MDSS.QueryXML.BasicCondition(selectable, MDSS.QueryXML.Operator.EQ, value);
+      }
+      else
+      {
+        delete this._personCriteria[key];
+        this._queryPanel.clearWhereCriteria(key);
+        return;
+      }
+    }
+    
+    this._personCriteria[key] = condition;
   },
   
   /**
@@ -568,32 +686,19 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     MDSS.QueryBase.prototype._resetToDefault.call(this); // super
   
     // uncheck all menu items
-    var keys = Mojo.util.getKeys(this._personItems);
+    var keys = Mojo.util.getKeys(this._menuItems);
     for(var i=0; i<keys.length; i++)
     {
-      var item = this._personItems[keys[i]];
+      var item = this._menuItems[keys[i]];
       item.checked = false;
-      
-      // clear any exact/range input fields
-      if(item.onclick)
-      {
-        this._toggleExact(item.onclick.obj.attribute, true);
-        this._toggleRange(item.onclick.obj.attribute, true);
-      }
     }
-    
-    keys = Mojo.util.getKeys(this._householdItems);
-    for(var i=0; i<keys.length; i++)
+
+    // clear any single/range input elements
+    for(var i=0; i<this._singleAndRangeAttributes.length; i++)
     {
-      var item = this._householdItems[keys[i]];
-      item.checked = false;
-      
-      // clear any exact/range input fields
-      if(item.onclick)
-      {
-        this._toggleExact(item.onclick.obj.attribute, true);
-        this._toggleRange(item.onclick.obj.attribute, true);
-      }
+      var attribute = this._singleAndRangeAttributes[i];
+      this._toggleSingle(attribute, false);
+      this._toggleRange(attribute, false);
     }
     
     // criteria maps
@@ -620,7 +725,10 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._householdSelectables[attribute.getKey()] = selectable;
 
     // ADD THEMATIC VARIABLE
-    this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+    if(this._household.getAttributeDTO(attributeName) instanceof Mojo.dto.AttributeNumberDTO)
+    {
+      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+    }
   },
 
   /**
@@ -649,10 +757,11 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._queryPanel.removeColumn(column);
     }
 
-   if(removeThematic)
-   {
+    if(removeThematic &&
+      this._household.getAttributeDTO(attributeName) instanceof Mojo.dto.AttributeNumberDTO)
+    {
       this._queryPanel.removeThematicVariable(attribute.getKey());
-   }
+    }
   },
   
   /**
@@ -679,7 +788,11 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._personSelectables[attribute.getKey()] = selectable;
 
     // ADD THEMATIC VARIABLE
-    this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+    if(this._person.getAttributeDTO(attributeName) instanceof Mojo.dto.AttributeNumberDTO ||
+      attributeName === this._Person.DOB)
+    {
+      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
+    }
   },
 
   /**
@@ -704,10 +817,12 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._queryPanel.removeColumn(column);
     }
 
-   if(removeThematic)
-   {
+    if(removeThematic && (
+      this._person.getAttributeDTO(attributeName) instanceof Mojo.dto.AttributeNumberDTO ||
+      attributeName === this._Person.DOB))
+    {
       this._queryPanel.removeThematicVariable(attribute.getKey());
-   }
+    }
   },
 
   /**
@@ -767,7 +882,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       }
     }
   },
-
+  
   /**
    * Handler when someone selects an aggregate function
    * on a household attribute.
@@ -791,7 +906,6 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       this._removeHouseholdAttribute(attribute, false, true, false);
       this._householdSelectables[attribute.getKey()] = selectable;
 
-
       return;
     }
 
@@ -811,7 +925,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   /**
    * Builds the query items for the left column.
    */
-  _buildQueryItems : function(householdMenuItems, personMenuItems)
+  _buildQueryItems : function(householdMenuItems, personMenuItems, nets)
   {
     /*
      * Target
@@ -836,7 +950,6 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var householdUl = document.createElement('ul');
     YAHOO.util.Dom.addClass(householdUl, 'gridList');
     YAHOO.util.Dom.setStyle(householdUl, 'clear', 'both');
-    //YAHOO.util.Dom.setStyle(householdUl, 'display', 'none');
 
     householdDiv.appendChild(labelDiv);
     householdDiv.appendChild(householdUl);
@@ -861,10 +974,8 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     li.appendChild(span);
     householdUl.appendChild(li);
 
-    var Household = Mojo.$.dss.vector.solutions.intervention.monitor.Household;
-    
     // 5. Status
-    this._createHouseholdMenu(householdUl, Household.URBAN, householdMenuItems);
+    this._createHouseholdMenu(householdUl, this._Household.URBAN, householdMenuItems);
     
     // 6. # People
     attribute = new MDSS.HouseholdAttribute({
@@ -876,13 +987,13 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._createHouseholdInt(householdUl, attribute);
     
     // 7. Wall
-    this._createHouseholdMenu(householdUl, Household.WALL, householdMenuItems);
+    this._createHouseholdMenu(householdUl, this._Household.WALL, householdMenuItems);
     
     // 7. Roof
-    this._createHouseholdMenu(householdUl, Household.ROOF, householdMenuItems);    
+    this._createHouseholdMenu(householdUl, this._Household.ROOF, householdMenuItems);    
     
     // 9. windows
-    this._createHouseholdMenu(householdUl, Household.WINDOWTYPE, householdMenuItems);
+    this._createHouseholdMenu(householdUl, this._Household.WINDOWTYPE, householdMenuItems);
     
     // 10. # rooms
     attribute = new MDSS.HouseholdAttribute({
@@ -894,49 +1005,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._createHouseholdInt(householdUl, attribute);
     
     // 11. Last sprayed
-    attribute = new MDSS.HouseholdAttribute({
-      type: this._household.getType(),
-      displayLabel: this._household.getLastSprayedMd().getDisplayLabel(),
-      attributeName: this._household.getLastSprayedMd().getName()
-    });
-    
-    li = document.createElement('li');
-    check = document.createElement('input');
-    check.id = attribute.getKey();
-    YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
-    this._defaults.push({element: check, checked: false});
-    YAHOO.util.Event.on(check, 'click', this._householdAttributeHandler, attribute, this);
-    
-    var select = document.createElement('select');
-    select.disabled = true; // default (must be checked to enabled)
-    this._defaults.push({element:select, disabled:true, index:0});
-    
-    // default value (no criteria)
-    var noLTE = document.createElement('option');
-    noLTE.value = '';
-    select.appendChild(noLTE);
-    YAHOO.util.Event.on(noLTE, 'click', this._setHouseholdCriteria, attribute, this);
-    
-    // provide LTE criteria for # months since last spray
-    for(var i=1; i<=12; i++)
-    {
-      var option = document.createElement('option');
-      option.value = i;
-      option.innerHTML = '<= '+ i;
-      select.appendChild(option);
-      
-      YAHOO.util.Event.on(option, 'click', this._setHouseholdCriteria, attribute, this);
-    }
-    
-    
-    var span = document.createElement('span');
-    span.innerHTML = attribute.getDisplayLabel();
-    
-    li.appendChild(check);
-    li.appendChild(select);
-    li.appendChild(span);
-    householdUl.appendChild(li);    
-    
+    this._createHouseholdMenu(householdUl, this._Household.LASTSPRAYED, householdMenuItems);
     
     // 12. # nets
     attribute = new MDSS.HouseholdAttribute({
@@ -947,8 +1016,27 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     
     this._createHouseholdInt(householdUl, attribute);
     
-    // ?? Household nets (grabs HouseholdNet.AMOUNT, an attr on rel between Household and Net.
-    
+    // ?? Household nets
+    /*
+    for(var i=0; i<nets.length; i++)
+    {
+      var net = nets[i];
+      var netAttribute = new MDSS.BasicAttribute(net);
+      
+      var li = document.createElement('li');
+      var check = document.createElement('input');
+      check.id = netAttribute.getKey();
+      YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+      this._defaults.push({element: check, checked: false});
+      YAHOO.util.Event.on(check, 'click', this._netHandler, netAttribute, this);
+      var span = document.createElement('span');
+      span.innerHTML = netAttribute.getDisplayLabel();
+      
+      li.appendChild(check);
+      li.appendChild(span);
+      householdUl.appendChild(li);
+    }
+    */
 
     // 13. # people slept under a net
     attribute = new MDSS.HouseholdAttribute({
@@ -972,7 +1060,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._queryPanel.addQueryItem({
       html : householdDiv,
       id: 'householdItems',
-      menuBuilder : MDSS.util.bind(this, this._householdMenuBuilder)
+      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
     });
     
     
@@ -1025,61 +1113,59 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     
     this._createPersonMenu(personUl, attribute, personMenuItems);
 
-    var Person = Mojo.$.dss.vector.solutions.intervention.monitor.Person;
-
     // 17. Sex
-    this._createPersonMenu(personUl, Person.SEX, personMenuItems); 
+    this._createPersonMenu(personUl, this._Person.SEX, personMenuItems); 
     
     // 18. Pregnant
-    this._createPersonMenu(personUl, Person.PREGNANT, personMenuItems);   
+    this._createPersonMenu(personUl, this._Person.PREGNANT, personMenuItems);   
     
     // 19. slept under net
-    this._createPersonMenu(personUl, Person.SLEPTUNDERNET, personMenuItems);   
+    this._createPersonMenu(personUl, this._Person.SLEPTUNDERNET, personMenuItems);   
 
     // ??. hemoglobin measured
-    this._createPersonMenu(personUl, Person.HAEMOGLOBIN, personMenuItems);
+    this._createPersonMenu(personUl, this._Person.HAEMOGLOBIN, personMenuItems);
      
     // 20. hemoglobin measured
-    this._createPersonMenu(personUl, Person.HAEMOGLOBINMEASURED, personMenuItems);   
+    this._createPersonMenu(personUl, this._Person.HAEMOGLOBINMEASURED, personMenuItems);   
     
     // 21. Anemia Treatment
-    this._createPersonMenu(personUl, Person.ANAEMIATREATMENT, personMenuItems);    
+    this._createPersonMenu(personUl, this._Person.ANAEMIATREATMENT, personMenuItems);    
 
     // 22. Iron given
-    this._createPersonMenu(personUl, Person.IRON, personMenuItems);    
+    this._createPersonMenu(personUl, this._Person.IRON, personMenuItems);    
 
     // 23. RDT Treatment
-    this._createPersonMenu(personUl, Person.RDTTREATMENT, personMenuItems);   
+    this._createPersonMenu(personUl, this._Person.RDTTREATMENT, personMenuItems);   
     
     // 24. RDT Result
-    this._createPersonMenu(personUl, Person.RDTRESULT, personMenuItems);
+    this._createPersonMenu(personUl, this._Person.RDTRESULT, personMenuItems);
 
     // 27. Bloodslide
-    this._createPersonMenu(personUl, Person.BLOODSLIDE, personMenuItems);   
+    this._createPersonMenu(personUl, this._Person.BLOODSLIDE, personMenuItems);   
     
     // 28. Fever
-    this._createPersonMenu(personUl, Person.FEVER, personMenuItems);   
+    this._createPersonMenu(personUl, this._Person.FEVER, personMenuItems);   
     
     // 29. Fever Treatment
-    this._createPersonMenu(personUl, Person.FEVERTREATMENT, personMenuItems);   
+    this._createPersonMenu(personUl, this._Person.FEVERTREATMENT, personMenuItems);   
     
     // 30. malaria
-    this._createPersonMenu(personUl, Person.MALARIA, personMenuItems);   
+    this._createPersonMenu(personUl, this._Person.MALARIA, personMenuItems);   
     
     // 31. Malaria Treatment
-    this._createPersonMenu(personUl, Person.MALARIATREATMENT, personMenuItems);   
+    this._createPersonMenu(personUl, this._Person.MALARIATREATMENT, personMenuItems);   
     
     // 32. Payment
-    this._createPersonMenu(personUl, Person.PAYMENT, personMenuItems);   
+    this._createPersonMenu(personUl, this._Person.PAYMENT, personMenuItems);   
     
     this._queryPanel.addQueryItem({
       html : personDiv,
       id: 'personItems',
-      menuBuilder : MDSS.util.bind(this, this._personMenuBuilder)
+      menuBuilder : MDSS.util.bind(this, this._menuBuilder)
     });
   },
-  
-  _menuBuilder : function(outerLi, targetEl, menuMap)
+
+  _menuBuilder : function(outerLi, targetEl)
   {
     var li = null;
     if(targetEl.nodeName === 'LI')
@@ -1102,7 +1188,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       return [];
     }
     
-    var items = menuMap[li.id];
+    var items = this._menus[li.id];
     if(items != null)
     {
       return items;
@@ -1113,31 +1199,13 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     }
   },
   
-  /**
-   * Menu builder function to dynamically populate a menu for 
-   * specific Person attributes.
-   */
-  _personMenuBuilder : function(outerLi, targetEl)
-  {
-    return this._menuBuilder(outerLi, targetEl, this._personMenus);
-  },
-  
-  /**
-   * Menu builder function to dynamically populate a menu for 
-   * specific Household attributes.
-   */
-  _householdMenuBuilder : function(outerLi, targetEl)
-  {
-    return this._menuBuilder(outerLi, targetEl, this._householdMenus);
-  },
-  
   _personMenuItemHandler : function(eventType, event, obj)
   {
     var attribute = obj.attribute;
     var value = obj.value;
     var display = obj.display;
     
-    var item = this._personItems[attribute.getAttributeName()+'-'+value];
+    var item = this._menuItems[attribute.getKey()+'-'+value];
     item.checked = !item.checked;
     
     this._setPersonCriteria(attribute, value, display, item.checked);
@@ -1149,10 +1217,10 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var value = obj.value;
     var display = obj.display;
     
-    var item = this._householdItems[attribute.getAttributeName()+'-'+value];
+    var item = this._menuItems[attribute.getKey()+'-'+value];
     item.checked = !item.checked;
     
-    this._setHouseholdCriteriaConcrete(attribute, value, display, item.checked);
+    this._setHouseholdCriteria(attribute, value, display, item.checked);
   },
   
   _createHouseholdMenu : function(householdUl, attributeName, householdMenuItems)
@@ -1178,54 +1246,66 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._defaults.push({element:check, checked:false});
     YAHOO.util.Event.on(check, 'click', this._householdAttributeHandler, attribute, this);
 
-    // Use the JSON object sent from the server to build objects
-    // compatible with YUI's context menu constructor.    
-    var rawItems = householdMenuItems[attribute.getAttributeName()];
-    var items = [];
-    for(var i=0; i<rawItems.length; i++)
-    {
-      var rawItem = rawItems[i];
+    li.appendChild(check);
 
-      var item = {
-        text: rawItem.displayLabel,
-        checked: false,
-      };
+    var items = [];
+    if(attributeName === this._Household.LASTSPRAYED)
+    {
+      var single = this._createSingleItem(check, li, attribute);
       
-      if(!rawItem.isAbstract)
+      this._menuItems[attribute.getKey()+'-single'] = single;
+          
+      items.push(single);
+    }
+    else
+    {
+      // Use the JSON object sent from the server to build objects
+      // compatible with YUI's context menu constructor.
+      var rawItems = householdMenuItems[attribute.getAttributeName()];
+      for(var i=0; i<rawItems.length; i++)
       {
-        item.onclick = {
-          fn: this._householdMenuItemHandler,
-          obj: {attribute: attribute, value: rawItem.value, display: rawItem.displayLabel}, 
-          scope: this
+        var rawItem = rawItems[i];
+  
+        var item = {
+          text: rawItem.displayLabel,
+          checked: false,
         };
+        
+        if(!rawItem.isAbstract)
+        {
+          item.onclick = {
+            fn: this._householdMenuItemHandler,
+            obj: {attribute: attribute, value: rawItem.value, display: rawItem.displayLabel}, 
+            scope: this
+          };
+        }
+        
+        if(rawItem.isAbstract)
+        {
+          item.text = "<strong>"+rawItem.displayLabel+"</strong>";
+        }
+        else if(rawItem.isAbstract === false)
+        {
+          item.text = "&nbsp;&nbsp;&nbsp;&nbsp;"+rawItem.displayLabel;
+        }
+        else
+        {
+          // isAbstract doesn't even exist on the item, meaning it
+          // is not part of a Grid or Configurable List
+          item.text = rawItem.displayLabel;
+        }
+        
+        this._menuItems[attribute.getKey()+'-'+rawItem.value] = item;
+        items.push(item);
       }
-      
-      if(rawItem.isAbstract)
-      {
-        item.text = "<strong>"+rawItem.displayLabel+"</strong>";
-      }
-      else if(rawItem.isAbstract === false)
-      {
-        item.text = "&nbsp;&nbsp;&nbsp;&nbsp;"+rawItem.displayLabel;
-      }
-      else
-      {
-        // isAbstract doesn't even exist on the item, meaning it
-        // is not part of a Grid or Configurable List
-        item.text = rawItem.displayLabel;
-      }
-      
-      this._householdItems[attribute.getAttributeName()+'-'+rawItem.value] = item;
-      items.push(item);
     }
     
     // map the menu items to the LI node that contains the attribute data
-    this._householdMenus[li.id] = items;
+    this._menus[li.id] = items;
     
     var span = document.createElement('span');
     span.innerHTML = attribute.getDisplayLabel();
     
-    li.appendChild(check);
     li.appendChild(span);
     householdUl.appendChild(li);
   },
@@ -1272,23 +1352,22 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     var items = [];
     if(attribute.getAttributeName() === this._Person.DOB)
     {
-      // Add exact match and range
-      var exact = this._createExactItem(li, attribute);
-      var range = this._createRangeItem(li, attribute);
+      // Add single match and range
+      var single = this._createSingleItem(check, li, attribute);
+      var range = this._createRangeItem(check, li, attribute);
       
-      this._personItems[attribute.getAttributeName()+'-exact'] = exact;        
-      this._personItems[attribute.getAttributeName()+'-range'] = range;
+      this._menuItems[attribute.getKey()+'-single'] = single;        
+      this._menuItems[attribute.getKey()+'-range'] = range;
           
-      items.push(exact);
+      items.push(single);
       items.push(range);
     }
     // Hemoglobin requires a menu item to enable range criteria.
     else if(attribute.getAttributeName() === this._Person.HAEMOGLOBIN)
     {
-      // Add exact match and range
-      var range = this._createRangeItem(li, attribute);
+      var range = this._createRangeItem(check, li, attribute);
       
-      this._personItems[attribute.getAttributeName()+'-range'] = range;
+      this._menuItems[attribute.getKey()+'-range'] = range;
           
       items.push(range);
     }
@@ -1311,14 +1390,14 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
           }
         };
         
-        this._personItems[attribute.getAttributeName()+'-'+rawItem.value] = item;
+        this._menuItems[attribute.getKey()+'-'+rawItem.value] = item;
         items.push(item);
       }
     }
     
     
     // map the menu items to the LI node that contains the attribute data
-    this._personMenus[li.id] = items;
+    this._menus[li.id] = items;
     
     var span = document.createElement('span');
     span.innerHTML = attribute.getDisplayLabel();
@@ -1327,41 +1406,41 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     personUl.appendChild(li);
   },
   
-  _toggleExact : function(attribute, clear)
+  _toggleSingle : function(attribute, toggleOverride)
   {
-    var item = this._personItems[attribute.getAttributeName()+'-exact'];
-    // The exact criteria is optional, so return if null
+    var item = this._menuItems[attribute.getKey()+'-single'];
+    // The single criteria is optional, so return if null
     if(item == null)
     {
       return;
     }
     
-    item.checked = clear ? false : !item.checked;   
+    item.checked = Mojo.util.isBoolean(toggleOverride) ? toggleOverride : !item.checked; 
   
-    var exact = document.getElementById(attribute.getKey()+"-exact");
+    var single = document.getElementById(attribute.getKey()+"-single");
     if(item.checked)
     {
-      YAHOO.util.Dom.setStyle(exact, 'display', 'inline');
+      YAHOO.util.Dom.setStyle(single, 'display', 'inline');
     }
     else
     {
-      exact.value = '';
-      YAHOO.util.Dom.setStyle(exact, 'display', 'none');
+      single.value = '';
+      YAHOO.util.Dom.setStyle(single, 'display', 'none');
     }
     
     return item.checked;
   },
   
-  _toggleRange : function(attribute, clear)
+  _toggleRange : function(attribute, toggleOverride)
   {
-    var item = this._personItems[attribute.getAttributeName()+'-range'];
+    var item = this._menuItems[attribute.getKey()+'-range'];
     // The range criteria is optional, so return if null
     if(item == null)
     {
       return;
     }
     
-    item.checked = clear ? false : !item.checked;
+    item.checked = Mojo.util.isBoolean(toggleOverride) ? toggleOverride : !item.checked;
     
     var range1 = document.getElementById(attribute.getKey()+"-range1");
     var rangeSign = document.getElementById(attribute.getKey()+"-rangeSign");
@@ -1388,7 +1467,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
   
   /**
    * Sets number restriction criteria by showing/hiding
-   * input fields for exact value matching and range.
+   * input fields for single value matching and range.
    */
   _toggleNumberInputs : function(eventType, event, obj)
   {
@@ -1396,19 +1475,19 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     
     var that = this;
     var checked;
-    if(obj.type === 'exact')
+    if(obj.type === 'single')
     {
-      this._toggleRange(attribute, true);
-      checked = this._toggleExact(attribute);
+      this._toggleRange(attribute, false);
+      checked = this._toggleSingle(attribute);
     }
     else
     {
-      this._toggleExact(attribute, true);
+      this._toggleSingle(attribute, false);
       checked = this._toggleRange(attribute);
     }
     
     // Always clear the criteria as there's no reason to
-    // preserve it when toggling exact/range inputs.
+    // preserve it when toggling single/range inputs.
     this._queryPanel.clearWhereCriteria(attribute.getKey());
     
     if(!checked && attribute.getAttributeName() === this._Person.DOB)
@@ -1418,21 +1497,57 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     else if(!checked)
     {
       // no criteria specified, so clear the mapping
-      this._setPersonCriteria(attribute, null, null, false);
-    }  
+      if(attribute.getType() === this._Person.CLASS)
+      {
+        this._setPersonCriteria(attribute, null, null, true);
+      }
+      else
+      {
+        this._setHouseholdCriteria(attribute,  null, null, true);
+      }
+    }
   },
   
   /**
-   * Sets number criteria on a Person attribute.
+   * Sets the numeric values on the text inputs for single and range
+   * criteria.
    */
-  _setPersonNumberCriteria : function(e, obj)
+  _setNumberInputValues : function(obj, value1, value2)
+  {
+    var attribute = obj.attribute;
+    if(obj.type === 'single')
+    {
+      if(value1 != null)
+      {
+        document.getElementById(attribute.getKey()+"-single").value = value1;
+      }
+    }
+    else
+    {
+      if(value1 != null)
+      {
+        document.getElementById(attribute.getKey()+"-range1").value = value1;
+      }
+      
+      if(value2 != null)
+      {
+        document.getElementById(attribute.getKey()+"-range2").value = value2;
+      }
+    }
+    
+  },
+  
+  /**
+   * Sets number criteria on an attribute.
+   */
+  _setNumberCriteria : function(e, obj)
   {
     var attribute = obj.attribute;
     var value;
-    if(obj.type === 'exact')
+    if(obj.type === 'single')
     {
-      var exact = document.getElementById(attribute.getKey()+"-exact");
-      value = exact.value;
+      var single = document.getElementById(attribute.getKey()+"-single");
+      value = single.value;
     }
     else
     {
@@ -1458,50 +1573,66 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
         this._queryPanel.addWhereCriteria(attribute.getKey(), value, value);
       }
     }
-    else
+    else if(attribute.getType() === this._Person.CLASS)
     {
       this._setPersonCriteria(attribute, value, value, true);
-    }    
+    }
+    else if(attribute.getType() === this._Household.CLASS)
+    {
+      this._setHouseholdCriteria(attribute, value, value, true);
+    }
   },
   
   /**
-   * Creates the JSON necessary to let a user specify an exact
+   * Creates the JSON necessary to let a user specify an single
    * match on an attribute.
    */
-  _createExactItem : function(li, attribute)
+  _createSingleItem : function(check, li, attribute)
   {
-    var exactInput = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(exactInput, 'type', 'text');
-    YAHOO.util.Dom.setStyle(exactInput, 'display', 'none');
-    YAHOO.util.Dom.addClass(exactInput, 'queryNumberCriteria');
-    exactInput.id = attribute.getKey()+"-exact";
+    this._singleAndRangeAttributes.push(attribute);
+  
+    var singleInput = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(singleInput, 'type', 'text');
+    YAHOO.util.Dom.setStyle(singleInput, 'display', 'none');
+    YAHOO.util.Dom.addClass(singleInput, 'queryNumberCriteria');
+    singleInput.id = attribute.getKey()+"-single";
     
     var obj = {
       attribute: attribute,
-      type: 'exact'
+      type: 'single'
     };
     
-    YAHOO.util.Event.on(exactInput, 'keyup', this._setPersonNumberCriteria, obj, this);
+    YAHOO.util.Event.on(singleInput, 'keyup', this._setNumberCriteria, obj, this);
 
-    li.appendChild(exactInput);
+    li.appendChild(singleInput);
+
+    // When the check box is toggled, be sure to clear and hide the input
+    YAHOO.util.Event.on(check, 'click', function(e, attr){
+      if(!e.target.checked)
+      {
+        this._toggleSingle(attr, false);
+      }
+    }, attribute, this);
 
     return item = {
-      text: MDSS.Localized.Exact_Value,
+      text: MDSS.Localized.Single_Value,
       checked: false,
       onclick : {
         fn: this._toggleNumberInputs,
-        obj: {attribute: attribute, type:'exact'}, 
+        obj: obj, 
         scope: this
       }
     };
   },
   
   /**
-   * Creates the JSON necessary to let a user specify an exact
+   * Creates the JSON necessary to let a user specify an single
    * match on an attribute.
    */
-  _createRangeItem : function(li, attribute)
+  _createRangeItem : function(check, li, attribute)
   {
+    this._singleAndRangeAttributes.push(attribute);
+  
     var rangeInput1 = document.createElement('input');
     YAHOO.util.Dom.setAttribute(rangeInput1, 'type', 'text');
     YAHOO.util.Dom.setStyle(rangeInput1, 'display', 'none');
@@ -1513,7 +1644,7 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
       type: 'range'
     };
 
-    YAHOO.util.Event.on(rangeInput1, 'keyup', this._setPersonNumberCriteria, obj, this);
+    YAHOO.util.Event.on(rangeInput1, 'keyup', this._setNumberCriteria, obj, this);
 
     var rangeSign = document.createElement('span');
     rangeSign.innerHTML = '-';
@@ -1526,18 +1657,26 @@ MDSS.QuerySurvey.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     YAHOO.util.Dom.addClass(rangeInput2, 'queryNumberCriteria');
     rangeInput2.id = attribute.getKey()+"-range2";
 
-    YAHOO.util.Event.on(rangeInput2, 'keyup', this._setPersonNumberCriteria, obj, this);
+    YAHOO.util.Event.on(rangeInput2, 'keyup', this._setNumberCriteria, obj, this);
     
     li.appendChild(rangeInput1);
     li.appendChild(rangeSign);
     li.appendChild(rangeInput2);  
+
+    // When the check box is toggled, be sure to clear and hide the inputs
+    YAHOO.util.Event.on(check, 'click', function(e, attr){
+      if(!e.target.checked)
+      {
+        this._toggleRange(attr, false);
+      }
+    }, attribute, this);
 
     return item = {
       text: MDSS.Localized.Set_Range,
       checked: false,
       onclick : {
         fn: this._toggleNumberInputs,
-        obj: {attribute: attribute, type:'range'}, 
+        obj: obj,
         scope: this
       }
     };

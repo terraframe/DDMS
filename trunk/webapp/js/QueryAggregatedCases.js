@@ -732,34 +732,6 @@ MDSS.QueryAggregatedCases.prototype = Mojo.Class.extend(MDSS.QueryBase, {
     this._visibleAggregateSelectables[attribute.getKey()] = aggSelectable;
   },
 
-  _toggleCount : function(e, attribute)
-  {
-    var check = e.target;
-
-    if(check.checked)
-    {
-      var selectable = attribute.getSelectable();
-
-      var count = new MDSS.QueryXML.COUNT(selectable, attribute.getKey());
-      var aggSelectable = new MDSS.QueryXML.Selectable(count);
-      this._countSelectable = aggSelectable;
-
-      this._queryPanel.insertColumn(attribute.getColumnObject());
-
-      // ADD THEMATIC VARIABLE
-      this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
-    }
-    else
-    {
-      var column = this._queryPanel.getColumn(attribute.getKey());
-      this._queryPanel.removeColumn(column);
-
-      this._countSelectable = null;
-
-      this._queryPanel.removeThematicVariable(attribute.getKey());
-    }
-  },
-
   _showAgeGroupAttributes : function(e, attributes)
   {
     var check = e.target;
@@ -1194,7 +1166,7 @@ MDSS.GridAttribute.prototype = {
 
   getRelationshipSelectable : function()
   {
-  	var attribute = new MDSS.QueryXML.Attribute(this._relAlias, this._meta.relAttribute, this._key);
+  	var attribute = new MDSS.QueryXML.Attribute(this._relAlias, this._meta.relAttribute, this._key, this._displayLabel);
     var selectable = new MDSS.QueryXML.Selectable(attribute);
     return selectable;
   },
