@@ -97,7 +97,7 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     {
       // January == 0, December == 11, Valid Quarter months are 1 - 12
       int month = calendar.get(Calendar.MONTH) + 1;
-      
+
       // Calendar.month is zero indexed, while period is 1 indexed
       super.setPeriod(month);
       super.addPeriodType(PeriodType.MONTH);
@@ -288,6 +288,33 @@ public class EpiDate extends EpiDateBase implements com.terraframe.mojo.generati
     {
       return quarterEndDate;
     }
+  }
+
+  public static Date snapToYear(Date startDate)
+  {
+    int period = Calendar.DAY_OF_YEAR;
+
+    Calendar cal = new GregorianCalendar();
+    cal.setTime(startDate);
+    cal = getEpiCalendar(cal.get(Calendar.YEAR));
+    cal.setTime(startDate);
+
+    int piviot = cal.get(period);
+    int max = cal.getActualMaximum(period);
+    int min = cal.getActualMinimum(period);
+
+    int days_before_piviot = piviot - min;
+    int days_after_piviot = max - piviot;
+    // beginning of year wins in case of tie
+    if (days_before_piviot < days_after_piviot)
+    {
+      cal.set(period, min);
+    }
+    else
+    {
+      cal.set(period, max);
+    }
+    return cal.getTime();
   }
 
   public static Date snapToSeason(Date snapable)
