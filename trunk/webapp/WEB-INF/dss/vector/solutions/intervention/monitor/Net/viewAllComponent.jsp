@@ -1,5 +1,6 @@
 <%@ taglib uri="/WEB-INF/tlds/mojoLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="page_title" value="View_All_Net"  scope="request"/>
 
 <mjl:messages>
@@ -16,11 +17,14 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="netName">
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="parentNet">
+    <mjl:freeColumn>
+      <mjl:header>
+        <fmt:message key="Parent_Net" />
+      </mjl:header>
       <mjl:row>
         ${item.parentNet != null ? item.parentNet.displayLabel : ''}
       </mjl:row>
-    </mjl:attributeColumn>
+    </mjl:freeColumn>
     <mjl:freeColumn>
       <mjl:header>
         
