@@ -33,7 +33,6 @@ import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF;
 import dss.vector.solutions.query.NoColumnsAddedException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.ThematicLayer;
@@ -252,7 +251,7 @@ public class QueryUtil implements Reloadable
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_EPIWEEK);
 
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'"
       + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
@@ -262,7 +261,7 @@ public class QueryUtil implements Reloadable
 
     if (xml.indexOf(DATEGROUP_MONTH) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_MONTH);
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN '" + intervalNotValid + "'"
       + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
       + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed + ",'MM') END";
