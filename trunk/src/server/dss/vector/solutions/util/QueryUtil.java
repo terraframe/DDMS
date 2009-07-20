@@ -42,6 +42,14 @@ import dss.vector.solutions.surveillance.AggregatedCase;
 public class QueryUtil implements Reloadable
 {
 
+  private static final String DATEGROUP_EPIWEEK = "dategroup_epiweek";
+  private static final String DATEGROUP_MONTH = "dategroup_month";
+  private static final String DATEGROUP_QUARTER = "dategroup_quarter";
+  private static final String DATEGROUP_YEAR = "dategroup_year";
+  private static final String DATEGROUP_SEASON = "dategroup_season";
+  private static final String START_DATE_RANGE = "start_date_range";
+  private static final String END_DATE_RANGE = "end_date_range";
+
   /**
    * Joins the ValueQuery with any selected/restricting geo entity information.
    * This method does not perform the final join between the AllPathsQuery and
@@ -189,42 +197,42 @@ public class QueryUtil implements Reloadable
 
     String da = dateAttribute.getQualifiedName();
 
-    if (xml.indexOf("DATEGROUP_SEASON") > 0)
+    if (xml.indexOf(DATEGROUP_SEASON) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_SEASON");
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_SEASON);
       String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
       dateGroup.setSQL("SELECT "+MalariaSeason.SEASONNAME+" FROM " + table + " AS ms "
           + " WHERE ms." + MalariaSeason.STARTDATE + " < " + da
           + " AND ms." + MalariaSeason.ENDDATE + " > " + da);
     }
 
-    if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
+    if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_EPIWEEK");
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_EPIWEEK);
       dateGroup.setSQL("to_char(" + da + ",'IW')");
     }
 
-    if (xml.indexOf("DATEGROUP_MONTH") > 0)
+    if (xml.indexOf(DATEGROUP_MONTH) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_MONTH");
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_MONTH);
       dateGroup.setSQL("to_char(" + da + ",'MM')");
     }
 
-    if (xml.indexOf("DATEGROUP_QUARTER") > 0)
+    if (xml.indexOf(DATEGROUP_QUARTER) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_QUARTER");
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_QUARTER);
       dateGroup.setSQL("to_char(" + da + ",'Q')");
     }
 
-    if (xml.indexOf("DATEGROUP_YEAR") > 0)
+    if (xml.indexOf(DATEGROUP_YEAR) > 0)
     {
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable("DATEGROUP_YEAR");
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectable(DATEGROUP_YEAR);
       dateGroup.setSQL("to_char(" + da + ",'YYYY')");
     }
 
-    if (xml.indexOf("START_DATE_RANGE") > 0)
+    if (xml.indexOf(START_DATE_RANGE) > 0)
     {
-      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("START_DATE_RANGE");
+      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(START_DATE_RANGE);
       dateGroup.setSQL("''");
       Pattern pattern = Pattern.compile("<operator>GE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
       Matcher matcher = pattern.matcher(xml);
@@ -234,9 +242,9 @@ public class QueryUtil implements Reloadable
       }
     }
 
-    if (xml.indexOf("END_DATE_RANGE") > 0)
+    if (xml.indexOf(END_DATE_RANGE) > 0)
     {
-      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("END_DATE_RANGE");
+      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(END_DATE_RANGE);
       dateGroup.setSQL("''");
 
       Pattern pattern = Pattern.compile("<operator>LE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
@@ -253,10 +261,10 @@ public class QueryUtil implements Reloadable
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, String sd, String ed)
   {
-    if (xml.indexOf("DATEGROUP_SEASON") > 0)
+    if (xml.indexOf(DATEGROUP_SEASON) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable("DATEGROUP_SEASON");
+          .getSelectable(DATEGROUP_SEASON);
 
       String table = MdBusiness.getMdBusiness(MalariaSeason.CLASS).getTableName();
       dateGroup.setSQL("SELECT "+MalariaSeason.SEASONNAME+" FROM " + table + " AS ms"
@@ -264,7 +272,7 @@ public class QueryUtil implements Reloadable
           + " AND ms." + MalariaSeason.ENDDATE + " > " + ed);
     }
 
-    if (xml.indexOf("DATEGROUP_EPIWEEK") > 0)
+    if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
           .getSelectable("DATEGROUP_EPIWEEK");
@@ -276,7 +284,7 @@ public class QueryUtil implements Reloadable
       dateGroup.setSQL(dateGroupSql);
     }
 
-    if (xml.indexOf("DATEGROUP_MONTH") > 0)
+    if (xml.indexOf(DATEGROUP_MONTH) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
           .getSelectable("DATEGROUP_MONTH");
@@ -287,10 +295,10 @@ public class QueryUtil implements Reloadable
       dateGroup.setSQL(dateGroupSql);
     }
 
-    if (xml.indexOf("DATEGROUP_QUARTER") > 0)
+    if (xml.indexOf(DATEGROUP_QUARTER) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable("DATEGROUP_QUARTER");
+          .getSelectable(DATEGROUP_QUARTER);
 
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed
           + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(DOY FROM " + sd
@@ -300,10 +308,10 @@ public class QueryUtil implements Reloadable
       dateGroup.setSQL(dateGroupSql);
     }
 
-    if (xml.indexOf("DATEGROUP_YEAR") > 0)
+    if (xml.indexOf(DATEGROUP_YEAR) > 0)
     {
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
-          .getSelectable("DATEGROUP_YEAR");
+          .getSelectable(DATEGROUP_YEAR);
       String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed
           + "  THEN 'INTERVAL NOT VALID'" + "WHEN (extract(DOY FROM " + sd
           + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
@@ -312,9 +320,9 @@ public class QueryUtil implements Reloadable
       dateGroup.setSQL(dateGroupSql);
     }
 
-    if (xml.indexOf("START_DATE_RANGE") > 0)
+    if (xml.indexOf(START_DATE_RANGE) > 0)
     {
-      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("START_DATE_RANGE");
+      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(START_DATE_RANGE);
       dateGroup.setSQL("''");
       Pattern pattern = Pattern
           .compile("<operator>GE</operator>\\n<value>(\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d)</value>");
@@ -325,9 +333,9 @@ public class QueryUtil implements Reloadable
       }
     }
 
-    if (xml.indexOf("END_DATE_RANGE") > 0)
+    if (xml.indexOf(END_DATE_RANGE) > 0)
     {
-      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable("END_DATE_RANGE");
+      SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(END_DATE_RANGE);
       dateGroup.setSQL("''");
 
       Pattern pattern = Pattern
