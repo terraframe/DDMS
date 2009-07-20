@@ -16,7 +16,7 @@
         <mjl:input type="text" param="dob" id="dob" classes="DatePick NoFuture" />
       </mjl:dt>
       <mjl:dt attribute="age">
-        <mjl:input type="text" param="age" id="age" size="3" maxlength="3"/>
+        <mjl:input type="text" param="age" id="age" size="3" maxlength="3" value=""/>
       </mjl:dt>
       <mjl:dt attribute="sex">
         <mjl:select var="current" includeBlank="true" valueAttribute="enumName" items="${sex}" param="sex">
