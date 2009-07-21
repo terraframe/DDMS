@@ -8,6 +8,7 @@ import java.util.Map;
 import com.terraframe.mojo.dataaccess.database.Database;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.GeneratedEntityQuery;
+import com.terraframe.mojo.query.InnerJoin;
 import com.terraframe.mojo.query.InnerJoinEq;
 import com.terraframe.mojo.query.Join;
 import com.terraframe.mojo.query.OIterator;
@@ -26,6 +27,8 @@ import dss.vector.solutions.entomology.assay.AssayTestResultQuery;
 import dss.vector.solutions.entomology.assay.biochemical.MetabolicAssayTestResult;
 import dss.vector.solutions.entomology.assay.infectivity.InfectivityAssayTestResult;
 import dss.vector.solutions.entomology.assay.molecular.TargetSiteAssayTestResult;
+import dss.vector.solutions.query.MapUtil;
+import dss.vector.solutions.query.NoThematicLayerException;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.query.ThematicLayer;
@@ -133,21 +136,20 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
         valueQuery, xml, thematicLayer, includeGeometry, selectedUniversals, MosquitoCollection.CLASS, MosquitoCollection.GEOENTITY);
 
     MosquitoQuery mosquitoQuery = (MosquitoQuery) queryMap.get(Mosquito.CLASS);
-    UninterestingSpecieGroupQuery groupQuery = (UninterestingSpecieGroupQuery) queryMap.get(UninterestingSpecieGroup.CLASS);
 
     // join Mosquito with mosquito collection
     MosquitoCollectionQuery collectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
+    valueQuery.FROM(collectionQuery);
     if (mosquitoQuery != null)
     {
-      //TODO: do from in additation to where
-      valueQuery.FROM(mosquitoQuery);
+      //valueQuery.FROM(mosquitoQuery);
       valueQuery.WHERE(mosquitoQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
+    UninterestingSpecieGroupQuery groupQuery = (UninterestingSpecieGroupQuery) queryMap.get(UninterestingSpecieGroup.CLASS);
     if (groupQuery != null)
     {
-      //TODO: do from and where
-      valueQuery.FROM(groupQuery);
+      //valueQuery.FROM(groupQuery);
       valueQuery.WHERE(groupQuery.getCollection().getId().EQ(collectionQuery.getId()));
     }
 
@@ -158,16 +160,15 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
     }
 
     SelectableMoment dateAttribute = collectionQuery.getDateCollected();
+    //valueQuery.FROM(dateAttribute.getDefiningTableName(), dateAttribute.getDefiningTableAlias());
 
-
+    //force the joins for date based selectables
     ConcreteMosquitoCollectionQuery concreteCollectionQuery = (ConcreteMosquitoCollectionQuery) queryMap.get(ConcreteMosquitoCollection.CLASS);
-    //this ensures that the date attribute is joined correctly
-    if (concreteCollectionQuery == null)
+    if(concreteCollectionQuery == null)
     {
-      valueQuery.FROM(dateAttribute.getDefiningTableName(), dateAttribute.getDefiningTableAlias());
       for(Join join: dateAttribute.getJoinStatements())
       {
-        //valueQuery.WHERE((InnerJoin) join);
+        valueQuery.WHERE((InnerJoin) join);
       }
     }
 
@@ -231,6 +232,46 @@ public class Mosquito extends MosquitoBase implements com.terraframe.mojo.genera
        valueQuery.WHERE(new InnerJoinEq("id","mosquito",mosquitoQuery.getTableAlias(),"mosquito_id",tableName,tableName));
      }
      return valueQuery;
+   }
+
+   @Transaction
+   public static String mapQuery(String xml, String config, String[] universalLayers, String savedSearchId)
+   {
+     if (savedSearchId == null || savedSearchId.trim().length() == 0)
+     {
+       String error = "Cannot map a query without a current SavedSearch instance.";
+       SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
+       throw ex;
+     }
+
+     SavedSearch search = SavedSearch.get(savedSearchId);
+     QueryConfig queryConfig = new QueryConfig(config);
+
+     ThematicLayer thematicLayer = search.getThematicLayer();
+
+     if (thematicLayer == null || thematicLayer.getGeoHierarchy() == null)
+     {
+       String error = "Cannot create a map for search [" + search.getQueryName()
+           + "] without having selected a thematic layer.";
+       NoThematicLayerException ex = new NoThematicLayerException(error);
+       throw ex;
+     }
+
+     // Update ThematicLayer if the thematic layer type has changed or
+     // if one has not yet been defined.
+     String thematicLayerType = thematicLayer.getGeoHierarchy().getGeoEntityClass().definesType();
+     if (thematicLayer.getGeometryStyle() == null
+         || !thematicLayer.getGeoHierarchy().getQualifiedType().equals(thematicLayerType))
+     {
+       thematicLayer.changeLayerType(thematicLayerType);
+     }
+
+     String[] selectedUniversals = queryConfig.getSelectedUniversals();
+     ValueQuery query = xmlToValueQuery(xml, selectedUniversals, true, thematicLayer);
+
+     String layers = MapUtil.generateLayers(universalLayers, query, search, thematicLayer);
+
+     return layers;
    }
 
    /**
