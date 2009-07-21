@@ -60,7 +60,12 @@ public class PersonView extends PersonViewBase implements com.terraframe.mojo.ge
     person.setLastName(this.getLastName());
     person.setDateOfBirth(this.getDateOfBirth());
     person.addSex(this.getSex().get(0));
-    person.setResidentialGeoEntity(GeoEntity.searchByGeoId(this.getResidentialGeoId()));
+    
+    String geoId = this.getResidentialGeoId();
+    if (geoId!=null)
+    {
+      person.setResidentialGeoEntity(GeoEntity.searchByGeoId(geoId));
+    }
     person.apply();
     
     // Update the delegates
