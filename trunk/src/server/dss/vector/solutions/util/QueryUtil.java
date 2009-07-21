@@ -132,10 +132,20 @@ public class QueryUtil implements Reloadable
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
       GeoEntityQuery geoEntityQuery = (GeoEntityQuery) queryMap.get(thematicLayerType);
 
-      valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
+      if(allPathsQuery == null)
+      {
+        allPathsQuery = new AllPathsQuery(queryFactory);
+        GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
+        valueQuery.WHERE(allPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
+        valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
+      }
+      else
+      {
+        valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
+        GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
+        valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
+      }
 
-      GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
-      valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
     }
     else
     {
