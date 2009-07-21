@@ -172,11 +172,13 @@ public class QueryUtil implements Reloadable
       queryMap = valueQueryParser.parse();
 
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
-      //this prevents all paths from being joined in a subselect, which fixes the cross product.
-      valueQuery.FROM(allPathsQuery);
+
 
       if (allPathsQuery != null)
       {
+        //this keeps all paths from being joined in a subselect, which prevents cross product
+        valueQuery.FROM(allPathsQuery);
+
         List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
         for (ValueQuery leftJoinVQ : leftJoinValueQueries)
         {
