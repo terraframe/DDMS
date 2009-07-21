@@ -19,10 +19,12 @@ public class QueryConstants implements Reloadable
 
   // Query types
   public static final String QUERY_AGGREGATED_CASE = "QueryAggregatedCase";
-  
+
   public static final String QUERY_ENTOMOLOGY = "QueryEntomology";
-  
+
   public static final String QUERY_INDICATOR_SURVEY ="QueryIndicatorSurvey";
-  
+
   public static final String QUERY_IRS ="QueryIRS";
+
+  public static final String QUERY_RESISTANCE = "QueryRestisance";
 }
