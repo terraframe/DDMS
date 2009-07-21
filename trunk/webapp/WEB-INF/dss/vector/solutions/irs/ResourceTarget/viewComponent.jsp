@@ -52,7 +52,10 @@ ResourceTargetData = { rows:<%=Halp.getDataMap(rows, attribs, mdView)%>,
     window.addEventListener('load', MojoGrid.createDataTable(ResourceTargetData) , false);
    //document.addEventListener('load', MojoGrid.createDataTable(ResourceTargetData), false);
 </script>
-<mjl:commandLink display="Back_To_Search" action="dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" name="dss.vector.solutions.irs.ResourceTarget.viewAll.link" />
+<mjl:commandLink action="dss.vector.solutions.irs.ResourceTargetController.viewAll.mojo" name="dss.vector.solutions.irs.ResourceTarget.viewAll.link" >
+  <fmt:message key="Back_To_Search"/>
+</mjl:commandLink>  
+
 
 
 <%String[] types_to_load ={"dss.vector.solutions.irs.ResourceTargetView"}; %>

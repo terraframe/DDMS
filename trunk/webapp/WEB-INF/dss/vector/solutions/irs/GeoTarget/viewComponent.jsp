@@ -49,7 +49,9 @@
 <br/>
 <div id="GeoTargets"></div>
 <br />
-<mjl:commandLink display="Back_To_Search" action="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" name="dss.vector.solutions.irs.GeoTarget.viewAll.link" />
+<mjl:commandLink  action="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" name="dss.vector.solutions.irs.GeoTarget.viewAll.link" >
+  <fmt:message key="Back_To_Search"/>
+</mjl:commandLink>  
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 GeoTargetViewDTO[] rows = (GeoTargetViewDTO[]) request.getAttribute("geoTargetViews");
