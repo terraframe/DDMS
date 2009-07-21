@@ -2,7 +2,7 @@ package dss.vector.solutions.irs;
 
 public class HouseholdValueNotApplicableProblemDTO extends HouseholdValueNotApplicableProblemDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1246576858658L;
+  private static final long serialVersionUID = 1246651890146L;
   
   public HouseholdValueNotApplicableProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {

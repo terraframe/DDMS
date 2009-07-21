@@ -2,7 +2,7 @@ package dss.vector.solutions.irs;
 
 public class SprayedStructureValueProblemDTO extends SprayedStructureValueProblemDTOBase
  implements com.terraframe.mojo.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1246576857675L;
+  private static final long serialVersionUID = 1246651888063L;
   
   public SprayedStructureValueProblemDTO(com.terraframe.mojo.constants.ClientRequestIF clientRequestIF)
   {
