@@ -75,7 +75,7 @@
         name="dss.vector.solutions.query.SavedSearch"
         isAbstract="false"
         label="Saved Query"
-        extendable="false"
+        extendable="true"
         description="Representation of a saved query.">
         <attributes>
           <char
@@ -98,7 +98,7 @@
             required="true"
             label="Query Type"
             description="Descriptor of what query screen this search belongs to."
-            size="50"/>
+            size="50" />
           <reference
             name="thematicLayer"
             type="dss.vector.solutions.query.ThematicLayer"
@@ -146,6 +146,14 @@
             positiveLabel="Yes" />
         </mdMethod>
       </mdBusiness>
+
+      <mdBusiness
+        name="dss.vector.solutions.query.DefaultSavedSearch"
+        isAbstract="false"
+        label="Default Saved Query"
+        extendable="false"
+        description="Representation of a default saved query."
+        extends="dss.vector.solutions.query.SavedSearch" />
 
       <mdException
         name="dss.vector.solutions.query.SavedSearchRequiredException"
@@ -811,12 +819,12 @@
               description="Query XML"
               order="0"
               type="java.lang.String" />
-          <mdParameter
-            name="config"
-            label="config"
-            description="JSON config"
-            order="1"
-            type="java.lang.String" />
+            <mdParameter
+              name="config"
+              label="config"
+              description="JSON config"
+              order="1"
+              type="java.lang.String" />
             <mdParameter
               name="savedSearchId"
               label="Saved Search Id"
@@ -833,12 +841,12 @@
               description="Query XML"
               order="0"
               type="java.lang.String" />
-          <mdParameter
-            name="config"
-            label="config"
-            description="JSON config"
-            order="1"
-            type="java.lang.String" />
+            <mdParameter
+              name="config"
+              label="config"
+              description="JSON config"
+              order="1"
+              type="java.lang.String" />
             <mdParameter
               name="savedSearchId"
               label="Saved Search Id"
