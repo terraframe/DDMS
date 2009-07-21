@@ -10,7 +10,7 @@
         <attributes>
           <char
             name="seasonName"
-            label="SeasonName"
+            label="Season Name"
             required="true"
             unique="true"
             size="255"
