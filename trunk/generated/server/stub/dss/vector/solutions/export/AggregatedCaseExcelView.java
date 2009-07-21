@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
 import com.terraframe.mojo.dataaccess.io.ExcelImporter;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 import com.terraframe.mojo.query.OIterator;
 import com.terraframe.mojo.query.QueryFactory;
@@ -222,7 +224,8 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
         return e;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + PeriodType.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(PeriodType.CLASS));
   }
 
   public void addStock(TreatmentGrid grid, boolean inStock)

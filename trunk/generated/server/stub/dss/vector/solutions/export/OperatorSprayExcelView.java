@@ -16,7 +16,6 @@ import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.SprayOperator;
 import dss.vector.solutions.irs.SprayOperatorQuery;
 import dss.vector.solutions.irs.SprayTeamQuery;
-import dss.vector.solutions.irs.SurfaceType;
 import dss.vector.solutions.util.GeoColumnListener;
 import dss.vector.solutions.util.SearchableHierarchy;
 
@@ -92,17 +91,5 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     }
 
     exporter.addListener(new GeoColumnListener(map));
-  }
-  
-  public SurfaceType getSurfaceTypeByLabel(String label)
-  {
-    for (SurfaceType e : SurfaceType.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    return null;
   }
 }

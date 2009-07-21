@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.SurfacePosition;
@@ -123,6 +125,7 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
         return e;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + SurfacePosition.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(SurfacePosition.CLASS));
   }
 }

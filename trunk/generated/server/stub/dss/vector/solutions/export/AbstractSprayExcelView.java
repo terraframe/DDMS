@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.AbstractSprayView;
@@ -74,7 +76,8 @@ public class AbstractSprayExcelView extends AbstractSprayExcelViewBase implement
         return e;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + SurfaceType.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(SurfaceType.CLASS));
   }
 
   public SprayMethod getSprayMethodByLabel(String label)
@@ -86,6 +89,7 @@ public class AbstractSprayExcelView extends AbstractSprayExcelViewBase implement
         return e;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + SprayMethod.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(SprayMethod.CLASS));
   }
 }

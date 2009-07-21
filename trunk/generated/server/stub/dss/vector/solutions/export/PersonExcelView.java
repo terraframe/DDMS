@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.terraframe.mojo.dataaccess.MdAttributeDAOIF;
+import com.terraframe.mojo.dataaccess.cache.DataNotFoundException;
 import com.terraframe.mojo.dataaccess.io.ExcelExporter;
+import com.terraframe.mojo.dataaccess.metadata.MdTypeDAO;
 import com.terraframe.mojo.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.PersonView;
@@ -42,8 +44,26 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
     GeoEntity entity = searcher.getGeoEntity(this.getGeoEntityNames());
     
     PersonView personView = new PersonView();
-    personView.setResidentialGeoId(entity.getGeoId());
+    
+    personView.setFirstName(this.getFirstName());
+    personView.setLastName(this.getLastName());
+    personView.setDateOfBirth(this.getDateOfBirth());
     personView.addSex(getSexByLabel(this.getSex()));
+    personView.setResidentialGeoId(entity.getGeoId());
+    
+    personView.setIsMDSSUser(this.getIsMDSSUser());
+    personView.setUsername(this.getUsername());
+    personView.setPassword(this.getPassword());
+    
+    personView.setIsPatient(this.getIsPatient());
+    personView.setIsIPTRecipient(this.getIsIPTRecipient());
+    personView.setIsITNRecipient(this.getIsITNRecipient());
+    
+    personView.setIsSprayLeader(this.getIsSprayLeader());
+    personView.setLeaderId(this.getLeaderId());
+    
+    personView.setIsSprayOperator(this.getIsSprayOperator());
+    personView.setOperatorId(this.getOperatorId());
     
     personView.apply();
   }
@@ -120,6 +140,7 @@ public class PersonExcelView extends PersonExcelViewBase implements com.terrafra
         return e;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + Sex.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(Sex.CLASS));
   }
 }
