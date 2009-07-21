@@ -19,6 +19,7 @@ import com.terraframe.mojo.query.QueryException;
 import com.terraframe.mojo.query.QueryFactory;
 import com.terraframe.mojo.query.Selectable;
 import com.terraframe.mojo.query.SelectableMoment;
+import com.terraframe.mojo.query.SelectableReference;
 import com.terraframe.mojo.query.SelectableSQLCharacter;
 import com.terraframe.mojo.query.SelectableSQLDate;
 import com.terraframe.mojo.query.SelectableSingle;
@@ -140,6 +141,7 @@ public class QueryUtil implements Reloadable
     {
       // Normal query (non-mapping)
       List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
+      List<SelectableReference> joinGeoSelctables= new LinkedList<SelectableReference>();
       for (String selectedGeoEntityType : selectedUniversals)
       {
         GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
@@ -150,8 +152,11 @@ public class QueryUtil implements Reloadable
 
         Selectable selectable1 = geoEntityQuery.getEntityName(geoEntityMd.getTypeName().toLowerCase() + "_entityName");
         Selectable selectable2 = geoEntityQuery.getGeoId(geoEntityMd.getTypeName().toLowerCase() + "_geoId");
+        SelectableReference selectable3 = subAllPathsQuery.getChildGeoEntity("child_id");
 
-        geoEntityVQ.SELECT(selectable1, selectable2, subAllPathsQuery.getChildGeoEntity("child_id"));
+        geoEntityVQ.SELECT(selectable1, selectable2, selectable3);
+
+        joinGeoSelctables.add((SelectableReference) geoEntityVQ.aAttribute(selectable3.getUserDefinedAlias()));
 
         List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
         Condition[] geoConditions = new Condition[allClasses.size()];
@@ -172,12 +177,9 @@ public class QueryUtil implements Reloadable
 
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
 
-
       if (allPathsQuery != null)
       {
-        //this keeps all paths from being joined in a subselect, which prevents cross product
-        valueQuery.FROM(allPathsQuery);
-
+        //this case is for when they have restricted to a specific geoEntity
         List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
         for (ValueQuery leftJoinVQ : leftJoinValueQueries)
         {
@@ -193,6 +195,16 @@ public class QueryUtil implements Reloadable
         GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
         valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
       }
+      else
+      {
+        //This case is for when they have not restricted by any specific geoEntity
+        GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
+        for (SelectableReference geoSelectable : joinGeoSelctables)
+        {
+          valueQuery.AND( ((SelectableReference)generatedEntityQuery.aAttribute(geoEntityAttribute)).EQ(geoSelectable));
+        }
+      }
+
     }
 
     return queryMap;
