@@ -1,7 +1,5 @@
 package dss.vector.solutions.query;
 
-import com.terraframe.mojo.business.rbac.UserDAOIF;
-import com.terraframe.mojo.session.Session;
 
 /**
  *
@@ -12,7 +10,7 @@ public class SavedSearchViewQuery extends dss.vector.solutions.query.SavedSearch
 private static final long serialVersionUID = 1240879208564L;
 
   private SavedSearchQuery searchQuery;
-  private PersistsSearchQuery persistQuery;
+//  private PersistsSearchQuery persistQuery;
   private boolean includeXML;
   private boolean includeConfig;
   private String queryType;
@@ -27,7 +25,7 @@ private static final long serialVersionUID = 1240879208564L;
   {
     super(queryFactory);
     this.searchQuery = new SavedSearchQuery(queryFactory);
-    this.persistQuery = new PersistsSearchQuery(queryFactory);
+//    this.persistQuery = new PersistsSearchQuery(queryFactory);
     this.includeXML = includeXML;
     this.includeConfig = includeConfig;
     this.queryType = queryType;
@@ -86,9 +84,9 @@ private static final long serialVersionUID = 1240879208564L;
       SavedSearchViewQuery viewQuery = this.getViewQuery();
 
       // limit search instances to the current user.
-      UserDAOIF user = Session.getCurrentSession().getUser();
-      viewQuery.WHERE(persistQuery.parentId().EQ(user.getId()));
-      viewQuery.WHERE(searchQuery.persistedBy(persistQuery));
+//      UserDAOIF user = Session.getCurrentSession().getUser();
+//      viewQuery.WHERE(persistQuery.parentId().EQ(user.getId()));
+//      viewQuery.WHERE(searchQuery.persistedBy(persistQuery));
       
       viewQuery.WHERE(searchQuery.getQueryType().EQ(queryType));
 

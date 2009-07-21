@@ -19,7 +19,7 @@ import org.json.JSONObject;
 
 import com.terraframe.mojo.ApplicationException;
 import com.terraframe.mojo.business.BusinessDTO;
-import com.terraframe.mojo.business.ComponentDTOFacade;
+import com.terraframe.mojo.business.ClassQueryDTO;
 import com.terraframe.mojo.constants.ClientRequestIF;
 import com.terraframe.mojo.transport.attributes.AttributeDTO;
 import com.terraframe.mojo.transport.attributes.AttributeReferenceDTO;
@@ -395,8 +395,8 @@ public class QueryController extends QueryControllerBase implements
       req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
 
       // Available queries
-      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(),
-          QueryConstants.QUERY_AGGREGATED_CASE);
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(), QueryConstants.QUERY_AGGREGATED_CASE);
+
       JSONArray queries = new JSONArray();
       for (SavedSearchViewDTO view : query.getResultSet())
       {
@@ -426,12 +426,14 @@ public class QueryController extends QueryControllerBase implements
 
       // Visible attributes
       String[] visibleAttributes = AggregatedCaseDTO.getVisibleAttributeNames(this.getClientRequest());
-      AggregatedCaseDTO caseDTO = new AggregatedCaseDTO(this.getClientRequest());
+      
+      ClassQueryDTO classQuery = this.getClientRequest().getQuery(AggregatedCaseDTO.CLASS);
 
       JSONArray visible = new JSONArray();
       for (String visibleAttribute : visibleAttributes)
       {
-        AttributeDTO attributeDTO = ComponentDTOFacade.getAttributeDTO(caseDTO, visibleAttribute);
+        AttributeDTO attributeDTO = classQuery.getAttributeDTO(visibleAttribute);
+        
         if (attributeDTO.isReadable() && ! ( attributeDTO instanceof AttributeReferenceDTO )
             && ! ( attributeDTO instanceof AttributeStructDTO )
             && !attributeDTO.getName().equals(AggregatedCaseDTO.GEOENTITY)

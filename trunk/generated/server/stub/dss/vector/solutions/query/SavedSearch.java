@@ -37,16 +37,17 @@ public class SavedSearch extends SavedSearchBase implements
     // make sure search name is unique for this user for the given query.
     QueryFactory f = new QueryFactory();
     SavedSearchQuery searchQuery = new SavedSearchQuery(f);
-    PersistsSearchQuery persistsQuery = new PersistsSearchQuery(f);
+//    PersistsSearchQuery persistsQuery = new PersistsSearchQuery(f);
 
     // restrict by user
-    persistsQuery.WHERE(persistsQuery.parentId().EQ(user.getId()));
-    persistsQuery.WHERE(persistsQuery.hasChild(searchQuery));
+//    persistsQuery.WHERE(persistsQuery.parentId().EQ(user.getId()));
+//    persistsQuery.WHERE(persistsQuery.hasChild(searchQuery));
 
     // restrict by type and search name
     searchQuery.WHERE(searchQuery.getQueryName().EQ(searchName));
     searchQuery.WHERE(searchQuery.getQueryType().EQ(this.getQueryType()));
-
+    searchQuery.WHERE(searchQuery.getQueryType().NEi(DefaultSavedSearch.DEFAULT));
+    
     if (searchQuery.getCount() > 0)
     {
       String error = "A name must be unique per query screen.";
@@ -124,6 +125,7 @@ public class SavedSearch extends SavedSearchBase implements
    * @param view
    * @param savedQuery
    */
+  @Transaction
   protected void create(SavedSearchView view, boolean asDefault)
   {
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
@@ -133,6 +135,7 @@ public class SavedSearch extends SavedSearchBase implements
     {
       // Always replace the old default search.
       SavedSearch search = mdssUser.getDefaultSearch();
+      
       if(search != null)
       {
         search.delete();
@@ -267,8 +270,8 @@ public class SavedSearch extends SavedSearchBase implements
   @Transaction
   public static SavedSearchView loadDefaultSearch(SavedSearchView view)
   {
-    SavedSearch search = new SavedSearch();
-    view.setQueryName("__DEFAULT__");
+    SavedSearch search = new DefaultSavedSearch();
+    
     search.create(view, true);
     
     return search.getAsView(false, false);
