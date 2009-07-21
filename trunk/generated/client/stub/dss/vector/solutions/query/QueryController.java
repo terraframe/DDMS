@@ -72,6 +72,8 @@ public class QueryController extends QueryControllerBase implements
 
   private static final String QUERY_ENTOMOLOGY       = "/WEB-INF/queryScreens/queryEntomology.jsp";
 
+  private static final String QUERY_RESISTANCE      = "/WEB-INF/queryScreens/queryResistance.jsp";
+
   private static final String QUERY_IRS              = "/WEB-INF/queryScreens/queryIRS.jsp";
 
   private static final String QUERY_AGGREGATED_CASES = "/WEB-INF/queryScreens/queryAggregatedCases.jsp";
@@ -135,10 +137,10 @@ public class QueryController extends QueryControllerBase implements
       // on Person and value is an object with display label and ids.
       JSONObject householdMenuItems = new JSONObject();
       HouseholdDTO household = new HouseholdDTO(this.getClientRequest());
-      
+
       // 5. House type (urban/rural)
-      householdMenuItems.put(HouseholdDTO.URBAN, createBooleanItems(household.getUrbanMd()));      
-      
+      householdMenuItems.put(HouseholdDTO.URBAN, createBooleanItems(household.getUrbanMd()));
+
       // 7. Walls
       JSONArray items = new JSONArray();
       for(WallViewDTO wall : Arrays.asList(WallViewDTO.getAll(this.getClientRequest())))
@@ -151,7 +153,7 @@ public class QueryController extends QueryControllerBase implements
         items.put(item);
       }
       householdMenuItems.put(HouseholdDTO.WALL, items);
-      
+
       // 8. Roof
       items = new JSONArray();
       for(RoofViewDTO roof : Arrays.asList(RoofViewDTO.getAll(this.getClientRequest())))
@@ -160,11 +162,11 @@ public class QueryController extends QueryControllerBase implements
         item.put("displayLabel", roof.getDisplayLabel());
         item.put("isAbstract" , roof.getHasChildren());
         item.put("value", roof.getRoofId());
-        
+
         items.put(item);
       }
       householdMenuItems.put(HouseholdDTO.ROOF, items);
-      
+
       // 9. Windows
       items = new JSONArray();
       for(WindowMasterDTO window : WindowTypeDTO.allItems(this.getClientRequest()))
@@ -176,9 +178,9 @@ public class QueryController extends QueryControllerBase implements
         items.put(item);
       }
       householdMenuItems.put(HouseholdDTO.WINDOWTYPE, items);
-      
+
       req.setAttribute("householdMenuItems", householdMenuItems.toString());
-      
+
       // All available net options (not abstract)
       JSONArray nets = new JSONArray();
       for(NetDTO netDTO : NetDTO.getAllLeafs(this.getClientRequest()))
@@ -188,13 +190,12 @@ public class QueryController extends QueryControllerBase implements
         net.put("displayLabel", netDTO.getDisplayLabel().getDefaultLocale());
         net.put("attributeName", HouseholdNetDTO.AMOUNT);
         net.put("type", HouseholdNetDTO.CLASS);
-        
+
         nets.put(net);
       }
-      
+
       req.setAttribute("nets", nets.toString());
-      
-      
+
       // Map of menu items. Key/Value where key is the attribute name
       // on Person and value is an object with display label and ids.
       JSONObject personMenuItems = new JSONObject();
@@ -217,10 +218,10 @@ public class QueryController extends QueryControllerBase implements
 
       // 19. Slept Under Net
       personMenuItems.put(PersonDTO.SLEPTUNDERNET, createBooleanItems(person.getSleptUnderNetMd()));
-      
+
       // 20. Hemoglobin measured
       personMenuItems.put(PersonDTO.HAEMOGLOBINMEASURED, createBooleanItems(person.getSleptUnderNetMd()));
-      
+
       // 21. Anemia Treatment, 23. RDT Treatment, 31. Malaria Treatment
       items = new JSONArray();
       for (TreatmentGridDTO drug : Arrays.asList(TreatmentGridDTO.getAll(this.getClientRequest())))
@@ -234,7 +235,7 @@ public class QueryController extends QueryControllerBase implements
       personMenuItems.put(PersonDTO.ANAEMIATREATMENT, items);
       personMenuItems.put(PersonDTO.RDTTREATMENT, items);
       personMenuItems.put(PersonDTO.MALARIATREATMENT, items);
-      
+
       // 22. Iron given
       personMenuItems.put(PersonDTO.IRON, createBooleanItems(person.getIronMd()));
 
@@ -582,6 +583,42 @@ public class QueryController extends QueryControllerBase implements
       req.setAttribute("queryList", queries.toString());
 
       req.getRequestDispatcher(QUERY_ENTOMOLOGY).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+
+  /**
+   * Creates the screen to query for Entomology (mosquitos).
+   */
+
+  public void queryResistance() throws IOException, ServletException
+  {
+    try
+    {
+      // The Earth is the root. FIXME use country's default root
+      EarthDTO earth = EarthDTO.getEarthInstance(this.getClientRequest());
+      req.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, earth.getId());
+
+      SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(this.getClientRequest(),
+          QueryConstants.QUERY_RESISTANCE);
+      JSONArray queries = new JSONArray();
+      // Available queries
+      for (SavedSearchViewDTO view : query.getResultSet())
+      {
+        JSONObject idAndName = new JSONObject();
+        idAndName.put("id", view.getSavedQueryId());
+        idAndName.put("name", view.getQueryName());
+
+        queries.put(idAndName);
+      }
+
+      req.setAttribute("queryList", queries.toString());
+
+      req.getRequestDispatcher(QUERY_RESISTANCE).forward(req, resp);
 
     }
     catch (Throwable t)
