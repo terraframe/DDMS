@@ -172,6 +172,8 @@ public class QueryUtil implements Reloadable
       queryMap = valueQueryParser.parse();
 
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS);
+      //this prevents all paths from being joined in a subselect, which fixes the cross product.
+      valueQuery.FROM(allPathsQuery);
 
       if (allPathsQuery != null)
       {
@@ -308,7 +310,6 @@ public class QueryUtil implements Reloadable
     {
       SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectable(END_DATE_RANGE);
       dateGroup.setSQL("''");
-
       Pattern pattern = Pattern.compile("<operator>LE</operator>\\n<value>(" + DATE_REGEX + ")</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
