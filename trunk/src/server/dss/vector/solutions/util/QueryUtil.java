@@ -134,6 +134,7 @@ public class QueryUtil implements Reloadable
 
       if(allPathsQuery == null)
       {
+        //this case is for when they have not restricted to a specific geoEntity, so we want parents
         allPathsQuery = new AllPathsQuery(queryFactory);
         GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
         valueQuery.WHERE(allPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
@@ -141,6 +142,7 @@ public class QueryUtil implements Reloadable
       }
       else
       {
+      //this case is for when they have restricted to a specific geoEntity, so we want the children
         valueQuery.WHERE(allPathsQuery.getChildGeoEntity().EQ(geoEntityQuery));
         GeneratedEntityQuery generatedEntityQuery = queryMap.get(generatedQueryClass);
         valueQuery.AND( ( (AttributeReference) generatedEntityQuery.aAttribute(geoEntityAttribute) ).EQ(allPathsQuery.getChildGeoEntity()));
