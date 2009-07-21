@@ -57,6 +57,7 @@ var aSubmenuData = [
                                    { text: "Adult_DDA(004)", url: "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo" , visibleTo:'Administrator'},
                                    { text: "Larvae_DDA(008)", url: "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo" , visibleTo:'Administrator'},
                                    { text: "Knock_Down_Assay(006)", url: "dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo" , visibleTo:'Administrator'},
+                                   { text: "Query_Resistance(033)", url: "dss.vector.solutions.query.QueryController.queryResistance.mojo" , visibleTo:'Administrator'},
                         ]
                     }
 

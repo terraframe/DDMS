@@ -83,7 +83,7 @@ MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
                                     displayLabel:"Oprator Target",
                                     dtotype:"sqlcharacter",
                                     type:"sqlcharacter",
-                                    attributeName:"OP",
+                                    attributeName:"OPRATOR_TARGET",
                                   },
                                   {
                                     displayLabel:"Team Target",

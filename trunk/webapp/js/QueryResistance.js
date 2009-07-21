@@ -1,7 +1,7 @@
-MDSS.QueryEntomology = Mojo.Class.create();
-MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
+MDSS.QueryResistance = Mojo.Class.create();
+MDSS.QueryResistance.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 
-	  initialize : function(groupAttributes,individualAttributes, orderedGrids, queryList)
+	  initialize : function(queryItemGroups, queryList)
 	  {
 	  	MDSS.QueryBase.prototype.initialize.call(this);
 
@@ -120,7 +120,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	   */
 	  mapQuery : function()
 	  {
-	    var queryXML = this._constructQuery(true);
+	    var queryXML = this._constructQuery();
 	    var xml = queryXML.getXML();
 
 	    var request = new MDSS.Request({
@@ -142,9 +142,9 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  /**
 	   * Constructs the query with all the subcomponents.
 	   */
-	  _constructQuery : function(formapping)
+	  _constructQuery : function()
 	  {
-	  	var queryXML = MDSS.QueryBase.prototype._constructQuery.call(this,formapping); // super
+	  	var queryXML = MDSS.QueryBase.prototype._constructQuery.call(this); // super
 
 	    var mosquito = this._mainQueryClass;
 	    var mosquitoQuery = new MDSS.QueryXML.Entity(mosquito, mosquito);
@@ -320,10 +320,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	    this._visibleSelectables[attribute.getKey()] = selectable;
 
 	    // ADD THEMATIC VARIABLE
-	    if(attribute._dtoType === 'AttributeIntegerDTO')
-	    {
-	    	this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
-	    }
+	    this._queryPanel.addThematicVariable(attribute.getType(), attribute.getAttributeName(), attribute.getKey(), attribute.getDisplayLabel());
 	  },
 
 
@@ -629,7 +626,7 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	  /**
 	   * Builds the query items for the left column.
 	   */
-	  _buildQueryItems : function(specieGroups, visibleAttributes, assays)
+	  _buildQueryItems : function(checkBoxGroups)
 	  {
 	  	/*
 	  	 * Target
@@ -648,33 +645,17 @@ MDSS.QueryEntomology.prototype = Mojo.Class.extend(MDSS.QueryBase, {
 	      id: 'globalCount'
 	    });
 
-	    this._queryPanel.addQueryItem({
-	      html: this._getVizDiv(this,visibleAttributes, "Individuals", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS,"individualMosquitoCheck"),
-	      id: 'visibleAttributesItem'
-	    });
+	    for(var i=0; i<checkBoxGroups.length; i++)
+	    {
+	    	group = checkBoxGroups[i];
+	    	this._queryPanel.addQueryItem({
+		      html: this._getVizDiv(this,group.values, group.title, Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS),
+		      id: group.title
+		    });
+	    }
 
-	    this._queryPanel.addQueryItem({
-	      html: this._getVizDiv(this,assays[0], "Infectivity_Assays", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS,"individualMosquitoCheck"),
-	      id: 'Infectivity_Assays'
-	    });
-
-	    this._queryPanel.addQueryItem({
-	      html: this._getVizDiv(this,assays[1], "Molecular_Assays", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS,"individualMosquitoCheck"),
-	      id: 'Molecular_Assays'
-	    });
-
-	    this._queryPanel.addQueryItem({
-	      html: this._getVizDiv(this,assays[2], "Biochemical_Assays", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS,"individualMosquitoCheck"),
-	      id: 'Biochemical_Assays'
-	    });
-
-	    this._queryPanel.addQueryItem({
-	      html: this._getVizDiv(this,specieGroups, "Groups", Mojo.$.dss.vector.solutions.entomology.MosquitoView.CLASS,"specieGroupCheck"),
-	      id: 'specieGroupsItem'
-	    });
 
 	  },
-
 
 	  /**
 	   * Attaches an option to select all items in the given list.
